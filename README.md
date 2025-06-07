@@ -13,6 +13,7 @@ python main.py
 - `scenes/` – Tiled TMX maps
 - `game/` – core game modules
 - `main.py` – starts the game window and initial view
+- Text instructions rendered with `arcade.Text`
 
 ## Controls
 
@@ -30,3 +31,4 @@ python main.py
 ### Battle View
 - Arrow keys move the unit
 - `Esc` return to management
+- Fallback camera support for older Arcade versions

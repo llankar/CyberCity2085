@@ -9,18 +9,37 @@ game_state = GameState()
 
 class CorpView(arcade.View):
     def setup(self):
-        self.text = "Corporation Management"
+        self.title = arcade.Text(
+            "Corporation Management",
+            20,
+            self.window.height - 40,
+            arcade.color.WHITE,
+            20,
+        )
+        self.help_text = arcade.Text(
+            "1-4 to invest, S to save, L to load",
+            20,
+            40,
+            arcade.color.AQUA,
+            14,
+        )
+        self.nav_text = arcade.Text(
+            "Press C for City, R for RPG",
+            20,
+            20,
+            arcade.color.AQUA,
+            14,
+        )
 
     def on_draw(self):
         arcade.start_render()
-        y = self.window.height - 40
-        arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
-        y -= 40
+        self.title.draw()
+        y = self.window.height - 80
         for k, v in game_state.corp_budget.items():
             arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
             y -= 20
-        arcade.draw_text("1-4 to invest, S to save, L to load", 20, 40, arcade.color.AQUA, 14)
-        arcade.draw_text("Press C for City, R for RPG", 20, 20, arcade.color.AQUA, 14)
+        self.help_text.draw()
+        self.nav_text.draw()
 
     def on_key_press(self, key, modifiers):
         global game_state
@@ -48,18 +67,37 @@ class CorpView(arcade.View):
 
 class CityView(arcade.View):
     def setup(self):
-        self.text = "City Management"
+        self.title = arcade.Text(
+            "City Management",
+            20,
+            self.window.height - 40,
+            arcade.color.WHITE,
+            20,
+        )
+        self.help_text = arcade.Text(
+            "7-9 to invest",
+            20,
+            40,
+            arcade.color.AQUA,
+            14,
+        )
+        self.nav_text = arcade.Text(
+            "Press R for RPG",
+            20,
+            20,
+            arcade.color.AQUA,
+            14,
+        )
 
     def on_draw(self):
         arcade.start_render()
-        y = self.window.height - 40
-        arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
-        y -= 40
+        self.title.draw()
+        y = self.window.height - 80
         for k, v in game_state.city_budget.items():
             arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
             y -= 20
-        arcade.draw_text("7-9 to invest", 20, 40, arcade.color.AQUA, 14)
-        arcade.draw_text("Press R for RPG", 20, 20, arcade.color.AQUA, 14)
+        self.help_text.draw()
+        self.nav_text.draw()
 
     def on_key_press(self, key, modifiers):
         global game_state
@@ -79,16 +117,29 @@ class RPGView(arcade.View):
     def setup(self):
         if not game_state.characters:
             game_state.characters.append(Character(name="Agent 1"))
-        self.text = "RPG Phase"
+        self.title = arcade.Text(
+            "RPG Phase",
+            20,
+            self.window.height - 40,
+            arcade.color.WHITE,
+            20,
+        )
+        self.help_text = arcade.Text(
+            "Press N to recruit, B for Battle",
+            20,
+            20,
+            arcade.color.AQUA,
+            14,
+        )
 
     def on_draw(self):
         arcade.start_render()
-        arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
+        self.title.draw()
         y = self.window.height - 80
         for char in game_state.characters:
             arcade.draw_text(f"{char.name} - Lvl {char.level} - SP {char.skill_points}", 20, y, arcade.color.WHITE, 14)
             y -= 20
-        arcade.draw_text("Press N to recruit, B for Battle", 20, 20, arcade.color.AQUA, 14)
+        self.help_text.draw()
 
     def on_key_press(self, key, modifiers):
         global game_state
@@ -105,17 +156,34 @@ class BattleView(arcade.View):
     def setup(self):
         self.map = arcade.load_tilemap("scenes/test.tmx")
         self.scene = arcade.Scene.from_tilemap(self.map)
-        self.camera = arcade.Camera(self.window.width, self.window.height)
+        if hasattr(arcade, "Camera"):
+            self.camera = arcade.Camera(self.window.width, self.window.height)
+        else:
+            try:
+                from arcade.camera import Camera2D
+
+                self.camera = Camera2D(self.window.width, self.window.height)
+            except Exception:
+                self.camera = None
         self.unit = Unit(position=(64, 64))
+        self.instructions = arcade.Text(
+            "Arrows to move, Esc to exit",
+            20,
+            20,
+            arcade.color.AQUA,
+            14,
+        )
 
     def on_draw(self):
         arcade.start_render()
-        self.camera.use()
+        if self.camera:
+            self.camera.use()
         self.scene.draw()
         x, y = self.unit.position
         arcade.draw_circle_filled(x, y, 10, arcade.color.RED)
-        self.camera.disable()
-        arcade.draw_text("Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14)
+        if self.camera:
+            self.camera.disable()
+        self.instructions.draw()
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.UP:
