@@ -3,6 +3,7 @@ import arcade
 from .character import Character
 from .gamestate import GameState
 from .unit import Unit
+from arcade.camera import Camera2D
 
 game_state = GameState()
 
@@ -127,7 +128,7 @@ class BattleView(arcade.View):
     def setup(self):
         self.map = arcade.load_tilemap("scenes/test.tmx")
         self.scene = arcade.Scene.from_tilemap(self.map)
-        self.camera = arcade.Camera(self.window.width, self.window.height)
+        self.camera = arcade.Camera2D()
         self.player_units = [Unit(position=(64, 64))]
         self.enemy_units = [Unit(position=(224, 224))]
 
@@ -141,7 +142,6 @@ class BattleView(arcade.View):
         for enemy in self.enemy_units:
             x, y = enemy.position
             arcade.draw_circle_filled(x, y, 10, arcade.color.RED)
-        self.camera.disable()
         arcade.draw_text("Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14)
 
     def on_key_press(self, key, modifiers):

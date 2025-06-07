@@ -1,0 +1,16 @@
+{
+  "turn": 2,
+  "budget_pool": 110,
+  "corp_budget": {
+    "research": 20,
+    "security": 40,
+    "politics": 20,
+    "black_ops": 20
+  },
+  "city_budget": {
+    "armaments": 0,
+    "garrisons": 0,
+    "defense_zones": 0
+  },
+  "characters": []
+}
