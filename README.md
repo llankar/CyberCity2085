@@ -13,3 +13,20 @@ python main.py
 - `scenes/` – Tiled TMX maps
 - `game/` – core game modules
 - `main.py` – starts the game window and initial view
+
+## Controls
+
+### Corp View
+- `1-4` add funds to research, security, politics and black ops
+- `S` save game / `L` load game
+
+### City View
+- `7-9` allocate city budget
+
+### RPG View
+- `N` recruit new agent
+- `B` start a battle
+
+### Battle View
+- Arrow keys move the unit
+- `Esc` return to management

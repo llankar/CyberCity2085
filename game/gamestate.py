@@ -18,6 +18,14 @@ class GameState:
     })
     characters: List["Character"] = field(default_factory=list)
 
+    def adjust_corp_budget(self, key: str, amount: int) -> None:
+        if key in self.corp_budget:
+            self.corp_budget[key] += amount
+
+    def adjust_city_budget(self, key: str, amount: int) -> None:
+        if key in self.city_budget:
+            self.city_budget[key] += amount
+
     def save(self, path: str):
         data = {
             "corp_budget": self.corp_budget,
