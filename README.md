@@ -17,7 +17,9 @@ python main.py
 ## Controls
 
 ### Corp View
+- Each turn grants funds to invest in the corporation
 - `1-4` add funds to research, security, politics and black ops
+- Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game
 
 ### City View
@@ -29,4 +31,5 @@ python main.py
 
 ### Battle View
 - Arrow keys move the unit
+- PC and enemy icons are displayed on the map
 - `Esc` return to management
