@@ -12,7 +12,7 @@ class CorpView(arcade.View):
         self.text = "Corporation Management"
 
     def on_draw(self):
-        arcade.start_render()
+        self.clear()
         y = self.window.height - 40
         arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
         y -= 40
@@ -37,7 +37,7 @@ class CityView(arcade.View):
         self.text = "City Management"
 
     def on_draw(self):
-        arcade.start_render()
+        self.clear()
         y = self.window.height - 40
         arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
         y -= 40
@@ -60,7 +60,7 @@ class RPGView(arcade.View):
         self.text = "RPG Phase"
 
     def on_draw(self):
-        arcade.start_render()
+        self.clear()
         arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
         y = self.window.height - 80
         for char in game_state.characters:
@@ -83,7 +83,7 @@ class BattleView(arcade.View):
         self.unit = Unit(position=(64, 64))
 
     def on_draw(self):
-        arcade.start_render()
+        self.clear()
         self.camera.use()
         self.scene.draw()
         x, y = self.unit.position
