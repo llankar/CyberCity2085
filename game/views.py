@@ -1,4 +1,5 @@
 import arcade
+import os
 
 from .character import Character
 from .gamestate import GameState
@@ -126,8 +127,11 @@ class RPGView(arcade.View):
 
 class BattleView(arcade.View):
     def setup(self):
-        self.map = arcade.load_tilemap("scenes/test.tmx")
-        self.scene = arcade.Scene.from_tilemap(self.map)
+        self.available_maps = [
+            f for f in os.listdir("assets/maps") if f.lower().endswith(".jpg")
+        ]
+        self.map_index = None
+        self.background = None
         self.camera = arcade.Camera2D()
         self.player_units = [Unit(position=(64, 64))]
         self.enemy_units = [Unit(position=(224, 224))]
@@ -135,16 +139,53 @@ class BattleView(arcade.View):
     def on_draw(self):
         self.clear()
         self.camera.use()
-        self.scene.draw()
+        if self.map_index is None:
+            y = self.window.height - 40
+            arcade.draw_text("Select battle map:", 20, y, arcade.color.WHITE, 20)
+            y -= 40
+            if not self.available_maps:
+                arcade.draw_text(
+                    "No maps found in assets/maps",
+                    20,
+                    y,
+                    arcade.color.RED,
+                    14,
+                )
+            else:
+                for idx, name in enumerate(self.available_maps, start=1):
+                    arcade.draw_text(
+                        f"{idx} - {name}", 20, y, arcade.color.AQUA, 14
+                    )
+                    y -= 20
+            return
+        if self.background:
+            arcade.draw_lrwh_rectangle_textured(
+                0, 0, self.window.width, self.window.height, self.background
+            )
         for unit in self.player_units:
             x, y = unit.position
             arcade.draw_circle_filled(x, y, 10, arcade.color.BLUE)
         for enemy in self.enemy_units:
             x, y = enemy.position
             arcade.draw_circle_filled(x, y, 10, arcade.color.RED)
-        arcade.draw_text("Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14)
+        arcade.draw_text(
+            "Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14
+        )
 
     def on_key_press(self, key, modifiers):
+        if self.map_index is None:
+            if arcade.key.KEY_1 <= key <= arcade.key.KEY_9:
+                idx = key - arcade.key.KEY_1
+                if idx < len(self.available_maps):
+                    self.map_index = idx
+                    path = os.path.join("assets/maps", self.available_maps[idx])
+                    self.background = arcade.load_texture(path)
+            elif key == arcade.key.ESCAPE:
+                corp_view = CorpView()
+                corp_view.setup()
+                self.window.show_view(corp_view)
+            return
+
         player = self.player_units[0]
         if key == arcade.key.UP:
             player.move(0, 32)
