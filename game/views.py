@@ -128,14 +128,26 @@ class RPGView(arcade.View):
 class BattleView(arcade.View):
     def setup(self):
         self.available_maps = [
-            f for f in os.listdir("assets/maps") if f.lower().endswith(".jpg")
+            f for f in os.listdir("assets/maps") if f.lower().endswith(".jpeg")
         ]
         self.map_index = None
         self.background = None
         self.camera = arcade.Camera2D()
         self.player_units = [Unit(position=(64, 64))]
         self.enemy_units = [Unit(position=(224, 224))]
-
+        self.player_list = arcade.SpriteList()
+        self.enemy_list = arcade.SpriteList()
+        
+        for unit in self.player_units:
+            sprite = arcade.Sprite("assets/player.png", center_x=unit.position[0], center_y=unit.position[1])
+            unit.sprite = sprite
+            self.player_list.append(sprite)
+            
+        for enemy in self.enemy_units:
+            sprite = arcade.Sprite("assets/enemy.png", center_x=enemy.position[0], center_y=enemy.position[1])
+            enemy.sprite = sprite
+            self.enemy_list.append(sprite)
+        
     def on_draw(self):
         self.clear()
         self.camera.use()
@@ -159,15 +171,22 @@ class BattleView(arcade.View):
                     y -= 20
             return
         if self.background:
-            arcade.draw_lrwh_rectangle_textured(
-                0, 0, self.window.width, self.window.height, self.background
+            # Build a rectangle: left, bottom, width, height
+            full_rect = arcade.LBWH(
+                0,
+                0,
+                self.window.width,
+                self.window.height
             )
-        for unit in self.player_units:
-            x, y = unit.position
-            arcade.draw_circle_filled(x, y, 10, arcade.color.BLUE)
-        for enemy in self.enemy_units:
-            x, y = enemy.position
-            arcade.draw_circle_filled(x, y, 10, arcade.color.RED)
+            # Draw the texture into that rect
+            arcade.draw_texture_rect(
+                self.background,  # Texture
+                full_rect         # LBWH rect
+                # └─── only two positional args! ───┘
+                # You can also pass angle=..., alpha=... as keywords if desired
+            )
+        self.enemy_list.draw()
+        self.player_list.draw()
         arcade.draw_text(
             "Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14
         )
