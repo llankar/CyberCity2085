@@ -33,3 +33,4 @@ python main.py
 - Arrow keys move the unit
 - PC and enemy icons are displayed on the map
 - `Esc` return to management
+- On first entering, choose a background image from `assets/maps`
