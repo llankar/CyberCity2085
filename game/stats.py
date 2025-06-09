@@ -7,7 +7,7 @@ class PlayerStats:
     level: int = 1
     defense: int = 1
     psi: int = 1
-    str: int = 1
+    str: int = 5
     agi: int = 1
     con: int = 1
     cha: int = 1
