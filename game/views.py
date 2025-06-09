@@ -245,7 +245,11 @@ class BattleView(arcade.View):
             arcade.draw_text(msg, 20, 40, arcade.color.YELLOW, 20)
         else:
             arcade.draw_text(
-                "Arrows to move, Space to attack, Esc to exit", 20, 20, arcade.color.AQUA, 14
+                "Arrows move, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
+                20,
+                20,
+                arcade.color.AQUA,
+                14,
             )
 
     def on_key_press(self, key, modifiers):
@@ -276,12 +280,32 @@ class BattleView(arcade.View):
             player.move(32, 0)
         elif key == arcade.key.SPACE:
             for enemy in list(self.enemy_units):
-                if player.attack(enemy):
+                if player.melee_attack(enemy):
                     if enemy.health <= 0:
                         if enemy.sprite:
                             enemy.sprite.kill()
                         self.enemy_units.remove(enemy)
                     break
+        elif key == arcade.key.F:
+            for enemy in list(self.enemy_units):
+                if player.shoot(enemy):
+                    if enemy.health <= 0:
+                        if enemy.sprite:
+                            enemy.sprite.kill()
+                        self.enemy_units.remove(enemy)
+                    break
+        elif key == arcade.key.P:
+            for enemy in list(self.enemy_units):
+                if player.psi_attack(enemy):
+                    if enemy.health <= 0:
+                        if enemy.sprite:
+                            enemy.sprite.kill()
+                        self.enemy_units.remove(enemy)
+                    break
+        elif key == arcade.key.D:
+            player.defend()
+        elif key == arcade.key.V:
+            player.psi_defend()
         elif key == arcade.key.ESCAPE:
             corp_view = CorpView()
             corp_view.setup()
