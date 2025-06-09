@@ -1,6 +1,11 @@
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .character import Character
 
 
 @dataclass
@@ -27,7 +32,7 @@ class GameState:
     )
 
     # List of recruited characters
-    characters: List["Character"] = field(default_factory=list)
+    characters: List[Character] = field(default_factory=list)
 
     # Experience points gained through battles
     x: int = 0
