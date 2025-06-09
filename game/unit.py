@@ -2,9 +2,12 @@ from dataclasses import dataclass
 from typing import Tuple
 import arcade
 
+from .stats import PlayerStats, EnemyStats, perform_attack
+
 @dataclass
 class Unit:
     position: Tuple[int, int]
+    stats: PlayerStats | EnemyStats | None = None
     attack_range: int = 1
     health: int = 3
     action_points: int = 2
@@ -28,22 +31,22 @@ class Unit:
     def distance_to(self, other: "Unit") -> float:
         return ((self.position[0] - other.position[0]) ** 2 + (self.position[1] - other.position[1]) ** 2) ** 0.5
 
-    def _perform_attack(self, other: "Unit", damage: int, range_: int, *, psi: bool = False) -> bool:
-        if self.action_points <= 0:
+    def _perform_attack(self, other: "Unit", stat: str, range_: int) -> bool:
+        if self.action_points <= 0 or not self.stats or not other.stats:
             return False
         if self.distance_to(other) <= range_ * 32:
-            final_damage = damage
-            if psi:
-                if other.is_psi_defending:
-                    final_damage = max(0, final_damage - 1)
-                    other.is_psi_defending = False
-            else:
-                if other.is_defending:
-                    final_damage = max(0, final_damage - 1)
-                    other.is_defending = False
-            other.health -= final_damage
+            hit = perform_attack(
+                self.stats,
+                other.stats,
+                stat,
+                phys_def=other.is_defending,
+                psi_def=other.is_psi_defending,
+            )
+            other.health = other.stats.hp
             self.action_points -= 1
-            return True
+            other.is_defending = False
+            other.is_psi_defending = False
+            return hit
         return False
 
     def attack(self, other: "Unit") -> bool:
@@ -51,13 +54,13 @@ class Unit:
         return self.melee_attack(other)
 
     def melee_attack(self, other: "Unit") -> bool:
-        return self._perform_attack(other, damage=2, range_=1)
+        return self._perform_attack(other, stat="str", range_=1)
 
     def shoot(self, other: "Unit") -> bool:
-        return self._perform_attack(other, damage=1, range_=3)
+        return self._perform_attack(other, stat="agi", range_=3)
 
     def psi_attack(self, other: "Unit") -> bool:
-        return self._perform_attack(other, damage=2, range_=2, psi=True)
+        return self._perform_attack(other, stat="psi", range_=2)
 
     def defend(self) -> bool:
         if self.action_points <= 0:
