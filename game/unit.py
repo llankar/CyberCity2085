@@ -62,10 +62,12 @@ class Unit:
         return self._perform_attack(other, stat="str", range_=1)
 
     def shoot(self, other: "Unit") -> int:
-        return self._perform_attack(other, stat="agi", range_=3)
+        """Ranged attack using agility with a 10 cell range."""
+        return self._perform_attack(other, stat="agi", range_=10)
 
     def psi_attack(self, other: "Unit") -> int:
-        return self._perform_attack(other, stat="psi", range_=2)
+        """Psi attack with a 10 cell range."""
+        return self._perform_attack(other, stat="psi", range_=10)
 
     def defend(self) -> bool:
         if self.action_points <= 0:
