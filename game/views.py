@@ -1,5 +1,6 @@
 import arcade
 import os
+import random
 
 from .character import Character
 from .gamestate import GameState
@@ -134,7 +135,12 @@ class BattleView(arcade.View):
         self.background = None
         self.camera = arcade.Camera2D()
         self.player_units = [Unit(position=(64, 64))]
-        self.enemy_units = [Unit(position=(224, 224))]
+        # Random number of enemies between 1 and 3
+        import random
+        enemy_count = random.randint(1, 3)
+        self.enemy_units = [
+            Unit(position=(224 + i * 64, 224)) for i in range(enemy_count)
+        ]
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         
@@ -144,9 +150,51 @@ class BattleView(arcade.View):
             self.player_list.append(sprite)
             
         for enemy in self.enemy_units:
-            sprite = arcade.Sprite("assets/enemy.png", center_x=enemy.position[0], center_y=enemy.position[1])
+            sprite = arcade.Sprite(
+                "assets/enemy.png", center_x=enemy.position[0], center_y=enemy.position[1]
+            )
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
+
+        self.turn = "player"
+        self.start_player_turn()
+
+    def start_player_turn(self):
+        for unit in self.player_units:
+            unit.reset_actions()
+        self.turn = "player"
+
+    def start_enemy_turn(self):
+        for enemy in self.enemy_units:
+            enemy.reset_actions()
+        self.turn = "enemy"
+        self.run_enemy_ai()
+        if not self.player_units or self.player_units[0].health <= 0:
+            self.turn = "ended"
+        elif not self.enemy_units:
+            self.turn = "ended"
+        else:
+            self.start_player_turn()
+
+    def run_enemy_ai(self):
+        target = self.player_units[0]
+        for enemy in list(self.enemy_units):
+            while enemy.action_points > 0 and target.health > 0:
+                if enemy.attack(target):
+                    if target.health <= 0:
+                        if target.sprite:
+                            target.sprite.kill()
+                        break
+                else:
+                    dx = 32 if target.position[0] > enemy.position[0] else -32 if target.position[0] < enemy.position[0] else 0
+                    dy = 32 if target.position[1] > enemy.position[1] else -32 if target.position[1] < enemy.position[1] else 0
+                    if dx or dy:
+                        enemy.move(dx, dy)
+            if enemy.health <= 0:
+                if enemy.sprite:
+                    enemy.sprite.kill()
+                self.enemy_units.remove(enemy)
+
         
     def on_draw(self):
         self.clear()
@@ -187,9 +235,18 @@ class BattleView(arcade.View):
             )
         self.enemy_list.draw()
         self.player_list.draw()
-        arcade.draw_text(
-            "Arrows to move, Esc to exit", 20, 20, arcade.color.AQUA, 14
-        )
+        status = f"Turn: {self.turn.capitalize()}  Player HP: {self.player_units[0].health if self.player_units else 0}"
+        arcade.draw_text(status, 20, self.window.height - 20, arcade.color.AQUA, 14)
+        if self.turn == "ended":
+            if not self.enemy_units:
+                msg = "Victory!"
+            else:
+                msg = "Defeat..."
+            arcade.draw_text(msg, 20, 40, arcade.color.YELLOW, 20)
+        else:
+            arcade.draw_text(
+                "Arrows to move, Space to attack, Esc to exit", 20, 20, arcade.color.AQUA, 14
+            )
 
     def on_key_press(self, key, modifiers):
         if self.map_index is None:
@@ -205,6 +262,9 @@ class BattleView(arcade.View):
                 self.window.show_view(corp_view)
             return
 
+        if self.turn != "player" or not self.player_units:
+            return
+
         player = self.player_units[0]
         if key == arcade.key.UP:
             player.move(0, 32)
@@ -214,7 +274,18 @@ class BattleView(arcade.View):
             player.move(-32, 0)
         elif key == arcade.key.RIGHT:
             player.move(32, 0)
+        elif key == arcade.key.SPACE:
+            for enemy in list(self.enemy_units):
+                if player.attack(enemy):
+                    if enemy.health <= 0:
+                        if enemy.sprite:
+                            enemy.sprite.kill()
+                        self.enemy_units.remove(enemy)
+                    break
         elif key == arcade.key.ESCAPE:
             corp_view = CorpView()
             corp_view.setup()
             self.window.show_view(corp_view)
+
+        if player.action_points <= 0:
+            self.start_enemy_turn()
