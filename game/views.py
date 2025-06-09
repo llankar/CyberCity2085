@@ -236,6 +236,7 @@ class BattleView(arcade.View):
         self.target_candidates = []
         self.selected_target_idx = 0
         self.pending_attack = None
+        self.menu_state = "root"
         self.start_player_turn()
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
@@ -252,6 +253,7 @@ class BattleView(arcade.View):
             self.turn_number += 1
         self.turn = "player"
         self.active_index = 0
+        self.menu_state = "root"
 
     def start_enemy_turn(self):
         for enemy in self.enemy_units:
@@ -443,6 +445,7 @@ class BattleView(arcade.View):
                 msg = "Defeat..."
             arcade.draw_text(msg, 20, 40, arcade.color.YELLOW, 20)
         else:
+            player = self.player_units[self.active_index]
             if self.selecting_target:
                 arcade.draw_text(
                     "Select target with Left/Right, Enter to confirm, Esc to cancel",
@@ -452,13 +455,22 @@ class BattleView(arcade.View):
                     14,
                 )
             else:
-                arcade.draw_text(
-                    "Arrows move, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
-                    20,
-                    20,
-                    arcade.color.AQUA,
-                    14,
-                )
+                if self.menu_state == "root":
+                    text = "1-Attaque  2-Defense  3-Psi"
+                    if player.stats.psi <= 0:
+                        text = "1-Attaque  2-Defense  3-Psi (N/A)"
+                elif self.menu_state == "attack":
+                    melee_ok = any(player.distance_to(e) <= 32 for e in self.enemy_units)
+                    ca = "2-Corps" if melee_ok else "2-Corps (N/A)"
+                    text = f"1-Tir  {ca}  3-Psi"
+                elif self.menu_state == "defense":
+                    psi_opt = "2-Psi" if player.stats.psi > 0 else "2-Psi (N/A)"
+                    text = f"1-Esquive  {psi_opt}"
+                elif self.menu_state == "psi":
+                    text = "1-Paralysie  2-Feu  3-Glace"
+                else:
+                    text = ""
+                arcade.draw_text(text, 20, 20, arcade.color.AQUA, 14)
 
     def on_key_press(self, key, modifiers):
         if self.map_index is None:
@@ -485,14 +497,35 @@ class BattleView(arcade.View):
                 self.selected_target_idx = (self.selected_target_idx - 1) % len(self.target_candidates)
             elif key in (arcade.key.RIGHT, arcade.key.D):
                 self.selected_target_idx = (self.selected_target_idx + 1) % len(self.target_candidates)
-            elif key in (arcade.key.ENTER, arcade.key.RETURN, arcade.key.SPACE, arcade.key.F, arcade.key.P):
+            elif key in (
+                arcade.key.ENTER,
+                arcade.key.RETURN,
+                arcade.key.SPACE,
+                arcade.key.F,
+                arcade.key.P,
+            ):
                 target = self.target_candidates[self.selected_target_idx]
                 if self.pending_attack == "melee":
                     damage = player.melee_attack(target)
                 elif self.pending_attack == "shoot":
                     damage = player.shoot(target)
-                else:
+                elif self.pending_attack == "psi":
                     damage = player.psi_attack(target)
+                elif self.pending_attack == "paralyze":
+                    player.psi_paralyze(target)
+                    damage = 0
+                    self.message = f"{player.character.name} paralyzes" \
+                        f" for {target.paralyzed_turns} turns"
+                elif self.pending_attack == "fire":
+                    player.psi_fire(target)
+                    damage = 0
+                    self.message = f"{player.character.name} sets target on fire"
+                elif self.pending_attack == "ice":
+                    player.psi_ice(target)
+                    damage = 0
+                    self.message = f"{player.character.name} freezes the target"
+                else:
+                    damage = 0
                 if damage > 0:
                     atk_name = {
                         "melee": "slashes",
@@ -539,38 +572,45 @@ class BattleView(arcade.View):
             new_x, new_y = player.position[0] + 32, player.position[1]
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(32, 0)
-        elif key == arcade.key.SPACE:
-            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 32]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "melee"
-            else:
-                self.message = "No enemy in range"
-        elif key == arcade.key.F:
-            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 10 * 32]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "shoot"
-            else:
-                self.message = "No enemy in range"
-        elif key == arcade.key.P:
-            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 10 * 32]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "psi"
-            else:
-                self.message = "No enemy in range"
-        elif key == arcade.key.D:
-            player.defend()
-        elif key == arcade.key.V:
-            player.psi_defend()
         elif key == arcade.key.ESCAPE:
             corp_view = CorpView()
             corp_view.setup()
             self.window.show_view(corp_view)
+        elif self.menu_state == "root":
+            if key == arcade.key.KEY_1:
+                self.menu_state = "attack"
+            elif key == arcade.key.KEY_2:
+                self.menu_state = "defense"
+            elif key == arcade.key.KEY_3 and player.stats.psi > 0:
+                self.menu_state = "psi"
+        elif self.menu_state == "attack":
+            if key == arcade.key.KEY_1:
+                self.start_target_selection("shoot")
+            elif key == arcade.key.KEY_2:
+                if any(player.distance_to(e) <= 32 for e in self.enemy_units):
+                    self.start_target_selection("melee", range_=1)
+            elif key == arcade.key.KEY_3:
+                self.start_target_selection("psi")
+            elif key == arcade.key.ESCAPE:
+                self.menu_state = "root"
+        elif self.menu_state == "defense":
+            if key == arcade.key.KEY_1:
+                if player.defend():
+                    self.check_active_player()
+            elif key == arcade.key.KEY_2 and player.stats.psi > 0:
+                if player.psi_defend():
+                    self.check_active_player()
+            elif key == arcade.key.ESCAPE:
+                self.menu_state = "root"
+        elif self.menu_state == "psi":
+            if key == arcade.key.KEY_1:
+                self.start_target_selection("paralyze")
+            elif key == arcade.key.KEY_2:
+                self.start_target_selection("fire")
+            elif key == arcade.key.KEY_3:
+                self.start_target_selection("ice")
+            elif key == arcade.key.ESCAPE:
+                self.menu_state = "root"
 
         self.check_active_player()
 
@@ -585,6 +625,22 @@ class BattleView(arcade.View):
             self.active_index += 1
         if self.active_index >= len(self.player_units):
             self.start_enemy_turn()
+        else:
+            self.menu_state = "root"
+
+    def start_target_selection(self, attack: str, range_: int = 10):
+        """Begin selecting a target for the given attack type."""
+        player = self.player_units[self.active_index]
+        self.target_candidates = [
+            e for e in self.enemy_units if player.distance_to(e) <= range_ * 32
+        ]
+        if self.target_candidates:
+            self.selecting_target = True
+            self.selected_target_idx = 0
+            self.pending_attack = attack
+            self.menu_state = None
+        else:
+            self.message = "No enemy in range"
 
     def start_attack_animation(self, attacker: Unit, target: Unit):
         self.attack_line = (
