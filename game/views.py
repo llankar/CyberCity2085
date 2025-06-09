@@ -105,7 +105,10 @@ class CityView(arcade.View):
 class RPGView(arcade.View):
     def setup(self):
         if not game_state.characters:
-            game_state.characters.append(Character(name="Agent 1"))
+            # Start the party with a samurai that has boosted STR
+            game_state.characters.append(
+                create_character("Agent 1", "samurai")
+            )
         self.text = "RPG Phase"
         self.recruiting = False
         self.selected_role = None
