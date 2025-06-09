@@ -312,6 +312,10 @@ class BattleView(arcade.View):
                         new_y = enemy.position[1] + dy
                         if not self.is_occupied(new_x, new_y, exclude=enemy):
                             enemy.move(dx, dy)
+                        else:
+                            enemy.action_points -= 1
+                    else:
+                        enemy.action_points -= 1
                 if enemy.health <= 0:
                     if enemy.sprite:
                         enemy.sprite.kill()
