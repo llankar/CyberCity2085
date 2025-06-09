@@ -492,6 +492,7 @@ class BattleView(arcade.View):
         player = self.player_units[self.active_index]
 
         # Handle target selection mode
+        action_taken = False
         if self.selecting_target:
             if key in (arcade.key.LEFT, arcade.key.A):
                 self.selected_target_idx = (self.selected_target_idx - 1) % len(self.target_candidates)
@@ -507,23 +508,29 @@ class BattleView(arcade.View):
                 target = self.target_candidates[self.selected_target_idx]
                 if self.pending_attack == "melee":
                     damage = player.melee_attack(target)
+                    action_taken = True
                 elif self.pending_attack == "shoot":
                     damage = player.shoot(target)
+                    action_taken = True
                 elif self.pending_attack == "psi":
                     damage = player.psi_attack(target)
+                    action_taken = True
                 elif self.pending_attack == "paralyze":
                     player.psi_paralyze(target)
-                    damage = 0
                     self.message = f"{player.character.name} paralyzes" \
                         f" for {target.paralyzed_turns} turns"
+                    damage = 0
+                    action_taken = True
                 elif self.pending_attack == "fire":
                     player.psi_fire(target)
-                    damage = 0
                     self.message = f"{player.character.name} sets target on fire"
+                    damage = 0
+                    action_taken = True
                 elif self.pending_attack == "ice":
                     player.psi_ice(target)
-                    damage = 0
                     self.message = f"{player.character.name} freezes the target"
+                    damage = 0
+                    action_taken = True
                 else:
                     damage = 0
                 if damage > 0:
@@ -548,7 +555,9 @@ class BattleView(arcade.View):
                 self.selecting_target = False
                 self.target_candidates = []
                 self.pending_attack = None
+                action_taken = True
                 self.check_active_player()
+                action_taken = False
             elif key == arcade.key.ESCAPE:
                 self.selecting_target = False
                 self.target_candidates = []
@@ -559,19 +568,19 @@ class BattleView(arcade.View):
         if key == arcade.key.UP:
             new_x, new_y = player.position[0], player.position[1] + 32
             if not self.is_occupied(new_x, new_y, exclude=player):
-                player.move(0, 32)
+                action_taken = player.move(0, 32) or action_taken
         elif key == arcade.key.DOWN:
             new_x, new_y = player.position[0], player.position[1] - 32
             if not self.is_occupied(new_x, new_y, exclude=player):
-                player.move(0, -32)
+                action_taken = player.move(0, -32) or action_taken
         elif key == arcade.key.LEFT:
             new_x, new_y = player.position[0] - 32, player.position[1]
             if not self.is_occupied(new_x, new_y, exclude=player):
-                player.move(-32, 0)
+                action_taken = player.move(-32, 0) or action_taken
         elif key == arcade.key.RIGHT:
             new_x, new_y = player.position[0] + 32, player.position[1]
             if not self.is_occupied(new_x, new_y, exclude=player):
-                player.move(32, 0)
+                action_taken = player.move(32, 0) or action_taken
         elif key == arcade.key.ESCAPE:
             corp_view = CorpView()
             corp_view.setup()
@@ -596,10 +605,10 @@ class BattleView(arcade.View):
         elif self.menu_state == "defense":
             if key == arcade.key.KEY_1:
                 if player.defend():
-                    self.check_active_player()
+                    action_taken = True
             elif key == arcade.key.KEY_2 and player.stats.psi > 0:
                 if player.psi_defend():
-                    self.check_active_player()
+                    action_taken = True
             elif key == arcade.key.ESCAPE:
                 self.menu_state = "root"
         elif self.menu_state == "psi":
@@ -612,7 +621,8 @@ class BattleView(arcade.View):
             elif key == arcade.key.ESCAPE:
                 self.menu_state = "root"
 
-        self.check_active_player()
+        if action_taken:
+            self.check_active_player()
 
     def check_active_player(self):
         while (
