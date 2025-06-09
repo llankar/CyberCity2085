@@ -370,19 +370,19 @@ class BattleView(arcade.View):
                 right = enemy.sprite.center_x + bar_width / 2
                 top = enemy.sprite.center_y + enemy.sprite.height / 2 + 6
                 bottom = top - 4
-                arcade.draw_lrtb_rectangle_filled(
+                arcade.draw_lrbt_rectangle_filled(
                     left,
                     right,
-                    top,
                     bottom,
+                    top,
                     arcade.color.DARK_RED,
                 )
                 current = bar_width * enemy.health / enemy.stats.max_hp
-                arcade.draw_lrtb_rectangle_filled(
+                arcade.draw_lrbt_rectangle_filled(
                     left,
                     left + current,
-                    top,
                     bottom,
+                    top,
                     arcade.color.GREEN,
                 )
         if self.selecting_target and self.target_candidates:
