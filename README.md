@@ -30,12 +30,12 @@ python main.py
 - `B` start a battle
 
 ### Battle View
-- Arrow keys move the unit
-- `Space` melee attack
-- `F` shoot at range
-- `P` psi attack
-- `V` psi defense
-- `D` defend against physical attacks
+- Arrow keys move the active unit
+- During a player's turn a menu appears:
+  - `1` Attaque
+  - `2` Défense
+  - `3` Psi (if available)
+- Navigate the sub menus with the same number keys to perform actions
+- `Esc` returns to management
 - PC and enemy icons are displayed on the map
-- `Esc` return to management
 - On first entering, choose a background image from `assets/maps`
