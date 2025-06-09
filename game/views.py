@@ -350,11 +350,15 @@ class BattleView(arcade.View):
         if self.selecting_target and self.target_candidates:
             target = self.target_candidates[self.selected_target_idx]
             if target.sprite:
+                cx = target.sprite.center_x
+                cy = target.sprite.center_y
+                width = target.sprite.width + 10
+                height = target.sprite.height + 10
                 arcade.draw_rectangle_outline(
-                    target.sprite.center_x,
-                    target.sprite.center_y,
-                    target.sprite.width + 10,
-                    target.sprite.height + 10,
+                    cx,
+                    cy,
+                    width,
+                    height,
                     arcade.color.YELLOW,
                     2,
                 )
