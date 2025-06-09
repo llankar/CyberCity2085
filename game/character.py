@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field, asdict
-from typing import Dict
+
 
 from .stats import PlayerStats
 
@@ -42,4 +42,3 @@ class Character:
             self.stats.recalculate_hp()
             self.stats.hp = min(self.stats.hp + 10, self.stats.max_hp)
             self.pending_points += 5
-

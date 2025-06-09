@@ -6,8 +6,6 @@ from .character import Character
 from .stats import PlayerStats, EnemyStats
 from .gamestate import GameState
 from .unit import Unit
-from arcade.camera import Camera2D
-
 
 def create_character(name: str, role: str) -> Character:
     stats = PlayerStats()
@@ -92,7 +90,6 @@ class CityView(arcade.View):
         arcade.draw_text("Press R for RPG", 20, 20, arcade.color.AQUA, 14)
 
     def on_key_press(self, key, modifiers):
-        global game_state
         if key == arcade.key.R:
             rpg_view = RPGView()
             rpg_view.setup()
@@ -142,7 +139,6 @@ class RPGView(arcade.View):
         )
 
     def on_key_press(self, key, modifiers):
-        global game_state
         if key == arcade.key.B:
             battle_view = BattleView()
             battle_view.setup()
@@ -199,7 +195,6 @@ class BattleView(arcade.View):
             )
             for i, char in enumerate(game_state.characters)
         ]
-        import random
         avg_level = (
             sum(c.stats.level for c in game_state.characters) / len(game_state.characters)
             if game_state.characters else 1
@@ -227,6 +222,7 @@ class BattleView(arcade.View):
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
 
+        self.turn_number = 1
         self.turn = "player"
         self.active_index = 0
         self.message = ""
@@ -237,6 +233,8 @@ class BattleView(arcade.View):
     def start_player_turn(self):
         for unit in self.player_units:
             unit.reset_actions()
+        if self.turn == "enemy":
+            self.turn_number += 1
         self.turn = "player"
         self.active_index = 0
 
@@ -246,7 +244,7 @@ class BattleView(arcade.View):
         self.turn = "enemy"
         self.run_enemy_ai()
         if not self.player_units:
-            self.turn = "ended"
+            self.end_battle(False)
             return
         elif not self.enemy_units:
             self.end_battle(True)
@@ -305,11 +303,6 @@ class BattleView(arcade.View):
                 self.enemy_units.remove(enemy)
             if not self.player_units:
                 break
-        if not self.player_units:
-            self.turn = "ended"
-            return
-
-        
     def on_draw(self):
         self.clear()
         self.camera.use()
@@ -352,8 +345,12 @@ class BattleView(arcade.View):
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
             arcade.draw_line(x1, y1, x2, y2, arcade.color.YELLOW, 2)
-        current_hp = self.player_units[self.active_index].health if self.player_units else 0
-        status = f"Turn: {self.turn.capitalize()}  Player HP: {current_hp}"
+        current_hp = (
+            self.player_units[self.active_index].health if self.player_units else 0
+        )
+        status = (
+            f"Turn {self.turn_number} - {self.turn.capitalize()}  Player HP: {current_hp}"
+        )
         arcade.draw_text(status, 20, self.window.height - 20, arcade.color.AQUA, 14)
         if self.message:
             arcade.draw_text(self.message, 20, self.window.height - 40, arcade.color.YELLOW, 16)
