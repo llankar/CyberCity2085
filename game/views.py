@@ -112,6 +112,10 @@ class RPGView(arcade.View):
             )
             y -= 20
         arcade.draw_text(
+            f"XP: {game_state.x}", 20, y, arcade.color.AQUA, 14
+        )
+        y -= 20
+        arcade.draw_text(
             "Press N to recruit, B for Battle", 20, 20, arcade.color.AQUA, 14
         )
 
@@ -134,10 +138,13 @@ class BattleView(arcade.View):
         self.map_index = None
         self.background = None
         self.camera = arcade.Camera2D()
-        self.player_units = [Unit(position=(64, 64))]
+        self.player_units = [
+            Unit(position=(64 + i * 64, 64)) for i in range(len(game_state.characters))
+        ]
         # Random number of enemies between 1 and 3
         import random
         enemy_count = random.randint(1, 3)
+        self.initial_enemy_count = enemy_count
         self.enemy_units = [
             Unit(position=(224 + i * 64, 224)) for i in range(enemy_count)
         ]
@@ -171,11 +178,22 @@ class BattleView(arcade.View):
         self.run_enemy_ai()
         if not self.player_units or self.player_units[0].health <= 0:
             self.turn = "ended"
+            return
         elif not self.enemy_units:
-            self.turn = "ended"
+            self.end_battle(True)
+            return
         else:
             self.start_player_turn()
 
+    def end_battle(self, victory: bool) -> None:
+        """Finish the battle and return to the RPG view."""
+        if victory:
+            defeated = self.initial_enemy_count
+            game_state.x += 50 * defeated
+        rpg_view = RPGView()
+        rpg_view.setup()
+        self.window.show_view(rpg_view)
+        
     def run_enemy_ai(self):
         target = self.player_units[0]
         for enemy in list(self.enemy_units):
@@ -285,6 +303,9 @@ class BattleView(arcade.View):
                         if enemy.sprite:
                             enemy.sprite.kill()
                         self.enemy_units.remove(enemy)
+                        if not self.enemy_units:
+                            self.end_battle(True)
+                            return
                     break
         elif key == arcade.key.F:
             for enemy in list(self.enemy_units):
@@ -293,6 +314,9 @@ class BattleView(arcade.View):
                         if enemy.sprite:
                             enemy.sprite.kill()
                         self.enemy_units.remove(enemy)
+                        if not self.enemy_units:
+                            self.end_battle(True)
+                            return
                     break
         elif key == arcade.key.P:
             for enemy in list(self.enemy_units):
@@ -301,6 +325,9 @@ class BattleView(arcade.View):
                         if enemy.sprite:
                             enemy.sprite.kill()
                         self.enemy_units.remove(enemy)
+                        if not self.enemy_units:
+                            self.end_battle(True)
+                            return
                     break
         elif key == arcade.key.D:
             player.defend()
