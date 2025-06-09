@@ -191,7 +191,12 @@ class BattleView(arcade.View):
         self.background = None
         self.camera = arcade.Camera2D()
         self.player_units = [
-            Unit(position=(64 + i * 64, 64), stats=char.stats, health=char.stats.hp)
+            Unit(
+                position=(64 + i * 64, 64),
+                stats=char.stats,
+                health=char.stats.hp,
+                character=char,
+            )
             for i, char in enumerate(game_state.characters)
         ]
         import random
@@ -223,19 +228,24 @@ class BattleView(arcade.View):
             self.enemy_list.append(sprite)
 
         self.turn = "player"
+        self.active_index = 0
+        self.message = ""
+        self.attack_timer = 0.0
+        self.attack_line = None
         self.start_player_turn()
 
     def start_player_turn(self):
         for unit in self.player_units:
             unit.reset_actions()
         self.turn = "player"
+        self.active_index = 0
 
     def start_enemy_turn(self):
         for enemy in self.enemy_units:
             enemy.reset_actions()
         self.turn = "enemy"
         self.run_enemy_ai()
-        if not self.player_units or self.player_units[0].health <= 0:
+        if not self.player_units:
             self.turn = "ended"
             return
         elif not self.enemy_units:
@@ -246,37 +256,58 @@ class BattleView(arcade.View):
 
     def end_battle(self, victory: bool) -> None:
         """Finish the battle and return to the RPG view."""
+        defeated = self.initial_enemy_count if victory else 0
         if victory:
-            defeated = self.initial_enemy_count
             game_state.x += 50 * defeated
-            for char, unit in zip(game_state.characters, self.player_units):
-                char.stats.hp = unit.health
-                char.gain_xp(50 * defeated)
-        else:
-            for char, unit in zip(game_state.characters, self.player_units):
-                char.stats.hp = unit.health
+        for unit in list(self.player_units):
+            if unit.character:
+                unit.character.stats.hp = unit.health
+                if victory:
+                    unit.character.gain_xp(50 * defeated)
+                if unit.health <= 0 and unit.character in game_state.characters:
+                    game_state.characters.remove(unit.character)
         rpg_view = RPGView()
         rpg_view.setup()
         self.window.show_view(rpg_view)
         
     def run_enemy_ai(self):
-        target = self.player_units[0]
         for enemy in list(self.enemy_units):
+            target = self.player_units[0] if self.player_units else None
+            if not target:
+                break
             while enemy.action_points > 0 and target.health > 0:
-                if enemy.attack(target):
+                damage = enemy.attack(target)
+                if damage > 0:
+                    self.message = f"Enemy hits {target.character.name} for {damage}"
+                    self.start_attack_animation(enemy, target)
                     if target.health <= 0:
                         if target.sprite:
                             target.sprite.kill()
+                        idx = self.player_units.index(target)
+                        self.player_units.remove(target)
+                        if idx <= self.active_index and self.active_index > 0:
+                            self.active_index -= 1
+                        if not self.player_units:
+                            break
                         break
                 else:
-                    dx = 32 if target.position[0] > enemy.position[0] else -32 if target.position[0] < enemy.position[0] else 0
-                    dy = 32 if target.position[1] > enemy.position[1] else -32 if target.position[1] < enemy.position[1] else 0
+                    dx = (
+                        32 if target.position[0] > enemy.position[0] else -32 if target.position[0] < enemy.position[0] else 0
+                    )
+                    dy = (
+                        32 if target.position[1] > enemy.position[1] else -32 if target.position[1] < enemy.position[1] else 0
+                    )
                     if dx or dy:
                         enemy.move(dx, dy)
             if enemy.health <= 0:
                 if enemy.sprite:
                     enemy.sprite.kill()
                 self.enemy_units.remove(enemy)
+            if not self.player_units:
+                break
+        if not self.player_units:
+            self.turn = "ended"
+            return
 
         
     def on_draw(self):
@@ -318,8 +349,14 @@ class BattleView(arcade.View):
             )
         self.enemy_list.draw()
         self.player_list.draw()
-        status = f"Turn: {self.turn.capitalize()}  Player HP: {self.player_units[0].health if self.player_units else 0}"
+        if self.attack_line:
+            x1, y1, x2, y2 = self.attack_line
+            arcade.draw_line(x1, y1, x2, y2, arcade.color.YELLOW, 2)
+        current_hp = self.player_units[self.active_index].health if self.player_units else 0
+        status = f"Turn: {self.turn.capitalize()}  Player HP: {current_hp}"
         arcade.draw_text(status, 20, self.window.height - 20, arcade.color.AQUA, 14)
+        if self.message:
+            arcade.draw_text(self.message, 20, self.window.height - 40, arcade.color.YELLOW, 16)
         if self.turn == "ended":
             if not self.enemy_units:
                 msg = "Victory!"
@@ -352,7 +389,7 @@ class BattleView(arcade.View):
         if self.turn != "player" or not self.player_units:
             return
 
-        player = self.player_units[0]
+        player = self.player_units[self.active_index]
         if key == arcade.key.UP:
             player.move(0, 32)
         elif key == arcade.key.DOWN:
@@ -363,7 +400,10 @@ class BattleView(arcade.View):
             player.move(32, 0)
         elif key == arcade.key.SPACE:
             for enemy in list(self.enemy_units):
-                if player.melee_attack(enemy):
+                damage = player.melee_attack(enemy)
+                if damage > 0:
+                    self.message = f"{player.character.name} slashes for {damage}"
+                    self.start_attack_animation(player, enemy)
                     if enemy.health <= 0:
                         if enemy.sprite:
                             enemy.sprite.kill()
@@ -374,7 +414,10 @@ class BattleView(arcade.View):
                     break
         elif key == arcade.key.F:
             for enemy in list(self.enemy_units):
-                if player.shoot(enemy):
+                damage = player.shoot(enemy)
+                if damage > 0:
+                    self.message = f"{player.character.name} shoots for {damage}"
+                    self.start_attack_animation(player, enemy)
                     if enemy.health <= 0:
                         if enemy.sprite:
                             enemy.sprite.kill()
@@ -385,7 +428,10 @@ class BattleView(arcade.View):
                     break
         elif key == arcade.key.P:
             for enemy in list(self.enemy_units):
-                if player.psi_attack(enemy):
+                damage = player.psi_attack(enemy)
+                if damage > 0:
+                    self.message = f"{player.character.name} psy hits for {damage}"
+                    self.start_attack_animation(player, enemy)
                     if enemy.health <= 0:
                         if enemy.sprite:
                             enemy.sprite.kill()
@@ -403,5 +449,31 @@ class BattleView(arcade.View):
             corp_view.setup()
             self.window.show_view(corp_view)
 
-        if player.action_points <= 0:
+        self.check_active_player()
+
+    def check_active_player(self):
+        while (
+            self.active_index < len(self.player_units)
+            and (
+                self.player_units[self.active_index].action_points <= 0
+                or self.player_units[self.active_index].health <= 0
+            )
+        ):
+            self.active_index += 1
+        if self.active_index >= len(self.player_units):
             self.start_enemy_turn()
+
+    def start_attack_animation(self, attacker: Unit, target: Unit):
+        self.attack_line = (
+            attacker.position[0],
+            attacker.position[1],
+            target.position[0],
+            target.position[1],
+        )
+        self.attack_timer = 0.3
+
+    def on_update(self, delta_time: float):
+        if self.attack_timer > 0:
+            self.attack_timer -= delta_time
+            if self.attack_timer <= 0:
+                self.attack_line = None
