@@ -235,6 +235,13 @@ class BattleView(arcade.View):
         self.pending_attack = None
         self.start_player_turn()
 
+    def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
+        """Check if a map position is occupied by any living unit."""
+        for unit in [u for u in self.player_units + self.enemy_units if u is not exclude]:
+            if unit.health > 0 and unit.position == (x, y):
+                return True
+        return False
+
     def start_player_turn(self):
         for unit in self.player_units:
             unit.reset_actions()
@@ -301,11 +308,14 @@ class BattleView(arcade.View):
                         32 if target.position[1] > enemy.position[1] else -32 if target.position[1] < enemy.position[1] else 0
                     )
                     if dx or dy:
-                        enemy.move(dx, dy)
-            if enemy.health <= 0:
-                if enemy.sprite:
-                    enemy.sprite.kill()
-                self.enemy_units.remove(enemy)
+                        new_x = enemy.position[0] + dx
+                        new_y = enemy.position[1] + dy
+                        if not self.is_occupied(new_x, new_y, exclude=enemy):
+                            enemy.move(dx, dy)
+                if enemy.health <= 0:
+                    if enemy.sprite:
+                        enemy.sprite.kill()
+                    self.enemy_units.remove(enemy)
             if not self.player_units:
                 break
     def on_draw(self):
@@ -347,6 +357,30 @@ class BattleView(arcade.View):
             )
         self.enemy_list.draw()
         self.player_list.draw()
+
+        # Draw enemy HP bars
+        for enemy in self.enemy_units:
+            if enemy.sprite and enemy.stats:
+                bar_width = enemy.sprite.width
+                left = enemy.sprite.center_x - bar_width / 2
+                right = enemy.sprite.center_x + bar_width / 2
+                top = enemy.sprite.center_y + enemy.sprite.height / 2 + 6
+                bottom = top - 4
+                arcade.draw_lrtb_rectangle_filled(
+                    left,
+                    right,
+                    top,
+                    bottom,
+                    arcade.color.DARK_RED,
+                )
+                current = bar_width * enemy.health / enemy.stats.max_hp
+                arcade.draw_lrtb_rectangle_filled(
+                    left,
+                    left + current,
+                    top,
+                    bottom,
+                    arcade.color.GREEN,
+                )
         if self.selecting_target and self.target_candidates:
             target = self.target_candidates[self.selected_target_idx]
             if target.sprite:
@@ -364,6 +398,24 @@ class BattleView(arcade.View):
                     full_rect,
                     arcade.color.YELLOW,
                     border_width=2,
+                )
+                # Display hit chance above target
+                player = self.player_units[self.active_index]
+                stat_name = {
+                    "melee": "str",
+                    "shoot": "agi",
+                    "psi": "psi",
+                }.get(self.pending_attack or "melee", "str")
+                atk_val = getattr(player.stats, stat_name)
+                defense = target.stats.defense if target.stats else 1
+                chance = atk_val / (atk_val + defense) if atk_val > 0 else 0
+                prob_text = f"{chance*100:.0f}%"
+                arcade.draw_text(
+                    prob_text,
+                    cx - width / 2,
+                    cy + height / 2 + 4,
+                    arcade.color.YELLOW,
+                    12,
                 )
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
@@ -465,13 +517,21 @@ class BattleView(arcade.View):
 
         # Normal input handling when not selecting target
         if key == arcade.key.UP:
-            player.move(0, 32)
+            new_x, new_y = player.position[0], player.position[1] + 32
+            if not self.is_occupied(new_x, new_y, exclude=player):
+                player.move(0, 32)
         elif key == arcade.key.DOWN:
-            player.move(0, -32)
+            new_x, new_y = player.position[0], player.position[1] - 32
+            if not self.is_occupied(new_x, new_y, exclude=player):
+                player.move(0, -32)
         elif key == arcade.key.LEFT:
-            player.move(-32, 0)
+            new_x, new_y = player.position[0] - 32, player.position[1]
+            if not self.is_occupied(new_x, new_y, exclude=player):
+                player.move(-32, 0)
         elif key == arcade.key.RIGHT:
-            player.move(32, 0)
+            new_x, new_y = player.position[0] + 32, player.position[1]
+            if not self.is_occupied(new_x, new_y, exclude=player):
+                player.move(32, 0)
         elif key == arcade.key.SPACE:
             self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 32]
             if self.target_candidates:
