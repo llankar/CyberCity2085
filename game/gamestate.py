@@ -29,6 +29,9 @@ class GameState:
     # List of recruited characters
     characters: List["Character"] = field(default_factory=list)
 
+    # Experience points gained through battles
+    x: int = 0
+
     # Turn management
     turn: int = 1
     budget_pool: int = 0
@@ -72,6 +75,7 @@ class GameState:
             "corp_budget": self.corp_budget,
             "city_budget": self.city_budget,
             "characters": [c.to_dict() for c in self.characters],
+            "x": self.x,
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
@@ -85,6 +89,7 @@ class GameState:
         gs.city_budget.update(data.get("city_budget", {}))
         gs.turn = data.get("turn", 1)
         gs.budget_pool = data.get("budget_pool", gs.compute_budget())
+        gs.x = data.get("x", 0)
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
