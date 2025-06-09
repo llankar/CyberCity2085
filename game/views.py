@@ -228,6 +228,11 @@ class BattleView(arcade.View):
         self.message = ""
         self.attack_timer = 0.0
         self.attack_line = None
+        # Target selection state
+        self.selecting_target = False
+        self.target_candidates = []
+        self.selected_target_idx = 0
+        self.pending_attack = None
         self.start_player_turn()
 
     def start_player_turn(self):
@@ -342,6 +347,21 @@ class BattleView(arcade.View):
             )
         self.enemy_list.draw()
         self.player_list.draw()
+        if self.selecting_target and self.target_candidates:
+            target = self.target_candidates[self.selected_target_idx]
+            if target.sprite:
+                cx = target.sprite.center_x
+                cy = target.sprite.center_y
+                width = target.sprite.width + 10
+                height = target.sprite.height + 10
+                arcade.draw_rectangle_outline(
+                    cx,
+                    cy,
+                    width,
+                    height,
+                    arcade.color.YELLOW,
+                    2,
+                )
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
             arcade.draw_line(x1, y1, x2, y2, arcade.color.YELLOW, 2)
@@ -361,13 +381,22 @@ class BattleView(arcade.View):
                 msg = "Defeat..."
             arcade.draw_text(msg, 20, 40, arcade.color.YELLOW, 20)
         else:
-            arcade.draw_text(
-                "Arrows move, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
-                20,
-                20,
-                arcade.color.AQUA,
-                14,
-            )
+            if self.selecting_target:
+                arcade.draw_text(
+                    "Select target with Left/Right, Enter to confirm, Esc to cancel",
+                    20,
+                    20,
+                    arcade.color.AQUA,
+                    14,
+                )
+            else:
+                arcade.draw_text(
+                    "Arrows move, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
+                    20,
+                    20,
+                    arcade.color.AQUA,
+                    14,
+                )
 
     def on_key_press(self, key, modifiers):
         if self.map_index is None:
@@ -387,6 +416,51 @@ class BattleView(arcade.View):
             return
 
         player = self.player_units[self.active_index]
+
+        # Handle target selection mode
+        if self.selecting_target:
+            if key in (arcade.key.LEFT, arcade.key.A):
+                self.selected_target_idx = (self.selected_target_idx - 1) % len(self.target_candidates)
+            elif key in (arcade.key.RIGHT, arcade.key.D):
+                self.selected_target_idx = (self.selected_target_idx + 1) % len(self.target_candidates)
+            elif key in (arcade.key.ENTER, arcade.key.RETURN, arcade.key.SPACE, arcade.key.F, arcade.key.P):
+                target = self.target_candidates[self.selected_target_idx]
+                if self.pending_attack == "melee":
+                    damage = player.melee_attack(target)
+                elif self.pending_attack == "shoot":
+                    damage = player.shoot(target)
+                else:
+                    damage = player.psi_attack(target)
+                if damage > 0:
+                    atk_name = {
+                        "melee": "slashes",
+                        "shoot": "shoots",
+                        "psi": "psy hits",
+                    }[self.pending_attack]
+                    self.message = f"{player.character.name} {atk_name} for {damage}"
+                    self.start_attack_animation(player, target)
+                    if target.health <= 0:
+                        if target.sprite:
+                            target.sprite.kill()
+                        if target in self.enemy_units:
+                            self.enemy_units.remove(target)
+                        if not self.enemy_units:
+                            self.end_battle(True)
+                            self.selecting_target = False
+                            self.target_candidates = []
+                            self.pending_attack = None
+                            return
+                self.selecting_target = False
+                self.target_candidates = []
+                self.pending_attack = None
+                self.check_active_player()
+            elif key == arcade.key.ESCAPE:
+                self.selecting_target = False
+                self.target_candidates = []
+                self.pending_attack = None
+            return
+
+        # Normal input handling when not selecting target
         if key == arcade.key.UP:
             player.move(0, 32)
         elif key == arcade.key.DOWN:
@@ -396,47 +470,29 @@ class BattleView(arcade.View):
         elif key == arcade.key.RIGHT:
             player.move(32, 0)
         elif key == arcade.key.SPACE:
-            for enemy in list(self.enemy_units):
-                damage = player.melee_attack(enemy)
-                if damage > 0:
-                    self.message = f"{player.character.name} slashes for {damage}"
-                    self.start_attack_animation(player, enemy)
-                    if enemy.health <= 0:
-                        if enemy.sprite:
-                            enemy.sprite.kill()
-                        self.enemy_units.remove(enemy)
-                        if not self.enemy_units:
-                            self.end_battle(True)
-                            return
-                    break
+            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 32]
+            if self.target_candidates:
+                self.selecting_target = True
+                self.selected_target_idx = 0
+                self.pending_attack = "melee"
+            else:
+                self.message = "No enemy in range"
         elif key == arcade.key.F:
-            for enemy in list(self.enemy_units):
-                damage = player.shoot(enemy)
-                if damage > 0:
-                    self.message = f"{player.character.name} shoots for {damage}"
-                    self.start_attack_animation(player, enemy)
-                    if enemy.health <= 0:
-                        if enemy.sprite:
-                            enemy.sprite.kill()
-                        self.enemy_units.remove(enemy)
-                        if not self.enemy_units:
-                            self.end_battle(True)
-                            return
-                    break
+            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 10 * 32]
+            if self.target_candidates:
+                self.selecting_target = True
+                self.selected_target_idx = 0
+                self.pending_attack = "shoot"
+            else:
+                self.message = "No enemy in range"
         elif key == arcade.key.P:
-            for enemy in list(self.enemy_units):
-                damage = player.psi_attack(enemy)
-                if damage > 0:
-                    self.message = f"{player.character.name} psy hits for {damage}"
-                    self.start_attack_animation(player, enemy)
-                    if enemy.health <= 0:
-                        if enemy.sprite:
-                            enemy.sprite.kill()
-                        self.enemy_units.remove(enemy)
-                        if not self.enemy_units:
-                            self.end_battle(True)
-                            return
-                    break
+            self.target_candidates = [e for e in self.enemy_units if player.distance_to(e) <= 10 * 32]
+            if self.target_candidates:
+                self.selecting_target = True
+                self.selected_target_idx = 0
+                self.pending_attack = "psi"
+            else:
+                self.message = "No enemy in range"
         elif key == arcade.key.D:
             player.defend()
         elif key == arcade.key.V:
