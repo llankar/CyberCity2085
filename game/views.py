@@ -3,9 +3,22 @@ import os
 import random
 
 from .character import Character
+from .stats import PlayerStats, EnemyStats
 from .gamestate import GameState
 from .unit import Unit
 from arcade.camera import Camera2D
+
+
+def create_character(name: str, role: str) -> Character:
+    stats = PlayerStats()
+    if role == "samurai":
+        stats.str += 5
+    elif role == "sniper":
+        stats.agi += 5
+    elif role == "psi":
+        stats.psi += 5
+    stats.recalculate_hp()
+    return Character(name=name, role=role, stats=stats)
 
 game_state = GameState()
 
@@ -97,24 +110,33 @@ class RPGView(arcade.View):
         if not game_state.characters:
             game_state.characters.append(Character(name="Agent 1"))
         self.text = "RPG Phase"
+        self.recruiting = False
+        self.selected_role = None
+        self.allocating = None
 
     def on_draw(self):
         self.clear()
         arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
         y = self.window.height - 80
         for char in game_state.characters:
+            s = char.stats
+            info = f"{char.name} ({char.role}) Lv{s.level} HP{s.hp}/{s.max_hp} STR{s.str} AGI{s.agi} PSI{s.psi} DEF{s.defense} CON{s.con} CHA{s.cha} XP{s.xp}"
+            arcade.draw_text(info, 20, y, arcade.color.WHITE, 14)
+            if char.pending_points > 0:
+                arcade.draw_text(
+                    f"  Allocate {char.pending_points} pts: 1=PSI 2=STR 3=AGI 4=CON 5=CHA",
+                    40,
+                    y - 15,
+                    arcade.color.AQUA,
+                    12,
+                )
+                y -= 15
+            y -= 20
+        if self.recruiting:
             arcade.draw_text(
-                f"{char.name} - Lvl {char.level} - SP {char.skill_points}",
-                20,
-                y,
-                arcade.color.WHITE,
-                14,
+                "Select role: 1 Samurai, 2 Sniper, 3 Psi", 20, y, arcade.color.YELLOW, 14
             )
             y -= 20
-        arcade.draw_text(
-            f"XP: {game_state.x}", 20, y, arcade.color.AQUA, 14
-        )
-        y -= 20
         arcade.draw_text(
             "Press N to recruit, B for Battle", 20, 20, arcade.color.AQUA, 14
         )
@@ -126,8 +148,38 @@ class RPGView(arcade.View):
             battle_view.setup()
             self.window.show_view(battle_view)
         elif key == arcade.key.N:
-            idx = len(game_state.characters) + 1
-            game_state.characters.append(Character(name=f"Agent {idx}"))
+            if game_state.budget_pool >= 5:
+                self.recruiting = True
+                self.selected_role = None
+                game_state.budget_pool -= 5
+            else:
+                pass
+        elif self.recruiting:
+            if key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3):
+                idx = len(game_state.characters) + 1
+                role_map = {arcade.key.KEY_1: "samurai", arcade.key.KEY_2: "sniper", arcade.key.KEY_3: "psi"}
+                role = role_map.get(key, "samurai")
+                game_state.characters.append(create_character(f"Agent {idx}", role))
+                self.recruiting = False
+        else:
+            # Allocate stat points if any
+            for char in game_state.characters:
+                if char.pending_points > 0:
+                    if key == arcade.key.KEY_1:
+                        char.stats.psi += 1
+                    elif key == arcade.key.KEY_2:
+                        char.stats.str += 1
+                    elif key == arcade.key.KEY_3:
+                        char.stats.agi += 1
+                    elif key == arcade.key.KEY_4:
+                        char.stats.con += 1
+                    elif key == arcade.key.KEY_5:
+                        char.stats.cha += 1
+                    else:
+                        break
+                    char.pending_points -= 1
+                    char.stats.recalculate_hp()
+                    break
 
 
 class BattleView(arcade.View):
@@ -139,15 +191,22 @@ class BattleView(arcade.View):
         self.background = None
         self.camera = arcade.Camera2D()
         self.player_units = [
-            Unit(position=(64 + i * 64, 64)) for i in range(len(game_state.characters))
+            Unit(position=(64 + i * 64, 64), stats=char.stats, health=char.stats.hp)
+            for i, char in enumerate(game_state.characters)
         ]
-        # Random number of enemies between 1 and 3
         import random
+        avg_level = (
+            sum(c.stats.level for c in game_state.characters) / len(game_state.characters)
+            if game_state.characters else 1
+        )
         enemy_count = random.randint(1, 3)
         self.initial_enemy_count = enemy_count
-        self.enemy_units = [
-            Unit(position=(224 + i * 64, 224)) for i in range(enemy_count)
-        ]
+        self.enemy_units = []
+        for i in range(enemy_count):
+            level = random.randint(1, int(avg_level))
+            estats = EnemyStats(level=level, defense=level, psi=level, str=level, agi=level)
+            unit = Unit(position=(224 + i * 64, 224), stats=estats, health=estats.hp)
+            self.enemy_units.append(unit)
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         
@@ -190,6 +249,12 @@ class BattleView(arcade.View):
         if victory:
             defeated = self.initial_enemy_count
             game_state.x += 50 * defeated
+            for char, unit in zip(game_state.characters, self.player_units):
+                char.stats.hp = unit.health
+                char.gain_xp(50 * defeated)
+        else:
+            for char, unit in zip(game_state.characters, self.player_units):
+                char.stats.hp = unit.health
         rpg_view = RPGView()
         rpg_view.setup()
         self.window.show_view(rpg_view)
