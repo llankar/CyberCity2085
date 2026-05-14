@@ -36,6 +36,7 @@ fake_arcade = types.SimpleNamespace(
         RIGHT=1003,
         A=65,
         D=68,
+        E=69,
         F=70,
         P=80,
         V=86,

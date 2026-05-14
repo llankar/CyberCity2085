@@ -52,6 +52,7 @@ class MissionTemplate:
     district: str
     district_pressure: dict
     starting_enemy_count: int
+    objective_type: str = "eliminate"
     possible_complications: list[MissionComplication] = field(default_factory=list)
     success_consequences: list[Consequence] = field(default_factory=list)
     failure_consequences: list[Consequence] = field(default_factory=list)
@@ -67,6 +68,7 @@ class MissionTemplate:
             "district": self.district,
             "district_pressure": dict(self.district_pressure),
             "starting_enemy_count": self.starting_enemy_count,
+            "objective_type": self.objective_type,
             "possible_complications": [
                 complication.to_dict() for complication in self.possible_complications
             ],
@@ -92,6 +94,9 @@ class MissionTemplate:
             district=data.get("district", "Chrome Warrens"),
             district_pressure=dict(data.get("district_pressure", {})),
             starting_enemy_count=data.get("starting_enemy_count", 1),
+            objective_type=data.get("objective_type")
+            if data.get("objective_type") in {"extract", "sabotage", "data_theft", "eliminate"}
+            else "eliminate",
             possible_complications=[
                 MissionComplication.from_dict(complication)
                 for complication in data.get("possible_complications", [])
@@ -171,6 +176,7 @@ def create_mission_templates(
             district=district_name,
             district_pressure={"unrest": 3, "media_heat": 2},
             starting_enemy_count=2,
+            objective_type="extract",
             possible_complications=[complications[0], complications[1]],
             success_consequences=[
                 Consequence(
@@ -203,6 +209,7 @@ def create_mission_templates(
             district=district_name,
             district_pressure={"unrest": 5, "media_heat": 1},
             starting_enemy_count=3,
+            objective_type="sabotage",
             possible_complications=[complications[1], complications[2]],
             success_consequences=[
                 Consequence(
@@ -235,6 +242,7 @@ def create_mission_templates(
             district=district_name,
             district_pressure={"media_heat": 4, "stability": -1},
             starting_enemy_count=2,
+            objective_type="data_theft",
             possible_complications=[complications[0], complications[2]],
             success_consequences=[
                 Consequence(
