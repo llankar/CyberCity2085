@@ -1,16 +1,619 @@
 {
-  "turn": 2,
-  "budget_pool": 110,
+  "turn": 1,
+  "budget_pool": 10,
   "corp_budget": {
-    "research": 20,
-    "security": 40,
-    "politics": 20,
-    "black_ops": 20
+    "research": 30,
+    "security": 20,
+    "politics": 10,
+    "black_ops": 30
   },
   "city_budget": {
     "armaments": 0,
     "garrisons": 0,
     "defense_zones": 0
   },
-  "characters": []
+  "characters": [],
+  "x": 0,
+  "base_name": "Aegis Forward Base Kilo",
+  "district": {
+    "name": "Chrome Warrens",
+    "stability": 45,
+    "control_faction": "Aegis Dynamics",
+    "unrest": 38,
+    "media_heat": 24,
+    "tags": [
+      {
+        "name": "neon_blackout",
+        "description": "Rolling power outages make every alley a blind spot.",
+        "intensity": 2,
+        "source": "district",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "gang_pressure",
+        "description": "Street crews are testing who really owns the district.",
+        "intensity": 1,
+        "source": "faction",
+        "expires_after_turns": null,
+        "metadata": {}
+      }
+    ]
+  },
+  "factions": [
+    {
+      "name": "Aegis Dynamics",
+      "influence": 72,
+      "hostility_to_player": 18,
+      "public_legitimacy": 54,
+      "active_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "name": "Warrens Free Clinic",
+      "influence": 34,
+      "hostility_to_player": 8,
+      "public_legitimacy": 81,
+      "active_tags": []
+    },
+    {
+      "name": "Chrome Jackals",
+      "influence": 49,
+      "hostility_to_player": 62,
+      "public_legitimacy": 19,
+      "active_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "active_operations": [
+    {
+      "type": "hearts_and_minds",
+      "target_faction": "Warrens Free Clinic",
+      "district": "Chrome Warrens",
+      "risk": 2,
+      "objective": "Escort medtechs through blackout alleys and win visible trust.",
+      "complications": [
+        "Power failures hide ambush routes",
+        "Cameras may frame the team as occupiers"
+      ],
+      "outcome_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "counter_gang_raid",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "risk": 4,
+      "objective": "Break a Jackal weapons handoff before it floods the Warrens.",
+      "complications": [
+        "Civilian lookouts protect the drop",
+        "The Jackals wired the crates to burn evidence"
+      ],
+      "outcome_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "signal_trace",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "risk": 3,
+      "objective": "Trace a spoofed corporate order without triggering Aegis auditors.",
+      "complications": [
+        "Ghost packets mimic friendly command",
+        "A media drone is already on scene"
+      ],
+      "outcome_tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "mission_templates": [
+    {
+      "id": "extraction",
+      "title": "Extraction: Neon Witness",
+      "objective_text": "Extract a clinic witness from the east-rail blackout before gangs sell them to Aegis auditors.",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 2
+      },
+      "starting_enemy_count": 2,
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "civilian_panic",
+          "name": "Civilian Panic",
+          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
+          "risk_threshold": 3,
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+            "mechanical_effects": {
+              "unrest": 7,
+              "stability": -4
+            },
+            "tags": [
+              {
+                "name": "civilian_panic",
+                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Warrens Free Clinic",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Extraction success: the witness reaches the clinic and locals share safehouse routes.",
+          "mechanical_effects": {
+            "stability": 5,
+            "unrest": -4,
+            "faction_hostility": -3
+          },
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Extraction failure: the witness disappears and Jackal recruiters own the rumor mill.",
+          "mechanical_effects": {
+            "unrest": 8,
+            "media_heat": 4,
+            "faction_hostility": 6
+          },
+          "tags": [
+            {
+              "name": "gang_pressure",
+              "description": "Street crews are testing who really owns the district.",
+              "intensity": 1,
+              "source": "faction",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 2,
+      "tags": [
+        {
+          "name": "neon_blackout",
+          "description": "Rolling power outages make every alley a blind spot.",
+          "intensity": 2,
+          "source": "district",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "id": "sabotage",
+      "title": "Sabotage: Jackal Relay Burn",
+      "objective_text": "Destroy the Chrome Jackals' relay van before it coordinates raids on the defense zones.",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 5,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 3,
+      "possible_complications": [
+        {
+          "key": "civilian_panic",
+          "name": "Civilian Panic",
+          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
+          "risk_threshold": 3,
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+            "mechanical_effects": {
+              "unrest": 7,
+              "stability": -4
+            },
+            "tags": [
+              {
+                "name": "civilian_panic",
+                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
+          "mechanical_effects": {
+            "unrest": -6,
+            "stability": 3,
+            "faction_influence": -5
+          },
+          "tags": [
+            {
+              "name": "gang_pressure",
+              "description": "Street crews are testing who really owns the district.",
+              "intensity": 1,
+              "source": "faction",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Sabotage failure: the relay survives and Jackal retaliation teams flood the alleys.",
+          "mechanical_effects": {
+            "unrest": 9,
+            "faction_hostility": 8,
+            "stability": -5
+          },
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 4,
+      "tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "id": "data_theft",
+      "title": "Data Theft: Ghost Order Cache",
+      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "media_heat": 4,
+        "stability": -1
+      },
+      "starting_enemy_count": 2,
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
+          "mechanical_effects": {
+            "media_heat": -3,
+            "stability": 4,
+            "faction_influence": -4
+          },
+          "tags": [
+            {
+              "name": "ghost_signal",
+              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+              "intensity": 3,
+              "source": "operation",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
+          "mechanical_effects": {
+            "media_heat": 9,
+            "faction_hostility": 7,
+            "stability": -4
+          },
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 3,
+      "tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "active_mission": null,
+  "selected_mission_index": 0,
+  "recent_consequences": [
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": null,
+      "affected_agent": null,
+      "severity": 1,
+      "narrative_text": "Blackout rumors spike after an Aegis patrol vanishes under the east rail.",
+      "mechanical_effects": {
+        "unrest": 3,
+        "media_heat": 2
+      },
+      "tags": []
+    }
+  ],
+  "event_log": [
+    "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
+  ]
 }

@@ -29,6 +29,8 @@ python main.py
 
 ### RPG View
 - Readiness Brief previews which agents may crack under the selected mission's stress
+- Mission Board shows each operation's objective type, risk, target faction,
+  launch pressure, complications and success/failure stakes
 - `N` recruit new agent
 - `B` start a battle
 
