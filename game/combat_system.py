@@ -4,7 +4,7 @@ import random
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from .character import Character
+from .character import Character, is_deployable
 from .mission_templates import MissionTemplate
 from .stats import EnemyStats
 from .unit import Unit
@@ -39,7 +39,8 @@ def is_occupied(
 
 
 def create_player_units(characters: list[Character]) -> list[Unit]:
-    """Create battle units from the current player roster."""
+    """Create battle units from the deployable player roster."""
+    deployable_characters = [char for char in characters if is_deployable(char)]
     return [
         Unit(
             position=(64 + i * 64, 64),
@@ -47,7 +48,7 @@ def create_player_units(characters: list[Character]) -> list[Unit]:
             health=char.stats.hp,
             character=char,
         )
-        for i, char in enumerate(characters)
+        for i, char in enumerate(deployable_characters)
     ]
 
 
