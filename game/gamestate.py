@@ -4,6 +4,11 @@ import json
 from dataclasses import dataclass, field
 from typing import List, TYPE_CHECKING
 
+from .consequences import Consequence, create_opening_consequence
+from .factions import Faction, create_vertical_slice_factions
+from .operations import Operation, create_operation_templates
+from .world import District, create_vertical_slice_district
+
 if TYPE_CHECKING:
     from .character import Character
 
@@ -33,6 +38,22 @@ class GameState:
 
     # List of recruited characters
     characters: List[Character] = field(default_factory=list)
+
+    # First vertical-slice world model: one district, one base, and three factions
+    base_name: str = "Aegis Forward Base Kilo"
+    district: District = field(default_factory=create_vertical_slice_district)
+    factions: list[Faction] = field(default_factory=create_vertical_slice_factions)
+    active_operations: list[Operation] = field(
+        default_factory=create_operation_templates
+    )
+    recent_consequences: list[Consequence] = field(
+        default_factory=lambda: [create_opening_consequence()]
+    )
+    event_log: list[str] = field(
+        default_factory=lambda: [
+            "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
+        ]
+    )
 
     # Experience points gained through battles
     x: int = 0
@@ -64,6 +85,21 @@ class GameState:
         """Move to the next turn and refresh the budget."""
         self.turn += 1
         self.budget_pool = self.compute_budget()
+        self.add_event(
+            f"Turn {self.turn}: Corporate budget refreshed for {self.base_name}."
+        )
+
+    def add_event(self, text: str) -> None:
+        """Append a compact event-log entry and retain only the latest beats."""
+        self.event_log.append(text)
+        self.event_log = self.event_log[-12:]
+
+    def record_consequence(self, consequence: Consequence) -> None:
+        """Store recent fallout and add it to the event log."""
+        self.recent_consequences.append(consequence)
+        self.recent_consequences = self.recent_consequences[-6:]
+        if consequence.narrative_text:
+            self.add_event(consequence.narrative_text)
 
     def adjust_corp_budget(self, key: str, amount: int) -> None:
         """Backward compatible wrapper around :py:meth:`allocate_corp_funds`."""
@@ -81,6 +117,16 @@ class GameState:
             "city_budget": self.city_budget,
             "characters": [c.to_dict() for c in self.characters],
             "x": self.x,
+            "base_name": self.base_name,
+            "district": self.district.to_dict(),
+            "factions": [faction.to_dict() for faction in self.factions],
+            "active_operations": [
+                operation.to_dict() for operation in self.active_operations
+            ],
+            "recent_consequences": [
+                consequence.to_dict() for consequence in self.recent_consequences
+            ],
+            "event_log": list(self.event_log),
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
@@ -95,6 +141,20 @@ class GameState:
         gs.turn = data.get("turn", 1)
         gs.budget_pool = data.get("budget_pool", gs.compute_budget())
         gs.x = data.get("x", 0)
+        gs.base_name = data.get("base_name", gs.base_name)
+        gs.district = District.from_dict(data.get("district", gs.district.to_dict()))
+        gs.factions = [
+            Faction.from_dict(faction) for faction in data.get("factions", [])
+        ] or create_vertical_slice_factions()
+        gs.active_operations = [
+            Operation.from_dict(operation)
+            for operation in data.get("active_operations", [])
+        ] or create_operation_templates(gs.district.name)
+        gs.recent_consequences = [
+            Consequence.from_dict(consequence)
+            for consequence in data.get("recent_consequences", [])
+        ] or [create_opening_consequence(gs.district.name)]
+        gs.event_log = list(data.get("event_log", gs.event_log))
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
