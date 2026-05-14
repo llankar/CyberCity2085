@@ -3,6 +3,7 @@
 import unittest
 
 from game.agent_readiness import (
+    agents_at_breaking_risk,
     build_agent_readiness_lines,
     estimate_mission_stress,
     projected_stress,
@@ -39,9 +40,25 @@ class AgentReadinessTest(unittest.TestCase):
         self.assertEqual(estimate_mission_stress(mission), 14)
         self.assertEqual(projected_stress(agent, mission), 100)
 
+    def test_breaking_risk_helper_returns_only_deployable_threshold_agents(self):
+        ready_at_risk = Character("Ghost", stress=80)
+        stable = Character("Calm", stress=40)
+        recovering_at_risk = Character("Stitch", stress=80, recovery_turns=1)
+        downed_at_risk = Character("Downed", stress=80)
+        downed_at_risk.stats.hp = 0
+        mission = _mission(risk_level=3)
+
+        at_risk = agents_at_breaking_risk(
+            [ready_at_risk, stable, recovering_at_risk, downed_at_risk], mission
+        )
+
+        self.assertEqual(at_risk, [ready_at_risk])
+
     def test_readiness_lines_rank_most_at_risk_agent_first(self):
         steady = Character("Calm", stress=5)
-        frayed = Character("Ghost", stress=78, trauma=["Haunted by Faction Retaliation"])
+        frayed = Character(
+            "Ghost", stress=78, trauma=["Haunted by Faction Retaliation"]
+        )
         mission = _mission(risk_level=3)
 
         lines = build_agent_readiness_lines([steady, frayed], mission)
