@@ -4,7 +4,8 @@ import random
 from collections.abc import Callable
 from dataclasses import dataclass
 
-from .character import Character, is_deployable
+from .character import Character
+from .deployment import deployable_agents, selected_deployable_agents
 from .mission_templates import MissionTemplate
 from .stats import EnemyStats
 from .unit import Unit
@@ -38,9 +39,19 @@ def is_occupied(
     return False
 
 
-def create_player_units(characters: list[Character]) -> list[Unit]:
-    """Create battle units from the deployable player roster."""
-    deployable_characters = [char for char in characters if is_deployable(char)]
+def create_player_units(
+    characters: list[Character], selected_agent_names: list[str] | None = None
+) -> list[Unit]:
+    """Create battle units from selected deployable agents.
+
+    Passing ``None`` preserves the legacy all-deployable roster path for tests and
+    direct combat setup. Passing an empty list intentionally creates no units.
+    """
+    deployable_characters = (
+        deployable_agents(characters)
+        if selected_agent_names is None
+        else selected_deployable_agents(characters, selected_agent_names)
+    )
     return [
         Unit(
             position=(64 + i * 64, 64),
