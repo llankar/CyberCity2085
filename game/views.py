@@ -2,6 +2,7 @@ import arcade
 import os
 
 from .agent_aftermath import apply_mission_aftermath
+from .agent_readiness import build_agent_readiness_lines
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .character import Character, is_deployable
 from .combat_system import (
@@ -244,6 +245,13 @@ class RPGView(GameView):
                 11,
             )
             y -= 28
+            y = draw_line_group(
+                "Readiness Brief",
+                build_agent_readiness_lines(self.game_state.characters, mission),
+                20,
+                y,
+                arcade.color.LIGHT_GRAY,
+            )
             draw_line_group(
                 "Aftermath Report",
                 build_agent_aftermath_lines(self.game_state.latest_agent_aftermath),
