@@ -10,6 +10,13 @@ from .combat_system import (
     run_enemy_ai as run_enemy_ai_system,
 )
 from .dossier import build_agent_dossier_lines
+from .ui.drawing import draw_line_group
+from .ui.dashboard import (
+    build_district_status_lines,
+    build_event_log_lines,
+    build_faction_pressure_lines,
+    build_recent_consequence_lines,
+)
 from .gamestate import GameState
 from .mission_system import (
     ensure_mission_templates,
@@ -41,10 +48,27 @@ class CorpView(GameView):
             arcade.color.AQUA,
             14,
         )
-        y -= 20
+        y -= 22
         for k, v in self.game_state.corp_budget.items():
             arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
-            y -= 20
+            y -= 18
+
+        y -= 8
+        y = draw_line_group(
+            "District Pulse",
+            build_district_status_lines(self.game_state.district),
+            20,
+            y,
+            arcade.color.LIGHT_GRAY,
+        )
+        draw_line_group(
+            "Latest Fallout",
+            build_recent_consequence_lines(self.game_state.recent_consequences),
+            20,
+            y,
+            arcade.color.LIGHT_GRAY,
+        )
+
         arcade.draw_text(
             "1-4 to invest, S to save, L to load", 20, 40, arcade.color.AQUA, 14
         )
@@ -87,6 +111,30 @@ class CityView(GameView):
         for k, v in self.game_state.city_budget.items():
             arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
             y -= 20
+
+        y -= 12
+        y = draw_line_group(
+            "District Pressure",
+            build_district_status_lines(self.game_state.district),
+            20,
+            y,
+            arcade.color.LIGHT_GRAY,
+        )
+        y = draw_line_group(
+            "Faction Pressure",
+            build_faction_pressure_lines(self.game_state.factions),
+            20,
+            y,
+            arcade.color.LIGHT_GRAY,
+        )
+        draw_line_group(
+            "Operations Log",
+            build_event_log_lines(self.game_state.event_log),
+            20,
+            y,
+            arcade.color.LIGHT_GRAY,
+        )
+
         arcade.draw_text("7-9 to invest", 20, 40, arcade.color.AQUA, 14)
         arcade.draw_text("Press R for RPG", 20, 20, arcade.color.AQUA, 14)
 
