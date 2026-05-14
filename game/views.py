@@ -157,12 +157,20 @@ class RPGView(GameView):
         self.recruiting = False
         self.selected_role = None
         self.allocating = None
+        self.message = ""
         ensure_mission_templates(self.game_state)
 
     def selected_mission(self) -> MissionTemplate:
         return selected_mission_system(self.game_state)
 
+    def has_deployable_agent(self) -> bool:
+        return any(char.stats.hp > 0 for char in self.game_state.characters)
+
     def launch_selected_mission(self) -> None:
+        if not self.has_deployable_agent():
+            self.message = "Recruit at least one agent before launching an operation."
+            return
+
         mission = launch_mission_system(self.game_state)
         battle_view = BattleView(self.game_state)
         battle_view.setup(mission)
@@ -229,6 +237,8 @@ class RPGView(GameView):
                 arcade.color.LIGHT_GRAY,
                 11,
             )
+        if self.message:
+            arcade.draw_text(self.message, 20, 42, arcade.color.YELLOW, 13)
         arcade.draw_text(
             "Press N to recruit, 1-3 select mission, B to launch mission",
             20,
@@ -244,6 +254,7 @@ class RPGView(GameView):
             if self.game_state.budget_pool >= 5:
                 self.recruiting = True
                 self.selected_role = None
+                self.message = ""
                 self.game_state.budget_pool -= 5
             else:
                 pass
@@ -257,6 +268,7 @@ class RPGView(GameView):
                 role = role_map.get(key, "samurai")
                 recruit_agent(self.game_state.characters, role)
                 self.recruiting = False
+                self.message = ""
         elif key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3) and not any(
             char.pending_points > 0 for char in self.game_state.characters
         ):
