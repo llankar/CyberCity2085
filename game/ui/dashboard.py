@@ -34,6 +34,35 @@ def pressure_label(value: int, *, inverse: bool = False) -> str:
     return "contained"
 
 
+def build_resource_summary_line(resources: dict[str, int]) -> str:
+    """Build a compact strategic-resource strip for command status bars."""
+    ordered_keys = ("credits", "intel", "salvage", "influence")
+    parts = [f"{key.title()} {int(resources.get(key, 0))}" for key in ordered_keys]
+    return " | ".join(parts)
+
+
+def district_pressure_severity(district: District) -> str:
+    """Summarize the worst current district pressure as a short severity string."""
+    instability = 100 - district.stability
+    worst = max(instability, district.unrest, district.media_heat)
+    if worst >= 70:
+        return "CRITICAL"
+    if worst >= 40:
+        return "VOLATILE"
+    return "CONTAINED"
+
+
+def build_command_status_line(
+    turn: int, base_name: str, resources: dict[str, int], district: District
+) -> str:
+    """Build the top-line command HUD status for Corp and City screens."""
+    return (
+        f"TURN {turn} // {base_name} // "
+        f"{build_resource_summary_line(resources)} // "
+        f"DISTRICT PRESSURE {district_pressure_severity(district)}"
+    )
+
+
 def build_district_status_lines(district: District) -> list[str]:
     """Build concise district pulse lines for management screens."""
     return [
