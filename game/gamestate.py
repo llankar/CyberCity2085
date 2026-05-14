@@ -55,6 +55,7 @@ class GameState:
     recent_consequences: list[Consequence] = field(
         default_factory=lambda: [create_opening_consequence()]
     )
+    latest_agent_aftermath: list[str] = field(default_factory=list)
     event_log: list[str] = field(
         default_factory=lambda: [
             "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
@@ -186,6 +187,7 @@ class GameState:
             "recent_consequences": [
                 consequence.to_dict() for consequence in self.recent_consequences
             ],
+            "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "event_log": list(self.event_log),
         }
         with open(path, "w", encoding="utf-8") as f:
@@ -225,6 +227,7 @@ class GameState:
             Consequence.from_dict(consequence)
             for consequence in data.get("recent_consequences", [])
         ] or [create_opening_consequence(gs.district.name)]
+        gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.event_log = list(data.get("event_log", gs.event_log))
         from .character import Character
 

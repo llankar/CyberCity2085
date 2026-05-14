@@ -86,6 +86,17 @@ def build_recent_consequence_lines(
     return lines
 
 
+def build_agent_aftermath_lines(lines: list[str], limit: int = 4) -> list[str]:
+    """Build compact latest agent aftermath lines for the RPG dashboard."""
+    if not lines:
+        return ["No agent aftermath recorded yet."]
+
+    report_lines: list[str] = []
+    for line in lines[-limit:][::-1]:
+        report_lines.append(line.removeprefix("Aftermath: "))
+    return report_lines
+
+
 def build_event_log_lines(events: list[str], limit: int = 5) -> list[str]:
     """Build newest event-log beats first for compact screen space."""
     if not events:
