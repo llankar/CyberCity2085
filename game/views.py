@@ -6,6 +6,7 @@ from .character import Character
 from .dossier import build_agent_dossier_lines
 from .stats import PlayerStats, EnemyStats
 from .gamestate import GameState
+from .mission_templates import MissionTemplate, create_mission_templates
 from .unit import Unit
 
 def create_character(name: str, role: str) -> Character:
@@ -111,6 +112,20 @@ class RPGView(arcade.View):
         self.recruiting = False
         self.selected_role = None
         self.allocating = None
+        if not game_state.mission_templates:
+            game_state.mission_templates = create_mission_templates(game_state.district.name)
+        game_state.selected_mission_index %= len(game_state.mission_templates)
+
+    def selected_mission(self) -> MissionTemplate:
+        return game_state.mission_templates[game_state.selected_mission_index]
+
+    def launch_selected_mission(self) -> None:
+        mission = MissionTemplate.from_dict(self.selected_mission().to_dict())
+        game_state.active_mission = mission
+        game_state.apply_active_mission_pressure()
+        battle_view = BattleView()
+        battle_view.setup(mission)
+        self.window.show_view(battle_view)
 
     def on_draw(self):
         self.clear()
@@ -136,15 +151,44 @@ class RPGView(arcade.View):
                 "Select role: 1 Samurai, 2 Sniper, 3 Psi", 20, y, arcade.color.YELLOW, 14
             )
             y -= 20
+        else:
+            arcade.draw_text("Mission Board", 20, y, arcade.color.YELLOW, 16)
+            y -= 22
+            for idx, mission in enumerate(game_state.mission_templates, start=1):
+                prefix = ">" if idx - 1 == game_state.selected_mission_index else " "
+                arcade.draw_text(
+                    f"{prefix}{idx}. {mission.title} | {mission.target_faction} | "
+                    f"Risk {mission.risk_level} | Enemies {mission.starting_enemy_count}",
+                    20,
+                    y,
+                    arcade.color.AQUA if idx - 1 == game_state.selected_mission_index else arcade.color.WHITE,
+                    12,
+                )
+                y -= 16
+            mission = self.selected_mission()
+            arcade.draw_text(mission.objective_text, 40, y, arcade.color.LIGHT_GRAY, 11)
+            y -= 16
+            complication_names = ", ".join(
+                complication.name for complication in mission.possible_complications
+            )
+            arcade.draw_text(
+                f"Complications: {complication_names}",
+                40,
+                y,
+                arcade.color.LIGHT_GRAY,
+                11,
+            )
         arcade.draw_text(
-            "Press N to recruit, B for Battle", 20, 20, arcade.color.AQUA, 14
+            "Press N to recruit, 1-3 select mission, B to launch mission",
+            20,
+            20,
+            arcade.color.AQUA,
+            14,
         )
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.B:
-            battle_view = BattleView()
-            battle_view.setup()
-            self.window.show_view(battle_view)
+            self.launch_selected_mission()
         elif key == arcade.key.N:
             if game_state.budget_pool >= 5:
                 self.recruiting = True
@@ -159,6 +203,12 @@ class RPGView(arcade.View):
                 role = role_map.get(key, "samurai")
                 game_state.characters.append(create_character(f"Agent {idx}", role))
                 self.recruiting = False
+        elif key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3) and not any(
+            char.pending_points > 0 for char in game_state.characters
+        ):
+            idx = key - arcade.key.KEY_1
+            if idx < len(game_state.mission_templates):
+                game_state.selected_mission_index = idx
         else:
             # Allocate stat points if any
             for char in game_state.characters:
@@ -181,7 +231,13 @@ class RPGView(arcade.View):
 
 
 class BattleView(arcade.View):
-    def setup(self):
+    def setup(self, mission: MissionTemplate | None = None):
+        self.mission = mission or game_state.active_mission
+        if self.mission is None and game_state.mission_templates:
+            self.mission = MissionTemplate.from_dict(
+                game_state.mission_templates[game_state.selected_mission_index].to_dict()
+            )
+            game_state.active_mission = self.mission
         self.available_maps = [
             f for f in os.listdir("assets/maps") if f.lower().endswith(".jpeg")
         ]
@@ -201,7 +257,7 @@ class BattleView(arcade.View):
             sum(c.stats.level for c in game_state.characters) / len(game_state.characters)
             if game_state.characters else 1
         )
-        enemy_count = random.randint(1, 3)
+        enemy_count = self.mission.starting_enemy_count if self.mission else random.randint(1, 3)
         self.initial_enemy_count = enemy_count
         self.enemy_units = []
         for i in range(enemy_count):
@@ -227,7 +283,8 @@ class BattleView(arcade.View):
         self.turn_number = 1
         self.turn = "player"
         self.active_index = 0
-        self.message = ""
+        self.message = self.mission.objective_text if self.mission else ""
+        self.triggered_complication = None
         self.attack_timer = 0.0
         self.attack_line = None
         # Target selection state
@@ -267,7 +324,7 @@ class BattleView(arcade.View):
             self.start_player_turn()
 
     def end_battle(self, victory: bool) -> None:
-        """Finish the battle and return to the RPG view."""
+        """Finish the battle, apply mission fallout, and return to the RPG view."""
         defeated = self.initial_enemy_count if victory else 0
         if victory:
             game_state.x += 50 * defeated
@@ -278,9 +335,46 @@ class BattleView(arcade.View):
                     unit.character.gain_xp(50 * defeated)
                 if unit.health <= 0 and unit.character in game_state.characters:
                     game_state.characters.remove(unit.character)
+        self.resolve_mission_outcome(victory)
         rpg_view = RPGView()
         rpg_view.setup()
         self.window.show_view(rpg_view)
+
+    def resolve_mission_outcome(self, victory: bool) -> None:
+        if not self.mission:
+            return
+        consequences = (
+            self.mission.success_consequences if victory else self.mission.failure_consequences
+        )
+        for consequence in consequences:
+            game_state.apply_consequence(consequence)
+        complication = self.pick_complication()
+        if complication:
+            consequence = complication.consequence
+            if not consequence.affected_faction:
+                consequence.affected_faction = self.mission.target_faction
+            game_state.apply_consequence(consequence)
+            game_state.add_event(f"Complication triggered: {complication.trigger_text}")
+        game_state.active_mission = None
+
+    def pick_complication(self):
+        if not self.mission or self.triggered_complication:
+            return None
+        tag_intensity = sum(tag.intensity for tag in self.mission.tags)
+        risk_score = self.mission.risk_level + tag_intensity
+        eligible = [
+            complication
+            for complication in self.mission.possible_complications
+            if risk_score >= complication.risk_threshold
+            or any(
+                tag.name in {mission_tag.name for mission_tag in self.mission.tags}
+                for tag in complication.tags
+            )
+        ]
+        if not eligible:
+            return None
+        self.triggered_complication = random.choice(eligible)
+        return self.triggered_complication
         
     def run_enemy_ai(self):
         for enemy in list(self.enemy_units):
@@ -432,9 +526,19 @@ class BattleView(arcade.View):
         status = (
             f"Turn {self.turn_number} - {self.turn.capitalize()}  Player HP: {current_hp}"
         )
+        if self.mission:
+            status = f"{self.mission.title} | {status}"
         arcade.draw_text(status, 20, self.window.height - 20, arcade.color.AQUA, 14)
+        if self.mission:
+            arcade.draw_text(
+                self.mission.objective_text,
+                20,
+                self.window.height - 42,
+                arcade.color.LIGHT_GRAY,
+                12,
+            )
         if self.message:
-            arcade.draw_text(self.message, 20, self.window.height - 40, arcade.color.YELLOW, 16)
+            arcade.draw_text(self.message, 20, self.window.height - 62, arcade.color.YELLOW, 16)
         if self.turn == "ended":
             if not self.enemy_units:
                 msg = "Victory!"
