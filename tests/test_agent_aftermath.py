@@ -1,6 +1,8 @@
 """Agent mission aftermath rules."""
 
+import os
 import sys
+import tempfile
 import types
 import unittest
 
@@ -67,6 +69,7 @@ fake_arcade = types.SimpleNamespace(
 sys.modules.setdefault("arcade", fake_arcade)
 
 from game.agent_aftermath import apply_mission_aftermath
+from game.ui.dashboard import build_agent_aftermath_lines
 from game.character import Character
 from game.consequences import Consequence
 from game.gamestate import GameState
@@ -183,7 +186,45 @@ class AgentAftermathTest(unittest.TestCase):
                 for event in game_state.event_log
             )
         )
+        self.assertEqual(
+            game_state.latest_agent_aftermath,
+            [
+                "Aftermath: Survivor carries Event Log Test "
+                "(victory, stress 6/100, loyalty +1)."
+            ],
+        )
         self.assertIn("Event Log Test", game_state.characters[0].history[0])
+
+    def test_dashboard_report_shows_latest_compact_aftermath_first(self):
+        lines = [
+            "Aftermath: One carries Old Job.",
+            "Aftermath: Two carries New Job.",
+            "Aftermath: Three carries Final Job.",
+        ]
+
+        self.assertEqual(
+            build_agent_aftermath_lines(lines, limit=2),
+            ["Three carries Final Job.", "Two carries New Job."],
+        )
+
+    def test_latest_agent_aftermath_persists_through_save_load(self):
+        game_state = GameState()
+        game_state.latest_agent_aftermath = [
+            "Aftermath: Saved Agent carries Archive Raid."
+        ]
+
+        with tempfile.NamedTemporaryFile(delete=False) as save_file:
+            save_path = save_file.name
+        try:
+            game_state.save(save_path)
+            loaded_state = GameState.load(save_path)
+        finally:
+            os.unlink(save_path)
+
+        self.assertEqual(
+            loaded_state.latest_agent_aftermath,
+            ["Aftermath: Saved Agent carries Archive Raid."],
+        )
 
 
 if __name__ == "__main__":

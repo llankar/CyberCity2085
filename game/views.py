@@ -13,6 +13,7 @@ from .combat_system import (
 from .dossier import build_agent_dossier_lines
 from .ui.drawing import draw_line_group
 from .ui.dashboard import (
+    build_agent_aftermath_lines,
     build_district_status_lines,
     build_event_log_lines,
     build_faction_pressure_lines,
@@ -238,6 +239,14 @@ class RPGView(GameView):
                 arcade.color.LIGHT_GRAY,
                 11,
             )
+            y -= 28
+            draw_line_group(
+                "Aftermath Report",
+                build_agent_aftermath_lines(self.game_state.latest_agent_aftermath),
+                20,
+                y,
+                arcade.color.LIGHT_GRAY,
+            )
         if self.message:
             arcade.draw_text(self.message, 20, 42, arcade.color.YELLOW, 13)
         arcade.draw_text(
@@ -407,6 +416,7 @@ class BattleView(GameView):
             victory,
             self.triggered_complication,
         )
+        self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
         for line in aftermath_lines:
             self.game_state.add_event(line)
         rpg_view = RPGView(self.game_state)
