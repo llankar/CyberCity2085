@@ -17,12 +17,14 @@ python main.py
 ## Controls
 
 ### Corp View
+- District Pulse and Latest Fallout panels surface unrest, media heat and consequences
 - Each turn grants funds to invest in the corporation
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game
 
 ### City View
+- District Pressure, Faction Pressure and Operations Log panels show city consequences
 - `7-9` allocate city budget
 
 ### RPG View
