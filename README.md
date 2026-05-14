@@ -34,11 +34,13 @@ python main.py
 
 ### Battle View
 - Arrow keys move the unit
+- `E` interact with tactical objective markers
 - `Space` melee attack
 - `F` shoot at range
 - `P` psi attack
 - `V` psi defense
 - `D` defend against physical attacks
-- PC and enemy icons are displayed on the map
+- PC, enemy and objective markers are displayed on the map
+- Complete the battlefield objective or eliminate all enemies to win
 - `Esc` return to management
 - On first entering, choose a background image from `assets/maps`
