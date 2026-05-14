@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Tuple
+from typing import TYPE_CHECKING, Tuple
 
 from .character import Character
-import arcade
-
 from .stats import PlayerStats, EnemyStats, perform_attack
+
+if TYPE_CHECKING:
+    import arcade
+
 
 @dataclass
 class Unit:
@@ -32,7 +36,10 @@ class Unit:
         self.is_psi_defending = False
 
     def distance_to(self, other: "Unit") -> float:
-        return ((self.position[0] - other.position[0]) ** 2 + (self.position[1] - other.position[1]) ** 2) ** 0.5
+        return (
+            (self.position[0] - other.position[0]) ** 2
+            + (self.position[1] - other.position[1]) ** 2
+        ) ** 0.5
 
     def _perform_attack(self, other: "Unit", stat: str, range_: int) -> int:
         if self.action_points <= 0 or not self.stats or not other.stats:
