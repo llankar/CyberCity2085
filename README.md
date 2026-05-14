@@ -28,6 +28,7 @@ python main.py
 - `7-9` allocate city budget
 
 ### RPG View
+- Readiness Brief previews which agents may crack under the selected mission's stress
 - `N` recruit new agent
 - `B` start a battle
 
