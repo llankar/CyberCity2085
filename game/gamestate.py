@@ -28,6 +28,16 @@ class GameState:
         }
     )
 
+    # Strategic resources extracted from tactical missions and spent on upgrades
+    strategic_resources: dict = field(
+        default_factory=lambda: {
+            "credits": 0,
+            "intel": 0,
+            "salvage": 0,
+            "influence": 0,
+        }
+    )
+
     # Management data for the city phase
     city_budget: dict = field(
         default_factory=lambda: {
@@ -89,6 +99,68 @@ class GameState:
             return True
         return False
 
+    def award_mission_resources(
+        self, mission: MissionTemplate | None, victory: bool, defeated: int
+    ) -> dict:
+        """Award compact strategic resources from mission risk and performance."""
+        if not mission:
+            return {}
+
+        risk = max(1, int(getattr(mission, "risk_level", 1)))
+        defeated = max(0, int(defeated))
+        rewards = {key: 0 for key in self.strategic_resources}
+
+        if victory:
+            objective_type = getattr(mission, "objective_type", "eliminate")
+            rewards["credits"] = 10 + risk * 5 + defeated * 2
+            rewards["intel"] = max(1, risk // 2)
+            rewards["salvage"] = max(1, defeated // 2)
+            rewards["influence"] = 1 if risk >= 3 else 0
+
+            if objective_type in {"data_theft", "extract"}:
+                rewards["intel"] += 1
+            if objective_type in {"sabotage", "eliminate"}:
+                rewards["salvage"] += 1
+            if objective_type == "extract":
+                rewards["influence"] += 1
+        elif defeated >= 2:
+            rewards["salvage"] = 1
+
+        rewards = {key: value for key, value in rewards.items() if value > 0}
+        for key, value in rewards.items():
+            self.strategic_resources[key] = self.strategic_resources.get(key, 0) + value
+
+        if rewards:
+            reward_text = ", ".join(f"+{value} {key}" for key, value in rewards.items())
+            self.add_event(f"Extraction secured: {reward_text}.")
+        else:
+            self.add_event("Extraction failed: no strategic resources recovered.")
+        return rewards
+
+    def spend_resource(self, resource_key: str, amount: int) -> bool:
+        """Spend one strategic resource safely when enough stock is available."""
+        if amount < 0:
+            return False
+        if self.strategic_resources.get(resource_key, 0) < amount:
+            return False
+        self.strategic_resources[resource_key] -= amount
+        return True
+
+    def can_spend_resources(self, costs: dict[str, int]) -> bool:
+        """Return whether all strategic-resource costs are currently affordable."""
+        return all(
+            self.strategic_resources.get(resource_key, 0) >= amount
+            for resource_key, amount in costs.items()
+        )
+
+    def spend_resources(self, costs: dict[str, int]) -> bool:
+        """Atomically spend several strategic resources when all costs are affordable."""
+        if not self.can_spend_resources(costs):
+            return False
+        for resource_key, amount in costs.items():
+            self.strategic_resources[resource_key] -= amount
+        return True
+
     def advance_turn(self) -> None:
         """Move to the next turn, tick recovery timers, and refresh the budget."""
         recovered_agents = []
@@ -136,7 +208,9 @@ class GameState:
                 if "faction_legitimacy" in effects:
                     faction.public_legitimacy += effects["faction_legitimacy"]
                 for tag in consequence.tags:
-                    if all(existing.name != tag.name for existing in faction.active_tags):
+                    if all(
+                        existing.name != tag.name for existing in faction.active_tags
+                    ):
                         faction.active_tags.append(tag)
                 faction.clamp_pressure()
 
@@ -179,6 +253,7 @@ class GameState:
             "budget_pool": self.budget_pool,
             "corp_budget": self.corp_budget,
             "city_budget": self.city_budget,
+            "strategic_resources": self.strategic_resources,
             "characters": [c.to_dict() for c in self.characters],
             "x": self.x,
             "base_name": self.base_name,
@@ -211,6 +286,7 @@ class GameState:
         gs = cls()
         gs.corp_budget.update(data.get("corp_budget", {}))
         gs.city_budget.update(data.get("city_budget", {}))
+        gs.strategic_resources.update(data.get("strategic_resources", {}))
         gs.turn = data.get("turn", 1)
         gs.budget_pool = data.get("budget_pool", gs.compute_budget())
         gs.x = data.get("x", 0)
