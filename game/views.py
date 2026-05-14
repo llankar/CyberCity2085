@@ -1,6 +1,7 @@
 import arcade
 import os
 
+from .agent_aftermath import apply_mission_aftermath
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .character import Character
 from .combat_system import (
@@ -386,6 +387,7 @@ class BattleView(GameView):
         if victory:
             self.game_state.x += 50 * defeated
         processed_character_ids = set()
+        surviving_participants = []
         all_player_units = list(self.player_units) + list(self.defeated_player_units)
         for unit in all_player_units:
             if not unit.character or id(unit.character) in processed_character_ids:
@@ -395,9 +397,18 @@ class BattleView(GameView):
                 self.resolve_defeated_player_unit(unit)
                 continue
             unit.character.stats.hp = unit.health
+            surviving_participants.append(unit.character)
             if victory:
                 unit.character.gain_xp(50 * defeated)
         self.resolve_mission_outcome(victory)
+        aftermath_lines = apply_mission_aftermath(
+            surviving_participants,
+            self.mission,
+            victory,
+            self.triggered_complication,
+        )
+        for line in aftermath_lines:
+            self.game_state.add_event(line)
         rpg_view = RPGView(self.game_state)
         rpg_view.setup()
         self.window.show_view(rpg_view)
