@@ -29,6 +29,7 @@ from .ui.dashboard import (
     build_recent_consequence_lines,
     build_resource_summary_line,
 )
+from .ui.mission_board import build_mission_board_lines, build_selected_mission_lines
 from .gamestate import GameState
 from .mission_objectives import create_battle_objective, interact_with_objective
 from .mission_system import (
@@ -387,39 +388,48 @@ class RPGView(GameView):
             )
             y -= 20
         else:
-            arcade.draw_text("Mission Board", 20, y, arcade.color.YELLOW, 16)
-            y -= 22
-            for idx, mission in enumerate(self.game_state.mission_templates, start=1):
-                prefix = (
-                    ">" if idx - 1 == self.game_state.selected_mission_index else " "
-                )
+            mission_lines = build_mission_board_lines(
+                self.game_state.mission_templates,
+                self.game_state.selected_mission_index,
+            )
+            mission_board_height = 34 + len(mission_lines) * 16
+            draw_panel(
+                14,
+                y - mission_board_height,
+                self.window.width - 28,
+                mission_board_height,
+                "Mission Board",
+            )
+            y -= 28
+            for line in mission_lines:
                 arcade.draw_text(
-                    f"{prefix}{idx}. {mission.title} | {mission.target_faction} | "
-                    f"Risk {mission.risk_level} | Enemies {mission.starting_enemy_count}",
+                    line,
                     20,
                     y,
                     (
                         arcade.color.AQUA
-                        if idx - 1 == self.game_state.selected_mission_index
+                        if line.startswith(">")
                         else arcade.color.WHITE
                     ),
                     12,
                 )
                 y -= 16
             mission = self.selected_mission()
-            arcade.draw_text(mission.objective_text, 40, y, arcade.color.LIGHT_GRAY, 11)
-            y -= 16
-            complication_names = ", ".join(
-                complication.name for complication in mission.possible_complications
-            )
-            arcade.draw_text(
-                f"Complications: {complication_names}",
-                40,
-                y,
-                arcade.color.LIGHT_GRAY,
-                11,
+            y -= 8
+            mission_detail_lines = build_selected_mission_lines(mission)
+            detail_height = 34 + len(mission_detail_lines) * 15
+            draw_panel(
+                14,
+                y - detail_height,
+                self.window.width - 28,
+                detail_height,
+                "Selected Mission",
             )
             y -= 28
+            for line in mission_detail_lines:
+                arcade.draw_text(line, 30, y, arcade.color.LIGHT_GRAY, 11)
+                y -= 15
+            y -= 8
             y = draw_line_group(
                 "Readiness Brief",
                 build_agent_readiness_lines(self.game_state.characters, mission),
