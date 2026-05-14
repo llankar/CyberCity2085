@@ -3,6 +3,7 @@ import os
 import random
 
 from .character import Character
+from .dossier import build_agent_dossier_lines
 from .stats import PlayerStats, EnemyStats
 from .gamestate import GameState
 from .unit import Unit
@@ -116,9 +117,10 @@ class RPGView(arcade.View):
         arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
         y = self.window.height - 80
         for char in game_state.characters:
-            s = char.stats
-            info = f"{char.name} ({char.role}) Lv{s.level} HP{s.hp}/{s.max_hp} STR{s.str} AGI{s.agi} PSI{s.psi} DEF{s.defense} CON{s.con} CHA{s.cha} XP{s.xp}"
+            info, dossier = build_agent_dossier_lines(char)
             arcade.draw_text(info, 20, y, arcade.color.WHITE, 14)
+            arcade.draw_text(dossier, 40, y - 15, arcade.color.LIGHT_GRAY, 12)
+            y -= 15
             if char.pending_points > 0:
                 arcade.draw_text(
                     f"  Allocate {char.pending_points} pts: 1=PSI 2=STR 3=AGI 4=CON 5=CHA",
