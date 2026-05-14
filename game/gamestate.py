@@ -56,6 +56,7 @@ class GameState:
         default_factory=lambda: [create_opening_consequence()]
     )
     latest_agent_aftermath: list[str] = field(default_factory=list)
+    selected_agent_names: list[str] = field(default_factory=list)
     event_log: list[str] = field(
         default_factory=lambda: [
             "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
@@ -193,6 +194,7 @@ class GameState:
                 self.active_mission.to_dict() if self.active_mission else None
             ),
             "selected_mission_index": self.selected_mission_index,
+            "selected_agent_names": list(self.selected_agent_names),
             "recent_consequences": [
                 consequence.to_dict() for consequence in self.recent_consequences
             ],
@@ -232,6 +234,7 @@ class GameState:
             else None
         )
         gs.selected_mission_index = data.get("selected_mission_index", 0)
+        gs.selected_agent_names = list(data.get("selected_agent_names", []))
         gs.recent_consequences = [
             Consequence.from_dict(consequence)
             for consequence in data.get("recent_consequences", [])
@@ -241,4 +244,9 @@ class GameState:
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
+        from .deployment import sanitize_selected_agent_names
+
+        gs.selected_agent_names = sanitize_selected_agent_names(
+            gs.characters, gs.selected_agent_names
+        )
         return gs

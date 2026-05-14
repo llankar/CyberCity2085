@@ -25,6 +25,24 @@ class RecoveryStatusTest(unittest.TestCase):
 
         self.assertEqual([unit.character for unit in units], [ready])
 
+
+    def test_create_player_units_skips_unselected_roster_members(self):
+        selected = Character("Selected")
+        bench = Character("Bench")
+
+        units = create_player_units(
+            [selected, bench], selected_agent_names=["Selected"]
+        )
+
+        self.assertEqual([unit.character for unit in units], [selected])
+
+    def test_create_player_units_empty_selection_spawns_no_units(self):
+        ready = Character("Ready")
+
+        units = create_player_units([ready], selected_agent_names=[])
+
+        self.assertEqual(units, [])
+
     def test_advance_turn_reduces_recovery_and_restores_deployment(self):
         agent = Character("Stitch", recovery_turns=1)
         game_state = GameState(characters=[agent])

@@ -158,6 +158,63 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
             )
         )
 
+
+    def test_rpg_view_shows_selected_agent_marker(self):
+        drawn_text = []
+        original_draw_text = views.arcade.draw_text
+        views.arcade.draw_text = lambda text, *args, **kwargs: drawn_text.append(text)
+        game_state = GameState(
+            characters=[Character("Marked")], selected_agent_names=["Marked"]
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        try:
+            view.on_draw()
+        finally:
+            views.arcade.draw_text = original_draw_text
+
+        self.assertTrue(any("> [X] Marked" in text for text in drawn_text))
+
+    def test_launch_with_agents_but_none_selected_sets_selection_message(self):
+        game_state = GameState(
+            characters=[Character("Calm", stress=40)],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+
+        view.on_key_press(views.arcade.key.B, None)
+
+        self.assertIsNone(view.window.shown_view)
+        self.assertIsNone(game_state.active_mission)
+        self.assertEqual(
+            view.message,
+            "Select at least one deployable agent before launching an operation.",
+        )
+
+    def test_recovering_agent_cannot_be_selected_for_launch(self):
+        game_state = GameState(
+            characters=[Character("Wounded", recovery_turns=2)],
+            selected_agent_names=["Wounded"],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+
+        view.on_key_press(views.arcade.key.ENTER, None)
+        view.on_key_press(views.arcade.key.B, None)
+
+        self.assertEqual(game_state.selected_agent_names, [])
+        self.assertIsNone(view.window.shown_view)
+        self.assertIsNone(game_state.active_mission)
+        self.assertEqual(
+            view.message,
+            "Recruit at least one deployable agent before launching an operation.",
+        )
+
     def test_stable_agent_launches_without_breakdown_confirmation(self):
         game_state = GameState(
             characters=[Character("Calm", stress=40)],
@@ -169,6 +226,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
+            view.on_key_press(views.arcade.key.ENTER, None)
             view.on_key_press(views.arcade.key.B, None)
         finally:
             views.BattleView = original_battle_view
@@ -182,6 +240,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
     def test_breaking_risk_blocks_first_launch_attempt_with_warning(self):
         game_state = GameState(
             characters=[Character("Ghost", stress=80)],
+            selected_agent_names=["Ghost"],
             mission_templates=[_mission()],
         )
         view = views.RPGView(game_state)
@@ -202,6 +261,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
     def test_second_breaking_risk_launch_attempt_proceeds_and_logs_event(self):
         game_state = GameState(
             characters=[Character("Ghost", stress=80)],
+            selected_agent_names=["Ghost"],
             mission_templates=[_mission()],
         )
         view = views.RPGView(game_state)
@@ -228,6 +288,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
     def test_breaking_confirmation_only_applies_to_same_selected_mission(self):
         game_state = GameState(
             characters=[Character("Ghost", stress=80)],
+            selected_agent_names=["Ghost"],
             mission_templates=[
                 _mission("relay_burn", "Relay Burn"),
                 _mission("black_ice", "Black Ice Sweep"),
@@ -246,6 +307,30 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertTrue(view.pending_breakdown_confirmation)
         self.assertEqual(view.pending_breakdown_mission_id, "black_ice")
 
+    def test_breakdown_warning_only_checks_selected_agents(self):
+        risky = Character("Ghost", stress=80)
+        calm = Character("Calm", stress=10)
+        game_state = GameState(
+            characters=[risky, calm],
+            selected_agent_names=["Calm"],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        original_battle_view = views.BattleView
+        views.BattleView = _FakeBattleView
+        try:
+            view.on_key_press(views.arcade.key.B, None)
+        finally:
+            views.BattleView = original_battle_view
+
+        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertFalse(view.pending_breakdown_confirmation)
+        self.assertFalse(
+            any("Command forced Ghost" in event for event in game_state.event_log)
+        )
+
     def test_recruit_then_launches_selected_mission(self):
         game_state = GameState()
         recruit_agent(game_state.characters, "samurai")
@@ -255,6 +340,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
+            view.on_key_press(views.arcade.key.ENTER, None)
             view.on_key_press(views.arcade.key.B, None)
         finally:
             views.BattleView = original_battle_view

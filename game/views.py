@@ -11,6 +11,11 @@ from .combat_system import (
     is_occupied as combat_is_occupied,
     run_enemy_ai as run_enemy_ai_system,
 )
+from .deployment import (
+    sanitize_selected_agent_names,
+    selected_deployable_agents,
+    toggle_agent_selection,
+)
 from .dossier import build_agent_dossier_lines
 from .ui.drawing import draw_line_group
 from .ui.dashboard import (
@@ -164,6 +169,10 @@ class RPGView(GameView):
         self.message = ""
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
+        self.deployment_cursor_index = 0
+        self.game_state.selected_agent_names = sanitize_selected_agent_names(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
         ensure_mission_templates(self.game_state)
 
     def selected_mission(self) -> MissionTemplate:
@@ -171,6 +180,14 @@ class RPGView(GameView):
 
     def has_deployable_agent(self) -> bool:
         return any(is_deployable(char) for char in self.game_state.characters)
+
+    def selected_deployment(self) -> list[Character]:
+        self.game_state.selected_agent_names = sanitize_selected_agent_names(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        return selected_deployable_agents(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
 
     def launch_selected_mission(self) -> None:
         if not self.has_deployable_agent():
@@ -181,10 +198,17 @@ class RPGView(GameView):
             self.pending_breakdown_mission_id = None
             return
 
+        selected_squad = self.selected_deployment()
+        if not selected_squad:
+            self.message = (
+                "Select at least one deployable agent before launching an operation."
+            )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
+            return
+
         selected_mission = self.selected_mission()
-        agents_at_risk = agents_at_breaking_risk(
-            self.game_state.characters, selected_mission
-        )
+        agents_at_risk = agents_at_breaking_risk(selected_squad, selected_mission)
         confirmation_matches = (
             self.pending_breakdown_confirmation
             and self.pending_breakdown_mission_id == selected_mission.id
@@ -217,10 +241,15 @@ class RPGView(GameView):
         self.clear()
         arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
         y = self.window.height - 80
-        for char in self.game_state.characters:
+        selected_names = set(self.game_state.selected_agent_names)
+        for idx, char in enumerate(self.game_state.characters):
             info, dossier = build_agent_dossier_lines(char)
             if char.recovery_turns > 0:
                 info = f"{info} | Recovery: {char.recovery_turns} turns"
+            cursor = ">" if idx == self.deployment_cursor_index else " "
+            selected = "[X]" if char.name in selected_names else "[ ]"
+            availability = "" if is_deployable(char) else " | Unavailable"
+            info = f"{cursor} {selected} {info}{availability}"
             arcade.draw_text(info, 20, y, arcade.color.WHITE, 14)
             arcade.draw_text(dossier, 40, y - 15, arcade.color.LIGHT_GRAY, 12)
             y -= 15
@@ -294,7 +323,7 @@ class RPGView(GameView):
         if self.message:
             arcade.draw_text(self.message, 20, 42, arcade.color.YELLOW, 13)
         arcade.draw_text(
-            "Press N to recruit, 1-3 select mission, B to launch mission",
+            "Press N recruit, 1-3 mission, A/D agent, Enter toggle, B launch",
             20,
             20,
             arcade.color.AQUA,
@@ -304,6 +333,26 @@ class RPGView(GameView):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.B:
             self.launch_selected_mission()
+        elif key in (arcade.key.A, arcade.key.D) and self.game_state.characters:
+            step = -1 if key == arcade.key.A else 1
+            self.deployment_cursor_index = (
+                self.deployment_cursor_index + step
+            ) % len(self.game_state.characters)
+            self.message = ""
+        elif (
+            key in (arcade.key.ENTER, arcade.key.RETURN)
+            and self.game_state.characters
+        ):
+            (
+                self.game_state.selected_agent_names,
+                self.message,
+            ) = toggle_agent_selection(
+                self.game_state.characters,
+                self.game_state.selected_agent_names,
+                self.deployment_cursor_index,
+            )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
         elif key == arcade.key.N:
             if self.game_state.budget_pool >= 5:
                 self.recruiting = True
@@ -321,6 +370,7 @@ class RPGView(GameView):
                 }
                 role = role_map.get(key, "samurai")
                 recruit_agent(self.game_state.characters, role)
+                self.deployment_cursor_index = len(self.game_state.characters) - 1
                 self.recruiting = False
                 self.message = ""
         elif key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3) and not any(
@@ -368,10 +418,18 @@ class BattleView(GameView):
         self.map_index = None
         self.background = None
         self.camera = arcade.Camera2D()
-        self.player_units = create_player_units(self.game_state.characters)
+        self.game_state.selected_agent_names = sanitize_selected_agent_names(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        selected_squad = selected_deployable_agents(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        self.player_units = create_player_units(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
         self.defeated_player_units = []
         self.enemy_units, self.initial_enemy_count = create_enemy_units(
-            self.mission, self.game_state.characters
+            self.mission, selected_squad
         )
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
@@ -456,6 +514,9 @@ class BattleView(GameView):
             surviving_participants.append(unit.character)
             if victory:
                 unit.character.gain_xp(50 * defeated)
+        self.game_state.selected_agent_names = sanitize_selected_agent_names(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
         self.resolve_mission_outcome(victory)
         aftermath_lines = apply_mission_aftermath(
             surviving_participants,
