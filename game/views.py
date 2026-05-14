@@ -17,13 +17,17 @@ from .deployment import (
     toggle_agent_selection,
 )
 from .dossier import build_agent_dossier_lines
+from .ui import palette
 from .ui.drawing import draw_line_group
+from .ui.panels import draw_panel, draw_status_bar
 from .ui.dashboard import (
     build_agent_aftermath_lines,
+    build_command_status_line,
     build_district_status_lines,
     build_event_log_lines,
     build_faction_pressure_lines,
     build_recent_consequence_lines,
+    build_resource_summary_line,
 )
 from .gamestate import GameState
 from .mission_objectives import create_battle_objective, interact_with_objective
@@ -40,6 +44,13 @@ from .unit import Unit
 
 
 class CorpView(GameView):
+    CORP_UPGRADE_COSTS = {
+        arcade.key.KEY_1: ("research", {"intel": 5}),
+        arcade.key.KEY_2: ("security", {"credits": 10, "salvage": 2}),
+        arcade.key.KEY_3: ("politics", {"influence": 3}),
+        arcade.key.KEY_4: ("black_ops", {"credits": 5, "intel": 3}),
+    }
+
     def setup(self):
         self.text = "Corporation Management"
         if self.game_state.budget_pool <= 0:
@@ -47,41 +58,93 @@ class CorpView(GameView):
 
     def on_draw(self):
         self.clear()
-        y = self.window.height - 40
-        arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
-        y -= 40
-        arcade.draw_text(
-            f"Turn {self.game_state.turn} - Budget: {self.game_state.budget_pool}",
-            20,
-            y,
-            arcade.color.AQUA,
-            14,
+        draw_status_bar(
+            build_command_status_line(
+                self.game_state.turn,
+                self.game_state.base_name,
+                self.game_state.strategic_resources,
+                self.game_state.district,
+            ),
+            self.window.width,
+            self.window.height,
         )
-        y -= 22
-        for k, v in self.game_state.corp_budget.items():
-            arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
-            y -= 18
 
-        y -= 8
-        y = draw_line_group(
+        y = self.window.height - 58
+        draw_panel(14, y - 132, 360, 126, "Corp Allocation")
+        arcade.draw_text(self.text.upper(), 28, y - 26, palette.HEADER, 18)
+        arcade.draw_text(
+            f"Auto Budget Pool: {self.game_state.budget_pool}",
+            32,
+            y - 52,
+            palette.MUTED_TEXT,
+            12,
+        )
+        arcade.draw_text(
+            build_resource_summary_line(self.game_state.strategic_resources),
+            32,
+            y - 70,
+            palette.RESOURCE,
+            11,
+        )
+        budget_y = y - 94
+        for k, v in self.game_state.corp_budget.items():
+            arcade.draw_text(f"{k}: {v}", 34, budget_y, palette.TEXT, 12)
+            budget_y -= 16
+
+        right_x = 392
+        draw_panel(
+            right_x,
+            y - 132,
+            max(360, self.window.width - right_x - 18),
+            126,
+            "Upgrade Sinks",
+        )
+        upgrade_lines = [
+            "1 Research: 5 intel",
+            "2 Security: 10 credits + 2 salvage",
+            "3 Politics: 3 influence",
+            "4 Black Ops: 5 credits + 3 intel",
+        ]
+        line_y = y - 38
+        for line in upgrade_lines:
+            arcade.draw_text(line, right_x + 18, line_y, palette.ACCENT, 12)
+            line_y -= 20
+
+        y -= 158
+        draw_panel(14, y - 104, self.window.width - 28, 104, "District Pulse")
+        next_y = draw_line_group(
             "District Pulse",
             build_district_status_lines(self.game_state.district),
-            20,
-            y,
-            arcade.color.LIGHT_GRAY,
+            30,
+            y - 28,
+            palette.TEXT,
         )
+        draw_panel(14, next_y - 96, self.window.width - 28, 96, "Latest Fallout")
         draw_line_group(
             "Latest Fallout",
             build_recent_consequence_lines(self.game_state.recent_consequences),
-            20,
-            y,
-            arcade.color.LIGHT_GRAY,
+            30,
+            next_y - 28,
+            palette.MUTED_TEXT,
         )
 
         arcade.draw_text(
-            "1-4 to invest, S to save, L to load", 20, 40, arcade.color.AQUA, 14
+            "1-4 spend resources, S save, L load", 20, 40, palette.ACCENT, 14
         )
-        arcade.draw_text("Press C for City, R for RPG", 20, 20, arcade.color.AQUA, 14)
+        arcade.draw_text("Press C for City, R for RPG", 20, 20, palette.ACCENT, 14)
+
+    def _buy_corp_upgrade(self, key: str, costs: dict[str, int]) -> None:
+        if self.game_state.spend_resources(costs):
+            self.game_state.corp_budget[key] += 10
+            cost_text = ", ".join(
+                f"-{amount} {resource}" for resource, amount in costs.items()
+            )
+            self.game_state.add_event(f"Corp upgrade authorized: {key} ({cost_text}).")
+            return
+        cost_text = ", ".join(
+            f"{amount} {resource}" for resource, amount in costs.items()
+        )
+        self.game_state.add_event(f"Upgrade denied: {key} requires {cost_text}.")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.C:
@@ -92,14 +155,9 @@ class CorpView(GameView):
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
             self.window.show_view(rpg_view)
-        elif key == arcade.key.KEY_1:
-            self.game_state.allocate_corp_funds("research", 10)
-        elif key == arcade.key.KEY_2:
-            self.game_state.allocate_corp_funds("security", 10)
-        elif key == arcade.key.KEY_3:
-            self.game_state.allocate_corp_funds("politics", 10)
-        elif key == arcade.key.KEY_4:
-            self.game_state.allocate_corp_funds("black_ops", 10)
+        elif key in self.CORP_UPGRADE_COSTS:
+            budget_key, costs = self.CORP_UPGRADE_COSTS[key]
+            self._buy_corp_upgrade(budget_key, costs)
         elif key == arcade.key.S:
             self.game_state.save("savegame.json")
         elif key == arcade.key.L:
@@ -109,55 +167,111 @@ class CorpView(GameView):
 
 
 class CityView(GameView):
+    CITY_UPGRADE_COSTS = {
+        arcade.key.KEY_7: ("armaments", {"credits": 5, "salvage": 3}),
+        arcade.key.KEY_8: ("garrisons", {"credits": 10, "influence": 2}),
+        arcade.key.KEY_9: ("defense_zones", {"credits": 5, "salvage": 5}),
+    }
+
     def setup(self):
         self.text = "City Management"
 
     def on_draw(self):
         self.clear()
-        y = self.window.height - 40
-        arcade.draw_text(self.text, 20, y, arcade.color.WHITE, 20)
-        y -= 40
-        for k, v in self.game_state.city_budget.items():
-            arcade.draw_text(f"{k}: {v}", 20, y, arcade.color.WHITE, 14)
-            y -= 20
+        draw_status_bar(
+            build_command_status_line(
+                self.game_state.turn,
+                self.game_state.base_name,
+                self.game_state.strategic_resources,
+                self.game_state.district,
+            ),
+            self.window.width,
+            self.window.height,
+        )
 
-        y -= 12
+        y = self.window.height - 58
+        draw_panel(14, y - 116, 360, 110, "City Grid")
+        arcade.draw_text(self.text.upper(), 28, y - 26, palette.HEADER, 18)
+        arcade.draw_text(
+            build_resource_summary_line(self.game_state.strategic_resources),
+            32,
+            y - 52,
+            palette.RESOURCE,
+            11,
+        )
+        budget_y = y - 78
+        for k, v in self.game_state.city_budget.items():
+            arcade.draw_text(f"{k}: {v}", 34, budget_y, palette.TEXT, 12)
+            budget_y -= 18
+
+        right_x = 392
+        draw_panel(
+            right_x,
+            y - 116,
+            max(360, self.window.width - right_x - 18),
+            110,
+            "District Investments",
+        )
+        upgrade_lines = [
+            "7 Armaments: 5 credits + 3 salvage",
+            "8 Garrisons: 10 credits + 2 influence",
+            "9 Defense Zones: 5 credits + 5 salvage",
+        ]
+        line_y = y - 38
+        for line in upgrade_lines:
+            arcade.draw_text(line, right_x + 18, line_y, palette.ACCENT, 12)
+            line_y -= 22
+
+        y -= 140
+        draw_panel(14, y - 104, self.window.width - 28, 104, "District Pressure")
         y = draw_line_group(
             "District Pressure",
             build_district_status_lines(self.game_state.district),
-            20,
-            y,
-            arcade.color.LIGHT_GRAY,
+            30,
+            y - 28,
+            palette.TEXT,
         )
+        draw_panel(14, y - 104, self.window.width - 28, 104, "Faction Pressure")
         y = draw_line_group(
             "Faction Pressure",
             build_faction_pressure_lines(self.game_state.factions),
-            20,
-            y,
-            arcade.color.LIGHT_GRAY,
+            30,
+            y - 28,
+            palette.MUTED_TEXT,
         )
+        draw_panel(14, y - 116, self.window.width - 28, 116, "Operations Log")
         draw_line_group(
             "Operations Log",
             build_event_log_lines(self.game_state.event_log),
-            20,
-            y,
-            arcade.color.LIGHT_GRAY,
+            30,
+            y - 28,
+            palette.MUTED_TEXT,
         )
 
-        arcade.draw_text("7-9 to invest", 20, 40, arcade.color.AQUA, 14)
-        arcade.draw_text("Press R for RPG", 20, 20, arcade.color.AQUA, 14)
+        arcade.draw_text("7-9 spend resources", 20, 40, palette.ACCENT, 14)
+        arcade.draw_text("Press R for RPG", 20, 20, palette.ACCENT, 14)
+
+    def _buy_city_upgrade(self, key: str, costs: dict[str, int]) -> None:
+        if self.game_state.spend_resources(costs):
+            self.game_state.city_budget[key] += 10
+            cost_text = ", ".join(
+                f"-{amount} {resource}" for resource, amount in costs.items()
+            )
+            self.game_state.add_event(f"City investment routed: {key} ({cost_text}).")
+            return
+        cost_text = ", ".join(
+            f"{amount} {resource}" for resource, amount in costs.items()
+        )
+        self.game_state.add_event(f"Investment denied: {key} requires {cost_text}.")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.R:
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
             self.window.show_view(rpg_view)
-        elif key == arcade.key.KEY_7:
-            self.game_state.adjust_city_budget("armaments", 10)
-        elif key == arcade.key.KEY_8:
-            self.game_state.adjust_city_budget("garrisons", 10)
-        elif key == arcade.key.KEY_9:
-            self.game_state.adjust_city_budget("defense_zones", 10)
+        elif key in self.CITY_UPGRADE_COSTS:
+            budget_key, costs = self.CITY_UPGRADE_COSTS[key]
+            self._buy_city_upgrade(budget_key, costs)
 
 
 class RPGView(GameView):
@@ -335,13 +449,12 @@ class RPGView(GameView):
             self.launch_selected_mission()
         elif key in (arcade.key.A, arcade.key.D) and self.game_state.characters:
             step = -1 if key == arcade.key.A else 1
-            self.deployment_cursor_index = (
-                self.deployment_cursor_index + step
-            ) % len(self.game_state.characters)
+            self.deployment_cursor_index = (self.deployment_cursor_index + step) % len(
+                self.game_state.characters
+            )
             self.message = ""
         elif (
-            key in (arcade.key.ENTER, arcade.key.RETURN)
-            and self.game_state.characters
+            key in (arcade.key.ENTER, arcade.key.RETURN) and self.game_state.characters
         ):
             (
                 self.game_state.selected_agent_names,
@@ -497,8 +610,10 @@ class BattleView(GameView):
 
     def end_battle(self, victory: bool) -> None:
         """Finish the battle, apply mission fallout, and return to the RPG view."""
-        defeated = self.initial_enemy_count if victory else 0
+        remaining_enemies = len(getattr(self, "enemy_units", []))
+        defeated = max(0, self.initial_enemy_count - remaining_enemies)
         if victory:
+            defeated = self.initial_enemy_count
             self.game_state.x += 50 * defeated
         processed_character_ids = set()
         surviving_participants = []
@@ -517,6 +632,7 @@ class BattleView(GameView):
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
+        self.game_state.award_mission_resources(self.mission, victory, defeated)
         self.resolve_mission_outcome(victory)
         aftermath_lines = apply_mission_aftermath(
             surviving_participants,
@@ -818,9 +934,7 @@ class BattleView(GameView):
         # Normal input handling when not selecting target
         if key == arcade.key.E:
             if not self.battle_objective:
-                self.message = (
-                    "No battlefield objective on this mission. Eliminate enemies to win."
-                )
+                self.message = "No battlefield objective on this mission. Eliminate enemies to win."
             else:
                 completed, message = interact_with_objective(
                     player.position, self.battle_objective
