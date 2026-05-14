@@ -3,6 +3,7 @@ import os
 import random
 
 from .character import Character
+from .battle_outcomes import resolve_defeated_agent_outcome
 from .dossier import build_agent_dossier_lines
 from .stats import PlayerStats, EnemyStats
 from .gamestate import GameState
@@ -106,8 +107,6 @@ class CityView(arcade.View):
 
 class RPGView(arcade.View):
     def setup(self):
-        if not game_state.characters:
-            game_state.characters.append(Character(name="Agent 1"))
         self.text = "RPG Phase"
         self.recruiting = False
         self.selected_role = None
@@ -253,6 +252,7 @@ class BattleView(arcade.View):
             )
             for i, char in enumerate(game_state.characters)
         ]
+        self.defeated_player_units = []
         avg_level = (
             sum(c.stats.level for c in game_state.characters) / len(game_state.characters)
             if game_state.characters else 1
@@ -328,17 +328,38 @@ class BattleView(arcade.View):
         defeated = self.initial_enemy_count if victory else 0
         if victory:
             game_state.x += 50 * defeated
-        for unit in list(self.player_units):
-            if unit.character:
-                unit.character.stats.hp = unit.health
-                if victory:
-                    unit.character.gain_xp(50 * defeated)
-                if unit.health <= 0 and unit.character in game_state.characters:
-                    game_state.characters.remove(unit.character)
+        processed_character_ids = set()
+        all_player_units = list(self.player_units) + list(self.defeated_player_units)
+        for unit in all_player_units:
+            if not unit.character or id(unit.character) in processed_character_ids:
+                continue
+            processed_character_ids.add(id(unit.character))
+            if unit.health <= 0:
+                self.resolve_defeated_player_unit(unit)
+                continue
+            unit.character.stats.hp = unit.health
+            if victory:
+                unit.character.gain_xp(50 * defeated)
         self.resolve_mission_outcome(victory)
         rpg_view = RPGView()
         rpg_view.setup()
         self.window.show_view(rpg_view)
+
+    def resolve_defeated_player_unit(self, unit: Unit) -> None:
+        """Resolve a downed agent's vertical-slice post-battle outcome."""
+        character = unit.character
+        if not character:
+            return
+        resolve_defeated_agent_outcome(
+            character,
+            remove_character=self.remove_character_from_roster,
+            record_event=game_state.add_event,
+        )
+
+    def remove_character_from_roster(self, character: Character) -> None:
+        """Remove a character only when a battle outcome confirms death."""
+        if character in game_state.characters:
+            game_state.characters.remove(character)
 
     def resolve_mission_outcome(self, victory: bool) -> None:
         if not self.mission:
@@ -389,6 +410,7 @@ class BattleView(arcade.View):
                     if target.health <= 0:
                         if target.sprite:
                             target.sprite.kill()
+                        self.defeated_player_units.append(target)
                         idx = self.player_units.index(target)
                         self.player_units.remove(target)
                         if idx <= self.active_index and self.active_index > 0:
