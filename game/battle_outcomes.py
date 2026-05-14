@@ -7,6 +7,10 @@ from typing import Callable
 
 from .character import Character
 
+CRITICAL_INJURY_RECOVERY_TURNS = 2
+CAPTURED_RECOVERY_TURNS = 4
+
+
 DEFEATED_AGENT_OUTCOMES = (
     "killed",
     "critically injured",
@@ -31,13 +35,27 @@ def resolve_defeated_agent_outcome(
 
     character.stats.hp = max(1, character.stats.max_hp // 4)
     if outcome == "critically injured":
+        character.recovery_turns = max(
+            character.recovery_turns, CRITICAL_INJURY_RECOVERY_TURNS
+        )
         character.injuries.append("Critical battle trauma")
-        character.history.append("Evacuated with critical injuries after being downed in battle.")
-        record_event(f"{character.name} survived with critical injuries.")
-    elif outcome == "captured":
-        character.history.append("Captured by hostile forces after being downed in battle.")
+        character.history.append(
+            "Evacuated with critical injuries after being downed in battle. "
+            f"Recovery required: {character.recovery_turns} turns."
+        )
         record_event(
-            f"{character.name} was captured and remains on the roster as a recovery problem."
+            f"{character.name} survived with critical injuries "
+            f"and needs {character.recovery_turns} turns to recover."
+        )
+    elif outcome == "captured":
+        character.recovery_turns = max(character.recovery_turns, CAPTURED_RECOVERY_TURNS)
+        character.history.append(
+            "Captured by hostile forces after being downed in battle. "
+            f"Recovery required: {character.recovery_turns} turns."
+        )
+        record_event(
+            f"{character.name} was captured and cannot deploy for "
+            f"{character.recovery_turns} turns."
         )
     else:
         character.trauma.append("Combat shock")

@@ -89,12 +89,21 @@ class GameState:
         return False
 
     def advance_turn(self) -> None:
-        """Move to the next turn and refresh the budget."""
+        """Move to the next turn, tick recovery timers, and refresh the budget."""
+        recovered_agents = []
+        for character in self.characters:
+            if character.recovery_turns > 0:
+                character.recovery_turns -= 1
+                if character.recovery_turns == 0:
+                    recovered_agents.append(character.name)
+
         self.turn += 1
         self.budget_pool = self.compute_budget()
         self.add_event(
             f"Turn {self.turn}: Corporate budget refreshed for {self.base_name}."
         )
+        for name in recovered_agents:
+            self.add_event(f"Turn {self.turn}: {name} is deployable after recovery.")
 
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""
