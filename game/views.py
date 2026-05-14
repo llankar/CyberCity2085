@@ -16,10 +16,14 @@ from .deployment import (
     selected_deployable_agents,
     toggle_agent_selection,
 )
-from .dossier import build_agent_dossier_lines
 from .ui import palette
 from .ui.drawing import draw_line_group
-from .ui.panels import draw_panel, draw_status_bar
+from .ui.panels import (
+    draw_deck_panel,
+    draw_megacity_backdrop,
+    draw_panel,
+    draw_status_bar,
+)
 from .ui.dashboard import (
     build_agent_aftermath_lines,
     build_command_status_line,
@@ -30,6 +34,12 @@ from .ui.dashboard import (
     build_resource_summary_line,
 )
 from .ui.mission_board import build_mission_board_lines, build_selected_mission_lines
+from .ui.command_deck import (
+    build_agent_card_lines,
+    build_command_deck_layout,
+    build_ops_table_header,
+    deck_panel_by_key,
+)
 from .gamestate import GameState
 from .mission_objectives import create_battle_objective, interact_with_objective
 from .mission_system import (
@@ -354,103 +364,125 @@ class RPGView(GameView):
 
     def on_draw(self):
         self.clear()
-        arcade.draw_text(self.text, 20, self.window.height - 40, arcade.color.WHITE, 20)
-        y = self.window.height - 80
+        draw_megacity_backdrop(self.window.width, self.window.height)
+        draw_status_bar(
+            build_command_status_line(
+                self.game_state.turn,
+                self.game_state.base_name,
+                self.game_state.strategic_resources,
+                self.game_state.district,
+            ),
+            self.window.width,
+            self.window.height,
+        )
+
+        panels = build_command_deck_layout(self.window.width, self.window.height)
+        for panel in panels:
+            draw_deck_panel(panel)
+
         selected_names = set(self.game_state.selected_agent_names)
-        for idx, char in enumerate(self.game_state.characters):
-            info, dossier = build_agent_dossier_lines(char)
-            if char.recovery_turns > 0:
-                info = f"{info} | Recovery: {char.recovery_turns} turns"
-            cursor = ">" if idx == self.deployment_cursor_index else " "
-            selected = "[X]" if char.name in selected_names else "[ ]"
-            availability = "" if is_deployable(char) else " | Unavailable"
-            info = f"{cursor} {selected} {info}{availability}"
-            arcade.draw_text(info, 20, y, arcade.color.WHITE, 14)
-            arcade.draw_text(dossier, 40, y - 15, arcade.color.LIGHT_GRAY, 12)
-            y -= 15
-            if char.pending_points > 0:
+        squad_panel = deck_panel_by_key(panels, "squad")
+        y = squad_panel.bottom + squad_panel.height - 46
+        for line in build_agent_card_lines(
+            self.game_state.characters, selected_names, self.deployment_cursor_index
+        ):
+            color = palette.ACCENT if line.startswith("▶") else palette.TEXT
+            if "MEDBAY" in line:
+                color = palette.WARNING
+            if line.startswith("STAT UPGRADE"):
+                color = palette.RESOURCE
+            arcade.draw_text(line, squad_panel.left + 14, y, color, 11)
+            y -= 16
+            if y < squad_panel.bottom + 18:
                 arcade.draw_text(
-                    f"  Allocate {char.pending_points} pts: 1=PSI 2=STR 3=AGI 4=CON 5=CHA",
-                    40,
-                    y - 15,
-                    arcade.color.AQUA,
-                    12,
+                    "... roster continues",
+                    squad_panel.left + 14,
+                    y,
+                    palette.MUTED_TEXT,
+                    10,
                 )
-                y -= 15
-            y -= 20
+                break
+
+        mission = self.selected_mission()
+        mission_panel = deck_panel_by_key(panels, "mission")
+        arcade.draw_text(
+            build_ops_table_header(mission, self.game_state.district.name),
+            mission_panel.left + 14,
+            mission_panel.bottom + mission_panel.height - 48,
+            palette.RESOURCE,
+            12,
+        )
+
         if self.recruiting:
             arcade.draw_text(
-                "Select role: 1 Samurai, 2 Sniper, 3 Psi",
-                20,
-                y,
-                arcade.color.YELLOW,
-                14,
+                "RECRUIT SIGNAL: 1 Samurai, 2 Sniper, 3 Psi",
+                mission_panel.left + 14,
+                mission_panel.bottom + mission_panel.height - 76,
+                palette.WARNING,
+                13,
             )
-            y -= 20
         else:
             mission_lines = build_mission_board_lines(
                 self.game_state.mission_templates,
                 self.game_state.selected_mission_index,
             )
-            mission_board_height = 34 + len(mission_lines) * 16
-            draw_panel(
-                14,
-                y - mission_board_height,
-                self.window.width - 28,
-                mission_board_height,
-                "Mission Board",
-            )
-            y -= 28
+            y = mission_panel.bottom + mission_panel.height - 76
             for line in mission_lines:
+                selected = line.startswith(">")
+                if selected:
+                    arcade.draw_lrbt_rectangle_filled(
+                        mission_panel.left + 10,
+                        mission_panel.left + mission_panel.width - 10,
+                        y - 4,
+                        y + 15,
+                        palette.SELECTED_FILL,
+                    )
                 arcade.draw_text(
-                    line,
-                    20,
+                    line.replace(">", "▶", 1),
+                    mission_panel.left + 16,
                     y,
-                    (
-                        arcade.color.AQUA
-                        if line.startswith(">")
-                        else arcade.color.WHITE
-                    ),
-                    12,
+                    palette.ACCENT if selected else palette.TEXT,
+                    11,
+                )
+                y -= 20
+
+            detail_panel = deck_panel_by_key(panels, "details")
+            y = detail_panel.bottom + detail_panel.height - 46
+            for line in build_selected_mission_lines(mission):
+                arcade.draw_text(
+                    line, detail_panel.left + 14, y, palette.MUTED_TEXT, 10
+                )
+                y -= 15
+
+            briefs_panel = deck_panel_by_key(panels, "briefs")
+            y = briefs_panel.bottom + briefs_panel.height - 46
+            arcade.draw_text(
+                "READINESS BRIEF", briefs_panel.left + 14, y, palette.HEADER, 12
+            )
+            y -= 20
+            for line in build_agent_readiness_lines(self.game_state.characters, mission):
+                arcade.draw_text(line, briefs_panel.left + 14, y, palette.TEXT, 10)
+                y -= 16
+            y -= 12
+            arcade.draw_text(
+                "AFTERMATH REPORT", briefs_panel.left + 14, y, palette.HEADER, 12
+            )
+            y -= 20
+            for line in build_agent_aftermath_lines(
+                self.game_state.latest_agent_aftermath
+            ):
+                arcade.draw_text(
+                    line, briefs_panel.left + 14, y, palette.MUTED_TEXT, 10
                 )
                 y -= 16
-            mission = self.selected_mission()
-            y -= 8
-            mission_detail_lines = build_selected_mission_lines(mission)
-            detail_height = 34 + len(mission_detail_lines) * 15
-            draw_panel(
-                14,
-                y - detail_height,
-                self.window.width - 28,
-                detail_height,
-                "Selected Mission",
-            )
-            y -= 28
-            for line in mission_detail_lines:
-                arcade.draw_text(line, 30, y, arcade.color.LIGHT_GRAY, 11)
-                y -= 15
-            y -= 8
-            y = draw_line_group(
-                "Readiness Brief",
-                build_agent_readiness_lines(self.game_state.characters, mission),
-                20,
-                y,
-                arcade.color.LIGHT_GRAY,
-            )
-            draw_line_group(
-                "Aftermath Report",
-                build_agent_aftermath_lines(self.game_state.latest_agent_aftermath),
-                20,
-                y,
-                arcade.color.LIGHT_GRAY,
-            )
+
         if self.message:
-            arcade.draw_text(self.message, 20, 42, arcade.color.YELLOW, 13)
+            arcade.draw_text(self.message, 20, 42, palette.WARNING, 13)
         arcade.draw_text(
-            "Press N recruit, 1-3 mission, A/D agent, Enter toggle, B launch",
+            "N recruit  |  1-3 select op  |  A/D agent  |  Enter toggle  |  B launch",
             20,
             20,
-            arcade.color.AQUA,
+            palette.ACCENT,
             14,
         )
 

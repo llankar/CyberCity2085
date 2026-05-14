@@ -28,6 +28,8 @@ python main.py
 - `7-9` allocate city budget
 
 ### RPG View
+- Mega-city command deck frames planning with a squad bay, city ops table,
+  operation intel panel and readiness/fallout rail
 - Readiness Brief previews which agents may crack under the selected mission's stress
 - Mission Board shows each operation's objective type, risk, target faction,
   launch pressure, complications and success/failure stakes
