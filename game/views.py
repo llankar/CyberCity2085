@@ -3,7 +3,7 @@ import os
 
 from .agent_aftermath import apply_mission_aftermath
 from .battle_outcomes import resolve_defeated_agent_outcome
-from .character import Character
+from .character import Character, is_deployable
 from .combat_system import (
     create_enemy_units,
     create_player_units,
@@ -166,11 +166,13 @@ class RPGView(GameView):
         return selected_mission_system(self.game_state)
 
     def has_deployable_agent(self) -> bool:
-        return any(char.stats.hp > 0 for char in self.game_state.characters)
+        return any(is_deployable(char) for char in self.game_state.characters)
 
     def launch_selected_mission(self) -> None:
         if not self.has_deployable_agent():
-            self.message = "Recruit at least one agent before launching an operation."
+            self.message = (
+                "Recruit at least one deployable agent before launching an operation."
+            )
             return
 
         mission = launch_mission_system(self.game_state)
@@ -184,6 +186,8 @@ class RPGView(GameView):
         y = self.window.height - 80
         for char in self.game_state.characters:
             info, dossier = build_agent_dossier_lines(char)
+            if char.recovery_turns > 0:
+                info = f"{info} | Recovery: {char.recovery_turns} turns"
             arcade.draw_text(info, 20, y, arcade.color.WHITE, 14)
             arcade.draw_text(dossier, 40, y - 15, arcade.color.LIGHT_GRAY, 12)
             y -= 15

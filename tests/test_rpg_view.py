@@ -66,6 +66,7 @@ fake_arcade = types.SimpleNamespace(
 )
 sys.modules.setdefault("arcade", fake_arcade)
 
+from game.character import Character
 from game.gamestate import GameState
 from game.recruitment import recruit_agent
 from game import views
@@ -105,7 +106,42 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertIsNone(game_state.active_mission)
         self.assertEqual(
             view.message,
-            "Recruit at least one agent before launching an operation.",
+            "Recruit at least one deployable agent before launching an operation.",
+        )
+
+    def test_launch_with_only_recovering_agent_sets_message(self):
+        game_state = GameState(characters=[Character("Wounded", recovery_turns=2)])
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+
+        view.on_key_press(views.arcade.key.B, None)
+
+        self.assertIsNone(view.window.shown_view)
+        self.assertIsNone(game_state.active_mission)
+        self.assertEqual(
+            view.message,
+            "Recruit at least one deployable agent before launching an operation.",
+        )
+
+    def test_rpg_view_shows_recovery_timer_for_unavailable_agent(self):
+        drawn_text = []
+        original_draw_text = views.arcade.draw_text
+        views.arcade.draw_text = lambda text, *args, **kwargs: drawn_text.append(text)
+        game_state = GameState(characters=[Character("Wounded", recovery_turns=3)])
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        try:
+            view.on_draw()
+        finally:
+            views.arcade.draw_text = original_draw_text
+
+        self.assertTrue(
+            any(
+                "Wounded" in text and "Recovery: 3 turns" in text
+                for text in drawn_text
+            )
         )
 
     def test_recruit_then_launches_selected_mission(self):

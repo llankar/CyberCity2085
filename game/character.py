@@ -24,6 +24,7 @@ class Character:
     relationships: dict[str, int] = field(default_factory=dict)
     history: list[str] = field(default_factory=list)
     savage_tags: list[str] = field(default_factory=list)
+    recovery_turns: int = 0
 
     def to_dict(self) -> dict:
         return {
@@ -43,6 +44,7 @@ class Character:
             "relationships": dict(self.relationships),
             "history": list(self.history),
             "savage_tags": list(self.savage_tags),
+            "recovery_turns": self.recovery_turns,
         }
 
     @classmethod
@@ -66,6 +68,7 @@ class Character:
             relationships=dict(data.get("relationships", {})),
             history=list(data.get("history", [])),
             savage_tags=list(data.get("savage_tags", [])),
+            recovery_turns=data.get("recovery_turns", 0),
         )
 
     def gain_xp(self, amount: int) -> None:
@@ -78,3 +81,8 @@ class Character:
             self.stats.recalculate_hp()
             self.stats.hp = min(self.stats.hp + 10, self.stats.max_hp)
             self.pending_points += 5
+
+
+def is_deployable(character: Character) -> bool:
+    """Return whether an agent can currently be assigned to a mission."""
+    return character.stats.hp > 0 and character.recovery_turns <= 0
