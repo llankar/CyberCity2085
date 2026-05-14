@@ -1,10 +1,12 @@
 import arcade
+
+from game.gamestate import GameState
 from game.views import CorpView
 
 
 def main():
     window = arcade.Window(1920, 1000, "CyberCity 2085")
-    start_view = CorpView()
+    start_view = CorpView(GameState())
     start_view.setup()
     window.show_view(start_view)
     arcade.run()
