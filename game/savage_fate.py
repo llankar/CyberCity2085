@@ -63,6 +63,24 @@ SAVAGE_TAG_LIBRARY: dict[str, SavageTag] = {
         intensity=3,
         source="operation",
     ),
+    "media_leak": SavageTag(
+        name="media_leak",
+        description="Leaked footage turns tactical choices into public evidence.",
+        intensity=2,
+        source="complication",
+    ),
+    "civilian_panic": SavageTag(
+        name="civilian_panic",
+        description="Noncombatants scatter, block exits, and amplify district unrest.",
+        intensity=2,
+        source="complication",
+    ),
+    "faction_retaliation": SavageTag(
+        name="faction_retaliation",
+        description="A wounded faction answers with reprisal crews and pressure campaigns.",
+        intensity=3,
+        source="complication",
+    ),
 }
 
 
