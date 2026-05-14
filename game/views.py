@@ -2,7 +2,7 @@ import arcade
 import os
 
 from .agent_aftermath import apply_mission_aftermath
-from .agent_readiness import build_agent_readiness_lines
+from .agent_readiness import agents_at_breaking_risk, build_agent_readiness_lines
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .character import Character, is_deployable
 from .combat_system import (
@@ -161,6 +161,8 @@ class RPGView(GameView):
         self.selected_role = None
         self.allocating = None
         self.message = ""
+        self.pending_breakdown_confirmation = False
+        self.pending_breakdown_mission_id = None
         ensure_mission_templates(self.game_state)
 
     def selected_mission(self) -> MissionTemplate:
@@ -174,8 +176,37 @@ class RPGView(GameView):
             self.message = (
                 "Recruit at least one deployable agent before launching an operation."
             )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
             return
 
+        selected_mission = self.selected_mission()
+        agents_at_risk = agents_at_breaking_risk(
+            self.game_state.characters, selected_mission
+        )
+        confirmation_matches = (
+            self.pending_breakdown_confirmation
+            and self.pending_breakdown_mission_id == selected_mission.id
+        )
+        if agents_at_risk and not confirmation_matches:
+            lead_agent = agents_at_risk[0]
+            self.pending_breakdown_confirmation = True
+            self.pending_breakdown_mission_id = selected_mission.id
+            self.message = (
+                f"{lead_agent.name} is at breakdown risk. "
+                "Press B again to force deployment."
+            )
+            return
+
+        if agents_at_risk:
+            names = ", ".join(agent.name for agent in agents_at_risk)
+            self.game_state.add_event(
+                f"Command forced {names} into {selected_mission.title} "
+                "despite breakdown risk."
+            )
+
+        self.pending_breakdown_confirmation = False
+        self.pending_breakdown_mission_id = None
         mission = launch_mission_system(self.game_state)
         battle_view = BattleView(self.game_state)
         battle_view.setup(mission)
@@ -297,6 +328,8 @@ class RPGView(GameView):
             idx = key - arcade.key.KEY_1
             if idx < len(self.game_state.mission_templates):
                 self.game_state.selected_mission_index = idx
+                self.pending_breakdown_confirmation = False
+                self.pending_breakdown_mission_id = None
         else:
             # Allocate stat points if any
             for char in self.game_state.characters:
