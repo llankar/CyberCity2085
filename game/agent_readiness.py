@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from .character import Character
+from .character import Character, is_deployable
 from .mission_templates import MissionTemplate
-
 
 LOW_RISK_STRESS = 35
 HIGH_RISK_STRESS = 65
@@ -31,6 +30,18 @@ def estimate_mission_stress(mission: MissionTemplate | None) -> int:
 def projected_stress(character: Character, mission: MissionTemplate | None) -> int:
     """Estimate post-mission stress before complications or defeat."""
     return min(100, character.stress + estimate_mission_stress(mission))
+
+
+def agents_at_breaking_risk(
+    characters: list[Character], mission: MissionTemplate | None
+) -> list[Character]:
+    """Return deployable agents projected to hit the breakdown threshold."""
+    return [
+        character
+        for character in characters
+        if is_deployable(character)
+        and projected_stress(character, mission) >= BREAKDOWN_STRESS
+    ]
 
 
 def _risk_note(character: Character, projected: int) -> str:
