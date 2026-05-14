@@ -21,6 +21,7 @@ from .ui.dashboard import (
     build_recent_consequence_lines,
 )
 from .gamestate import GameState
+from .mission_objectives import create_battle_objective, interact_with_objective
 from .mission_system import (
     ensure_mission_templates,
     launch_selected_mission as launch_mission_system,
@@ -374,6 +375,7 @@ class BattleView(GameView):
         )
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
+        self.battle_objective = create_battle_objective(self.mission)
 
         for unit in self.player_units:
             sprite = arcade.Sprite(
@@ -542,6 +544,33 @@ class BattleView(GameView):
         self.enemy_list.draw()
         self.player_list.draw()
 
+        if self.battle_objective:
+            ox, oy = self.battle_objective.position
+            marker_color = (
+                arcade.color.GREEN
+                if self.battle_objective.completed
+                else arcade.color.YELLOW
+            )
+            arcade.draw_lrbt_rectangle_filled(
+                ox - 14,
+                ox + 14,
+                oy - 14,
+                oy + 14,
+                marker_color,
+            )
+            arcade.draw_rect_outline(
+                arcade.LBWH(ox - 18, oy - 18, 36, 36),
+                arcade.color.AQUA,
+                border_width=2,
+            )
+            arcade.draw_text(
+                self.battle_objective.label,
+                ox - 28,
+                oy + 24,
+                arcade.color.WHITE,
+                12,
+            )
+
         # Draw enemy HP bars
         for enemy in self.enemy_units:
             if enemy.sprite and enemy.stats:
@@ -614,10 +643,21 @@ class BattleView(GameView):
                 arcade.color.LIGHT_GRAY,
                 12,
             )
-        if self.message:
+        if self.battle_objective:
             arcade.draw_text(
-                self.message, 20, self.window.height - 62, arcade.color.YELLOW, 16
+                self.battle_objective.status_text,
+                20,
+                self.window.height - 62,
+                arcade.color.AQUA,
+                12,
             )
+        if self.message:
+            message_y = (
+                self.window.height - 84
+                if self.battle_objective
+                else self.window.height - 62
+            )
+            arcade.draw_text(self.message, 20, message_y, arcade.color.YELLOW, 16)
         if self.turn == "ended":
             if not self.enemy_units:
                 msg = "Victory!"
@@ -635,7 +675,7 @@ class BattleView(GameView):
                 )
             else:
                 arcade.draw_text(
-                    "Arrows move, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
+                    "Arrows move, E objective, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
                     20,
                     20,
                     arcade.color.AQUA,
@@ -715,7 +755,20 @@ class BattleView(GameView):
             return
 
         # Normal input handling when not selecting target
-        if key == arcade.key.UP:
+        if key == arcade.key.E:
+            if not self.battle_objective:
+                self.message = (
+                    "No battlefield objective on this mission. Eliminate enemies to win."
+                )
+            else:
+                completed, message = interact_with_objective(
+                    player.position, self.battle_objective
+                )
+                self.message = message
+                if completed:
+                    self.end_battle(True)
+                    return
+        elif key == arcade.key.UP:
             new_x, new_y = player.position[0], player.position[1] + 32
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(0, 32)
