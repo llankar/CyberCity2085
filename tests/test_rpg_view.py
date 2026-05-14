@@ -68,6 +68,7 @@ sys.modules.setdefault("arcade", fake_arcade)
 
 from game.character import Character
 from game.gamestate import GameState
+from game.mission_templates import MissionTemplate
 from game.recruitment import recruit_agent
 from game import views
 
@@ -80,6 +81,19 @@ class _FakeWindow:
 
     def show_view(self, view):
         self.shown_view = view
+
+
+def _mission(mission_id="stress_gate", title="Relay Burn", risk_level=3):
+    return MissionTemplate(
+        id=mission_id,
+        title=title,
+        objective_text="Burn the relay before the city notices.",
+        target_faction="Test Faction",
+        district="Test District",
+        district_pressure={},
+        starting_enemy_count=1,
+        risk_level=risk_level,
+    )
 
 
 class _FakeBattleView:
@@ -139,10 +153,97 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
 
         self.assertTrue(
             any(
-                "Wounded" in text and "Recovery: 3 turns" in text
-                for text in drawn_text
+                "Wounded" in text and "Recovery: 3 turns" in text for text in drawn_text
             )
         )
+
+    def test_stable_agent_launches_without_breakdown_confirmation(self):
+        game_state = GameState(
+            characters=[Character("Calm", stress=40)],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        original_battle_view = views.BattleView
+        views.BattleView = _FakeBattleView
+        try:
+            view.on_key_press(views.arcade.key.B, None)
+        finally:
+            views.BattleView = original_battle_view
+
+        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertFalse(view.pending_breakdown_confirmation)
+        self.assertFalse(
+            any("Command forced" in event for event in game_state.event_log)
+        )
+
+    def test_breaking_risk_blocks_first_launch_attempt_with_warning(self):
+        game_state = GameState(
+            characters=[Character("Ghost", stress=80)],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+
+        view.on_key_press(views.arcade.key.B, None)
+
+        self.assertIsNone(view.window.shown_view)
+        self.assertIsNone(game_state.active_mission)
+        self.assertTrue(view.pending_breakdown_confirmation)
+        self.assertEqual(view.pending_breakdown_mission_id, "stress_gate")
+        self.assertEqual(
+            view.message,
+            "Ghost is at breakdown risk. Press B again to force deployment.",
+        )
+
+    def test_second_breaking_risk_launch_attempt_proceeds_and_logs_event(self):
+        game_state = GameState(
+            characters=[Character("Ghost", stress=80)],
+            mission_templates=[_mission()],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        original_battle_view = views.BattleView
+        views.BattleView = _FakeBattleView
+        try:
+            view.on_key_press(views.arcade.key.B, None)
+            view.on_key_press(views.arcade.key.B, None)
+        finally:
+            views.BattleView = original_battle_view
+
+        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertIs(view.window.shown_view.mission, game_state.active_mission)
+        self.assertFalse(view.pending_breakdown_confirmation)
+        self.assertTrue(
+            any(
+                "Command forced Ghost into Relay Burn despite breakdown risk." in event
+                for event in game_state.event_log
+            )
+        )
+
+    def test_breaking_confirmation_only_applies_to_same_selected_mission(self):
+        game_state = GameState(
+            characters=[Character("Ghost", stress=80)],
+            mission_templates=[
+                _mission("relay_burn", "Relay Burn"),
+                _mission("black_ice", "Black Ice Sweep"),
+            ],
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+
+        view.on_key_press(views.arcade.key.B, None)
+        view.on_key_press(views.arcade.key.KEY_2, None)
+        view.on_key_press(views.arcade.key.B, None)
+
+        self.assertIsNone(view.window.shown_view)
+        self.assertIsNone(game_state.active_mission)
+        self.assertTrue(view.pending_breakdown_confirmation)
+        self.assertEqual(view.pending_breakdown_mission_id, "black_ice")
 
     def test_recruit_then_launches_selected_mission(self):
         game_state = GameState()
