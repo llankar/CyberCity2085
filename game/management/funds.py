@@ -9,6 +9,22 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+MISSION_FUND_CATEGORIES = (
+    "agent_pay_morale",
+    "research",
+    "equipment",
+    "robot_power_armor_maintenance",
+    "corporate_reserves",
+)
+
+DEFAULT_MISSION_FUND_SPLIT = {
+    "agent_pay_morale": 25,
+    "research": 25,
+    "equipment": 20,
+    "robot_power_armor_maintenance": 15,
+    "corporate_reserves": 15,
+}
+
 
 @dataclass(frozen=True)
 class FundsTransaction:
@@ -105,6 +121,31 @@ class CorporateFunds:
                 for transaction in data.get("transaction_history", [])
             ],
         )
+
+
+def calculate_mission_fund_reward(mission: object | None, victory: bool) -> int:
+    """Return the cash payout for a resolved mission."""
+    if not victory or mission is None:
+        return 0
+    return max(0, int(getattr(mission, "fund_reward", 0)))
+
+
+def default_mission_fund_distribution(amount: int) -> dict[str, int]:
+    """Split a payout across small post-mission allocation categories."""
+    amount = max(0, int(amount))
+    distribution = {key: 0 for key in MISSION_FUND_CATEGORIES}
+    if amount <= 0:
+        return distribution
+
+    allocated = 0
+    for key in MISSION_FUND_CATEGORIES:
+        if key == "corporate_reserves":
+            continue
+        share = amount * DEFAULT_MISSION_FUND_SPLIT[key] // 100
+        distribution[key] = share
+        allocated += share
+    distribution["corporate_reserves"] = amount - allocated
+    return distribution
 
 
 FundsLedger = CorporateFunds

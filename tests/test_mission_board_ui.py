@@ -27,6 +27,7 @@ class MissionBoardUITest(unittest.TestCase):
         self.assertTrue(lines[1].startswith(">2. Sabotage: Jackal Relay Burn"))
         self.assertIn("SABOTAGE", lines[1])
         self.assertIn("Risk 4 (severe)", lines[1])
+        self.assertIn("Reward 70 funds", lines[1])
         self.assertTrue(lines[0].startswith(" 1. Extraction: Neon Witness"))
 
     def test_selected_mission_lines_show_pressure_complications_and_stakes(self):
@@ -36,11 +37,12 @@ class MissionBoardUITest(unittest.TestCase):
 
         self.assertIn("Objective: Extract a clinic witness", lines[0])
         self.assertIn("Pressure: Unrest +3, Media Heat +2", lines[1])
-        self.assertEqual(lines[2], "Tags: neon_blackout")
-        self.assertIn("Media Leak", lines[3])
-        self.assertIn("Civilian Panic", lines[3])
-        self.assertIn("Success: Warrens Free Clinic", lines[4])
-        self.assertIn("Failure: Chrome Jackals", lines[5])
+        self.assertEqual(lines[2], "Fund Reward: 40 corporate funds")
+        self.assertEqual(lines[3], "Tags: neon_blackout")
+        self.assertIn("Media Leak", lines[4])
+        self.assertIn("Civilian Panic", lines[4])
+        self.assertIn("Success: Warrens Free Clinic", lines[5])
+        self.assertIn("Failure: Chrome Jackals", lines[6])
 
     def test_empty_mission_board_has_operator_guidance(self):
         self.assertEqual(build_mission_board_lines([], 0), ["No missions available."])

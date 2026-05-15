@@ -1,7 +1,8 @@
 # Phase 1
 - Cool and smart UI
   - Progress: Mission Board now shows selectable missions, objective type, risk,
-    pressure, complications, and success/failure stakes before launch.
+    fund rewards, pressure, complications, and success/failure stakes before
+    launch.
   - Progress: RPG View now uses a focused city/corporate command tower: agent
     barracks, operations table, intel lab, and medbay/fallout floors for a more
     tactical XCOM-like planning mood without changing combat systems.
@@ -31,6 +32,9 @@
     badges/buttons for leveling.
   - Progress: Corporate management now has a dedicated funds ledger owned by
     GameState, with available funds shown in command HUD and room info.
+    Successful missions now pay a small `fund_reward` through the ledger and
+    auto-allocate it across agent morale/pay, research, equipment,
+    robot/power-armor maintenance, and corporate reserves.
   - Progress: Strategic time now has a small calendar owned by GameState;
     resolved missions and manual command-deck day advances trigger daily income,
     pending fallout review, weekly planning beats, and recovery timers.

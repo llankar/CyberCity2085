@@ -57,6 +57,7 @@ class MissionTemplate:
     success_consequences: list[Consequence] = field(default_factory=list)
     failure_consequences: list[Consequence] = field(default_factory=list)
     risk_level: int = 1
+    fund_reward: int = 0
     tags: list[SavageTag] = field(default_factory=list)
 
     def to_dict(self) -> dict:
@@ -79,6 +80,7 @@ class MissionTemplate:
                 consequence.to_dict() for consequence in self.failure_consequences
             ],
             "risk_level": self.risk_level,
+            "fund_reward": self.fund_reward,
             "tags": [tag.to_dict() for tag in self.tags],
         }
 
@@ -110,6 +112,7 @@ class MissionTemplate:
                 for consequence in data.get("failure_consequences", [])
             ],
             risk_level=data.get("risk_level", 1),
+            fund_reward=int(data.get("fund_reward", 0)),
             tags=[SavageTag.from_dict(tag) for tag in data.get("tags", [])],
         )
 
@@ -199,6 +202,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=2,
+            fund_reward=40,
             tags=[tag_from_library("neon_blackout")],
         ),
         MissionTemplate(
@@ -232,6 +236,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=4,
+            fund_reward=70,
             tags=[tag_from_library("gang_pressure")],
         ),
         MissionTemplate(
@@ -265,6 +270,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=3,
+            fund_reward=60,
             tags=[tag_from_library("ghost_signal"), tag_from_library("media_swarm")],
         ),
     ]
