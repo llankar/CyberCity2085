@@ -38,6 +38,9 @@ python main.py
   attacks, mutant invasions, Starvers outbreaks, social unrest, corporate
   politics, and city politics
 - Corporate rooms show the next weekly income date and projected payment
+- The Research Lab lists starter vehicle, weapon, armor, psy, equipment, robot,
+  and power-armor projects; each project spends funds, advances with campaign
+  days, and completes into unlock flags or small stat modifiers
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game

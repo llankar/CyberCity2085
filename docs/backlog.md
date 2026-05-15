@@ -19,6 +19,7 @@ TODO:
 [x] Add weekly recurring corporate funding tied to the strategic calendar
 [x] Add mission duration days to mission templates, board UI, and calendar resolution
 [x] Add small strategic event deck for corporate, mutant, Starvers, social, and political threats
+[x] Add starter research management with timed funded projects and lab UI
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -80,3 +81,7 @@ Done:
   unrest, corporate politics, and city politics. Events expire if ignored, and
   response choices can touch funds, agent stress, faction hostility, city
   stability/unrest, and temporary mission availability.
+- Research management: the Research Lab now offers one starter project per
+  vehicle, weapon, armor, psy, equipment, robot, and power-armor category.
+  Projects spend corporate funds up front, tick down with the strategic
+  calendar, then apply small unlock flags and stat modifiers to GameState.

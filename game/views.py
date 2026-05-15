@@ -46,6 +46,7 @@ from .mission_templates import MissionTemplate
 from .recruitment import recruit_agent
 from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
+from .ui.research_lab import build_research_lab_lines
 from .unit import Unit
 
 
@@ -198,6 +199,22 @@ class CorpView(GameView):
             rpg_view.setup()
             self.window.show_view(rpg_view)
             return
+        if action_key.startswith("start_research_"):
+            index = int(action_key.rsplit("_", 1)[-1])
+            completed = set(self.game_state.completed_research)
+            active_ids = {
+                active.project_id for active in self.game_state.active_research
+            }
+            available = self.game_state.research_tree.available_projects(
+                completed, active_ids
+            )
+            if index < len(available):
+                self.game_state.start_research(available[index].id)
+            else:
+                self.game_state.add_event(
+                    "Research denied: no project in that lab slot."
+                )
+            return
         if action_key.startswith("recruit_"):
             role = action_key.removeprefix("recruit_")
             if self.game_state.spend_funds(
@@ -242,11 +259,7 @@ class CorpView(GameView):
                 f"Politics allocation {self.game_state.corp_budget['politics']}",
                 f"Influence reserve {resources.get('influence', 0)}",
             ],
-            "research": [
-                f"Research allocation {self.game_state.corp_budget['research']}",
-                f"Intel reserve {resources.get('intel', 0)}",
-                "Upgrade cost: 5 intel",
-            ],
+            "research": build_research_lab_lines(self.game_state),
             "security": [
                 f"Security allocation {self.game_state.corp_budget['security']}",
                 f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
