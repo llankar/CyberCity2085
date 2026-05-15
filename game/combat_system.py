@@ -5,9 +5,14 @@ from collections.abc import Callable
 from dataclasses import dataclass, replace
 
 from .character import Character
-from .deployment import deployable_agents, selected_deployable_agents
+from .deployment import (
+    deployable_agents,
+    selected_deployable_agents,
+    selected_deployment_manifest,
+)
 from .mission_templates import MissionTemplate
 from .management.equipment import Weapon
+from .management.spec_ops_assets import SpecOpsAsset
 from .stats import EnemyStats, PlayerStats
 from .unit import Unit
 
@@ -65,19 +70,48 @@ def primary_attack_range(character: Character) -> int:
     return max(weapon.range_cells for weapon in weapons)
 
 
-def create_player_units(
-    characters: list[Character], selected_agent_names: list[str] | None = None
-) -> list[Unit]:
-    """Create battle units from selected deployable agents.
-
-    Passing ``None`` preserves the legacy all-deployable roster path for tests and
-    direct combat setup. Passing an empty list intentionally creates no units.
-    """
-    deployable_characters = (
-        deployable_agents(characters)
-        if selected_agent_names is None
-        else selected_deployable_agents(characters, selected_agent_names)
+def create_asset_unit(asset: SpecOpsAsset, index: int) -> Unit:
+    """Convert one robot or power armor asset into a tactical combat unit."""
+    stats = asset.combat_stats()
+    return Unit(
+        position=(64 + index * 64, 64),
+        stats=stats,
+        health=stats.hp,
+        spec_ops_asset=asset,
+        unit_type=asset.asset_type,
+        attack_range=asset.primary_range,
+        action_points=asset.action_points,
+        available_actions=asset.combat_actions,
+        equipment_summary=[
+            *(hardpoint.name for hardpoint in asset.hardpoints),
+            f"Missiles x{asset.missile_capacity}",
+            f"Armor {asset.armor.defense_bonus}",
+        ],
     )
+
+
+def create_player_units(
+    characters: list[Character],
+    selected_agent_names: list[str] | None = None,
+    assets: list[SpecOpsAsset] | None = None,
+    selected_asset_ids: list[str] | None = None,
+) -> list[Unit]:
+    """Create battle units from selected deployable agents and support assets.
+
+    Passing ``None`` for ``selected_agent_names`` preserves the legacy all-agent
+    roster path for tests and direct combat setup. Passing an empty agent list
+    intentionally creates no agent units; selected assets may still be supplied.
+    """
+    if selected_agent_names is None:
+        deployable_characters = deployable_agents(characters)
+        deployable_assets = []
+    else:
+        manifest = selected_deployment_manifest(
+            characters, selected_agent_names, assets, selected_asset_ids
+        )
+        deployable_characters = manifest.agents
+        deployable_assets = manifest.assets
+
     player_units: list[Unit] = []
     for i, char in enumerate(deployable_characters):
         stats = equipped_player_stats(char)
@@ -87,10 +121,14 @@ def create_player_units(
                 stats=stats,
                 health=stats.hp,
                 character=char,
+                unit_type="agent",
                 attack_range=primary_attack_range(char),
                 available_actions=char.loadout.combat_actions(),
+                equipment_summary=char.loadout.summary_lines(),
             )
         )
+    for asset in deployable_assets:
+        player_units.append(create_asset_unit(asset, len(player_units)))
     return player_units
 
 

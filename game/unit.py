@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Tuple
 
 from .character import Character
+from .management.spec_ops_assets import SpecOpsAsset
 from .stats import PlayerStats, EnemyStats, perform_attack
 
 if TYPE_CHECKING:
@@ -15,6 +16,9 @@ class Unit:
     position: Tuple[int, int]
     stats: PlayerStats | EnemyStats | None = None
     character: Character | None = None
+    spec_ops_asset: SpecOpsAsset | None = None
+    unit_type: str = "agent"
+    equipment_summary: list[str] | None = None
     attack_range: int = 1
     health: int = 3
     action_points: int = 2

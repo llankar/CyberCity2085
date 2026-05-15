@@ -136,6 +136,7 @@ ROOM_ACTIONS = {
         "armory": [
             RoomAction("select_agent", "select", "Toggle squad"),
             RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("toggle_asset", "armory", "Toggle support"),
         ],
         "briefing": [
             RoomAction("agent_prev", "left", "Prev agent"),
@@ -146,7 +147,10 @@ ROOM_ACTIONS = {
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("agent_next", "right", "Next agent"),
         ],
-        "insertion": [RoomAction("launch", "launch", "Launch mission")],
+        "insertion": [
+            RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("toggle_asset", "armory", "Toggle support"),
+        ],
     },
 }
 

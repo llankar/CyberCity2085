@@ -20,6 +20,7 @@ TODO:
 [x] Add mission duration days to mission templates, board UI, and calendar resolution
 [x] Add small strategic event deck for corporate, mutant, Starvers, social, and political threats
 [x] Add starter research management with timed funded projects and lab UI
+[x] Add spec-ops robot and power-armor assets with deployment, combat conversion, and maintenance costs
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -85,3 +86,8 @@ Done:
   vehicle, weapon, armor, psy, equipment, robot, and power-armor category.
   Projects spend corporate funds up front, tick down with the strategic
   calendar, then apply small unlock flags and stat modifiers to GameState.
+- Spec-ops assets: combat robots and power armor now have small data models for
+  armor, hardpoints, missile capacity, pilot requirements, and maintenance.
+  Deployment can include selected support assets beside selected agents, combat
+  setup converts them into distinct Units, and the funds ledger can pay their
+  upkeep/repair costs without making them the emotional center of the squad.

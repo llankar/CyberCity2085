@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 from .character import Character, is_deployable
+from .management.spec_ops_assets import SpecOpsAsset
 
 
 def deployable_agents(characters: list[Character]) -> list[Character]:
@@ -55,3 +58,101 @@ def toggle_agent_selection(
 
     sanitized.append(character.name)
     return sanitized, f"{character.name} added to the squad."
+
+
+@dataclass(frozen=True)
+class DeploymentManifest:
+    """Selected deployable agents plus support assets for one operation."""
+
+    agents: list[Character]
+    assets: list[SpecOpsAsset]
+
+    @property
+    def has_units(self) -> bool:
+        return bool(self.agents or self.assets)
+
+    @property
+    def pilot_count(self) -> int:
+        return len(self.agents)
+
+
+def deployable_assets(
+    assets: list[SpecOpsAsset], selected_agents: list[Character] | None = None
+) -> list[SpecOpsAsset]:
+    """Return robots/suits ready for deployment without replacing agent checks."""
+    pilot_count = len(selected_agents or [])
+    deployable: list[SpecOpsAsset] = []
+    pilots_reserved = 0
+    for asset in assets:
+        if not asset.is_deployable:
+            continue
+        if asset.pilot_required:
+            if pilot_count <= pilots_reserved:
+                continue
+            pilots_reserved += 1
+        deployable.append(asset)
+    return deployable
+
+
+def selected_deployable_assets(
+    assets: list[SpecOpsAsset],
+    selected_asset_ids: list[str],
+    selected_agents: list[Character] | None = None,
+) -> list[SpecOpsAsset]:
+    """Return selected deployable assets, preserving hangar order."""
+    selected_ids = set(selected_asset_ids)
+    return [
+        asset
+        for asset in deployable_assets(assets, selected_agents)
+        if asset.id in selected_ids
+    ]
+
+
+def sanitize_selected_asset_ids(
+    assets: list[SpecOpsAsset],
+    selected_asset_ids: list[str],
+    selected_agents: list[Character] | None = None,
+) -> list[str]:
+    """Drop damaged, missing, duplicate, or unpiloted assets from selection."""
+    deployable_ids = {asset.id for asset in deployable_assets(assets, selected_agents)}
+    sanitized: list[str] = []
+    for asset_id in selected_asset_ids:
+        if asset_id in deployable_ids and asset_id not in sanitized:
+            sanitized.append(asset_id)
+    return sanitized
+
+
+def selected_deployment_manifest(
+    characters: list[Character],
+    selected_agent_names: list[str],
+    assets: list[SpecOpsAsset] | None = None,
+    selected_asset_ids: list[str] | None = None,
+) -> DeploymentManifest:
+    """Build the mixed team currently eligible to enter tactical combat."""
+    agents = selected_deployable_agents(characters, selected_agent_names)
+    selected_assets = selected_deployable_assets(
+        assets or [], selected_asset_ids or [], agents
+    )
+    return DeploymentManifest(agents=agents, assets=selected_assets)
+
+
+def toggle_asset_selection(
+    assets: list[SpecOpsAsset],
+    selected_asset_ids: list[str],
+    selected_agents: list[Character] | None = None,
+) -> tuple[list[str], str]:
+    """Toggle one ready support asset while keeping agents as the squad focus."""
+    deployable = deployable_assets(assets, selected_agents)
+    sanitized = sanitize_selected_asset_ids(assets, selected_asset_ids, selected_agents)
+    if not deployable:
+        return sanitized, "No ready support assets in the hangar."
+
+    for asset in deployable:
+        if asset.id not in sanitized:
+            sanitized.append(asset.id)
+            return sanitized, f"{asset.name} added as support asset."
+
+    removed_id = sanitized.pop(0)
+    removed = next((asset for asset in assets if asset.id == removed_id), None)
+    name = removed.name if removed else removed_id
+    return sanitized, f"{name} removed from support assets."
