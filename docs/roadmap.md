@@ -51,6 +51,12 @@
     threat deck when the calendar advances, stores active unresolved events in
     GameState, and exposes command choices that trade funds, agent stress,
     faction pressure, city stability, and mission availability.
+
+  - Progress: Research management now has a first small lab slice: one starter
+    project per vehicles, weapons, armor, psy, equipment, robots, and
+    power-armor category. Projects spend corporate funds, progress as days
+    advance on the strategic calendar, and complete into GameState unlock flags
+    or small stat modifiers for later systems to consume.
 - District system
 - Mission generation
 - Black ops

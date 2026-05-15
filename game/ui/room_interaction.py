@@ -76,7 +76,11 @@ ROOM_ACTIONS = {
             RoomAction("event_0", "shield", "Event choice A"),
             RoomAction("event_1", "radar", "Event choice B"),
         ],
-        "research": [RoomAction("research", "research", "Fund research")],
+        "research": [
+            RoomAction("start_research_0", "research", "Start project 1"),
+            RoomAction("start_research_1", "armory", "Start project 2"),
+            RoomAction("research", "research", "Fund research"),
+        ],
         "security": [RoomAction("security", "shield", "Fund security")],
         "black_ops": [
             RoomAction("black_ops", "black_ops", "Fund black ops"),
