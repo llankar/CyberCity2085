@@ -6,6 +6,7 @@ from typing import List, TYPE_CHECKING
 
 from .consequences import Consequence, create_opening_consequence
 from .factions import Faction, create_vertical_slice_factions
+from .management.calendar import StrategicCalendar
 from .management.funds import CorporateFunds
 from .mission_templates import MissionTemplate, create_mission_templates
 from .operations import Operation, create_operation_templates
@@ -79,6 +80,7 @@ class GameState:
 
     # Turn management
     turn: int = 1
+    calendar: StrategicCalendar = field(default_factory=StrategicCalendar)
     funds: CorporateFunds = field(default_factory=CorporateFunds)
     budget_pool: int = 0
 
@@ -194,8 +196,8 @@ class GameState:
             self.strategic_resources[resource_key] -= amount
         return True
 
-    def advance_turn(self) -> None:
-        """Move to the next turn, tick recovery timers, and refresh the budget."""
+    def advance_one_day(self, reason: str = "manual") -> None:
+        """Move the shared strategic clock one day and process daily systems."""
         recovered_agents = []
         for character in self.characters:
             if character.recovery_turns > 0:
@@ -203,18 +205,42 @@ class GameState:
                 if character.recovery_turns == 0:
                     recovered_agents.append(character.name)
 
-        self.turn += 1
+        self.calendar.advance_one_day()
+        self.turn = self.calendar.current_day
         income = self.compute_budget()
         self.add_funds(
             income,
-            "turn_refresh",
-            f"Turn {self.turn} operating funds for {self.base_name}.",
+            "daily_income",
+            f"{self.calendar.campaign_date_label} passive income for {self.base_name}.",
         )
         self.add_event(
-            f"Turn {self.turn}: Corporate funds refreshed by {income} for {self.base_name}."
+            f"{self.calendar.campaign_date_label}: Day advanced ({reason}); "
+            f"passive income +{income}."
         )
+        if self.recent_consequences:
+            self.add_event(
+                f"{self.calendar.campaign_date_label}: Pending fallout reviewed "
+                f"({len(self.recent_consequences)} active beats)."
+            )
+        if self.calendar.is_new_week:
+            self.add_event(
+                f"Week {self.calendar.current_week}: Strategic planning cycle opens."
+            )
         for name in recovered_agents:
-            self.add_event(f"Turn {self.turn}: {name} is deployable after recovery.")
+            self.add_event(
+                f"{self.calendar.campaign_date_label}: {name} is deployable after recovery."
+            )
+
+    def advance_days(self, days: int, reason: str = "manual") -> None:
+        """Advance multiple days while preserving daily income and recovery ticks."""
+        if days < 0:
+            raise ValueError("days must be non-negative")
+        for _ in range(days):
+            self.advance_one_day(reason)
+
+    def advance_turn(self) -> None:
+        """Backward-compatible wrapper for one strategic day."""
+        self.advance_one_day("turn refresh")
 
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""
@@ -288,6 +314,7 @@ class GameState:
     def save(self, path: str):
         data = {
             "turn": self.turn,
+            "calendar": self.calendar.to_dict(),
             "budget_pool": self.budget_pool,
             "funds": self.funds.to_dict(),
             "corp_budget": self.corp_budget,
@@ -326,7 +353,11 @@ class GameState:
         gs.corp_budget.update(data.get("corp_budget", {}))
         gs.city_budget.update(data.get("city_budget", {}))
         gs.strategic_resources.update(data.get("strategic_resources", {}))
-        gs.turn = data.get("turn", 1)
+        gs.calendar = StrategicCalendar.from_dict(data.get("calendar"))
+        gs.turn = data.get("turn", gs.calendar.current_day)
+        if "calendar" not in data:
+            gs.calendar.current_day = max(1, int(gs.turn))
+            gs.calendar._last_week = gs.calendar.current_week
         if "funds" in data:
             gs.funds = CorporateFunds.from_dict(data["funds"])
             gs.budget_pool = gs.funds.available_funds

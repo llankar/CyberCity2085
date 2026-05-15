@@ -114,3 +114,8 @@ def build_ops_table_header(mission: MissionTemplate | None, district_name: str) 
         f"{district_name.upper()} // {objective_label(mission.objective_type)} // "
         f"RISK {mission.risk_level} {risk_label(mission.risk_level).upper()}"
     )
+
+
+def build_calendar_status_line(date_label: str, day: int, week: int) -> str:
+    """Build a small command-deck calendar prompt for manual day advancement."""
+    return f"{date_label} // DAY {day} // WEEK {week} // D ADVANCE DAY"

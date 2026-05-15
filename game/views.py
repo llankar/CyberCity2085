@@ -147,6 +147,8 @@ class CorpView(GameView):
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
             self.window.show_view(rpg_view)
+        elif key == arcade.key.D:
+            self.game_state.advance_one_day("manual command")
         elif key in self.CORP_UPGRADE_COSTS:
             budget_key, costs = self.CORP_UPGRADE_COSTS[key]
             self._buy_corp_upgrade(budget_key, costs)
@@ -187,6 +189,9 @@ class CorpView(GameView):
             city_view.setup()
             self.window.show_view(city_view)
             return
+        if action_key == "advance_day":
+            self.game_state.advance_one_day("manual command")
+            return
         if action_key == "squad":
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
@@ -212,6 +217,7 @@ class CorpView(GameView):
         resources = self.game_state.strategic_resources
         return {
             "executive": [
+                f"{self.game_state.calendar.campaign_date_label} | Day {self.game_state.calendar.current_day}",
                 f"Turn {self.game_state.turn} | Funds {self.game_state.available_funds}",
                 f"Politics allocation {self.game_state.corp_budget['politics']}",
                 f"Influence reserve {resources.get('influence', 0)}",
@@ -239,8 +245,8 @@ class CorpView(GameView):
             ],
             "logistics": [
                 f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
-                f"Budget refresh target {self.game_state.compute_budget()}",
-                "Supply stock feeds security and field readiness.",
+                f"Daily income target {self.game_state.compute_budget()}",
+                "D / Advance day ticks income, events, recovery.",
             ],
             "server": [
                 f"Intel reserve {resources.get('intel', 0)}",
@@ -306,6 +312,8 @@ class CityView(GameView):
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
             self.window.show_view(rpg_view)
+        elif key == arcade.key.D:
+            self.game_state.advance_one_day("manual command")
         elif key in self.CITY_UPGRADE_COSTS:
             budget_key, costs = self.CITY_UPGRADE_COSTS[key]
             self._buy_city_upgrade(budget_key, costs)
@@ -340,6 +348,9 @@ class CityView(GameView):
             rpg_view.setup()
             self.window.show_view(rpg_view)
             return
+        if action_key == "advance_day":
+            self.game_state.advance_one_day("manual command")
+            return
         costs = self.CITY_UPGRADE_ACTIONS.get(action_key)
         if costs:
             self._buy_city_upgrade(action_key, costs)
@@ -356,6 +367,7 @@ class CityView(GameView):
         hostility = factions[0].hostility_to_player if factions else 0
         return {
             "municipal": [
+                f"{self.game_state.calendar.campaign_date_label} | Week {self.game_state.calendar.current_week}",
                 f"District {district.name}",
                 f"Control faction {district.control_faction}",
                 f"Garrisons network {self.game_state.city_budget['garrisons']}",
@@ -387,6 +399,7 @@ class CityView(GameView):
             ],
             "records": [
                 f"Recent events {len(self.game_state.event_log)}",
+                "D / Advance day reviews pending fallout.",
                 f"District tags {len(district.tags)}",
                 "Records preserve consequences for later systems.",
             ],

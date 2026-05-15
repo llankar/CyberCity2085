@@ -13,6 +13,7 @@ TODO:
 [x] Fix pending-upgrade roster card rendering
 [x] Add click-select squad cards with generated portraits and point counters
 [x] Create dedicated corporate funds ledger and show available funds in command UI
+[x] Add strategic calendar with daily income, pending fallout, and recovery ticks
 [x] Add compact agent equipment loadouts with primary, sidearm, armor, utility, psi focus, and special gear slots
 [x] Create Agent data model
 [ ] Create district data model
@@ -48,6 +49,9 @@ Done:
 - Corporate funds ledger: the global game state now owns a small funds module
   tracking available cash, income, expenses, and transaction history for
   management decisions.
+- Strategic calendar: GameState now owns a small campaign calendar that advances
+  after mission success/failure or manual command-deck orders, then ticks passive
+  income, pending fallout review, weekly planning beats, and agent recovery.
 - Agent equipment loadouts: characters now reference modular loadouts with
   explicit weapon, armor, utility, psi focus, and special gear slots; combat
   setup reads those items for stat/action adjustments while the character model
