@@ -129,3 +129,23 @@ def build_corporate_finance_lines(
         f"Next weekly income {next_income_date}",
         f"Projected income +{max(0, int(projected_income))} funds",
     ]
+
+
+def build_event_panel_lines(active_events, current_day: int) -> list[str]:
+    """Build command-deck copy for unresolved strategic events and choices."""
+    if not active_events:
+        return [
+            "No unresolved strategic events.",
+            "Advance the calendar to scan pressure feeds.",
+        ]
+
+    lines: list[str] = []
+    for index, event in enumerate(active_events[:3], start=1):
+        days_left = event.days_remaining(current_day)
+        lines.append(
+            f"{index}. {event.title} [{event.category}] severity {event.severity} ({days_left}d)"
+        )
+        for choice_index, choice in enumerate(event.choices[:2], start=1):
+            summary = f" - {choice.summary}" if choice.summary else ""
+            lines.append(f"   {index}.{choice_index} {choice.label}{summary}")
+    return lines

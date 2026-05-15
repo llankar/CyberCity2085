@@ -73,6 +73,8 @@ ROOM_ACTIONS = {
         "executive": [
             RoomAction("advance_day", "city", "Advance day"),
             RoomAction("politics", "influence", "Fund politics"),
+            RoomAction("event_0", "shield", "Event choice A"),
+            RoomAction("event_1", "radar", "Event choice B"),
         ],
         "research": [RoomAction("research", "research", "Fund research")],
         "security": [RoomAction("security", "shield", "Fund security")],
@@ -100,7 +102,11 @@ ROOM_ACTIONS = {
         "factions": [RoomAction("garrisons", "shield", "Fund garrisons")],
         "public": [RoomAction("defense_zones", "radar", "Fund zones")],
         "relief": [RoomAction("armaments", "armory", "Fund arms")],
-        "records": [RoomAction("defense_zones", "radar", "Fund zones")],
+        "records": [
+            RoomAction("defense_zones", "radar", "Fund zones"),
+            RoomAction("event_0", "shield", "Event choice A"),
+            RoomAction("event_1", "influence", "Event choice B"),
+        ],
         "skybridge": [RoomAction("squad", "squad", "Squad tower")],
     },
     "squad": {
@@ -258,7 +264,9 @@ def roster_card_at_point(
     rect: UIRect, buttons: list[ActionButton], card_count: int, x: int, y: int
 ) -> int | None:
     """Return the roster-card index under a pointer, if any."""
-    for index, card_rect in enumerate(layout_roster_card_rects(rect, buttons, card_count)):
+    for index, card_rect in enumerate(
+        layout_roster_card_rects(rect, buttons, card_count)
+    ):
         if card_rect.contains(x, y):
             return index
     return None

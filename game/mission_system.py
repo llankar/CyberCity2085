@@ -32,7 +32,13 @@ def clone_selected_mission(game_state: GameState) -> MissionTemplate:
 
 def launch_selected_mission(game_state: GameState) -> MissionTemplate:
     """Set the active mission and apply launch pressure."""
-    mission = clone_selected_mission(game_state)
+    selected = selected_mission(game_state)
+    if selected.id in game_state.unavailable_mission_ids:
+        game_state.add_event(
+            f"Mission unavailable: {selected.title} route is disrupted."
+        )
+        raise ValueError(f"Mission unavailable: {selected.title}")
+    mission = MissionTemplate.from_dict(selected.to_dict())
     game_state.active_mission = mission
     game_state.apply_active_mission_pressure()
     return mission

@@ -45,7 +45,7 @@ from .mission_system import (
 from .mission_templates import MissionTemplate
 from .recruitment import recruit_agent
 from .ui import GameView
-from .ui.command_deck import build_corporate_finance_lines
+from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from .unit import Unit
 
 
@@ -210,9 +210,20 @@ class CorpView(GameView):
             else:
                 self.game_state.add_event("Recruitment denied: budget pool below 5.")
             return
+        if action_key.startswith("event_"):
+            self._respond_to_first_event(action_key)
+            return
         costs = self.CORP_UPGRADE_ACTIONS.get(action_key)
         if costs:
             self._buy_corp_upgrade(action_key, costs)
+
+    def _respond_to_first_event(self, action_key: str) -> None:
+        if not self.game_state.active_events:
+            return
+        choice_index = int(action_key.rsplit("_", 1)[-1])
+        event = self.game_state.active_events[0]
+        if 0 <= choice_index < len(event.choices):
+            self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         resources = self.game_state.strategic_resources
@@ -223,6 +234,9 @@ class CorpView(GameView):
         return {
             "executive": [
                 f"{self.game_state.calendar.campaign_date_label} | Day {self.game_state.calendar.current_day}",
+                *build_event_panel_lines(
+                    self.game_state.active_events, self.game_state.calendar.current_day
+                )[:3],
                 f"Turn {self.game_state.turn} | Funds {self.game_state.available_funds}",
                 *finance_lines,
                 f"Politics allocation {self.game_state.corp_budget['politics']}",
@@ -358,9 +372,20 @@ class CityView(GameView):
         if action_key == "advance_day":
             self.game_state.advance_one_day("manual command")
             return
+        if action_key.startswith("event_"):
+            self._respond_to_first_event(action_key)
+            return
         costs = self.CITY_UPGRADE_ACTIONS.get(action_key)
         if costs:
             self._buy_city_upgrade(action_key, costs)
+
+    def _respond_to_first_event(self, action_key: str) -> None:
+        if not self.game_state.active_events:
+            return
+        choice_index = int(action_key.rsplit("_", 1)[-1])
+        event = self.game_state.active_events[0]
+        if 0 <= choice_index < len(event.choices):
+            self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         resources = self.game_state.strategic_resources
@@ -406,6 +431,9 @@ class CityView(GameView):
             ],
             "records": [
                 f"Recent events {len(self.game_state.event_log)}",
+                *build_event_panel_lines(
+                    self.game_state.active_events, self.game_state.calendar.current_day
+                )[:4],
                 "D / Advance day reviews pending fallout.",
                 f"District tags {len(district.tags)}",
                 "Records preserve consequences for later systems.",
@@ -468,6 +496,11 @@ class RPGView(GameView):
             return
 
         selected_mission = self.selected_mission()
+        if selected_mission.id in self.game_state.unavailable_mission_ids:
+            self.message = f"{selected_mission.title} is temporarily unavailable."
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
+            return
         agents_at_risk = agents_at_breaking_risk(selected_squad, selected_mission)
         confirmation_matches = (
             self.pending_breakdown_confirmation
@@ -675,15 +708,15 @@ class RPGView(GameView):
             self._refresh_squad_room_actions()
             return
         if action_key == "agent_prev" and self.game_state.characters:
-            self.deployment_cursor_index = (
-                self.deployment_cursor_index - 1
-            ) % len(self.game_state.characters)
+            self.deployment_cursor_index = (self.deployment_cursor_index - 1) % len(
+                self.game_state.characters
+            )
             self._refresh_squad_room_actions()
             return
         if action_key == "agent_next" and self.game_state.characters:
-            self.deployment_cursor_index = (
-                self.deployment_cursor_index + 1
-            ) % len(self.game_state.characters)
+            self.deployment_cursor_index = (self.deployment_cursor_index + 1) % len(
+                self.game_state.characters
+            )
             self._refresh_squad_room_actions()
             return
         if action_key == "select_agent" and self.game_state.characters:

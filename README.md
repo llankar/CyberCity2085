@@ -33,6 +33,10 @@ python main.py
 - Each day grants passive operating funds; crossing into a new strategic week
   also deposits projected corporate funding based on stipend, city support,
   political pressure, and upkeep
+- Advancing the calendar can roll unresolved strategic events from city pressure,
+  faction hostility, or weighted threat odds, including enemy corporation
+  attacks, mutant invasions, Starvers outbreaks, social unrest, corporate
+  politics, and city politics
 - Corporate rooms show the next weekly income date and projected payment
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
@@ -40,8 +44,10 @@ python main.py
 
 ### City View
 - City control tower presents budget networks, district pressure meters, faction
-  pressure and operations feed over the same image-backed corporate base
+  pressure, active strategic events, and operations feed over the same
+  image-backed corporate base
 - Click city rooms to expand them and use icon buttons for investment actions
+  or the first active event response choices shown in the records room
 - `7-9` allocate city budget
 
 ### RPG View
