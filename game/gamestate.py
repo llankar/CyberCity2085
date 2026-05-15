@@ -27,6 +27,10 @@ from .management.funds import (
     calculate_mission_fund_reward,
     default_mission_fund_distribution,
 )
+from .management.spec_ops_assets import (
+    SpecOpsAsset,
+    pay_asset_maintenance,
+)
 from .mission_templates import MissionTemplate, create_mission_templates
 from .operations import Operation, create_operation_templates
 from .world import District, create_vertical_slice_district
@@ -93,6 +97,8 @@ class GameState:
     )
     latest_agent_aftermath: list[str] = field(default_factory=list)
     selected_agent_names: list[str] = field(default_factory=list)
+    spec_ops_assets: list[SpecOpsAsset] = field(default_factory=list)
+    selected_asset_ids: list[str] = field(default_factory=list)
     event_log: list[str] = field(
         default_factory=lambda: [
             "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
@@ -127,6 +133,14 @@ class GameState:
                 "Initial corporate operating funds.",
             )
         self.budget_pool = self.funds.available_funds
+
+    def service_spec_ops_assets(self) -> int:
+        """Pay upkeep/repair for robots and power armor from corporate funds."""
+        paid = pay_asset_maintenance(self.funds, self.spec_ops_assets)
+        if paid:
+            self.budget_pool = self.funds.available_funds
+            self.add_event(f"Hangar service cycle completed for {paid} funds.")
+        return paid
 
     # ------------------------------------------------------------------
     # Turn and budget management
@@ -451,6 +465,8 @@ class GameState:
             ),
             "selected_mission_index": self.selected_mission_index,
             "selected_agent_names": list(self.selected_agent_names),
+            "spec_ops_assets": [asset.to_dict() for asset in self.spec_ops_assets],
+            "selected_asset_ids": list(self.selected_asset_ids),
             "recent_consequences": [
                 consequence.to_dict() for consequence in self.recent_consequences
             ],
@@ -514,6 +530,10 @@ class GameState:
         )
         gs.selected_mission_index = data.get("selected_mission_index", 0)
         gs.selected_agent_names = list(data.get("selected_agent_names", []))
+        gs.spec_ops_assets = [
+            SpecOpsAsset.from_dict(asset) for asset in data.get("spec_ops_assets", [])
+        ]
+        gs.selected_asset_ids = list(data.get("selected_asset_ids", []))
         gs.recent_consequences = [
             Consequence.from_dict(consequence)
             for consequence in data.get("recent_consequences", [])
@@ -536,9 +556,17 @@ class GameState:
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
-        from .deployment import sanitize_selected_agent_names
+        from .deployment import sanitize_selected_agent_names, sanitize_selected_asset_ids
 
         gs.selected_agent_names = sanitize_selected_agent_names(
             gs.characters, gs.selected_agent_names
+        )
+        selected_agents = [
+            character
+            for character in gs.characters
+            if character.name in set(gs.selected_agent_names)
+        ]
+        gs.selected_asset_ids = sanitize_selected_asset_ids(
+            gs.spec_ops_assets, gs.selected_asset_ids, selected_agents
         )
         return gs
