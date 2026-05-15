@@ -58,6 +58,7 @@ class MissionTemplate:
     failure_consequences: list[Consequence] = field(default_factory=list)
     risk_level: int = 1
     fund_reward: int = 0
+    duration_days: int = 1
     tags: list[SavageTag] = field(default_factory=list)
 
     def to_dict(self) -> dict:
@@ -81,6 +82,7 @@ class MissionTemplate:
             ],
             "risk_level": self.risk_level,
             "fund_reward": self.fund_reward,
+            "duration_days": max(1, int(self.duration_days)),
             "tags": [tag.to_dict() for tag in self.tags],
         }
 
@@ -113,6 +115,7 @@ class MissionTemplate:
             ],
             risk_level=data.get("risk_level", 1),
             fund_reward=int(data.get("fund_reward", 0)),
+            duration_days=max(1, int(data.get("duration_days", 1))),
             tags=[SavageTag.from_dict(tag) for tag in data.get("tags", [])],
         )
 
