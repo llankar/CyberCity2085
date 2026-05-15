@@ -14,6 +14,13 @@ from .management.events import (
     expire_events,
     roll_random_event,
 )
+from .management.research import (
+    ActiveResearch,
+    ResearchTree,
+    advance_research_days,
+    create_starter_research_tree,
+    start_research,
+)
 from .management.funds import (
     MISSION_FUND_CATEGORIES,
     CorporateFunds,
@@ -104,6 +111,11 @@ class GameState:
     funds: CorporateFunds = field(default_factory=CorporateFunds)
     corporation_finance: CorporationFinance = field(default_factory=CorporationFinance)
     budget_pool: int = 0
+    research_tree: ResearchTree = field(default_factory=create_starter_research_tree)
+    active_research: list[ActiveResearch] = field(default_factory=list)
+    completed_research: list[str] = field(default_factory=list)
+    research_unlock_flags: list[str] = field(default_factory=list)
+    research_stat_modifiers: dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if not self.budget_pool:
@@ -308,12 +320,21 @@ class GameState:
                 f"Week {self.calendar.current_week}: Strategic planning cycle opens "
                 f"with corporate funding +{weekly_income}."
             )
+        advance_research_days(self, 1, self.research_tree)
         expire_events(self)
         roll_random_event(self)
         for name in recovered_agents:
             self.add_event(
                 f"{self.calendar.campaign_date_label}: {name} is deployable after recovery."
             )
+
+    def start_research(self, project_id: str) -> bool:
+        """Start a research project from the current research tree."""
+        return start_research(self, project_id, self.research_tree)
+
+    def advance_research(self, days: int = 1):
+        """Advance active research outside normal calendar flow for tests/tools."""
+        return advance_research_days(self, days, self.research_tree)
 
     def advance_days(self, days: int, reason: str = "manual") -> None:
         """Advance multiple days while preserving daily income and recovery ticks."""
@@ -438,6 +459,12 @@ class GameState:
             "active_events": [event.to_dict() for event in self.active_events],
             "next_event_id": self.next_event_id,
             "unavailable_mission_ids": list(self.unavailable_mission_ids),
+            "active_research": [
+                research.to_dict() for research in self.active_research
+            ],
+            "completed_research": list(self.completed_research),
+            "research_unlock_flags": list(self.research_unlock_flags),
+            "research_stat_modifiers": dict(self.research_stat_modifiers),
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
@@ -498,6 +525,14 @@ class GameState:
         ]
         gs.next_event_id = int(data.get("next_event_id", len(gs.active_events) + 1))
         gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
+        gs.research_tree = create_starter_research_tree()
+        gs.active_research = [
+            ActiveResearch.from_dict(research)
+            for research in data.get("active_research", [])
+        ]
+        gs.completed_research = list(data.get("completed_research", []))
+        gs.research_unlock_flags = list(data.get("research_unlock_flags", []))
+        gs.research_stat_modifiers = dict(data.get("research_stat_modifiers", {}))
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
