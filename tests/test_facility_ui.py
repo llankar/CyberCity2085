@@ -1,0 +1,85 @@
+"""Corporate tower backdrop presentation rules."""
+
+import unittest
+from pathlib import Path
+
+from game.ui.facility import (
+    BASE_BACKDROP_ASSET,
+    BASE_BACKDROP_SIZE,
+    ROOM_IMAGE_DIR,
+    build_facility_rooms,
+    facility_room_by_key,
+)
+from game.ui.portraits import PORTRAIT_COUNT, PORTRAIT_DIR
+
+
+class FacilityUITest(unittest.TestCase):
+    def test_corporate_backdrop_builds_stacked_base_rooms(self):
+        rooms = build_facility_rooms(1280, 720, "corp")
+
+        self.assertEqual(len(rooms), 8)
+        self.assertEqual(rooms[0].key, "executive")
+        self.assertEqual(rooms[0].title, "Executive War Room")
+        self.assertGreater(facility_room_by_key(rooms, "hangar").left, rooms[0].left)
+
+    def test_city_and_squad_modes_use_city_corporate_language(self):
+        city_rooms = build_facility_rooms(1280, 720, "city")
+        squad_rooms = build_facility_rooms(1280, 720, "squad")
+
+        self.assertEqual(
+            facility_room_by_key(city_rooms, "municipal").title,
+            "Municipal Control",
+        )
+        self.assertEqual(
+            facility_room_by_key(squad_rooms, "barracks").title,
+            "Agent Barracks",
+        )
+
+    def test_rooms_stay_inside_visible_command_area(self):
+        rooms = build_facility_rooms(900, 600, "battle")
+
+        for room in rooms:
+            self.assertGreaterEqual(room.left, 0)
+            self.assertGreaterEqual(room.bottom, 0)
+            self.assertLessEqual(room.left + room.width, 900)
+            self.assertLessEqual(room.bottom + room.height, 600)
+
+    def test_graphical_backdrop_asset_is_project_bound(self):
+        asset = Path(BASE_BACKDROP_ASSET)
+
+        self.assertTrue(asset.exists())
+        self.assertGreater(asset.stat().st_size, 500_000)
+
+    def test_each_backdrop_room_has_a_crop_asset(self):
+        rooms = build_facility_rooms(*BASE_BACKDROP_SIZE, mode="corp")
+
+        self.assertEqual(len({room.image_path for room in rooms}), 8)
+        for room in rooms:
+            asset = Path(room.image_path)
+            self.assertTrue(asset.exists(), room.image_path)
+            self.assertGreater(asset.stat().st_size, 50_000)
+            self.assertEqual(asset.parent.as_posix(), ROOM_IMAGE_DIR)
+
+    def test_hit_zones_are_aligned_to_generated_image_rooms(self):
+        width, height = BASE_BACKDROP_SIZE
+        rooms = build_facility_rooms(width, height, "corp")
+        executive = facility_room_by_key(rooms, "executive")
+        hangar = facility_room_by_key(rooms, "hangar")
+        server = facility_room_by_key(rooms, "server")
+
+        self.assertLess(executive.left, width * 0.25)
+        self.assertGreater(hangar.left, width * 0.50)
+        self.assertLess(server.bottom, height * 0.08)
+
+    def test_generated_agent_portrait_set_is_project_bound(self):
+        portrait_dir = Path(PORTRAIT_DIR)
+        portraits = sorted(portrait_dir.glob("agent_*.png"))
+
+        self.assertEqual(len(portraits), PORTRAIT_COUNT)
+        self.assertTrue((portrait_dir / "portrait_sheet.png").exists())
+        for portrait in portraits:
+            self.assertGreater(portrait.stat().st_size, 50_000)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -17,21 +17,42 @@ python main.py
 ## Controls
 
 ### Corp View
-- XCOM2-inspired corporate command room frames budget, resources, upgrade sinks,
-  district meters and fallout as angled tactical panels over the city skyline
+- XCOM2-inspired corporate tower frames budget, resources, upgrade sinks,
+  district meters and fallout over a generated stacked-base backdrop image
+- Click a highlighted room to expand it into a full-screen room; icon buttons
+  perform that room's action without text panels
+- Room click zones are aligned to the painted rooms in the backdrop image and
+  scale with the game window
+- Expanded rooms show cropped room art from `assets/ui/rooms/` during the grow
+  animation, so the opened room matches the clicked background room
+- Open rooms show the room title at the top, room-specific game info beneath it,
+  and icon actions at the bottom center
+- Action buttons include short labels for recruit, level-up, navigation, and
+  launch actions
+- `Esc` closes the open room and returns to the base map
 - Each turn grants funds to invest in the corporation
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game
 
 ### City View
-- City control room presents budget networks, district pressure meters, faction
-  pressure and operations feed in the same tactical command-shell language
+- City control tower presents budget networks, district pressure meters, faction
+  pressure and operations feed over the same image-backed corporate base
+- Click city rooms to expand them and use icon buttons for investment actions
 - `7-9` allocate city budget
 
 ### RPG View
-- Squad command deck frames planning with a squad bay, city ops table,
-  operation intel panel and readiness/fallout rail
+- Squad command tower frames planning with agent barracks, operations table,
+  intel lab and medbay/fallout floors highlighted over the base art
+- Click rooms to recruit agents, cycle agents, select the squad, cycle
+  operations, and launch through icon-only controls
+- The Black Ops Cell can recruit agents, and Armory/Dossier rooms expose level-up
+  stat buttons when the selected agent has pending points
+- Squad rooms show the current roster as graphical agent cards with role color,
+  generated portraits, HP/stress bars, active-agent brackets, squad-selection
+  marks, recovery warnings, and numbered upgrade pips
+- Click an agent card in an expanded squad room to make that agent current; level
+  buttons show the remaining upgrade-point count for that current agent
 - Readiness Brief previews which agents may crack under the selected mission's stress
 - Mission Board shows each operation's objective type, risk, target faction,
   launch pressure, complications and success/failure stakes
@@ -39,8 +60,9 @@ python main.py
 - `B` start a battle
 
 ### Battle View
-- Tactical combat HUD uses the command-shell frame for map selection, mission
-  objective status, active HP and input actions
+- Tactical combat HUD uses the corporate tower frame for map selection, mission
+  objective status, active HP and input actions over the graphical base backdrop
+- Drop-zone selection uses the same room expansion and icon-button flow
 - Arrow keys move the unit
 - `E` interact with tactical objective markers
 - `Space` melee attack

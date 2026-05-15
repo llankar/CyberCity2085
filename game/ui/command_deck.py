@@ -1,7 +1,7 @@
-"""Mega-city command deck helpers for the RPG deployment screen.
+"""City/corporate command deck helpers for the RPG deployment screen.
 
 The functions here keep the XCOM-like visual direction small and testable:
-three readable columns, terse squad cards, and a holographic skyline mood layer.
+three readable columns, terse squad cards, and a corporate base mood layer.
 """
 
 from __future__ import annotations
@@ -28,10 +28,10 @@ class DeckPanel:
 
 def build_command_deck_layout(width: int, height: int) -> list[DeckPanel]:
     """Return a stable three-column RPG layout for a tactical command deck."""
-    margin = 14
-    gutter = 12
-    status_height = 34
-    footer_height = 58
+    margin = 18
+    gutter = 14
+    status_height = 54
+    footer_height = 62
     top = height - status_height - margin
     body_bottom = footer_height
     body_height = max(360, top - body_bottom)
@@ -48,20 +48,22 @@ def build_command_deck_layout(width: int, height: int) -> list[DeckPanel]:
     detail_height = max(150, int(body_height * 0.36))
 
     return [
-        DeckPanel("squad", "Squad Bay", left, body_bottom, left_width, body_height),
+        DeckPanel(
+            "squad", "Agent Barracks", left, body_bottom, left_width, body_height
+        ),
         DeckPanel(
             "mission",
-            "City Ops Table",
+            "Operations Table",
             center,
             body_bottom + detail_height + gutter,
             center_width,
             body_height - detail_height - gutter,
         ),
         DeckPanel(
-            "details", "Operation Intel", center, body_bottom, center_width, detail_height
+            "details", "Intel Lab", center, body_bottom, center_width, detail_height
         ),
         DeckPanel(
-            "briefs", "Readiness / Fallout", right, body_bottom, right_width, body_height
+            "briefs", "Medbay / Fallout", right, body_bottom, right_width, body_height
         ),
     ]
 
@@ -74,22 +76,6 @@ def deck_panel_by_key(panels: list[DeckPanel], key: str) -> DeckPanel:
     raise KeyError(key)
 
 
-def skyline_bands(
-    width: int, height: int, count: int = 9
-) -> list[tuple[int, int, int, int]]:
-    """Build deterministic skyline silhouettes for the mega-city backdrop."""
-    if count <= 0:
-        return []
-    band_width = max(24, width // count)
-    base_height = max(80, int(height * 0.18))
-    bands = []
-    for index in range(count):
-        left = index * band_width
-        building_height = base_height + ((index * 37) % max(60, int(height * 0.16)))
-        bands.append((left, 0, band_width - 3, building_height))
-    return bands
-
-
 def build_agent_card_lines(
     characters: list[Character], selected_names: set[str], cursor_index: int
 ) -> list[str]:
@@ -100,22 +86,17 @@ def build_agent_card_lines(
     lines: list[str] = []
     for index, character in enumerate(characters):
         summary, dossier = build_agent_dossier_lines(character)
-        cursor = "▶" if index == cursor_index else " "
-        selected = "■" if character.name in selected_names else "□"
+        cursor = ">" if index == cursor_index else " "
+        selected = "[X]" if character.name in selected_names else "[ ]"
         state = "READY" if is_deployable(character) else "MEDBAY"
         if character.recovery_turns > 0:
             state = f"MEDBAY {character.recovery_turns}T"
-        legacy_cursor = ">" if index == cursor_index else " "
-        legacy_selected = "[X]" if character.name in selected_names else "[ ]"
         recovery = (
             f" | Recovery: {character.recovery_turns} turns"
             if character.recovery_turns > 0
             else ""
         )
-        lines.append(
-            f"{cursor} {selected} {state} // {summary}{recovery} "
-            f"({legacy_cursor} {legacy_selected} {character.name})"
-        )
+        lines.append(f"{cursor} {selected} {summary} // {state}{recovery}")
         lines.append(dossier.strip())
         if character.pending_points > 0:
             lines.append(
