@@ -17,6 +17,7 @@ TODO:
 [x] Add compact agent equipment loadouts with primary, sidearm, armor, utility, psi focus, and special gear slots
 [x] Add mission fund rewards with default post-mission allocation
 [x] Add weekly recurring corporate funding tied to the strategic calendar
+[x] Add mission duration days to mission templates, board UI, and calendar resolution
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -68,4 +69,8 @@ Done:
   operations table, intel lab, and medbay/fallout panels over the tower base.
 - Mission UI: RPG view mission board has selectable rows plus a selected-mission
   detail panel for launch pressure, fund rewards, complications, tags, and
-  outcome stakes.
+  outcome stakes. Mission templates now carry `duration_days` (defaulting to
+  one day), and the board shows that operation duration before launch.
+- Mission duration pacing: mission resolution advances the strategic calendar by
+  the mission's `duration_days`, so existing generated missions consume one
+  campaign day while later templates can opt into longer operations.
