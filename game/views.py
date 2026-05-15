@@ -17,12 +17,14 @@ from .deployment import (
     toggle_agent_selection,
 )
 from .ui import palette
-from .ui.drawing import draw_line_group
 from .ui.panels import (
+    draw_action_strip,
+    draw_command_screen_frame,
     draw_deck_panel,
     draw_megacity_backdrop,
     draw_panel,
     draw_status_bar,
+    draw_tactical_meter,
 )
 from .ui.dashboard import (
     build_agent_aftermath_lines,
@@ -32,6 +34,12 @@ from .ui.dashboard import (
     build_faction_pressure_lines,
     build_recent_consequence_lines,
     build_resource_summary_line,
+)
+from .ui.command_center import (
+    build_action_strip,
+    build_command_center_layout,
+    build_command_title,
+    panel_by_key,
 )
 from .ui.mission_board import build_mission_board_lines, build_selected_mission_lines
 from .ui.command_deck import (
@@ -69,6 +77,13 @@ class CorpView(GameView):
 
     def on_draw(self):
         self.clear()
+        draw_command_screen_frame(
+            build_command_title(
+                "corp", self.game_state.base_name, self.game_state.district.name
+            ),
+            self.window.width,
+            self.window.height,
+        )
         draw_status_bar(
             build_command_status_line(
                 self.game_state.turn,
@@ -80,69 +95,82 @@ class CorpView(GameView):
             self.window.height,
         )
 
-        y = self.window.height - 58
-        draw_panel(14, y - 132, 360, 126, "Corp Allocation")
-        arcade.draw_text(self.text.upper(), 28, y - 26, palette.HEADER, 18)
+        panels = build_command_center_layout(
+            self.window.width, self.window.height, "corp"
+        )
+        for panel in panels:
+            draw_panel(panel.left, panel.bottom, panel.width, panel.height, panel.title)
+
+        primary = panel_by_key(panels, "primary")
+        arcade.draw_text(
+            "BOARD DIRECTIVE",
+            primary.left + 18,
+            primary.bottom + primary.height - 58,
+            palette.HEADER,
+            16,
+        )
         arcade.draw_text(
             f"Auto Budget Pool: {self.game_state.budget_pool}",
-            32,
-            y - 52,
+            primary.left + 18,
+            primary.bottom + primary.height - 86,
             palette.MUTED_TEXT,
             12,
         )
         arcade.draw_text(
             build_resource_summary_line(self.game_state.strategic_resources),
-            32,
-            y - 70,
+            primary.left + 18,
+            primary.bottom + primary.height - 108,
             palette.RESOURCE,
             11,
         )
-        budget_y = y - 94
+        budget_y = primary.bottom + primary.height - 140
         for k, v in self.game_state.corp_budget.items():
-            arcade.draw_text(f"{k}: {v}", 34, budget_y, palette.TEXT, 12)
-            budget_y -= 16
+            arcade.draw_text(
+                f"{k.upper()} ALLOCATION   {v}",
+                primary.left + 22,
+                budget_y,
+                palette.TEXT,
+                12,
+            )
+            budget_y -= 24
 
-        right_x = 392
-        draw_panel(
-            right_x,
-            y - 132,
-            max(360, self.window.width - right_x - 18),
-            126,
-            "Upgrade Sinks",
-        )
+        top_right = panel_by_key(panels, "top_right")
         upgrade_lines = [
-            "1 Research: 5 intel",
-            "2 Security: 10 credits + 2 salvage",
-            "3 Politics: 3 influence",
-            "4 Black Ops: 5 credits + 3 intel",
+            "1 RESEARCH LAB      5 intel",
+            "2 SECURITY GRID     10 credits + 2 salvage",
+            "3 POLITICAL FLOOR   3 influence",
+            "4 BLACK OPS CELL    5 credits + 3 intel",
         ]
-        line_y = y - 38
+        line_y = top_right.bottom + top_right.height - 58
         for line in upgrade_lines:
-            arcade.draw_text(line, right_x + 18, line_y, palette.ACCENT, 12)
-            line_y -= 20
+            arcade.draw_text(line, top_right.left + 18, line_y, palette.ACCENT, 12)
+            line_y -= 28
 
-        y -= 158
-        draw_panel(14, y - 104, self.window.width - 28, 104, "District Pulse")
-        next_y = draw_line_group(
-            "District Pulse",
-            build_district_status_lines(self.game_state.district),
-            30,
-            y - 28,
-            palette.TEXT,
+        bottom_right = panel_by_key(panels, "bottom_right")
+        meter_x = bottom_right.left + 18
+        meter_y = bottom_right.bottom + bottom_right.height - 70
+        draw_tactical_meter(
+            meter_x, meter_y, 180, "stability", self.game_state.district.stability
         )
-        draw_panel(14, next_y - 96, self.window.width - 28, 96, "Latest Fallout")
-        draw_line_group(
-            "Latest Fallout",
-            build_recent_consequence_lines(self.game_state.recent_consequences),
-            30,
-            next_y - 28,
-            palette.MUTED_TEXT,
+        draw_tactical_meter(
+            meter_x, meter_y - 28, 180, "unrest", self.game_state.district.unrest
         )
+        draw_tactical_meter(
+            meter_x,
+            meter_y - 56,
+            180,
+            "media heat",
+            self.game_state.district.media_heat,
+        )
+        y = meter_y - 90
+        for line in build_recent_consequence_lines(self.game_state.recent_consequences):
+            arcade.draw_text(line, bottom_right.left + 18, y, palette.MUTED_TEXT, 11)
+            y -= 20
 
-        arcade.draw_text(
-            "1-4 spend resources, S save, L load", 20, 40, palette.ACCENT, 14
+        draw_action_strip(
+            build_action_strip(["1-4 spend", "S save", "L load", "C city", "R squad"]),
+            self.window.width,
         )
-        arcade.draw_text("Press C for City, R for RPG", 20, 20, palette.ACCENT, 14)
 
     def _buy_corp_upgrade(self, key: str, costs: dict[str, int]) -> None:
         if self.game_state.spend_resources(costs):
@@ -189,6 +217,13 @@ class CityView(GameView):
 
     def on_draw(self):
         self.clear()
+        draw_command_screen_frame(
+            build_command_title(
+                "city", self.game_state.base_name, self.game_state.district.name
+            ),
+            self.window.width,
+            self.window.height,
+        )
         draw_status_bar(
             build_command_status_line(
                 self.game_state.turn,
@@ -200,67 +235,81 @@ class CityView(GameView):
             self.window.height,
         )
 
-        y = self.window.height - 58
-        draw_panel(14, y - 116, 360, 110, "City Grid")
-        arcade.draw_text(self.text.upper(), 28, y - 26, palette.HEADER, 18)
+        panels = build_command_center_layout(
+            self.window.width, self.window.height, "city"
+        )
+        for panel in panels:
+            draw_panel(panel.left, panel.bottom, panel.width, panel.height, panel.title)
+
+        primary = panel_by_key(panels, "primary")
+        arcade.draw_text(
+            "CITY BUDGET ROUTER",
+            primary.left + 18,
+            primary.bottom + primary.height - 58,
+            palette.HEADER,
+            16,
+        )
         arcade.draw_text(
             build_resource_summary_line(self.game_state.strategic_resources),
-            32,
-            y - 52,
+            primary.left + 18,
+            primary.bottom + primary.height - 86,
             palette.RESOURCE,
             11,
         )
-        budget_y = y - 78
+        budget_y = primary.bottom + primary.height - 122
         for k, v in self.game_state.city_budget.items():
-            arcade.draw_text(f"{k}: {v}", 34, budget_y, palette.TEXT, 12)
-            budget_y -= 18
+            arcade.draw_text(
+                f"{k.upper()} NETWORK   {v}",
+                primary.left + 22,
+                budget_y,
+                palette.TEXT,
+                12,
+            )
+            budget_y -= 26
+        y = budget_y - 18
+        for line in [
+            "7 ARMAMENTS      5 credits + 3 salvage",
+            "8 GARRISONS      10 credits + 2 influence",
+            "9 DEFENSE ZONES  5 credits + 5 salvage",
+        ]:
+            arcade.draw_text(line, primary.left + 22, y, palette.ACCENT, 12)
+            y -= 24
 
-        right_x = 392
-        draw_panel(
-            right_x,
-            y - 116,
-            max(360, self.window.width - right_x - 18),
-            110,
-            "District Investments",
+        top_right = panel_by_key(panels, "top_right")
+        meter_x = top_right.left + 18
+        meter_y = top_right.bottom + top_right.height - 66
+        draw_tactical_meter(
+            meter_x, meter_y, 220, "stability", self.game_state.district.stability
         )
-        upgrade_lines = [
-            "7 Armaments: 5 credits + 3 salvage",
-            "8 Garrisons: 10 credits + 2 influence",
-            "9 Defense Zones: 5 credits + 5 salvage",
-        ]
-        line_y = y - 38
-        for line in upgrade_lines:
-            arcade.draw_text(line, right_x + 18, line_y, palette.ACCENT, 12)
-            line_y -= 22
+        draw_tactical_meter(
+            meter_x, meter_y - 30, 220, "unrest", self.game_state.district.unrest
+        )
+        draw_tactical_meter(
+            meter_x,
+            meter_y - 60,
+            220,
+            "media heat",
+            self.game_state.district.media_heat,
+        )
+        y = meter_y - 96
+        for line in build_district_status_lines(self.game_state.district):
+            arcade.draw_text(line, top_right.left + 18, y, palette.TEXT, 11)
+            y -= 20
 
-        y -= 140
-        draw_panel(14, y - 104, self.window.width - 28, 104, "District Pressure")
-        y = draw_line_group(
-            "District Pressure",
-            build_district_status_lines(self.game_state.district),
-            30,
-            y - 28,
-            palette.TEXT,
-        )
-        draw_panel(14, y - 104, self.window.width - 28, 104, "Faction Pressure")
-        y = draw_line_group(
-            "Faction Pressure",
-            build_faction_pressure_lines(self.game_state.factions),
-            30,
-            y - 28,
-            palette.MUTED_TEXT,
-        )
-        draw_panel(14, y - 116, self.window.width - 28, 116, "Operations Log")
-        draw_line_group(
-            "Operations Log",
-            build_event_log_lines(self.game_state.event_log),
-            30,
-            y - 28,
-            palette.MUTED_TEXT,
-        )
+        bottom_right = panel_by_key(panels, "bottom_right")
+        y = bottom_right.bottom + bottom_right.height - 58
+        for line in build_faction_pressure_lines(self.game_state.factions, limit=2):
+            arcade.draw_text(line, bottom_right.left + 18, y, palette.MUTED_TEXT, 10)
+            y -= 22
+        y -= 12
+        for line in build_event_log_lines(self.game_state.event_log, limit=4):
+            arcade.draw_text(line, bottom_right.left + 18, y, palette.TEXT, 10)
+            y -= 18
 
-        arcade.draw_text("7-9 spend resources", 20, 40, palette.ACCENT, 14)
-        arcade.draw_text("Press R for RPG", 20, 20, palette.ACCENT, 14)
+        draw_action_strip(
+            build_action_strip(["7-9 invest", "R squad deck"]),
+            self.window.width,
+        )
 
     def _buy_city_upgrade(self, key: str, costs: dict[str, int]) -> None:
         if self.game_state.spend_resources(costs):
@@ -364,7 +413,11 @@ class RPGView(GameView):
 
     def on_draw(self):
         self.clear()
-        draw_megacity_backdrop(self.window.width, self.window.height)
+        draw_command_screen_frame(
+            "SQUAD COMMAND DECK // CITY INSERTION TABLE",
+            self.window.width,
+            self.window.height,
+        )
         draw_status_bar(
             build_command_status_line(
                 self.game_state.turn,
@@ -460,7 +513,9 @@ class RPGView(GameView):
                 "READINESS BRIEF", briefs_panel.left + 14, y, palette.HEADER, 12
             )
             y -= 20
-            for line in build_agent_readiness_lines(self.game_state.characters, mission):
+            for line in build_agent_readiness_lines(
+                self.game_state.characters, mission
+            ):
                 arcade.draw_text(line, briefs_panel.left + 14, y, palette.TEXT, 10)
                 y -= 16
             y -= 12
@@ -478,12 +533,11 @@ class RPGView(GameView):
 
         if self.message:
             arcade.draw_text(self.message, 20, 42, palette.WARNING, 13)
-        arcade.draw_text(
-            "N recruit  |  1-3 select op  |  A/D agent  |  Enter toggle  |  B launch",
-            20,
-            20,
-            palette.ACCENT,
-            14,
+        draw_action_strip(
+            build_action_strip(
+                ["N recruit", "1-3 select op", "A/D agent", "Enter toggle", "B launch"]
+            ),
+            self.window.width,
         )
 
     def on_key_press(self, key, modifiers):
@@ -734,21 +788,37 @@ class BattleView(GameView):
         self.clear()
         self.camera.use()
         if self.map_index is None:
-            y = self.window.height - 40
-            arcade.draw_text("Select battle map:", 20, y, arcade.color.WHITE, 20)
+            draw_command_screen_frame(
+                "TACTICAL INSERTION // SELECT CITY COMBAT ZONE",
+                self.window.width,
+                self.window.height,
+            )
+            draw_panel(
+                18,
+                80,
+                min(620, self.window.width - 36),
+                self.window.height - 160,
+                "Drop Zone Uplink",
+            )
+            y = self.window.height - 130
+            arcade.draw_text("SELECT BATTLE MAP", 42, y, palette.HEADER, 20)
             y -= 40
             if not self.available_maps:
                 arcade.draw_text(
                     "No maps found in assets/maps",
-                    20,
+                    42,
                     y,
-                    arcade.color.RED,
+                    palette.DANGER,
                     14,
                 )
             else:
                 for idx, name in enumerate(self.available_maps, start=1):
-                    arcade.draw_text(f"{idx} - {name}", 20, y, arcade.color.AQUA, 14)
-                    y -= 20
+                    arcade.draw_text(f"{idx}  ▸  {name}", 42, y, palette.ACCENT, 14)
+                    y -= 24
+            draw_action_strip(
+                build_action_strip(["1-9 choose drop zone", "Esc return"]),
+                self.window.width,
+            )
             return
         if self.background:
             # Build a rectangle: left, bottom, width, height
@@ -766,9 +836,9 @@ class BattleView(GameView):
         if self.battle_objective:
             ox, oy = self.battle_objective.position
             marker_color = (
-                arcade.color.GREEN
+                palette.TACTICAL_GREEN
                 if self.battle_objective.completed
-                else arcade.color.YELLOW
+                else palette.WARNING
             )
             arcade.draw_lrbt_rectangle_filled(
                 ox - 14,
@@ -779,14 +849,14 @@ class BattleView(GameView):
             )
             arcade.draw_rect_outline(
                 arcade.LBWH(ox - 18, oy - 18, 36, 36),
-                arcade.color.AQUA,
+                palette.ACCENT,
                 border_width=2,
             )
             arcade.draw_text(
                 self.battle_objective.label,
                 ox - 28,
                 oy + 24,
-                arcade.color.WHITE,
+                palette.TEXT,
                 12,
             )
 
@@ -803,7 +873,7 @@ class BattleView(GameView):
                     right,
                     bottom,
                     top,
-                    arcade.color.DARK_RED,
+                    palette.DANGER,
                 )
                 current = bar_width * enemy.health / enemy.stats.max_hp
                 arcade.draw_lrbt_rectangle_filled(
@@ -811,7 +881,7 @@ class BattleView(GameView):
                     left + current,
                     bottom,
                     top,
-                    arcade.color.GREEN,
+                    palette.TACTICAL_GREEN,
                 )
         if self.selecting_target and self.target_candidates:
             target = self.target_candidates[self.selected_target_idx]
@@ -823,7 +893,7 @@ class BattleView(GameView):
                 full_rect = arcade.LBWH(cx - width / 2, cy - height / 2, width, height)
                 arcade.draw_rect_outline(
                     full_rect,
-                    arcade.color.YELLOW,
+                    palette.WARNING,
                     border_width=2,
                 )
                 # Display hit chance above target
@@ -841,64 +911,76 @@ class BattleView(GameView):
                     prob_text,
                     cx - width / 2,
                     cy + height / 2 + 4,
-                    arcade.color.YELLOW,
+                    palette.WARNING,
                     12,
                 )
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
-            arcade.draw_line(x1, y1, x2, y2, arcade.color.YELLOW, 2)
+            arcade.draw_line(x1, y1, x2, y2, palette.WARNING, 2)
         current_hp = (
             self.player_units[self.active_index].health if self.player_units else 0
         )
-        status = f"Turn {self.turn_number} - {self.turn.capitalize()}  Player HP: {current_hp}"
+        status = (
+            f"TURN {self.turn_number} // {self.turn.upper()} // ACTIVE HP {current_hp}"
+        )
         if self.mission:
-            status = f"{self.mission.title} | {status}"
-        arcade.draw_text(status, 20, self.window.height - 20, arcade.color.AQUA, 14)
+            status = f"{self.mission.title.upper()} // {status}"
+        draw_panel(
+            14,
+            self.window.height - 112,
+            self.window.width - 28,
+            98,
+            "Tactical Combat HUD",
+        )
+        arcade.draw_text(status, 32, self.window.height - 48, palette.ACCENT, 14)
         if self.mission:
             arcade.draw_text(
                 self.mission.objective_text,
-                20,
-                self.window.height - 42,
-                arcade.color.LIGHT_GRAY,
+                32,
+                self.window.height - 70,
+                palette.MUTED_TEXT,
                 12,
             )
         if self.battle_objective:
             arcade.draw_text(
                 self.battle_objective.status_text,
-                20,
-                self.window.height - 62,
-                arcade.color.AQUA,
+                32,
+                self.window.height - 90,
+                palette.RESOURCE,
                 12,
             )
         if self.message:
-            message_y = (
-                self.window.height - 84
-                if self.battle_objective
-                else self.window.height - 62
+            arcade.draw_text(
+                self.message, 32, self.window.height - 132, palette.WARNING, 16
             )
-            arcade.draw_text(self.message, 20, message_y, arcade.color.YELLOW, 16)
         if self.turn == "ended":
             if not self.enemy_units:
                 msg = "Victory!"
             else:
                 msg = "Defeat..."
-            arcade.draw_text(msg, 20, 40, arcade.color.YELLOW, 20)
+            arcade.draw_text(msg, 20, 40, palette.WARNING, 20)
         else:
             if self.selecting_target:
-                arcade.draw_text(
-                    "Select target with Left/Right, Enter to confirm, Esc to cancel",
-                    20,
-                    20,
-                    arcade.color.AQUA,
-                    14,
+                draw_action_strip(
+                    build_action_strip(
+                        ["Left/Right target", "Enter confirm", "Esc cancel"]
+                    ),
+                    self.window.width,
                 )
             else:
-                arcade.draw_text(
-                    "Arrows move, E objective, Space melee, F shoot, P psi atk, V psi def, D defend, Esc exit",
-                    20,
-                    20,
-                    arcade.color.AQUA,
-                    14,
+                draw_action_strip(
+                    build_action_strip(
+                        [
+                            "Arrows move",
+                            "E objective",
+                            "Space melee",
+                            "F shoot",
+                            "P psi",
+                            "V/D defend",
+                            "Esc exit",
+                        ]
+                    ),
+                    self.window.width,
                 )
 
     def on_key_press(self, key, modifiers):

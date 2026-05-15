@@ -17,18 +17,20 @@ python main.py
 ## Controls
 
 ### Corp View
-- District Pulse and Latest Fallout panels surface unrest, media heat and consequences
+- XCOM2-inspired corporate command room frames budget, resources, upgrade sinks,
+  district meters and fallout as angled tactical panels over the city skyline
 - Each turn grants funds to invest in the corporation
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game
 
 ### City View
-- District Pressure, Faction Pressure and Operations Log panels show city consequences
+- City control room presents budget networks, district pressure meters, faction
+  pressure and operations feed in the same tactical command-shell language
 - `7-9` allocate city budget
 
 ### RPG View
-- Mega-city command deck frames planning with a squad bay, city ops table,
+- Squad command deck frames planning with a squad bay, city ops table,
   operation intel panel and readiness/fallout rail
 - Readiness Brief previews which agents may crack under the selected mission's stress
 - Mission Board shows each operation's objective type, risk, target faction,
@@ -37,6 +39,8 @@ python main.py
 - `B` start a battle
 
 ### Battle View
+- Tactical combat HUD uses the command-shell frame for map selection, mission
+  objective status, active HP and input actions
 - Arrow keys move the unit
 - `E` interact with tactical objective markers
 - `Space` melee attack
