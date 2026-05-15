@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field, asdict
 
 
+from .management.equipment import AgentLoadout
 from .stats import PlayerStats
 
 
@@ -25,6 +26,7 @@ class Character:
     history: list[str] = field(default_factory=list)
     savage_tags: list[str] = field(default_factory=list)
     recovery_turns: int = 0
+    loadout: AgentLoadout = field(default_factory=AgentLoadout)
 
     def to_dict(self) -> dict:
         return {
@@ -45,6 +47,7 @@ class Character:
             "history": list(self.history),
             "savage_tags": list(self.savage_tags),
             "recovery_turns": self.recovery_turns,
+            "loadout": self.loadout.to_dict(),
         }
 
     @classmethod
@@ -69,6 +72,7 @@ class Character:
             history=list(data.get("history", [])),
             savage_tags=list(data.get("savage_tags", [])),
             recovery_turns=data.get("recovery_turns", 0),
+            loadout=AgentLoadout.from_dict(data.get("loadout")),
         )
 
     def gain_xp(self, amount: int) -> None:
