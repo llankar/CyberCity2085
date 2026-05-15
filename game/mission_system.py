@@ -77,6 +77,8 @@ def resolve_mission_outcome(
     for consequence in consequences:
         game_state.apply_consequence(consequence)
 
+    game_state.award_mission_funds(mission, victory)
+
     complication = pick_complication(mission, triggered_complication)
     if complication:
         consequence = complication.consequence

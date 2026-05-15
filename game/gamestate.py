@@ -7,7 +7,12 @@ from typing import List, TYPE_CHECKING
 from .consequences import Consequence, create_opening_consequence
 from .factions import Faction, create_vertical_slice_factions
 from .management.calendar import StrategicCalendar
-from .management.funds import CorporateFunds
+from .management.funds import (
+    MISSION_FUND_CATEGORIES,
+    CorporateFunds,
+    calculate_mission_fund_reward,
+    default_mission_fund_distribution,
+)
 from .mission_templates import MissionTemplate, create_mission_templates
 from .operations import Operation, create_operation_templates
 from .world import District, create_vertical_slice_district
@@ -38,6 +43,11 @@ class GameState:
             "salvage": 0,
             "influence": 0,
         }
+    )
+
+    # Post-mission cash allocations reserved for named command categories.
+    mission_fund_allocations: dict = field(
+        default_factory=lambda: {key: 0 for key in MISSION_FUND_CATEGORIES}
     )
 
     # Management data for the city phase
@@ -171,6 +181,44 @@ class GameState:
         else:
             self.add_event("Extraction failed: no strategic resources recovered.")
         return rewards
+
+    def award_mission_funds(
+        self, mission: MissionTemplate | None, victory: bool
+    ) -> dict[str, int]:
+        """Add mission cash to the ledger, then apply a small default split."""
+        reward = calculate_mission_fund_reward(mission, victory)
+        if reward <= 0:
+            return {}
+
+        mission_title = getattr(mission, "title", "mission")
+        if not self.add_funds(
+            reward,
+            "mission_reward",
+            f"{mission_title} success payout.",
+        ):
+            return {}
+
+        distribution = default_mission_fund_distribution(reward)
+        for category, amount in distribution.items():
+            if amount <= 0:
+                continue
+            self.mission_fund_allocations[category] = (
+                self.mission_fund_allocations.get(category, 0) + amount
+            )
+            if category != "corporate_reserves":
+                self.spend_funds(
+                    amount,
+                    f"mission_{category}",
+                    f"Post-mission allocation from {mission_title}.",
+                )
+
+        summary = ", ".join(
+            f"{category.replace('_', ' ')} +{amount}"
+            for category, amount in distribution.items()
+            if amount > 0
+        )
+        self.add_event(f"Mission funds secured: +{reward}; allocation {summary}.")
+        return {key: value for key, value in distribution.items() if value > 0}
 
     def spend_resource(self, resource_key: str, amount: int) -> bool:
         """Spend one strategic resource safely when enough stock is available."""
@@ -320,6 +368,7 @@ class GameState:
             "corp_budget": self.corp_budget,
             "city_budget": self.city_budget,
             "strategic_resources": self.strategic_resources,
+            "mission_fund_allocations": self.mission_fund_allocations,
             "characters": [c.to_dict() for c in self.characters],
             "x": self.x,
             "base_name": self.base_name,
@@ -353,6 +402,9 @@ class GameState:
         gs.corp_budget.update(data.get("corp_budget", {}))
         gs.city_budget.update(data.get("city_budget", {}))
         gs.strategic_resources.update(data.get("strategic_resources", {}))
+        gs.mission_fund_allocations.update(
+            data.get("mission_fund_allocations", {})
+        )
         gs.calendar = StrategicCalendar.from_dict(data.get("calendar"))
         gs.turn = data.get("turn", gs.calendar.current_day)
         if "calendar" not in data:
