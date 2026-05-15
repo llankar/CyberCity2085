@@ -70,7 +70,10 @@ class RoomUIState:
 
 ROOM_ACTIONS = {
     "corp": {
-        "executive": [RoomAction("politics", "influence", "Fund politics")],
+        "executive": [
+            RoomAction("advance_day", "city", "Advance day"),
+            RoomAction("politics", "influence", "Fund politics"),
+        ],
         "research": [RoomAction("research", "research", "Fund research")],
         "security": [RoomAction("security", "shield", "Fund security")],
         "black_ops": [
@@ -88,7 +91,10 @@ ROOM_ACTIONS = {
         ],
     },
     "city": {
-        "municipal": [RoomAction("garrisons", "shield", "Fund garrisons")],
+        "municipal": [
+            RoomAction("advance_day", "city", "Advance day"),
+            RoomAction("garrisons", "shield", "Fund garrisons"),
+        ],
         "district": [RoomAction("defense_zones", "radar", "Fund zones")],
         "transit": [RoomAction("armaments", "armory", "Fund arms")],
         "factions": [RoomAction("garrisons", "shield", "Fund garrisons")],

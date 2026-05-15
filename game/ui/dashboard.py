@@ -58,13 +58,15 @@ def build_command_status_line(
     resources: dict[str, int],
     district: District,
     available_funds: int | None = None,
+    campaign_date_label: str | None = None,
 ) -> str:
     """Build the top-line command HUD status for Corp and City screens."""
     funds_text = (
         f"FUNDS {available_funds} // " if available_funds is not None else ""
     )
+    date_text = f"{campaign_date_label} // " if campaign_date_label else ""
     return (
-        f"TURN {turn} // {base_name} // "
+        f"TURN {turn} // {date_text}{base_name} // "
         f"{funds_text}"
         f"{build_resource_summary_line(resources)} // "
         f"DISTRICT PRESSURE {district_pressure_severity(district)}"

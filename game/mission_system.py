@@ -86,4 +86,5 @@ def resolve_mission_outcome(
         game_state.add_event(f"Complication triggered: {complication.trigger_text}")
 
     game_state.active_mission = None
+    game_state.advance_one_day("mission success" if victory else "mission failure")
     return complication
