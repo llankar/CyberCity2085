@@ -2,12 +2,14 @@
 
 import unittest
 
+from game.gamestate import GameState
 from game.ui.command_center import (
     build_action_strip,
     build_command_center_layout,
     build_command_title,
     panel_by_key,
 )
+from game.ui.dashboard import build_command_status_line
 
 
 class CommandCenterUITest(unittest.TestCase):
@@ -40,6 +42,19 @@ class CommandCenterUITest(unittest.TestCase):
             title, "CITY CONTROL TOWER // GHOST TOWER // CHROME WARRENS"
         )
         self.assertEqual(strip, "7-9 invest  >  R squad deck")
+
+    def test_dashboard_status_line_shows_available_funds(self):
+        game_state = GameState()
+        line = build_command_status_line(
+            game_state.turn,
+            game_state.base_name,
+            game_state.strategic_resources,
+            game_state.district,
+            game_state.available_funds,
+        )
+
+        self.assertIn(f"FUNDS {game_state.available_funds}", line)
+        self.assertIn("DISTRICT PRESSURE", line)
 
 
 if __name__ == "__main__":
