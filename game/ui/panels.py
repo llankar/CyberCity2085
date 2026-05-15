@@ -254,25 +254,46 @@ def draw_graphical_command_surface(
     resources: dict[str, int] | None = None,
     room_info_lines: dict[str, list[str]] | None = None,
     roster_cards: list[dict] | None = None,
+    available_funds: int | None = None,
 ) -> None:
     """Draw the image-first room UI without text panels."""
     draw_city_corporate_backdrop(width, height, state.mode)
-    draw_icon_resource_hud(width, height, resources or {})
-    draw_expanded_room_ui(width, height, state, room_info_lines or {}, roster_cards or [])
+    draw_icon_resource_hud(width, height, resources or {}, available_funds)
+    draw_expanded_room_ui(
+        width, height, state, room_info_lines or {}, roster_cards or []
+    )
 
 
-def draw_icon_resource_hud(width: int, height: int, resources: dict[str, int]) -> None:
-    """Draw compact icon-only resource meters."""
+def draw_icon_resource_hud(
+    width: int,
+    height: int,
+    resources: dict[str, int],
+    available_funds: int | None = None,
+) -> None:
+    """Draw compact icon resource meters and available corporate funds."""
+    if available_funds is not None:
+        arcade.draw_lrbt_rectangle_filled(
+            22, 178, height - 68, height - 42, palette.HUD_SLOT_FILL
+        )
+        _draw_icon("credits", 38, height - 55, 18, palette.RESOURCE)
+        meter_width = max(4, min(120, int(available_funds)))
+        arcade.draw_lrbt_rectangle_filled(
+            52, 52 + meter_width, height - 59, height - 51, palette.RESOURCE
+        )
     keys = ("credits", "intel", "salvage", "influence")
     size = 34
     gap = 12
-    left = 22
+    left = 196 if available_funds is not None else 22
     top = height - 18
     for index, key in enumerate(keys):
         x = left + index * (size + gap)
         bottom = top - size
-        arcade.draw_lrbt_rectangle_filled(x, x + size, bottom, top, palette.HUD_SLOT_FILL)
-        _draw_icon(key, x + size // 2, bottom + size // 2, size - 10, palette.RESOURCE)
+        arcade.draw_lrbt_rectangle_filled(
+            x, x + size, bottom, top, palette.HUD_SLOT_FILL
+        )
+        _draw_icon(
+            key, x + size // 2, bottom + size // 2, size - 10, palette.RESOURCE
+        )
         value = max(0, min(100, int(resources.get(key, 0))))
         bar_height = max(3, int((size - 8) * min(value, 40) / 40))
         arcade.draw_lrbt_rectangle_filled(
