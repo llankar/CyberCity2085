@@ -15,6 +15,7 @@ TODO:
 [x] Create dedicated corporate funds ledger and show available funds in command UI
 [x] Add strategic calendar with daily income, pending fallout, and recovery ticks
 [x] Add compact agent equipment loadouts with primary, sidearm, armor, utility, psi focus, and special gear slots
+[x] Add mission fund rewards with default post-mission allocation
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -48,7 +49,9 @@ Done:
   remaining upgrade points, and use 24 generated portrait assets.
 - Corporate funds ledger: the global game state now owns a small funds module
   tracking available cash, income, expenses, and transaction history for
-  management decisions.
+  management decisions. Mission successes now add fund rewards through that
+  ledger and automatically split payouts into agent morale, research,
+  equipment, maintenance, and reserves.
 - Strategic calendar: GameState now owns a small campaign calendar that advances
   after mission success/failure or manual command-deck orders, then ticks passive
   income, pending fallout review, weekly planning beats, and agent recovery.
@@ -59,4 +62,5 @@ Done:
 - City/corporate tactical command deck: RPG View has separate agent barracks,
   operations table, intel lab, and medbay/fallout panels over the tower base.
 - Mission UI: RPG view mission board has selectable rows plus a selected-mission
-  detail panel for launch pressure, complications, tags, and outcome stakes.
+  detail panel for launch pressure, fund rewards, complications, tags, and
+  outcome stakes.
