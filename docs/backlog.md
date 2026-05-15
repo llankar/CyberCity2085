@@ -16,6 +16,7 @@ TODO:
 [x] Add strategic calendar with daily income, pending fallout, and recovery ticks
 [x] Add compact agent equipment loadouts with primary, sidearm, armor, utility, psi focus, and special gear slots
 [x] Add mission fund rewards with default post-mission allocation
+[x] Add weekly recurring corporate funding tied to the strategic calendar
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -55,6 +56,10 @@ Done:
 - Strategic calendar: GameState now owns a small campaign calendar that advances
   after mission success/failure or manual command-deck orders, then ticks passive
   income, pending fallout review, weekly planning beats, and agent recovery.
+- Weekly corporate funding: a small corporation finance model projects recurring
+  stipends after city support, political pressure, and upkeep; crossing into a
+  new strategic week deposits that funding through the funds ledger and displays
+  the next payment date in corporate management rooms.
 - Agent equipment loadouts: characters now reference modular loadouts with
   explicit weapon, armor, utility, psi focus, and special gear slots; combat
   setup reads those items for stat/action adjustments while the character model
