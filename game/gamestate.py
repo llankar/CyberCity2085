@@ -6,6 +6,7 @@ from typing import List, TYPE_CHECKING
 
 from .consequences import Consequence, create_opening_consequence
 from .factions import Faction, create_vertical_slice_factions
+from .management.funds import CorporateFunds
 from .mission_templates import MissionTemplate, create_mission_templates
 from .operations import Operation, create_operation_templates
 from .world import District, create_vertical_slice_district
@@ -78,11 +79,19 @@ class GameState:
 
     # Turn management
     turn: int = 1
+    funds: CorporateFunds = field(default_factory=CorporateFunds)
     budget_pool: int = 0
 
     def __post_init__(self) -> None:
         if not self.budget_pool:
             self.budget_pool = self.compute_budget()
+        if self.funds.available_funds <= 0 and not self.funds.transaction_history:
+            self.funds.add_funds(
+                self.budget_pool,
+                "opening_budget",
+                "Initial corporate operating funds.",
+            )
+        self.budget_pool = self.funds.available_funds
 
     # ------------------------------------------------------------------
     # Turn and budget management
@@ -91,11 +100,35 @@ class GameState:
         """Compute the budget for the next turn based on current corp values."""
         return 100 + sum(self.corp_budget.values()) // 10
 
+    @property
+    def available_funds(self) -> int:
+        """Return corporate funds available for immediate spending."""
+        return self.funds.available_funds
+
+    def can_afford(self, amount: int) -> bool:
+        """Return whether the corporate ledger can cover an expense."""
+        return self.funds.can_afford(amount)
+
+    def add_funds(self, amount: int, source: str, note: str = "") -> bool:
+        """Add income to the corporate funds ledger and sync legacy budget UI."""
+        added = self.funds.add_funds(amount, source, note)
+        if added:
+            self.budget_pool = self.funds.available_funds
+        return added
+
+    def spend_funds(self, amount: int, sink: str, note: str = "") -> bool:
+        """Spend from the corporate funds ledger and sync legacy budget UI."""
+        spent = self.funds.spend_funds(amount, sink, note)
+        if spent:
+            self.budget_pool = self.funds.available_funds
+        return spent
+
     def allocate_corp_funds(self, key: str, amount: int) -> bool:
-        """Attempt to allocate funds from the current budget."""
-        if key in self.corp_budget and self.budget_pool >= amount:
+        """Attempt to allocate funds from the current corporate ledger."""
+        if key in self.corp_budget and self.spend_funds(
+            amount, f"corp_{key}", f"Allocated to {key}."
+        ):
             self.corp_budget[key] += amount
-            self.budget_pool -= amount
             return True
         return False
 
@@ -171,9 +204,14 @@ class GameState:
                     recovered_agents.append(character.name)
 
         self.turn += 1
-        self.budget_pool = self.compute_budget()
+        income = self.compute_budget()
+        self.add_funds(
+            income,
+            "turn_refresh",
+            f"Turn {self.turn} operating funds for {self.base_name}.",
+        )
         self.add_event(
-            f"Turn {self.turn}: Corporate budget refreshed for {self.base_name}."
+            f"Turn {self.turn}: Corporate funds refreshed by {income} for {self.base_name}."
         )
         for name in recovered_agents:
             self.add_event(f"Turn {self.turn}: {name} is deployable after recovery.")
@@ -251,6 +289,7 @@ class GameState:
         data = {
             "turn": self.turn,
             "budget_pool": self.budget_pool,
+            "funds": self.funds.to_dict(),
             "corp_budget": self.corp_budget,
             "city_budget": self.city_budget,
             "strategic_resources": self.strategic_resources,
@@ -288,7 +327,12 @@ class GameState:
         gs.city_budget.update(data.get("city_budget", {}))
         gs.strategic_resources.update(data.get("strategic_resources", {}))
         gs.turn = data.get("turn", 1)
-        gs.budget_pool = data.get("budget_pool", gs.compute_budget())
+        if "funds" in data:
+            gs.funds = CorporateFunds.from_dict(data["funds"])
+            gs.budget_pool = gs.funds.available_funds
+        else:
+            gs.budget_pool = data.get("budget_pool", gs.compute_budget())
+            gs.funds = CorporateFunds(current_funds=gs.budget_pool)
         gs.x = data.get("x", 0)
         gs.base_name = data.get("base_name", gs.base_name)
         gs.district = District.from_dict(data.get("district", gs.district.to_dict()))
