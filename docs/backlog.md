@@ -12,6 +12,7 @@ TODO:
 [x] Display the squad roster as graphical personalized agent cards
 [x] Fix pending-upgrade roster card rendering
 [x] Add click-select squad cards with generated portraits and point counters
+[x] Create dedicated corporate funds ledger and show available funds in command UI
 [ ] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -43,6 +44,9 @@ Done:
 - Squad card interaction: expanded squad rooms now distinguish the active agent
   from deployment selection, let card clicks choose the active agent, show
   remaining upgrade points, and use 24 generated portrait assets.
+- Corporate funds ledger: the global game state now owns a small funds module
+  tracking available cash, income, expenses, and transaction history for
+  management decisions.
 - City/corporate tactical command deck: RPG View has separate agent barracks,
   operations table, intel lab, and medbay/fallout panels over the tower base.
 - Mission UI: RPG view mission board has selectable rows plus a selected-mission

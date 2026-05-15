@@ -53,11 +53,19 @@ def district_pressure_severity(district: District) -> str:
 
 
 def build_command_status_line(
-    turn: int, base_name: str, resources: dict[str, int], district: District
+    turn: int,
+    base_name: str,
+    resources: dict[str, int],
+    district: District,
+    available_funds: int | None = None,
 ) -> str:
     """Build the top-line command HUD status for Corp and City screens."""
+    funds_text = (
+        f"FUNDS {available_funds} // " if available_funds is not None else ""
+    )
     return (
         f"TURN {turn} // {base_name} // "
+        f"{funds_text}"
         f"{build_resource_summary_line(resources)} // "
         f"DISTRICT PRESSURE {district_pressure_severity(district)}"
     )

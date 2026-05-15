@@ -90,8 +90,12 @@ class CorpView(GameView):
     def setup(self):
         self.text = "Corporation Management"
         self.room_ui = RoomUIState("corp")
-        if self.game_state.budget_pool <= 0:
-            self.game_state.budget_pool = self.game_state.compute_budget()
+        if self.game_state.available_funds <= 0:
+            self.game_state.add_funds(
+                self.game_state.compute_budget(),
+                "corp_setup",
+                "Emergency command-floor operating funds.",
+            )
 
     def on_draw(self):
         self.clear()
@@ -101,9 +105,10 @@ class CorpView(GameView):
             self.room_ui,
             self.game_state.strategic_resources,
             self._room_info_lines(),
-            build_roster_cards(
+            roster_cards=build_roster_cards(
                 self.game_state.characters, self.game_state.selected_agent_names
             ),
+            available_funds=self.game_state.available_funds,
         )
 
     def _buy_corp_upgrade(self, key: str, costs: dict[str, int]) -> None:
@@ -138,7 +143,7 @@ class CorpView(GameView):
             self.game_state.save("savegame.json")
         elif key == arcade.key.L:
             self.game_state = GameState.load("savegame.json")
-        if self.game_state.budget_pool <= 0:
+        if self.game_state.available_funds <= 0:
             self.game_state.advance_turn()
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -178,8 +183,9 @@ class CorpView(GameView):
             return
         if action_key.startswith("recruit_"):
             role = action_key.removeprefix("recruit_")
-            if self.game_state.budget_pool >= 5:
-                self.game_state.budget_pool -= 5
+            if self.game_state.spend_funds(
+                5, "recruitment", f"Recruited {role} from Black Ops."
+            ):
                 agent = recruit_agent(self.game_state.characters, role)
                 self.game_state.add_event(
                     f"Black ops recruited {agent.name} as {role}."
@@ -195,7 +201,7 @@ class CorpView(GameView):
         resources = self.game_state.strategic_resources
         return {
             "executive": [
-                f"Turn {self.game_state.turn} | Budget pool {self.game_state.budget_pool}",
+                f"Turn {self.game_state.turn} | Funds {self.game_state.available_funds}",
                 f"Politics allocation {self.game_state.corp_budget['politics']}",
                 f"Influence reserve {resources.get('influence', 0)}",
             ],
@@ -212,7 +218,7 @@ class CorpView(GameView):
             "black_ops": [
                 f"Black ops allocation {self.game_state.corp_budget['black_ops']}",
                 f"Credits {resources.get('credits', 0)} | Intel {resources.get('intel', 0)}",
-                f"Roster {len(self.game_state.characters)} agents | Recruit cost 5 budget",
+                f"Roster {len(self.game_state.characters)} agents | Recruit cost 5 funds",
                 "Fund cost: 5 credits + 3 intel",
             ],
             "media": [
@@ -262,9 +268,10 @@ class CityView(GameView):
             self.room_ui,
             self.game_state.strategic_resources,
             self._room_info_lines(),
-            build_roster_cards(
+            roster_cards=build_roster_cards(
                 self.game_state.characters, self.game_state.selected_agent_names
             ),
+            available_funds=self.game_state.available_funds,
         )
 
     def _buy_city_upgrade(self, key: str, costs: dict[str, int]) -> None:
@@ -466,11 +473,12 @@ class RPGView(GameView):
             self.room_ui,
             self.game_state.strategic_resources,
             self._room_info_lines(),
-            build_roster_cards(
+            roster_cards=build_roster_cards(
                 self.game_state.characters,
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
             ),
+            available_funds=self.game_state.available_funds,
         )
 
     def on_key_press(self, key, modifiers):
@@ -499,11 +507,12 @@ class RPGView(GameView):
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
         elif key == arcade.key.N:
-            if self.game_state.budget_pool >= 5:
+            if self.game_state.spend_funds(
+                5, "recruitment", "Reserved funds for a new agent."
+            ):
                 self.recruiting = True
                 self.selected_role = None
                 self.message = ""
-                self.game_state.budget_pool -= 5
             else:
                 pass
         elif self.recruiting:
@@ -611,8 +620,9 @@ class RPGView(GameView):
     def _perform_room_action(self, action_key: str) -> None:
         if action_key.startswith("recruit_"):
             role = action_key.removeprefix("recruit_")
-            if self.game_state.budget_pool >= 5:
-                self.game_state.budget_pool -= 5
+            if self.game_state.spend_funds(
+                5, "recruitment", "Recruited from squad room."
+            ):
                 recruit_agent(self.game_state.characters, role)
                 self.deployment_cursor_index = len(self.game_state.characters) - 1
                 self.message = ""
@@ -743,8 +753,8 @@ class RPGView(GameView):
         return {
             "barracks": [
                 f"Roster {len(self.game_state.characters)} agents",
-                f"Recruit budget pool {self.game_state.budget_pool}",
-                "Recruit cost: 5 budget",
+                f"Available funds {self.game_state.available_funds}",
+                "Recruit cost: 5 funds",
             ],
             "ops": [
                 mission.title,
@@ -968,6 +978,7 @@ class BattleView(GameView):
                 self.room_ui,
                 self.game_state.strategic_resources,
                 self._room_info_lines(),
+                available_funds=self.game_state.available_funds,
             )
             return
         if self.background:

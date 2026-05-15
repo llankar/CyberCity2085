@@ -29,6 +29,8 @@
   - Progress: Agent cards now use 24 generated portrait assets, strong
     active-agent brackets, click-to-select behavior, and numbered upgrade-point
     badges/buttons for leveling.
+  - Progress: Corporate management now has a dedicated funds ledger owned by
+    GameState, with available funds shown in command HUD and room info.
 - District system
 - Mission generation
 - Black ops
