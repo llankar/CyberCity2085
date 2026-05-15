@@ -31,12 +31,18 @@
     badges/buttons for leveling.
   - Progress: Corporate management now has a dedicated funds ledger owned by
     GameState, with available funds shown in command HUD and room info.
+  - Progress: Agent barracks now supports a small modular equipment slice: each
+    agent has loadout slots for primary weapon, sidearm, armor, utility item,
+    psi focus/implant, and special gear, and combat unit creation applies those
+    bonuses without hard-coding combat behavior into Character.
 - District system
 - Mission generation
 - Black ops
 
 # Phase 2
 - Agent system
+  - Progress: Loadouts are now a first small agent-system slice, giving agents
+    memorable gear choices while preserving scope and modularity.
 - Media system
 - Relationships
 - outside the city missions (wastelands)

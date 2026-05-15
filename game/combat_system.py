@@ -2,12 +2,13 @@
 
 import random
 from collections.abc import Callable
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from .character import Character
 from .deployment import deployable_agents, selected_deployable_agents
 from .mission_templates import MissionTemplate
-from .stats import EnemyStats
+from .management.equipment import Weapon
+from .stats import EnemyStats, PlayerStats
 from .unit import Unit
 
 GRID_SIZE = 32
@@ -39,6 +40,31 @@ def is_occupied(
     return False
 
 
+def equipped_player_stats(character: Character) -> PlayerStats:
+    """Return combat stats with loadout bonuses applied without mutating the agent."""
+    stats = replace(character.stats)
+    for stat_key, amount in character.loadout.total_stat_bonuses().items():
+        if not hasattr(stats, stat_key):
+            continue
+        setattr(stats, stat_key, max(0, getattr(stats, stat_key) + amount))
+    if stats.max_hp < 1:
+        stats.recalculate_hp()
+    stats.hp = max(0, min(stats.hp, stats.max_hp))
+    return stats
+
+
+def primary_attack_range(character: Character) -> int:
+    """Return the longest directly equipped weapon range for initial combat setup."""
+    weapons = [
+        item
+        for item in (character.loadout.primary_weapon, character.loadout.sidearm)
+        if isinstance(item, Weapon)
+    ]
+    if not weapons:
+        return 1
+    return max(weapon.range_cells for weapon in weapons)
+
+
 def create_player_units(
     characters: list[Character], selected_agent_names: list[str] | None = None
 ) -> list[Unit]:
@@ -52,15 +78,20 @@ def create_player_units(
         if selected_agent_names is None
         else selected_deployable_agents(characters, selected_agent_names)
     )
-    return [
-        Unit(
-            position=(64 + i * 64, 64),
-            stats=char.stats,
-            health=char.stats.hp,
-            character=char,
+    player_units: list[Unit] = []
+    for i, char in enumerate(deployable_characters):
+        stats = equipped_player_stats(char)
+        player_units.append(
+            Unit(
+                position=(64 + i * 64, 64),
+                stats=stats,
+                health=stats.hp,
+                character=char,
+                attack_range=primary_attack_range(char),
+                available_actions=char.loadout.combat_actions(),
+            )
         )
-        for i, char in enumerate(deployable_characters)
-    ]
+    return player_units
 
 
 def create_enemy_units(

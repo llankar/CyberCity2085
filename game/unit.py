@@ -18,6 +18,7 @@ class Unit:
     attack_range: int = 1
     health: int = 3
     action_points: int = 2
+    available_actions: list[str] | None = None
     sprite: arcade.Sprite | None = None
     is_defending: bool = False
     is_psi_defending: bool = False
@@ -69,8 +70,8 @@ class Unit:
         return self._perform_attack(other, stat="str", range_=1)
 
     def shoot(self, other: "Unit") -> int:
-        """Ranged attack using agility with a 10 cell range."""
-        return self._perform_attack(other, stat="agi", range_=10)
+        """Ranged attack using agility and equipped weapon reach."""
+        return self._perform_attack(other, stat="agi", range_=max(1, self.attack_range))
 
     def psi_attack(self, other: "Unit") -> int:
         """Psi attack with a 10 cell range."""

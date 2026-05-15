@@ -5,6 +5,7 @@ from .agent_aftermath import apply_mission_aftermath
 from .agent_readiness import agents_at_breaking_risk, build_agent_readiness_lines
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .character import Character, is_deployable
+from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
 from .combat_system import (
     create_enemy_units,
     create_player_units,
@@ -68,6 +69,16 @@ def build_roster_cards(
                 "pending_points": character.pending_points,
                 "recovery_turns": character.recovery_turns,
                 "level": stats.level,
+                "primary_weapon": (
+                    character.loadout.primary_weapon.name
+                    if character.loadout.primary_weapon
+                    else "Unarmed"
+                ),
+                "armor": (
+                    character.loadout.armor.name
+                    if character.loadout.armor
+                    else "No armor"
+                ),
             }
         )
     return cards
@@ -398,6 +409,7 @@ class RPGView(GameView):
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
         self.deployment_cursor_index = 0
+        self.equipment_catalog = default_equipment_catalog()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
@@ -667,6 +679,10 @@ class RPGView(GameView):
             self.pending_breakdown_mission_id = None
             self._refresh_squad_room_actions()
             return
+        if action_key.startswith("equip_"):
+            self._equip_active_agent(action_key.removeprefix("equip_"))
+            self._refresh_squad_room_actions()
+            return
         if action_key.startswith("level_"):
             self._level_active_agent(action_key.removeprefix("level_"))
             self._refresh_squad_room_actions()
@@ -693,6 +709,17 @@ class RPGView(GameView):
                     RoomAction("agent_next", "right", "Next agent"),
                 ]
             )
+            if room_key == "armory":
+                actions.extend(
+                    [
+                        RoomAction("equip_primary_weapon", "armory", "Primary"),
+                        RoomAction("equip_sidearm", "radar", "Sidearm"),
+                        RoomAction("equip_armor", "shield", "Armor"),
+                        RoomAction("equip_utility_item", "medical", "Utility"),
+                        RoomAction("equip_psi_focus", "research", "Psi focus"),
+                        RoomAction("equip_special_gear", "stealth", "Special"),
+                    ]
+                )
             active_agent = self._active_agent()
             if active_agent and active_agent.pending_points > 0:
                 points = active_agent.pending_points
@@ -720,6 +747,25 @@ class RPGView(GameView):
         self.room_ui.action_buttons = layout_action_buttons(
             self.window.width, self.window.height, actions
         )
+
+    def _equip_active_agent(self, slot: str) -> None:
+        """Cycle the active agent through the starter equipment catalog for a slot."""
+        active_agent = self._active_agent()
+        if not active_agent or slot not in EQUIPMENT_SLOTS:
+            return
+        options = self.equipment_catalog.get(slot, [])
+        if not options:
+            return
+        current = active_agent.loadout.item_for_slot(slot)
+        next_index = 0
+        if current:
+            for index, item in enumerate(options):
+                if item.id == current.id:
+                    next_index = (index + 1) % len(options)
+                    break
+        item = options[next_index]
+        active_agent.loadout.equip(slot, item)
+        self.message = f"{active_agent.name} equipped {item.name}."
 
     def _level_active_agent(self, stat_key: str) -> None:
         active_agent = self._active_agent()
@@ -771,21 +817,27 @@ class RPGView(GameView):
                 agent_line,
                 f"Selected squad {len(selected)}",
             ],
-            "armory": [
-                f"Selected squad {len(selected)}",
-                f"Deployable agents {sum(1 for char in self.game_state.characters if is_deployable(char))}",
-                f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
-            ],
+            "armory": (
+                [
+                    f"Selected squad {len(selected)}",
+                    f"Deployable agents {sum(1 for char in self.game_state.characters if is_deployable(char))}",
+                    f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
+                ]
+                + (active_agent.loadout.summary_lines() if active_agent else [])
+            ),
             "briefing": [
                 mission.title,
                 f"Breakdown risk agents {risk_count}",
                 f"Selected squad {len(selected)}",
             ],
-            "dossier": [
-                agent_line,
-                f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
-                f"Recovery turns {getattr(active_agent, 'recovery_turns', 0) if active_agent else 0}",
-            ],
+            "dossier": (
+                [
+                    agent_line,
+                    f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
+                    f"Recovery turns {getattr(active_agent, 'recovery_turns', 0) if active_agent else 0}",
+                ]
+                + (active_agent.loadout.summary_lines()[:3] if active_agent else [])
+            ),
             "insertion": [
                 mission.title,
                 f"Selected squad {len(selected)}",
