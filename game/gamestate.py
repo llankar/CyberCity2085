@@ -8,6 +8,12 @@ from .consequences import Consequence, create_opening_consequence
 from .factions import Faction, create_vertical_slice_factions
 from .management.calendar import StrategicCalendar
 from .management.corporation import CorporationFinance
+from .management.events import (
+    ActiveEvent,
+    apply_event_choice,
+    expire_events,
+    roll_random_event,
+)
 from .management.funds import (
     MISSION_FUND_CATEGORIES,
     CorporateFunds,
@@ -85,6 +91,9 @@ class GameState:
             "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
         ]
     )
+    active_events: list[ActiveEvent] = field(default_factory=list)
+    next_event_id: int = 1
+    unavailable_mission_ids: list[str] = field(default_factory=list)
 
     # Experience points gained through battles
     x: int = 0
@@ -93,9 +102,7 @@ class GameState:
     turn: int = 1
     calendar: StrategicCalendar = field(default_factory=StrategicCalendar)
     funds: CorporateFunds = field(default_factory=CorporateFunds)
-    corporation_finance: CorporationFinance = field(
-        default_factory=CorporationFinance
-    )
+    corporation_finance: CorporationFinance = field(default_factory=CorporationFinance)
     budget_pool: int = 0
 
     def __post_init__(self) -> None:
@@ -160,9 +167,7 @@ class GameState:
 
     def collect_weekly_corporate_funding(self) -> int:
         """Apply the corporation finance model to the funds ledger."""
-        amount = self.corporation_finance.apply_weekly_income(
-            self.funds, self.calendar
-        )
+        amount = self.corporation_finance.apply_weekly_income(self.funds, self.calendar)
         if amount > 0:
             self.budget_pool = self.funds.available_funds
             self.add_event(
@@ -303,6 +308,8 @@ class GameState:
                 f"Week {self.calendar.current_week}: Strategic planning cycle opens "
                 f"with corporate funding +{weekly_income}."
             )
+        expire_events(self)
+        roll_random_event(self)
         for name in recovered_agents:
             self.add_event(
                 f"{self.calendar.campaign_date_label}: {name} is deployable after recovery."
@@ -318,6 +325,14 @@ class GameState:
     def advance_turn(self) -> None:
         """Backward-compatible wrapper for one strategic day."""
         self.advance_one_day("turn refresh")
+
+    def roll_strategic_event(self, rng=None) -> ActiveEvent | None:
+        """Roll the management event deck for the current calendar day."""
+        return roll_random_event(self, rng)
+
+    def respond_to_event(self, event_id: str, choice_key: str) -> bool:
+        """Resolve an active event with a command choice."""
+        return apply_event_choice(self, event_id, choice_key)
 
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""
@@ -420,6 +435,9 @@ class GameState:
             ],
             "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "event_log": list(self.event_log),
+            "active_events": [event.to_dict() for event in self.active_events],
+            "next_event_id": self.next_event_id,
+            "unavailable_mission_ids": list(self.unavailable_mission_ids),
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
@@ -432,9 +450,7 @@ class GameState:
         gs.corp_budget.update(data.get("corp_budget", {}))
         gs.city_budget.update(data.get("city_budget", {}))
         gs.strategic_resources.update(data.get("strategic_resources", {}))
-        gs.mission_fund_allocations.update(
-            data.get("mission_fund_allocations", {})
-        )
+        gs.mission_fund_allocations.update(data.get("mission_fund_allocations", {}))
         gs.calendar = StrategicCalendar.from_dict(data.get("calendar"))
         gs.turn = data.get("turn", gs.calendar.current_day)
         if "calendar" not in data:
@@ -477,6 +493,11 @@ class GameState:
         ] or [create_opening_consequence(gs.district.name)]
         gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.event_log = list(data.get("event_log", gs.event_log))
+        gs.active_events = [
+            ActiveEvent.from_dict(event) for event in data.get("active_events", [])
+        ]
+        gs.next_event_id = int(data.get("next_event_id", len(gs.active_events) + 1))
+        gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
         from .character import Character
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
