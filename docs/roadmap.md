@@ -31,6 +31,9 @@
     badges/buttons for leveling.
   - Progress: Corporate management now has a dedicated funds ledger owned by
     GameState, with available funds shown in command HUD and room info.
+  - Progress: Strategic time now has a small calendar owned by GameState;
+    resolved missions and manual command-deck day advances trigger daily income,
+    pending fallout review, weekly planning beats, and recovery timers.
   - Progress: Agent barracks now supports a small modular equipment slice: each
     agent has loadout slots for primary weapon, sidearm, armor, utility item,
     psi focus/implant, and special gear, and combat unit creation applies those
