@@ -30,7 +30,10 @@ python main.py
 - Action buttons include short labels for recruit, level-up, navigation, and
   launch actions
 - `Esc` closes the open room and returns to the base map
-- Each turn grants funds to invest in the corporation
+- Each day grants passive operating funds; crossing into a new strategic week
+  also deposits projected corporate funding based on stipend, city support,
+  political pressure, and upkeep
+- Corporate rooms show the next weekly income date and projected payment
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
 - `S` save game / `L` load game

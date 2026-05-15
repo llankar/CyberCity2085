@@ -44,7 +44,19 @@ class StrategicCalendar:
     @property
     def campaign_date_label(self) -> str:
         """Return a compact in-world label for dashboards and logs."""
-        return f"{self.era_label}.M{self.current_month:02d}.D{self.day_of_month:02d}"
+        return self.date_label_for_day(self.current_day)
+
+    @property
+    def next_week_start_day(self) -> int:
+        """Return the campaign day that opens the next weekly cycle."""
+        return self.current_week * self.days_per_week + 1
+
+    def date_label_for_day(self, day: int) -> str:
+        """Return the compact in-world label for an arbitrary campaign day."""
+        day = max(1, int(day))
+        month = ((day - 1) // self.days_per_month) + 1
+        day_of_month = ((day - 1) % self.days_per_month) + 1
+        return f"{self.era_label}.M{month:02d}.D{day_of_month:02d}"
 
     @property
     def is_new_week(self) -> bool:

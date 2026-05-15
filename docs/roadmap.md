@@ -38,6 +38,9 @@
   - Progress: Strategic time now has a small calendar owned by GameState;
     resolved missions and manual command-deck day advances trigger daily income,
     pending fallout review, weekly planning beats, and recovery timers.
+  - Progress: Corporate finance now has a weekly recurring funding model: the
+    calendar pays the funds ledger whenever a new week opens, after stipend,
+    city-support, political-pressure, and upkeep calculations.
   - Progress: Agent barracks now supports a small modular equipment slice: each
     agent has loadout slots for primary weapon, sidearm, armor, utility item,
     psi focus/implant, and special gear, and combat unit creation applies those
