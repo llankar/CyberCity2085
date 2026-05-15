@@ -7,6 +7,7 @@ from typing import List, TYPE_CHECKING
 from .consequences import Consequence, create_opening_consequence
 from .factions import Faction, create_vertical_slice_factions
 from .management.calendar import StrategicCalendar
+from .management.corporation import CorporationFinance
 from .management.funds import (
     MISSION_FUND_CATEGORIES,
     CorporateFunds,
@@ -92,6 +93,9 @@ class GameState:
     turn: int = 1
     calendar: StrategicCalendar = field(default_factory=StrategicCalendar)
     funds: CorporateFunds = field(default_factory=CorporateFunds)
+    corporation_finance: CorporationFinance = field(
+        default_factory=CorporationFinance
+    )
     budget_pool: int = 0
 
     def __post_init__(self) -> None:
@@ -143,6 +147,29 @@ class GameState:
             self.corp_budget[key] += amount
             return True
         return False
+
+    @property
+    def projected_weekly_income(self) -> int:
+        """Return the next corporate funding payment before it is collected."""
+        return self.corporation_finance.projected_weekly_income()
+
+    @property
+    def next_weekly_income_date(self) -> str:
+        """Return the campaign date label for the next weekly funding payment."""
+        return self.corporation_finance.next_income_date_label(self.calendar)
+
+    def collect_weekly_corporate_funding(self) -> int:
+        """Apply the corporation finance model to the funds ledger."""
+        amount = self.corporation_finance.apply_weekly_income(
+            self.funds, self.calendar
+        )
+        if amount > 0:
+            self.budget_pool = self.funds.available_funds
+            self.add_event(
+                f"Week {self.calendar.current_week}: corporate funding +{amount} "
+                f"(next {self.next_weekly_income_date})."
+            )
+        return amount
 
     def award_mission_resources(
         self, mission: MissionTemplate | None, victory: bool, defeated: int
@@ -271,8 +298,10 @@ class GameState:
                 f"({len(self.recent_consequences)} active beats)."
             )
         if self.calendar.is_new_week:
+            weekly_income = self.collect_weekly_corporate_funding()
             self.add_event(
-                f"Week {self.calendar.current_week}: Strategic planning cycle opens."
+                f"Week {self.calendar.current_week}: Strategic planning cycle opens "
+                f"with corporate funding +{weekly_income}."
             )
         for name in recovered_agents:
             self.add_event(
@@ -365,6 +394,7 @@ class GameState:
             "calendar": self.calendar.to_dict(),
             "budget_pool": self.budget_pool,
             "funds": self.funds.to_dict(),
+            "corporation_finance": self.corporation_finance.to_dict(),
             "corp_budget": self.corp_budget,
             "city_budget": self.city_budget,
             "strategic_resources": self.strategic_resources,
@@ -416,6 +446,9 @@ class GameState:
         else:
             gs.budget_pool = data.get("budget_pool", gs.compute_budget())
             gs.funds = CorporateFunds(current_funds=gs.budget_pool)
+        gs.corporation_finance = CorporationFinance.from_dict(
+            data.get("corporation_finance")
+        )
         gs.x = data.get("x", 0)
         gs.base_name = data.get("base_name", gs.base_name)
         gs.district = District.from_dict(data.get("district", gs.district.to_dict()))
