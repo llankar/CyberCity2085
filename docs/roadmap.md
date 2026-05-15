@@ -47,6 +47,10 @@
     agent has loadout slots for primary weapon, sidearm, armor, utility item,
     psi focus/implant, and special gear, and combat unit creation applies those
     bonuses without hard-coding combat behavior into Character.
+  - Progress: Strategic event management now rolls a compact pressure-based
+    threat deck when the calendar advances, stores active unresolved events in
+    GameState, and exposes command choices that trade funds, agent stress,
+    faction pressure, city stability, and mission availability.
 - District system
 - Mission generation
 - Black ops
@@ -61,5 +65,7 @@
 
 # Phase 3
 - Corporate politics
+  - Progress: Board and municipal pressure now appears through the first small
+    strategic event deck rather than a large separate politics simulation.
 - Dynamic factions
 - Consequences
