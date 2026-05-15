@@ -14,8 +14,10 @@ from .combat_system import (
 )
 from .deployment import (
     sanitize_selected_agent_names,
+    sanitize_selected_asset_ids,
     selected_deployable_agents,
     toggle_agent_selection,
+    toggle_asset_selection,
 )
 from .ui import palette
 from .ui.panels import draw_graphical_command_surface
@@ -51,9 +53,13 @@ from .unit import Unit
 
 
 def build_roster_cards(
-    characters: list[Character], selected_names: list[str], cursor_index: int = 0
+    characters: list[Character],
+    selected_names: list[str],
+    cursor_index: int = 0,
+    assets: list | None = None,
+    selected_asset_ids: list[str] | None = None,
 ) -> list[dict]:
-    """Build graphical roster-card data for expanded team rooms."""
+    """Build graphical agent-first roster cards plus compact asset support cards."""
     selected = set(selected_names)
     cards = []
     for index, character in enumerate(characters):
@@ -81,6 +87,26 @@ def build_roster_cards(
                     if character.loadout.armor
                     else "No armor"
                 ),
+            }
+        )
+    selected_assets = set(selected_asset_ids or [])
+    for asset in assets or []:
+        integrity = max(0, min(asset.maintenance.integrity / 100, 1))
+        cards.append(
+            {
+                "name": asset.name,
+                "role": asset.display_role,
+                "active": False,
+                "selected": asset.id in selected_assets,
+                "portrait_path": None,
+                "hp_ratio": integrity,
+                "stress_ratio": 0,
+                "pending_points": 0,
+                "recovery_turns": 0 if asset.is_deployable else 1,
+                "level": 1,
+                "primary_weapon": asset.hardpoints[0].name if asset.hardpoints else "Unarmed rig",
+                "armor": f"Armor {asset.armor.defense_bonus} | Missiles {asset.missile_capacity}",
+                "is_asset": True,
             }
         )
     return cards
@@ -119,7 +145,10 @@ class CorpView(GameView):
             self.game_state.strategic_resources,
             self._room_info_lines(),
             roster_cards=build_roster_cards(
-                self.game_state.characters, self.game_state.selected_agent_names
+                self.game_state.characters,
+                self.game_state.selected_agent_names,
+                assets=self.game_state.spec_ops_assets,
+                selected_asset_ids=self.game_state.selected_asset_ids,
             ),
             available_funds=self.game_state.available_funds,
         )
@@ -320,7 +349,10 @@ class CityView(GameView):
             self.game_state.strategic_resources,
             self._room_info_lines(),
             roster_cards=build_roster_cards(
-                self.game_state.characters, self.game_state.selected_agent_names
+                self.game_state.characters,
+                self.game_state.selected_agent_names,
+                assets=self.game_state.spec_ops_assets,
+                selected_asset_ids=self.game_state.selected_asset_ids,
             ),
             available_funds=self.game_state.available_funds,
         )
@@ -474,6 +506,12 @@ class RPGView(GameView):
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
+        selected_agents = selected_deployable_agents(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        self.game_state.selected_asset_ids = sanitize_selected_asset_ids(
+            self.game_state.spec_ops_assets, self.game_state.selected_asset_ids, selected_agents
+        )
         ensure_mission_templates(self.game_state)
 
     def selected_mission(self) -> MissionTemplate:
@@ -486,9 +524,13 @@ class RPGView(GameView):
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
-        return selected_deployable_agents(
+        selected_agents = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
         )
+        self.game_state.selected_asset_ids = sanitize_selected_asset_ids(
+            self.game_state.spec_ops_assets, self.game_state.selected_asset_ids, selected_agents
+        )
+        return selected_agents
 
     def launch_selected_mission(self) -> None:
         if not self.has_deployable_agent():
@@ -555,6 +597,8 @@ class RPGView(GameView):
                 self.game_state.characters,
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
+                self.game_state.spec_ops_assets,
+                self.game_state.selected_asset_ids,
             ),
             available_funds=self.game_state.available_funds,
         )
@@ -581,6 +625,18 @@ class RPGView(GameView):
                 self.game_state.characters,
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
+            )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
+        elif key == arcade.key.V:
+            selected_agents = self.selected_deployment()
+            (
+                self.game_state.selected_asset_ids,
+                self.message,
+            ) = toggle_asset_selection(
+                self.game_state.spec_ops_assets,
+                self.game_state.selected_asset_ids,
+                selected_agents,
             )
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
@@ -745,6 +801,20 @@ class RPGView(GameView):
             self.pending_breakdown_mission_id = None
             self._refresh_squad_room_actions()
             return
+        if action_key == "toggle_asset":
+            selected_agents = self.selected_deployment()
+            (
+                self.game_state.selected_asset_ids,
+                self.message,
+            ) = toggle_asset_selection(
+                self.game_state.spec_ops_assets,
+                self.game_state.selected_asset_ids,
+                selected_agents,
+            )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
+            self._refresh_squad_room_actions()
+            return
         if action_key.startswith("equip_"):
             self._equip_active_agent(action_key.removeprefix("equip_"))
             self._refresh_squad_room_actions()
@@ -799,7 +869,12 @@ class RPGView(GameView):
                     ]
                 )
         elif room_key == "insertion":
-            actions.append(RoomAction("launch", "launch", "Launch mission"))
+            actions.extend(
+                [
+                    RoomAction("launch", "launch", "Launch mission"),
+                    RoomAction("toggle_asset", "armory", "Toggle support"),
+                ]
+            )
         elif room_key == "ops":
             actions.extend(
                 [
@@ -857,6 +932,10 @@ class RPGView(GameView):
             else None
         )
         risk_count = len(agents_at_breaking_risk(selected, mission)) if selected else 0
+        selected_asset_count = len(self.game_state.selected_asset_ids)
+        ready_asset_count = sum(
+            1 for asset in self.game_state.spec_ops_assets if asset.is_deployable
+        )
         agent_line = (
             f"{active_agent.name} | Stress {active_agent.stress} | Loyalty {active_agent.loyalty}"
             if active_agent
@@ -881,12 +960,13 @@ class RPGView(GameView):
             "medbay": [
                 f"Recovering agents {len(recovering)}",
                 agent_line,
-                f"Selected squad {len(selected)}",
+                f"Selected squad {len(selected)} + {selected_asset_count} support",
             ],
             "armory": (
                 [
-                    f"Selected squad {len(selected)}",
+                    f"Selected squad {len(selected)} + {selected_asset_count} support",
                     f"Deployable agents {sum(1 for char in self.game_state.characters if is_deployable(char))}",
+                    f"Ready support assets {ready_asset_count}",
                     f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
                 ]
                 + (active_agent.loadout.summary_lines() if active_agent else [])
@@ -894,7 +974,7 @@ class RPGView(GameView):
             "briefing": [
                 mission.title,
                 f"Breakdown risk agents {risk_count}",
-                f"Selected squad {len(selected)}",
+                f"Selected squad {len(selected)} + {selected_asset_count} support",
             ],
             "dossier": (
                 [
@@ -906,8 +986,8 @@ class RPGView(GameView):
             ),
             "insertion": [
                 mission.title,
-                f"Selected squad {len(selected)}",
-                "Launch moves the squad to tactical combat.",
+                f"Selected squad {len(selected)} + {selected_asset_count} support",
+                "Launch moves agents and support assets to combat.",
             ],
         }
 
@@ -935,8 +1015,14 @@ class BattleView(GameView):
         selected_squad = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
         )
+        self.game_state.selected_asset_ids = sanitize_selected_asset_ids(
+            self.game_state.spec_ops_assets, self.game_state.selected_asset_ids, selected_squad
+        )
         self.player_units = create_player_units(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters,
+            self.game_state.selected_agent_names,
+            self.game_state.spec_ops_assets,
+            self.game_state.selected_asset_ids,
         )
         self.defeated_player_units = []
         self.enemy_units, self.initial_enemy_count = create_enemy_units(

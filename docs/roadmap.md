@@ -57,6 +57,12 @@
     power-armor category. Projects spend corporate funds, progress as days
     advance on the strategic calendar, and complete into GameState unlock flags
     or small stat modifiers for later systems to consume.
+  - Progress: Spec-ops support assets now have a contained vertical slice:
+    combat robots and power armor define maintenance, weapon hardpoints, armor,
+    missile capacity, and pilot requirements; deployment manifests can include
+    them beside agents; combat setup turns them into distinct Units; and the
+    funds ledger pays upkeep/repair while agent cards remain first in the squad
+    UI.
 - District system
 - Mission generation
 - Black ops
