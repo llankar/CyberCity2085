@@ -1,5 +1,6 @@
 """Management-phase domain modules."""
 
+from .corporation import CorporationFinance
 from .equipment import AgentLoadout, Armor, EquipmentItem, Weapon
 from .funds import (
     CorporateFunds,
@@ -10,6 +11,7 @@ from .funds import (
 )
 
 __all__ = [
+    "CorporationFinance",
     "AgentLoadout",
     "Armor",
     "EquipmentItem",

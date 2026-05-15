@@ -45,6 +45,7 @@ from .mission_system import (
 from .mission_templates import MissionTemplate
 from .recruitment import recruit_agent
 from .ui import GameView
+from .ui.command_deck import build_corporate_finance_lines
 from .unit import Unit
 
 
@@ -215,10 +216,15 @@ class CorpView(GameView):
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         resources = self.game_state.strategic_resources
+        finance_lines = build_corporate_finance_lines(
+            self.game_state.next_weekly_income_date,
+            self.game_state.projected_weekly_income,
+        )
         return {
             "executive": [
                 f"{self.game_state.calendar.campaign_date_label} | Day {self.game_state.calendar.current_day}",
                 f"Turn {self.game_state.turn} | Funds {self.game_state.available_funds}",
+                *finance_lines,
                 f"Politics allocation {self.game_state.corp_budget['politics']}",
                 f"Influence reserve {resources.get('influence', 0)}",
             ],
@@ -246,6 +252,7 @@ class CorpView(GameView):
             "logistics": [
                 f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
                 f"Daily income target {self.game_state.compute_budget()}",
+                *finance_lines,
                 "D / Advance day ticks income, events, recovery.",
             ],
             "server": [

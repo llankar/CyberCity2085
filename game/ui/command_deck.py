@@ -119,3 +119,13 @@ def build_ops_table_header(mission: MissionTemplate | None, district_name: str) 
 def build_calendar_status_line(date_label: str, day: int, week: int) -> str:
     """Build a small command-deck calendar prompt for manual day advancement."""
     return f"{date_label} // DAY {day} // WEEK {week} // D ADVANCE DAY"
+
+
+def build_corporate_finance_lines(
+    next_income_date: str, projected_income: int
+) -> list[str]:
+    """Build compact recurring-funding copy for corporate management rooms."""
+    return [
+        f"Next weekly income {next_income_date}",
+        f"Projected income +{max(0, int(projected_income))} funds",
+    ]
