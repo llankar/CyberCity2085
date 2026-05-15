@@ -24,20 +24,22 @@ class CommandCenterUITest(unittest.TestCase):
             panel_by_key(panels, "top_right").left,
             panel_by_key(panels, "bottom_right").left,
         )
-        self.assertIn("Corporate War Room", panel_by_key(panels, "primary").title)
+        self.assertIn("Executive Command Floor", panel_by_key(panels, "primary").title)
 
     def test_city_mode_uses_city_control_language(self):
         panels = build_command_center_layout(1280, 720, "city")
 
-        self.assertIn("City Situation Room", panel_by_key(panels, "primary").title)
-        self.assertIn("District Pressure", panel_by_key(panels, "top_right").title)
+        self.assertIn("Municipal Control Floor", panel_by_key(panels, "primary").title)
+        self.assertIn("District Pressure Deck", panel_by_key(panels, "top_right").title)
 
     def test_command_title_and_action_strip_feel_like_tactical_console(self):
         title = build_command_title("city", "Ghost Tower", "Chrome Warrens")
         strip = build_action_strip(["7-9 invest", "R squad deck"])
 
-        self.assertEqual(title, "CITY CONTROL // GHOST TOWER // CHROME WARRENS")
-        self.assertEqual(strip, "7-9 invest  ▸  R squad deck")
+        self.assertEqual(
+            title, "CITY CONTROL TOWER // GHOST TOWER // CHROME WARRENS"
+        )
+        self.assertEqual(strip, "7-9 invest  >  R squad deck")
 
 
 if __name__ == "__main__":

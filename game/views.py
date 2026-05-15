@@ -17,37 +17,22 @@ from .deployment import (
     toggle_agent_selection,
 )
 from .ui import palette
-from .ui.panels import (
-    draw_action_strip,
-    draw_command_screen_frame,
-    draw_deck_panel,
-    draw_megacity_backdrop,
-    draw_panel,
-    draw_status_bar,
-    draw_tactical_meter,
+from .ui.panels import draw_graphical_command_surface
+from .ui.room_interaction import (
+    RoomAction,
+    RoomUIState,
+    action_at_point,
+    actions_for_room,
+    active_room_rect,
+    close_button_rect,
+    close_room,
+    layout_action_buttons,
+    open_room,
+    room_at_point,
+    roster_card_at_point,
+    step_room_ui,
 )
-from .ui.dashboard import (
-    build_agent_aftermath_lines,
-    build_command_status_line,
-    build_district_status_lines,
-    build_event_log_lines,
-    build_faction_pressure_lines,
-    build_recent_consequence_lines,
-    build_resource_summary_line,
-)
-from .ui.command_center import (
-    build_action_strip,
-    build_command_center_layout,
-    build_command_title,
-    panel_by_key,
-)
-from .ui.mission_board import build_mission_board_lines, build_selected_mission_lines
-from .ui.command_deck import (
-    build_agent_card_lines,
-    build_command_deck_layout,
-    build_ops_table_header,
-    deck_panel_by_key,
-)
+from .ui.portraits import portrait_path_for_character
 from .gamestate import GameState
 from .mission_objectives import create_battle_objective, interact_with_objective
 from .mission_system import (
@@ -62,6 +47,32 @@ from .ui import GameView
 from .unit import Unit
 
 
+def build_roster_cards(
+    characters: list[Character], selected_names: list[str], cursor_index: int = 0
+) -> list[dict]:
+    """Build graphical roster-card data for expanded team rooms."""
+    selected = set(selected_names)
+    cards = []
+    for index, character in enumerate(characters):
+        stats = character.stats
+        max_hp = max(1, stats.max_hp)
+        cards.append(
+            {
+                "name": character.name,
+                "role": character.role,
+                "active": index == cursor_index,
+                "selected": character.name in selected,
+                "portrait_path": portrait_path_for_character(character),
+                "hp_ratio": max(0, min(stats.hp / max_hp, 1)),
+                "stress_ratio": max(0, min(character.stress / 100, 1)),
+                "pending_points": character.pending_points,
+                "recovery_turns": character.recovery_turns,
+                "level": stats.level,
+            }
+        )
+    return cards
+
+
 class CorpView(GameView):
     CORP_UPGRADE_COSTS = {
         arcade.key.KEY_1: ("research", {"intel": 5}),
@@ -69,107 +80,30 @@ class CorpView(GameView):
         arcade.key.KEY_3: ("politics", {"influence": 3}),
         arcade.key.KEY_4: ("black_ops", {"credits": 5, "intel": 3}),
     }
+    CORP_UPGRADE_ACTIONS = {
+        "research": {"intel": 5},
+        "security": {"credits": 10, "salvage": 2},
+        "politics": {"influence": 3},
+        "black_ops": {"credits": 5, "intel": 3},
+    }
 
     def setup(self):
         self.text = "Corporation Management"
+        self.room_ui = RoomUIState("corp")
         if self.game_state.budget_pool <= 0:
             self.game_state.budget_pool = self.game_state.compute_budget()
 
     def on_draw(self):
         self.clear()
-        draw_command_screen_frame(
-            build_command_title(
-                "corp", self.game_state.base_name, self.game_state.district.name
-            ),
+        draw_graphical_command_surface(
             self.window.width,
             self.window.height,
-        )
-        draw_status_bar(
-            build_command_status_line(
-                self.game_state.turn,
-                self.game_state.base_name,
-                self.game_state.strategic_resources,
-                self.game_state.district,
+            self.room_ui,
+            self.game_state.strategic_resources,
+            self._room_info_lines(),
+            build_roster_cards(
+                self.game_state.characters, self.game_state.selected_agent_names
             ),
-            self.window.width,
-            self.window.height,
-        )
-
-        panels = build_command_center_layout(
-            self.window.width, self.window.height, "corp"
-        )
-        for panel in panels:
-            draw_panel(panel.left, panel.bottom, panel.width, panel.height, panel.title)
-
-        primary = panel_by_key(panels, "primary")
-        arcade.draw_text(
-            "BOARD DIRECTIVE",
-            primary.left + 18,
-            primary.bottom + primary.height - 58,
-            palette.HEADER,
-            16,
-        )
-        arcade.draw_text(
-            f"Auto Budget Pool: {self.game_state.budget_pool}",
-            primary.left + 18,
-            primary.bottom + primary.height - 86,
-            palette.MUTED_TEXT,
-            12,
-        )
-        arcade.draw_text(
-            build_resource_summary_line(self.game_state.strategic_resources),
-            primary.left + 18,
-            primary.bottom + primary.height - 108,
-            palette.RESOURCE,
-            11,
-        )
-        budget_y = primary.bottom + primary.height - 140
-        for k, v in self.game_state.corp_budget.items():
-            arcade.draw_text(
-                f"{k.upper()} ALLOCATION   {v}",
-                primary.left + 22,
-                budget_y,
-                palette.TEXT,
-                12,
-            )
-            budget_y -= 24
-
-        top_right = panel_by_key(panels, "top_right")
-        upgrade_lines = [
-            "1 RESEARCH LAB      5 intel",
-            "2 SECURITY GRID     10 credits + 2 salvage",
-            "3 POLITICAL FLOOR   3 influence",
-            "4 BLACK OPS CELL    5 credits + 3 intel",
-        ]
-        line_y = top_right.bottom + top_right.height - 58
-        for line in upgrade_lines:
-            arcade.draw_text(line, top_right.left + 18, line_y, palette.ACCENT, 12)
-            line_y -= 28
-
-        bottom_right = panel_by_key(panels, "bottom_right")
-        meter_x = bottom_right.left + 18
-        meter_y = bottom_right.bottom + bottom_right.height - 70
-        draw_tactical_meter(
-            meter_x, meter_y, 180, "stability", self.game_state.district.stability
-        )
-        draw_tactical_meter(
-            meter_x, meter_y - 28, 180, "unrest", self.game_state.district.unrest
-        )
-        draw_tactical_meter(
-            meter_x,
-            meter_y - 56,
-            180,
-            "media heat",
-            self.game_state.district.media_heat,
-        )
-        y = meter_y - 90
-        for line in build_recent_consequence_lines(self.game_state.recent_consequences):
-            arcade.draw_text(line, bottom_right.left + 18, y, palette.MUTED_TEXT, 11)
-            y -= 20
-
-        draw_action_strip(
-            build_action_strip(["1-4 spend", "S save", "L load", "C city", "R squad"]),
-            self.window.width,
         )
 
     def _buy_corp_upgrade(self, key: str, costs: dict[str, int]) -> None:
@@ -186,6 +120,9 @@ class CorpView(GameView):
         self.game_state.add_event(f"Upgrade denied: {key} requires {cost_text}.")
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.ESCAPE and self.room_ui.is_open:
+            close_room(self.room_ui)
+            return
         if key == arcade.key.C:
             city_view = CityView(self.game_state)
             city_view.setup()
@@ -204,6 +141,102 @@ class CorpView(GameView):
         if self.game_state.budget_pool <= 0:
             self.game_state.advance_turn()
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self._handle_room_click(x, y):
+            return
+
+    def on_update(self, delta_time: float):
+        step_room_ui(self.room_ui, delta_time)
+
+    def _handle_room_click(self, x: int, y: int) -> bool:
+        if self.room_ui.is_open:
+            if close_button_rect(self.window.width, self.window.height).contains(x, y):
+                close_room(self.room_ui)
+                return True
+            action = action_at_point(self.room_ui.action_buttons, x, y)
+            if action is not None:
+                self._perform_room_action(action.key)
+                return True
+            return True
+
+        room = room_at_point(self.window.width, self.window.height, "corp", x, y)
+        if room is None:
+            return False
+        open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        return True
+
+    def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "city":
+            city_view = CityView(self.game_state)
+            city_view.setup()
+            self.window.show_view(city_view)
+            return
+        if action_key == "squad":
+            rpg_view = RPGView(self.game_state)
+            rpg_view.setup()
+            self.window.show_view(rpg_view)
+            return
+        if action_key.startswith("recruit_"):
+            role = action_key.removeprefix("recruit_")
+            if self.game_state.budget_pool >= 5:
+                self.game_state.budget_pool -= 5
+                agent = recruit_agent(self.game_state.characters, role)
+                self.game_state.add_event(
+                    f"Black ops recruited {agent.name} as {role}."
+                )
+            else:
+                self.game_state.add_event("Recruitment denied: budget pool below 5.")
+            return
+        costs = self.CORP_UPGRADE_ACTIONS.get(action_key)
+        if costs:
+            self._buy_corp_upgrade(action_key, costs)
+
+    def _room_info_lines(self) -> dict[str, list[str]]:
+        resources = self.game_state.strategic_resources
+        return {
+            "executive": [
+                f"Turn {self.game_state.turn} | Budget pool {self.game_state.budget_pool}",
+                f"Politics allocation {self.game_state.corp_budget['politics']}",
+                f"Influence reserve {resources.get('influence', 0)}",
+            ],
+            "research": [
+                f"Research allocation {self.game_state.corp_budget['research']}",
+                f"Intel reserve {resources.get('intel', 0)}",
+                "Upgrade cost: 5 intel",
+            ],
+            "security": [
+                f"Security allocation {self.game_state.corp_budget['security']}",
+                f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
+                "Upgrade cost: 10 credits + 2 salvage",
+            ],
+            "black_ops": [
+                f"Black ops allocation {self.game_state.corp_budget['black_ops']}",
+                f"Credits {resources.get('credits', 0)} | Intel {resources.get('intel', 0)}",
+                f"Roster {len(self.game_state.characters)} agents | Recruit cost 5 budget",
+                "Fund cost: 5 credits + 3 intel",
+            ],
+            "media": [
+                f"Media heat {self.game_state.district.media_heat}/100",
+                f"District unrest {self.game_state.district.unrest}/100",
+                "Public story control affects fallout pressure.",
+            ],
+            "logistics": [
+                f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
+                f"Budget refresh target {self.game_state.compute_budget()}",
+                "Supply stock feeds security and field readiness.",
+            ],
+            "server": [
+                f"Intel reserve {resources.get('intel', 0)}",
+                f"Tracked missions {len(self.game_state.mission_templates)}",
+                "Data work supports research and operation discovery.",
+            ],
+            "hangar": [
+                f"Base {self.game_state.base_name}",
+                f"District {self.game_state.district.name}",
+                "Transit links to city control and squad command.",
+            ],
+        }
+
 
 class CityView(GameView):
     CITY_UPGRADE_COSTS = {
@@ -211,104 +244,27 @@ class CityView(GameView):
         arcade.key.KEY_8: ("garrisons", {"credits": 10, "influence": 2}),
         arcade.key.KEY_9: ("defense_zones", {"credits": 5, "salvage": 5}),
     }
+    CITY_UPGRADE_ACTIONS = {
+        "armaments": {"credits": 5, "salvage": 3},
+        "garrisons": {"credits": 10, "influence": 2},
+        "defense_zones": {"credits": 5, "salvage": 5},
+    }
 
     def setup(self):
         self.text = "City Management"
+        self.room_ui = RoomUIState("city")
 
     def on_draw(self):
         self.clear()
-        draw_command_screen_frame(
-            build_command_title(
-                "city", self.game_state.base_name, self.game_state.district.name
-            ),
+        draw_graphical_command_surface(
             self.window.width,
             self.window.height,
-        )
-        draw_status_bar(
-            build_command_status_line(
-                self.game_state.turn,
-                self.game_state.base_name,
-                self.game_state.strategic_resources,
-                self.game_state.district,
+            self.room_ui,
+            self.game_state.strategic_resources,
+            self._room_info_lines(),
+            build_roster_cards(
+                self.game_state.characters, self.game_state.selected_agent_names
             ),
-            self.window.width,
-            self.window.height,
-        )
-
-        panels = build_command_center_layout(
-            self.window.width, self.window.height, "city"
-        )
-        for panel in panels:
-            draw_panel(panel.left, panel.bottom, panel.width, panel.height, panel.title)
-
-        primary = panel_by_key(panels, "primary")
-        arcade.draw_text(
-            "CITY BUDGET ROUTER",
-            primary.left + 18,
-            primary.bottom + primary.height - 58,
-            palette.HEADER,
-            16,
-        )
-        arcade.draw_text(
-            build_resource_summary_line(self.game_state.strategic_resources),
-            primary.left + 18,
-            primary.bottom + primary.height - 86,
-            palette.RESOURCE,
-            11,
-        )
-        budget_y = primary.bottom + primary.height - 122
-        for k, v in self.game_state.city_budget.items():
-            arcade.draw_text(
-                f"{k.upper()} NETWORK   {v}",
-                primary.left + 22,
-                budget_y,
-                palette.TEXT,
-                12,
-            )
-            budget_y -= 26
-        y = budget_y - 18
-        for line in [
-            "7 ARMAMENTS      5 credits + 3 salvage",
-            "8 GARRISONS      10 credits + 2 influence",
-            "9 DEFENSE ZONES  5 credits + 5 salvage",
-        ]:
-            arcade.draw_text(line, primary.left + 22, y, palette.ACCENT, 12)
-            y -= 24
-
-        top_right = panel_by_key(panels, "top_right")
-        meter_x = top_right.left + 18
-        meter_y = top_right.bottom + top_right.height - 66
-        draw_tactical_meter(
-            meter_x, meter_y, 220, "stability", self.game_state.district.stability
-        )
-        draw_tactical_meter(
-            meter_x, meter_y - 30, 220, "unrest", self.game_state.district.unrest
-        )
-        draw_tactical_meter(
-            meter_x,
-            meter_y - 60,
-            220,
-            "media heat",
-            self.game_state.district.media_heat,
-        )
-        y = meter_y - 96
-        for line in build_district_status_lines(self.game_state.district):
-            arcade.draw_text(line, top_right.left + 18, y, palette.TEXT, 11)
-            y -= 20
-
-        bottom_right = panel_by_key(panels, "bottom_right")
-        y = bottom_right.bottom + bottom_right.height - 58
-        for line in build_faction_pressure_lines(self.game_state.factions, limit=2):
-            arcade.draw_text(line, bottom_right.left + 18, y, palette.MUTED_TEXT, 10)
-            y -= 22
-        y -= 12
-        for line in build_event_log_lines(self.game_state.event_log, limit=4):
-            arcade.draw_text(line, bottom_right.left + 18, y, palette.TEXT, 10)
-            y -= 18
-
-        draw_action_strip(
-            build_action_strip(["7-9 invest", "R squad deck"]),
-            self.window.width,
         )
 
     def _buy_city_upgrade(self, key: str, costs: dict[str, int]) -> None:
@@ -325,6 +281,9 @@ class CityView(GameView):
         self.game_state.add_event(f"Investment denied: {key} requires {cost_text}.")
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.ESCAPE and self.room_ui.is_open:
+            close_room(self.room_ui)
+            return
         if key == arcade.key.R:
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
@@ -333,10 +292,98 @@ class CityView(GameView):
             budget_key, costs = self.CITY_UPGRADE_COSTS[key]
             self._buy_city_upgrade(budget_key, costs)
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self._handle_room_click(x, y):
+            return
+
+    def on_update(self, delta_time: float):
+        step_room_ui(self.room_ui, delta_time)
+
+    def _handle_room_click(self, x: int, y: int) -> bool:
+        if self.room_ui.is_open:
+            if close_button_rect(self.window.width, self.window.height).contains(x, y):
+                close_room(self.room_ui)
+                return True
+            action = action_at_point(self.room_ui.action_buttons, x, y)
+            if action is not None:
+                self._perform_room_action(action.key)
+                return True
+            return True
+
+        room = room_at_point(self.window.width, self.window.height, "city", x, y)
+        if room is None:
+            return False
+        open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        return True
+
+    def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "squad":
+            rpg_view = RPGView(self.game_state)
+            rpg_view.setup()
+            self.window.show_view(rpg_view)
+            return
+        costs = self.CITY_UPGRADE_ACTIONS.get(action_key)
+        if costs:
+            self._buy_city_upgrade(action_key, costs)
+
+    def _room_info_lines(self) -> dict[str, list[str]]:
+        resources = self.game_state.strategic_resources
+        district = self.game_state.district
+        factions = sorted(
+            self.game_state.factions,
+            key=lambda faction: faction.hostility_to_player,
+            reverse=True,
+        )
+        lead_faction = factions[0].name if factions else "no active faction"
+        hostility = factions[0].hostility_to_player if factions else 0
+        return {
+            "municipal": [
+                f"District {district.name}",
+                f"Control faction {district.control_faction}",
+                f"Garrisons network {self.game_state.city_budget['garrisons']}",
+            ],
+            "district": [
+                f"Stability {district.stability}/100",
+                f"Unrest {district.unrest}/100",
+                f"Media heat {district.media_heat}/100",
+            ],
+            "transit": [
+                f"Armaments network {self.game_state.city_budget['armaments']}",
+                f"Credits {resources.get('credits', 0)} | Salvage {resources.get('salvage', 0)}",
+                "Transit upgrades improve response capacity.",
+            ],
+            "factions": [
+                f"Highest pressure: {lead_faction}",
+                f"Hostility {hostility}/100",
+                f"Active factions {len(self.game_state.factions)}",
+            ],
+            "public": [
+                f"Media heat {district.media_heat}/100",
+                f"Influence reserve {resources.get('influence', 0)}",
+                "Public pressure changes mission fallout.",
+            ],
+            "relief": [
+                f"Armaments network {self.game_state.city_budget['armaments']}",
+                f"Defense zones {self.game_state.city_budget['defense_zones']}",
+                "Relief routing stabilizes the district after combat.",
+            ],
+            "records": [
+                f"Recent events {len(self.game_state.event_log)}",
+                f"District tags {len(district.tags)}",
+                "Records preserve consequences for later systems.",
+            ],
+            "skybridge": [
+                f"Agents available {len(self.game_state.characters)}",
+                f"Operations ready {len(self.game_state.mission_templates)}",
+                "Skybridge connects city command to squad command.",
+            ],
+        }
+
 
 class RPGView(GameView):
     def setup(self):
         self.text = "RPG Phase"
+        self.room_ui = RoomUIState("squad")
         self.recruiting = False
         self.selected_role = None
         self.allocating = None
@@ -413,134 +460,23 @@ class RPGView(GameView):
 
     def on_draw(self):
         self.clear()
-        draw_command_screen_frame(
-            "SQUAD COMMAND DECK // CITY INSERTION TABLE",
+        draw_graphical_command_surface(
             self.window.width,
             self.window.height,
-        )
-        draw_status_bar(
-            build_command_status_line(
-                self.game_state.turn,
-                self.game_state.base_name,
-                self.game_state.strategic_resources,
-                self.game_state.district,
+            self.room_ui,
+            self.game_state.strategic_resources,
+            self._room_info_lines(),
+            build_roster_cards(
+                self.game_state.characters,
+                self.game_state.selected_agent_names,
+                self.deployment_cursor_index,
             ),
-            self.window.width,
-            self.window.height,
-        )
-
-        panels = build_command_deck_layout(self.window.width, self.window.height)
-        for panel in panels:
-            draw_deck_panel(panel)
-
-        selected_names = set(self.game_state.selected_agent_names)
-        squad_panel = deck_panel_by_key(panels, "squad")
-        y = squad_panel.bottom + squad_panel.height - 46
-        for line in build_agent_card_lines(
-            self.game_state.characters, selected_names, self.deployment_cursor_index
-        ):
-            color = palette.ACCENT if line.startswith("▶") else palette.TEXT
-            if "MEDBAY" in line:
-                color = palette.WARNING
-            if line.startswith("STAT UPGRADE"):
-                color = palette.RESOURCE
-            arcade.draw_text(line, squad_panel.left + 14, y, color, 11)
-            y -= 16
-            if y < squad_panel.bottom + 18:
-                arcade.draw_text(
-                    "... roster continues",
-                    squad_panel.left + 14,
-                    y,
-                    palette.MUTED_TEXT,
-                    10,
-                )
-                break
-
-        mission = self.selected_mission()
-        mission_panel = deck_panel_by_key(panels, "mission")
-        arcade.draw_text(
-            build_ops_table_header(mission, self.game_state.district.name),
-            mission_panel.left + 14,
-            mission_panel.bottom + mission_panel.height - 48,
-            palette.RESOURCE,
-            12,
-        )
-
-        if self.recruiting:
-            arcade.draw_text(
-                "RECRUIT SIGNAL: 1 Samurai, 2 Sniper, 3 Psi",
-                mission_panel.left + 14,
-                mission_panel.bottom + mission_panel.height - 76,
-                palette.WARNING,
-                13,
-            )
-        else:
-            mission_lines = build_mission_board_lines(
-                self.game_state.mission_templates,
-                self.game_state.selected_mission_index,
-            )
-            y = mission_panel.bottom + mission_panel.height - 76
-            for line in mission_lines:
-                selected = line.startswith(">")
-                if selected:
-                    arcade.draw_lrbt_rectangle_filled(
-                        mission_panel.left + 10,
-                        mission_panel.left + mission_panel.width - 10,
-                        y - 4,
-                        y + 15,
-                        palette.SELECTED_FILL,
-                    )
-                arcade.draw_text(
-                    line.replace(">", "▶", 1),
-                    mission_panel.left + 16,
-                    y,
-                    palette.ACCENT if selected else palette.TEXT,
-                    11,
-                )
-                y -= 20
-
-            detail_panel = deck_panel_by_key(panels, "details")
-            y = detail_panel.bottom + detail_panel.height - 46
-            for line in build_selected_mission_lines(mission):
-                arcade.draw_text(
-                    line, detail_panel.left + 14, y, palette.MUTED_TEXT, 10
-                )
-                y -= 15
-
-            briefs_panel = deck_panel_by_key(panels, "briefs")
-            y = briefs_panel.bottom + briefs_panel.height - 46
-            arcade.draw_text(
-                "READINESS BRIEF", briefs_panel.left + 14, y, palette.HEADER, 12
-            )
-            y -= 20
-            for line in build_agent_readiness_lines(
-                self.game_state.characters, mission
-            ):
-                arcade.draw_text(line, briefs_panel.left + 14, y, palette.TEXT, 10)
-                y -= 16
-            y -= 12
-            arcade.draw_text(
-                "AFTERMATH REPORT", briefs_panel.left + 14, y, palette.HEADER, 12
-            )
-            y -= 20
-            for line in build_agent_aftermath_lines(
-                self.game_state.latest_agent_aftermath
-            ):
-                arcade.draw_text(
-                    line, briefs_panel.left + 14, y, palette.MUTED_TEXT, 10
-                )
-                y -= 16
-
-        if self.message:
-            arcade.draw_text(self.message, 20, 42, palette.WARNING, 13)
-        draw_action_strip(
-            build_action_strip(
-                ["N recruit", "1-3 select op", "A/D agent", "Enter toggle", "B launch"]
-            ),
-            self.window.width,
         )
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.ESCAPE and self.room_ui.is_open:
+            close_room(self.room_ui)
+            return
         if key == arcade.key.B:
             self.launch_selected_mission()
         elif key in (arcade.key.A, arcade.key.D) and self.game_state.characters:
@@ -610,6 +546,243 @@ class RPGView(GameView):
                     char.stats.recalculate_hp()
                     break
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self._handle_room_click(x, y):
+            return
+
+    def on_update(self, delta_time: float):
+        step_room_ui(self.room_ui, delta_time)
+
+    def _handle_room_click(self, x: int, y: int) -> bool:
+        if self.room_ui.is_open:
+            if close_button_rect(self.window.width, self.window.height).contains(x, y):
+                close_room(self.room_ui)
+                return True
+            card_index = self._roster_card_index_at(x, y)
+            if card_index is not None:
+                self._select_roster_card(card_index)
+                return True
+            action = action_at_point(self.room_ui.action_buttons, x, y)
+            if action is not None:
+                self._perform_room_action(action.key)
+                return True
+            return True
+
+        room = room_at_point(self.window.width, self.window.height, "squad", x, y)
+        if room is None:
+            return False
+        open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        self._refresh_squad_room_actions()
+        return True
+
+    def _roster_card_index_at(self, x: int, y: int) -> int | None:
+        if self.room_ui.expansion < 0.48:
+            return None
+        active = active_room_rect(self.room_ui, self.window.width, self.window.height)
+        if active is None:
+            return None
+        room, rect = active
+        if room.key not in {
+            "barracks",
+            "medbay",
+            "armory",
+            "briefing",
+            "dossier",
+            "insertion",
+        }:
+            return None
+        return roster_card_at_point(
+            rect,
+            self.room_ui.action_buttons,
+            len(self.game_state.characters),
+            x,
+            y,
+        )
+
+    def _select_roster_card(self, card_index: int) -> None:
+        if not 0 <= card_index < len(self.game_state.characters):
+            return
+        self.deployment_cursor_index = card_index
+        self.message = ""
+        self.pending_breakdown_confirmation = False
+        self.pending_breakdown_mission_id = None
+        self._refresh_squad_room_actions()
+
+    def _perform_room_action(self, action_key: str) -> None:
+        if action_key.startswith("recruit_"):
+            role = action_key.removeprefix("recruit_")
+            if self.game_state.budget_pool >= 5:
+                self.game_state.budget_pool -= 5
+                recruit_agent(self.game_state.characters, role)
+                self.deployment_cursor_index = len(self.game_state.characters) - 1
+                self.message = ""
+                self._refresh_squad_room_actions()
+            return
+        if action_key == "mission_prev" and self.game_state.mission_templates:
+            self.game_state.selected_mission_index = (
+                self.game_state.selected_mission_index - 1
+            ) % len(self.game_state.mission_templates)
+            self.pending_breakdown_confirmation = False
+            self._refresh_squad_room_actions()
+            return
+        if action_key == "mission_next" and self.game_state.mission_templates:
+            self.game_state.selected_mission_index = (
+                self.game_state.selected_mission_index + 1
+            ) % len(self.game_state.mission_templates)
+            self.pending_breakdown_confirmation = False
+            self._refresh_squad_room_actions()
+            return
+        if action_key == "agent_prev" and self.game_state.characters:
+            self.deployment_cursor_index = (
+                self.deployment_cursor_index - 1
+            ) % len(self.game_state.characters)
+            self._refresh_squad_room_actions()
+            return
+        if action_key == "agent_next" and self.game_state.characters:
+            self.deployment_cursor_index = (
+                self.deployment_cursor_index + 1
+            ) % len(self.game_state.characters)
+            self._refresh_squad_room_actions()
+            return
+        if action_key == "select_agent" and self.game_state.characters:
+            (
+                self.game_state.selected_agent_names,
+                self.message,
+            ) = toggle_agent_selection(
+                self.game_state.characters,
+                self.game_state.selected_agent_names,
+                self.deployment_cursor_index,
+            )
+            self.pending_breakdown_confirmation = False
+            self.pending_breakdown_mission_id = None
+            self._refresh_squad_room_actions()
+            return
+        if action_key.startswith("level_"):
+            self._level_active_agent(action_key.removeprefix("level_"))
+            self._refresh_squad_room_actions()
+            return
+        if action_key == "launch":
+            self.launch_selected_mission()
+
+    def _active_agent(self) -> Character | None:
+        if not self.game_state.characters:
+            return None
+        self.deployment_cursor_index %= len(self.game_state.characters)
+        return self.game_state.characters[self.deployment_cursor_index]
+
+    def _refresh_squad_room_actions(self) -> None:
+        room_key = self.room_ui.active_room_key
+        if room_key is None:
+            return
+        actions = []
+        if room_key in {"armory", "dossier"}:
+            actions.extend(
+                [
+                    RoomAction("agent_prev", "left", "Prev agent"),
+                    RoomAction("select_agent", "select", "Toggle squad"),
+                    RoomAction("agent_next", "right", "Next agent"),
+                ]
+            )
+            active_agent = self._active_agent()
+            if active_agent and active_agent.pending_points > 0:
+                points = active_agent.pending_points
+                actions.extend(
+                    [
+                        RoomAction("level_psi", "research", f"+PSI {points}"),
+                        RoomAction("level_str", "armory", f"+STR {points}"),
+                        RoomAction("level_agi", "radar", f"+AGI {points}"),
+                        RoomAction("level_con", "shield", f"+CON {points}"),
+                        RoomAction("level_cha", "influence", f"+CHA {points}"),
+                    ]
+                )
+        elif room_key == "insertion":
+            actions.append(RoomAction("launch", "launch", "Launch mission"))
+        elif room_key == "ops":
+            actions.extend(
+                [
+                    RoomAction("mission_prev", "left", "Prev mission"),
+                    RoomAction("mission_next", "right", "Next mission"),
+                    RoomAction("launch", "launch", "Launch mission"),
+                ]
+            )
+        else:
+            actions = actions_for_room("squad", room_key)
+        self.room_ui.action_buttons = layout_action_buttons(
+            self.window.width, self.window.height, actions
+        )
+
+    def _level_active_agent(self, stat_key: str) -> None:
+        active_agent = self._active_agent()
+        if not active_agent or active_agent.pending_points <= 0:
+            return
+        if stat_key not in {"psi", "str", "agi", "con", "cha"}:
+            return
+        setattr(active_agent.stats, stat_key, getattr(active_agent.stats, stat_key) + 1)
+        active_agent.pending_points -= 1
+        active_agent.stats.recalculate_hp()
+
+    def _room_info_lines(self) -> dict[str, list[str]]:
+        mission = self.selected_mission()
+        selected = self.selected_deployment()
+        recovering = [
+            character
+            for character in self.game_state.characters
+            if character.recovery_turns > 0
+        ]
+        active_agent = (
+            self.game_state.characters[self.deployment_cursor_index]
+            if self.game_state.characters
+            else None
+        )
+        risk_count = len(agents_at_breaking_risk(selected, mission)) if selected else 0
+        agent_line = (
+            f"{active_agent.name} | Stress {active_agent.stress} | Loyalty {active_agent.loyalty}"
+            if active_agent
+            else "No agent selected"
+        )
+        return {
+            "barracks": [
+                f"Roster {len(self.game_state.characters)} agents",
+                f"Recruit budget pool {self.game_state.budget_pool}",
+                "Recruit cost: 5 budget",
+            ],
+            "ops": [
+                mission.title,
+                f"Risk {mission.risk_level} | Objective {mission.objective_type}",
+                f"Target faction {mission.target_faction}",
+            ],
+            "intel": [
+                mission.objective_text,
+                f"District pressure entries {len(mission.district_pressure)}",
+                f"Complications {len(mission.possible_complications)}",
+            ],
+            "medbay": [
+                f"Recovering agents {len(recovering)}",
+                agent_line,
+                f"Selected squad {len(selected)}",
+            ],
+            "armory": [
+                f"Selected squad {len(selected)}",
+                f"Deployable agents {sum(1 for char in self.game_state.characters if is_deployable(char))}",
+                f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
+            ],
+            "briefing": [
+                mission.title,
+                f"Breakdown risk agents {risk_count}",
+                f"Selected squad {len(selected)}",
+            ],
+            "dossier": [
+                agent_line,
+                f"Upgrade points {getattr(active_agent, 'pending_points', 0) if active_agent else 0}",
+                f"Recovery turns {getattr(active_agent, 'recovery_turns', 0) if active_agent else 0}",
+            ],
+            "insertion": [
+                mission.title,
+                f"Selected squad {len(selected)}",
+                "Launch moves the squad to tactical combat.",
+            ],
+        }
+
 
 class BattleView(GameView):
     def setup(self, mission: MissionTemplate | None = None):
@@ -625,6 +798,7 @@ class BattleView(GameView):
             f for f in os.listdir("assets/maps") if f.lower().endswith(".jpeg")
         ]
         self.map_index = None
+        self.room_ui = RoomUIState("battle")
         self.background = None
         self.camera = arcade.Camera2D()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -788,36 +962,12 @@ class BattleView(GameView):
         self.clear()
         self.camera.use()
         if self.map_index is None:
-            draw_command_screen_frame(
-                "TACTICAL INSERTION // SELECT CITY COMBAT ZONE",
+            draw_graphical_command_surface(
                 self.window.width,
                 self.window.height,
-            )
-            draw_panel(
-                18,
-                80,
-                min(620, self.window.width - 36),
-                self.window.height - 160,
-                "Drop Zone Uplink",
-            )
-            y = self.window.height - 130
-            arcade.draw_text("SELECT BATTLE MAP", 42, y, palette.HEADER, 20)
-            y -= 40
-            if not self.available_maps:
-                arcade.draw_text(
-                    "No maps found in assets/maps",
-                    42,
-                    y,
-                    palette.DANGER,
-                    14,
-                )
-            else:
-                for idx, name in enumerate(self.available_maps, start=1):
-                    arcade.draw_text(f"{idx}  ▸  {name}", 42, y, palette.ACCENT, 14)
-                    y -= 24
-            draw_action_strip(
-                build_action_strip(["1-9 choose drop zone", "Esc return"]),
-                self.window.width,
+                self.room_ui,
+                self.game_state.strategic_resources,
+                self._room_info_lines(),
             )
             return
         if self.background:
@@ -827,7 +977,7 @@ class BattleView(GameView):
             arcade.draw_texture_rect(
                 self.background,  # Texture
                 full_rect,  # LBWH rect
-                # └─── only two positional args! ───┘
+                # Only two positional args are accepted here.
                 # You can also pass angle=..., alpha=... as keywords if desired
             )
         self.enemy_list.draw()
@@ -851,13 +1001,6 @@ class BattleView(GameView):
                 arcade.LBWH(ox - 18, oy - 18, 36, 36),
                 palette.ACCENT,
                 border_width=2,
-            )
-            arcade.draw_text(
-                self.battle_objective.label,
-                ox - 28,
-                oy + 24,
-                palette.TEXT,
-                12,
             )
 
         # Draw enemy HP bars
@@ -896,7 +1039,6 @@ class BattleView(GameView):
                     palette.WARNING,
                     border_width=2,
                 )
-                # Display hit chance above target
                 player = self.player_units[self.active_index]
                 stat_name = {
                     "melee": "str",
@@ -906,13 +1048,13 @@ class BattleView(GameView):
                 atk_val = getattr(player.stats, stat_name)
                 defense = target.stats.defense if target.stats else 1
                 chance = atk_val / (atk_val + defense) if atk_val > 0 else 0
-                prob_text = f"{chance*100:.0f}%"
-                arcade.draw_text(
-                    prob_text,
+                chance_width = int(width * chance)
+                arcade.draw_lrbt_rectangle_filled(
                     cx - width / 2,
+                    cx - width / 2 + chance_width,
                     cy + height / 2 + 4,
+                    cy + height / 2 + 9,
                     palette.WARNING,
-                    12,
                 )
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
@@ -920,71 +1062,47 @@ class BattleView(GameView):
         current_hp = (
             self.player_units[self.active_index].health if self.player_units else 0
         )
-        status = (
-            f"TURN {self.turn_number} // {self.turn.upper()} // ACTIVE HP {current_hp}"
-        )
-        if self.mission:
-            status = f"{self.mission.title.upper()} // {status}"
-        draw_panel(
+        arcade.draw_lrbt_rectangle_filled(
             14,
-            self.window.height - 112,
-            self.window.width - 28,
-            98,
-            "Tactical Combat HUD",
+            self.window.width - 14,
+            self.window.height - 92,
+            self.window.height - 18,
+            palette.PANEL_FILL_DARK,
         )
-        arcade.draw_text(status, 32, self.window.height - 48, palette.ACCENT, 14)
-        if self.mission:
-            arcade.draw_text(
-                self.mission.objective_text,
-                32,
-                self.window.height - 70,
-                palette.MUTED_TEXT,
-                12,
-            )
-        if self.battle_objective:
-            arcade.draw_text(
-                self.battle_objective.status_text,
-                32,
-                self.window.height - 90,
-                palette.RESOURCE,
-                12,
-            )
-        if self.message:
-            arcade.draw_text(
-                self.message, 32, self.window.height - 132, palette.WARNING, 16
+        max_hp = (
+            self.player_units[self.active_index].stats.max_hp
+            if self.player_units and self.player_units[self.active_index].stats
+            else 1
+        )
+        hp_width = int(220 * max(0, current_hp) / max(1, max_hp))
+        arcade.draw_lrbt_rectangle_filled(
+            34, 254, self.window.height - 54, self.window.height - 42, palette.DANGER
+        )
+        arcade.draw_lrbt_rectangle_filled(
+            34,
+            34 + hp_width,
+            self.window.height - 54,
+            self.window.height - 42,
+            palette.TACTICAL_GREEN,
+        )
+        for index in range(max(1, self.turn_number)):
+            left = 284 + index * 18
+            arcade.draw_lrbt_rectangle_filled(
+                left,
+                left + 10,
+                self.window.height - 58,
+                self.window.height - 38,
+                palette.ACCENT if self.turn == "player" else palette.WARNING,
             )
         if self.turn == "ended":
-            if not self.enemy_units:
-                msg = "Victory!"
-            else:
-                msg = "Defeat..."
-            arcade.draw_text(msg, 20, 40, palette.WARNING, 20)
-        else:
-            if self.selecting_target:
-                draw_action_strip(
-                    build_action_strip(
-                        ["Left/Right target", "Enter confirm", "Esc cancel"]
-                    ),
-                    self.window.width,
-                )
-            else:
-                draw_action_strip(
-                    build_action_strip(
-                        [
-                            "Arrows move",
-                            "E objective",
-                            "Space melee",
-                            "F shoot",
-                            "P psi",
-                            "V/D defend",
-                            "Esc exit",
-                        ]
-                    ),
-                    self.window.width,
-                )
+            color = palette.TACTICAL_GREEN if not self.enemy_units else palette.DANGER
+            arcade.draw_lrbt_rectangle_filled(0, self.window.width, 0, 18, color)
 
     def on_key_press(self, key, modifiers):
         if self.map_index is None:
+            if key == arcade.key.ESCAPE and self.room_ui.is_open:
+                close_room(self.room_ui)
+                return
             if arcade.key.KEY_1 <= key <= arcade.key.KEY_9:
                 idx = key - arcade.key.KEY_1
                 if idx < len(self.available_maps):
@@ -1124,6 +1242,86 @@ class BattleView(GameView):
 
         self.check_active_player()
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        if self.map_index is None:
+            if self._handle_map_room_click(x, y):
+                return
+            return
+
+    def _handle_map_room_click(self, x: int, y: int) -> bool:
+        if self.room_ui.is_open:
+            if close_button_rect(self.window.width, self.window.height).contains(x, y):
+                close_room(self.room_ui)
+                return True
+            action = action_at_point(self.room_ui.action_buttons, x, y)
+            if action is not None and action.key.startswith("map_"):
+                idx = int(action.key.removeprefix("map_"))
+                if idx < len(self.available_maps):
+                    self.map_index = idx
+                    path = os.path.join("assets/maps", self.available_maps[idx])
+                    self.background = arcade.load_texture(path)
+                return True
+            return True
+
+        room = room_at_point(self.window.width, self.window.height, "battle", x, y)
+        if room is None:
+            return False
+        open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        icons = ("city", "radar", "armory", "shield", "research", "black_ops")
+        map_actions = [
+            RoomAction(f"map_{index}", icons[index % len(icons)], f"Zone {index + 1}")
+            for index, _name in enumerate(self.available_maps[:9])
+        ]
+        self.room_ui.action_buttons = layout_action_buttons(
+            self.window.width, self.window.height, map_actions
+        )
+        return True
+
+    def _room_info_lines(self) -> dict[str, list[str]]:
+        mission_title = self.mission.title if self.mission else "No active mission"
+        return {
+            "drop": [
+                mission_title,
+                f"Available drop zones {len(self.available_maps)}",
+                "Choose a map icon to start tactical insertion.",
+            ],
+            "garage": [
+                f"Squad units {len(self.player_units)}",
+                f"Enemy contacts {len(self.enemy_units)}",
+                "Vehicle bay stages the insertion route.",
+            ],
+            "maps": [
+                f"Available maps {len(self.available_maps)}",
+                "Room icons select the drop zone.",
+                "Esc closes this room back to the base map.",
+            ],
+            "comms": [
+                mission_title,
+                f"Objective marker {'online' if self.battle_objective else 'offline'}",
+                "Comms maintains mission status during insertion.",
+            ],
+            "drone": [
+                f"Enemy contacts {len(self.enemy_units)}",
+                f"Initial contacts {self.initial_enemy_count}",
+                "Drone relay previews tactical resistance.",
+            ],
+            "casualty": [
+                f"Recovering roster losses {len(self.defeated_player_units)}",
+                f"Squad units {len(self.player_units)}",
+                "Casualty desk tracks battle fallout.",
+            ],
+            "sensors": [
+                f"Mission risk {getattr(self.mission, 'risk_level', 0)}",
+                f"Enemy contacts {len(self.enemy_units)}",
+                "Sensor floor reviews the combat area.",
+            ],
+            "uplink": [
+                self.game_state.district.name,
+                f"Turn {self.game_state.turn}",
+                "Uplink returns to corporate command after combat.",
+            ],
+        }
+
     def check_active_player(self):
         while self.active_index < len(self.player_units) and (
             self.player_units[self.active_index].action_points <= 0
@@ -1143,6 +1341,8 @@ class BattleView(GameView):
         self.attack_timer = 0.3
 
     def on_update(self, delta_time: float):
+        if self.map_index is None:
+            step_room_ui(self.room_ui, delta_time)
         if self.attack_timer > 0:
             self.attack_timer -= delta_time
             if self.attack_timer <= 0:

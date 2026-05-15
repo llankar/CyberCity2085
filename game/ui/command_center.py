@@ -1,4 +1,4 @@
-"""XCOM2-inspired command-center layout primitives for CyberCity screens.
+"""Corporate command-center layout primitives for CyberCity screens.
 
 The module stays intentionally small: it describes panel placement and terse
 copy. Arcade drawing remains in ``panels.py`` so layout rules can be tested
@@ -26,15 +26,15 @@ class CommandPanel:
 def build_command_center_layout(
     width: int, height: int, mode: str
 ) -> list[CommandPanel]:
-    """Build a consistent command-room layout for Corp and City screens."""
-    margin = 18
-    gutter = 14
-    status_height = 46
-    footer_height = 48
+    """Build a consistent corporate-tower layout for Corp and City screens."""
+    margin = 20
+    gutter = 16
+    status_height = 58
+    footer_height = 54
     top = height - status_height - margin
     body_bottom = footer_height
     body_height = max(420, top - body_bottom)
-    left_width = max(380, int(width * 0.34))
+    left_width = max(400, int(width * 0.37))
     right_width = max(420, width - (margin * 2) - gutter - left_width)
     left = margin
     right = left + left_width + gutter
@@ -42,14 +42,14 @@ def build_command_center_layout(
 
     if mode == "city":
         titles = {
-            "left": "City Situation Room",
-            "right_top": "District Pressure Map",
-            "right_bottom": "Faction / Operations Feed",
+            "left": "Municipal Control Floor",
+            "right_top": "District Pressure Deck",
+            "right_bottom": "Faction / Street Ops Feed",
         }
     else:
         titles = {
-            "left": "Corporate War Room",
-            "right_top": "Upgrade Foundry",
+            "left": "Executive Command Floor",
+            "right_top": "R&D / Security Suites",
             "right_bottom": "District Fallout Feed",
         }
 
@@ -93,11 +93,11 @@ def panel_by_key(panels: list[CommandPanel], key: str) -> CommandPanel:
 
 
 def build_command_title(mode: str, base_name: str, district_name: str) -> str:
-    """Return a cinematic command-room title strip."""
-    label = "CITY CONTROL" if mode == "city" else "CORPORATE COMMAND"
+    """Return a cinematic corporate-tower title strip."""
+    label = "CITY CONTROL TOWER" if mode == "city" else "AEGIS CORPORATE TOWER"
     return f"{label} // {base_name.upper()} // {district_name.upper()}"
 
 
 def build_action_strip(actions: list[str]) -> str:
     """Join controls into an XCOM-like bottom input strip."""
-    return "  ▸  ".join(actions)
+    return "  >  ".join(actions)

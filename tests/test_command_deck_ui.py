@@ -9,7 +9,6 @@ from game.ui.command_deck import (
     build_command_deck_layout,
     build_ops_table_header,
     deck_panel_by_key,
-    skyline_bands,
 )
 
 
@@ -33,14 +32,8 @@ class CommandDeckUITest(unittest.TestCase):
             deck_panel_by_key(panels, "details").left,
             deck_panel_by_key(panels, "mission").left,
         )
-
-    def test_skyline_bands_are_deterministic_for_mega_city_backdrop(self):
-        bands = skyline_bands(900, 600, count=3)
-
-        self.assertEqual(len(bands), 3)
-        self.assertEqual(bands[0][0], 0)
-        self.assertEqual(bands[1][0], 300)
-        self.assertGreater(bands[2][3], 80)
+        self.assertEqual(deck_panel_by_key(panels, "squad").title, "Agent Barracks")
+        self.assertEqual(deck_panel_by_key(panels, "mission").title, "Operations Table")
 
     def test_agent_cards_show_selection_cursor_and_medbay_status(self):
         ready = Character(name="Vega", role="sniper", stress=22, loyalty=4)
@@ -48,9 +41,10 @@ class CommandDeckUITest(unittest.TestCase):
 
         lines = build_agent_card_lines([ready, wounded], {"Vega"}, cursor_index=0)
 
-        self.assertTrue(lines[0].startswith("▶ ■ READY // Vega"))
+        self.assertTrue(lines[0].startswith("> [X] Vega"))
         self.assertIn("Trait:", lines[1])
-        self.assertTrue(lines[2].startswith("  □ MEDBAY 2T // Knox"))
+        self.assertTrue(lines[2].startswith("  [ ] Knox"))
+        self.assertIn("// MEDBAY 2T", lines[2])
 
     def test_ops_table_header_blends_district_objective_and_risk(self):
         mission = create_mission_templates("Chrome Warrens")[1]
