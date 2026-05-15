@@ -18,6 +18,7 @@ TODO:
 [x] Add mission fund rewards with default post-mission allocation
 [x] Add weekly recurring corporate funding tied to the strategic calendar
 [x] Add mission duration days to mission templates, board UI, and calendar resolution
+[x] Add small strategic event deck for corporate, mutant, Starvers, social, and political threats
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -74,3 +75,8 @@ Done:
 - Mission duration pacing: mission resolution advances the strategic calendar by
   the mission's `duration_days`, so existing generated missions consume one
   campaign day while later templates can opt into longer operations.
+- Strategic events: calendar pressure can now surface unresolved command events
+  across enemy corporation attacks, mutant invasions, Starvers outbreaks, social
+  unrest, corporate politics, and city politics. Events expire if ignored, and
+  response choices can touch funds, agent stress, faction hostility, city
+  stability/unrest, and temporary mission availability.
