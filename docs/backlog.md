@@ -13,7 +13,8 @@ TODO:
 [x] Fix pending-upgrade roster card rendering
 [x] Add click-select squad cards with generated portraits and point counters
 [x] Create dedicated corporate funds ledger and show available funds in command UI
-[ ] Create Agent data model
+[x] Add compact agent equipment loadouts with primary, sidearm, armor, utility, psi focus, and special gear slots
+[x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
 [ ] Create stress system
@@ -47,6 +48,10 @@ Done:
 - Corporate funds ledger: the global game state now owns a small funds module
   tracking available cash, income, expenses, and transaction history for
   management decisions.
+- Agent equipment loadouts: characters now reference modular loadouts with
+  explicit weapon, armor, utility, psi focus, and special gear slots; combat
+  setup reads those items for stat/action adjustments while the character model
+  stays data-focused.
 - City/corporate tactical command deck: RPG View has separate agent barracks,
   operations table, intel lab, and medbay/fallout panels over the tower base.
 - Mission UI: RPG view mission board has selectable rows plus a selected-mission
