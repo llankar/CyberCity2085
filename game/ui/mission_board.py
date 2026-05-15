@@ -95,6 +95,7 @@ def build_mission_board_lines(
             f"{objective_label(mission.objective_type)} | "
             f"Risk {mission.risk_level} ({risk_label(mission.risk_level)}) | "
             f"Reward {mission.fund_reward} funds | "
+            f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''} | "
             f"{mission.target_faction} | Enemies {mission.starting_enemy_count}"
         )
     return lines
@@ -109,6 +110,7 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
         f"Objective: {mission.objective_text}",
         f"District: {mission.district} | Pressure: {_pressure_summary(mission.district_pressure)}",
         f"Fund Reward: {mission.fund_reward} corporate funds",
+        f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''}",
         f"Tags: {_tag_names(mission.tags)}",
         f"Complications: {_complication_names(mission.possible_complications)}",
         _outcome_line("Success", mission.success_consequences),
