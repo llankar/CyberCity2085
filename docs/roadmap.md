@@ -63,6 +63,10 @@
     them beside agents; combat setup turns them into distinct Units; and the
     funds ledger pays upkeep/repair while agent cards remain first in the squad
     UI.
+  - Progress: Battle UI now has a reusable contextual action deck for the
+    selected unit. Pure combat action rules decide when fire, melee, psi,
+    first aid, missiles, defend, and end-turn controls appear so rendering stays
+    small and testable.
 - District system
 - Mission generation
 - Black ops
