@@ -6,6 +6,7 @@ from .agent_readiness import agents_at_breaking_risk, build_agent_readiness_line
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
+from .combat_actions import available_combat_actions
 from .combat_system import (
     create_enemy_units,
     create_player_units,
@@ -20,6 +21,11 @@ from .deployment import (
     toggle_asset_selection,
 )
 from .ui import palette
+from .ui.combat_action_bar import (
+    combat_action_at_point,
+    draw_combat_action_bar,
+    layout_combat_action_buttons,
+)
 from .ui.panels import draw_graphical_command_surface
 from .ui.room_interaction import (
     RoomAction,
@@ -1062,6 +1068,7 @@ class BattleView(GameView):
         self.target_candidates = []
         self.selected_target_idx = 0
         self.pending_attack = None
+        self.combat_action_buttons = []
         self.start_player_turn()
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
@@ -1309,9 +1316,89 @@ class BattleView(GameView):
                 self.window.height - 38,
                 palette.ACCENT if self.turn == "player" else palette.WARNING,
             )
+        if self.turn == "player" and self.player_units:
+            active_unit = self.player_units[self.active_index]
+            unit_name = (
+                active_unit.character.name
+                if active_unit.character
+                else active_unit.spec_ops_asset.name
+                if active_unit.spec_ops_asset
+                else active_unit.unit_type
+            )
+            self.combat_action_buttons = draw_combat_action_bar(
+                self.window.width,
+                self.window.height,
+                available_combat_actions(active_unit),
+                unit_name,
+                active_unit.action_points,
+                self.message,
+            )
+        else:
+            self.combat_action_buttons = []
         if self.turn == "ended":
             color = palette.TACTICAL_GREEN if not self.enemy_units else palette.DANGER
             arcade.draw_lrbt_rectangle_filled(0, self.window.width, 0, 18, color)
+
+    def _begin_target_action(self, player: Unit, attack_key: str) -> None:
+        """Enter target selection for an available combat-bar attack."""
+        if attack_key == "melee":
+            range_cells = 1
+            pending = "melee"
+        elif attack_key == "fire":
+            range_cells = max(1, player.attack_range)
+            pending = "shoot"
+        else:
+            range_cells = 10
+            pending = "psi"
+        self.target_candidates = [
+            enemy
+            for enemy in self.enemy_units
+            if player.distance_to(enemy) <= range_cells * 32
+        ]
+        if self.target_candidates:
+            self.selecting_target = True
+            self.selected_target_idx = 0
+            self.pending_attack = pending
+        else:
+            self.message = "No enemy in range"
+
+    def _perform_combat_action(self, action_key: str) -> bool:
+        """Perform a clicked or keyed combat action for the active player unit."""
+        if self.turn != "player" or not self.player_units:
+            return False
+        player = self.player_units[self.active_index]
+        available = {action.key for action in available_combat_actions(player)}
+        if action_key not in available:
+            return False
+        if action_key == "move":
+            self.message = "Move with arrow keys."
+            return True
+        if action_key in {"fire", "melee", "psi"}:
+            self._begin_target_action(player, action_key)
+            return True
+        if action_key == "first_aid":
+            if player.action_points <= 0 or not player.stats:
+                return True
+            before = player.health
+            player.health = min(player.stats.max_hp, player.health + 2)
+            player.stats.hp = player.health
+            player.action_points -= 1
+            self.message = f"First aid restores {player.health - before} HP."
+            self.check_active_player()
+            return True
+        if action_key == "missiles":
+            self._begin_target_action(player, "fire")
+            self.message = "Missile target lock acquired."
+            return True
+        if action_key == "defend":
+            player.defend()
+            self.check_active_player()
+            return True
+        if action_key == "end_turn":
+            player.action_points = 0
+            self.check_active_player()
+            return True
+        return False
 
     def on_key_press(self, key, modifiers):
         if self.map_index is None:
@@ -1365,7 +1452,14 @@ class BattleView(GameView):
                         "shoot": "shoots",
                         "psi": "psy hits",
                     }[self.pending_attack]
-                    self.message = f"{player.character.name} {atk_name} for {damage}"
+                    attacker_name = (
+                        player.character.name
+                        if player.character
+                        else player.spec_ops_asset.name
+                        if player.spec_ops_asset
+                        else player.unit_type
+                    )
+                    self.message = f"{attacker_name} {atk_name} for {damage}"
                     self.start_attack_animation(player, target)
                     if target.health <= 0:
                         if target.sprite:
@@ -1417,37 +1511,19 @@ class BattleView(GameView):
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(32, 0)
         elif key == arcade.key.SPACE:
-            self.target_candidates = [
-                e for e in self.enemy_units if player.distance_to(e) <= 32
-            ]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "melee"
-            else:
-                self.message = "No enemy in range"
+            self._perform_combat_action("melee")
         elif key == arcade.key.F:
-            self.target_candidates = [
-                e for e in self.enemy_units if player.distance_to(e) <= 10 * 32
-            ]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "shoot"
-            else:
-                self.message = "No enemy in range"
+            self._perform_combat_action("fire")
         elif key == arcade.key.P:
-            self.target_candidates = [
-                e for e in self.enemy_units if player.distance_to(e) <= 10 * 32
-            ]
-            if self.target_candidates:
-                self.selecting_target = True
-                self.selected_target_idx = 0
-                self.pending_attack = "psi"
-            else:
-                self.message = "No enemy in range"
+            self._perform_combat_action("psi")
+        elif key == arcade.key.A:
+            self._perform_combat_action("first_aid")
+        elif key == arcade.key.M:
+            self._perform_combat_action("missiles")
+        elif key == arcade.key.ENTER or key == arcade.key.RETURN:
+            self._perform_combat_action("end_turn")
         elif key == arcade.key.D:
-            player.defend()
+            self._perform_combat_action("defend")
         elif key == arcade.key.V:
             player.psi_defend()
         elif key == arcade.key.ESCAPE:
@@ -1462,6 +1538,14 @@ class BattleView(GameView):
             if self._handle_map_room_click(x, y):
                 return
             return
+        if self.turn == "player" and self.player_units:
+            active_unit = self.player_units[self.active_index]
+            buttons = self.combat_action_buttons or layout_combat_action_buttons(
+                self.window.width, available_combat_actions(active_unit)
+            )
+            action = combat_action_at_point(buttons, x, y)
+            if action is not None:
+                self._perform_combat_action(action.key)
 
     def _handle_map_room_click(self, x: int, y: int) -> bool:
         if self.room_ui.is_open:

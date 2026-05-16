@@ -21,6 +21,7 @@ TODO:
 [x] Add small strategic event deck for corporate, mutant, Starvers, social, and political threats
 [x] Add starter research management with timed funded projects and lab UI
 [x] Add spec-ops robot and power-armor assets with deployment, combat conversion, and maintenance costs
+[x] Add contextual battle action bar for selected unit combat choices
 [x] Create Agent data model
 [ ] Create district data model
 [ ] Create mission generation system
@@ -91,3 +92,6 @@ Done:
   Deployment can include selected support assets beside selected agents, combat
   setup converts them into distinct Units, and the funds ledger can pay their
   upkeep/repair costs without making them the emotional center of the squad.
+- Contextual battle action bar: the battle map now has a reusable selected-unit
+  action deck that shows only sensible move, fire, melee, psi, first-aid,
+  missile, defend, and end-turn options from pure combat action rules.
