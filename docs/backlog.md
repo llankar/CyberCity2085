@@ -143,3 +143,5 @@ Automation status:
   - Exposition UI data: résumé lisible dans le dossier agent, rendu non imposé.
 
 [x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)
+
+- [x] UI-03 critical choice highlight relationnel (UX rationale: signal discret des décisions émotionnelles + journalisation des impacts élevés pour nourrir les conséquences relationnelles).
