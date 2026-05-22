@@ -28,6 +28,7 @@ TODO:
 [x] Create mission generation system
 [x] Create stress system
 [x] Add mission debrief narrative module with GameState persistence and tests
+[x] Add reusable squad morale widget (global + per-agent trend)
 
 Done:
 - Recovery-room support dialogues: added `game/narrative/recovery_dialogues.py` with a small deterministic generator driven by stress threshold, affinity priority (same squad then complementary roles), and one-day anti-repetition memory persisted in `GameState.recovery_narrative_memory`; output remains render-neutral (`line` + metadata) to keep narrative modular and memorable without UI coupling.
@@ -104,6 +105,13 @@ Done:
 - Daily stress recovery now ticks from the strategic calendar: every day lowers
   agent stress by 1, while agents in medical recovery decompress by 2 and log
   visible command-room updates to keep emotional consequences readable.
+
+- Squad morale widget + logic split: added `game/management/morale.py` for
+  reusable aggregate morale computation (global score, trend delta, per-agent
+  contributions with stable/declining/critical states) and
+  `game/ui/widgets/squad_morale_panel.py` for compact render-neutral panel
+  lines; RPG room info now consumes the same widget output instead of duplicating
+  morale rendering logic.
 
 Automation status:
 - [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)

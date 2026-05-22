@@ -57,6 +57,8 @@ from .recruitment import recruit_agent
 from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from .ui.research_lab import build_research_lab_lines
+from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
+from .management.morale import aggregate_squad_morale
 from .unit import Unit
 
 
@@ -971,12 +973,17 @@ class RPGView(GameView):
             if active_agent
             else "No agent selected"
         )
+        previous_morale = getattr(self.game_state, "_last_squad_morale", None)
+        morale_summary = aggregate_squad_morale(selected, previous_morale)
+        self.game_state._last_squad_morale = morale_summary.global_morale
+        morale_lines = [line.text for line in build_squad_morale_panel_lines(morale_summary)]
+
         return {
             "barracks": [
                 f"Roster {len(self.game_state.characters)} agents",
                 f"Available funds {self.game_state.available_funds}",
                 "Recruit cost: 5 funds",
-            ],
+            ] + morale_lines[:2],
             "ops": [
                 mission.title,
                 f"Risk {mission.risk_level} | Objective {mission.objective_type}",
@@ -991,7 +998,7 @@ class RPGView(GameView):
                 f"Recovering agents {len(recovering)}",
                 agent_line,
                 f"Selected squad {len(selected)} + {selected_asset_count} support",
-            ],
+            ] + morale_lines[:1],
             "armory": (
                 [
                     f"Selected squad {len(selected)} + {selected_asset_count} support",
