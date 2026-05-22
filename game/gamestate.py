@@ -99,6 +99,7 @@ class GameState:
     )
     latest_agent_aftermath: list[str] = field(default_factory=list)
     latest_mission_debrief: dict = field(default_factory=dict)
+    recovery_narrative_memory: dict = field(default_factory=dict)
     selected_agent_names: list[str] = field(default_factory=list)
     spec_ops_assets: list[SpecOpsAsset] = field(default_factory=list)
     selected_asset_ids: list[str] = field(default_factory=list)
@@ -483,6 +484,7 @@ class GameState:
             ],
             "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "latest_mission_debrief": dict(self.latest_mission_debrief),
+            "recovery_narrative_memory": dict(self.recovery_narrative_memory),
             "event_log": list(self.event_log),
             "active_events": [event.to_dict() for event in self.active_events],
             "next_event_id": self.next_event_id,
@@ -552,6 +554,7 @@ class GameState:
         ] or [create_opening_consequence(gs.district.name)]
         gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.latest_mission_debrief = dict(data.get("latest_mission_debrief", {}))
+        gs.recovery_narrative_memory = dict(data.get("recovery_narrative_memory", {}))
         gs.event_log = list(data.get("event_log", gs.event_log))
         gs.active_events = [
             ActiveEvent.from_dict(event) for event in data.get("active_events", [])
