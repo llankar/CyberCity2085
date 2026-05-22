@@ -40,11 +40,12 @@ class MissionBoardUITest(unittest.TestCase):
         self.assertIn("Pressure: Unrest +3, Media Heat +2", lines[1])
         self.assertEqual(lines[2], "Fund Reward: 40 corporate funds")
         self.assertEqual(lines[3], "Duration: 1 day")
-        self.assertEqual(lines[4], "Tags: neon_blackout")
-        self.assertIn("Media Leak", lines[5])
-        self.assertIn("Civilian Panic", lines[5])
-        self.assertIn("Success: Warrens Free Clinic", lines[6])
-        self.assertIn("Failure: Chrome Jackals", lines[7])
+        self.assertEqual(lines[4], "Tags opérationnels: neon_blackout")
+        self.assertIn("Impact humain attendu", lines[5])
+        self.assertIn("Media Leak", lines[6])
+        self.assertIn("Civilian Panic", lines[6])
+        self.assertIn("Success: Warrens Free Clinic", lines[7])
+        self.assertIn("Failure: Chrome Jackals", lines[8])
 
     def test_empty_mission_board_has_operator_guidance(self):
         self.assertEqual(build_mission_board_lines([], 0), ["No missions available."])
