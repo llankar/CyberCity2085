@@ -8,6 +8,7 @@ from ..consequences import Consequence
 from ..mission_templates import MissionComplication, MissionTemplate
 from .widgets.critical_choice_highlight import format_critical_choice_suffix
 from .widgets.mission_impact_summary import build_mission_impact_summary_lines
+from .accessibility.states import label_with_non_color_indicator
 
 OBJECTIVE_LABELS = {
     "extract": "EXTRACT",
@@ -94,9 +95,10 @@ def build_mission_board_lines(
     selected_index %= len(missions)
     lines: list[str] = []
     for index, mission in enumerate(missions):
+        state = "focus" if index == selected_index else "normal"
         prefix = ">" if index == selected_index else " "
         lines.append(
-            f"{prefix}{index + 1}. {mission.title} | "
+            f"{label_with_non_color_indicator(f'{prefix}{index + 1}. {mission.title}', state)} | "
             f"{objective_label(mission.objective_type)} | "
             f"Risk {mission.risk_level} ({risk_label(mission.risk_level)}) | "
             f"Reward {mission.fund_reward} funds | "

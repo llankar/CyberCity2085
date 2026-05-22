@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from ..accessibility.states import label_with_non_color_indicator
+
 NEUTRAL_IMPACT_TEXT = "Impact humain attendu: informations limitées, vigilance recommandée."
 IMPACT_LEVEL_LABELS = {
     "low": "faible",
@@ -32,4 +34,7 @@ def build_mission_impact_summary_lines(mission: object) -> list[str]:
     """Build ordered mission impact lines: operational tags first, then human hint."""
     tags = _tag_names(getattr(mission, "tags", []))
     hint = impact_hint_text(getattr(mission, "emotional_impact_hint", None))
-    return [f"Tags opérationnels: {tags}", hint]
+    return [
+        label_with_non_color_indicator(f"Tags opérationnels: {tags}", "normal"),
+        label_with_non_color_indicator(hint, "focus"),
+    ]
