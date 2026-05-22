@@ -28,9 +28,9 @@ class MissionObjectivesTest(unittest.TestCase):
     def test_mission_templates_assign_distinct_objective_types(self):
         templates = {mission.id: mission for mission in create_mission_templates()}
 
-        self.assertEqual(templates["extraction"].objective_type, "extract")
-        self.assertEqual(templates["sabotage"].objective_type, "sabotage")
-        self.assertEqual(templates["data_theft"].objective_type, "data_theft")
+        self.assertEqual(templates["extraction"].objective_type, "safe_extraction")
+        self.assertEqual(templates["sabotage"].objective_type, "sabotage_window")
+        self.assertEqual(templates["data_theft"].objective_type, "data_with_detour")
 
     def test_objective_creation_uses_readable_label_for_type(self):
         objective = create_battle_objective(_mission("data_theft"))
