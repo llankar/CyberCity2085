@@ -6,6 +6,11 @@ from collections.abc import Iterable
 
 from ..consequences import Consequence
 from ..mission_templates import MissionComplication, MissionTemplate
+from ..narrative.mission_briefing_conventions import (
+    NEUTRAL_IMPACT_FALLBACK,
+    build_short_emotional_impact,
+    normalize_mission_tags,
+)
 from .widgets.critical_choice_highlight import format_critical_choice_suffix
 from .widgets.mission_impact_summary import build_mission_impact_summary_lines
 from .accessibility.states import label_with_non_color_indicator
@@ -38,6 +43,21 @@ def objective_label(objective_type: str | None) -> str:
 def _tag_names(tagged_items: Iterable[object], empty: str = "none") -> str:
     names = [getattr(tag, "name", str(tag)) for tag in tagged_items]
     return ", ".join(names) if names else empty
+
+
+def _normalized_tag_names(mission: MissionTemplate) -> str:
+    hint = mission.emotional_impact_hint or {}
+    tags = hint.get("normalized_tags") if isinstance(hint, dict) else None
+    if not isinstance(tags, list):
+        tags = normalize_mission_tags(mission.tags)
+    return ", ".join(tags) if tags else "none"
+
+
+def _short_emotional_impact(mission: MissionTemplate) -> str:
+    hint = mission.emotional_impact_hint or {}
+    if not isinstance(hint, dict):
+        return NEUTRAL_IMPACT_FALLBACK
+    return build_short_emotional_impact(hint.get("level"), hint.get("short_text") or hint.get("text"))
 
 
 def _pressure_summary(pressure: dict) -> str:
@@ -118,6 +138,8 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
         f"District: {mission.district} | Pressure: {_pressure_summary(mission.district_pressure)}",
         f"Fund Reward: {mission.fund_reward} corporate funds",
         f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''}",
+        f"Mission tags (normalized): {_normalized_tag_names(mission)}",
+        f"Emotional impact (short): {_short_emotional_impact(mission)}",
         *build_mission_impact_summary_lines(mission),
         f"Complications: {_complication_names(mission.possible_complications)}",
         _outcome_line("Success", mission.success_consequences),
