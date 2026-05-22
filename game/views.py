@@ -4,6 +4,7 @@ import os
 from .agent_aftermath import apply_mission_aftermath
 from .agent_readiness import agents_at_breaking_risk, build_agent_readiness_lines
 from .battle_outcomes import resolve_defeated_agent_outcome
+from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
 from .combat_actions import available_combat_actions
@@ -1155,6 +1156,10 @@ class BattleView(GameView):
             self.triggered_complication,
         )
         self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
+        debrief_report = build_mission_debrief_report(
+            surviving_participants, self.mission, victory, self.triggered_complication
+        )
+        self.game_state.latest_mission_debrief = debrief_report.to_dict()
         for line in aftermath_lines:
             self.game_state.add_event(line)
         rpg_view = RPGView(self.game_state)
