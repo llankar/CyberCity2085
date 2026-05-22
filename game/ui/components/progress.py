@@ -1,12 +1,6 @@
 """Shared progress style values."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from .foundation import ProgressBar
 
-
-@dataclass(frozen=True)
-class ProgressStyle:
-    thickness: int = 6
-
-
-progress_style = ProgressStyle()
+progress_style = ProgressBar(thickness=6)
