@@ -6,6 +6,7 @@ from pathlib import Path
 from game.gamestate import GameState
 
 DEFAULT_SAVE_PATH = Path("savegame.json")
+SAVE_SLOT_COUNT = 5
 
 
 @dataclass(frozen=True)
@@ -16,6 +17,12 @@ class SaveSystemResult:
 
 class SaveSystem:
     """Small save-slot service for JSON campaign persistence."""
+
+    @staticmethod
+    def slot_path(slot: int) -> Path:
+        if not 1 <= slot <= SAVE_SLOT_COUNT:
+            raise ValueError(f"Save slot must be between 1 and {SAVE_SLOT_COUNT}.")
+        return Path("saves") / f"slot_{slot}.json"
 
     @staticmethod
     def save_game(game_state: GameState, path: Path | str = DEFAULT_SAVE_PATH) -> SaveSystemResult:

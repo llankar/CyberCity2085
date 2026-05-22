@@ -11,3 +11,4 @@ class GameView(arcade.View):
     def __init__(self, game_state: GameState | None = None):
         super().__init__()
         self.game_state = game_state or GameState()
+        self.selected_save_slot = 1

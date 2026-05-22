@@ -213,6 +213,8 @@ def actions_for_room(mode: str, room_key: str) -> list[RoomAction]:
     """Return the icon actions available in a room."""
     base_actions = list(ROOM_ACTIONS.get(mode, {}).get(room_key, []))
     utility_actions = [
+        RoomAction("slot_prev", "left", "Prev slot"),
+        RoomAction("slot_next", "right", "Next slot"),
         RoomAction("save", "shield", "Save game"),
         RoomAction("load", "intel", "Load game"),
     ]
