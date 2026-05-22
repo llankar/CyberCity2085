@@ -3,7 +3,7 @@
 1. [agent] AGENT-01 — Créer des scènes de débrief narratif post-mission basées sur les conséquences.
 2. [agent] AGENT-02 — [done] Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération (small memorable systems: règles compactes stress/affinité/mémoire anti-répétition, sortie neutre pour UI future).
 3. [agent] AGENT-03 — Ajouter un historique de liens mentor/protégé entre agents recrutés.
-4. [agent] AGENT-04 — Relier les blessures graves à des séquelles narratives temporaires.
+4. [agent] AGENT-04 — [done] Relier les blessures graves à des séquelles narratives temporaires (narratif-only, sans empilement complexe).
 5. [agent] AGENT-05 — Ajouter des traits de personnalité qui modulent les logs de mission.
 6. [mission] MISSION-03 — Créer une mission d'évacuation qui privilégie la survie des agents.
 7. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.

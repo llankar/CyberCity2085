@@ -6,6 +6,7 @@ import random
 from typing import Callable
 
 from .character import Character
+from .narrative.temporary_scars import apply_temporary_scar_from_injury
 
 CRITICAL_INJURY_RECOVERY_TURNS = 2
 CAPTURED_RECOVERY_TURNS = 4
@@ -43,10 +44,16 @@ def resolve_defeated_agent_outcome(
             "Evacuated with critical injuries after being downed in battle. "
             f"Recovery required: {character.recovery_turns} turns."
         )
+        scar = apply_temporary_scar_from_injury(character, "Critical battle trauma")
         record_event(
             f"{character.name} survived with critical injuries "
             f"and needs {character.recovery_turns} turns to recover."
         )
+        if scar:
+            record_event(
+                f"{character.name} gains temporary scar '{scar['title']}' "
+                f"for {scar['days_remaining']} days."
+            )
     elif outcome == "captured":
         character.recovery_turns = max(character.recovery_turns, CAPTURED_RECOVERY_TURNS)
         character.history.append(
