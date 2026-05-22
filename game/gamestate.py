@@ -28,6 +28,7 @@ from .management.funds import (
     default_mission_fund_distribution,
 )
 from .management.stress import daily_stress_recovery
+from .narrative.temporary_scars import tick_temporary_scars
 from .management.spec_ops_assets import (
     SpecOpsAsset,
     pay_asset_maintenance,
@@ -314,6 +315,12 @@ class GameState:
             stress_result = daily_stress_recovery(character)
             if stress_result.changed:
                 stress_recovery_log.append((character.name, stress_result.amount, character.stress))
+            expired_scars = tick_temporary_scars(character, 1)
+            for scar in expired_scars:
+                self.add_event(
+                    f"{self.calendar.campaign_date_label}: {character.name} leaves behind scar "
+                    f"'{scar.get('title', 'Unknown')}'."
+                )
             if character.recovery_turns > 0:
                 character.recovery_turns -= 1
                 if character.recovery_turns == 0:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from .character import Character
+from .narrative.temporary_scars import build_temporary_scar_summary
 
 
 NO_TRAIT = "No notable trait"
@@ -32,6 +33,7 @@ def build_agent_dossier_lines(character: Character) -> tuple[str, str]:
     detail = (
         f"  Trait: {first_or_default(character.traits, NO_TRAIT)} | "
         f"Scar: {first_wound_or_trauma(character)} | "
+        f"Temp: {build_temporary_scar_summary(character)[0]} | "
         f"History: {first_or_default(character.history, NO_HISTORY)}"
     )
     return summary, detail
