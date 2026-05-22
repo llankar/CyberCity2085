@@ -12,7 +12,7 @@
 10. [ui] UI-03 — Mettre en évidence les choix critiques affectant les relations d'équipe.
 11. [tests] TEST-01 — Couvrir la génération quotidienne de missions avec tests de régression supplémentaires.
 12. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
-13. [ui] UI-01 — Afficher un fil narratif des événements récents dans le command center.
+13. [ui] UI-01 — [done] Afficher un fil narratif des événements récents dans le command center.
 14. [mission] MISSION-02 — Ajouter des complications dynamiques légères influencées par la pression district.
 15. [ui] UI-04 — Afficher les tags de mission et l'impact émotionnel attendu au lancement.
 16. [docs] DOC-02 — Ajouter des exemples de boucles émotionnelles agents dans la roadmap.
@@ -29,3 +29,11 @@
 - Si `reach_witness` échoue: fin prématurée (`mission_failed`) pour préserver le scope.
 - Mission data-theft: échec du terminal principal redirige vers une route `field_proxy` avant retour vers `extract_data`.
 - L'UI peut afficher un résumé lisible type: `success -> escort_zone, failure -> mission_failed` par phase.
+
+
+### Boucle émotionnelle — format du narrative feed
+- Entrée feed (render-neutral): `{"category": "agent|mission|faction|base", "text": "..."}`.
+- Sources agrégées: `latest_agent_aftermath`, dialogues de récupération (`latest_recovery_dialogues`), événements stratégiques actifs (`active_events`), journal de récompenses narratives de faction (`faction_reward_journal`).
+- Ordre: antéchronologique (plus récent en premier) après agrégation.
+- Profondeur: limitée à 8–12 lignes (par défaut 10) pour garder un panneau court et lisible.
+- But émotionnel: prioriser les signaux agent et conséquences humaines avant le bruit systémique.

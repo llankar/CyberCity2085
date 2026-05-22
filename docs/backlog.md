@@ -143,3 +143,5 @@ Automation status:
   - Exposition UI data: résumé lisible dans le dossier agent, rendu non imposé.
 
 [x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)
+
+- UI-01 [done]: Added a compact narrative feed contract (`game/narrative/event_feed.py`) and widget presentation layer (`game/ui/widgets/narrative_feed_panel.py`) with category badges (`agent`, `mission`, `faction`, `base`), anti-chronological ordering, and bounded depth (8-12) to keep command-center readability centered on agent consequences.
