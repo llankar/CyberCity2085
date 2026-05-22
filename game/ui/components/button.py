@@ -1,13 +1,8 @@
 """Shared button style values."""
 from __future__ import annotations
 
-from dataclasses import dataclass
+from .foundation import Button
+from ..theme import radii
+from ..theme.elevation import stroke
 
-
-@dataclass(frozen=True)
-class ButtonStyle:
-    corner_radius: int = 8
-    border_width: int = 1
-
-
-button_style = ButtonStyle()
+button_style = Button(corner_radius=radii.control, border_width=stroke.hairline)
