@@ -19,7 +19,7 @@ class MissionImpactSummaryTest(unittest.TestCase):
 
         lines = build_mission_impact_summary_lines(mission)
 
-        self.assertEqual(lines[0], "Tags opérationnels: neon_blackout")
+        self.assertIn("Tags opérationnels: neon_blackout", lines[0])
         self.assertIn("Impact humain attendu (modéré):", lines[1])
 
     def test_impact_levels_are_coherent_with_generation_pressure(self):

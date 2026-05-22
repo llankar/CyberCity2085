@@ -30,6 +30,11 @@ python main.py
 - UI visual rules are tokenized in `game/ui/theme/` (typography hierarchy: title/section/meta; spacing; stroke; opacity; z-order) and reused by expanded-room panels, roster cards, and action buttons to avoid magic numbers
 - Action buttons include short labels for recruit, level-up, navigation, and
   launch actions
+- Accessibility pass: UI now exposes a dedicated accessibility palette
+  (text/background/alert), explicit clickable states (normal/hover/active/
+  disabled/focus), and non-chromatic indicators (icon + text prefix) in widget
+  lines so meaning is not conveyed by color alone
+- High-contrast mode is centrally toggleable via `GameState.ui_high_contrast`
 - `Esc` closes the open room and returns to the base map
 - Each day grants passive operating funds; crossing into a new strategic week
   also deposits projected corporate funding based on stipend, city support,
