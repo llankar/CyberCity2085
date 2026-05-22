@@ -9,7 +9,7 @@
 7. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.
 8. [mission] MISSION-01 — Introduire des variantes d'objectifs multi-étapes avec embranchements lisibles.
 9. [mission] MISSION-04 — Ajouter des récompenses narratives légères selon la faction ciblée.
-10. [ui] UI-03 — Mettre en évidence les choix critiques affectant les relations d'équipe.
+10. [ui] UI-03 — [done] Mettre en évidence les choix critiques affectant les relations d'équipe.
 11. [tests] TEST-01 — Couvrir la génération quotidienne de missions avec tests de régression supplémentaires.
 12. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
 13. [ui] UI-01 — [done] Afficher un fil narratif des événements récents dans le command center.

@@ -36,6 +36,7 @@ class EventChoice:
     label: str
     effects: dict[str, Any] = field(default_factory=dict)
     summary: str = ""
+    relation_impact: str = "low"
 
     def to_dict(self) -> dict:
         return {
@@ -43,6 +44,7 @@ class EventChoice:
             "label": self.label,
             "effects": dict(self.effects),
             "summary": self.summary,
+            "relation_impact": self.relation_impact,
         }
 
     @classmethod
@@ -54,7 +56,17 @@ class EventChoice:
             label=str(data.get("label", "Respond")),
             effects=dict(data.get("effects", {})),
             summary=str(data.get("summary", "")),
+            relation_impact=_normalize_relation_impact(
+                str(data.get("relation_impact", "low"))
+            ),
         )
+
+
+def _normalize_relation_impact(value: str) -> str:
+    level = str(value).strip().lower()
+    if level not in {"low", "medium", "high"}:
+        return "low"
+    return level
 
 
 @dataclass(frozen=True)
@@ -67,6 +79,7 @@ class EventTemplate:
     severity: int
     choices: list[EventChoice]
     consequences: dict[str, Any] = field(default_factory=dict)
+    relation_impact: str = "low"
     expiration_days: int = 3
     weight: int = 1
 
@@ -78,6 +91,7 @@ class EventTemplate:
             "severity": max(1, int(self.severity)),
             "choices": [choice.to_dict() for choice in self.choices],
             "consequences": dict(self.consequences),
+            "relation_impact": self.relation_impact,
             "expiration_days": max(1, int(self.expiration_days)),
             "weight": max(1, int(self.weight)),
         }
@@ -97,6 +111,9 @@ class EventTemplate:
                 EventChoice.from_dict(choice) for choice in data.get("choices", [])
             ],
             consequences=dict(data.get("consequences", {})),
+            relation_impact=_normalize_relation_impact(
+                str(data.get("relation_impact", "low"))
+            ),
             expiration_days=max(1, int(data.get("expiration_days", 3))),
             weight=max(1, int(data.get("weight", 1))),
         )
@@ -403,6 +420,15 @@ def apply_event_choice(game_state, event_id: str, choice_key: str) -> bool:
             if choice.key != choice_key:
                 continue
             apply_event_effects(game_state, choice.effects)
+            from ..relationships.impact_tracker import record_relation_impact
+
+            if choice.relation_impact == "high":
+                record_relation_impact(
+                    game_state,
+                    source=f"event:{active_event.id}:{choice.key}",
+                    level=choice.relation_impact,
+                    context=active_event.title,
+                )
             game_state.active_events.remove(active_event)
             game_state.add_event(
                 f"Event response: {active_event.title} -> {choice.label}."
