@@ -3,19 +3,22 @@
 import random
 
 from .gamestate import GameState
+from .mission_generation import generate_mission_board
 from .mission_templates import (
     MissionComplication,
     MissionTemplate,
-    create_mission_templates,
 )
 
 
 def ensure_mission_templates(game_state: GameState) -> None:
     """Ensure there is a selectable mission board and clamp the selected index."""
-    if not game_state.mission_templates:
-        game_state.mission_templates = create_mission_templates(
-            game_state.district.name
-        )
+    if (
+        not game_state.mission_templates
+        or game_state.mission_board_generated_day != game_state.calendar.current_day
+    ):
+        game_state.mission_templates = generate_mission_board(game_state)
+        game_state.mission_board_generated_day = game_state.calendar.current_day
+        game_state.selected_mission_index = 0
     game_state.selected_mission_index %= len(game_state.mission_templates)
 
 
