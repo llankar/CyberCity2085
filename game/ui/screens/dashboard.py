@@ -141,3 +141,13 @@ def build_event_log_lines(events: list[str], limit: int = 5) -> list[str]:
     if not events:
         return ["No operational events logged."]
     return list(events[-limit:][::-1])
+
+
+def build_management_recommended_action(resources: dict[str, int], district: District) -> str:
+    """Contextual recommendation for management views."""
+    intel = int(resources.get("intel", 0))
+    if district.unrest >= 70 or district.media_heat >= 70:
+        return "Recommended action: stabiliser le district avant toute expansion."
+    if intel <= 1:
+        return "Recommended action: lancer une collecte intel pour réduire l'incertitude."
+    return "Recommended action: engager une opération à impact mesuré."
