@@ -1,92 +1,22 @@
-# Phase 1
-- Cool and smart UI
-  - Progress: Mission Board now shows selectable missions, objective type, risk,
-    fund rewards, duration, pressure, complications, and success/failure stakes
-    before launch.
-  - Progress: RPG View now uses a focused city/corporate command tower: agent
-    barracks, operations table, intel lab, and medbay/fallout floors for a more
-    tactical XCOM-like planning mood without changing combat systems.
-  - Progress: Corp, City, RPG, and Battle screens now share a corporate tower
-    base UI with stacked rooms, resource HUD slots, pressure meters, and bottom
-    action strips so the whole game reads as one city command center.
-  - Progress: Command screens now use a generated raster corporate-base
-    backdrop with room hotspots and glass panels, shifting the presentation away
-    from text-only management screens.
-  - Progress: Corp, City, RPG, and battle drop-zone selection now use click-first
-    room expansion with icon-only action buttons instead of text panels.
-  - Progress: Room hit zones now use normalized coordinates measured from the
-    generated base art, so clicks line up with the visible rooms as the window
-    scales.
-  - Progress: Each visible base room now has a cropped room image, and expanded
-    rooms render that crop during the grow animation.
-  - Progress: Expanded rooms now place the room title at the top, room-specific
-    game info below it, icon actions at the bottom center, and Esc returns to
-    the base map.
-  - Progress: Action buttons now include readable labels, and the graphical room
-    flow supports black-ops recruitment, agent leveling, and mission launch.
-  - Progress: Squad rooms now render the roster as graphical agent cards with
-    role colors, stylized portraits, HP/stress meters, selection state, recovery,
-    and upgrade indicators.
-  - Progress: Agent cards now use 24 generated portrait assets, strong
-    active-agent brackets, click-to-select behavior, and numbered upgrade-point
-    badges/buttons for leveling.
-  - Progress: Corporate management now has a dedicated funds ledger owned by
-    GameState, with available funds shown in command HUD and room info.
-    Successful missions now pay a small `fund_reward` through the ledger and
-    auto-allocate it across agent morale/pay, research, equipment,
-    robot/power-armor maintenance, and corporate reserves.
-  - Progress: Strategic time now has a small calendar owned by GameState;
-    resolved missions advance by each mission's `duration_days` (one day for
-    existing generated missions), while manual command-deck day advances trigger
-    daily income, pending fallout review, weekly planning beats, and recovery
-    timers.
-  - Progress: Corporate finance now has a weekly recurring funding model: the
-    calendar pays the funds ledger whenever a new week opens, after stipend,
-    city-support, political-pressure, and upkeep calculations.
-  - Progress: Agent barracks now supports a small modular equipment slice: each
-    agent has loadout slots for primary weapon, sidearm, armor, utility item,
-    psi focus/implant, and special gear, and combat unit creation applies those
-    bonuses without hard-coding combat behavior into Character.
-  - Progress: Strategic event management now rolls a compact pressure-based
-    threat deck when the calendar advances, stores active unresolved events in
-    GameState, and exposes command choices that trade funds, agent stress,
-    faction pressure, city stability, and mission availability.
+## Next 20 Coding Steps
 
-  - Progress: Research management now has a first small lab slice: one starter
-    project per vehicles, weapons, armor, psy, equipment, robots, and
-    power-armor category. Projects spend corporate funds, progress as days
-    advance on the strategic calendar, and complete into GameState unlock flags
-    or small stat modifiers for later systems to consume.
-  - Progress: Spec-ops support assets now have a contained vertical slice:
-    combat robots and power armor define maintenance, weapon hardpoints, armor,
-    missile capacity, and pilot requirements; deployment manifests can include
-    them beside agents; combat setup turns them into distinct Units; and the
-    funds ledger pays upkeep/repair while agent cards remain first in the squad
-    UI.
-  - Progress: Mission generation now rebuilds a small daily board from district pressure with deterministic day seeds, keeping ops readable while varying risk, enemy count, and payout each campaign day.
-
-  - Progress: Battle UI now has a reusable contextual action deck for the
-    selected unit. Pure combat action rules decide when fire, melee, psi,
-    first aid, missiles, defend, and end-turn controls appear so rendering stays
-    small and testable.
-- District system
-- Mission generation
-- Black ops
-
-# Phase 2
-- Agent system
-  - Progress: Strategic calendar now applies a compact stress-recovery loop:
-    active agents decompress by 1 stress/day, medbay recovery agents by 2/day,
-    and command logs surface those emotional beats without adding a giant sim.
-  - Progress: Loadouts are now a first small agent-system slice, giving agents
-    memorable gear choices while preserving scope and modularity.
-- Media system
-- Relationships
-- outside the city missions (wastelands)
-
-# Phase 3
-- Corporate politics
-  - Progress: Board and municipal pressure now appears through the first small
-    strategic event deck rather than a large separate politics simulation.
-- Dynamic factions
-- Consequences
+1. [agent] AGENT-01 — Créer des scènes de débrief narratif post-mission basées sur les conséquences.
+2. [agent] AGENT-02 — Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération.
+3. [agent] AGENT-03 — Ajouter un historique de liens mentor/protégé entre agents recrutés.
+4. [agent] AGENT-04 — Relier les blessures graves à des séquelles narratives temporaires.
+5. [agent] AGENT-05 — Ajouter des traits de personnalité qui modulent les logs de mission.
+6. [mission] MISSION-03 — Créer une mission d'évacuation qui privilégie la survie des agents.
+7. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.
+8. [mission] MISSION-01 — Introduire des variantes d'objectifs multi-étapes avec embranchements lisibles.
+9. [mission] MISSION-04 — Ajouter des récompenses narratives légères selon la faction ciblée.
+10. [ui] UI-03 — Mettre en évidence les choix critiques affectant les relations d'équipe.
+11. [tests] TEST-01 — Couvrir la génération quotidienne de missions avec tests de régression supplémentaires.
+12. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
+13. [ui] UI-01 — Afficher un fil narratif des événements récents dans le command center.
+14. [mission] MISSION-02 — Ajouter des complications dynamiques légères influencées par la pression district.
+15. [ui] UI-04 — Afficher les tags de mission et l'impact émotionnel attendu au lancement.
+16. [docs] DOC-02 — Ajouter des exemples de boucles émotionnelles agents dans la roadmap.
+17. [docs] DOC-01 — Documenter les règles de conception centrées émotion et scope control.
+18. [tests] TEST-04 — Tester la cohérence des tags de domaine dans les exports markdown.
+19. [tests] TEST-02 — Valider la stabilité des seeds de mission par jour avec tests déterministes.
+20. [docs] DOC-03 — Décrire le pipeline backlog -> next steps -> roadmap dans docs.
