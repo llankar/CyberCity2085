@@ -70,4 +70,4 @@ class NotificationCenterUITest(unittest.TestCase):
         center.push(level, text)
         center.failure("Mission launch failure: no deployable agents")
         self.assertIn("[FAILURE] Mission launch failure", center.latest_text_lines(2)[0])
-        self.assertIn("[SUCCESS] Save success", center.latest_text_lines(2)[1])
+        self.assertIn("[SUCCESS] Action: Save", center.latest_text_lines(2)[1])
