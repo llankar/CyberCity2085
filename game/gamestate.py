@@ -106,6 +106,7 @@ class GameState:
     selected_agent_names: list[str] = field(default_factory=list)
     spec_ops_assets: list[SpecOpsAsset] = field(default_factory=list)
     selected_asset_ids: list[str] = field(default_factory=list)
+    latest_spec_ops_outcomes: list[dict] = field(default_factory=list)
     event_log: list[str] = field(
         default_factory=lambda: [
             "Turn 1: Forward Base Kilo establishes overwatch in the Chrome Warrens."
@@ -521,6 +522,7 @@ class GameState:
             "selected_agent_names": list(self.selected_agent_names),
             "spec_ops_assets": [asset.to_dict() for asset in self.spec_ops_assets],
             "selected_asset_ids": list(self.selected_asset_ids),
+            "latest_spec_ops_outcomes": [dict(item) for item in self.latest_spec_ops_outcomes],
             "recent_consequences": [
                 consequence.to_dict() for consequence in self.recent_consequences
             ],
@@ -594,6 +596,9 @@ class GameState:
             SpecOpsAsset.from_dict(asset) for asset in data.get("spec_ops_assets", [])
         ]
         gs.selected_asset_ids = list(data.get("selected_asset_ids", []))
+        gs.latest_spec_ops_outcomes = [
+            dict(item) for item in data.get("latest_spec_ops_outcomes", [])
+        ]
         gs.recent_consequences = [
             Consequence.from_dict(consequence)
             for consequence in data.get("recent_consequences", [])

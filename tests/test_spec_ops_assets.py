@@ -1,5 +1,6 @@
 """Spec-ops robot and power armor support assets."""
 
+import tempfile
 import unittest
 
 from game.character import Character
@@ -11,6 +12,7 @@ from game.deployment import (
     toggle_asset_selection,
 )
 from game.gamestate import GameState
+from game.management.research import advance_research_days
 from game.management.spec_ops_assets import (
     ArmorRating,
     CombatRobot,
@@ -21,6 +23,19 @@ from game.management.spec_ops_assets import (
 
 
 class SpecOpsAssetsTest(unittest.TestCase):
+    def test_unlock_path_research_to_available_asset_project(self):
+        state = GameState()
+        project = state.research_tree.project("power_armor_servo_prayer")
+        self.assertTrue(state.start_research(project.id))
+        advance_research_days(state, project.days_required, state.research_tree)
+        self.assertIn(project.id, state.completed_research)
+        self.assertTrue(
+            any(
+                "power_armor" in p.category
+                for p in state.research_tree.projects.values()
+            )
+        )
+
     def test_create_combat_robot_and_power_armor_models(self):
         robot = CombatRobot(
             id="drone_01",
@@ -114,6 +129,23 @@ class SpecOpsAssetsTest(unittest.TestCase):
         self.assertEqual(state.available_funds, starting_funds - 43)
         self.assertEqual(robot.maintenance.integrity, 100)
         self.assertEqual(state.funds.transaction_history[-1].source, "spec_ops_maintenance")
+
+    def test_asset_outcome_state_persists_after_save_load(self):
+        robot = CombatRobot(id="drone", name="Drone")
+        state = GameState(spec_ops_assets=[robot])
+        state.latest_spec_ops_outcomes = [
+            {"id": "drone", "name": "Drone", "damage": 35, "repair_cost": 70, "cooldown_days": 1}
+        ]
+        robot.maintenance.cooldown_days = 1
+        robot.maintenance.integrity = 65
+
+        with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+            state.save(tmp.name)
+            restored = GameState.load(tmp.name)
+
+        self.assertEqual(restored.latest_spec_ops_outcomes[0]["damage"], 35)
+        self.assertEqual(restored.spec_ops_assets[0].maintenance.cooldown_days, 1)
+        self.assertEqual(restored.spec_ops_assets[0].maintenance.integrity, 65)
 
 
 if __name__ == "__main__":
