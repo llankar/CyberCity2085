@@ -60,6 +60,12 @@ from .ui.research_lab import build_research_lab_lines
 from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
 from .ui.widgets.notification_center import NotificationCenter
 from .ui.action_feedback import confirm_message, push_action
+from .ui.navigation import (
+    HelpOverlayState,
+    build_help_lines,
+    build_hint_banner,
+    build_view_focus_model,
+)
 from .management.morale import aggregate_squad_morale
 from .unit import Unit
 
@@ -142,6 +148,8 @@ class CorpView(GameView):
         self.text = "Corporation Management"
         self.room_ui = RoomUIState("corp")
         self.notifications = NotificationCenter()
+        self.focus_model = build_view_focus_model("corp", 1280, 720)
+        self.help_overlay = HelpOverlayState()
         if self.game_state.available_funds <= 0:
             self.game_state.add_funds(
                 self.game_state.compute_budget(),
@@ -180,8 +188,18 @@ class CorpView(GameView):
         self.game_state.add_event(push_action(self.notifications, "budget_allocation", False, f"{key} requires {cost_text}"))
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.H:
+            self.help_overlay.toggle()
+            return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
+            return
+        if key in (arcade.key.TAB,):
+            step = -1 if modifiers & arcade.key.MOD_SHIFT else 1
+            self._activate_focus(step)
+            return
+        if key in (arcade.key.ENTER, arcade.key.RETURN):
+            self._trigger_focus()
             return
         if key == arcade.key.C:
             city_view = CityView(self.game_state)
@@ -229,7 +247,27 @@ class CorpView(GameView):
         if room is None:
             return False
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        self._sync_focus_actions()
         return True
+
+    def _activate_focus(self, step: int) -> None:
+        active = self.focus_model.move(step)
+        if active and active.kind == "room":
+            open_room(self.room_ui, self.window.width, self.window.height, active.key)
+            self._sync_focus_actions()
+
+    def _trigger_focus(self) -> None:
+        active = self.focus_model.active()
+        if active is None:
+            return
+        if active.kind == "room":
+            open_room(self.room_ui, self.window.width, self.window.height, active.key)
+            self._sync_focus_actions()
+        elif active.kind == "action":
+            self._perform_room_action(active.key)
+
+    def _sync_focus_actions(self) -> None:
+        self.focus_model.set_actions([button.action.key for button in self.room_ui.action_buttons])
 
     def _perform_room_action(self, action_key: str) -> None:
         if action_key == "city":
@@ -292,7 +330,7 @@ class CorpView(GameView):
             self.game_state.next_weekly_income_date,
             self.game_state.projected_weekly_income,
         )
-        return {
+        info = {
             "executive": [
                 f"{self.game_state.calendar.campaign_date_label} | Day {self.game_state.calendar.current_day}",
                 *build_event_panel_lines(
@@ -337,6 +375,21 @@ class CorpView(GameView):
                 "Transit links to city control and squad command.",
             ],
         }
+        return self._with_contextual_hints(info)
+
+    def _with_contextual_hints(self, info: dict[str, list[str]]) -> dict[str, list[str]]:
+        for room_key, lines in info.items():
+            hints = [build_hint_banner("corp", room_key)]
+            if self.help_overlay.visible:
+                hints.extend(
+                    build_help_lines(
+                        "corp",
+                        room_key,
+                        [button.action.label for button in self.room_ui.action_buttons],
+                    )[:5]
+                )
+            info[room_key] = hints + lines
+        return info
 
 
 class CityView(GameView):
@@ -355,6 +408,8 @@ class CityView(GameView):
         self.text = "City Management"
         self.room_ui = RoomUIState("city")
         self.notifications = NotificationCenter()
+        self.focus_model = build_view_focus_model("city", 1280, 720)
+        self.help_overlay = HelpOverlayState()
 
     def on_draw(self):
         self.clear()
@@ -387,6 +442,9 @@ class CityView(GameView):
         self.game_state.add_event(push_action(self.notifications, "budget_allocation", False, f"{key} requires {cost_text}"))
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.H:
+            self.help_overlay.toggle()
+            return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
             return
@@ -466,7 +524,7 @@ class CityView(GameView):
         )
         lead_faction = factions[0].name if factions else "no active faction"
         hostility = factions[0].hostility_to_player if factions else 0
-        return {
+        info = {
             "municipal": [
                 f"{self.game_state.calendar.campaign_date_label} | Week {self.game_state.calendar.current_week}",
                 f"District {district.name}",
@@ -513,6 +571,18 @@ class CityView(GameView):
                 "Skybridge connects city command to squad command.",
             ],
         }
+        for room_key, lines in info.items():
+            hints = [build_hint_banner("city", room_key)]
+            if self.help_overlay.visible:
+                hints.extend(
+                    build_help_lines(
+                        "city",
+                        room_key,
+                        [button.action.label for button in self.room_ui.action_buttons],
+                    )[:5]
+                )
+            info[room_key] = hints + lines
+        return info
 
 
 class RPGView(GameView):
@@ -528,6 +598,8 @@ class RPGView(GameView):
         self.pending_breakdown_mission_id = None
         self.deployment_cursor_index = 0
         self.equipment_catalog = default_equipment_catalog()
+        self.focus_model = build_view_focus_model("squad", 1280, 720)
+        self.help_overlay = HelpOverlayState()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
@@ -624,6 +696,16 @@ class RPGView(GameView):
         )
 
     def on_key_press(self, key, modifiers):
+        if key == arcade.key.H:
+            self.help_overlay.toggle()
+            return
+        if key in (arcade.key.TAB,):
+            step = -1 if modifiers & arcade.key.MOD_SHIFT else 1
+            self._activate_focus(step)
+            return
+        if key in (arcade.key.ENTER, arcade.key.RETURN):
+            self._trigger_focus()
+            return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
             return
@@ -645,9 +727,7 @@ class RPGView(GameView):
                 self.game_state.characters
             )
             self.message = ""
-        elif (
-            key in (arcade.key.ENTER, arcade.key.RETURN) and self.game_state.characters
-        ):
+        elif self.game_state.characters and key == arcade.key.SPACE:
             (
                 self.game_state.selected_agent_names,
                 self.message,
@@ -746,6 +826,7 @@ class RPGView(GameView):
             return False
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
         self._refresh_squad_room_actions()
+        self._sync_focus_actions()
         return True
 
     def _roster_card_index_at(self, x: int, y: int) -> int | None:
@@ -918,6 +999,37 @@ class RPGView(GameView):
         self.room_ui.action_buttons = layout_action_buttons(
             self.window.width, self.window.height, actions
         )
+        self._sync_focus_actions()
+
+    def _activate_focus(self, step: int) -> None:
+        self.focus_model.mission_count = len(self.game_state.mission_templates)
+        active = self.focus_model.move(step)
+        if active is None:
+            return
+        if active.kind == "room":
+            open_room(self.room_ui, self.window.width, self.window.height, active.key)
+            self._refresh_squad_room_actions()
+        elif active.kind == "mission":
+            self.game_state.selected_mission_index = int(active.key.rsplit("_", 1)[-1]) % max(1, len(self.game_state.mission_templates))
+            self.pending_breakdown_confirmation = False
+
+    def _trigger_focus(self) -> None:
+        active = self.focus_model.active()
+        if active is None:
+            return
+        if active.kind == "room":
+            open_room(self.room_ui, self.window.width, self.window.height, active.key)
+            self._refresh_squad_room_actions()
+            return
+        if active.kind == "action":
+            self._perform_room_action(active.key)
+            return
+        if active.kind == "mission" and self.game_state.mission_templates:
+            self.game_state.selected_mission_index = int(active.key.rsplit("_", 1)[-1]) % len(self.game_state.mission_templates)
+
+    def _sync_focus_actions(self) -> None:
+        self.focus_model.mission_count = len(self.game_state.mission_templates)
+        self.focus_model.set_actions([button.action.key for button in self.room_ui.action_buttons])
 
     def _equip_active_agent(self, slot: str) -> None:
         """Cycle the active agent through the starter equipment catalog for a slot."""
@@ -976,7 +1088,7 @@ class RPGView(GameView):
         self.game_state._last_squad_morale = morale_summary.global_morale
         morale_lines = [line.text for line in build_squad_morale_panel_lines(morale_summary)]
 
-        return {
+        info = {
             "barracks": [
                 f"Roster {len(self.game_state.characters)} agents",
                 f"Available funds {self.game_state.available_funds}",
@@ -1025,6 +1137,18 @@ class RPGView(GameView):
                 "Launch moves agents and support assets to combat.",
             ],
         }
+        for room_key, lines in info.items():
+            hints = [build_hint_banner("squad", room_key)]
+            if self.help_overlay.visible:
+                hints.extend(
+                    build_help_lines(
+                        "squad",
+                        room_key,
+                        [button.action.label for button in self.room_ui.action_buttons],
+                    )[:6]
+                )
+            info[room_key] = hints + lines
+        return info
 
 
 class BattleView(GameView):
