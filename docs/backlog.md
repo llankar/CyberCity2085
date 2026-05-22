@@ -158,4 +158,4 @@ Automation status:
   - Contrainte design: système léger, lisible, modulaire, non-systémique lourd.
 
 
-[x] UI-04 Mission impact summary: widget UI dédié (`game/ui/widgets/mission_impact_summary.py`), affichage hiérarchisé tags -> impact humain, contrat `emotional_impact_hint` (level/text) + fallback neutre, tests ajoutés.
+[x] UI-04 Mission impact summary: payload enrichi côté génération (`normalized_tags` + `short_text`), affichage liste + détail avec hiérarchie sobre dans `game/ui/mission_board.py`, conventions d'écriture centralisées (`game/narrative/mission_briefing_conventions.py`) et tests de rendu couvrant tags absents/multiples + impact absent/présent.

@@ -14,7 +14,7 @@
 12. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
 13. [ui] UI-01 — [done] Afficher un fil narratif des événements récents dans le command center.
 14. [mission] MISSION-02 — Ajouter des complications dynamiques légères influencées par la pression district.
-15. [ui] UI-04 — Afficher les tags de mission et l'impact émotionnel attendu au lancement.
+15. [ui] UI-04 — [done] Afficher les tags de mission et l'impact émotionnel attendu au lancement (payload enrichi + conventions éditoriales + tests de rendu).
 16. [docs] DOC-02 — Ajouter des exemples de boucles émotionnelles agents dans la roadmap.
 17. [docs] DOC-01 — Documenter les règles de conception centrées émotion et scope control.
 18. [tests] TEST-04 — Tester la cohérence des tags de domaine dans les exports markdown.
@@ -45,3 +45,9 @@
 - Schéma minimal: `{"level": "low|medium|high|critical", "text": str non vide}`.
 - Consommation UI: `game/ui/widgets/mission_impact_summary.py` affiche d'abord les tags opérationnels puis l'impact humain attendu.
 - Fallback obligatoire: si payload absent/invalide, afficher `Impact humain attendu: informations limitées, vigilance recommandée.`
+
+### Critères d'acceptation UI-04 (statut: validé)
+- Les missions générées exposent des tags normalisés (`normalized_tags`) et un impact émotionnel court (`short_text`) dans `emotional_impact_hint`.
+- Le panneau mission affiche explicitement ces données dans le détail sélectionné, avec lecture sobre (métadonnées -> impact humain -> complications/stakes).
+- Les conventions d'écriture sont centralisées (longueur maximale, vocabulaire émotionnel cohérent, fallback neutre).
+- Les tests UI couvrent: mission sans tags, tags multiples, impact émotionnel absent/présent.
