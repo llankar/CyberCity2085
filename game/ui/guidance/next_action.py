@@ -14,6 +14,13 @@ def _injured_agents(game_state) -> int:
     return sum(1 for c in getattr(game_state, "characters", []) if getattr(c, "recovery_turns", 0) > 0)
 
 
+def _has_research_momentum(game_state) -> bool:
+    unlocks = getattr(game_state, "research_unlock_flags", [])
+    active = getattr(game_state, "active_research", [])
+    completed = getattr(game_state, "completed_research", [])
+    return bool(unlocks or active or completed)
+
+
 def compute_next_action(game_state, screen: str) -> NextActionGuidance:
     resources = getattr(game_state, "strategic_resources", {})
     missions = getattr(game_state, "mission_templates", [])
@@ -25,7 +32,7 @@ def compute_next_action(game_state, screen: str) -> NextActionGuidance:
         return NextActionGuidance("Advance one day to generate new mission opportunities.", "city", "records")
     if _injured_agents(game_state) >= max(1, len(getattr(game_state, "characters", [])) // 2):
         return NextActionGuidance("Open Medbay and rotate injured agents out of deployment.", "squad", "medbay")
-    if not getattr(game_state, "research_unlock_flags", []):
+    if not _has_research_momentum(game_state):
         return NextActionGuidance("Start a research project to unlock strategic options.", "corp", "research")
     if len(selected) < 2:
         return NextActionGuidance("Select 2 more agents to complete your squad.", "squad", "armory")
