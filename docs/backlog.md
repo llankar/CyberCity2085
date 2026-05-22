@@ -109,3 +109,9 @@ Automation status:
 - [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)
 - [done] Add unit tests for generator stability/format (`tests/test_generate_docs.py`)
 - [done] Generate and publish `## Next 20 Coding Steps` block in `docs/roadmap.md`
+
+- [x] Add lightweight relational tracking contract (mentor links)
+  - Field location: `Character.mentor_links` (dictionary keyed by other `agent_id`).
+  - Payload per link: `{"agent_id": str, "bond_level": int>=0, "strategic_day": int>=0}`.
+  - Invariants: one entry per counterpart, monotonic `bond_level`, monotonic `strategic_day`, no empty `agent_id`.
+  - Lifecycle: seeded on recruitment (`game/recruitment.py`), evolved after mission progression (`game/agent_aftermath.py`), persisted by regular character serialization (`to_dict`/`from_dict`) used by save/load.

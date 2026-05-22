@@ -24,6 +24,9 @@ class SaveSystemTests(unittest.TestCase):
         game_state.selected_agent_names = ["Nyx"]
         game_state.strategic_resources["credits"] = 55
         game_state.city_budget["armaments"] = 20
+        game_state.characters[0].mentor_links = {
+            "Cipher": {"agent_id": "Cipher", "bond_level": 4, "strategic_day": 12}
+        }
 
         with tempfile.TemporaryDirectory() as temp_dir:
             save_path = Path(temp_dir) / "slot_a" / "campaign.json"
@@ -39,6 +42,10 @@ class SaveSystemTests(unittest.TestCase):
         self.assertEqual(loaded.strategic_resources["credits"], 55)
         self.assertEqual(loaded.city_budget["armaments"], 20)
         self.assertEqual(len(loaded.characters), 1)
+        self.assertEqual(
+            loaded.characters[0].mentor_links,
+            {"Cipher": {"agent_id": "Cipher", "bond_level": 4, "strategic_day": 12}},
+        )
 
 
 if __name__ == "__main__":
