@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from .theme import spacing
 from ..character import Character, is_deployable
 from ..dossier import build_agent_dossier_lines
 from ..mission_templates import MissionTemplate
@@ -29,8 +30,8 @@ class DeckPanel:
 
 def build_command_deck_layout(width: int, height: int) -> list[DeckPanel]:
     """Return a stable three-column RPG layout for a tactical command deck."""
-    margin = 18
-    gutter = 14
+    margin = spacing.md
+    gutter = spacing.sm
     status_height = 54
     footer_height = 62
     top = height - status_height - margin
