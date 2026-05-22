@@ -102,6 +102,27 @@ def _rect(l, b, r, t, color) -> None:
     arcade.draw_lrbt_rectangle_filled(l, r, b, t, color)
 
 
+def _draw_notification_toast(notifications: "NotificationCenter", w: int, _h: int) -> None:
+    """Render the most-recent notification lines in the bottom-right corner."""
+    lines = notifications.latest_text_lines(4)
+    if not lines:
+        return
+    pad, line_h, font_sz = 8, 16, 10
+    panel_w = 340
+    panel_h = pad * 2 + len(lines) * line_h
+    rx = w - 8
+    ry = _BOT_BAR_H + 8
+    _rect(rx - panel_w, ry, rx, ry + panel_h, (0, 0, 0, 180))
+    for i, text in enumerate(lines):
+        color = palette.SUCCESS if "[SUCCESS]" in text else (
+            palette.WARNING if "[WARNING]" in text else palette.DANGER
+        )
+        arcade.draw_text(
+            text, rx - panel_w + pad, ry + pad + i * line_h,
+            color, font_sz, anchor_x="left", anchor_y="bottom",
+        )
+
+
 def _border(l, b, r, t, color, width: int = 1) -> None:
     arcade.draw_line(l, t, r, t, color, width)
     arcade.draw_line(l, b, r, b, color, width)
@@ -213,8 +234,8 @@ class ManagementView(GameView):
         self._draw_content(w, h)
         self._draw_bottom_bar(w, h)
 
-        # Notifications on top
-        self.notifications.draw(w, h)
+        # Notifications toast — newest-first, bottom-right corner
+        _draw_notification_toast(self.notifications, w, h)
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         # Tab shortcuts
