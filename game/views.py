@@ -83,6 +83,20 @@ from .ui.onboarding.tutorial_overlay import overlay_state_for_screen
 from .unit import Unit
 
 
+
+def _save_to_selected_slot(view: GameView) -> SaveSystemResult:
+    return SaveSystem.save_game(view.game_state, SaveSystem.slot_path(view.selected_save_slot))
+
+
+def _load_from_selected_slot(view: GameView) -> tuple[GameState | None, SaveSystemResult]:
+    return SaveSystem.load_game(SaveSystem.slot_path(view.selected_save_slot))
+
+
+def _cycle_save_slot(view: GameView, step: int) -> int:
+    total = 5
+    view.selected_save_slot = ((view.selected_save_slot - 1 + step) % total) + 1
+    return view.selected_save_slot
+
 def build_roster_cards(
     characters: list[Character],
     selected_names: list[str],
@@ -250,10 +264,10 @@ class CorpView(GameView):
             budget_key, costs = self.CORP_UPGRADE_COSTS[key]
             self._buy_corp_upgrade(budget_key, costs)
         elif key == arcade.key.S:
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -306,12 +320,20 @@ class CorpView(GameView):
         self.focus_model.set_actions([button.action.key for button in self.room_ui.action_buttons])
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "slot_prev":
+            slot = _cycle_save_slot(self, -1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
+        if action_key == "slot_next":
+            slot = _cycle_save_slot(self, 1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
         if action_key == "save":
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
         if action_key == "load":
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -523,8 +545,14 @@ class CityView(GameView):
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
             return
-        if key == arcade.key.R:
+        if key == arcade.key.C:
+            corp_view = CorpView(self.game_state)
+            corp_view.selected_save_slot = self.selected_save_slot
+            corp_view.setup()
+            self.window.show_view(corp_view)
+        elif key == arcade.key.R:
             rpg_view = RPGView(self.game_state)
+            rpg_view.selected_save_slot = self.selected_save_slot
             rpg_view.setup()
             self.window.show_view(rpg_view)
         elif key == arcade.key.D:
@@ -533,10 +561,10 @@ class CityView(GameView):
             budget_key, costs = self.CITY_UPGRADE_COSTS[key]
             self._buy_city_upgrade(budget_key, costs)
         elif key == arcade.key.S:
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -567,12 +595,20 @@ class CityView(GameView):
         return True
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "slot_prev":
+            slot = _cycle_save_slot(self, -1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
+        if action_key == "slot_next":
+            slot = _cycle_save_slot(self, 1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
         if action_key == "save":
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
         if action_key == "load":
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -820,13 +856,23 @@ class RPGView(GameView):
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
             return
-        if key == arcade.key.B:
+        if key == arcade.key.C:
+            corp_view = CorpView(self.game_state)
+            corp_view.selected_save_slot = self.selected_save_slot
+            corp_view.setup()
+            self.window.show_view(corp_view)
+        elif key == arcade.key.X:
+            city_view = CityView(self.game_state)
+            city_view.selected_save_slot = self.selected_save_slot
+            city_view.setup()
+            self.window.show_view(city_view)
+        elif key == arcade.key.B:
             self.launch_selected_mission()
         elif key == arcade.key.S:
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -980,12 +1026,20 @@ class RPGView(GameView):
         self._refresh_squad_room_actions()
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "slot_prev":
+            slot = _cycle_save_slot(self, -1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
+        if action_key == "slot_next":
+            slot = _cycle_save_slot(self, 1)
+            self.game_state.add_event(f"Active save slot: {slot}.")
+            return
         if action_key == "save":
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
         if action_key == "load":
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
@@ -1750,10 +1804,10 @@ class BattleView(GameView):
                     path = os.path.join("assets/maps", self.available_maps[idx])
                     self.background = arcade.load_texture(path)
             elif key == arcade.key.S:
-                result = SaveSystem.save_game(self.game_state)
+                result = _save_to_selected_slot(self)
                 self.game_state.add_event(result.message)
             elif key == arcade.key.L:
-                loaded, result = SaveSystem.load_game()
+                loaded, result = _load_from_selected_slot(self)
                 self.game_state.add_event(result.message)
                 if loaded is not None:
                     self.game_state = loaded
@@ -1764,11 +1818,11 @@ class BattleView(GameView):
             return
 
         if key == arcade.key.S:
-            result = SaveSystem.save_game(self.game_state)
+            result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
         if key == arcade.key.L:
-            loaded, result = SaveSystem.load_game()
+            loaded, result = _load_from_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
