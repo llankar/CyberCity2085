@@ -23,6 +23,15 @@ class NextActionGuidanceTest(unittest.TestCase):
         second = compute_next_action(gs, "squad").text
         self.assertNotEqual(first, second)
 
+    def test_active_research_counts_as_progress_for_next_step(self):
+        gs = GameState()
+        available = gs.research_tree.available_projects(set(), set())
+        self.assertTrue(available)
+        self.assertTrue(gs.start_research(available[0].id))
+
+        guidance = compute_next_action(gs, "corp")
+        self.assertNotIn("Start a research project", guidance.text)
+
 
 if __name__ == "__main__":
     unittest.main()
