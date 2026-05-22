@@ -211,7 +211,8 @@ def room_at_point(
 
 def actions_for_room(mode: str, room_key: str) -> list[RoomAction]:
     """Return the icon actions available in a room."""
-    return ROOM_ACTIONS.get(mode, {}).get(room_key, [])
+    base_actions = list(ROOM_ACTIONS.get(mode, {}).get(room_key, []))
+    return [RoomAction("next_step", "radar", "Next step"), *base_actions]
 
 
 def layout_action_buttons(
