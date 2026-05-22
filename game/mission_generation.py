@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .gamestate import GameState
 from .mission_templates import MissionTemplate, create_mission_templates
+from .missions.evacuation import create_evacuation_template
 
 
 def _mission_seed(game_state: "GameState") -> int:
@@ -22,6 +23,10 @@ def _mission_seed(game_state: "GameState") -> int:
 def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list[MissionTemplate]:
     """Generate a small daily mission board based on district pressure."""
     templates = create_mission_templates(game_state.district.name)
+    district_pressure = game_state.district.unrest + game_state.district.media_heat
+    evac_probability = min(0.65, max(0.15, district_pressure / 140))
+    if random.Random(_mission_seed(game_state) + 404).random() < evac_probability:
+        templates.append(create_evacuation_template(game_state.district.name, district_pressure))
     if not templates:
         return []
 
