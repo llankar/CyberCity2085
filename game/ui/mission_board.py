@@ -7,6 +7,7 @@ from collections.abc import Iterable
 from ..consequences import Consequence
 from ..mission_templates import MissionComplication, MissionTemplate
 from .widgets.critical_choice_highlight import format_critical_choice_suffix
+from .widgets.mission_impact_summary import build_mission_impact_summary_lines
 
 OBJECTIVE_LABELS = {
     "extract": "EXTRACT",
@@ -115,7 +116,7 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
         f"District: {mission.district} | Pressure: {_pressure_summary(mission.district_pressure)}",
         f"Fund Reward: {mission.fund_reward} corporate funds",
         f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''}",
-        f"Tags: {_tag_names(mission.tags)}",
+        *build_mission_impact_summary_lines(mission),
         f"Complications: {_complication_names(mission.possible_complications)}",
         _outcome_line("Success", mission.success_consequences),
         _outcome_line("Failure", mission.failure_consequences),

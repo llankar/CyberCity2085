@@ -37,3 +37,11 @@
 - Ordre: antéchronologique (plus récent en premier) après agrégation.
 - Profondeur: limitée à 8–12 lignes (par défaut 10) pour garder un panneau court et lisible.
 - But émotionnel: prioriser les signaux agent et conséquences humaines avant le bruit systémique.
+
+
+### Contrat `emotional_impact_hint` (UI-04)
+- Champ mission: `MissionTemplate.emotional_impact_hint` (dict render-neutral).
+- Producteur: génération de mission (`game/mission_generation.py`) à partir de l'objectif, du risque, de la durée et des complications.
+- Schéma minimal: `{"level": "low|medium|high|critical", "text": str non vide}`.
+- Consommation UI: `game/ui/widgets/mission_impact_summary.py` affiche d'abord les tags opérationnels puis l'impact humain attendu.
+- Fallback obligatoire: si payload absent/invalide, afficher `Impact humain attendu: informations limitées, vigilance recommandée.`

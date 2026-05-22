@@ -21,6 +21,40 @@ def _mission_seed(game_state: "GameState") -> int:
     )
 
 
+
+
+def _build_emotional_impact_hint(mission: MissionTemplate) -> dict:
+    """Estimate emotional impact based on objective pressure, risk, duration, and complications."""
+    objective_weight = {
+        "safe_extraction": 2,
+        "extract": 2,
+        "data_with_detour": 2,
+        "data_theft": 1,
+        "sabotage_window": 1,
+        "sabotage": 1,
+        "eliminate": 0,
+    }.get(mission.objective_type, 1)
+    score = (
+        mission.risk_level
+        + max(0, mission.duration_days - 1)
+        + len(mission.possible_complications)
+        + objective_weight
+    )
+    if score >= 8:
+        level = "critical"
+        text = "Risque de séquelles émotionnelles durables pour l'escouade."
+    elif score >= 6:
+        level = "high"
+        text = "Mission susceptible de laisser une forte charge émotionnelle."
+    elif score >= 4:
+        level = "medium"
+        text = "Tension humaine notable, prévoir du soutien post-mission."
+    else:
+        level = "low"
+        text = "Impact humain contenu si l'exécution reste disciplinée."
+    return {"level": level, "text": text}
+
+
 def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list[MissionTemplate]:
     """Generate a small daily mission board based on district pressure."""
     templates = create_mission_templates(game_state.district.name)
@@ -55,6 +89,7 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
             )
         )
         mission.possible_complications = mission.possible_complications[:2]
+        mission.emotional_impact_hint = _build_emotional_impact_hint(mission)
         generated.append(mission)
 
     rng.shuffle(generated)
