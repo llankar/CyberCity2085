@@ -89,3 +89,9 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
         recommended_action_for_mission(mission),
         *build_mission_detail_sections(mission),
     ]
+
+
+
+def build_interactive_tooltips() -> dict[str, str]:
+    """English tooltip copy for key interactive UI elements."""
+    return {"mission_list": "Select a mission card to inspect details.", "launch_action": "Launch current mission with selected squad.", "risk": "Higher risk means heavier resistance."}
