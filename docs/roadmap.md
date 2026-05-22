@@ -22,3 +22,10 @@
 20. [docs] DOC-03 — Décrire le pipeline backlog -> next steps -> roadmap dans docs.
 
 - Traits de personnalité agents (AGENT-05): ajout d'un set court (`steadfast`, `reckless`, `empathetic`, `cunning`) avec intention émotionnelle claire pour moduler la tonalité des logs mission (voix stable, impulsive, humaine, opportuniste) via une fonction dédiée et fallback neutre pour compatibilité des sauvegardes historiques.
+
+
+### Exemple concret — embranchement d'objectif compact
+- Mission d'extraction: phase `reach_witness` puis `escort_zone`.
+- Si `reach_witness` échoue: fin prématurée (`mission_failed`) pour préserver le scope.
+- Mission data-theft: échec du terminal principal redirige vers une route `field_proxy` avant retour vers `extract_data`.
+- L'UI peut afficher un résumé lisible type: `success -> escort_zone, failure -> mission_failed` par phase.

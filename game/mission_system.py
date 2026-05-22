@@ -8,6 +8,11 @@ from .mission_templates import (
     MissionComplication,
     MissionTemplate,
 )
+from .missions.objective_branches import (
+    branch_summary_lines,
+    evaluate_objective_phase,
+    get_objective_branch,
+)
 from .narrative.personality_traits import modulate_mission_log_tone
 
 
@@ -70,6 +75,36 @@ def pick_complication(
         return None
     return random.choice(eligible)
 
+
+
+def evaluate_mission_objective_phase(
+    mission: MissionTemplate | None,
+    objective_state: dict,
+    current_phase_id: str | None = None,
+) -> dict | None:
+    """Evaluate one objective phase and return a UI/test-friendly payload."""
+    if not mission:
+        return None
+    branch = get_objective_branch(mission.objective_type)
+    if not branch:
+        return None
+    phase_id = current_phase_id or branch.start_phase
+    result = evaluate_objective_phase(branch, phase_id, objective_state)
+    return {
+        "branch_id": branch.template_id,
+        "phase_id": result.phase_id,
+        "succeeded": result.succeeded,
+        "issue_text": result.issue_text,
+        "next_phase_id": result.next_phase_id,
+        "finished": result.finished,
+    }
+
+
+def mission_objective_branch_summary(mission: MissionTemplate | None) -> list[str]:
+    """Expose a readable branch summary for mission data/UI."""
+    if not mission:
+        return []
+    return branch_summary_lines(mission.objective_type)
 
 def resolve_mission_outcome(
     game_state: GameState,
