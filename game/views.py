@@ -306,6 +306,16 @@ class CorpView(GameView):
         self.focus_model.set_actions([button.action.key for button in self.room_ui.action_buttons])
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "save":
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
+            return
+        if action_key == "load":
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
+            if loaded is not None:
+                self.game_state = loaded
+            return
         if action_key == "city":
             city_view = CityView(self.game_state)
             city_view.setup()
@@ -557,6 +567,16 @@ class CityView(GameView):
         return True
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "save":
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
+            return
+        if action_key == "load":
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
+            if loaded is not None:
+                self.game_state = loaded
+            return
         if action_key == "squad":
             rpg_view = RPGView(self.game_state)
             rpg_view.setup()
@@ -960,6 +980,16 @@ class RPGView(GameView):
         self._refresh_squad_room_actions()
 
     def _perform_room_action(self, action_key: str) -> None:
+        if action_key == "save":
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
+            return
+        if action_key == "load":
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
+            if loaded is not None:
+                self.game_state = loaded
+            return
         if action_key.startswith("recruit_"):
             role = action_key.removeprefix("recruit_")
             if self.game_state.spend_funds(
