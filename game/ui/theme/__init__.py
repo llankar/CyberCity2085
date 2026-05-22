@@ -1,7 +1,10 @@
 """Theme tokens namespace for reusable UI values."""
 
-from .colors import accent, danger, success, surface, warning
-from .tokens import elevation, opacity, radius, spacing, stroke
+from .colors import colors
+from .elevation import elevation, stroke
+from .radii import radii, radii as radius
+from .spacing import spacing
+from .tokens import opacity
 from .typography import typography
 from .motion import durations as motion_durations, easings as motion_easings
 
@@ -11,15 +14,12 @@ __all__ = [
     "typography",
     "stroke",
     "spacing",
+    "radii",
     "radius",
     "opacity",
     "elevation",
     "z_order",
-    "surface",
     "motion_durations",
     "motion_easings",
-    "accent",
-    "warning",
-    "danger",
-    "success",
+    "colors",
 ]
