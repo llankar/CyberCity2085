@@ -93,6 +93,7 @@ class GameState:
     )
     active_mission: MissionTemplate | None = None
     selected_mission_index: int = 0
+    mission_board_generated_day: int = 0
     recent_consequences: list[Consequence] = field(
         default_factory=lambda: [create_opening_consequence()]
     )
