@@ -14,6 +14,7 @@ from .missions.objective_branches import (
     get_objective_branch,
 )
 from .narrative.personality_traits import modulate_mission_log_tone
+from .narrative.faction_rewards import build_reward_log_entries, rewards_for_faction
 
 
 def ensure_mission_templates(game_state: GameState) -> None:
@@ -106,6 +107,34 @@ def mission_objective_branch_summary(mission: MissionTemplate | None) -> list[st
         return []
     return branch_summary_lines(mission.objective_type)
 
+def apply_faction_narrative_rewards(
+    game_state: GameState, mission: MissionTemplate | None, victory: bool
+) -> list[dict[str, str]]:
+    """Grant compact faction narrative beats only on partial/total mission success."""
+    if not mission or not victory:
+        return []
+
+    rewards = rewards_for_faction(mission.target_faction)
+    reward_entries: list[dict[str, str]] = []
+    for reward in rewards:
+        reward_entries.append(
+            {
+                "faction": mission.target_faction,
+                "mission_id": mission.id,
+                "mission_title": mission.title,
+                "kind": reward.kind,
+                "text": reward.text,
+            }
+        )
+    game_state.faction_reward_journal.extend(reward_entries)
+    game_state.faction_reward_journal = game_state.faction_reward_journal[-24:]
+
+    for line in build_reward_log_entries(mission.target_faction, mission.title):
+        game_state.add_event(line)
+
+    return reward_entries
+
+
 def resolve_mission_outcome(
     game_state: GameState,
     mission: MissionTemplate | None,
@@ -123,6 +152,7 @@ def resolve_mission_outcome(
         game_state.apply_consequence(consequence)
 
     game_state.award_mission_funds(mission, victory)
+    apply_faction_narrative_rewards(game_state, mission, victory)
 
     complication = pick_complication(mission, triggered_complication)
     if complication:

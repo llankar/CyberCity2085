@@ -117,6 +117,14 @@ Done:
   lines; RPG room info now consumes the same widget output instead of duplicating
   morale rendering logic.
 
+- [x] Ajouter des récompenses narratives de faction post-mission (scope compact)
+  - Nouveau module: `game/narrative/faction_rewards.py`.
+  - Règle: attribution uniquement en cas de succès mission (`victory=True`), aucune attribution en échec total.
+  - Nature des récompenses: retours narratifs courts (rumeur/contact/confiance), sans buff système.
+  - Fallback: entrée neutre pour factions non mappées.
+  - Persistance: journal dédié `GameState.faction_reward_journal` sauvegardé/chargé.
+  - Limite de scope: aucun nouveau système économique/combat, seulement mémoire narrative et event-log.
+
 Automation status:
 - [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)
 - [done] Add unit tests for generator stability/format (`tests/test_generate_docs.py`)
