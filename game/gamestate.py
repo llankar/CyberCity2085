@@ -27,6 +27,7 @@ from .management.funds import (
     calculate_mission_fund_reward,
     default_mission_fund_distribution,
 )
+from .management.stress import daily_stress_recovery
 from .management.spec_ops_assets import (
     SpecOpsAsset,
     pay_asset_maintenance,
@@ -305,7 +306,11 @@ class GameState:
     def advance_one_day(self, reason: str = "manual") -> None:
         """Move the shared strategic clock one day and process daily systems."""
         recovered_agents = []
+        stress_recovery_log = []
         for character in self.characters:
+            stress_result = daily_stress_recovery(character)
+            if stress_result.changed:
+                stress_recovery_log.append((character.name, stress_result.amount, character.stress))
             if character.recovery_turns > 0:
                 character.recovery_turns -= 1
                 if character.recovery_turns == 0:
@@ -337,6 +342,10 @@ class GameState:
         advance_research_days(self, 1, self.research_tree)
         expire_events(self)
         roll_random_event(self)
+        for name, amount, remaining in stress_recovery_log:
+            self.add_event(
+                f"{self.calendar.campaign_date_label}: {name} decompresses ({amount} stress relief, {remaining}/100)."
+            )
         for name in recovered_agents:
             self.add_event(
                 f"{self.calendar.campaign_date_label}: {name} is deployable after recovery."
