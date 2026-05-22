@@ -1,7 +1,7 @@
 ## Next 20 Coding Steps
 
 1. [agent] AGENT-01 — Créer des scènes de débrief narratif post-mission basées sur les conséquences.
-2. [agent] AGENT-02 — Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération.
+2. [agent] AGENT-02 — [done] Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération (small memorable systems: règles compactes stress/affinité/mémoire anti-répétition, sortie neutre pour UI future).
 3. [agent] AGENT-03 — Ajouter un historique de liens mentor/protégé entre agents recrutés.
 4. [agent] AGENT-04 — Relier les blessures graves à des séquelles narratives temporaires.
 5. [agent] AGENT-05 — Ajouter des traits de personnalité qui modulent les logs de mission.
