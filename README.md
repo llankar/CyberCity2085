@@ -115,5 +115,13 @@ python main.py
 
 ## UI architecture migration (May 22, 2026)
 - Introduced a dedicated screen-layer package: `game/ui/screens/` for view-level builders (`command_center`, `dashboard`, `facility`, `mission_board`, `research_lab`).
+
+- UI cartographie (phase migration incrémentale):
+  - `game/ui/screens/` → `command_center/`, `command_deck/`, `facility/`, `battle_hud/`
+  - `game/ui/components/` → `cards/`, `lists/`, `mission/`, `agent/`, `shared/`
+  - `game/ui/layouts/` → `grid/`, `split/`, `overlays/`
+  - `game/ui/navigation/` → `focus/`, `input/`
+  - `game/ui/feedback/` → `toast/`, `dialog/`, `banner/`
+  - Wrappers de compatibilité conservés temporairement (`game/ui/command_deck.py`, `game/ui/command_center.py`, `game/ui/facility.py`).
 - Existing imports remain stable through temporary compatibility wrappers in `game/ui/*.py` that re-export screen modules.
 - Migration strategy is incremental (no big-bang): new extractions should target `game/ui/screens/` first, then remove wrappers once external imports are updated.
