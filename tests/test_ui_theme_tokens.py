@@ -5,7 +5,7 @@ from game.ui.theme import spacing, typography
 
 
 def test_typography_hierarchy_ordered() -> None:
-    assert typography.title > typography.section > typography.meta
+    assert typography.screen_title > typography.panel_title > typography.body_secondary > typography.meta
 
 
 def test_layouts_keep_tokenized_spacing() -> None:

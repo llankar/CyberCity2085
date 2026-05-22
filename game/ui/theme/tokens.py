@@ -1,22 +1,8 @@
-"""Reusable UI design tokens for CyberCity command surfaces."""
+"""Reusable spatial and layering design tokens for CyberCity command surfaces."""
 
 from __future__ import annotations
 
 from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class TypographyTokens:
-    title: int = 22
-    section: int = 13
-    meta: int = 9
-
-
-@dataclass(frozen=True)
-class StrokeTokens:
-    hairline: int = 1
-    regular: int = 2
-    strong: int = 3
 
 
 @dataclass(frozen=True)
@@ -40,16 +26,22 @@ class OpacityTokens:
 
 
 @dataclass(frozen=True)
-class ZOrderTokens:
-    backdrop: int = 0
+class ElevationTokens:
+    base: int = 0
     panel: int = 10
     modal: int = 20
     controls: int = 30
 
 
-typography = TypographyTokens()
-stroke = StrokeTokens()
+@dataclass(frozen=True)
+class StrokeTokens:
+    hairline: int = 1
+    regular: int = 2
+    strong: int = 3
+
+
 spacing = SpacingTokens()
 radius = RadiusTokens()
 opacity = OpacityTokens()
-z_order = ZOrderTokens()
+elevation = ElevationTokens()
+stroke = StrokeTokens()

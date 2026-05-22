@@ -99,6 +99,9 @@ python main.py
   - `python tools/docs/generate_docs.py`
 - The script writes the markdown block to:
   - `docs/roadmap.md`
+
+## UI design system
+- Conventions UI et hiérarchie visuelle: `docs/ui/design-system.md`
 - Generated output format is stable:
   - `## Next 20 Coding Steps`
   - numbered list from `1` to `20`
