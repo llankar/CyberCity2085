@@ -30,7 +30,10 @@ TODO:
 [x] Add mission debrief narrative module with GameState persistence and tests
 [x] Add reusable squad morale widget (global + per-agent trend)
 
+- [x] Add evacuation mission template focused on living-agent extraction with survival-first scoring, pressure-gated generation odds, and emotional-briefing metadata to reinforce attachment to squad outcomes over kill counts
+
 Done:
+- MISSION-02 [done]: Added `game/missions/evacuation.py` as a compact extraction-first mission module, including pressure-scaled constraints, survival-priority scoring, and UI briefing fields (risk/reward/emotional impact); integrated controlled spawn probability into mission generation and covered with dedicated tests. Design justification: emotional attachment is strongest when mission value is tied to who returns alive, not enemy body count.
 - MISSION-01 [done]: Objective branches now use 3 compact phase templates (extraction, sabotage, data detour) with a testable evaluation API and UI-readable summaries.
 - Recovery-room support dialogues: added `game/narrative/recovery_dialogues.py` with a small deterministic generator driven by stress threshold, affinity priority (same squad then complementary roles), and one-day anti-repetition memory persisted in `GameState.recovery_narrative_memory`; output remains render-neutral (`line` + metadata) to keep narrative modular and memorable without UI coupling.
 - Mission narrative debrief API: added `game/narrative/debrief.py` with pure `DebriefLine`/`DebriefReport` data structures, deterministic emotional template mapping from stress/injury/recovery/outcome, post-mission integration in battle resolution, and persisted `latest_mission_debrief` on `GameState` for later UI consumption without view coupling.
