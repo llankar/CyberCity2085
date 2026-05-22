@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from ...mission_templates import MissionTemplate
+from ...narrative.mission_briefing_conventions import build_short_emotional_impact
 from ..components.mission.mission_card import build_mission_card_line
 from ..components.mission.mission_detail import build_mission_detail_sections
 
@@ -29,6 +30,34 @@ def objective_label(objective_type: str | None) -> str:
     return OBJECTIVE_LABELS.get(objective_type or "eliminate", "ELIMINATE")
 
 
+def _mission_consequence_preview(mission: MissionTemplate) -> str:
+    pressure = mission.district_pressure or {}
+    volatility = int(pressure.get("unrest", 0)) + int(pressure.get("media_heat", 0))
+    if volatility >= 8:
+        return "Escalade de district probable"
+    if volatility >= 4:
+        return "Tension civile modérée"
+    return "Conséquences contenues"
+
+
+def _emotional_impact_short(mission: MissionTemplate) -> str:
+    hint = mission.emotional_impact_hint or {}
+    if not isinstance(hint, dict):
+        return "neutre"
+    return build_short_emotional_impact(hint.get("level"), hint.get("short_text") or hint.get("text"))
+
+
+def recommended_action_for_mission(mission: MissionTemplate | None) -> str:
+    """Return contextual recommendation for management screens."""
+    if mission is None:
+        return "Recommended action: sélectionner une mission prioritaire à auditer."
+    if mission.risk_level >= 4:
+        return "Recommended action: assigner un agent de soutien avant lancement."
+    if mission.duration_days >= 3:
+        return "Recommended action: sécuriser les ressources sur plusieurs jours."
+    return "Recommended action: lancer rapidement pour conserver l'initiative."
+
+
 def build_mission_board_lines(missions: list[MissionTemplate], selected_index: int) -> list[str]:
     if not missions:
         return ["No missions available."]
@@ -49,4 +78,14 @@ def build_mission_board_lines(missions: list[MissionTemplate], selected_index: i
 def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
     if mission is None:
         return ["Select a mission to inspect launch pressure and fallout."]
-    return build_mission_detail_sections(mission)
+
+    emotional = _emotional_impact_short(mission)
+    return [
+        f"Risk: {mission.risk_level} ({risk_label(mission.risk_level)})",
+        f"Duration: {mission.duration_days} day{'s' if mission.duration_days != 1 else ''}",
+        f"Cost: {max(0, mission.duration_days * 2)} command bandwidth",
+        f"Emotional impact: {emotional}",
+        f"Consequence: {_mission_consequence_preview(mission)}",
+        recommended_action_for_mission(mission),
+        *build_mission_detail_sections(mission),
+    ]

@@ -37,3 +37,11 @@ Standardiser la hiérarchie visuelle et réduire les styles hardcodés pour gard
 2. Utiliser des couleurs sémantiques de `theme/colors.py`.
 3. Centraliser les primitives de dessin partagées dans `game/ui/components/`.
 4. Préserver le scope: petites améliorations itératives, sans refonte architecturale.
+
+
+## Grammaire d'écran obligatoire (management + tactical)
+- Zone 1: état global.
+- Zone 2: élément sélectionné.
+- Zone 3: actions disponibles.
+- Zone 4: conséquences prévues.
+- Templates de référence: `OverviewLayout`, `DecisionLayout`, `RosterLayout`, `TacticalLayout` dans `game/ui/layouts/screen_templates.py`.

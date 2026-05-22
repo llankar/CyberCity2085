@@ -28,10 +28,10 @@ class MissionBoardUITest(unittest.TestCase):
     def test_selected_mission_lines_are_split_in_sections(self):
         mission = create_mission_templates("Chrome Warrens")[0]
         lines = build_selected_mission_lines(mission)
-        self.assertEqual(lines[0], "[Mission Summary]")
-        self.assertEqual(lines[4], "[Risk & Complications]")
-        self.assertEqual(lines[8], "[Squad Emotional Impact]")
-        self.assertEqual(lines[12], "[Rewards & Opportunity Cost]")
+        self.assertEqual(lines[0], "Risk: 2 (elevated)")
+        self.assertEqual(lines[4], "Consequence: Tension civile modérée")
+        self.assertEqual(lines[6], "[Mission Summary]")
+        self.assertEqual(lines[10], "[Risk & Complications]")
 
     def test_selected_mission_lines_fallback_when_data_missing(self):
         mission = create_mission_templates("Chrome Warrens")[0]
@@ -56,9 +56,14 @@ class MissionBoardUITest(unittest.TestCase):
 
         lines = build_selected_mission_lines(mission)
 
-        self.assertIn("Emotional summary: Charge émotionnelle élevée", lines[9])
-        self.assertEqual(lines[10], "Stress: CRITICAL")
-        self.assertEqual(lines[11], "Mission tags (normalized): ghost_signal, media_swarm")
+        self.assertTrue(any("Emotional summary: Charge émotionnelle élevée" in line for line in lines))
+        self.assertIn("Stress: CRITICAL", lines)
+        self.assertIn("Mission tags (normalized): ghost_signal, media_swarm", lines)
+
+    def test_selected_mission_lines_include_recommended_action(self):
+        mission = create_mission_templates("Chrome Warrens")[0]
+        lines = build_selected_mission_lines(mission)
+        self.assertTrue(any(line.startswith("Recommended action:") for line in lines))
 
     def test_locked_mission_state_is_explicit(self):
         mission = create_mission_templates("Chrome Warrens")[1]
