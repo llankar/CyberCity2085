@@ -15,6 +15,7 @@ class MissionComplication:
     trigger_text: str
     risk_threshold: int
     tags: list[SavageTag] = field(default_factory=list)
+    relation_impact: str = "low"
     consequence: Consequence = field(default_factory=Consequence)
 
     def to_dict(self) -> dict:
@@ -24,6 +25,7 @@ class MissionComplication:
             "trigger_text": self.trigger_text,
             "risk_threshold": self.risk_threshold,
             "tags": [tag.to_dict() for tag in self.tags],
+            "relation_impact": self.relation_impact,
             "consequence": self.consequence.to_dict(),
         }
 
@@ -60,6 +62,7 @@ class MissionTemplate:
     fund_reward: int = 0
     duration_days: int = 1
     tags: list[SavageTag] = field(default_factory=list)
+    relation_impact: str = "low"
 
     def to_dict(self) -> dict:
         return {
@@ -84,6 +87,7 @@ class MissionTemplate:
             "fund_reward": self.fund_reward,
             "duration_days": max(1, int(self.duration_days)),
             "tags": [tag.to_dict() for tag in self.tags],
+            "relation_impact": self.relation_impact,
         }
 
     @classmethod
@@ -117,6 +121,7 @@ class MissionTemplate:
             fund_reward=int(data.get("fund_reward", 0)),
             duration_days=max(1, int(data.get("duration_days", 1))),
             tags=[SavageTag.from_dict(tag) for tag in data.get("tags", [])],
+            relation_impact=str(data.get("relation_impact", "low")),
         )
 
 
@@ -207,6 +212,7 @@ def create_mission_templates(
             risk_level=2,
             fund_reward=40,
             tags=[tag_from_library("neon_blackout")],
+            relation_impact="medium",
         ),
         MissionTemplate(
             id="sabotage",
@@ -241,6 +247,7 @@ def create_mission_templates(
             risk_level=4,
             fund_reward=70,
             tags=[tag_from_library("gang_pressure")],
+            relation_impact="low",
         ),
         MissionTemplate(
             id="data_theft",
