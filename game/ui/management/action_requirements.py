@@ -13,8 +13,11 @@ class ActionBlockReason:
     action: str
     missing_requirement: str
     guidance: str
+    player_message: str = ""
 
     def to_ui_text(self) -> str:
+        if self.player_message:
+            return self.player_message
         return (
             f"Action blocked: {self.action}. Missing {self.missing_requirement}. "
             f"Requirement: {self.guidance}."
@@ -42,12 +45,14 @@ def blocked_launch_reason(
             action="Launch mission",
             missing_requirement="deployable agent",
             guidance="recruit or recover at least one deployable agent",
+            player_message="Recruit at least one deployable agent before launching an operation.",
         )
     if selected_count <= 0:
         return ActionBlockReason(
             action="Launch mission",
             missing_requirement="selected squad",
             guidance="toggle at least one deployable agent into the squad",
+            player_message="Select at least one deployable agent before launching an operation.",
         )
     if mission_unavailable:
         return ActionBlockReason(

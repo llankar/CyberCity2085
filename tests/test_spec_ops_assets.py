@@ -1,5 +1,6 @@
 """Spec-ops robot and power armor support assets."""
 
+import os
 import tempfile
 import unittest
 
@@ -139,9 +140,15 @@ class SpecOpsAssetsTest(unittest.TestCase):
         robot.maintenance.cooldown_days = 1
         robot.maintenance.integrity = 65
 
-        with tempfile.NamedTemporaryFile(suffix=".json") as tmp:
+        # Windows holds an exclusive lock on NamedTemporaryFile while it's open,
+        # so we use delete=False and clean up manually after the round-trip.
+        tmp = tempfile.NamedTemporaryFile(suffix=".json", delete=False)
+        try:
+            tmp.close()
             state.save(tmp.name)
             restored = GameState.load(tmp.name)
+        finally:
+            os.unlink(tmp.name)
 
         self.assertEqual(restored.latest_spec_ops_outcomes[0]["damage"], 35)
         self.assertEqual(restored.spec_ops_assets[0].maintenance.cooldown_days, 1)
