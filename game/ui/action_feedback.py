@@ -2,36 +2,42 @@
 
 from __future__ import annotations
 
+from game.ui.feedback.confirm_dialog import build_confirm_message
+from game.ui.feedback.error_banner import build_error_banner
+from game.ui.feedback.toast_center import FeedbackToast, dispatch_toast
 from game.ui.widgets.notification_center import NotificationCenter
 
 
+_ACTION_LABELS = {
+    "recruitment": "Recruitment",
+    "budget_allocation": "Budget allocation",
+    "mission_launch": "Mission launch",
+    "save": "Save",
+    "load": "Load",
+    "upgrade": "Upgrade",
+}
+
+
 def action_message(action: str, ok: bool, detail: str = "") -> tuple[str, str]:
-    status = "SUCCESS" if ok else "FAILURE"
-    base = {
-        "recruitment": "Recruitment",
-        "budget_allocation": "Budget allocation",
-        "mission_launch": "Mission launch",
-        "save": "Save",
-        "load": "Load",
-    }.get(action, action.replace("_", " ").title())
-    text = f"{base} {status.lower()}"
-    if detail:
-        text = f"{text}: {detail}"
-    return status.lower(), text
+    level = "success" if ok else "failure"
+    action_label = _ACTION_LABELS.get(action, action.replace("_", " ").title())
+    result = "completed" if ok else "failed"
+    impact = detail or "funds/stress/time unchanged"
+    next_step = "Continue strategic planning" if ok else "Review resources and retry"
+    toast = FeedbackToast(action_label, result, impact, next_step)
+    return level, toast.message
 
 
 def confirm_message(action: str) -> str:
-    if action == "mission_launch_risk":
-        return "Confirmation required: launch risky mission? Repeat action to confirm."
-    if action == "spend_funds":
-        return "Confirmation required: this action spends funds and cannot be undone."
-    return "Confirmation required before irreversible action."
+    return build_confirm_message(action)
 
 
 def push_action(center: NotificationCenter, action: str, ok: bool, detail: str = "") -> str:
     level, text = action_message(action, ok, detail)
-    if level == "success":
-        center.success(text)
-    else:
-        center.failure(text)
-    return text
+    if not ok and detail:
+        text = f"{text} | {build_error_banner(action, detail)}"
+    impact = detail or "n/a"
+    if not ok and detail:
+        impact = f"{impact}; {build_error_banner(action, detail)}"
+    toast = FeedbackToast(action, "completed" if ok else "failed", impact, "Proceed")
+    return dispatch_toast(center, "success" if ok else "failure", toast)
