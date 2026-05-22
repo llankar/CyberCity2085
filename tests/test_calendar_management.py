@@ -10,6 +10,7 @@ from game.character import Character
 from game.gamestate import GameState
 from game.management.calendar import StrategicCalendar
 from game.mission_system import resolve_mission_outcome
+from game.mission_system import _selected_mission_leader
 from game.mission_templates import MissionTemplate
 from game.ui.command_deck import build_calendar_status_line
 from game.ui.room_interaction import ROOM_ACTIONS
@@ -76,6 +77,15 @@ class CalendarManagementTest(unittest.TestCase):
         self.assertTrue(
             any("mission failure" in event for event in failure_state.event_log)
         )
+
+    def test_selected_mission_leader_uses_selected_agent_names(self):
+        leader = Character("Nyx")
+        bench = Character("Rook")
+        state = GameState(characters=[leader, bench], selected_agent_names=["Nyx"])
+
+        resolved = _selected_mission_leader(state)
+
+        self.assertIs(resolved, leader)
 
     def test_calendar_serializes_through_game_state_save(self):
         game_state = GameState()

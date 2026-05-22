@@ -1619,9 +1619,11 @@ class BattleView(GameView):
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
             arcade.draw_line(x1, y1, x2, y2, palette.WARNING, 2)
-        current_hp = (
-            self.player_units[self.active_index].health if self.player_units else 0
+        has_active_unit = bool(self.player_units) and 0 <= self.active_index < len(
+            self.player_units
         )
+        active_unit = self.player_units[self.active_index] if has_active_unit else None
+        current_hp = active_unit.health if active_unit else 0
         arcade.draw_lrbt_rectangle_filled(
             14,
             self.window.width - 14,
@@ -1629,11 +1631,7 @@ class BattleView(GameView):
             self.window.height - 18,
             palette.PANEL_FILL_DARK,
         )
-        max_hp = (
-            self.player_units[self.active_index].stats.max_hp
-            if self.player_units and self.player_units[self.active_index].stats
-            else 1
-        )
+        max_hp = active_unit.stats.max_hp if active_unit and active_unit.stats else 1
         hp_width = int(220 * max(0, current_hp) / max(1, max_hp))
         arcade.draw_lrbt_rectangle_filled(
             34, 254, self.window.height - 54, self.window.height - 42, palette.DANGER
@@ -1654,8 +1652,7 @@ class BattleView(GameView):
                 self.window.height - 38,
                 palette.ACCENT if self.turn == "player" else palette.WARNING,
             )
-        if self.turn == "player" and self.player_units:
-            active_unit = self.player_units[self.active_index]
+        if self.turn == "player" and active_unit:
             role_label, action_hint = battle_unit_label_and_hint(active_unit)
             unit_name = (
                 active_unit.character.name

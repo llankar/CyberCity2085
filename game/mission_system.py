@@ -17,6 +17,14 @@ from .narrative.personality_traits import modulate_mission_log_tone
 from .narrative.faction_rewards import build_reward_log_entries, rewards_for_faction
 
 
+def _selected_mission_leader(game_state: GameState):
+    """Return the first selected leader using canonical selected-agent names."""
+    if not game_state.selected_agent_names:
+        return None
+    roster_by_name = {character.name: character for character in game_state.characters}
+    return roster_by_name.get(game_state.selected_agent_names[0])
+
+
 def ensure_mission_templates(game_state: GameState) -> None:
     """Ensure there is a selectable mission board and clamp the selected index."""
     if (
@@ -161,7 +169,7 @@ def resolve_mission_outcome(
             consequence.affected_faction = mission.target_faction
         game_state.apply_consequence(consequence)
         base_text = f"Complication triggered: {complication.trigger_text}"
-        leader = game_state.selected_agents[0] if game_state.selected_agents else None
+        leader = _selected_mission_leader(game_state)
         game_state.add_event(
             modulate_mission_log_tone(
                 base_text,
