@@ -56,10 +56,18 @@ def _build_emotional_impact_hint(mission: MissionTemplate) -> dict:
     else:
         level = "low"
         text = "Impact humain contenu si l'exécution reste disciplinée."
+    short_text = build_short_emotional_impact(level, text)
+    risk_explanation = (
+        f"Risque {mission.risk_level}/5, durée {mission.duration_days}j, "
+        f"{len(mission.possible_complications)} complication(s) probable(s)."
+    )
     return {
         "level": level,
         "text": text,
-        "short_text": build_short_emotional_impact(level, text),
+        "short_text": short_text,
+        "emotional_impact_summary": short_text,
+        "risk_explanation": risk_explanation,
+        "expected_stress_band": level,
     }
 
 
