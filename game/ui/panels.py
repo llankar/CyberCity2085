@@ -13,7 +13,9 @@ from .room_interaction import (
     close_button_rect,
     layout_roster_card_rects,
 )
-from .theme import opacity, spacing, stroke, typography
+from .components.panel import draw_panel_frame
+from .theme import opacity, spacing, stroke
+from .theme.typography import typography
 
 
 _TEXTURE_CACHE = {}
@@ -60,22 +62,13 @@ def draw_panel(
     arcade.draw_lrbt_rectangle_filled(
         left + 8, right - 8, bottom + 8, bottom + 13, palette.ROOM_SUPPORT
     )
-    arcade.draw_line(left + cut, top, right, top, palette.PANEL_BORDER, 2)
-    arcade.draw_line(left, top - cut, left + cut, top, palette.PANEL_BORDER, 2)
-    arcade.draw_line(left, bottom, right - cut, bottom, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_line(
-        right - cut, bottom, right, bottom + cut, palette.PANEL_BORDER_MUTED, 1
-    )
-    arcade.draw_line(left, bottom, left, top - cut, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_line(right, bottom + cut, right, top, palette.PANEL_BORDER_MUTED, 1)
+    draw_panel_frame(left, bottom, right, top, title)
     arcade.draw_line(left + 8, top - 32, right - 8, top - 32, palette.GRID_LINE, 1)
     for marker_x in range(left + 22, right - 24, 68):
         arcade.draw_line(
             marker_x, bottom + 13, marker_x + 24, bottom + 13, palette.GRID_LINE, 1
         )
-    if title:
-        arcade.draw_text(f"// {title.upper()}", left + 14, top - 23, palette.HEADER, 13)
-
+    
 
 def draw_status_bar(text: str, width: int, height: int) -> None:
     """Draw the top corporate command-HUD status bar."""
@@ -85,8 +78,8 @@ def draw_status_bar(text: str, width: int, height: int) -> None:
     arcade.draw_lrbt_rectangle_filled(
         0, min(width, 330), height - 48, height, palette.AMBER_FILL
     )
-    arcade.draw_line(0, height - 49, width, height - 49, palette.PANEL_BORDER, 2)
-    arcade.draw_line(22, height - 8, 120, height - 8, palette.HEADER, 3)
+    arcade.draw_line(0, height - 49, width, height - 49, palette.PANEL_BORDER, stroke.regular)
+    arcade.draw_line(22, height - 8, 120, height - 8, palette.HEADER, stroke.strong)
     slot_right = width - 18
     for _ in range(4):
         slot_left = slot_right - 118
@@ -94,10 +87,10 @@ def draw_status_bar(text: str, width: int, height: int) -> None:
             slot_left, slot_right, height - 38, height - 13, palette.HUD_SLOT_FILL
         )
         arcade.draw_line(
-            slot_left, height - 13, slot_right, height - 13, palette.GRID_LINE, 1
+            slot_left, height - 13, slot_right, height - 13, palette.GRID_LINE, stroke.hairline
         )
         slot_right = slot_left - 8
-    arcade.draw_text(text, 18, height - 31, palette.RESOURCE, 12)
+    arcade.draw_text(text, 18, height - 31, palette.RESOURCE, typography.body_secondary)
 
 
 def _room_border_color(room: FacilityRoom):
@@ -392,13 +385,13 @@ def draw_room_title_and_info(title: str, lines: list[str], rect, buttons, border
     )
     arcade.draw_line(left, top + spacing.md + 2, right, top + spacing.md + 2, border, stroke.regular)
     arcade.draw_text("ROOM", left, top + spacing.sm, palette.MUTED_TEXT, typography.meta)
-    arcade.draw_text(title.upper(), left, top, palette.HEADER, typography.title)
+    arcade.draw_text(title.upper(), left, top, palette.HEADER, typography.screen_title)
 
     y = top - (spacing.xl)
     max_lines = max(1, int((y - info_bottom) // (spacing.md + 4)) + 1)
     for index, line in enumerate(lines[:max_lines]):
         color = palette.TEXT if index == 0 else palette.MUTED_TEXT
-        font_size = typography.section if index == 0 else typography.meta
+        font_size = typography.body_secondary if index == 0 else typography.meta
         arcade.draw_text(_fit_room_line(line), left, y, color, font_size)
         y -= spacing.md + 4
 
@@ -454,7 +447,7 @@ def draw_agent_card(card: dict, left: int, bottom: int, width: int, height: int,
     portrait_bottom = bottom + (height - portrait_size) // 2
     _draw_agent_portrait_asset(card, portrait_left, portrait_bottom, portrait_size, border)
     text_left = portrait_left + portrait_size + 14
-    arcade.draw_text(card.get("name", "Agent").upper(), text_left, bottom + height - 28, palette.TEXT, typography.section - 1)
+    arcade.draw_text(card.get("name", "Agent").upper(), text_left, bottom + height - 28, palette.TEXT, typography.panel_title)
     arcade.draw_text(card.get("role", "unknown").upper(), text_left, bottom + height - 48, _role_color(card), typography.meta)
     meter_width = max(38, width - (text_left - left) - 14)
     draw_small_meter(text_left, bottom + 22, meter_width, card.get("hp_ratio", 0), palette.TACTICAL_GREEN)
