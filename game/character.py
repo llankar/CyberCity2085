@@ -30,6 +30,8 @@ class Character:
     temporary_scars: list[dict] = field(default_factory=list)
     recovery_turns: int = 0
     loadout: AgentLoadout = field(default_factory=AgentLoadout)
+    personality_primary_trait: str = ""
+    personality_secondary_trait: str = ""
 
     def to_dict(self) -> dict:
         return {
@@ -53,6 +55,8 @@ class Character:
             "temporary_scars": [dict(scar) for scar in self.temporary_scars],
             "recovery_turns": self.recovery_turns,
             "loadout": self.loadout.to_dict(),
+            "personality_primary_trait": self.personality_primary_trait,
+            "personality_secondary_trait": self.personality_secondary_trait,
         }
 
     @classmethod
@@ -80,6 +84,8 @@ class Character:
             temporary_scars=[dict(scar) for scar in data.get("temporary_scars", [])],
             recovery_turns=data.get("recovery_turns", 0),
             loadout=AgentLoadout.from_dict(data.get("loadout")),
+            personality_primary_trait=str(data.get("personality_primary_trait", "")),
+            personality_secondary_trait=str(data.get("personality_secondary_trait", "")),
         )
 
     def gain_xp(self, amount: int) -> None:

@@ -3,6 +3,7 @@
 from .character import Character
 from .stats import PlayerStats
 from .relationships.mentor_history import upsert_mentor_link
+from .narrative.personality_traits import assign_personality_traits
 
 ROLE_STAT_BONUSES = {
     "samurai": "str",
@@ -18,12 +19,23 @@ def create_character(name: str, role: str) -> Character:
     if bonus_stat:
         setattr(stats, bonus_stat, getattr(stats, bonus_stat) + 5)
     stats.recalculate_hp()
-    return Character(name=name, role=role, stats=stats)
+    primary_trait, secondary_trait = assign_personality_traits(name, role, roster_index=0)
+    return Character(
+        name=name,
+        role=role,
+        stats=stats,
+        personality_primary_trait=primary_trait,
+        personality_secondary_trait=secondary_trait or "",
+    )
 
 
 def recruit_agent(roster: list[Character], role: str) -> Character:
     """Create the next numbered agent and append them to the supplied roster."""
-    agent = create_character(f"Agent {len(roster) + 1}", role)
+    next_index = len(roster) + 1
+    agent = create_character(f"Agent {next_index}", role)
+    primary_trait, secondary_trait = assign_personality_traits(agent.name, role, roster_index=next_index)
+    agent.personality_primary_trait = primary_trait
+    agent.personality_secondary_trait = secondary_trait or ""
     seed_roster_mentor_links(roster, agent)
     roster.append(agent)
     return agent
