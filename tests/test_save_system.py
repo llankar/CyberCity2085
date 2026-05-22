@@ -8,6 +8,14 @@ from game.persistence import SaveSystem
 
 
 class SaveSystemTests(unittest.TestCase):
+    def test_slot_path_returns_expected_file(self):
+        self.assertEqual(SaveSystem.slot_path(1), Path("saves/slot_1.json"))
+        self.assertEqual(SaveSystem.slot_path(5), Path("saves/slot_5.json"))
+
+    def test_slot_path_rejects_out_of_range_slot(self):
+        with self.assertRaises(ValueError):
+            SaveSystem.slot_path(0)
+
     def test_load_missing_file_returns_clear_result(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             missing = Path(temp_dir) / "missing.json"
