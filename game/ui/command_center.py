@@ -44,13 +44,13 @@ def build_command_center_layout(
         titles = {
             "left": "Municipal Control Floor",
             "right_top": "District Pressure Deck",
-            "right_bottom": "Faction / Street Ops Feed",
+            "right_bottom": build_narrative_feed_panel_title("city"),
         }
     else:
         titles = {
             "left": "Executive Command Floor",
             "right_top": "R&D / Security Suites",
-            "right_bottom": "District Fallout Feed",
+            "right_bottom": build_narrative_feed_panel_title("corp"),
         }
 
     return [
@@ -82,6 +82,13 @@ def build_command_center_layout(
             "blue",
         ),
     ]
+
+
+def build_narrative_feed_panel_title(mode: str) -> str:
+    """Return a stable panel title for the new narrative feed widget."""
+    if mode == "city":
+        return "Narrative Feed / Street Ops"
+    return "Narrative Feed / District Fallout"
 
 
 def panel_by_key(panels: list[CommandPanel], key: str) -> CommandPanel:
