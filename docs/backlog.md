@@ -115,3 +115,9 @@ Automation status:
   - Payload per link: `{"agent_id": str, "bond_level": int>=0, "strategic_day": int>=0}`.
   - Invariants: one entry per counterpart, monotonic `bond_level`, monotonic `strategic_day`, no empty `agent_id`.
   - Lifecycle: seeded on recruitment (`game/recruitment.py`), evolved after mission progression (`game/agent_aftermath.py`), persisted by regular character serialization (`to_dict`/`from_dict`) used by save/load.
+
+- [x] Relier les blessures graves à des séquelles narratives temporaires
+  - Module ajouté: `game/narrative/temporary_scars.py`.
+  - Scope strict: narratif-only (tonalité/tags/logs), sans buff/debuff gameplay.
+  - Dissipation journalière via calendrier stratégique (`GameState.advance_one_day`) et suppression automatique à expiration.
+  - Exposition UI data: résumé lisible dans le dossier agent, rendu non imposé.
