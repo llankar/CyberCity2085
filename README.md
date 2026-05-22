@@ -86,3 +86,13 @@ python main.py
 - Complete the battlefield objective or eliminate all enemies to win
 - `Esc` return to management
 - On first entering, choose a background image from `assets/maps`
+
+## Roadmap generation
+- Generate the next prioritized roadmap slice with:
+  - `python tools/docs/generate_docs.py`
+- The script writes the markdown block to:
+  - `docs/roadmap.md`
+- Generated output format is stable:
+  - `## Next 20 Coding Steps`
+  - numbered list from `1` to `20`
+  - domain tags such as `[agent]`, `[mission]`, `[ui]`, `[tests]`, `[docs]`
