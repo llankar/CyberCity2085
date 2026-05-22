@@ -363,8 +363,8 @@ def draw_expanded_room_ui(
 
     if state.expansion >= 0.72:
         for button in state.action_buttons:
-            draw_action_button(button, border)
-        draw_close_button(width, height)
+            draw_action_button(button, border, state.pulse)
+        draw_close_button(width, height, state.pulse)
 
 
 def draw_room_title_and_info(title: str, lines: list[str], rect, buttons, border) -> None:
@@ -551,11 +551,13 @@ def _draw_upgrade_badge(points: int, left: int, bottom: int) -> None:
     )
 
 
-def draw_action_button(button: ActionButton, border) -> None:
+def draw_action_button(button: ActionButton, border, pulse_elapsed: float = 0.0) -> None:
     """Draw an action button with an icon and a short readable label."""
     rect = button.rect
+    micro = int(8 * pulse_from_elapsed(pulse_elapsed))
+    fill = (*palette.ACTION_BUTTON_FILL[:3], min(255, palette.ACTION_BUTTON_FILL[3] + micro))
     arcade.draw_lrbt_rectangle_filled(
-        rect.left, rect.right, rect.bottom, rect.top, palette.ACTION_BUTTON_FILL
+        rect.left, rect.right, rect.bottom, rect.top, fill
     )
     arcade.draw_line(rect.left, rect.top, rect.right, rect.top, border, 2)
     arcade.draw_line(rect.left, rect.bottom, rect.right, rect.bottom, palette.GRID_LINE, 1)
@@ -580,11 +582,13 @@ def draw_action_button(button: ActionButton, border) -> None:
         )
 
 
-def draw_close_button(width: int, height: int) -> None:
+def draw_close_button(width: int, height: int, pulse_elapsed: float = 0.0) -> None:
     """Draw the icon-only close control."""
     rect = close_button_rect(width, height)
+    micro = int(8 * pulse_from_elapsed(pulse_elapsed))
+    fill = (*palette.ACTION_BUTTON_FILL[:3], min(255, palette.ACTION_BUTTON_FILL[3] + micro))
     arcade.draw_lrbt_rectangle_filled(
-        rect.left, rect.right, rect.bottom, rect.top, palette.ACTION_BUTTON_FILL
+        rect.left, rect.right, rect.bottom, rect.top, fill
     )
     arcade.draw_line(rect.left + 11, rect.bottom + 11, rect.right - 11, rect.top - 11, palette.DANGER, 3)
     arcade.draw_line(rect.left + 11, rect.top - 11, rect.right - 11, rect.bottom + 11, palette.DANGER, 3)

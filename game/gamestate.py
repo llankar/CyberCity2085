@@ -114,6 +114,7 @@ class GameState:
     next_event_id: int = 1
     unavailable_mission_ids: list[str] = field(default_factory=list)
     ui_high_contrast: bool = False
+    ui_audio_feedback_enabled: bool = False
 
     # Experience points gained through battles
     x: int = 0
@@ -390,6 +391,11 @@ class GameState:
         """Resolve an active event with a command choice."""
         return apply_event_choice(self, event_id, choice_key)
 
+    def play_ui_audio_feedback(self, cue: str) -> None:
+        """Log a minimal optional audio cue for major UI actions."""
+        if self.ui_audio_feedback_enabled:
+            self.add_event(f"Audio cue: {cue}.")
+
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""
         self.event_log.append(text)
@@ -499,6 +505,8 @@ class GameState:
             "active_events": [event.to_dict() for event in self.active_events],
             "next_event_id": self.next_event_id,
             "unavailable_mission_ids": list(self.unavailable_mission_ids),
+            "ui_high_contrast": self.ui_high_contrast,
+            "ui_audio_feedback_enabled": self.ui_audio_feedback_enabled,
             "active_research": [
                 research.to_dict() for research in self.active_research
             ],
@@ -572,6 +580,8 @@ class GameState:
         ]
         gs.next_event_id = int(data.get("next_event_id", len(gs.active_events) + 1))
         gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
+        gs.ui_high_contrast = bool(data.get("ui_high_contrast", gs.ui_high_contrast))
+        gs.ui_audio_feedback_enabled = bool(data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled))
         gs.research_tree = create_starter_research_tree()
         gs.active_research = [
             ActiveResearch.from_dict(research)
