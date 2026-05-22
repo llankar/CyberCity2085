@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from .character import Character
 from .mission_templates import MissionComplication, MissionTemplate
+from .relationships.mentor_history import upsert_mentor_link
 
 MIN_STRESS = 0
 MAX_STRESS = 100
@@ -65,6 +66,21 @@ def _maybe_add_trauma(
     return trauma
 
 
+def _update_team_links(characters: list[Character], strategic_day: int, victory: bool) -> None:
+    """Increment compact bond levels for agents who share mission fallout."""
+    bond_delta = 2 if victory else 1
+    for character in characters:
+        for teammate in characters:
+            if teammate.name == character.name:
+                continue
+            upsert_mentor_link(
+                character.mentor_links,
+                agent_id=teammate.name,
+                strategic_day=strategic_day,
+                bond_delta=bond_delta,
+            )
+
+
 def apply_mission_aftermath(
     characters: list[Character],
     mission: MissionTemplate | None,
@@ -87,6 +103,8 @@ def apply_mission_aftermath(
     complication_stress = _complication_intensity(triggered_complication)
     outcome_label = "victory" if victory else "defeat"
     aftermath_lines: list[str] = []
+    strategic_day = max(0, int(getattr(mission, "duration_days", 1)))
+    _update_team_links(characters, strategic_day=strategic_day, victory=victory)
 
     for character in characters:
         stress_delta = base_stress + complication_stress
