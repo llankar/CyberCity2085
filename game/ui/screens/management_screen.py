@@ -114,7 +114,7 @@ def _draw_notification_toast(notifications: "NotificationCenter", w: int, _h: in
     ry = _BOT_BAR_H + 8
     _rect(rx - panel_w, ry, rx, ry + panel_h, (0, 0, 0, 180))
     for i, text in enumerate(lines):
-        color = palette.SUCCESS if "[SUCCESS]" in text else (
+        color = palette.TACTICAL_GREEN if "[SUCCESS]" in text else (
             palette.WARNING if "[WARNING]" in text else palette.DANGER
         )
         arcade.draw_text(
@@ -778,8 +778,13 @@ class ManagementView(GameView):
             # Title
             arcade.draw_text(m.title.upper(), x0 + 66, ct - 16, palette.TEXT, font_size=12, bold=True)
 
-            # Risk badge
-            _badge(m.risk_level.upper(), x1 - 90, ct - 18, risk_col)
+            # Risk badge — risk_level may be int (1-5) or str
+            _risk_label = (
+                m.risk_level.upper()
+                if isinstance(m.risk_level, str)
+                else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(m.risk_level, str(m.risk_level))
+            )
+            _badge(_risk_label, x1 - 90, ct - 18, risk_col)
 
             # Metadata row
             meta_parts = []
@@ -822,7 +827,12 @@ class ManagementView(GameView):
 
             # Risk + reward row
             risk_col = _risk_color(m.risk_level)
-            _badge(m.risk_level.upper(), dx, dy, risk_col)
+            _risk_label2 = (
+                m.risk_level.upper()
+                if isinstance(m.risk_level, str)
+                else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(m.risk_level, str(m.risk_level))
+            )
+            _badge(_risk_label2, dx, dy, risk_col)
             arcade.draw_text(f"¥ {m.fund_reward:,} reward", dx + 80, dy + 3, palette.RESOURCE, font_size=10)
             dur = getattr(m, "duration_days", 1)
             arcade.draw_text(f"{dur} day{'s' if dur != 1 else ''}", dx + 200, dy + 3, palette.MUTED_TEXT, font_size=10)
@@ -922,7 +932,7 @@ class ManagementView(GameView):
             _rect(bx0, by0, bx0 + bw, by0 + bh, (8, 20, 30, 220))
             arcade.draw_line(bx0, by0 + bh, bx0 + bw, by0 + bh, palette.ROLE_PSI, 1)
             arcade.draw_text(proj.name[:22], bx0 + 6, by0 + bh - 14, palette.TEXT, font_size=9)
-            arcade.draw_text(f"¥{proj.cost}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
+            arcade.draw_text(f"¥{proj.funds_cost}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
             self._hits.append(_HitRegion(bx0, by0, bx0 + bw, by0 + bh, f"start_research_{pi}", None))
 
     # ── INTEL tab ─────────────────────────────────────────────────────────────
