@@ -10,6 +10,8 @@ from game.ui.command_center import (
     panel_by_key,
 )
 from game.ui.dashboard import build_command_status_line
+from game.ui.action_feedback import action_message
+from game.ui.widgets.notification_center import NotificationCenter
 
 
 class CommandCenterUITest(unittest.TestCase):
@@ -59,3 +61,13 @@ class CommandCenterUITest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NotificationCenterUITest(unittest.TestCase):
+    def test_notification_center_keeps_standardized_action_feedback(self):
+        center = NotificationCenter(max_items=2)
+        level, text = action_message("save", True, "slot A")
+        center.push(level, text)
+        center.failure("Mission launch failure: no deployable agents")
+        self.assertIn("[FAILURE] Mission launch failure", center.latest_text_lines(2)[0])
+        self.assertIn("[SUCCESS] Save success", center.latest_text_lines(2)[1])
