@@ -27,8 +27,10 @@ TODO:
 [x] Create district data model
 [x] Create mission generation system
 [x] Create stress system
+[x] Add mission debrief narrative module with GameState persistence and tests
 
 Done:
+- Mission narrative debrief API: added `game/narrative/debrief.py` with pure `DebriefLine`/`DebriefReport` data structures, deterministic emotional template mapping from stress/injury/recovery/outcome, post-mission integration in battle resolution, and persisted `latest_mission_debrief` on `GameState` for later UI consumption without view coupling.
 - Corporate tower base UI: Corp, City, RPG, and Battle screens now share a
   stacked room cross-section, resource HUD slots, pressure meters, and bottom
   action bars inspired by XCOM2 command-room readability.
