@@ -13,6 +13,7 @@ from .room_interaction import (
     close_button_rect,
     layout_roster_card_rects,
 )
+from .theme import opacity, spacing, stroke, typography
 
 
 _TEXTURE_CACHE = {}
@@ -319,7 +320,7 @@ def draw_expanded_room_ui(
 
     room, rect = active
     border = _room_accent_color(room)
-    arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, 164))
+    arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, opacity.overlay_dim))
     texture = _load_texture_once(room.image_path) if room.image_path else None
     if texture is not None:
         room_rect = arcade.LBWH(rect.left, rect.bottom, rect.width, rect.height)
@@ -375,28 +376,31 @@ def draw_expanded_room_ui(
 
 def draw_room_title_and_info(title: str, lines: list[str], rect, buttons, border) -> None:
     """Draw room title and compact room state above the action controls."""
-    left = rect.left + max(24, rect.width // 28)
-    right = rect.right - max(24, rect.width // 28)
+    left = rect.left + max(spacing.lg, rect.width // 28)
+    right = rect.right - max(spacing.lg, rect.width // 28)
     top = rect.top - max(32, rect.height // 12)
     action_top = max((button.rect.top for button in buttons), default=rect.bottom + 92)
     info_bottom = action_top + 42
     panel_bottom = max(info_bottom, top - 190)
 
     arcade.draw_lrbt_rectangle_filled(
-        left - 14,
-        right + 14,
-        panel_bottom - 16,
-        top + 34,
+        left - spacing.sm,
+        right + spacing.sm,
+        panel_bottom - (spacing.sm + 2),
+        top + spacing.xl,
         palette.PANEL_FILL_DARK,
     )
-    arcade.draw_line(left, top + 20, right, top + 20, border, 2)
-    arcade.draw_text(title.upper(), left, top, palette.HEADER, 22)
+    arcade.draw_line(left, top + spacing.md + 2, right, top + spacing.md + 2, border, stroke.regular)
+    arcade.draw_text("ROOM", left, top + spacing.sm, palette.MUTED_TEXT, typography.meta)
+    arcade.draw_text(title.upper(), left, top, palette.HEADER, typography.title)
 
-    y = top - 34
-    max_lines = max(1, int((y - info_bottom) // 22) + 1)
-    for line in lines[:max_lines]:
-        arcade.draw_text(_fit_room_line(line), left, y, palette.TEXT, 13)
-        y -= 22
+    y = top - (spacing.xl)
+    max_lines = max(1, int((y - info_bottom) // (spacing.md + 4)) + 1)
+    for index, line in enumerate(lines[:max_lines]):
+        color = palette.TEXT if index == 0 else palette.MUTED_TEXT
+        font_size = typography.section if index == 0 else typography.meta
+        arcade.draw_text(_fit_room_line(line), left, y, color, font_size)
+        y -= spacing.md + 4
 
 
 def _fit_room_line(line: str, limit: int = 76) -> str:
@@ -450,8 +454,8 @@ def draw_agent_card(card: dict, left: int, bottom: int, width: int, height: int,
     portrait_bottom = bottom + (height - portrait_size) // 2
     _draw_agent_portrait_asset(card, portrait_left, portrait_bottom, portrait_size, border)
     text_left = portrait_left + portrait_size + 14
-    arcade.draw_text(card.get("name", "Agent").upper(), text_left, bottom + height - 28, palette.TEXT, 12)
-    arcade.draw_text(card.get("role", "unknown").upper(), text_left, bottom + height - 48, _role_color(card), 9)
+    arcade.draw_text(card.get("name", "Agent").upper(), text_left, bottom + height - 28, palette.TEXT, typography.section - 1)
+    arcade.draw_text(card.get("role", "unknown").upper(), text_left, bottom + height - 48, _role_color(card), typography.meta)
     meter_width = max(38, width - (text_left - left) - 14)
     draw_small_meter(text_left, bottom + 22, meter_width, card.get("hp_ratio", 0), palette.TACTICAL_GREEN)
     draw_small_meter(text_left, bottom + 10, meter_width, card.get("stress_ratio", 0), palette.WARNING)
@@ -523,11 +527,11 @@ def _draw_active_agent_brackets(left: int, bottom: int, width: int, height: int)
     top = bottom + height
     color = palette.ACTIVE_AGENT_BORDER
     bracket = 34
-    arcade.draw_line(left - 2, top + 2, left + bracket, top + 2, color, 3)
+    arcade.draw_line(left - 2, top + 2, left + bracket, top + 2, color, stroke.strong)
     arcade.draw_line(left - 2, top + 2, left - 2, top - bracket, color, 3)
     arcade.draw_line(right + 2, top + 2, right - bracket, top + 2, color, 3)
     arcade.draw_line(right + 2, top + 2, right + 2, top - bracket, color, 3)
-    arcade.draw_text("ACTIVE", right - 58, top - 18, color, 9)
+    arcade.draw_text("ACTIVE", right - 58, top - 18, color, typography.meta)
 
 
 def _draw_deployed_marker(center_x: int, center_y: int) -> None:
@@ -578,7 +582,7 @@ def draw_action_button(button: ActionButton, border) -> None:
             rect.center_x,
             rect.bottom - 20,
             palette.TEXT,
-            9,
+            typography.meta,
             anchor_x="center",
         )
 
