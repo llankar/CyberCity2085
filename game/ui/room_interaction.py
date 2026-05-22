@@ -52,6 +52,7 @@ class ActionButton:
 
     action: RoomAction
     rect: UIRect
+    visual_state: str = "normal"
 
 
 @dataclass

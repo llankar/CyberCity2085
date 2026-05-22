@@ -113,6 +113,7 @@ class GameState:
     active_events: list[ActiveEvent] = field(default_factory=list)
     next_event_id: int = 1
     unavailable_mission_ids: list[str] = field(default_factory=list)
+    ui_high_contrast: bool = False
 
     # Experience points gained through battles
     x: int = 0
