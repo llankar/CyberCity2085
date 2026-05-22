@@ -14,6 +14,7 @@ from .room_interaction import (
     layout_roster_card_rects,
 )
 from .components.panel import draw_panel_frame
+from .components.agent.cards import draw_roster_cards as draw_agent_roster_cards
 from .theme import opacity, spacing, stroke
 from .theme.motion import pulse_from_elapsed
 from .theme.typography import typography
@@ -351,7 +352,7 @@ def draw_expanded_room_ui(
             "dossier",
             "insertion",
         }) or (state.mode == "corp" and room.key == "black_ops"):
-            draw_roster_cards(rect, state.action_buttons, roster_cards or [], border)
+            draw_agent_roster_cards(rect, state.action_buttons, roster_cards or [], border, _draw_icon, _load_texture_once, _draw_circle_filled, _draw_circle_outline)
     for scan_x in range(rect.left + 36, rect.right - 24, 58):
         arcade.draw_line(
             scan_x,
