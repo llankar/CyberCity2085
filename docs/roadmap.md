@@ -63,6 +63,8 @@
     them beside agents; combat setup turns them into distinct Units; and the
     funds ledger pays upkeep/repair while agent cards remain first in the squad
     UI.
+  - Progress: Mission generation now rebuilds a small daily board from district pressure with deterministic day seeds, keeping ops readable while varying risk, enemy count, and payout each campaign day.
+
   - Progress: Battle UI now has a reusable contextual action deck for the
     selected unit. Pure combat action rules decide when fire, melee, psi,
     first aid, missiles, defend, and end-turn controls appear so rendering stays

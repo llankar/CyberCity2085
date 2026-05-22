@@ -24,7 +24,7 @@ TODO:
 [x] Add contextual battle action bar for selected unit combat choices
 [x] Create Agent data model
 [x] Create district data model
-[ ] Create mission generation system
+[x] Create mission generation system
 [x] Create stress system
 
 Done:
@@ -75,6 +75,7 @@ Done:
   detail panel for launch pressure, fund rewards, complications, tags, and
   outcome stakes. Mission templates now carry `duration_days` (defaulting to
   one day), and the board shows that operation duration before launch.
+- Mission generation system: mission board entries now regenerate once per strategic day from district pressure, with deterministic day seeds for readable planning and small risk/reward variations.
 - Mission duration pacing: mission resolution advances the strategic calendar by
   the mission's `duration_days`, so existing generated missions consume one
   campaign day while later templates can opt into longer operations.
