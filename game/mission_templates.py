@@ -63,6 +63,7 @@ class MissionTemplate:
     duration_days: int = 1
     tags: list[SavageTag] = field(default_factory=list)
     relation_impact: str = "low"
+    emotional_impact_hint: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
@@ -88,6 +89,7 @@ class MissionTemplate:
             "duration_days": max(1, int(self.duration_days)),
             "tags": [tag.to_dict() for tag in self.tags],
             "relation_impact": self.relation_impact,
+            "emotional_impact_hint": dict(self.emotional_impact_hint),
         }
 
     @classmethod
@@ -122,6 +124,7 @@ class MissionTemplate:
             duration_days=max(1, int(data.get("duration_days", 1))),
             tags=[SavageTag.from_dict(tag) for tag in data.get("tags", [])],
             relation_impact=str(data.get("relation_impact", "low")),
+            emotional_impact_hint=dict(data.get("emotional_impact_hint", {})),
         )
 
 

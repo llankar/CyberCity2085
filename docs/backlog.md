@@ -152,3 +152,6 @@ Automation status:
   - Intégration: enrichissement du briefing via `game/mission_generation.py` sans hausse systémique (complications narratif-first, conséquences neutres).
   - Scope control: plafond strict à 1-2 complications par mission.
   - Contrainte design: système léger, lisible, modulaire, non-systémique lourd.
+
+
+[x] UI-04 Mission impact summary: widget UI dédié (`game/ui/widgets/mission_impact_summary.py`), affichage hiérarchisé tags -> impact humain, contrat `emotional_impact_hint` (level/text) + fallback neutre, tests ajoutés.
