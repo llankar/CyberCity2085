@@ -212,20 +212,24 @@ def room_at_point(
 def actions_for_room(mode: str, room_key: str) -> list[RoomAction]:
     """Return the icon actions available in a room."""
     base_actions = list(ROOM_ACTIONS.get(mode, {}).get(room_key, []))
-    return [RoomAction("next_step", "radar", "Next step"), *base_actions]
+    utility_actions = [
+        RoomAction("save", "shield", "Save game"),
+        RoomAction("load", "intel", "Load game"),
+    ]
+    return [RoomAction("next_step", "radar", "Next step"), *base_actions, *utility_actions]
 
 
 def layout_action_buttons(
     width: int, height: int, actions: list[RoomAction]
 ) -> list[ActionButton]:
-    """Place icon buttons in the expanded room without using text labels."""
+    """Place icon buttons in the expanded room with readable labels and safe spacing."""
     if not actions:
         return []
     button_size = max(58, min(92, int(min(width, height) * 0.11)))
     gap = max(spacing.md, button_size // 3)
     total_width = len(actions) * button_size + (len(actions) - 1) * gap
     start_x = (width - total_width) // 2
-    bottom = max(spacing.xl * 2 + 4, int(height * 0.11))
+    bottom = max(spacing.xl * 3 + 10, int(height * 0.16))
     buttons = []
     for index, action in enumerate(actions):
         left = start_x + index * (button_size + gap)
