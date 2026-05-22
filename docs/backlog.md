@@ -158,6 +158,8 @@ Done:
   - Persistance: journal dédié `GameState.faction_reward_journal` sauvegardé/chargé.
   - Limite de scope: aucun nouveau système économique/combat, seulement mémoire narrative et event-log.
 
+- [x] Improve command UI readability: increased typography scale and reduced panel opacity so backdrop art remains visible while text is easier to read.
+
 Automation status:
 - [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)
 - [done] Add unit tests for generator stability/format (`tests/test_generate_docs.py`)
