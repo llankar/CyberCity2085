@@ -6,12 +6,16 @@ from collections.abc import Iterable
 
 from ..consequences import Consequence
 from ..mission_templates import MissionComplication, MissionTemplate
+from .widgets.critical_choice_highlight import format_critical_choice_suffix
 
 OBJECTIVE_LABELS = {
     "extract": "EXTRACT",
     "sabotage": "SABOTAGE",
     "data_theft": "DATA THEFT",
     "eliminate": "ELIMINATE",
+    "safe_extraction": "EXTRACT",
+    "data_with_detour": "DATA THEFT",
+    "sabotage_window": "SABOTAGE",
 }
 
 
@@ -115,4 +119,5 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
         f"Complications: {_complication_names(mission.possible_complications)}",
         _outcome_line("Success", mission.success_consequences),
         _outcome_line("Failure", mission.failure_consequences),
+        f"Relational impact:{format_critical_choice_suffix(getattr(mission, 'relation_impact', 'low')) or ' none'}",
     ]
