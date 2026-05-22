@@ -166,7 +166,14 @@ def _badge(text: str, x: int, y: int, color, bg=None) -> None:
     arcade.draw_text(text, x + 5, y + 4, color, font_size=9, bold=True)
 
 
-def _risk_color(risk: str):
+def _risk_color(risk):
+    """Return a threat colour for a risk value that may be int (1-5) or str."""
+    if isinstance(risk, int):
+        if risk >= 4:
+            return palette.DANGER
+        if risk >= 2:
+            return palette.WARNING
+        return palette.TACTICAL_GREEN
     r = (risk or "").lower()
     if r in ("high", "critical", "extreme"):
         return palette.DANGER
