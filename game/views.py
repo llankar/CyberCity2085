@@ -71,6 +71,7 @@ from .ui.navigation import (
     build_view_focus_model,
 )
 from .management.morale import aggregate_squad_morale
+from .ui.onboarding.tutorial_overlay import overlay_state_for_screen
 from .unit import Unit
 
 
@@ -132,6 +133,17 @@ def build_roster_cards(
             }
         )
     return cards
+
+
+
+
+def _help_lines_for_view(game_state: GameState, screen: str) -> list[str]:
+    overlay = overlay_state_for_screen(game_state.tutorial_progress, screen)
+    help_panel = overlay.get("help", {})
+    objective = help_panel.get("objective", "No active objective.")
+    controls = ", ".join(help_panel.get("controls", []))
+    nxt = help_panel.get("next", "")
+    return [f"Objective: {objective}", f"Controls: {controls}", f"Next: {nxt}"]
 
 
 class CorpView(GameView):
@@ -262,6 +274,7 @@ class CorpView(GameView):
         if room is None:
             return False
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        self.game_state.mark_tutorial_event("entered_room")
         self._sync_focus_actions()
         return True
 
@@ -403,7 +416,7 @@ class CorpView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:5]
                 )
-            info[room_key] = hints + lines
+            info[room_key] = _help_lines_for_view(self.game_state, "corp") + hints + lines
         return info
 
 
@@ -514,6 +527,7 @@ class CityView(GameView):
         if room is None:
             return False
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        self.game_state.mark_tutorial_event("entered_room")
         return True
 
     def _perform_room_action(self, action_key: str) -> None:
@@ -607,7 +621,7 @@ class CityView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:5]
                 )
-            info[room_key] = hints + lines
+            info[room_key] = _help_lines_for_view(self.game_state, "city") + hints + lines
         return info
 
 
@@ -668,6 +682,9 @@ class RPGView(GameView):
             self.message = blocked.to_ui_text()
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
+            self.game_state.mark_tutorial_event("selected_agent")
+            if len(self.game_state.selected_agent_names) >= 2:
+                self.game_state.mark_tutorial_event("formed_squad")
             self.notifications.warning(self.message)
             self.game_state.add_event(self.message)
             return
@@ -690,6 +707,7 @@ class RPGView(GameView):
 
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
+        self.game_state.mark_tutorial_event("launched_mission")
         mission = launch_mission_system(self.game_state)
         battle_view = BattleView(self.game_state)
         battle_view.setup(mission)
@@ -858,6 +876,8 @@ class RPGView(GameView):
         if room is None:
             return False
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
+        if room.key == "ops":
+            self.game_state.mark_tutorial_event("opened_mission_board")
         self._refresh_squad_room_actions()
         self._sync_focus_actions()
         return True
@@ -946,6 +966,9 @@ class RPGView(GameView):
             )
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
+            self.game_state.mark_tutorial_event("selected_agent")
+            if len(self.game_state.selected_agent_names) >= 2:
+                self.game_state.mark_tutorial_event("formed_squad")
             self.game_state.play_ui_audio_feedback("toggle")
             self._refresh_squad_room_actions()
             return
@@ -1188,7 +1211,7 @@ class RPGView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:6]
                 )
-            info[room_key] = hints + lines
+            info[room_key] = _help_lines_for_view(self.game_state, "squad") + hints + lines
         return info
 
 
@@ -1570,9 +1593,11 @@ class BattleView(GameView):
             return False
         if action_key == "move":
             self.message = "Move with arrow keys."
+            self.game_state.mark_tutorial_event("used_battle_controls")
             return True
         if action_key in {"fire", "melee", "psi"}:
             self._begin_target_action(player, action_key)
+            self.game_state.mark_tutorial_event("used_battle_controls")
             return True
         if action_key == "first_aid":
             if player.action_points <= 0 or not player.stats:
@@ -1715,18 +1740,22 @@ class BattleView(GameView):
             new_x, new_y = player.position[0], player.position[1] + 32
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(0, 32)
+                self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.DOWN:
             new_x, new_y = player.position[0], player.position[1] - 32
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(0, -32)
+                self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.LEFT:
             new_x, new_y = player.position[0] - 32, player.position[1]
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(-32, 0)
+                self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.RIGHT:
             new_x, new_y = player.position[0] + 32, player.position[1]
             if not self.is_occupied(new_x, new_y, exclude=player):
                 player.move(32, 0)
+                self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
         elif key == arcade.key.F:
@@ -1795,7 +1824,7 @@ class BattleView(GameView):
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         mission_title = self.mission.title if self.mission else "No active mission"
-        return {
+        base = {
             "drop": [
                 mission_title,
                 f"Available drop zones {len(self.available_maps)}",
@@ -1837,6 +1866,8 @@ class BattleView(GameView):
                 "Uplink returns to corporate command after combat.",
             ],
         }
+        help_lines = _help_lines_for_view(self.game_state, "battle")
+        return {key: help_lines + value for key, value in base.items()}
 
     def check_active_player(self):
         while self.active_index < len(self.player_units) and (
