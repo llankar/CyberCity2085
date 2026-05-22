@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .gamestate import GameState
 from .mission_templates import MissionTemplate, create_mission_templates
+from .missions.complications import select_complications
 from .missions.evacuation import create_evacuation_template
 
 
@@ -45,6 +46,15 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
         mission.starting_enemy_count = max(1, mission.starting_enemy_count + max(0, risk_delta))
         mission.id = f"{mission.id}_d{game_state.calendar.current_day}_s{slot}"
         mission.title = f"{mission.title} [Day {game_state.calendar.current_day}]"
+        mission_tag_names = [tag.name for tag in mission.tags]
+        mission.possible_complications.extend(
+            select_complications(
+                district_pressure=pressure_score,
+                mission_tags=mission_tag_names,
+                seed=_mission_seed(game_state) + slot,
+            )
+        )
+        mission.possible_complications = mission.possible_complications[:2]
         generated.append(mission)
 
     rng.shuffle(generated)

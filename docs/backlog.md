@@ -145,3 +145,10 @@ Automation status:
 [x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)
 
 - UI-01 [done]: Added a compact narrative feed contract (`game/narrative/event_feed.py`) and widget presentation layer (`game/ui/widgets/narrative_feed_panel.py`) with category badges (`agent`, `mission`, `faction`, `base`), anti-chronological ordering, and bounded depth (8-12) to keep command-center readability centered on agent consequences.
+
+- [x] MISSION-03 Complications modulaires légères (pression + tags)
+  - Nouveau module: `game/missions/complications.py` avec table courte par niveau de pression (`low`/`medium`/`high`).
+  - API pure: `select_complications(district_pressure, mission_tags, seed=None)` pour sortie déterministe et testable.
+  - Intégration: enrichissement du briefing via `game/mission_generation.py` sans hausse systémique (complications narratif-first, conséquences neutres).
+  - Scope control: plafond strict à 1-2 complications par mission.
+  - Contrainte design: système léger, lisible, modulaire, non-systémique lourd.
