@@ -73,6 +73,9 @@
 
 # Phase 2
 - Agent system
+  - Progress: Strategic calendar now applies a compact stress-recovery loop:
+    active agents decompress by 1 stress/day, medbay recovery agents by 2/day,
+    and command logs surface those emotional beats without adding a giant sim.
   - Progress: Loadouts are now a first small agent-system slice, giving agents
     memorable gear choices while preserving scope and modularity.
 - Media system

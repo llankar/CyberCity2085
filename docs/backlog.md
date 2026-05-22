@@ -23,9 +23,9 @@ TODO:
 [x] Add spec-ops robot and power-armor assets with deployment, combat conversion, and maintenance costs
 [x] Add contextual battle action bar for selected unit combat choices
 [x] Create Agent data model
-[ ] Create district data model
+[x] Create district data model
 [ ] Create mission generation system
-[ ] Create stress system
+[x] Create stress system
 
 Done:
 - Corporate tower base UI: Corp, City, RPG, and Battle screens now share a
@@ -95,3 +95,7 @@ Done:
 - Contextual battle action bar: the battle map now has a reusable selected-unit
   action deck that shows only sensible move, fire, melee, psi, first-aid,
   missile, defend, and end-turn options from pure combat action rules.
+
+- Daily stress recovery now ticks from the strategic calendar: every day lowers
+  agent stress by 1, while agents in medical recovery decompress by 2 and log
+  visible command-room updates to keep emotional consequences readable.
