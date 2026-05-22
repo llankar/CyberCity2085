@@ -8,6 +8,7 @@ from game.ui.mission_board import (
     objective_label,
     risk_label,
 )
+from game.narrative.mission_briefing_conventions import NEUTRAL_IMPACT_FALLBACK
 from game.mission_templates import create_mission_templates
 
 
@@ -24,12 +25,12 @@ class MissionBoardUITest(unittest.TestCase):
 
         lines = build_mission_board_lines(missions, selected_index=1)
 
-        self.assertTrue(lines[1].startswith(">2. Sabotage: Jackal Relay Burn"))
+        self.assertIn(">2. Sabotage: Jackal Relay Burn", lines[1])
         self.assertIn("SABOTAGE", lines[1])
         self.assertIn("Risk 4 (severe)", lines[1])
         self.assertIn("Reward 70 funds", lines[1])
         self.assertIn("Duration: 1 day", lines[1])
-        self.assertTrue(lines[0].startswith(" 1. Extraction: Neon Witness"))
+        self.assertIn("1. Extraction: Neon Witness", lines[0])
 
     def test_selected_mission_lines_show_pressure_complications_and_stakes(self):
         mission = create_mission_templates("Chrome Warrens")[0]
@@ -40,12 +41,37 @@ class MissionBoardUITest(unittest.TestCase):
         self.assertIn("Pressure: Unrest +3, Media Heat +2", lines[1])
         self.assertEqual(lines[2], "Fund Reward: 40 corporate funds")
         self.assertEqual(lines[3], "Duration: 1 day")
-        self.assertEqual(lines[4], "Tags opérationnels: neon_blackout")
-        self.assertIn("Impact humain attendu", lines[5])
-        self.assertIn("Media Leak", lines[6])
-        self.assertIn("Civilian Panic", lines[6])
-        self.assertIn("Success: Warrens Free Clinic", lines[7])
-        self.assertIn("Failure: Chrome Jackals", lines[8])
+        self.assertEqual(lines[4], "Mission tags (normalized): neon_blackout")
+        self.assertIn("Emotional impact (short):", lines[5])
+        self.assertIn("Tags opérationnels: neon_blackout", lines[6])
+        self.assertIn("Impact humain attendu", lines[7])
+        self.assertIn("Media Leak", lines[8])
+        self.assertIn("Civilian Panic", lines[8])
+        self.assertIn("Success: Warrens Free Clinic", lines[9])
+        self.assertIn("Failure: Chrome Jackals", lines[10])
+
+    def test_selected_mission_lines_fallback_when_tags_and_emotional_impact_are_missing(self):
+        mission = create_mission_templates("Chrome Warrens")[0]
+        mission.tags = []
+        mission.emotional_impact_hint = {}
+
+        lines = build_selected_mission_lines(mission)
+
+        self.assertEqual(lines[4], "Mission tags (normalized): none")
+        self.assertEqual(lines[5], f"Emotional impact (short): {NEUTRAL_IMPACT_FALLBACK}")
+
+    def test_selected_mission_lines_show_multiple_tags_and_existing_emotional_short_text(self):
+        mission = create_mission_templates("Chrome Warrens")[2]
+        mission.emotional_impact_hint = {
+            "level": "high",
+            "short_text": "Charge émotionnelle élevée: extraction rapide exigée.",
+            "normalized_tags": ["ghost_signal", "media_swarm"],
+        }
+
+        lines = build_selected_mission_lines(mission)
+
+        self.assertEqual(lines[4], "Mission tags (normalized): ghost_signal, media_swarm")
+        self.assertIn("Charge émotionnelle élevée", lines[5])
 
     def test_empty_mission_board_has_operator_guidance(self):
         self.assertEqual(build_mission_board_lines([], 0), ["No missions available."])

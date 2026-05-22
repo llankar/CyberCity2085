@@ -9,6 +9,10 @@ if TYPE_CHECKING:
 from .mission_templates import MissionTemplate, create_mission_templates
 from .missions.complications import select_complications
 from .missions.evacuation import create_evacuation_template
+from .narrative.mission_briefing_conventions import (
+    build_short_emotional_impact,
+    normalize_mission_tags,
+)
 
 
 def _mission_seed(game_state: "GameState") -> int:
@@ -52,7 +56,11 @@ def _build_emotional_impact_hint(mission: MissionTemplate) -> dict:
     else:
         level = "low"
         text = "Impact humain contenu si l'exécution reste disciplinée."
-    return {"level": level, "text": text}
+    return {
+        "level": level,
+        "text": text,
+        "short_text": build_short_emotional_impact(level, text),
+    }
 
 
 def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list[MissionTemplate]:
@@ -90,8 +98,8 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
         )
         mission.possible_complications = mission.possible_complications[:2]
         mission.emotional_impact_hint = _build_emotional_impact_hint(mission)
+        mission.emotional_impact_hint["normalized_tags"] = normalize_mission_tags(mission.tags)
         generated.append(mission)
 
     rng.shuffle(generated)
     return generated
-
