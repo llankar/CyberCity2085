@@ -1,4 +1,5 @@
 TODO:
+- [x] UI-07 Notifications/confirmations: centre de notifications UI léger, messages standardisés pour recrutement/allocation/mission/save-load, confirmation explicite des lancements risqués, transition de room harmonisée (durée/easing), et tests UI de non-régression.
 - [x] UI-06 Accessibilité UI: palette vérifiable (texte/fond/alerte), états cliquables normal/hover/active/disabled/focus, indicateurs non chromatiques dans widgets, mode high-contrast via GameState, et tests ciblés.
 - [x] UI-05 Tokeniser les règles visuelles (typo/espacements/opacité/z-order), appliquer la hiérarchie titre-section-méta dans les room-expanded, et documenter les conventions UI.
 - [x] Add full multi-view save/load system with slot-path support and user-facing status log messages
