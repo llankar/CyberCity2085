@@ -52,7 +52,7 @@ from .mission_system import (
     selected_mission as selected_mission_system,
 )
 from .mission_templates import MissionTemplate
-from .persistence import SaveSystem
+from .persistence import SaveSystem, SaveSystemResult
 from .recruitment import recruit_agent
 from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
