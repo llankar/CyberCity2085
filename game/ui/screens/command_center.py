@@ -109,3 +109,9 @@ def build_command_title(mode: str, base_name: str, district_name: str) -> str:
 def build_action_strip(actions: list[str]) -> str:
     """Join controls into an XCOM-like bottom input strip."""
     return "  >  ".join(actions)
+
+
+
+def build_interactive_tooltips() -> dict[str, str]:
+    """English tooltip copy for key interactive UI elements."""
+    return {"primary": "Allocate strategic resources and review command status.", "top_right": "Open management suites and room actions.", "bottom_right": "Track narrative fallout and event pressure."}
