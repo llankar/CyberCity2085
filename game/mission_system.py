@@ -8,6 +8,7 @@ from .mission_templates import (
     MissionComplication,
     MissionTemplate,
 )
+from .narrative.personality_traits import modulate_mission_log_tone
 
 
 def ensure_mission_templates(game_state: GameState) -> None:
@@ -94,7 +95,15 @@ def resolve_mission_outcome(
         if not consequence.affected_faction:
             consequence.affected_faction = mission.target_faction
         game_state.apply_consequence(consequence)
-        game_state.add_event(f"Complication triggered: {complication.trigger_text}")
+        base_text = f"Complication triggered: {complication.trigger_text}"
+        leader = game_state.selected_agents[0] if game_state.selected_agents else None
+        game_state.add_event(
+            modulate_mission_log_tone(
+                base_text,
+                getattr(leader, "personality_primary_trait", ""),
+                getattr(leader, "personality_secondary_trait", ""),
+            )
+        )
 
     game_state.active_mission = None
     duration_days = max(1, int(getattr(mission, "duration_days", 1)))
