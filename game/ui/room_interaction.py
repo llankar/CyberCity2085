@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .facility import FacilityRoom, build_facility_rooms, facility_room_by_key
+from .theme import spacing
 
 
 @dataclass(frozen=True)
@@ -167,9 +168,9 @@ def room_rect(room: FacilityRoom) -> UIRect:
 
 def expanded_room_rect(width: int, height: int) -> UIRect:
     """Return the full-screen room target bounds."""
-    margin_x = max(28, int(width * 0.035))
-    margin_bottom = max(46, int(height * 0.06))
-    margin_top = max(34, int(height * 0.045))
+    margin_x = max(spacing.xl - 6, int(width * 0.035))
+    margin_bottom = max(spacing.xl + 12, int(height * 0.06))
+    margin_top = max(spacing.xl, int(height * 0.045))
     return UIRect(
         margin_x,
         margin_bottom,
@@ -181,7 +182,7 @@ def expanded_room_rect(width: int, height: int) -> UIRect:
 def close_button_rect(width: int, height: int) -> UIRect:
     """Return the icon-only close button area."""
     size = max(42, min(58, int(min(width, height) * 0.065)))
-    return UIRect(width - size - 28, height - size - 28, size, size)
+    return UIRect(width - size - (spacing.xl - 6), height - size - (spacing.xl - 6), size, size)
 
 
 def interpolate_rect(start: UIRect, end: UIRect, progress: float) -> UIRect:
@@ -218,10 +219,10 @@ def layout_action_buttons(
     if not actions:
         return []
     button_size = max(58, min(92, int(min(width, height) * 0.11)))
-    gap = max(18, button_size // 3)
+    gap = max(spacing.md, button_size // 3)
     total_width = len(actions) * button_size + (len(actions) - 1) * gap
     start_x = (width - total_width) // 2
-    bottom = max(72, int(height * 0.11))
+    bottom = max(spacing.xl * 2 + 4, int(height * 0.11))
     buttons = []
     for index, action in enumerate(actions):
         left = start_x + index * (button_size + gap)
@@ -245,15 +246,15 @@ def layout_roster_card_rects(
     """Place roster cards above the action buttons inside an expanded room."""
     if card_count <= 0:
         return []
-    left = rect.left + max(30, rect.width // 24)
-    right = rect.right - max(30, rect.width // 24)
+    left = rect.left + max(spacing.lg + 6, rect.width // 24)
+    right = rect.right - max(spacing.lg + 6, rect.width // 24)
     action_top = max((button.rect.top for button in buttons), default=rect.bottom + 100)
-    bottom = action_top + 48
+    bottom = action_top + spacing.xl + 14
     top_limit = rect.top - max(250, rect.height // 3)
     card_height = max(86, min(112, int((top_limit - bottom) * 0.9)))
     if card_height < 72:
         card_height = 72
-    gap = 14
+    gap = spacing.sm
     columns = min(4, max(1, card_count))
     card_width = max(190, min(260, int((right - left - gap * (columns - 1)) / columns)))
     card_rects = []

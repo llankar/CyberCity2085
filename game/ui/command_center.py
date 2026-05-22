@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from .theme import spacing
 
 @dataclass(frozen=True)
 class CommandPanel:
@@ -27,8 +28,8 @@ def build_command_center_layout(
     width: int, height: int, mode: str
 ) -> list[CommandPanel]:
     """Build a consistent corporate-tower layout for Corp and City screens."""
-    margin = 20
-    gutter = 16
+    margin = spacing.md + 2
+    gutter = spacing.sm + 2
     status_height = 58
     footer_height = 54
     top = height - status_height - margin
