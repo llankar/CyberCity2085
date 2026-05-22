@@ -106,3 +106,8 @@ python main.py
   - `## Next 20 Coding Steps`
   - numbered list from `1` to `20`
   - domain tags such as `[agent]`, `[mission]`, `[ui]`, `[tests]`, `[docs]`
+
+## Mission Board UI Refactor (May 22, 2026)
+- Mission details now render in four sections: summary, risk/complications, squad emotional impact, rewards/opportunity cost.
+- Mission generation now provides UI-ready fields: `emotional_impact_summary`, `risk_explanation`, `expected_stress_band`.
+- Mission detail view now exposes explicit launch lock reasons when missions are unavailable.

@@ -163,3 +163,5 @@ Automation status:
 [x] UI-04 Mission impact summary: payload enrichi côté génération (`normalized_tags` + `short_text`), affichage liste + détail avec hiérarchie sobre dans `game/ui/mission_board.py`, conventions d'écriture centralisées (`game/narrative/mission_briefing_conventions.py`) et tests de rendu couvrant tags absents/multiples + impact absent/présent.
 
 - [x] UI navigation: focus manager + input map + contextual hints overlay (keyboard/mouse parity for rooms, missions, agents).
+
+- [x] Refactor mission board into sectioned mission detail subcomponents (mission_card, mission_detail, impact_badges) with lock-state messaging and UI-ready emotional risk fields. (completed May 22, 2026)
