@@ -121,3 +121,5 @@ Automation status:
   - Scope strict: narratif-only (tonalité/tags/logs), sans buff/debuff gameplay.
   - Dissipation journalière via calendrier stratégique (`GameState.advance_one_day`) et suppression automatique à expiration.
   - Exposition UI data: résumé lisible dans le dossier agent, rendu non imposé.
+
+[x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)

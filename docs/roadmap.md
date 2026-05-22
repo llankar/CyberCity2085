@@ -4,7 +4,7 @@
 2. [agent] AGENT-02 — [done] Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération (small memorable systems: règles compactes stress/affinité/mémoire anti-répétition, sortie neutre pour UI future).
 3. [agent] AGENT-03 — Ajouter un historique de liens mentor/protégé entre agents recrutés.
 4. [agent] AGENT-04 — [done] Relier les blessures graves à des séquelles narratives temporaires (narratif-only, sans empilement complexe).
-5. [agent] AGENT-05 — Ajouter des traits de personnalité qui modulent les logs de mission.
+5. [agent] AGENT-05 — [done] Ajouter des traits de personnalité qui modulent les logs de mission.
 6. [mission] MISSION-03 — Créer une mission d'évacuation qui privilégie la survie des agents.
 7. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.
 8. [mission] MISSION-01 — Introduire des variantes d'objectifs multi-étapes avec embranchements lisibles.
@@ -20,3 +20,5 @@
 18. [tests] TEST-04 — Tester la cohérence des tags de domaine dans les exports markdown.
 19. [tests] TEST-02 — Valider la stabilité des seeds de mission par jour avec tests déterministes.
 20. [docs] DOC-03 — Décrire le pipeline backlog -> next steps -> roadmap dans docs.
+
+- Traits de personnalité agents (AGENT-05): ajout d'un set court (`steadfast`, `reckless`, `empathetic`, `cunning`) avec intention émotionnelle claire pour moduler la tonalité des logs mission (voix stable, impulsive, humaine, opportuniste) via une fonction dédiée et fallback neutre pour compatibilité des sauvegardes historiques.
