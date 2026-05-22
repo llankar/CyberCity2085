@@ -43,7 +43,8 @@ python main.py
   days, and completes into unlock flags or small stat modifiers
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
-- `S` save game / `L` load game
+- `S` save game / `L` load game (available from Corp, City, RPG, and Battle views)
+- Save files now support nested slot paths (for example `saves/slot_a/campaign.json`)
 
 ### City View
 - City control tower presents budget networks, district pressure meters, faction

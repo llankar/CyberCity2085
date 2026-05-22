@@ -51,6 +51,7 @@ from .mission_system import (
     selected_mission as selected_mission_system,
 )
 from .mission_templates import MissionTemplate
+from .persistence import SaveSystem
 from .recruitment import recruit_agent
 from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
@@ -190,9 +191,13 @@ class CorpView(GameView):
             budget_key, costs = self.CORP_UPGRADE_COSTS[key]
             self._buy_corp_upgrade(budget_key, costs)
         elif key == arcade.key.S:
-            self.game_state.save("savegame.json")
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(result.message)
         elif key == arcade.key.L:
-            self.game_state = GameState.load("savegame.json")
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(result.message)
+            if loaded is not None:
+                self.game_state = loaded
         if self.game_state.available_funds <= 0:
             self.game_state.advance_turn()
 
@@ -389,6 +394,14 @@ class CityView(GameView):
         elif key in self.CITY_UPGRADE_COSTS:
             budget_key, costs = self.CITY_UPGRADE_COSTS[key]
             self._buy_city_upgrade(budget_key, costs)
+        elif key == arcade.key.S:
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(result.message)
+        elif key == arcade.key.L:
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(result.message)
+            if loaded is not None:
+                self.game_state = loaded
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self._handle_room_click(x, y):
@@ -615,6 +628,16 @@ class RPGView(GameView):
             return
         if key == arcade.key.B:
             self.launch_selected_mission()
+        elif key == arcade.key.S:
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(result.message)
+        elif key == arcade.key.L:
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(result.message)
+            if loaded is not None:
+                self.game_state = loaded
+                self.deployment_cursor_index = 0
+                self._refresh_squad_room_actions()
         elif key in (arcade.key.A, arcade.key.D) and self.game_state.characters:
             step = -1 if key == arcade.key.A else 1
             self.deployment_cursor_index = (self.deployment_cursor_index + step) % len(
@@ -1411,10 +1434,29 @@ class BattleView(GameView):
                     self.map_index = idx
                     path = os.path.join("assets/maps", self.available_maps[idx])
                     self.background = arcade.load_texture(path)
+            elif key == arcade.key.S:
+                result = SaveSystem.save_game(self.game_state)
+                self.game_state.add_event(result.message)
+            elif key == arcade.key.L:
+                loaded, result = SaveSystem.load_game()
+                self.game_state.add_event(result.message)
+                if loaded is not None:
+                    self.game_state = loaded
             elif key == arcade.key.ESCAPE:
                 corp_view = CorpView(self.game_state)
                 corp_view.setup()
                 self.window.show_view(corp_view)
+            return
+
+        if key == arcade.key.S:
+            result = SaveSystem.save_game(self.game_state)
+            self.game_state.add_event(result.message)
+            return
+        if key == arcade.key.L:
+            loaded, result = SaveSystem.load_game()
+            self.game_state.add_event(result.message)
+            if loaded is not None:
+                self.game_state = loaded
             return
 
         if self.turn != "player" or not self.player_units:

@@ -1,4 +1,5 @@
 TODO:
+- [x] Add full multi-view save/load system with slot-path support and user-facing status log messages
 [x] Create mission UI
 [x] Add city/corporate tactical command deck to RPG UI
 [x] Redesign management and tactical UI shell for city/corporate XCOM2 mood
