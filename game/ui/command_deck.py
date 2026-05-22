@@ -12,6 +12,7 @@ from ..character import Character, is_deployable
 from ..dossier import build_agent_dossier_lines
 from ..mission_templates import MissionTemplate
 from .mission_board import objective_label, risk_label
+from .widgets.critical_choice_highlight import format_critical_choice_suffix
 
 
 @dataclass(frozen=True)
@@ -147,5 +148,6 @@ def build_event_panel_lines(active_events, current_day: int) -> list[str]:
         )
         for choice_index, choice in enumerate(event.choices[:2], start=1):
             summary = f" - {choice.summary}" if choice.summary else ""
-            lines.append(f"   {index}.{choice_index} {choice.label}{summary}")
+            suffix = format_critical_choice_suffix(getattr(choice, "relation_impact", "low"))
+            lines.append(f"   {index}.{choice_index} {choice.label}{summary}{suffix}")
     return lines
