@@ -123,3 +123,9 @@ def facility_room_by_key(rooms: list[FacilityRoom], key: str) -> FacilityRoom:
         if room.key == key:
             return room
     raise KeyError(key)
+
+
+
+def build_interactive_tooltips() -> dict[str, str]:
+    """English tooltip copy for key interactive UI elements."""
+    return {"room": "Click room to open available actions.", "close": "Close current room panel.", "action_strip": "Use icons to execute room actions."}

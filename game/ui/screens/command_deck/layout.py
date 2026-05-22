@@ -152,3 +152,9 @@ def build_event_panel_lines(active_events, current_day: int) -> list[str]:
             suffix = format_critical_choice_suffix(getattr(choice, "relation_impact", "low"))
             lines.append(f"   {index}.{choice_index} {choice.label}{summary}{suffix}")
     return lines
+
+
+
+def build_interactive_tooltips() -> dict[str, str]:
+    """English tooltip copy for key interactive UI elements."""
+    return {"squad": "Browse agents and toggle squad membership.", "mission": "Review mission cards and switch targets.", "details": "Read mission intel and outcomes.", "briefs": "Review morale, medbay, and fallout notes."}

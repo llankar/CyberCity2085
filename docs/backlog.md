@@ -192,3 +192,11 @@ Automation status:
 - [x] UI navigation: focus manager + input map + contextual hints overlay (keyboard/mouse parity for rooms, missions, agents).
 
 - [x] Refactor mission board into sectioned mission detail subcomponents (mission_card, mission_detail, impact_badges) with lock-state messaging and UI-ready emotional risk fields. (completed May 22, 2026)
+
+## Latest UI onboarding slice
+
+[x] Add first-session onboarding package (`game/ui/onboarding`) with separated tutorial steps, overlay state, and English copy
+[x] Add persistent cross-view Help panel content (Corp/City/RPG/Battle) with objective, controls, and next action
+[x] Add contextual tooltip dictionaries for command center/deck, mission board, and facility interactive elements
+[x] Save tutorial progress in `GameState` with replay/skip support
+[x] Add UI tests for tutorial progression, overlay visibility, and help panel English content

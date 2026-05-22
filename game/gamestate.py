@@ -36,6 +36,7 @@ from .management.spec_ops_assets import (
 from .mission_templates import MissionTemplate, create_mission_templates
 from .operations import Operation, create_operation_templates
 from .world import District, create_vertical_slice_district
+from .ui.onboarding.tutorial_steps import apply_tutorial_event
 
 if TYPE_CHECKING:
     from .character import Character
@@ -115,6 +116,14 @@ class GameState:
     unavailable_mission_ids: list[str] = field(default_factory=list)
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
+    tutorial_progress: dict = field(
+        default_factory=lambda: {
+            "tutorial_step_index": 0,
+            "tutorial_completed": False,
+            "tutorial_skipped": False,
+            "tutorial_replay_requested": False,
+        }
+    )
 
     # Experience points gained through battles
     x: int = 0
@@ -391,6 +400,24 @@ class GameState:
         """Resolve an active event with a command choice."""
         return apply_event_choice(self, event_id, choice_key)
 
+    def mark_tutorial_event(self, event: str) -> bool:
+        """Advance onboarding when the expected first-session event is reached."""
+        return apply_tutorial_event(self.tutorial_progress, event)
+
+    def replay_tutorial(self) -> None:
+        self.tutorial_progress.update(
+            {
+                "tutorial_step_index": 0,
+                "tutorial_completed": False,
+                "tutorial_skipped": False,
+                "tutorial_replay_requested": True,
+            }
+        )
+
+    def skip_tutorial(self) -> None:
+        self.tutorial_progress["tutorial_skipped"] = True
+        self.tutorial_progress["tutorial_completed"] = True
+
     def play_ui_audio_feedback(self, cue: str) -> None:
         """Log a minimal optional audio cue for major UI actions."""
         if self.ui_audio_feedback_enabled:
@@ -507,6 +534,7 @@ class GameState:
             "unavailable_mission_ids": list(self.unavailable_mission_ids),
             "ui_high_contrast": self.ui_high_contrast,
             "ui_audio_feedback_enabled": self.ui_audio_feedback_enabled,
+            "tutorial_progress": dict(self.tutorial_progress),
             "active_research": [
                 research.to_dict() for research in self.active_research
             ],
@@ -582,6 +610,7 @@ class GameState:
         gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
         gs.ui_high_contrast = bool(data.get("ui_high_contrast", gs.ui_high_contrast))
         gs.ui_audio_feedback_enabled = bool(data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled))
+        gs.tutorial_progress.update(data.get("tutorial_progress", {}))
         gs.research_tree = create_starter_research_tree()
         gs.active_research = [
             ActiveResearch.from_dict(research)
