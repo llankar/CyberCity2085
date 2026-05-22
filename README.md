@@ -111,3 +111,9 @@ python main.py
 - Mission details now render in four sections: summary, risk/complications, squad emotional impact, rewards/opportunity cost.
 - Mission generation now provides UI-ready fields: `emotional_impact_summary`, `risk_explanation`, `expected_stress_band`.
 - Mission detail view now exposes explicit launch lock reasons when missions are unavailable.
+
+
+## UI architecture migration (May 22, 2026)
+- Introduced a dedicated screen-layer package: `game/ui/screens/` for view-level builders (`command_center`, `dashboard`, `facility`, `mission_board`, `research_lab`).
+- Existing imports remain stable through temporary compatibility wrappers in `game/ui/*.py` that re-export screen modules.
+- Migration strategy is incremental (no big-bang): new extractions should target `game/ui/screens/` first, then remove wrappers once external imports are updated.
