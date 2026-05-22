@@ -78,6 +78,7 @@ from .ui.navigation import (
     build_view_focus_model,
 )
 from .management.morale import aggregate_squad_morale
+from .ui.guidance.next_action import compute_next_action
 from .ui.onboarding.tutorial_overlay import overlay_state_for_screen
 from .unit import Unit
 
@@ -344,6 +345,9 @@ class CorpView(GameView):
             else:
                 self.game_state.add_event(push_action(self.notifications, "recruitment", False, "budget pool below 5"))
             return
+        if action_key == "next_step":
+            self._follow_next_step("corp")
+            return
         if action_key.startswith("event_"):
             self._respond_to_first_event(action_key)
             return
@@ -358,6 +362,20 @@ class CorpView(GameView):
         event = self.game_state.active_events[0]
         if 0 <= choice_index < len(event.choices):
             self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
+
+    def _follow_next_step(self, screen: str) -> None:
+        guidance = compute_next_action(self.game_state, screen)
+        if guidance.target_screen == "city":
+            view = CityView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        if guidance.target_screen == "squad":
+            view = RPGView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        open_room(self.room_ui, self.window.width, self.window.height, guidance.target_room)
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         resources = self.game_state.strategic_resources
@@ -423,7 +441,8 @@ class CorpView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:5]
                 )
-            info[room_key] = _help_lines_for_view(self.game_state, "corp") + hints + lines
+            guidance = compute_next_action(self.game_state, "corp")
+            info[room_key] = [f"Next Step: {guidance.text}"] + _help_lines_for_view(self.game_state, "corp") + hints + lines
         return info
 
 
@@ -546,6 +565,9 @@ class CityView(GameView):
         if action_key == "advance_day":
             self.game_state.advance_one_day("manual command")
             return
+        if action_key == "next_step":
+            self._follow_next_step("city")
+            return
         if action_key.startswith("event_"):
             self._respond_to_first_event(action_key)
             return
@@ -560,6 +582,20 @@ class CityView(GameView):
         event = self.game_state.active_events[0]
         if 0 <= choice_index < len(event.choices):
             self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
+
+    def _follow_next_step(self, screen: str) -> None:
+        guidance = compute_next_action(self.game_state, screen)
+        if guidance.target_screen == "corp":
+            view = CorpView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        if guidance.target_screen == "squad":
+            view = RPGView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        open_room(self.room_ui, self.window.width, self.window.height, guidance.target_room)
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         resources = self.game_state.strategic_resources
@@ -628,7 +664,8 @@ class CityView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:5]
                 )
-            info[room_key] = _help_lines_for_view(self.game_state, "city") + hints + lines
+            guidance = compute_next_action(self.game_state, "city")
+            info[room_key] = [f"Next Step: {guidance.text}"] + _help_lines_for_view(self.game_state, "city") + hints + lines
         return info
 
 
@@ -994,6 +1031,9 @@ class RPGView(GameView):
             self.game_state.play_ui_audio_feedback("toggle")
             self._refresh_squad_room_actions()
             return
+        if action_key == "next_step":
+            self._follow_next_step("squad")
+            return
         if action_key.startswith("equip_"):
             self._equip_active_agent(action_key.removeprefix("equip_"))
             self._refresh_squad_room_actions()
@@ -1010,6 +1050,21 @@ class RPGView(GameView):
             return None
         self.deployment_cursor_index %= len(self.game_state.characters)
         return self.game_state.characters[self.deployment_cursor_index]
+
+    def _follow_next_step(self, screen: str) -> None:
+        guidance = compute_next_action(self.game_state, screen)
+        if guidance.target_screen == "corp":
+            view = CorpView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        if guidance.target_screen == "city":
+            view = CityView(self.game_state)
+            view.setup()
+            self.window.show_view(view)
+            return
+        open_room(self.room_ui, self.window.width, self.window.height, guidance.target_room)
+        self._refresh_squad_room_actions()
 
     def _refresh_squad_room_actions(self) -> None:
         room_key = self.room_ui.active_room_key
@@ -1223,7 +1278,8 @@ class RPGView(GameView):
                         [button.action.label for button in self.room_ui.action_buttons],
                     )[:6]
                 )
-            info[room_key] = _help_lines_for_view(self.game_state, "squad") + hints + lines
+            guidance = compute_next_action(self.game_state, "squad")
+            info[room_key] = [f"Next Step: {guidance.text}"] + _help_lines_for_view(self.game_state, "squad") + hints + lines
         return info
 
 
@@ -1898,7 +1954,8 @@ class BattleView(GameView):
                 "Uplink returns to corporate command after combat.",
             ],
         }
-        help_lines = _help_lines_for_view(self.game_state, "battle")
+        guidance = compute_next_action(self.game_state, "battle")
+        help_lines = [f"Next Step: {guidance.text}"] + _help_lines_for_view(self.game_state, "battle")
         return {key: help_lines + value for key, value in base.items()}
 
     def check_active_player(self):

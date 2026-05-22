@@ -43,7 +43,7 @@ class RoomInteractionUITest(unittest.TestCase):
 
         action = action_at_point(buttons, first.rect.center_x, first.rect.center_y)
 
-        self.assertEqual(action.key, "mission_prev")
+        self.assertEqual(action.key, "next_step")
 
     def test_room_animation_opens_and_closes_without_text_state(self):
         state = RoomUIState("city")
