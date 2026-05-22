@@ -151,6 +151,11 @@ class GameState:
                 "Initial corporate operating funds.",
             )
         self.budget_pool = self.funds.available_funds
+        # If mission templates were supplied at construction but the generated-day
+        # counter is still at its zero default, mark them as valid for today so
+        # ensure_mission_templates() won't immediately throw them away.
+        if self.mission_templates and self.mission_board_generated_day == 0:
+            self.mission_board_generated_day = self.calendar.current_day
 
     def service_spec_ops_assets(self) -> int:
         """Pay upkeep/repair for robots and power armor from corporate funds."""
@@ -519,6 +524,7 @@ class GameState:
                 self.active_mission.to_dict() if self.active_mission else None
             ),
             "selected_mission_index": self.selected_mission_index,
+            "mission_board_generated_day": self.mission_board_generated_day,
             "selected_agent_names": list(self.selected_agent_names),
             "spec_ops_assets": [asset.to_dict() for asset in self.spec_ops_assets],
             "selected_asset_ids": list(self.selected_asset_ids),
@@ -591,6 +597,9 @@ class GameState:
             else None
         )
         gs.selected_mission_index = data.get("selected_mission_index", 0)
+        gs.mission_board_generated_day = int(
+            data.get("mission_board_generated_day", gs.calendar.current_day)
+        )
         gs.selected_agent_names = list(data.get("selected_agent_names", []))
         gs.spec_ops_assets = [
             SpecOpsAsset.from_dict(asset) for asset in data.get("spec_ops_assets", [])

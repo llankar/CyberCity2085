@@ -1,14 +1,13 @@
+"""CyberCity 2085 — game entry point."""
+
 import arcade
 
-from game.gamestate import GameState
-from game.views import CorpView
+from game.ui.screens.title_screen import TitleView
 
 
-def main():
+def main() -> None:
     window = arcade.Window(1920, 1000, "CyberCity 2085")
-    start_view = CorpView(GameState())
-    start_view.setup()
-    window.show_view(start_view)
+    window.show_view(TitleView())
     arcade.run()
 
 

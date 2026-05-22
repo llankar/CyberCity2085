@@ -29,6 +29,7 @@ from .ui.combat_action_bar import (
 )
 from .ui.panels import draw_graphical_command_surface
 from .ui.room_interaction import (
+    ROOM_ACTIONS,
     RoomAction,
     RoomUIState,
     action_at_point,
@@ -66,7 +67,7 @@ from .ui.screens.spec_ops_assets import (
 )
 from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
 from .ui.widgets.notification_center import NotificationCenter
-from .ui.action_feedback import confirm_message, push_action
+from .ui.action_feedback import push_action
 from .ui.management.action_requirements import (
     blocked_launch_reason,
     blocked_recruit_reason,
@@ -797,13 +798,14 @@ class RPGView(GameView):
             lead_agent = agents_at_risk[0]
             self.pending_breakdown_confirmation = True
             self.pending_breakdown_mission_id = selected_mission.id
-            self.message = confirm_message("mission_launch_risk") + f" Lead agent at risk: {lead_agent.name}."
+            self.message = f"{lead_agent.name} is at breakdown risk. Press B again to force deployment."
             self.notifications.warning(self.message)
             return
 
         if agents_at_risk:
             names = ", ".join(agent.name for agent in agents_at_risk)
-            self.game_state.add_event(push_action(self.notifications, "mission_launch", True, f"forced {names} into {selected_mission.title} despite breakdown risk"))
+            push_action(self.notifications, "mission_launch", True, f"forced {names} into {selected_mission.title} despite breakdown risk")
+            self.game_state.add_event(f"Command forced {names} into {selected_mission.title} despite breakdown risk.")
 
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
@@ -851,7 +853,18 @@ class RPGView(GameView):
             self._activate_focus(step)
             return
         if key in (arcade.key.ENTER, arcade.key.RETURN):
-            self._trigger_focus()
+            # ENTER toggles the current agent's squad selection (same as SPACE).
+            if self.game_state.characters:
+                (
+                    self.game_state.selected_agent_names,
+                    self.message,
+                ) = toggle_agent_selection(
+                    self.game_state.characters,
+                    self.game_state.selected_agent_names,
+                    self.deployment_cursor_index,
+                )
+                self.pending_breakdown_confirmation = False
+                self.pending_breakdown_mission_id = None
             return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
@@ -1186,6 +1199,9 @@ class RPGView(GameView):
                         RoomAction("level_cha", "influence", f"+CHA {points}"),
                     ]
                 )
+        elif room_key == "barracks":
+            # Expose recruit actions directly at index 0 (no nav wrapper).
+            actions = list(ROOM_ACTIONS.get("squad", {}).get("barracks", []))
         elif room_key == "insertion":
             actions.extend(
                 [
@@ -1526,9 +1542,12 @@ class BattleView(GameView):
         self.game_state.latest_spec_ops_outcomes = outcomes
         for line in aftermath_lines:
             self.game_state.add_event(line)
-        rpg_view = RPGView(self.game_state)
-        rpg_view.setup()
-        self.window.show_view(rpg_view)
+        # Return to the unified management screen (Squad tab) after battle.
+        from game.ui.screens.management_screen import ManagementView
+        mgmt = ManagementView(self.game_state)
+        mgmt.setup()
+        mgmt.active_tab = "squad"
+        self.window.show_view(mgmt)
 
     def resolve_defeated_player_unit(self, unit: Unit) -> None:
         """Resolve a downed agent's vertical-slice post-battle outcome."""
@@ -1572,8 +1591,23 @@ class BattleView(GameView):
         )
 
     def on_draw(self):
+        from game.ui.screens.battle_hud import (
+            draw_active_unit_ring,
+            draw_attack_range,
+            draw_mission_status_bar,
+            draw_movement_range,
+            draw_objective_marker,
+            draw_phase_banner,
+            draw_tactical_grid,
+            draw_target_lock_panel,
+            draw_unit_labels,
+            draw_unit_status_panel,
+        )
+
         self.clear()
         self.camera.use()
+
+        # ── Pre-battle drop-zone selection ──────────────────────────────
         if self.map_index is None:
             draw_graphical_command_surface(
                 self.window.width,
@@ -1584,150 +1618,104 @@ class BattleView(GameView):
                 available_funds=self.game_state.available_funds,
             )
             return
+
+        w, h = self.window.width, self.window.height
+
+        # ── Background map ───────────────────────────────────────────────
         if self.background:
-            # Build a rectangle: left, bottom, width, height
-            full_rect = arcade.LBWH(0, 0, self.window.width, self.window.height)
-            # Draw the texture into that rect
-            arcade.draw_texture_rect(
-                self.background,  # Texture
-                full_rect,  # LBWH rect
-                # Only two positional args are accepted here.
-                # You can also pass angle=..., alpha=... as keywords if desired
-            )
+            arcade.draw_texture_rect(self.background, arcade.LBWH(0, 0, w, h))
+
+        # ── Tactical grid ────────────────────────────────────────────────
+        draw_tactical_grid(w, h)
+
+        # ── Movement range (player turn only) ───────────────────────────
+        has_active = bool(self.player_units) and 0 <= self.active_index < len(self.player_units)
+        active_unit = self.player_units[self.active_index] if has_active else None
+
+        if self.turn == "player" and active_unit and not self.selecting_target:
+            draw_movement_range(active_unit, w, h)
+
+        if self.selecting_target and active_unit:
+            draw_attack_range(active_unit, w, h, highlight=True)
+
+        # ── Objective marker ─────────────────────────────────────────────
+        elapsed = getattr(self, "_battle_elapsed", 0.0)
+        draw_objective_marker(self.battle_objective, elapsed)
+
+        # ── Units ────────────────────────────────────────────────────────
         self.enemy_list.draw()
         self.player_list.draw()
 
-        if self.battle_objective:
-            ox, oy = self.battle_objective.position
-            marker_color = (
-                palette.TACTICAL_GREEN
-                if self.battle_objective.completed
-                else palette.WARNING
-            )
-            arcade.draw_lrbt_rectangle_filled(
-                ox - 14,
-                ox + 14,
-                oy - 14,
-                oy + 14,
-                marker_color,
-            )
-            arcade.draw_rect_outline(
-                arcade.LBWH(ox - 18, oy - 18, 36, 36),
-                palette.ACCENT,
-                border_width=2,
-            )
+        # ── Active unit selection ring ───────────────────────────────────
+        if active_unit and self.turn == "player":
+            draw_active_unit_ring(active_unit, elapsed)
 
-        # Draw enemy HP bars
-        for enemy in self.enemy_units:
-            if enemy.sprite and enemy.stats:
-                bar_width = enemy.sprite.width
-                left = enemy.sprite.center_x - bar_width / 2
-                right = enemy.sprite.center_x + bar_width / 2
-                top = enemy.sprite.center_y + enemy.sprite.height / 2 + 6
-                bottom = top - 4
-                arcade.draw_lrbt_rectangle_filled(
-                    left,
-                    right,
-                    bottom,
-                    top,
-                    palette.DANGER,
-                )
-                current = bar_width * enemy.health / enemy.stats.max_hp
-                arcade.draw_lrbt_rectangle_filled(
-                    left,
-                    left + current,
-                    bottom,
-                    top,
-                    palette.TACTICAL_GREEN,
-                )
+        # ── Unit labels (HP bars + names) ────────────────────────────────
+        draw_unit_labels(self.player_units, self.enemy_units, self.active_index)
+
+        # ── Target selection overlay ──────────────────────────────────────
         if self.selecting_target and self.target_candidates:
             target = self.target_candidates[self.selected_target_idx]
             if target.sprite:
                 cx = target.sprite.center_x
                 cy = target.sprite.center_y
-                width = target.sprite.width + 10
-                height = target.sprite.height + 10
-                full_rect = arcade.LBWH(cx - width / 2, cy - height / 2, width, height)
+                tw  = target.sprite.width + 10
+                th  = target.sprite.height + 10
                 arcade.draw_rect_outline(
-                    full_rect,
-                    palette.WARNING,
-                    border_width=2,
+                    arcade.LBWH(cx - tw / 2, cy - th / 2, tw, th),
+                    palette.WARNING, border_width=2,
                 )
-                player = self.player_units[self.active_index]
-                stat_name = {
-                    "melee": "str",
-                    "shoot": "agi",
-                    "psi": "psi",
-                }.get(self.pending_attack or "melee", "str")
-                atk_val = getattr(player.stats, stat_name)
-                defense = target.stats.defense if target.stats else 1
-                chance = atk_val / (atk_val + defense) if atk_val > 0 else 0
-                chance_width = int(width * chance)
-                arcade.draw_lrbt_rectangle_filled(
-                    cx - width / 2,
-                    cx - width / 2 + chance_width,
-                    cy + height / 2 + 4,
-                    cy + height / 2 + 9,
-                    palette.WARNING,
-                )
+            draw_target_lock_panel(w, target, self.pending_attack or "melee", active_unit)
+
+        # ── Attack animation ─────────────────────────────────────────────
         if self.attack_line:
             x1, y1, x2, y2 = self.attack_line
-            arcade.draw_line(x1, y1, x2, y2, palette.WARNING, 2)
-        has_active_unit = bool(self.player_units) and 0 <= self.active_index < len(
-            self.player_units
+            arcade.draw_line(x1, y1, x2, y2, palette.WARNING, 3)
+            # Bright flash at impact point
+            arcade.draw_lrbt_rectangle_filled(x2 - 8, x2 + 8, y2 - 8, y2 + 8, (*palette.WARNING[:3], 180))
+
+        # ── Mission status bar (top) ──────────────────────────────────────
+        draw_mission_status_bar(
+            w, h,
+            self.mission.title if self.mission else "MISSION",
+            len(self.player_units),
+            len(self.enemy_units),
+            self.turn_number,
         )
-        active_unit = self.player_units[self.active_index] if has_active_unit else None
-        current_hp = active_unit.health if active_unit else 0
-        arcade.draw_lrbt_rectangle_filled(
-            14,
-            self.window.width - 14,
-            self.window.height - 92,
-            self.window.height - 18,
-            palette.PANEL_FILL_DARK,
-        )
-        max_hp = active_unit.stats.max_hp if active_unit and active_unit.stats else 1
-        hp_width = int(220 * max(0, current_hp) / max(1, max_hp))
-        arcade.draw_lrbt_rectangle_filled(
-            34, 254, self.window.height - 54, self.window.height - 42, palette.DANGER
-        )
-        arcade.draw_lrbt_rectangle_filled(
-            34,
-            34 + hp_width,
-            self.window.height - 54,
-            self.window.height - 42,
-            palette.TACTICAL_GREEN,
-        )
-        for index in range(max(1, self.turn_number)):
-            left = 284 + index * 18
-            arcade.draw_lrbt_rectangle_filled(
-                left,
-                left + 10,
-                self.window.height - 58,
-                self.window.height - 38,
-                palette.ACCENT if self.turn == "player" else palette.WARNING,
-            )
+
+        # ── Phase indicator (top-right) ──────────────────────────────────
+        draw_phase_banner(w, h, self.turn, self.turn_number, elapsed)
+
+        # ── Unit status panel (bottom-left) ──────────────────────────────
+        draw_unit_status_panel(w, h, active_unit, self.turn)
+
+        # ── Combat action bar ─────────────────────────────────────────────
         if self.turn == "player" and active_unit:
             role_label, action_hint = battle_unit_label_and_hint(active_unit)
             unit_name = (
-                active_unit.character.name
-                if active_unit.character
-                else active_unit.spec_ops_asset.name
-                if active_unit.spec_ops_asset
+                active_unit.character.name if active_unit.character
+                else active_unit.spec_ops_asset.name if active_unit.spec_ops_asset
                 else active_unit.unit_type
             )
             self.combat_action_buttons = draw_combat_action_bar(
-                self.window.width,
-                self.window.height,
+                w, h,
                 available_combat_actions(active_unit),
                 f"{unit_name} [{role_label}]",
                 active_unit.action_points,
-                f"{self.message} | {action_hint}",
+                f"{self.message}  {action_hint}",
             )
         else:
             self.combat_action_buttons = []
+
+        # ── End-of-battle indicator ──────────────────────────────────────
         if self.turn == "ended":
             color = palette.TACTICAL_GREEN if not self.enemy_units else palette.DANGER
-            arcade.draw_lrbt_rectangle_filled(0, self.window.width, 0, 18, color)
+            arcade.draw_lrbt_rectangle_filled(0, w, 0, 18, color)
+            arcade.draw_text(
+                "MISSION COMPLETE" if not self.enemy_units else "MISSION FAILED",
+                w // 2, 10, color, font_size=10, bold=True,
+                anchor_x="center", anchor_y="center",
+            )
 
     def _begin_target_action(self, player: Unit, attack_key: str) -> None:
         """Enter target selection for an available combat-bar attack."""
@@ -2058,6 +2046,7 @@ class BattleView(GameView):
         self.attack_timer = 0.3
 
     def on_update(self, delta_time: float):
+        self._battle_elapsed = getattr(self, "_battle_elapsed", 0.0) + delta_time
         if self.map_index is None:
             step_room_ui(self.room_ui, delta_time)
         if self.attack_timer > 0:
