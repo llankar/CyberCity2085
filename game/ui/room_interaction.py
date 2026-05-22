@@ -301,11 +301,15 @@ def close_room(state: RoomUIState) -> None:
     state.action_buttons = []
 
 
+ROOM_TRANSITION_SECONDS = 0.28
+
+
 def step_room_ui(state: RoomUIState, delta_time: float) -> None:
     """Advance room expansion and ambient pulse animation."""
     state.pulse = (state.pulse + delta_time) % 10.0
     if state.active_room_key is not None:
-        state.expansion = clamp_progress(state.expansion + delta_time * 3.6)
+        speed = 1.0 / max(ROOM_TRANSITION_SECONDS, 0.01)
+        state.expansion = clamp_progress(state.expansion + delta_time * speed)
 
 
 def active_room_rect(

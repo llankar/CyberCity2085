@@ -13,6 +13,7 @@ from game.ui.room_interaction import (
     roster_card_at_point,
     room_at_point,
     step_room_ui,
+    ROOM_TRANSITION_SECONDS,
 )
 from game.ui.facility import build_facility_rooms
 
@@ -57,6 +58,10 @@ class RoomInteractionUITest(unittest.TestCase):
         )
         close_room(state)
         self.assertFalse(state.is_open)
+
+
+    def test_room_transition_speed_is_harmonized(self):
+        self.assertAlmostEqual(ROOM_TRANSITION_SECONDS, 0.28)
 
     def test_roster_card_rects_are_hit_testable(self):
         state = RoomUIState("squad")

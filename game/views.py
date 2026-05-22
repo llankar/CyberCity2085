@@ -58,6 +58,8 @@ from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from .ui.research_lab import build_research_lab_lines
 from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
+from .ui.widgets.notification_center import NotificationCenter
+from .ui.action_feedback import confirm_message, push_action
 from .management.morale import aggregate_squad_morale
 from .unit import Unit
 
@@ -139,6 +141,7 @@ class CorpView(GameView):
     def setup(self):
         self.text = "Corporation Management"
         self.room_ui = RoomUIState("corp")
+        self.notifications = NotificationCenter()
         if self.game_state.available_funds <= 0:
             self.game_state.add_funds(
                 self.game_state.compute_budget(),
@@ -169,12 +172,12 @@ class CorpView(GameView):
             cost_text = ", ".join(
                 f"-{amount} {resource}" for resource, amount in costs.items()
             )
-            self.game_state.add_event(f"Corp upgrade authorized: {key} ({cost_text}).")
+            self.game_state.add_event(push_action(self.notifications, "budget_allocation", True, f"{key} ({cost_text})"))
             return
         cost_text = ", ".join(
             f"{amount} {resource}" for resource, amount in costs.items()
         )
-        self.game_state.add_event(f"Upgrade denied: {key} requires {cost_text}.")
+        self.game_state.add_event(push_action(self.notifications, "budget_allocation", False, f"{key} requires {cost_text}"))
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
@@ -195,10 +198,10 @@ class CorpView(GameView):
             self._buy_corp_upgrade(budget_key, costs)
         elif key == arcade.key.S:
             result = SaveSystem.save_game(self.game_state)
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
             loaded, result = SaveSystem.load_game()
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
         if self.game_state.available_funds <= 0:
@@ -264,11 +267,9 @@ class CorpView(GameView):
                 5, "recruitment", f"Recruited {role} from Black Ops."
             ):
                 agent = recruit_agent(self.game_state.characters, role)
-                self.game_state.add_event(
-                    f"Black ops recruited {agent.name} as {role}."
-                )
+                self.game_state.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {role}"))
             else:
-                self.game_state.add_event("Recruitment denied: budget pool below 5.")
+                self.game_state.add_event(push_action(self.notifications, "recruitment", False, "budget pool below 5"))
             return
         if action_key.startswith("event_"):
             self._respond_to_first_event(action_key)
@@ -353,6 +354,7 @@ class CityView(GameView):
     def setup(self):
         self.text = "City Management"
         self.room_ui = RoomUIState("city")
+        self.notifications = NotificationCenter()
 
     def on_draw(self):
         self.clear()
@@ -377,12 +379,12 @@ class CityView(GameView):
             cost_text = ", ".join(
                 f"-{amount} {resource}" for resource, amount in costs.items()
             )
-            self.game_state.add_event(f"City investment routed: {key} ({cost_text}).")
+            self.game_state.add_event(push_action(self.notifications, "budget_allocation", True, f"{key} ({cost_text})"))
             return
         cost_text = ", ".join(
             f"{amount} {resource}" for resource, amount in costs.items()
         )
-        self.game_state.add_event(f"Investment denied: {key} requires {cost_text}.")
+        self.game_state.add_event(push_action(self.notifications, "budget_allocation", False, f"{key} requires {cost_text}"))
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
@@ -399,10 +401,10 @@ class CityView(GameView):
             self._buy_city_upgrade(budget_key, costs)
         elif key == arcade.key.S:
             result = SaveSystem.save_game(self.game_state)
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
             loaded, result = SaveSystem.load_game()
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
 
@@ -517,6 +519,7 @@ class RPGView(GameView):
     def setup(self):
         self.text = "RPG Phase"
         self.room_ui = RoomUIState("squad")
+        self.notifications = NotificationCenter()
         self.recruiting = False
         self.selected_role = None
         self.allocating = None
@@ -587,18 +590,13 @@ class RPGView(GameView):
             lead_agent = agents_at_risk[0]
             self.pending_breakdown_confirmation = True
             self.pending_breakdown_mission_id = selected_mission.id
-            self.message = (
-                f"{lead_agent.name} is at breakdown risk. "
-                "Press B again to force deployment."
-            )
+            self.message = confirm_message("mission_launch_risk") + f" Lead agent at risk: {lead_agent.name}."
+            self.notifications.warning(self.message)
             return
 
         if agents_at_risk:
             names = ", ".join(agent.name for agent in agents_at_risk)
-            self.game_state.add_event(
-                f"Command forced {names} into {selected_mission.title} "
-                "despite breakdown risk."
-            )
+            self.game_state.add_event(push_action(self.notifications, "mission_launch", True, f"forced {names} into {selected_mission.title} despite breakdown risk"))
 
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
@@ -633,10 +631,10 @@ class RPGView(GameView):
             self.launch_selected_mission()
         elif key == arcade.key.S:
             result = SaveSystem.save_game(self.game_state)
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
         elif key == arcade.key.L:
             loaded, result = SaveSystem.load_game()
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
                 self.deployment_cursor_index = 0
@@ -1462,11 +1460,11 @@ class BattleView(GameView):
 
         if key == arcade.key.S:
             result = SaveSystem.save_game(self.game_state)
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
         if key == arcade.key.L:
             loaded, result = SaveSystem.load_game()
-            self.game_state.add_event(result.message)
+            self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
             return
