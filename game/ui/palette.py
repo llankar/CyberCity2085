@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 # Arcade accepts RGB/RGBA tuples directly, which keeps these helpers easy to
 # test without importing arcade during static unit tests.
 BACKGROUND = (3, 7, 11)
@@ -52,3 +54,33 @@ AGENT_PORTRAIT_FILL = (18, 35, 42, 236)
 ROLE_SAMURAI = (255, 177, 72, 210)
 ROLE_SNIPER = (103, 205, 255, 210)
 ROLE_PSI = (165, 120, 255, 210)
+
+
+@dataclass(frozen=True)
+class AccessibilityPalette:
+    """Text/fond/alerte colors with testable contrast-oriented defaults."""
+
+    text: tuple[int, int, int]
+    background: tuple[int, int, int]
+    alert: tuple[int, int, int]
+
+
+STANDARD_ACCESSIBILITY_PALETTE = AccessibilityPalette(
+    text=(225, 241, 248),
+    background=(3, 7, 11),
+    alert=(255, 88, 76),
+)
+HIGH_CONTRAST_ACCESSIBILITY_PALETTE = AccessibilityPalette(
+    text=(255, 255, 255),
+    background=(0, 0, 0),
+    alert=(255, 255, 0),
+)
+
+
+def accessibility_palette(high_contrast: bool = False) -> AccessibilityPalette:
+    """Resolve accessibility palette from the UI mode flag."""
+    return (
+        HIGH_CONTRAST_ACCESSIBILITY_PALETTE
+        if high_contrast
+        else STANDARD_ACCESSIBILITY_PALETTE
+    )

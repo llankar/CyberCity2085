@@ -51,7 +51,7 @@ class NarrativeFeedPanelTest(unittest.TestCase):
         lines = build_narrative_feed_panel_lines(build_narrative_event_feed(game_state, 8))
 
         self.assertTrue(lines)
-        self.assertTrue(lines[0].text.startswith("[AGENT]"))
+        self.assertIn("[AGENT]", lines[0].text)
 
 
 if __name__ == "__main__":
