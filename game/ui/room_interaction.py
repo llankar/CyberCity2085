@@ -5,7 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .facility import FacilityRoom, build_facility_rooms, facility_room_by_key
-from .theme import spacing
+from .theme import spacing, motion_durations
+from .theme.motion import ease_smoothstep, pulse_from_elapsed
 
 
 @dataclass(frozen=True)
@@ -189,7 +190,7 @@ def close_button_rect(width: int, height: int) -> UIRect:
 def interpolate_rect(start: UIRect, end: UIRect, progress: float) -> UIRect:
     """Ease a room rectangle toward its expanded target."""
     t = clamp_progress(progress)
-    eased = t * t * (3.0 - 2.0 * t)
+    eased = ease_smoothstep(t)
     return UIRect(
         int(start.left + (end.left - start.left) * eased),
         int(start.bottom + (end.bottom - start.bottom) * eased),
@@ -301,7 +302,7 @@ def close_room(state: RoomUIState) -> None:
     state.action_buttons = []
 
 
-ROOM_TRANSITION_SECONDS = 0.28
+ROOM_TRANSITION_SECONDS = motion_durations.room_transition_seconds
 
 
 def step_room_ui(state: RoomUIState, delta_time: float) -> None:

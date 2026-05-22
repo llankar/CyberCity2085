@@ -1,4 +1,5 @@
 TODO:
+- [x] UI-10 Polish motion/audio: centralisation des timings/easings (`game/ui/theme/motion.py`), harmonisation transition room-expanded + sélection mission, micro-animations légères sur boutons, feedback audio optionnel (toggle `M`) pour actions majeures, checklist `docs/ui/polish-checklist.md`.
 - [x] UI-09 Design system modulaire: séparation `theme/` (tokens/typography/colors), création de composants partagés `game/ui/components/`, remplacement des styles hardcodés critiques dans les écrans de commande, documentation `docs/ui/design-system.md` + référence README, et validation par tests UI ciblés.
 - [x] UI-08 Keyboard-first navigation/accessibility: modèle de focus commun (rooms/actions/missions), bandeau de hints contextuels par vue, parité souris/clavier sur actions room + sélection mission, aide interactive synthétique (toggle `H`), et tests `tests/ui/test_keyboard_navigation.py`.
 - [x] UI-07 Notifications/confirmations: centre de notifications UI léger, messages standardisés pour recrutement/allocation/mission/save-load, confirmation explicite des lancements risqués, transition de room harmonisée (durée/easing), et tests UI de non-régression.

@@ -191,6 +191,17 @@ class CorpView(GameView):
         if key == arcade.key.H:
             self.help_overlay.toggle()
             return
+        if key == arcade.key.M:
+            self.game_state.ui_audio_feedback_enabled = (
+                not self.game_state.ui_audio_feedback_enabled
+            )
+            status = (
+                "enabled"
+                if self.game_state.ui_audio_feedback_enabled
+                else "disabled"
+            )
+            self.game_state.add_event(f"UI audio feedback {status}.")
+            return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
             return
@@ -444,6 +455,17 @@ class CityView(GameView):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.H:
             self.help_overlay.toggle()
+            return
+        if key == arcade.key.M:
+            self.game_state.ui_audio_feedback_enabled = (
+                not self.game_state.ui_audio_feedback_enabled
+            )
+            status = (
+                "enabled"
+                if self.game_state.ui_audio_feedback_enabled
+                else "disabled"
+            )
+            self.game_state.add_event(f"UI audio feedback {status}.")
             return
         if key == arcade.key.ESCAPE and self.room_ui.is_open:
             close_room(self.room_ui)
@@ -699,6 +721,17 @@ class RPGView(GameView):
         if key == arcade.key.H:
             self.help_overlay.toggle()
             return
+        if key == arcade.key.M:
+            self.game_state.ui_audio_feedback_enabled = (
+                not self.game_state.ui_audio_feedback_enabled
+            )
+            status = (
+                "enabled"
+                if self.game_state.ui_audio_feedback_enabled
+                else "disabled"
+            )
+            self.game_state.add_event(f"UI audio feedback {status}.")
+            return
         if key in (arcade.key.TAB,):
             step = -1 if modifiers & arcade.key.MOD_SHIFT else 1
             self._activate_focus(step)
@@ -869,6 +902,7 @@ class RPGView(GameView):
                 5, "recruitment", "Recruited from squad room."
             ):
                 recruit_agent(self.game_state.characters, role)
+                self.game_state.play_ui_audio_feedback("recruitment")
                 self.deployment_cursor_index = len(self.game_state.characters) - 1
                 self.message = ""
                 self._refresh_squad_room_actions()
@@ -877,6 +911,7 @@ class RPGView(GameView):
             self.game_state.selected_mission_index = (
                 self.game_state.selected_mission_index - 1
             ) % len(self.game_state.mission_templates)
+            self.game_state.play_ui_audio_feedback("selection")
             self.pending_breakdown_confirmation = False
             self._refresh_squad_room_actions()
             return
@@ -884,6 +919,7 @@ class RPGView(GameView):
             self.game_state.selected_mission_index = (
                 self.game_state.selected_mission_index + 1
             ) % len(self.game_state.mission_templates)
+            self.game_state.play_ui_audio_feedback("selection")
             self.pending_breakdown_confirmation = False
             self._refresh_squad_room_actions()
             return
@@ -910,6 +946,7 @@ class RPGView(GameView):
             )
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
+            self.game_state.play_ui_audio_feedback("toggle")
             self._refresh_squad_room_actions()
             return
         if action_key == "toggle_asset":
@@ -924,6 +961,7 @@ class RPGView(GameView):
             )
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
+            self.game_state.play_ui_audio_feedback("toggle")
             self._refresh_squad_room_actions()
             return
         if action_key.startswith("equip_"):
