@@ -27,6 +27,7 @@ python main.py
   animation, so the opened room matches the clicked background room
 - Open rooms show the room title at the top, room-specific game info beneath it,
   and icon actions at the bottom center
+- UI visual rules are tokenized in `game/ui/theme/` (typography hierarchy: title/section/meta; spacing; stroke; opacity; z-order) and reused by expanded-room panels, roster cards, and action buttons to avoid magic numbers
 - Action buttons include short labels for recruit, level-up, navigation, and
   launch actions
 - `Esc` closes the open room and returns to the base map
