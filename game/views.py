@@ -60,6 +60,10 @@ from .ui.research_lab import build_research_lab_lines
 from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
 from .ui.widgets.notification_center import NotificationCenter
 from .ui.action_feedback import confirm_message, push_action
+from .ui.management.action_requirements import (
+    blocked_launch_reason,
+    blocked_recruit_reason,
+)
 from .ui.navigation import (
     HelpOverlayState,
     build_help_lines,
@@ -652,28 +656,20 @@ class RPGView(GameView):
         return selected_agents
 
     def launch_selected_mission(self) -> None:
-        if not self.has_deployable_agent():
-            self.message = (
-                "Recruit at least one deployable agent before launching an operation."
-            )
-            self.pending_breakdown_confirmation = False
-            self.pending_breakdown_mission_id = None
-            return
-
         selected_squad = self.selected_deployment()
-        if not selected_squad:
-            self.message = (
-                "Select at least one deployable agent before launching an operation."
-            )
-            self.pending_breakdown_confirmation = False
-            self.pending_breakdown_mission_id = None
-            return
-
         selected_mission = self.selected_mission()
-        if selected_mission.id in self.game_state.unavailable_mission_ids:
-            self.message = f"{selected_mission.title} is temporarily unavailable."
+        blocked = blocked_launch_reason(
+            has_deployable_agent=self.has_deployable_agent(),
+            selected_count=len(selected_squad),
+            mission_unavailable=selected_mission.id in self.game_state.unavailable_mission_ids,
+            mission_title=selected_mission.title,
+        )
+        if blocked is not None:
+            self.message = blocked.to_ui_text()
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None
+            self.notifications.warning(self.message)
+            self.game_state.add_event(self.message)
             return
         agents_at_risk = agents_at_breaking_risk(selected_squad, selected_mission)
         confirmation_matches = (
@@ -791,7 +787,11 @@ class RPGView(GameView):
                 self.selected_role = None
                 self.message = ""
             else:
-                pass
+                blocked = blocked_recruit_reason(self.game_state.available_funds)
+                if blocked:
+                    self.message = blocked.to_ui_text()
+                    self.notifications.warning(self.message)
+                    self.game_state.add_event(self.message)
         elif self.recruiting:
             if key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3):
                 role_map = {
@@ -1087,6 +1087,7 @@ class RPGView(GameView):
         item = options[next_index]
         active_agent.loadout.equip(slot, item)
         self.message = f"{active_agent.name} equipped {item.name}."
+        self.game_state.add_event(self.message)
 
     def _level_active_agent(self, stat_key: str) -> None:
         active_agent = self._active_agent()
@@ -1097,6 +1098,8 @@ class RPGView(GameView):
         setattr(active_agent.stats, stat_key, getattr(active_agent.stats, stat_key) + 1)
         active_agent.pending_points -= 1
         active_agent.stats.recalculate_hp()
+        self.message = f"{active_agent.name} trained {stat_key.upper()} (+1)."
+        self.game_state.add_event(self.message)
 
     def _room_info_lines(self) -> dict[str, list[str]]:
         mission = self.selected_mission()
