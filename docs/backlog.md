@@ -30,6 +30,7 @@ TODO:
 [x] Add mission debrief narrative module with GameState persistence and tests
 
 Done:
+- Recovery-room support dialogues: added `game/narrative/recovery_dialogues.py` with a small deterministic generator driven by stress threshold, affinity priority (same squad then complementary roles), and one-day anti-repetition memory persisted in `GameState.recovery_narrative_memory`; output remains render-neutral (`line` + metadata) to keep narrative modular and memorable without UI coupling.
 - Mission narrative debrief API: added `game/narrative/debrief.py` with pure `DebriefLine`/`DebriefReport` data structures, deterministic emotional template mapping from stress/injury/recovery/outcome, post-mission integration in battle resolution, and persisted `latest_mission_debrief` on `GameState` for later UI consumption without view coupling.
 - Corporate tower base UI: Corp, City, RPG, and Battle screens now share a
   stacked room cross-section, resource HUD slots, pressure meters, and bottom
