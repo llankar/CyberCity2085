@@ -52,13 +52,19 @@ class RoomInteractionUITest(unittest.TestCase):
         step_room_ui(state, 0.25)
 
         self.assertGreater(state.expansion, 0.0)
-        self.assertIn(
-            "defense_zones",
-            [action.key for action in actions_for_room("city", "district")],
-        )
+        action_keys = [action.key for action in actions_for_room("city", "district")]
+        self.assertIn("defense_zones", action_keys)
+        self.assertIn("save", action_keys)
+        self.assertIn("load", action_keys)
         close_room(state)
         self.assertFalse(state.is_open)
 
+
+    def test_action_buttons_leave_space_for_labels(self):
+        state = RoomUIState("corp")
+        buttons = open_room(state, 1280, 720, "executive")
+
+        self.assertGreaterEqual(buttons[0].rect.bottom, 100)
 
     def test_room_transition_speed_is_harmonized(self):
         self.assertAlmostEqual(ROOM_TRANSITION_SECONDS, 0.28)
