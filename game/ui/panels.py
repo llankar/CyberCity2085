@@ -15,6 +15,7 @@ from .room_interaction import (
 )
 from .components.panel import draw_panel_frame
 from .theme import opacity, spacing, stroke
+from .theme.motion import pulse_from_elapsed
 from .theme.typography import typography
 
 
