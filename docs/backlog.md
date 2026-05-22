@@ -100,3 +100,8 @@ Done:
 - Daily stress recovery now ticks from the strategic calendar: every day lowers
   agent stress by 1, while agents in medical recovery decompress by 2 and log
   visible command-room updates to keep emotional consequences readable.
+
+Automation status:
+- [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)
+- [done] Add unit tests for generator stability/format (`tests/test_generate_docs.py`)
+- [done] Generate and publish `## Next 20 Coding Steps` block in `docs/roadmap.md`
