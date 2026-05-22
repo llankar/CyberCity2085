@@ -1,0 +1,1 @@
+"""Narrative systems package."""
