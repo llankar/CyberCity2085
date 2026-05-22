@@ -27,6 +27,7 @@ class Character:
     mentor_links: dict[str, dict] = field(default_factory=dict)
     history: list[str] = field(default_factory=list)
     savage_tags: list[str] = field(default_factory=list)
+    temporary_scars: list[dict] = field(default_factory=list)
     recovery_turns: int = 0
     loadout: AgentLoadout = field(default_factory=AgentLoadout)
 
@@ -49,6 +50,7 @@ class Character:
             "mentor_links": serialize_links(self.mentor_links),
             "history": list(self.history),
             "savage_tags": list(self.savage_tags),
+            "temporary_scars": [dict(scar) for scar in self.temporary_scars],
             "recovery_turns": self.recovery_turns,
             "loadout": self.loadout.to_dict(),
         }
@@ -75,6 +77,7 @@ class Character:
             mentor_links=serialize_links(dict(data.get("mentor_links", {}))),
             history=list(data.get("history", [])),
             savage_tags=list(data.get("savage_tags", [])),
+            temporary_scars=[dict(scar) for scar in data.get("temporary_scars", [])],
             recovery_turns=data.get("recovery_turns", 0),
             loadout=AgentLoadout.from_dict(data.get("loadout")),
         )
