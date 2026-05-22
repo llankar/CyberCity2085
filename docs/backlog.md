@@ -144,4 +144,4 @@ Automation status:
 
 [x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)
 
-- [x] UI-03 critical choice highlight relationnel (UX rationale: signal discret des décisions émotionnelles + journalisation des impacts élevés pour nourrir les conséquences relationnelles).
+- UI-01 [done]: Added a compact narrative feed contract (`game/narrative/event_feed.py`) and widget presentation layer (`game/ui/widgets/narrative_feed_panel.py`) with category badges (`agent`, `mission`, `faction`, `base`), anti-chronological ordering, and bounded depth (8-12) to keep command-center readability centered on agent consequences.
