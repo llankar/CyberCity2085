@@ -83,15 +83,21 @@ class MaintenanceState:
     integrity: int = 100
     repair_cost_per_damage: int = 1
     base_upkeep: int = 1
+    cooldown_days: int = 0
+    fuel_cost_per_deploy: int = 0
+    ammo_cost_per_deploy: int = 0
 
     def __post_init__(self) -> None:
         self.integrity = max(0, min(int(self.integrity), 100))
         self.repair_cost_per_damage = max(0, int(self.repair_cost_per_damage))
         self.base_upkeep = max(0, int(self.base_upkeep))
+        self.cooldown_days = max(0, int(self.cooldown_days))
+        self.fuel_cost_per_deploy = max(0, int(self.fuel_cost_per_deploy))
+        self.ammo_cost_per_deploy = max(0, int(self.ammo_cost_per_deploy))
 
     @property
     def can_deploy(self) -> bool:
-        return self.integrity >= 50
+        return self.integrity >= 50 and self.cooldown_days <= 0
 
     @property
     def damage(self) -> int:
@@ -113,6 +119,9 @@ class MaintenanceState:
             "integrity": self.integrity,
             "repair_cost_per_damage": self.repair_cost_per_damage,
             "base_upkeep": self.base_upkeep,
+            "cooldown_days": self.cooldown_days,
+            "fuel_cost_per_deploy": self.fuel_cost_per_deploy,
+            "ammo_cost_per_deploy": self.ammo_cost_per_deploy,
         }
 
     @classmethod
@@ -121,6 +130,9 @@ class MaintenanceState:
             integrity=int(data.get("integrity", 100)),
             repair_cost_per_damage=int(data.get("repair_cost_per_damage", 1)),
             base_upkeep=int(data.get("base_upkeep", 1)),
+            cooldown_days=int(data.get("cooldown_days", 0)),
+            fuel_cost_per_deploy=int(data.get("fuel_cost_per_deploy", 0)),
+            ammo_cost_per_deploy=int(data.get("ammo_cost_per_deploy", 0)),
         )
 
 

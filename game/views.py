@@ -57,6 +57,13 @@ from .recruitment import recruit_agent
 from .ui import GameView
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from .ui.research_lab import build_research_lab_lines
+from .ui.screens.spec_ops_assets import (
+    battle_unit_label_and_hint,
+    build_asset_outcome_lines,
+    build_mission_prep_asset_state_lines,
+    build_spec_ops_acquisition_lines,
+    build_spec_ops_assets_guide_lines,
+)
 from .ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
 from .ui.widgets.notification_center import NotificationCenter
 from .ui.action_feedback import confirm_message, push_action
@@ -1199,7 +1206,12 @@ class RPGView(GameView):
                 mission.title,
                 f"Selected squad {len(selected)} + {selected_asset_count} support",
                 "Launch moves agents and support assets to combat.",
-            ],
+            ] + build_mission_prep_asset_state_lines(self.game_state)[1:],
+            "spec_ops": (
+                build_spec_ops_assets_guide_lines()
+                + build_spec_ops_acquisition_lines(self.game_state)[1:]
+                + build_asset_outcome_lines(self.game_state)[1:]
+            ),
         }
         for room_key, lines in info.items():
             hints = [build_hint_banner("squad", room_key)]
@@ -1353,6 +1365,25 @@ class BattleView(GameView):
             surviving_participants, self.mission, victory, self.triggered_complication
         )
         self.game_state.latest_mission_debrief = debrief_report.to_dict()
+        outcomes = []
+        for unit in all_player_units:
+            if not unit.spec_ops_asset or not unit.stats:
+                continue
+            asset = unit.spec_ops_asset
+            max_hp = max(1, unit.stats.max_hp)
+            damage_pct = int(max(0, min(100, (max_hp - max(0, unit.health)) * 100 / max_hp)))
+            asset.maintenance.integrity = max(0, asset.maintenance.integrity - damage_pct)
+            asset.maintenance.cooldown_days = 1 if damage_pct >= 30 else 0
+            outcomes.append(
+                {
+                    "id": asset.id,
+                    "name": asset.name,
+                    "damage": damage_pct,
+                    "repair_cost": asset.maintenance.repair_cost,
+                    "cooldown_days": asset.maintenance.cooldown_days,
+                }
+            )
+        self.game_state.latest_spec_ops_outcomes = outcomes
         for line in aftermath_lines:
             self.game_state.add_event(line)
         rpg_view = RPGView(self.game_state)
@@ -1539,6 +1570,7 @@ class BattleView(GameView):
             )
         if self.turn == "player" and self.player_units:
             active_unit = self.player_units[self.active_index]
+            role_label, action_hint = battle_unit_label_and_hint(active_unit)
             unit_name = (
                 active_unit.character.name
                 if active_unit.character
@@ -1550,9 +1582,9 @@ class BattleView(GameView):
                 self.window.width,
                 self.window.height,
                 available_combat_actions(active_unit),
-                unit_name,
+                f"{unit_name} [{role_label}]",
                 active_unit.action_points,
-                self.message,
+                f"{self.message} | {action_hint}",
             )
         else:
             self.combat_action_buttons = []

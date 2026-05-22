@@ -200,3 +200,5 @@ Automation status:
 [x] Add contextual tooltip dictionaries for command center/deck, mission board, and facility interactive elements
 [x] Save tutorial progress in `GameState` with replay/skip support
 [x] Add UI tests for tutorial progression, overlay visibility, and help panel English content
+
+- [x] UI-17 Spec-Ops assets clarity pass: dedicated guide panel module (`game/ui/screens/spec_ops_assets.py`), acquisition/deployment state copy, battle HUD asset labeling, and post-mission outcomes persisted for debrief/base management; plus docs `docs/gameplay/robots_power_armor.md` and coverage updates in `tests/test_spec_ops_assets.py`.
