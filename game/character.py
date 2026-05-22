@@ -3,6 +3,7 @@ from dataclasses import dataclass, field, asdict
 
 from .management.equipment import AgentLoadout
 from .stats import PlayerStats
+from .relationships.mentor_history import serialize_links
 
 
 @dataclass
@@ -23,6 +24,7 @@ class Character:
     injuries: list[str] = field(default_factory=list)
     reputation: list[str] = field(default_factory=list)
     relationships: dict[str, int] = field(default_factory=dict)
+    mentor_links: dict[str, dict] = field(default_factory=dict)
     history: list[str] = field(default_factory=list)
     savage_tags: list[str] = field(default_factory=list)
     recovery_turns: int = 0
@@ -44,6 +46,7 @@ class Character:
             "injuries": list(self.injuries),
             "reputation": list(self.reputation),
             "relationships": dict(self.relationships),
+            "mentor_links": serialize_links(self.mentor_links),
             "history": list(self.history),
             "savage_tags": list(self.savage_tags),
             "recovery_turns": self.recovery_turns,
@@ -69,6 +72,7 @@ class Character:
             injuries=list(data.get("injuries", [])),
             reputation=list(data.get("reputation", [])),
             relationships=dict(data.get("relationships", {})),
+            mentor_links=serialize_links(dict(data.get("mentor_links", {}))),
             history=list(data.get("history", [])),
             savage_tags=list(data.get("savage_tags", [])),
             recovery_turns=data.get("recovery_turns", 0),
