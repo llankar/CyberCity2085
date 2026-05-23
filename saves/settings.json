@@ -1,0 +1,11 @@
+{
+  "fullscreen": true,
+  "audio_enabled": true,
+  "music_volume": 70,
+  "sfx_volume": 80,
+  "high_contrast": false,
+  "show_grid": true,
+  "camera_shake": true,
+  "resolution_index": 2,
+  "extra_flags": {}
+}
