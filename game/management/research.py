@@ -132,7 +132,7 @@ class ResearchTree:
 
 
 def create_starter_research_tree() -> ResearchTree:
-    """Create one memorable starter project for each requested category."""
+    """Create a compact 3X-style tech tree with clear progression branches."""
     starter_projects = [
         ResearchProject(
             id="vehicle_silent_wheels",
@@ -145,6 +145,17 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"vehicle_stealth": 1},
         ),
         ResearchProject(
+            id="vehicle_black_channel_logistics",
+            name="Black Channel Logistics",
+            category="vehicles",
+            funds_cost=45,
+            days_required=4,
+            requires=("vehicle_silent_wheels",),
+            description="Ghost routing through shell corps improves drop reliability and budget control.",
+            unlock_flags=("vehicles.black_channel_logistics",),
+            stat_modifiers={"mission_budget_efficiency": 1},
+        ),
+        ResearchProject(
             id="weapon_smartlink_mk1",
             name="Smartlink Mk I",
             category="weapons",
@@ -153,6 +164,17 @@ def create_starter_research_tree() -> ResearchTree:
             description="Cheap targeting mesh for agents who still trust a trigger.",
             unlock_flags=("weapons.smartlink_mk1",),
             stat_modifiers={"weapon_accuracy": 1},
+        ),
+        ResearchProject(
+            id="weapon_corporate_rail_lattice",
+            name="Corporate Rail Lattice",
+            category="weapons",
+            funds_cost=50,
+            days_required=4,
+            requires=("weapon_smartlink_mk1",),
+            description="Weapon rails standardize hardpoint calibration for heavier loadouts.",
+            unlock_flags=("weapons.corporate_rail_lattice",),
+            stat_modifiers={"weapon_damage": 1},
         ),
         ResearchProject(
             id="armor_reactive_lining",
@@ -165,6 +187,17 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"armor_defense": 1},
         ),
         ResearchProject(
+            id="armor_aegis_weave",
+            name="Aegis Weave Shell",
+            category="armor",
+            funds_cost=55,
+            days_required=5,
+            requires=("armor_reactive_lining",),
+            description="Layered weave plates trade speed for emotional survivability.",
+            unlock_flags=("armor.aegis_weave",),
+            stat_modifiers={"armor_resilience": 1},
+        ),
+        ResearchProject(
             id="psy_echo_discipline",
             name="Echo Discipline",
             category="psy",
@@ -173,6 +206,17 @@ def create_starter_research_tree() -> ResearchTree:
             description="A controlled psi cadence that keeps gifted agents present.",
             unlock_flags=("psy.echo_discipline",),
             stat_modifiers={"psi_focus": 1},
+        ),
+        ResearchProject(
+            id="psy_choir_firebreak",
+            name="Choir Firebreak",
+            category="psy",
+            funds_cost=45,
+            days_required=4,
+            requires=("psy_echo_discipline",),
+            description="Squad resonance drills reduce cascade panic during high-pressure ops.",
+            unlock_flags=("psy.choir_firebreak",),
+            stat_modifiers={"stress_resistance": 1},
         ),
         ResearchProject(
             id="equipment_field_mender",
@@ -185,6 +229,17 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"medkit_quality": 1},
         ),
         ResearchProject(
+            id="equipment_tactical_fabricator",
+            name="Tactical Fabricator Cache",
+            category="equipment",
+            funds_cost=40,
+            days_required=4,
+            requires=("equipment_field_mender",),
+            description="Rapid-print utility pods increase mission adaptability.",
+            unlock_flags=("equipment.tactical_fabricator",),
+            stat_modifiers={"utility_capacity": 1},
+        ),
+        ResearchProject(
             id="robot_loyalty_kernel",
             name="Loyalty Kernel Patch",
             category="robots",
@@ -195,6 +250,17 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"robot_reliability": 1},
         ),
         ResearchProject(
+            id="robot_hunter_killer_doctrine",
+            name="Hunter-Killer Doctrine",
+            category="robots",
+            funds_cost=55,
+            days_required=5,
+            requires=("robot_loyalty_kernel", "weapon_smartlink_mk1"),
+            description="Autonomous threat prioritization improves robot lethality and suppression.",
+            unlock_flags=("robots.hunter_killer_doctrine",),
+            stat_modifiers={"robot_firepower": 1},
+        ),
+        ResearchProject(
             id="power_armor_servo_prayer",
             name="Servo Prayer Loop",
             category="power_armor",
@@ -203,6 +269,17 @@ def create_starter_research_tree() -> ResearchTree:
             description="Predictive servo chants make heavy armor feel almost human.",
             unlock_flags=("power_armor.servo_prayer",),
             stat_modifiers={"power_armor_mobility": 1},
+        ),
+        ResearchProject(
+            id="power_armor_praetorian_frame",
+            name="Praetorian Frame Contract",
+            category="power_armor",
+            funds_cost=65,
+            days_required=6,
+            requires=("power_armor_servo_prayer", "armor_reactive_lining"),
+            description="Corporate-backed frame reinforcement unlocks elite suit survivability.",
+            unlock_flags=("power_armor.praetorian_frame", "corp.contract.praetorian"),
+            stat_modifiers={"power_armor_durability": 1, "corp_budget_bonus": 1},
         ),
     ]
     return ResearchTree({project.id: project for project in starter_projects})
