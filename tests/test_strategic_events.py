@@ -48,6 +48,23 @@ class StrategicEventsTest(unittest.TestCase):
         self.assertIn(event.title, panel_lines[0])
         self.assertIn("1.1", panel_lines[1])
 
+    def test_active_event_exposes_template_description_for_ui_rendering(self):
+        event = ActiveEvent(
+            id="event-ui",
+            template=EventTemplate(
+                title="Signal Drift",
+                category="social unrest",
+                description="A hostile signal spoofs trusted orders.",
+                severity=2,
+                choices=[],
+            ),
+            created_day=1,
+            expires_day=2,
+        )
+
+        self.assertEqual(event.description, event.template.description)
+        self.assertIn("trusted orders", event.description)
+
     def test_event_expiration_applies_unattended_consequences(self):
         game_state = GameState()
         starting_unrest = game_state.district.unrest

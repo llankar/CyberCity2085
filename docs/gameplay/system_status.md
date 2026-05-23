@@ -5,7 +5,7 @@
 | funds | Corporate ledger supports spend/add/mission payouts and weekly income sync. | More explicit spend-preview UI before expensive actions. | Corp rooms + squad recruit flow. | `tests/test_funds_management.py`, `tests/test_weekly_corporate_funding.py` |
 | calendar | Day/week/month progression ticks daily systems and date labels. | Optional fast-forward planning tools. | Corp/City `D Advance day`. | `tests/test_calendar_management.py`, e2e flow test |
 | research | Projects can be started, tick down, complete with unlock flags/modifiers. | Richer project dependency display in UI. | Corp research room actions. | `tests/test_research_management.py`, e2e save/load flow |
-| events | Strategic events can spawn, be responded to, and expire. | Multi-event response queue UX depth. | Corp/City records + event actions. | `tests/test_strategic_events.py` |
+| events | Strategic events can spawn, be responded to, expire, and render through the command deck safely. | Multi-event response queue UX depth. | Corp/City records + event actions. | `tests/test_strategic_events.py` |
 | equipment | Agents can cycle modular loadout slots in armory. | Costed equipment economy and rarity progression. | Squad armory room actions. | `tests/test_agent_equipment.py`, e2e save/load flow |
 | stress | Daily stress recovery and mission pressure integration exist. | Additional proactive stress-management actions. | Squad medbay/briefing summaries. | `tests/test_stress_management.py`, `tests/test_recovery_status.py` |
 | recovery | Recovery turns and medbay readiness are tracked. | Deeper treatment choices with tradeoffs. | Squad medbay + deployability checks. | `tests/test_recovery_status.py`, `tests/test_recovery_dialogues.py` |
