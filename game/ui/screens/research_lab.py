@@ -2,7 +2,44 @@
 
 from __future__ import annotations
 
-from ...management.research import ResearchTree, create_starter_research_tree
+from ...management.research import ResearchProject, ResearchTree, create_starter_research_tree
+
+
+def _project_label(project: ResearchProject) -> str:
+    return f"{project.name} ({project.days_required}d, ¥{project.funds_cost})"
+
+
+def _build_research_tree_lines(
+    tree: ResearchTree,
+    completed: set[str],
+    active_ids: set[str],
+    max_lines: int = 8,
+) -> list[str]:
+    """Render available projects as a compact dependency tree."""
+    available_projects = tree.available_projects(completed, active_ids)
+    if not available_projects:
+        return ["Tree: no available branch (complete active projects)."]
+
+    by_parent: dict[str | None, list[ResearchProject]] = {None: []}
+    for project in available_projects:
+        parent = project.requires[0] if project.requires else None
+        by_parent.setdefault(parent, []).append(project)
+
+    for children in by_parent.values():
+        children.sort(key=lambda item: (item.category, item.name))
+
+    lines = ["Research tree:"]
+    roots = by_parent.get(None, [])
+    for root in roots:
+        lines.append(f"• {_project_label(root)}")
+        for child in by_parent.get(root.id, [])[:2]:
+            lines.append(f"  └─ {_project_label(child)}")
+
+    if len(lines) > max_lines:
+        clipped = lines[: max_lines - 1]
+        clipped.append("  …more branches available")
+        return clipped
+    return lines
 
 
 def build_research_lab_lines(
@@ -28,12 +65,7 @@ def build_research_lab_lines(
     else:
         lines.append("No active project. Choose a starter study.")
 
-    available = tree.available_projects(completed, active_ids)
-    for index, project in enumerate(available[:3], start=1):
-        lines.append(
-            f"{index}. {project.name} [{project.category.replace('_', ' ')}] "
-            f"{project.funds_cost} funds / {project.days_required}d"
-        )
+    lines.extend(_build_research_tree_lines(tree, completed, active_ids, max_lines=9 - len(lines)))
 
     if completed:
         lines.append(
@@ -41,4 +73,4 @@ def build_research_lab_lines(
         )
     else:
         lines.append("Completed: none")
-    return lines[:7]
+    return lines[:9]
