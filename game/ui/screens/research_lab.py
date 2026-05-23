@@ -15,25 +15,39 @@ def _build_research_tree_lines(
     active_ids: set[str],
     max_lines: int = 8,
 ) -> list[str]:
-    """Render available projects as a compact dependency tree."""
+    """Render completed and currently available projects in one compact tree."""
     available_projects = tree.available_projects(completed, active_ids)
-    if not available_projects:
-        return ["Tree: no available branch (complete active projects)."]
+    available_ids = {project.id for project in available_projects}
+
+    if not available_projects and not completed:
+        return ["Research tree: no available branch."]
 
     by_parent: dict[str | None, list[ResearchProject]] = {None: []}
-    for project in available_projects:
+    for project in tree.projects.values():
         parent = project.requires[0] if project.requires else None
         by_parent.setdefault(parent, []).append(project)
 
     for children in by_parent.values():
         children.sort(key=lambda item: (item.category, item.name))
 
-    lines = ["Research tree:"]
+    def _status_prefix(project: ResearchProject) -> str:
+        if project.id in active_ids:
+            return "▶"
+        if project.id in completed:
+            return "✓"
+        if project.id in available_ids:
+            return "○"
+        return "·"
+
+    lines = ["Research tree: ✓ complete | ○ available | ▶ active"]
     roots = by_parent.get(None, [])
     for root in roots:
-        lines.append(f"• {_project_label(root)}")
-        for child in by_parent.get(root.id, [])[:2]:
-            lines.append(f"  └─ {_project_label(child)}")
+        if root.id not in completed and root.id not in available_ids and root.id not in active_ids:
+            continue
+        lines.append(f"{_status_prefix(root)} {_project_label(root)}")
+        for child in by_parent.get(root.id, [])[:3]:
+            if child.id in completed or child.id in available_ids or child.id in active_ids:
+                lines.append(f"  └─ {_status_prefix(child)} {_project_label(child)}")
 
     if len(lines) > max_lines:
         clipped = lines[: max_lines - 1]
