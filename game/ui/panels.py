@@ -680,6 +680,80 @@ def _draw_icon(kind: str, center_x: int, center_y: int, size: int, color) -> Non
         arcade.draw_line(center_x - half, center_y - half, center_x + half, center_y, color, 4)
         arcade.draw_line(center_x + half, center_y, center_x - half, center_y + half, color, 4)
         arcade.draw_line(center_x - half, center_y + half, center_x - half, center_y - half, color, 4)
+        return
+    if kind == "robot":
+        # Head: small square on top
+        hd = half // 3
+        arcade.draw_lrbt_rectangle_filled(center_x - hd, center_x + hd, center_y + hd, center_y + half, color)
+        # Antenna
+        arcade.draw_line(center_x, center_y + half, center_x, center_y + half + 4, color, 2)
+        arcade.draw_lrbt_rectangle_filled(center_x - 2, center_x + 2, center_y + half + 4, center_y + half + 7, color)
+        # Eye slit
+        arcade.draw_line(center_x - hd + 3, center_y + hd + hd // 2, center_x + hd - 3, center_y + hd + hd // 2, (0, 0, 0, 200), 2)
+        # Torso: wide rectangle
+        tw = half - 2
+        th = int(half * 0.55)
+        arcade.draw_lrbt_rectangle_filled(center_x - tw, center_x + tw, center_y - th // 2, center_y + hd, color)
+        # Arms stubs
+        arcade.draw_lrbt_rectangle_filled(center_x - tw - 6, center_x - tw, center_y - th // 2 + 4, center_y + hd - 4, (*color[:3], 180))
+        arcade.draw_lrbt_rectangle_filled(center_x + tw, center_x + tw + 6, center_y - th // 2 + 4, center_y + hd - 4, (*color[:3], 180))
+        # Legs
+        leg_w = tw // 2 - 2
+        arcade.draw_lrbt_rectangle_filled(center_x - tw, center_x - tw + leg_w, center_y - half, center_y - th // 2, color)
+        arcade.draw_lrbt_rectangle_filled(center_x + tw - leg_w, center_x + tw, center_y - half, center_y - th // 2, color)
+        return
+    if kind == "power_armor":
+        hd = half // 3
+        # Wide armored shoulders (trapezoid-ish)
+        arcade.draw_lrbt_rectangle_filled(center_x - half, center_x + half, center_y + hd, center_y + half, color)
+        # Shoulder pauldrons
+        arcade.draw_lrbt_rectangle_filled(center_x - half - 5, center_x - half, center_y + hd // 2, center_y + half - 2, (*color[:3], 180))
+        arcade.draw_lrbt_rectangle_filled(center_x + half, center_x + half + 5, center_y + hd // 2, center_y + half - 2, (*color[:3], 180))
+        # Visor slit in helmet
+        arcade.draw_line(center_x - half // 2, center_y + (hd + half) // 2, center_x + half // 2, center_y + (hd + half) // 2, (0, 0, 0, 220), 3)
+        # Chest plate
+        tw = half - 4
+        arcade.draw_lrbt_rectangle_filled(center_x - tw, center_x + tw, center_y - hd, center_y + hd, color)
+        # Center chest detail line
+        arcade.draw_line(center_x, center_y - hd + 4, center_x, center_y + hd - 4, (0, 0, 0, 160), 2)
+        # Lower body / legs wider
+        arcade.draw_lrbt_rectangle_filled(center_x - tw, center_x - hd, center_y - half, center_y - hd, color)
+        arcade.draw_lrbt_rectangle_filled(center_x + hd, center_x + tw, center_y - half, center_y - hd, color)
+        # Foot plates
+        arcade.draw_lrbt_rectangle_filled(center_x - tw - 2, center_x - hd + 2, center_y - half, center_y - half + 4, (*color[:3], 220))
+        arcade.draw_lrbt_rectangle_filled(center_x + hd - 2, center_x + tw + 2, center_y - half, center_y - half + 4, (*color[:3], 220))
+        return
+    if kind == "drone":
+        hd = half // 3
+        # Central body
+        arcade.draw_lrbt_rectangle_filled(center_x - hd, center_x + hd, center_y - hd, center_y + hd, color)
+        # Cross arms
+        arm_t = max(2, half // 5)
+        arcade.draw_lrbt_rectangle_filled(center_x - half, center_x + half, center_y - arm_t, center_y + arm_t, (*color[:3], 180))
+        arcade.draw_lrbt_rectangle_filled(center_x - arm_t, center_x + arm_t, center_y - half, center_y + half, (*color[:3], 180))
+        # Rotor discs at arm tips
+        for rx, ry in [(center_x - half, center_y), (center_x + half, center_y),
+                       (center_x, center_y - half), (center_x, center_y + half)]:
+            _draw_circle_outline(rx, ry, half // 5, color, 2)
+        return
+    if kind == "mech":
+        hd = half // 3
+        # Cockpit / upper torso
+        arcade.draw_lrbt_rectangle_filled(center_x - half // 2, center_x + half // 2, center_y, center_y + half, color)
+        # Cockpit glass
+        arcade.draw_lrbt_rectangle_filled(center_x - half // 4, center_x + half // 4, center_y + hd, center_y + half - 3, (0, 0, 0, 180))
+        # Side weapon pods
+        arcade.draw_lrbt_rectangle_filled(center_x - half, center_x - half // 2, center_y + hd // 2, center_y + half - hd, (*color[:3], 200))
+        arcade.draw_lrbt_rectangle_filled(center_x + half // 2, center_x + half, center_y + hd // 2, center_y + half - hd, (*color[:3], 200))
+        # Waist
+        arcade.draw_lrbt_rectangle_filled(center_x - half // 3, center_x + half // 3, center_y - hd // 2, center_y, color)
+        # Legs — wide stance
+        arcade.draw_lrbt_rectangle_filled(center_x - half, center_x - hd, center_y - half, center_y - hd // 2, color)
+        arcade.draw_lrbt_rectangle_filled(center_x + hd, center_x + half, center_y - half, center_y - hd // 2, color)
+        # Feet
+        arcade.draw_lrbt_rectangle_filled(center_x - half - 4, center_x - hd + 4, center_y - half, center_y - half + 5, (*color[:3], 220))
+        arcade.draw_lrbt_rectangle_filled(center_x + hd - 4, center_x + half + 4, center_y - half, center_y - half + 5, (*color[:3], 220))
+        return
 
 
 def draw_deck_panel(panel) -> None:

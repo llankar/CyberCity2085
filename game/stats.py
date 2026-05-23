@@ -47,10 +47,22 @@ class EnemyStats:
             self.hp = self.max_hp
 
 
-def perform_attack(attacker, defender, stat_name: str, *, phys_def: bool = False, psi_def: bool = False) -> bool:
-    """Resolve an attack using the given stat name."""
+def perform_attack(
+    attacker,
+    defender,
+    stat_name: str,
+    *,
+    phys_def: bool = False,
+    psi_def: bool = False,
+    extra_defense: int = 0,
+) -> bool:
+    """Resolve an attack using the given stat name.
+
+    ``extra_defense`` stacks on top of the defender's base defense —
+    used to apply cover bonuses without mutating the defender's stats.
+    """
     attack_value = getattr(attacker, stat_name)
-    defense = defender.defense
+    defense = defender.defense + extra_defense
     if attack_value <= 0:
         return False
     chance = attack_value / (attack_value + defense)

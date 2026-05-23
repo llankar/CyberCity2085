@@ -83,6 +83,10 @@ class GameState:
     # List of recruited characters
     characters: List[Character] = field(default_factory=list)
 
+    # Corporation identity — set during New Game setup
+    corp_name: str = "AEGIS Corporation"
+    city_name: str = "Neo-Chrome City"
+
     # First vertical-slice world model: one district, one base, and three factions
     base_name: str = "Aegis Forward Base Kilo"
     district: District = field(default_factory=create_vertical_slice_district)
@@ -511,6 +515,8 @@ class GameState:
             "mission_fund_allocations": self.mission_fund_allocations,
             "characters": [c.to_dict() for c in self.characters],
             "x": self.x,
+            "corp_name": self.corp_name,
+            "city_name": self.city_name,
             "base_name": self.base_name,
             "district": self.district.to_dict(),
             "factions": [faction.to_dict() for faction in self.factions],
@@ -577,6 +583,8 @@ class GameState:
             data.get("corporation_finance")
         )
         gs.x = data.get("x", 0)
+        gs.corp_name = data.get("corp_name", gs.corp_name)
+        gs.city_name = data.get("city_name", gs.city_name)
         gs.base_name = data.get("base_name", gs.base_name)
         gs.district = District.from_dict(data.get("district", gs.district.to_dict()))
         gs.factions = [

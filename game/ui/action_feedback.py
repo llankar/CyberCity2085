@@ -9,12 +9,17 @@ from game.ui.widgets.notification_center import NotificationCenter
 
 
 _ACTION_LABELS = {
-    "recruitment": "Recruitment",
-    "budget_allocation": "Budget allocation",
-    "mission_launch": "Mission launch",
-    "save": "Save",
-    "load": "Load",
-    "upgrade": "Upgrade",
+    "recruitment":      "Recruitment",
+    "budget_allocation":"Budget allocation",
+    "mission_launch":   "Mission launch",
+    "save":             "Save",
+    "load":             "Load",
+    "upgrade":          "Upgrade",
+    "advance_day":      "Day advance",
+    "asset_repair":     "Asset repair",
+    "asset_acquire":    "Asset acquisition",
+    "stat_upgrade":     "Stat upgrade",
+    "start_research":   "Research started",
 }
 
 

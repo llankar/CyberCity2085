@@ -110,6 +110,15 @@ def unit_can_use_missiles(unit: Unit) -> bool:
     return bool(unit.spec_ops_asset and unit.spec_ops_asset.missile_capacity > 0)
 
 
+def unit_can_overwatch(unit: Unit) -> bool:
+    """Return whether the unit can go on overwatch (ranged, hasn't moved yet)."""
+    return (
+        not unit.has_moved
+        and unit.action_points > 0
+        and (unit_can_fire(unit) or unit_can_use_missiles(unit))
+    )
+
+
 def available_combat_actions(unit: Unit | None) -> list[CombatAction]:
     """Build ordered, contextual combat actions for the selected unit."""
     if unit is None or unit.health <= 0:
@@ -126,6 +135,8 @@ def available_combat_actions(unit: Unit | None) -> list[CombatAction]:
         actions.append(CombatAction("first_aid", "First Aid", "medbay", "A"))
     if unit_can_use_missiles(unit):
         actions.append(CombatAction("missiles", "Missiles", "launch", "M"))
+    if unit_can_overwatch(unit):
+        actions.append(CombatAction("overwatch", "Overwatch", "radar", "O"))
     actions.extend(
         [
             CombatAction("defend", "Defend", "shield", "D"),

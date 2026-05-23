@@ -63,14 +63,25 @@ fake_arcade = types.SimpleNamespace(
     ),
     draw_text=lambda *args, **kwargs: None,
     draw_lrbt_rectangle_filled=lambda *args, **kwargs: None,
+    draw_lrbt_rectangle_outline=lambda *args, **kwargs: None,
     draw_rect_outline=lambda *args, **kwargs: None,
     draw_line=lambda *args, **kwargs: None,
     draw_texture_rect=lambda *args, **kwargs: None,
     Camera2D=lambda *args, **kwargs: None,
-    SpriteList=list,
-    Sprite=lambda *args, **kwargs: types.SimpleNamespace(kill=lambda: None),
+    SpriteList=lambda: types.SimpleNamespace(
+        draw=lambda: None,
+        append=lambda s: None,
+        __iter__=lambda self: iter([]),
+        __len__=lambda self: 0,
+    ),
+    Sprite=lambda *args, **kwargs: types.SimpleNamespace(
+        kill=lambda: None,
+        center_x=0, center_y=0, width=32, height=32, visible=True,
+    ),
     LBWH=lambda *args, **kwargs: None,
     load_texture=lambda *args, **kwargs: None,
+    draw_circle_outline=lambda *args, **kwargs: None,
+    draw_circle_filled=lambda *args, **kwargs: None,
 )
 sys.modules.setdefault("arcade", fake_arcade)
 
@@ -197,21 +208,15 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
 
         self.assertEqual(drawn_text, [])
 
-    def test_battle_drop_zone_picker_draws_without_text(self):
-        drawn_text = []
-        original_draw_text = views.arcade.draw_text
-        views.arcade.draw_text = lambda text, *args, **kwargs: drawn_text.append(text)
+    def test_battle_view_setup_auto_selects_map(self):
+        """BattleView must auto-select a map on setup (no manual pick screen)."""
         game_state = GameState(mission_templates=[_mission()])
         view = views.BattleView(game_state)
         view.window = _FakeWindow()
         view.setup(game_state.mission_templates[0])
-        view.camera = types.SimpleNamespace(use=lambda: None)
-        try:
-            view.on_draw()
-        finally:
-            views.arcade.draw_text = original_draw_text
-
-        self.assertEqual(drawn_text, [])
+        # Auto-selection: map_index must not be None after setup
+        self.assertIsNotNone(view.map_index)
+        self.assertIsInstance(view.map_index, int)
 
     def test_rpg_room_click_recruits_from_icon_button(self):
         from game.ui.facility import build_facility_rooms, facility_room_by_key
