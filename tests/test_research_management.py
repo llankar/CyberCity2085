@@ -102,7 +102,7 @@ class ResearchManagementTest(unittest.TestCase):
         actions = [action.key for action in actions_for_room("corp", "research")]
 
         self.assertTrue(any("Lab queue" in line for line in lines))
-        self.assertTrue(any("funds" in line.lower() and "/" in line for line in lines))
+        self.assertTrue(any(line.startswith("Research tree:") for line in lines))
         self.assertIn("start_research_0", actions)
         self.assertIn("start_research_1", actions)
 
