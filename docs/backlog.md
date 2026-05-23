@@ -4,7 +4,7 @@
 - funds: **functional**
 - calendar: **functional**
 - research: **in progress**
-- events: **in progress**
+- events: **functional**
 - equipment: **in progress**
 - stress: **functional**
 - recovery: **functional**

@@ -144,6 +144,11 @@ class ActiveEvent:
     def choices(self) -> list[EventChoice]:
         return self.template.choices
 
+    @property
+    def description(self) -> str:
+        """Compatibility accessor for UI code that renders template text directly."""
+        return self.template.description
+
     def days_remaining(self, current_day: int) -> int:
         return max(0, self.expires_day - int(current_day) + 1)
 
