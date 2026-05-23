@@ -128,12 +128,18 @@ def selected_deployment_manifest(
     assets: list[SpecOpsAsset] | None = None,
     selected_asset_ids: list[str] | None = None,
 ) -> DeploymentManifest:
-    """Build the mixed team currently eligible to enter tactical combat."""
+    """Build one tactical manifest where piloted armor replaces pilot entries."""
     agents = selected_deployable_agents(characters, selected_agent_names)
     selected_assets = selected_deployable_assets(
         assets or [], selected_asset_ids or [], agents
     )
-    return DeploymentManifest(agents=agents, assets=selected_assets)
+    piloted_names = {
+        asset.pilot_agent_name
+        for asset in selected_assets
+        if asset.pilot_required and getattr(asset, "pilot_agent_name", None)
+    }
+    mission_agents = [agent for agent in agents if agent.name not in piloted_names]
+    return DeploymentManifest(agents=mission_agents, assets=selected_assets)
 
 
 def toggle_asset_selection(

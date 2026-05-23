@@ -80,6 +80,15 @@ class ResearchManagementTest(unittest.TestCase):
         self.assertIn("vehicles.silent_wheels", loaded.research_unlock_flags)
         self.assertEqual(loaded.research_stat_modifiers["vehicle_stealth"], 1)
 
+    def test_research_tree_contains_branching_projects_with_prerequisites(self):
+        tree = create_starter_research_tree()
+
+        doctrine = tree.project("robot_hunter_killer_doctrine")
+        praetorian = tree.project("power_armor_praetorian_frame")
+
+        self.assertEqual(doctrine.requires, ("robot_loyalty_kernel", "weapon_smartlink_mk1"))
+        self.assertEqual(praetorian.requires, ("power_armor_servo_prayer", "armor_reactive_lining"))
+
     def test_research_lab_ui_lists_queue_and_start_actions(self):
         game_state = GameState()
         lines = build_research_lab_lines(game_state)

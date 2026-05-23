@@ -78,6 +78,18 @@ class SpecOpsAssetsTest(unittest.TestCase):
             ["armor"],
         )
 
+    def test_power_armor_pilot_is_replaced_in_mission_manifest(self):
+        vega = Character("Vega")
+        nova = Character("Nova")
+        suit = PowerArmorSuit(id="armor", name="Armor", pilot_agent_name="Vega")
+
+        manifest = selected_deployment_manifest(
+            [vega, nova], ["Vega", "Nova"], [suit], ["armor"]
+        )
+
+        self.assertEqual([agent.name for agent in manifest.agents], ["Nova"])
+        self.assertEqual(manifest.assets, [suit])
+
     def test_selected_deployment_manifest_includes_agents_robots_and_power_armor(self):
         agent = Character("Vega")
         robot = CombatRobot(id="drone", name="Drone")
