@@ -1,5 +1,9 @@
 """CyberCity 2085 — game entry point."""
 
+import warnings
+# Suppress Arcade's per-frame draw_text performance warning — known, non-critical.
+warnings.filterwarnings("ignore", category=UserWarning, module="arcade")
+
 import arcade
 
 from game.ui.screens.title_screen import TitleView

@@ -26,6 +26,13 @@ class Unit:
     sprite: arcade.Sprite | None = None
     is_defending: bool = False
     is_psi_defending: bool = False
+    # XCOM-style tactical state
+    on_overwatch: bool = False       # unit fires automatically when enemy enters range
+    in_cover: bool = False           # standing in cover (visual flag, bonus computed by cover_system)
+    has_moved: bool = False          # moved this turn (disables overwatch if re-activated)
+    enemy_subtype: str = "grunt"     # for enemy units: grunt / heavy / elite / commander
+    visible: bool = True             # hidden by fog of war when False (enemies only)
+    in_cover_bonus: int = 0          # defense bonus from cover nodes; updated each frame by BattleView
 
     def move(self, dx: int, dy: int):
         x, y = self.position
@@ -34,11 +41,15 @@ class Unit:
             self.sprite.center_x = self.position[0]
             self.sprite.center_y = self.position[1]
         self.action_points -= 1
+        self.has_moved = True
+        self.on_overwatch = False  # moving cancels your overwatch
 
     def reset_actions(self):
         self.action_points = 2
         self.is_defending = False
         self.is_psi_defending = False
+        self.has_moved = False
+        # Keep on_overwatch until the unit acts — it clears itself on any action
 
     def distance_to(self, other: "Unit") -> float:
         return (
@@ -57,6 +68,7 @@ class Unit:
                 stat,
                 phys_def=other.is_defending,
                 psi_def=other.is_psi_defending,
+                extra_defense=other.in_cover_bonus,
             )
             damage = max(0, before - other.stats.hp) if hit else 0
             other.health = other.stats.hp
@@ -94,3 +106,29 @@ class Unit:
         self.is_psi_defending = True
         self.action_points -= 1
         return True
+
+    def set_overwatch(self) -> bool:
+        """Put this unit on overwatch: fires automatically when enemy enters range."""
+        if self.action_points <= 0 or self.has_moved:
+            return False
+        self.on_overwatch = True
+        self.action_points -= 1
+        return True
+
+    def trigger_overwatch_shot(self, other: "Unit") -> int:
+        """Fire one overwatch shot at *other* (does not cost AP — already spent).
+
+        Returns damage dealt (0 on miss).
+        """
+        if not self.on_overwatch or not self.stats or not other.stats:
+            return 0
+        self.on_overwatch = False
+        before = other.stats.hp
+        hit = perform_attack(
+            self.stats, other.stats, "agi",
+            phys_def=other.is_defending,
+            psi_def=other.is_psi_defending,
+        )
+        damage = max(0, before - other.stats.hp) if hit else 0
+        other.health = other.stats.hp
+        return damage

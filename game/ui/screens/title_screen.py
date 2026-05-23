@@ -14,16 +14,13 @@ import arcade
 from game.ui.palette import (
     ACCENT,
     BACKGROUND,
-    DANGER,
     GRID_LINE,
     HEADER,
     MUTED_TEXT,
     PANEL_BORDER,
     PANEL_FILL_DARK,
-    RESOURCE,
     SCANLINE,
     SKYLINE_SHADOW,
-    TACTICAL_GREEN,
     TEXT,
 )
 
@@ -70,15 +67,15 @@ class TitleView(arcade.View):
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
 
-    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float) -> None:
+    def on_mouse_motion(self, x: float, y: float, _dx: float, _dy: float) -> None:
         self._hover_index = self._index_at(int(x), int(y))
 
-    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int) -> None:
+    def on_mouse_press(self, x: float, y: float, _button: int, _modifiers: int) -> None:
         idx = self._index_at(int(x), int(y))
         if idx is not None:
             self._activate(_MENU_ITEMS[idx][1])
 
-    def on_key_press(self, key: int, modifiers: int) -> None:
+    def on_key_press(self, key: int, _modifiers: int) -> None:
         if key in (arcade.key.RETURN, arcade.key.ENTER, arcade.key.SPACE):
             idx = self._hover_index if self._hover_index is not None else 0
             self._activate(_MENU_ITEMS[idx][1])
@@ -189,7 +186,7 @@ class TitleView(arcade.View):
             arcade.draw_line(x0, cy + 32, x1, cy + 32, PANEL_BORDER, 1)
             arcade.draw_line(x1, cy + 32, x1 - sign * 16, cy + 44, ACCENT, 2)
 
-    def _draw_menu(self, w: int, h: int) -> None:
+    def _draw_menu(self, _w: int, _h: int) -> None:
         for i, (left, bot, right, top, label, _key) in enumerate(self._buttons):
             self._draw_button(left, bot, right, top, label, i == self._hover_index)
 
@@ -228,7 +225,7 @@ class TitleView(arcade.View):
                 (*HEADER[:3], int(220 * pulse))
             )
 
-    def _draw_footer(self, w: int, h: int) -> None:
+    def _draw_footer(self, w: int, _h: int) -> None:
         arcade.draw_text(
             "v3.0  //  AEGIS CORPORATION  //  CLASSIFIED",
             w // 2, 20,
@@ -250,8 +247,8 @@ class TitleView(arcade.View):
             return
 
         if key == "new_game":
-            from game.gamestate import GameState
-            self._go_management(GameState())
+            from game.ui.screens.new_game_screen import NewGameSetupView
+            self.window.show_view(NewGameSetupView())
             return
 
         if key == "continue":
@@ -261,8 +258,10 @@ class TitleView(arcade.View):
             self._go_management(loaded if loaded is not None else GameState())
             return
 
-        # "settings" → placeholder for now
-        return
+        if key == "settings":
+            from game.ui.screens.settings_screen import SettingsView
+            self.window.show_view(SettingsView())
+            return
 
     def _go_management(self, game_state) -> None:
         from game.ui.screens.management_screen import ManagementView

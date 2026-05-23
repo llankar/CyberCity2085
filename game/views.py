@@ -2,7 +2,7 @@ import arcade
 import os
 
 from .agent_aftermath import apply_mission_aftermath
-from .agent_readiness import agents_at_breaking_risk, build_agent_readiness_lines
+from .agent_readiness import agents_at_breaking_risk
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
@@ -83,6 +83,72 @@ from .ui.guidance.next_action import compute_next_action
 from .ui.onboarding.tutorial_overlay import overlay_state_for_screen
 from .unit import Unit
 
+
+# ── Sprite path resolver ─────────────────────────────────────────────────────
+
+_UNIT_SPRITE_DIR = "assets/units"
+
+_ROLE_SPRITES: dict[str, str] = {
+    "samurai": "agent_samurai.png",
+    "sniper":  "agent_sniper.png",
+    "psi":     "agent_psi.png",
+}
+
+_ASSET_TYPE_SPRITES: dict[str, str] = {
+    "combat_robot": "robot_combat.png",
+    "robot":        "robot_combat.png",
+    "support_robot":"robot_support.png",
+    "drone":        "robot_support.png",
+    "power_armor":  "power_armor.png",
+    "heavy_armor":  "power_armor_heavy.png",
+}
+
+_ENEMY_SUBTYPE_SPRITES: dict[str, str] = {
+    "grunt":     "enemy_grunt.png",
+    "heavy":     "enemy_heavy.png",
+    "elite":     "enemy_elite.png",
+    "commander": "enemy_commander.png",
+}
+
+
+def _sprite_path_for_unit(unit: Unit) -> str:
+    """Return the correct sprite path from assets/units/ for a given unit.
+
+    Falls back to the legacy assets/player.png or assets/enemy.png when no
+    typed sprite is available.
+    """
+    import os
+
+    def _resolve(filename: str) -> str:
+        path = os.path.join(_UNIT_SPRITE_DIR, filename)
+        return path if os.path.exists(path) else None
+
+    # ── Enemy units ──────────────────────────────────────────────────────────
+    if unit.unit_type == "enemy":
+        subtype = getattr(unit, "enemy_subtype", "grunt")
+        filename = _ENEMY_SUBTYPE_SPRITES.get(subtype, "enemy_grunt.png")
+        path = _resolve(filename)
+        return path if path else "assets/enemy.png"
+
+    # ── Support assets (robots / power armour) ───────────────────────────────
+    if unit.spec_ops_asset is not None:
+        atype = getattr(unit.spec_ops_asset, "asset_type", "").lower()
+        filename = _ASSET_TYPE_SPRITES.get(atype)
+        if filename:
+            path = _resolve(filename)
+            if path:
+                return path
+
+    # ── Agent roles ──────────────────────────────────────────────────────────
+    if unit.character is not None:
+        role = unit.character.role.lower()
+        filename = _ROLE_SPRITES.get(role)
+        if filename:
+            path = _resolve(filename)
+            if path:
+                return path
+
+    return "assets/player.png"
 
 
 def _save_to_selected_slot(view: GameView) -> SaveSystemResult:
@@ -1393,12 +1459,21 @@ class BattleView(GameView):
                 ].to_dict()
             )
             self.game_state.active_mission = self.mission
-        self.available_maps = [
-            f for f in os.listdir("assets/maps") if f.lower().endswith(".jpeg")
-        ]
-        self.map_index = None
+        self.available_maps = sorted(
+            f for f in os.listdir("assets/maps")
+            if f.lower().endswith((".jpeg", ".jpg", ".png"))
+            and not f.startswith(".")
+        )
         self.room_ui = RoomUIState("battle")
-        self.background = None
+        # Auto-select a random map — no manual selection screen needed
+        import random as _rnd
+        if self.available_maps:
+            self.map_index = _rnd.randint(0, len(self.available_maps) - 1)
+            path = os.path.join("assets/maps", self.available_maps[self.map_index])
+            self.background = arcade.load_texture(path)
+        else:
+            self.map_index = 0
+            self.background = None
         self.camera = arcade.Camera2D()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
@@ -1425,7 +1500,7 @@ class BattleView(GameView):
 
         for unit in self.player_units:
             sprite = arcade.Sprite(
-                "assets/player.png",
+                _sprite_path_for_unit(unit),
                 center_x=unit.position[0],
                 center_y=unit.position[1],
             )
@@ -1434,7 +1509,7 @@ class BattleView(GameView):
 
         for enemy in self.enemy_units:
             sprite = arcade.Sprite(
-                "assets/enemy.png",
+                _sprite_path_for_unit(enemy),
                 center_x=enemy.position[0],
                 center_y=enemy.position[1],
             )
@@ -1448,12 +1523,18 @@ class BattleView(GameView):
         self.triggered_complication = None
         self.attack_timer = 0.0
         self.attack_line = None
+        # Attack flash state (screen-edge colour flash)
+        self._flash_alpha: int = 0
+        self._flash_hit: bool  = True
         # Target selection state
         self.selecting_target = False
         self.target_candidates = []
         self.selected_target_idx = 0
         self.pending_attack = None
         self.combat_action_buttons = []
+        # Cover nodes (generated once per map, used for defense bonuses + HUD)
+        from game.cover_system import generate_cover_nodes
+        self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
         self.start_player_turn()
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
@@ -1575,6 +1656,8 @@ class BattleView(GameView):
             target_name = target.character.name if target.character else "agent"
             self.message = f"Enemy hits {target_name} for {damage}"
             self.start_attack_animation(enemy, target)
+            self._flash_hit   = False
+            self._flash_alpha = 140
 
         def on_defeated(target: Unit) -> None:
             if target.sprite:
@@ -1582,18 +1665,32 @@ class BattleView(GameView):
             if self.active_index > 0:
                 self.active_index = min(self.active_index - 1, len(self.player_units))
 
+        def on_overwatch_shot(watcher: Unit, enemy: Unit, damage: int) -> None:
+            watcher_name = watcher.character.name if watcher.character else "Agent"
+            if damage > 0:
+                self.message = f"OVERWATCH! {watcher_name} hits for {damage}"
+                self.start_attack_animation(watcher, enemy)
+                self._flash_hit   = True
+                self._flash_alpha = 200
+            else:
+                self.message = f"OVERWATCH! {watcher_name} misses"
+
         run_enemy_ai_system(
             self.player_units,
             self.enemy_units,
             defeated_player_units=self.defeated_player_units,
             on_attack=on_attack,
             on_defeated=on_defeated,
+            on_overwatch_shot=on_overwatch_shot,
         )
 
     def on_draw(self):
         from game.ui.screens.battle_hud import (
             draw_active_unit_ring,
+            draw_attack_flash,
             draw_attack_range,
+            draw_cover_nodes,
+            draw_fog_of_war,
             draw_mission_status_bar,
             draw_movement_range,
             draw_objective_marker,
@@ -1601,7 +1698,9 @@ class BattleView(GameView):
             draw_tactical_grid,
             draw_target_lock_panel,
             draw_unit_labels,
+            draw_unit_portrait_strip,
             draw_unit_status_panel,
+            update_enemy_visibility,
         )
 
         self.clear()
@@ -1628,6 +1727,10 @@ class BattleView(GameView):
         # ── Tactical grid ────────────────────────────────────────────────
         draw_tactical_grid(w, h)
 
+        # ── Cover nodes ───────────────────────────────────────────────────
+        cover_nodes = getattr(self, "cover_nodes", [])
+        draw_cover_nodes(cover_nodes)
+
         # ── Movement range (player turn only) ───────────────────────────
         has_active = bool(self.player_units) and 0 <= self.active_index < len(self.player_units)
         active_unit = self.player_units[self.active_index] if has_active else None
@@ -1641,6 +1744,13 @@ class BattleView(GameView):
         # ── Objective marker ─────────────────────────────────────────────
         elapsed = getattr(self, "_battle_elapsed", 0.0)
         draw_objective_marker(self.battle_objective, elapsed)
+
+        # ── Fog of war — darken unseen tiles, hide invisible enemies ────
+        update_enemy_visibility(self.player_units, self.enemy_units)
+        for enemy in self.enemy_units:
+            if enemy.sprite:
+                enemy.sprite.visible = enemy.visible
+        draw_fog_of_war(self.player_units, w, h)
 
         # ── Units ────────────────────────────────────────────────────────
         self.enemy_list.draw()
@@ -1707,6 +1817,12 @@ class BattleView(GameView):
         else:
             self.combat_action_buttons = []
 
+        # ── Portrait strip (all player units, bottom) ────────────────────
+        draw_unit_portrait_strip(self.player_units, self.active_index, w, elapsed)
+
+        # ── Screen-edge attack flash ─────────────────────────────────────
+        draw_attack_flash(w, h, self._flash_hit, self._flash_alpha)
+
         # ── End-of-battle indicator ──────────────────────────────────────
         if self.turn == "ended":
             color = palette.TACTICAL_GREEN if not self.enemy_units else palette.DANGER
@@ -1770,6 +1886,11 @@ class BattleView(GameView):
             self._begin_target_action(player, "fire")
             self.message = "Missile target lock acquired."
             return True
+        if action_key == "overwatch":
+            if player.set_overwatch():
+                self.message = f"{getattr(player.character, 'name', 'Unit')} is on OVERWATCH."
+                self.check_active_player()
+            return True
         if action_key == "defend":
             player.defend()
             self.check_active_player()
@@ -1800,9 +1921,10 @@ class BattleView(GameView):
                 if loaded is not None:
                     self.game_state = loaded
             elif key == arcade.key.ESCAPE:
-                corp_view = CorpView(self.game_state)
-                corp_view.setup()
-                self.window.show_view(corp_view)
+                from game.ui.screens.management_screen import ManagementView
+                mgmt = ManagementView(self.game_state)
+                mgmt.setup()
+                self.window.show_view(mgmt)
             return
 
         if key == arcade.key.S:
@@ -1858,19 +1980,31 @@ class BattleView(GameView):
                         if player.spec_ops_asset
                         else player.unit_type
                     )
-                    self.message = f"{attacker_name} {atk_name} for {damage}"
+                    cover_note = " (through cover)" if target.in_cover_bonus > 0 else ""
+                    self.message = f"{attacker_name} {atk_name} for {damage}{cover_note}"
                     self.start_attack_animation(player, target)
-                    if target.health <= 0:
-                        if target.sprite:
-                            target.sprite.kill()
-                        if target in self.enemy_units:
-                            self.enemy_units.remove(target)
-                        if not self.enemy_units:
-                            self.end_battle(True)
-                            self.selecting_target = False
-                            self.target_candidates = []
-                            self.pending_attack = None
-                            return
+                    self._flash_hit   = True
+                    self._flash_alpha = 160
+                else:
+                    # Miss — red flash; cover blocking is the likely cause
+                    cover_note = " — cover blocked!" if target.in_cover_bonus > 0 else " — miss!"
+                    self._flash_hit   = False
+                    self._flash_alpha = 120
+                    self.message = f"Attack missed{cover_note}"
+
+                # ── Remove killed enemy immediately (hit or pre-existing death) ──
+                if target.health <= 0:
+                    if target.sprite:
+                        target.sprite.kill()
+                    if target in self.enemy_units:
+                        self.enemy_units.remove(target)
+                    if not self.enemy_units:
+                        self.selecting_target = False
+                        self.target_candidates = []
+                        self.pending_attack = None
+                        self.end_battle(True)
+                        return
+
                 self.selecting_target = False
                 self.target_candidates = []
                 self.pending_attack = None
@@ -1923,6 +2057,8 @@ class BattleView(GameView):
             self._perform_combat_action("first_aid")
         elif key == arcade.key.M:
             self._perform_combat_action("missiles")
+        elif key == arcade.key.O:
+            self._perform_combat_action("overwatch")
         elif key == arcade.key.ENTER or key == arcade.key.RETURN:
             self._perform_combat_action("end_turn")
         elif key == arcade.key.D:
@@ -1930,9 +2066,10 @@ class BattleView(GameView):
         elif key == arcade.key.V:
             player.psi_defend()
         elif key == arcade.key.ESCAPE:
-            corp_view = CorpView(self.game_state)
-            corp_view.setup()
-            self.window.show_view(corp_view)
+            from game.ui.screens.management_screen import ManagementView
+            mgmt = ManagementView(self.game_state)
+            mgmt.setup()
+            self.window.show_view(mgmt)
 
         self.check_active_player()
 
@@ -2053,3 +2190,12 @@ class BattleView(GameView):
             self.attack_timer -= delta_time
             if self.attack_timer <= 0:
                 self.attack_line = None
+        # Fade attack flash
+        if self._flash_alpha > 0:
+            self._flash_alpha = max(0, self._flash_alpha - int(delta_time * 480))
+        # ── Refresh cover bonuses for all living units ──────────────────
+        cover_nodes = getattr(self, "cover_nodes", [])
+        if cover_nodes:
+            from game.cover_system import cover_defense_bonus
+            for unit in self.player_units + self.enemy_units:
+                unit.in_cover_bonus = cover_defense_bonus(unit, cover_nodes)

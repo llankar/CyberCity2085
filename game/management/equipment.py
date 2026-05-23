@@ -245,91 +245,276 @@ class AgentLoadout:
 
 
 def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
-    """Return a tiny starter catalog for barracks assignment actions."""
+    """Full tactical equipment catalog — weapons, armor, gadgets, psi-gear."""
     return {
+        # ── Primary weapons ──────────────────────────────────────────────────
         "primary_weapon": [
             Weapon(
-                "pulse_rifle",
-                "Pulse Rifle",
-                "primary_weapon",
-                {"agi": 1},
-                ["rifle"],
+                "pulse_rifle", "Pulse Rifle", "primary_weapon",
+                {"agi": 1}, ["rifle"],
                 "Reliable mid-range corp rifle.",
-                ("primary_weapon",),
-                attack_stat="agi",
-                damage_bonus=1,
-                range_cells=8,
-                action_name="Rifle Burst",
+                ("primary_weapon",), attack_stat="agi",
+                damage_bonus=1, range_cells=8, action_name="Rifle Burst",
             ),
             Weapon(
-                "monoblade",
-                "Monoblade",
-                "primary_weapon",
-                {"str": 1},
-                ["blade"],
-                "Close combat blade with a memory edge.",
-                ("primary_weapon",),
-                attack_stat="str",
-                damage_bonus=1,
-                range_cells=1,
-                action_name="Blade Strike",
+                "monoblade", "Monoblade", "primary_weapon",
+                {"str": 1}, ["blade"],
+                "Memory-edge blade that never dulls.",
+                ("primary_weapon",), attack_stat="str",
+                damage_bonus=1, range_cells=1, action_name="Blade Strike",
+            ),
+            Weapon(
+                "plasma_carbine", "Plasma Carbine", "primary_weapon",
+                {"agi": 1}, ["plasma", "rifle"],
+                "Superheated plasma bolts — high penetration.",
+                ("primary_weapon",), attack_stat="agi",
+                damage_bonus=2, range_cells=6, action_name="Plasma Burst",
+            ),
+            Weapon(
+                "combat_shotgun", "Combat Shotgun", "primary_weapon",
+                {"str": 1}, ["shotgun"],
+                "Close-range devastation — clears rooms fast.",
+                ("primary_weapon",), attack_stat="str",
+                damage_bonus=3, range_cells=3, action_name="Shotgun Blast",
+            ),
+            Weapon(
+                "sniper_rifle", "Sniper Rifle", "primary_weapon",
+                {"agi": 2}, ["sniper", "rifle"],
+                "Long-range precision anti-materiel rifle.",
+                ("primary_weapon",), attack_stat="agi",
+                damage_bonus=3, range_cells=14, action_name="Precision Shot",
+            ),
+            Weapon(
+                "katana", "Katana", "primary_weapon",
+                {"str": 2}, ["blade", "melee"],
+                "Traditional blade reforged with nano-edge tech.",
+                ("primary_weapon",), attack_stat="str",
+                damage_bonus=2, range_cells=1, action_name="Katana Slash",
+            ),
+            Weapon(
+                "flamethrower", "Flamethrower", "primary_weapon",
+                {"str": 1}, ["fire", "heavy"],
+                "Close-range area denial — enemies fear the flame.",
+                ("primary_weapon",), attack_stat="str",
+                damage_bonus=2, range_cells=4, action_name="Fire Spray",
+            ),
+            Weapon(
+                "arc_caster", "Arc Caster", "primary_weapon",
+                {"psi": 1}, ["electric"],
+                "Psi-triggered electric discharge weapon.",
+                ("primary_weapon",), attack_stat="psi",
+                damage_bonus=2, range_cells=8, action_name="Arc Discharge",
+            ),
+            Weapon(
+                "gravity_lance", "Gravity Lance", "primary_weapon",
+                {"agi": 2}, ["heavy", "energy"],
+                "Corp prototype mass-distortion rifle — extreme range.",
+                ("primary_weapon",), attack_stat="agi",
+                damage_bonus=4, range_cells=10, action_name="Gravity Shot",
             ),
         ],
+
+        # ── Sidearms ─────────────────────────────────────────────────────────
         "sidearm": [
             Weapon(
-                "shock_pistol",
-                "Shock Pistol",
-                "sidearm",
-                {"agi": 1},
-                ["pistol"],
-                "Compact backup weapon.",
-                ("sidearm",),
-                attack_stat="agi",
-                damage_bonus=0,
-                range_cells=5,
-                action_name="Pistol Shot",
-            )
+                "shock_pistol", "Shock Pistol", "sidearm",
+                {"agi": 1}, ["pistol"],
+                "Compact backup weapon with stun charge.",
+                ("sidearm",), attack_stat="agi",
+                damage_bonus=0, range_cells=5, action_name="Pistol Shot",
+            ),
+            Weapon(
+                "micro_uzi", "Micro-Uzi", "sidearm",
+                {"agi": 1}, ["smg", "pistol"],
+                "High-ROF compact SMG — spray and pray.",
+                ("sidearm",), attack_stat="agi",
+                damage_bonus=1, range_cells=4, action_name="SMG Spray",
+            ),
+            Weapon(
+                "plasma_pistol", "Plasma Pistol", "sidearm",
+                {"agi": 1}, ["plasma", "pistol"],
+                "Miniaturized plasma projector, reliable backup.",
+                ("sidearm",), attack_stat="agi",
+                damage_bonus=2, range_cells=6, action_name="Plasma Shot",
+            ),
+            Weapon(
+                "stun_baton", "Stun Baton", "sidearm",
+                {"str": 1}, ["melee", "stun"],
+                "Electroshock melee for crowd control.",
+                ("sidearm",), attack_stat="str",
+                damage_bonus=1, range_cells=1, action_name="Stun Strike",
+            ),
+            Weapon(
+                "mono_knife", "Mono-Knife", "sidearm",
+                {"agi": 1}, ["blade", "melee"],
+                "Silent blade — zero noise signature.",
+                ("sidearm",), attack_stat="str",
+                damage_bonus=0, range_cells=1, action_name="Silent Kill",
+            ),
+            Weapon(
+                "heavy_pistol", "Heavy Pistol", "sidearm",
+                {"str": 1}, ["pistol", "heavy"],
+                "High-caliber hand cannon — punches through plate.",
+                ("sidearm",), attack_stat="agi",
+                damage_bonus=2, range_cells=5, action_name="Magnum Shot",
+            ),
         ],
+
+        # ── Armor ────────────────────────────────────────────────────────────
         "armor": [
             Armor(
-                "kevlar_longcoat",
-                "Kevlar Longcoat",
-                "armor",
-                {"max_hp": 2},
-                ["coat"],
-                "Armored street coat with hidden plates.",
-                ("armor",),
-                mitigation=1,
-            )
+                "kevlar_longcoat", "Kevlar Longcoat", "armor",
+                {"max_hp": 2}, ["coat"],
+                "Armored street coat with hidden ballistic plates.",
+                ("armor",), mitigation=1,
+            ),
+            Armor(
+                "combat_vest", "Combat Vest", "armor",
+                {"max_hp": 1, "defense": 1}, ["vest"],
+                "Tactical vest with ceramic trauma plates.",
+                ("armor",), mitigation=2,
+            ),
+            Armor(
+                "nanoweave_suit", "Nanoweave Suit", "armor",
+                {"agi": 1, "max_hp": 1}, ["light"],
+                "Flexible nano-fiber weave — mobile and protective.",
+                ("armor",), mitigation=1,
+            ),
+            Armor(
+                "reactive_mesh", "Reactive Mesh", "armor",
+                {"defense": 2}, ["reactive"],
+                "Kinetic energy dispersion mesh activates on impact.",
+                ("armor",), mitigation=2,
+            ),
+            Armor(
+                "stealth_coat", "Stealth Coat", "armor",
+                {"agi": 2, "defense": 1}, ["stealth", "coat"],
+                "Optical camouflage weave — reduced detection profile.",
+                ("armor",), mitigation=1,
+            ),
+            Armor(
+                "exo_skeleton", "Exo-Skeleton Frame", "armor",
+                {"str": 2, "max_hp": 3}, ["heavy", "exo"],
+                "Powered exo-frame — massive protection and strength.",
+                ("armor",), mitigation=3,
+            ),
+            Armor(
+                "medic_vest", "Medic Vest", "armor",
+                {"max_hp": 4, "con": 1}, ["medic", "vest"],
+                "Reinforced trauma vest with integrated med packs.",
+                ("armor",), mitigation=2,
+            ),
         ],
+
+        # ── Utility items ─────────────────────────────────────────────────────
         "utility_item": [
             EquipmentItem(
-                "trauma_patch",
-                "Trauma Patch",
-                "utility_item",
-                {"hp": 1},
-                ["medical"],
-                "Emergency stabilizer carried into the zone.",
-            )
+                "trauma_patch", "Trauma Patch", "utility_item",
+                {"hp": 1}, ["medical"],
+                "Emergency stabilizer — staunches wounds in the field.",
+            ),
+            EquipmentItem(
+                "med_kit_pro", "Med Kit Pro", "utility_item",
+                {"hp": 2, "max_hp": 1}, ["medical"],
+                "Full field surgical kit — serious trauma care.",
+            ),
+            EquipmentItem(
+                "adrenaline_shot", "Adrenaline Shot", "utility_item",
+                {"str": 1, "agi": 1}, ["stimulant"],
+                "Combat stim — temporarily boosts speed and strength.",
+            ),
+            EquipmentItem(
+                "smoke_grenade", "Smoke Grenade", "utility_item",
+                {"defense": 2}, ["grenade", "explosive"],
+                "Tactical smoke — breaks line of sight.",
+            ),
+            EquipmentItem(
+                "tactical_scanner", "Tactical Scanner", "utility_item",
+                {"agi": 1, "defense": 1}, ["tech"],
+                "Wrist-mounted scanner — reveals enemy positions.",
+            ),
+            EquipmentItem(
+                "nano_repair", "Nano-Repair Kit", "utility_item",
+                {"hp": 3}, ["medical", "tech"],
+                "Injected nanobots — rapid biological reconstruction.",
+            ),
+            EquipmentItem(
+                "stim_pack", "Stim Pack", "utility_item",
+                {"str": 2}, ["stimulant", "medical"],
+                "Military-grade stim — extreme combat performance.",
+            ),
+            EquipmentItem(
+                "hacking_module", "Hacking Module", "utility_item",
+                {"psi": 1, "agi": 1}, ["tech", "cyber"],
+                "Wrist console for rapid network intrusion.",
+            ),
         ],
+
+        # ── Psi focus ─────────────────────────────────────────────────────────
         "psi_focus": [
             EquipmentItem(
-                "echo_implant",
-                "Echo Implant",
-                "psi_focus",
-                {"psi": 2},
-                ["implant", "psi"],
-                "Whispering wetware focus for psi agents.",
-            )
+                "echo_implant", "Echo Implant", "psi_focus",
+                {"psi": 2}, ["implant", "psi"],
+                "Cortical implant that amplifies psi-wave output.",
+            ),
+            EquipmentItem(
+                "psi_amplifier", "Psi Amplifier Crown", "psi_focus",
+                {"psi": 3, "str": 1}, ["crown", "psi"],
+                "Titanium crown array — dramatically boosts psi power.",
+            ),
+            EquipmentItem(
+                "neural_spike", "Neural Spike", "psi_focus",
+                {"psi": 2, "defense": 1}, ["implant", "psi"],
+                "Hardened wetware jack with psi-shielding.",
+            ),
+            EquipmentItem(
+                "resonance_crystal", "Resonance Crystal", "psi_focus",
+                {"psi": 4}, ["crystal", "psi"],
+                "Synthetic crystalline resonator — rare psi catalyst.",
+            ),
+            EquipmentItem(
+                "void_lens", "Void Lens", "psi_focus",
+                {"psi": 2, "agi": 1}, ["lens", "psi"],
+                "Psi-reactive optic lens — enhances situational awareness.",
+            ),
         ],
+
+        # ── Special gear ──────────────────────────────────────────────────────
         "special_gear": [
             EquipmentItem(
-                "ghost_cloak",
-                "Ghost Cloak",
-                "special_gear",
-                {"defense": 1},
-                ["stealth"],
-                "Corporate prototype optical smear.",
-            )
+                "ghost_cloak", "Ghost Cloak", "special_gear",
+                {"defense": 1}, ["stealth"],
+                "Corporate prototype optical smear field.",
+            ),
+            EquipmentItem(
+                "jet_pack", "Jet Pack", "special_gear",
+                {"agi": 2}, ["mobility"],
+                "Compact thruster pack — cross obstacles freely.",
+            ),
+            EquipmentItem(
+                "camo_net", "Camo Net", "special_gear",
+                {"defense": 2}, ["stealth", "camo"],
+                "Reactive camouflage netting — near-invisible in cover.",
+            ),
+            EquipmentItem(
+                "combat_stims", "Combat Stims", "special_gear",
+                {"str": 2, "agi": 1}, ["stimulant"],
+                "Pre-loaded stim dispenser — automatic combat boost.",
+            ),
+            EquipmentItem(
+                "tactical_ai", "Tactical AI Module", "special_gear",
+                {"defense": 1, "agi": 1}, ["tech", "ai"],
+                "Wearable tactical AI — real-time threat assessment.",
+            ),
+            EquipmentItem(
+                "cyber_legs", "Cybernetic Legs", "special_gear",
+                {"agi": 3}, ["cyber", "mobility"],
+                "Full leg replacement — sprint speed and silent movement.",
+            ),
+            EquipmentItem(
+                "reactive_plates", "Reactive Armor Plates", "special_gear",
+                {"defense": 3, "max_hp": 2}, ["armor", "reactive"],
+                "Bolt-on kinetic-reactive plates — extreme protection.",
+            ),
         ],
     }
