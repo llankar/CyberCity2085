@@ -21,6 +21,13 @@ class ResearchManagementTest(unittest.TestCase):
             self.assertGreater(project.funds_cost, 0)
             self.assertGreater(project.days_required, 0)
 
+    def test_starter_tree_has_at_least_twenty_projects_across_branches(self):
+        tree = create_starter_research_tree()
+
+        self.assertGreaterEqual(len(tree.projects), 20)
+        for category in RESEARCH_CATEGORIES:
+            self.assertGreaterEqual(len(tree.projects_for_category(category)), 3)
+
     def test_starting_research_pays_cost_and_queues_project(self):
         game_state = GameState()
         project = game_state.research_tree.project("weapon_smartlink_mk1")
