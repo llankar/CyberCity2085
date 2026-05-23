@@ -2,7 +2,7 @@
 
 ## 1) Understand what each asset is
 - **Combat robots** are autonomous support assets that deploy beside your agents.
-- **Power armor** is a support suit that still needs a selected, deployable agent as pilot.
+- **Power armor** is a support suit that still needs a selected, deployable agent as pilot. Once assigned, the pilot is replaced on mission manifests by the armor unit itself.
 
 ## 2) Unlock assets
 1. Open the **Research Lab**.
@@ -34,3 +34,18 @@ After battle, review in debrief/base UI:
 - availability cooldown.
 
 Then run maintenance service to restore integrity for future operations.
+
+
+## 7) Research trees (3X style)
+
+Use these compact branches in the Research Lab:
+
+- **Weapons**: Smartlink Mk I → Corporate Rail Lattice
+- **Armor**: Reactive Armor Lining → Aegis Weave Shell
+- **Equipment**: Field Mender Kit → Tactical Fabricator Cache
+- **Robots**: Loyalty Kernel Patch → Hunter-Killer Doctrine (also needs Smartlink Mk I)
+- **Power Armor**: Servo Prayer Loop → Praetorian Frame Contract (also needs Reactive Armor Lining)
+- **Vehicles**: Silent Wheels Retrofit → Black Channel Logistics
+- **Psy**: Echo Discipline → Choir Firebreak
+
+These branches increase weapon lethality, armor resilience, utility flexibility, corporation contract bonuses, and mission budget efficiency while staying modular and readable.
