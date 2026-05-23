@@ -31,6 +31,7 @@ Status vocabulary: `not started`, `in progress`, `functional`, `polished`.
 - [x] UI-22 Refresh title-screen background art: swapped the start screen to a new widescreen corporate skyline image with a cleaner center frame for the logo and menu, keeping the same cyberpunk tower mood as the rest of the game. (completed May 23, 2026)
 - [x] UI-23 Research UI tree presentation: research lab summary now renders available projects as a compact dependency tree (roots + child branches) so players can read progression paths at a glance; kept button actions unchanged and covered by research UI tests. (completed May 23, 2026)
 - [x] UI-24 Fix research tree state visibility: research lab now renders a compact stateful tree showing completed (✓), active (▶), and currently available (○) projects so selecting research immediately reveals prior and next branch context; added regression coverage in research management tests. (completed May 23, 2026)
+- [x] UI-25 Show all available research branches: removed research-lab tree clipping so the panel no longer collapses with an ellipsis and now lists every currently available branch line; added regression coverage. (completed May 23, 2026)
 TODO:
 
 - [x] RESEARCH-03 3X-style branching research trees + power-armor pilot replacement in mission manifests: piloted agents are hidden from mission roster and represented by the suit unit; expanded compact research branches (weapons/armor/equipment/robots/power-armor/vehicles/psy) with corp budget and advanced gear progression; tests and gameplay doc updated. (completed May 23, 2026)

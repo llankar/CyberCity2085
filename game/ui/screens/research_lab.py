@@ -13,7 +13,6 @@ def _build_research_tree_lines(
     tree: ResearchTree,
     completed: set[str],
     active_ids: set[str],
-    max_lines: int = 8,
 ) -> list[str]:
     """Render completed and currently available projects in one compact tree."""
     available_projects = tree.available_projects(completed, active_ids)
@@ -49,10 +48,6 @@ def _build_research_tree_lines(
             if child.id in completed or child.id in available_ids or child.id in active_ids:
                 lines.append(f"  └─ {_status_prefix(child)} {_project_label(child)}")
 
-    if len(lines) > max_lines:
-        clipped = lines[: max_lines - 1]
-        clipped.append("  …more branches available")
-        return clipped
     return lines
 
 
@@ -79,7 +74,7 @@ def build_research_lab_lines(
     else:
         lines.append("No active project. Choose a starter study.")
 
-    lines.extend(_build_research_tree_lines(tree, completed, active_ids, max_lines=9 - len(lines)))
+    lines.extend(_build_research_tree_lines(tree, completed, active_ids))
 
     if completed:
         lines.append(
@@ -87,4 +82,4 @@ def build_research_lab_lines(
         )
     else:
         lines.append("Completed: none")
-    return lines[:9]
+    return lines

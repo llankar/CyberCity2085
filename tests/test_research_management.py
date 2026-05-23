@@ -106,6 +106,15 @@ class ResearchManagementTest(unittest.TestCase):
         self.assertIn("start_research_0", actions)
         self.assertIn("start_research_1", actions)
 
+
+    def test_research_lab_ui_displays_all_available_branches_without_ellipsis(self):
+        game_state = GameState()
+
+        lines = build_research_lab_lines(game_state)
+
+        self.assertFalse(any("…more branches available" in line for line in lines))
+        self.assertGreaterEqual(len(lines), 10)
+
     def test_research_lab_ui_shows_completed_and_available_tree_states(self):
         game_state = GameState()
         starter = game_state.research_tree.project("weapon_smartlink_mk1")
