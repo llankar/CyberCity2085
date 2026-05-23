@@ -134,6 +134,7 @@ class ResearchTree:
 def create_starter_research_tree() -> ResearchTree:
     """Create a compact 3X-style tech tree with clear progression branches."""
     starter_projects = [
+        # Vehicles branch
         ResearchProject(
             id="vehicle_silent_wheels",
             name="Silent Wheels Retrofit",
@@ -156,6 +157,18 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"mission_budget_efficiency": 1},
         ),
         ResearchProject(
+            id="vehicle_ghost_convoy_doctrine",
+            name="Ghost Convoy Doctrine",
+            category="vehicles",
+            funds_cost=70,
+            days_required=6,
+            requires=("vehicle_black_channel_logistics",),
+            description="Layered decoy convoys preserve extraction lanes under surveillance pressure.",
+            unlock_flags=("vehicles.ghost_convoy_doctrine",),
+            stat_modifiers={"vehicle_survivability": 1},
+        ),
+        # Weapons branch
+        ResearchProject(
             id="weapon_smartlink_mk1",
             name="Smartlink Mk I",
             category="weapons",
@@ -176,6 +189,18 @@ def create_starter_research_tree() -> ResearchTree:
             unlock_flags=("weapons.corporate_rail_lattice",),
             stat_modifiers={"weapon_damage": 1},
         ),
+        ResearchProject(
+            id="weapon_oracle_killchain",
+            name="Oracle Killchain Targeting",
+            category="weapons",
+            funds_cost=75,
+            days_required=6,
+            requires=("weapon_corporate_rail_lattice",),
+            description="Cross-squad telemetry chains improve first-volley certainty on priority threats.",
+            unlock_flags=("weapons.oracle_killchain",),
+            stat_modifiers={"weapon_crit_window": 1},
+        ),
+        # Armor branch
         ResearchProject(
             id="armor_reactive_lining",
             name="Reactive Armor Lining",
@@ -198,6 +223,18 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"armor_resilience": 1},
         ),
         ResearchProject(
+            id="armor_memorial_plating",
+            name="Memorial Plating Grid",
+            category="armor",
+            funds_cost=80,
+            days_required=7,
+            requires=("armor_aegis_weave",),
+            description="Field-tuned plating profiles absorb breach shock during retreat windows.",
+            unlock_flags=("armor.memorial_plating",),
+            stat_modifiers={"armor_breach_guard": 1},
+        ),
+        # Psy branch
+        ResearchProject(
             id="psy_echo_discipline",
             name="Echo Discipline",
             category="psy",
@@ -218,6 +255,18 @@ def create_starter_research_tree() -> ResearchTree:
             unlock_flags=("psy.choir_firebreak",),
             stat_modifiers={"stress_resistance": 1},
         ),
+        ResearchProject(
+            id="psy_memory_anchor_ritual",
+            name="Memory Anchor Rituals",
+            category="psy",
+            funds_cost=70,
+            days_required=6,
+            requires=("psy_choir_firebreak",),
+            description="Guided anchor rites help operatives retain mission identity after psychic spillover.",
+            unlock_flags=("psy.memory_anchor_ritual",),
+            stat_modifiers={"psi_recovery": 1},
+        ),
+        # Equipment branch
         ResearchProject(
             id="equipment_field_mender",
             name="Field Mender Kit",
@@ -240,6 +289,18 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"utility_capacity": 1},
         ),
         ResearchProject(
+            id="equipment_lastlight_pack",
+            name="Lastlight Sustainment Pack",
+            category="equipment",
+            funds_cost=60,
+            days_required=5,
+            requires=("equipment_tactical_fabricator",),
+            description="Miniaturized reserve kits keep squads operation-ready across longer deployments.",
+            unlock_flags=("equipment.lastlight_pack",),
+            stat_modifiers={"mission_endurance": 1},
+        ),
+        # Robots branch
+        ResearchProject(
             id="robot_loyalty_kernel",
             name="Loyalty Kernel Patch",
             category="robots",
@@ -261,6 +322,18 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"robot_firepower": 1},
         ),
         ResearchProject(
+            id="robot_oathfire_command_net",
+            name="Oathfire Command Net",
+            category="robots",
+            funds_cost=80,
+            days_required=7,
+            requires=("robot_hunter_killer_doctrine", "psy_choir_firebreak"),
+            description="Human-robot trust loops improve allied coordination under fear-heavy scenarios.",
+            unlock_flags=("robots.oathfire_command_net",),
+            stat_modifiers={"robot_command_sync": 1},
+        ),
+        # Power-armor branch
+        ResearchProject(
             id="power_armor_servo_prayer",
             name="Servo Prayer Loop",
             category="power_armor",
@@ -280,6 +353,17 @@ def create_starter_research_tree() -> ResearchTree:
             description="Corporate-backed frame reinforcement unlocks elite suit survivability.",
             unlock_flags=("power_armor.praetorian_frame", "corp.contract.praetorian"),
             stat_modifiers={"power_armor_durability": 1, "corp_budget_bonus": 1},
+        ),
+        ResearchProject(
+            id="power_armor_bastion_overdrive",
+            name="Bastion Overdrive Suite",
+            category="power_armor",
+            funds_cost=90,
+            days_required=8,
+            requires=("power_armor_praetorian_frame", "robot_hunter_killer_doctrine"),
+            description="Integrated pilot-assist and threat AI boosts suit tempo without replacing the pilot.",
+            unlock_flags=("power_armor.bastion_overdrive",),
+            stat_modifiers={"power_armor_response": 1},
         ),
     ]
     return ResearchTree({project.id: project for project in starter_projects})
