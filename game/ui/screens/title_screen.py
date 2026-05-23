@@ -8,6 +8,7 @@ cyberpunk aesthetic stays consistent with the rest of the UI layer.
 from __future__ import annotations
 
 import math
+from pathlib import Path
 
 import arcade
 
@@ -38,6 +39,7 @@ _BTN_H      = 54
 _BTN_GAP    = 14
 _TITLE_FRAC = 0.70   # y-fraction of window for title baseline
 _MENU_FRAC  = 0.50   # y-fraction for top of first button
+_TITLE_BACKGROUND_ASSET = Path("assets/ui/title_background.png")
 
 
 class TitleView(arcade.View):
@@ -47,6 +49,7 @@ class TitleView(arcade.View):
         super().__init__()
         self._elapsed:     float = 0.0
         self._hover_index: int | None = None
+        self._background_texture: arcade.Texture | None = None
         # Populated once per draw when window size is known.
         self._buttons: list[tuple[int, int, int, int, str, str]] = []
 
@@ -54,6 +57,7 @@ class TitleView(arcade.View):
 
     def on_show_view(self) -> None:
         arcade.set_background_color(BACKGROUND)
+        self._background_texture = self._load_background_texture()
 
     def on_draw(self) -> None:
         self.clear()
@@ -100,6 +104,14 @@ class TitleView(arcade.View):
             btns.append((cx - _BTN_W // 2, y_bot, cx + _BTN_W // 2, y_top, label, key))
         return btns
 
+    def _load_background_texture(self) -> arcade.Texture | None:
+        if not _TITLE_BACKGROUND_ASSET.exists():
+            return None
+        try:
+            return arcade.load_texture(str(_TITLE_BACKGROUND_ASSET))
+        except Exception:
+            return None
+
     def _index_at(self, x: int, y: int) -> int | None:
         for i, (l, b, r, t, _, _k) in enumerate(self._buttons):
             if l <= x <= r and b <= y <= t:
@@ -109,32 +121,43 @@ class TitleView(arcade.View):
     # ── Drawing ─────────────────────────────────────────────────────────────
 
     def _draw_background(self, w: int, h: int) -> None:
-        # Solid dark base
-        arcade.draw_lrbt_rectangle_filled(0, w, 0, h, BACKGROUND)
+        if self._background_texture is not None:
+            arcade.draw_texture_rect(
+                self._background_texture, arcade.LBWH(0, 0, w, h)
+            )
+            arcade.draw_lrbt_rectangle_filled(0, w, 0, h, (0, 0, 0, 48))
+        else:
+            # Solid dark base
+            arcade.draw_lrbt_rectangle_filled(0, w, 0, h, BACKGROUND)
 
-        # Distant city silhouette with animated lit windows
-        horizon = int(h * 0.30)
-        for i, x in enumerate(range(-60, w + 100, 70)):
-            tower_h = horizon + 40 + ((i * 41 + 7) % 140)
-            arcade.draw_lrbt_rectangle_filled(x, x + 48, 0, tower_h, SKYLINE_SHADOW)
-            seed = i * 13 + 3
-            for row in range(10, tower_h - 8, 18):
-                for col in range(x + 6, x + 42, 14):
-                    if (seed + row + col) % 5 < 2:
-                        b = 55 + int(25 * math.sin(self._elapsed * 1.1 + i * 0.4 + row * 0.05))
-                        arcade.draw_lrbt_rectangle_filled(
-                            col, col + 8, row, row + 9, (b + 25, b + 18, b, 190)
-                        )
+            # Distant city silhouette with animated lit windows
+            horizon = int(h * 0.30)
+            for i, x in enumerate(range(-60, w + 100, 70)):
+                tower_h = horizon + 40 + ((i * 41 + 7) % 140)
+                arcade.draw_lrbt_rectangle_filled(
+                    x, x + 48, 0, tower_h, SKYLINE_SHADOW
+                )
+                seed = i * 13 + 3
+                for row in range(10, tower_h - 8, 18):
+                    for col in range(x + 6, x + 42, 14):
+                        if (seed + row + col) % 5 < 2:
+                            b = 55 + int(
+                                25 * math.sin(self._elapsed * 1.1 + i * 0.4 + row * 0.05)
+                            )
+                            arcade.draw_lrbt_rectangle_filled(
+                                col, col + 8, row, row + 9, (b + 25, b + 18, b, 190)
+                            )
 
-        # Horizon glow
-        arcade.draw_lrbt_rectangle_filled(0, w, 0, horizon, (4, 2, 6))
-        arcade.draw_line(0, horizon, w, horizon, (245, 103, 55, 55), 3)
+            # Horizon glow
+            arcade.draw_lrbt_rectangle_filled(0, w, 0, horizon, (4, 2, 6))
+            arcade.draw_line(0, horizon, w, horizon, (245, 103, 55, 55), 3)
 
         # Scanlines
         for y in range(0, h, 5):
             arcade.draw_line(0, y, w, y, SCANLINE, 1)
 
         # Perspective grid
+        horizon = int(h * 0.30)
         for offset in range(-w, w * 2, 90):
             arcade.draw_line(offset, 0, offset + 64, horizon, (22, 84, 112, 35), 1)
 
