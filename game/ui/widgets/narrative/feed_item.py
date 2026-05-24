@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from ....i18n import t
 from ....narrative.event_feed import NarrativeFeedEntry
 from ...accessibility.states import label_with_non_color_indicator
 
@@ -43,20 +44,20 @@ class NarrativeFeedWidgetLine:
     tone: str = "tense"
 
 
-def readable_relative_timestamp(age_steps: int) -> str:
+def readable_relative_timestamp(age_steps: int, language: str | None = None) -> str:
     if age_steps <= 0:
-        return "à l'instant"
+        return t("feed.just_now", language)
     if age_steps == 1:
-        return "il y a 1 instant"
-    return f"il y a {age_steps} instants"
+        return t("feed.one_ago", language)
+    return t("feed.many_ago", language, count=age_steps)
 
 
-def to_widget_line(entry: NarrativeFeedEntry, age_steps: int, clip: int = 120) -> NarrativeFeedWidgetLine:
+def to_widget_line(entry: NarrativeFeedEntry, age_steps: int, clip: int = 120, language: str | None = None) -> NarrativeFeedWidgetLine:
     category = entry.category if entry.category in _CATEGORY_LABELS else "base"
     icon = _CATEGORY_ICONS[category]
     label = _CATEGORY_LABELS[category]
     tone = _TONE_BY_CATEGORY.get(category, "tense")
-    rel_time = readable_relative_timestamp(age_steps)
+    rel_time = readable_relative_timestamp(age_steps, language)
     body = entry.text.strip()
     if len(body) > clip:
         body = body[: clip - 1].rstrip() + "…"
