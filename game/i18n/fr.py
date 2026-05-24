@@ -1,0 +1,17 @@
+STRINGS = {
+    "mission.impact.critical": "Risque de séquelles émotionnelles durables pour l'escouade.",
+    "mission.impact.high": "Mission susceptible de laisser une forte charge émotionnelle.",
+    "mission.impact.medium": "Tension humaine notable, prévoir du soutien post-mission.",
+    "mission.impact.low": "Impact humain contenu si l'exécution reste disciplinée.",
+    "mission.impact.risk_explanation": "Risque {risk}/5, durée {duration}j, {complications} complication(s) probable(s).",
+    "mission.board.day_suffix": "[Jour {day}]",
+    "ui.impact.neutral": "Impact humain attendu: informations limitées, vigilance recommandée.",
+    "ui.impact.prefix": "Impact humain attendu ({level}): {text}",
+    "ui.impact.level.low": "faible",
+    "ui.impact.level.medium": "modéré",
+    "ui.impact.level.high": "élevé",
+    "ui.impact.level.critical": "critique",
+    "feed.just_now": "à l'instant",
+    "feed.one_ago": "il y a 1 instant",
+    "feed.many_ago": "il y a {count} instants",
+}

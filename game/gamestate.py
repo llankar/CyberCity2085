@@ -121,6 +121,7 @@ class GameState:
     unavailable_mission_ids: list[str] = field(default_factory=list)
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
+    ui_language: str = "fr"
     tutorial_progress: dict = field(
         default_factory=lambda: {
             "tutorial_step_index": 0,
@@ -146,6 +147,9 @@ class GameState:
     research_stat_modifiers: dict[str, int] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        from .i18n import normalize_language
+
+        self.ui_language = normalize_language(self.ui_language)
         if not self.budget_pool:
             self.budget_pool = self.compute_budget()
         if self.funds.available_funds <= 0 and not self.funds.transaction_history:

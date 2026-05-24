@@ -217,3 +217,5 @@ Automation status:
 - [x] UI-17 Spec-Ops assets clarity pass: dedicated guide panel module (`game/ui/screens/spec_ops_assets.py`), acquisition/deployment state copy, battle HUD asset labeling, and post-mission outcomes persisted for debrief/base management; plus docs `docs/gameplay/robots_power_armor.md` and coverage updates in `tests/test_spec_ops_assets.py`.
 
 - [done] Add persistent Next Step guidance system with clickable room/screen routing and stalled-state fallback rules.
+
+- [x] UI-26 Internationalisation compacte (FR/EN): nouveau sous-répertoire `game/i18n/` (`fr.py`, `en.py`, helper `t()`), extraction des chaînes visibles mission/feed/impact, `GameState.ui_language` avec fallback stable, et tests de non-régression pour fallback de clés + rendu mission impact/feed. (completed May 24, 2026)

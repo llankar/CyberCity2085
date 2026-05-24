@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from .gamestate import GameState
+from .i18n import t
 from .mission_templates import MissionTemplate, create_mission_templates
 from .missions.complications import select_complications
 from .missions.evacuation import create_evacuation_template
@@ -27,7 +28,7 @@ def _mission_seed(game_state: "GameState") -> int:
 
 
 
-def _build_emotional_impact_hint(mission: MissionTemplate) -> dict:
+def _build_emotional_impact_hint(mission: MissionTemplate, language: str | None = None) -> dict:
     """Estimate emotional impact based on objective pressure, risk, duration, and complications."""
     objective_weight = {
         "safe_extraction": 2,
@@ -46,20 +47,23 @@ def _build_emotional_impact_hint(mission: MissionTemplate) -> dict:
     )
     if score >= 8:
         level = "critical"
-        text = "Risque de séquelles émotionnelles durables pour l'escouade."
+        text = t("mission.impact.critical", language)
     elif score >= 6:
         level = "high"
-        text = "Mission susceptible de laisser une forte charge émotionnelle."
+        text = t("mission.impact.high", language)
     elif score >= 4:
         level = "medium"
-        text = "Tension humaine notable, prévoir du soutien post-mission."
+        text = t("mission.impact.medium", language)
     else:
         level = "low"
-        text = "Impact humain contenu si l'exécution reste disciplinée."
+        text = t("mission.impact.low", language)
     short_text = build_short_emotional_impact(level, text)
-    risk_explanation = (
-        f"Risque {mission.risk_level}/5, durée {mission.duration_days}j, "
-        f"{len(mission.possible_complications)} complication(s) probable(s)."
+    risk_explanation = t(
+        "mission.impact.risk_explanation",
+        language,
+        risk=mission.risk_level,
+        duration=mission.duration_days,
+        complications=len(mission.possible_complications),
     )
     return {
         "level": level,
@@ -95,7 +99,7 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
         mission.fund_reward = max(20, mission.fund_reward + mission.risk_level * 5)
         mission.starting_enemy_count = max(1, mission.starting_enemy_count + max(0, risk_delta))
         mission.id = f"{mission.id}_d{game_state.calendar.current_day}_s{slot}"
-        mission.title = f"{mission.title} [Day {game_state.calendar.current_day}]"
+        mission.title = f"{mission.title} {t('mission.board.day_suffix', game_state.ui_language, day=game_state.calendar.current_day)}"
         mission_tag_names = [tag.name for tag in mission.tags]
         mission.possible_complications.extend(
             select_complications(
@@ -105,7 +109,7 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
             )
         )
         mission.possible_complications = mission.possible_complications[:2]
-        mission.emotional_impact_hint = _build_emotional_impact_hint(mission)
+        mission.emotional_impact_hint = _build_emotional_impact_hint(mission, game_state.ui_language)
         mission.emotional_impact_hint["normalized_tags"] = normalize_mission_tags(mission.tags)
         generated.append(mission)
 
