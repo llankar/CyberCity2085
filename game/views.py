@@ -81,6 +81,21 @@ from .ui.navigation import (
 from .management.morale import aggregate_squad_morale
 from .ui.guidance.next_action import compute_next_action
 from .ui.onboarding.tutorial_overlay import overlay_state_for_screen
+from .ui.controllers.mission_controller import (
+    mission_index_from_focus_key,
+    next_mission_index,
+    previous_mission_index,
+)
+from .ui.controllers.room_actions_controller import (
+    apply_asset_toggle,
+    apply_agent_toggle,
+    select_roster_card,
+)
+from .ui.controllers.focus_controller import (
+    should_open_room_for_focus,
+    should_select_mission_for_focus,
+    should_trigger_action_for_focus,
+)
 from .unit import Unit
 
 
@@ -377,7 +392,7 @@ class CorpView(GameView):
         active = self.focus_model.active()
         if active is None:
             return
-        if active.kind == "room":
+        if should_open_room_for_focus(active.kind):
             open_room(self.room_ui, self.window.width, self.window.height, active.key)
             self._sync_focus_actions()
         elif active.kind == "action":
@@ -972,8 +987,13 @@ class RPGView(GameView):
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
             )
-            self.pending_breakdown_confirmation = False
-            self.pending_breakdown_mission_id = None
+            state = apply_agent_toggle(
+                self.game_state.selected_agent_names,
+                self.game_state.selected_agent_names,
+                self.game_state.selected_asset_ids,
+            )
+            self.pending_breakdown_confirmation = state.pending_breakdown_confirmation
+            self.pending_breakdown_mission_id = state.pending_breakdown_mission_id
         elif key == arcade.key.V:
             selected_agents = self.selected_deployment()
             (
@@ -1098,10 +1118,18 @@ class RPGView(GameView):
     def _select_roster_card(self, card_index: int) -> None:
         if not 0 <= card_index < len(self.game_state.characters):
             return
-        self.deployment_cursor_index = card_index
+        result = select_roster_card(
+            card_index,
+            len(self.game_state.characters),
+            self.game_state.selected_agent_names,
+            self.game_state.selected_asset_ids,
+        )
+        if result is None:
+            return
+        self.deployment_cursor_index = result.cursor_index
+        self.pending_breakdown_confirmation = result.pending_breakdown_confirmation
+        self.pending_breakdown_mission_id = result.pending_breakdown_mission_id
         self.message = ""
-        self.pending_breakdown_confirmation = False
-        self.pending_breakdown_mission_id = None
         self._refresh_squad_room_actions()
 
     def _perform_room_action(self, action_key: str) -> None:
@@ -1135,17 +1163,17 @@ class RPGView(GameView):
                 self._refresh_squad_room_actions()
             return
         if action_key == "mission_prev" and self.game_state.mission_templates:
-            self.game_state.selected_mission_index = (
-                self.game_state.selected_mission_index - 1
-            ) % len(self.game_state.mission_templates)
+            self.game_state.selected_mission_index = previous_mission_index(
+                self.game_state.selected_mission_index, len(self.game_state.mission_templates)
+            )
             self.game_state.play_ui_audio_feedback("selection")
             self.pending_breakdown_confirmation = False
             self._refresh_squad_room_actions()
             return
         if action_key == "mission_next" and self.game_state.mission_templates:
-            self.game_state.selected_mission_index = (
-                self.game_state.selected_mission_index + 1
-            ) % len(self.game_state.mission_templates)
+            self.game_state.selected_mission_index = next_mission_index(
+                self.game_state.selected_mission_index, len(self.game_state.mission_templates)
+            )
             self.game_state.play_ui_audio_feedback("selection")
             self.pending_breakdown_confirmation = False
             self._refresh_squad_room_actions()
@@ -1189,8 +1217,13 @@ class RPGView(GameView):
                 self.game_state.selected_asset_ids,
                 selected_agents,
             )
-            self.pending_breakdown_confirmation = False
-            self.pending_breakdown_mission_id = None
+            state = apply_asset_toggle(
+                self.deployment_cursor_index,
+                self.game_state.selected_agent_names,
+                self.game_state.selected_asset_ids,
+            )
+            self.pending_breakdown_confirmation = state.pending_breakdown_confirmation
+            self.pending_breakdown_mission_id = state.pending_breakdown_mission_id
             self.game_state.play_ui_audio_feedback("toggle")
             self._refresh_squad_room_actions()
             return
@@ -1295,26 +1328,26 @@ class RPGView(GameView):
         active = self.focus_model.move(step)
         if active is None:
             return
-        if active.kind == "room":
+        if should_open_room_for_focus(active.kind):
             open_room(self.room_ui, self.window.width, self.window.height, active.key)
             self._refresh_squad_room_actions()
-        elif active.kind == "mission":
-            self.game_state.selected_mission_index = int(active.key.rsplit("_", 1)[-1]) % max(1, len(self.game_state.mission_templates))
+        elif should_select_mission_for_focus(active.kind, len(self.game_state.mission_templates)):
+            self.game_state.selected_mission_index = mission_index_from_focus_key(active.key, len(self.game_state.mission_templates))
             self.pending_breakdown_confirmation = False
 
     def _trigger_focus(self) -> None:
         active = self.focus_model.active()
         if active is None:
             return
-        if active.kind == "room":
+        if should_open_room_for_focus(active.kind):
             open_room(self.room_ui, self.window.width, self.window.height, active.key)
             self._refresh_squad_room_actions()
             return
-        if active.kind == "action":
+        if should_trigger_action_for_focus(active.kind):
             self._perform_room_action(active.key)
             return
-        if active.kind == "mission" and self.game_state.mission_templates:
-            self.game_state.selected_mission_index = int(active.key.rsplit("_", 1)[-1]) % len(self.game_state.mission_templates)
+        if should_select_mission_for_focus(active.kind, len(self.game_state.mission_templates)):
+            self.game_state.selected_mission_index = mission_index_from_focus_key(active.key, len(self.game_state.mission_templates))
 
     def _sync_focus_actions(self) -> None:
         self.focus_model.mission_count = len(self.game_state.mission_templates)
