@@ -1,0 +1,17 @@
+STRINGS = {
+    "mission.impact.critical": "Risk of lasting emotional scars for the squad.",
+    "mission.impact.high": "Mission likely to carry a heavy emotional burden.",
+    "mission.impact.medium": "Notable human tension, plan post-mission support.",
+    "mission.impact.low": "Human impact stays contained with disciplined execution.",
+    "mission.impact.risk_explanation": "Risk {risk}/5, duration {duration}d, {complications} likely complication(s).",
+    "mission.board.day_suffix": "[Day {day}]",
+    "ui.impact.neutral": "Expected human impact: limited intel, keep vigilance high.",
+    "ui.impact.prefix": "Expected human impact ({level}): {text}",
+    "ui.impact.level.low": "low",
+    "ui.impact.level.medium": "moderate",
+    "ui.impact.level.high": "high",
+    "ui.impact.level.critical": "critical",
+    "feed.just_now": "just now",
+    "feed.one_ago": "1 tick ago",
+    "feed.many_ago": "{count} ticks ago",
+}
