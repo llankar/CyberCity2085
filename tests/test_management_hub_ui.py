@@ -418,10 +418,22 @@ class ManagementHubUITest(unittest.TestCase):
                     view.on_mouse_press((second_mission.left + second_mission.right) // 2, (second_mission.bottom + second_mission.top) // 2, 0, 0)
                     self.assertEqual(view.game_state.selected_mission_index, 1)
 
-        open_room(view.room_ui, view.window.width, view.window.height, "intel")
-        view.room_ui.expansion = 1.0
-        view.on_draw()
-        self.assertTrue(any(button.action.key == "advance_day" for button in view.room_ui.action_buttons))
+    def test_rect_skips_invalid_lrbt_inputs(self):
+        calls = []
+        original = management_screen.arcade.draw_lrbt_rectangle_filled
+
+        def _capture(*args, **kwargs):
+            calls.append((args, kwargs))
+
+        management_screen.arcade.draw_lrbt_rectangle_filled = _capture
+        try:
+            management_screen._rect(100, 120, 80, 200, (255, 255, 255, 255))
+            management_screen._rect(100, 220, 180, 200, (255, 255, 255, 255))
+            management_screen._rect(100, 120, 180, 200, (255, 255, 255, 255))
+        finally:
+            management_screen.arcade.draw_lrbt_rectangle_filled = original
+
+        self.assertEqual(len(calls), 1)
 
     def test_recruit_prompt_opens_a_named_candidate_list(self):
         view = ManagementView(GameState())

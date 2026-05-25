@@ -115,6 +115,8 @@ class _HitRegion:
 # ── Helper draw primitives ───────────────────────────────────────────────────
 
 def _rect(l, b, r, t, color) -> None:
+    if l >= r or b >= t:
+        return
     arcade.draw_lrbt_rectangle_filled(l, r, b, t, color)
 
 
