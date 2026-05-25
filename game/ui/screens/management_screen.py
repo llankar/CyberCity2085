@@ -1654,27 +1654,45 @@ class ManagementView(GameView):
         dy = y1 - 36
         debrief = getattr(gs, "latest_mission_debrief", None)
         if debrief:
-            for section_key in ("mission_title", "outcome", "lines"):
-                val = debrief.get(section_key, "")
-                if isinstance(val, list):
-                    for line in val[:12]:
-                        if not isinstance(line, dict):
-                            continue
-                        text = line.get("text", "")
-                        arcade.draw_text(
-                            text[:120],
-                            rx0 + 14,
-                            dy,
-                            palette.TEXT,
-                            font_size=10,
-                            width=max(10, rx1 - rx0 - 28),
-                            align="left",
-                        )
-                        dy -= 15
-                elif val:
-                    col = palette.HEADER if section_key == "mission_title" else palette.TEXT
-                    arcade.draw_text(str(val)[:90], rx0 + 14, dy, col, font_size=11)
-                    dy -= 19
+            header_lines = [
+                debrief.get("mission_title", ""),
+                debrief.get("mission_outcome", debrief.get("outcome", "")),
+            ]
+            for text in [line for line in header_lines if line]:
+                arcade.draw_text(str(text)[:90], rx0 + 14, dy, palette.HEADER if text == header_lines[0] else palette.TEXT, font_size=11)
+                dy -= 19
+
+            blocks = (
+                ("Décision clé", debrief.get("decision_key", "")),
+                ("Risque pris", debrief.get("risk_taken", "")),
+                ("Action héroïque", debrief.get("heroic_action", "")),
+            )
+            for title, text in blocks:
+                arcade.draw_text(title, rx0 + 12, dy, palette.MUTED_TEXT, font_size=9)
+                dy -= 14
+                arcade.draw_text(str(text)[:120], rx0 + 14, dy, palette.TEXT, font_size=10, width=max(10, rx1 - rx0 - 28), align="left")
+                dy -= 24
+
+            for line in debrief.get("lines", [])[:6]:
+                if isinstance(line, dict) and line.get("text"):
+                    arcade.draw_text(
+                        str(line.get("text"))[:120],
+                        rx0 + 14,
+                        dy,
+                        palette.TEXT,
+                        font_size=10,
+                        width=max(10, rx1 - rx0 - 28),
+                        align="left",
+                    )
+                    dy -= 15
+
+            rpg_links = debrief.get("rpg_links", [])
+            if rpg_links:
+                arcade.draw_text("RPG LINKS", rx0 + 12, dy - 2, palette.MUTED_TEXT, font_size=9)
+                dy -= 18
+                for line in rpg_links[:3]:
+                    arcade.draw_text(str(line)[:120], rx0 + 14, dy, palette.TEXT, font_size=10, width=max(10, rx1 - rx0 - 28), align="left")
+                    dy -= 15
         else:
             arcade.draw_text("No debrief data yet.", rx0 + 14, y1 - 60, palette.MUTED_TEXT, font_size=11)
             arcade.draw_text("Launch a mission to generate a debrief.", rx0 + 14, y1 - 80, (50, 80, 95), font_size=9)
@@ -2686,7 +2704,7 @@ class ManagementView(GameView):
         ]
         if getattr(gs, "latest_mission_debrief", None):
             debrief = gs.latest_mission_debrief
-            intel_lines.append(f"Latest outcome: {debrief.get('outcome', 'pending')}")
+            intel_lines.append(f"Latest outcome: {debrief.get('mission_outcome', debrief.get('outcome', 'pending'))}")
             title = debrief.get("mission_title")
             if title:
                 intel_lines.append(f"Latest mission: {title}")
