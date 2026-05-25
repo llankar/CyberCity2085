@@ -1610,6 +1610,9 @@ class BattleView(GameView):
         self.target_candidates = []
         self.selected_target_idx = 0
         self.pending_attack = None
+        self.selecting_overwatch_orientation = False
+        self.overwatch_direction_index = 0
+        self.overwatch_directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         self.combat_action_buttons = []
         self.pending_end_turn_confirmation = False
         self.last_input_mode = "keyboard_mouse"
@@ -1810,6 +1813,7 @@ class BattleView(GameView):
             draw_resource_summary,
             draw_tactical_grid,
             draw_target_lock_panel,
+            draw_overwatch_preview,
             draw_unit_labels,
             draw_unit_portrait_strip,
             draw_unit_status_panel,
@@ -1860,6 +1864,9 @@ class BattleView(GameView):
 
         if self.selecting_target and active_unit:
             draw_attack_range(active_unit, w, h, highlight=True)
+        elif self.selecting_overwatch_orientation and active_unit:
+            direction = self.overwatch_directions[self.overwatch_direction_index]
+            draw_overwatch_preview(active_unit, direction, w, h)
 
         # ── Objective marker ─────────────────────────────────────────────
         elapsed = getattr(self, "_battle_elapsed", 0.0)
@@ -2033,9 +2040,9 @@ class BattleView(GameView):
             self.message = "Missile target lock acquired."
             return True
         if action_key == "overwatch":
-            if player.set_overwatch():
-                self.message = f"{getattr(player.character, 'name', 'Unit')} is on OVERWATCH."
-                self.check_active_player()
+            self.selecting_overwatch_orientation = True
+            self.overwatch_direction_index = 0
+            self.message = "Rotate overwatch cone with ←/→ then confirm (Entrée/O)."
             return True
         if action_key == "defend":
             player.defend()
@@ -2166,6 +2173,27 @@ class BattleView(GameView):
                 self.target_candidates = []
                 self.pending_attack = None
             return
+
+        if self.selecting_overwatch_orientation:
+            if key in (arcade.key.LEFT, arcade.key.A):
+                self.overwatch_direction_index = (self.overwatch_direction_index - 1) % len(self.overwatch_directions)
+                self.message = "Overwatch orientation changed."
+                return
+            if key in (arcade.key.RIGHT, arcade.key.D):
+                self.overwatch_direction_index = (self.overwatch_direction_index + 1) % len(self.overwatch_directions)
+                self.message = "Overwatch orientation changed."
+                return
+            if key in (arcade.key.ENTER, arcade.key.RETURN, arcade.key.O):
+                if player.set_overwatch():
+                    player.overwatch_direction = self.overwatch_directions[self.overwatch_direction_index]
+                    self.message = f"{getattr(player.character, 'name', 'Unit')} is on OVERWATCH."
+                    self.selecting_overwatch_orientation = False
+                    self.check_active_player()
+                return
+            if key == arcade.key.ESCAPE:
+                self.selecting_overwatch_orientation = False
+                self.message = "Overwatch cancelled."
+                return
 
         # Normal input handling when not selecting target
         if key == arcade.key.E:

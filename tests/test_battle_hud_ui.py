@@ -62,6 +62,7 @@ class _DummyUnit:
         self.spec_ops_asset = None
         self.unit_type = "agent"
         self.visible = True
+        self.position = (128, 128)
 
 
 class BattleHUDUITest(unittest.TestCase):
@@ -117,6 +118,19 @@ class BattleHUDUITest(unittest.TestCase):
     def test_contextual_shortcut_banner_prioritizes_end_turn_confirmation(self) -> None:
         confirm = battle_hud.battle_shortcut_banner("keyboard_mouse", True, True)
         self.assertIn("confirmer fin de tour", confirm.lower())
+
+    def test_overwatch_preview_cells_build_forward_line_and_cone(self) -> None:
+        player = _DummyUnit("Agent 1", "sniper")
+        triggers, coverage = battle_hud.overwatch_preview_cells(
+            player,
+            (1, 0),
+            640,
+            480,
+            reach_cells=3,
+        )
+        self.assertEqual(triggers, [(160, 128), (192, 128), (224, 128)])
+        self.assertIn((160, 96), coverage)
+        self.assertIn((224, 160), coverage)
 
 
 if __name__ == "__main__":
