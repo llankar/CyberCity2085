@@ -63,6 +63,27 @@ class NarrativeDebriefTest(unittest.TestCase):
         self.assertEqual(types["Injured"], "injured")
         self.assertTrue(any("Complication" in line.text for line in report.lines))
 
+    def test_report_adds_endscreen_story_blocks(self):
+        frayed = Character("Frayed", stress=88)
+        report = build_mission_debrief_report([frayed], _mission("Neon Dusk"), False, _complication())
+
+        self.assertIn("Neon Dusk", report.decision_key)
+        self.assertIn("Risque", report.risk_taken)
+        self.assertIn("Frayed", report.heroic_action)
+
+    def test_report_links_to_rpg_layers(self):
+        lead = Character("Lead", stress=70)
+        lead.relationships["Echo"] = 3
+        lead.stats.level = 4
+        scout = Character("Scout", stress=30)
+
+        report = build_mission_debrief_report([lead, scout], _mission(), True)
+
+        self.assertEqual(len(report.rpg_links), 3)
+        self.assertTrue(any("Stress:" in line for line in report.rpg_links))
+        self.assertTrue(any("Relations:" in line for line in report.rpg_links))
+        self.assertTrue(any("Progression:" in line for line in report.rpg_links))
+
 
 if __name__ == "__main__":
     unittest.main()
