@@ -98,6 +98,7 @@ from .ui.controllers.focus_controller import (
     should_trigger_action_for_focus,
 )
 from .unit import Unit
+from .ui.components.combat.action_aftermath import build_action_aftermath_line
 
 
 # ── Sprite path resolver ─────────────────────────────────────────────────────
@@ -1616,6 +1617,8 @@ class BattleView(GameView):
         self.combat_action_buttons = []
         self.pending_end_turn_confirmation = False
         self.last_input_mode = "keyboard_mouse"
+        self._aftermath_line = ""
+        self._aftermath_timer = 0.0
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.cover_system import generate_cover_nodes
         self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
@@ -1819,6 +1822,7 @@ class BattleView(GameView):
             draw_unit_status_panel,
             battle_shortcut_banner,
             draw_battle_shortcut_banner,
+            draw_action_aftermath_line,
             update_enemy_visibility,
         )
 
@@ -1942,6 +1946,7 @@ class BattleView(GameView):
                 getattr(self, "pending_end_turn_confirmation", False),
             ),
         )
+        draw_action_aftermath_line(w, self._aftermath_line if self._aftermath_timer > 0 else "")
 
         # ── Combat action bar ─────────────────────────────────────────────
         if self.turn == "player" and active_unit:
@@ -2019,6 +2024,7 @@ class BattleView(GameView):
             return False
         if action_key == "move":
             self.message = "Move with arrow keys."
+            self._set_action_aftermath(action_label="MOVE")
             self.game_state.mark_tutorial_event("used_battle_controls")
             return True
         if action_key in {"fire", "melee", "psi"}:
@@ -2033,6 +2039,10 @@ class BattleView(GameView):
             player.stats.hp = player.health
             player.action_points -= 1
             self.message = f"First aid restores {player.health - before} HP."
+            self._set_action_aftermath(
+                action_label="SKILL",
+                status_applied=f"+{player.health - before} HP",
+            )
             self.check_active_player()
             return True
         if action_key == "missiles":
@@ -2150,6 +2160,12 @@ class BattleView(GameView):
                     self._flash_hit   = False
                     self._flash_alpha = 120
                     self.message = f"Attack missed{cover_note}"
+                self._set_action_aftermath(
+                    action_label=(self.pending_attack or "ACTION").upper(),
+                    damage=damage,
+                    status_applied="touché" if damage > 0 else "raté",
+                    suppression_created=target.health <= 0,
+                )
 
                 # ── Remove killed enemy immediately (hit or pre-existing death) ──
                 if target.health <= 0:
@@ -2211,6 +2227,7 @@ class BattleView(GameView):
             new_x, new_y = player.position[0], player.position[1] + 32
             if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(0, 32)
+                self._set_action_aftermath(action_label="MOVE")
                 self.game_state.mark_tutorial_event("used_battle_controls")
             else:
                 self.message = "Terrain blocks that route."
@@ -2218,6 +2235,7 @@ class BattleView(GameView):
             new_x, new_y = player.position[0], player.position[1] - 32
             if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(0, -32)
+                self._set_action_aftermath(action_label="MOVE")
                 self.game_state.mark_tutorial_event("used_battle_controls")
             else:
                 self.message = "Terrain blocks that route."
@@ -2225,6 +2243,7 @@ class BattleView(GameView):
             new_x, new_y = player.position[0] - 32, player.position[1]
             if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(-32, 0)
+                self._set_action_aftermath(action_label="MOVE")
                 self.game_state.mark_tutorial_event("used_battle_controls")
             else:
                 self.message = "Terrain blocks that route."
@@ -2232,6 +2251,7 @@ class BattleView(GameView):
             new_x, new_y = player.position[0] + 32, player.position[1]
             if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(32, 0)
+                self._set_action_aftermath(action_label="MOVE")
                 self.game_state.mark_tutorial_event("used_battle_controls")
             else:
                 self.message = "Terrain blocks that route."
@@ -2375,6 +2395,22 @@ class BattleView(GameView):
         )
         self.attack_timer = 0.3
 
+    def _set_action_aftermath(
+        self,
+        *,
+        action_label: str,
+        damage: int = 0,
+        status_applied: str | None = None,
+        suppression_created: bool = False,
+    ) -> None:
+        self._aftermath_line = build_action_aftermath_line(
+            action_label=action_label,
+            damage=damage,
+            status_applied=status_applied,
+            suppression_created=suppression_created,
+        )
+        self._aftermath_timer = 2.2
+
     def on_update(self, delta_time: float):
         self._battle_elapsed = getattr(self, "_battle_elapsed", 0.0) + delta_time
         if self.map_index is None:
@@ -2386,6 +2422,8 @@ class BattleView(GameView):
         # Fade attack flash
         if self._flash_alpha > 0:
             self._flash_alpha = max(0, self._flash_alpha - int(delta_time * 480))
+        if self._aftermath_timer > 0:
+            self._aftermath_timer = max(0.0, self._aftermath_timer - delta_time)
         # ── Refresh cover bonuses for all living units ──────────────────
         cover_nodes = getattr(self, "cover_nodes", [])
         if cover_nodes:

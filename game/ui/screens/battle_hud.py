@@ -76,6 +76,16 @@ def draw_battle_shortcut_banner(width: int, text: str) -> None:
     arcade.draw_line(12, y + 24, width - 12, y + 24, palette.PANEL_BORDER_MUTED, 1)
     arcade.draw_text(text, 22, y + 12, palette.TEXT, 10, anchor_y="center")
 
+
+def draw_action_aftermath_line(width: int, text: str | None) -> None:
+    """Draw a fixed HUD slot for temporary action-causality feedback."""
+    if not text:
+        return
+    y = _COMBAT_BAR_TOP + _STRIP_H + 80
+    arcade.draw_lrbt_rectangle_filled(12, width - 12, y, y + 24, (0, 0, 0, 175))
+    arcade.draw_line(12, y, width - 12, y, palette.PANEL_BORDER_MUTED, 1)
+    arcade.draw_text(text, 22, y + 12, palette.TACTICAL_GREEN, 10, anchor_y="center")
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Grid & range overlays
 # ══════════════════════════════════════════════════════════════════════════════
