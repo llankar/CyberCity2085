@@ -1924,12 +1924,21 @@ class BattleView(GameView):
                 else active_unit.spec_ops_asset.name if active_unit.spec_ops_asset
                 else active_unit.unit_type
             )
+            preview = None
+            warning = None
+            if self.selecting_target and self.target_candidates:
+                target = self.target_candidates[self.selected_target_idx]
+                attack_kind = self.pending_attack or "shoot"
+                preview = estimate_attack_preview(active_unit, target, attack_kind)
+                warning = line_of_fire_warning(active_unit, target, self.player_units)
             self.combat_action_buttons = draw_combat_action_bar(
                 w, h,
                 available_combat_actions(active_unit),
                 f"{unit_name} [{role_label}]",
                 active_unit.action_points,
                 f"{self.message}  {action_hint}",
+                preview=preview,
+                warning=warning,
             )
         else:
             self.combat_action_buttons = []

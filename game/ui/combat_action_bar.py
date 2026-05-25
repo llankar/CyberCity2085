@@ -5,6 +5,7 @@ from __future__ import annotations
 import arcade
 
 from ..combat_actions import CombatAction
+from ..combat_preview import AttackPreview
 from . import palette
 from .panels import _draw_icon, draw_panel
 from .room_interaction import UIRect
@@ -64,6 +65,9 @@ def draw_combat_action_bar(
     unit_name: str,
     action_points: int,
     message: str = "",
+    *,
+    preview: AttackPreview | None = None,
+    warning: str | None = None,
 ) -> list[tuple[CombatAction, UIRect]]:
     """Draw the tactical action bar and return its clickable button rects."""
     bar = combat_action_bar_rect(width)
@@ -79,6 +83,16 @@ def draw_combat_action_bar(
         arcade.draw_text(
             message[:72], bar.left + 220, bar.top - 51, palette.MUTED_TEXT, 10
         )
+
+    if preview:
+        preview_text = (
+            f"DMG {preview.min_damage}-{preview.max_damage}  "
+            f"HIT {int(preview.hit_chance * 100)}%  "
+            f"CRIT {int(preview.crit_chance * 100)}%"
+        )
+        arcade.draw_text(preview_text, bar.left + 18, bar.top - 69, palette.TEXT, 10)
+    if warning:
+        arcade.draw_text(warning[:72], bar.left + 18, bar.top - 87, palette.WARNING, 10)
 
     buttons = layout_combat_action_buttons(width, actions)
     for action, rect in buttons:
