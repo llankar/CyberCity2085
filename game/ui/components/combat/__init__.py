@@ -13,6 +13,7 @@ from .combat_log_panel import (
     build_combat_log_expanded_lines,
     build_combat_log_hud_lines,
 )
+from .action_aftermath import build_action_aftermath_line
 
 __all__ = [
     "EVENT_ALL",
@@ -26,4 +27,5 @@ __all__ = [
     "apply_combat_log_filter",
     "build_combat_log_expanded_lines",
     "build_combat_log_hud_lines",
+    "build_action_aftermath_line",
 ]
