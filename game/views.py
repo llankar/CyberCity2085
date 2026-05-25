@@ -1611,6 +1611,8 @@ class BattleView(GameView):
         self.selected_target_idx = 0
         self.pending_attack = None
         self.combat_action_buttons = []
+        self.pending_end_turn_confirmation = False
+        self.last_input_mode = "keyboard_mouse"
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.cover_system import generate_cover_nodes
         self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
@@ -1811,6 +1813,8 @@ class BattleView(GameView):
             draw_unit_labels,
             draw_unit_portrait_strip,
             draw_unit_status_panel,
+            battle_shortcut_banner,
+            draw_battle_shortcut_banner,
             update_enemy_visibility,
         )
 
@@ -1923,6 +1927,14 @@ class BattleView(GameView):
 
         # ── Unit status panel (bottom-left) ──────────────────────────────
         draw_unit_status_panel(w, h, active_unit, self.turn)
+        draw_battle_shortcut_banner(
+            w,
+            battle_shortcut_banner(
+                getattr(self, "last_input_mode", "keyboard_mouse"),
+                self.selecting_target,
+                getattr(self, "pending_end_turn_confirmation", False),
+            ),
+        )
 
         # ── Combat action bar ─────────────────────────────────────────────
         if self.turn == "player" and active_unit:
@@ -2030,6 +2042,11 @@ class BattleView(GameView):
             self.check_active_player()
             return True
         if action_key == "end_turn":
+            if not self.pending_end_turn_confirmation:
+                self.pending_end_turn_confirmation = True
+                self.message = "Confirm end turn to lock irreversible actions."
+                return True
+            self.pending_end_turn_confirmation = False
             player.action_points = 0
             self.check_active_player()
             return True
@@ -2060,6 +2077,7 @@ class BattleView(GameView):
             return
 
         if key == arcade.key.S:
+            self.last_input_mode = "keyboard_mouse"
             result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
             return
@@ -2072,6 +2090,8 @@ class BattleView(GameView):
 
         if self.turn != "player" or not self.player_units:
             return
+
+        self.last_input_mode = "keyboard_mouse"
 
         player = self.player_units[self.active_index]
 
@@ -2201,6 +2221,10 @@ class BattleView(GameView):
             self._perform_combat_action("overwatch")
         elif key == arcade.key.ENTER or key == arcade.key.RETURN:
             self._perform_combat_action("end_turn")
+        elif key == arcade.key.ESCAPE and self.pending_end_turn_confirmation:
+            self.pending_end_turn_confirmation = False
+            self.message = "End turn cancelled."
+            return
         elif key == arcade.key.D:
             self._perform_combat_action("defend")
         elif key == arcade.key.V:
@@ -2218,6 +2242,9 @@ class BattleView(GameView):
             if self._handle_map_room_click(x, y):
                 return
             return
+        self.last_input_mode = "controller" if button in (1, 2, 4, 5, 6, 7) else "keyboard_mouse"
+        if self.pending_end_turn_confirmation:
+            self.pending_end_turn_confirmation = False
         if self.turn == "player" and self.player_units:
             active_unit = self.player_units[self.active_index]
             buttons = self.combat_action_buttons or layout_combat_action_buttons(
