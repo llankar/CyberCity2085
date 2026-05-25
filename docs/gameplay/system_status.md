@@ -14,3 +14,5 @@
 | mission generation | Daily mission board generation with pressure-aware template selection. | District-specific handcrafted mission pools. | Squad ops room / mission board. | `tests/test_mission_generation.py`, `tests/test_mission_board_ui.py` |
 | battle objectives | Objective variants/branches supported with tactical hooks. | Larger objective library per faction. | Battle resolution and mission briefing text. | `tests/test_mission_objectives.py`, `tests/test_objective_branches.py` |
 | tactical action preview | Action deck now shows min/max damage + estimated hit/crit and warns when line-of-fire may collide with allies. | More advanced trajectory rules for non-linear shots. | Battle action panel while selecting a target. | `tests/test_combat_preview.py` |
+
+| initiative timeline | Tactical HUD now previews the next 6-8 activations from current turn order + AGI initiative and highlights the active unit; high-impact enemies are tagged THREAT. | Optional portraits/icons and richer threat weighting per weapon kit. | Battle HUD top-right timeline panel. | `tests/test_initiative_timeline.py` |
