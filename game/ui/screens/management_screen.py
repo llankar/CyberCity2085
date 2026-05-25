@@ -30,6 +30,7 @@ from game.character import is_deployable
 from game.deployment import (
     sanitize_selected_agent_names,
     selected_deployable_agents,
+    remove_agent_from_roster,
     toggle_agent_selection,
 )
 from game.gamestate import GameState
@@ -40,7 +41,14 @@ from game.mission_system import (
     selected_mission as _selected_mission,
 )
 from game.persistence import SaveSystem, SaveSystemResult
-from game.recruitment import recruit_agent
+from game.agent_specializations import (
+    available_talent_nodes,
+    talent_node_by_id,
+    talent_nodes_for_role,
+    unlock_talent,
+)
+from game.recruitment import build_recruitment_candidates, recruit_agent
+from game.management.morale import aggregate_squad_morale
 from game.ui import GameView
 from game.ui import palette
 from game.ui.action_feedback import push_action
@@ -48,10 +56,30 @@ from game.ui.management.action_requirements import (
     blocked_launch_reason,
     blocked_recruit_reason,
 )
+from game.ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
+from game.ui.panels import draw_expanded_room_controls, draw_graphical_command_surface
 from game.ui.panels import draw_small_meter
 from game.ui.portraits import portrait_path_for_character
+from game.ui.room_interaction import (
+    RoomUIState,
+    action_at_point,
+    active_room_rect,
+    close_button_rect,
+    close_room,
+    open_room,
+    room_at_point,
+    step_room_ui,
+)
 from game.ui.screens.research_lab import build_research_lab_lines
+from game.ui.screens.spec_ops_assets import (
+    build_asset_outcome_lines,
+    build_mission_prep_asset_state_lines,
+    build_spec_ops_acquisition_lines,
+    build_spec_ops_assets_guide_lines,
+)
+from game.ui.widgets.squad_morale_panel import build_squad_morale_panel_lines
 from game.ui.widgets.notification_center import NotificationCenter
+from game.ui.guidance.next_action import compute_next_action
 
 # ── Layout constants ────────────────────────────────────────────────────────
 
@@ -89,24 +117,30 @@ def _rect(l, b, r, t, color) -> None:
     arcade.draw_lrbt_rectangle_filled(l, r, b, t, color)
 
 
+def _trim_text(text: str, limit: int = 96) -> str:
+    """Keep long UI labels from overflowing narrow panels."""
+    return text if len(text) <= limit else f"{text[: limit - 3]}..."
+
+
 def _draw_notification_toast(notifications: "NotificationCenter", w: int, h: int) -> None:
     """Render the most-recent notification lines just below the top HUD (top-right)."""
     lines = notifications.latest_text_lines(4)
     if not lines:
         return
     pad, line_h, font_sz = 8, 18, 11
-    panel_w = 420
+    panel_w = min(760, max(460, int(w * 0.40)))
     panel_h = pad * 2 + len(lines) * line_h
-    rx = w - 8
+    rx = (w + panel_w) // 2
     ry = h - _TOP_HUD_H - 6 - panel_h   # anchor below the HUD bar
-    _rect(rx - panel_w, ry, rx, ry + panel_h, (0, 0, 0, 200))
-    arcade.draw_line(rx - panel_w, ry + panel_h, rx, ry + panel_h, palette.PANEL_BORDER, 1)
+    left = rx - panel_w
+    _rect(left, ry, rx, ry + panel_h, (0, 0, 0, 200))
+    arcade.draw_line(left, ry + panel_h, rx, ry + panel_h, palette.PANEL_BORDER, 1)
     for i, text in enumerate(lines):
         color = palette.TACTICAL_GREEN if "[SUCCESS]" in text else (
             palette.WARNING if "[WARNING]" in text else palette.DANGER
         )
         arcade.draw_text(
-            text, rx - panel_w + pad, ry + pad + i * line_h,
+            text, left + pad, ry + pad + i * line_h,
             color, font_sz, anchor_x="left", anchor_y="bottom",
         )
 
@@ -675,6 +709,7 @@ class ManagementView(GameView):
         else:
             arcade.draw_text("No active factions.", rx0 + 14, y1 - 60, palette.MUTED_TEXT, font_size=11)
 
+
     # ── ASSETS tab ────────────────────────────────────────────────────────────
 
     _ASSET_PORTRAIT_MAP: dict[str, str] = {
@@ -740,8 +775,8 @@ class ManagementView(GameView):
 
             # Name + type
             tx = dx0 + 14 + ps + 6
-            arcade.draw_text(asset.name.upper(), tx, ct - 18, palette.TEXT, font_size=12, bold=True)
-            arcade.draw_text(asset.display_role.upper(), tx, ct - 34, col, font_size=10)
+            arcade.draw_text(asset.name.upper(), tx, ct - 18, palette.TEXT, font_size=14, bold=True)
+            arcade.draw_text(asset.display_role.upper(), tx, ct - 34, col, font_size=11)
 
             # Deploy cost badge
             if asset.deploy_cost > 0:
@@ -774,7 +809,7 @@ class ManagementView(GameView):
         cat_y0 = y0 + 2
         cat_y1 = cat_y0 + catalog_strip_h
         arcade.draw_line(dx0 + 8, cat_y1, dx1 - 8, cat_y1, palette.PANEL_BORDER_MUTED, 1)
-        arcade.draw_text("CATALOG", dx0 + 12, cat_y1 - 16, palette.MUTED_TEXT, font_size=10, bold=True)
+        arcade.draw_text("CATALOG", dx0 + 12, cat_y1 - 16, palette.MUTED_TEXT, font_size=12, bold=True)
 
         catalog = _asset_catalog()
         scroll  = self._catalog_scroll % len(catalog)
@@ -804,7 +839,7 @@ class ManagementView(GameView):
                 arcade.draw_texture_rect(tex, arcade.LBWH(dx0 + 12, ccb + 3, sps, sps))
 
             itx = dx0 + 14 + sps + 4
-            arcade.draw_text(cat_item.name.upper(), itx, cct - 16, palette.TEXT, font_size=10, bold=True)
+            arcade.draw_text(cat_item.name.upper(), itx, cct - 16, palette.TEXT, font_size=12, bold=True)
             arcade.draw_text(
                 f"{'ROBOT' if not is_armor else 'POWER ARMOR'}  |  DEPLOY ¥{cat_item.deploy_cost}/mission",
                 itx, cct - 30, palette.MUTED_TEXT, font_size=8,
@@ -1002,12 +1037,14 @@ class ManagementView(GameView):
         selected_set  = set(gs.selected_agent_names)
         card_h        = 72
         card_gap      = 6
+        chooser_open  = bool(self.pending_recruit_candidates)
+        chooser_h     = 128 if chooser_open else 40
         scroll_top    = y1 - 34
 
         for i, char in enumerate(gs.characters):
             ct = scroll_top - i * (card_h + card_gap)
             cb = ct - card_h
-            if cb < y0 + card_h:
+            if cb < y0 + chooser_h:
                 break
 
             active  = (i == self.deployment_cursor)
@@ -1065,18 +1102,58 @@ class ManagementView(GameView):
 
             self._hits.append(_HitRegion(x0 + 8, cb, x1 - 8, ct, "agent_card", i))
 
-        # Recruit button at bottom
-        btn_y = y0 + 4
-        btn_h = 32
-        _rect(x0 + 10, btn_y, x1 - 10, btn_y + btn_h, (8, 24, 14, 220))
-        arcade.draw_line(x0 + 10, btn_y + btn_h, x1 - 10, btn_y + btn_h, palette.TACTICAL_GREEN, 2)
-        arcade.draw_text(
-            "RECRUIT  [N]",
-            (x0 + x1) // 2, btn_y + btn_h // 2,
-            palette.TACTICAL_GREEN, font_size=11, bold=True,
-            anchor_x="center", anchor_y="center",
-        )
-        self._hits.append(_HitRegion(x0 + 10, btn_y, x1 - 10, btn_y + btn_h, "recruit_prompt", None))
+        if chooser_open:
+            chooser_left = x0 + 8
+            chooser_right = x1 - 8
+            chooser_bottom = y0 + 116
+            chooser_top = chooser_bottom + chooser_h - 2
+            _rect(chooser_left, chooser_bottom, chooser_right, chooser_top, (10, 18, 24, 220))
+            arcade.draw_line(chooser_left, chooser_top, chooser_right, chooser_top, palette.ACCENT, 2)
+            arcade.draw_text(
+                "CHOOSE A RECRUIT  [N]",
+                (x0 + x1) // 2,
+                chooser_top - 14,
+                palette.TACTICAL_GREEN,
+                font_size=11,
+                bold=True,
+                anchor_x="center",
+                anchor_y="center",
+            )
+            cols = 3
+            card_gap = 6
+            card_w = max(100, (chooser_right - chooser_left - 20 - card_gap * (cols - 1)) // cols)
+            card_h = 42
+            for idx, candidate in enumerate(self.pending_recruit_candidates[:6]):
+                row = idx // cols
+                col = idx % cols
+                left = chooser_left + 10 + col * (card_w + card_gap)
+                bottom = chooser_top - 30 - (row + 1) * (card_h + 6)
+                if bottom < chooser_bottom + 4:
+                    break
+                role_col = {
+                    "samurai": palette.ROLE_SAMURAI,
+                    "sniper": palette.ROLE_SNIPER,
+                    "psi": palette.ROLE_PSI,
+                }.get(candidate.role, palette.ACCENT)
+                _rect(left, bottom, left + card_w, bottom + card_h, (*role_col[:3], 60))
+                arcade.draw_line(left, bottom + card_h, left + card_w, bottom + card_h, role_col, 2)
+                arcade.draw_text(candidate.name.upper(), left + 10, bottom + card_h - 16, palette.TEXT, font_size=10, bold=True)
+                arcade.draw_text(candidate.role.upper(), left + 10, bottom + card_h - 29, role_col, font_size=8, bold=True)
+                arcade.draw_text(candidate.tagline, left + 10, bottom + 6, palette.MUTED_TEXT, font_size=8)
+                arcade.draw_text("¥5", left + card_w - 34, bottom + 6, palette.RESOURCE, font_size=8, bold=True)
+                self._hits.append(_HitRegion(left, bottom, left + card_w, bottom + card_h, "recruit_candidate", idx))
+        else:
+            btn_y = y0 + 4
+            btn_h = 32
+            _rect(x0 + 10, btn_y, x1 - 10, btn_y + btn_h, (8, 24, 14, 220))
+            arcade.draw_line(x0 + 10, btn_y + btn_h, x1 - 10, btn_y + btn_h, palette.TACTICAL_GREEN, 2)
+            arcade.draw_text(
+                "RECRUIT  [N]",
+                (x0 + x1) // 2, btn_y + btn_h // 2,
+                palette.TACTICAL_GREEN, font_size=11, bold=True,
+                anchor_x="center", anchor_y="center",
+            )
+            self._hits.append(_HitRegion(x0 + 10, btn_y, x1 - 10, btn_y + btn_h, "recruit_prompt", None))
 
     # ── Equipment panel ────────────────────────────────────────────────────────
 
@@ -1171,7 +1248,8 @@ class ManagementView(GameView):
                     (self.deployment_cursor, skey),
                 ))
 
-        slot_h  = min(78, (y1 - y0 - 90 - stat_panel_h - 10) // len(_SLOTS))
+        talent_panel_h = 112
+        slot_h  = min(78, (y1 - y0 - 90 - stat_panel_h - talent_panel_h - 16) // len(_SLOTS))
         slot_gap = 4
         sy       = y1 - 34 - (stat_panel_h + 6 if pts > 0 else 0)
 
@@ -1244,12 +1322,67 @@ class ManagementView(GameView):
 
             sy -= slot_h + slot_gap
 
+        talent_bottom = y0 + 8
+        talent_top = talent_bottom + talent_panel_h
+        _rect(x0 + 8, talent_bottom, x1 - 8, talent_top, (10, 22, 30, 210))
+        arcade.draw_line(x0 + 8, talent_top, x1 - 8, talent_top, palette.ACCENT, 2)
+        arcade.draw_text(
+            f"SPECIALIZATION  |  {char.role.upper()}  |  POINTS {char.talent_points}",
+            x0 + 16,
+            talent_top - 14,
+            palette.ACCENT,
+            font_size=10,
+            bold=True,
+        )
+        unlocked = set(char.specializations)
+        nodes = list(talent_nodes_for_role(char.role))
+        cols = 3
+        node_gap = 6
+        node_w = max(90, (x1 - x0 - 32 - node_gap * (cols - 1)) // cols)
+        node_h = 36
+        node_top = talent_top - 26
+        for idx, node in enumerate(nodes[:6]):
+            row = idx // cols
+            col = idx % cols
+            left = x0 + 16 + col * (node_w + node_gap)
+            top = node_top - row * (node_h + 6)
+            bottom = top - node_h
+            unlocked_node = node.id in unlocked
+            available_node = node in available_talent_nodes(char.role, unlocked)
+            if unlocked_node:
+                fill = (*palette.TACTICAL_GREEN[:3], 70)
+                border = palette.TACTICAL_GREEN
+            elif available_node and char.talent_points > 0:
+                fill = (36, 68, 48, 190)
+                border = palette.RESOURCE
+            else:
+                fill = (14, 24, 34, 190)
+                border = palette.PANEL_BORDER_MUTED
+            _rect(left, bottom, left + node_w, top, fill)
+            arcade.draw_line(left, top, left + node_w, top, border, 2)
+            arcade.draw_text(node.name.upper(), left + 8, top - 13, palette.TEXT, font_size=9, bold=True)
+            arcade.draw_text(
+                node.description,
+                left + 8,
+                bottom + 6,
+                palette.MUTED_TEXT,
+                font_size=7,
+                width=max(60, node_w - 16),
+            )
+            status = "OWNED" if unlocked_node else ("UNLOCK" if available_node else "LOCKED")
+            arcade.draw_text(status, left + node_w - 8, bottom + 6, border, font_size=8, bold=True, anchor_x="right")
+            prereq = " + ".join(node.prerequisites) if node.prerequisites else "START"
+            arcade.draw_text(prereq[:18], left + 8, bottom + node_h - 24, border, font_size=7)
+            if available_node and char.talent_points > 0 and not unlocked_node:
+                self._hits.append(_HitRegion(left, bottom, left + node_w, top, "unlock_talent", (self.deployment_cursor, node.id)))
+
         # Summary row: total bonuses
         bonuses_total = loadout.total_stat_bonuses()
         if bonuses_total:
-            arcade.draw_line(x0 + 10, sy - 2, x1 - 10, sy - 2, palette.GRID_LINE, 1)
+            summary_y = talent_top + 6
+            arcade.draw_line(x0 + 10, summary_y + 18, x1 - 10, summary_y + 18, palette.GRID_LINE, 1)
             bx = x0 + 12
-            by = sy - 22
+            by = summary_y
             arcade.draw_text("TOTALS:", bx, by, palette.MUTED_TEXT, font_size=10)
             bx += 66
             for stat, val in bonuses_total.items():
@@ -1332,7 +1465,7 @@ class ManagementView(GameView):
 
         m = _selected_mission(gs)
         if m:
-            dx, dy = x0 + 14, split_y - 34
+            dx, dy = x0 + 14, split_y - 44
 
             # Title
             arcade.draw_text(m.title.upper(), dx, dy, palette.HEADER, font_size=16, bold=True)
@@ -1363,8 +1496,11 @@ class ManagementView(GameView):
             complications = getattr(m, "possible_complications", [])
             if complications:
                 dy -= 6
+                comp_names = ", ".join(
+                    getattr(c, "name", str(c)) for c in complications[:2]
+                )
                 arcade.draw_text(
-                    f"Complications: {', '.join(str(c) for c in complications[:2])}",
+                    _trim_text(f"Complications: {comp_names}", 92),
                     dx, dy, palette.WARNING, font_size=10,
                 )
                 dy -= 18
@@ -1375,14 +1511,14 @@ class ManagementView(GameView):
             if at_risk:
                 names = ", ".join(a.name for a in at_risk)
                 arcade.draw_text(
-                    f"⚠ BREAKDOWN RISK: {names}",
+                    _trim_text(f"⚠ BREAKDOWN RISK: {names}", 92),
                     dx, dy, palette.DANGER, font_size=11, bold=True,
                 )
                 dy -= 18
 
         # Launch button (very prominent)
-        lb = y0 + 4
-        lt = lb + 52
+        lb = y0 + 28
+        lt = lb + 46
         _rect(x0 + 10, lb, x1 - 10, lt, (10, 34, 16, 240))
         arcade.draw_line(x0 + 10, lt, x1 - 10, lt, palette.TACTICAL_GREEN, 3)
         arcade.draw_line(x0 + 10, lb, x1 - 10, lb, palette.TACTICAL_GREEN, 1)
@@ -1395,8 +1531,8 @@ class ManagementView(GameView):
         )
         arcade.draw_text(
             "▶  LAUNCH MISSION  [B]",
-            (x0 + x1) // 2, lb + 26,
-            lbl_col, font_size=16, bold=True,
+            (x0 + x1) // 2, lb + 22,
+            lbl_col, font_size=15, bold=True,
             anchor_x="center", anchor_y="center",
         )
         self._hits.append(_HitRegion(x0 + 10, lb, x1 - 10, lt, "launch_mission", None))
@@ -1404,7 +1540,7 @@ class ManagementView(GameView):
         # Message display
         if self.message:
             arcade.draw_text(
-                self.message, x0 + 14, y0 + 58,
+                self.message, x0 + 14, y0 + 72,
                 palette.WARNING, font_size=10,
             )
 
@@ -1453,7 +1589,11 @@ class ManagementView(GameView):
     def _draw_intel_tab(self, x0: int, y0: int, x1: int, y1: int) -> None:
         gs  = self.game_state
         gap = 10
-        hw  = (x1 - x0 - gap) // 2
+        content_w = max(0, x1 - x0 - gap)
+        hw = min(
+            max(240, int(content_w * 0.60)),
+            max(120, content_w - 150),
+        )
 
         # ── Left: Narrative event log ────────────────────────────────────
         lx0, lx1 = x0, x0 + hw
@@ -1469,7 +1609,15 @@ class ManagementView(GameView):
                 else palette.TACTICAL_GREEN if any(w in line.lower() for w in ("success", "victory", "completed", "recruited"))
                 else palette.TEXT
             )
-            arcade.draw_text(line[:72], lx0 + 10, iy, col, font_size=11)
+            arcade.draw_text(
+                line[:120],
+                lx0 + 10,
+                iy,
+                col,
+                font_size=11,
+                width=max(10, lx1 - lx0 - 24),
+                align="left",
+            )
             iy -= 17
 
         # ── Right: Latest debrief ────────────────────────────────────────
@@ -1486,12 +1634,20 @@ class ManagementView(GameView):
                         if not isinstance(line, dict):
                             continue
                         text = line.get("text", "")
-                        arcade.draw_text(text[:72], rx0 + 12, dy, palette.TEXT, font_size=9)
-                        dy -= 14
+                        arcade.draw_text(
+                            text[:120],
+                            rx0 + 14,
+                            dy,
+                            palette.TEXT,
+                            font_size=10,
+                            width=max(10, rx1 - rx0 - 28),
+                            align="left",
+                        )
+                        dy -= 15
                 elif val:
                     col = palette.HEADER if section_key == "mission_title" else palette.TEXT
-                    arcade.draw_text(str(val)[:70], rx0 + 12, dy, col, font_size=10)
-                    dy -= 18
+                    arcade.draw_text(str(val)[:90], rx0 + 14, dy, col, font_size=11)
+                    dy -= 19
         else:
             arcade.draw_text("No debrief data yet.", rx0 + 14, y1 - 60, palette.MUTED_TEXT, font_size=11)
             arcade.draw_text("Launch a mission to generate a debrief.", rx0 + 14, y1 - 80, (50, 80, 95), font_size=9)
@@ -1504,8 +1660,16 @@ class ManagementView(GameView):
             arcade.draw_text("AFTERMATH", rx0 + 12, dy, palette.MUTED_TEXT, font_size=9)
             dy -= 18
             for line in aftermath:
-                arcade.draw_text(line[:70], rx0 + 12, dy, palette.TEXT, font_size=9)
-                dy -= 14
+                arcade.draw_text(
+                    line[:100],
+                    rx0 + 14,
+                    dy,
+                    palette.TEXT,
+                    font_size=10,
+                    width=max(10, rx1 - rx0 - 28),
+                    align="left",
+                )
+                dy -= 15
 
     # ── Bottom bar ────────────────────────────────────────────────────────────
 
@@ -1603,6 +1767,16 @@ class ManagementView(GameView):
 
         if action == "recruit_prompt":
             self._do_recruit_prompt()
+            return
+        if action == "recruit_candidate":
+            self._do_recruit_candidate(int(data))
+            return
+        if action == "remove_agent":
+            self._do_remove_agent()
+            return
+        if action == "unlock_talent":
+            char_idx, node_id = data
+            self._do_unlock_talent(char_idx, node_id)
             return
 
         if action.startswith("corp_upgrade_"):
@@ -1733,21 +1907,58 @@ class ManagementView(GameView):
             self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
 
     def _do_recruit_prompt(self) -> None:
-        """Recruit a random agent (cycle roles: samurai → sniper → psi)."""
+        """Open the recruit chooser with a small list of named agents."""
         gs = self.game_state
-        if gs.spend_funds(5, "recruitment", "Recruited agent."):
-            roles = ["samurai", "sniper", "psi"]
-            role  = roles[len(gs.characters) % 3]
-            agent = recruit_agent(gs.characters, role)
-            self.deployment_cursor = len(gs.characters) - 1
-            self.message = ""
-            gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {role}"))
-        else:
+        if gs.available_funds < 5:
             blocked = blocked_recruit_reason(gs.available_funds)
             if blocked:
                 self.message = blocked.to_ui_text()
                 self.notifications.warning(self.message)
                 gs.add_event(self.message)
+            return
+        self.pending_recruit_candidates = build_recruitment_candidates(gs.characters)
+        self.message = "Choose a recruit codename."
+
+    def _do_recruit_candidate(self, candidate_index: int) -> None:
+        gs = self.game_state
+        if candidate_index >= len(self.pending_recruit_candidates):
+            return
+        candidate = self.pending_recruit_candidates[candidate_index]
+        if not gs.spend_funds(5, "recruitment", "Recruited agent."):
+            blocked = blocked_recruit_reason(gs.available_funds)
+            if blocked:
+                self.message = blocked.to_ui_text()
+                self.notifications.warning(self.message)
+                gs.add_event(self.message)
+            return
+        agent = recruit_agent(gs.characters, candidate.role, candidate.name)
+        self.deployment_cursor = len(gs.characters) - 1
+        self.pending_recruit_candidates = []
+        self.message = f"{agent.name} joins as {candidate.role}."
+        gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role}"))
+
+    def _do_remove_agent(self) -> None:
+        gs = self.game_state
+        if not gs.characters:
+            return
+        index = min(max(self.deployment_cursor, 0), len(gs.characters) - 1)
+        removed, sanitized_agents, sanitized_assets = remove_agent_from_roster(
+            gs.characters,
+            gs.spec_ops_assets,
+            gs.selected_agent_names,
+            gs.selected_asset_ids,
+            index,
+        )
+        if removed is None:
+            return
+        gs.selected_agent_names = sanitized_agents
+        gs.selected_asset_ids = sanitized_assets
+        self.deployment_cursor = min(index, len(gs.characters) - 1) if gs.characters else 0
+        self.pending_breakdown_confirmation = False
+        self.pending_breakdown_mission_id = None
+        self.pending_launch_confirm = False
+        self.message = f"{removed.name} removed from roster."
+        gs.add_event(push_action(self.notifications, "remove_agent", True, removed.name))
 
     def _do_launch_mission(self) -> None:
         gs = self.game_state
@@ -1917,6 +2128,20 @@ class ManagementView(GameView):
             f"{char.name} +1 {stat_key.upper()} (now {getattr(char.stats, attr)})"
         ))
 
+    def _do_unlock_talent(self, char_idx: int, node_id: str) -> None:
+        gs = self.game_state
+        if char_idx >= len(gs.characters):
+            return
+        char = gs.characters[char_idx]
+        if unlock_talent(char, node_id):
+            node = talent_node_by_id(node_id)
+            node_name = node.name if node else node_id
+            self.message = f"{char.name} unlocked {node_name}."
+            gs.add_event(push_action(self.notifications, "talent_unlock", True, f"{char.name} learned {node_name}"))
+        else:
+            self.message = "Talent locked or no points available."
+            self.notifications.warning(self.message)
+
     def _do_cycle_equipment(self, char_idx: int, slot: str, direction: int) -> None:
         """Cycle equipment in *slot* for character at *char_idx* by *direction* (+1 / -1)."""
         gs = self.game_state
@@ -1938,3 +2163,508 @@ class ManagementView(GameView):
         char.loadout.equip(slot, new_item)
         name = new_item.name if new_item else "empty"
         gs.add_event(f"{char.name} — {slot.replace('_', ' ')}: {name}")
+    # â”€â”€ Hub overrides â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+    def setup(self) -> None:
+        self.room_ui = RoomUIState("hub")
+        self.notifications = NotificationCenter()
+        self.selected_save_slot = 1
+        self.deployment_cursor = 0
+        self._asset_cursor = 0
+        self._catalog_scroll = 0
+        self.pending_launch_confirm = False
+        self.pending_launch_mission_id = None
+        self.message = ""
+        self.pending_recruit_candidates: list = []
+        self._elapsed = 0.0
+        self._hits = []
+        self.active_tab = "command"
+        self.equipment_catalog = default_equipment_catalog()
+
+        ensure_mission_templates(self.game_state)
+        self.game_state.selected_agent_names = sanitize_selected_agent_names(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+
+        if self.game_state.available_funds <= 0:
+            self.game_state.add_funds(
+                self.game_state.compute_budget(),
+                "mgmt_setup",
+                "Emergency operating funds.",
+            )
+
+    def on_show_view(self) -> None:
+        arcade.set_background_color(palette.BACKGROUND)
+        ensure_mission_templates(self.game_state)
+
+    def on_update(self, delta_time: float) -> None:
+        self._elapsed += delta_time
+        step_room_ui(self.room_ui, delta_time)
+
+    def on_draw(self) -> None:
+        self.clear()
+        w, h = self.window.width, self.window.height
+        roster_cards = self._build_hub_roster_cards() if self.room_ui.active_room_key == "squad" else []
+        draw_graphical_command_surface(
+            w,
+            h,
+            self.room_ui,
+            self.game_state.strategic_resources,
+            {},
+            roster_cards=roster_cards,
+            available_funds=self.game_state.available_funds,
+            draw_controls=False,
+        )
+        arcade.draw_text(
+            "F1 COMMAND  F2 CITY  F3 SQUAD  F4 ASSETS  F5 RESEARCH  F6 INTEL  |  ESC CLOSE",
+            22,
+            16,
+            (90, 120, 130),
+            10,
+        )
+        if self.message:
+            arcade.draw_text(self.message, 22, 34, palette.WARNING, 10)
+        _draw_notification_toast(self.notifications, w, h)
+        self._draw_legacy_room_content()
+        draw_expanded_room_controls(w, h, self.room_ui)
+
+    def on_key_press(self, key: int, modifiers: int) -> None:
+        esc_key = getattr(arcade.key, "ESCAPE", None)
+        save_key = getattr(arcade.key, "S", None)
+        load_key = getattr(arcade.key, "L", None)
+        day_key = getattr(arcade.key, "D", None)
+        enter_key = getattr(arcade.key, "ENTER", None)
+        return_key = getattr(arcade.key, "RETURN", None)
+        b_key = getattr(arcade.key, "B", None)
+        n_key = getattr(arcade.key, "N", None)
+        left_key = getattr(arcade.key, "LEFT", None)
+        right_key = getattr(arcade.key, "RIGHT", None)
+        space_key = getattr(arcade.key, "SPACE", None)
+        r_key = getattr(arcade.key, "R", None)
+        t_key = getattr(arcade.key, "T", None)
+        key_1 = getattr(arcade.key, "KEY_1", None)
+        key_2 = getattr(arcade.key, "KEY_2", None)
+        key_3 = getattr(arcade.key, "KEY_3", None)
+
+        room_shortcuts = {
+            code: room
+            for code, room in (
+                (getattr(arcade.key, "F1", None), "command"),
+                (getattr(arcade.key, "F2", None), "city"),
+                (getattr(arcade.key, "F3", None), "squad"),
+                (getattr(arcade.key, "F4", None), "assets"),
+                (getattr(arcade.key, "F5", None), "research"),
+                (getattr(arcade.key, "F6", None), "intel"),
+            )
+            if code is not None
+        }
+        if esc_key is not None and key == esc_key:
+            if self.room_ui.is_open:
+                close_room(self.room_ui)
+            else:
+                from game.ui.screens.title_screen import TitleView
+
+                self.window.show_view(TitleView())
+            return
+
+        if key in room_shortcuts:
+            self._open_hub_room(room_shortcuts[key])
+            return
+
+        mod_ctrl = getattr(arcade.key, "MOD_CTRL", 0)
+        if save_key is not None and key == save_key and not (modifiers & mod_ctrl):
+            self._do_save()
+            return
+        if load_key is not None and key == load_key and not (modifiers & mod_ctrl):
+            self._do_load()
+            return
+        if day_key is not None and key == day_key:
+            self._do_advance_day()
+            return
+        if key in {k for k in (enter_key, return_key) if k is not None} and self.room_ui.is_open:
+            self._dispatch_hub_action("next_step")
+            return
+
+        if not self.room_ui.is_open:
+            return
+
+        active_room = self.room_ui.active_room_key
+        if active_room == "squad":
+            if b_key is not None and key == b_key:
+                self._do_launch_mission()
+                return
+            if n_key is not None and key == n_key:
+                self._do_recruit_prompt()
+                return
+            if left_key is not None and key == left_key:
+                self._cycle_agent_cursor(-1)
+                return
+            if right_key is not None and key == right_key:
+                self._cycle_agent_cursor(1)
+                return
+            if space_key is not None and key == space_key:
+                self._toggle_selected_agent()
+                return
+        elif active_room == "assets":
+            if left_key is not None and key == left_key:
+                self._cycle_asset_cursor(-1)
+                return
+            if right_key is not None and key == right_key:
+                self._cycle_asset_cursor(1)
+                return
+            if r_key is not None and key == r_key:
+                self._do_asset_repair(self._asset_cursor)
+                return
+            if t_key is not None and key == t_key:
+                self._do_asset_deploy_toggle(self._asset_cursor)
+                return
+        elif active_room == "research":
+            research_key_map = {k: i for i, k in enumerate((key_1, key_2, key_3)) if k is not None}
+            if key in research_key_map:
+                self._dispatch_hub_action(f"start_research_{research_key_map[key]}")
+                return
+
+    def on_mouse_press(self, x: float, y: float, _button: int, _modifiers: int) -> None:
+        xi, yi = int(x), int(y)
+        w, h = self.window.width, self.window.height
+
+        if self.room_ui.is_open:
+            if close_button_rect(w, h).contains(xi, yi):
+                close_room(self.room_ui)
+                return
+            for hit in reversed(self._hits):
+                if hit.contains(xi, yi):
+                    self._dispatch(hit.action, hit.data)
+                    return
+            action = action_at_point(self.room_ui.action_buttons, xi, yi)
+            if action is not None:
+                self._dispatch_hub_action(action.key)
+                return
+            return
+
+        room = room_at_point(w, h, "hub", xi, yi)
+        if room is None:
+            return
+        open_room(self.room_ui, w, h, room.key)
+        self.game_state.mark_tutorial_event("entered_room")
+        self.message = ""
+
+    def _open_hub_room(self, room_key: str) -> None:
+        open_room(self.room_ui, self.window.width, self.window.height, room_key)
+        self.game_state.mark_tutorial_event("entered_room")
+        self.message = ""
+
+    def _cycle_agent_cursor(self, step: int) -> None:
+        if not self.game_state.characters:
+            return
+        self.deployment_cursor = (self.deployment_cursor + step) % len(self.game_state.characters)
+
+    def _toggle_selected_agent(self) -> None:
+        if not self.game_state.characters:
+            return
+        self.game_state.selected_agent_names, self.message = toggle_agent_selection(
+            self.game_state.characters,
+            self.game_state.selected_agent_names,
+            self.deployment_cursor,
+        )
+        self.pending_launch_confirm = False
+
+    def _cycle_asset_cursor(self, step: int) -> None:
+        assets = self.game_state.spec_ops_assets
+        if not assets:
+            return
+        self._asset_cursor = (self._asset_cursor + step) % len(assets)
+
+    def _dispatch_hub_action(self, action: str) -> None:
+        gs = self.game_state
+
+        if action == "next_step":
+            self._perform_primary_hub_action()
+            return
+        if action == "advance_day":
+            self._do_advance_day()
+            return
+        if action == "save":
+            self._do_save()
+            return
+        if action == "load":
+            self._do_load()
+            return
+        if action == "slot_prev":
+            self.selected_save_slot = ((self.selected_save_slot - 2) % 5) + 1
+            gs.add_event(f"Active save slot: {self.selected_save_slot}.")
+            return
+        if action == "slot_next":
+            self.selected_save_slot = (self.selected_save_slot % 5) + 1
+            gs.add_event(f"Active save slot: {self.selected_save_slot}.")
+            return
+
+        if action == "recruit_prompt":
+            self._do_recruit_prompt()
+            return
+        if action == "launch_mission":
+            self._do_launch_mission()
+            return
+        if action == "remove_agent":
+            self._do_remove_agent()
+            return
+        if action == "agent_prev":
+            self._cycle_agent_cursor(-1)
+            return
+        if action == "agent_next":
+            self._cycle_agent_cursor(1)
+            return
+        if action == "select_agent":
+            self._toggle_selected_agent()
+            return
+
+        if action == "asset_prev":
+            self._cycle_asset_cursor(-1)
+            return
+        if action == "asset_next":
+            self._cycle_asset_cursor(1)
+            return
+        if action == "asset_repair":
+            self._do_asset_repair(self._asset_cursor)
+            return
+        if action == "asset_deploy_toggle":
+            self._do_asset_deploy_toggle(self._asset_cursor)
+            return
+        if action == "catalog_acquire":
+            self._do_catalog_acquire(self._asset_cursor)
+            return
+
+        if action.startswith("corp_upgrade_"):
+            key = action.removeprefix("corp_upgrade_")
+            costs = {
+                "research": {"intel": 5},
+                "security": {"credits": 10, "salvage": 2},
+                "politics": {"influence": 3},
+                "black_ops": {"credits": 5, "intel": 3},
+            }.get(key, {})
+            if costs:
+                self._do_corp_upgrade(key, costs)
+            return
+
+        if action.startswith("city_upgrade_"):
+            key = action.removeprefix("city_upgrade_")
+            costs = {
+                "armaments": {"credits": 5, "salvage": 3},
+                "garrisons": {"credits": 10, "influence": 2},
+                "defense_zones": {"credits": 5, "salvage": 5},
+            }.get(key, {})
+            if costs:
+                self._do_city_upgrade(key, costs)
+            return
+
+        if action.startswith("start_research_"):
+            idx = int(action.rsplit("_", 1)[-1])
+            completed = set(gs.completed_research)
+            active_ids = {research.project_id for research in gs.active_research}
+            available = gs.research_tree.available_projects(completed, active_ids)
+            if idx < len(available):
+                gs.start_research(available[idx].id)
+                gs.add_event(f"Research started: {available[idx].name}.")
+            return
+
+    def _perform_primary_hub_action(self) -> None:
+        active_room = self.room_ui.active_room_key
+        if active_room == "command":
+            self._do_advance_day()
+            return
+        if active_room == "city":
+            self._do_city_upgrade("armaments", {"credits": 5, "salvage": 3})
+            return
+        if active_room == "squad":
+            self._do_launch_mission()
+            return
+        if active_room == "assets":
+            asset = self.game_state.spec_ops_assets[self._asset_cursor] if self.game_state.spec_ops_assets else None
+            if asset is None:
+                return
+            if asset.is_deployable:
+                self._do_asset_deploy_toggle(self._asset_cursor)
+            else:
+                self._do_asset_repair(self._asset_cursor)
+            return
+        if active_room == "research":
+            completed = set(self.game_state.completed_research)
+            active_ids = {research.project_id for research in self.game_state.active_research}
+            available = self.game_state.research_tree.available_projects(completed, active_ids)
+            if available:
+                self.game_state.start_research(available[0].id)
+                self.game_state.add_event(f"Research started: {available[0].name}.")
+            return
+        if active_room == "intel":
+            self._do_advance_day()
+
+    def _draw_legacy_room_content(self) -> None:
+        if not self.room_ui.is_open or self.room_ui.expansion < 0.5:
+            return
+        active = active_room_rect(self.room_ui, self.window.width, self.window.height)
+        if active is None:
+            return
+        _, rect = active
+        pad_x = max(24, rect.width // 28)
+        pad_y = max(24, rect.height // 22)
+        x0 = rect.left + pad_x
+        bottom_reserve = max(84, rect.height // 8)
+        y0 = rect.bottom + pad_y + bottom_reserve
+        x1 = rect.right - pad_x
+        y1 = rect.top - pad_y * 2
+        if y0 >= y1 - 40:
+            y0 = rect.bottom + pad_y + 40
+        room_key = self.room_ui.active_room_key
+        renderers = {
+            "command": self._draw_command_tab,
+            "city": self._draw_city_tab,
+            "squad": self._draw_squad_tab,
+            "assets": self._draw_assets_tab,
+            "research": self._draw_research_tab,
+            "intel": self._draw_intel_tab,
+        }
+        renderer = renderers.get(room_key or "")
+        if renderer is not None:
+            renderer(x0, y0, x1, y1)
+
+    def _build_hub_roster_cards(self) -> list[dict]:
+        cards: list[dict] = []
+        selected_names = set(self.game_state.selected_agent_names)
+        for index, character in enumerate(self.game_state.characters):
+            stats = character.stats
+            max_hp = max(1, stats.max_hp)
+            cards.append(
+                {
+                    "name": character.name,
+                    "role": character.role,
+                    "active": index == self.deployment_cursor,
+                    "selected": character.name in selected_names,
+                    "portrait_path": portrait_path_for_character(character),
+                    "hp_ratio": max(0, min(stats.hp / max_hp, 1)),
+                    "stress_ratio": max(0, min(character.stress / 100, 1)),
+                    "pending_points": character.pending_points,
+                    "talent_points": character.talent_points,
+                    "specialization_count": len(character.specializations),
+                    "specializations": list(character.specializations),
+                    "recovery_turns": character.recovery_turns,
+                    "defense": stats.defense + character.loadout.total_stat_bonuses().get("defense", 0),
+                }
+            )
+        return cards
+
+    def _room_info_lines(self) -> dict[str, list[str]]:
+        gs = self.game_state
+        selected_mission = _selected_mission(gs)
+        selected_agents = selected_deployable_agents(gs.characters, gs.selected_agent_names)
+        at_risk = (
+            agents_at_breaking_risk(selected_agents, selected_mission)
+            if selected_mission and selected_agents
+            else []
+        )
+        guidance = compute_next_action(gs, "corp")
+
+        finance_lines = build_corporate_finance_lines(
+            gs.next_weekly_income_date,
+            gs.projected_weekly_income,
+        )
+        event_lines = build_event_panel_lines(gs.active_events, gs.calendar.current_day)
+
+        previous_morale = getattr(gs, "_last_squad_morale", None)
+        morale_summary = aggregate_squad_morale(selected_agents, previous_morale)
+        gs._last_squad_morale = morale_summary.global_morale
+        morale_lines = [line.text for line in build_squad_morale_panel_lines(morale_summary)]
+
+        selected_asset_count = len(gs.selected_asset_ids)
+        ready_asset_count = sum(1 for asset in gs.spec_ops_assets if asset.is_deployable)
+        asset_lines = (
+            build_spec_ops_assets_guide_lines()
+            + build_spec_ops_acquisition_lines(gs)[1:]
+            + build_mission_prep_asset_state_lines(gs)[1:4]
+            + build_asset_outcome_lines(gs)[1:]
+        )
+
+        city_factions = sorted(
+            gs.factions,
+            key=lambda faction: faction.hostility_to_player,
+            reverse=True,
+        )
+        lead_faction = city_factions[0].name if city_factions else "no active faction"
+        hostility = city_factions[0].hostility_to_player if city_factions else 0
+
+        command_lines = [
+            f"Next Step: {guidance.text}",
+            f"{gs.calendar.campaign_date_label} | Day {gs.calendar.current_day}",
+            f"Turn {gs.turn} | Funds {gs.available_funds:,}",
+            *event_lines[:3],
+            *finance_lines,
+            f"Politics allocation {gs.corp_budget['politics']}",
+            f"Influence reserve {gs.strategic_resources.get('influence', 0)}",
+        ]
+
+        city_lines = [
+            f"Next Step: {guidance.text}",
+            f"{gs.calendar.campaign_date_label} | Week {gs.calendar.current_week}",
+            f"District {gs.district.name}",
+            f"Control faction {gs.district.control_faction}",
+            f"Stability {gs.district.stability}/100",
+            f"Unrest {gs.district.unrest}/100",
+            f"Media heat {gs.district.media_heat}/100",
+            f"Highest pressure: {lead_faction}",
+            f"Hostility {hostility}/100 | Active factions {len(gs.factions)}",
+            f"Garrisons {gs.city_budget['garrisons']} | Armaments {gs.city_budget['armaments']} | Defense zones {gs.city_budget['defense_zones']}",
+        ]
+
+        squad_lines = [
+            f"Next Step: {guidance.text}",
+            f"Roster {len(gs.characters)} agents | Selected {len(gs.selected_agent_names)}",
+            f"Selected squad {len(selected_agents)} + {selected_asset_count} support",
+            f"Risk agents {len(at_risk)}",
+            *morale_lines[:3],
+            f"Mission {selected_mission.title if selected_mission else 'No active mission'}",
+            f"Risk {selected_mission.risk_level if selected_mission else 0} | Objective {selected_mission.objective_type if selected_mission else 'none'}",
+            f"Target faction {selected_mission.target_faction if selected_mission else 'none'}",
+        ]
+
+        assets = gs.spec_ops_assets
+        selected_asset = assets[self._asset_cursor] if assets else None
+        assets_lines = [
+            f"Next Step: {guidance.text}",
+            f"Assets ready {ready_asset_count}/{len(assets)}",
+            f"Selected support assets {selected_asset_count}",
+            f"Current asset: {selected_asset.name if selected_asset else 'None'}",
+            *asset_lines,
+        ]
+
+        research_lines = build_research_lab_lines(gs)
+        if not research_lines:
+            research_lines = ["No research data available."]
+
+        intel_lines = [
+            f"Next Step: {guidance.text}",
+            f"Event log entries: {len(gs.event_log)}",
+        ]
+        if getattr(gs, "latest_mission_debrief", None):
+            debrief = gs.latest_mission_debrief
+            intel_lines.append(f"Latest outcome: {debrief.get('outcome', 'pending')}")
+            title = debrief.get("mission_title")
+            if title:
+                intel_lines.append(f"Latest mission: {title}")
+            lines = debrief.get("lines", [])
+            for row in lines[:3]:
+                if isinstance(row, dict):
+                    text = row.get("text", "")
+                    if text:
+                        intel_lines.append(str(text))
+        if getattr(gs, "latest_agent_aftermath", None):
+            intel_lines.append("Aftermath:")
+            intel_lines.extend([str(line)[:80] for line in gs.latest_agent_aftermath[:4]])
+        intel_lines.extend(str(entry)[:80] for entry in reversed(gs.event_log[-4:]))
+
+        return {
+            "command": command_lines,
+            "city": city_lines,
+            "squad": squad_lines,
+            "assets": assets_lines,
+            "research": research_lines,
+            "intel": intel_lines,
+        }

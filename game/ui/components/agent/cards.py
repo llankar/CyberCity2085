@@ -35,6 +35,15 @@ def draw_agent_card(card: dict, left: int, bottom: int, width: int, height: int,
     text_left = left + 10 + portrait_size + 14
     arcade.draw_text(card.get("name", "Agent").upper(), text_left, bottom + height - 28, palette.TEXT, typography.panel_title)
     arcade.draw_text(card.get("role", "unknown").upper(), text_left, bottom + height - 48, _role_color(card), typography.meta)
+    if card.get("defense") is not None:
+        arcade.draw_text(f"DEF {card.get('defense')}", text_left, bottom + height - 62, palette.MUTED_TEXT, typography.meta)
+    specialization_count = card.get("specialization_count", len(card.get("specializations", [])))
+    talent_points = card.get("talent_points", 0)
+    if specialization_count or talent_points:
+        label = f"TALENTS {specialization_count}"
+        if talent_points:
+            label += f"  +{talent_points}"
+        arcade.draw_text(label, text_left, bottom + height - 76, palette.ACCENT, typography.meta)
     if card.get("pending_points", 0) > 0:
         draw_upgrade_badge(card.get("pending_points", 0), left + width - 48, bottom + height - 32)
 

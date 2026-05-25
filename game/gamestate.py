@@ -646,9 +646,25 @@ class GameState:
         gs.research_unlock_flags = list(data.get("research_unlock_flags", []))
         gs.research_stat_modifiers = dict(data.get("research_stat_modifiers", {}))
         from .character import Character
+        from .recruitment import normalize_agent_name
 
         gs.characters = [Character.from_dict(c) for c in data.get("characters", [])]
+        normalized_chars: list[Character] = []
+        renamed: dict[str, str] = {}
+        for character in gs.characters:
+            new_name = normalize_agent_name(character.name, normalized_chars, character.role)
+            if new_name != character.name:
+                renamed[character.name] = new_name
+                character.name = new_name
+            normalized_chars.append(character)
+        gs.characters = normalized_chars
         from .deployment import sanitize_selected_agent_names, sanitize_selected_asset_ids
+
+        if renamed:
+            gs.selected_agent_names = [
+                renamed.get(name, name)
+                for name in data.get("selected_agent_names", gs.selected_agent_names)
+            ]
 
         gs.selected_agent_names = sanitize_selected_agent_names(
             gs.characters, gs.selected_agent_names

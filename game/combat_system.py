@@ -5,6 +5,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, replace
 
 from .character import Character
+from .agent_specializations import apply_talent_bonuses
 from .deployment import (
     deployable_agents,
     selected_deployment_manifest,
@@ -51,6 +52,7 @@ def equipped_player_stats(character: Character) -> PlayerStats:
         if not hasattr(stats, stat_key):
             continue
         setattr(stats, stat_key, max(0, getattr(stats, stat_key) + amount))
+    stats = apply_talent_bonuses(stats, character.specializations)
     if stats.max_hp < 1:
         stats.recalculate_hp()
     stats.hp = max(0, min(stats.hp, stats.max_hp))
@@ -294,6 +296,7 @@ def run_enemy_ai(
     on_attack: Callable[[Unit, Unit, int], None] | None = None,
     on_defeated: Callable[[Unit], None] | None = None,
     on_overwatch_shot: Callable[[Unit, Unit, int], None] | None = None,
+    can_enter: Callable[[int, int], bool] | None = None,
 ) -> list[EnemyActionResult]:
     """Run enemy actions and return inspectable outcomes for the view/test layer."""
     results: list[EnemyActionResult] = []
@@ -345,25 +348,34 @@ def run_enemy_ai(
                 enemy.action_points -= 1
                 results.append(EnemyActionResult(enemy, target, moved=False))
             else:
-                # Out of range — step toward target
+                # Out of range ? step toward target
                 dx, dy = step_toward(enemy, target)
                 moved = False
                 if dx or dy:
-                    new_x = enemy.position[0] + dx
-                    new_y = enemy.position[1] + dy
-                    if not is_occupied(
-                        new_x, new_y, player_units, enemy_units, exclude=enemy
-                    ):
-                        enemy.move(dx, dy)
+                    step_candidates = [(dx, dy)]
+                    if dx and dy:
+                        step_candidates = [(dx, 0), (0, dy), (dx, dy)]
+                    for step_dx, step_dy in step_candidates:
+                        new_x = enemy.position[0] + step_dx
+                        new_y = enemy.position[1] + step_dy
+                        blocked = is_occupied(
+                            new_x, new_y, player_units, enemy_units, exclude=enemy
+                        )
+                        if can_enter is not None and not can_enter(new_x, new_y):
+                            blocked = True
+                        if blocked:
+                            continue
+                        enemy.move(step_dx, step_dy)
                         moved = True
-                        # ── Overwatch check after each enemy step ──────────
+                        # ?? Overwatch check after each enemy step ??????????
                         killed = _check_overwatch(
                             enemy, player_units, enemy_units,
                             on_overwatch_shot, on_defeated,
                         )
                         if killed:
                             break
-                    else:
+                        break
+                    if not moved:
                         enemy.action_points -= 1
                 else:
                     enemy.action_points -= 1

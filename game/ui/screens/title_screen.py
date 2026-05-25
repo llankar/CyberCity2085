@@ -216,11 +216,11 @@ class TitleView(arcade.View):
     def _draw_button(
         self, left: int, bot: int, right: int, top: int, label: str, hover: bool
     ) -> None:
-        fill = (32, 75, 98, 220) if hover else (8, 20, 24, 200)
+        fill = (42, 92, 118, 235) if hover else (8, 20, 24, 200)
         arcade.draw_lrbt_rectangle_filled(left, right, bot, top, fill)
 
         border = HEADER if hover else PANEL_BORDER
-        arcade.draw_line(left, top,  right, top,  border, 2)
+        arcade.draw_line(left, top,  right, top,  border, 3 if hover else 2)
         arcade.draw_line(left, bot,  right, bot,  GRID_LINE, 1)
         arcade.draw_line(left, bot,  left,  top,  GRID_LINE, 1)
         arcade.draw_line(right, bot, right, top,  GRID_LINE, 1)
@@ -235,7 +235,7 @@ class TitleView(arcade.View):
             label,
             cx, cy,
             TEXT if hover else MUTED_TEXT,
-            font_size=16,
+            font_size=18,
             bold=hover,
             anchor_x="center", anchor_y="center",
         )

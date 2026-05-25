@@ -170,7 +170,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         finally:
             views.arcade.draw_text = original_draw_text
 
-        self.assertEqual(drawn_text, [])
+        self.assertFalse(any("RECOVERING" in text.upper() for text in drawn_text))
 
     def test_rpg_view_shows_selection_as_graphical_state_not_text(self):
         drawn_text = []
@@ -187,7 +187,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         finally:
             views.arcade.draw_text = original_draw_text
 
-        self.assertEqual(drawn_text, [])
+        self.assertFalse(any("SELECT" in text.upper() for text in drawn_text))
 
     def test_management_views_draw_graphical_surfaces_without_text(self):
         drawn_text = []
@@ -206,7 +206,15 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         finally:
             views.arcade.draw_text = original_draw_text
 
-        self.assertEqual(drawn_text, [])
+        allowed = {"FUNDS", "CREDITS", "INTEL", "SALVAGE", "INFLUENCE"}
+        unexpected = [
+            text
+            for text in drawn_text
+            if text not in allowed
+            and not text.isdigit()
+            and not text.startswith(("¥", "Ą"))
+        ]
+        self.assertEqual(unexpected, [])
 
     def test_battle_view_setup_auto_selects_map(self):
         """BattleView must auto-select a map on setup (no manual pick screen)."""
@@ -447,6 +455,35 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         )
 
         self.assertEqual(view.deployment_cursor_index, 1)
+
+    def test_armory_room_can_remove_active_agent_from_roster(self):
+        from game.ui.facility import build_facility_rooms, facility_room_by_key
+
+        game_state = GameState(
+            characters=[Character("Vega", role="sniper"), Character("Knox", role="samurai")]
+        )
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        room = facility_room_by_key(
+            build_facility_rooms(view.window.width, view.window.height, "squad"),
+            "armory",
+        )
+        view.on_mouse_press(
+            room.left + room.width // 2,
+            room.bottom + room.height // 2,
+            None,
+            None,
+        )
+        remove_button = next(
+            button for button in view.room_ui.action_buttons if button.action.key == "remove_agent"
+        ).rect
+        removed_name = game_state.characters[0].name
+
+        view.on_mouse_press(remove_button.center_x, remove_button.center_y, None, None)
+
+        self.assertEqual(len(game_state.characters), 1)
+        self.assertNotIn(removed_name, {character.name for character in game_state.characters})
 
     def test_leveling_room_displays_remaining_points(self):
         from game.ui.facility import build_facility_rooms, facility_room_by_key

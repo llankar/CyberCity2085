@@ -55,6 +55,25 @@ class SaveSystemTests(unittest.TestCase):
             {"Cipher": {"agent_id": "Cipher", "bond_level": 4, "strategic_day": 12}},
         )
 
+    def test_loading_placeholder_names_normalizes_to_codename_agents(self):
+        game_state = GameState()
+        game_state.characters.extend(
+            [
+                Character(name="Agent 1", role="samurai"),
+                Character(name="Agent 2", role="sniper"),
+            ]
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            save_path = Path(temp_dir) / "slot_a" / "campaign.json"
+            SaveSystem.save_game(game_state, save_path)
+            loaded, load_result = SaveSystem.load_game(save_path)
+
+        self.assertTrue(load_result.ok)
+        assert loaded is not None
+        self.assertNotIn("Agent 1", [character.name for character in loaded.characters])
+        self.assertNotIn("Agent 2", [character.name for character in loaded.characters])
+
 
 if __name__ == "__main__":
     unittest.main()

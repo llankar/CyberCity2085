@@ -251,12 +251,13 @@ def draw_graphical_command_surface(
     room_info_lines: dict[str, list[str]] | None = None,
     roster_cards: list[dict] | None = None,
     available_funds: int | None = None,
+    draw_controls: bool = True,
 ) -> None:
     """Draw the image-first room UI without text panels."""
     draw_city_corporate_backdrop(width, height, state.mode)
     draw_icon_resource_hud(width, height, resources or {}, available_funds)
     draw_expanded_room_ui(
-        width, height, state, room_info_lines or {}, roster_cards or []
+        width, height, state, room_info_lines or {}, roster_cards or [], draw_controls=draw_controls
     )
 
 
@@ -269,36 +270,33 @@ def draw_icon_resource_hud(
     """Draw compact icon resource meters and available corporate funds."""
     if available_funds is not None:
         arcade.draw_lrbt_rectangle_filled(
-            22, 178, height - 68, height - 42, palette.HUD_SLOT_FILL
+            22, 184, height - 70, height - 42, palette.HUD_SLOT_FILL
         )
-        _draw_icon("credits", 38, height - 55, 18, palette.RESOURCE)
-        meter_width = max(4, min(120, int(available_funds)))
-        arcade.draw_lrbt_rectangle_filled(
-            52, 52 + meter_width, height - 59, height - 51, palette.RESOURCE
-        )
-    keys = ("credits", "intel", "salvage", "influence")
-    size = 34
-    gap = 12
+        _draw_icon("credits", 40, height - 56, 18, palette.RESOURCE)
+        arcade.draw_text("FUNDS", 56, height - 50, palette.MUTED_TEXT, font_size=8, bold=True)
+        arcade.draw_text(f"¥ {available_funds:,}", 56, height - 61, palette.TEXT, font_size=12, bold=True)
+    keys = (
+        ("credits", "CREDITS"),
+        ("intel", "INTEL"),
+        ("salvage", "SALVAGE"),
+        ("influence", "INFLUENCE"),
+    )
+    chip_w = 94
+    gap = 10
     left = 196 if available_funds is not None else 22
     top = height - 18
-    for index, key in enumerate(keys):
-        x = left + index * (size + gap)
-        bottom = top - size
+    for index, (key, label) in enumerate(keys):
+        x = left + index * (chip_w + gap)
+        bottom = top - 34
         arcade.draw_lrbt_rectangle_filled(
-            x, x + size, bottom, top, palette.HUD_SLOT_FILL
+            x, x + chip_w, bottom, top, palette.HUD_SLOT_FILL
         )
         _draw_icon(
-            key, x + size // 2, bottom + size // 2, size - 10, palette.RESOURCE
+            key, x + 18, bottom + 17, 22, palette.RESOURCE
         )
-        value = max(0, min(100, int(resources.get(key, 0))))
-        bar_height = max(3, int((size - 8) * min(value, 40) / 40))
-        arcade.draw_lrbt_rectangle_filled(
-            x + size + 3,
-            x + size + 7,
-            bottom + 4,
-            bottom + 4 + bar_height,
-            palette.RESOURCE,
-        )
+        value = max(0, int(resources.get(key, 0)))
+        arcade.draw_text(label, x + 36, bottom + 19, palette.TEXT, font_size=8, bold=True)
+        arcade.draw_text(str(value), x + 36, bottom + 6, palette.RESOURCE, font_size=12, bold=True)
 
 
 def draw_expanded_room_ui(
@@ -307,6 +305,7 @@ def draw_expanded_room_ui(
     state: RoomUIState,
     room_info_lines: dict[str, list[str]] | None = None,
     roster_cards: list[dict] | None = None,
+    draw_controls: bool = True,
 ) -> None:
     """Draw animated full-screen room expansion and icon buttons."""
     active = active_room_rect(state, width, height)
@@ -336,7 +335,7 @@ def draw_expanded_room_ui(
     _draw_room_symbol(
         room.key, rect.center_x, rect.center_y + icon_radius, icon_radius, border
     )
-    if state.expansion >= 0.48:
+    if state.expansion >= 0.48 and state.mode != "hub":
         draw_room_title_and_info(
             room.title,
             room_info_lines.get(room.key, []) if room_info_lines else [],
@@ -344,13 +343,14 @@ def draw_expanded_room_ui(
             state.action_buttons,
             border,
         )
-        if (state.mode == "squad" and room.key in {
+        if (state.mode in {"squad", "hub"} and room.key in {
             "barracks",
             "medbay",
             "armory",
             "briefing",
             "dossier",
             "insertion",
+            "squad",
         }) or (state.mode == "corp" and room.key == "black_ops"):
             draw_agent_roster_cards(rect, state.action_buttons, roster_cards or [], border, _draw_icon, _load_texture_once, _draw_circle_filled, _draw_circle_outline)
     for scan_x in range(rect.left + 36, rect.right - 24, 58):
@@ -363,10 +363,20 @@ def draw_expanded_room_ui(
             1,
         )
 
-    if state.expansion >= 0.72:
-        for button in state.action_buttons:
-            draw_action_button(button, border, state.pulse)
-        draw_close_button(width, height, state.pulse)
+    if draw_controls:
+        draw_expanded_room_controls(width, height, state)
+
+
+def draw_expanded_room_controls(width: int, height: int, state: RoomUIState) -> None:
+    """Draw only the action strip and close control for an expanded room."""
+    active = active_room_rect(state, width, height)
+    if active is None or state.expansion < 0.62:
+        return
+    room, _ = active
+    border = _room_accent_color(room)
+    for button in state.action_buttons:
+        draw_action_button(button, border, state.pulse)
+    draw_close_button(width, height, state.pulse)
 
 
 def draw_room_title_and_info(title: str, lines: list[str], rect, buttons, border) -> None:
@@ -386,15 +396,23 @@ def draw_room_title_and_info(title: str, lines: list[str], rect, buttons, border
         palette.PANEL_FILL_DARK,
     )
     arcade.draw_line(left, top + spacing.md + 2, right, top + spacing.md + 2, border, stroke.regular)
-    arcade.draw_text("ROOM", left, top + spacing.sm, palette.MUTED_TEXT, typography.meta)
+    arcade.draw_text("ROOM", left, top + spacing.sm, palette.MUTED_TEXT, typography.body_secondary)
     arcade.draw_text(title.upper(), left, top, palette.HEADER, typography.screen_title)
 
     y = top - (spacing.xl)
     max_lines = max(1, int((y - info_bottom) // (spacing.md + 4)) + 1)
     for index, line in enumerate(lines[:max_lines]):
         color = palette.TEXT if index == 0 else palette.MUTED_TEXT
-        font_size = typography.body_secondary if index == 0 else typography.meta
-        arcade.draw_text(_fit_room_line(line), left, y, color, font_size)
+        font_size = typography.panel_title if index == 0 else typography.body_secondary
+        arcade.draw_text(
+            _fit_room_line(line, 92),
+            left,
+            y,
+            color,
+            font_size,
+            width=max(10, right - left),
+            align="left",
+        )
         y -= spacing.md + 4
 
 
@@ -579,7 +597,7 @@ def draw_action_button(button: ActionButton, border, pulse_elapsed: float = 0.0)
             rect.center_x,
             rect.bottom - 20,
             palette.TEXT,
-            typography.meta,
+            typography.body_secondary,
             anchor_x="center",
         )
 
@@ -811,3 +829,4 @@ def draw_tactical_meter(
             else palette.WARNING if clamped >= 40 else palette.TACTICAL_GREEN
         ),
     )
+

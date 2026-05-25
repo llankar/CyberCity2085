@@ -14,6 +14,8 @@ class Character:
     role: str = "samurai"
     stats: PlayerStats = field(default_factory=PlayerStats)
     pending_points: int = 0
+    talent_points: int = 0
+    specializations: list[str] = field(default_factory=list)
     traits: list[str] = field(default_factory=list)
     addictions: list[str] = field(default_factory=list)
     fears: list[str] = field(default_factory=list)
@@ -39,6 +41,8 @@ class Character:
             "role": self.role,
             "stats": asdict(self.stats),
             "pending_points": self.pending_points,
+            "talent_points": self.talent_points,
+            "specializations": list(self.specializations),
             "traits": list(self.traits),
             "addictions": list(self.addictions),
             "fears": list(self.fears),
@@ -68,6 +72,8 @@ class Character:
             role=data.get("role", "samurai"),
             stats=stats,
             pending_points=data.get("pending_points", 0),
+            talent_points=data.get("talent_points", 0),
+            specializations=list(data.get("specializations", [])),
             traits=list(data.get("traits", [])),
             addictions=list(data.get("addictions", [])),
             fears=list(data.get("fears", [])),
@@ -98,6 +104,7 @@ class Character:
             self.stats.recalculate_hp()
             self.stats.hp = min(self.stats.hp + 10, self.stats.max_hp)
             self.pending_points += 5
+            self.talent_points += 1
 
 
 def is_deployable(character: Character) -> bool:

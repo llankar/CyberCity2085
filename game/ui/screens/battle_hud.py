@@ -64,7 +64,13 @@ def draw_tactical_grid(width: int, height: int) -> None:
         arcade.draw_line(0, y, width, y, _GRID_COL, 1)
 
 
-def draw_movement_range(unit: "Unit", width: int, height: int) -> None:
+def draw_movement_range(
+    unit: "Unit",
+    width: int,
+    height: int,
+    *,
+    can_enter=None,
+) -> None:
     """Highlight cells the active unit can reach (Manhattan ≤ AP × MOVE_RANGE)."""
     if not unit or not unit.position:
         return
@@ -76,6 +82,8 @@ def draw_movement_range(unit: "Unit", width: int, height: int) -> None:
                 cx = ux + dx * CELL
                 cy = uy + dy * CELL
                 if 0 <= cx < width and 0 <= cy < height:
+                    if can_enter is not None and not can_enter(cx, cy):
+                        continue
                     arcade.draw_lrbt_rectangle_filled(
                         cx, cx + CELL, cy, cy + CELL, _MOVE_COL
                     )
@@ -294,10 +302,10 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
             "◈ OW",
             cx, top + bh + 3,
             _OVERWATCH_COL,
-            font_size=7, bold=True, anchor_x="center",
+            font_size=8, bold=True, anchor_x="center",
         )
     else:
-        arcade.draw_text(name, cx, top + bh + 3, name_col, font_size=8, anchor_x="center")
+        arcade.draw_text(name, cx, top + bh + 3, name_col, font_size=9, anchor_x="center")
 
     # Enemy subtype label (grunt / heavy / elite / commander) — shown below HP bar
     if is_enemy:
@@ -307,7 +315,7 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
                 subtype.upper(),
                 cx, top - 2,
                 (*palette.DANGER[:3], 180),
-                font_size=6, anchor_x="center",
+                font_size=7, anchor_x="center",
             )
 
 
@@ -408,7 +416,7 @@ def draw_unit_portrait_strip(
         arcade.draw_text(
             name, tx, strip_y + _STRIP_H - 16,
             palette.TEXT if active else palette.MUTED_TEXT,
-            font_size=7, bold=active,
+            font_size=8, bold=active,
         )
         # Dead / recovering indicator
         if unit.health <= 0:
@@ -435,7 +443,7 @@ def draw_action_bar(
     arcade.draw_lrbt_rectangle_filled(0, width, bar_y, bar_y + _ACTION_BAR_H, (0, 0, 0, 160))
     arcade.draw_line(0, bar_y + _ACTION_BAR_H, width, bar_y + _ACTION_BAR_H, palette.PANEL_BORDER_MUTED, 1)
 
-    btn_w = min(160, width // max(1, len(actions)))
+    btn_w = min(176, width // max(1, len(actions)))
     total = btn_w * len(actions) + (len(actions) - 1) * 4
     bx    = (width - total) // 2
 
@@ -448,7 +456,7 @@ def draw_action_bar(
         arcade.draw_line(bx, bar_y + _ACTION_BAR_H - 4, bx + btn_w, bar_y + _ACTION_BAR_H - 4, col, 2 if active else 1)
         arcade.draw_text(
             act.upper(), bx + btn_w // 2, bar_y + _ACTION_BAR_H // 2,
-            col, font_size=10, bold=active,
+            col, font_size=11, bold=active,
             anchor_x="center", anchor_y="center",
         )
         bx += btn_w + 4
@@ -561,7 +569,7 @@ def draw_unit_status_panel(
         arcade.draw_text(
             "NO ACTIVE UNIT",
             px + pw // 2, py + ph // 2,
-            palette.MUTED_TEXT, font_size=11,
+            palette.MUTED_TEXT, font_size=12,
             anchor_x="center", anchor_y="center",
         )
         return
@@ -592,23 +600,23 @@ def draw_unit_status_panel(
         else unit.spec_ops_asset.name if unit.spec_ops_asset
         else unit.unit_type
     )
-    arcade.draw_text(name.upper(), px + pp + 18, py + ph - 16, palette.TEXT, font_size=12, bold=True)
-    arcade.draw_text(role.upper() or unit.unit_type.upper(), px + pp + 18, py + ph - 30, role_col, font_size=9)
+    arcade.draw_text(name.upper(), px + pp + 18, py + ph - 16, palette.TEXT, font_size=13, bold=True)
+    arcade.draw_text(role.upper() or unit.unit_type.upper(), px + pp + 18, py + ph - 30, role_col, font_size=10)
 
     # HP bar
     bw = pw - pp - 32
     max_hp   = max(1, unit.stats.max_hp) if unit.stats else 1
     hp_frac  = max(0.0, min(1.0, unit.health / max_hp))
     hp_col   = palette.TACTICAL_GREEN if hp_frac > 0.5 else (palette.WARNING if hp_frac > 0.25 else palette.DANGER)
-    arcade.draw_text("HP", px + pp + 18, py + 50, palette.MUTED_TEXT, font_size=8)
+    arcade.draw_text("HP", px + pp + 18, py + 50, palette.MUTED_TEXT, font_size=9)
     arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + bw, py + 48, py + 58, palette.PANEL_FILL)
     arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + int(bw * hp_frac), py + 48, py + 58, hp_col)
-    arcade.draw_text(f"{unit.health}/{max_hp}", px + pp + 34 + bw, py + 48, hp_col, font_size=8)
+    arcade.draw_text(f"{unit.health}/{max_hp}", px + pp + 34 + bw, py + 48, hp_col, font_size=9)
 
     # AP pips
     max_ap = max(1, getattr(unit, "action_points", 1) + 1)
     ap_now  = max(0, getattr(unit, "action_points", 0))
-    arcade.draw_text("AP", px + pp + 18, py + 34, palette.MUTED_TEXT, font_size=8)
+    arcade.draw_text("AP", px + pp + 18, py + 34, palette.MUTED_TEXT, font_size=9)
     for i in range(max_ap):
         col = palette.ACCENT if i < ap_now else (18, 36, 48, 200)
         arcade.draw_lrbt_rectangle_filled(
@@ -620,9 +628,9 @@ def draw_unit_status_panel(
     if unit.character:
         stress     = unit.character.stress
         stress_col = palette.DANGER if stress >= 70 else (palette.WARNING if stress >= 40 else palette.MUTED_TEXT)
-        arcade.draw_text(f"STRESS {stress:>3}%", px + pp + 18, py + 16, stress_col, font_size=8)
+        arcade.draw_text(f"STRESS {stress:>3}%", px + pp + 18, py + 16, stress_col, font_size=9)
     if unit.stats:
-        arcade.draw_text(f"DEF {unit.stats.defense}", px + pp + 18, py + 6, palette.MUTED_TEXT, font_size=8)
+        arcade.draw_text(f"DEF {unit.stats.defense}", px + pp + 18, py + 6, palette.MUTED_TEXT, font_size=9)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -653,8 +661,17 @@ def draw_target_lock_panel(
         else target.unit_type
     )
 
-    arcade.draw_text("◉  TARGET LOCK", px + 10, py + ph - 14, palette.DANGER, font_size=9, bold=True)
-    arcade.draw_text(target_name.upper(), px + 10, py + ph - 30, palette.TEXT, font_size=12, bold=True)
+    arcade.draw_text("◉  TARGET LOCK", px + 10, py + ph - 14, palette.DANGER, font_size=10, bold=True)
+    arcade.draw_text(
+        target_name.upper(),
+        px + 10,
+        py + ph - 30,
+        palette.TEXT,
+        font_size=13,
+        bold=True,
+        width=max(10, pw - 20),
+        align="left",
+    )
 
     # Hit chance calculation
     stat_map = {"melee": "str", "shoot": "agi", "psi": "psi"}
@@ -668,7 +685,8 @@ def draw_target_lock_panel(
         else palette.WARNING    if pct >= 40
         else palette.DANGER
     )
-    arcade.draw_text(f"HIT  {pct}%", px + 10, py + ph - 48, chance_col, font_size=12, bold=True)
+    arcade.draw_text(f"HIT  {pct}%", px + 10, py + ph - 48, chance_col, font_size=13, bold=True)
+    arcade.draw_text(f"DEF  {defense}", px + 10, py + ph - 62, palette.MUTED_TEXT, font_size=9)
 
     bw = pw - 20
     arcade.draw_lrbt_rectangle_filled(px + 10, px + 10 + bw, py + 16, py + 26, palette.PANEL_FILL)
@@ -677,7 +695,50 @@ def draw_target_lock_panel(
     # Target HP
     t_hp  = target.health
     t_max = target.stats.max_hp if target.stats else 1
-    arcade.draw_text(f"HP {t_hp}/{t_max}", px + bw - 20, py + 6, palette.DANGER, font_size=8)
+    arcade.draw_text(f"HP {t_hp}/{t_max}", px + bw - 20, py + 6, palette.DANGER, font_size=9)
+
+
+def draw_resource_summary(
+    width: int,
+    height: int,
+    resources: dict[str, int],
+    available_funds: int | None = None,
+) -> None:
+    """Draw a compact battle-side resource overview."""
+    left = 14
+    top = height - 46
+    bottom = top - (46 if available_funds is not None else 30)
+    right = min(width - 14, left + (520 if available_funds is not None else 460))
+
+    arcade.draw_lrbt_rectangle_filled(left, right, bottom, top, (0, 0, 0, 185))
+    arcade.draw_line(left, top, right, top, palette.PANEL_BORDER, 1)
+    arcade.draw_text("RESOURCES", left + 10, top - 14, palette.TEXT, font_size=10, bold=True)
+
+    if available_funds is not None:
+        arcade.draw_text(
+            f"FUNDS  ¥ {available_funds:,}",
+            left + 10,
+            top - 28,
+            palette.RESOURCE,
+            font_size=12,
+            bold=True,
+        )
+
+    resource_line = (
+        f"CREDITS {resources.get('credits', 0)}  |  "
+        f"INTEL {resources.get('intel', 0)}  |  "
+        f"SALVAGE {resources.get('salvage', 0)}  |  "
+        f"INFLUENCE {resources.get('influence', 0)}"
+    )
+    arcade.draw_text(
+        resource_line,
+        left + 10,
+        top - (38 if available_funds is not None else 18),
+        palette.TEXT,
+        font_size=11,
+        width=max(140, right - left - 20),
+        align="left",
+    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -742,9 +803,16 @@ def draw_mission_status_bar(
 
     # Title
     arcade.draw_text(
-        mission_title.upper(), cx, height - bh // 2,
-        palette.HEADER, font_size=12, bold=True,
-        anchor_x="center", anchor_y="center",
+        mission_title.upper(),
+        cx,
+        height - bh // 2,
+        palette.HEADER,
+        font_size=13,
+        bold=True,
+        anchor_x="center",
+        anchor_y="center",
+        width=max(140, width - 240),
+        align="center",
     )
     # Decorative flanking lines
     arcade.draw_line(cx - 200, height - bh // 2, cx - 140, height - bh // 2, palette.PANEL_BORDER_MUTED, 1)
@@ -754,7 +822,7 @@ def draw_mission_status_bar(
     arcade.draw_text(
         f"◉ SQUAD  {player_count}",
         cx - 280, height - bh // 2,
-        palette.TACTICAL_GREEN, font_size=11,
+        palette.TACTICAL_GREEN, font_size=12,
         anchor_y="center",
     )
 
@@ -762,7 +830,7 @@ def draw_mission_status_bar(
     arcade.draw_text(
         f"◉ ENEMIES  {enemy_count}",
         cx + 170, height - bh // 2,
-        palette.DANGER, font_size=11,
+        palette.DANGER, font_size=12,
         anchor_y="center",
     )
 
@@ -770,6 +838,6 @@ def draw_mission_status_bar(
     arcade.draw_text(
         f"TURN {turn_number:02d}",
         width - 14, height - bh // 2,
-        palette.MUTED_TEXT, font_size=11,
+        palette.MUTED_TEXT, font_size=12,
         bold=True, anchor_x="right", anchor_y="center",
     )
