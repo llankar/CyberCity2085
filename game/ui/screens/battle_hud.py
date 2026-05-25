@@ -52,6 +52,28 @@ _ACTION_BAR_H   = 36    # kept for status panel offset reference (small indicato
 _OVERWATCH_COL  = (255, 220, 60)    # yellow — matches XCOM's overwatch tint
 _FOG_COL        = (0, 0, 0, 140)    # semi-transparent black fog tiles
 
+
+def battle_shortcut_banner(input_mode: str, selecting_target: bool, pending_end_turn_confirmation: bool) -> str:
+    """Build a compact contextual shortcuts banner for the battle HUD."""
+    if input_mode == "controller":
+        base = ["LS déplacer", "A confirmer", "B annuler", "X tir", "Y psi"]
+        target = ["LB/RB cible", "A valider", "B retour"]
+        end_turn = ["A confirmer fin de tour", "B annuler"]
+    else:
+        base = ["Flèches déplacer", "E objectif", "F tir", "P psi", "Entrée fin tour"]
+        target = ["←/→ cible", "Entrée valider", "Esc retour"]
+        end_turn = ["Entrée confirmer fin de tour", "Esc annuler"]
+    hints = end_turn if pending_end_turn_confirmation else (target if selecting_target else base)
+    return "Raccourcis actifs: " + " | ".join(hints)
+
+
+def draw_battle_shortcut_banner(width: int, text: str) -> None:
+    """Draw a thin contextual shortcut banner above the combat action bar."""
+    y = _COMBAT_BAR_TOP + _STRIP_H + 108
+    arcade.draw_lrbt_rectangle_filled(12, width - 12, y, y + 24, (0, 0, 0, 175))
+    arcade.draw_line(12, y + 24, width - 12, y + 24, palette.PANEL_BORDER_MUTED, 1)
+    arcade.draw_text(text, 22, y + 12, palette.TEXT, 10, anchor_y="center")
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Grid & range overlays
 # ══════════════════════════════════════════════════════════════════════════════

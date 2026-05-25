@@ -106,5 +106,18 @@ class BattleHUDUITest(unittest.TestCase):
         self.assertGreaterEqual(self._font_size_for("CREDITS 12  |  INTEL 3  |  SALVAGE 5  |  INFLUENCE 7"), 11)
 
 
+
+
+    def test_contextual_shortcut_banner_switches_with_input_mode(self) -> None:
+        keyboard = battle_hud.battle_shortcut_banner("keyboard_mouse", False, False)
+        controller = battle_hud.battle_shortcut_banner("controller", False, False)
+        self.assertIn("Flèches déplacer", keyboard)
+        self.assertIn("LS déplacer", controller)
+
+    def test_contextual_shortcut_banner_prioritizes_end_turn_confirmation(self) -> None:
+        confirm = battle_hud.battle_shortcut_banner("keyboard_mouse", True, True)
+        self.assertIn("confirmer fin de tour", confirm.lower())
+
+
 if __name__ == "__main__":
     unittest.main()
