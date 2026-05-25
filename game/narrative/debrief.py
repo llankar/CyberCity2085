@@ -42,12 +42,20 @@ class DebriefReport:
     mission_title: str
     mission_outcome: str
     lines: list[DebriefLine] = field(default_factory=list)
+    decision_key: str = ""
+    risk_taken: str = ""
+    heroic_action: str = ""
+    rpg_links: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
             "mission_title": self.mission_title,
             "mission_outcome": self.mission_outcome,
             "lines": [line.to_dict() for line in self.lines],
+            "decision_key": self.decision_key,
+            "risk_taken": self.risk_taken,
+            "heroic_action": self.heroic_action,
+            "rpg_links": list(self.rpg_links),
         }
 
     @classmethod
@@ -56,7 +64,62 @@ class DebriefReport:
             mission_title=str(data.get("mission_title", "Unknown Operation")),
             mission_outcome=str(data.get("mission_outcome", "unknown")),
             lines=[DebriefLine.from_dict(line) for line in data.get("lines", [])],
+            decision_key=str(data.get("decision_key", "")),
+            risk_taken=str(data.get("risk_taken", "")),
+            heroic_action=str(data.get("heroic_action", "")),
+            rpg_links=[str(line) for line in data.get("rpg_links", [])],
         )
+
+
+def _extract_decision_key(lines: list[DebriefLine], mission: MissionTemplate | None) -> str:
+    mission_title = mission.title if mission else "Unknown Operation"
+    if any(line.consequence_type == "downed" for line in lines):
+        return f"Maintenir l'objectif de {mission_title} malgré un agent au sol."
+    if any(line.consequence_type == "injured" for line in lines):
+        return f"Continuer l'opération {mission_title} sous pression médicale."
+    return f"Tenir la formation jusqu'à extraction complète sur {mission_title}."
+
+
+def _extract_risk_taken(
+    lines: list[DebriefLine],
+    complication: MissionComplication | None,
+) -> str:
+    if complication is not None:
+        return f"Risque narratif majeur accepté: {complication.name.lower()}."
+    if any(line.emotional_tone in {"fractured", "frayed"} for line in lines):
+        return "Risque humain: engagement avec escouade sous stress élevé."
+    return "Risque mesuré: progression sans complication critique détectée."
+
+
+def _extract_heroic_action(lines: list[DebriefLine]) -> str:
+    heroic_line = next(
+        (line for line in lines if line.consequence_type in {"injured", "recovering", "downed"}),
+        lines[0] if lines else None,
+    )
+    if heroic_line is None:
+        return "L'escouade a tenu sans perte majeure."
+    return f"{heroic_line.agent_name} a tenu la ligne dans les pires conditions."
+
+
+def _build_rpg_links(characters: list[Character]) -> list[str]:
+    if not characters:
+        return ["Aucun agent survivant: revue stratégique requise."]
+
+    highest_stress = max(characters, key=lambda c: c.stress)
+    strongest_bond = max(
+        characters,
+        key=lambda c: max(c.relationships.values(), default=0),
+    )
+    top_level = max(characters, key=lambda c: c.stats.level)
+    return [
+        f"Stress: {highest_stress.name} à {highest_stress.stress}/100, priorité récupération.",
+        (
+            "Relations: "
+            f"{strongest_bond.name} consolide le lien d'escouade "
+            f"(max {max(strongest_bond.relationships.values(), default=0)})."
+        ),
+        f"Progression: {top_level.name} niveau {top_level.stats.level}, capitaliser sur son rôle.",
+    ]
 
 
 def _stress_tone(stress: int) -> str:
@@ -139,4 +202,8 @@ def build_mission_debrief_report(
         mission_title=mission_title,
         mission_outcome=_mission_outcome_label(victory),
         lines=lines,
+        decision_key=_extract_decision_key(lines, mission),
+        risk_taken=_extract_risk_taken(lines, complication),
+        heroic_action=_extract_heroic_action(lines),
+        rpg_links=_build_rpg_links(characters),
     )
