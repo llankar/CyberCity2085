@@ -51,6 +51,8 @@ _ACTION_BAR_H   = 36    # kept for status panel offset reference (small indicato
 
 _OVERWATCH_COL  = (255, 220, 60)    # yellow — matches XCOM's overwatch tint
 _FOG_COL        = (0, 0, 0, 140)    # semi-transparent black fog tiles
+_OVERWATCH_TRIGGER_COL = (255, 220, 60, 75)
+_OVERWATCH_COVERAGE_COL = (255, 180, 60, 95)
 
 
 def battle_shortcut_banner(input_mode: str, selecting_target: bool, pending_end_turn_confirmation: bool) -> str:
@@ -128,6 +130,54 @@ def draw_attack_range(
             if dist <= r and 0 <= cx < width and 0 <= cy < height:
                 col = (*_ATTACK_COL[:3], 44) if highlight else _ATTACK_COL
                 arcade.draw_lrbt_rectangle_filled(cx, cx + CELL, cy, cy + CELL, col)
+
+
+def overwatch_preview_cells(
+    unit: "Unit",
+    direction: tuple[int, int],
+    width: int,
+    height: int,
+    *,
+    reach_cells: int | None = None,
+) -> tuple[list[tuple[int, int]], list[tuple[int, int]]]:
+    """Return trigger and coverage cells for an overwatch orientation preview."""
+    if not unit or not unit.position or direction == (0, 0):
+        return ([], [])
+    ux, uy = unit.position
+    dx, dy = direction
+    reach = reach_cells if reach_cells is not None else max(2, getattr(unit, "attack_range", ATTACK_RANGE_DEFAULT))
+    trigger_cells: list[tuple[int, int]] = []
+    coverage_cells: list[tuple[int, int]] = []
+    for step in range(1, reach + 1):
+        line_x = ux + dx * step * CELL
+        line_y = uy + dy * step * CELL
+        if not (0 <= line_x < width and 0 <= line_y < height):
+            break
+        trigger_cells.append((line_x, line_y))
+        for offset in range(-step, step + 1):
+            cone_x = line_x + (-dy) * offset * CELL
+            cone_y = line_y + dx * offset * CELL
+            if 0 <= cone_x < width and 0 <= cone_y < height:
+                coverage_cells.append((cone_x, cone_y))
+    return trigger_cells, coverage_cells
+
+
+def draw_overwatch_preview(
+    unit: "Unit",
+    direction: tuple[int, int],
+    width: int,
+    height: int,
+) -> None:
+    """Render line/cone reaction coverage and trigger tiles for overwatch setup."""
+    trigger_cells, coverage_cells = overwatch_preview_cells(unit, direction, width, height)
+    for cx, cy in coverage_cells:
+        arcade.draw_lrbt_rectangle_filled(cx, cx + CELL, cy, cy + CELL, _OVERWATCH_COVERAGE_COL)
+    for cx, cy in trigger_cells:
+        arcade.draw_lrbt_rectangle_filled(cx, cx + CELL, cy, cy + CELL, _OVERWATCH_TRIGGER_COL)
+        arcade.draw_line(cx, cy, cx + CELL, cy, _OVERWATCH_COL, 1)
+        arcade.draw_line(cx, cy + CELL, cx + CELL, cy + CELL, _OVERWATCH_COL, 1)
+        arcade.draw_line(cx, cy, cx, cy + CELL, _OVERWATCH_COL, 1)
+        arcade.draw_line(cx + CELL, cy, cx + CELL, cy + CELL, _OVERWATCH_COL, 1)
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Cover nodes overlay
