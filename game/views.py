@@ -1913,6 +1913,14 @@ class BattleView(GameView):
         # ── Phase indicator (top-right) ──────────────────────────────────
         draw_phase_banner(w, h, self.turn, self.turn_number, elapsed)
 
+        timeline = build_initiative_timeline(
+            self.player_units,
+            self.enemy_units,
+            active_player_index=self.active_index,
+            slots=8,
+        )
+        draw_initiative_timeline(w, h, timeline)
+
         # ── Unit status panel (bottom-left) ──────────────────────────────
         draw_unit_status_panel(w, h, active_unit, self.turn)
 
