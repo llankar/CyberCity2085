@@ -235,3 +235,5 @@ Automation status:
 - [x] Agent naming cleanup: placeholder labels like `Agent 1` now normalize to role codenames on creation/load, and the recruit chooser sits above the lower HUD controls instead of overlapping them.
 - [x] Roster management: added squad-room agent removal from the roster, with selection cleanup and regression coverage.
 
+
+- [x] Squad management: add Downtime menu (activities consume day/resources and affect morale/stress/traits).

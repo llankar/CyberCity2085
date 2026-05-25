@@ -18,3 +18,8 @@ CyberCity2085 playable loop must always follow this chain:
 ## Design decision
 
 This loop keeps **agents as the emotional core** while preserving a compact modular structure: each stage changes persistent state and leaves readable traces in logs/UI.
+
+## Downtime (Squad / Management)
+- New downtime menu in Squad view with three activities.
+- Each activity spends 1 day + strategic resource, then updates selected agents' stress, morale (loyalty proxy), and traits.
+- Shortcuts: keys 7/8/9.
