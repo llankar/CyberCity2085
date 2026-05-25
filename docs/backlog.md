@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-33 Action aftermath HUD slot: ajout d'une ligne temporaire causale après move/skill/tir (`DMG`, `STATUT`, `SUPPRESSION`) affichée dans une zone fixe du HUD pour éviter le clutter visuel, avec timer court et tests dédiés. (completed May 25, 2026)
+
 - funds: **functional**
 - calendar: **functional**
 - research: **in progress**
