@@ -20,6 +20,8 @@ _ACTION_LABELS = {
     "asset_acquire":    "Asset acquisition",
     "stat_upgrade":     "Stat upgrade",
     "start_research":   "Research started",
+    "talent_unlock":    "Talent unlock",
+    "remove_agent":     "Agent removal",
 }
 
 

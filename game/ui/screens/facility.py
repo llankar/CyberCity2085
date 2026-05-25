@@ -36,14 +36,22 @@ IMAGE_ROOM_ANCHORS = {
     "top_right": (0.547, 0.665, 0.323, 0.175),
     "mid_left": (0.179, 0.469, 0.299, 0.197),
     "mid_right": (0.538, 0.460, 0.299, 0.200),
-    "low_left": (0.179, 0.267, 0.299, 0.175),
-    "low_right": (0.538, 0.251, 0.305, 0.197),
+    "low_left": (0.179, 0.332, 0.299, 0.175),
+    "low_right": (0.538, 0.326, 0.305, 0.197),
     "bottom_left": (0.182, 0.060, 0.272, 0.175),
     "bottom_right": (0.535, 0.054, 0.305, 0.170),
 }
 
 
 ROOM_TITLES = {
+    "hub": [
+        ("top_left", "command", "Command Core", "amber"),
+        ("top_right", "city", "City Grid", "green"),
+        ("mid_left", "squad", "Squad Ops", "blue"),
+        ("mid_right", "assets", "Asset Bay", "amber"),
+        ("low_left", "research", "Research Lab", "blue"),
+        ("low_right", "intel", "Intel Archive", "red"),
+    ],
     "corp": [
         ("top_left", "executive", "Executive War Room", "amber"),
         ("top_right", "hangar", "Rooftop VTOL Pad", "amber"),

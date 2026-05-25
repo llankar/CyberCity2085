@@ -3,6 +3,8 @@
 import unittest
 from pathlib import Path
 
+from PIL import Image
+
 from game.ui.facility import (
     BASE_BACKDROP_ASSET,
     BASE_BACKDROP_SIZE,
@@ -35,6 +37,23 @@ class FacilityUITest(unittest.TestCase):
             "Agent Barracks",
         )
 
+    def test_hub_mode_exposes_the_six_room_tower_layout(self):
+        hub_rooms = build_facility_rooms(1280, 720, "hub")
+
+        self.assertEqual([room.key for room in hub_rooms], [
+            "command",
+            "city",
+            "squad",
+            "assets",
+            "research",
+            "intel",
+        ])
+        self.assertEqual(facility_room_by_key(hub_rooms, "command").title, "Command Core")
+        self.assertLess(facility_room_by_key(hub_rooms, "command").left, facility_room_by_key(hub_rooms, "city").left)
+        self.assertLess(facility_room_by_key(hub_rooms, "squad").bottom, facility_room_by_key(hub_rooms, "command").bottom)
+        self.assertGreater(facility_room_by_key(hub_rooms, "research").bottom, int(720 * 0.32))
+        self.assertGreater(facility_room_by_key(hub_rooms, "intel").bottom, int(720 * 0.32))
+
     def test_rooms_stay_inside_visible_command_area(self):
         rooms = build_facility_rooms(900, 600, "battle")
 
@@ -59,6 +78,16 @@ class FacilityUITest(unittest.TestCase):
             self.assertTrue(asset.exists(), room.image_path)
             self.assertGreater(asset.stat().st_size, 50_000)
             self.assertEqual(asset.parent.as_posix(), ROOM_IMAGE_DIR)
+
+    def test_lower_hub_crops_stay_aligned_to_the_room_rects(self):
+        rooms = build_facility_rooms(*BASE_BACKDROP_SIZE, mode="hub")
+        research = facility_room_by_key(rooms, "research")
+        intel = facility_room_by_key(rooms, "intel")
+
+        with Image.open(Path(research.image_path)) as img:
+            self.assertEqual(img.size, (research.width + 20, research.height + 20))
+        with Image.open(Path(intel.image_path)) as img:
+            self.assertEqual(img.size, (intel.width + 20, intel.height + 20))
 
     def test_hit_zones_are_aligned_to_generated_image_rooms(self):
         width, height = BASE_BACKDROP_SIZE

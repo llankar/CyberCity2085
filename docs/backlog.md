@@ -17,33 +17,33 @@
 
 Status vocabulary: `not started`, `in progress`, `functional`, `polished`.
 
-- [x] BATTLE-21 Stabiliser la résolution de fin de mission: correction de la sélection du leader via `selected_agent_names` (plus d'accès à `GameState.selected_agents`) et garde-fou HUD quand `active_index` sort de la plage après pertes d'unités; couverture test ajoutée. (completed May 22, 2026)
+- [x] BATTLE-21 Stabiliser la rÃ©solution de fin de mission: correction de la sÃ©lection du leader via `selected_agent_names` (plus d'accÃ¨s Ã  `GameState.selected_agents`) et garde-fou HUD quand `active_index` sort de la plage aprÃ¨s pertes d'unitÃ©s; couverture test ajoutÃ©e. (completed May 22, 2026)
 - [x] UI-20 Fix mission-screen return path + save slots: added direct navigation back to Corp/City from squad mission UI, introduced 5 explicit save slots (`saves/slot_1.json` to `slot_5.json`) with room actions to pick slot before Save/Load, and wired Save/Load actions to the selected slot with regression tests for slot bounds. (completed May 22, 2026)
 - [x] UI-21 Fix save-slot startup NameError: imported `SaveSystemResult` in `game/views.py` so save/load action helpers keep their typed return signatures at import time, and added regression check `tests/ui/test_views_imports.py`. (completed May 22, 2026)
 - [x] UI-19 Fix expanded-room Save/Load discoverability: added explicit `Save game` and `Load game` room actions across corp/city/squad rooms, raised button baseline to keep labels visible, wired click handlers to `SaveSystem`, and added regression coverage for action availability + label-safe placement. (completed May 22, 2026)
-- [x] UI-17 Contrat de layouts 4 zones: templates `OverviewLayout`/`DecisionLayout`/`RosterLayout`/`TacticalLayout` dans `game/ui/layouts/screen_templates.py`, mission board enrichi (risque, durée, coût, impact émotionnel, conséquence + recommended action), recommandations contextualisées en écrans de gestion, et tests de contrat `tests/ui/test_screen_layout_contracts.py`. (completed May 22, 2026)
-- [x] UI-16 Migration UI modulaire (phase 1): création des sous-répertoires `screens/command_center|command_deck|facility|battle_hud`, `components/cards|lists|agent|shared`, `layouts/grid|split|overlays`, `navigation/focus|input`, `feedback/toast|dialog|banner`; extraction initiale `command_deck` vers `game/ui/screens/command_deck/layout.py`; wrappers de compatibilité maintenus; mutualisation badge upgrade + rendu cartes agents via composants dédiés. (completed May 22, 2026)
-- [x] UI-15 Foundation design-system split: création `theme/spacing.py`, `theme/elevation.py`, `theme/radii.py`, normalisation des couleurs sémantiques, ajout de `game/ui/components/foundation/` (Panel/Button/Badge/Divider/ProgressBar/Tooltip), règle progressive anti-hardcode sur `game/ui/screens/`, docs design-system et tests dédiés. (completed May 22, 2026)
-- [x] UI-14 Arborescence écrans UI incrémentale: création de `game/ui/screens/`, déplacement progressif des modules de vue (`command_center`, `dashboard`, `facility`, `mission_board`, `research_lab`) avec wrappers de compatibilité temporaires dans `game/ui/`, et test de non-régression d'imports `tests/ui/test_screen_wrappers.py`. (completed May 22, 2026)
-- [x] UI-11 Feedback system modulaire: création de `game/ui/feedback/` (`toast_center.py`, `confirm_dialog.py`, `error_banner.py`), standardisation des messages `Action/Result/Impact/Next`, confirmations pour actions coûteuses/irréversibles (mission risquée, dépenses, load), et tests de rendu/dispatch `tests/ui/test_feedback_system.py`.
+- [x] UI-17 Contrat de layouts 4 zones: templates `OverviewLayout`/`DecisionLayout`/`RosterLayout`/`TacticalLayout` dans `game/ui/layouts/screen_templates.py`, mission board enrichi (risque, durÃ©e, coÃ»t, impact Ã©motionnel, consÃ©quence + recommended action), recommandations contextualisÃ©es en Ã©crans de gestion, et tests de contrat `tests/ui/test_screen_layout_contracts.py`. (completed May 22, 2026)
+- [x] UI-16 Migration UI modulaire (phase 1): crÃ©ation des sous-rÃ©pertoires `screens/command_center|command_deck|facility|battle_hud`, `components/cards|lists|agent|shared`, `layouts/grid|split|overlays`, `navigation/focus|input`, `feedback/toast|dialog|banner`; extraction initiale `command_deck` vers `game/ui/screens/command_deck/layout.py`; wrappers de compatibilitÃ© maintenus; mutualisation badge upgrade + rendu cartes agents via composants dÃ©diÃ©s. (completed May 22, 2026)
+- [x] UI-15 Foundation design-system split: crÃ©ation `theme/spacing.py`, `theme/elevation.py`, `theme/radii.py`, normalisation des couleurs sÃ©mantiques, ajout de `game/ui/components/foundation/` (Panel/Button/Badge/Divider/ProgressBar/Tooltip), rÃ¨gle progressive anti-hardcode sur `game/ui/screens/`, docs design-system et tests dÃ©diÃ©s. (completed May 22, 2026)
+- [x] UI-14 Arborescence Ã©crans UI incrÃ©mentale: crÃ©ation de `game/ui/screens/`, dÃ©placement progressif des modules de vue (`command_center`, `dashboard`, `facility`, `mission_board`, `research_lab`) avec wrappers de compatibilitÃ© temporaires dans `game/ui/`, et test de non-rÃ©gression d'imports `tests/ui/test_screen_wrappers.py`. (completed May 22, 2026)
+- [x] UI-11 Feedback system modulaire: crÃ©ation de `game/ui/feedback/` (`toast_center.py`, `confirm_dialog.py`, `error_banner.py`), standardisation des messages `Action/Result/Impact/Next`, confirmations pour actions coÃ»teuses/irrÃ©versibles (mission risquÃ©e, dÃ©penses, load), et tests de rendu/dispatch `tests/ui/test_feedback_system.py`.
 - [x] UI-12 Fix room-action pulse helper import in graphical panels: `draw_action_button`/`draw_close_button` now resolve `pulse_from_elapsed` from `game/ui/theme/motion.py`, with a regression test to keep expanded-room buttons rendering safely. (completed May 22, 2026)
 - [x] UI-18 Fix Next Step research loop: guidance now recognizes active/completed research momentum (not only unlock flags), preventing the "Start a research project" loop after starting multiple projects; covered by regression in `tests/test_next_action_guidance.py`. (completed May 22, 2026)
 - [x] UI-22 Refresh title-screen background art: swapped the start screen to a new widescreen corporate skyline image with a cleaner center frame for the logo and menu, keeping the same cyberpunk tower mood as the rest of the game. (completed May 23, 2026)
 - [x] UI-23 Research UI tree presentation: research lab summary now renders available projects as a compact dependency tree (roots + child branches) so players can read progression paths at a glance; kept button actions unchanged and covered by research UI tests. (completed May 23, 2026)
-- [x] UI-24 Fix research tree state visibility: research lab now renders a compact stateful tree showing completed (✓), active (▶), and currently available (○) projects so selecting research immediately reveals prior and next branch context; added regression coverage in research management tests. (completed May 23, 2026)
+- [x] UI-24 Fix research tree state visibility: research lab now renders a compact stateful tree showing completed (âœ“), active (â–¶), and currently available (â—‹) projects so selecting research immediately reveals prior and next branch context; added regression coverage in research management tests. (completed May 23, 2026)
 - [x] UI-25 Show all available research branches: removed research-lab tree clipping so the panel no longer collapses with an ellipsis and now lists every currently available branch line; added regression coverage. (completed May 23, 2026)
 - [x] UI-26 Split squad UI transition logic into dedicated controllers (`mission_controller`, `room_actions_controller`, `focus_controller`), keeping `views.py` orchestration-only for input/render bindings; added targeted controller unit tests and architecture doc. (completed May 24, 2026)
 TODO:
 
 - [x] RESEARCH-03 3X-style branching research trees + power-armor pilot replacement in mission manifests: piloted agents are hidden from mission roster and represented by the suit unit; expanded compact research branches (weapons/armor/equipment/robots/power-armor/vehicles/psy) with corp budget and advanced gear progression; tests and gameplay doc updated. (completed May 23, 2026)
 - [x] RESEARCH-04 Expand branch depth to at least 20 projects: added a third progression tier for each research branch (vehicles/weapons/armor/psy/equipment/robots/power-armor) for a total of 21 projects, while keeping the tree compact and prerequisite-driven; tests and status docs updated. (completed May 23, 2026)
-- [x] UI-13 Feed narratif modulaire: création de `game/ui/widgets/narrative/` (`feed_list.py`, `feed_item.py`, `feed_filters.py`), priorité visuelle `agent`/`consequence` avant `system`/`base`, signaux UX (icône, tonalité, timestamp relatif lisible), filtres rapides (All/Agents/Missions/Factions), et couverture tests ordre/clipping/filtres dans `tests/ui/test_narrative_feed_panel.py`. (completed May 22, 2026)
-- [x] UI-10 Polish motion/audio: centralisation des timings/easings (`game/ui/theme/motion.py`), harmonisation transition room-expanded + sélection mission, micro-animations légères sur boutons, feedback audio optionnel (toggle `M`) pour actions majeures, checklist `docs/ui/polish-checklist.md`.
-- [x] UI-09 Design system modulaire: séparation `theme/` (tokens/typography/colors), création de composants partagés `game/ui/components/`, remplacement des styles hardcodés critiques dans les écrans de commande, documentation `docs/ui/design-system.md` + référence README, et validation par tests UI ciblés.
-- [x] UI-08 Keyboard-first navigation/accessibility: modèle de focus commun (rooms/actions/missions), bandeau de hints contextuels par vue, parité souris/clavier sur actions room + sélection mission, aide interactive synthétique (toggle `H`), et tests `tests/ui/test_keyboard_navigation.py`.
-- [x] UI-07 Notifications/confirmations: centre de notifications UI léger, messages standardisés pour recrutement/allocation/mission/save-load, confirmation explicite des lancements risqués, transition de room harmonisée (durée/easing), et tests UI de non-régression.
-- [x] UI-06 Accessibilité UI: palette vérifiable (texte/fond/alerte), états cliquables normal/hover/active/disabled/focus, indicateurs non chromatiques dans widgets, mode high-contrast via GameState, et tests ciblés.
-- [x] UI-05 Tokeniser les règles visuelles (typo/espacements/opacité/z-order), appliquer la hiérarchie titre-section-méta dans les room-expanded, et documenter les conventions UI.
+- [x] UI-13 Feed narratif modulaire: crÃ©ation de `game/ui/widgets/narrative/` (`feed_list.py`, `feed_item.py`, `feed_filters.py`), prioritÃ© visuelle `agent`/`consequence` avant `system`/`base`, signaux UX (icÃ´ne, tonalitÃ©, timestamp relatif lisible), filtres rapides (All/Agents/Missions/Factions), et couverture tests ordre/clipping/filtres dans `tests/ui/test_narrative_feed_panel.py`. (completed May 22, 2026)
+- [x] UI-10 Polish motion/audio: centralisation des timings/easings (`game/ui/theme/motion.py`), harmonisation transition room-expanded + sÃ©lection mission, micro-animations lÃ©gÃ¨res sur boutons, feedback audio optionnel (toggle `M`) pour actions majeures, checklist `docs/ui/polish-checklist.md`.
+- [x] UI-09 Design system modulaire: sÃ©paration `theme/` (tokens/typography/colors), crÃ©ation de composants partagÃ©s `game/ui/components/`, remplacement des styles hardcodÃ©s critiques dans les Ã©crans de commande, documentation `docs/ui/design-system.md` + rÃ©fÃ©rence README, et validation par tests UI ciblÃ©s.
+- [x] UI-08 Keyboard-first navigation/accessibility: modÃ¨le de focus commun (rooms/actions/missions), bandeau de hints contextuels par vue, paritÃ© souris/clavier sur actions room + sÃ©lection mission, aide interactive synthÃ©tique (toggle `H`), et tests `tests/ui/test_keyboard_navigation.py`.
+- [x] UI-07 Notifications/confirmations: centre de notifications UI lÃ©ger, messages standardisÃ©s pour recrutement/allocation/mission/save-load, confirmation explicite des lancements risquÃ©s, transition de room harmonisÃ©e (durÃ©e/easing), et tests UI de non-rÃ©gression.
+- [x] UI-06 AccessibilitÃ© UI: palette vÃ©rifiable (texte/fond/alerte), Ã©tats cliquables normal/hover/active/disabled/focus, indicateurs non chromatiques dans widgets, mode high-contrast via GameState, et tests ciblÃ©s.
+- [x] UI-05 Tokeniser les rÃ¨gles visuelles (typo/espacements/opacitÃ©/z-order), appliquer la hiÃ©rarchie titre-section-mÃ©ta dans les room-expanded, et documenter les conventions UI.
 - [x] Add full multi-view save/load system with slot-path support and user-facing status log messages
 [x] Create mission UI
 [x] Add city/corporate tactical command deck to RPG UI
@@ -85,15 +85,23 @@ Done:
 - Corporate tower base UI: Corp, City, RPG, and Battle screens now share a
   stacked room cross-section, resource HUD slots, pressure meters, and bottom
   action bars inspired by XCOM2 command-room readability.
-- Graphical command backdrop: screens now load `assets/ui/corporate_tower_base.png`
-  and overlay room hotspots/glass HUD panels so the UI is image-backed instead of
-  primarily text blocks.
-- Click-first rooms: Corp, City, RPG, and battle drop-zone selection let players
-  click highlighted rooms, expand them full-screen, and trigger actions from
-  icon-only buttons.
+- Graphical command backdrop: screens now load `assets/ui/corporate_tower_base.png` and the room-based hub reads as a true tower cutaway instead of a text-heavy shell.
+- Click-first rooms: the corporate tower hub opens command, city, squad, assets, research, and intel rooms directly from the painted backdrop, with expansion animation and icon-only actions.
 - Image-aligned hit zones: room rectangles are normalized against
   `assets/ui/corporate_tower_base.png`, keeping clicks on the painted rooms
   across window sizes.
+- Hub overlay cleanup: the animated room shell no longer paints the generic
+  title/info layer over the legacy room renderers, so each room shows only its
+  real room UI content.
+- Legacy action strip cleanup: the old room-specific action buttons are
+  suppressed in hub mode so the icon strip is the only interactive control
+  layer in expanded rooms.
+- Hub interaction refresh: restored the squad, assets, research, command, and
+  city click regions after the tower migration, and widened the intel log and
+  debrief text so it stays readable inside the room panels.
+- Lower room crop alignment: `assets/ui/rooms/low_left.png` and
+  `assets/ui/rooms/low_right.png` were recropped from the tower base so the
+  expanded room art matches the painted lower rooms.
 - Room crops: each visible base room has a crop in `assets/ui/rooms/`, and the
   expanded room animation renders that image before showing icon actions.
 - Expanded room layout: the room title sits at the top, room-specific game info
@@ -162,15 +170,16 @@ Done:
   lines; RPG room info now consumes the same widget output instead of duplicating
   morale rendering logic.
 
-- [x] Ajouter des récompenses narratives de faction post-mission (scope compact)
+- [x] Ajouter des rÃ©compenses narratives de faction post-mission (scope compact)
   - Nouveau module: `game/narrative/faction_rewards.py`.
-  - Règle: attribution uniquement en cas de succès mission (`victory=True`), aucune attribution en échec total.
-  - Nature des récompenses: retours narratifs courts (rumeur/contact/confiance), sans buff système.
-  - Fallback: entrée neutre pour factions non mappées.
-  - Persistance: journal dédié `GameState.faction_reward_journal` sauvegardé/chargé.
-  - Limite de scope: aucun nouveau système économique/combat, seulement mémoire narrative et event-log.
+  - RÃ¨gle: attribution uniquement en cas de succÃ¨s mission (`victory=True`), aucune attribution en Ã©chec total.
+  - Nature des rÃ©compenses: retours narratifs courts (rumeur/contact/confiance), sans buff systÃ¨me.
+  - Fallback: entrÃ©e neutre pour factions non mappÃ©es.
+  - Persistance: journal dÃ©diÃ© `GameState.faction_reward_journal` sauvegardÃ©/chargÃ©.
+  - Limite de scope: aucun nouveau systÃ¨me Ã©conomique/combat, seulement mÃ©moire narrative et event-log.
 
 - [x] Improve command UI readability: increased typography scale and reduced panel opacity so backdrop art remains visible while text is easier to read.
+- [x] UI correction pass: widened intel/debrief wrapping, lifted tactical HUD typography, restored squad roster flow into the room shell, and added readability regressions for title, hub, and battle UI surfaces.
 
 Automation status:
 - [done] Add roadmap next-steps generator script (`tools/docs/generate_docs.py`)
@@ -183,25 +192,25 @@ Automation status:
   - Invariants: one entry per counterpart, monotonic `bond_level`, monotonic `strategic_day`, no empty `agent_id`.
   - Lifecycle: seeded on recruitment (`game/recruitment.py`), evolved after mission progression (`game/agent_aftermath.py`), persisted by regular character serialization (`to_dict`/`from_dict`) used by save/load.
 
-- [x] Relier les blessures graves à des séquelles narratives temporaires
-  - Module ajouté: `game/narrative/temporary_scars.py`.
-  - Scope strict: narratif-only (tonalité/tags/logs), sans buff/debuff gameplay.
-  - Dissipation journalière via calendrier stratégique (`GameState.advance_one_day`) et suppression automatique à expiration.
-  - Exposition UI data: résumé lisible dans le dossier agent, rendu non imposé.
+- [x] Relier les blessures graves Ã  des sÃ©quelles narratives temporaires
+  - Module ajoutÃ©: `game/narrative/temporary_scars.py`.
+  - Scope strict: narratif-only (tonalitÃ©/tags/logs), sans buff/debuff gameplay.
+  - Dissipation journaliÃ¨re via calendrier stratÃ©gique (`GameState.advance_one_day`) et suppression automatique Ã  expiration.
+  - Exposition UI data: rÃ©sumÃ© lisible dans le dossier agent, rendu non imposÃ©.
 
 [x] AGENT-05 Personality-trait mission log modulation (compact set + neutral fallback + tests)
 
 - UI-01 [done]: Added a compact narrative feed contract (`game/narrative/event_feed.py`) and widget presentation layer (`game/ui/widgets/narrative_feed_panel.py`) with category badges (`agent`, `mission`, `faction`, `base`), anti-chronological ordering, and bounded depth (8-12) to keep command-center readability centered on agent consequences.
 
-- [x] MISSION-03 Complications modulaires légères (pression + tags)
+- [x] MISSION-03 Complications modulaires lÃ©gÃ¨res (pression + tags)
   - Nouveau module: `game/missions/complications.py` avec table courte par niveau de pression (`low`/`medium`/`high`).
-  - API pure: `select_complications(district_pressure, mission_tags, seed=None)` pour sortie déterministe et testable.
-  - Intégration: enrichissement du briefing via `game/mission_generation.py` sans hausse systémique (complications narratif-first, conséquences neutres).
-  - Scope control: plafond strict à 1-2 complications par mission.
-  - Contrainte design: système léger, lisible, modulaire, non-systémique lourd.
+  - API pure: `select_complications(district_pressure, mission_tags, seed=None)` pour sortie dÃ©terministe et testable.
+  - IntÃ©gration: enrichissement du briefing via `game/mission_generation.py` sans hausse systÃ©mique (complications narratif-first, consÃ©quences neutres).
+  - Scope control: plafond strict Ã  1-2 complications par mission.
+  - Contrainte design: systÃ¨me lÃ©ger, lisible, modulaire, non-systÃ©mique lourd.
 
 
-[x] UI-04 Mission impact summary: payload enrichi côté génération (`normalized_tags` + `short_text`), affichage liste + détail avec hiérarchie sobre dans `game/ui/mission_board.py`, conventions d'écriture centralisées (`game/narrative/mission_briefing_conventions.py`) et tests de rendu couvrant tags absents/multiples + impact absent/présent.
+[x] UI-04 Mission impact summary: payload enrichi cÃ´tÃ© gÃ©nÃ©ration (`normalized_tags` + `short_text`), affichage liste + dÃ©tail avec hiÃ©rarchie sobre dans `game/ui/mission_board.py`, conventions d'Ã©criture centralisÃ©es (`game/narrative/mission_briefing_conventions.py`) et tests de rendu couvrant tags absents/multiples + impact absent/prÃ©sent.
 
 - [x] UI navigation: focus manager + input map + contextual hints overlay (keyboard/mouse parity for rooms, missions, agents).
 
@@ -219,4 +228,10 @@ Automation status:
 
 - [done] Add persistent Next Step guidance system with clickable room/screen routing and stalled-state fallback rules.
 
-- [x] UI-26 Internationalisation compacte (FR/EN): nouveau sous-répertoire `game/i18n/` (`fr.py`, `en.py`, helper `t()`), extraction des chaînes visibles mission/feed/impact, `GameState.ui_language` avec fallback stable, et tests de non-régression pour fallback de clés + rendu mission impact/feed. (completed May 24, 2026)
+- [x] UI-26 Internationalisation compacte (FR/EN): nouveau sous-rÃ©pertoire `game/i18n/` (`fr.py`, `en.py`, helper `t()`), extraction des chaÃ®nes visibles mission/feed/impact, `GameState.ui_language` avec fallback stable, et tests de non-rÃ©gression pour fallback de clÃ©s + rendu mission impact/feed. (completed May 24, 2026)
+
+- [x] UI correction pass: visible resource summaries for credits/intel/salvage/influence, defense surfaced in squad and target UI, and the launch mission button lowered to clear the lower control stack. Added regressions for resource labels, defense readouts, and button placement.
+- [x] Agent progression slice: named recruit chooser, compact role specialization tree, terrain-aware battle movement, and a batch of generated tactical map PNG variants based on the existing map set.
+- [x] Agent naming cleanup: placeholder labels like `Agent 1` now normalize to role codenames on creation/load, and the recruit chooser sits above the lower HUD controls instead of overlapping them.
+- [x] Roster management: added squad-room agent removal from the roster, with selection cleanup and regression coverage.
+

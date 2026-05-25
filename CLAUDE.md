@@ -11,7 +11,7 @@ pip install -r requirements.txt   # only requires arcade>=3.3.3
 # Run the game
 python main.py
 
-# Run all tests (headless — no display required)
+# Run all tests (headless â€” no display required)
 pytest
 
 # Run a single test file
@@ -32,28 +32,29 @@ python tools/gen_sprites.py          # writes assets/units/*.png via Pillow
 ### Entry point and screen flow
 
 ```
-main.py → TitleView
-            ├─ NEW GAME  → NewGameSetupView → ManagementView
-            ├─ CONTINUE  → ManagementView (loads save slot 1)
-            ├─ SETTINGS  → SettingsView
-            └─ QUIT
-ManagementView (tabs: COMMAND / CITY / SQUAD / ASSETS / RESEARCH / INTEL)
-    └─ LAUNCH → BattleView → (end_battle) → ManagementView (squad tab)
+main.py â†’ TitleView
+            â”œâ”€ NEW GAME  â†’ NewGameSetupView â†’ ManagementView
+            â”œâ”€ CONTINUE  â†’ ManagementView (loads save slot 1)
+            â”œâ”€ SETTINGS  â†’ SettingsView
+            â””â”€ QUIT
+ManagementView (corporate tower hub: COMMAND / CITY / SQUAD / ASSETS / RESEARCH / INTEL)
+    â””â”€ LAUNCH â†’ BattleView â†’ (end_battle) â†’ ManagementView (hub room model)
 ```
 
-`ManagementView` (`game/ui/screens/management_screen.py`) is the main hub and replaces the old `CorpView`, `CityView`, and `RPGView` classes that still live in `game/views.py` (kept for backward compatibility but no longer navigated to from the title screen).
+`ManagementView` (`game/ui/screens/management_screen.py`) is the main hub and now uses the clickable corporate tower backdrop as the primary navigation model. The old `CorpView`, `CityView`, and `RPGView` classes still live in `game/views.py` for backward compatibility, but the title flow no longer routes through them.
+Keep the room hit regions in sync with the legacy room renderers inside `ManagementView`; squad, assets, city, command, research, and intel interactions are still driven by those panel methods.
 
 ### GameState
 
-`game/gamestate.py` — single serialisable dataclass that owns everything: characters, funds, resources, factions, calendar, research tree, spec-ops assets, event log. All game-logic functions accept/mutate a `GameState` instance. Saved to JSON via `game/persistence/save_system.py` (slot paths: `saves/slot_N/campaign.json`).
+`game/gamestate.py` â€” single serialisable dataclass that owns everything: characters, funds, resources, factions, calendar, research tree, spec-ops assets, event log. All game-logic functions accept/mutate a `GameState` instance. Saved to JSON via `game/persistence/save_system.py` (slot paths: `saves/slot_N/campaign.json`).
 
 ### Battle layer
 
-- **Pure logic**: `game/combat_system.py` — `create_player_units`, `create_enemy_units`, `run_enemy_ai`. No Arcade imports.
-- **Unit model**: `game/unit.py` — `Unit` dataclass, holds `PlayerStats | EnemyStats`, a character reference, sprite reference, and XCOM tactical flags (`on_overwatch`, `in_cover`, `visible`, `enemy_subtype`).
-- **Cover system**: `game/cover_system.py` — `CoverNode` dataclass, `generate_cover_nodes(map_index)`, `cover_defense_bonus`, flanking detection.
+- **Pure logic**: `game/combat_system.py` â€” `create_player_units`, `create_enemy_units`, `run_enemy_ai`. No Arcade imports.
+- **Unit model**: `game/unit.py` â€” `Unit` dataclass, holds `PlayerStats | EnemyStats`, a character reference, sprite reference, and XCOM tactical flags (`on_overwatch`, `in_cover`, `visible`, `enemy_subtype`).
+- **Cover system**: `game/cover_system.py` â€” `CoverNode` dataclass, `generate_cover_nodes(map_index)`, `cover_defense_bonus`, flanking detection.
 - **Arcade rendering**: `BattleView` in `game/views.py` wires all the above together and calls the HUD drawing functions.
-- **HUD drawing**: `game/ui/screens/battle_hud.py` — all tactical overlay drawing (grid, movement/attack range, portrait strip, phase banner, unit status panel, objective marker, attack flash). Constants `_COMBAT_BAR_TOP=130`, `_STRIP_H=80` define the vertical layout above the existing action bar.
+- **HUD drawing**: `game/ui/screens/battle_hud.py` â€” all tactical overlay drawing (grid, movement/attack range, portrait strip, phase banner, unit status panel, objective marker, attack flash). Constants `_COMBAT_BAR_TOP=130`, `_STRIP_H=80` define the vertical layout above the existing action bar.
 
 Enemy subtypes (`grunt` / `heavy` / `elite` / `commander`) are chosen in `_enemy_subtype_for_index` and control stat scaling via `_SUBTYPE_STAT_SCALE`.
 
@@ -61,32 +62,37 @@ Enemy subtypes (`grunt` / `heavy` / `elite` / `commander`) are chosen in `_enemy
 
 **No Arcade UIManager is used anywhere.** Hit detection is done manually with `_HitRegion` dataclasses (left/bottom/right/top bounding boxes).
 
-- `game/ui/palette.py` — single source of truth for all colours and the `AccessibilityPalette` dataclass.
-- `game/ui/screens/` — view-level classes (Arcade `View` subclasses) and pure draw helpers. New UI code goes here.
-- `game/ui/*.py` — compatibility wrappers (`command_deck.py`, `command_center.py`, `facility.py`, etc.) that re-export from `game/ui/screens/`. Don't add new logic here; update the screen modules and keep the wrapper.
-- `game/ui/panels.py` — shared low-level draw helpers (`draw_small_meter`, `_draw_icon`, etc.).
-- `game/ui/widgets/` — reusable widget modules (`notification_center.py`, `squad_morale_panel.py`).
+- `game/ui/palette.py` â€” single source of truth for all colours and the `AccessibilityPalette` dataclass.
+- `game/ui/screens/` â€” view-level classes (Arcade `View` subclasses) and pure draw helpers. New UI code goes here.
+- `game/ui/*.py` â€” compatibility wrappers (`command_deck.py`, `command_center.py`, `facility.py`, etc.) that re-export from `game/ui/screens/`. Don't add new logic here; update the screen modules and keep the wrapper.
+- `game/ui/panels.py` â€” shared low-level draw helpers (`draw_small_meter`, `_draw_icon`, etc.).
+- `game/ui/widgets/` â€” reusable widget modules (`notification_center.py`, `squad_morale_panel.py`).
 
 ### Testing approach
 
-Tests live in `tests/` and are fully headless — they import `GameState`, model classes, and logic modules directly. `game/ui/__init__.py` lazy-loads `GameView` so Arcade is never imported during `pytest` unless a test explicitly requests it.  
+Tests live in `tests/` and are fully headless â€” they import `GameState`, model classes, and logic modules directly. `game/ui/__init__.py` lazy-loads `GameView` so Arcade is never imported during `pytest` unless a test explicitly requests it.  
 Tests in `tests/ui/` test data-layer UI helpers (palette, navigation state, feedback messages) without opening a window.
 
 ### Assets
 
 | Path | Contents |
 |---|---|
-| `assets/units/` | 64×96 pixel-art sprites (generated by `tools/gen_sprites.py`) |
-| `assets/ui/rooms/` | 8 room background crops for ManagementView tabs |
-| `assets/ui/portraits/` | 24 agent portrait PNGs (`agent_01.png` … `agent_24.png`) |
+| `assets/units/` | 64Ã—96 pixel-art sprites (generated by `tools/gen_sprites.py`) |
+| `assets/ui/rooms/` | room background crops for the corporate tower hub |
+| `assets/ui/portraits/` | 24 agent portrait PNGs (`agent_01.png` â€¦ `agent_24.png`) |
 | `assets/maps/` | Battle map images (JPEG/PNG) listed and indexed in `BattleView` |
 
 Agent portrait mapping: `game/ui/portraits.py::portrait_path_for_character`.  
-Sprite selection in battle: unit type → `assets/units/<type>.png`; character role → `assets/units/agent_<role>.png`.
+Sprite selection in battle: unit type â†’ `assets/units/<type>.png`; character role â†’ `assets/units/agent_<role>.png`.
 
 ### Key design rules
 
-- **`game/ui/palette.py` only** — never hardcode colour tuples in screen or widget files.
-- **ManagementView hit regions** — add new clickable areas by appending `_HitRegion` entries to `self._hit_regions` inside the relevant `_build_*_hits` method; dispatch in `on_mouse_press`.
-- **Action feedback** — use `push_action(center, action_key, ok, detail)` from `game/ui/action_feedback.py`; add new action keys to `_ACTION_LABELS` in the same file.
-- **UI migration strategy** — new features go in `game/ui/screens/`; imports from the old `game/ui/*.py` wrappers remain valid while migration is incremental.
+- **`game/ui/palette.py` only** â€” never hardcode colour tuples in screen or widget files.
+- **ManagementView hit regions — the hub is now room-based; add or adjust room interactions via `game/ui/room_interaction.py` and the `ManagementView` hub dispatch helpers, not the legacy tab hit regions.
+- **Action feedback** â€” use `push_action(center, action_key, ok, detail)` from `game/ui/action_feedback.py`; add new action keys to `_ACTION_LABELS` in the same file.
+- **UI migration strategy** â€” new features go in `game/ui/screens/`; imports from the old `game/ui/*.py` wrappers remain valid while migration is incremental.
+
+- UI rule: keep credits/intel/salvage/influence visible in the player HUD, and surface defense wherever upgrade or target decisions are made.
+- Recruitment and agent progression should stay lightweight but tangible: prefer named recruits, readable specialization trees, and stat effects that are easy to explain in the UI.
+- Agent naming rule: normalize placeholder roster labels like `Agent 1` into role codenames on creation/load so the squad reads as proper operatives, not generic slots.
+- Roster management rule: allow dismissing agents from the roster through squad-room actions, but keep mission selection and deployment logic separate.

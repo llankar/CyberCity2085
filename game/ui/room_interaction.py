@@ -72,6 +72,43 @@ class RoomUIState:
 
 
 ROOM_ACTIONS = {
+    "hub": {
+        "command": [
+            RoomAction("advance_day", "city", "Advance day"),
+            RoomAction("corp_upgrade_research", "research", "Fund research"),
+            RoomAction("corp_upgrade_security", "shield", "Fund security"),
+            RoomAction("corp_upgrade_politics", "influence", "Fund politics"),
+            RoomAction("corp_upgrade_black_ops", "black_ops", "Fund black ops"),
+        ],
+        "city": [
+            RoomAction("city_upgrade_armaments", "armory", "Fund arms"),
+            RoomAction("city_upgrade_garrisons", "shield", "Fund garrisons"),
+            RoomAction("city_upgrade_defense_zones", "radar", "Fund zones"),
+        ],
+        "squad": [
+            RoomAction("recruit_prompt", "recruit", "Recruit agent"),
+            RoomAction("launch_mission", "launch", "Launch mission"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
+            RoomAction("agent_prev", "left", "Prev agent"),
+            RoomAction("select_agent", "select", "Toggle squad"),
+            RoomAction("agent_next", "right", "Next agent"),
+        ],
+        "assets": [
+            RoomAction("asset_prev", "left", "Prev asset"),
+            RoomAction("asset_repair", "shield", "Repair asset"),
+            RoomAction("asset_deploy_toggle", "select", "Toggle deploy"),
+            RoomAction("asset_next", "right", "Next asset"),
+            RoomAction("catalog_acquire", "black_ops", "Buy asset"),
+        ],
+        "research": [
+            RoomAction("start_research_0", "research", "Project 1"),
+            RoomAction("start_research_1", "research", "Project 2"),
+            RoomAction("start_research_2", "research", "Project 3"),
+        ],
+        "intel": [
+            RoomAction("advance_day", "city", "Advance day"),
+        ],
+    },
     "corp": {
         "executive": [
             RoomAction("advance_day", "city", "Advance day"),
@@ -121,6 +158,7 @@ ROOM_ACTIONS = {
             RoomAction("recruit_samurai", "armory", "Recruit samurai"),
             RoomAction("recruit_sniper", "radar", "Recruit sniper"),
             RoomAction("recruit_psi", "research", "Recruit psi"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "ops": [
             RoomAction("mission_prev", "left", "Prev mission"),
@@ -135,20 +173,24 @@ ROOM_ACTIONS = {
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("select_agent", "select", "Toggle squad"),
             RoomAction("agent_next", "right", "Next agent"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "armory": [
             RoomAction("select_agent", "select", "Toggle squad"),
             RoomAction("launch", "launch", "Launch mission"),
             RoomAction("toggle_asset", "armory", "Toggle support"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "briefing": [
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("agent_next", "right", "Next agent"),
             RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "dossier": [
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("agent_next", "right", "Next agent"),
+            RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "insertion": [
             RoomAction("launch", "launch", "Launch mission"),
@@ -229,9 +271,15 @@ def layout_action_buttons(
         return []
     button_size = max(58, min(92, int(min(width, height) * 0.11)))
     gap = max(spacing.md, button_size // 3)
+    max_total_width = max(0, width - spacing.lg * 2)
+    needed_width = len(actions) * button_size + (len(actions) - 1) * gap
+    if needed_width > max_total_width and len(actions) > 0:
+        gap = max(spacing.sm, min(gap, max(8, max_total_width // max(1, len(actions) * 5))))
+        usable_width = max_total_width - (len(actions) - 1) * gap
+        button_size = max(48, min(button_size, usable_width // len(actions)))
     total_width = len(actions) * button_size + (len(actions) - 1) * gap
     start_x = (width - total_width) // 2
-    bottom = max(spacing.xl * 3 + 10, int(height * 0.16))
+    bottom = max(spacing.xl + 12, int(height * 0.09))
     buttons = []
     for index, action in enumerate(actions):
         left = start_x + index * (button_size + gap)

@@ -60,6 +60,31 @@ def toggle_agent_selection(
     return sanitized, f"{character.name} added to the squad."
 
 
+def remove_agent_from_roster(
+    characters: list[Character],
+    assets: list[SpecOpsAsset] | None,
+    selected_agent_names: list[str],
+    selected_asset_ids: list[str] | None,
+    index: int,
+) -> tuple[Character | None, list[str], list[str]]:
+    """Remove an agent from the roster and clean dependent strategic selection."""
+    if index < 0 or index >= len(characters):
+        sanitized_agents = sanitize_selected_agent_names(characters, selected_agent_names)
+        selected_agents = selected_deployable_agents(characters, sanitized_agents)
+        sanitized_assets = sanitize_selected_asset_ids(
+            assets or [], selected_asset_ids or [], selected_agents
+        )
+        return None, sanitized_agents, sanitized_assets
+
+    removed = characters.pop(index)
+    sanitized_agents = sanitize_selected_agent_names(characters, selected_agent_names)
+    selected_agents = selected_deployable_agents(characters, sanitized_agents)
+    sanitized_assets = sanitize_selected_asset_ids(
+        assets or [], selected_asset_ids or [], selected_agents
+    )
+    return removed, sanitized_agents, sanitized_assets
+
+
 @dataclass(frozen=True)
 class DeploymentManifest:
     """Selected deployable agents plus support assets for one operation."""

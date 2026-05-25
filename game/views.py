@@ -15,6 +15,7 @@ from .combat_system import (
     run_enemy_ai as run_enemy_ai_system,
 )
 from .deployment import (
+    remove_agent_from_roster,
     sanitize_selected_agent_names,
     sanitize_selected_asset_ids,
     selected_deployable_agents,
@@ -193,17 +194,21 @@ def build_roster_cards(
         stats = character.stats
         max_hp = max(1, stats.max_hp)
         cards.append(
-            {
-                "name": character.name,
-                "role": character.role,
-                "active": index == cursor_index,
-                "selected": character.name in selected,
+                {
+                    "name": character.name,
+                    "role": character.role,
+                    "active": index == cursor_index,
+                    "selected": character.name in selected,
                 "portrait_path": portrait_path_for_character(character),
                 "hp_ratio": max(0, min(stats.hp / max_hp, 1)),
                 "stress_ratio": max(0, min(character.stress / 100, 1)),
-                "pending_points": character.pending_points,
-                "recovery_turns": character.recovery_turns,
-                "level": stats.level,
+                    "pending_points": character.pending_points,
+                    "talent_points": character.talent_points,
+                    "specialization_count": len(character.specializations),
+                    "specializations": list(character.specializations),
+                    "recovery_turns": character.recovery_turns,
+                    "level": stats.level,
+                "defense": stats.defense + character.loadout.total_stat_bonuses().get("defense", 0),
                 "primary_weapon": (
                     character.loadout.primary_weapon.name
                     if character.loadout.primary_weapon
@@ -220,16 +225,19 @@ def build_roster_cards(
     for asset in assets or []:
         integrity = max(0, min(asset.maintenance.integrity / 100, 1))
         cards.append(
-            {
-                "name": asset.name,
-                "role": asset.display_role,
+                {
+                    "name": asset.name,
+                    "role": asset.display_role,
                 "active": False,
                 "selected": asset.id in selected_assets,
                 "portrait_path": None,
                 "hp_ratio": integrity,
                 "stress_ratio": 0,
-                "pending_points": 0,
-                "recovery_turns": 0 if asset.is_deployable else 1,
+                    "pending_points": 0,
+                    "talent_points": 0,
+                    "specialization_count": 0,
+                    "specializations": [],
+                    "recovery_turns": 0 if asset.is_deployable else 1,
                 "level": 1,
                 "primary_weapon": asset.hardpoints[0].name if asset.hardpoints else "Unarmed rig",
                 "armor": f"Armor {asset.armor.defense_bonus} | Missiles {asset.missile_capacity}",
@@ -1162,6 +1170,9 @@ class RPGView(GameView):
                 self.message = ""
                 self._refresh_squad_room_actions()
             return
+        if action_key == "remove_agent":
+            self._remove_active_agent_from_roster()
+            return
         if action_key == "mission_prev" and self.game_state.mission_templates:
             self.game_state.selected_mission_index = previous_mission_index(
                 self.game_state.selected_mission_index, len(self.game_state.mission_templates)
@@ -1241,6 +1252,28 @@ class RPGView(GameView):
         if action_key == "launch":
             self.launch_selected_mission()
 
+    def _remove_active_agent_from_roster(self) -> None:
+        if not self.game_state.characters:
+            return
+        index = min(max(self.deployment_cursor_index, 0), len(self.game_state.characters) - 1)
+        removed, sanitized_agents, sanitized_assets = remove_agent_from_roster(
+            self.game_state.characters,
+            self.game_state.spec_ops_assets,
+            self.game_state.selected_agent_names,
+            self.game_state.selected_asset_ids,
+            index,
+        )
+        if removed is None:
+            return
+        self.game_state.selected_agent_names = sanitized_agents
+        self.game_state.selected_asset_ids = sanitized_assets
+        self.deployment_cursor_index = min(index, len(self.game_state.characters) - 1) if self.game_state.characters else 0
+        self.pending_breakdown_confirmation = False
+        self.pending_breakdown_mission_id = None
+        self.message = f"{removed.name} removed from roster."
+        self.game_state.add_event(push_action(self.notifications, "remove_agent", True, removed.name))
+        self._refresh_squad_room_actions()
+
     def _active_agent(self) -> Character | None:
         if not self.game_state.characters:
             return None
@@ -1273,19 +1306,20 @@ class RPGView(GameView):
                     RoomAction("agent_prev", "left", "Prev agent"),
                     RoomAction("select_agent", "select", "Toggle squad"),
                     RoomAction("agent_next", "right", "Next agent"),
+                    RoomAction("remove_agent", "black_ops", "Remove agent"),
                 ]
             )
-            if room_key == "armory":
-                actions.extend(
-                    [
-                        RoomAction("equip_primary_weapon", "armory", "Primary"),
-                        RoomAction("equip_sidearm", "radar", "Sidearm"),
-                        RoomAction("equip_armor", "shield", "Armor"),
-                        RoomAction("equip_utility_item", "medical", "Utility"),
-                        RoomAction("equip_psi_focus", "research", "Psi focus"),
-                        RoomAction("equip_special_gear", "stealth", "Special"),
-                    ]
-                )
+        if room_key == "armory":
+            actions.extend(
+                [
+                    RoomAction("equip_primary_weapon", "armory", "Primary"),
+                    RoomAction("equip_sidearm", "radar", "Sidearm"),
+                    RoomAction("equip_armor", "shield", "Armor"),
+                    RoomAction("equip_utility_item", "medical", "Utility"),
+                    RoomAction("equip_psi_focus", "research", "Psi focus"),
+                    RoomAction("equip_special_gear", "stealth", "Special"),
+                ]
+            )
             active_agent = self._active_agent()
             if active_agent and active_agent.pending_points > 0:
                 points = active_agent.pending_points
@@ -1498,15 +1532,16 @@ class BattleView(GameView):
             and not f.startswith(".")
         )
         self.room_ui = RoomUIState("battle")
-        # Auto-select a random map — no manual selection screen needed
+        # Auto-select a random map ? no manual selection screen needed
         import random as _rnd
         if self.available_maps:
             self.map_index = _rnd.randint(0, len(self.available_maps) - 1)
-            path = os.path.join("assets/maps", self.available_maps[self.map_index])
-            self.background = arcade.load_texture(path)
+            self._load_battle_map(self.map_index)
         else:
             self.map_index = 0
             self.background = None
+            self.map_path = None
+            self.terrain_profile = None
         self.camera = arcade.Camera2D()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
@@ -1549,6 +1584,17 @@ class BattleView(GameView):
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
 
+        if getattr(self, "map_path", None):
+            from game.map_terrain import build_terrain_profile
+
+            forced = tuple(unit.position for unit in self.player_units + self.enemy_units)
+            self.terrain_profile = build_terrain_profile(
+                self.map_path,
+                getattr(self.window, "width", 1280),
+                getattr(self.window, "height", 720),
+                forced_walkable=forced,
+            )
+
         self.turn_number = 1
         self.turn = "player"
         self.active_index = 0
@@ -1569,6 +1615,36 @@ class BattleView(GameView):
         from game.cover_system import generate_cover_nodes
         self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
         self.start_player_turn()
+
+    def _load_battle_map(self, index: int) -> None:
+        """Load the active tactical map texture and terrain profile."""
+        if not self.available_maps:
+            self.map_index = 0
+            self.background = None
+            self.map_path = None
+            self.terrain_profile = None
+            return
+        self.map_index = max(0, min(index, len(self.available_maps) - 1))
+        self.map_path = os.path.join("assets/maps", self.available_maps[self.map_index])
+        self.background = arcade.load_texture(self.map_path)
+        from game.map_terrain import build_terrain_profile
+
+        forced = tuple(unit.position for unit in getattr(self, "player_units", [])) + tuple(
+            unit.position for unit in getattr(self, "enemy_units", [])
+        )
+        self.terrain_profile = build_terrain_profile(
+            self.map_path,
+            getattr(self.window, "width", 1280),
+            getattr(self.window, "height", 720),
+            forced_walkable=forced,
+        )
+
+    def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
+        """Return whether a unit can enter a tile after terrain and occupancy checks."""
+        profile = getattr(self, "terrain_profile", None)
+        if profile is not None and not profile.is_walkable(x, y):
+            return False
+        return not self.is_occupied(x, y, exclude=exclude)
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Check if a map position is occupied by any living unit."""
@@ -1715,6 +1791,7 @@ class BattleView(GameView):
             on_attack=on_attack,
             on_defeated=on_defeated,
             on_overwatch_shot=on_overwatch_shot,
+            can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
         )
 
     def on_draw(self):
@@ -1728,6 +1805,7 @@ class BattleView(GameView):
             draw_movement_range,
             draw_objective_marker,
             draw_phase_banner,
+            draw_resource_summary,
             draw_tactical_grid,
             draw_target_lock_panel,
             draw_unit_labels,
@@ -1769,7 +1847,12 @@ class BattleView(GameView):
         active_unit = self.player_units[self.active_index] if has_active else None
 
         if self.turn == "player" and active_unit and not self.selecting_target:
-            draw_movement_range(active_unit, w, h)
+            draw_movement_range(
+                active_unit,
+                w,
+                h,
+                can_enter=lambda x, y: self.can_move_to(x, y, exclude=active_unit),
+            )
 
         if self.selecting_target and active_unit:
             draw_attack_range(active_unit, w, h, highlight=True)
@@ -1825,6 +1908,7 @@ class BattleView(GameView):
             len(self.enemy_units),
             self.turn_number,
         )
+        draw_resource_summary(w, h, self.game_state.strategic_resources, self.game_state.available_funds)
 
         # ── Phase indicator (top-right) ──────────────────────────────────
         draw_phase_banner(w, h, self.turn, self.turn_number, elapsed)
@@ -1942,9 +2026,7 @@ class BattleView(GameView):
             if arcade.key.KEY_1 <= key <= arcade.key.KEY_9:
                 idx = key - arcade.key.KEY_1
                 if idx < len(self.available_maps):
-                    self.map_index = idx
-                    path = os.path.join("assets/maps", self.available_maps[idx])
-                    self.background = arcade.load_texture(path)
+                    self._load_battle_map(idx)
             elif key == arcade.key.S:
                 result = _save_to_selected_slot(self)
                 self.game_state.add_event(result.message)
@@ -2062,24 +2144,32 @@ class BattleView(GameView):
                     return
         elif key == arcade.key.UP:
             new_x, new_y = player.position[0], player.position[1] + 32
-            if not self.is_occupied(new_x, new_y, exclude=player):
+            if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(0, 32)
                 self.game_state.mark_tutorial_event("used_battle_controls")
+            else:
+                self.message = "Terrain blocks that route."
         elif key == arcade.key.DOWN:
             new_x, new_y = player.position[0], player.position[1] - 32
-            if not self.is_occupied(new_x, new_y, exclude=player):
+            if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(0, -32)
                 self.game_state.mark_tutorial_event("used_battle_controls")
+            else:
+                self.message = "Terrain blocks that route."
         elif key == arcade.key.LEFT:
             new_x, new_y = player.position[0] - 32, player.position[1]
-            if not self.is_occupied(new_x, new_y, exclude=player):
+            if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(-32, 0)
                 self.game_state.mark_tutorial_event("used_battle_controls")
+            else:
+                self.message = "Terrain blocks that route."
         elif key == arcade.key.RIGHT:
             new_x, new_y = player.position[0] + 32, player.position[1]
-            if not self.is_occupied(new_x, new_y, exclude=player):
+            if self.can_move_to(new_x, new_y, exclude=player):
                 player.move(32, 0)
                 self.game_state.mark_tutorial_event("used_battle_controls")
+            else:
+                self.message = "Terrain blocks that route."
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
         elif key == arcade.key.F:
@@ -2129,9 +2219,7 @@ class BattleView(GameView):
             if action is not None and action.key.startswith("map_"):
                 idx = int(action.key.removeprefix("map_"))
                 if idx < len(self.available_maps):
-                    self.map_index = idx
-                    path = os.path.join("assets/maps", self.available_maps[idx])
-                    self.background = arcade.load_texture(path)
+                    self._load_battle_map(idx)
                 return True
             return True
 
