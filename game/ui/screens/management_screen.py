@@ -49,6 +49,7 @@ from game.agent_specializations import (
 )
 from game.recruitment import build_recruitment_candidates, recruit_agent
 from game.management.morale import aggregate_squad_morale
+from game.management.downtime import DOWNTIME_ACTIVITIES, apply_activity
 from game.ui import GameView
 from game.ui import palette
 from game.ui.action_feedback import push_action
@@ -343,6 +344,9 @@ class ManagementView(GameView):
                     self.deployment_cursor,
                 )
                 self.pending_launch_confirm = False
+            elif key in (arcade.key.KEY_7, arcade.key.KEY_8, arcade.key.KEY_9):
+                idx = key - arcade.key.KEY_7
+                self._do_downtime_activity(idx)
             elif key in (arcade.key.KEY_1, arcade.key.KEY_2, arcade.key.KEY_3):
                 idx = key - arcade.key.KEY_1
                 if idx < len(self.game_state.mission_templates):
@@ -1537,6 +1541,29 @@ class ManagementView(GameView):
         )
         self._hits.append(_HitRegion(x0 + 10, lb, x1 - 10, lt, "launch_mission", None))
 
+        # Downtime menu
+        dt_top = lb - 10
+        dt_bottom = max(y0 + 84, dt_top - 108)
+        _rect(x0 + 10, dt_bottom, x1 - 10, dt_top, (10, 20, 28, 220))
+        arcade.draw_line(x0 + 10, dt_top, x1 - 10, dt_top, palette.ACCENT, 2)
+        arcade.draw_text("DOWNTIME [7-9]", x0 + 18, dt_top - 16, palette.ACCENT, font_size=10, bold=True)
+        by = dt_top - 42
+        for idx, activity in enumerate(DOWNTIME_ACTIVITIES):
+            row_h = 26
+            row_top = by - idx * (row_h + 6)
+            row_bottom = row_top - row_h
+            if row_bottom <= dt_bottom + 4:
+                break
+            _rect(x0 + 14, row_bottom, x1 - 14, row_top, (8, 16, 22, 210))
+            arcade.draw_text(
+                f"{idx + 7}. {activity.label}", x0 + 20, row_top - 16, palette.TEXT, font_size=10, bold=True
+            )
+            arcade.draw_text(
+                f"-{activity.days_cost}d  -{activity.resource_cost} {activity.resource_key}  morale {activity.morale_delta:+}  stress {activity.stress_delta:+}",
+                x0 + 180, row_top - 16, palette.MUTED_TEXT, font_size=9,
+            )
+            self._hits.append(_HitRegion(x0 + 14, row_bottom, x1 - 14, row_top, "downtime_activity", idx))
+
         # Message display
         if self.message:
             arcade.draw_text(
@@ -1765,6 +1792,10 @@ class ManagementView(GameView):
             self._do_launch_mission()
             return
 
+        if action == "downtime_activity":
+            self._do_downtime_activity(int(data))
+            return
+
         if action == "recruit_prompt":
             self._do_recruit_prompt()
             return
@@ -1905,6 +1936,16 @@ class ManagementView(GameView):
         event = events[event_index]
         if 0 <= choice_index < len(event.choices):
             self.game_state.respond_to_event(event.id, event.choices[choice_index].key)
+
+    def _do_downtime_activity(self, activity_index: int) -> None:
+        gs = self.game_state
+        if activity_index < 0 or activity_index >= len(DOWNTIME_ACTIVITIES):
+            return
+        activity = DOWNTIME_ACTIVITIES[activity_index]
+        squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
+        result = apply_activity(gs, activity, squad)
+        self.message = result
+        gs.add_event(result)
 
     def _do_recruit_prompt(self) -> None:
         """Open the recruit chooser with a small list of named agents."""
