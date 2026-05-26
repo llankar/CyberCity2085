@@ -361,6 +361,29 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertEqual(agent.stats.str, str_before + 1)
         self.assertEqual(agent.pending_points, 0)
 
+
+    def test_armory_room_option_b_spends_one_point_and_adds_two_skill_ranks(self):
+        from game.ui.facility import build_facility_rooms, facility_room_by_key
+
+        agent = Character("Leveler", pending_points=1)
+        game_state = GameState(characters=[agent])
+        view = views.RPGView(game_state)
+        view.window = _FakeWindow()
+        view.setup()
+        room = facility_room_by_key(
+            build_facility_rooms(view.window.width, view.window.height, "squad"),
+            "armory",
+        )
+        view.on_mouse_press(room.left + room.width // 2, room.bottom + room.height // 2, None, None)
+        before = dict(agent.skills)
+        b_button = next(button for button in view.room_ui.action_buttons if button.action.key == "skillup_auto").rect
+
+        view.on_mouse_press(b_button.center_x, b_button.center_y, None, None)
+
+        self.assertEqual(agent.pending_points, 0)
+        gained = sum(max(0, agent.skills.get(k, 0) - before.get(k, 0)) for k in before)
+        self.assertEqual(gained, 2)
+
     def test_insertion_room_launches_selected_mission(self):
         from game.ui.facility import build_facility_rooms, facility_room_by_key
 
@@ -533,7 +556,8 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
             views.arcade.draw_text = original_draw_text
 
         self.assertTrue(any("Upgrade points 3" in text for text in drawn_text))
-        self.assertIn("+STR 3", drawn_text)
+        self.assertTrue(any(text.startswith("A: +1 STR") for text in drawn_text))
+        self.assertTrue(any(text.startswith("B: +2 SKILLS") for text in drawn_text))
         self.assertIn("PTS 3", drawn_text)
 
     def test_pending_upgrade_roster_card_uses_valid_rectangles(self):
