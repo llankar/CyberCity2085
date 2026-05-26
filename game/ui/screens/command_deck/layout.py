@@ -78,6 +78,20 @@ def deck_panel_by_key(panels: list[DeckPanel], key: str) -> DeckPanel:
     raise KeyError(key)
 
 
+def _agent_sheet_snapshot_line(character: Character) -> str:
+    """Return one compact in-game line surfacing core agent-sheet values."""
+    attrs = character.attributes or {}
+    skills = character.skills or {}
+    derived = character.derived_stats or {}
+    return (
+        "  Sheet "
+        f"STR {int(attrs.get('str', 0))} AGI {int(attrs.get('agi', 0))} "
+        f"PSI {int(attrs.get('psi', 0))} "
+        f"Firearms {int(skills.get('firearms', 0))} Tactics {int(skills.get('tactics', 0))} "
+        f"Aim {int(derived.get('aim', 0))} Resolve {int(derived.get('resolve', 0))}"
+    )
+
+
 def build_agent_card_lines(
     characters: list[Character], selected_names: set[str], cursor_index: int
 ) -> list[str]:
@@ -100,6 +114,7 @@ def build_agent_card_lines(
         )
         lines.append(f"{cursor} {selected} {summary} // {state}{recovery}")
         lines.append(dossier.strip())
+        lines.append(_agent_sheet_snapshot_line(character))
         if character.pending_points > 0:
             lines.append(
                 f"STAT UPGRADE {character.pending_points}: "
