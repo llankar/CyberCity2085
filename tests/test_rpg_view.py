@@ -226,6 +226,27 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertIsNotNone(view.map_index)
         self.assertIsInstance(view.map_index, int)
 
+    def test_invisible_enemies_are_not_targetable(self):
+        game_state = GameState(
+            characters=[Character("Ghost", role="sniper")],
+            selected_agent_names=["Ghost"],
+            mission_templates=[_mission()],
+        )
+        view = views.BattleView(game_state)
+        view.window = _FakeWindow()
+        view.setup(game_state.mission_templates[0])
+
+        player = view.player_units[0]
+        for enemy in view.enemy_units:
+            enemy.visible = False
+            enemy.position = (player.position[0] + 32, player.position[1])
+
+        view._begin_target_action(player, "fire")
+
+        self.assertFalse(view.selecting_target)
+        self.assertEqual(view.target_candidates, [])
+        self.assertEqual(view.message, "No visible enemy in range")
+
     def test_rpg_room_click_recruits_from_icon_button(self):
         from game.ui.facility import build_facility_rooms, facility_room_by_key
 

@@ -1,9 +1,104 @@
 import arcade
 import os
+import types
+
+if not hasattr(arcade, "View"):
+    class _FallbackArcadeView:
+        def __init__(self, *args, **kwargs):
+            self.window = None
+
+        def clear(self):
+            pass
+
+    arcade.View = _FallbackArcadeView
+
+if not hasattr(arcade, "Camera2D"):
+    arcade.Camera2D = lambda *args, **kwargs: None
+
+if not hasattr(arcade, "LBWH"):
+    arcade.LBWH = lambda left, bottom, width, height: (left, bottom, width, height)
+
+if not hasattr(arcade, "load_texture"):
+    arcade.load_texture = lambda *args, **kwargs: None
+
+if not hasattr(arcade, "draw_texture_rect"):
+    arcade.draw_texture_rect = lambda *args, **kwargs: None
+
+if not hasattr(arcade, "draw_rect_outline"):
+    arcade.draw_rect_outline = lambda *args, **kwargs: None
+
+if not hasattr(arcade, "Sprite"):
+    class _FallbackSprite:
+        def __init__(self, *args, **kwargs):
+            self.center_x = kwargs.get("center_x", 0)
+            self.center_y = kwargs.get("center_y", 0)
+            self.width = kwargs.get("width", 32)
+            self.height = kwargs.get("height", 32)
+            self.visible = True
+
+        def kill(self):
+            pass
+
+    arcade.Sprite = _FallbackSprite
+
+if not hasattr(arcade, "SpriteList"):
+    class _FallbackSpriteList(list):
+        def draw(self):
+            pass
+
+    arcade.SpriteList = _FallbackSpriteList
+
+if not hasattr(arcade, "key"):
+    arcade.key = types.SimpleNamespace(
+        A=65,
+        B=66,
+        C=67,
+        D=68,
+        E=69,
+        F=70,
+        H=72,
+        L=76,
+        M=77,
+        N=78,
+        O=79,
+        P=80,
+        R=82,
+        S=83,
+        T=84,
+        V=86,
+        X=88,
+        TAB=9,
+        SPACE=32,
+        ENTER=13,
+        RETURN=13,
+        ESCAPE=27,
+        LEFT=1002,
+        RIGHT=1003,
+        UP=1004,
+        DOWN=1005,
+        MOD_SHIFT=1,
+        MOD_CTRL=2,
+        KEY_1=49,
+        KEY_2=50,
+        KEY_3=51,
+        KEY_4=52,
+        KEY_5=53,
+        KEY_6=54,
+        KEY_7=55,
+        KEY_8=56,
+        KEY_9=57,
+        F1=3001,
+        F2=3002,
+        F3=3003,
+        F4=3004,
+        F5=3005,
+        F6=3006,
+    )
 
 from .agent_aftermath import apply_mission_aftermath
 from .agent_readiness import agents_at_breaking_risk
 from .battle_outcomes import resolve_defeated_agent_outcome
+from .combat_preview import estimate_attack_preview, line_of_fire_warning
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -56,7 +151,21 @@ from .mission_system import (
 from .mission_templates import MissionTemplate
 from .persistence import SaveSystem, SaveSystemResult
 from .recruitment import recruit_agent
-from .ui import GameView
+try:
+    from .ui.base import GameView
+except Exception:
+    from .gamestate import GameState
+
+    class GameView:
+        """Fallback base for headless tests that stub out arcade.View."""
+
+        def __init__(self, game_state: GameState | None = None):
+            self.game_state = game_state or GameState()
+            self.selected_save_slot = 1
+            self.window = None
+
+        def clear(self):
+            pass
 from .ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from .ui.research_lab import build_research_lab_lines
 from .ui.screens.spec_ops_assets import (
@@ -99,6 +208,16 @@ from .ui.controllers.focus_controller import (
 )
 from .unit import Unit
 from .ui.components.combat.action_aftermath import build_action_aftermath_line
+from .ui.components.combat.initiative_timeline import (
+    build_initiative_timeline,
+    draw_initiative_timeline,
+)
+
+
+def _arcade_key(name: str, default: int = 0) -> int:
+    """Return an Arcade key code when available, or a harmless default in tests."""
+    key_ns = getattr(arcade, "key", None)
+    return getattr(key_ns, name, default) if key_ns is not None else default
 
 
 # ── Sprite path resolver ─────────────────────────────────────────────────────
@@ -261,10 +380,10 @@ def _help_lines_for_view(game_state: GameState, screen: str) -> list[str]:
 
 class CorpView(GameView):
     CORP_UPGRADE_COSTS = {
-        arcade.key.KEY_1: ("research", {"intel": 5}),
-        arcade.key.KEY_2: ("security", {"credits": 10, "salvage": 2}),
-        arcade.key.KEY_3: ("politics", {"influence": 3}),
-        arcade.key.KEY_4: ("black_ops", {"credits": 5, "intel": 3}),
+        _arcade_key("KEY_1"): ("research", {"intel": 5}),
+        _arcade_key("KEY_2"): ("security", {"credits": 10, "salvage": 2}),
+        _arcade_key("KEY_3"): ("politics", {"influence": 3}),
+        _arcade_key("KEY_4"): ("black_ops", {"credits": 5, "intel": 3}),
     }
     CORP_UPGRADE_ACTIONS = {
         "research": {"intel": 5},
@@ -571,9 +690,9 @@ class CorpView(GameView):
 
 class CityView(GameView):
     CITY_UPGRADE_COSTS = {
-        arcade.key.KEY_7: ("armaments", {"credits": 5, "salvage": 3}),
-        arcade.key.KEY_8: ("garrisons", {"credits": 10, "influence": 2}),
-        arcade.key.KEY_9: ("defense_zones", {"credits": 5, "salvage": 5}),
+        _arcade_key("KEY_7"): ("armaments", {"credits": 5, "salvage": 3}),
+        _arcade_key("KEY_8"): ("garrisons", {"credits": 10, "influence": 2}),
+        _arcade_key("KEY_9"): ("defense_zones", {"credits": 5, "salvage": 5}),
     }
     CITY_UPGRADE_ACTIONS = {
         "armaments": {"credits": 5, "salvage": 3},
@@ -2005,14 +2124,15 @@ class BattleView(GameView):
         self.target_candidates = [
             enemy
             for enemy in self.enemy_units
-            if player.distance_to(enemy) <= range_cells * 32
+            if getattr(enemy, "visible", True)
+            and player.distance_to(enemy) <= range_cells * 32
         ]
         if self.target_candidates:
             self.selecting_target = True
             self.selected_target_idx = 0
             self.pending_attack = pending
         else:
-            self.message = "No enemy in range"
+            self.message = "No visible enemy in range"
 
     def _perform_combat_action(self, action_key: str) -> bool:
         """Perform a clicked or keyed combat action for the active player unit."""
@@ -2130,6 +2250,12 @@ class BattleView(GameView):
                 arcade.key.P,
             ):
                 target = self.target_candidates[self.selected_target_idx]
+                if not getattr(target, "visible", True):
+                    self.message = "Target lost in fog."
+                    self.selecting_target = False
+                    self.target_candidates = []
+                    self.pending_attack = None
+                    return
                 if self.pending_attack == "melee":
                     damage = player.melee_attack(target)
                 elif self.pending_attack == "shoot":

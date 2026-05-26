@@ -1,6 +1,12 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-37 Terrain sampler spawn clearance: adaptive map walkability now relaxes overly dark maps and keeps a small walkable halo around forced unit spawns so whole squads are not trapped by generated obstacles. (completed May 25, 2026)
+
+- [x] UI-36 Hide fogged enemies from target selection: battle target acquisition now requires visibility as well as range, and the confirm step refuses stale hidden targets so agents cannot aim or attack unseen enemies. (completed May 25, 2026)
+
+- [x] UI-35 Display-screen selector in settings: added a monitor picker to `SettingsView` so players can choose which screen the game uses, with persistence in `saves/settings.json`, fullscreen apply support, and windowed positioning on the selected display. (completed May 25, 2026)
+
 - [x] UI-34 Guard invalid rectangle draw bounds in squad mission panel: `_rect` now skips impossible LRBT coordinates (`left >= right` or `bottom >= top`) to avoid `arcade.draw_lrbt_rectangle_filled` runtime crashes during dynamic panel layout compression, with a focused regression test in management hub UI tests. (completed May 25, 2026)
 
 - [x] UI-33 Action aftermath HUD slot: ajout d'une ligne temporaire causale après move/skill/tir (`DMG`, `STATUT`, `SUPPRESSION`) affichée dans une zone fixe du HUD pour éviter le clutter visuel, avec timer court et tests dédiés. (completed May 25, 2026)
