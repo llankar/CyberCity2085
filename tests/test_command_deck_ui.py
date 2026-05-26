@@ -43,8 +43,9 @@ class CommandDeckUITest(unittest.TestCase):
 
         self.assertTrue(lines[0].startswith("> [X] Vega"))
         self.assertIn("Trait:", lines[1])
-        self.assertTrue(lines[2].startswith("  [ ] Knox"))
-        self.assertIn("// MEDBAY 2T", lines[2])
+        self.assertIn("Sheet STR", lines[2])
+        self.assertTrue(lines[3].startswith("  [ ] Knox"))
+        self.assertIn("// MEDBAY 2T", lines[3])
 
     def test_ops_table_header_blends_district_objective_and_risk(self):
         mission = create_mission_templates("Chrome Warrens")[1]
