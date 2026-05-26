@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from .agents.sheet_calculations import compute_derived_stats
 from .character import Character, is_deployable
 from .mission_templates import MissionTemplate
 
@@ -29,7 +30,14 @@ def estimate_mission_stress(mission: MissionTemplate | None) -> int:
 
 def projected_stress(character: Character, mission: MissionTemplate | None) -> int:
     """Estimate post-mission stress before complications or defeat."""
-    return min(100, character.stress + estimate_mission_stress(mission))
+    derived = compute_derived_stats(
+        character.attributes,
+        character.skills,
+        {},
+        stress_state_label(character.stress),
+    )
+    cap = max(100, int(derived.get("stress_cap", 100)))
+    return min(cap, character.stress + estimate_mission_stress(mission))
 
 
 def agents_at_breaking_risk(

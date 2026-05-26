@@ -4,6 +4,7 @@ import random
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 
+from .agents.sheet_calculations import compute_derived_stats
 from .character import Character
 from .agent_specializations import apply_talent_bonuses
 from .deployment import (
@@ -53,6 +54,14 @@ def equipped_player_stats(character: Character) -> PlayerStats:
             continue
         setattr(stats, stat_key, max(0, getattr(stats, stat_key) + amount))
     stats = apply_talent_bonuses(stats, character.specializations)
+    derived = compute_derived_stats(
+        character.attributes,
+        character.skills,
+        character.loadout.total_stat_bonuses(),
+        "steady" if character.stress < 35 else "rattled" if character.stress < 65 else "frayed" if character.stress < 85 else "breaking",
+    )
+    stats.defense = max(0, int(derived.get("defense", stats.defense)))
+    stats.max_hp = max(1, int(derived.get("hp", stats.max_hp)))
     if stats.max_hp < 1:
         stats.recalculate_hp()
     stats.hp = max(0, min(stats.hp, stats.max_hp))
