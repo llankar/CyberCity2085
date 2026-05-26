@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] AGENT-07 Agent sheet calculations extraction: added pure `game/agents/sheet_calculations.py` (`compute_derived_stats`, `skill_total`) with documented integer-friendly formulas, refactored combat/readiness/stress entry points to consume shared sheet math instead of scattered inline arithmetic, and added regression tests for totals + stress-state penalties. (completed May 26, 2026)
+
 - [x] AGENT-06 Agent sheet schema defaults: added modular `game/agents/sheet_schema.py` with typed attributes/skills/derived-stat builders, wired defaults into recruitment/character constructors, and backfilled legacy save payloads during `Character.from_dict`; added regression tests for default creation + migration safety. (completed May 26, 2026)
 
 - [x] UI-37 Terrain sampler spawn clearance: adaptive map walkability now relaxes overly dark maps and keeps a small walkable halo around forced unit spawns so whole squads are not trapped by generated obstacles. (completed May 25, 2026)
