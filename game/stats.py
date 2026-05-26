@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 import random
 
+ATTRIBUTE_MAX = 10
+SKILL_RANK_MAX = 10
+
 
 @dataclass
 class PlayerStats:
