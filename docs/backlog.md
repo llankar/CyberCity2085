@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] AGENT-06 Agent sheet schema defaults: added modular `game/agents/sheet_schema.py` with typed attributes/skills/derived-stat builders, wired defaults into recruitment/character constructors, and backfilled legacy save payloads during `Character.from_dict`; added regression tests for default creation + migration safety. (completed May 26, 2026)
+
 - [x] UI-34 Guard invalid rectangle draw bounds in squad mission panel: `_rect` now skips impossible LRBT coordinates (`left >= right` or `bottom >= top`) to avoid `arcade.draw_lrbt_rectangle_filled` runtime crashes during dynamic panel layout compression, with a focused regression test in management hub UI tests. (completed May 25, 2026)
 
 - [x] UI-33 Action aftermath HUD slot: ajout d'une ligne temporaire causale après move/skill/tir (`DMG`, `STATUT`, `SUPPRESSION`) affichée dans une zone fixe du HUD pour éviter le clutter visuel, avec timer court et tests dédiés. (completed May 25, 2026)
