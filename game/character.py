@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field, asdict
 
 
+from .agents.sheet_schema import default_agent_sheet, normalize_agent_sheet
 from .management.equipment import AgentLoadout
 from .stats import PlayerStats
 from .relationships.mentor_history import serialize_links
@@ -34,6 +35,9 @@ class Character:
     loadout: AgentLoadout = field(default_factory=AgentLoadout)
     personality_primary_trait: str = ""
     personality_secondary_trait: str = ""
+    attributes: dict[str, int] = field(default_factory=lambda: default_agent_sheet().attributes)
+    skills: dict[str, int] = field(default_factory=lambda: default_agent_sheet().skills)
+    derived_stats: dict[str, int] = field(default_factory=lambda: default_agent_sheet().derived_stats)
 
     def to_dict(self) -> dict:
         return {
@@ -61,12 +65,21 @@ class Character:
             "loadout": self.loadout.to_dict(),
             "personality_primary_trait": self.personality_primary_trait,
             "personality_secondary_trait": self.personality_secondary_trait,
+            "attributes": dict(self.attributes),
+            "skills": dict(self.skills),
+            "derived_stats": dict(self.derived_stats),
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Character":
         stats_data = data.get("stats", {})
         stats = PlayerStats(**stats_data)
+        sheet = normalize_agent_sheet(
+            stats=stats,
+            attributes=data.get("attributes"),
+            skills=data.get("skills"),
+            derived_stats=data.get("derived_stats"),
+        )
         return cls(
             name=data.get("name", "Unnamed"),
             role=data.get("role", "samurai"),
@@ -92,6 +105,9 @@ class Character:
             loadout=AgentLoadout.from_dict(data.get("loadout")),
             personality_primary_trait=str(data.get("personality_primary_trait", "")),
             personality_secondary_trait=str(data.get("personality_secondary_trait", "")),
+            attributes=sheet.attributes,
+            skills=sheet.skills,
+            derived_stats=sheet.derived_stats,
         )
 
     def gain_xp(self, amount: int) -> None:
