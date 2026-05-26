@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from .agents.sheet_schema import default_agent_sheet
 from .character import Character
 from .stats import PlayerStats
 from .relationships.mentor_history import upsert_mentor_link
@@ -55,6 +56,7 @@ def create_character(name: str, role: str) -> Character:
     stats.recalculate_hp()
     cleaned_name = normalize_agent_name(name, [], role)
     primary_trait, secondary_trait = assign_personality_traits(cleaned_name, role, roster_index=0)
+    sheet = default_agent_sheet(stats)
     return Character(
         name=cleaned_name,
         role=role,
@@ -62,6 +64,9 @@ def create_character(name: str, role: str) -> Character:
         talent_points=1,
         personality_primary_trait=primary_trait,
         personality_secondary_trait=secondary_trait or "",
+        attributes=sheet.attributes,
+        skills=sheet.skills,
+        derived_stats=sheet.derived_stats,
     )
 
 

@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] AGENT-06 Agent sheet schema defaults: added modular `game/agents/sheet_schema.py` with typed attributes/skills/derived-stat builders, wired defaults into recruitment/character constructors, and backfilled legacy save payloads during `Character.from_dict`; added regression tests for default creation + migration safety. (completed May 26, 2026)
+
 - [x] UI-37 Terrain sampler spawn clearance: adaptive map walkability now relaxes overly dark maps and keeps a small walkable halo around forced unit spawns so whole squads are not trapped by generated obstacles. (completed May 25, 2026)
 
 - [x] UI-36 Hide fogged enemies from target selection: battle target acquisition now requires visibility as well as range, and the confirm step refuses stale hidden targets so agents cannot aim or attack unseen enemies. (completed May 25, 2026)
