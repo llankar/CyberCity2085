@@ -37,6 +37,7 @@ class SettingsState:
     show_grid:        bool  = True
     camera_shake:     bool  = True
     resolution_index: int   = 1      # index into _RESOLUTIONS
+    display_index:    int   = 0      # index into available screens
     extra_flags: dict       = field(default_factory=dict)
 
 
@@ -61,6 +62,7 @@ def load_settings() -> SettingsState:
         s.show_grid        = bool(data.get("show_grid",        s.show_grid))
         s.camera_shake     = bool(data.get("camera_shake",     s.camera_shake))
         s.resolution_index = int(data.get("resolution_index",  s.resolution_index))
+        s.display_index    = int(data.get("display_index",     s.display_index))
         return s
     except (FileNotFoundError, json.JSONDecodeError, KeyError):
         return SettingsState()
@@ -80,6 +82,35 @@ def _rect(l, b, r, t, color) -> None:
 
 def _in(l: int, b: int, r: int, t: int, x: int, y: int) -> bool:
     return l <= x <= r and b <= y <= t
+
+
+def _available_screens() -> list[object]:
+    try:
+        screens = list(arcade.get_screens())
+    except Exception:
+        screens = []
+    return screens or [None]
+
+
+def _screen_label(screen: object | None, index: int) -> str:
+    if screen is None:
+        return "Primary display"
+    name = ""
+    try:
+        name = str(screen.get_monitor_name() or "").strip()
+    except Exception:
+        name = ""
+    if not name:
+        try:
+            name = str(screen.get_device_name() or "").strip()
+        except Exception:
+            name = ""
+    prefix = name if name else f"Display {index + 1}"
+    try:
+        size = f"{int(screen.width)}x{int(screen.height)}"
+    except Exception:
+        size = "Unknown size"
+    return f"{prefix}  ({size})"
 
 
 # ── View ──────────────────────────────────────────────────────────────────────
@@ -236,6 +267,14 @@ class SettingsView(arcade.View):
             res_labels, s.resolution_index,
             "res_prev", "res_next",
         )
+        screens = _available_screens()
+        s.display_index = max(0, min(s.display_index, len(screens) - 1))
+        _cycle(
+            "Display Screen", "Choose the monitor used by the game",
+            [_screen_label(screen, i) for i, screen in enumerate(screens)],
+            s.display_index,
+            "screen_prev", "screen_next",
+        )
         _toggle("Fullscreen", "Toggle borderless fullscreen mode", s.fullscreen, "toggle_fullscreen")
         _toggle("Show Grid",  "Show tactical grid overlay in battle",   s.show_grid,    "toggle_grid")
         _toggle("High Contrast", "Increase UI element contrast", s.high_contrast, "toggle_contrast")
@@ -331,18 +370,37 @@ class SettingsView(arcade.View):
             s.resolution_index = (s.resolution_index - 1) % len(_RESOLUTIONS)
         elif action == "res_next":
             s.resolution_index = (s.resolution_index + 1) % len(_RESOLUTIONS)
+        elif action == "screen_prev":
+            s.display_index = (s.display_index - 1) % len(_available_screens())
+        elif action == "screen_next":
+            s.display_index = (s.display_index + 1) % len(_available_screens())
 
     def _apply_and_save(self) -> None:
         s = self._settings
         save_settings(s)
         # Apply fullscreen immediately
         try:
+            screens = _available_screens()
+            screen = screens[s.display_index] if 0 <= s.display_index < len(screens) else None
+            rw, rh = _RESOLUTIONS[s.resolution_index]
+            if screen is not None:
+                try:
+                    rw = min(rw, max(640, int(screen.width) - 80))
+                    rh = min(rh, max(480, int(screen.height) - 80))
+                except Exception:
+                    pass
             if s.fullscreen:
-                self.window.set_fullscreen(True)
+                self.window.set_fullscreen(True, screen=screen)
             else:
                 self.window.set_fullscreen(False)
-                rw, rh = _RESOLUTIONS[s.resolution_index]
                 self.window.set_size(rw, rh)
+                if screen is not None:
+                    try:
+                        x = int(getattr(screen, "x", 0) + max(0, (int(screen.width) - rw) // 2))
+                        y = int(getattr(screen, "y", 0) + max(0, (int(screen.height) - rh) // 2))
+                        self.window.set_location(x, y)
+                    except Exception:
+                        pass
         except Exception:
             pass   # Not all platforms support dynamic resize
         self._message   = "Settings saved."

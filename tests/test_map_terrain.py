@@ -19,9 +19,22 @@ class MapTerrainTest(unittest.TestCase):
 
             profile = build_terrain_profile(str(path), 64, 64, forced_walkable=((0, 0),))
 
-            self.assertFalse(profile.is_walkable(0, 32))
+            self.assertFalse(profile.is_walkable(0, 64))
             self.assertTrue(profile.is_walkable(32, 32))
             self.assertTrue(profile.is_walkable(0, 0))
+
+    def test_forced_walkable_creates_spawn_clearance_on_dark_maps(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "dark_terrain.png"
+            Image.new("RGB", (96, 96), (8, 8, 8)).save(path)
+
+            profile = build_terrain_profile(str(path), 96, 96, forced_walkable=((32, 32),))
+
+            self.assertTrue(profile.is_walkable(32, 32))
+            self.assertTrue(profile.is_walkable(64, 32))
+            self.assertTrue(profile.is_walkable(32, 64))
+            self.assertTrue(profile.is_walkable(0, 32))
+            self.assertTrue(profile.is_walkable(32, 0))
 
     def test_generated_map_variants_exist(self):
         self.assertTrue((Path("assets/maps") / "streets_neon_rain.png").exists())
