@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from .agents.sheet_calculations import skill_total
 from .management.equipment import EquipmentItem, Weapon
 from .unit import Unit
 
@@ -80,10 +81,12 @@ def unit_can_use_psi(unit: Unit) -> bool:
     if not unit.character:
         return False
     loadout = unit.character.loadout
+    psi_total = skill_total("telepathy", unit.character.attributes, unit.character.skills, {})
     return (
         unit.character.role == "psi"
         or bool(loadout.psi_focus)
         or "psi" in {trait.lower() for trait in unit.character.traits}
+        or psi_total >= 4
     )
 
 
