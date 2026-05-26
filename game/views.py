@@ -124,6 +124,7 @@ from .ui.combat_action_bar import (
     layout_combat_action_buttons,
 )
 from .ui.panels import draw_graphical_command_surface
+from .progression import ATTRIBUTE_KEYS, option_a_projection, option_b_plan, option_b_projection
 from .ui.room_interaction import (
     ROOM_ACTIONS,
     RoomAction,
@@ -1369,6 +1370,10 @@ class RPGView(GameView):
             self._level_active_agent(action_key.removeprefix("level_"))
             self._refresh_squad_room_actions()
             return
+        if action_key.startswith("skillup_"):
+            self._level_active_agent_skill(action_key.removeprefix("skillup_"))
+            self._refresh_squad_room_actions()
+            return
         if action_key == "launch":
             self.launch_selected_mission()
 
@@ -1442,16 +1447,31 @@ class RPGView(GameView):
             )
             active_agent = self._active_agent()
             if active_agent and active_agent.pending_points > 0:
-                points = active_agent.pending_points
+                option_b = option_b_projection(active_agent)
+                option_b_hint = ", ".join(
+                    f"{key[:3].upper()}+{delta}" for key, delta in option_b.skills_delta.items() if delta > 0
+                ) or "No eligible skills"
                 actions.extend(
                     [
-                        RoomAction("level_psi", "research", f"+PSI {points}"),
-                        RoomAction("level_str", "armory", f"+STR {points}"),
-                        RoomAction("level_agi", "radar", f"+AGI {points}"),
-                        RoomAction("level_con", "shield", f"+CON {points}"),
-                        RoomAction("level_cha", "influence", f"+CHA {points}"),
+                        RoomAction(
+                            "skillup_auto",
+                            "research",
+                            f"B: +2 skills ({option_b_hint}) | Resolve {option_b.derived_delta.get('resolve', 0):+d} Aim {option_b.derived_delta.get('aim', 0):+d}",
+                        ),
                     ]
                 )
+                for stat_key in ATTRIBUTE_KEYS:
+                    proj = option_a_projection(active_agent, stat_key)
+                    delta = proj.stats_delta.get(stat_key, 0)
+                    if delta <= 0:
+                        continue
+                    actions.append(
+                        RoomAction(
+                            f"level_{stat_key}",
+                            "research" if stat_key == "psi" else "armory" if stat_key == "str" else "radar" if stat_key == "agi" else "shield" if stat_key == "con" else "influence",
+                            f"A: +1 {stat_key.upper()} | HP {proj.derived_delta.get('hp', 0):+d} Def {proj.derived_delta.get('defense', 0):+d} Res {proj.derived_delta.get('resolve', 0):+d}",
+                        )
+                    )
         elif room_key == "barracks":
             # Expose recruit actions directly at index 0 (no nav wrapper).
             actions = list(ROOM_ACTIONS.get("squad", {}).get("barracks", []))
@@ -1529,14 +1549,35 @@ class RPGView(GameView):
 
     def _level_active_agent(self, stat_key: str) -> None:
         active_agent = self._active_agent()
-        if not active_agent or active_agent.pending_points <= 0:
+        if not active_agent or active_agent.pending_points <= 0 or stat_key not in ATTRIBUTE_KEYS:
             return
-        if stat_key not in {"psi", "str", "agi", "con", "cha"}:
+        projection = option_a_projection(active_agent, stat_key)
+        delta = projection.stats_delta.get(stat_key, 0)
+        if delta <= 0:
+            self.message = f"{active_agent.name} {stat_key.upper()} is already capped."
             return
-        setattr(active_agent.stats, stat_key, getattr(active_agent.stats, stat_key) + 1)
+        setattr(active_agent.stats, stat_key, getattr(active_agent.stats, stat_key) + delta)
         active_agent.pending_points -= 1
         active_agent.stats.recalculate_hp()
-        self.message = f"{active_agent.name} trained {stat_key.upper()} (+1)."
+        self.message = f"{active_agent.name} option A: {stat_key.upper()} +{delta}."
+        self.game_state.add_event(self.message)
+
+    def _level_active_agent_skill(self, action_key: str) -> None:
+        active_agent = self._active_agent()
+        if not active_agent or active_agent.pending_points <= 0 or action_key != "auto":
+            return
+        planned = option_b_plan(active_agent)
+        if not planned:
+            self.message = f"{active_agent.name} has no eligible skills to raise."
+            return
+        applied: list[str] = []
+        for key, target in planned.items():
+            current = int(active_agent.skills.get(key, 0))
+            if target > current:
+                active_agent.skills[key] = target
+                applied.append(f"{key}+{target-current}")
+        active_agent.pending_points -= 1
+        self.message = f"{active_agent.name} option B: {', '.join(applied)}."
         self.game_state.add_event(self.message)
 
     def _room_info_lines(self) -> dict[str, list[str]]:

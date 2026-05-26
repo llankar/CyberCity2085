@@ -1,7 +1,8 @@
 
 ## Gameplay systems explicit status
 
-- [x] AGENT-08 Agent sheet visibilité in-game: le panneau Agent Barracks affiche désormais une ligne "Sheet" compacte (STR/AGI/PSI, Firearms/Tactics, Aim/Resolve) par agent, pour rendre les données de fiche enfin actionnables pendant la sélection d'escouade; test UI mis à jour pour verrouiller ce rendu. (completed May 26, 2026)
+- [x] AGENT-09 Agent sheet visibilité in-game: le panneau Agent Barracks affiche désormais une ligne "Sheet" compacte (STR/AGI/PSI, Firearms/Tactics, Aim/Resolve) par agent, pour rendre les données de fiche enfin actionnables pendant la sélection d'escouade; test UI mis à jour pour verrouiller ce rendu. (completed May 26, 2026)
+- [x] AGENT-08 Level-up choice model in RPG armory flow: added Option A (+1 attribute, capped) and Option B (+2 skill ranks split across allowed skills, capped), surfaced projected derived-stat deltas directly in room action labels before click confirm, and covered with RPG view regression tests. (completed May 26, 2026)
 - [x] AGENT-07 Agent sheet calculations extraction: added pure `game/agents/sheet_calculations.py` (`compute_derived_stats`, `skill_total`) with documented integer-friendly formulas, refactored combat/readiness/stress entry points to consume shared sheet math instead of scattered inline arithmetic, and added regression tests for totals + stress-state penalties. (completed May 26, 2026)
 
 - [x] AGENT-06 Agent sheet schema defaults: added modular `game/agents/sheet_schema.py` with typed attributes/skills/derived-stat builders, wired defaults into recruitment/character constructors, and backfilled legacy save payloads during `Character.from_dict`; added regression tests for default creation + migration safety. (completed May 26, 2026)
