@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-40 Recruit chooser modal: the recruit flow now opens a dedicated recruitment window with 6-9 randomized candidates, each showing portrait-led profiles, price tags, stat previews, skill ranks, background, and advantages so the roster choice reads like a proper RPG hiring screen. (completed May 27, 2026)
+- [x] UI-41 Portrait pool expansion: agent portrait routing now splits into 50 female, 50 male, and 50 robot portraits so recruitment and hangar cards stop repeating the same faces. (completed May 27, 2026)
 - [x] UI-38 Double-click agent card opens full character sheet in Squad room: added a dedicated full-sheet modal (attributes, core skills, derived stats, and loadout snapshot) while preserving single-click deploy selection; ESC closes the modal. (completed May 27, 2026)
 - [x] UI-39 Agent sheet modal polish: the full agent sheet now opens as a topmost portrait-led dossier with stat-card spending, skill-training controls, and a stronger RPG layout so point allocation reads like a real character sheet. (completed May 27, 2026)
 - [x] AGENT-09 Agent sheet visibilité in-game: le panneau Agent Barracks affiche désormais une ligne "Sheet" compacte (STR/AGI/PSI, Firearms/Tactics, Aim/Resolve) par agent, pour rendre les données de fiche enfin actionnables pendant la sélection d'escouade; test UI mis à jour pour verrouiller ce rendu. (completed May 26, 2026)

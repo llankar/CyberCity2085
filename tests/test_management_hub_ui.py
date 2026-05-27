@@ -515,20 +515,55 @@ class ManagementHubUITest(unittest.TestCase):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
-        view.game_state.add_funds(100, "test", "Recruitment test budget")
+        starting_funds = 500
+        view.game_state.add_funds(starting_funds, "test", "Recruitment test budget")
 
         view._do_recruit_prompt()
 
-        self.assertGreater(len(view.pending_recruit_candidates), 0)
+        self.assertTrue(view.recruit_window_open)
+        self.assertGreaterEqual(len(view.pending_recruit_candidates), 6)
         self.assertTrue(all(candidate.name for candidate in view.pending_recruit_candidates))
         self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi"} for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.function for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.background for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.advantages for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.price > 0 for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.skill_line().startswith("SKILLS") for candidate in view.pending_recruit_candidates))
         self.assertNotIn("Agent 1", {candidate.name for candidate in view.pending_recruit_candidates})
 
+        open_room(view.room_ui, view.window.width, view.window.height, "squad")
+        view.room_ui.expansion = 1.0
+
+        calls = []
+        original = management_screen.arcade.draw_text
+
+        def _capture(text, *args, **kwargs):
+            calls.append((text, args, kwargs))
+
+        management_screen.arcade.draw_text = _capture
+        try:
+            view.on_draw()
+        finally:
+            management_screen.arcade.draw_text = original
+
+        first_candidate = view.pending_recruit_candidates[0]
+        drawn_text = {str(call[0]) for call in calls}
+        self.assertIn("RECRUITMENT WINDOW", drawn_text)
+        self.assertIn(first_candidate.function.upper(), drawn_text)
+        self.assertTrue(any(first_candidate.skill_line() in text for text in drawn_text))
+        self.assertTrue(any(f"¥{first_candidate.price}" in text for text in drawn_text))
+        self.assertTrue(any(first_candidate.background[:24] in text for text in drawn_text))
+        self.assertTrue(any("ADV:" in text for text in drawn_text))
+
         recruited_name = view.pending_recruit_candidates[0].name
+        recruited_price = view.pending_recruit_candidates[0].price
+        before_funds = view.game_state.available_funds
         view._do_recruit_candidate(0)
 
         self.assertEqual(len(view.pending_recruit_candidates), 0)
+        self.assertFalse(view.recruit_window_open)
         self.assertIn(recruited_name, {character.name for character in view.game_state.characters})
+        self.assertEqual(view.game_state.available_funds, before_funds - recruited_price)
 
     def test_squad_room_can_remove_agent_from_roster(self):
         view = ManagementView(GameState())

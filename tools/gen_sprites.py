@@ -180,6 +180,278 @@ PORTRAITS: list[tuple[str, str, int]] = [
     ),
 ]
 
+
+def _build_portrait_specs(
+    prefix: str,
+    seed_base: int,
+    tone_words: list[str],
+    hair_words: list[str],
+    clothing_words: list[str],
+    cyberware_words: list[str],
+    color_words: list[str],
+    backdrop_words: list[str],
+) -> list[tuple[str, str, int]]:
+    specs: list[tuple[str, str, int]] = []
+    for idx in range(1, 51):
+        tone = tone_words[(idx - 1) % len(tone_words)]
+        hair = hair_words[(idx * 2) % len(hair_words)]
+        clothing = clothing_words[(idx * 3) % len(clothing_words)]
+        cyberware = cyberware_words[(idx * 5) % len(cyberware_words)]
+        color = color_words[(idx * 7) % len(color_words)]
+        backdrop = backdrop_words[(idx * 11) % len(backdrop_words)]
+        prompt = (
+            f"{tone} cyberpunk operative portrait, {hair}, {clothing}, {cyberware}, "
+            f"{color} neon accents, {backdrop}, " + _PORT_STYLE
+        )
+        specs.append((f"{prefix}_{idx:02d}", prompt, seed_base + idx))
+    return specs
+
+
+def _build_robot_portrait_specs(seed_base: int) -> list[tuple[str, str, int]]:
+    chassis_words = [
+        "sleek sentinel chassis",
+        "heavy breacher chassis",
+        "compact scout chassis",
+        "angular hunter chassis",
+        "industrial service chassis",
+        "armored enforcement chassis",
+        "lanky recon chassis",
+        "bulky siege chassis",
+        "polished ceremonial chassis",
+        "scarred salvage-built chassis",
+    ]
+    optic_words = [
+        "single red optic",
+        "paired cyan optics",
+        "tri-lens amber optics",
+        "narrow green sensor slit",
+        "glowing violet visor array",
+        "stacked white observation lenses",
+        "infrared targeting cluster",
+        "cold blue tactical eye",
+        "gold status optic",
+        "hexagonal crimson sensor",
+    ]
+    wear_words = [
+        "battle scratches across the faceplate",
+        "oily scorch marks on the cheek plating",
+        "fresh weld seams along the jaw",
+        "exposed cabling at the neck ring",
+        "polished armor with clean corporate decals",
+        "dust-caked vents and dented plating",
+        "warning stripes chipped at the edges",
+        "reinforced cheek guards and bolted seams",
+        "smoke residue around the optics",
+        "maintenance panel scars and rivets",
+    ]
+    detail_words = [
+        "hydraulic jawline",
+        "antenna cluster crown",
+        "sensor whiskers",
+        "vented throat guard",
+        "shoulder-mounted comms mast",
+        "mechanical spine fins",
+        "compact threat halo",
+        "grappler collar assembly",
+        "servo-packed neck brace",
+        "industrial warning sigils",
+    ]
+    glow_words = [
+        "red threat glow",
+        "cyan diagnostics glow",
+        "amber alert glow",
+        "green standby glow",
+        "violet command glow",
+        "white scan glow",
+        "blue target glow",
+        "orange reactor glow",
+        "magenta pulse glow",
+        "gold status glow",
+    ]
+    backdrop_words = [
+        "wet neon alley reflections",
+        "holographic industrial haze",
+        "smoky warehouse lighting",
+        "rain-streaked night skyline",
+        "security bunker shadows",
+        "maintenance bay sparks",
+        "cold factory catwalks",
+        "amber emergency lighting",
+        "city surveillance grid glow",
+        "steel corridor gloom",
+    ]
+    specs: list[tuple[str, str, int]] = []
+    for idx in range(1, 51):
+        prompt = (
+            f"robot portrait close-up, {chassis_words[(idx - 1) % len(chassis_words)]}, "
+            f"{optic_words[(idx * 2) % len(optic_words)]}, {wear_words[(idx * 3) % len(wear_words)]}, "
+            f"{detail_words[(idx * 5) % len(detail_words)]}, {glow_words[(idx * 7) % len(glow_words)]}, "
+            f"{backdrop_words[(idx * 11) % len(backdrop_words)]}, " + _PORT_STYLE
+        )
+        specs.append((f"robot_{idx:02d}", prompt, seed_base + idx))
+    return specs
+
+
+PORTRAITS.extend(
+    _build_portrait_specs(
+        "agent_female",
+        3000,
+        [
+            "female cyberpunk field agent",
+            "female covert courier",
+            "female corporate defector",
+            "female night-market fixer",
+            "female street medic",
+            "female infiltration specialist",
+            "female intel runner",
+            "female neon detective",
+            "female ex-augmented enforcer",
+            "female ghost operator",
+        ],
+        [
+            "short asymmetrical hair",
+            "shoulder-length black hair",
+            "platinum undercut",
+            "braided cyber ponytail",
+            "shaved sides and long top",
+            "silver bob cut",
+            "tied-back crimson hair",
+            "messy salt-and-pepper hair",
+            "twin braids with neon threads",
+            "slick wet-look hair",
+        ],
+        [
+            "sleek tactical coat with plated shoulders",
+            "combat bodysuit under a hooded jacket",
+            "armored collar and lightweight chest rig",
+            "streetwear layered over stealth armor",
+            "field vest with luminous seam piping",
+            "reinforced blazer with hidden holsters",
+            "soft scarf over a tactical undersuit",
+            "magnetic utility harness and gloves",
+            "urban stealth jacket with matte plates",
+            "pilot jacket with embedded status LEDs",
+        ],
+        [
+            "subdermal cheek implant",
+            "optic monocle upgrade",
+            "jawline data port",
+            "ear-mounted comms stack",
+            "temple circuit tattoo",
+            "collarbone neural jack",
+            "iris HUD overlay",
+            "wrist projector implant",
+            "neckline carbon fibers",
+            "faint scar and synthetic tear duct",
+        ],
+        [
+            "cyan",
+            "magenta",
+            "amber",
+            "violet",
+            "teal",
+            "red",
+            "white",
+            "gold",
+            "green",
+            "blue",
+        ],
+        [
+            "rainy neon street",
+            "corporate atrium glow",
+            "subway platform shadows",
+            "smoke-filled safehouse",
+            "high-rise window reflections",
+            "black-market clinic lighting",
+            "warehouse catwalk depth",
+            "rain-slick rooftop edge",
+            "underground arcade haze",
+            "data-vault darkness",
+        ],
+    )
+)
+
+PORTRAITS.extend(
+    _build_portrait_specs(
+        "agent_male",
+        4000,
+        [
+            "male cyberpunk field agent",
+            "male covert courier",
+            "male corporate defector",
+            "male night-market fixer",
+            "male street medic",
+            "male infiltration specialist",
+            "male intel runner",
+            "male neon detective",
+            "male ex-augmented enforcer",
+            "male ghost operator",
+        ],
+        [
+            "close-cropped black hair",
+            "shaved head with stubble",
+            "messy dark hair",
+            "slicked-back silver hair",
+            "undercut with shaved line art",
+            "wind-tossed brown hair",
+            "salt-and-pepper crew cut",
+            "topknot with loose strands",
+            "cropped red hair",
+            "thick coarse hair and temple fade",
+        ],
+        [
+            "armored trench coat with high collar",
+            "stealth jacket over a tactical vest",
+            "corporate escapee suit with hidden plates",
+            "heavy-duty street armor and gloves",
+            "light combat harness with ammo loops",
+            "neon-lit bomber jacket and chest rig",
+            "black shell coat with magnetic clasps",
+            "mercenary vest with reinforced padding",
+            "field jacket with layered plates",
+            "covert ops coat with segmented armor",
+        ],
+        [
+            "brow implant",
+            "cybernetic jaw hinge",
+            "throat port",
+            "temple scanner strip",
+            "data-spike behind the ear",
+            "cheekline scar and optic implant",
+            "neck brace with glowing nodes",
+            "metallic iris lens",
+            "shoulder jack cluster",
+            "augmented knuckle rig",
+        ],
+        [
+            "cyan",
+            "magenta",
+            "amber",
+            "violet",
+            "teal",
+            "red",
+            "white",
+            "gold",
+            "green",
+            "blue",
+        ],
+        [
+            "rainy neon street",
+            "corporate atrium glow",
+            "subway platform shadows",
+            "smoke-filled safehouse",
+            "high-rise window reflections",
+            "black-market clinic lighting",
+            "warehouse catwalk depth",
+            "rain-slick rooftop edge",
+            "underground arcade haze",
+            "data-vault darkness",
+        ],
+    )
+)
+
+PORTRAITS.extend(_build_robot_portrait_specs(5000))
+
 # ---------------------------------------------------------------------------
 # Sprite definitions  (filename_stem, prompt, seed)
 # ---------------------------------------------------------------------------
@@ -308,6 +580,9 @@ def run_portraits(pipe: StableDiffusionXLPipeline, steps: int) -> None:
     print("\n-- Generating portraits ------------------------------------------")
     for stem, prompt, seed in PORTRAITS:
         out_path = PORT_DIR / f"{stem}.png"
+        if out_path.exists():
+            print(f"  {stem} ... exists")
+            continue
         print(f"  {stem} ...", end=" ", flush=True)
         img = generate(pipe, prompt, _PORT_NEG, w=512, h=512, steps=steps, seed=seed)
         img = post_portrait(img)

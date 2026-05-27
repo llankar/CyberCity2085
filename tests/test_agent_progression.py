@@ -1,19 +1,29 @@
 import unittest
+import random
 
 from game.agent_specializations import apply_talent_bonuses
 from game.character import Character
 from game.recruitment import ROLE_NAME_POOLS, build_recruitment_candidates, create_character, recruit_agent
+from game.ui.portraits import portrait_path_for_agent, portrait_path_for_robot
 
 
 class AgentProgressionTest(unittest.TestCase):
     def test_recruitment_candidates_are_named_and_role_balanced(self):
         roster = [Character("Kilo"), Character("Echo")]
 
-        candidates = build_recruitment_candidates(roster)
+        candidates = build_recruitment_candidates(roster, count=6, rng=random.Random(1337))
 
         self.assertEqual(len(candidates), 6)
         self.assertTrue(all(candidate.name for candidate in candidates))
         self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi"} for candidate in candidates))
+        self.assertTrue(all(candidate.function for candidate in candidates))
+        self.assertTrue(all(candidate.background for candidate in candidates))
+        self.assertTrue(all(candidate.advantages for candidate in candidates))
+        self.assertTrue(all(candidate.price > 0 for candidate in candidates))
+        self.assertTrue(all(candidate.skill_line().startswith("SKILLS") for candidate in candidates))
+        self.assertTrue(any(any(rank > 0 for rank in candidate.skill_ranks.values()) for candidate in candidates))
+        self.assertTrue(all(candidate.portrait_path.endswith(".png") for candidate in candidates))
+        self.assertTrue(all(candidate.stat_line() for candidate in candidates))
         self.assertNotIn("Agent 1", {candidate.name for candidate in candidates})
 
     def test_recruit_agent_uses_the_requested_name(self):
@@ -30,6 +40,18 @@ class AgentProgressionTest(unittest.TestCase):
 
         self.assertNotEqual(character.name, "Agent 1")
         self.assertIn(character.name, ROLE_NAME_POOLS["samurai"])
+
+    def test_portrait_pools_split_human_and_robot_variants(self):
+        female = portrait_path_for_agent("Vega", "sniper", "female")
+        male = portrait_path_for_agent("Vega", "sniper", "male")
+        robot = portrait_path_for_robot("robot_k9_01", "combat_robot")
+
+        self.assertIn("agent_female_", female)
+        self.assertIn("agent_male_", male)
+        self.assertIn("robot_", robot)
+        self.assertTrue(female.endswith(".png"))
+        self.assertTrue(male.endswith(".png"))
+        self.assertTrue(robot.endswith(".png"))
 
     def test_talent_bonuses_apply_to_combat_stats(self):
         character = Character("Orchid", role="psi")

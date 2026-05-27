@@ -12,7 +12,7 @@ from game.ui.facility import (
     build_facility_rooms,
     facility_room_by_key,
 )
-from game.ui.portraits import PORTRAIT_COUNT, PORTRAIT_DIR
+from game.ui.portraits import AGENT_PORTRAIT_COUNT, PORTRAIT_DIR, ROBOT_PORTRAIT_COUNT
 
 
 class FacilityUITest(unittest.TestCase):
@@ -102,11 +102,15 @@ class FacilityUITest(unittest.TestCase):
 
     def test_generated_agent_portrait_set_is_project_bound(self):
         portrait_dir = Path(PORTRAIT_DIR)
-        portraits = sorted(portrait_dir.glob("agent_*.png"))
+        female_portraits = sorted(portrait_dir.glob("agent_female_*.png"))
+        male_portraits = sorted(portrait_dir.glob("agent_male_*.png"))
+        robot_portraits = sorted(portrait_dir.glob("robot_[0-9][0-9].png"))
 
-        self.assertEqual(len(portraits), PORTRAIT_COUNT)
+        self.assertEqual(len(female_portraits), AGENT_PORTRAIT_COUNT)
+        self.assertEqual(len(male_portraits), AGENT_PORTRAIT_COUNT)
+        self.assertEqual(len(robot_portraits), ROBOT_PORTRAIT_COUNT)
         self.assertTrue((portrait_dir / "portrait_sheet.png").exists())
-        for portrait in portraits:
+        for portrait in female_portraits + male_portraits + robot_portraits:
             self.assertGreater(portrait.stat().st_size, 50_000)
 
 
