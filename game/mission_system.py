@@ -16,6 +16,20 @@ from .missions.objective_branches import (
 from .narrative.personality_traits import modulate_mission_log_tone
 from .narrative.faction_rewards import build_reward_log_entries, rewards_for_faction
 
+def format_skill_check_outcome(
+    *,
+    check_name: str,
+    rolled_value: int,
+    total_value: int,
+    threshold: int,
+) -> str:
+    """Return a one-line CRPG-style skill-check summary for logs/debrief."""
+    result = "SUCCESS" if total_value >= threshold else "FAILURE"
+    return (
+        f"{check_name}: roll {rolled_value} -> total {total_value} "
+        f"(target {threshold}) [{result}]"
+    )
+
 
 def _selected_mission_leader(game_state: GameState):
     """Return the first selected leader using canonical selected-agent names."""

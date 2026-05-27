@@ -84,6 +84,17 @@ class NarrativeDebriefTest(unittest.TestCase):
         self.assertTrue(any("Relations:" in line for line in report.rpg_links))
         self.assertTrue(any("Progression:" in line for line in report.rpg_links))
 
+    def test_report_keeps_skill_check_outcomes_for_readability(self):
+        agent = Character("Nyx", stress=20)
+        report = build_mission_debrief_report(
+            [agent],
+            _mission(),
+            True,
+            skill_check_outcomes=["Tech Check: roll 3 -> total 6 (target 5) [SUCCESS]"],
+        )
+        self.assertEqual(len(report.skill_check_outcomes), 1)
+        self.assertIn("Tech Check", report.skill_check_outcomes[0])
+
 
 if __name__ == "__main__":
     unittest.main()
