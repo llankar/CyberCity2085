@@ -9,6 +9,7 @@ def build_action_aftermath_line(
     damage: int = 0,
     status_applied: str | None = None,
     suppression_created: bool = False,
+    skill_check_outcome: str | None = None,
 ) -> str:
     """Return a compact causal line for the fixed HUD aftermath zone."""
     segments: list[str] = [action_label]
@@ -17,4 +18,6 @@ def build_action_aftermath_line(
         segments.append(f"STATUT {status_applied}")
     if suppression_created:
         segments.append("SUPPRESSION créée")
+    if skill_check_outcome:
+        segments.append(skill_check_outcome)
     return " | ".join(segments)

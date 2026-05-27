@@ -63,6 +63,15 @@ def _from_faction_rewards(faction_reward_journal: list[dict]) -> list[NarrativeF
     return entries
 
 
+def _from_debrief_skill_checks(latest_mission_debrief: dict) -> list[NarrativeFeedEntry]:
+    outcomes = latest_mission_debrief.get("skill_check_outcomes", [])
+    return [
+        NarrativeFeedEntry("mission", line)
+        for line in outcomes
+        if str(line).strip()
+    ]
+
+
 def build_narrative_event_feed(game_state, max_entries: int = FEED_DEPTH_DEFAULT) -> list[NarrativeFeedEntry]:
     """Build a short anti-chronological narrative feed across core story sources."""
     capped = clamp_feed_depth(max_entries)
@@ -78,6 +87,9 @@ def build_narrative_event_feed(game_state, max_entries: int = FEED_DEPTH_DEFAULT
         )
     )
     entries.extend(_from_faction_rewards(getattr(game_state, "faction_reward_journal", [])))
+    entries.extend(
+        _from_debrief_skill_checks(getattr(game_state, "latest_mission_debrief", {}))
+    )
 
     # Source lists are append-only, so latest items live at the end.
     return entries[-capped:][::-1]

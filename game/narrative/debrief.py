@@ -46,6 +46,7 @@ class DebriefReport:
     risk_taken: str = ""
     heroic_action: str = ""
     rpg_links: list[str] = field(default_factory=list)
+    skill_check_outcomes: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -56,6 +57,7 @@ class DebriefReport:
             "risk_taken": self.risk_taken,
             "heroic_action": self.heroic_action,
             "rpg_links": list(self.rpg_links),
+            "skill_check_outcomes": list(self.skill_check_outcomes),
         }
 
     @classmethod
@@ -68,6 +70,9 @@ class DebriefReport:
             risk_taken=str(data.get("risk_taken", "")),
             heroic_action=str(data.get("heroic_action", "")),
             rpg_links=[str(line) for line in data.get("rpg_links", [])],
+            skill_check_outcomes=[
+                str(line) for line in data.get("skill_check_outcomes", [])
+            ],
         )
 
 
@@ -182,6 +187,7 @@ def build_mission_debrief_report(
     mission: MissionTemplate | None,
     victory: bool,
     complication: MissionComplication | None = None,
+    skill_check_outcomes: list[str] | None = None,
 ) -> DebriefReport:
     """Build a deterministic debrief report from post-mission agent states."""
     mission_title = mission.title if mission else "Unknown Operation"
@@ -206,4 +212,5 @@ def build_mission_debrief_report(
         risk_taken=_extract_risk_taken(lines, complication),
         heroic_action=_extract_heroic_action(lines),
         rpg_links=_build_rpg_links(characters),
+        skill_check_outcomes=list(skill_check_outcomes or []),
     )

@@ -35,6 +35,21 @@ def action_message(action: str, ok: bool, detail: str = "") -> tuple[str, str]:
     return level, toast.message
 
 
+def skill_check_feedback(
+    *,
+    check_name: str,
+    rolled_value: int,
+    total_value: int,
+    threshold: int,
+) -> str:
+    """Build a compact one-line skill-check outcome for action feedback surfaces."""
+    result = "SUCCESS" if total_value >= threshold else "FAILURE"
+    return (
+        f"{check_name}: roll {rolled_value} / total {total_value} "
+        f"vs {threshold} => {result}"
+    )
+
+
 def confirm_message(action: str) -> str:
     return build_confirm_message(action)
 

@@ -1,6 +1,7 @@
 import unittest
 
 from game.ui.action_feedback import action_message, confirm_message, push_action
+from game.ui.action_feedback import skill_check_feedback
 from game.ui.feedback.error_banner import build_error_banner
 from game.ui.widgets.notification_center import NotificationCenter
 
@@ -29,6 +30,19 @@ class FeedbackSystemTest(unittest.TestCase):
         message = push_action(center, "load", False, "save file missing")
         self.assertIn("[ERROR]", message)
         self.assertEqual(build_error_banner("load", "save file missing"), "[ERROR] load: save file missing")
+
+    def test_skill_check_feedback_formats_roll_total_threshold_result(self):
+        line = skill_check_feedback(
+            check_name="Tech Check",
+            rolled_value=5,
+            total_value=8,
+            threshold=7,
+        )
+        self.assertIn("Tech Check", line)
+        self.assertIn("roll 5", line)
+        self.assertIn("total 8", line)
+        self.assertIn("vs 7", line)
+        self.assertIn("SUCCESS", line)
 
 
 if __name__ == "__main__":

@@ -22,6 +22,11 @@ class NarrativeFeedPanelTest(unittest.TestCase):
         game_state.faction_reward_journal = [
             {"kind": "local_trust", "text": "La clinique diffuse un mot de confiance discret."}
         ]
+        game_state.latest_mission_debrief = {
+            "skill_check_outcomes": [
+                "Tech Check: roll 2 -> total 5 (target 6) [FAILURE]"
+            ]
+        }
         game_state.active_events = [
             ActiveEvent(
                 id="event-1",
@@ -41,9 +46,10 @@ class NarrativeFeedPanelTest(unittest.TestCase):
         feed = build_narrative_event_feed(game_state, max_entries=9)
 
         self.assertLessEqual(len(feed), 9)
-        self.assertEqual(feed[0].category, "faction")
+        self.assertEqual(feed[0].category, "mission")
         self.assertEqual(feed[-1].category, "agent")
         self.assertTrue(any(entry.category == "mission" for entry in feed))
+        self.assertTrue(any("Tech Check" in entry.text for entry in feed))
 
     def test_widget_prioritizes_agent_and_consequence_before_system_and_base(self):
         entries = [
