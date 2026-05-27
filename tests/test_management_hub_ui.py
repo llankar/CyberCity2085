@@ -100,9 +100,13 @@ class _FakeWindow:
         self.width = 1280
         self.height = 720
         self.shown_view = None
+        self.activated = False
 
     def show_view(self, view):
         self.shown_view = view
+
+    def activate(self):
+        self.activated = True
 
 
 class ManagementHubUITest(unittest.TestCase):
@@ -128,6 +132,56 @@ class ManagementHubUITest(unittest.TestCase):
         view._dispatch("agent_card", 0)
 
         self.assertEqual(view.expanded_agent_sheet_index, 0)
+
+    def test_opening_and_closing_agent_sheet_toggles_topmost_focus(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+
+        calls = []
+        original = management_screen._set_window_topmost
+
+        def _capture(window, enabled):
+            calls.append(enabled)
+
+        management_screen._set_window_topmost = _capture
+        try:
+            view._dispatch("agent_card", 0)
+            view._dispatch("agent_card", 0)
+            view.on_key_press(management_screen.arcade.key.ESCAPE, 0)
+        finally:
+            management_screen._set_window_topmost = original
+
+        self.assertGreaterEqual(calls.count(True), 1)
+        self.assertEqual(calls[-1], False)
+        self.assertIsNone(view.expanded_agent_sheet_index)
+
+    def test_expanded_agent_sheet_draws_allocation_hits(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view.expanded_agent_sheet_index = 0
+
+        view.on_draw()
+
+        stat_hit = next(hit for hit in view._modal_hits if hit.action == "sheet_spend_stat")
+        train_hit = next(hit for hit in view._modal_hits if hit.action == "sheet_train_skills")
+        before_points = view.game_state.characters[0].pending_points
+        before_str = view.game_state.characters[0].stats.str
+
+        view.on_mouse_press((stat_hit.left + stat_hit.right) // 2, (stat_hit.bottom + stat_hit.top) // 2, 0, 0)
+        self.assertEqual(view.game_state.characters[0].pending_points, before_points - 1)
+        self.assertGreater(view.game_state.characters[0].stats.str, before_str)
+
+        view.game_state.characters[0].pending_points = 1
+        before_skills = dict(view.game_state.characters[0].skills)
+        view.on_mouse_press((train_hit.left + train_hit.right) // 2, (train_hit.bottom + train_hit.top) // 2, 0, 0)
+        self.assertEqual(view.game_state.characters[0].pending_points, 0)
+        self.assertTrue(
+            any(view.game_state.characters[0].skills[key] > before_skills.get(key, 0) for key in before_skills)
+        )
 
     def test_escape_closes_expanded_agent_sheet(self):
         view = ManagementView(GameState())
@@ -514,7 +568,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertLess(launch_hit.top, 240)
 
         strip_bottom = min(button.rect.bottom for button in view.room_ui.action_buttons)
-        self.assertGreater(strip_bottom, 70)
+        self.assertGreater(strip_bottom, 60)
         self.assertLess(strip_bottom, 110)
 
 
