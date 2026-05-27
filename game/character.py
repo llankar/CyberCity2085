@@ -35,6 +35,7 @@ class Character:
     loadout: AgentLoadout = field(default_factory=AgentLoadout)
     personality_primary_trait: str = ""
     personality_secondary_trait: str = ""
+    sex: str = ""
     attributes: dict[str, int] = field(default_factory=lambda: default_agent_sheet().attributes)
     skills: dict[str, int] = field(default_factory=lambda: default_agent_sheet().skills)
     derived_stats: dict[str, int] = field(default_factory=lambda: default_agent_sheet().derived_stats)
@@ -65,6 +66,7 @@ class Character:
             "loadout": self.loadout.to_dict(),
             "personality_primary_trait": self.personality_primary_trait,
             "personality_secondary_trait": self.personality_secondary_trait,
+            "sex": self.sex,
             "attributes": dict(self.attributes),
             "skills": dict(self.skills),
             "derived_stats": dict(self.derived_stats),
@@ -105,6 +107,7 @@ class Character:
             loadout=AgentLoadout.from_dict(data.get("loadout")),
             personality_primary_trait=str(data.get("personality_primary_trait", "")),
             personality_secondary_trait=str(data.get("personality_secondary_trait", "")),
+            sex=str(data.get("sex", "")),
             attributes=sheet.attributes,
             skills=sheet.skills,
             derived_stats=sheet.derived_stats,

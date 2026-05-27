@@ -25,8 +25,16 @@ class TestAgentSheetSchema(unittest.TestCase):
 
         self.assertIn("attributes", restored.to_dict())
         self.assertIn("derived_stats", restored.to_dict())
+        self.assertEqual(restored.sex, "")
         self.assertEqual(restored.skills["telepathy"], 10)
         self.assertEqual(restored.skills["firearms"], 0)
+
+    def test_sex_field_persists_through_character_serialization(self):
+        character = Character("Vega", role="sniper", sex="female")
+
+        restored = Character.from_dict(character.to_dict())
+
+        self.assertEqual(restored.sex, "female")
 
 
 if __name__ == "__main__":

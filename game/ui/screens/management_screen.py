@@ -64,7 +64,7 @@ from game.ui.management.action_requirements import (
 from game.ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from game.ui.panels import draw_expanded_room_controls, draw_graphical_command_surface
 from game.ui.panels import draw_small_meter
-from game.ui.portraits import portrait_path_for_character
+from game.ui.portraits import portrait_path_for_character, portrait_path_for_robot
 from game.ui.room_interaction import (
     RoomUIState,
     action_at_point,
@@ -544,6 +544,138 @@ class ManagementView(GameView):
         )
         arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
 
+    def _draw_recruit_window_modal(self, w: int, h: int) -> None:
+        if not self.recruit_window_open or not self.pending_recruit_candidates:
+            return
+
+        gs = self.game_state
+        self._modal_hits = []
+
+        from game.ui.panels import _load_texture_once
+
+        _rect(0, 0, w, h, (0, 0, 0, 185))
+        mw = min(1120, w - 64)
+        mh = min(680, h - 44)
+        mx0 = (w - mw) // 2
+        my0 = (h - mh) // 2
+        mx1 = mx0 + mw
+        my1 = my0 + mh
+        _rect(mx0, my0, mx1, my1, (7, 16, 22, 250))
+        _border(mx0, my0, mx1, my1, palette.ACCENT, 2)
+        _rect(mx0, my1 - 78, mx1, my1, (10, 24, 32, 246))
+        arcade.draw_line(mx0, my1 - 78, mx1, my1 - 78, palette.ACCENT, 2)
+        arcade.draw_text(
+            "RECRUITMENT WINDOW",
+            mx0 + 20,
+            my1 - 28,
+            palette.TEXT,
+            font_size=18,
+            bold=True,
+        )
+        arcade.draw_text(
+            f"{len(self.pending_recruit_candidates)} AVAILABLE AGENTS   |   FUNDS ¥{gs.available_funds}   |   N REFRESHES   |   ESC CLOSES",
+            mx0 + 20,
+            my1 - 50,
+            palette.MUTED_TEXT,
+            font_size=10,
+        )
+
+        close_left = mx1 - 42
+        close_bottom = my1 - 56
+        _rect(close_left, close_bottom, close_left + 28, close_bottom + 28, (14, 24, 30, 240))
+        arcade.draw_line(close_left, close_bottom + 28, close_left + 28, close_bottom + 28, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
+        self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "recruit_close"))
+
+        cols = 2
+        gap = 10
+        card_pad = 18
+        rows = math.ceil(len(self.pending_recruit_candidates) / cols)
+        usable_w = mx1 - mx0 - card_pad * 2
+        usable_h = my1 - my0 - 118
+        card_w = (usable_w - gap * (cols - 1)) // cols
+        card_h = max(96, min(120, (usable_h - gap * max(0, rows - 1)) // max(1, rows)))
+        card_top = my1 - 92
+
+        for idx, candidate in enumerate(self.pending_recruit_candidates):
+            row = idx // cols
+            col = idx % cols
+            left = mx0 + card_pad + col * (card_w + gap)
+            top = card_top - row * (card_h + gap)
+            bottom = top - card_h
+            if bottom < my0 + 18:
+                break
+
+            role_col = {
+                "samurai": palette.ROLE_SAMURAI,
+                "sniper": palette.ROLE_SNIPER,
+                "psi": palette.ROLE_PSI,
+            }.get(candidate.role, palette.ACCENT)
+            affordable = gs.available_funds >= candidate.price
+            fill = (13, 26, 34, 236) if affordable else (31, 23, 22, 236)
+            border = role_col if affordable else (95, 96, 100)
+            _rect(left, bottom, left + card_w, top, fill)
+            arcade.draw_line(left, top, left + card_w, top, border, 2)
+
+            portrait_size = min(52, card_h - 28)
+            portrait_left = left + 12
+            portrait_bottom = bottom + max(10, (card_h - portrait_size) // 2)
+            tex = _load_texture_once(candidate.portrait_path)
+            if tex is not None and hasattr(arcade, "draw_texture_rect"):
+                arcade.draw_texture_rect(tex, arcade.LBWH(portrait_left, portrait_bottom, portrait_size, portrait_size))
+            else:
+                arcade.draw_circle_filled(
+                    portrait_left + portrait_size // 2,
+                    portrait_bottom + portrait_size // 2,
+                    portrait_size // 2,
+                    palette.AGENT_PORTRAIT_FILL,
+                )
+                arcade.draw_circle_outline(
+                    portrait_left + portrait_size // 2,
+                    portrait_bottom + portrait_size // 2,
+                    portrait_size // 2,
+                    role_col,
+                    2,
+                )
+
+            text_left = portrait_left + portrait_size + 12
+            text_right = left + card_w - 12
+            arcade.draw_text(candidate.name.upper(), text_left, top - 18, palette.TEXT, font_size=12, bold=True)
+            arcade.draw_text(candidate.role.upper(), text_left, top - 32, role_col, font_size=8, bold=True)
+            arcade.draw_text(candidate.function.upper(), text_left, top - 44, palette.MUTED_TEXT, font_size=8, bold=True)
+            arcade.draw_text(candidate.stat_line(), text_left, top - 60, palette.TEXT, font_size=8)
+            arcade.draw_text(candidate.skill_line(), text_left, top - 74, palette.RESOURCE, font_size=8)
+            arcade.draw_text(
+                _trim_text(candidate.background, 92),
+                text_left,
+                bottom + 28,
+                palette.MUTED_TEXT,
+                font_size=8,
+                width=max(40, text_right - text_left),
+                align="left",
+            )
+            arcade.draw_text(
+                "ADV: " + _trim_text(" | ".join(candidate.advantages), 68),
+                text_left,
+                bottom + 12,
+                palette.RESOURCE,
+                font_size=7,
+                width=max(40, text_right - text_left),
+                align="left",
+            )
+            price_label = f"¥{candidate.price}"
+            price_col = palette.TACTICAL_GREEN if affordable else palette.DANGER
+            arcade.draw_text(price_label, left + card_w - 64, bottom + 10, price_col, font_size=12, bold=True)
+            arcade.draw_text(
+                "HIRE" if affordable else "LOCKED",
+                left + card_w - 66,
+                bottom + 28,
+                price_col,
+                font_size=8,
+                bold=True,
+            )
+            self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "recruit_candidate", idx))
+
     def on_key_press(self, key: int, modifiers: int) -> None:
         # Tab shortcuts
         tab_keys = {
@@ -974,6 +1106,13 @@ class ManagementView(GameView):
         "heavy_armor":   "assets/ui/portraits/power_armor_heavy_pilot.png",
     }
 
+    def _asset_portrait_path(self, asset) -> str:
+        atype = getattr(asset, "asset_type", "").lower()
+        if atype in {"combat_robot", "support_robot", "robot", "drone"}:
+            identifier = getattr(asset, "id", getattr(asset, "name", atype))
+            return portrait_path_for_robot(identifier, atype)
+        return self._ASSET_PORTRAIT_MAP.get(atype, "assets/ui/portraits/robot_combat.png")
+
     def _draw_assets_tab(self, x0: int, y0: int, x1: int, y1: int) -> None:
         """Spec-ops asset bay with portrait images, pilot assignment, deploy costs, and catalog."""
         from game.ui.panels import _load_texture_once, _draw_icon
@@ -1019,7 +1158,7 @@ class ManagementView(GameView):
             ps  = card_h - 8
             px0 = dx0 + 12
             py0 = cb + 4
-            port_path = self._ASSET_PORTRAIT_MAP.get(asset.asset_type, "assets/ui/portraits/robot_combat.png")
+            port_path = self._asset_portrait_path(asset)
             abs_port  = os.path.abspath(port_path)
             tex = _load_texture_once(abs_port)
             if tex:
@@ -1087,7 +1226,7 @@ class ManagementView(GameView):
 
             # Small portrait
             sps  = cat_card_h - 6
-            port_path = self._ASSET_PORTRAIT_MAP.get(cat_item.asset_type, "assets/ui/portraits/robot_combat.png")
+            port_path = self._asset_portrait_path(cat_item)
             abs_port  = os.path.abspath(port_path)
             tex = _load_texture_once(abs_port)
             if tex:
@@ -1134,7 +1273,7 @@ class ManagementView(GameView):
 
             # Large portrait
             ps = 72
-            port_path = self._ASSET_PORTRAIT_MAP.get(asset.asset_type, "assets/ui/portraits/robot_combat.png")
+            port_path = self._asset_portrait_path(asset)
             abs_port  = os.path.abspath(port_path)
             tex = _load_texture_once(abs_port)
             if tex:
@@ -1288,12 +1427,12 @@ class ManagementView(GameView):
 
     def _draw_agent_panel(self, x0: int, y0: int, x1: int, y1: int, gs: GameState) -> None:
         _panel(x0, y0, x1, y1, f"AGENTS  {len(gs.selected_agent_names)}/{len(gs.characters)}", palette.ACCENT)
+        from game.ui.panels import _load_texture_once
 
         selected_set  = set(gs.selected_agent_names)
         card_h        = 72
         card_gap      = 6
-        chooser_open  = bool(self.pending_recruit_candidates)
-        chooser_h     = 128 if chooser_open else 40
+        chooser_h     = 40
         scroll_top    = y1 - 34
 
         for i, char in enumerate(gs.characters):
@@ -1357,53 +1496,13 @@ class ManagementView(GameView):
 
             self._hits.append(_HitRegion(x0 + 8, cb, x1 - 8, ct, "agent_card", i))
 
-        if chooser_open:
-            chooser_left = x0 + 8
-            chooser_right = x1 - 8
-            chooser_bottom = y0 + 116
-            chooser_top = chooser_bottom + chooser_h - 2
-            _rect(chooser_left, chooser_bottom, chooser_right, chooser_top, (10, 18, 24, 220))
-            arcade.draw_line(chooser_left, chooser_top, chooser_right, chooser_top, palette.ACCENT, 2)
-            arcade.draw_text(
-                "CHOOSE A RECRUIT  [N]",
-                (x0 + x1) // 2,
-                chooser_top - 14,
-                palette.TACTICAL_GREEN,
-                font_size=11,
-                bold=True,
-                anchor_x="center",
-                anchor_y="center",
-            )
-            cols = 3
-            card_gap = 6
-            card_w = max(100, (chooser_right - chooser_left - 20 - card_gap * (cols - 1)) // cols)
-            card_h = 42
-            for idx, candidate in enumerate(self.pending_recruit_candidates[:6]):
-                row = idx // cols
-                col = idx % cols
-                left = chooser_left + 10 + col * (card_w + card_gap)
-                bottom = chooser_top - 30 - (row + 1) * (card_h + 6)
-                if bottom < chooser_bottom + 4:
-                    break
-                role_col = {
-                    "samurai": palette.ROLE_SAMURAI,
-                    "sniper": palette.ROLE_SNIPER,
-                    "psi": palette.ROLE_PSI,
-                }.get(candidate.role, palette.ACCENT)
-                _rect(left, bottom, left + card_w, bottom + card_h, (*role_col[:3], 60))
-                arcade.draw_line(left, bottom + card_h, left + card_w, bottom + card_h, role_col, 2)
-                arcade.draw_text(candidate.name.upper(), left + 10, bottom + card_h - 16, palette.TEXT, font_size=10, bold=True)
-                arcade.draw_text(candidate.role.upper(), left + 10, bottom + card_h - 29, role_col, font_size=8, bold=True)
-                arcade.draw_text(candidate.tagline, left + 10, bottom + 6, palette.MUTED_TEXT, font_size=8)
-                arcade.draw_text("¥5", left + card_w - 34, bottom + 6, palette.RESOURCE, font_size=8, bold=True)
-                self._hits.append(_HitRegion(left, bottom, left + card_w, bottom + card_h, "recruit_candidate", idx))
         else:
             btn_y = y0 + 4
             btn_h = 32
             _rect(x0 + 10, btn_y, x1 - 10, btn_y + btn_h, (8, 24, 14, 220))
             arcade.draw_line(x0 + 10, btn_y + btn_h, x1 - 10, btn_y + btn_h, palette.TACTICAL_GREEN, 2)
             arcade.draw_text(
-                "RECRUIT  [N]",
+                "RECRUIT WINDOW  [N]",
                 (x0 + x1) // 2, btn_y + btn_h // 2,
                 palette.TACTICAL_GREEN, font_size=11, bold=True,
                 anchor_x="center", anchor_y="center",
@@ -2082,6 +2181,9 @@ class ManagementView(GameView):
         if action == "recruit_candidate":
             self._do_recruit_candidate(int(data))
             return
+        if action == "recruit_close":
+            self._close_recruit_window()
+            return
         if action == "remove_agent":
             self._do_remove_agent()
             return
@@ -2243,33 +2345,35 @@ class ManagementView(GameView):
     def _do_recruit_prompt(self) -> None:
         """Open the recruit chooser with a small list of named agents."""
         gs = self.game_state
-        if gs.available_funds < 5:
-            blocked = blocked_recruit_reason(gs.available_funds)
-            if blocked:
-                self.message = blocked.to_ui_text()
-                self.notifications.warning(self.message)
-                gs.add_event(self.message)
-            return
+        self._close_agent_sheet()
         self.pending_recruit_candidates = build_recruitment_candidates(gs.characters)
-        self.message = "Choose a recruit codename."
+        self.recruit_window_open = True
+        self.message = "Recruitment window opened."
 
     def _do_recruit_candidate(self, candidate_index: int) -> None:
         gs = self.game_state
         if candidate_index >= len(self.pending_recruit_candidates):
             return
         candidate = self.pending_recruit_candidates[candidate_index]
-        if not gs.spend_funds(5, "recruitment", "Recruited agent."):
-            blocked = blocked_recruit_reason(gs.available_funds)
+        if not gs.spend_funds(candidate.price, "recruitment", f"Recruited {candidate.name}."):
+            blocked = blocked_recruit_reason(gs.available_funds, candidate.price)
             if blocked:
                 self.message = blocked.to_ui_text()
                 self.notifications.warning(self.message)
                 gs.add_event(self.message)
             return
-        agent = recruit_agent(gs.characters, candidate.role, candidate.name)
+        agent = recruit_agent(
+            gs.characters,
+            candidate.role,
+            candidate.name,
+            stats=candidate.stats,
+            skills=candidate.skill_ranks,
+            sex=candidate.sex,
+        )
         self.deployment_cursor = len(gs.characters) - 1
-        self.pending_recruit_candidates = []
-        self.message = f"{agent.name} joins as {candidate.role}."
-        gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role}"))
+        self._close_recruit_window()
+        self.message = f"{agent.name} joins as {candidate.role} for ¥{candidate.price}."
+        gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role} (¥{candidate.price})"))
 
     def _do_remove_agent(self) -> None:
         gs = self.game_state
@@ -2493,6 +2597,10 @@ class ManagementView(GameView):
         self.expanded_agent_sheet_index = None
         _set_window_topmost(self.window, False)
 
+    def _close_recruit_window(self) -> None:
+        self.recruit_window_open = False
+        self.pending_recruit_candidates = []
+
     def _do_train_skill_points(self, char_idx: int) -> None:
         gs = self.game_state
         if char_idx >= len(gs.characters):
@@ -2549,6 +2657,7 @@ class ManagementView(GameView):
         self.pending_launch_mission_id = None
         self.message = ""
         self.pending_recruit_candidates: list = []
+        self.recruit_window_open = False
         self._elapsed = 0.0
         self._hits = []
         self._modal_hits = []
@@ -2605,6 +2714,7 @@ class ManagementView(GameView):
         self._draw_legacy_room_content()
         draw_expanded_room_controls(w, h, self.room_ui)
         self._draw_expanded_agent_sheet_modal(w, h)
+        self._draw_recruit_window_modal(w, h)
 
 
     def _draw_expanded_agent_sheet_modal(self, w: int, h: int) -> None:
@@ -2820,6 +2930,13 @@ class ManagementView(GameView):
         arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
 
     def on_key_press(self, key: int, modifiers: int) -> None:
+        if self.recruit_window_open:
+            if key == getattr(arcade.key, "ESCAPE", None):
+                self._close_recruit_window()
+            elif key == getattr(arcade.key, "N", None):
+                self._do_recruit_prompt()
+            return
+
         if self.expanded_agent_sheet_index is not None:
             if key == getattr(arcade.key, "ESCAPE", None):
                 self._close_agent_sheet()
@@ -2925,6 +3042,13 @@ class ManagementView(GameView):
     def on_mouse_press(self, x: float, y: float, _button: int, _modifiers: int) -> None:
         xi, yi = int(x), int(y)
         w, h = self.window.width, self.window.height
+
+        if self.recruit_window_open:
+            for hit in reversed(self._modal_hits):
+                if hit.contains(xi, yi):
+                    self._dispatch(hit.action, hit.data)
+                    return
+            return
 
         if self.expanded_agent_sheet_index is not None:
             for hit in reversed(self._modal_hits):
