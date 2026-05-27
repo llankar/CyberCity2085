@@ -21,6 +21,7 @@ presentation layer changes.
 from __future__ import annotations
 
 import math
+import time
 from dataclasses import dataclass
 
 import arcade
@@ -228,6 +229,9 @@ class ManagementView(GameView):
         self.pending_launch_mission_id: str | None = None
         self.message: str = ""
         self.equipment_catalog = default_equipment_catalog()
+        self._last_agent_click_time: float = 0.0
+        self._last_agent_click_index: int | None = None
+        self.expanded_agent_sheet_index: int | None = None
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -298,6 +302,45 @@ class ManagementView(GameView):
 
         # Notifications toast — newest-first, bottom-right corner
         _draw_notification_toast(self.notifications, w, h)
+        self._draw_expanded_agent_sheet_modal(w, h)
+
+
+    def _draw_expanded_agent_sheet_modal(self, w: int, h: int) -> None:
+        if self.expanded_agent_sheet_index is None:
+            return
+        gs = self.game_state
+        if self.expanded_agent_sheet_index >= len(gs.characters):
+            self.expanded_agent_sheet_index = None
+            return
+
+        char = gs.characters[self.expanded_agent_sheet_index]
+        _rect(0, 0, w, h, (0, 0, 0, 170))
+        mw = min(760, w - 120)
+        mh = min(470, h - 110)
+        mx0 = (w - mw) // 2
+        my0 = (h - mh) // 2
+        mx1 = mx0 + mw
+        my1 = my0 + mh
+        _panel(mx0, my0, mx1, my1, f"FULL AGENT SHEET — {char.name.upper()}", palette.HEADER)
+
+        stats = char.stats
+        skills = char.skills
+        summary_lines = [
+            f"Role {char.role.upper()}   HP {stats.hp}/{stats.max_hp}   Stress {char.stress}   Loyalty {char.loyalty}",
+            f"Recovery {char.recovery_turns}d   Pending points {char.pending_points}   Talent points {char.talent_points}",
+            f"Attributes  STR {stats.str}  AGI {stats.agi}  PSI {stats.psi}  DEF {stats.defense}  CON {stats.con}",
+            f"Core skills  Firearms {skills.get('firearms', 0)}  Tactics {skills.get('tactics', 0)}  Engineering {skills.get('engineering', 0)}  Medicine {skills.get('medicine', 0)}",
+            f"Derived  Aim {getattr(stats, 'aim', 0)}  Resolve {getattr(stats, 'resolve', 0)}",
+        ]
+        for idx, line in enumerate(summary_lines):
+            arcade.draw_text(line, mx0 + 16, my1 - 50 - idx * 24, palette.TEXT, font_size=12)
+
+        loadout_lines = char.loadout.summary_lines()[:6]
+        arcade.draw_text("Loadout", mx0 + 16, my1 - 190, palette.ACCENT, font_size=11, bold=True)
+        for idx, line in enumerate(loadout_lines or ["No equipment assigned."]):
+            arcade.draw_text(line, mx0 + 16, my1 - 214 - idx * 20, palette.MUTED_TEXT, font_size=10)
+
+        arcade.draw_text("Press ESC to close.", mx1 - 16, my0 + 14, palette.MUTED_TEXT, font_size=10, anchor_x="right")
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         # Tab shortcuts
@@ -308,6 +351,10 @@ class ManagementView(GameView):
             arcade.key.F4: "research",
             arcade.key.F5: "intel",
         }
+        if key == arcade.key.ESCAPE and self.expanded_agent_sheet_index is not None:
+            self.expanded_agent_sheet_index = None
+            return
+
         if key in tab_keys:
             self.active_tab = tab_keys[key]
             return
@@ -1793,9 +1840,20 @@ class ManagementView(GameView):
         if action == "agent_card":
             self.deployment_cursor = data
             self.message = ""
-            # Double-click / toggle selection
+            now = time.monotonic()
+            is_double_click = (
+                self._last_agent_click_index == data
+                and (now - self._last_agent_click_time) <= 0.35
+            )
+            self._last_agent_click_time = now
+            self._last_agent_click_index = data
             char = gs.characters[data] if data < len(gs.characters) else None
             if char:
+                if is_double_click:
+                    self.expanded_agent_sheet_index = data
+                    self.pending_launch_confirm = False
+                    self.message = f"Opened full sheet for {char.name}."
+                    return
                 gs.selected_agent_names, self.message = toggle_agent_selection(
                     gs.characters, gs.selected_agent_names, data
                 )
@@ -2241,6 +2299,9 @@ class ManagementView(GameView):
         self._hits = []
         self.active_tab = "command"
         self.equipment_catalog = default_equipment_catalog()
+        self._last_agent_click_time: float = 0.0
+        self._last_agent_click_index: int | None = None
+        self.expanded_agent_sheet_index: int | None = None
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -2286,8 +2347,47 @@ class ManagementView(GameView):
         if self.message:
             arcade.draw_text(self.message, 22, 34, palette.WARNING, 10)
         _draw_notification_toast(self.notifications, w, h)
+        self._draw_expanded_agent_sheet_modal(w, h)
         self._draw_legacy_room_content()
         draw_expanded_room_controls(w, h, self.room_ui)
+
+
+    def _draw_expanded_agent_sheet_modal(self, w: int, h: int) -> None:
+        if self.expanded_agent_sheet_index is None:
+            return
+        gs = self.game_state
+        if self.expanded_agent_sheet_index >= len(gs.characters):
+            self.expanded_agent_sheet_index = None
+            return
+
+        char = gs.characters[self.expanded_agent_sheet_index]
+        _rect(0, 0, w, h, (0, 0, 0, 170))
+        mw = min(760, w - 120)
+        mh = min(470, h - 110)
+        mx0 = (w - mw) // 2
+        my0 = (h - mh) // 2
+        mx1 = mx0 + mw
+        my1 = my0 + mh
+        _panel(mx0, my0, mx1, my1, f"FULL AGENT SHEET — {char.name.upper()}", palette.HEADER)
+
+        stats = char.stats
+        skills = char.skills
+        summary_lines = [
+            f"Role {char.role.upper()}   HP {stats.hp}/{stats.max_hp}   Stress {char.stress}   Loyalty {char.loyalty}",
+            f"Recovery {char.recovery_turns}d   Pending points {char.pending_points}   Talent points {char.talent_points}",
+            f"Attributes  STR {stats.str}  AGI {stats.agi}  PSI {stats.psi}  DEF {stats.defense}  CON {stats.con}",
+            f"Core skills  Firearms {skills.get('firearms', 0)}  Tactics {skills.get('tactics', 0)}  Engineering {skills.get('engineering', 0)}  Medicine {skills.get('medicine', 0)}",
+            f"Derived  Aim {getattr(stats, 'aim', 0)}  Resolve {getattr(stats, 'resolve', 0)}",
+        ]
+        for idx, line in enumerate(summary_lines):
+            arcade.draw_text(line, mx0 + 16, my1 - 50 - idx * 24, palette.TEXT, font_size=12)
+
+        loadout_lines = char.loadout.summary_lines()[:6]
+        arcade.draw_text("Loadout", mx0 + 16, my1 - 190, palette.ACCENT, font_size=11, bold=True)
+        for idx, line in enumerate(loadout_lines or ["No equipment assigned."]):
+            arcade.draw_text(line, mx0 + 16, my1 - 214 - idx * 20, palette.MUTED_TEXT, font_size=10)
+
+        arcade.draw_text("Press ESC to close.", mx1 - 16, my0 + 14, palette.MUTED_TEXT, font_size=10, anchor_x="right")
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         esc_key = getattr(arcade.key, "ESCAPE", None)
@@ -2320,7 +2420,9 @@ class ManagementView(GameView):
             if code is not None
         }
         if esc_key is not None and key == esc_key:
-            if self.room_ui.is_open:
+            if self.expanded_agent_sheet_index is not None:
+                self.expanded_agent_sheet_index = None
+            elif self.room_ui.is_open:
                 close_room(self.room_ui)
             else:
                 from game.ui.screens.title_screen import TitleView
