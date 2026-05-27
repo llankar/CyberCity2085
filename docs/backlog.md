@@ -257,6 +257,7 @@ Automation status:
 - [x] Agent progression slice: named recruit chooser, compact role specialization tree, terrain-aware battle movement, and a batch of generated tactical map PNG variants based on the existing map set.
 - [x] Agent naming cleanup: placeholder labels like `Agent 1` now normalize to role codenames on creation/load, and the recruit chooser sits above the lower HUD controls instead of overlapping them.
 - [x] Roster management: added squad-room agent removal from the roster, with selection cleanup and regression coverage.
+- [x] Mission/UI readability pass: standardized skill-check one-liners now include check name, roll/total breakdown, threshold, and outcome across action feedback, combat aftermath, mission debrief payload, and narrative feed aggregation.
 
 
 - [x] Squad management: add Downtime menu (activities consume day/resources and affect morale/stress/traits).
