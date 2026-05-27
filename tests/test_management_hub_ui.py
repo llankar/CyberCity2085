@@ -117,6 +117,28 @@ class ManagementHubUITest(unittest.TestCase):
         view.game_state.selected_agent_names = [view.game_state.characters[0].name]
         view.game_state.spec_ops_assets = default_spec_ops_assets()
 
+
+    def test_double_click_agent_card_opens_full_sheet(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+
+        view._dispatch("agent_card", 0)
+        view._dispatch("agent_card", 0)
+
+        self.assertEqual(view.expanded_agent_sheet_index, 0)
+
+    def test_escape_closes_expanded_agent_sheet(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view.expanded_agent_sheet_index = 0
+
+        view.on_key_press(management_screen.arcade.key.ESCAPE, 0)
+
+        self.assertIsNone(view.expanded_agent_sheet_index)
     def test_management_view_uses_the_hub_room_model(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
