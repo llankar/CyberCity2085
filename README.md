@@ -68,11 +68,15 @@ python main.py
 - The Black Ops Cell can recruit agents, and Armory/Dossier rooms expose level-up
   stat buttons when the selected agent has pending points
 - Double-clicking an agent card opens a portrait-led modal sheet that stays on
-  top of the hub and lets you spend points into stats or trigger skill training
+  top of the hub and lets you spend points into stats or trigger skill training;
+  the readiness strip now splits into two rows, the recovery/status line is
+  spaced clear of the stress meter, and the stress bar itself now sits a bit
+  lower so the sheet reads less crowded
 - The recruit chooser now opens as a modal recruitment window with 6-9 random
   candidates, each showing portrait-led profiles, a price tag, randomized stat
   spreads, skill ranks, background, and advantages before you hire
 - Agent portraits now pull from separate 50-face female and male pools, while
+  the legacy agent_01-style headshot pool now extends through 74 portraits, and
   robot portraits use a 50-image pool to keep the hangar and recruit screens
   from repeating the same image set
 - Squad rooms show the current roster as graphical agent cards with role color,
