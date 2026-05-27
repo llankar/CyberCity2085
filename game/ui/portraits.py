@@ -6,7 +6,7 @@ from functools import lru_cache
 from hashlib import sha1
 from pathlib import Path
 
-LEGACY_AGENT_PORTRAIT_COUNT = 24
+LEGACY_AGENT_PORTRAIT_COUNT = 74
 AGENT_PORTRAIT_COUNT = 50
 ROBOT_PORTRAIT_COUNT = 50
 PORTRAIT_COUNT = LEGACY_AGENT_PORTRAIT_COUNT

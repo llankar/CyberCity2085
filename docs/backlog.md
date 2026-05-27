@@ -1,6 +1,8 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-43 Legacy agent portrait expansion: added 50 new generic agent headshots in the original agent_01..agent_24 cyberpunk style, now extending the legacy fallback pool through agent_74 so the oldest roster routes still have fresh faces. (completed May 27, 2026)
+- [x] UI-42 Agent sheet spacing pass: the full dossier now gives the readiness stats a calmer two-row layout, separates the recovery/status lines from the stress meter, lowers the stress bar itself, and moves the skill training control into a full-width banner so the sheet no longer feels cramped. (updated May 27, 2026)
 - [x] UI-40 Recruit chooser modal: the recruit flow now opens a dedicated recruitment window with 6-9 randomized candidates, each showing portrait-led profiles, price tags, stat previews, skill ranks, background, and advantages so the roster choice reads like a proper RPG hiring screen. (completed May 27, 2026)
 - [x] UI-41 Portrait pool expansion: agent portrait routing now splits into 50 female, 50 male, and 50 robot portraits so recruitment and hangar cards stop repeating the same faces. (completed May 27, 2026)
 - [x] UI-38 Double-click agent card opens full character sheet in Squad room: added a dedicated full-sheet modal (attributes, core skills, derived stats, and loadout snapshot) while preserving single-click deploy selection; ESC closes the modal. (completed May 27, 2026)
