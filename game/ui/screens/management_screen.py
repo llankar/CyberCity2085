@@ -176,14 +176,14 @@ def _panel(l: int, b: int, r: int, t: int, title: str = "", accent=None) -> None
         )
 
 
-def _meter(l: int, b: int, w: int, value: float, color, label: str = "") -> None:
+def _meter(l: int, b: int, w: int, value: float, color, label: str = "", label_offset: int = 13) -> None:
     """Compact 0-100 progress meter with optional label."""
     h = 10
     _rect(l, b, l + w, b + h, palette.PANEL_FILL_DARK)
     fill_w = int(w * max(0.0, min(1.0, value)))
     _rect(l, b, l + fill_w, b + h, color)
     if label:
-        arcade.draw_text(label, l, b + 13, palette.MUTED_TEXT, font_size=9)
+        arcade.draw_text(label, l, b + label_offset, palette.MUTED_TEXT, font_size=9)
 
 
 def _badge(text: str, x: int, y: int, color, bg=None) -> None:
@@ -366,8 +366,8 @@ class ManagementView(GameView):
         }.get(char.role, palette.ACCENT)
 
         _rect(0, 0, w, h, (0, 0, 0, 195))
-        mw = min(1020, w - 70)
-        mh = min(660, h - 48)
+        mw = min(1080, w - 56)
+        mh = min(700, h - 44)
         mx0 = (w - mw) // 2
         my0 = (h - mh) // 2
         mx1 = mx0 + mw
@@ -431,11 +431,11 @@ class ManagementView(GameView):
             f"Recovery {char.recovery_turns}d   Stress cap {derived['stress_cap']}",
         ]
         for idx, line in enumerate(info_lines):
-            arcade.draw_text(line, left_x0, info_y - idx * 22, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
+            arcade.draw_text(line, left_x0, info_y - idx * 20, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
 
-        meter_y = info_y - 108
-        _meter(left_x0, meter_y + 24, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
-        _meter(left_x0, meter_y + 4, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS")
+        meter_y = info_y - 132
+        _meter(left_x0, meter_y + 28, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
+        _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
         loadout_lines = char.loadout.summary_lines()[:5]
         loadout_top = my0 + 34
@@ -472,8 +472,8 @@ class ManagementView(GameView):
             if char.pending_points > 0:
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + stat_card_w, card_bottom + stat_card_h, "sheet_spend_stat", (self.expanded_agent_sheet_index, stat_key)))
 
-        derived_top = stats_top - stat_card_h - 20
-        arcade.draw_text("READINESS", right_x0, derived_top + 16, palette.ACCENT, font_size=12, bold=True)
+        readiness_top = stats_top - stat_card_h - 20
+        arcade.draw_text("READINESS", right_x0, readiness_top + 16, palette.ACCENT, font_size=12, bold=True)
         ready_metrics = [
             ("HP", f"{derived['hp']}"),
             ("AIM", f"{derived['aim']}"),
@@ -482,43 +482,48 @@ class ManagementView(GameView):
             ("RES", f"{derived['resolve']}"),
             ("REC", f"{derived['recovery_rate']}"),
         ]
-        metric_gap = 8
-        metric_card_w = (right_x1 - right_x0 - metric_gap * (len(ready_metrics) - 1)) // len(ready_metrics)
-        metric_card_h = 58
+        metric_gap = 10
+        metric_cols = 3
+        metric_rows = (len(ready_metrics) + metric_cols - 1) // metric_cols
+        metric_card_w = (right_x1 - right_x0 - metric_gap * (metric_cols - 1)) // metric_cols
+        metric_card_h = 60
         for idx, (label, value) in enumerate(ready_metrics):
-            card_left = right_x0 + idx * (metric_card_w + metric_gap)
-            card_bottom = derived_top - metric_card_h
+            row = idx // metric_cols
+            col = idx % metric_cols
+            card_left = right_x0 + col * (metric_card_w + metric_gap)
+            card_top = readiness_top - row * (metric_card_h + 10)
+            card_bottom = card_top - metric_card_h
             _rect(card_left, card_bottom, card_left + metric_card_w, card_bottom + metric_card_h, (10, 21, 28, 220))
             arcade.draw_line(card_left, card_bottom + metric_card_h, card_left + metric_card_w, card_bottom + metric_card_h, palette.PANEL_BORDER_MUTED, 1)
-            arcade.draw_text(label, card_left + 10, card_bottom + 34, palette.MUTED_TEXT, font_size=8, bold=True)
+            arcade.draw_text(label, card_left + 10, card_bottom + 36, palette.MUTED_TEXT, font_size=8, bold=True)
             arcade.draw_text(value, card_left + 10, card_bottom + 12, palette.TEXT, font_size=14, bold=True)
 
-        skills_top = derived_top - metric_card_h - 22
+        skills_top = readiness_top - metric_rows * (metric_card_h + 10) - 18
         arcade.draw_text("SKILLS", right_x0, skills_top + 16, palette.ACCENT, font_size=12, bold=True)
         skill_button_text = "TRAIN SKILLS"
         skill_summary = ", ".join(f"{key[:4].upper()}+{delta}" for key, delta in planned_deltas.items()) if planned_deltas else "No eligible skills"
-        button_w = max(220, (right_x1 - right_x0) // 3)
-        button_left = right_x1 - button_w
+        button_left = right_x0
         button_bottom = skills_top - 10
+        button_h = 48
         button_fill = (22, 42, 30, 240) if planned_deltas and char.pending_points > 0 else (11, 20, 25, 210)
         button_col = palette.RESOURCE if planned_deltas and char.pending_points > 0 else palette.PANEL_BORDER_MUTED
-        _rect(button_left, button_bottom, right_x1, button_bottom + 44, button_fill)
-        arcade.draw_line(button_left, button_bottom + 44, right_x1, button_bottom + 44, button_col, 2)
-        arcade.draw_text(skill_button_text, button_left + 12, button_bottom + 26, button_col, font_size=10, bold=True)
-        arcade.draw_text(skill_summary[:42], button_left + 12, button_bottom + 10, palette.MUTED_TEXT, font_size=8)
+        _rect(button_left, button_bottom, right_x1, button_bottom + button_h, button_fill)
+        arcade.draw_line(button_left, button_bottom + button_h, right_x1, button_bottom + button_h, button_col, 2)
+        arcade.draw_text(skill_button_text, button_left + 12, button_bottom + 30, button_col, font_size=10, bold=True)
+        arcade.draw_text(skill_summary[:72], button_left + 12, button_bottom + 12, palette.MUTED_TEXT, font_size=8)
         if planned_deltas and char.pending_points > 0:
-            self._modal_hits.append(_HitRegion(button_left, button_bottom, right_x1, button_bottom + 44, "sheet_train_skills", self.expanded_agent_sheet_index))
+            self._modal_hits.append(_HitRegion(button_left, button_bottom, right_x1, button_bottom + button_h, "sheet_train_skills", self.expanded_agent_sheet_index))
 
         skills_grid_top = button_bottom - 18
         skill_cols = 3
-        skill_gap = 8
+        skill_gap = 10
         skill_card_w = (right_x1 - right_x0 - skill_gap * (skill_cols - 1)) // skill_cols
-        skill_card_h = 68
+        skill_card_h = 64
         for idx, skill_key in enumerate(ALLOWED_SKILL_KEYS):
             row = idx // skill_cols
             col = idx % skill_cols
             card_left = right_x0 + col * (skill_card_w + skill_gap)
-            card_top = skills_grid_top - row * (skill_card_h + 8)
+            card_top = skills_grid_top - row * (skill_card_h + skill_gap)
             card_bottom = card_top - skill_card_h
             rank = int(char.skills.get(skill_key, 0))
             total = skill_total(skill_key, sheet_attrs, char.skills, {})
@@ -528,8 +533,8 @@ class ManagementView(GameView):
             border = palette.PANEL_BORDER_MUTED if not highlight else palette.RESOURCE
             _rect(card_left, card_bottom, card_left + skill_card_w, card_top, fill)
             arcade.draw_line(card_left, card_top, card_left + skill_card_w, card_top, border, 2)
-            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 8, card_top - 18, palette.TEXT, font_size=8, bold=True)
-            arcade.draw_text(f"RANK {rank}", card_left + 8, card_bottom + 24, palette.MUTED_TEXT, font_size=8)
+            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 8, card_top - 16, palette.TEXT, font_size=8, bold=True)
+            arcade.draw_text(f"RANK {rank}", card_left + 8, card_bottom + 22, palette.MUTED_TEXT, font_size=8)
             arcade.draw_text(f"TOTAL {total}", card_left + 8, card_bottom + 10, palette.ACCENT, font_size=9, bold=True)
             if highlight:
                 arcade.draw_text(f"+{planned_delta}", card_left + skill_card_w - 10, card_bottom + 10, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
@@ -2753,8 +2758,8 @@ class ManagementView(GameView):
         }.get(char.role, palette.ACCENT)
 
         _rect(0, 0, w, h, (0, 0, 0, 195))
-        mw = min(1020, w - 70)
-        mh = min(660, h - 48)
+        mw = min(1080, w - 56)
+        mh = min(700, h - 44)
         mx0 = (w - mw) // 2
         my0 = (h - mh) // 2
         mx1 = mx0 + mw
@@ -2817,11 +2822,11 @@ class ManagementView(GameView):
             f"Recovery {char.recovery_turns}d   Stress cap {derived['stress_cap']}",
         ]
         for idx, line in enumerate(info_lines):
-            arcade.draw_text(line, left_x0, info_y - idx * 22, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
+            arcade.draw_text(line, left_x0, info_y - idx * 20, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
 
-        meter_y = info_y - 108
-        _meter(left_x0, meter_y + 24, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
-        _meter(left_x0, meter_y + 4, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS")
+        meter_y = info_y - 132
+        _meter(left_x0, meter_y + 28, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
+        _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
         loadout_lines = char.loadout.summary_lines()[:5]
         loadout_top = my0 + 34
@@ -2857,8 +2862,8 @@ class ManagementView(GameView):
             if char.pending_points > 0:
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + stat_card_w, card_bottom + stat_card_h, "sheet_spend_stat", (self.expanded_agent_sheet_index, stat_key)))
 
-        derived_top = stats_top - stat_card_h - 20
-        arcade.draw_text("READINESS", right_x0, derived_top + 16, palette.ACCENT, font_size=12, bold=True)
+        readiness_top = stats_top - stat_card_h - 20
+        arcade.draw_text("READINESS", right_x0, readiness_top + 16, palette.ACCENT, font_size=12, bold=True)
         ready_metrics = [
             ("HP", f"{derived['hp']}"),
             ("AIM", f"{derived['aim']}"),
@@ -2867,43 +2872,48 @@ class ManagementView(GameView):
             ("RES", f"{derived['resolve']}"),
             ("REC", f"{derived['recovery_rate']}"),
         ]
-        metric_gap = 8
-        metric_card_w = (right_x1 - right_x0 - metric_gap * (len(ready_metrics) - 1)) // len(ready_metrics)
-        metric_card_h = 58
+        metric_gap = 10
+        metric_cols = 3
+        metric_rows = (len(ready_metrics) + metric_cols - 1) // metric_cols
+        metric_card_w = (right_x1 - right_x0 - metric_gap * (metric_cols - 1)) // metric_cols
+        metric_card_h = 60
         for idx, (label, value) in enumerate(ready_metrics):
-            card_left = right_x0 + idx * (metric_card_w + metric_gap)
-            card_bottom = derived_top - metric_card_h
+            row = idx // metric_cols
+            col = idx % metric_cols
+            card_left = right_x0 + col * (metric_card_w + metric_gap)
+            card_top = readiness_top - row * (metric_card_h + 10)
+            card_bottom = card_top - metric_card_h
             _rect(card_left, card_bottom, card_left + metric_card_w, card_bottom + metric_card_h, (10, 21, 28, 220))
             arcade.draw_line(card_left, card_bottom + metric_card_h, card_left + metric_card_w, card_bottom + metric_card_h, palette.PANEL_BORDER_MUTED, 1)
-            arcade.draw_text(label, card_left + 10, card_bottom + 34, palette.MUTED_TEXT, font_size=8, bold=True)
+            arcade.draw_text(label, card_left + 10, card_bottom + 36, palette.MUTED_TEXT, font_size=8, bold=True)
             arcade.draw_text(value, card_left + 10, card_bottom + 12, palette.TEXT, font_size=14, bold=True)
 
-        skills_top = derived_top - metric_card_h - 22
+        skills_top = readiness_top - metric_rows * (metric_card_h + 10) - 18
         arcade.draw_text("SKILLS", right_x0, skills_top + 16, palette.ACCENT, font_size=12, bold=True)
         skill_button_text = "TRAIN SKILLS"
         skill_summary = ", ".join(f"{key[:4].upper()}+{delta}" for key, delta in planned_deltas.items()) if planned_deltas else "No eligible skills"
-        button_w = max(220, (right_x1 - right_x0) // 3)
-        button_left = right_x1 - button_w
+        button_left = right_x0
         button_bottom = skills_top - 10
+        button_h = 48
         button_fill = (22, 42, 30, 240) if planned_deltas and char.pending_points > 0 else (11, 20, 25, 210)
         button_col = palette.RESOURCE if planned_deltas and char.pending_points > 0 else palette.PANEL_BORDER_MUTED
-        _rect(button_left, button_bottom, right_x1, button_bottom + 44, button_fill)
-        arcade.draw_line(button_left, button_bottom + 44, right_x1, button_bottom + 44, button_col, 2)
-        arcade.draw_text(skill_button_text, button_left + 12, button_bottom + 26, button_col, font_size=10, bold=True)
-        arcade.draw_text(skill_summary[:42], button_left + 12, button_bottom + 10, palette.MUTED_TEXT, font_size=8)
+        _rect(button_left, button_bottom, right_x1, button_bottom + button_h, button_fill)
+        arcade.draw_line(button_left, button_bottom + button_h, right_x1, button_bottom + button_h, button_col, 2)
+        arcade.draw_text(skill_button_text, button_left + 12, button_bottom + 30, button_col, font_size=10, bold=True)
+        arcade.draw_text(skill_summary[:72], button_left + 12, button_bottom + 12, palette.MUTED_TEXT, font_size=8)
         if planned_deltas and char.pending_points > 0:
-            self._modal_hits.append(_HitRegion(button_left, button_bottom, right_x1, button_bottom + 44, "sheet_train_skills", self.expanded_agent_sheet_index))
+            self._modal_hits.append(_HitRegion(button_left, button_bottom, right_x1, button_bottom + button_h, "sheet_train_skills", self.expanded_agent_sheet_index))
 
         skills_grid_top = button_bottom - 18
         skill_cols = 3
-        skill_gap = 8
+        skill_gap = 10
         skill_card_w = (right_x1 - right_x0 - skill_gap * (skill_cols - 1)) // skill_cols
-        skill_card_h = 68
+        skill_card_h = 64
         for idx, skill_key in enumerate(ALLOWED_SKILL_KEYS):
             row = idx // skill_cols
             col = idx % skill_cols
             card_left = right_x0 + col * (skill_card_w + skill_gap)
-            card_top = skills_grid_top - row * (skill_card_h + 8)
+            card_top = skills_grid_top - row * (skill_card_h + skill_gap)
             card_bottom = card_top - skill_card_h
             rank = int(char.skills.get(skill_key, 0))
             total = skill_total(skill_key, sheet_attrs, char.skills, {})
@@ -2913,8 +2923,8 @@ class ManagementView(GameView):
             border = palette.PANEL_BORDER_MUTED if not highlight else palette.RESOURCE
             _rect(card_left, card_bottom, card_left + skill_card_w, card_top, fill)
             arcade.draw_line(card_left, card_top, card_left + skill_card_w, card_top, border, 2)
-            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 8, card_top - 18, palette.TEXT, font_size=8, bold=True)
-            arcade.draw_text(f"RANK {rank}", card_left + 8, card_bottom + 24, palette.MUTED_TEXT, font_size=8)
+            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 8, card_top - 16, palette.TEXT, font_size=8, bold=True)
+            arcade.draw_text(f"RANK {rank}", card_left + 8, card_bottom + 22, palette.MUTED_TEXT, font_size=8)
             arcade.draw_text(f"TOTAL {total}", card_left + 8, card_bottom + 10, palette.ACCENT, font_size=9, bold=True)
             if highlight:
                 arcade.draw_text(f"+{planned_delta}", card_left + skill_card_w - 10, card_bottom + 10, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")

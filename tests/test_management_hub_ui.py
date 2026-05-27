@@ -565,6 +565,83 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertIn(recruited_name, {character.name for character in view.game_state.characters})
         self.assertEqual(view.game_state.available_funds, before_funds - recruited_price)
 
+    def test_agent_sheet_spreads_readiness_and_skills_better(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view.expanded_agent_sheet_index = 0
+
+        open_room(view.room_ui, view.window.width, view.window.height, "squad")
+        view.room_ui.expansion = 1.0
+
+        calls = []
+        original = management_screen.arcade.draw_text
+
+        def _capture(text, x, y, *args, **kwargs):
+            calls.append((str(text), float(x), float(y)))
+
+        management_screen.arcade.draw_text = _capture
+        try:
+            view.on_draw()
+        finally:
+            management_screen.arcade.draw_text = original
+
+        readiness_labels = {"HP", "AIM", "DEF", "INIT", "RES", "REC"}
+        right_side_ready_ys = [y for text, x, y in calls if text in readiness_labels and x > 300]
+        self.assertGreaterEqual(len(right_side_ready_ys), len(readiness_labels))
+        self.assertGreater(len({round(y, 1) for y in right_side_ready_ys}), 1)
+
+        train_skill_ys = [y for text, x, y in calls if text == "TRAIN SKILLS" and x > 300]
+        self.assertEqual(len(train_skill_ys), 1)
+        self.assertLess(train_skill_ys[0], min(right_side_ready_ys))
+
+    def test_agent_sheet_keeps_recovery_text_above_stress_meter(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view.expanded_agent_sheet_index = 0
+
+        open_room(view.room_ui, view.window.width, view.window.height, "squad")
+        view.room_ui.expansion = 1.0
+
+        calls = []
+        original = management_screen.arcade.draw_text
+        rect_calls = []
+        original_rect = management_screen._rect
+
+        def _capture(text, x, y, *args, **kwargs):
+            calls.append((str(text), float(x), float(y)))
+
+        def _capture_rect(l, b, r, t, color):
+            rect_calls.append((float(l), float(b), float(r), float(t), color))
+            return original_rect(l, b, r, t, color)
+
+        management_screen.arcade.draw_text = _capture
+        management_screen._rect = _capture_rect
+        try:
+            view.on_draw()
+        finally:
+            management_screen.arcade.draw_text = original
+            management_screen._rect = original_rect
+
+        recovery_y = max(y for text, x, y in calls if text.startswith("Recovery "))
+        stress_label_y = max(y for text, x, y in calls if text == "STRESS" and x < 300)
+        self.assertGreater(recovery_y, stress_label_y + 20)
+
+        meter_bottoms = sorted(
+            {
+                b
+                for l, b, r, t, color in rect_calls
+                if t - b == 10 and r - l > 100 and l < 300
+            }
+        )
+        self.assertGreaterEqual(len(meter_bottoms), 2)
+        hp_meter_bottom = meter_bottoms[-1]
+        stress_meter_bottom = meter_bottoms[0]
+        self.assertGreater(hp_meter_bottom - stress_meter_bottom, 32)
+
     def test_squad_room_can_remove_agent_from_roster(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
