@@ -67,6 +67,8 @@ python main.py
   operations, and launch through icon-only controls
 - The Black Ops Cell can recruit agents, and Armory/Dossier rooms expose level-up
   stat buttons when the selected agent has pending points
+- Double-clicking an agent card opens a portrait-led modal sheet that stays on
+  top of the hub and lets you spend points into stats or trigger skill training
 - Squad rooms show the current roster as graphical agent cards with role color,
   generated portraits, HP/stress bars, active-agent brackets, squad-selection
   marks, recovery warnings, and numbered upgrade pips

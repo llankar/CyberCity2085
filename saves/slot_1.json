@@ -1241,23 +1241,7 @@
             "utility_item"
           ]
         },
-        "psi_focus": {
-          "type": "EquipmentItem",
-          "id": "echo_implant",
-          "name": "Echo Implant",
-          "slot": "psi_focus",
-          "stat_bonuses": {
-            "psi": 2
-          },
-          "tags": [
-            "implant",
-            "psi"
-          ],
-          "description": "Whispering wetware focus for psi agents.",
-          "allowed_slots": [
-            "psi_focus"
-          ]
-        },
+        "psi_focus": null,
         "special_gear": {
           "type": "EquipmentItem",
           "id": "ghost_cloak",
@@ -1276,7 +1260,40 @@
         }
       },
       "personality_primary_trait": "steadfast",
-      "personality_secondary_trait": ""
+      "personality_secondary_trait": "",
+      "attributes": {
+        "level": 4,
+        "str": 10,
+        "agi": 7,
+        "con": 5,
+        "cha": 1,
+        "psi": 1,
+        "defense": 6
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 11,
+        "defense": 6,
+        "crit": 3,
+        "initiative": 8,
+        "stress_cap": 16,
+        "recovery_rate": 3,
+        "resolve": 2
+      }
     },
     {
       "name": "Longshot",
@@ -1463,7 +1480,40 @@
         }
       },
       "personality_primary_trait": "cunning",
-      "personality_secondary_trait": "empathetic"
+      "personality_secondary_trait": "empathetic",
+      "attributes": {
+        "level": 4,
+        "str": 5,
+        "agi": 12,
+        "con": 4,
+        "cha": 1,
+        "psi": 4,
+        "defense": 4
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 16,
+        "defense": 4,
+        "crit": 6,
+        "initiative": 13,
+        "stress_cap": 15,
+        "recovery_rate": 3,
+        "resolve": 5
+      }
     },
     {
       "name": "Oracle",
@@ -1666,7 +1716,40 @@
         }
       },
       "personality_primary_trait": "cunning",
-      "personality_secondary_trait": "steadfast"
+      "personality_secondary_trait": "steadfast",
+      "attributes": {
+        "level": 4,
+        "str": 5,
+        "agi": 1,
+        "con": 2,
+        "cha": 1,
+        "psi": 20,
+        "defense": 1
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 5,
+        "defense": 1,
+        "crit": 0,
+        "initiative": 2,
+        "stress_cap": 13,
+        "recovery_rate": 2,
+        "resolve": 21
+      }
     },
     {
       "name": "Katana",
@@ -1851,7 +1934,40 @@
         }
       },
       "personality_primary_trait": "empathetic",
-      "personality_secondary_trait": "reckless"
+      "personality_secondary_trait": "reckless",
+      "attributes": {
+        "level": 4,
+        "str": 14,
+        "agi": 4,
+        "con": 3,
+        "cha": 1,
+        "psi": 1,
+        "defense": 2
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 37,
+        "aim": 8,
+        "defense": 2,
+        "crit": 2,
+        "initiative": 5,
+        "stress_cap": 14,
+        "recovery_rate": 2,
+        "resolve": 2
+      }
     }
   ],
   "x": 2400,
@@ -2080,345 +2196,8 @@
   ],
   "mission_templates": [
     {
-      "id": "sabotage_d38_s1",
-      "title": "Sabotage: Jackal Relay Burn [Jour 38]",
-      "objective_text": "Destroy the Chrome Jackals' relay van before it coordinates raids on the defense zones.",
-      "target_faction": "Chrome Jackals",
-      "district": "Chrome Warrens",
-      "district_pressure": {
-        "unrest": 5,
-        "media_heat": 1
-      },
-      "starting_enemy_count": 4,
-      "objective_type": "sabotage_window",
-      "possible_complications": [
-        {
-          "key": "civilian_panic",
-          "name": "Civilian Panic",
-          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
-          "risk_threshold": 3,
-          "tags": [
-            {
-              "name": "civilian_panic",
-              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
-            "mechanical_effects": {
-              "unrest": 7,
-              "stability": -4
-            },
-            "tags": [
-              {
-                "name": "civilian_panic",
-                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        },
-        {
-          "key": "faction_retaliation",
-          "name": "Faction Retaliation",
-          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
-          "risk_threshold": 4,
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 3,
-            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
-            "mechanical_effects": {
-              "faction_hostility": 9,
-              "unrest": 4
-            },
-            "tags": [
-              {
-                "name": "faction_retaliation",
-                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-                "intensity": 3,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        }
-      ],
-      "success_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Chrome Jackals",
-          "affected_agent": null,
-          "severity": 2,
-          "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
-          "mechanical_effects": {
-            "unrest": -6,
-            "stability": 3,
-            "faction_influence": -5
-          },
-          "tags": [
-            {
-              "name": "gang_pressure",
-              "description": "Street crews are testing who really owns the district.",
-              "intensity": 1,
-              "source": "faction",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "failure_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Chrome Jackals",
-          "affected_agent": null,
-          "severity": 3,
-          "narrative_text": "Sabotage failure: the relay survives and Jackal retaliation teams flood the alleys.",
-          "mechanical_effects": {
-            "unrest": 9,
-            "faction_hostility": 8,
-            "stability": -5
-          },
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "risk_level": 5,
-      "fund_reward": 95,
-      "duration_days": 1,
-      "tags": [
-        {
-          "name": "gang_pressure",
-          "description": "Street crews are testing who really owns the district.",
-          "intensity": 1,
-          "source": "faction",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ],
-      "relation_impact": "low",
-      "emotional_impact_hint": {
-        "level": "critical",
-        "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
-        "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "risk_explanation": "Risque 5/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
-        "expected_stress_band": "critical",
-        "normalized_tags": [
-          "gang_pressure"
-        ]
-      }
-    },
-    {
-      "id": "data_theft_d38_s2",
-      "title": "Data Theft: Ghost Order Cache [Jour 38]",
-      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
-      "target_faction": "Aegis Dynamics",
-      "district": "Chrome Warrens",
-      "district_pressure": {
-        "media_heat": 4,
-        "stability": -1
-      },
-      "starting_enemy_count": 4,
-      "objective_type": "data_with_detour",
-      "possible_complications": [
-        {
-          "key": "media_leak",
-          "name": "Media Leak",
-          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
-          "risk_threshold": 2,
-          "tags": [
-            {
-              "name": "media_leak",
-              "description": "Leaked footage turns tactical choices into public evidence.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
-            "mechanical_effects": {
-              "media_heat": 8,
-              "stability": -2
-            },
-            "tags": [
-              {
-                "name": "media_leak",
-                "description": "Leaked footage turns tactical choices into public evidence.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        },
-        {
-          "key": "faction_retaliation",
-          "name": "Faction Retaliation",
-          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
-          "risk_threshold": 4,
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 3,
-            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
-            "mechanical_effects": {
-              "faction_hostility": 9,
-              "unrest": 4
-            },
-            "tags": [
-              {
-                "name": "faction_retaliation",
-                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-                "intensity": 3,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        }
-      ],
-      "success_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Aegis Dynamics",
-          "affected_agent": null,
-          "severity": 2,
-          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
-          "mechanical_effects": {
-            "media_heat": -3,
-            "stability": 4,
-            "faction_influence": -4
-          },
-          "tags": [
-            {
-              "name": "ghost_signal",
-              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
-              "intensity": 3,
-              "source": "operation",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "failure_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Aegis Dynamics",
-          "affected_agent": null,
-          "severity": 3,
-          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
-          "mechanical_effects": {
-            "media_heat": 9,
-            "faction_hostility": 7,
-            "stability": -4
-          },
-          "tags": [
-            {
-              "name": "media_leak",
-              "description": "Leaked footage turns tactical choices into public evidence.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "risk_level": 5,
-      "fund_reward": 85,
-      "duration_days": 1,
-      "tags": [
-        {
-          "name": "ghost_signal",
-          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
-          "intensity": 3,
-          "source": "operation",
-          "expires_after_turns": null,
-          "metadata": {}
-        },
-        {
-          "name": "media_swarm",
-          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
-          "intensity": 2,
-          "source": "media",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ],
-      "relation_impact": "low",
-      "emotional_impact_hint": {
-        "level": "critical",
-        "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
-        "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "risk_explanation": "Risque 5/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
-        "expected_stress_band": "critical",
-        "normalized_tags": [
-          "ghost_signal",
-          "media_swarm"
-        ]
-      }
-    },
-    {
-      "id": "extraction_d38_s0",
-      "title": "Extraction: Neon Witness [Jour 38]",
+      "id": "extraction_d48_s0",
+      "title": "Extraction: Neon Witness [Jour 48]",
       "objective_text": "Extract a clinic witness from the east-rail blackout before gangs sell them to Aegis auditors.",
       "target_faction": "Chrome Jackals",
       "district": "Chrome Warrens",
@@ -2426,7 +2205,7 @@
         "unrest": 3,
         "media_heat": 2
       },
-      "starting_enemy_count": 4,
+      "starting_enemy_count": 6,
       "objective_type": "safe_extraction",
       "possible_complications": [
         {
@@ -2554,8 +2333,8 @@
           ]
         }
       ],
-      "risk_level": 4,
-      "fund_reward": 60,
+      "risk_level": 6,
+      "fund_reward": 70,
       "duration_days": 1,
       "tags": [
         {
@@ -2573,20 +2352,358 @@
         "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
         "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
         "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "risk_explanation": "Risque 4/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
+        "risk_explanation": "Risque 6/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
         "expected_stress_band": "critical",
         "normalized_tags": [
           "neon_blackout"
+        ]
+      }
+    },
+    {
+      "id": "data_theft_d48_s2",
+      "title": "Data Theft: Ghost Order Cache [Jour 48]",
+      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "media_heat": 4,
+        "stability": -1
+      },
+      "starting_enemy_count": 6,
+      "objective_type": "data_with_detour",
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
+          "mechanical_effects": {
+            "media_heat": -3,
+            "stability": 4,
+            "faction_influence": -4
+          },
+          "tags": [
+            {
+              "name": "ghost_signal",
+              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+              "intensity": 3,
+              "source": "operation",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
+          "mechanical_effects": {
+            "media_heat": 9,
+            "faction_hostility": 7,
+            "stability": -4
+          },
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 7,
+      "fund_reward": 95,
+      "duration_days": 1,
+      "tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
+        "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        "risk_explanation": "Risque 7/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": [
+          "ghost_signal",
+          "media_swarm"
+        ]
+      }
+    },
+    {
+      "id": "sabotage_d48_s1",
+      "title": "Sabotage: Jackal Relay Burn [Jour 48]",
+      "objective_text": "Destroy the Chrome Jackals' relay van before it coordinates raids on the defense zones.",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 5,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 7,
+      "objective_type": "sabotage_window",
+      "possible_complications": [
+        {
+          "key": "civilian_panic",
+          "name": "Civilian Panic",
+          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
+          "risk_threshold": 3,
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+            "mechanical_effects": {
+              "unrest": 7,
+              "stability": -4
+            },
+            "tags": [
+              {
+                "name": "civilian_panic",
+                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
+          "mechanical_effects": {
+            "unrest": -6,
+            "stability": 3,
+            "faction_influence": -5
+          },
+          "tags": [
+            {
+              "name": "gang_pressure",
+              "description": "Street crews are testing who really owns the district.",
+              "intensity": 1,
+              "source": "faction",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Sabotage failure: the relay survives and Jackal retaliation teams flood the alleys.",
+          "mechanical_effects": {
+            "unrest": 9,
+            "faction_hostility": 8,
+            "stability": -5
+          },
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 8,
+      "fund_reward": 110,
+      "duration_days": 1,
+      "tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
+        "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        "risk_explanation": "Risque 8/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": [
+          "gang_pressure"
         ]
       }
     }
   ],
   "active_mission": null,
   "selected_mission_index": 0,
-  "mission_board_generated_day": 38,
+  "mission_board_generated_day": 48,
   "selected_agent_names": [
     "Katana",
     "Oracle",
+    "Longshot",
     "Rook"
   ],
   "spec_ops_assets": [
@@ -2648,12 +2765,11 @@
       },
       "pilot_required": true,
       "action_points": 2,
-      "pilot_agent_name": "Agent 4",
+      "pilot_agent_name": "Katana",
       "deploy_cost": 15
     }
   ],
   "selected_asset_ids": [
-    "robot_000",
     "cat_armor_mantis_001"
   ],
   "latest_spec_ops_outcomes": [
@@ -2949,18 +3065,18 @@
     }
   ],
   "event_log": [
-    "2085.M02.D17: Longshot decompresses (1 stress relief, 91/100).",
-    "2085.M02.D17: Oracle decompresses (1 stress relief, 91/100).",
-    "2085.M02.D17: Katana decompresses (1 stress relief, 91/100).",
-    "Action: advance_day | Result: completed | Impact: Day 47 | Next: Proceed",
-    "2085.M02.D18: Day advanced (manual command); passive income +108.",
-    "2085.M02.D18: Pending fallout reviewed (6 active beats).",
-    "Expired event: Mutant Tunnel Surge fallout hits command.",
-    "2085.M02.D18: Rook decompresses (1 stress relief, 90/100).",
-    "2085.M02.D18: Longshot decompresses (1 stress relief, 90/100).",
     "2085.M02.D18: Oracle decompresses (1 stress relief, 90/100).",
     "2085.M02.D18: Katana decompresses (1 stress relief, 90/100).",
-    "Action: advance_day | Result: completed | Impact: Day 48 | Next: Proceed"
+    "Action: advance_day | Result: completed | Impact: Day 48 | Next: Proceed",
+    "Rook \u2014 psi focus: Psi Amplifier Crown",
+    "Rook \u2014 psi focus: Neural Spike",
+    "Rook \u2014 psi focus: Resonance Crystal",
+    "Rook \u2014 psi focus: Void Lens",
+    "Rook \u2014 psi focus: empty",
+    "Mantis Light Armor removed from deployment manifest.",
+    "Mantis Light Armor added to deployment manifest.",
+    "Katana assigned as pilot for Mantis Light Armor.",
+    "K-9 Combat Drone removed from deployment manifest."
   ],
   "active_events": [],
   "next_event_id": 6,
