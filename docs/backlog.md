@@ -1,6 +1,10 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-51 Combat movement unrestricted: removed terrain and occupancy gating from the battle window so player and enemy moves are no longer blocked by path rules inside combat. (completed May 28, 2026)
+- [x] UI-50 Battle map walkability masks: battle terrain now prefers explicit `*.walkable.png` sidecars instead of reading movement from the art directly, with a small generator tool so shipped maps can keep an editable collision layer. (completed May 28, 2026)
+- [x] UI-49 Terrain classifier correction: replaced the battle map brightness-only walkability guess with a brightness-plus-texture score so open ground and blocked objects no longer get treated the same just because they share similar lighting. (completed May 28, 2026)
+- [x] UI-48 Combat movement debug tint: temporarily color blocked movement tiles in a distinct red debug overlay across the whole battlefield, so terrain and occupancy path restrictions are visible everywhere while diagnosing path blocking. (completed May 28, 2026)
 - [x] UI-47 Battle HUD top bar stack: moved the contextual shortcut banner and the aftermath feedback strip to the top of the window, centering both lines, and increased their label size so tactical hints read as a single stacked HUD cluster instead of drifting over the map. (completed May 28, 2026)
 - [x] UI-46 Battle HUD shortcut banner center: centered the top help text banner so the active shortcut line reads from the middle of the window instead of hugging the left edge. (completed May 28, 2026)
 - [x] UI-45 Battle HUD active-unit panel dock: moved the lower-left portrait/stats card down to the bottom edge so the active agent readout anchors to the HUD base instead of floating above the portrait strip. (completed May 28, 2026)
