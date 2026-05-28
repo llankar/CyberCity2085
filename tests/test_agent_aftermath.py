@@ -202,6 +202,16 @@ class AgentAftermathTest(unittest.TestCase):
         )
         self.assertIn("Event Log Test", game_state.characters[0].history[0])
 
+    def test_battle_view_movement_is_unrestricted(self):
+        game_state = GameState(characters=[Character("Runner")])
+        battle_view = views.BattleView(game_state)
+        battle_view.player_units = [Unit(position=(0, 0), character=game_state.characters[0])]
+        battle_view.enemy_units = [Unit(position=(32, 0), unit_type="grunt")]
+        battle_view.terrain_profile = object()
+
+        self.assertTrue(battle_view.can_move_to(32, 0, exclude=battle_view.player_units[0]))
+        self.assertTrue(battle_view.can_move_to(999, 999, exclude=None))
+
     def test_dashboard_report_shows_latest_compact_aftermath_first(self):
         lines = [
             "Aftermath: One carries Old Job.",

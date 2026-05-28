@@ -1808,11 +1808,8 @@ class BattleView(GameView):
         )
 
     def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
-        """Return whether a unit can enter a tile after terrain and occupancy checks."""
-        profile = getattr(self, "terrain_profile", None)
-        if profile is not None and not profile.is_walkable(x, y):
-            return False
-        return not self.is_occupied(x, y, exclude=exclude)
+        """Combat movement is unrestricted in this battle slice."""
+        return True
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Check if a map position is occupied by any living unit."""
@@ -2392,37 +2389,21 @@ class BattleView(GameView):
                     self.end_battle(True)
                     return
         elif key == arcade.key.UP:
-            new_x, new_y = player.position[0], player.position[1] + 32
-            if self.can_move_to(new_x, new_y, exclude=player):
-                player.move(0, 32)
-                self._set_action_aftermath(action_label="MOVE")
-                self.game_state.mark_tutorial_event("used_battle_controls")
-            else:
-                self.message = "Terrain blocks that route."
+            player.move(0, 32)
+            self._set_action_aftermath(action_label="MOVE")
+            self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.DOWN:
-            new_x, new_y = player.position[0], player.position[1] - 32
-            if self.can_move_to(new_x, new_y, exclude=player):
-                player.move(0, -32)
-                self._set_action_aftermath(action_label="MOVE")
-                self.game_state.mark_tutorial_event("used_battle_controls")
-            else:
-                self.message = "Terrain blocks that route."
+            player.move(0, -32)
+            self._set_action_aftermath(action_label="MOVE")
+            self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.LEFT:
-            new_x, new_y = player.position[0] - 32, player.position[1]
-            if self.can_move_to(new_x, new_y, exclude=player):
-                player.move(-32, 0)
-                self._set_action_aftermath(action_label="MOVE")
-                self.game_state.mark_tutorial_event("used_battle_controls")
-            else:
-                self.message = "Terrain blocks that route."
+            player.move(-32, 0)
+            self._set_action_aftermath(action_label="MOVE")
+            self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.RIGHT:
-            new_x, new_y = player.position[0] + 32, player.position[1]
-            if self.can_move_to(new_x, new_y, exclude=player):
-                player.move(32, 0)
-                self._set_action_aftermath(action_label="MOVE")
-                self.game_state.mark_tutorial_event("used_battle_controls")
-            else:
-                self.message = "Terrain blocks that route."
+            player.move(32, 0)
+            self._set_action_aftermath(action_label="MOVE")
+            self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
         elif key == arcade.key.F:
