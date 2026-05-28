@@ -6,9 +6,10 @@ from functools import lru_cache
 from hashlib import sha1
 from pathlib import Path
 
-LEGACY_AGENT_PORTRAIT_COUNT = 74
+LEGACY_AGENT_PORTRAIT_COUNT = 124
 AGENT_PORTRAIT_COUNT = 50
-ROBOT_PORTRAIT_COUNT = 50
+ROBOT_PORTRAIT_COUNT = 75
+POWER_ARMOR_PORTRAIT_COUNT = 25
 PORTRAIT_COUNT = LEGACY_AGENT_PORTRAIT_COUNT
 PORTRAIT_DIR = "assets/ui/portraits"
 
@@ -69,11 +70,26 @@ def portrait_path_for_robot(identifier: str, role: str = "robot") -> str:
     return f"{PORTRAIT_DIR}/robot_combat.png"
 
 
+def portrait_path_for_power_armor(identifier: str, role: str = "power_armor") -> str:
+    """Return a stable generated portrait path for a power-armor identity."""
+    seed = f"{identifier.strip().lower()}:{role.strip().lower()}:armor"
+    index = _stable_index(seed, POWER_ARMOR_PORTRAIT_COUNT)
+    path = f"{PORTRAIT_DIR}/power_armor_{index:02d}.png"
+    if _portrait_exists(path):
+        return path
+    if "heavy" in role.strip().lower():
+        return f"{PORTRAIT_DIR}/power_armor_heavy_pilot.png"
+    return f"{PORTRAIT_DIR}/power_armor_pilot.png"
+
+
 def portrait_path_for_character(character) -> str:
     """Return a stable generated portrait path for a Character-like object."""
     role = getattr(character, "role", "samurai")
-    if str(role).lower() in {"robot", "combat_robot", "support_robot", "drone"}:
+    role_key = str(role).lower()
+    if role_key in {"robot", "combat_robot", "support_robot", "drone"}:
         return portrait_path_for_robot(getattr(character, "name", "robot"), role)
+    if role_key in {"power_armor", "heavy_armor"}:
+        return portrait_path_for_power_armor(getattr(character, "name", "armor"), role)
     return portrait_path_for_agent(
         getattr(character, "name", "agent"),
         role,
