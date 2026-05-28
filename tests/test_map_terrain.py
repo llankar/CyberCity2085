@@ -11,17 +11,48 @@ class MapTerrainTest(unittest.TestCase):
     def test_walkability_profile_reads_bright_and_dark_regions(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             path = Path(tmpdir) / "terrain.png"
-            img = Image.new("RGB", (64, 64), (18, 18, 18))
-            for x in range(32, 64):
+            img = Image.new("RGB", (96, 64), (18, 18, 18))
+            for x in range(48, 96):
                 for y in range(0, 64):
                     img.putpixel((x, y), (220, 220, 220))
             img.save(path)
 
-            profile = build_terrain_profile(str(path), 64, 64, forced_walkable=((0, 0),))
+            profile = build_terrain_profile(str(path), 96, 64, cell_size=16, forced_walkable=((0, 0),))
 
             self.assertFalse(profile.is_walkable(0, 64))
-            self.assertTrue(profile.is_walkable(32, 32))
+            self.assertTrue(profile.is_walkable(64, 32))
             self.assertTrue(profile.is_walkable(0, 0))
+
+    def test_texture_heavy_cells_are_not_treated_as_open_ground(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "terrain_texture.png"
+            img = Image.new("RGB", (96, 64), (120, 120, 120))
+            for x in range(48, 96):
+                for y in range(0, 64):
+                    tone = 80 if (x + y) % 2 == 0 else 160
+                    img.putpixel((x, y), (tone, tone, tone))
+            img.save(path)
+
+            profile = build_terrain_profile(str(path), 96, 64, cell_size=16, forced_walkable=((0, 0),))
+
+            self.assertTrue(profile.is_walkable(16, 32))
+            self.assertFalse(profile.is_walkable(64, 32))
+
+    def test_explicit_walkability_mask_overrides_map_art(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "mask_source.png"
+            mask_path = path.with_suffix(".walkable.png")
+            Image.new("RGB", (64, 64), (18, 18, 18)).save(path)
+            mask = Image.new("L", (64, 64), 0)
+            for x in range(32, 64):
+                for y in range(0, 64):
+                    mask.putpixel((x, y), 255)
+            mask.save(mask_path)
+
+            profile = build_terrain_profile(str(path), 64, 64, cell_size=16, forced_walkable=((0, 0),))
+
+            self.assertTrue(profile.is_walkable(48, 32))
+            self.assertFalse(profile.is_walkable(16, 32))
 
     def test_forced_walkable_creates_spawn_clearance_on_dark_maps(self):
         with tempfile.TemporaryDirectory() as tmpdir:
