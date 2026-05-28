@@ -76,9 +76,9 @@ python main.py
   candidates, each showing portrait-led profiles, a price tag, randomized stat
   spreads, skill ranks, background, and advantages before you hire
 - Agent portraits now pull from separate 50-face female and male pools, while
-  the legacy agent_01-style headshot pool now extends through 74 portraits, and
-  robot portraits use a 50-image pool to keep the hangar and recruit screens
-  from repeating the same image set
+  the legacy agent_01-style headshot pool now extends through 124 portraits,
+  robot portraits use a 75-image pool, and power-armor portraits use a 25-image
+  pool so the hangar and recruit screens keep rotating through the full set
 - Squad rooms show the current roster as graphical agent cards with role color,
   generated portraits, HP/stress bars, active-agent brackets, squad-selection
   marks, recovery warnings, and numbered upgrade pips

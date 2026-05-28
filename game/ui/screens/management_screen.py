@@ -64,7 +64,7 @@ from game.ui.management.action_requirements import (
 from game.ui.command_deck import build_corporate_finance_lines, build_event_panel_lines
 from game.ui.panels import draw_expanded_room_controls, draw_graphical_command_surface
 from game.ui.panels import draw_small_meter
-from game.ui.portraits import portrait_path_for_character, portrait_path_for_robot
+from game.ui.portraits import portrait_path_for_character, portrait_path_for_power_armor, portrait_path_for_robot
 from game.ui.room_interaction import (
     RoomUIState,
     action_at_point,
@@ -1116,6 +1116,9 @@ class ManagementView(GameView):
         if atype in {"combat_robot", "support_robot", "robot", "drone"}:
             identifier = getattr(asset, "id", getattr(asset, "name", atype))
             return portrait_path_for_robot(identifier, atype)
+        if atype in {"power_armor", "heavy_armor"}:
+            identifier = getattr(asset, "id", getattr(asset, "name", atype))
+            return portrait_path_for_power_armor(identifier, atype)
         return self._ASSET_PORTRAIT_MAP.get(atype, "assets/ui/portraits/robot_combat.png")
 
     def _draw_assets_tab(self, x0: int, y0: int, x1: int, y1: int) -> None:
