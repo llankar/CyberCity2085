@@ -17,6 +17,7 @@ Full XCOM2-style battle overlay:
 from __future__ import annotations
 
 import math
+from collections import deque
 from typing import TYPE_CHECKING
 
 import arcade
@@ -29,13 +30,16 @@ if TYPE_CHECKING:
 # ── Grid constants ──────────────────────────────────────────────────────────
 
 CELL = 32           # pixels per tile
-MOVE_RANGE = 3      # default AP moves for highlighting
+MOVE_RANGE = 1      # tiles per action point for movement preview
 ATTACK_RANGE_DEFAULT = 4
 
 # ── Palette aliases ──────────────────────────────────────────────────────────
 
 _GRID_COL       = (50,  100, 130,  18)
 _MOVE_COL       = (60,  160, 220,  28)
+_MOVE_BLOCKED_COL = (255,  90,  90,  90)  # temporary debug overlay for blocked tiles
+_PATH_BLOCK_TERRAIN_COL = (255,  80,  80,  62)
+_PATH_BLOCK_OCCUPIED_COL = (255, 190,  80,  72)
 _ATTACK_COL     = (255, 160,  60,  28)
 _ACTIVE_COL     = (120, 232, 180)
 _ENEMY_COL      = (255,  88,  76)
@@ -143,6 +147,46 @@ def draw_tactical_grid(width: int, height: int) -> None:
         arcade.draw_line(0, y, width, y, _GRID_COL, 1)
 
 
+def _movement_reachable_cells(
+    unit: "Unit",
+    width: int,
+    height: int,
+    *,
+    can_enter=None,
+) -> set[tuple[int, int]]:
+    """Return the tiles reachable with the remaining movement budget."""
+    if not unit or not unit.position:
+        return set()
+    moves = max(0, getattr(unit, "action_points", 0)) * MOVE_RANGE
+    start = unit.position
+    reachable: set[tuple[int, int]] = {start}
+    if moves <= 0:
+        return reachable
+
+    seen: set[tuple[int, int]] = {start}
+    queue = deque([(start[0], start[1], 0)])
+    while queue:
+        x, y, steps = queue.popleft()
+        if steps >= moves:
+            continue
+        for next_x, next_y in (
+            (x + CELL, y),
+            (x - CELL, y),
+            (x, y + CELL),
+            (x, y - CELL),
+        ):
+            if not (0 <= next_x < width and 0 <= next_y < height):
+                continue
+            if (next_x, next_y) in seen:
+                continue
+            if can_enter is not None and not can_enter(next_x, next_y):
+                continue
+            seen.add((next_x, next_y))
+            reachable.add((next_x, next_y))
+            queue.append((next_x, next_y, steps + 1))
+    return reachable
+
+
 def draw_movement_range(
     unit: "Unit",
     width: int,
@@ -150,22 +194,49 @@ def draw_movement_range(
     *,
     can_enter=None,
 ) -> None:
-    """Highlight cells the active unit can reach (Manhattan ≤ AP × MOVE_RANGE)."""
+    """Highlight cells the active unit can reach with the remaining AP budget."""
     if not unit or not unit.position:
         return
     ux, uy = unit.position
-    moves = max(1, getattr(unit, "action_points", 1)) * MOVE_RANGE
+    moves = max(0, getattr(unit, "action_points", 0)) * MOVE_RANGE
+    reachable = _movement_reachable_cells(unit, width, height, can_enter=can_enter)
     for dx in range(-moves, moves + 1):
         for dy in range(-moves, moves + 1):
             if abs(dx) + abs(dy) <= moves:
                 cx = ux + dx * CELL
                 cy = uy + dy * CELL
                 if 0 <= cx < width and 0 <= cy < height:
-                    if can_enter is not None and not can_enter(cx, cy):
-                        continue
-                    arcade.draw_lrbt_rectangle_filled(
-                        cx, cx + CELL, cy, cy + CELL, _MOVE_COL
-                    )
+                    col = _MOVE_COL if (cx, cy) in reachable else _MOVE_BLOCKED_COL
+                    arcade.draw_lrbt_rectangle_filled(cx, cx + CELL, cy, cy + CELL, col)
+
+
+def draw_path_blocking_overlay(
+    terrain_profile,
+    player_units: list["Unit"],
+    enemy_units: list["Unit"],
+    width: int,
+    height: int,
+) -> None:
+    """Draw a whole-map overlay for blocked movement tiles."""
+    if terrain_profile is None:
+        return
+
+    occupied: set[tuple[int, int]] = {
+        unit.position
+        for unit in [*player_units, *enemy_units]
+        if unit and getattr(unit, "health", 0) > 0 and getattr(unit, "position", None)
+    }
+    for x in range(0, width + CELL, CELL):
+        for y in range(0, height + CELL, CELL):
+            cell = (x, y)
+            if cell in occupied:
+                arcade.draw_lrbt_rectangle_filled(
+                    x, x + CELL, y, y + CELL, _PATH_BLOCK_OCCUPIED_COL
+                )
+            elif not terrain_profile.is_walkable(x, y):
+                arcade.draw_lrbt_rectangle_filled(
+                    x, x + CELL, y, y + CELL, _PATH_BLOCK_TERRAIN_COL
+                )
 
 
 def draw_attack_range(

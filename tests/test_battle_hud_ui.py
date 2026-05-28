@@ -70,6 +70,14 @@ class _DummyUnit:
         self.position = (128, 128)
 
 
+class _DummyTerrainProfile:
+    def __init__(self, walkable_cells: set[tuple[int, int]]):
+        self.walkable_cells = frozenset(walkable_cells)
+
+    def is_walkable(self, x: int, y: int) -> bool:
+        return (x, y) in self.walkable_cells
+
+
 class BattleHUDUITest(unittest.TestCase):
     def setUp(self) -> None:
         captured_draw_text.clear()
@@ -135,6 +143,62 @@ class BattleHUDUITest(unittest.TestCase):
         ]
         self.assertTrue(status_panels, "expected the active-unit panel at the bottom-left edge")
         self.assertEqual(status_panels[0][2], 12.0)
+
+    def test_movement_range_marks_blocked_tiles_with_debug_color(self) -> None:
+        player = _DummyUnit("Agent 1", "sniper")
+
+        battle_hud.draw_movement_range(
+            player,
+            320,
+            320,
+            can_enter=lambda x, y: (x, y) != (160, 128),
+        )
+
+        blocked = [
+            rect
+            for rect in captured_rects
+            if rect[0] == 160.0 and rect[1] == 192.0 and rect[2] == 128.0 and rect[3] == 160.0
+        ]
+        walkable = [
+            rect
+            for rect in captured_rects
+            if rect[0] == 128.0 and rect[1] == 160.0 and rect[2] == 128.0 and rect[3] == 160.0
+        ]
+        path_blocked = [
+            rect
+            for rect in captured_rects
+            if rect[0] == 192.0 and rect[1] == 224.0 and rect[2] == 128.0 and rect[3] == 160.0
+        ]
+        self.assertTrue(blocked, "expected the blocked tile to be drawn for debugging")
+        self.assertEqual(blocked[0][4], battle_hud._MOVE_BLOCKED_COL)
+        self.assertTrue(walkable, "expected adjacent walkable tiles to retain the normal color")
+        self.assertEqual(walkable[0][4], battle_hud._MOVE_COL)
+        self.assertTrue(path_blocked, "expected tiles behind a blocked route to be marked as blocked")
+        self.assertEqual(path_blocked[0][4], battle_hud._MOVE_BLOCKED_COL)
+
+    def test_path_blocking_overlay_covers_the_whole_map(self) -> None:
+        player = _DummyUnit("Agent 1", "sniper")
+        enemy = _DummyUnit("Enemy 1", "grunt")
+        player.position = (32, 32)
+        enemy.position = (64, 64)
+        profile = _DummyTerrainProfile({(32, 32), (64, 64)})
+
+        battle_hud.draw_path_blocking_overlay(profile, [player], [enemy], 128, 128)
+
+        far_blocked = [
+            rect
+            for rect in captured_rects
+            if rect[0] == 96.0 and rect[1] == 128.0 and rect[2] == 96.0 and rect[3] == 128.0
+        ]
+        occupied = [
+            rect
+            for rect in captured_rects
+            if rect[0] == 32.0 and rect[1] == 64.0 and rect[2] == 32.0 and rect[3] == 64.0
+        ]
+        self.assertTrue(far_blocked, "expected blocked tiles across the map, not only near agents")
+        self.assertEqual(far_blocked[0][4], battle_hud._PATH_BLOCK_TERRAIN_COL)
+        self.assertTrue(occupied, "expected occupied tiles to be highlighted on the full map")
+        self.assertEqual(occupied[0][4], battle_hud._PATH_BLOCK_OCCUPIED_COL)
 
     def test_shortcut_banner_centers_the_help_text(self) -> None:
         battle_hud.draw_battle_shortcut_banner(
