@@ -2100,13 +2100,14 @@ class BattleView(GameView):
         draw_unit_status_panel(w, h, active_unit, self.turn)
         draw_battle_shortcut_banner(
             w,
+            h,
             battle_shortcut_banner(
                 getattr(self, "last_input_mode", "keyboard_mouse"),
                 self.selecting_target,
                 getattr(self, "pending_end_turn_confirmation", False),
             ),
         )
-        draw_action_aftermath_line(w, self._aftermath_line if self._aftermath_timer > 0 else "")
+        draw_action_aftermath_line(w, h, self._aftermath_line if self._aftermath_timer > 0 else "")
 
         # ── Combat action bar ─────────────────────────────────────────────
         if self.turn == "player" and active_unit:

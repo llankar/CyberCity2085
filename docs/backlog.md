@@ -1,6 +1,9 @@
 
 ## Gameplay systems explicit status
 
+- [x] UI-47 Battle HUD top bar stack: moved the contextual shortcut banner and the aftermath feedback strip to the top of the window, centering both lines, and increased their label size so tactical hints read as a single stacked HUD cluster instead of drifting over the map. (completed May 28, 2026)
+- [x] UI-46 Battle HUD shortcut banner center: centered the top help text banner so the active shortcut line reads from the middle of the window instead of hugging the left edge. (completed May 28, 2026)
+- [x] UI-45 Battle HUD active-unit panel dock: moved the lower-left portrait/stats card down to the bottom edge so the active agent readout anchors to the HUD base instead of floating above the portrait strip. (completed May 28, 2026)
 - [x] UI-44 Agent and asset portrait expansion: added 50 new legacy agent portraits plus 50 new asset portraits split across power armor and robot pools, and routed the UI to use the full expanded sets so agents and spec-ops assets stop repeating the same faces. (completed May 28, 2026)
 - [x] UI-43 Legacy agent portrait expansion: added 50 new generic agent headshots in the original agent_01..agent_24 cyberpunk style, now extending the legacy fallback pool through agent_74 so the oldest roster routes still have fresh faces. (completed May 27, 2026)
 - [x] UI-42 Agent sheet spacing pass: the full dossier now gives the readiness stats a calmer two-row layout, separates the recovery/status lines from the stress meter, lowers the stress bar itself, and moves the skill training control into a full-width banner so the sheet no longer feels cramped. (updated May 27, 2026)

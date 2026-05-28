@@ -69,22 +69,67 @@ def battle_shortcut_banner(input_mode: str, selecting_target: bool, pending_end_
     return "Raccourcis actifs: " + " | ".join(hints)
 
 
-def draw_battle_shortcut_banner(width: int, text: str) -> None:
-    """Draw a thin contextual shortcut banner above the combat action bar."""
-    y = _COMBAT_BAR_TOP + _STRIP_H + 108
-    arcade.draw_lrbt_rectangle_filled(12, width - 12, y, y + 24, (0, 0, 0, 175))
-    arcade.draw_line(12, y + 24, width - 12, y + 24, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_text(text, 22, y + 12, palette.TEXT, 10, anchor_y="center")
+def _draw_top_centered_banner(
+    width: int,
+    height: int,
+    text: str,
+    *,
+    bottom_offset: int,
+    banner_ratio: float,
+    min_width: int,
+    max_width: int | None = None,
+    text_color=palette.TEXT,
+    font_size: int = 10,
+) -> None:
+    banner_cap = width - 24
+    if max_width is not None:
+        banner_cap = min(banner_cap, max_width)
+    banner_w = min(banner_cap, max(min_width, int(width * banner_ratio)))
+    left = (width - banner_w) // 2
+    right = left + banner_w
+    bottom = max(0, height - bottom_offset)
+    top = bottom + 24
+    arcade.draw_lrbt_rectangle_filled(left, right, bottom, top, (0, 0, 0, 175))
+    arcade.draw_line(left, top, right, top, palette.PANEL_BORDER_MUTED, 1)
+    arcade.draw_text(
+        text,
+        width // 2,
+        bottom + 12,
+        text_color,
+        font_size,
+        anchor_x="center",
+        anchor_y="center",
+    )
 
 
-def draw_action_aftermath_line(width: int, text: str | None) -> None:
+def draw_battle_shortcut_banner(width: int, height: int, text: str) -> None:
+    """Draw a thin contextual shortcut banner at the top-center of the screen."""
+    _draw_top_centered_banner(
+        width,
+        height,
+        text,
+        bottom_offset=60,
+        banner_ratio=0.62,
+        min_width=620,
+        font_size=12,
+    )
+
+
+def draw_action_aftermath_line(width: int, height: int, text: str | None) -> None:
     """Draw a fixed HUD slot for temporary action-causality feedback."""
     if not text:
         return
-    y = _COMBAT_BAR_TOP + _STRIP_H + 80
-    arcade.draw_lrbt_rectangle_filled(12, width - 12, y, y + 24, (0, 0, 0, 175))
-    arcade.draw_line(12, y, width - 12, y, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_text(text, 22, y + 12, palette.TACTICAL_GREEN, 10, anchor_y="center")
+    _draw_top_centered_banner(
+        width,
+        height,
+        text,
+        bottom_offset=88,
+        banner_ratio=0.42,
+        min_width=320,
+        max_width=680,
+        text_color=palette.TACTICAL_GREEN,
+        font_size=12,
+    )
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Grid & range overlays
@@ -632,7 +677,7 @@ def draw_unit_status_panel(
     pw = 320
     ph = 90
     px = 12
-    py = _COMBAT_BAR_TOP + _STRIP_H + 12  # sit above the portrait strip
+    py = 12  # dock to the bottom-left edge instead of floating above the strip
 
     # Top border colour indicates whose turn it is
     turn_col = _PHASE_PLAYER if turn == "player" else (_PHASE_ENEMY if turn == "enemy" else _PHASE_END)
