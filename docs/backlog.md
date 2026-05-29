@@ -1,4 +1,31 @@
 
+## Mission View Professional Upgrade — Planned
+
+Three-phase plan to bring the battle/mission view to professional tactical-RPG standard. Tasks are tracked in `tools/docs/generate_docs.py` (BATTLE-* entries) and will be promoted to the roadmap on next generation run.
+
+### Phase 1 — Visual Polish & In-Battle UX
+
+- [ ] BATTLE-P01 Camera pan: activate existing Camera2D with Shift+arrows; Home re-centers on active unit; clamp to map bounds. Keeps HUD screen-anchored.
+- [ ] BATTLE-P02 Floating damage numbers: short-lived text sprites above hit units (`-N` red, `+N` green, `MISS` grey); float 40 px upward, fade over 0.8 s; separate `damage_popups` list in BattleView.
+- [ ] BATTLE-P03 Action bar icon pass: extend `draw_action_button` in `battle_hud.py` to accept Unicode icon glyph + label; no new assets required.
+- [ ] BATTLE-P04 In-battle pause menu: Escape key during player turn opens Resume/Settings/Abandon overlay; Abandon reuses `confirm_dialog.py`; blocked during enemy turn.
+- [ ] BATTLE-P05 Combat log side panel: promote existing `combat_log_panel.py` to player-accessible Tab-toggle side column (8 events, category icons).
+
+### Phase 2 — Full Mission Arc
+
+- [ ] BATTLE-A01 Mission Briefing Screen: new `MissionBriefingView` between management launch and BattleView — shows mission name/objectives/intel/map thumbnail/squad roster/emotional impact hint; DEPLOY or ABORT actions. Route through `management_screen.py::_do_launch_mission`.
+- [ ] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 — highlighted deployment zone, movable unit sprites, DEPLOYMENT phase banner, Enter to begin; enemy units hidden until battle starts.
+- [ ] BATTLE-A03 Enhanced Post-battle Debrief: new `battle_debrief_view.py` — left panel per-agent stats (damage/kills/AP), right panel objectives+rewards+stress+narrative lines from `DebriefReport`; CONTINUE routes back to management.
+
+### Phase 3 — Gameplay Depth
+
+- [ ] BATTLE-G01 Terrain pathfinding: wire `can_move_to()` in `combat_system.py` to existing `terrain_profile` walkability mask + occupancy check; enemy AI respects same rules.
+- [ ] BATTLE-G02 Enhanced enemy AI: cover-seeking before attacking; flanking preference using `cover_system.py::flanking_detection`; commander subtype buffs adjacent grunt/heavy AGI.
+- [ ] BATTLE-G03 Dynamic mid-battle events: extend `complications.py` with `in_battle_effect` field; trigger reinforcements/blackout/timer via `_check_complications(turn_number)` in `start_player_turn()`; show complication flash banner.
+- [ ] BATTLE-G04 Status effects: add `status_effects: list[str]` to `Unit`; support `suppressed` (−2 move AP), `bleeding` (−1 HP/turn), `stunned` (skip next action); icon badges on unit labels in HUD.
+
+---
+
 ## Gameplay systems explicit status
 
 - [x] UI-51 Combat movement unrestricted: removed terrain and occupancy gating from the battle window so player and enemy moves are no longer blocked by path rules inside combat. (completed May 28, 2026)

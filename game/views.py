@@ -117,6 +117,7 @@ from .deployment import (
     toggle_agent_selection,
     toggle_asset_selection,
 )
+from .audio import SoundManager
 from .ui import palette
 from .ui.combat_action_bar import (
     combat_action_at_point,
@@ -1704,6 +1705,9 @@ class BattleView(GameView):
             self.map_path = None
             self.terrain_profile = None
         self.camera = arcade.Camera2D()
+        self.gui_camera = arcade.Camera2D()
+        self._cam_pan_x = 0.0
+        self._cam_pan_y = 0.0
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
@@ -1779,6 +1783,30 @@ class BattleView(GameView):
         self.last_input_mode = "keyboard_mouse"
         self._aftermath_line = ""
         self._aftermath_timer = 0.0
+        # Phase 1 polish features
+        self.damage_popups: list[dict] = []
+        self._paused = False
+        self._pause_buttons: list = []
+        self._show_combat_log = False
+        self.combat_log_messages: list[str] = []
+        # Phase 2-A02: pre-battle deployment phase
+        self._deploying = True
+        self._deploy_cursor = 0  # which player unit is being repositioned
+        # Phase 4: VFX
+        self.particles: list[dict] = []
+        self._unit_flashes: dict[int, dict] = {}
+        self._death_rings: list[dict] = []
+        self._muzzle_flashes: list[dict] = []
+        self._psi_waves: list[dict] = []
+        self._shake_intensity: float = 0.0
+        # Phase 4: sound
+        from game.audio import SoundManager
+        from game.ui.screens.settings_screen import SettingsState
+        _snd = SoundManager.get()
+        _snd.ensure_loaded()
+        from game.ui.screens.settings_screen import load_settings as _load_settings
+        _snd.configure_from_settings(_load_settings())
+        _snd.play_music("music_battle", loop=True)
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.cover_system import generate_cover_nodes
         self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
@@ -1808,7 +1836,15 @@ class BattleView(GameView):
         )
 
     def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
-        """Combat movement is unrestricted in this battle slice."""
+        """Return True when (x, y) is on walkable terrain.
+
+        Occupancy is intentionally not checked here (UI-51: player movement
+        stays unrestricted so melee positioning remains fluid). Terrain
+        obstacles from the walkability mask are still respected.
+        """
+        profile = getattr(self, "terrain_profile", None)
+        if profile is not None and hasattr(profile, "is_walkable") and not profile.is_walkable(x, y):
+            return False
         return True
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
@@ -1817,18 +1853,131 @@ class BattleView(GameView):
             x, y, self.player_units, self.enemy_units, exclude=exclude
         )
 
+    # ── In-battle complication keys that have active effects ──────────────────
+    _COMPLICATION_EFFECTS: dict[str, str] = {
+        "mod_rapid_response": "reinforcements",
+        "rapid_response":     "reinforcements",
+        "mod_watcher_drone":  "blackout",
+        "watcher_drone":      "blackout",
+        "mod_counterintel_ping": "blackout",
+        "counterintel_ping":  "blackout",
+    }
+
+    def _check_complications(self, turn_number: int) -> None:
+        """Trigger mid-battle complication effects keyed to turn milestones."""
+        if not self.mission:
+            return
+        triggered = getattr(self, "_triggered_complication_keys", set())
+        if not hasattr(self, "_triggered_complication_keys"):
+            self._triggered_complication_keys: set[str] = set()
+            triggered = self._triggered_complication_keys
+
+        for comp in self.mission.possible_complications or []:
+            key = comp.key
+            effect = self._COMPLICATION_EFFECTS.get(key)
+            if not effect or key in triggered:
+                continue
+            # Reinforcements fire on turn 3
+            if effect == "reinforcements" and turn_number >= 3:
+                triggered.add(key)
+                self._spawn_reinforcements(comp.name)
+            # Blackout fires on turn 2
+            elif effect == "blackout" and turn_number >= 2:
+                triggered.add(key)
+                self._trigger_blackout(comp.name)
+
+    def _spawn_reinforcements(self, comp_name: str) -> None:
+        """Spawn 2 grunt reinforcements from a random map edge."""
+        import random as _rnd
+        from game.stats import EnemyStats
+        w = getattr(self.window, "width", 1280)
+        h = getattr(self.window, "height", 720)
+        edges = [(32, _rnd.randint(64, h - 64)), (w - 32, _rnd.randint(64, h - 64))]
+        spawned = 0
+        for ex, ey in edges[:2]:
+            if spawned >= 2:
+                break
+            stats = EnemyStats(hp=4, max_hp=4, agi=2, defense=1)
+            new_enemy = Unit(
+                position=(ex, ey),
+                stats=stats,
+                unit_type="grunt",
+                enemy_subtype="grunt",
+                health=4,
+                action_points=2,
+                attack_range=1,
+            )
+            try:
+                sprite = arcade.Sprite(
+                    "assets/enemy.png",
+                    center_x=ex,
+                    center_y=ey,
+                )
+                new_enemy.sprite = sprite
+                self.enemy_list.append(sprite)
+            except Exception:
+                pass
+            self.enemy_units.append(new_enemy)
+            spawned += 1
+        self._snd().play("sfx_reinforce")
+        self._add_screen_shake(10)
+        for eu in self.enemy_units[-spawned:]:
+            self._spawn_particles(*eu.position, count=14, color=(255, 60, 40))
+        self.message = f"COMPLICATION: {comp_name} — Reinforcements incoming!"
+        self.combat_log_messages.append(f"⚠ REINFORCEMENTS: {comp_name}")
+        self._aftermath_line = f"COMPLICATION: {comp_name}"
+        self._aftermath_timer = 3.0
+
+    def _trigger_blackout(self, comp_name: str) -> None:
+        """Reduce fog-of-war sight radius for 2 turns."""
+        # Patch the FOG sight radius constant in battle_hud temporarily
+        try:
+            import game.ui.screens.battle_hud as _hud
+            if not hasattr(self, "_original_fog_radius"):
+                self._original_fog_radius = getattr(_hud, "_FOG_SIGHT_RADIUS", 5)
+                _hud._FOG_SIGHT_RADIUS = 3
+                self._blackout_turns_left = 2
+        except Exception:
+            pass
+        self.message = f"COMPLICATION: {comp_name} — Visibility reduced!"
+        self.combat_log_messages.append(f"⚠ BLACKOUT: {comp_name}")
+        self._aftermath_line = f"COMPLICATION: {comp_name}"
+        self._aftermath_timer = 3.0
+
     def start_player_turn(self):
         for unit in self.player_units:
+            msgs = unit.tick_status_effects()
+            for msg in msgs:
+                if "bleeding" in msg:
+                    name = unit.character.name if unit.character else unit.unit_type
+                    self.combat_log_messages.append(f"{name} is bleeding (-1 HP)")
+                    self._snd().play("sfx_bleed", 0.7)
+                    self._spawn_particles(*unit.position, count=5, color=(200, 40, 40))
             unit.reset_actions()
         if self.turn == "enemy":
             self.turn_number += 1
         self.turn = "player"
         self.active_index = 0
+        self.combat_log_messages.append(f"── Turn {self.turn_number} ──")
+        self._snd().play("sfx_turn_player")
+        # Tick blackout duration
+        if hasattr(self, "_blackout_turns_left"):
+            self._blackout_turns_left -= 1
+            if self._blackout_turns_left <= 0:
+                try:
+                    import game.ui.screens.battle_hud as _hud
+                    _hud._FOG_SIGHT_RADIUS = getattr(self, "_original_fog_radius", 5)
+                    del self._blackout_turns_left
+                    del self._original_fog_radius
+                except Exception:
+                    pass
+        self._check_complications(self.turn_number)
 
     def start_enemy_turn(self):
         for enemy in self.enemy_units:
             enemy.reset_actions()
         self.turn = "enemy"
+        self._snd().play("sfx_turn_enemy")
         self.run_enemy_ai()
         if not self.player_units:
             self.end_battle(False)
@@ -1897,12 +2046,41 @@ class BattleView(GameView):
         self.game_state.latest_spec_ops_outcomes = outcomes
         for line in aftermath_lines:
             self.game_state.add_event(line)
-        # Return to the unified management screen (Squad tab) after battle.
-        from game.ui.screens.management_screen import ManagementView
-        mgmt = ManagementView(self.game_state)
-        mgmt.setup()
-        mgmt.active_tab = "squad"
-        self.window.show_view(mgmt)
+
+        # Sound: victory fanfare or defeat tone; stop battle music
+        self._snd().stop_music()
+        self._snd().play("sfx_victory" if victory else "sfx_defeat")
+        if victory and hasattr(self, "_death_rings"):
+            _wc = getattr(self.window, "width", 1280) // 2
+            _hc = getattr(self.window, "height", 720) // 2
+            self._spawn_death_ring(_wc, _hc, color=(60, 220, 120))
+            self._add_screen_shake(6)
+
+        # Build per-agent debrief stats from tracked data
+        from game.ui.screens.battle_debrief_view import AgentDebriefStat, BattleDebriefView
+        from game.ui.portraits import portrait_path_for_character
+        agent_stats: list[AgentDebriefStat] = []
+        for unit in all_player_units:
+            if not unit.character:
+                continue
+            try:
+                portrait = portrait_path_for_character(unit.character)
+            except Exception:
+                portrait = None
+            old_stress = getattr(unit.character, "_pre_battle_stress", unit.character.stress)
+            agent_stats.append(AgentDebriefStat(
+                name=unit.character.name,
+                role=unit.character.role,
+                portrait_path=portrait,
+                damage_dealt=getattr(unit, "_damage_dealt", 0),
+                damage_taken=getattr(unit, "_damage_taken", 0),
+                actions_used=getattr(unit, "_actions_used", 0),
+                kills=getattr(unit, "_kills", 0),
+                kia=(unit.health <= 0),
+                stress_delta=unit.character.stress - old_stress,
+            ))
+
+        self.window.show_view(BattleDebriefView(self.game_state, victory, self.mission, agent_stats))
 
     def resolve_defeated_player_unit(self, unit: Unit) -> None:
         """Resolve a downed agent's vertical-slice post-battle outcome."""
@@ -1927,22 +2105,51 @@ class BattleView(GameView):
 
     def run_enemy_ai(self):
         def on_attack(enemy: Unit, target: Unit, damage: int) -> None:
+            from game.unit import STATUS_STUNNED, STATUS_SUPPRESSED
             target_name = target.character.name if target.character else "agent"
             self.message = f"Enemy hits {target_name} for {damage}"
+            self._add_damage_popup(target, damage)
+            self.combat_log_messages.append(f"Enemy → {target_name}: {damage} dmg")
+            # Sound + VFX
+            self._snd().play("sfx_fire", 0.6)
+            self._spawn_muzzle_flash(*enemy.position)
+            if damage > 0:
+                self._snd().play("sfx_hit", 0.8)
+                self._spawn_particles(*target.position, count=10, color=(255, 80, 50))
+                self._flash_unit(target, color=(255, 60, 60))
+                self._add_screen_shake(8)
+                # Heavy melee applies STUNNED
+                if enemy.enemy_subtype == "heavy" and enemy.distance_to(target) <= 32:
+                    target.apply_status(STATUS_STUNNED)
+                    self._snd().play("sfx_stun", 0.9)
+                    self._flash_unit(target, color=(160, 100, 255), duration=0.25)
+                    self.combat_log_messages.append(f"{target_name} is stunned!")
             self.start_attack_animation(enemy, target)
             self._flash_hit   = False
             self._flash_alpha = 140
 
         def on_defeated(target: Unit) -> None:
+            self._snd().play("sfx_death")
+            self._spawn_death_ring(*target.position, color=(200, 60, 60))
+            self._spawn_particles(*target.position, count=16, color=(220, 50, 30))
+            self._add_screen_shake(10)
             if target.sprite:
                 target.sprite.kill()
             if self.active_index > 0:
                 self.active_index = min(self.active_index - 1, len(self.player_units))
 
         def on_overwatch_shot(watcher: Unit, enemy: Unit, damage: int) -> None:
+            from game.unit import STATUS_SUPPRESSED
             watcher_name = watcher.character.name if watcher.character else "Agent"
+            self._snd().play("sfx_fire", 0.75)
+            self._spawn_muzzle_flash(*watcher.position)
             if damage > 0:
                 self.message = f"OVERWATCH! {watcher_name} hits for {damage}"
+                enemy.apply_status(STATUS_SUPPRESSED)
+                self.combat_log_messages.append(f"Overwatch! Enemy suppressed.")
+                self._spawn_particles(*enemy.position, count=8, color=(255, 200, 60))
+                self._flash_unit(enemy, color=(255, 200, 60))
+                self._add_screen_shake(4)
                 self.start_attack_animation(watcher, enemy)
                 self._flash_hit   = True
                 self._flash_alpha = 200
@@ -1957,6 +2164,7 @@ class BattleView(GameView):
             on_defeated=on_defeated,
             on_overwatch_shot=on_overwatch_shot,
             can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
+            cover_nodes=getattr(self, "cover_nodes", None),
         )
 
     def on_draw(self):
@@ -1984,6 +2192,17 @@ class BattleView(GameView):
         )
 
         self.clear()
+
+        w, h = self.window.width, self.window.height
+
+        # ── World camera (panned + shake) ────────────────────────────────
+        import random as _rr
+        sx = _rr.uniform(-1, 1) * self._shake_intensity if self._shake_intensity > 0 else 0.0
+        sy = _rr.uniform(-1, 1) * self._shake_intensity if self._shake_intensity > 0 else 0.0
+        self.camera.position = arcade.Vec2(
+            w / 2 + self._cam_pan_x + sx,
+            h / 2 + self._cam_pan_y + sy,
+        )
         self.camera.use()
 
         # ── Pre-battle drop-zone selection ──────────────────────────────
@@ -1997,8 +2216,6 @@ class BattleView(GameView):
                 available_funds=self.game_state.available_funds,
             )
             return
-
-        w, h = self.window.width, self.window.height
 
         # ── Background map ───────────────────────────────────────────────
         if self.background:
@@ -2071,6 +2288,34 @@ class BattleView(GameView):
             arcade.draw_line(x1, y1, x2, y2, palette.WARNING, 3)
             # Bright flash at impact point
             arcade.draw_lrbt_rectangle_filled(x2 - 8, x2 + 8, y2 - 8, y2 + 8, (*palette.WARNING[:3], 180))
+
+        # ── Advanced VFX (world space) ───────────────────────────────────
+        from game.ui.screens.battle_hud import (
+            draw_damage_popups,
+            draw_particles,
+            draw_hit_flashes,
+            draw_death_rings,
+            draw_muzzle_flashes,
+            draw_psi_waves,
+        )
+        draw_muzzle_flashes(self._muzzle_flashes)
+        draw_psi_waves(self._psi_waves)
+        all_units = self.player_units + self.enemy_units
+        draw_hit_flashes(all_units, self._unit_flashes)
+        draw_particles(self.particles)
+        draw_death_rings(self._death_rings)
+
+        # ── Floating damage numbers (world space) ────────────────────────
+        draw_damage_popups(self.damage_popups)
+
+        # ── Switch to GUI camera (screen-fixed HUD) ──────────────────────
+        self.gui_camera.use()
+
+        # ── Deployment phase overlay (intercepts HUD) ────────────────────
+        if self._deploying:
+            from game.ui.screens.battle_hud import draw_deployment_overlay
+            draw_deployment_overlay(w, h, self.player_units, self._deploy_cursor, elapsed)
+            return
 
         # ── Mission status bar (top) ──────────────────────────────────────
         draw_mission_status_bar(
@@ -2149,6 +2394,16 @@ class BattleView(GameView):
                 anchor_x="center", anchor_y="center",
             )
 
+        # ── Combat log side panel (Tab toggle) ──────────────────────────
+        if self._show_combat_log:
+            from game.ui.screens.battle_hud import draw_combat_log_side_panel
+            draw_combat_log_side_panel(w, h, self.combat_log_messages)
+
+        # ── Pause overlay (Escape) ───────────────────────────────────────
+        if self._paused:
+            from game.ui.screens.battle_hud import draw_pause_overlay
+            self._pause_buttons = draw_pause_overlay(w, h)
+
     def _begin_target_action(self, player: Unit, attack_key: str) -> None:
         """Enter target selection for an available combat-bar attack."""
         if attack_key == "melee":
@@ -2197,7 +2452,11 @@ class BattleView(GameView):
             player.health = min(player.stats.max_hp, player.health + 2)
             player.stats.hp = player.health
             player.action_points -= 1
-            self.message = f"First aid restores {player.health - before} HP."
+            healed = player.health - before
+            self.message = f"First aid restores {healed} HP."
+            if healed > 0:
+                self._spawn_particles(*player.position, count=10, color=(60, 220, 120))
+                self._flash_unit(player, color=(60, 220, 120))
             self._set_action_aftermath(
                 action_label="SKILL",
                 status_applied=f"+{player.health - before} HP",
@@ -2252,7 +2511,7 @@ class BattleView(GameView):
                 self.window.show_view(mgmt)
             return
 
-        if key == arcade.key.S:
+        if key == arcade.key.S and not (modifiers & arcade.key.MOD_SHIFT):
             self.last_input_mode = "keyboard_mouse"
             result = _save_to_selected_slot(self)
             self.game_state.add_event(push_action(self.notifications, "save", result.ok, result.message))
@@ -2262,6 +2521,41 @@ class BattleView(GameView):
             self.game_state.add_event(push_action(self.notifications, "load", result.ok, result.message))
             if loaded is not None:
                 self.game_state = loaded
+            return
+
+        # ── Pause menu guard ─────────────────────────────────────────────
+        if self._paused:
+            if key == arcade.key.ESCAPE:
+                self._paused = False
+            return
+
+        # ── Tab: toggle combat log side panel ────────────────────────────
+        if key == arcade.key.TAB:
+            self._show_combat_log = not self._show_combat_log
+            return
+
+        # ── Camera pan: Shift + arrows (works any turn) ──────────────────
+        _PAN = 64  # 2 grid cells per step
+        if modifiers & arcade.key.MOD_SHIFT:
+            if key == arcade.key.LEFT:
+                self._cam_pan_x -= _PAN
+            elif key == arcade.key.RIGHT:
+                self._cam_pan_x += _PAN
+            elif key == arcade.key.UP:
+                self._cam_pan_y += _PAN
+            elif key == arcade.key.DOWN:
+                self._cam_pan_y -= _PAN
+            return
+
+        # ── Home: re-center camera on active unit ────────────────────────
+        if key == arcade.key.HOME:
+            self._cam_pan_x = 0.0
+            self._cam_pan_y = 0.0
+            return
+
+        # ── Deployment phase input ───────────────────────────────────────
+        if self._deploying:
+            self._handle_deployment_key(key)
             return
 
         if self.turn != "player" or not self.player_units:
@@ -2301,30 +2595,42 @@ class BattleView(GameView):
                     damage = player.shoot(target)
                 else:
                     damage = player.psi_attack(target)
+                self._add_damage_popup(target, damage)
+                atk_type = self.pending_attack or "shoot"
+                # Sound
+                _sfx_map = {"melee": "sfx_melee", "shoot": "sfx_fire", "psi": "sfx_psi"}
+                self._snd().play(_sfx_map.get(atk_type, "sfx_fire"))
+                # Muzzle flash at attacker
+                self._spawn_muzzle_flash(*player.position)
                 if damage > 0:
-                    atk_name = {
-                        "melee": "slashes",
-                        "shoot": "shoots",
-                        "psi": "psy hits",
-                    }[self.pending_attack]
+                    atk_name = {"melee": "slashes", "shoot": "shoots", "psi": "psy hits"}[atk_type]
                     attacker_name = (
-                        player.character.name
-                        if player.character
-                        else player.spec_ops_asset.name
-                        if player.spec_ops_asset
+                        player.character.name if player.character
+                        else player.spec_ops_asset.name if player.spec_ops_asset
                         else player.unit_type
                     )
                     cover_note = " (through cover)" if target.in_cover_bonus > 0 else ""
                     self.message = f"{attacker_name} {atk_name} for {damage}{cover_note}"
+                    self.combat_log_messages.append(f"{attacker_name} → {damage} dmg")
                     self.start_attack_animation(player, target)
                     self._flash_hit   = True
                     self._flash_alpha = 160
+                    # VFX on target
+                    self._snd().play("sfx_hit", 0.7)
+                    _col = (90, 160, 255) if atk_type == "psi" else (255, 180, 60)
+                    self._spawn_particles(*target.position, count=12, color=_col)
+                    self._flash_unit(target, color=_col[:3])
+                    if atk_type == "psi":
+                        self._spawn_psi_wave(*player.position)
+                    _shake = 5 if atk_type == "melee" else 3
+                    self._add_screen_shake(_shake)
                 else:
-                    # Miss — red flash; cover blocking is the likely cause
                     cover_note = " — cover blocked!" if target.in_cover_bonus > 0 else " — miss!"
                     self._flash_hit   = False
                     self._flash_alpha = 120
                     self.message = f"Attack missed{cover_note}"
+                    self.combat_log_messages.append(f"Attack missed{cover_note}")
+                    self._snd().play("sfx_miss")
                 self._set_action_aftermath(
                     action_label=(self.pending_attack or "ACTION").upper(),
                     damage=damage,
@@ -2334,6 +2640,10 @@ class BattleView(GameView):
 
                 # ── Remove killed enemy immediately (hit or pre-existing death) ──
                 if target.health <= 0:
+                    self._snd().play("sfx_death")
+                    self._spawn_death_ring(*target.position, color=(255, 80, 60))
+                    self._spawn_particles(*target.position, count=18, color=(255, 60, 40))
+                    self._add_screen_shake(12)
                     if target.sprite:
                         target.sprite.kill()
                     if target in self.enemy_units:
@@ -2368,6 +2678,7 @@ class BattleView(GameView):
                 if player.set_overwatch():
                     player.overwatch_direction = self.overwatch_directions[self.overwatch_direction_index]
                     self.message = f"{getattr(player.character, 'name', 'Unit')} is on OVERWATCH."
+                    self._snd().play("sfx_overwatch")
                     self.selecting_overwatch_orientation = False
                     self.check_active_player()
                 return
@@ -2391,18 +2702,22 @@ class BattleView(GameView):
         elif key == arcade.key.UP:
             player.move(0, 32)
             self._set_action_aftermath(action_label="MOVE")
+            self._log_move(player)
             self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.DOWN:
             player.move(0, -32)
             self._set_action_aftermath(action_label="MOVE")
+            self._log_move(player)
             self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.LEFT:
             player.move(-32, 0)
             self._set_action_aftermath(action_label="MOVE")
+            self._log_move(player)
             self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.RIGHT:
             player.move(32, 0)
             self._set_action_aftermath(action_label="MOVE")
+            self._log_move(player)
             self.game_state.mark_tutorial_event("used_battle_controls")
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
@@ -2427,18 +2742,102 @@ class BattleView(GameView):
         elif key == arcade.key.V:
             player.psi_defend()
         elif key == arcade.key.ESCAPE:
-            from game.ui.screens.management_screen import ManagementView
-            mgmt = ManagementView(self.game_state)
-            mgmt.setup()
-            self.window.show_view(mgmt)
+            self._paused = True
+            return
 
         self.check_active_player()
+
+    # ── Phase 4: VFX helpers ──────────────────────────────────────────────────
+
+    def _add_damage_popup(self, unit: "Unit", damage: int) -> None:
+        """Spawn a floating damage number above the given unit."""
+        text = f"-{damage}" if damage > 0 else "MISS"
+        color = (255, 80, 60) if damage > 0 else (160, 160, 160)
+        self.damage_popups.append({
+            "x": unit.position[0],
+            "y": unit.position[1] + 20,
+            "text": text,
+            "color": color,
+            "age": 0.0,
+            "max_age": 0.8,
+        })
+
+    def _add_screen_shake(self, intensity: float) -> None:
+        """Add screen shake — capped so multiple hits don't compound excessively."""
+        if not SoundManager.get().camera_shake:
+            return
+        self._shake_intensity = min(20.0, self._shake_intensity + intensity)
+
+    def _spawn_particles(self, x: float, y: float, count: int = 12,
+                         color: tuple = (255, 180, 60)) -> None:
+        import random as _r
+        import math as _m
+        for _ in range(count):
+            angle = _r.uniform(0, 2 * _m.pi)
+            speed = _r.uniform(60, 220)
+            self.particles.append({
+                "x": x, "y": y,
+                "vx": _m.cos(angle) * speed,
+                "vy": _m.sin(angle) * speed,
+                "color": color,
+                "life": 1.0,
+                "size": _r.uniform(2.0, 5.5),
+            })
+
+    def _flash_unit(self, unit: "Unit", color: tuple = (255, 255, 255),
+                    duration: float = 0.15) -> None:
+        self._unit_flashes[id(unit)] = {
+            "timer": duration,
+            "max_timer": duration,
+            "color": color,
+        }
+
+    def _spawn_death_ring(self, x: float, y: float,
+                          color: tuple = (255, 80, 60)) -> None:
+        self._death_rings.append({
+            "x": x, "y": y, "radius": 10.0, "life": 1.0, "color": color,
+        })
+
+    def _spawn_muzzle_flash(self, x: float, y: float) -> None:
+        self._muzzle_flashes.append({"x": x, "y": y, "timer": 0.08, "max_timer": 0.08})
+
+    def _spawn_psi_wave(self, x: float, y: float) -> None:
+        for i in range(3):
+            self._psi_waves.append({
+                "x": x, "y": y, "radius": 8.0 + i * 14,
+                "life": 1.0, "delay": i * 0.08, "active": (i == 0),
+            })
+
+    def _snd(self) -> "SoundManager":
+        return SoundManager.get()
 
     def on_mouse_press(self, x, y, button, modifiers):
         if self.map_index is None:
             if self._handle_map_room_click(x, y):
                 return
             return
+
+        # Pause menu button clicks
+        if self._paused:
+            from game.ui.screens.battle_hud import PAUSE_RESUME, PAUSE_SETTINGS, PAUSE_ABANDON
+            for key, (left, bottom, right, top) in self._pause_buttons:
+                if left <= x <= right and bottom <= y <= top:
+                    if key == PAUSE_RESUME:
+                        self._paused = False
+                    elif key == PAUSE_SETTINGS:
+                        self._paused = False
+                        from game.ui.screens.settings_screen import SettingsView
+                        self.window.show_view(SettingsView(self.game_state))
+                    elif key == PAUSE_ABANDON:
+                        self._paused = False
+                        from game.ui.screens.management_screen import ManagementView
+                        mgmt = ManagementView(self.game_state)
+                        mgmt.setup()
+                        mgmt.active_tab = "squad"
+                        self.window.show_view(mgmt)
+                    return
+            return
+
         self.last_input_mode = "controller" if button in (1, 2, 4, 5, 6, 7) else "keyboard_mouse"
         if self.pending_end_turn_confirmation:
             self.pending_end_turn_confirmation = False
@@ -2544,6 +2943,46 @@ class BattleView(GameView):
         )
         self.attack_timer = 0.3
 
+    def _handle_deployment_key(self, key: int) -> None:
+        """Process arrow/tab/enter input during the pre-battle deployment phase."""
+        if key == arcade.key.TAB:
+            self._deploy_cursor = (self._deploy_cursor + 1) % max(1, len(self.player_units))
+            return
+        if key in (arcade.key.ENTER, arcade.key.RETURN):
+            self._deploying = False
+            self.combat_log_messages.append("Squad deployed — battle begins!")
+            self._snd().play("sfx_deploy")
+            return
+        if not self.player_units or self._deploy_cursor >= len(self.player_units):
+            return
+        unit = self.player_units[self._deploy_cursor]
+        dx = dy = 0
+        if key == arcade.key.LEFT:
+            dx = -32
+        elif key == arcade.key.RIGHT:
+            dx = 32
+        elif key == arcade.key.UP:
+            dy = 32
+        elif key == arcade.key.DOWN:
+            dy = -32
+        if dx or dy:
+            _DEPLOY_ZONE_H = 128
+            ww = getattr(self.window, "width", 1280)
+            nx = max(16, min(ww - 16, unit.position[0] + dx))
+            ny = max(16, min(_DEPLOY_ZONE_H - 16, unit.position[1] + dy))
+            unit.position = (nx, ny)
+            if unit.sprite:
+                unit.sprite.center_x = nx
+                unit.sprite.center_y = ny
+
+    def _log_move(self, unit: "Unit") -> None:
+        name = (
+            unit.character.name if unit.character
+            else unit.spec_ops_asset.name if unit.spec_ops_asset
+            else unit.unit_type
+        )
+        self.combat_log_messages.append(f"{name} moved → {unit.position}")
+
     def _set_action_aftermath(
         self,
         *,
@@ -2573,6 +3012,44 @@ class BattleView(GameView):
             self._flash_alpha = max(0, self._flash_alpha - int(delta_time * 480))
         if self._aftermath_timer > 0:
             self._aftermath_timer = max(0.0, self._aftermath_timer - delta_time)
+        # Tick floating damage numbers
+        self.damage_popups = [
+            {**p, "age": p["age"] + delta_time}
+            for p in self.damage_popups
+            if p["age"] + delta_time < p["max_age"]
+        ]
+        # Tick VFX
+        import math as _m, random as _r
+        for p in self.particles:
+            p["x"] += p["vx"] * delta_time
+            p["y"] += p["vy"] * delta_time
+            p["vy"] -= 300 * delta_time
+            p["life"] -= 0.055 + 0.015 * delta_time * 60
+        self.particles = [p for p in self.particles if p["life"] > 0]
+        for uid in list(self._unit_flashes):
+            self._unit_flashes[uid]["timer"] -= delta_time
+            if self._unit_flashes[uid]["timer"] <= 0:
+                del self._unit_flashes[uid]
+        for ring in self._death_rings:
+            ring["radius"] += 130 * delta_time
+            ring["life"] -= 1.3 * delta_time
+        self._death_rings = [r for r in self._death_rings if r["life"] > 0]
+        for mf in self._muzzle_flashes:
+            mf["timer"] -= delta_time
+        self._muzzle_flashes = [m for m in self._muzzle_flashes if m["timer"] > 0]
+        for wave in self._psi_waves:
+            if wave.get("delay", 0) > 0:
+                wave["delay"] -= delta_time
+                wave["active"] = wave["delay"] <= 0
+            elif wave.get("active"):
+                wave["radius"] += 160 * delta_time
+                wave["life"] -= 1.5 * delta_time
+        self._psi_waves = [w for w in self._psi_waves if w["life"] > 0]
+        # Decay screen shake
+        if self._shake_intensity > 0.4:
+            self._shake_intensity *= 0.72
+        else:
+            self._shake_intensity = 0.0
         # ── Refresh cover bonuses for all living units ──────────────────
         cover_nodes = getattr(self, "cover_nodes", [])
         if cover_nodes:

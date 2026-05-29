@@ -12,6 +12,9 @@ Full XCOM2-style battle overlay:
   • Objective marker — pulsing ring on mission goal
   • Mission status bar — top chrome
   • Attack flash — screen-edge flash on hit/miss
+  • Floating damage numbers — pop-up text on hit/miss
+  • In-battle pause overlay — Resume / Settings / Abandon
+  • Combat log side panel — Tab-toggled event history
 """
 
 from __future__ import annotations
@@ -515,6 +518,24 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
                 (*palette.DANGER[:3], 180),
                 font_size=7, anchor_x="center",
             )
+
+    # Status effect badges (suppressed / bleeding / stunned)
+    status_effects = getattr(unit, "status_effects", [])
+    _STATUS_BADGES = {
+        "suppressed": ("SUP", (255, 200, 50)),
+        "bleeding":   ("BLD", (220, 60, 60)),
+        "stunned":    ("STN", (160, 120, 255)),
+    }
+    badge_x = cx - 12 * (len(status_effects) - 1) // 2
+    for effect in status_effects:
+        badge_label, badge_col = _STATUS_BADGES.get(effect, (effect[:3].upper(), palette.WARNING))
+        arcade.draw_text(
+            badge_label,
+            badge_x, top + bh + 14,
+            (*badge_col, 230),
+            font_size=7, bold=True, anchor_x="center",
+        )
+        badge_x += 24
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1039,3 +1060,311 @@ def draw_mission_status_bar(
         palette.MUTED_TEXT, font_size=12,
         bold=True, anchor_x="right", anchor_y="center",
     )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Floating damage numbers (P02)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def draw_damage_popups(popups: list[dict]) -> None:
+    """Draw floating damage/miss text above hit units (world-space).
+
+    Each popup dict: {x, y, text, color: (r,g,b), age: float, max_age: float}
+    """
+    for popup in popups:
+        progress = popup["age"] / max(0.001, popup["max_age"])
+        alpha = max(0, int(255 * (1.0 - progress)))
+        offset_y = int(40 * progress)
+        r, g, b = popup["color"][:3]
+        arcade.draw_text(
+            popup["text"],
+            popup["x"],
+            popup["y"] + offset_y,
+            (r, g, b, alpha),
+            font_size=14,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center",
+        )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# In-battle pause overlay (P04)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# Button keys returned by draw_pause_overlay
+PAUSE_RESUME   = "resume"
+PAUSE_SETTINGS = "settings"
+PAUSE_ABANDON  = "abandon"
+
+
+def draw_pause_overlay(width: int, height: int) -> list[tuple[str, tuple[int, int, int, int]]]:
+    """Draw the in-battle pause overlay.
+
+    Returns a list of (action_key, (left, bottom, right, top)) button rects.
+    """
+    # Dim the battlefield
+    arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, 170))
+
+    # Central panel
+    pw, ph = 300, 240
+    px, py = (width - pw) // 2, (height - ph) // 2
+    arcade.draw_lrbt_rectangle_filled(px, px + pw, py, py + ph, (8, 20, 30, 240))
+    arcade.draw_lrbt_rectangle_outline(px, px + pw, py, py + ph, palette.PANEL_BORDER, 2)
+    arcade.draw_line(px, py + ph - 44, px + pw, py + ph - 44, palette.PANEL_BORDER_MUTED, 1)
+    arcade.draw_text(
+        "PAUSED",
+        px + pw // 2,
+        py + ph - 22,
+        palette.TACTICAL_GREEN,
+        font_size=16,
+        bold=True,
+        anchor_x="center",
+        anchor_y="center",
+    )
+
+    # Buttons: Resume / Settings / Abandon
+    bw, bh = 220, 42
+    bx = px + (pw - bw) // 2
+    button_defs = [
+        (PAUSE_RESUME,   "RESUME",   palette.TACTICAL_GREEN, py + ph - 102),
+        (PAUSE_SETTINGS, "SETTINGS", palette.ACCENT,         py + ph - 154),
+        (PAUSE_ABANDON,  "ABANDON",  palette.DANGER,         py + ph - 206),
+    ]
+    rects: list[tuple[str, tuple[int, int, int, int]]] = []
+    for key, label, col, by in button_defs:
+        arcade.draw_lrbt_rectangle_filled(bx, bx + bw, by, by + bh, (18, 36, 48, 220))
+        arcade.draw_line(bx, by + bh, bx + bw, by + bh, col, 2)
+        arcade.draw_text(
+            label,
+            bx + bw // 2,
+            by + bh // 2,
+            col,
+            font_size=13,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center",
+        )
+        rects.append((key, (bx, by, bx + bw, by + bh)))
+    return rects
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Combat log side panel (P05)
+# ══════════════════════════════════════════════════════════════════════════════
+
+def draw_combat_log_side_panel(
+    width: int,
+    height: int,
+    events: list[str],
+    max_lines: int = 8,
+) -> None:
+    """Draw a compact side-panel on the right edge showing recent combat events.
+
+    *events* is a plain list of recent message strings (newest last).
+    """
+    panel_w = 260
+    panel_h = max_lines * 18 + 44
+    px = width - panel_w - 8
+    py = (height - panel_h) // 2
+
+    arcade.draw_lrbt_rectangle_filled(px, px + panel_w, py, py + panel_h, (8, 18, 28, 220))
+    arcade.draw_lrbt_rectangle_outline(px, px + panel_w, py, py + panel_h, palette.PANEL_BORDER, 1)
+    arcade.draw_text(
+        "COMBAT LOG  [Tab]",
+        px + panel_w // 2,
+        py + panel_h - 16,
+        palette.MUTED_TEXT,
+        font_size=10,
+        bold=True,
+        anchor_x="center",
+        anchor_y="center",
+    )
+    arcade.draw_line(px, py + panel_h - 28, px + panel_w, py + panel_h - 28, palette.PANEL_BORDER_MUTED, 1)
+
+    visible = list(reversed(events))[:max_lines]
+    for i, line in enumerate(visible):
+        row_y = py + panel_h - 44 - i * 18
+        col = palette.TEXT if i == 0 else palette.MUTED_TEXT
+        arcade.draw_text(
+            line[:34],
+            px + 8,
+            row_y,
+            col,
+            font_size=9,
+            anchor_y="top",
+        )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Pre-battle deployment phase overlay (A02)
+# ══════════════════════════════════════════════════════════════════════════════
+
+_DEPLOY_ZONE_ROWS = 4
+_DEPLOY_ZONE_H = _DEPLOY_ZONE_ROWS * CELL  # 128 px
+
+
+def draw_deployment_overlay(
+    width: int,
+    height: int,
+    player_units: list,
+    deploy_cursor: int,
+    elapsed: float,
+) -> None:
+    """Draw the pre-battle deployment overlay (GUI/screen space).
+
+    Highlights the deployment zone at the map bottom, shows active-unit
+    selector, and renders controls hint.
+    """
+    # Deployment zone tint (bottom of the map)
+    arcade.draw_lrbt_rectangle_filled(
+        0, width, 0, _DEPLOY_ZONE_H,
+        (60, 200, 120, 30),
+    )
+    arcade.draw_line(0, _DEPLOY_ZONE_H, width, _DEPLOY_ZONE_H, (60, 200, 120, 120), 2)
+
+    # "DEPLOYMENT" phase banner — same position as regular phase banner
+    pulse = 0.85 + 0.15 * math.sin(elapsed * 2.5)
+    col = (*_ACTIVE_COL, int(230 * pulse))
+    pill_w, pill_h = 260, 32
+    px = width - pill_w - 12
+    py = height - 48
+    arcade.draw_lrbt_rectangle_filled(px, px + pill_w, py, py + pill_h, (0, 0, 0, 200))
+    arcade.draw_line(px, py + pill_h, px + pill_w, py + pill_h, col, 2)
+    arcade.draw_line(px, py + pill_h, px + 18, py + pill_h - 18, col, 2)
+    arcade.draw_text(
+        "DEPLOYMENT PHASE",
+        px + pill_w - 12, py + pill_h // 2,
+        col, font_size=13, bold=True,
+        anchor_x="right", anchor_y="center",
+    )
+
+    # Active unit highlight ring
+    if player_units and 0 <= deploy_cursor < len(player_units):
+        unit = player_units[deploy_cursor]
+        ux, uy = unit.position
+        ring_r = 22 + 3 * math.sin(elapsed * 4)
+        arcade.draw_circle_outline(ux, uy, ring_r, _ACTIVE_COL, 3)
+        name = (
+            unit.character.name if getattr(unit, "character", None)
+            else getattr(getattr(unit, "spec_ops_asset", None), "name", unit.unit_type)
+        )
+        arcade.draw_text(
+            f"▶ {name}",
+            ux, uy + ring_r + 6,
+            _ACTIVE_COL, font_size=9, bold=True,
+            anchor_x="center",
+        )
+
+    # Bottom controls bar
+    bar_h = 40
+    arcade.draw_lrbt_rectangle_filled(0, width, 0, bar_h, (0, 0, 0, 200))
+    arcade.draw_line(0, bar_h, width, bar_h, palette.PANEL_BORDER, 1)
+    arcade.draw_text(
+        "Tab = next unit   Arrows = reposition   Enter = begin battle",
+        width // 2, bar_h // 2,
+        palette.MUTED_TEXT, font_size=10,
+        anchor_x="center", anchor_y="center",
+    )
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Advanced Visual Effects (Phase 4)
+# ══════════════════════════════════════════════════════════════════════════════
+
+# ── C2 — Spark particles ──────────────────────────────────────────────────────
+
+def draw_particles(particles: list[dict]) -> None:
+    """Draw spark particles in world space.
+
+    Each particle dict: {x, y, vx, vy, color:(r,g,b), life:0-1, size:float}
+    """
+    for p in particles:
+        alpha = max(0, int(255 * p["life"]))
+        r, g, b = p["color"][:3]
+        size = max(0.5, p["size"] * p["life"])
+        arcade.draw_circle_filled(p["x"], p["y"], size, (r, g, b, alpha))
+
+
+# ── C3 — Unit hit flash ───────────────────────────────────────────────────────
+
+def draw_hit_flashes(
+    all_units: list,
+    flashes: dict,
+) -> None:
+    """Draw a coloured overlay on units that were recently hit.
+
+    *flashes* maps id(unit) → {timer: float, color: (r,g,b), max_timer: float}
+    """
+    for unit in all_units:
+        flash = flashes.get(id(unit))
+        if not flash or not getattr(unit, "sprite", None):
+            continue
+        progress = flash["timer"] / max(0.001, flash.get("max_timer", 0.15))
+        alpha = max(0, int(180 * progress))
+        r, g, b = flash["color"][:3]
+        s = unit.sprite
+        cx, cy = s.center_x, s.center_y
+        hw, hh = s.width // 2 + 2, s.height // 2 + 2
+        arcade.draw_lrbt_rectangle_filled(cx - hw, cx + hw, cy - hh, cy + hh, (r, g, b, alpha))
+
+
+# ── C4 — Death ring ───────────────────────────────────────────────────────────
+
+def draw_death_rings(rings: list[dict]) -> None:
+    """Draw expanding circle rings on unit deaths (world space).
+
+    Each ring dict: {x, y, radius:float, life:0-1, color:(r,g,b)}
+    """
+    for ring in rings:
+        alpha = max(0, int(220 * ring["life"]))
+        r, g, b = ring["color"][:3]
+        arcade.draw_circle_outline(ring["x"], ring["y"], ring["radius"], (r, g, b, alpha), 3)
+        # Inner smaller ring
+        if ring["radius"] > 12:
+            arcade.draw_circle_outline(
+                ring["x"], ring["y"], ring["radius"] * 0.55,
+                (r, g, b, alpha // 2), 1,
+            )
+
+
+# ── C5 — Muzzle flash ─────────────────────────────────────────────────────────
+
+def draw_muzzle_flashes(flashes: list[dict]) -> None:
+    """Draw a bright burst at the attacker's position (world space).
+
+    Each flash dict: {x, y, timer:float, max_timer:float}
+    """
+    for flash in flashes:
+        progress = flash["timer"] / max(0.001, flash.get("max_timer", 0.08))
+        size = 22 * progress
+        alpha_out = max(0, int(200 * progress))
+        alpha_in  = max(0, int(240 * progress))
+        arcade.draw_circle_filled(flash["x"], flash["y"], size,       (255, 230, 100, alpha_out))
+        arcade.draw_circle_filled(flash["x"], flash["y"], size * 0.45, (255, 255, 255, alpha_in))
+        # Four small flare lines
+        for angle in (0, 90, 180, 270):
+            rad = math.radians(angle)
+            ex = flash["x"] + math.cos(rad) * size * 1.6
+            ey = flash["y"] + math.sin(rad) * size * 1.6
+            arcade.draw_line(flash["x"], flash["y"], ex, ey, (255, 240, 150, alpha_out // 2), 2)
+
+
+# ── C6 — Psi wave rings ───────────────────────────────────────────────────────
+
+def draw_psi_waves(waves: list[dict]) -> None:
+    """Draw concentric expanding rings for psi attacks (world space).
+
+    Each wave dict: {x, y, radius:float, life:0-1, delay:float, active:bool}
+    """
+    for wave in waves:
+        if not wave.get("active", True):
+            continue
+        alpha = max(0, int(200 * wave["life"]))
+        arcade.draw_circle_outline(wave["x"], wave["y"], wave["radius"], (90, 160, 255, alpha), 2)
+        # Soft inner glow
+        if wave["radius"] > 5:
+            arcade.draw_circle_outline(
+                wave["x"], wave["y"], wave["radius"] * 0.7,
+                (140, 100, 255, alpha // 2), 1,
+            )

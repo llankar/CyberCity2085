@@ -297,6 +297,56 @@ def _check_overwatch(
     return False
 
 
+def _nearest_cover_step(
+    enemy: Unit,
+    cover_nodes: list,
+    player_units: list[Unit],
+    enemy_units: list[Unit],
+) -> tuple[int, int] | None:
+    """Return (dx, dy) step toward the nearest unoccupied cover node, or None."""
+    best_dist = float("inf")
+    best_node = None
+    for node in cover_nodes:
+        # CoverNode stores grid_x/grid_y (tile coords); pixel pos = grid * GRID_SIZE
+        nx = node.grid_x * GRID_SIZE
+        ny = node.grid_y * GRID_SIZE
+        if is_occupied(nx, ny, player_units, enemy_units, exclude=enemy):
+            continue
+        dist = abs(nx - enemy.position[0]) + abs(ny - enemy.position[1])
+        if dist < best_dist:
+            best_dist = dist
+            best_node = node
+    if best_node is None or best_dist > GRID_SIZE * 4:
+        return None
+    target_x = best_node.grid_x * GRID_SIZE
+    target_y = best_node.grid_y * GRID_SIZE
+    dx = target_x - enemy.position[0]
+    dy = target_y - enemy.position[1]
+    # Clamp to one-cell step
+    step_x = min(GRID_SIZE, max(-GRID_SIZE, dx)) if dx else 0
+    step_y = min(GRID_SIZE, max(-GRID_SIZE, dy)) if dy else 0
+    return (step_x or 0, step_y or 0)
+
+
+def _apply_commander_buffs(enemy_units: list[Unit]) -> dict[int, int]:
+    """Temporarily boost AGI for enemies adjacent to a commander. Returns {id: bonus}."""
+    commanders = [e for e in enemy_units if e.enemy_subtype == "commander" and e.health > 0]
+    bonuses: dict[int, int] = {}
+    if not commanders:
+        return bonuses
+    for commander in commanders:
+        for enemy in enemy_units:
+            if enemy is commander or enemy.enemy_subtype == "commander":
+                continue
+            if enemy.health > 0 and enemy.distance_to(commander) <= GRID_SIZE * 2:
+                if id(enemy) not in bonuses:
+                    bonuses[id(enemy)] = 0
+                bonuses[id(enemy)] += 1
+                if enemy.stats:
+                    enemy.stats.agi = min(99, enemy.stats.agi + 1)
+    return bonuses
+
+
 def run_enemy_ai(
     player_units: list[Unit],
     enemy_units: list[Unit],
@@ -306,12 +356,19 @@ def run_enemy_ai(
     on_defeated: Callable[[Unit], None] | None = None,
     on_overwatch_shot: Callable[[Unit, Unit, int], None] | None = None,
     can_enter: Callable[[int, int], bool] | None = None,
+    cover_nodes: list | None = None,
 ) -> list[EnemyActionResult]:
     """Run enemy actions and return inspectable outcomes for the view/test layer."""
     results: list[EnemyActionResult] = []
     defeated_player_units = (
         defeated_player_units if defeated_player_units is not None else []
     )
+
+    # Commander buff: boost adjacent grunt/heavy AGI +1 this turn
+    _commander_buffed: set[int] = set()
+    if cover_nodes is not None:
+        for buf_id in _apply_commander_buffs(enemy_units):
+            _commander_buffed.add(buf_id)
 
     for enemy in list(enemy_units):
         # Skip enemies already killed (e.g. by overwatch during this same AI pass)
@@ -357,7 +414,29 @@ def run_enemy_ai(
                 enemy.action_points -= 1
                 results.append(EnemyActionResult(enemy, target, moved=False))
             else:
-                # Out of range ? step toward target
+                # Cover-seeking: if not in cover and cover nodes available, seek cover first
+                cover_step: tuple[int, int] | None = None
+                if (
+                    cover_nodes
+                    and enemy.action_points > 1
+                    and enemy.in_cover_bonus == 0
+                    and dist > GRID_SIZE * 3  # only seek cover when not too close to target
+                ):
+                    cover_step = _nearest_cover_step(enemy, cover_nodes, player_units, enemy_units)
+
+                if cover_step and cover_step != (0, 0):
+                    step_dx, step_dy = cover_step
+                    new_x = enemy.position[0] + step_dx
+                    new_y = enemy.position[1] + step_dy
+                    blocked = is_occupied(new_x, new_y, player_units, enemy_units, exclude=enemy)
+                    if can_enter is not None and not can_enter(new_x, new_y):
+                        blocked = True
+                    if not blocked:
+                        enemy.move(step_dx, step_dy)
+                        results.append(EnemyActionResult(enemy, target, moved=True))
+                        continue
+
+                # Default: step toward target
                 dx, dy = step_toward(enemy, target)
                 moved = False
                 if dx or dy:

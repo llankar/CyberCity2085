@@ -433,9 +433,12 @@ class GameState:
         self.tutorial_progress["tutorial_completed"] = True
 
     def play_ui_audio_feedback(self, cue: str) -> None:
-        """Log a minimal optional audio cue for major UI actions."""
-        if self.ui_audio_feedback_enabled:
-            self.add_event(f"Audio cue: {cue}.")
+        """Play a named SFX cue through the SoundManager (e.g. 'ui_click' → 'sfx_ui_click')."""
+        try:
+            from game.audio import SoundManager
+            SoundManager.get().play(f"sfx_{cue}")
+        except Exception:
+            pass
 
     def add_event(self, text: str) -> None:
         """Append a compact event-log entry and retain only the latest beats."""

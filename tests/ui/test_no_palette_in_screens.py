@@ -6,7 +6,13 @@ palette values directly."""
 from pathlib import Path
 
 # Files that are full Arcade view classes (drawing code) — allowed to use palette.
-_VIEW_FILES = {"title_screen.py", "management_screen.py", "battle_hud.py"}
+_VIEW_FILES = {
+    "title_screen.py",
+    "management_screen.py",
+    "battle_hud.py",
+    "mission_briefing_view.py",
+    "battle_debrief_view.py",
+}
 
 
 def test_screens_use_theme_tokens_not_palette() -> None:
