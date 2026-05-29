@@ -40,6 +40,19 @@ BACKLOG_TASKS: List[BacklogTask] = [
     BacklogTask("UI-04", "Afficher les tags de mission et l'impact émotionnel attendu au lancement.", "ui", 7, 8, 8, 9),
     BacklogTask("TEST-04", "Tester la cohérence des tags de domaine dans les exports markdown.", "tests", 7, 5, 10, 10),
     BacklogTask("DOC-04", "Créer une checklist de maintenabilité pour les nouvelles features.", "docs", 7, 5, 9, 10),
+    # Mission View Professional Upgrade — Phase 1 (Visual Polish)
+    BacklogTask("BATTLE-A01", "Créer un écran de briefing mission avant le lancement de la vue battle.", "battle", 10, 9, 8, 7),
+    BacklogTask("BATTLE-P01", "Activer le pan caméra avec Shift+flèches et recentrage sur unité active.", "battle", 9, 6, 7, 6),
+    BacklogTask("BATTLE-P02", "Ajouter des chiffres de dégâts flottants au-dessus des unités touchées.", "battle", 9, 8, 8, 7),
+    BacklogTask("BATTLE-A02", "Ajouter une phase de déploiement pré-combat pour positionner les agents.", "battle", 9, 8, 8, 7),
+    BacklogTask("BATTLE-A03", "Enrichir l'écran de débrief post-bataille avec stats par agent et récompenses.", "battle", 9, 9, 8, 7),
+    BacklogTask("BATTLE-P03", "Passer la barre d'actions au format icône+label avec le design system.", "battle", 8, 7, 8, 7),
+    BacklogTask("BATTLE-P04", "Ajouter un menu pause in-battle (Échap) avec résumé/paramètres/abandon.", "battle", 8, 6, 7, 7),
+    BacklogTask("BATTLE-G01", "Câbler le pathfinding terrain à la walkability mask existante en combat.", "battle", 8, 5, 9, 8),
+    BacklogTask("BATTLE-G02", "Améliorer l'IA ennemie avec recherche de couverture et flanquement.", "battle", 8, 6, 8, 8),
+    BacklogTask("BATTLE-G03", "Activer des événements dynamiques mid-battle depuis complications.py.", "battle", 8, 8, 7, 8),
+    BacklogTask("BATTLE-P05", "Promouvoir le panneau de log combat comme vue latérale accessible au joueur.", "battle", 7, 7, 8, 7),
+    BacklogTask("BATTLE-G04", "Ajouter un système d'effets de statut (supprimé/saignement/étourdi) aux unités.", "battle", 7, 7, 8, 8),
 ]
 
 

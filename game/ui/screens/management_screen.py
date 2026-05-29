@@ -2459,10 +2459,8 @@ class ManagementView(GameView):
 
         mission = _launch_mission(gs)
 
-        from game.views import BattleView
-        battle = BattleView(gs)
-        battle.setup(mission)
-        self.window.show_view(battle)
+        from game.ui.screens.mission_briefing_view import MissionBriefingView
+        self.window.show_view(MissionBriefingView(gs, mission))
 
     def _do_asset_repair(self, idx: int) -> None:
         gs = self.game_state

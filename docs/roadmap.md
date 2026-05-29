@@ -1,53 +1,22 @@
 ## Next 20 Coding Steps
 
 1. [agent] AGENT-01 — Créer des scènes de débrief narratif post-mission basées sur les conséquences.
-2. [agent] AGENT-02 — [done] Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération (small memorable systems: règles compactes stress/affinité/mémoire anti-répétition, sortie neutre pour UI future).
+2. [agent] AGENT-02 — Ajouter des dialogues de soutien entre agents stressés dans la salle de récupération.
 3. [agent] AGENT-03 — Ajouter un historique de liens mentor/protégé entre agents recrutés.
-4. [agent] AGENT-04 — [done] Relier les blessures graves à des séquelles narratives temporaires (narratif-only, sans empilement complexe).
-5. [agent] AGENT-05 — [done] Ajouter des traits de personnalité qui modulent les logs de mission.
-6. [mission] MISSION-03 — Créer une mission d'évacuation qui privilégie la survie des agents.
-7. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.
-8. [mission] MISSION-01 — Introduire des variantes d'objectifs multi-étapes avec embranchements lisibles.
-9. [mission] MISSION-04 — Ajouter des récompenses narratives légères selon la faction ciblée.
-10. [ui] UI-03 — [done] Mettre en évidence les choix critiques affectant les relations d'équipe.
-11. [tests] TEST-01 — Couvrir la génération quotidienne de missions avec tests de régression supplémentaires.
-12. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
-13. [ui] UI-01 — [done] Afficher un fil narratif des événements récents dans le command center.
-14. [mission] MISSION-02 — Ajouter des complications dynamiques légères influencées par la pression district.
-15. [ui] UI-04 — [done] Afficher les tags de mission et l'impact émotionnel attendu au lancement (payload enrichi + conventions éditoriales + tests de rendu).
-16. [docs] DOC-02 — Ajouter des exemples de boucles émotionnelles agents dans la roadmap.
-17. [docs] DOC-01 — Documenter les règles de conception centrées émotion et scope control.
-18. [tests] TEST-04 — Tester la cohérence des tags de domaine dans les exports markdown.
-19. [tests] TEST-02 — Valider la stabilité des seeds de mission par jour avec tests déterministes.
-20. [docs] DOC-03 — Décrire le pipeline backlog -> next steps -> roadmap dans docs.
-
-- Traits de personnalité agents (AGENT-05): ajout d'un set court (`steadfast`, `reckless`, `empathetic`, `cunning`) avec intention émotionnelle claire pour moduler la tonalité des logs mission (voix stable, impulsive, humaine, opportuniste) via une fonction dédiée et fallback neutre pour compatibilité des sauvegardes historiques.
-
-
-### Exemple concret — embranchement d'objectif compact
-- Mission d'extraction: phase `reach_witness` puis `escort_zone`.
-- Si `reach_witness` échoue: fin prématurée (`mission_failed`) pour préserver le scope.
-- Mission data-theft: échec du terminal principal redirige vers une route `field_proxy` avant retour vers `extract_data`.
-- L'UI peut afficher un résumé lisible type: `success -> escort_zone, failure -> mission_failed` par phase.
-
-
-### Boucle émotionnelle — format du narrative feed
-- Entrée feed (render-neutral): `{"category": "agent|mission|faction|base", "text": "..."}`.
-- Sources agrégées: `latest_agent_aftermath`, dialogues de récupération (`latest_recovery_dialogues`), événements stratégiques actifs (`active_events`), journal de récompenses narratives de faction (`faction_reward_journal`).
-- Ordre: antéchronologique (plus récent en premier) après agrégation.
-- Profondeur: limitée à 8–12 lignes (par défaut 10) pour garder un panneau court et lisible.
-- But émotionnel: prioriser les signaux agent et conséquences humaines avant le bruit systémique.
-
-
-### Contrat `emotional_impact_hint` (UI-04)
-- Champ mission: `MissionTemplate.emotional_impact_hint` (dict render-neutral).
-- Producteur: génération de mission (`game/mission_generation.py`) à partir de l'objectif, du risque, de la durée et des complications.
-- Schéma minimal: `{"level": "low|medium|high|critical", "text": str non vide}`.
-- Consommation UI: `game/ui/widgets/mission_impact_summary.py` affiche d'abord les tags opérationnels puis l'impact humain attendu.
-- Fallback obligatoire: si payload absent/invalide, afficher `Impact humain attendu: informations limitées, vigilance recommandée.`
-
-### Critères d'acceptation UI-04 (statut: validé)
-- Les missions générées exposent des tags normalisés (`normalized_tags`) et un impact émotionnel court (`short_text`) dans `emotional_impact_hint`.
-- Le panneau mission affiche explicitement ces données dans le détail sélectionné, avec lecture sobre (métadonnées -> impact humain -> complications/stakes).
-- Les conventions d'écriture sont centralisées (longueur maximale, vocabulaire émotionnel cohérent, fallback neutre).
-- Les tests UI couvrent: mission sans tags, tags multiples, impact émotionnel absent/présent.
+4. [battle] BATTLE-A01 — Créer un écran de briefing mission avant le lancement de la vue battle.
+5. [agent] AGENT-04 — Relier les blessures graves à des séquelles narratives temporaires.
+6. [agent] AGENT-05 — Ajouter des traits de personnalité qui modulent les logs de mission.
+7. [battle] BATTLE-A03 — Enrichir l'écran de débrief post-bataille avec stats par agent et récompenses.
+8. [mission] MISSION-03 — Créer une mission d'évacuation qui privilégie la survie des agents.
+9. [ui] UI-02 — Créer un panneau compact de moral d'escouade dans la vue RPG.
+10. [battle] BATTLE-A02 — Ajouter une phase de déploiement pré-combat pour positionner les agents.
+11. [battle] BATTLE-P02 — Ajouter des chiffres de dégâts flottants au-dessus des unités touchées.
+12. [mission] MISSION-01 — Introduire des variantes d'objectifs multi-étapes avec embranchements lisibles.
+13. [mission] MISSION-04 — Ajouter des récompenses narratives légères selon la faction ciblée.
+14. [ui] UI-03 — Mettre en évidence les choix critiques affectant les relations d'équipe.
+15. [tests] TEST-01 — Couvrir la génération quotidienne de missions avec tests de régression supplémentaires.
+16. [tests] TEST-03 — Ajouter des tests d'intégration sur stress/récupération/calendrier.
+17. [ui] UI-01 — Afficher un fil narratif des événements récents dans le command center.
+18. [mission] MISSION-02 — Ajouter des complications dynamiques légères influencées par la pression district.
+19. [battle] BATTLE-G03 — Activer des événements dynamiques mid-battle depuis complications.py.
+20. [ui] UI-04 — Afficher les tags de mission et l'impact émotionnel attendu au lancement.

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Tuple
 
 from .character import Character
@@ -9,6 +9,11 @@ from .stats import PlayerStats, EnemyStats, perform_attack
 
 if TYPE_CHECKING:
     import arcade
+
+# Status effect keys
+STATUS_SUPPRESSED = "suppressed"  # -2 movement AP next turn (triggered by overwatch fire)
+STATUS_BLEEDING   = "bleeding"    # -1 HP at start of next player turn; cleared by first-aid
+STATUS_STUNNED    = "stunned"     # skip next action; triggered by heavy melee
 
 
 @dataclass
@@ -33,6 +38,38 @@ class Unit:
     enemy_subtype: str = "grunt"     # for enemy units: grunt / heavy / elite / commander
     visible: bool = True             # hidden by fog of war when False (enemies only)
     in_cover_bonus: int = 0          # defense bonus from cover nodes; updated each frame by BattleView
+    # Phase 3-G04: status effects
+    status_effects: list[str] = field(default_factory=list)
+
+    # ── Status effect helpers ──────────────────────────────────────────────
+
+    def apply_status(self, effect: str) -> None:
+        """Add a status effect if not already present."""
+        if effect not in self.status_effects:
+            self.status_effects.append(effect)
+
+    def clear_status(self, effect: str) -> None:
+        """Remove a status effect."""
+        if effect in self.status_effects:
+            self.status_effects.remove(effect)
+
+    def has_status(self, effect: str) -> bool:
+        return effect in self.status_effects
+
+    def tick_status_effects(self) -> list[str]:
+        """Apply and expire turn-based status effects. Returns messages."""
+        messages: list[str] = []
+        # Bleeding: lose 1 HP this turn then the effect persists until healed
+        if STATUS_BLEEDING in self.status_effects and self.stats:
+            self.stats.hp = max(0, self.stats.hp - 1)
+            self.health = self.stats.hp
+            messages.append("bleeding")
+        # Suppressed / stunned clear after one turn
+        for effect in (STATUS_SUPPRESSED, STATUS_STUNNED):
+            if effect in self.status_effects:
+                self.status_effects.remove(effect)
+                messages.append(f"{effect} cleared")
+        return messages
 
     def move(self, dx: int, dy: int):
         x, y = self.position
@@ -45,7 +82,14 @@ class Unit:
         self.on_overwatch = False  # moving cancels your overwatch
 
     def reset_actions(self):
-        self.action_points = 2
+        # Suppressed units get reduced AP next turn
+        base_ap = 2
+        if STATUS_SUPPRESSED in self.status_effects:
+            base_ap = max(0, base_ap - 2)
+        # Stunned units get 0 AP next turn
+        if STATUS_STUNNED in self.status_effects:
+            base_ap = 0
+        self.action_points = base_ap
         self.is_defending = False
         self.is_psi_defending = False
         self.has_moved = False

@@ -13,12 +13,12 @@ def test_shared_easing_and_micro_pulse_are_bounded() -> None:
     assert 0.0 <= pulse_from_elapsed(0.9) <= 1.0
 
 
-def test_optional_audio_feedback_logs_only_when_enabled() -> None:
+def test_optional_audio_feedback_does_not_raise() -> None:
+    """play_ui_audio_feedback now delegates to SoundManager (no window = silent no-op)."""
     gs = GameState()
     before = len(gs.event_log)
+    # Must not raise even when no Arcade window is available
     gs.play_ui_audio_feedback("selection")
+    gs.play_ui_audio_feedback("ui_click")
+    # Event log should not grow (audio no longer writes to event log)
     assert len(gs.event_log) == before
-
-    gs.ui_audio_feedback_enabled = True
-    gs.play_ui_audio_feedback("selection")
-    assert gs.event_log[-1] == "Audio cue: selection."
