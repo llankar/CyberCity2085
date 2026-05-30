@@ -21,10 +21,13 @@ from game.ui.palette import (
     PANEL_BORDER, PANEL_BORDER_MUTED, PANEL_FILL_DARK,
     SCANLINE, SKYLINE_SHADOW, TACTICAL_GREEN, TEXT, WARNING,
 )
+from game.ui.theme.typography import normalize_text_size, set_text_size
 
 # ── Settings file path ────────────────────────────────────────────────────────
 
 _SETTINGS_PATH = os.path.join("saves", "settings.json")
+_TEXT_SIZE_OPTIONS = ["small", "medium", "large"]
+_TEXT_SIZE_LABELS = ["Small", "Medium", "Large"]
 
 
 @dataclass
@@ -38,6 +41,7 @@ class SettingsState:
     camera_shake:     bool  = True
     resolution_index: int   = 1      # index into _RESOLUTIONS
     display_index:    int   = 0      # index into available screens
+    text_size:        str   = "medium"
     extra_flags: dict       = field(default_factory=dict)
 
 
@@ -63,13 +67,19 @@ def load_settings() -> SettingsState:
         s.camera_shake     = bool(data.get("camera_shake",     s.camera_shake))
         s.resolution_index = int(data.get("resolution_index",  s.resolution_index))
         s.display_index    = int(data.get("display_index",     s.display_index))
+        s.text_size        = normalize_text_size(data.get("text_size", s.text_size))
+        set_text_size(s.text_size)
         return s
     except (FileNotFoundError, json.JSONDecodeError, KeyError):
-        return SettingsState()
+        s = SettingsState()
+        set_text_size(s.text_size)
+        return s
 
 
 def save_settings(s: SettingsState) -> None:
     os.makedirs("saves", exist_ok=True)
+    s.text_size = normalize_text_size(s.text_size)
+    set_text_size(s.text_size)
     with open(_SETTINGS_PATH, "w", encoding="utf-8") as f:
         json.dump(asdict(s), f, indent=2)
 
@@ -284,6 +294,20 @@ class SettingsView(arcade.View):
         row_y -= 6
 
         # ── AUDIO ─────────────────────────────────────────────────────────
+        _section("ACCESSIBILITY")
+        _cycle(
+            "Text Size",
+            "Scale all UI text for readability",
+            _TEXT_SIZE_LABELS,
+            _TEXT_SIZE_OPTIONS.index(normalize_text_size(s.text_size)),
+            "text_prev",
+            "text_next",
+        )
+
+        row_y -= 4
+        arcade.draw_line(px + 20, row_y, px + panel_w - 20, row_y, PANEL_BORDER_MUTED, 1)
+        row_y -= 6
+
         _section("AUDIO")
         _toggle("Audio Enabled", "Master audio on/off",  s.audio_enabled, "toggle_audio")
         _toggle("Camera Shake",  "Screen shake on impact", s.camera_shake,  "toggle_shake")
@@ -366,6 +390,16 @@ class SettingsView(arcade.View):
             s.audio_enabled = not s.audio_enabled
         elif action == "toggle_shake":
             s.camera_shake = not s.camera_shake
+        elif action == "text_prev":
+            current = normalize_text_size(s.text_size)
+            s.text_size = _TEXT_SIZE_OPTIONS[(
+                _TEXT_SIZE_OPTIONS.index(current) - 1
+            ) % len(_TEXT_SIZE_OPTIONS)]
+        elif action == "text_next":
+            current = normalize_text_size(s.text_size)
+            s.text_size = _TEXT_SIZE_OPTIONS[(
+                _TEXT_SIZE_OPTIONS.index(current) + 1
+            ) % len(_TEXT_SIZE_OPTIONS)]
         elif action == "res_prev":
             s.resolution_index = (s.resolution_index - 1) % len(_RESOLUTIONS)
         elif action == "res_next":

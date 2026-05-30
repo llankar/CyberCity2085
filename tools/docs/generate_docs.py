@@ -40,6 +40,7 @@ BACKLOG_TASKS: List[BacklogTask] = [
     BacklogTask("UI-04", "Afficher les tags de mission et l'impact émotionnel attendu au lancement.", "ui", 7, 8, 8, 9),
     BacklogTask("TEST-04", "Tester la cohérence des tags de domaine dans les exports markdown.", "tests", 7, 5, 10, 10),
     BacklogTask("DOC-04", "Créer une checklist de maintenabilité pour les nouvelles features.", "docs", 7, 5, 9, 10),
+    BacklogTask("UI-05", "Add a text size setting with small, medium, and large presets in SettingsView.", "ui", 7, 8, 8, 9),
     # Wave 6 — Global Campaign Scenario
     BacklogTask("CAMP-01", "CampaignState + WorldState persistés dans GameState (5 actes).", "campaign", 10, 10, 9, 8),
     BacklogTask("CAMP-02", "25 fragments d'intel narratifs répartis sur les 5 actes.", "campaign", 10, 10, 8, 7),
