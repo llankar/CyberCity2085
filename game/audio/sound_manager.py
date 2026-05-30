@@ -24,6 +24,7 @@ _SFX_NAMES = [
     "sfx_death", "sfx_overwatch", "sfx_move", "sfx_turn_player",
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
+    "sfx_intel_reveal", "sfx_act_advance",
 ]
 
 _MUSIC_NAMES = ["music_battle", "music_briefing", "music_debrief"]

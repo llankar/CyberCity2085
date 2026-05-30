@@ -28,6 +28,7 @@ from .management.funds import (
     default_mission_fund_distribution,
 )
 from .management.stress import daily_stress_recovery
+from .campaign import CampaignState
 from .narrative.temporary_scars import tick_temporary_scars
 from .management.spec_ops_assets import (
     SpecOpsAsset,
@@ -145,6 +146,10 @@ class GameState:
     completed_research: list[str] = field(default_factory=list)
     research_unlock_flags: list[str] = field(default_factory=list)
     research_stat_modifiers: dict[str, int] = field(default_factory=dict)
+    # Global campaign scenario (5-act narrative)
+    campaign: CampaignState = field(default_factory=CampaignState)
+    # Transient: set by campaign engine when an act advances, consumed by ManagementView
+    _pending_act_advance: tuple[int, str] | None = field(default=None, repr=False, compare=False)
 
     def __post_init__(self) -> None:
         from .i18n import normalize_language
@@ -378,6 +383,8 @@ class GameState:
         advance_research_days(self, 1, self.research_tree)
         expire_events(self)
         roll_random_event(self)
+        from .campaign.engine import tick_campaign
+        tick_campaign(self)
         for name, amount, remaining in stress_recovery_log:
             self.add_event(
                 f"{self.calendar.campaign_date_label}: {name} decompresses ({amount} stress relief, {remaining}/100)."
@@ -562,6 +569,7 @@ class GameState:
             "completed_research": list(self.completed_research),
             "research_unlock_flags": list(self.research_unlock_flags),
             "research_stat_modifiers": dict(self.research_stat_modifiers),
+            "campaign": self.campaign.to_dict(),
         }
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
@@ -648,6 +656,7 @@ class GameState:
         gs.completed_research = list(data.get("completed_research", []))
         gs.research_unlock_flags = list(data.get("research_unlock_flags", []))
         gs.research_stat_modifiers = dict(data.get("research_stat_modifiers", {}))
+        gs.campaign = CampaignState.from_dict(data.get("campaign", {}))
         from .character import Character
         from .recruitment import normalize_agent_name
 

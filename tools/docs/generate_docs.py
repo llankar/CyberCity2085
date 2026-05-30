@@ -40,6 +40,14 @@ BACKLOG_TASKS: List[BacklogTask] = [
     BacklogTask("UI-04", "Afficher les tags de mission et l'impact émotionnel attendu au lancement.", "ui", 7, 8, 8, 9),
     BacklogTask("TEST-04", "Tester la cohérence des tags de domaine dans les exports markdown.", "tests", 7, 5, 10, 10),
     BacklogTask("DOC-04", "Créer une checklist de maintenabilité pour les nouvelles features.", "docs", 7, 5, 9, 10),
+    # Wave 6 — Global Campaign Scenario
+    BacklogTask("CAMP-01", "CampaignState + WorldState persistés dans GameState (5 actes).", "campaign", 10, 10, 9, 8),
+    BacklogTask("CAMP-02", "25 fragments d'intel narratifs répartis sur les 5 actes.", "campaign", 10, 10, 8, 7),
+    BacklogTask("CAMP-03", "10 missions story injectées dans le tableau de missions.", "campaign", 9, 9, 8, 7),
+    BacklogTask("CAMP-04", "Moteur de campagne : tick_campaign, avancement d'acte, Hungry Tide.", "campaign", 9, 8, 9, 8),
+    BacklogTask("CAMP-05", "Panneau Global Scenario dans la salle Intel (état monde + intel).", "campaign", 9, 9, 8, 7),
+    BacklogTask("CAMP-06", "Overlay d'avancement d'acte + sons sfx_intel_reveal / sfx_act_advance.", "campaign", 8, 9, 7, 6),
+    BacklogTask("CAMP-07", "Fragments intel intégrés au narrative feed de l'écran management.", "campaign", 8, 9, 8, 7),
     # Wave 5 — Gameplay Depth, Battle Spectacle & Mission Variety
     BacklogTask("BATTLE-W5A2", "Scoring de cibles IA — priorité blessés, rôles menace, distance.", "battle", 9, 7, 8, 7),
     BacklogTask("BATTLE-W5A3", "Afficher les lignes narratives du débrief avec couleurs de tonalité.", "battle", 9, 9, 8, 7),

@@ -90,6 +90,29 @@ def build_narrative_event_feed(game_state, max_entries: int = FEED_DEPTH_DEFAULT
     entries.extend(
         _from_debrief_skill_checks(getattr(game_state, "latest_mission_debrief", {}))
     )
+    # Campaign intel fragments (most recent 3)
+    entries.extend(_from_campaign_intel(game_state))
 
     # Source lists are append-only, so latest items live at the end.
     return entries[-capped:][::-1]
+
+
+def _from_campaign_intel(game_state) -> list[NarrativeFeedEntry]:
+    """Inject the 3 most recently discovered campaign intel fragments into the feed."""
+    try:
+        campaign = getattr(game_state, "campaign", None)
+        if campaign is None:
+            return []
+        from game.campaign.intel_fragments import get_fragment
+        recent = list(reversed(campaign.discovered_intel))[:3]
+        result = []
+        for fid in recent:
+            frag = get_fragment(fid)
+            if frag:
+                result.append(NarrativeFeedEntry(
+                    category="intel",
+                    text=f"[INTEL] {frag.title}: {frag.text[:100]}…",
+                ))
+        return result
+    except Exception:
+        return []

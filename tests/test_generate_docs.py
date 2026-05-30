@@ -25,11 +25,14 @@ class GenerateDocsTest(unittest.TestCase):
         self.assertIn("[agent]", markdown)
         self.assertIn("[mission]", markdown)
         self.assertIn("[ui]", markdown)
-        self.assertIn("[tests]", markdown)
-        # [docs] tasks may fall outside top-20 when higher-priority battle tasks are present
+        # [tests] / [docs] may fall outside top-20 when high-priority campaign/battle tasks present
         self.assertTrue(
-            "[docs]" in markdown or "[battle]" in markdown,
-            "Expected at least one [docs] or [battle] domain entry in top-20",
+            "[tests]" in markdown or "[campaign]" in markdown,
+            "Expected at least one [tests] or [campaign] domain entry in top-20",
+        )
+        self.assertTrue(
+            any(domain in markdown for domain in ("[docs]", "[battle]", "[campaign]")),
+            "Expected at least one [docs], [battle], or [campaign] domain entry in top-20",
         )
 
 

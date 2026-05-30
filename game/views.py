@@ -2036,6 +2036,15 @@ class BattleView(GameView):
         )
         self.game_state.award_mission_resources(self.mission, victory, defeated)
         self.resolve_mission_outcome(victory)
+        # Campaign: record story mission completion
+        if self.mission and self.mission.id.startswith("sm_"):
+            try:
+                from game.campaign.engine import record_story_mission_complete
+                if victory:
+                    record_story_mission_complete(self.game_state, self.mission.id)
+                    self.game_state.campaign.record_trigger(f"story_complete_{self.mission.id}")
+            except Exception:
+                pass
         aftermath_lines = apply_mission_aftermath(
             surviving_participants,
             self.mission,
