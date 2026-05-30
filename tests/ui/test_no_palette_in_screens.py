@@ -12,6 +12,7 @@ _VIEW_FILES = {
     "battle_hud.py",
     "mission_briefing_view.py",
     "battle_debrief_view.py",
+    "agent_promotion_view.py",
 }
 
 

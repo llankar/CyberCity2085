@@ -50,6 +50,9 @@ class EnemyStats:
             self.hp = self.max_hp
 
 
+_CRIT_CHANCE = 0.12  # 12% base critical hit probability
+
+
 def perform_attack(
     attacker,
     defender,
@@ -58,24 +61,32 @@ def perform_attack(
     phys_def: bool = False,
     psi_def: bool = False,
     extra_defense: int = 0,
-) -> bool:
+) -> tuple[bool, bool]:
     """Resolve an attack using the given stat name.
+
+    Returns ``(hit, crit)``.  A critical hit deals double damage and has a
+    12% base chance on any successful hit.
 
     ``extra_defense`` stacks on top of the defender's base defense —
     used to apply cover bonuses without mutating the defender's stats.
+
+    Note: the return value is a tuple, but ``if perform_attack(...)`` still
+    works because a non-empty tuple is truthy — callers that only check
+    hit/miss do not need updating.
     """
     attack_value = getattr(attacker, stat_name)
     defense = defender.defense + extra_defense
     if attack_value <= 0:
-        return False
+        return (False, False)
     chance = attack_value / (attack_value + defense)
     if random.random() < chance:
-        damage = attack_value
+        crit = random.random() < _CRIT_CHANCE
+        damage = attack_value * (2 if crit else 1)
         if stat_name == "psi" and psi_def:
             damage = max(0, damage - 1)
         elif stat_name != "psi" and phys_def:
             damage = max(0, damage - 1)
         defender.hp = max(0, defender.hp - damage)
-        return True
-    return False
+        return (True, crit)
+    return (False, False)
 

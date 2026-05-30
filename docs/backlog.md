@@ -1,4 +1,17 @@
 
+## Wave 5 — Gameplay Depth, Spectacle & Mission Variety (completed May 2026)
+
+- [x] BATTLE-W5A2 AI target scoring: enemies now pick the most dangerous/weakest target instead of always attacking index 0.
+- [x] BATTLE-W5A3 Narrative debrief: tone-coloured lines from `DebriefReport.lines` displayed in the debrief right panel.
+- [x] BATTLE-W5B1 Mission intro: 2-second scan-line + title fade-in overlay on battle start.
+- [x] BATTLE-W5B2 Critical hits: 12% chance, double damage, "CRITICAL!" popup, extra shake + white flash.
+- [x] BATTLE-W5B3 XP floats: "+50 XP" text popup above the killing unit on each kill.
+- [x] BATTLE-W5B4 Ambient atmosphere: scanlines, neon edge glow, rain particles on rain/fog maps, blackout darkening.
+- [x] BATTLE-W5C1 Defend objective: hold N turns mechanic; enemy breach → defeat; countdown in turn log.
+- [x] BATTLE-W5C2 Assassination objective: pulsing red diamond over high-value target; instant win on kill.
+- [x] BATTLE-W5D1 Agent promotion view: sequenced level-up screen (portrait + level badge + stat gains) between battle and debrief.
+- [x] BATTLE-W5D2 Morale cascade: 30% chance each surviving agent becomes SUPPRESSED when an ally is KIA.
+
 ## Mission View Professional Upgrade — Planned
 
 Three-phase plan to bring the battle/mission view to professional tactical-RPG standard. Tasks are tracked in `tools/docs/generate_docs.py` (BATTLE-* entries) and will be promoted to the roadmap on next generation run.

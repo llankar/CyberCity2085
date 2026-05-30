@@ -198,16 +198,35 @@ class BattleDebriefView(arcade.View):
         if debrief_raw and isinstance(debrief_raw, dict):
             arcade.draw_text("DEBRIEF", panel_l + 14, y, palette.ACCENT, font_size=10, bold=True)
             y -= 18
+            # Full narrative lines (tone-coloured sentences from DebriefReport.lines)
+            _tone_colors = {
+                "tense":   palette.WARNING,
+                "loss":    palette.DANGER,
+                "relief":  palette.TACTICAL_GREEN,
+                "heroic":  (255, 215, 60),
+                "neutral": palette.TEXT,
+            }
+            for line_dict in debrief_raw.get("lines", [])[:5]:
+                if not isinstance(line_dict, dict):
+                    continue
+                text = str(line_dict.get("text", ""))
+                tone = str(line_dict.get("tone", "neutral"))
+                col = _tone_colors.get(tone, palette.TEXT)
+                # Truncate + wrap tight in panel
+                arcade.draw_text(
+                    f"  {text[:68]}",
+                    panel_l + 14, y,
+                    col, font_size=9,
+                    width=panel_w - 28, multiline=False,
+                )
+                y -= 15
+            # Fallback: single-field strings
             for key, label in [("decision_key", "Decision"), ("risk_taken", "Risk"), ("heroic_action", "Heroics")]:
                 text = debrief_raw.get(key, "")
                 if text:
-                    arcade.draw_text(f"{label}:", panel_l + 14, y, palette.MUTED_TEXT, font_size=9, bold=True)
-                    arcade.draw_text(
-                        str(text)[:62],
-                        panel_l + 80, y,
-                        palette.TEXT, font_size=9,
-                    )
-                    y -= 16
+                    arcade.draw_text(f"{label}: {str(text)[:55]}", panel_l + 14, y,
+                                     palette.MUTED_TEXT, font_size=9)
+                    y -= 14
             y -= 8
 
         # RPG links (stress/progression)

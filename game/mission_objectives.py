@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 GRID_SIZE = 32
 DEFAULT_OBJECTIVE_POSITION = (448, 320)
 FALLBACK_OBJECTIVE_TYPE = "eliminate"
-SUPPORTED_OBJECTIVE_TYPES = {"extract", "sabotage", "data_theft", FALLBACK_OBJECTIVE_TYPE}
+SUPPORTED_OBJECTIVE_TYPES = {"extract", "sabotage", "data_theft", "defend", "assassination", FALLBACK_OBJECTIVE_TYPE}
 
 _OBJECTIVE_PROTOTYPES = {
     "extract": {
@@ -26,6 +26,16 @@ _OBJECTIVE_PROTOTYPES = {
         "label": "CACHE",
         "description": "steal CACHE data at close range",
         "completion_message": "Cache copied. Data theft complete.",
+    },
+    "defend": {
+        "label": "POSITION",
+        "description": "hold POSITION until extraction window",
+        "completion_message": "Position held. Extraction inbound.",
+    },
+    "assassination": {
+        "label": "TARGET",
+        "description": "eliminate HIGH-VALUE TARGET",
+        "completion_message": "Target eliminated. Mission accomplished.",
     },
 }
 

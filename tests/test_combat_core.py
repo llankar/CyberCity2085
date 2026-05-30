@@ -36,14 +36,14 @@ class TestCoverDefenseBonus(unittest.TestCase):
 
         # 1000 attacks without cover
         no_cover_hits = sum(
-            perform_attack(attacker, defender, "agi", extra_defense=0)
+            int(perform_attack(attacker, defender, "agi", extra_defense=0)[0])
             for _ in range(1000)
         )
         defender.hp = 100  # reset
 
         # 1000 attacks with +2 cover bonus
         cover_hits = sum(
-            perform_attack(attacker, defender, "agi", extra_defense=2)
+            int(perform_attack(attacker, defender, "agi", extra_defense=2)[0])
             for _ in range(1000)
         )
 
@@ -62,13 +62,13 @@ class TestCoverDefenseBonus(unittest.TestCase):
         N = 500
         random.seed(42)
         hits_no_cover = sum(
-            perform_attack(attacker_stats, defender_stats, "agi", extra_defense=0)
+            int(perform_attack(attacker_stats, defender_stats, "agi", extra_defense=0)[0])
             for _ in range(N)
         )
 
         random.seed(42)
         hits_with_cover = sum(
-            perform_attack(attacker_stats, defender_stats, "agi", extra_defense=4)
+            int(perform_attack(attacker_stats, defender_stats, "agi", extra_defense=4)[0])
             for _ in range(N)
         )
 

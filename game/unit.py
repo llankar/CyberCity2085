@@ -102,11 +102,13 @@ class Unit:
         ) ** 0.5
 
     def _perform_attack(self, other: "Unit", stat: str, range_: int) -> int:
+        """Return damage dealt (0 on miss).  Sets self._last_crit flag."""
+        self._last_crit = False
         if self.action_points <= 0 or not self.stats or not other.stats:
             return 0
         if self.distance_to(other) <= range_ * 32:
             before = other.stats.hp
-            hit = perform_attack(
+            hit, crit = perform_attack(
                 self.stats,
                 other.stats,
                 stat,
@@ -115,6 +117,7 @@ class Unit:
                 extra_defense=other.in_cover_bonus,
             )
             damage = max(0, before - other.stats.hp) if hit else 0
+            self._last_crit = crit
             other.health = other.stats.hp
             self.action_points -= 1
             other.is_defending = False

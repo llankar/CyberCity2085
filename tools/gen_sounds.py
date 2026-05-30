@@ -31,14 +31,23 @@ MUSIC_DIR = Path("assets/audio/music")
 # ── Low-level helpers ─────────────────────────────────────────────────────────
 
 def _save(path: Path, sig: np.ndarray) -> None:
+    """Write a stereo (2-channel) 16-bit WAV.
+
+    XAudio2/pyglet on Windows silently fails with mono WAV files, so we always
+    interleave the mono signal into both channels to produce stereo output.
+    """
     sig = np.clip(sig, -1.0, 1.0)
-    pcm = (sig * AMP_MAX).astype(np.int16)
+    mono = (sig * AMP_MAX).astype(np.int16)
+    # Interleave: L R L R … (identical channels)
+    stereo = np.empty(len(mono) * 2, dtype=np.int16)
+    stereo[0::2] = mono
+    stereo[1::2] = mono
     with wave.open(str(path), "w") as f:
-        f.setnchannels(1)
+        f.setnchannels(2)
         f.setsampwidth(2)
         f.setframerate(RATE)
-        f.writeframes(pcm.tobytes())
-    print(f"  wrote {path}  ({len(sig) / RATE:.2f}s)")
+        f.writeframes(stereo.tobytes())
+    print(f"  wrote {path}  ({len(sig) / RATE:.2f}s, stereo)")
 
 
 def _t(dur: float) -> np.ndarray:
