@@ -75,8 +75,6 @@ def record_story_mission_complete(game_state: "GameState", story_mission_id: str
     for attr, value in mission.world_effects.items():
         if hasattr(c.world, attr):
             setattr(c.world, attr, value)
-
-
 def _reveal_intel(game_state: "GameState", fragment_id: str) -> None:
     """Reveal an intel fragment if not already discovered."""
     c = game_state.campaign

@@ -36,6 +36,7 @@ class Unit:
     in_cover: bool = False           # standing in cover (visual flag, bonus computed by cover_system)
     has_moved: bool = False          # moved this turn (disables overwatch if re-activated)
     enemy_subtype: str = "grunt"     # for enemy units: grunt / heavy / elite / commander
+    enemy_theme: str = "generic"     # for enemy units: themed roster key
     visible: bool = True             # hidden by fog of war when False (enemies only)
     in_cover_bonus: int = 0          # defense bonus from cover nodes; updated each frame by BattleView
     # Phase 3-G04: status effects

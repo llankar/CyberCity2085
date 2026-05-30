@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .gamestate import GameState
 from .i18n import t
+from .enemy_themes import mission_enemy_theme
 from .mission_templates import MissionTemplate, create_mission_templates
 from .missions.complications import select_complications
 from .missions.evacuation import create_evacuation_template
@@ -111,6 +112,7 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
         mission.possible_complications = mission.possible_complications[:2]
         mission.emotional_impact_hint = _build_emotional_impact_hint(mission, game_state.ui_language)
         mission.emotional_impact_hint["normalized_tags"] = normalize_mission_tags(mission.tags)
+        mission.enemy_theme = mission_enemy_theme(mission)
         generated.append(mission)
 
     # ── Story mission injection ───────────────────────────────────────────────
@@ -152,6 +154,7 @@ def _inject_story_mission(
             district=game_state.district.name,
             district_pressure={"unrest": game_state.district.unrest},
             starting_enemy_count=max(3, sm.risk_level // 2),
+            enemy_theme=sm.enemy_theme,
             objective_type=sm.objective_type,
             risk_level=sm.risk_level,
             fund_reward=sm.fund_reward,
@@ -163,6 +166,7 @@ def _inject_story_mission(
                 "normalized_tags": sm.tags,
             },
         )
+        mt.enemy_theme = mission_enemy_theme(mt)
         # Insert at front of board (replace last regular mission if board is full)
         if len(board) >= 3:
             board[-1] = mt

@@ -11,6 +11,10 @@ from .deployment import (
     deployable_agents,
     selected_deployment_manifest,
 )
+from .enemy_themes import (
+    enemy_theme_stat_scale,
+    mission_enemy_theme,
+)
 from .mission_templates import MissionTemplate
 from .management.equipment import Weapon
 from .management.spec_ops_assets import SpecOpsAsset
@@ -218,6 +222,8 @@ def create_enemy_units(
     )
     enemy_count = mission.starting_enemy_count if mission else random.randint(1, 3)
     enemy_units: list[Unit] = []
+    theme = mission_enemy_theme(mission) if mission else "generic"
+    theme_scale = enemy_theme_stat_scale(theme)
 
     # Staggered formation on the right-center of the map (far from player)
     _ENEMY_SPAWN = [
@@ -229,17 +235,24 @@ def create_enemy_units(
         level = random.randint(1, max(1, int(avg_level)))
         subtype = _enemy_subtype_for_index(i, enemy_count, avg_level)
         scale = _SUBTYPE_STAT_SCALE[subtype]
+        stat_scale = {
+            "hp": scale["hp"] * theme_scale["hp"],
+            "str": scale["str"] * theme_scale["str"],
+            "agi": scale["agi"] * theme_scale["agi"],
+            "def": scale["def"] * theme_scale["def"],
+        }
+        attack_range = max(int(scale["range"]), int(theme_scale["range"]))
 
         base = level
         estats = EnemyStats(
             level=level,
-            defense=max(1, int(base * scale["def"])),
+            defense=max(1, int(base * stat_scale["def"])),
             psi=max(1, base),
-            str=max(1, int(base * scale["str"])),
-            agi=max(1, int(base * scale["agi"])),
+            str=max(1, int(base * stat_scale["str"])),
+            agi=max(1, int(base * stat_scale["agi"])),
         )
         # Scale max_hp by subtype
-        estats.max_hp = max(1, int(estats.max_hp * scale["hp"]))
+        estats.max_hp = max(1, int(estats.max_hp * stat_scale["hp"]))
         estats.hp     = estats.max_hp
 
         pos = _ENEMY_SPAWN[i % len(_ENEMY_SPAWN)]
@@ -249,7 +262,8 @@ def create_enemy_units(
             health=estats.hp,
             unit_type="enemy",
             enemy_subtype=subtype,
-            attack_range=int(scale["range"]),
+            enemy_theme=theme,
+            attack_range=attack_range,
         ))
 
     return enemy_units, enemy_count

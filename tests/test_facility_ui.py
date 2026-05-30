@@ -15,6 +15,7 @@ from game.ui.facility import (
 )
 from game.ui.portraits import (
     AGENT_PORTRAIT_COUNT,
+    ENEMY_PORTRAIT_COUNTS,
     LEGACY_AGENT_PORTRAIT_COUNT,
     PORTRAIT_DIR,
     POWER_ARMOR_PORTRAIT_COUNT,
@@ -126,6 +127,25 @@ class FacilityUITest(unittest.TestCase):
         self.assertTrue((portrait_dir / "portrait_sheet.png").exists())
         for portrait in legacy_portraits + female_portraits + male_portraits + robot_portraits + power_armor_portraits:
             self.assertGreater(portrait.stat().st_size, 50_000)
+
+    def test_generated_enemy_portrait_families_match_requested_counts(self):
+        portrait_dir = Path(PORTRAIT_DIR)
+
+        for theme, expected_count in ENEMY_PORTRAIT_COUNTS.items():
+            family = sorted(
+                path for path in portrait_dir.glob("enemy_*.png")
+                if re.fullmatch(rf"enemy_{re.escape(theme)}_\d{{2}}", path.stem)
+            )
+            self.assertEqual(
+                len(family),
+                expected_count,
+                f"Unexpected enemy portrait count for {theme}",
+            )
+            for portrait in family:
+                self.assertGreater(portrait.stat().st_size, 50_000, portrait.name)
+
+        for name in ("enemy_grunt.png", "enemy_heavy.png", "enemy_elite.png", "enemy_commander.png"):
+            self.assertTrue((portrait_dir / name).exists(), name)
 
 
 if __name__ == "__main__":

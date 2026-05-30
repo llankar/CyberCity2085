@@ -3,6 +3,7 @@
 import random
 
 from .gamestate import GameState
+from .enemy_themes import mission_enemy_theme
 from .mission_generation import generate_mission_board
 from .mission_templates import (
     MissionComplication,
@@ -71,6 +72,7 @@ def launch_selected_mission(game_state: GameState) -> MissionTemplate:
         )
         raise ValueError(f"Mission unavailable: {selected.title}")
     mission = MissionTemplate.from_dict(selected.to_dict())
+    mission.enemy_theme = mission_enemy_theme(mission)
     game_state.active_mission = mission
     game_state.apply_active_mission_pressure()
     return mission

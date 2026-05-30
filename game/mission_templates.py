@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from .consequences import Consequence
+from .enemy_themes import normalize_enemy_theme
 from .savage_fate import SavageTag, tag_from_library
 
 
@@ -54,6 +55,7 @@ class MissionTemplate:
     district: str
     district_pressure: dict
     starting_enemy_count: int
+    enemy_theme: str = "generic"
     objective_type: str = "eliminate"
     possible_complications: list[MissionComplication] = field(default_factory=list)
     success_consequences: list[Consequence] = field(default_factory=list)
@@ -74,6 +76,7 @@ class MissionTemplate:
             "district": self.district,
             "district_pressure": dict(self.district_pressure),
             "starting_enemy_count": self.starting_enemy_count,
+            "enemy_theme": normalize_enemy_theme(self.enemy_theme),
             "objective_type": self.objective_type,
             "possible_complications": [
                 complication.to_dict() for complication in self.possible_complications
@@ -104,6 +107,7 @@ class MissionTemplate:
             district=data.get("district", "Chrome Warrens"),
             district_pressure=dict(data.get("district_pressure", {})),
             starting_enemy_count=data.get("starting_enemy_count", 1),
+            enemy_theme=normalize_enemy_theme(data.get("enemy_theme", "generic")),
             objective_type=data.get("objective_type")
             if data.get("objective_type") in {"extract", "sabotage", "data_theft", "eliminate", "safe_extraction", "data_with_detour", "sabotage_window"}
             else "eliminate",
