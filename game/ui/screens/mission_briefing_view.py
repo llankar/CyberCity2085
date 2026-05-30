@@ -203,6 +203,13 @@ class MissionBriefingView(arcade.View):
             enemy_x, thumb_y + _THUMB_H // 2 - 20,
             palette.DANGER, font_size=10,
         )
+        theme = str(getattr(self.mission, "enemy_theme", "generic")).strip().replace("_", " ")
+        if theme and theme.lower() != "generic":
+            arcade.draw_text(
+                f"ENEMY TYPE: {theme.upper()}",
+                enemy_x, thumb_y + _THUMB_H // 2 - 54,
+                palette.ACCENT, font_size=9,
+            )
         arcade.draw_text(
             f"PRESSURE: {self.mission.district_pressure}/10",
             enemy_x, thumb_y + _THUMB_H // 2 - 38,

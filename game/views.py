@@ -141,6 +141,7 @@ from .ui.room_interaction import (
     roster_card_at_point,
     step_room_ui,
 )
+from .enemy_themes import enemy_sprite_filename, normalize_enemy_theme
 from .ui.portraits import portrait_path_for_character
 from .gamestate import GameState
 from .mission_objectives import create_battle_objective, interact_with_objective
@@ -263,7 +264,12 @@ def _sprite_path_for_unit(unit: Unit) -> str:
 
     # ── Enemy units ──────────────────────────────────────────────────────────
     if unit.unit_type == "enemy":
+        theme = normalize_enemy_theme(getattr(unit, "enemy_theme", "generic"))
         subtype = getattr(unit, "enemy_subtype", "grunt")
+        themed_filename = enemy_sprite_filename(theme, subtype)
+        path = _resolve(themed_filename)
+        if path:
+            return path
         filename = _ENEMY_SUBTYPE_SPRITES.get(subtype, "enemy_grunt.png")
         path = _resolve(filename)
         return path if path else "assets/enemy.png"

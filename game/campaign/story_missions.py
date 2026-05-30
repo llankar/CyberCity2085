@@ -19,6 +19,7 @@ class StoryMissionTemplate:
     objective_type: str   # reuse existing BattleObjective types
     risk_level: int       # 1-10
     fund_reward: int
+    enemy_theme: str = "generic"
     intel_rewards: list[str] = field(default_factory=list)  # fragment IDs on success
     world_effects: dict[str, str] = field(default_factory=dict)  # WorldState updates
     tags: list[str] = field(default_factory=list)
@@ -41,6 +42,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="data_theft",
         risk_level=4,
         fund_reward=2500,
+        enemy_theme="corp_37",
         intel_rewards=["act1_three_sevens_banner"],
         tags=["espionage", "three_sevens", "story"],
     ),
@@ -59,6 +61,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="extract",
         risk_level=5,
         fund_reward=2000,
+        enemy_theme="starver",
         intel_rewards=["act1_badlands_silence", "act1_recon_anomaly"],
         tags=["recon", "badlands", "hungry", "story"],
     ),
@@ -80,6 +83,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="extract",
         risk_level=5,
         fund_reward=3000,
+        enemy_theme="corp_37_robot",
         intel_rewards=["act2_tide_forming", "act2_new_york_target"],
         world_effects={"new_york_status": "alert"},
         tags=["recovery", "tide", "megacorporation", "story"],
@@ -100,6 +104,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="data_theft",
         risk_level=6,
         fund_reward=2800,
+        enemy_theme="corp_samurai",
         intel_rewards=["act2_corporate_denial", "act2_tide_growth"],
         tags=["data_theft", "corporate", "cover_up", "story"],
     ),
@@ -121,6 +126,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="extract",
         risk_level=7,
         fund_reward=3500,
+        enemy_theme="corp_samurai_power_armor",
         intel_rewards=["act3_perf_sighting", "act3_perf_origin"],
         world_effects={"perfs_status": "understood"},
         tags=["extraction", "perf", "three_sevens", "story"],
@@ -141,6 +147,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="extract",
         risk_level=8,
         fund_reward=4000,
+        enemy_theme="raider",
         intel_rewards=["act3_new_delhi", "act3_underground", "act3_cure_signal"],
         world_effects={"new_delhi_status": "revealed", "pharmacorp_secret": "rumored"},
         tags=["infiltration", "new_delhi", "archive", "story"],
@@ -163,6 +170,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="data_theft",
         risk_level=8,
         fund_reward=5000,
+        enemy_theme="mutant",
         intel_rewards=["act4_hungry_thinks", "act4_pharmacorp_secret"],
         world_effects={"pharmacorp_secret": "exposed"},
         tags=["pharmacorp", "cure", "infiltration", "story"],
@@ -184,6 +192,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="sabotage",
         risk_level=9,
         fund_reward=6000,
+        enemy_theme="corp_samurai_robot",
         intel_rewards=["act4_ai_pattern", "act4_ai_existence", "act4_ai_factions"],
         world_effects={"ai_factions_status": "confirmed"},
         tags=["ai", "infiltration", "archive", "story"],
@@ -206,6 +215,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="data_theft",
         risk_level=10,
         fund_reward=8000,
+        enemy_theme="corp_37_power_armor",
         intel_rewards=["act5_twenty_one", "act5_clone_truth"],
         tags=["three_sevens", "warsaw", "finale", "story"],
     ),
@@ -225,6 +235,7 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         objective_type="defend",
         risk_level=10,
         fund_reward=10000,
+        enemy_theme="corp_37_robot",
         intel_rewards=["act5_final_choice", "act5_endgame"],
         world_effects={"pharmacorp_secret": "exposed", "new_york_status": "siege"},
         tags=["pharmacorp", "new_york", "broadcast", "finale", "story"],

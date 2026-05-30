@@ -6,12 +6,38 @@ from functools import lru_cache
 from hashlib import sha1
 from pathlib import Path
 
+from ..enemy_themes import (
+    ENEMY_THEME_CORP_37,
+    ENEMY_THEME_CORP_37_POWER_ARMOR,
+    ENEMY_THEME_CORP_37_ROBOT,
+    ENEMY_THEME_CORP_SAMURAI,
+    ENEMY_THEME_CORP_SAMURAI_POWER_ARMOR,
+    ENEMY_THEME_CORP_SAMURAI_ROBOT,
+    ENEMY_THEME_GENERIC,
+    ENEMY_THEME_MUTANT,
+    ENEMY_THEME_RAIDER,
+    ENEMY_THEME_STARVER,
+    normalize_enemy_theme,
+)
+
 LEGACY_AGENT_PORTRAIT_COUNT = 124
 AGENT_PORTRAIT_COUNT = 50
 ROBOT_PORTRAIT_COUNT = 75
 POWER_ARMOR_PORTRAIT_COUNT = 25
 PORTRAIT_COUNT = LEGACY_AGENT_PORTRAIT_COUNT
 PORTRAIT_DIR = "assets/ui/portraits"
+
+ENEMY_PORTRAIT_COUNTS: dict[str, int] = {
+    ENEMY_THEME_STARVER: 10,
+    ENEMY_THEME_MUTANT: 20,
+    ENEMY_THEME_RAIDER: 20,
+    ENEMY_THEME_CORP_SAMURAI: 20,
+    ENEMY_THEME_CORP_SAMURAI_ROBOT: 20,
+    ENEMY_THEME_CORP_SAMURAI_POWER_ARMOR: 20,
+    ENEMY_THEME_CORP_37: 20,
+    ENEMY_THEME_CORP_37_ROBOT: 20,
+    ENEMY_THEME_CORP_37_POWER_ARMOR: 20,
+}
 
 
 def _stable_index(seed: str, pool_size: int) -> int:
@@ -95,3 +121,23 @@ def portrait_path_for_character(character) -> str:
         role,
         getattr(character, "sex", ""),
     )
+
+
+def portrait_path_for_enemy(identifier: str, theme: str, subtype: str = "grunt") -> str:
+    """Return a stable generated portrait path for a themed enemy identity."""
+    theme_key = normalize_enemy_theme(theme)
+    subtype_key = str(subtype or "grunt").strip().lower() or "grunt"
+    if theme_key == ENEMY_THEME_GENERIC:
+        return f"{PORTRAIT_DIR}/enemy_{subtype_key}.png"
+
+    count = ENEMY_PORTRAIT_COUNTS.get(theme_key, 20)
+    seed = f"{identifier.strip().lower()}:{theme_key}:{subtype_key}:enemy"
+    index = _stable_index(seed, count)
+    path = f"{PORTRAIT_DIR}/enemy_{theme_key}_{index:02d}.png"
+    if _portrait_exists(path):
+        return path
+
+    fallback = f"{PORTRAIT_DIR}/enemy_{subtype_key}.png"
+    if _portrait_exists(fallback):
+        return fallback
+    return path

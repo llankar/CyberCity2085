@@ -292,6 +292,56 @@ def _build_robot_portrait_specs(seed_base: int) -> list[tuple[str, str, int]]:
     return specs
 
 
+def _build_enemy_portrait_specs(
+    prefix: str,
+    seed_base: int,
+    count: int,
+    roles: list[str],
+    wardrobe: list[str],
+    cyberware: list[str],
+    color_words: list[str],
+    backdrop_words: list[str],
+    label: str,
+) -> list[tuple[str, str, int]]:
+    specs: list[tuple[str, str, int]] = []
+    for idx in range(1, count + 1):
+        role = roles[(idx - 1) % len(roles)]
+        outfit = wardrobe[(idx * 2) % len(wardrobe)]
+        implant = cyberware[(idx * 3) % len(cyberware)]
+        color = color_words[(idx * 5) % len(color_words)]
+        backdrop = backdrop_words[(idx * 7) % len(backdrop_words)]
+        prompt = (
+            f"{role}, {outfit}, {implant}, {color} accents, {backdrop}, "
+            f"{label}, " + _PORT_STYLE
+        )
+        specs.append((f"{prefix}_{idx:02d}", prompt, seed_base + idx))
+    return specs
+
+
+def _build_enemy_machine_portrait_specs(
+    prefix: str,
+    seed_base: int,
+    count: int,
+    chassis_words: list[str],
+    optic_words: list[str],
+    wear_words: list[str],
+    detail_words: list[str],
+    glow_words: list[str],
+    backdrop_words: list[str],
+    label: str,
+) -> list[tuple[str, str, int]]:
+    specs: list[tuple[str, str, int]] = []
+    for idx in range(1, count + 1):
+        prompt = (
+            f"robot portrait close-up, {chassis_words[(idx - 1) % len(chassis_words)]}, "
+            f"{optic_words[(idx * 2) % len(optic_words)]}, {wear_words[(idx * 3) % len(wear_words)]}, "
+            f"{detail_words[(idx * 5) % len(detail_words)]}, {glow_words[(idx * 7) % len(glow_words)]}, "
+            f"{backdrop_words[(idx * 11) % len(backdrop_words)]}, {label}, " + _PORT_STYLE
+        )
+        specs.append((f"{prefix}_{idx:02d}", prompt, seed_base + idx))
+    return specs
+
+
 PORTRAITS.extend(
     _build_portrait_specs(
         "agent_female",
@@ -452,6 +502,400 @@ PORTRAITS.extend(
 
 PORTRAITS.extend(_build_robot_portrait_specs(5000))
 
+PORTRAITS.extend(
+    _build_enemy_portrait_specs(
+        "enemy_starver",
+        6000,
+        10,
+        [
+            "gaunt infected scavenger",
+            "feral tunnel survivor",
+            "desperate quarantine drifter",
+            "hollow-eyed pack hunter",
+            "rag-wrapped wasteland walker",
+        ],
+        [
+            "torn coat and stitched respirator",
+            "ragged hoodie with blood-stained sleeves",
+            "patched riot jacket with cracked mask",
+            "threadbare tactical vest and chain scarf",
+            "scrap metal pauldrons over filthy cloth",
+        ],
+        [
+            "surgical staples and pale cheek tubing",
+            "makeshift mouth filter and ocular scar",
+            "exposed neck implants and vaccine port",
+            "shaking hand with bone-white knuckles",
+            "wired collar and crude tracking chip",
+        ],
+        ["ash", "bone", "rust", "sickly green", "cold blue"],
+        [
+            "abandoned subway tunnel",
+            "quarantine fence at night",
+            "collapsed overpass in rain",
+            "dim sewer access corridor",
+            "burned-out supply depot",
+        ],
+        "infected, dangerous, feral",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_portrait_specs(
+        "enemy_mutant",
+        6100,
+        20,
+        [
+            "mutated human survivor",
+            "irradiated street brute",
+            "overgrown biohazard stalker",
+            "scarred zone mutant",
+            "unstable flesh-warper victim",
+        ],
+        [
+            "hazmat tatters and swollen armor plates",
+            "fused denim and scrap plating",
+            "radiation suit remnants and leather straps",
+            "bulky scavenged harness and torn sleeves",
+            "stapled tarp cloak and bone charms",
+        ],
+        [
+            "luminous vein lines and cyber patches",
+            "extra optic implant and jaw brace",
+            "subdermal toxin ports and spinal fins",
+            "hastily sewn med implants and scars",
+            "glowing tumor nodes and tracking jack",
+        ],
+        ["acid green", "warning amber", "violet", "pale cyan", "muted red"],
+        [
+            "irradiated service tunnel",
+            "toxic floodplain at dusk",
+            "mangled laboratory corridor",
+            "ruined apartment stairwell",
+            "contaminated rail platform",
+        ],
+        "unstable, mutated, relentless",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_portrait_specs(
+        "enemy_raider",
+        6200,
+        20,
+        [
+            "mad-max raider warlord",
+            "scrapland marauder",
+            "dust-road ambusher",
+            "rusted helmet predator",
+            "vehicle gang enforcer",
+        ],
+        [
+            "spiked leather coat and ammo webbing",
+            "patched armor with scavenged plates",
+            "chain harness and dust cloak",
+            "battered biker vest and armored collar",
+            "raided riot armor and frayed scarf",
+        ],
+        [
+            "visor goggles with cracked lenses",
+            "jaw tattoo and metal tooth grill",
+            "ear jack, nose ring, and cheek scars",
+            "stolen ocular implant with burn marks",
+            "helmet radio and crude sensor crown",
+        ],
+        ["rust", "sand", "black", "copper", "oil-stain orange"],
+        [
+            "dust storm roadside camp",
+            "abandoned highway checkpoint",
+            "scrap yard bonfire glow",
+            "cinder-lit wasteland ridge",
+            "broken convoy yard",
+        ],
+        "aggressive, scavenging, ruthless",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_portrait_specs(
+        "enemy_corp_samurai",
+        6300,
+        20,
+        [
+            "cyber samurai operative",
+            "corporate ninja assassin",
+            "steel-masked blade specialist",
+            "silent katana infiltrator",
+            "high-rank stealth duelist",
+        ],
+        [
+            "black infiltration armor with plated sash",
+            "ceremonial combat coat and mesh sleeves",
+            "matte tactical bodysuit with blade clips",
+            "hooded armor with segmented shoulder guards",
+            "night-black uniform with luminous seam lines",
+        ],
+        [
+            "visor mask and throat data port",
+            "forearm blade sheath and cheek implant",
+            "spine-mounted holster and retinal HUD",
+            "elegant mask with red eye slit",
+            "sleeve jack and silent comm node",
+        ],
+        ["crimson", "indigo", "silver", "teal", "white"],
+        [
+            "rain-soaked neon alley",
+            "high-rise rooftop shadow",
+            "glass atrium with blade reflections",
+            "moonlit courtyard of steel",
+            "dark training hall with paper-light glow",
+        ],
+        "disciplined, lethal, silent",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_machine_portrait_specs(
+        "enemy_corp_samurai_robot",
+        6400,
+        20,
+        [
+            "sleek samurai automaton chassis",
+            "blade-bearing sentinel frame",
+            "ceremonial combat android shell",
+            "stealth hunter robot chassis",
+            "armored duelist machine body",
+        ],
+        [
+            "single crimson optic",
+            "paired white optics",
+            "narrow cyan visor strip",
+            "tri-lens amber sensor",
+            "masked sensor lattice",
+        ],
+        [
+            "polished armor with minor scratches",
+            "battle-scuffed plating and bolt seams",
+            "matte black body panels",
+            "ornate lacquered shoulder caps",
+            "wire ports and vent scars",
+        ],
+        [
+            "katana sheath mount",
+            "ceremonial crest fin",
+            "wrist blade housing",
+            "throat vent assembly",
+            "retractable sensor antenna",
+        ],
+        [
+            "red command glow",
+            "white scan glow",
+            "cyan alert glow",
+            "amber threat glow",
+            "violet tactical glow",
+        ],
+        [
+            "neon rain corridor",
+            "steel cathedral shadows",
+            "corporate dojo interior",
+            "low-lit rooftop gantry",
+            "security vault haze",
+        ],
+        "samurai-themed combat robot",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_machine_portrait_specs(
+        "enemy_corp_samurai_power_armor",
+        6500,
+        20,
+        [
+            "samurai power armor helm",
+            "blade guard exosuit headplate",
+            "honor guard armor shell",
+            "siege duelist armor chassis",
+            "corporate ronin war frame",
+        ],
+        [
+            "single gold visor",
+            "red tactical optics",
+            "narrow white visor slit",
+            "cyan command optics",
+            "black faceplate with crest",
+        ],
+        [
+            "scarred shoulder plates and dented chest rig",
+            "ornate armor with chipped lacquer",
+            "heavy plated collar and bolt seams",
+            "reinforced gauntlets with blade mounts",
+            "battle marks around the visor",
+        ],
+        [
+            "katana gauntlet mount",
+            "crest ridge and antenna",
+            "shoulder shield plates",
+            "servos in the throat ring",
+            "retractable mono-blade housing",
+        ],
+        [
+            "red power core glow",
+            "white HUD glow",
+            "amber reactor glow",
+            "blue status glow",
+            "gold honor glow",
+        ],
+        [
+            "storm-lit tower corridor",
+            "smoky command bunker",
+            "rain-slick fortress balcony",
+            "neon-lit armor bay",
+            "ceremonial war chamber",
+        ],
+        "samurai-themed power armor",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_portrait_specs(
+        "enemy_corp_37",
+        6600,
+        20,
+        [
+            "retro-authoritarian corporate officer",
+            "wartime-industrial security commander",
+            "iron-gray field marshal",
+            "cold doctrine strategist",
+            "retro-fascist logistics chief",
+        ],
+        [
+            "iron-gray greatcoat with rigid collar",
+            "dark parade jacket and medal straps",
+            "angular armored tunic and black gloves",
+            "scarlet-lined trench coat",
+            "uniform coat with clipped insignia",
+        ],
+        [
+            "geometric insignia collar tab",
+            "hard visor and jawline implant",
+            "signal jack behind the ear",
+            "stern cheek scar and throat port",
+            "comm bead and optics insert",
+        ],
+        ["iron", "red", "black", "silver", "smoke-gray"],
+        [
+            "bombed-out command room",
+            "steel hallway under floodlights",
+            "citadel office in cold rain",
+            "archive bunker with red lamps",
+            "war-room balcony above fog",
+        ],
+        "authoritarian, disciplined, relentless",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_machine_portrait_specs(
+        "enemy_corp_37_robot",
+        6700,
+        20,
+        [
+            "wartime security automaton",
+            "industrial command robot",
+            "retro-guardian machine chassis",
+            "iron doctrine android shell",
+            "storm-trooper robot frame",
+        ],
+        [
+            "single red command eye",
+            "paired white optics",
+            "angular black visor strip",
+            "tri-lens amber sensor",
+            "cold blue threat array",
+        ],
+        [
+            "battle-dented armor plates",
+            "matte iron chassis scars",
+            "riveted plating and vent seams",
+            "stamped insignia panels",
+            "heavy shoulder housings",
+        ],
+        [
+            "radio mast crown",
+            "ceremonial chest plate",
+            "armored neck brace",
+            "industrial sensor spine",
+            "reinforced knee pistons",
+        ],
+        [
+            "red threat glow",
+            "amber alert glow",
+            "white scan glow",
+            "blue tactical glow",
+            "gold status glow",
+        ],
+        [
+            "factory bunker shadows",
+            "war room haze",
+            "steel corridor glare",
+            "rain on blast doors",
+            "archive vault gloom",
+        ],
+        "authoritarian security robot",
+    )
+)
+
+PORTRAITS.extend(
+    _build_enemy_machine_portrait_specs(
+        "enemy_corp_37_power_armor",
+        6800,
+        20,
+        [
+            "retro-command power armor helm",
+            "iron doctrine assault shell",
+            "wartime heavy exosuit head",
+            "field marshal armor mask",
+            "armored security war frame",
+        ],
+        [
+            "black visor slit",
+            "red command optics",
+            "smoky gold visor",
+            "white tactical lens",
+            "cold blue sensor eye",
+        ],
+        [
+            "heavy plated shoulders and chest",
+            "rivet-fastened armor panels",
+            "battle-worn command plating",
+            "stern collar and reinforced gauntlets",
+            "angular armor with chipped insignia",
+        ],
+        [
+            "thick chest reactor housing",
+            "side-mounted servo stack",
+            "armored neck ring",
+            "reinforced thigh pistons",
+            "shoulder flare housing",
+        ],
+        [
+            "red reactor glow",
+            "amber warning glow",
+            "white scan glow",
+            "blue control glow",
+            "gold command glow",
+        ],
+        [
+            "smoke-filled command bunker",
+            "war-torn archive hall",
+            "storm-lit fortress bridge",
+            "steel blast-door chamber",
+            "black site armory",
+        ],
+        "authoritarian power armor",
+    )
+)
+
 # ---------------------------------------------------------------------------
 # Sprite definitions  (filename_stem, prompt, seed)
 # ---------------------------------------------------------------------------
@@ -534,6 +978,442 @@ SPRITES: list[tuple[str, str, int]] = [
         2004,
     ),
 ]
+
+
+def _build_enemy_human_sprite_specs(
+    prefix: str,
+    seed_base: int,
+    theme_phrase: str,
+    armor_words: list[str],
+    weapon_words: list[str],
+    stance_words: list[str],
+    color_words: list[str],
+    backdrop_words: list[str],
+) -> list[tuple[str, str, int]]:
+    specs: list[tuple[str, str, int]] = []
+    subtypes = ("grunt", "heavy", "elite", "commander")
+    for idx, subtype in enumerate(subtypes, start=1):
+        prompt = (
+            f"{theme_phrase}, {armor_words[(idx - 1) % len(armor_words)]}, "
+            f"{weapon_words[(idx * 2) % len(weapon_words)]}, "
+            f"{stance_words[(idx * 3) % len(stance_words)]}, "
+            f"{color_words[(idx * 5) % len(color_words)]} accents, "
+            f"{backdrop_words[(idx * 7) % len(backdrop_words)]}, " + _SPR_STYLE
+        )
+        specs.append((f"{prefix}_{subtype}", prompt, seed_base + idx))
+    return specs
+
+
+def _build_enemy_machine_sprite_specs(
+    prefix: str,
+    seed_base: int,
+    theme_phrase: str,
+    chassis_words: list[str],
+    weapon_words: list[str],
+    armor_words: list[str],
+    stance_words: list[str],
+    glow_words: list[str],
+    backdrop_words: list[str],
+) -> list[tuple[str, str, int]]:
+    specs: list[tuple[str, str, int]] = []
+    subtypes = ("grunt", "heavy", "elite", "commander")
+    for idx, subtype in enumerate(subtypes, start=1):
+        prompt = (
+            f"{theme_phrase}, {chassis_words[(idx - 1) % len(chassis_words)]}, "
+            f"{weapon_words[(idx * 2) % len(weapon_words)]}, "
+            f"{armor_words[(idx * 3) % len(armor_words)]}, "
+            f"{stance_words[(idx * 5) % len(stance_words)]}, "
+            f"{glow_words[(idx * 7) % len(glow_words)]} accents, "
+            f"{backdrop_words[(idx * 11) % len(backdrop_words)]}, " + _SPR_STYLE
+        )
+        specs.append((f"{prefix}_{subtype}", prompt, seed_base + idx))
+    return specs
+
+
+SPRITES.extend(
+    _build_enemy_human_sprite_specs(
+        "enemy_starver",
+        3000,
+        "gaunt infected scavenger, feral out-of-city enemy",
+        [
+            "torn coat, filthy layers, and ragged belt",
+            "stained hoodie and broken armor scraps",
+            "patched survival gear and cracked mask",
+            "quarantine vest and chain scarf",
+            "scrap shoulder pads and torn sleeves",
+        ],
+        [
+            "rusted pipe blade",
+            "short shotgun",
+            "improvised machete",
+            "rebar spear",
+            "stolen carbine",
+        ],
+        [
+            "crouched and predatory",
+            "leaning forward with jittery hunger",
+            "low sprint stance",
+            "one knee bent, ready to lunge",
+            "shoulders hunched and tense",
+        ],
+        ["ash", "bone", "rust", "green", "blue"],
+        [
+            "abandoned subway tunnel",
+            "quarantine fence at night",
+            "collapsed overpass in rain",
+            "dim sewer access corridor",
+            "burned-out supply depot",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_human_sprite_specs(
+        "enemy_mutant",
+        3100,
+        "mutated human survivor, irradiated hazard enemy",
+        [
+            "hazmat tatters and swollen armor plates",
+            "fused denim and scrap plating",
+            "radiation suit remnants and leather straps",
+            "bulky scavenged harness and torn sleeves",
+            "stapled tarp cloak and bone charms",
+        ],
+        [
+            "heavy hammer arm",
+            "crudely sharpened cleaver",
+            "spiked pipe staff",
+            "stolen assault rifle",
+            "bone hook blade",
+        ],
+        [
+            "stooped and unstable",
+            "wide-stance brute posture",
+            "twisted torso combat lean",
+            "lunging with one shoulder high",
+            "lurching but aggressive",
+        ],
+        ["acid green", "warning amber", "violet", "cyan", "muted red"],
+        [
+            "irradiated service tunnel",
+            "toxic floodplain at dusk",
+            "mangled laboratory corridor",
+            "ruined apartment stairwell",
+            "contaminated rail platform",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_human_sprite_specs(
+        "enemy_raider",
+        3200,
+        "mad-max raider, scavenger warband enemy",
+        [
+            "spiked leather coat and ammo webbing",
+            "patched armor with scavenged plates",
+            "chain harness and dust cloak",
+            "biker vest and armored collar",
+            "raided riot armor and frayed scarf",
+        ],
+        [
+            "scrap rifle",
+            "shotgun with pipe stock",
+            "combat machete",
+            "revolver and knife combo",
+            "brass knuckle baton",
+        ],
+        [
+            "aggressive forward drive",
+            "one-foot-forward brawler stance",
+            "weapon raised over the shoulder",
+            "wide stance, ready to charge",
+            "knees bent for a sprint",
+        ],
+        ["rust", "sand", "black", "copper", "orange"],
+        [
+            "dust storm roadside camp",
+            "abandoned highway checkpoint",
+            "scrap yard bonfire glow",
+            "cinder-lit wasteland ridge",
+            "broken convoy yard",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_human_sprite_specs(
+        "enemy_corp_samurai",
+        3300,
+        "cyber samurai ninja, corporate blade assassin",
+        [
+            "black infiltration armor with plated sash",
+            "ceremonial combat coat and mesh sleeves",
+            "matte tactical bodysuit with blade clips",
+            "hooded armor with segmented shoulder guards",
+            "night-black uniform with luminous seam lines",
+        ],
+        [
+            "katana in a low guard",
+            "dual blades drawn",
+            "monoblade extended",
+            "short rifle held one-handed",
+            "throwing knife fan",
+        ],
+        [
+            "silent ready stance",
+            "low duelist pose",
+            "blade angled across the body",
+            "mid-step infiltration posture",
+            "knife hand extended, katana back",
+        ],
+        ["crimson", "indigo", "silver", "teal", "white"],
+        [
+            "rain-soaked neon alley",
+            "high-rise rooftop shadow",
+            "glass atrium with blade reflections",
+            "moonlit courtyard of steel",
+            "dark training hall with paper-light glow",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_machine_sprite_specs(
+        "enemy_corp_samurai_robot",
+        3400,
+        "samurai-themed combat robot, corporate blade machine",
+        [
+            "sleek samurai automaton chassis",
+            "blade-bearing sentinel frame",
+            "ceremonial combat android shell",
+            "stealth hunter robot chassis",
+            "armored duelist machine body",
+        ],
+        [
+            "katana armature",
+            "monoblade emitter",
+            "wrist blade module",
+            "shock baton and shield edge",
+            "compact rifle mount",
+        ],
+        [
+            "polished armor with minor scratches",
+            "battle-scuffed plating and bolt seams",
+            "matte black body panels",
+            "ornate lacquered shoulder caps",
+            "wire ports and vent scars",
+        ],
+        [
+            "forward lean slash pose",
+            "balanced duelist stance",
+            "guarded step with blade ready",
+            "low stealth crouch",
+            "mid-strike rotation",
+        ],
+        [
+            "red command glow",
+            "white scan glow",
+            "cyan alert glow",
+            "amber threat glow",
+            "violet tactical glow",
+        ],
+        [
+            "neon rain corridor",
+            "steel cathedral shadows",
+            "corporate dojo interior",
+            "low-lit rooftop gantry",
+            "security vault haze",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_machine_sprite_specs(
+        "enemy_corp_samurai_power_armor",
+        3500,
+        "samurai-themed power armor, corporate heavy assault suit",
+        [
+            "samurai power armor shell",
+            "blade guard exosuit frame",
+            "honor guard armor chassis",
+            "siege duelist armor",
+            "corporate ronin war frame",
+        ],
+        [
+            "assault rifle braced in both hands",
+            "heavy beam cannon",
+            "katana mounted to the forearm",
+            "compact grenade launcher",
+            "tactical shield and sidearm",
+        ],
+        [
+            "scarred shoulder plates and dented chest rig",
+            "ornate armor with chipped lacquer",
+            "heavy plated collar and bolt seams",
+            "reinforced gauntlets with blade mounts",
+            "battle marks around the visor",
+        ],
+        [
+            "braced firing stance",
+            "heavy step forward",
+            "shielded guard pose",
+            "power-armor shoulder turn",
+            "siege-ready stance",
+        ],
+        [
+            "red power core glow",
+            "white HUD glow",
+            "amber reactor glow",
+            "blue status glow",
+            "gold honor glow",
+        ],
+        [
+            "storm-lit tower corridor",
+            "smoky command bunker",
+            "rain-slick fortress balcony",
+            "neon-lit armor bay",
+            "ceremonial war chamber",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_human_sprite_specs(
+        "enemy_corp_37",
+        3600,
+        "retro-authoritarian corporate officer, brutal industrial infantry",
+        [
+            "iron-gray greatcoat with rigid collar",
+            "dark parade jacket and medal straps",
+            "angular armored tunic and black gloves",
+            "scarlet-lined trench coat",
+            "uniform coat with clipped insignia",
+        ],
+        [
+            "service pistol and baton",
+            "submachine gun at the ready",
+            "long rifle with bayonet",
+            "command pistol and signal flare",
+            "heavy carbine and knife",
+        ],
+        [
+            "upright march stance",
+            "cold command pose",
+            "weapon held close to the chest",
+            "stiff, disciplined step",
+            "shoulders squared and rigid",
+        ],
+        ["iron", "red", "black", "silver", "gray"],
+        [
+            "bombed-out command room",
+            "steel hallway under floodlights",
+            "citadel office in cold rain",
+            "archive bunker with red lamps",
+            "war-room balcony above fog",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_machine_sprite_specs(
+        "enemy_corp_37_robot",
+        3700,
+        "authoritarian security robot, retro-industrial war machine",
+        [
+            "wartime security automaton",
+            "industrial command robot",
+            "retro-guardian machine chassis",
+            "iron doctrine android shell",
+            "storm-trooper robot frame",
+        ],
+        [
+            "heavy rifle mount",
+            "compact suppressor cannon",
+            "arm-mounted shock baton",
+            "short-range grenade projector",
+            "dual-mount machine pistol",
+        ],
+        [
+            "battle-dented armor plates",
+            "matte iron chassis scars",
+            "riveted plating and vent seams",
+            "stamped insignia panels",
+            "heavy shoulder housings",
+        ],
+        [
+            "measured marching pose",
+            "weapon raised in salute",
+            "locked defensive stance",
+            "forward patrol gait",
+            "hard target acquisition stance",
+        ],
+        [
+            "red threat glow",
+            "amber alert glow",
+            "white scan glow",
+            "blue tactical glow",
+            "gold status glow",
+        ],
+        [
+            "factory bunker shadows",
+            "war room haze",
+            "steel corridor glare",
+            "rain on blast doors",
+            "archive vault gloom",
+        ],
+    )
+)
+
+SPRITES.extend(
+    _build_enemy_machine_sprite_specs(
+        "enemy_corp_37_power_armor",
+        3800,
+        "authoritarian power armor, heavy industrial assault suit",
+        [
+            "retro-command power armor shell",
+            "iron doctrine assault chassis",
+            "wartime heavy exosuit frame",
+            "field marshal armor mask",
+            "armored security war frame",
+        ],
+        [
+            "heavy cannon braced at hip",
+            "battle rifle with underbarrel launcher",
+            "shield and sidearm",
+            "long rifle and bayonet",
+            "burst-fire carbine",
+        ],
+        [
+            "heavy plated shoulders and chest",
+            "rivet-fastened armor panels",
+            "battle-worn command plating",
+            "stern collar and reinforced gauntlets",
+            "angular armor with chipped insignia",
+        ],
+        [
+            "advancing heavy assault stance",
+            "shielded march forward",
+            "cannon braced to fire",
+            "wide planted power pose",
+            "defensive stomp posture",
+        ],
+        [
+            "red reactor glow",
+            "amber warning glow",
+            "white scan glow",
+            "blue control glow",
+            "gold command glow",
+        ],
+        [
+            "smoke-filled command bunker",
+            "war-torn archive hall",
+            "storm-lit fortress bridge",
+            "steel blast-door chamber",
+            "black site armory",
+        ],
+    )
+)
 
 # ---------------------------------------------------------------------------
 # Post-processing

@@ -881,6 +881,9 @@ def draw_target_lock_panel(
     )
 
     arcade.draw_text("◉  TARGET LOCK", px + 10, py + ph - 14, palette.DANGER, font_size=10, bold=True)
+    portrait_size = 40
+    portrait_x = px + pw - portrait_size - 10
+    portrait_y = py + ph - portrait_size - 10
     arcade.draw_text(
         target_name.upper(),
         px + 10,
@@ -888,9 +891,39 @@ def draw_target_lock_panel(
         palette.TEXT,
         font_size=13,
         bold=True,
-        width=max(10, pw - 20),
+        width=max(10, pw - portrait_size - 24),
         align="left",
     )
+
+    if target.unit_type == "enemy":
+        try:
+            from game.ui.portraits import portrait_path_for_enemy
+            from game.ui.panels import _load_texture_once
+
+            portrait_path = portrait_path_for_enemy(
+                str(id(target)),
+                getattr(target, "enemy_theme", "generic"),
+                getattr(target, "enemy_subtype", "grunt"),
+            )
+            portrait = _load_texture_once(portrait_path) if portrait_path else None
+        except Exception:
+            portrait = None
+        if portrait:
+            arcade.draw_lrbt_rectangle_filled(
+                portrait_x, portrait_x + portrait_size,
+                portrait_y, portrait_y + portrait_size,
+                palette.PANEL_FILL_DARK,
+            )
+            arcade.draw_lrbt_rectangle_outline(
+                portrait_x, portrait_x + portrait_size,
+                portrait_y, portrait_y + portrait_size,
+                palette.DANGER,
+                1,
+            )
+            arcade.draw_texture_rect(
+                portrait,
+                arcade.LBWH(portrait_x, portrait_y, portrait_size, portrait_size),
+            )
 
     # Hit chance calculation
     stat_map = {"melee": "str", "shoot": "agi", "psi": "psi"}

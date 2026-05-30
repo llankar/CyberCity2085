@@ -4,7 +4,12 @@ import random
 from game.agent_specializations import apply_talent_bonuses
 from game.character import Character
 from game.recruitment import ROLE_NAME_POOLS, build_recruitment_candidates, create_character, recruit_agent
-from game.ui.portraits import portrait_path_for_agent, portrait_path_for_power_armor, portrait_path_for_robot
+from game.ui.portraits import (
+    portrait_path_for_agent,
+    portrait_path_for_enemy,
+    portrait_path_for_power_armor,
+    portrait_path_for_robot,
+)
 
 
 class AgentProgressionTest(unittest.TestCase):
@@ -46,15 +51,18 @@ class AgentProgressionTest(unittest.TestCase):
         male = portrait_path_for_agent("Vega", "sniper", "male")
         robot = portrait_path_for_robot("robot_k9_01", "combat_robot")
         armor = portrait_path_for_power_armor("armor_mantis_01", "power_armor")
+        raider = portrait_path_for_enemy("raider_01", "raider", "grunt")
 
         self.assertIn("agent_female_", female)
         self.assertIn("agent_male_", male)
         self.assertIn("robot_", robot)
         self.assertIn("power_armor_", armor)
+        self.assertIn("enemy_raider_", raider)
         self.assertTrue(female.endswith(".png"))
         self.assertTrue(male.endswith(".png"))
         self.assertTrue(robot.endswith(".png"))
         self.assertTrue(armor.endswith(".png"))
+        self.assertTrue(raider.endswith(".png"))
 
     def test_talent_bonuses_apply_to_combat_stats(self):
         character = Character("Orchid", role="psi")
