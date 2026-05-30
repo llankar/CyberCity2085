@@ -1269,6 +1269,146 @@ def draw_deployment_overlay(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Wave 5-B: Battle Spectacle
+# ══════════════════════════════════════════════════════════════════════════════
+
+def draw_mission_intro(
+    width: int,
+    height: int,
+    mission_title: str,
+    district: str,
+    progress: float,
+) -> None:
+    """Draw the 2-second mission-start intro overlay (GUI/screen space).
+
+    *progress* goes 0.0 → 1.0 over the intro duration; everything fades out
+    and the scanning line completes its sweep by progress=1.0.
+    """
+    fade = max(0.0, 1.0 - progress)
+
+    # Dark background — fades out
+    arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, int(210 * fade)))
+
+    cx = width // 2
+    cy = height // 2
+
+    # ── Scan line: sweeps left → right ──────────────────────────────────────
+    scan_x = int(progress * width)
+    alpha_scan = int(180 * fade)
+    arcade.draw_line(scan_x, 0, scan_x, height, (60, 220, 180, alpha_scan), 2)
+    # Trailing glow
+    trail = max(0, scan_x - 40)
+    for i in range(3):
+        ax = trail + i * 13
+        arcade.draw_line(ax, 0, ax, height, (60, 220, 180, max(0, int(40 * fade * (1 - i * 0.3)))), 1)
+
+    # ── Horizontal rule ──────────────────────────────────────────────────────
+    col_line = (*_ACTIVE_COL, int(200 * fade))
+    arcade.draw_line(cx - 260, cy + 46, cx + 260, cy + 46, col_line, 1)
+    arcade.draw_line(cx - 260, cy - 46, cx + 260, cy - 46, col_line, 1)
+
+    # ── "TACTICAL INSERTION" label ───────────────────────────────────────────
+    arcade.draw_text(
+        "TACTICAL INSERTION",
+        cx, cy + 60,
+        (*palette.MUTED_TEXT[:3], int(200 * fade)),
+        font_size=10, bold=True,
+        anchor_x="center", anchor_y="center",
+    )
+
+    # ── Mission title ────────────────────────────────────────────────────────
+    arcade.draw_text(
+        mission_title.upper(),
+        cx, cy,
+        (*palette.HEADER[:3], int(240 * fade)),
+        font_size=28, bold=True,
+        anchor_x="center", anchor_y="center",
+    )
+
+    # ── District label ────────────────────────────────────────────────────────
+    arcade.draw_text(
+        district.upper(),
+        cx, cy - 58,
+        (*_ACTIVE_COL, int(180 * fade)),
+        font_size=12,
+        anchor_x="center", anchor_y="center",
+    )
+
+
+def draw_ambient_overlay(
+    width: int,
+    height: int,
+    elapsed: float,
+    map_path: str,
+    particles: list[dict],
+) -> None:
+    """Draw ambient atmosphere effects over the HUD (screen space).
+
+    *particles* is the BattleView particles list — rain drops are appended here.
+    """
+    import random as _r, math as _m
+
+    # ── Scanlines: subtle CRT effect ────────────────────────────────────────
+    for y in range(0, height, 3):
+        arcade.draw_lrbt_rectangle_filled(0, width, y, y + 1, (0, 0, 0, 14))
+
+    # ── Neon edge glow ────────────────────────────────────────────────────────
+    edge = 22
+    pulse = 0.85 + 0.15 * _m.sin(elapsed * 1.8)
+    alpha_edge = int(28 * pulse)
+    # Top + bottom cyan strips
+    arcade.draw_lrbt_rectangle_filled(0, width, height - edge, height, (40, 200, 220, alpha_edge))
+    arcade.draw_lrbt_rectangle_filled(0, width, 0, edge, (40, 200, 220, alpha_edge))
+    # Left + right red strips
+    arcade.draw_lrbt_rectangle_filled(0, edge, 0, height, (220, 40, 80, alpha_edge))
+    arcade.draw_lrbt_rectangle_filled(width - edge, width, 0, height, (220, 40, 80, alpha_edge))
+
+    # ── Map-keyed atmosphere ─────────────────────────────────────────────────
+    mp = (map_path or "").lower()
+    if any(kw in mp for kw in ("rain", "fog", "neon_rain")):
+        # Spawn 2 rain-drop particles per frame
+        for _ in range(2):
+            particles.append({
+                "x": _r.uniform(0, width),
+                "y": height,
+                "vx": _r.uniform(-20, -10),
+                "vy": _r.uniform(-280, -180),
+                "color": (180, 210, 255),
+                "life": _r.uniform(0.4, 0.7),
+                "size": _r.uniform(0.8, 1.6),
+            })
+    if any(kw in mp for kw in ("blackout", "dark")):
+        arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, 38))
+    if "neon" in mp and _r.random() < 0.005:
+        # Random neon flicker on one edge
+        side = _r.randint(0, 3)
+        cols = [(0, width, height - edge, height), (0, width, 0, edge),
+                (0, edge, 0, height), (width - edge, width, 0, height)]
+        l, r, b, t = cols[side]
+        arcade.draw_lrbt_rectangle_filled(l, r, b, t, (60, 255, 220, 90))
+
+
+def draw_assassination_marker(unit: "Unit", elapsed: float) -> None:
+    """Draw a pulsing red crosshair above the assassination target (world space)."""
+    if not unit.sprite:
+        return
+    cx, cy = unit.sprite.center_x, unit.sprite.center_y
+    top = cy + unit.sprite.height // 2 + 20
+    pulse = 0.7 + 0.3 * math.sin(elapsed * 4.0)
+    alpha = int(220 * pulse)
+    r_col = (255, 30, 30, alpha)
+    # Diamond shape
+    sz = 10
+    arcade.draw_line(cx - sz, top,      cx,      top + sz, r_col, 2)
+    arcade.draw_line(cx,      top + sz, cx + sz, top,      r_col, 2)
+    arcade.draw_line(cx + sz, top,      cx,      top - sz, r_col, 2)
+    arcade.draw_line(cx,      top - sz, cx - sz, top,      r_col, 2)
+    # Label
+    arcade.draw_text("TARGET", cx, top + sz + 8, r_col, font_size=8,
+                     bold=True, anchor_x="center")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Advanced Visual Effects (Phase 4)
 # ══════════════════════════════════════════════════════════════════════════════
 

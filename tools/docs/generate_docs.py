@@ -40,6 +40,17 @@ BACKLOG_TASKS: List[BacklogTask] = [
     BacklogTask("UI-04", "Afficher les tags de mission et l'impact émotionnel attendu au lancement.", "ui", 7, 8, 8, 9),
     BacklogTask("TEST-04", "Tester la cohérence des tags de domaine dans les exports markdown.", "tests", 7, 5, 10, 10),
     BacklogTask("DOC-04", "Créer une checklist de maintenabilité pour les nouvelles features.", "docs", 7, 5, 9, 10),
+    # Wave 5 — Gameplay Depth, Battle Spectacle & Mission Variety
+    BacklogTask("BATTLE-W5A2", "Scoring de cibles IA — priorité blessés, rôles menace, distance.", "battle", 9, 7, 8, 7),
+    BacklogTask("BATTLE-W5A3", "Afficher les lignes narratives du débrief avec couleurs de tonalité.", "battle", 9, 9, 8, 7),
+    BacklogTask("BATTLE-W5B1", "Séquence d'intro mission 2s avec scan-line et titre en fondu.", "battle", 8, 8, 7, 6),
+    BacklogTask("BATTLE-W5B2", "Système de coup critique 12% : dégâts ×2, popup CRITICAL!, shake.", "battle", 9, 8, 8, 7),
+    BacklogTask("BATTLE-W5B3", "Texte flottant +XP au-dessus du tireur sur chaque kill.", "battle", 7, 8, 8, 7),
+    BacklogTask("BATTLE-W5B4", "Ambiance atmosphérique : scanlines, lueur néon, pluie sur cartes rain/fog.", "battle", 8, 7, 7, 6),
+    BacklogTask("BATTLE-W5C1", "Objectif Défense : tenir N tours, défaite si ennemi atteint la position.", "battle", 8, 8, 8, 7),
+    BacklogTask("BATTLE-W5C2", "Objectif Assassination : marqueur cible + victoire instantanée sur kill.", "battle", 8, 8, 7, 7),
+    BacklogTask("BATTLE-W5D1", "Écran de promotion agent post-combat quand un agent monte de niveau.", "battle", 9, 10, 8, 7),
+    BacklogTask("BATTLE-W5D2", "Événements de moral en combat : alliés KIA → 30% SUPPRESSED sur survivants.", "battle", 8, 10, 7, 7),
     # Mission View Professional Upgrade — Phase 1 (Visual Polish)
     BacklogTask("BATTLE-A01", "Créer un écran de briefing mission avant le lancement de la vue battle.", "battle", 10, 9, 8, 7),
     BacklogTask("BATTLE-P01", "Activer le pan caméra avec Shift+flèches et recentrage sur unité active.", "battle", 9, 6, 7, 6),

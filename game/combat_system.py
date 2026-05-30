@@ -297,6 +297,39 @@ def _check_overwatch(
     return False
 
 
+def _pick_target(enemy: Unit, player_units: list[Unit]) -> Unit | None:
+    """Score and pick the highest-priority target for an enemy unit.
+
+    Priority: near-dead units first (finish them), then high-threat roles
+    (psi agents, snipers), then squishiest defense.
+    """
+    if not player_units:
+        return None
+    if len(player_units) == 1:
+        return player_units[0]
+
+    def _score(unit: Unit) -> int:
+        score = 0
+        # Near-death: finish off wounded targets
+        if unit.stats and unit.health < unit.stats.max_hp * 0.40:
+            score += 20
+        # Threat role
+        role = getattr(unit.character, "role", "") if unit.character else ""
+        if role in ("psi", "sniper", "commander"):
+            score += 15
+        elif role in ("assault", "heavy"):
+            score += 8
+        # Soft target (low defense)
+        if unit.stats and getattr(unit.stats, "defense", 3) < 3:
+            score += 10
+        # Prefer closer targets (distance tie-breaker)
+        dist = enemy.distance_to(unit)
+        score -= int(dist / GRID_SIZE) * 2
+        return score
+
+    return max(player_units, key=_score)
+
+
 def _nearest_cover_step(
     enemy: Unit,
     cover_nodes: list,
@@ -374,7 +407,7 @@ def run_enemy_ai(
         # Skip enemies already killed (e.g. by overwatch during this same AI pass)
         if enemy.health <= 0:
             continue
-        target = player_units[0] if player_units else None
+        target = _pick_target(enemy, player_units)
         if not target:
             break
         while enemy.action_points > 0 and target.health > 0:
