@@ -279,6 +279,26 @@ class ManagementView(GameView):
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
+        # Tick act-advance overlay
+        if getattr(self, "_act_advance_timer", 0.0) > 0:
+            self._act_advance_timer -= delta_time
+            if self._act_advance_timer <= 0:
+                self._act_advance_timer = 0.0
+                self._act_advance_data = None
+        # Check for pending act advance from campaign engine
+        pending = getattr(self.game_state, "_pending_act_advance", None)
+        if pending and not getattr(self, "_act_advance_data", None):
+            self._act_advance_data = pending
+            self._act_advance_timer = 3.5
+            self._act_advance_elapsed = 0.0
+            self.game_state._pending_act_advance = None
+            try:
+                from game.audio import SoundManager
+                SoundManager.get().play("sfx_act_advance")
+            except Exception:
+                pass
+        if getattr(self, "_act_advance_data", None):
+            self._act_advance_elapsed = getattr(self, "_act_advance_elapsed", 0.0) + delta_time
 
     # Tab → room image mapping (content area background)
     _TAB_ROOM_IMAGE: dict[str, str] = {
@@ -328,6 +348,13 @@ class ManagementView(GameView):
         # Notifications toast — newest-first, bottom-right corner
         _draw_notification_toast(self.notifications, w, h)
         self._draw_expanded_agent_sheet_modal(w, h)
+
+        # Campaign: act-advance overlay
+        act_data = getattr(self, "_act_advance_data", None)
+        if act_data:
+            from game.ui.screens.campaign_panel import draw_act_advance_overlay
+            act_elapsed = getattr(self, "_act_advance_elapsed", 0.0)
+            draw_act_advance_overlay(w, h, act_data[0], act_data[1], act_elapsed)
 
 
     def _draw_expanded_agent_sheet_modal(self, w: int, h: int) -> None:
@@ -2005,9 +2032,18 @@ class ManagementView(GameView):
             )
             iy -= 17
 
-        # ── Right: Latest debrief ────────────────────────────────────────
+        # ── Right: Campaign panel (top) + Latest debrief (bottom) ──────
         rx0, rx1 = lx1 + gap, x1
-        _panel(rx0, y0, rx1, y1, "LATEST DEBRIEF", palette.HEADER)
+        panel_h = y1 - y0
+        campaign_h = max(180, min(360, panel_h // 2))
+        campaign_y0 = y1 - campaign_h
+
+        from game.ui.screens.campaign_panel import draw_campaign_panel
+        elapsed = getattr(self, "_elapsed", 0.0)
+        draw_campaign_panel(gs, rx0, campaign_y0, rx1 - rx0, campaign_h, elapsed)
+
+        _panel(rx0, y0, rx1, campaign_y0 - gap, "LATEST DEBRIEF", palette.HEADER)
+        y1 = campaign_y0 - gap
 
         dy = y1 - 36
         debrief = getattr(gs, "latest_mission_debrief", None)

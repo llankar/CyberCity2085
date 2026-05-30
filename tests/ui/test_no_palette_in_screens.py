@@ -13,6 +13,7 @@ _VIEW_FILES = {
     "mission_briefing_view.py",
     "battle_debrief_view.py",
     "agent_promotion_view.py",
+    "campaign_panel.py",
 }
 
 

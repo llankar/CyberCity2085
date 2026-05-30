@@ -113,5 +113,59 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
         mission.emotional_impact_hint["normalized_tags"] = normalize_mission_tags(mission.tags)
         generated.append(mission)
 
+    # ── Story mission injection ───────────────────────────────────────────────
+    _inject_story_mission(game_state, generated)
+
     rng.shuffle(generated)
     return generated
+
+
+def _inject_story_mission(
+    game_state: "GameState",
+    board: list[MissionTemplate],
+) -> None:
+    """Insert one story mission per act into the board if conditions are met."""
+    try:
+        from game.campaign.story_missions import story_missions_for_act
+        from game.campaign.acts import ACT_TITLES
+    except Exception:
+        return
+
+    c = game_state.campaign
+    act_missions = story_missions_for_act(c.current_act)
+    if not act_missions:
+        return
+
+    # Pick the first story mission whose id hasn't been completed yet
+    completed_ids = set(c.act_triggers_seen)
+    for sm in act_missions:
+        completed_key = f"story_complete_{sm.id}"
+        if completed_key in completed_ids:
+            continue
+        # Build a MissionTemplate from the StoryMissionTemplate
+        from game.consequences import Consequence
+        mt = MissionTemplate(
+            id=sm.id,
+            title=f"[STORY] {sm.title}",
+            objective_text=sm.objective_text,
+            target_faction="Three Sevens Corp",
+            district=game_state.district.name,
+            district_pressure={"unrest": game_state.district.unrest},
+            starting_enemy_count=max(3, sm.risk_level // 2),
+            objective_type=sm.objective_type,
+            risk_level=sm.risk_level,
+            fund_reward=sm.fund_reward,
+            duration_days=2,
+            emotional_impact_hint={
+                "level": "critical",
+                "text": sm.briefing[:120],
+                "short_text": sm.briefing[:60],
+                "normalized_tags": sm.tags,
+            },
+        )
+        # Insert at front of board (replace last regular mission if board is full)
+        if len(board) >= 3:
+            board[-1] = mt
+        else:
+            board.insert(0, mt)
+        return  # only one story mission at a time

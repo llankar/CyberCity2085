@@ -423,6 +423,42 @@ def _music_debrief() -> np.ndarray:
     return _norm(tr) * 0.64
 
 
+def _sfx_intel_reveal() -> np.ndarray:
+    """Soft two-voice chime: C5 + G5, 0.4 s — intel fragment discovered."""
+    dur = 0.40
+    n = int(RATE * dur)
+    env = _adsr(n, a=0.02, d=0.15, s=0.65, r=0.40)
+    c5 = _sine(523.25, dur)   # C5
+    g5 = _sine(783.99, dur)   # G5
+    return ((c5 * 0.55 + g5 * 0.45) * env) * 0.58
+
+
+def _sfx_act_advance() -> np.ndarray:
+    """Four-note ascending fanfare with pad: C4-E4-G4-C5, 1.2 s — act transition."""
+    notes = [(261.63, 0.18), (329.63, 0.18), (392.00, 0.18), (523.25, 0.26)]
+    parts = []
+    for freq, note_dur in notes:
+        n_n = int(RATE * note_dur)
+        env = _adsr(n_n, a=0.02, d=0.10, s=0.80, r=0.30)
+        tone = (_sine(freq, note_dur) + _sawtooth(freq, note_dur) * 0.15) * env
+        parts.append(tone)
+    # Final chord sustain
+    chord_dur = 0.42
+    nc = int(RATE * chord_dur)
+    env_c = _adsr(nc, a=0.02, d=0.12, s=0.72, r=0.40)
+    chord_freqs = [261.63, 329.63, 392.00, 523.25]
+    chord = sum(_sine(f, chord_dur) for f in chord_freqs) / 4 * env_c
+    full = np.concatenate(parts + [chord])
+    # Gentle pad underneath
+    pad_dur = len(full) / RATE
+    pad = _lpf(
+        sum(_sine(f * 0.5, pad_dur) for f in chord_freqs) / 4,
+        600,
+    ) * _adsr(len(full), a=0.05, d=0.15, s=0.5, r=0.35) * 0.25
+    mixed = full + pad[:len(full)]
+    return _norm(mixed) * 0.82
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 _SFX_MAP = {
@@ -443,6 +479,8 @@ _SFX_MAP = {
     "sfx_reinforce":    _sfx_reinforce,
     "sfx_stun":         _sfx_stun,
     "sfx_bleed":        _sfx_bleed,
+    "sfx_intel_reveal": _sfx_intel_reveal,
+    "sfx_act_advance":  _sfx_act_advance,
 }
 
 _MUSIC_MAP = {
