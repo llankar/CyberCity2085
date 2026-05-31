@@ -97,6 +97,11 @@ if not hasattr(arcade, "key"):
 
 from .agent_aftermath import apply_mission_aftermath
 from .agent_readiness import agents_at_breaking_risk
+from .battle_maps import (
+    BATTLE_TOKEN_SCALE,
+    battle_map_pool_for_mission,
+    infer_battle_environment,
+)
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
 from .narrative.debrief import build_mission_debrief_report
@@ -1694,11 +1699,8 @@ class BattleView(GameView):
                 ].to_dict()
             )
             self.game_state.active_mission = self.mission
-        self.available_maps = sorted(
-            f for f in os.listdir("assets/maps")
-            if f.lower().endswith((".jpeg", ".jpg", ".png"))
-            and not f.startswith(".")
-        )
+        self.map_environment = infer_battle_environment(self.mission)
+        self.available_maps = battle_map_pool_for_mission(self.mission)
         self.room_ui = RoomUIState("battle")
         # Auto-select a random map ? no manual selection screen needed
         import random as _rnd
@@ -1742,6 +1744,7 @@ class BattleView(GameView):
                 _sprite_path_for_unit(unit),
                 center_x=unit.position[0],
                 center_y=unit.position[1],
+                scale=BATTLE_TOKEN_SCALE,
             )
             unit.sprite = sprite
             self.player_list.append(sprite)
@@ -1751,6 +1754,7 @@ class BattleView(GameView):
                 _sprite_path_for_unit(enemy),
                 center_x=enemy.position[0],
                 center_y=enemy.position[1],
+                scale=BATTLE_TOKEN_SCALE,
             )
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
@@ -1831,10 +1835,13 @@ class BattleView(GameView):
             self.map_index = 0
             self.background = None
             self.map_path = None
+            self.map_label = ""
             self.terrain_profile = None
             return
         self.map_index = max(0, min(index, len(self.available_maps) - 1))
-        self.map_path = os.path.join("assets/maps", self.available_maps[self.map_index])
+        map_entry = self.available_maps[self.map_index]
+        self.map_path = map_entry.path
+        self.map_label = map_entry.label
         self.background = arcade.load_texture(self.map_path)
         from game.map_terrain import build_terrain_profile
 
@@ -1925,6 +1932,7 @@ class BattleView(GameView):
                     "assets/enemy.png",
                     center_x=ex,
                     center_y=ey,
+                    scale=BATTLE_TOKEN_SCALE,
                 )
                 new_enemy.sprite = sprite
                 self.enemy_list.append(sprite)
@@ -2980,8 +2988,12 @@ class BattleView(GameView):
         open_room(self.room_ui, self.window.width, self.window.height, room.key)
         icons = ("city", "radar", "armory", "shield", "research", "black_ops")
         map_actions = [
-            RoomAction(f"map_{index}", icons[index % len(icons)], f"Zone {index + 1}")
-            for index, _name in enumerate(self.available_maps[:9])
+            RoomAction(
+                f"map_{index}",
+                icons[index % len(icons)],
+                self.available_maps[index].label[:22],
+            )
+            for index, _entry in enumerate(self.available_maps[:9])
         ]
         self.room_ui.action_buttons = layout_action_buttons(
             self.window.width, self.window.height, map_actions
@@ -2993,7 +3005,7 @@ class BattleView(GameView):
         base = {
             "drop": [
                 mission_title,
-                f"Available drop zones {len(self.available_maps)}",
+                f"{getattr(self, 'map_environment', 'city').title()} map pool {len(self.available_maps)}",
                 "Choose a map icon to start tactical insertion.",
             ],
             "garage": [
@@ -3002,7 +3014,7 @@ class BattleView(GameView):
                 "Vehicle bay stages the insertion route.",
             ],
             "maps": [
-                f"Available maps {len(self.available_maps)}",
+                f"{getattr(self, 'map_environment', 'city').title()} maps {len(self.available_maps)}",
                 "Room icons select the drop zone.",
                 "Esc closes this room back to the base map.",
             ],

@@ -41,7 +41,7 @@ def _event_prefix(event_type: str) -> str:
         EVENT_COMBAT: "⚔",
         EVENT_SYSTEM: "🛰",
         EVENT_EMOTIONAL: "💬",
-        EVENT_STRESS: "🫀",
+        EVENT_STRESS: "🪙",
     }[_normalize_event_type(event_type)]
 
 
@@ -63,7 +63,7 @@ def build_combat_log_hud_lines(
     """Build short HUD lines (latest-first) for live readability."""
     filtered = apply_combat_log_filter(events, active_filter=active_filter)
     if not filtered:
-        return [CombatLogPanelLine("⚔ Aucun événement de combat récent.", EVENT_SYSTEM, emphasis="muted")]
+        return [CombatLogPanelLine("No recent combat events.", EVENT_SYSTEM, emphasis="muted")]
 
     visible = list(reversed(filtered[-max(1, max_lines) :]))
     return [
@@ -84,7 +84,7 @@ def build_combat_log_expanded_lines(
     """Build expanded debug-player lines with explicit event-type tags."""
     filtered = apply_combat_log_filter(events, active_filter=active_filter)
     if not filtered:
-        return [CombatLogPanelLine("[SYSTEM] Aucun événement disponible pour ce filtre.", EVENT_SYSTEM, emphasis="muted")]
+        return [CombatLogPanelLine("[SYSTEM] No events available for this filter.", EVENT_SYSTEM, emphasis="muted")]
 
     visible = list(reversed(filtered[-max(1, max_lines) :]))
     lines: list[CombatLogPanelLine] = []

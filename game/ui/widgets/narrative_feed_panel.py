@@ -16,7 +16,7 @@ def build_narrative_feed_panel_lines(
     if not entries:
         return [
             NarrativeFeedWidgetLine(
-                "🏙 [BASE] (tense) Aucun signal narratif récent. · à l'instant",
+                "🏙 [BASE] (tense) No recent narrative signal. · just now",
                 emphasis="muted",
                 category="base",
                 tone="tense",

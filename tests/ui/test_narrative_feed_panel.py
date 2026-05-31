@@ -17,10 +17,10 @@ class NarrativeFeedPanelTest(unittest.TestCase):
             "Aftermath: Patch carries New Job.",
         ]
         game_state.latest_recovery_dialogues = [
-            {"line": "Nyx reste avec Patch jusqu'à ce que la respiration revienne."}
+            {"line": "Nyx stays with Patch until the breathing steadies."}
         ]
         game_state.faction_reward_journal = [
-            {"kind": "local_trust", "text": "La clinique diffuse un mot de confiance discret."}
+            {"kind": "local_trust", "text": "The clinic spreads a quiet word of trust."}
         ]
         game_state.latest_mission_debrief = {
             "skill_check_outcomes": [
@@ -55,8 +55,8 @@ class NarrativeFeedPanelTest(unittest.TestCase):
         entries = [
             NarrativeFeedEntry("system", "Maintenance ping."),
             NarrativeFeedEntry("agent", "Nyx stabilise Patch."),
-            NarrativeFeedEntry("base", "Niveau énergie: stable."),
-            NarrativeFeedEntry("consequence", "Un civil perdu pèse sur l'équipe."),
+            NarrativeFeedEntry("base", "Energy level: stable."),
+            NarrativeFeedEntry("consequence", "A lost civilian weighs on the team."),
         ]
 
         lines = build_narrative_feed_panel_lines(entries)
@@ -70,7 +70,7 @@ class NarrativeFeedPanelTest(unittest.TestCase):
         entries = [
             NarrativeFeedEntry(
                 "mission",
-                "Mission longue " + ("X" * 200),
+                "Mission long " + ("X" * 200),
             )
         ]
 
@@ -78,8 +78,8 @@ class NarrativeFeedPanelTest(unittest.TestCase):
 
         self.assertIn("🎯", lines[0].text)
         self.assertIn("(tense)", lines[0].text)
-        self.assertIn("à l'instant", lines[0].text)
-        self.assertIn("…", lines[0].text)
+        self.assertIn("just now", lines[0].text)
+        self.assertIn("...", lines[0].text)
 
     def test_widget_quick_filters_keep_main_flow_simple(self):
         entries = [

@@ -8,5 +8,6 @@
   "camera_shake": true,
   "resolution_index": 2,
   "display_index": 1,
+  "text_size": "large",
   "extra_flags": {}
 }

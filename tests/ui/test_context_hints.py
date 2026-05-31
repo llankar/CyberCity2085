@@ -21,7 +21,7 @@ class ContextHintsTest(unittest.TestCase):
     def test_help_lines_stay_compact_and_contextual(self):
         lines = build_help_lines("mission_board", "ops", ["mission_prev", "mission_next"], has_room_open=True)
         self.assertLessEqual(len(lines), 14)
-        self.assertTrue(any("Raccourcis actifs" in line for line in lines))
+        self.assertTrue(any("Active shortcuts" in line for line in lines))
 
 
 if __name__ == "__main__":

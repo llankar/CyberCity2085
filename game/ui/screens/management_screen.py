@@ -2057,9 +2057,9 @@ class ManagementView(GameView):
                 dy -= 19
 
             blocks = (
-                ("Décision clé", debrief.get("decision_key", "")),
-                ("Risque pris", debrief.get("risk_taken", "")),
-                ("Action héroïque", debrief.get("heroic_action", "")),
+                ("Key decision", debrief.get("decision_key", "")),
+                ("Risk taken", debrief.get("risk_taken", "")),
+                ("Heroic action", debrief.get("heroic_action", "")),
             )
             for title, text in blocks:
                 arcade.draw_text(title, rx0 + 12, dy, palette.MUTED_TEXT, font_size=9)

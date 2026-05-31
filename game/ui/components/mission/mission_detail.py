@@ -51,7 +51,7 @@ def build_mission_detail_sections(mission: MissionTemplate) -> list[str]:
     """Return mission detail split by explicit UI sections."""
     hint = mission.emotional_impact_hint or {}
     emotional_summary = hint.get("emotional_impact_summary") or _short_emotional_impact(mission)
-    risk_explanation = hint.get("risk_explanation") or "Risque tactique standard sans facteur dominant."
+    risk_explanation = hint.get("risk_explanation") or "Standard tactical risk with no dominant factor."
     stress_band = format_stress_band(hint.get("expected_stress_band"))
     launch_state = format_launch_state(getattr(mission, "launch_block_reason", None))
 

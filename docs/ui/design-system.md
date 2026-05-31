@@ -1,47 +1,47 @@
 # UI Design System (CyberCity2085)
 
-## Objectif
-Standardiser la hiérarchie visuelle et réduire les styles hardcodés pour garder une UI modulaire et maintenable.
+## Goal
+Standardize visual hierarchy and reduce hardcoded styles to keep the UI modular and maintainable.
 
 ## Architecture
-- `game/ui/theme/colors.py`: tokens de couleurs **sémantiques uniquement** (`surface_primary`, `text_secondary`, `accent_warning`, `accent_danger`, etc.).
-- `game/ui/theme/typography.py`: hiérarchie stricte de typo.
-- `game/ui/theme/spacing.py`: espacements sémantiques (`stack_tight`, `section_gap`, `screen_margin`).
-- `game/ui/theme/motion.py`: durées/easings/pulse d'animation.
-- `game/ui/theme/elevation.py`: couches (`base`, `surface`, `overlay`, `interactive`) + tokens de traits.
-- `game/ui/theme/radii.py`: rayons sémantiques (`control`, `panel`).
+- `game/ui/theme/colors.py`: color tokens **semantic only** (`surface_primary`, `text_secondary`, `accent_warning`, `accent_danger`, etc.).
+- `game/ui/theme/typography.py`: strict typography hierarchy.
+- `game/ui/theme/spacing.py`: semantic spacing (`stack_tight`, `section_gap`, `screen_margin`).
+- `game/ui/theme/motion.py`: animation durations/easings/pulse.
+- `game/ui/theme/elevation.py`: layers (`base`, `surface`, `overlay`, `interactive`) + stroke tokens.
+- `game/ui/theme/radii.py`: semantic radii (`control`, `panel`).
 - `game/ui/components/foundation/`: primitives (`Panel`, `Button`, `Badge`, `Divider`, `ProgressBar`, `Tooltip`).
 
-## Hiérarchie visuelle stricte
+## Strict visual hierarchy
 - **Screen title**: `typography.screen_title`
 - **Panel title**: `typography.panel_title`
 - **Secondary text**: `typography.body_secondary`
 - **Meta text**: `typography.meta`
+- The global `Text Size` setting applies through `game/ui/theme/typography.py`; `Large` should be a clear readability mode, not a subtle tint change.
 
-## Règle de refactor progressive (anti-hardcode)
-1. Les nouveaux écrans n'utilisent jamais `palette.*` directement.
-2. Les valeurs de couleur passent par `theme/colors.py`.
-3. Les tailles/espaces/rayons/traits passent par les tokens dédiés.
-4. La migration legacy se fait écran par écran (scope contrôlé, sans big-bang).
+## Progressive refactor rule (anti-hardcode)
+1. New screens never use `palette.*` directly.
+2. Color values flow through `theme/colors.py`.
+3. Sizes/spacing/radii/strokes flow through dedicated tokens.
+4. Legacy migration happens screen by screen (controlled scope, no big bang).
 
-## Exemples visuels attendus
-- **Panel**: fond `surface_primary`, contour discret, titre en `text_primary`.
-- **Button**: rayon `radii.control`, état normal lisible, contraste fort en hover/focus.
-- **Badge**: taille compacte (`typography.meta`), rôle informatif bref.
-- **Divider**: trait fin de séparation, jamais élément dominant.
-- **ProgressBar**: fond de piste discret + remplissage accentué selon statut (`accent_success`, `accent_warning`, `accent_danger`).
-- **Tooltip**: texte court, padding constant, contraste élevé.
+## Expected visual examples
+- **Panel**: `surface_primary` background, subtle outline, title in `text_primary`.
+- **Button**: `radii.control` radius, readable normal state, strong hover/focus contrast.
+- **Badge**: compact size (`typography.meta`), brief informational role.
+- **Divider**: thin separation line, never a dominant element.
+- **ProgressBar**: discreet track background + accent fill based on status (`accent_success`, `accent_warning`, `accent_danger`).
+- **Tooltip**: short text, consistent padding, high contrast.
 
 ## Conventions
-1. Pas de nombres magiques pour bordures/traits si un token existe (`stroke`, `spacing`, `radii`).
-2. Utiliser des couleurs sémantiques de `theme/colors.py`.
-3. Centraliser les primitives de dessin partagées dans `game/ui/components/`.
-4. Préserver le scope: petites améliorations itératives, sans refonte architecturale.
+1. No magic numbers for borders/strokes if a token exists (`stroke`, `spacing`, `radii`).
+2. Use semantic colors from `theme/colors.py`.
+3. Centralize shared drawing primitives in `game/ui/components/`.
+4. Preserve scope: small iterative improvements, no architecture rewrite.
 
-
-## Grammaire d'écran obligatoire (management + tactical)
-- Zone 1: état global.
-- Zone 2: élément sélectionné.
-- Zone 3: actions disponibles.
-- Zone 4: conséquences prévues.
-- Templates de référence: `OverviewLayout`, `DecisionLayout`, `RosterLayout`, `TacticalLayout` dans `game/ui/layouts/screen_templates.py`.
+## Required screen grammar (management + tactical)
+- Zone 1: global state.
+- Zone 2: selected element.
+- Zone 3: available actions.
+- Zone 4: expected consequences.
+- Reference templates: `OverviewLayout`, `DecisionLayout`, `RosterLayout`, `TacticalLayout` in `game/ui/layouts/screen_templates.py`.

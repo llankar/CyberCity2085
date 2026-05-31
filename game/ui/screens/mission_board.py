@@ -34,28 +34,28 @@ def _mission_consequence_preview(mission: MissionTemplate) -> str:
     pressure = mission.district_pressure or {}
     volatility = int(pressure.get("unrest", 0)) + int(pressure.get("media_heat", 0))
     if volatility >= 8:
-        return "Escalade de district probable"
+        return "Likely district escalation"
     if volatility >= 4:
-        return "Tension civile modérée"
-    return "Conséquences contenues"
+        return "Moderate civilian tension"
+    return "Contained consequences"
 
 
 def _emotional_impact_short(mission: MissionTemplate) -> str:
     hint = mission.emotional_impact_hint or {}
     if not isinstance(hint, dict):
-        return "neutre"
+        return "neutral"
     return build_short_emotional_impact(hint.get("level"), hint.get("short_text") or hint.get("text"))
 
 
 def recommended_action_for_mission(mission: MissionTemplate | None) -> str:
     """Return contextual recommendation for management screens."""
     if mission is None:
-        return "Recommended action: sélectionner une mission prioritaire à auditer."
+        return "Recommended action: select a priority mission to review."
     if mission.risk_level >= 4:
-        return "Recommended action: assigner un agent de soutien avant lancement."
+        return "Recommended action: assign support before launch."
     if mission.duration_days >= 3:
-        return "Recommended action: sécuriser les ressources sur plusieurs jours."
-    return "Recommended action: lancer rapidement pour conserver l'initiative."
+        return "Recommended action: secure resources for multiple days."
+    return "Recommended action: launch quickly to keep the initiative."
 
 
 def build_mission_board_lines(missions: list[MissionTemplate], selected_index: int) -> list[str]:
@@ -91,7 +91,10 @@ def build_selected_mission_lines(mission: MissionTemplate | None) -> list[str]:
     ]
 
 
-
 def build_interactive_tooltips() -> dict[str, str]:
     """English tooltip copy for key interactive UI elements."""
-    return {"mission_list": "Select a mission card to inspect details.", "launch_action": "Launch current mission with selected squad.", "risk": "Higher risk means heavier resistance."}
+    return {
+        "mission_list": "Select a mission card to inspect details.",
+        "launch_action": "Launch current mission with selected squad.",
+        "risk": "Higher risk means heavier resistance.",
+    }
