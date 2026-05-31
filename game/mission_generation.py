@@ -76,7 +76,7 @@ def _build_emotional_impact_hint(mission: MissionTemplate, language: str | None 
     }
 
 
-def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list[MissionTemplate]:
+def generate_mission_board(game_state: "GameState", board_size: int | None = None) -> list[MissionTemplate]:
     """Generate a small daily mission board based on district pressure."""
     templates = create_mission_templates(game_state.district.name)
     district_pressure = game_state.district.unrest + game_state.district.media_heat
@@ -91,7 +91,8 @@ def generate_mission_board(game_state: "GameState", board_size: int = 3) -> list
     pressure_mod = max(0, pressure_score - game_state.district.stability) // 20
 
     generated: list[MissionTemplate] = []
-    slots = max(1, board_size)
+    slots = board_size if board_size is not None else random.Random(_mission_seed(game_state) + 313).randint(3, 6)
+    slots = max(1, slots)
     for slot in range(slots):
         base = templates[slot % len(templates)]
         mission = MissionTemplate.from_dict(base.to_dict())

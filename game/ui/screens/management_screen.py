@@ -1,4 +1,4 @@
-"""CyberCity 2085 — Unified Management Screen.
+﻿"""CyberCity 2085 — Unified Management Screen.
 
 Replaces CorpView, CityView, and RPGView with a single XCOM2-style
 tabbed management interface:
@@ -742,7 +742,7 @@ class ManagementView(GameView):
         # Squad-tab specific
         elif self.active_tab == "squad":
             if key == arcade.key.B:
-                self._do_launch_mission()
+                self._open_mission_map()
             elif key == arcade.key.N:
                 self._do_recruit_prompt()
             elif key == arcade.key.A and self.game_state.characters:
@@ -1783,178 +1783,109 @@ class ManagementView(GameView):
                         break
 
     def _draw_mission_panel(self, x0: int, y0: int, x1: int, y1: int, gs: GameState) -> None:
-        content_h = y1 - y0
-        # Split: top 55% mission list, bottom 45% mission detail
-        split_y = y0 + int(content_h * 0.45)
+        _panel(x0, y0, x1, y1, "MISSION MAP", palette.WARNING)
 
-        # ── Mission list ─────────────────────────────────────────────────
-        _panel(x0, split_y, x1, y1, "MISSION BOARD", palette.WARNING)
-
-        card_h   = 70
-        card_gap = 8
-        mc_top   = y1 - 34
-        missions = gs.mission_templates
-
-        for mi, m in enumerate(missions[:5]):
-            ct = mc_top - mi * (card_h + card_gap)
-            cb = ct - card_h
-            if cb < split_y + 4:
-                break
-
-            selected = (mi == gs.selected_mission_index)
-            fill = (38, 56, 68, 230) if selected else (10, 20, 26, 210)
-            _rect(x0 + 8, cb, x1 - 8, ct, fill)
-            risk_col = _risk_color(m.risk_level)
-            arcade.draw_line(x0 + 8, ct, x1 - 8, ct, risk_col if selected else palette.PANEL_BORDER_MUTED, 2)
-
-            # Index badge
-            _badge(f"{mi + 1:02d}", x0 + 10, cb + 2, risk_col)
-
-            # Title
-            arcade.draw_text(m.title.upper(), x0 + 66, ct - 18, palette.TEXT, font_size=13, bold=True)
-
-            # Risk badge — risk_level may be int (1-5) or str
-            _risk_label = (
-                m.risk_level.upper()
-                if isinstance(m.risk_level, str)
-                else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(m.risk_level, str(m.risk_level))
-            )
-            _badge(_risk_label, x1 - 90, ct - 20, risk_col)
-
-            # Metadata row
-            meta_parts = []
-            if hasattr(m, "target_faction") and m.target_faction:
-                meta_parts.append(m.target_faction)
-            if hasattr(m, "duration_days") and m.duration_days:
-                meta_parts.append(f"{m.duration_days}d")
-            if hasattr(m, "fund_reward") and m.fund_reward:
-                meta_parts.append(f"+¥{m.fund_reward}")
-            arcade.draw_text(
-                "  ·  ".join(meta_parts),
-                x0 + 66, ct - 36, palette.MUTED_TEXT, font_size=11,
-            )
-
-            # Objective type
-            arcade.draw_text(
-                m.objective_type.upper(), x0 + 66, cb + 8,
-                palette.ACCENT, font_size=11,
-            )
-
-            # Emotional impact
-            if hasattr(m, "emotional_impact") and m.emotional_impact:
-                arcade.draw_text(
-                    f"⚠ {m.emotional_impact}", x1 - 220, cb + 8,
-                    palette.MUTED_TEXT, font_size=10,
-                )
-
-            self._hits.append(_HitRegion(x0 + 8, cb, x1 - 8, ct, "select_mission", mi))
-
-        # ── Selected mission detail ───────────────────────────────────────
-        _panel(x0, y0, x1, split_y, "MISSION DETAILS", palette.ACCENT)
-
-        m = _selected_mission(gs)
-        if m:
-            dx, dy = x0 + 14, split_y - 44
-
-            # Title
-            arcade.draw_text(m.title.upper(), dx, dy, palette.HEADER, font_size=16, bold=True)
-            dy -= 30
-
-            # Risk + reward row
-            risk_col = _risk_color(m.risk_level)
-            _risk_label2 = (
-                m.risk_level.upper()
-                if isinstance(m.risk_level, str)
-                else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(m.risk_level, str(m.risk_level))
-            )
-            _badge(_risk_label2, dx, dy, risk_col)
-            arcade.draw_text(f"¥ {m.fund_reward:,} reward", dx + 80, dy + 3, palette.RESOURCE, font_size=12)
-            dur = getattr(m, "duration_days", 1)
-            arcade.draw_text(f"{dur} day{'s' if dur != 1 else ''}", dx + 220, dy + 3, palette.MUTED_TEXT, font_size=12)
-            dy -= 30
-
-            # Objective text
-            obj_lines = (m.objective_text or "").split(". ")
-            for ln in obj_lines[:3]:
-                if not ln:
-                    continue
-                arcade.draw_text(ln.strip(), dx, dy, palette.TEXT, font_size=11)
-                dy -= 18
-
-            # Complications
-            complications = getattr(m, "possible_complications", [])
-            if complications:
-                dy -= 6
-                comp_names = ", ".join(
-                    getattr(c, "name", str(c)) for c in complications[:2]
-                )
-                arcade.draw_text(
-                    _trim_text(f"Complications: {comp_names}", 92),
-                    dx, dy, palette.WARNING, font_size=10,
-                )
-                dy -= 18
-
-            # Breakdown risk
-            selected_squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
-            at_risk = agents_at_breaking_risk(selected_squad, m) if selected_squad else []
-            if at_risk:
-                names = ", ".join(a.name for a in at_risk)
-                arcade.draw_text(
-                    _trim_text(f"⚠ BREAKDOWN RISK: {names}", 92),
-                    dx, dy, palette.DANGER, font_size=11, bold=True,
-                )
-                dy -= 18
-
-        # Launch button (very prominent)
-        lb = y0 + 28
-        lt = lb + 46
-        _rect(x0 + 10, lb, x1 - 10, lt, (10, 34, 16, 240))
-        arcade.draw_line(x0 + 10, lt, x1 - 10, lt, palette.TACTICAL_GREEN, 3)
-        arcade.draw_line(x0 + 10, lb, x1 - 10, lb, palette.TACTICAL_GREEN, 1)
-        # Pulse the launch button text brightness
-        pulse = 0.7 + 0.3 * math.sin(self._elapsed * 2.5)
-        lbl_col = (
-            int(palette.TACTICAL_GREEN[0] * pulse),
-            int(palette.TACTICAL_GREEN[1] * pulse),
-            int(palette.TACTICAL_GREEN[2] * pulse),
-        )
+        mission = _selected_mission(gs)
+        info_top = y1 - 34
+        info_bottom = y0 + 150
+        _rect(x0 + 10, info_bottom, x1 - 10, info_top, (8, 16, 22, 220))
+        arcade.draw_text("ACTIVE MISSION", x0 + 18, info_top - 18, palette.WARNING, font_size=10, bold=True)
         arcade.draw_text(
-            "▶  LAUNCH MISSION  [B]",
-            (x0 + x1) // 2, lb + 22,
-            lbl_col, font_size=15, bold=True,
-            anchor_x="center", anchor_y="center",
+            f"{len(gs.mission_templates)} available missions",
+            x1 - 18,
+            info_top - 18,
+            palette.MUTED_TEXT,
+            font_size=9,
+            anchor_x="right",
+            anchor_y="bottom",
         )
-        self._hits.append(_HitRegion(x0 + 10, lb, x1 - 10, lt, "launch_mission", None))
 
-        # Downtime menu
-        dt_top = lb - 10
-        dt_bottom = max(y0 + 84, dt_top - 108)
+        if mission is not None:
+            arcade.draw_text(mission.title.upper(), x0 + 18, info_top - 44, palette.HEADER, font_size=15, bold=True)
+            risk_col = _risk_color(mission.risk_level)
+            risk_label = (
+                mission.risk_level.upper()
+                if isinstance(mission.risk_level, str)
+                else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(mission.risk_level, str(mission.risk_level))
+            )
+            _badge(risk_label, x0 + 18, info_top - 76, risk_col)
+            arcade.draw_text(f"¥ {mission.fund_reward:,} reward", x0 + 108, info_top - 70, palette.RESOURCE, font_size=11)
+            dur = getattr(mission, "duration_days", 1)
+            arcade.draw_text(f"{dur} day{'s' if dur != 1 else ''}", x0 + 238, info_top - 70, palette.MUTED_TEXT, font_size=11)
+            arcade.draw_text(
+                _trim_text(mission.objective_text, 108),
+                x0 + 18,
+                info_top - 102,
+                palette.TEXT,
+                font_size=10,
+                width=(x1 - x0) - 36,
+                multiline=True,
+            )
+            arcade.draw_text(
+                "Open the world map to inspect the full mission card.",
+                x0 + 18,
+                info_bottom + 12,
+                palette.MUTED_TEXT,
+                font_size=9,
+            )
+        else:
+            arcade.draw_text(
+                "No mission is selected.",
+                x0 + 18,
+                info_top - 52,
+                palette.MUTED_TEXT,
+                font_size=11,
+            )
+
+        btn_bottom = y0 + 92
+        btn_top = btn_bottom + 44
+        _rect(x0 + 10, btn_bottom, x1 - 10, btn_top, (10, 34, 16, 240))
+        arcade.draw_line(x0 + 10, btn_top, x1 - 10, btn_top, palette.TACTICAL_GREEN, 3)
+        arcade.draw_line(x0 + 10, btn_bottom, x1 - 10, btn_bottom, palette.TACTICAL_GREEN, 1)
+        arcade.draw_text(
+            "SELECT MISSION  [B]",
+            (x0 + x1) // 2,
+            btn_bottom + 22,
+            palette.TACTICAL_GREEN,
+            font_size=15,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center",
+        )
+        self._hits.append(_HitRegion(x0 + 10, btn_bottom, x1 - 10, btn_top, "open_mission_map", None))
+
+        dt_top = btn_bottom - 10
+        dt_bottom = max(y0 + 12, dt_top - 84)
         _rect(x0 + 10, dt_bottom, x1 - 10, dt_top, (10, 20, 28, 220))
         arcade.draw_line(x0 + 10, dt_top, x1 - 10, dt_top, palette.ACCENT, 2)
         arcade.draw_text("DOWNTIME [7-9]", x0 + 18, dt_top - 16, palette.ACCENT, font_size=10, bold=True)
-        by = dt_top - 42
+        by = dt_top - 40
         for idx, activity in enumerate(DOWNTIME_ACTIVITIES):
-            row_h = 26
-            row_top = by - idx * (row_h + 6)
+            row_h = 24
+            row_top = by - idx * (row_h + 5)
             row_bottom = row_top - row_h
             if row_bottom <= dt_bottom + 4:
                 break
             _rect(x0 + 14, row_bottom, x1 - 14, row_top, (8, 16, 22, 210))
             arcade.draw_text(
-                f"{idx + 7}. {activity.label}", x0 + 20, row_top - 16, palette.TEXT, font_size=10, bold=True
+                f"{idx + 7}. {activity.label}",
+                x0 + 20,
+                row_top - 15,
+                palette.TEXT,
+                font_size=10,
+                bold=True,
             )
             arcade.draw_text(
                 f"-{activity.days_cost}d  -{activity.resource_cost} {activity.resource_key}  morale {activity.morale_delta:+}  stress {activity.stress_delta:+}",
-                x0 + 180, row_top - 16, palette.MUTED_TEXT, font_size=9,
+                x0 + 170,
+                row_top - 15,
+                palette.MUTED_TEXT,
+                font_size=8,
             )
             self._hits.append(_HitRegion(x0 + 14, row_bottom, x1 - 14, row_top, "downtime_activity", idx))
 
-        # Message display
         if self.message:
-            arcade.draw_text(
-                self.message, x0 + 14, y0 + 72,
-                palette.WARNING, font_size=10,
-            )
+            arcade.draw_text(self.message, x0 + 14, y0 + 72, palette.WARNING, font_size=10)
 
     # ── RESEARCH tab ──────────────────────────────────────────────────────────
 
@@ -2211,8 +2142,8 @@ class ManagementView(GameView):
             self.message = ""
             return
 
-        if action == "launch_mission":
-            self._do_launch_mission()
+        if action in {"launch_mission", "open_mission_map"}:
+            self._open_mission_map()
             return
 
         if action == "downtime_activity":
@@ -2497,6 +2428,11 @@ class ManagementView(GameView):
 
         from game.ui.screens.mission_briefing_view import MissionBriefingView
         self.window.show_view(MissionBriefingView(gs, mission))
+
+    def _open_mission_map(self) -> None:
+        from game.ui.screens.world_map_view import MissionWorldMapView
+
+        self.window.show_view(MissionWorldMapView(self.game_state))
 
     def _do_asset_repair(self, idx: int) -> None:
         gs = self.game_state
@@ -3053,7 +2989,7 @@ class ManagementView(GameView):
         active_room = self.room_ui.active_room_key
         if active_room == "squad":
             if b_key is not None and key == b_key:
-                self._do_launch_mission()
+                self._open_mission_map()
                 return
             if n_key is not None and key == n_key:
                 self._do_recruit_prompt()
@@ -3178,8 +3114,8 @@ class ManagementView(GameView):
         if action == "recruit_prompt":
             self._do_recruit_prompt()
             return
-        if action == "launch_mission":
-            self._do_launch_mission()
+        if action in {"launch_mission", "open_mission_map"}:
+            self._open_mission_map()
             return
         if action == "remove_agent":
             self._do_remove_agent()
@@ -3252,7 +3188,7 @@ class ManagementView(GameView):
             self._do_city_upgrade("armaments", {"credits": 5, "salvage": 3})
             return
         if active_room == "squad":
-            self._do_launch_mission()
+            self._open_mission_map()
             return
         if active_room == "assets":
             asset = self.game_state.spec_ops_assets[self._asset_cursor] if self.game_state.spec_ops_assets else None
@@ -3444,3 +3380,4 @@ class ManagementView(GameView):
             "research": research_lines,
             "intel": intel_lines,
         }
+
