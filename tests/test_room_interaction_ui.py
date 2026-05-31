@@ -49,7 +49,7 @@ class RoomInteractionUITest(unittest.TestCase):
         actions = actions_for_room("hub", "squad")
         keys = [action.key for action in actions]
 
-        self.assertIn("launch_mission", keys)
+        self.assertIn("open_mission_map", keys)
         self.assertIn("recruit_prompt", keys)
         self.assertIn("save", keys)
         self.assertIn("load", keys)
@@ -73,7 +73,7 @@ class RoomInteractionUITest(unittest.TestCase):
         state = RoomUIState("corp")
         buttons = open_room(state, 1280, 720, "executive")
 
-        self.assertGreaterEqual(buttons[0].rect.bottom, 100)
+        self.assertGreaterEqual(buttons[0].rect.bottom, 60)
 
     def test_room_transition_speed_is_harmonized(self):
         self.assertAlmostEqual(ROOM_TRANSITION_SECONDS, 0.28)

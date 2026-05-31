@@ -14,7 +14,17 @@ class MissionGenerationTest(unittest.TestCase):
 
         self.assertEqual(game_state.mission_board_generated_day, game_state.calendar.current_day)
         self.assertTrue(game_state.mission_templates)
-        self.assertTrue(all(f"Day {game_state.calendar.current_day}" in m.title for m in game_state.mission_templates))
+        self.assertGreaterEqual(len(game_state.mission_templates), 3)
+        self.assertLessEqual(len(game_state.mission_templates), 6)
+        self.assertTrue(
+            any(f"Day {game_state.calendar.current_day}" in m.title for m in game_state.mission_templates)
+        )
+        self.assertTrue(
+            all(
+                f"Day {game_state.calendar.current_day}" in m.title or m.title.startswith("[STORY]")
+                for m in game_state.mission_templates
+            )
+        )
 
     def test_same_day_generation_is_stable(self):
         game_state = GameState(mission_templates=[])

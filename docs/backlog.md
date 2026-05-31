@@ -26,7 +26,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ### Phase 2 — Full Mission Arc
 
-- [ ] BATTLE-A01 Mission Briefing Screen: new `MissionBriefingView` between management launch and BattleView — shows mission name/objectives/intel/map thumbnail/squad roster/emotional impact hint; DEPLOY or ABORT actions. Route through `management_screen.py::_do_launch_mission`.
+- [ ] BATTLE-A01 Mission Briefing Screen: new `MissionBriefingView` between the world-map mission selector and BattleView — shows mission name/objectives/intel/map thumbnail/squad roster/emotional impact hint; DEPLOY or ABORT actions. Route through the mission launch flow after `world_map_view.py`.
 - [ ] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 — highlighted deployment zone, movable unit sprites, DEPLOYMENT phase banner, Enter to begin; enemy units hidden until battle starts.
 - [ ] BATTLE-A03 Enhanced Post-battle Debrief: new `battle_debrief_view.py` — left panel per-agent stats (damage/kills/AP), right panel objectives+rewards+stress+narrative lines from `DebriefReport`; CONTINUE routes back to management.
 
@@ -71,6 +71,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 - [x] UI-54 Battle map catalog and token scale: generated 50 real city battle maps from the current map textures, kept the original map set as the wasteland pool, and scaled battle tokens to 1.5x for better readability. (completed May 30, 2026)
 - [x] UI-55 Mission map environment routing: mission briefing thumbnails and battle setup now pull from the inferred city or wasteland pool inside `assets/maps`, so outside-city missions do not preview or launch on city maps and vice versa. (completed May 31, 2026)
 - [x] UI-56 Mission token sizing pass: non-robot mission tokens now render at half the base battle scale while robot tokens keep the full-size silhouette, so human and organic units read smaller without shrinking machine assets. (completed May 31, 2026)
+- [x] UI-57 Mission selection world map: the squad mission panel now opens a dedicated full-screen selector using `assets/worldmap/Player_World_Map_1778155726161.png`, so next missions are chosen from pins on the world map and then launched from that selector. (completed May 31, 2026)
 
 - [x] UI-34 Guard invalid rectangle draw bounds in squad mission panel: `_rect` now skips impossible LRBT coordinates (`left >= right` or `bottom >= top`) to avoid `arcade.draw_lrbt_rectangle_filled` runtime crashes during dynamic panel layout compression, with a focused regression test in management hub UI tests. (completed May 25, 2026)
 

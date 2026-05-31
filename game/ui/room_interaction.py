@@ -87,7 +87,7 @@ ROOM_ACTIONS = {
         ],
         "squad": [
             RoomAction("recruit_prompt", "recruit", "Recruit agent"),
-            RoomAction("launch_mission", "launch", "Launch mission"),
+            RoomAction("open_mission_map", "select", "Select mission"),
             RoomAction("remove_agent", "black_ops", "Remove agent"),
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("select_agent", "select", "Toggle squad"),
@@ -163,7 +163,7 @@ ROOM_ACTIONS = {
         "ops": [
             RoomAction("mission_prev", "left", "Prev mission"),
             RoomAction("mission_next", "right", "Next mission"),
-            RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("open_mission_map", "select", "Select mission"),
         ],
         "intel": [
             RoomAction("mission_prev", "left", "Prev mission"),
@@ -177,14 +177,14 @@ ROOM_ACTIONS = {
         ],
         "armory": [
             RoomAction("select_agent", "select", "Toggle squad"),
-            RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("open_mission_map", "select", "Select mission"),
             RoomAction("toggle_asset", "armory", "Toggle support"),
             RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "briefing": [
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("agent_next", "right", "Next agent"),
-            RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("open_mission_map", "select", "Select mission"),
             RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "dossier": [
@@ -193,7 +193,7 @@ ROOM_ACTIONS = {
             RoomAction("remove_agent", "black_ops", "Remove agent"),
         ],
         "insertion": [
-            RoomAction("launch", "launch", "Launch mission"),
+            RoomAction("open_mission_map", "select", "Select mission"),
             RoomAction("toggle_asset", "armory", "Toggle support"),
         ],
     },

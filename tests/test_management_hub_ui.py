@@ -230,7 +230,7 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.key = original_key_ns
 
         self.assertEqual(view.room_ui.active_room_key, "squad")
-        self.assertTrue(any(button.action.key == "launch_mission" for button in view.room_ui.action_buttons))
+        self.assertTrue(any(button.action.key == "open_mission_map" for button in view.room_ui.action_buttons))
 
     def test_room_info_lines_use_the_current_room_content_sources(self):
         view = ManagementView(GameState())
@@ -472,7 +472,7 @@ class ManagementHubUITest(unittest.TestCase):
                     first_agent = next(hit for hit in view._hits if hit.action == "agent_card")
                     first_stat = next(hit for hit in view._hits if hit.action == "spend_stat_point")
                     first_equip = next(hit for hit in view._hits if hit.action == "equip_next")
-                    second_mission = next(hit for hit in view._hits if hit.action == "select_mission" and hit.data == 1)
+                    open_map = next(hit for hit in view._hits if hit.action == "open_mission_map")
 
                     agent_name = view.game_state.characters[0].name
                     before_points = view.game_state.characters[0].pending_points
@@ -491,8 +491,8 @@ class ManagementHubUITest(unittest.TestCase):
                     self.assertIsNotNone(after_item)
                     self.assertNotEqual(after_item, before_item)
 
-                    view.on_mouse_press((second_mission.left + second_mission.right) // 2, (second_mission.bottom + second_mission.top) // 2, 0, 0)
-                    self.assertEqual(view.game_state.selected_mission_index, 1)
+                    view.on_mouse_press((open_map.left + open_map.right) // 2, (open_map.bottom + open_map.top) // 2, 0, 0)
+                    self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
 
     def test_rect_skips_invalid_lrbt_inputs(self):
         calls = []
@@ -661,7 +661,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertNotIn(removed_name, {character.name for character in view.game_state.characters})
         self.assertNotIn(removed_name, view.game_state.selected_agent_names)
 
-    def test_launch_mission_footer_is_lower_and_separated_from_room_text(self):
+    def test_select_mission_footer_is_lower_and_separated_from_room_text(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
@@ -673,11 +673,10 @@ class ManagementHubUITest(unittest.TestCase):
 
         launch_hit = next(
             button for button in view._hits
-            if button.action == "launch_mission"
+            if button.action == "open_mission_map"
         )
-        self.assertGreater(launch_hit.bottom, 120)
-        self.assertLess(launch_hit.bottom, 190)
-        self.assertLess(launch_hit.top, 240)
+        self.assertGreater(launch_hit.bottom, 220)
+        self.assertLess(launch_hit.top, 320)
 
         strip_bottom = min(button.rect.bottom for button in view.room_ui.action_buttons)
         self.assertGreater(strip_bottom, 60)
