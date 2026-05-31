@@ -17,9 +17,9 @@ _COMPLEMENTARY_ROLES = {
 }
 
 _LINE_TEMPLATES = (
-    "{mentor} reste avec {partner} jusqu'à ce que la respiration revienne.",
-    "{mentor} rappelle à {partner} que l'escouade tient ensemble.",
-    "{mentor} partage un silence calme avec {partner} dans la salle de récupération.",
+    "{mentor} stays with {partner} until the breathing steadies.",
+    "{mentor} reminds {partner} that the squad holds together.",
+    "{mentor} shares a calm silence with {partner} in the recovery room.",
 )
 
 

@@ -1,16 +1,16 @@
 {
-  "turn": 61,
+  "turn": 62,
   "calendar": {
-    "current_day": 61,
+    "current_day": 62,
     "days_per_week": 7,
     "days_per_month": 30,
     "era_label": "2085"
   },
-  "budget_pool": 6381,
+  "budget_pool": 6498,
   "funds": {
-    "current_funds": 6381,
-    "income": 8189,
-    "expenses": 1808,
+    "current_funds": 6498,
+    "income": 8413,
+    "expenses": 1915,
     "transaction_history": [
       {
         "kind": "income",
@@ -1243,6 +1243,55 @@
         "source": "daily_income",
         "note": "2085.M03.D01 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
         "balance_after": 6381
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6366
+      },
+      {
+        "kind": "income",
+        "amount": 110,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Jour 61] success payout.",
+        "balance_after": 6476
+      },
+      {
+        "kind": "expense",
+        "amount": 27,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6449
+      },
+      {
+        "kind": "expense",
+        "amount": 27,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6422
+      },
+      {
+        "kind": "expense",
+        "amount": 22,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6400
+      },
+      {
+        "kind": "expense",
+        "amount": 16,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6384
+      },
+      {
+        "kind": "income",
+        "amount": 114,
+        "source": "daily_income",
+        "note": "2085.M03.D02 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6498
       }
     ]
   },
@@ -1264,17 +1313,17 @@
     "defense_zones": 20
   },
   "strategic_resources": {
-    "credits": 509,
-    "intel": 0,
-    "salvage": 4,
-    "influence": 1
+    "credits": 573,
+    "intel": 4,
+    "salvage": 7,
+    "influence": 2
   },
   "mission_fund_allocations": {
-    "agent_pay_morale": 302,
-    "research": 302,
-    "equipment": 245,
-    "robot_power_armor_maintenance": 179,
-    "corporate_reserves": 197
+    "agent_pay_morale": 329,
+    "research": 329,
+    "equipment": 267,
+    "robot_power_armor_maintenance": 195,
+    "corporate_reserves": 215
   },
   "characters": [
     {
@@ -1288,9 +1337,9 @@
         "agi": 7,
         "con": 5,
         "cha": 1,
-        "hp": 44,
+        "hp": 34,
         "max_hp": 55,
-        "xp": 100
+        "xp": 450
       },
       "pending_points": 5,
       "talent_points": 1,
@@ -1332,7 +1381,7 @@
         },
         "Longshot": {
           "agent_id": "Longshot",
-          "bond_level": 8,
+          "bond_level": 10,
           "strategic_day": 1
         },
         "Oracle": {
@@ -1362,7 +1411,8 @@
         "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
         "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
         "Extraction: Neon Witness [Jour 48]: victory, stress +13",
-        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36"
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36",
+        "Sabotage: Jackal Relay Burn [Jour 61]: victory, stress +3"
       ],
       "savage_tags": [
         "media_leak",
@@ -1512,9 +1562,9 @@
         "agi": 12,
         "con": 4,
         "cha": 1,
-        "hp": 39,
+        "hp": 29,
         "max_hp": 54,
-        "xp": 100
+        "xp": 450
       },
       "pending_points": 5,
       "talent_points": 1,
@@ -1556,7 +1606,7 @@
         },
         "Rook": {
           "agent_id": "Rook",
-          "bond_level": 8,
+          "bond_level": 10,
           "strategic_day": 1
         },
         "Oracle": {
@@ -1586,7 +1636,8 @@
         "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
         "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
         "Extraction: Neon Witness [Jour 48]: victory, stress +13",
-        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36"
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36",
+        "Sabotage: Jackal Relay Burn [Jour 61]: victory, stress +3"
       ],
       "savage_tags": [
         "media_leak",
@@ -1735,7 +1786,7 @@
         "agi": 1,
         "con": 2,
         "cha": 1,
-        "hp": 29,
+        "hp": 13,
         "max_hp": 52,
         "xp": 100
       },
@@ -1747,13 +1798,15 @@
       "fears": [],
       "ambition": "",
       "loyalty": 2,
-      "stress": 100,
+      "stress": 97,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
         "Haunted by Civilian Panic"
       ],
-      "injuries": [],
+      "injuries": [
+        "Critical battle trauma"
+      ],
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -1809,15 +1862,30 @@
         "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
         "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
         "Extraction: Neon Witness [Jour 48]: victory, stress +12",
-        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +24"
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +24",
+        "Evacuated with critical injuries after being downed in battle. Recovery required: 2 turns.",
+        "Narrative scar gained: Nights of Sirens."
       ],
       "savage_tags": [
         "media_leak",
         "faction_retaliation",
         "civilian_panic"
       ],
-      "temporary_scars": [],
-      "recovery_turns": 0,
+      "temporary_scars": [
+        {
+          "key": "critical_battle_trauma",
+          "title": "Nights of Sirens",
+          "days_remaining": 3,
+          "tone": "vigilant",
+          "tags": [
+            "injury",
+            "hypervigilance",
+            "nightmares"
+          ],
+          "log_line": "Every distant siren drags the battle back into focus."
+        }
+      ],
+      "recovery_turns": 1,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -1986,7 +2054,7 @@
       "fears": [],
       "ambition": "",
       "loyalty": 2,
-      "stress": 64,
+      "stress": 62,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
@@ -2183,16 +2251,16 @@
       }
     }
   ],
-  "x": 3100,
+  "x": 3450,
   "corp_name": "Pharmacorp",
   "city_name": "Neo-Chrome City",
   "base_name": "Pharmacorp \u00b7 Forward Base Kilo",
   "district": {
     "name": "Chrome Warrens",
-    "stability": 64,
+    "stability": 63,
     "control_faction": "Aegis Dynamics",
     "unrest": 100,
-    "media_heat": 74,
+    "media_heat": 75,
     "tags": [
       {
         "name": "neon_blackout",
@@ -2303,7 +2371,7 @@
     },
     {
       "name": "Chrome Jackals",
-      "influence": 24,
+      "influence": 19,
       "hostility_to_player": 92,
       "public_legitimacy": 19,
       "active_tags": [
@@ -2409,181 +2477,8 @@
   ],
   "mission_templates": [
     {
-      "id": "data_theft_d61_s2",
-      "title": "Data Theft: Ghost Order Cache [Jour 61]",
-      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
-      "target_faction": "Aegis Dynamics",
-      "district": "Chrome Warrens",
-      "district_pressure": {
-        "media_heat": 4,
-        "stability": -1
-      },
-      "starting_enemy_count": 8,
-      "objective_type": "data_with_detour",
-      "possible_complications": [
-        {
-          "key": "media_leak",
-          "name": "Media Leak",
-          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
-          "risk_threshold": 2,
-          "tags": [
-            {
-              "name": "media_leak",
-              "description": "Leaked footage turns tactical choices into public evidence.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
-            "mechanical_effects": {
-              "media_heat": 8,
-              "stability": -2
-            },
-            "tags": [
-              {
-                "name": "media_leak",
-                "description": "Leaked footage turns tactical choices into public evidence.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        },
-        {
-          "key": "faction_retaliation",
-          "name": "Faction Retaliation",
-          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
-          "risk_threshold": 4,
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 3,
-            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
-            "mechanical_effects": {
-              "faction_hostility": 9,
-              "unrest": 4
-            },
-            "tags": [
-              {
-                "name": "faction_retaliation",
-                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-                "intensity": 3,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        }
-      ],
-      "success_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Aegis Dynamics",
-          "affected_agent": null,
-          "severity": 2,
-          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
-          "mechanical_effects": {
-            "media_heat": -3,
-            "stability": 4,
-            "faction_influence": -4
-          },
-          "tags": [
-            {
-              "name": "ghost_signal",
-              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
-              "intensity": 3,
-              "source": "operation",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "failure_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Aegis Dynamics",
-          "affected_agent": null,
-          "severity": 3,
-          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
-          "mechanical_effects": {
-            "media_heat": 9,
-            "faction_hostility": 7,
-            "stability": -4
-          },
-          "tags": [
-            {
-              "name": "media_leak",
-              "description": "Leaked footage turns tactical choices into public evidence.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "risk_level": 9,
-      "fund_reward": 105,
-      "duration_days": 1,
-      "tags": [
-        {
-          "name": "ghost_signal",
-          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
-          "intensity": 3,
-          "source": "operation",
-          "expires_after_turns": null,
-          "metadata": {}
-        },
-        {
-          "name": "media_swarm",
-          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
-          "intensity": 2,
-          "source": "media",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ],
-      "relation_impact": "low",
-      "emotional_impact_hint": {
-        "level": "critical",
-        "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
-        "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "risk_explanation": "Risque 9/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
-        "expected_stress_band": "critical",
-        "normalized_tags": [
-          "ghost_signal",
-          "media_swarm"
-        ]
-      }
-    },
-    {
-      "id": "sabotage_d61_s1",
-      "title": "Sabotage: Jackal Relay Burn [Jour 61]",
+      "id": "sabotage_d62_s1",
+      "title": "Sabotage: Jackal Relay Burn [Jour 62]",
       "objective_text": "Destroy the Chrome Jackals' relay van before it coordinates raids on the defense zones.",
       "target_faction": "Chrome Jackals",
       "district": "Chrome Warrens",
@@ -2592,6 +2487,7 @@
         "media_heat": 1
       },
       "starting_enemy_count": 7,
+      "enemy_theme": "generic",
       "objective_type": "sabotage_window",
       "possible_complications": [
         {
@@ -2746,8 +2642,39 @@
       }
     },
     {
-      "id": "extraction_d61_s0",
-      "title": "Extraction: Neon Witness [Jour 61]",
+      "id": "sm_act1_espionage",
+      "title": "[STORY] Operation: Ivory Static",
+      "objective_text": "Extract data from Warsaw relay station",
+      "target_faction": "Three Sevens Corp",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 100
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "corp_37",
+      "objective_type": "data_theft",
+      "possible_complications": [],
+      "success_consequences": [],
+      "failure_consequences": [],
+      "risk_level": 4,
+      "fund_reward": 2500,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Corporate signals intelligence has intercepted an unusual encrypted broadcast originating from the Warsaw grid. The tran",
+        "short_text": "Corporate signals intelligence has intercepted an unusual en",
+        "normalized_tags": [
+          "espionage",
+          "three_sevens",
+          "story"
+        ]
+      }
+    },
+    {
+      "id": "extraction_d62_s0",
+      "title": "Extraction: Neon Witness [Jour 62]",
       "objective_text": "Extract a clinic witness from the east-rail blackout before gangs sell them to Aegis auditors.",
       "target_faction": "Chrome Jackals",
       "district": "Chrome Warrens",
@@ -2755,7 +2682,8 @@
         "unrest": 3,
         "media_heat": 2
       },
-      "starting_enemy_count": 8,
+      "starting_enemy_count": 6,
+      "enemy_theme": "generic",
       "objective_type": "safe_extraction",
       "possible_complications": [
         {
@@ -2883,8 +2811,8 @@
           ]
         }
       ],
-      "risk_level": 8,
-      "fund_reward": 80,
+      "risk_level": 6,
+      "fund_reward": 70,
       "duration_days": 1,
       "tags": [
         {
@@ -2902,7 +2830,7 @@
         "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
         "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
         "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
-        "risk_explanation": "Risque 8/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
+        "risk_explanation": "Risque 6/5, dur\u00e9e 1j, 2 complication(s) probable(s).",
         "expected_stress_band": "critical",
         "normalized_tags": [
           "neon_blackout"
@@ -2912,9 +2840,8 @@
   ],
   "active_mission": null,
   "selected_mission_index": 0,
-  "mission_board_generated_day": 61,
+  "mission_board_generated_day": 62,
   "selected_agent_names": [
-    "Oracle",
     "Longshot",
     "Rook",
     "Katana"
@@ -2995,49 +2922,6 @@
     }
   ],
   "recent_consequences": [
-    {
-      "affected_district": "Chrome Warrens",
-      "affected_faction": "Aegis Dynamics",
-      "affected_agent": null,
-      "severity": 2,
-      "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
-      "mechanical_effects": {
-        "media_heat": -3,
-        "stability": 4,
-        "faction_influence": -4
-      },
-      "tags": [
-        {
-          "name": "ghost_signal",
-          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
-          "intensity": 3,
-          "source": "operation",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ]
-    },
-    {
-      "affected_district": "Chrome Warrens",
-      "affected_faction": "Aegis Dynamics",
-      "affected_agent": null,
-      "severity": 3,
-      "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
-      "mechanical_effects": {
-        "faction_hostility": 9,
-        "unrest": 4
-      },
-      "tags": [
-        {
-          "name": "faction_retaliation",
-          "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-          "intensity": 3,
-          "source": "complication",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ]
-    },
     {
       "affected_district": "Chrome Warrens",
       "affected_faction": "Warrens Free Clinic",
@@ -3123,37 +3007,73 @@
           "metadata": {}
         }
       ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
+      "mechanical_effects": {
+        "unrest": -6,
+        "stability": 3,
+        "faction_influence": -5
+      },
+      "tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+      "mechanical_effects": {
+        "unrest": 7,
+        "stability": -4
+      },
+      "tags": [
+        {
+          "name": "civilian_panic",
+          "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
     }
   ],
   "latest_agent_aftermath": [
-    "Aftermath: Rook carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
-    "Aftermath: Longshot carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
-    "Aftermath: Oracle carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic)."
+    "Aftermath: Rook carries Sabotage: Jackal Relay Burn [Jour 61] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
+    "Aftermath: Longshot carries Sabotage: Jackal Relay Burn [Jour 61] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic)."
   ],
   "latest_mission_debrief": {
-    "mission_title": "Sabotage: Jackal Relay Burn [Jour 60]",
+    "mission_title": "Sabotage: Jackal Relay Burn [Jour 61]",
     "mission_outcome": "victory",
     "lines": [
       {
         "agent_name": "Rook",
         "emotional_tone": "fractured",
         "consequence_type": "operational",
-        "text": "Rook garde le cap apr\u00e8s Sabotage: Jackal Relay Burn [Jour 60]. Complication: civilian panic."
+        "text": "Rook garde le cap apr\u00e8s Sabotage: Jackal Relay Burn [Jour 61]. Complication: civilian panic."
       },
       {
         "agent_name": "Longshot",
         "emotional_tone": "fractured",
         "consequence_type": "operational",
-        "text": "Longshot garde le cap apr\u00e8s Sabotage: Jackal Relay Burn [Jour 60]. Complication: civilian panic."
-      },
-      {
-        "agent_name": "Oracle",
-        "emotional_tone": "fractured",
-        "consequence_type": "operational",
-        "text": "Oracle garde le cap apr\u00e8s Sabotage: Jackal Relay Burn [Jour 60]. Complication: civilian panic."
+        "text": "Longshot garde le cap apr\u00e8s Sabotage: Jackal Relay Burn [Jour 61]. Complication: civilian panic."
       }
     ],
-    "decision_key": "Tenir la formation jusqu'\u00e0 extraction compl\u00e8te sur Sabotage: Jackal Relay Burn [Jour 60].",
+    "decision_key": "Tenir la formation jusqu'\u00e0 extraction compl\u00e8te sur Sabotage: Jackal Relay Burn [Jour 61].",
     "risk_taken": "Risque narratif majeur accept\u00e9: civilian panic.",
     "heroic_action": "Rook a tenu la ligne dans les pires conditions.",
     "rpg_links": [
@@ -3276,21 +3196,28 @@
       "mission_title": "Sabotage: Jackal Relay Burn [Jour 60]",
       "kind": "street_rumor",
       "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d61_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Jour 61]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
     }
   ],
   "event_log": [
-    "2085.M03.D01: Day advanced (mission success); passive income +112.",
-    "2085.M03.D01: Pending fallout reviewed (6 active beats).",
-    "2085.M03.D01: Rook decompresses (3 stress relief, 64/100).",
-    "2085.M03.D01: Longshot decompresses (3 stress relief, 64/100).",
-    "2085.M03.D01: Oracle decompresses (2 stress relief, 76/100).",
-    "2085.M03.D01: Katana decompresses (2 stress relief, 64/100).",
-    "Aftermath: Rook carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
-    "Aftermath: Longshot carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
-    "Aftermath: Oracle carries Sabotage: Jackal Relay Burn [Jour 60] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
-    "Action: budget_allocation | Result: completed | Impact: black_ops (-5 credits, -3 intel) | Next: Proceed",
-    "Action: budget_allocation | Result: completed | Impact: black_ops (-5 credits, -3 intel) | Next: Proceed",
-    "Action: budget_allocation | Result: failed | Impact: black_ops requires 5 credits, 3 intel; [ERROR] budget_allocation: black_ops requires 5 credits, 3 intel | Next: Proceed"
+    "Sharp-angle debrief: Complication triggered: Crowds panic as muzzle flashes bounce across the stacked market decks. Finds leverage in chaos. Keeps civilians and squad morale in sight.",
+    "2085.M03.D02: Day advanced (mission success); passive income +114.",
+    "2085.M03.D02: Pending fallout reviewed (6 active beats).",
+    "[INTEL] Warsaw: State of Emergency: Three Sevens security forces sealed the city perimeter at 0400. The Emergency Co\u2026",
+    "[CAMPAIGN] Warsaw Falls to the Three Sevens: Warsaw has been seized by the Three Sevens Corporation in a coordinated overnigh\u2026",
+    "[ACT 1] Warsaw Falls to the Three Sevens",
+    "2085.M03.D02: Rook decompresses (3 stress relief, 97/100).",
+    "2085.M03.D02: Longshot decompresses (3 stress relief, 97/100).",
+    "2085.M03.D02: Oracle decompresses (3 stress relief, 97/100).",
+    "2085.M03.D02: Katana decompresses (2 stress relief, 62/100).",
+    "Aftermath: Rook carries Sabotage: Jackal Relay Burn [Jour 61] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic).",
+    "Aftermath: Longshot carries Sabotage: Jackal Relay Burn [Jour 61] (victory, stress 100/100, Civilian Panic +4, trauma: Haunted by Civilian Panic)."
   ],
   "active_events": [
     {
@@ -3389,5 +3316,30 @@
     "corp_budget_bonus": 1,
     "vehicle_survivability": 1,
     "armor_breach_guard": 1
+  },
+  "campaign": {
+    "current_act": 1,
+    "act_progress": 0,
+    "act_triggers_seen": [
+      "campaign_warsaw_coup"
+    ],
+    "discovered_intel": [
+      "act1_warsaw_coup"
+    ],
+    "world": {
+      "warsaw_status": "coup_underway",
+      "hungry_tide_progress": 0,
+      "new_york_status": "normal",
+      "pharmacorp_secret": "hidden",
+      "ai_factions_status": "unknown",
+      "perfs_status": "unknown",
+      "new_delhi_status": "forbidden"
+    },
+    "hidden_faction_hostility": {
+      "Three Sevens Corp": 75,
+      "Pharmacorp": 20,
+      "Preservationist AIs": 0,
+      "Exterminator AIs": 80
+    }
   }
 }

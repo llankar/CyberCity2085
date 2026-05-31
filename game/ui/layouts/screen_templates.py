@@ -18,34 +18,34 @@ class ScreenLayoutTemplate:
 
 OverviewLayout = ScreenLayoutTemplate(
     name="OverviewLayout",
-    zone_1_global_state="Zone 1: état global",
-    zone_2_selected_element="Zone 2: élément sélectionné",
-    zone_3_available_actions="Zone 3: actions disponibles",
-    zone_4_predicted_consequences="Zone 4: conséquences prévues",
+    zone_1_global_state="Zone 1: global state",
+    zone_2_selected_element="Zone 2: selected element",
+    zone_3_available_actions="Zone 3: available actions",
+    zone_4_predicted_consequences="Zone 4: expected consequences",
 )
 
 DecisionLayout = ScreenLayoutTemplate(
     name="DecisionLayout",
-    zone_1_global_state="Zone 1: état global",
-    zone_2_selected_element="Zone 2: élément sélectionné",
-    zone_3_available_actions="Zone 3: actions disponibles",
-    zone_4_predicted_consequences="Zone 4: conséquences prévues",
+    zone_1_global_state="Zone 1: global state",
+    zone_2_selected_element="Zone 2: selected element",
+    zone_3_available_actions="Zone 3: available actions",
+    zone_4_predicted_consequences="Zone 4: expected consequences",
 )
 
 RosterLayout = ScreenLayoutTemplate(
     name="RosterLayout",
-    zone_1_global_state="Zone 1: état global",
-    zone_2_selected_element="Zone 2: élément sélectionné",
-    zone_3_available_actions="Zone 3: actions disponibles",
-    zone_4_predicted_consequences="Zone 4: conséquences prévues",
+    zone_1_global_state="Zone 1: global state",
+    zone_2_selected_element="Zone 2: selected element",
+    zone_3_available_actions="Zone 3: available actions",
+    zone_4_predicted_consequences="Zone 4: expected consequences",
 )
 
 TacticalLayout = ScreenLayoutTemplate(
     name="TacticalLayout",
-    zone_1_global_state="Zone 1: état global",
-    zone_2_selected_element="Zone 2: élément sélectionné",
-    zone_3_available_actions="Zone 3: actions disponibles",
-    zone_4_predicted_consequences="Zone 4: conséquences prévues",
+    zone_1_global_state="Zone 1: global state",
+    zone_2_selected_element="Zone 2: selected element",
+    zone_3_available_actions="Zone 3: available actions",
+    zone_4_predicted_consequences="Zone 4: expected consequences",
 )
 
 

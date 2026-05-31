@@ -18,19 +18,19 @@ class FactionNarrativeReward:
 
 _FACTION_REWARDS: dict[str, list[FactionNarrativeReward]] = {
     "Warrens Free Clinic": [
-        FactionNarrativeReward("local_trust", "La clinique diffuse un mot de confiance discret.")
+        FactionNarrativeReward("local_trust", "The clinic spreads a quiet word of trust.")
     ],
     "Chrome Jackals": [
-        FactionNarrativeReward("street_rumor", "Une rumeur de rue affirme que vous avez brisé une ligne de trafic.")
+        FactionNarrativeReward("street_rumor", "A street rumor says you broke a trafficking lane.")
     ],
     "Aegis Dynamics": [
-        FactionNarrativeReward("contact", "Un contact d'entreprise transmet un canal de secours à usage unique.")
+        FactionNarrativeReward("contact", "A corporate contact passes along a one-time emergency channel.")
     ],
 }
 
 _NEUTRAL_FALLBACK = FactionNarrativeReward(
     "neutral_echo",
-    "Le district retient un écho prudent de l'opération, sans nouvel appui direct.",
+    "The district keeps a cautious echo of the operation, with no direct new support.",
 )
 
 
@@ -47,6 +47,6 @@ def build_reward_log_entries(faction_name: str, mission_title: str) -> list[str]
     entries = []
     for reward in rewards_for_faction(faction_name):
         entries.append(
-            f"Récompense narrative ({reward.kind}) après '{mission_title}': {reward.text}"
+            f"Narrative reward ({reward.kind}) after '{mission_title}': {reward.text}"
         )
     return entries

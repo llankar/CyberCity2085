@@ -19,11 +19,11 @@ def keyboard_action_for_focus(item: FocusItem | None) -> str | None:
 
 def active_shortcuts_for_screen(view_key: str, has_room_open: bool) -> list[str]:
     if view_key == "command_deck":
-        shortcuts = ["Tab/Shift+Tab focus", "Entrée activer", "↑/↓ mission", "A/D agent", "H aide"]
+        shortcuts = ["Tab/Shift+Tab focus", "Enter activate", "Up/Down mission", "A/D agent", "H help"]
     elif view_key == "mission_board":
-        shortcuts = ["Tab/Shift+Tab focus", "Entrée activer", "↑/↓ mission", "1-3 choix rapide", "H aide"]
+        shortcuts = ["Tab/Shift+Tab focus", "Enter activate", "Up/Down mission", "1-3 quick choices", "H help"]
     else:
-        shortcuts = ["Tab/Shift+Tab focus", "Entrée activer", "C ville", "R escouade", "H aide"]
+        shortcuts = ["Tab/Shift+Tab focus", "Enter activate", "C city", "R squad", "H help"]
     if has_room_open:
-        shortcuts.append("Esc fermer room")
+        shortcuts.append("Esc close room")
     return shortcuts

@@ -65,15 +65,15 @@ _OVERWATCH_COVERAGE_COL = (255, 180, 60, 95)
 def battle_shortcut_banner(input_mode: str, selecting_target: bool, pending_end_turn_confirmation: bool) -> str:
     """Build a compact contextual shortcuts banner for the battle HUD."""
     if input_mode == "controller":
-        base = ["LS déplacer", "A confirmer", "B annuler", "X tir", "Y psi"]
-        target = ["LB/RB cible", "A valider", "B retour"]
-        end_turn = ["A confirmer fin de tour", "B annuler"]
+        base = ["LS move", "A confirm", "B cancel", "X fire", "Y psi"]
+        target = ["LB/RB target", "A confirm", "B back"]
+        end_turn = ["A confirm end turn", "B cancel"]
     else:
-        base = ["Flèches déplacer", "E objectif", "F tir", "P psi", "Entrée fin tour"]
-        target = ["←/→ cible", "Entrée valider", "Esc retour"]
-        end_turn = ["Entrée confirmer fin de tour", "Esc annuler"]
+        base = ["Arrow keys move", "E objective", "F fire", "P psi", "Enter end turn"]
+        target = ["Left/Right target", "Enter confirm", "Esc back"]
+        end_turn = ["Enter confirm end turn", "Esc cancel"]
     hints = end_turn if pending_end_turn_confirmation else (target if selecting_target else base)
-    return "Raccourcis actifs: " + " | ".join(hints)
+    return "Active shortcuts: " + " | ".join(hints)
 
 
 def _draw_top_centered_banner(

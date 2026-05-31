@@ -29,7 +29,7 @@ class MissionBoardUITest(unittest.TestCase):
         mission = create_mission_templates("Chrome Warrens")[0]
         lines = build_selected_mission_lines(mission)
         self.assertEqual(lines[0], "Risk: 2 (elevated)")
-        self.assertEqual(lines[4], "Consequence: Tension civile modérée")
+        self.assertEqual(lines[4], "Consequence: Moderate civilian tension")
         self.assertEqual(lines[6], "[Mission Summary]")
         self.assertEqual(lines[10], "[Risk & Complications]")
 
@@ -48,15 +48,15 @@ class MissionBoardUITest(unittest.TestCase):
     def test_selected_mission_lines_show_multiple_tags_and_high_stress(self):
         mission = create_mission_templates("Chrome Warrens")[2]
         mission.emotional_impact_hint = {
-            "emotional_impact_summary": "Charge émotionnelle élevée: extraction rapide exigée.",
-            "risk_explanation": "Risque amplifié par propagation médiatique.",
+            "emotional_impact_summary": "Heavy emotional burden: rapid extraction required.",
+            "risk_explanation": "Risk amplified by media spread.",
             "expected_stress_band": "critical",
             "normalized_tags": ["ghost_signal", "media_swarm"],
         }
 
         lines = build_selected_mission_lines(mission)
 
-        self.assertTrue(any("Emotional summary: Charge émotionnelle élevée" in line for line in lines))
+        self.assertTrue(any("Emotional summary: Heavy emotional burden" in line for line in lines))
         self.assertIn("Stress: CRITICAL", lines)
         self.assertIn("Mission tags (normalized): ghost_signal, media_swarm", lines)
 

@@ -79,10 +79,10 @@ class DebriefReport:
 def _extract_decision_key(lines: list[DebriefLine], mission: MissionTemplate | None) -> str:
     mission_title = mission.title if mission else "Unknown Operation"
     if any(line.consequence_type == "downed" for line in lines):
-        return f"Maintenir l'objectif de {mission_title} malgré un agent au sol."
+        return f"Maintain the objective of {mission_title} despite a downed agent."
     if any(line.consequence_type == "injured" for line in lines):
-        return f"Continuer l'opération {mission_title} sous pression médicale."
-    return f"Tenir la formation jusqu'à extraction complète sur {mission_title}."
+        return f"Continue operation {mission_title} under medical pressure."
+    return f"Hold formation until full extraction on {mission_title}."
 
 
 def _extract_risk_taken(
@@ -90,10 +90,10 @@ def _extract_risk_taken(
     complication: MissionComplication | None,
 ) -> str:
     if complication is not None:
-        return f"Risque narratif majeur accepté: {complication.name.lower()}."
+        return f"Major narrative risk accepted: {complication.name.lower()}."
     if any(line.emotional_tone in {"fractured", "frayed"} for line in lines):
-        return "Risque humain: engagement avec escouade sous stress élevé."
-    return "Risque mesuré: progression sans complication critique détectée."
+        return "Human risk: squad engagement under high stress."
+    return "Measured risk: progress with no critical complication detected."
 
 
 def _extract_heroic_action(lines: list[DebriefLine]) -> str:
@@ -102,13 +102,13 @@ def _extract_heroic_action(lines: list[DebriefLine]) -> str:
         lines[0] if lines else None,
     )
     if heroic_line is None:
-        return "L'escouade a tenu sans perte majeure."
-    return f"{heroic_line.agent_name} a tenu la ligne dans les pires conditions."
+        return "The squad held without major loss."
+    return f"{heroic_line.agent_name} held the line in the worst conditions."
 
 
 def _build_rpg_links(characters: list[Character]) -> list[str]:
     if not characters:
-        return ["Aucun agent survivant: revue stratégique requise."]
+        return ["No surviving agents: strategic review required."]
 
     highest_stress = max(characters, key=lambda c: c.stress)
     strongest_bond = max(
@@ -117,13 +117,13 @@ def _build_rpg_links(characters: list[Character]) -> list[str]:
     )
     top_level = max(characters, key=lambda c: c.stats.level)
     return [
-        f"Stress: {highest_stress.name} à {highest_stress.stress}/100, priorité récupération.",
+        f"Stress: {highest_stress.name} at {highest_stress.stress}/100, recovery priority.",
         (
-            "Relations: "
-            f"{strongest_bond.name} consolide le lien d'escouade "
+            "Relationships: "
+            f"{strongest_bond.name} reinforces the squad bond "
             f"(max {max(strongest_bond.relationships.values(), default=0)})."
         ),
-        f"Progression: {top_level.name} niveau {top_level.stats.level}, capitaliser sur son rôle.",
+        f"Progression: {top_level.name} level {top_level.stats.level}, capitalize on the role.",
     ]
 
 
@@ -163,16 +163,16 @@ def _line_text(
 
     templates: dict[str, dict[str, str]] = {
         "victory": {
-            "operational": "{name} garde le cap après {mission}.",
-            "recovering": "{name} tient la ligne malgré la récupération post-{mission}.",
-            "injured": "{name} revient blessé·e de {mission}, mais reste engagé·e.",
-            "downed": "{name} a payé un lourd prix pendant {mission}.",
+            "operational": "{name} keeps course after {mission}.",
+            "recovering": "{name} holds the line despite recovery after {mission}.",
+            "injured": "{name} returns injured from {mission}, but remains committed.",
+            "downed": "{name} paid a heavy price during {mission}.",
         },
         "failure": {
-            "operational": "{name} encaisse l'échec de {mission} avec discipline.",
-            "recovering": "{name} est en récupération après la chute de {mission}.",
-            "injured": "{name} sort meurtri·e de {mission} et garde la mission en tête.",
-            "downed": "{name} s'effondre sous le choc de {mission}.",
+            "operational": "{name} absorbs the failure of {mission} with discipline.",
+            "recovering": "{name} is recovering after the fall of {mission}.",
+            "injured": "{name} comes out bruised from {mission} and keeps the mission in mind.",
+            "downed": "{name} collapses under the shock of {mission}.",
         },
     }
     outcome = _mission_outcome_label(victory)

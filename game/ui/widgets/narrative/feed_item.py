@@ -60,8 +60,8 @@ def to_widget_line(entry: NarrativeFeedEntry, age_steps: int, clip: int = 120, l
     rel_time = readable_relative_timestamp(age_steps, language)
     body = entry.text.strip()
     if len(body) > clip:
-        body = body[: clip - 1].rstrip() + "…"
-    rendered = f"{icon} [{label}] ({tone}) {body} · {rel_time}"
+        body = body[: clip - 1].rstrip() + "..."
+    rendered = f"{icon} [{label}] ({tone}) {body} | {rel_time}"
     return NarrativeFeedWidgetLine(
         text=label_with_non_color_indicator(rendered, "normal"),
         emphasis="normal",

@@ -11,7 +11,11 @@ TEXT_SIZE_OPTIONS: tuple[str, ...] = ("small", "medium", "large")
 _TEXT_SIZE_SCALE: dict[str, float] = {
     "small": 0.90,
     "medium": 1.00,
-    "large": 1.15,
+    # Large should be a real readability jump, not a cosmetic nudge.
+    "large": 1.30,
+}
+_TEXT_SIZE_MIN_FONT: dict[str, int] = {
+    "large": 12,
 }
 _CURRENT_TEXT_SIZE = "medium"
 _CURRENT_TEXT_SCALE = _TEXT_SIZE_SCALE[_CURRENT_TEXT_SIZE]
@@ -39,7 +43,11 @@ def get_text_size() -> str:
 def scale_font_size(font_size: int | float) -> int:
     """Scale a font size using the active UI text size preset."""
     try:
-        return max(1, int(round(float(font_size) * _CURRENT_TEXT_SCALE)))
+        scaled = int(round(float(font_size) * _CURRENT_TEXT_SCALE))
+        floor = _TEXT_SIZE_MIN_FONT.get(_CURRENT_TEXT_SIZE)
+        if floor is not None:
+            scaled = max(scaled, floor)
+        return max(1, scaled)
     except (TypeError, ValueError):
         return 12
 

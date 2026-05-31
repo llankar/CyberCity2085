@@ -60,6 +60,7 @@ fake_arcade = types.SimpleNamespace(
 sys.modules["arcade"] = fake_arcade
 
 from game.ui.screens import settings_screen
+from game.ui.theme.typography import scale_font_size, set_text_size
 
 
 class _FakeWindow:
@@ -167,7 +168,16 @@ class SettingsScreenDisplayTest(unittest.TestCase):
 
         self.assertIsNotNone(medium_title)
         self.assertIsNotNone(large_title)
-        self.assertGreater(large_title, medium_title)
+        self.assertGreaterEqual(large_title - medium_title, 5)
+
+    def test_large_text_has_readability_floor_for_small_labels(self) -> None:
+        previous = set_text_size("medium")
+        self.addCleanup(set_text_size, previous)
+
+        set_text_size("large")
+        self.assertGreaterEqual(scale_font_size(8), 12)
+        self.assertGreaterEqual(scale_font_size(9), 12)
+        self.assertGreaterEqual(scale_font_size(10), 13)
 
 
 if __name__ == "__main__":

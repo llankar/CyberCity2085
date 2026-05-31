@@ -47,7 +47,7 @@ def _from_strategic_events(active_events: list[object], current_day: int) -> lis
         entries.append(
             NarrativeFeedEntry(
                 "mission",
-                f"{event.title} ({event.category}) — J-{days_remaining} avant expiration.",
+                f"{event.title} ({event.category}) - D-{days_remaining} until expiration.",
             )
         )
     return entries
@@ -104,15 +104,18 @@ def _from_campaign_intel(game_state) -> list[NarrativeFeedEntry]:
         if campaign is None:
             return []
         from game.campaign.intel_fragments import get_fragment
+
         recent = list(reversed(campaign.discovered_intel))[:3]
         result = []
         for fid in recent:
             frag = get_fragment(fid)
             if frag:
-                result.append(NarrativeFeedEntry(
-                    category="intel",
-                    text=f"[INTEL] {frag.title}: {frag.text[:100]}…",
-                ))
+                result.append(
+                    NarrativeFeedEntry(
+                        category="intel",
+                        text=f"[INTEL] {frag.title}: {frag.text[:100]}...",
+                    )
+                )
         return result
     except Exception:
         return []
