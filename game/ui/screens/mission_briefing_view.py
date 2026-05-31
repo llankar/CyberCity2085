@@ -6,12 +6,11 @@ and emotional impact hint. Player chooses DEPLOY or ABORT.
 
 from __future__ import annotations
 
-import os
-import random
 from typing import TYPE_CHECKING
 
 import arcade
 
+from game.battle_maps import select_battle_map_entry
 from game.ui import palette
 from game.ui.panels import draw_panel
 
@@ -51,16 +50,11 @@ class MissionBriefingView(arcade.View):
         sm.play_music("music_briefing", loop=True)
 
     def _load_assets(self) -> None:
-        # Pick a random map thumbnail
-        maps_dir = "assets/maps"
+        # Match the briefing thumbnail to the mission's map environment.
         try:
-            maps = sorted(
-                f for f in os.listdir(maps_dir)
-                if f.lower().endswith((".jpeg", ".jpg", ".png")) and not f.startswith(".")
-            )
-            if maps:
-                chosen = random.choice(maps)
-                self._map_texture = arcade.load_texture(os.path.join(maps_dir, chosen))
+            map_entry = select_battle_map_entry(self.mission)
+            if map_entry is not None:
+                self._map_texture = arcade.load_texture(map_entry.path)
         except Exception:
             pass
 

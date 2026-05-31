@@ -10,6 +10,7 @@ from typing import Any
 
 ASSET_DIR = Path("assets/maps")
 BATTLE_TOKEN_SCALE = 1.5
+BATTLE_TOKEN_SCALE_NON_ROBOT = BATTLE_TOKEN_SCALE / 2
 
 _IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg"}
 _WASTELAND_MISSION_KEYWORDS = (
@@ -175,6 +176,29 @@ def battle_map_pool_for_mission(mission: Any) -> list[BattleMapEntry]:
     return battle_map_pool_for_environment(infer_battle_environment(mission))
 
 
+def _is_robot_unit(unit: Any) -> bool:
+    asset = getattr(unit, "spec_ops_asset", None)
+    if asset is not None:
+        asset_type = str(getattr(asset, "asset_type", "") or "").strip().lower()
+        if asset_type in {"combat_robot", "support_robot", "drone"} or asset_type.endswith("_robot"):
+            return True
+
+    unit_type = str(getattr(unit, "unit_type", "") or "").strip().lower()
+    if unit_type in {"combat_robot", "support_robot", "drone", "robot"} or unit_type.endswith("_robot"):
+        return True
+
+    theme = str(getattr(unit, "enemy_theme", "") or "").strip().lower()
+    if theme.endswith("_robot") or "robot" in theme:
+        return True
+
+    return False
+
+
+def battle_token_scale_for_unit(unit: Any) -> float:
+    """Return the battle token scale for a unit, keeping robots at full size."""
+    return BATTLE_TOKEN_SCALE if _is_robot_unit(unit) else BATTLE_TOKEN_SCALE_NON_ROBOT
+
+
 def select_battle_map_entry(mission: Any) -> BattleMapEntry | None:
     pool = battle_map_pool_for_mission(mission)
     if not pool:
@@ -193,11 +217,13 @@ __all__ = [
     "ASSET_DIR",
     "BATTLE_MAP_CATALOG",
     "BATTLE_TOKEN_SCALE",
+    "BATTLE_TOKEN_SCALE_NON_ROBOT",
     "BattleMapEntry",
     "CITY_BATTLE_MAPS",
     "WASTELAND_BATTLE_MAPS",
     "battle_map_pool_for_environment",
     "battle_map_pool_for_mission",
+    "battle_token_scale_for_unit",
     "build_battle_map_catalog",
     "infer_battle_environment",
     "select_battle_map_entry",

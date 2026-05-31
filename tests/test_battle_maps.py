@@ -8,11 +8,11 @@ from game import battle_maps
 
 
 class BattleMapsTest(unittest.TestCase):
-    def test_catalog_has_fifty_city_maps_and_split_pools(self) -> None:
+    def test_catalog_has_city_maps_and_split_pools(self) -> None:
         catalog = battle_maps.build_battle_map_catalog()
 
         self.assertEqual(len(catalog), len(battle_maps.CITY_BATTLE_MAPS) + len(battle_maps.WASTELAND_BATTLE_MAPS))
-        self.assertEqual(len(battle_maps.CITY_BATTLE_MAPS), 50)
+        self.assertEqual(len(battle_maps.CITY_BATTLE_MAPS), 36)
         self.assertTrue(battle_maps.WASTELAND_BATTLE_MAPS)
         self.assertTrue(all(entry.filename.startswith("city_") for entry in battle_maps.CITY_BATTLE_MAPS))
         self.assertTrue(all(not entry.filename.startswith("city_") for entry in battle_maps.WASTELAND_BATTLE_MAPS))
@@ -55,13 +55,27 @@ class BattleMapsTest(unittest.TestCase):
         self.assertIsNotNone(selected_wasteland)
         self.assertEqual(selected_city.environment, "city")
         self.assertEqual(selected_wasteland.environment, "wasteland")
+        self.assertTrue(Path(selected_city.path).name.startswith("city_"))
+        self.assertFalse(Path(selected_wasteland.path).name.startswith("city_"))
 
     def test_battle_token_scale_is_one_point_five(self) -> None:
         self.assertEqual(battle_maps.BATTLE_TOKEN_SCALE, 1.5)
 
+    def test_non_robot_battle_tokens_use_half_scale(self) -> None:
+        human_unit = SimpleNamespace(unit_type="agent")
+        robot_asset_unit = SimpleNamespace(
+            unit_type="power_armor",
+            spec_ops_asset=SimpleNamespace(asset_type="power_armor"),
+        )
+        robot_enemy_unit = SimpleNamespace(unit_type="enemy", enemy_theme="corp_37_robot")
+
+        self.assertEqual(battle_maps.battle_token_scale_for_unit(human_unit), 0.75)
+        self.assertEqual(battle_maps.battle_token_scale_for_unit(robot_asset_unit), 0.75)
+        self.assertEqual(battle_maps.battle_token_scale_for_unit(robot_enemy_unit), 1.5)
+
     def test_new_map_assets_exist_on_disk(self) -> None:
         city_files = [path for path in Path("assets/maps").iterdir() if path.is_file() and path.name.startswith("city_")]
-        self.assertEqual(len(city_files), 50)
+        self.assertEqual(len(city_files), 36)
         self.assertTrue(all(path.suffix.lower() == ".png" for path in city_files))
 
 
