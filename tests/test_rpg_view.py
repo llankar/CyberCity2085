@@ -5,6 +5,8 @@ import types
 import unittest
 from pathlib import Path
 
+from game.management.spec_ops_assets import default_spec_ops_assets
+
 
 class _FakeView:
     def __init__(self, *args, **kwargs):
@@ -102,13 +104,19 @@ class _FakeWindow:
         self.shown_view = view
 
 
-def _mission(mission_id="stress_gate", title="Relay Burn", risk_level=3):
+def _mission(
+    mission_id="stress_gate",
+    title="Relay Burn",
+    risk_level=3,
+    objective_text="Burn the relay before the city notices.",
+    district="Chrome Warrens",
+):
     return MissionTemplate(
         id=mission_id,
         title=title,
-        objective_text="Burn the relay before the city notices.",
+        objective_text=objective_text,
         target_faction="Test Faction",
-        district="Test District",
+        district=district,
         district_pressure={},
         starting_enemy_count=1,
         risk_level=risk_level,
@@ -225,6 +233,59 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         # Auto-selection: map_index must not be None after setup
         self.assertIsNotNone(view.map_index)
         self.assertIsInstance(view.map_index, int)
+
+    def test_battle_view_uses_city_and_wasteland_map_pools(self):
+        city_game_state = GameState(mission_templates=[_mission()])
+        city_view = views.BattleView(city_game_state)
+        city_view.window = _FakeWindow()
+        city_view.setup(city_game_state.mission_templates[0])
+
+        wasteland_mission = _mission(
+            mission_id="badlands_scout",
+            title="Badlands Survey",
+            objective_text="Recover the drone core from the wasteland",
+            district="Badlands Fringe",
+        )
+        wasteland_game_state = GameState(mission_templates=[wasteland_mission])
+        wasteland_view = views.BattleView(wasteland_game_state)
+        wasteland_view.window = _FakeWindow()
+        wasteland_view.setup(wasteland_mission)
+
+        self.assertTrue(Path(city_view.map_path).name.startswith("city_"))
+        self.assertFalse(Path(wasteland_view.map_path).name.startswith("city_"))
+
+    def test_battle_view_scales_robot_tokens_full_size_and_other_units_half_size(self):
+        scales = []
+        original_sprite = views.arcade.Sprite
+
+        def _capture_sprite(*args, **kwargs):
+            scales.append(kwargs.get("scale"))
+            return types.SimpleNamespace(
+                kill=lambda: None,
+                center_x=0,
+                center_y=0,
+                width=32,
+                height=32,
+                visible=True,
+            )
+
+        views.arcade.Sprite = _capture_sprite
+        try:
+            game_state = GameState(
+                characters=[Character("Alpha")],
+                selected_agent_names=["Alpha"],
+                spec_ops_assets=default_spec_ops_assets(),
+                selected_asset_ids=["robot_k9_01"],
+                mission_templates=[_mission()],
+            )
+            view = views.BattleView(game_state)
+            view.window = _FakeWindow()
+            view.setup(game_state.mission_templates[0])
+        finally:
+            views.arcade.Sprite = original_sprite
+
+        self.assertIn(0.75, scales)
+        self.assertIn(1.5, scales)
 
     def test_invisible_enemies_are_not_targetable(self):
         game_state = GameState(

@@ -98,9 +98,10 @@ if not hasattr(arcade, "key"):
 from .agent_aftermath import apply_mission_aftermath
 from .agent_readiness import agents_at_breaking_risk
 from .battle_maps import (
-    BATTLE_TOKEN_SCALE,
     battle_map_pool_for_mission,
+    battle_token_scale_for_unit,
     infer_battle_environment,
+    select_battle_map_entry,
 )
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
@@ -1702,10 +1703,19 @@ class BattleView(GameView):
         self.map_environment = infer_battle_environment(self.mission)
         self.available_maps = battle_map_pool_for_mission(self.mission)
         self.room_ui = RoomUIState("battle")
-        # Auto-select a random map ? no manual selection screen needed
-        import random as _rnd
+        # Auto-select a mission-appropriate map so briefing and battle stay aligned.
+        selected_map = select_battle_map_entry(self.mission)
         if self.available_maps:
-            self.map_index = _rnd.randint(0, len(self.available_maps) - 1)
+            if selected_map is not None:
+                selected_key = getattr(selected_map, "key", None)
+                self.map_index = next(
+                    (idx for idx, entry in enumerate(self.available_maps) if entry.key == selected_key),
+                    0,
+                )
+            else:
+                import random as _rnd
+
+                self.map_index = _rnd.randint(0, len(self.available_maps) - 1)
             self._load_battle_map(self.map_index)
         else:
             self.map_index = 0
@@ -1744,7 +1754,7 @@ class BattleView(GameView):
                 _sprite_path_for_unit(unit),
                 center_x=unit.position[0],
                 center_y=unit.position[1],
-                scale=BATTLE_TOKEN_SCALE,
+                scale=battle_token_scale_for_unit(unit),
             )
             unit.sprite = sprite
             self.player_list.append(sprite)
@@ -1754,7 +1764,7 @@ class BattleView(GameView):
                 _sprite_path_for_unit(enemy),
                 center_x=enemy.position[0],
                 center_y=enemy.position[1],
-                scale=BATTLE_TOKEN_SCALE,
+                scale=battle_token_scale_for_unit(enemy),
             )
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
@@ -1932,7 +1942,7 @@ class BattleView(GameView):
                     "assets/enemy.png",
                     center_x=ex,
                     center_y=ey,
-                    scale=BATTLE_TOKEN_SCALE,
+                    scale=battle_token_scale_for_unit(new_enemy),
                 )
                 new_enemy.sprite = sprite
                 self.enemy_list.append(sprite)
