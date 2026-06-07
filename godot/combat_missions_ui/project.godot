@@ -1,0 +1,13 @@
+; Engine configuration for CyberCity 2085 combat mission UI.
+; Open with: godot --path godot/combat_missions_ui -- --handoff runtime/godot_combat/mission_handoff.json
+
+config_version=5
+
+[application]
+config/name="CyberCity 2085 Combat UI"
+run/main_scene="res://scenes/combat_mission_ui.tscn"
+config/features=PackedStringArray("4.2")
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=720
