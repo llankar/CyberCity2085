@@ -5,7 +5,7 @@ const NEON := Color(0.1, 0.95, 0.72, 1.0)
 const TEXT := Color(0.84, 0.95, 0.92, 1.0)
 const WARN := Color(1.0, 0.72, 0.22, 1.0)
 
-var handoff := {}
+var handoff: Dictionary = {}
 var handoff_path := "runtime/godot_combat/mission_handoff.json"
 var status_line := "Waiting for CyberCity handoff."
 
@@ -35,9 +35,9 @@ func _load_handoff() -> void:
 func _draw() -> void:
     draw_rect(Rect2(Vector2.ZERO, size), Color(0.005, 0.015, 0.025, 1.0), true)
     _draw_panel(Rect2(42, 36, size.x - 84, size.y - 72))
-    var mission := handoff.get("mission", {})
-    var campaign := handoff.get("campaign", {})
-    var map_data := handoff.get("map", {})
+    var mission: Dictionary = handoff.get("mission", {}) as Dictionary
+    var campaign: Dictionary = handoff.get("campaign", {}) as Dictionary
+    var map_data: Dictionary = handoff.get("map", {}) as Dictionary
     _draw_text("CYBERCITY 2085 // GODOT COMBAT UI", Vector2(72, 82), 26, NEON)
     _draw_text(str(mission.get("title", "TACTICAL INSERTION")).to_upper(), Vector2(72, 126), 34, TEXT)
     _draw_text("%s • Risk %s • %s" % [mission.get("target_faction", "Unknown faction"), mission.get("risk_level", "?"), map_data.get("label", "unmapped site")], Vector2(74, 166), 18, WARN)

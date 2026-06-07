@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -113,6 +114,42 @@ class GodotCombatBridgeTest(unittest.TestCase):
             self.assertFalse(result.ready_for_godot)
             self.assertTrue(handoff_path.exists())
             self.assertIn("Godot handoff created", result.message)
+
+    def test_headless_godot_loads_the_combat_ui_script(self) -> None:
+        godot_executable = Path(r"E:\Godot\Godot_v4.6.3\Godot_v4.6.3-stable_win64.exe")
+        if not godot_executable.exists():
+            self.skipTest("Godot executable not available for headless load check")
+
+        game_state = GameState(
+            characters=[Character("Vera", role="sniper")],
+            selected_agent_names=["Vera"],
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            handoff_path = Path(tmp) / "mission_handoff.json"
+            write_godot_combat_handoff(game_state, _mission(), handoff_path=handoff_path)
+
+            result = subprocess.run(
+                [
+                    str(godot_executable),
+                    "--headless",
+                    "--quit-after",
+                    "1",
+                    "--path",
+                    str(GODOT_COMBAT_PROJECT_DIR),
+                    "--",
+                    "--handoff",
+                    str(handoff_path),
+                ],
+                capture_output=True,
+                text=True,
+                timeout=60,
+                check=False,
+            )
+
+            output = f"{result.stdout}\n{result.stderr}"
+            self.assertEqual(result.returncode, 0, output)
+            self.assertNotIn("Parse Error", output)
+            self.assertNotIn("Failed to load script", output)
 
 
 if __name__ == "__main__":
