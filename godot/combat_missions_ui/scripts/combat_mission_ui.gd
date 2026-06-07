@@ -108,7 +108,7 @@ func _draw() -> void:
         _draw_combat_scene()
     else:
         _draw_handoff_scene()
-    _draw_text(status_line, Vector2(74, size.y - 74), 15, NEON)
+        _draw_text(status_line, Vector2(74, size.y - 74), 15, NEON)
 
 func _draw_handoff_scene() -> void:
     var mission: Dictionary = _mission_data()
@@ -131,23 +131,15 @@ func _draw_combat_scene() -> void:
     _layout_combat_hud()
     _draw_combat_background()
     _draw_mission_header()
-    _draw_top_chrome()
     _draw_battlefield()
     _draw_objective_marker()
     _draw_units()
-    _draw_phase_banner()
-    _draw_initiative_timeline()
     _draw_unit_status_panel()
-    _draw_portrait_strip()
     _draw_action_bar()
-    if show_combat_log:
-        _draw_combat_log_panel()
-    elif selected_action in ["FIRE", "MELEE", "PSI"]:
-        _draw_target_lock_panel()
     _draw_text(status_line, Vector2(74, 268), 14, NEON)
 
 func _layout_combat_hud() -> void:
-    battlefield_rect = Rect2(70, 286, max(360, size.x - 480), max(180, size.y - 510))
+    battlefield_rect = Rect2(70, 320, max(360, size.x - 460), clamp(size.y * 0.3, 190.0, 230.0))
 
 func _draw_combat_background() -> void:
     draw_rect(Rect2(Vector2.ZERO, size), Color(0.005, 0.015, 0.025, 1.0), true)
@@ -309,27 +301,32 @@ func _draw_initiative_timeline() -> void:
             _draw_text("THREAT", Vector2(left + panel_w - 66.0, row_y - 6.0), 8, WARN)
 
 func _draw_unit_status_panel() -> void:
-    var unit: Dictionary = _current_active_player()
-    var pw: float = 320.0
-    var ph: float = 90.0
-    var px: float = 12.0
-    var py: float = size.y - ph - 12.0
-    var turn_col: Color = PLAYER_COL if turn_side == "player" else (ENEMY_COL if turn_side == "enemy" else TEXT)
-    draw_rect(Rect2(px, py, pw, ph), Color(0, 0, 0, 0.8), true)
-    draw_line(Vector2(px, py + ph), Vector2(px + pw, py + ph), turn_col, 2.0)
-    if unit.is_empty():
-        _draw_text("NO ACTIVE UNIT", Vector2(px + pw * 0.5, py + ph * 0.5), 12, TEXT)
+    var panel_x: float = 70.0
+    var panel_y: float = battlefield_rect.position.y + battlefield_rect.size.y + 16.0
+    var panel_w: float = 360.0
+    var panel_h: float = max(118.0, min(166.0, size.y - panel_y - 140.0))
+    draw_rect(Rect2(panel_x, panel_y, panel_w, panel_h), Color(0, 0, 0, 0.8), true)
+    draw_line(Vector2(panel_x, panel_y + panel_h), Vector2(panel_x + panel_w, panel_y + panel_h), NEON, 2.0)
+    _draw_text("DEPLOYED AGENTS", Vector2(panel_x + 12.0, panel_y + 20.0), 16, NEON)
+    if player_units.is_empty():
+        _draw_text("No deployed agents in handoff.", Vector2(panel_x + 12.0, panel_y + 48.0), 11, WARN)
         return
-    var name := str(unit.get("name", "Agent")).to_upper()
-    var role := str(unit.get("role", "agent")).to_upper()
-    _draw_text(name, Vector2(px + 110, py + 16), 13, TEXT)
-    _draw_text(role, Vector2(px + 110, py + 32), 10, turn_col)
-    _draw_text("HP %d/%d" % [int(unit.get("hp", 0)), int(unit.get("max_hp", 1))], Vector2(px + 110, py + 50), 10, TEXT)
-    _draw_text("AP %d" % int(unit.get("ap", 0)), Vector2(px + 110, py + 68), 10, TEXT)
-    _draw_text("STRESS %d" % int(unit.get("stress", 0)), Vector2(px + 210, py + 68), 10, WARN if int(unit.get("stress", 0)) >= 70 else TEXT)
-    draw_rect(Rect2(px + 10, py + 12, 82, 62), Color(0.06, 0.14, 0.18, 0.95), true)
-    draw_rect(Rect2(px + 10, py + 12, 82, 62), turn_col, false, 2.0)
-    _draw_text("UNIT", Vector2(px + 51, py + 43), 12, turn_col)
+    var row_y: float = panel_y + 44.0
+    for i in range(min(player_units.size(), 5)):
+        var unit: Dictionary = player_units[i]
+        var active: bool = i == active_player_index and turn_side == "player"
+        if active:
+            draw_rect(Rect2(panel_x + 8.0, row_y - 13.0, panel_w - 16.0, 22.0), Color(0.08, 0.24, 0.18, 0.7), true)
+        var name: String = str(unit.get("name", "Agent")).to_upper()
+        var role: String = str(unit.get("role", "agent")).to_upper()
+        var hp: int = int(unit.get("hp", 0))
+        var max_hp: int = max(1, int(unit.get("max_hp", 1)))
+        var stress: int = int(unit.get("stress", 0))
+        var line_col: Color = TEXT if not active else PLAYER_COL
+        _draw_text("%s [%s]  HP %d/%d  AP %d  STRESS %d" % [name, role, hp, max_hp, int(unit.get("ap", 0)), stress], Vector2(panel_x + 12.0, row_y), 11, line_col)
+        row_y += 23.0
+        if row_y > panel_y + panel_h - 12.0:
+            break
 
 func _draw_portrait_strip() -> void:
     if player_units.is_empty():
@@ -368,27 +365,25 @@ func _draw_portrait_strip() -> void:
             draw_rect(Rect2(dot_x, strip_y + 62.0, 8.0, 6.0), PLAYER_COL if d < int(unit.get("ap", 0)) else Color(0.08, 0.16, 0.2, 1.0), true)
 
 func _draw_action_bar() -> void:
-    var bar_bottom: float = size.y - 130.0
-    var bar_width: float = min(size.x - 36.0, 880.0)
-    var bar_height: float = 112.0
-    var bar: Rect2 = Rect2((size.x - bar_width) * 0.5, bar_bottom, bar_width, bar_height)
+    var bar_width: float = 290.0
+    var bar_x: float = size.x - bar_width - 70.0
+    var bar_y: float = battlefield_rect.position.y + 34.0
+    var bar_height: float = 330.0
+    var bar: Rect2 = Rect2(bar_x, bar_y, bar_width, bar_height)
     draw_rect(bar, Color(0, 0, 0, 0.82), true)
-    draw_line(Vector2(bar.position.x, bar.position.y + bar.size.y), Vector2(bar.position.x + bar.size.x, bar.position.y + bar.size.y), NEON, 1.0)
-    var active: Dictionary = _current_active_player()
-    var unit_name: String = str(active.get("name", "UNIT")).to_upper() if not active.is_empty() else "UNIT"
-    _draw_text("%s // AP %d" % [unit_name, int(active.get("ap", 0)) if not active.is_empty() else 0], Vector2(bar.position.x + 18.0, bar.position.y + 24.0), 11, WARN)
-    _draw_text(status_line, Vector2(bar.position.x + 220.0, bar.position.y + 24.0), 10, TEXT)
+    draw_line(Vector2(bar.position.x, bar.position.y), Vector2(bar.position.x + bar.size.x, bar.position.y), NEON, 2.0)
+    _draw_text("TACTICAL DECK", Vector2(bar.position.x + 16.0, bar.position.y + 22.0), 16, NEON)
     action_rects = {}
     var enabled_actions: Array[String] = ACTIONS.duplicate()
-    var btn_w: float = min(96.0, max(66.0, (bar.size.x - 48.0) / float(max(1, enabled_actions.size()))))
-    var total: float = float(enabled_actions.size()) * btn_w + float(max(0, enabled_actions.size() - 1)) * 10.0
-    var bx: float = bar.position.x + max(20.0, (bar.size.x - total) * 0.5)
+    var btn_w: float = bar.size.x - 28.0
+    var btn_h: float = 30.0
+    var bx: float = bar.position.x + 14.0
     var by: float = bar.position.y + 46.0
     for action in enabled_actions:
         var label := action
         if action == "END TURN" and pending_end_turn_confirmation:
             label = "CONFIRM"
-        var rect := Rect2(bx, by, btn_w, 58.0)
+        var rect := Rect2(bx, by, btn_w, btn_h)
         action_rects[action] = rect
         var active_action := selected_action == action
         var fill := Color(0.04, 0.14, 0.12, 0.92) if not active_action else Color(0.08, 0.26, 0.18, 0.96)
@@ -397,10 +392,10 @@ func _draw_action_bar() -> void:
             fill = Color(0.04, 0.08, 0.1, 0.65)
             border = Color(0.3, 0.55, 0.5, 0.55)
         draw_rect(rect, fill, true)
-        draw_line(Vector2(rect.position.x, rect.position.y + rect.size.y), Vector2(rect.position.x + rect.size.x, rect.position.y + rect.size.y), border, 2.0)
-        _draw_text(label, Vector2(rect.position.x + rect.size.x * 0.5, rect.position.y + 20.0), 10, TEXT if active_action else TEXT)
-        bx += btn_w + 10.0
-    _draw_text("Enter: deploy/confirm   Tab: log   Mouse: act", Vector2(bar.position.x + bar.size.x - 12.0, bar.position.y + 24.0), 9, TEXT)
+        draw_rect(rect, border, false, 1.0)
+        _draw_text(label, Vector2(rect.position.x + 12.0, rect.position.y + 20.0), 10, TEXT if active_action else TEXT)
+        by += btn_h + 10.0
+    _draw_text("Enter: deploy/confirm   Tab: log   Mouse: act", Vector2(bar.position.x + 14.0, bar.position.y + bar.size.y - 12.0), 9, TEXT)
 
 func _draw_target_lock_panel() -> void:
     var target := _current_target()
