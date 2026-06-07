@@ -105,6 +105,7 @@ from .battle_maps import (
 )
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
+from .combat import CombatEngine, CombatState
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -1748,6 +1749,17 @@ class BattleView(GameView):
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         self.battle_objective = create_battle_objective(self.mission)
+        self.combat_state = CombatState(
+            mission=self.mission,
+            allied_units=self.player_units,
+            enemy_units=self.enemy_units,
+            objective=self.battle_objective,
+        )
+        self.combat_engine = CombatEngine(
+            self.combat_state,
+            can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
+            cover_nodes=getattr(self, "cover_nodes", None),
+        )
 
         for unit in self.player_units:
             sprite = arcade.Sprite(
@@ -1783,6 +1795,7 @@ class BattleView(GameView):
         self.turn_number = 1
         self.turn = "player"
         self.active_index = 0
+        self._sync_combat_state_from_view()
         self.message = self.mission.objective_text if self.mission else ""
         self.triggered_complication = None
         self.attack_timer = 0.0
@@ -1809,6 +1822,7 @@ class BattleView(GameView):
         self._pause_buttons: list = []
         self._show_combat_log = False
         self.combat_log_messages: list[str] = []
+        self.combat_state.logs = getattr(self, "combat_log_messages", self.combat_state.logs)
         # Phase 2-A02: pre-battle deployment phase
         self._deploying = True
         self._deploy_cursor = 0  # which player unit is being repositioned
@@ -1975,22 +1989,43 @@ class BattleView(GameView):
         self._aftermath_line = f"COMPLICATION: {comp_name}"
         self._aftermath_timer = 3.0
 
+    def _sync_combat_state_from_view(self) -> None:
+        """Keep legacy BattleView mirrors aligned with the pure combat state."""
+        if not hasattr(self, "combat_state"):
+            return
+        self.combat_state.mission = self.mission
+        self.combat_state.allied_units = self.player_units
+        self.combat_state.enemy_units = self.enemy_units
+        self.combat_state.objective = self.battle_objective
+        self.combat_state.turn = self.turn
+        self.combat_state.turn_number = self.turn_number
+        self.combat_state.active_index = self.active_index
+        self.combat_state.logs = getattr(self, "combat_log_messages", self.combat_state.logs)
+
+    def _sync_view_from_combat_state(self) -> None:
+        """Mirror pure combat state back to fields still consumed by rendering."""
+        self.player_units = self.combat_state.allied_units
+        self.enemy_units = self.combat_state.enemy_units
+        self.turn = self.combat_state.turn
+        self.turn_number = self.combat_state.turn_number
+        self.active_index = self.combat_state.active_index
+
     def start_player_turn(self):
+        self._sync_combat_state_from_view()
+        before_health = {id(unit): unit.health for unit in self.player_units}
+        result = self.combat_engine.start_player_turn()
+        self._sync_view_from_combat_state()
         for unit in self.player_units:
-            msgs = unit.tick_status_effects()
-            for msg in msgs:
-                if "bleeding" in msg:
-                    name = unit.character.name if unit.character else unit.unit_type
-                    self.combat_log_messages.append(f"{name} is bleeding (-1 HP)")
-                    self._snd().play("sfx_bleed", 0.7)
-                    self._spawn_particles(*unit.position, count=5, color=(200, 40, 40))
-            unit.reset_actions()
-        if self.turn == "enemy":
-            self.turn_number += 1
-        self.turn = "player"
-        self.active_index = 0
-        self.combat_log_messages.append(f"── Turn {self.turn_number} ──")
+            if unit.health < before_health.get(id(unit), unit.health):
+                self._snd().play("sfx_bleed", 0.7)
+                self._spawn_particles(*unit.position, count=5, color=(200, 40, 40))
         self._snd().play("sfx_turn_player")
+        if result.outcome == "victory":
+            self.end_battle(True)
+            return
+        if result.outcome == "defeat":
+            self.end_battle(False)
+            return
         # Defend objective: check if hold turns are reached
         if self._defend_turns_needed > 0 and self.turn_number > self._defend_turns_needed:
             self.end_battle(True)
@@ -2019,15 +2054,20 @@ class BattleView(GameView):
         self._check_complications(self.turn_number)
 
     def start_enemy_turn(self):
-        for enemy in self.enemy_units:
-            enemy.reset_actions()
-        self.turn = "enemy"
+        self._sync_combat_state_from_view()
+        callbacks = self._enemy_ai_callbacks()
         self._snd().play("sfx_turn_enemy")
-        self.run_enemy_ai()
-        if not self.player_units:
+        result = self.combat_engine.start_enemy_turn(
+            defeated_player_units=self.defeated_player_units,
+            on_attack=callbacks["on_attack"],
+            on_defeated=callbacks["on_defeated"],
+            on_overwatch_shot=callbacks["on_overwatch_shot"],
+        )
+        self._sync_view_from_combat_state()
+        if result.outcome == "defeat":
             self.end_battle(False)
             return
-        elif not self.enemy_units:
+        elif result.outcome == "victory":
             self.end_battle(True)
             return
         else:
@@ -2181,7 +2221,7 @@ class BattleView(GameView):
             self.game_state, self.mission, victory, self.triggered_complication
         )
 
-    def run_enemy_ai(self):
+    def _enemy_ai_callbacks(self) -> dict[str, object]:
         def on_attack(enemy: Unit, target: Unit, damage: int) -> None:
             from game.unit import STATUS_STUNNED, STATUS_SUPPRESSED
             target_name = target.character.name if target.character else "agent"
@@ -2243,13 +2283,21 @@ class BattleView(GameView):
             else:
                 self.message = f"OVERWATCH! {watcher_name} misses"
 
+        return {
+            "on_attack": on_attack,
+            "on_defeated": on_defeated,
+            "on_overwatch_shot": on_overwatch_shot,
+        }
+
+    def run_enemy_ai(self):
+        callbacks = self._enemy_ai_callbacks()
         run_enemy_ai_system(
             self.player_units,
             self.enemy_units,
             defeated_player_units=self.defeated_player_units,
-            on_attack=on_attack,
-            on_defeated=on_defeated,
-            on_overwatch_shot=on_overwatch_shot,
+            on_attack=callbacks["on_attack"],
+            on_defeated=callbacks["on_defeated"],
+            on_overwatch_shot=callbacks["on_overwatch_shot"],
             can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
             cover_nodes=getattr(self, "cover_nodes", None),
         )
@@ -2552,20 +2600,19 @@ class BattleView(GameView):
             self.game_state.mark_tutorial_event("used_battle_controls")
             return True
         if action_key == "first_aid":
-            if player.action_points <= 0 or not player.stats:
-                return True
             before = player.health
-            player.health = min(player.stats.max_hp, player.health + 2)
-            player.stats.hp = player.health
-            player.action_points -= 1
+            result = self.combat_engine.perform_action("first_aid", actor=player)
+            if not result.success:
+                return True
+            self._sync_view_from_combat_state()
             healed = player.health - before
-            self.message = f"First aid restores {healed} HP."
+            self.message = result.message
             if healed > 0:
                 self._spawn_particles(*player.position, count=10, color=(60, 220, 120))
                 self._flash_unit(player, color=(60, 220, 120))
             self._set_action_aftermath(
                 action_label="SKILL",
-                status_applied=f"+{player.health - before} HP",
+                status_applied=f"+{healed} HP",
             )
             self.check_active_player()
             return True
@@ -2579,7 +2626,10 @@ class BattleView(GameView):
             self.message = "Rotate overwatch cone with ←/→ then confirm (Entrée/O)."
             return True
         if action_key == "defend":
-            player.defend()
+            result = self.combat_engine.perform_action("defend", actor=player)
+            if result.success:
+                self.message = result.message
+                self._sync_view_from_combat_state()
             self.check_active_player()
             return True
         if action_key == "end_turn":
@@ -2588,7 +2638,10 @@ class BattleView(GameView):
                 self.message = "Confirm end turn to lock irreversible actions."
                 return True
             self.pending_end_turn_confirmation = False
-            player.action_points = 0
+            result = self.combat_engine.perform_action("end_turn", actor=player)
+            if result.success:
+                self.message = result.message
+                self._sync_view_from_combat_state()
             self.check_active_player()
             return True
         return False
@@ -3059,11 +3112,13 @@ class BattleView(GameView):
         return {key: help_lines + value for key, value in base.items()}
 
     def check_active_player(self):
-        while self.active_index < len(self.player_units) and (
-            self.player_units[self.active_index].action_points <= 0
-            or self.player_units[self.active_index].health <= 0
+        self._sync_combat_state_from_view()
+        while self.combat_state.active_index < len(self.combat_state.allied_units) and (
+            self.combat_state.allied_units[self.combat_state.active_index].action_points <= 0
+            or self.combat_state.allied_units[self.combat_state.active_index].health <= 0
         ):
-            self.active_index += 1
+            self.combat_state.active_index += 1
+        self._sync_view_from_combat_state()
         if self.active_index >= len(self.player_units):
             self.start_enemy_turn()
 
