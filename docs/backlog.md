@@ -323,3 +323,7 @@ Automation status:
 
 
 - [x] Squad management: add Downtime menu (activities consume day/resources and affect morale/stress/traits).
+
+## Engine evaluation spikes
+
+- [x] GODOT-SPIKE-01 Evaluate Godot without migrating the game: isolated project under `experiments/godot_combat_spike/`, minimal 2-agent/2-enemy grid mission, JSON state contract, comparison report, and regression checks. Decision: keep disconnected from the Arcade runtime until a documented migration plan exists.

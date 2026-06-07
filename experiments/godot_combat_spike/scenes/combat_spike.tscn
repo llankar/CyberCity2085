@@ -1,0 +1,8 @@
+[gd_scene load_steps=4 format=3 uid="uid://cybercity2085_godot_spike"]
+
+[ext_resource type="Script" path="res://data/mission_state.gd" id="1_state"]
+[ext_resource type="Script" path="res://logic/combat_rules.gd" id="2_rules"]
+[ext_resource type="Script" path="res://scripts/combat_spike.gd" id="3_view"]
+
+[node name="CombatSpike" type="Node2D"]
+script = ExtResource("3_view")
