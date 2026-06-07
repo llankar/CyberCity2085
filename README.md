@@ -1,6 +1,6 @@
 # CyberCity2085
 
-Prototype project mixing corporation management, RPG progression and tactical battles built with [Arcade](https://api.arcade.academy/).
+Prototype project mixing corporation management, RPG progression and tactical battles built with [Arcade](https://api.arcade.academy/) for the campaign shell and a dedicated [Godot](https://godotengine.org/) project for combat-mission UI handoff.
 
 Run with:
 ```bash
@@ -12,6 +12,7 @@ python main.py
 - `assets/` – game art and other assets
 - `scenes/` – Tiled TMX maps
 - `game/` – core game modules
+- `godot/combat_missions_ui/` – Godot combat mission UI project launched from mission briefing handoff JSON
 - `main.py` – starts the game window and initial view
 
 ## Controls
@@ -89,6 +90,12 @@ python main.py
   launch pressure, complications and success/failure stakes
 - `N` recruit new agent
 - `B` start a battle
+
+### Godot Combat Mission UI
+- Mission briefing `DEPLOY` now defaults to `GameState.combat_mission_ui_engine = "godot"`.
+- The Arcade shell writes `runtime/godot_combat/mission_handoff.json` with mission, map, squad, support asset, and tactical action data.
+- If `godot4`, `godot`, or `CYBERCITY_GODOT_BIN` is available, the shell launches `godot/combat_missions_ui` with that handoff.
+- The handoff screen keeps `F` as a local Arcade battle fallback until Godot result import is implemented.
 
 ### Battle View
 - Tactical combat HUD uses the corporate tower frame for map selection, mission

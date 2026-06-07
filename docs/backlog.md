@@ -41,6 +41,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ## Gameplay systems explicit status
 
+- [x] BATTLE-UI-GODOT Combat mission UI handoff: mission briefing now exports selected mission/squad/map state to `runtime/godot_combat/mission_handoff.json`, launches the dedicated `godot/combat_missions_ui` project when a Godot binary is available, and keeps an Arcade fallback bridge for unresolved campaign result flow. (completed June 7, 2026)
 - [x] BATTLE-ENG1 Combat engine package: added `game/combat/` as a pure tactical state/transition boundary and wired `BattleView` through it for turn/AP checks. (completed Jun 7, 2026)
 - [x] UI-51 Combat movement unrestricted: removed terrain and occupancy gating from the battle window so player and enemy moves are no longer blocked by path rules inside combat. (completed May 28, 2026)
 - [x] UI-50 Battle map walkability masks: battle terrain now prefers explicit `*.walkable.png` sidecars instead of reading movement from the art directly, with a small generator tool so shipped maps can keep an editable collision layer. (completed May 28, 2026)
