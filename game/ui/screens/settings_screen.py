@@ -42,6 +42,7 @@ class SettingsState:
     resolution_index: int   = 1      # index into _RESOLUTIONS
     display_index:    int   = 0      # index into available screens
     text_size:        str   = "medium"
+    godot_bin_path:   str   = ""
     extra_flags: dict       = field(default_factory=dict)
 
 
@@ -68,6 +69,8 @@ def load_settings() -> SettingsState:
         s.resolution_index = int(data.get("resolution_index",  s.resolution_index))
         s.display_index    = int(data.get("display_index",     s.display_index))
         s.text_size        = normalize_text_size(data.get("text_size", s.text_size))
+        raw_godot_path = data.get("godot_bin_path", s.godot_bin_path)
+        s.godot_bin_path = str(raw_godot_path or "").strip()
         set_text_size(s.text_size)
         return s
     except (FileNotFoundError, json.JSONDecodeError, KeyError):
@@ -79,6 +82,7 @@ def load_settings() -> SettingsState:
 def save_settings(s: SettingsState) -> None:
     os.makedirs("saves", exist_ok=True)
     s.text_size = normalize_text_size(s.text_size)
+    s.godot_bin_path = s.godot_bin_path.strip()
     set_text_size(s.text_size)
     with open(_SETTINGS_PATH, "w", encoding="utf-8") as f:
         json.dump(asdict(s), f, indent=2)
@@ -123,6 +127,16 @@ def _screen_label(screen: object | None, index: int) -> str:
     return f"{prefix}  ({size})"
 
 
+def _shorten_path(value: str, limit: int = 44) -> str:
+    value = " ".join(str(value).split()).strip()
+    if len(value) <= limit:
+        return value
+    keep = max(8, limit - 3)
+    head = max(4, keep // 2)
+    tail = max(4, keep - head)
+    return f"{value[:head]}...{value[-tail:]}"
+
+
 # ── View ──────────────────────────────────────────────────────────────────────
 
 class SettingsView(arcade.View):
@@ -134,6 +148,8 @@ class SettingsView(arcade.View):
         self._elapsed   = 0.0
         self._message   = ""
         self._msg_timer = 0.0
+        self._editing_godot_path = False
+        self._godot_path_buffer = self._settings.godot_bin_path
         # Hit rects for toggle buttons
         self._hits: list[tuple[int, int, int, int, str]] = []
 
@@ -155,6 +171,17 @@ class SettingsView(arcade.View):
         self._draw_panel(w, h)
 
     def on_key_press(self, key: int, _modifiers: int) -> None:
+        if self._editing_godot_path:
+            if key in (arcade.key.RETURN, arcade.key.ENTER):
+                self._commit_godot_path()
+                return
+            if key == arcade.key.ESCAPE:
+                self._cancel_godot_path_edit()
+                return
+            if key == arcade.key.BACKSPACE:
+                self._godot_path_buffer = self._godot_path_buffer[:-1]
+                return
+
         if key == arcade.key.ESCAPE:
             self._back()
 
@@ -164,6 +191,11 @@ class SettingsView(arcade.View):
             if _in(l, b, r, t, xi, yi):
                 self._handle(action)
                 return
+
+    def on_text(self, text: str) -> None:
+        if not self._editing_godot_path:
+            return
+        self._godot_path_buffer += str(text).replace("\r", "").replace("\n", "")
 
     # ── Background ────────────────────────────────────────────────────────────
 
@@ -308,6 +340,15 @@ class SettingsView(arcade.View):
         arcade.draw_line(px + 20, row_y, px + panel_w - 20, row_y, PANEL_BORDER_MUTED, 1)
         row_y -= 6
 
+        # â”€â”€ COMBAT UI â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+        _section("COMBAT UI")
+        self._draw_godot_bin_row(px, py, panel_w, col1, col2, row_y)
+        row_y -= 56
+
+        row_y -= 4
+        arcade.draw_line(px + 20, row_y, px + panel_w - 20, row_y, PANEL_BORDER_MUTED, 1)
+        row_y -= 6
+
         _section("AUDIO")
         _toggle("Audio Enabled", "Master audio on/off",  s.audio_enabled, "toggle_audio")
         _toggle("Camera Shake",  "Screen shake on impact", s.camera_shake,  "toggle_shake")
@@ -374,8 +415,87 @@ class SettingsView(arcade.View):
 
     # ── Action handling ───────────────────────────────────────────────────────
 
+    def _draw_godot_bin_row(
+        self,
+        px: int,
+        py: int,
+        panel_w: int,
+        col1: int,
+        col2: int,
+        row_y: int,
+    ) -> None:
+        ry = row_y
+        _rect(px + 12, ry - 6, px + panel_w - 12, ry + 30, (8, 16, 22, 180))
+        arcade.draw_line(px + 12, ry + 30, px + panel_w - 12, ry + 30, GRID_LINE, 1)
+        arcade.draw_text("Godot Executable", col1, ry + 14, TEXT, font_size=12, bold=True, anchor_y="center")
+        arcade.draw_text(
+            "Optional path used to launch the Godot combat UI",
+            col1,
+            ry + 4,
+            MUTED_TEXT,
+            font_size=9,
+            anchor_y="center",
+        )
+
+        field_x = max(col1 + 250, col2 - 130)
+        field_y = ry + 2
+        btn_w = 66
+        btn_gap = 8
+        field_w = max(120, panel_w - (field_x - px) - (btn_w * 2) - (btn_gap * 2) - 24)
+        field_h = 28
+        value = self._godot_path_buffer if self._editing_godot_path else self._settings.godot_bin_path
+        display = (
+            _shorten_path(value)
+            if value
+            else ("Type a path..." if self._editing_godot_path else "Auto-detect from env / PATH")
+        )
+        border = TACTICAL_GREEN if self._editing_godot_path else PANEL_BORDER_MUTED
+        _rect(field_x, field_y, field_x + field_w, field_y + field_h, (12, 24, 32, 200))
+        arcade.draw_line(field_x, field_y + field_h, field_x + field_w, field_y + field_h, border, 2)
+        arcade.draw_text(
+            display,
+            field_x + 8,
+            field_y + field_h // 2,
+            TEXT if value else MUTED_TEXT,
+            font_size=9,
+            anchor_y="center",
+        )
+        self._hits.append((field_x, field_y, field_x + field_w, field_y + field_h, "godot_bin_edit"))
+
+        edit_x = field_x + field_w + btn_gap
+        clear_x = edit_x + btn_w + btn_gap
+        _rect(edit_x, field_y, edit_x + btn_w, field_y + field_h, (12, 36, 16, 220))
+        arcade.draw_line(edit_x, field_y + field_h, edit_x + btn_w, field_y + field_h, TACTICAL_GREEN, 2)
+        arcade.draw_text(
+            "EDIT",
+            edit_x + btn_w // 2,
+            field_y + field_h // 2,
+            TACTICAL_GREEN,
+            font_size=9,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center",
+        )
+        self._hits.append((edit_x, field_y, edit_x + btn_w, field_y + field_h, "godot_bin_edit"))
+
+        _rect(clear_x, field_y, clear_x + btn_w, field_y + field_h, (40, 14, 14, 220))
+        arcade.draw_line(clear_x, field_y + field_h, clear_x + btn_w, field_y + field_h, WARNING, 2)
+        arcade.draw_text(
+            "CLEAR",
+            clear_x + btn_w // 2,
+            field_y + field_h // 2,
+            WARNING,
+            font_size=9,
+            bold=True,
+            anchor_x="center",
+            anchor_y="center",
+        )
+        self._hits.append((clear_x, field_y, clear_x + btn_w, field_y + field_h, "godot_bin_clear"))
+
     def _handle(self, action: str) -> None:
         s = self._settings
+        if self._editing_godot_path and action not in {"godot_bin_edit", "godot_bin_clear"}:
+            self._commit_godot_path()
         if action == "back":
             self._back()
         elif action == "save_apply":
@@ -408,9 +528,20 @@ class SettingsView(arcade.View):
             s.display_index = (s.display_index - 1) % len(_available_screens())
         elif action == "screen_next":
             s.display_index = (s.display_index + 1) % len(_available_screens())
+        elif action == "godot_bin_edit":
+            self._editing_godot_path = True
+            self._godot_path_buffer = self._settings.godot_bin_path
+        elif action == "godot_bin_clear":
+            self._editing_godot_path = False
+            self._godot_path_buffer = ""
+            s.godot_bin_path = ""
+            self._message = "Godot executable path cleared."
+            self._msg_timer = 2.0
 
     def _apply_and_save(self) -> None:
         s = self._settings
+        if self._editing_godot_path:
+            self._commit_godot_path()
         save_settings(s)
         # Apply fullscreen immediately
         try:
@@ -439,6 +570,16 @@ class SettingsView(arcade.View):
             pass   # Not all platforms support dynamic resize
         self._message   = "Settings saved."
         self._msg_timer = 2.5
+
+    def _commit_godot_path(self) -> None:
+        self._settings.godot_bin_path = self._godot_path_buffer.strip()
+        self._editing_godot_path = False
+        self._message = "Godot executable path saved."
+        self._msg_timer = 2.0
+
+    def _cancel_godot_path_edit(self) -> None:
+        self._editing_godot_path = False
+        self._godot_path_buffer = self._settings.godot_bin_path
 
     def _back(self) -> None:
         from game.ui.screens.title_screen import TitleView
