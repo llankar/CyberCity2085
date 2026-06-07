@@ -185,13 +185,15 @@ def build_godot_combat_command(
     exe = executable if executable is not None else find_godot_executable()
     if not exe:
         return []
+    project_path = Path(project_dir).resolve()
+    handoff_file = Path(handoff_path).resolve()
     return [
         exe,
         "--path",
-        str(Path(project_dir)),
+        str(project_path),
         "--",
         "--handoff",
-        str(Path(handoff_path)),
+        str(handoff_file),
     ]
 
 
