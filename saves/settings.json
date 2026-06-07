@@ -9,5 +9,6 @@
   "resolution_index": 2,
   "display_index": 1,
   "text_size": "large",
+  "godot_bin_path": "",
   "extra_flags": {}
 }

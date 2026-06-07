@@ -47,7 +47,58 @@ def _capture_draw_text(text, *args, **kwargs):
 
 fake_arcade = types.SimpleNamespace(
     View=_FakeView,
-    key=types.SimpleNamespace(ESCAPE=27, BACKSPACE=8, ENTER=13, RETURN=13),
+    key=types.SimpleNamespace(
+        ESCAPE=27,
+        BACKSPACE=8,
+        ENTER=13,
+        RETURN=13,
+        MOD_SHIFT=1,
+        SPACE=32,
+        BACKSLASH=92,
+        SLASH=47,
+        PERIOD=46,
+        MINUS=45,
+        EQUAL=61,
+        SEMICOLON=59,
+        APOSTROPHE=39,
+        GRAVE=96,
+        KEY_0=48,
+        KEY_1=49,
+        KEY_2=50,
+        KEY_3=51,
+        KEY_4=52,
+        KEY_5=53,
+        KEY_6=54,
+        KEY_7=55,
+        KEY_8=56,
+        KEY_9=57,
+        A=65,
+        B=66,
+        C=67,
+        D=68,
+        E=69,
+        F=70,
+        G=71,
+        H=72,
+        I=73,
+        J=74,
+        K=75,
+        L=76,
+        M=77,
+        N=78,
+        O=79,
+        P=80,
+        Q=81,
+        R=82,
+        S=83,
+        T=84,
+        U=85,
+        V=86,
+        W=87,
+        X=88,
+        Y=89,
+        Z=90,
+    ),
     draw_text=_capture_draw_text,
     draw_lrbt_rectangle_filled=lambda *args, **kwargs: None,
     draw_line=lambda *args, **kwargs: None,
@@ -130,23 +181,26 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self.assertTrue(any(action == "text_next" for *_hit, action in view._hits))
         self.assertTrue(any("Display Screen" in text for text in captured_draw_text))
         self.assertTrue(any("Text Size" in text for text in captured_draw_text))
-        self.assertTrue(any(action == "godot_bin_edit" for *_hit, action in view._hits))
+        self.assertTrue(any(action == "godot_bin_browse" for *_hit, action in view._hits))
         self.assertTrue(any(action == "godot_bin_clear" for *_hit, action in view._hits))
         self.assertTrue(any("Godot Executable" in text for text in captured_draw_text))
 
-    def test_godot_executable_path_editor_commits_and_clears(self) -> None:
+    def test_godot_executable_path_browse_commits_and_clears(self) -> None:
         view = settings_screen.SettingsView()
         view.window = _FakeWindow()
-        view._handle("godot_bin_edit")
-        view.on_text(r"C:\Tools\Godot\Godot.exe")
-        view.on_key_press(fake_arcade.key.ENTER, 0)
+        with unittest.mock.patch(
+            "game.ui.screens.settings_screen._browse_for_godot_executable",
+            return_value=r"C:\Tools\Godot\Godot.exe",
+        ) as browse_mock:
+            view._handle("godot_bin_browse")
 
-        self.assertFalse(view._editing_godot_path)
         self.assertEqual(view._settings.godot_bin_path, r"C:\Tools\Godot\Godot.exe")
+        self.assertEqual(view._message, "Godot executable selected.")
+        self.assertTrue(browse_mock.called)
 
         view._handle("godot_bin_clear")
         self.assertEqual(view._settings.godot_bin_path, "")
-        self.assertFalse(view._editing_godot_path)
+        self.assertEqual(view._message, "Godot executable path cleared.")
 
     def test_apply_uses_selected_screen(self) -> None:
         view = settings_screen.SettingsView()
