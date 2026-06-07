@@ -105,6 +105,7 @@ from .battle_maps import (
 )
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
+from .combat import CombatEngine, CombatEventResult, CombatState, can_enter_cell
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -1748,6 +1749,18 @@ class BattleView(GameView):
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         self.battle_objective = create_battle_objective(self.mission)
+        self.combat_state = CombatState(
+            mission=self.mission,
+            allied_units=self.player_units,
+            enemy_units=self.enemy_units,
+            objective=self.battle_objective,
+            movement_mode="tactical_grid",
+        )
+        self.combat_engine = CombatEngine(
+            self.combat_state,
+            can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
+            cover_nodes=getattr(self, "cover_nodes", None),
+        )
 
         for unit in self.player_units:
             sprite = arcade.Sprite(
@@ -1783,6 +1796,7 @@ class BattleView(GameView):
         self.turn_number = 1
         self.turn = "player"
         self.active_index = 0
+        self._sync_combat_state_from_view()
         self.message = self.mission.objective_text if self.mission else ""
         self.triggered_complication = None
         self.attack_timer = 0.0
@@ -1809,6 +1823,7 @@ class BattleView(GameView):
         self._pause_buttons: list = []
         self._show_combat_log = False
         self.combat_log_messages: list[str] = []
+        self.combat_state.logs = getattr(self, "combat_log_messages", self.combat_state.logs)
         # Phase 2-A02: pre-battle deployment phase
         self._deploying = True
         self._deploy_cursor = 0  # which player unit is being repositioned
@@ -1866,16 +1881,18 @@ class BattleView(GameView):
         )
 
     def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
-        """Return True when (x, y) is on walkable terrain.
-
-        Occupancy is intentionally not checked here (UI-51: player movement
-        stays unrestricted so melee positioning remains fluid). Terrain
-        obstacles from the walkability mask are still respected.
-        """
-        profile = getattr(self, "terrain_profile", None)
-        if profile is not None and hasattr(profile, "is_walkable") and not profile.is_walkable(x, y):
-            return False
-        return True
+        """Return True when the shared combat movement rule allows a cell."""
+        state = getattr(self, "combat_state", None)
+        movement_mode = getattr(state, "movement_mode", "tactical_grid")
+        return can_enter_cell(
+            x,
+            y,
+            terrain_profile=getattr(self, "terrain_profile", None),
+            allied_units=getattr(self, "player_units", []),
+            enemy_units=getattr(self, "enemy_units", []),
+            exclude=exclude,
+            movement_mode=movement_mode,
+        )
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Check if a map position is occupied by any living unit."""
@@ -1883,114 +1900,134 @@ class BattleView(GameView):
             x, y, self.player_units, self.enemy_units, exclude=exclude
         )
 
-    # ── In-battle complication keys that have active effects ──────────────────
-    _COMPLICATION_EFFECTS: dict[str, str] = {
-        "mod_rapid_response": "reinforcements",
-        "rapid_response":     "reinforcements",
-        "mod_watcher_drone":  "blackout",
-        "watcher_drone":      "blackout",
-        "mod_counterintel_ping": "blackout",
-        "counterintel_ping":  "blackout",
-    }
-
     def _check_complications(self, turn_number: int) -> None:
-        """Trigger mid-battle complication effects keyed to turn milestones."""
+        """Resolve pure mid-battle events, then translate their results for Arcade."""
         if not self.mission:
             return
-        triggered = getattr(self, "_triggered_complication_keys", set())
-        if not hasattr(self, "_triggered_complication_keys"):
-            self._triggered_complication_keys: set[str] = set()
-            triggered = self._triggered_complication_keys
-
-        for comp in self.mission.possible_complications or []:
-            key = comp.key
-            effect = self._COMPLICATION_EFFECTS.get(key)
-            if not effect or key in triggered:
-                continue
-            # Reinforcements fire on turn 3
-            if effect == "reinforcements" and turn_number >= 3:
-                triggered.add(key)
-                self._spawn_reinforcements(comp.name)
-            # Blackout fires on turn 2
-            elif effect == "blackout" and turn_number >= 2:
-                triggered.add(key)
-                self._trigger_blackout(comp.name)
-
-    def _spawn_reinforcements(self, comp_name: str) -> None:
-        """Spawn 2 grunt reinforcements from a random map edge."""
-        import random as _rnd
-        from game.stats import EnemyStats
-        w = getattr(self.window, "width", 1280)
-        h = getattr(self.window, "height", 720)
-        edges = [(32, _rnd.randint(64, h - 64)), (w - 32, _rnd.randint(64, h - 64))]
-        spawned = 0
-        for ex, ey in edges[:2]:
-            if spawned >= 2:
-                break
-            stats = EnemyStats(hp=4, max_hp=4, agi=2, defense=1)
-            new_enemy = Unit(
-                position=(ex, ey),
-                stats=stats,
-                unit_type="grunt",
-                enemy_subtype="grunt",
-                health=4,
-                action_points=2,
-                attack_range=1,
+        self._sync_combat_state_from_view()
+        self.combat_state.turn_number = turn_number
+        results = self.combat_engine.resolve_combat_events(
+            battlefield_size=(
+                getattr(self.window, "width", 1280),
+                getattr(self.window, "height", 720),
             )
-            try:
-                sprite = arcade.Sprite(
-                    "assets/enemy.png",
-                    center_x=ex,
-                    center_y=ey,
-                    scale=battle_token_scale_for_unit(new_enemy),
-                )
-                new_enemy.sprite = sprite
-                self.enemy_list.append(sprite)
-            except Exception:
-                pass
-            self.enemy_units.append(new_enemy)
-            spawned += 1
-        self._snd().play("sfx_reinforce")
-        self._add_screen_shake(10)
-        for eu in self.enemy_units[-spawned:]:
-            self._spawn_particles(*eu.position, count=14, color=(255, 60, 40))
-        self.message = f"COMPLICATION: {comp_name} — Reinforcements incoming!"
-        self.combat_log_messages.append(f"⚠ REINFORCEMENTS: {comp_name}")
-        self._aftermath_line = f"COMPLICATION: {comp_name}"
-        self._aftermath_timer = 3.0
+        )
+        for event_result in results:
+            self._apply_combat_event_result(event_result)
+        self._sync_view_from_combat_state()
 
-    def _trigger_blackout(self, comp_name: str) -> None:
-        """Reduce fog-of-war sight radius for 2 turns."""
-        # Patch the FOG sight radius constant in battle_hud temporarily
+    def _apply_combat_event_result(self, event_result: CombatEventResult) -> None:
+        """Translate a render-agnostic event result into battle view effects."""
+        if event_result.kind == "spawn_enemy":
+            self._spawn_event_enemy(event_result)
+        elif event_result.kind == "visibility_changed":
+            self._apply_visibility_event(event_result)
+        elif event_result.kind == "log_message":
+            self._apply_log_event(event_result)
+        elif event_result.kind == "screen_shake":
+            self._add_screen_shake(event_result.payload.get("intensity", 0))
+        elif event_result.kind == "sound_key":
+            sound_key = event_result.payload.get("key")
+            if sound_key:
+                self._snd().play(sound_key)
+
+    def _spawn_event_enemy(self, event_result: CombatEventResult) -> None:
+        """Create the concrete Unit and sprite requested by a combat event."""
+        from game.stats import EnemyStats
+
+        payload = event_result.payload
+        x, y = payload.get("position", (32, 64))
+        stat_payload = payload.get("stats", {})
+        hp = stat_payload.get("hp", 4)
+        stats = EnemyStats(
+            hp=hp,
+            max_hp=stat_payload.get("max_hp", hp),
+            agi=stat_payload.get("agi", 2),
+            defense=stat_payload.get("defense", 1),
+        )
+        new_enemy = Unit(
+            position=(x, y),
+            stats=stats,
+            unit_type=payload.get("unit_type", "grunt"),
+            enemy_subtype=payload.get("enemy_subtype", "grunt"),
+            health=hp,
+            action_points=2,
+            attack_range=1,
+        )
+        try:
+            sprite = arcade.Sprite(
+                "assets/enemy.png",
+                center_x=x,
+                center_y=y,
+                scale=battle_token_scale_for_unit(new_enemy),
+            )
+            new_enemy.sprite = sprite
+            self.enemy_list.append(sprite)
+        except Exception:
+            pass
+        self.enemy_units.append(new_enemy)
+        self._spawn_particles(*new_enemy.position, count=14, color=(255, 60, 40))
+
+    def _apply_visibility_event(self, event_result: CombatEventResult) -> None:
+        """Apply a pure visibility change request to the HUD fog setting."""
         try:
             import game.ui.screens.battle_hud as _hud
             if not hasattr(self, "_original_fog_radius"):
                 self._original_fog_radius = getattr(_hud, "_FOG_SIGHT_RADIUS", 5)
-                _hud._FOG_SIGHT_RADIUS = 3
-                self._blackout_turns_left = 2
+            _hud._FOG_SIGHT_RADIUS = event_result.payload.get("fog_radius", 3)
+            self._blackout_turns_left = event_result.payload.get("duration_turns", 2)
         except Exception:
             pass
-        self.message = f"COMPLICATION: {comp_name} — Visibility reduced!"
-        self.combat_log_messages.append(f"⚠ BLACKOUT: {comp_name}")
-        self._aftermath_line = f"COMPLICATION: {comp_name}"
+
+    def _apply_log_event(self, event_result: CombatEventResult) -> None:
+        """Apply event text to BattleView's message, log, and flash banner slots."""
+        banner = event_result.payload.get("banner") or event_result.message
+        if banner:
+            self.message = banner
+        if event_result.message:
+            self.combat_log_messages.append(event_result.message)
+        self._aftermath_line = (
+            f"COMPLICATION: {event_result.label}" if event_result.label else banner
+        )
         self._aftermath_timer = 3.0
 
+    def _sync_combat_state_from_view(self) -> None:
+        """Keep legacy BattleView mirrors aligned with the pure combat state."""
+        if not hasattr(self, "combat_state"):
+            return
+        self.combat_state.mission = self.mission
+        self.combat_state.allied_units = self.player_units
+        self.combat_state.enemy_units = self.enemy_units
+        self.combat_state.objective = self.battle_objective
+        self.combat_state.turn = self.turn
+        self.combat_state.turn_number = self.turn_number
+        self.combat_state.active_index = self.active_index
+        self.combat_state.logs = getattr(self, "combat_log_messages", self.combat_state.logs)
+
+    def _sync_view_from_combat_state(self) -> None:
+        """Mirror pure combat state back to fields still consumed by rendering."""
+        self.player_units = self.combat_state.allied_units
+        self.enemy_units = self.combat_state.enemy_units
+        self.turn = self.combat_state.turn
+        self.turn_number = self.combat_state.turn_number
+        self.active_index = self.combat_state.active_index
+
     def start_player_turn(self):
+        self._sync_combat_state_from_view()
+        before_health = {id(unit): unit.health for unit in self.player_units}
+        result = self.combat_engine.start_player_turn()
+        self._sync_view_from_combat_state()
         for unit in self.player_units:
-            msgs = unit.tick_status_effects()
-            for msg in msgs:
-                if "bleeding" in msg:
-                    name = unit.character.name if unit.character else unit.unit_type
-                    self.combat_log_messages.append(f"{name} is bleeding (-1 HP)")
-                    self._snd().play("sfx_bleed", 0.7)
-                    self._spawn_particles(*unit.position, count=5, color=(200, 40, 40))
-            unit.reset_actions()
-        if self.turn == "enemy":
-            self.turn_number += 1
-        self.turn = "player"
-        self.active_index = 0
-        self.combat_log_messages.append(f"── Turn {self.turn_number} ──")
+            if unit.health < before_health.get(id(unit), unit.health):
+                self._snd().play("sfx_bleed", 0.7)
+                self._spawn_particles(*unit.position, count=5, color=(200, 40, 40))
         self._snd().play("sfx_turn_player")
+        if result.outcome == "victory":
+            self.end_battle(True)
+            return
+        if result.outcome == "defeat":
+            self.end_battle(False)
+            return
         # Defend objective: check if hold turns are reached
         if self._defend_turns_needed > 0 and self.turn_number > self._defend_turns_needed:
             self.end_battle(True)
@@ -2019,15 +2056,20 @@ class BattleView(GameView):
         self._check_complications(self.turn_number)
 
     def start_enemy_turn(self):
-        for enemy in self.enemy_units:
-            enemy.reset_actions()
-        self.turn = "enemy"
+        self._sync_combat_state_from_view()
+        callbacks = self._enemy_ai_callbacks()
         self._snd().play("sfx_turn_enemy")
-        self.run_enemy_ai()
-        if not self.player_units:
+        result = self.combat_engine.start_enemy_turn(
+            defeated_player_units=self.defeated_player_units,
+            on_attack=callbacks["on_attack"],
+            on_defeated=callbacks["on_defeated"],
+            on_overwatch_shot=callbacks["on_overwatch_shot"],
+        )
+        self._sync_view_from_combat_state()
+        if result.outcome == "defeat":
             self.end_battle(False)
             return
-        elif not self.enemy_units:
+        elif result.outcome == "victory":
             self.end_battle(True)
             return
         else:
@@ -2181,7 +2223,7 @@ class BattleView(GameView):
             self.game_state, self.mission, victory, self.triggered_complication
         )
 
-    def run_enemy_ai(self):
+    def _enemy_ai_callbacks(self) -> dict[str, object]:
         def on_attack(enemy: Unit, target: Unit, damage: int) -> None:
             from game.unit import STATUS_STUNNED, STATUS_SUPPRESSED
             target_name = target.character.name if target.character else "agent"
@@ -2243,15 +2285,25 @@ class BattleView(GameView):
             else:
                 self.message = f"OVERWATCH! {watcher_name} misses"
 
+        return {
+            "on_attack": on_attack,
+            "on_defeated": on_defeated,
+            "on_overwatch_shot": on_overwatch_shot,
+        }
+
+    def run_enemy_ai(self):
+        callbacks = self._enemy_ai_callbacks()
         run_enemy_ai_system(
             self.player_units,
             self.enemy_units,
             defeated_player_units=self.defeated_player_units,
-            on_attack=on_attack,
-            on_defeated=on_defeated,
-            on_overwatch_shot=on_overwatch_shot,
+            on_attack=callbacks["on_attack"],
+            on_defeated=callbacks["on_defeated"],
+            on_overwatch_shot=callbacks["on_overwatch_shot"],
             can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
             cover_nodes=getattr(self, "cover_nodes", None),
+            terrain_profile=getattr(self, "terrain_profile", None),
+            movement_mode=getattr(self.combat_state, "movement_mode", "tactical_grid"),
         )
 
     def on_draw(self):
@@ -2534,6 +2586,22 @@ class BattleView(GameView):
         else:
             self.message = "No visible enemy in range"
 
+    def _try_move_active_player(self, player: Unit, dx: int, dy: int) -> bool:
+        """Move the active unit through the shared combat movement rule."""
+        result = self.combat_engine.perform_action(
+            "move",
+            actor=player,
+            move_delta=(dx, dy),
+        )
+        if not result.success:
+            self.message = result.message
+            return False
+        self._sync_view_from_combat_state()
+        self._set_action_aftermath(action_label="MOVE")
+        self._log_move(player)
+        self.game_state.mark_tutorial_event("used_battle_controls")
+        return True
+
     def _perform_combat_action(self, action_key: str) -> bool:
         """Perform a clicked or keyed combat action for the active player unit."""
         if self.turn != "player" or not self.player_units:
@@ -2552,20 +2620,19 @@ class BattleView(GameView):
             self.game_state.mark_tutorial_event("used_battle_controls")
             return True
         if action_key == "first_aid":
-            if player.action_points <= 0 or not player.stats:
-                return True
             before = player.health
-            player.health = min(player.stats.max_hp, player.health + 2)
-            player.stats.hp = player.health
-            player.action_points -= 1
+            result = self.combat_engine.perform_action("first_aid", actor=player)
+            if not result.success:
+                return True
+            self._sync_view_from_combat_state()
             healed = player.health - before
-            self.message = f"First aid restores {healed} HP."
+            self.message = result.message
             if healed > 0:
                 self._spawn_particles(*player.position, count=10, color=(60, 220, 120))
                 self._flash_unit(player, color=(60, 220, 120))
             self._set_action_aftermath(
                 action_label="SKILL",
-                status_applied=f"+{player.health - before} HP",
+                status_applied=f"+{healed} HP",
             )
             self.check_active_player()
             return True
@@ -2579,7 +2646,10 @@ class BattleView(GameView):
             self.message = "Rotate overwatch cone with ←/→ then confirm (Entrée/O)."
             return True
         if action_key == "defend":
-            player.defend()
+            result = self.combat_engine.perform_action("defend", actor=player)
+            if result.success:
+                self.message = result.message
+                self._sync_view_from_combat_state()
             self.check_active_player()
             return True
         if action_key == "end_turn":
@@ -2588,7 +2658,10 @@ class BattleView(GameView):
                 self.message = "Confirm end turn to lock irreversible actions."
                 return True
             self.pending_end_turn_confirmation = False
-            player.action_points = 0
+            result = self.combat_engine.perform_action("end_turn", actor=player)
+            if result.success:
+                self.message = result.message
+                self._sync_view_from_combat_state()
             self.check_active_player()
             return True
         return False
@@ -2829,25 +2902,13 @@ class BattleView(GameView):
                     self.end_battle(True)
                     return
         elif key == arcade.key.UP:
-            player.move(0, 32)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 0, 32)
         elif key == arcade.key.DOWN:
-            player.move(0, -32)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 0, -32)
         elif key == arcade.key.LEFT:
-            player.move(-32, 0)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, -32, 0)
         elif key == arcade.key.RIGHT:
-            player.move(32, 0)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 32, 0)
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
         elif key == arcade.key.F:
@@ -3059,11 +3120,13 @@ class BattleView(GameView):
         return {key: help_lines + value for key, value in base.items()}
 
     def check_active_player(self):
-        while self.active_index < len(self.player_units) and (
-            self.player_units[self.active_index].action_points <= 0
-            or self.player_units[self.active_index].health <= 0
+        self._sync_combat_state_from_view()
+        while self.combat_state.active_index < len(self.combat_state.allied_units) and (
+            self.combat_state.allied_units[self.combat_state.active_index].action_points <= 0
+            or self.combat_state.allied_units[self.combat_state.active_index].health <= 0
         ):
-            self.active_index += 1
+            self.combat_state.active_index += 1
+        self._sync_view_from_combat_state()
         if self.active_index >= len(self.player_units):
             self.start_enemy_turn()
 
@@ -3116,6 +3179,9 @@ class BattleView(GameView):
             ww = getattr(self.window, "width", 1280)
             nx = max(16, min(ww - 16, unit.position[0] + dx))
             ny = max(16, min(_DEPLOY_ZONE_H - 16, unit.position[1] + dy))
+            if not self.can_move_to(nx, ny, exclude=unit):
+                self.message = "Deployment cell blocked."
+                return
             unit.position = (nx, ny)
             if unit.sprite:
                 unit.sprite.center_x = nx

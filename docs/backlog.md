@@ -32,15 +32,16 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ### Phase 3 — Gameplay Depth
 
-- [ ] BATTLE-G01 Terrain pathfinding: wire `can_move_to()` in `combat_system.py` to existing `terrain_profile` walkability mask + occupancy check; enemy AI respects same rules.
+- [x] BATTLE-G01 Terrain pathfinding: reduced to one shared tactical movement rule in `game/combat/movement.py`; BattleView deployment/keyboard movement and enemy AI now use the same terrain + occupancy checks. (completed June 7, 2026)
 - [ ] BATTLE-G02 Enhanced enemy AI: cover-seeking before attacking; flanking preference using `cover_system.py::flanking_detection`; commander subtype buffs adjacent grunt/heavy AGI.
-- [ ] BATTLE-G03 Dynamic mid-battle events: extend `complications.py` with `in_battle_effect` field; trigger reinforcements/blackout/timer via `_check_complications(turn_number)` in `start_player_turn()`; show complication flash banner.
+- [x] BATTLE-G03 Dynamic mid-battle events: added a render-independent `game/combat/events.py` layer for complication-triggered reinforcements and blackout, with `CombatEngine` returning descriptive results for `BattleView` to translate into sprites, sound, screen shake, logs, and fog changes. (completed June 7, 2026)
 - [ ] BATTLE-G04 Status effects: add `status_effects: list[str]` to `Unit`; support `suppressed` (−2 move AP), `bleeding` (−1 HP/turn), `stunned` (skip next action); icon badges on unit labels in HUD.
 
 ---
 
 ## Gameplay systems explicit status
 
+- [x] BATTLE-ENG1 Combat engine package: added `game/combat/` as a pure tactical state/transition boundary and wired `BattleView` through it for turn/AP checks. (completed Jun 7, 2026)
 - [x] UI-51 Combat movement unrestricted: removed terrain and occupancy gating from the battle window so player and enemy moves are no longer blocked by path rules inside combat. (completed May 28, 2026)
 - [x] UI-50 Battle map walkability masks: battle terrain now prefers explicit `*.walkable.png` sidecars instead of reading movement from the art directly, with a small generator tool so shipped maps can keep an editable collision layer. (completed May 28, 2026)
 - [x] UI-49 Terrain classifier correction: replaced the battle map brightness-only walkability guess with a brightness-plus-texture score so open ground and blocked objects no longer get treated the same just because they share similar lighting. (completed May 28, 2026)
