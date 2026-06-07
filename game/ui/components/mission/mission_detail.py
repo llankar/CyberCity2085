@@ -9,6 +9,7 @@ from ....narrative.mission_briefing_conventions import (
     NEUTRAL_IMPACT_FALLBACK,
     build_short_emotional_impact,
     normalize_mission_tags,
+    translate_legacy_briefing_text,
 )
 from .impact_badges import format_launch_state, format_stress_band
 
@@ -39,7 +40,10 @@ def _short_emotional_impact(mission: MissionTemplate) -> str:
     hint = mission.emotional_impact_hint or {}
     if not isinstance(hint, dict):
         return NEUTRAL_IMPACT_FALLBACK
-    return build_short_emotional_impact(hint.get("level"), hint.get("short_text") or hint.get("text"))
+    return build_short_emotional_impact(
+        hint.get("level"),
+        hint.get("short_text") or hint.get("text"),
+    )
 
 
 def _complication_names(complications: Iterable[MissionComplication]) -> str:
@@ -50,8 +54,12 @@ def _complication_names(complications: Iterable[MissionComplication]) -> str:
 def build_mission_detail_sections(mission: MissionTemplate) -> list[str]:
     """Return mission detail split by explicit UI sections."""
     hint = mission.emotional_impact_hint or {}
-    emotional_summary = hint.get("emotional_impact_summary") or _short_emotional_impact(mission)
-    risk_explanation = hint.get("risk_explanation") or "Standard tactical risk with no dominant factor."
+    emotional_summary = translate_legacy_briefing_text(
+        hint.get("emotional_impact_summary") or _short_emotional_impact(mission)
+    )
+    risk_explanation = translate_legacy_briefing_text(
+        hint.get("risk_explanation") or "Standard tactical risk with no dominant factor."
+    )
     stress_band = format_stress_band(hint.get("expected_stress_band"))
     launch_state = format_launch_state(getattr(mission, "launch_block_reason", None))
 

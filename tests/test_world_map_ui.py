@@ -11,6 +11,7 @@ from game.ui.screens.world_map import (
     mission_label_text,
     mission_site_name,
 )
+from game.ui.screens.world_map_view import build_world_map_layout, _compact_briefing_lines
 
 
 def _mission(title: str, district: str = "Chrome Warrens", objective_text: str = "Test the map flow.") -> MissionTemplate:
@@ -54,6 +55,30 @@ class WorldMapUITest(unittest.TestCase):
         self.assertTrue(all(200 <= node.pin_y <= 700 for node in nodes))
         self.assertTrue(all(node.hit_left <= node.pin_x <= node.hit_right for node in nodes))
         self.assertTrue(all(node.hit_bottom <= node.pin_y <= node.hit_top for node in nodes))
+
+    def test_world_map_layout_keeps_the_map_nearly_full_screen(self):
+        right_layout = build_world_map_layout(1280, 720, selected_pin_x=1120)
+        left_layout = build_world_map_layout(1280, 720, selected_pin_x=160)
+
+        self.assertGreaterEqual(right_layout.map_right - right_layout.map_left, 1250)
+        self.assertGreaterEqual(right_layout.map_top - right_layout.map_bottom, 560)
+        self.assertLessEqual(right_layout.briefing_right - right_layout.briefing_left, 420)
+        self.assertLess(right_layout.briefing_left, 220)
+        self.assertGreater(left_layout.briefing_left, 800)
+        self.assertGreater(left_layout.briefing_right, left_layout.briefing_left)
+
+    def test_world_map_briefing_summary_stays_compact(self):
+        mission = _mission("Sabotage: Jackal Relay", objective_text="Test the map flow.")
+        mission.emotional_impact_hint = {
+            "short_text": "High emotional stakes",
+            "text": "A very long emotional summary that should not spill across the panel.",
+        }
+
+        lines = _compact_briefing_lines(mission)
+
+        self.assertEqual(len(lines), 4)
+        self.assertTrue(lines[0].startswith("Risk:"))
+        self.assertTrue(all(len(line) <= 80 for line in lines))
 
     def test_mission_board_shortcuts_mention_map_pins(self):
         shortcuts = active_shortcuts_for_screen("mission_board", has_room_open=False)

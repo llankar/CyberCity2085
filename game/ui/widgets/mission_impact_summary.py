@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from ...i18n import t
+from ...narrative.mission_briefing_conventions import translate_legacy_briefing_text
 from ..accessibility.states import label_with_non_color_indicator
 
 NEUTRAL_IMPACT_TEXT = t("ui.impact.neutral")
-
 
 
 def _tag_names(tagged_items: list[object], empty: str = "none") -> str:
@@ -20,7 +20,7 @@ def impact_hint_text(emotional_impact_hint: dict | None, language: str | None = 
         return t("ui.impact.neutral", language)
 
     level = str(emotional_impact_hint.get("level", "")).lower()
-    text = str(emotional_impact_hint.get("text", "")).strip()
+    text = translate_legacy_briefing_text(emotional_impact_hint.get("text", ""))
     if level not in {"low", "medium", "high", "critical"} or not text:
         return t("ui.impact.neutral", language)
     return t("ui.impact.prefix", language, level=t(f"ui.impact.level.{level}", language), text=text)
@@ -31,6 +31,6 @@ def build_mission_impact_summary_lines(mission: object, language: str | None = N
     tags = _tag_names(getattr(mission, "tags", []))
     hint = impact_hint_text(getattr(mission, "emotional_impact_hint", None), language)
     return [
-        label_with_non_color_indicator(f"Tags opérationnels: {tags}", "normal"),
+        label_with_non_color_indicator(f"Operational tags: {tags}", "normal"),
         label_with_non_color_indicator(hint, "focus"),
     ]
