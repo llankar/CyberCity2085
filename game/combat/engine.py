@@ -15,6 +15,11 @@ from game.combat_actions import available_combat_actions
 from game.combat_system import run_enemy_ai
 from game.unit import Unit
 
+from .events import (
+    CombatEventResult,
+    events_from_mission,
+    resolve_combat_events as resolve_event_results,
+)
 from .state import CombatState
 
 BattleOutcome = Literal["victory", "defeat"]
@@ -75,6 +80,22 @@ class CombatEngine:
         self.state.active_index = 0
         self.state.logs.append(f"── Turn {self.state.turn_number} ──")
         return self.end_battle_check()
+
+    def resolve_combat_events(
+        self,
+        *,
+        battlefield_size: tuple[int, int] = (1280, 720),
+    ) -> list[CombatEventResult]:
+        """Resolve newly active mid-battle events without rendering side effects."""
+        triggered = self.state.tactical_flags.get("triggered_combat_event_keys", set())
+        results, updated_triggered = resolve_event_results(
+            events_from_mission(self.state.mission),
+            turn_number=self.state.turn_number,
+            triggered_keys=triggered,
+            battlefield_size=battlefield_size,
+        )
+        self.state.tactical_flags["triggered_combat_event_keys"] = updated_triggered
+        return results
 
     def start_enemy_turn(
         self,
