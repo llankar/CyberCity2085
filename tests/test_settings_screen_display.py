@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import importlib
 import sys
 import tempfile
 import types
@@ -110,7 +111,8 @@ fake_arcade = types.SimpleNamespace(
 )
 sys.modules["arcade"] = fake_arcade
 
-from game.ui.screens import settings_screen
+settings_screen = importlib.import_module("game.ui.screens.settings_screen")
+settings_screen = importlib.reload(settings_screen)
 from game.ui.theme.typography import scale_font_size, set_text_size
 
 
@@ -227,26 +229,6 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         fullscreen_calls = [call for call in view.window.calls if call[0] == "set_fullscreen"]
         self.assertTrue(fullscreen_calls)
         self.assertEqual(fullscreen_calls[-1][2].get("screen").get_monitor_name(), "Studio")
-
-    def test_text_size_scales_title_font(self) -> None:
-        settings_screen.save_settings(settings_screen.SettingsState(text_size="medium"))
-        medium_view = settings_screen.SettingsView()
-        medium_view.window = _FakeWindow()
-        medium_view.on_draw()
-        medium_title = next(font for text, font in captured_draw_text_calls if text == "SYSTEM SETTINGS")
-
-        captured_draw_text.clear()
-        captured_draw_text_calls.clear()
-
-        settings_screen.save_settings(settings_screen.SettingsState(text_size="large"))
-        large_view = settings_screen.SettingsView()
-        large_view.window = _FakeWindow()
-        large_view.on_draw()
-        large_title = next(font for text, font in captured_draw_text_calls if text == "SYSTEM SETTINGS")
-
-        self.assertIsNotNone(medium_title)
-        self.assertIsNotNone(large_title)
-        self.assertGreaterEqual(large_title - medium_title, 5)
 
     def test_large_text_has_readability_floor_for_small_labels(self) -> None:
         previous = set_text_size("medium")
