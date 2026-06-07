@@ -97,6 +97,7 @@ class CombatEngine:
             on_overwatch_shot=on_overwatch_shot,
             can_enter=self.can_enter,
             cover_nodes=self.cover_nodes,
+            movement_mode=self.state.movement_mode,
         )
         return self.end_battle_check()
 

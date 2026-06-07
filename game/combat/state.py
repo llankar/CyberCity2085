@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Literal
 
+from game.combat.movement import MovementMode
 from game.mission_templates import MissionTemplate
 from game.unit import Unit
 
@@ -29,6 +30,7 @@ class CombatState:
     active_index: int = 0
     logs: list[str] = field(default_factory=list)
     tactical_flags: dict[str, Any] = field(default_factory=dict)
+    movement_mode: MovementMode = "tactical_grid"
 
     @property
     def active_unit(self) -> Unit | None:

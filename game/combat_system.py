@@ -6,6 +6,7 @@ from dataclasses import dataclass, replace
 
 from .agents.sheet_calculations import compute_derived_stats
 from .character import Character
+from .combat.movement import MovementMode, can_enter_cell
 from .agent_specializations import apply_talent_bonuses
 from .deployment import (
     deployable_agents,
@@ -394,6 +395,31 @@ def _apply_commander_buffs(enemy_units: list[Unit]) -> dict[int, int]:
     return bonuses
 
 
+
+def _can_enter_ai_cell(
+    x: int,
+    y: int,
+    player_units: list[Unit],
+    enemy_units: list[Unit],
+    *,
+    exclude: Unit | None = None,
+    terrain_profile=None,
+    movement_mode: MovementMode = "tactical_grid",
+    legacy_can_enter: Callable[[int, int], bool] | None = None,
+) -> bool:
+    """Apply the shared movement rule plus legacy view gates for enemy AI."""
+    if legacy_can_enter is not None and not legacy_can_enter(x, y):
+        return False
+    return can_enter_cell(
+        x,
+        y,
+        terrain_profile=terrain_profile,
+        allied_units=player_units,
+        enemy_units=enemy_units,
+        exclude=exclude,
+        movement_mode=movement_mode,
+    )
+
 def run_enemy_ai(
     player_units: list[Unit],
     enemy_units: list[Unit],
@@ -404,6 +430,8 @@ def run_enemy_ai(
     on_overwatch_shot: Callable[[Unit, Unit, int], None] | None = None,
     can_enter: Callable[[int, int], bool] | None = None,
     cover_nodes: list | None = None,
+    terrain_profile=None,
+    movement_mode: MovementMode = "tactical_grid",
 ) -> list[EnemyActionResult]:
     """Run enemy actions and return inspectable outcomes for the view/test layer."""
     results: list[EnemyActionResult] = []
@@ -475,10 +503,17 @@ def run_enemy_ai(
                     step_dx, step_dy = cover_step
                     new_x = enemy.position[0] + step_dx
                     new_y = enemy.position[1] + step_dy
-                    blocked = is_occupied(new_x, new_y, player_units, enemy_units, exclude=enemy)
-                    if can_enter is not None and not can_enter(new_x, new_y):
-                        blocked = True
-                    if not blocked:
+                    can_enter_destination = _can_enter_ai_cell(
+                        new_x,
+                        new_y,
+                        player_units,
+                        enemy_units,
+                        exclude=enemy,
+                        terrain_profile=terrain_profile,
+                        movement_mode=movement_mode,
+                        legacy_can_enter=can_enter,
+                    )
+                    if can_enter_destination:
                         enemy.move(step_dx, step_dy)
                         results.append(EnemyActionResult(enemy, target, moved=True))
                         continue
@@ -493,12 +528,16 @@ def run_enemy_ai(
                     for step_dx, step_dy in step_candidates:
                         new_x = enemy.position[0] + step_dx
                         new_y = enemy.position[1] + step_dy
-                        blocked = is_occupied(
-                            new_x, new_y, player_units, enemy_units, exclude=enemy
-                        )
-                        if can_enter is not None and not can_enter(new_x, new_y):
-                            blocked = True
-                        if blocked:
+                        if not _can_enter_ai_cell(
+                            new_x,
+                            new_y,
+                            player_units,
+                            enemy_units,
+                            exclude=enemy,
+                            terrain_profile=terrain_profile,
+                            movement_mode=movement_mode,
+                            legacy_can_enter=can_enter,
+                        ):
                             continue
                         enemy.move(step_dx, step_dy)
                         moved = True
