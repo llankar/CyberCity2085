@@ -32,7 +32,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ### Phase 3 — Gameplay Depth
 
-- [ ] BATTLE-G01 Terrain pathfinding: wire `can_move_to()` in `combat_system.py` to existing `terrain_profile` walkability mask + occupancy check; enemy AI respects same rules.
+- [x] BATTLE-G01 Terrain pathfinding: reduced to one shared tactical movement rule in `game/combat/movement.py`; BattleView deployment/keyboard movement and enemy AI now use the same terrain + occupancy checks. (completed June 7, 2026)
 - [ ] BATTLE-G02 Enhanced enemy AI: cover-seeking before attacking; flanking preference using `cover_system.py::flanking_detection`; commander subtype buffs adjacent grunt/heavy AGI.
 - [ ] BATTLE-G03 Dynamic mid-battle events: extend `complications.py` with `in_battle_effect` field; trigger reinforcements/blackout/timer via `_check_complications(turn_number)` in `start_player_turn()`; show complication flash banner.
 - [ ] BATTLE-G04 Status effects: add `status_effects: list[str]` to `Unit`; support `suppressed` (−2 move AP), `bleeding` (−1 HP/turn), `stunned` (skip next action); icon badges on unit labels in HUD.
