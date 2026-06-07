@@ -18,7 +18,7 @@ from game.mission_system import (
 from game.ui import GameView
 from game.ui import palette
 from game.ui.management.action_requirements import blocked_launch_reason
-from game.ui.mission_board import build_selected_mission_lines
+from game.ui.mission_board import risk_label
 from game.ui.panels import draw_panel
 from game.ui.screens.world_map import (
     build_world_map_mission_nodes,
@@ -27,6 +27,7 @@ from game.ui.screens.world_map import (
     mission_site_name,
     texture_rect,
 )
+from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
 
 if TYPE_CHECKING:
     from game.mission_templates import MissionTemplate
@@ -43,6 +44,94 @@ class _HitRegion:
 
     def contains(self, x: int, y: int) -> bool:
         return self.left <= x <= self.right and self.bottom <= y <= self.top
+
+
+@dataclass(frozen=True)
+class WorldMapLayout:
+    header_height: int
+    footer_bottom: int
+    footer_top: int
+    map_left: int
+    map_bottom: int
+    map_right: int
+    map_top: int
+    briefing_left: int
+    briefing_bottom: int
+    briefing_right: int
+    briefing_top: int
+
+    @property
+    def map_rect(self) -> tuple[int, int, int, int]:
+        return self.map_left, self.map_bottom, self.map_right, self.map_top
+
+    @property
+    def briefing_rect(self) -> tuple[int, int, int, int]:
+        return (
+            self.briefing_left,
+            self.briefing_bottom,
+            self.briefing_right,
+            self.briefing_top,
+        )
+
+
+def _shorten(text: str, limit: int) -> str:
+    text = " ".join(text.split())
+    return text if len(text) <= limit else f"{text[: max(0, limit - 3)]}..."
+
+
+def _compact_briefing_lines(mission: "MissionTemplate") -> list[str]:
+    hint = getattr(mission, "emotional_impact_hint", None)
+    emotional = "neutral"
+    if isinstance(hint, dict):
+        emotional = translate_legacy_briefing_text(hint.get("short_text") or hint.get("text") or emotional)
+    duration = f"{mission.duration_days} day{'s' if mission.duration_days != 1 else ''}"
+    return [
+        f"Risk: {mission.risk_level} ({risk_label(mission.risk_level)})",
+        f"Duration: {duration}",
+        f"Reward: ¥{mission.fund_reward}",
+        f"Emotional: {_shorten(str(emotional), 58)}",
+    ]
+
+
+def build_world_map_layout(width: int, height: int, selected_pin_x: int | None = None) -> WorldMapLayout:
+    """Build the full-screen map layout with a floating mission briefing card."""
+    header_height = 48
+    footer_bottom = 34
+    footer_top = 78
+    map_margin = 14
+    map_left = map_margin
+    map_right = max(map_left + 1, width - map_margin)
+    map_bottom = footer_top + 12
+    map_top = max(map_bottom + 1, height - header_height - 10)
+
+    briefing_width = min(max(300, int(width * 0.28)), 420, max(260, width - map_margin * 2))
+    briefing_height = min(max(244, int(height * 0.42)), 360)
+    briefing_top = map_top - 12
+    briefing_bottom = max(map_bottom + 12, briefing_top - briefing_height)
+
+    prefer_left = selected_pin_x is not None and selected_pin_x > width * 0.56
+    briefing_left = map_margin if prefer_left else max(map_margin, width - map_margin - briefing_width)
+    briefing_right = briefing_left + briefing_width
+    if briefing_right > width - map_margin:
+        briefing_right = width - map_margin
+        briefing_left = briefing_right - briefing_width
+    if briefing_left < map_margin:
+        briefing_left = map_margin
+        briefing_right = briefing_left + briefing_width
+
+    return WorldMapLayout(
+        header_height=header_height,
+        footer_bottom=footer_bottom,
+        footer_top=footer_top,
+        map_left=map_left,
+        map_bottom=map_bottom,
+        map_right=map_right,
+        map_top=map_top,
+        briefing_left=briefing_left,
+        briefing_bottom=briefing_bottom,
+        briefing_right=briefing_right,
+        briefing_top=briefing_top,
+    )
 
 
 class MissionWorldMapView(GameView):
@@ -63,14 +152,15 @@ class MissionWorldMapView(GameView):
         self.clear()
         w, h = self.window.width, self.window.height
         self._hits = []
+        layout = build_world_map_layout(w, h)
 
         arcade.draw_lrbt_rectangle_filled(0, w, 0, h, (5, 10, 18, 255))
-        arcade.draw_lrbt_rectangle_filled(0, w, h - 54, h, (0, 0, 0, 180))
-        arcade.draw_line(0, h - 54, w, h - 54, palette.PANEL_BORDER, 2)
+        arcade.draw_lrbt_rectangle_filled(0, w, h - layout.header_height, h, (0, 0, 0, 180))
+        arcade.draw_line(0, h - layout.header_height, w, h - layout.header_height, palette.PANEL_BORDER, 2)
         arcade.draw_text(
             "MISSION WORLD MAP",
             22,
-            h - 27,
+            h - layout.header_height // 2,
             palette.HEADER,
             font_size=17,
             bold=True,
@@ -79,30 +169,20 @@ class MissionWorldMapView(GameView):
         arcade.draw_text(
             "Click a pin to inspect the mission. Select Mission returns to management.",
             w - 22,
-            h - 27,
+            h - layout.header_height // 2,
             palette.MUTED_TEXT,
             font_size=10,
             anchor_x="right",
             anchor_y="center",
         )
 
-        map_left = 24
-        map_bottom = 108
-        map_right = int(w * 0.62)
-        map_top = h - 72
-        info_left = map_right + 16
-        info_bottom = 108
-        info_right = w - 24
-        info_top = h - 72
-
-        draw_panel(map_left, map_bottom, map_right - map_left, map_top - map_bottom, "WORLD MAP")
-        draw_panel(info_left, info_bottom, info_right - info_left, info_top - info_bottom, "MISSION DETAILS")
+        map_left, map_bottom, map_right, map_top = layout.map_rect
 
         texture = load_world_map_texture()
-        image_left = map_left + 16
-        image_right = map_right - 16
-        image_bottom = map_bottom + 18
-        image_top = map_top - 22
+        image_left = map_left
+        image_right = map_right
+        image_bottom = map_bottom
+        image_top = map_top
         if texture is not None and getattr(texture, "width", 0) and getattr(texture, "height", 0):
             scale = min((image_right - image_left) / texture.width, (image_top - image_bottom) / texture.height)
             draw_w = max(1.0, texture.width * scale)
@@ -120,6 +200,8 @@ class MissionWorldMapView(GameView):
             for gy in range(image_bottom, image_top + 1, max(60, (image_top - image_bottom) // 5 or 60)):
                 arcade.draw_line(image_left, gy, image_right, gy, (40, 58, 68, 120), 1)
             pin_left, pin_bottom, pin_right, pin_top = image_left, image_bottom, image_right, image_top
+
+        arcade.draw_lrbt_rectangle_outline(map_left, map_right, map_bottom, map_top, palette.PANEL_BORDER, 2)
 
         missions = self.game_state.mission_templates
         selected_index = self.game_state.selected_mission_index
@@ -175,12 +257,20 @@ class MissionWorldMapView(GameView):
 
         mission = missions[selected_index] if missions else None
         if mission is not None:
-            self._draw_mission_details(info_left, info_bottom, info_right, info_top, mission, selected_node)
+            briefing_layout = build_world_map_layout(w, h, selected_node.pin_x if selected_node is not None else None)
+            self._draw_mission_details(
+                briefing_layout.briefing_left,
+                briefing_layout.briefing_bottom,
+                briefing_layout.briefing_right,
+                briefing_layout.briefing_top,
+                mission,
+                selected_node,
+            )
         else:
             arcade.draw_text(
                 "No missions available.",
-                (info_left + info_right) // 2,
-                (info_bottom + info_top) // 2,
+                (map_left + map_right) // 2,
+                (map_bottom + map_top) // 2,
                 palette.MUTED_TEXT,
                 font_size=11,
                 anchor_x="center",
@@ -188,9 +278,9 @@ class MissionWorldMapView(GameView):
             )
 
         select_left = 24
-        select_bottom = 34
+        select_bottom = layout.footer_bottom
         select_right = int(w * 0.35)
-        select_top = 78
+        select_top = layout.footer_top
         launch_left = select_right + 12
         launch_right = int(w * 0.70)
         back_left = launch_right + 12
@@ -243,47 +333,58 @@ class MissionWorldMapView(GameView):
         mission: "MissionTemplate",
         selected_node,
     ) -> None:
+        draw_panel(left, bottom, right - left, top - bottom)
         x = left + 14
-        y = top - 28
+        panel_w = right - left
+        top_strip_y = top - 18
         arcade.draw_text(
-            mission.title.upper(),
+            "MISSION BRIEFING",
             x,
-            y,
+            top_strip_y,
             palette.HEADER,
-            font_size=16,
+            font_size=10,
             bold=True,
         )
         if selected_node is not None:
             arcade.draw_text(
                 f"SITE: {mission_site_name(selected_node.site_key)}",
                 right - 14,
-                y,
+                top_strip_y,
                 palette.ACCENT,
-                font_size=10,
+                font_size=9,
                 bold=True,
                 anchor_x="right",
             )
-        y -= 24
+        y = top - 42
+        arcade.draw_text(
+            _shorten(mission.title.upper(), 24),
+            x,
+            y,
+            palette.HEADER,
+            font_size=12 if panel_w < 360 else 13,
+            bold=True,
+        )
+        y -= 20
         arcade.draw_text(
             f"RISK {mission.risk_level}  |  DURATION {mission.duration_days}D  |  REWARD ¥{mission.fund_reward}",
             x,
             y,
             palette.WARNING,
-            font_size=10,
+            font_size=9 if panel_w < 360 else 10,
         )
-        y -= 26
+        y -= 22
 
-        for line in build_selected_mission_lines(mission):
+        for line in _compact_briefing_lines(mission):
             arcade.draw_text(
                 line,
                 x,
                 y,
                 palette.TEXT if not line.startswith("Launch status:") else palette.WARNING,
-                font_size=9,
-                width=(right - left) - 28,
+                font_size=8,
+                width=max(10, panel_w - 28),
                 multiline=True,
             )
-            y -= 16
+            y -= 15
             if y < bottom + 18:
                 break
 
@@ -372,3 +473,6 @@ class MissionWorldMapView(GameView):
         view.setup()
         view.active_tab = "squad"
         self.window.show_view(view)
+
+
+__all__ = ["MissionWorldMapView", "WorldMapLayout", "build_world_map_layout"]

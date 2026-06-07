@@ -14,6 +14,32 @@ _EMOTIONAL_LEXICON = {
     "critical": "likely emotional scars",
 }
 
+_LEGACY_FRENCH_REPLACEMENTS = (
+    (
+        "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
+        "Risk of lasting emotional scars for the squad (likely emotional scars).",
+    ),
+    (
+        "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        "Risk of lasting emotional scars for the squad (likely emotional scars).",
+    ),
+    ("s\u00e9quelles \u00e9motionnelles probables", "likely emotional scars"),
+)
+
+
+def translate_legacy_briefing_text(text: str | None) -> str:
+    """Translate legacy French briefing text to the current English copy."""
+    cleaned = " ".join(str(text or "").split()).strip()
+    if not cleaned:
+        return ""
+    for source, target in _LEGACY_FRENCH_REPLACEMENTS:
+        if cleaned == source:
+            return target
+    translated = cleaned
+    for source, target in _LEGACY_FRENCH_REPLACEMENTS:
+        translated = translated.replace(source, target)
+    return translated
+
 
 def normalize_mission_tags(tagged_items: Iterable[object]) -> list[str]:
     """Normalize mission tags into a stable UI format (snake_case, sorted, unique)."""
@@ -30,7 +56,7 @@ def build_short_emotional_impact(level: str | None, text: str | None) -> str:
     """Return a short emotional line with consistent vocabulary and a neutral fallback."""
     normalized_level = (level or "").strip().lower()
     emotional_anchor = _EMOTIONAL_LEXICON.get(normalized_level)
-    base = (text or "").strip()
+    base = translate_legacy_briefing_text(text)
     if not emotional_anchor and not base:
         return NEUTRAL_IMPACT_FALLBACK
     if not base:

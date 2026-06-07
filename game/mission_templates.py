@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 
 from .consequences import Consequence
 from .enemy_themes import normalize_enemy_theme
+from .narrative.mission_briefing_conventions import translate_legacy_briefing_text
 from .savage_fate import SavageTag, tag_from_library
 
 
@@ -99,6 +100,11 @@ class MissionTemplate:
     def from_dict(cls, data: dict | "MissionTemplate") -> "MissionTemplate":
         if isinstance(data, cls):
             return data
+        raw_hint = data.get("emotional_impact_hint") or {}
+        emotional_impact_hint = dict(raw_hint)
+        for key in ("text", "short_text", "emotional_impact_summary", "risk_explanation"):
+            if isinstance(emotional_impact_hint.get(key), str):
+                emotional_impact_hint[key] = translate_legacy_briefing_text(emotional_impact_hint[key])
         return cls(
             id=data.get("id", "unknown"),
             title=data.get("title", "Unknown Mission"),
@@ -128,7 +134,7 @@ class MissionTemplate:
             duration_days=max(1, int(data.get("duration_days", 1))),
             tags=[SavageTag.from_dict(tag) for tag in data.get("tags", [])],
             relation_impact=str(data.get("relation_impact", "low")),
-            emotional_impact_hint=dict(data.get("emotional_impact_hint", {})),
+            emotional_impact_hint=emotional_impact_hint,
         )
 
 

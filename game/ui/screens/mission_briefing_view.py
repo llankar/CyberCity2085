@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING
 import arcade
 
 from game.battle_maps import select_battle_map_entry
+from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
 from game.ui import palette
 from game.ui.panels import draw_panel
 
@@ -167,7 +168,7 @@ class MissionBriefingView(arcade.View):
             arcade.draw_text("HUMAN IMPACT", panel_l + 14, y, level_col, font_size=10, bold=True)
             y -= 18
             arcade.draw_text(
-                hint["text"][:80],
+                translate_legacy_briefing_text(hint["text"])[:80],
                 panel_l + 14, y, palette.MUTED_TEXT, font_size=9,
                 width=panel_w - 28, multiline=True,
             )

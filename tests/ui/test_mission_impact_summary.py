@@ -19,8 +19,20 @@ class MissionImpactSummaryTest(unittest.TestCase):
 
         lines = build_mission_impact_summary_lines(mission)
 
-        self.assertIn("Tags opérationnels: neon_blackout", lines[0])
-        self.assertIn("Impact humain attendu (modéré):", lines[1])
+        self.assertIn("Operational tags: neon_blackout", lines[0])
+        self.assertIn("Expected human impact (moderate):", lines[1])
+
+    def test_legacy_french_hint_is_translated_to_english(self):
+        mission = create_mission_templates("Chrome Warrens")[0]
+        mission.emotional_impact_hint = {
+            "level": "critical",
+            "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
+        }
+
+        lines = build_mission_impact_summary_lines(mission)
+
+        self.assertIn("Operational tags:", lines[0])
+        self.assertIn("Expected human impact (critical): Risk of lasting emotional scars for the squad", lines[1])
 
     def test_impact_levels_are_coherent_with_generation_pressure(self):
         game_state = GameState(mission_templates=[])

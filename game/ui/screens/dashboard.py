@@ -147,7 +147,9 @@ def build_management_recommended_action(resources: dict[str, int], district: Dis
     """Contextual recommendation for management views."""
     intel = int(resources.get("intel", 0))
     if district.unrest >= 70 or district.media_heat >= 70:
-        return "Recommended action: stabiliser le district avant toute expansion."
+        return "Recommended action: stabilize the district before any expansion."
     if intel <= 1:
-        return "Recommended action: lancer une collecte intel pour réduire l'incertitude."
-    return "Recommended action: engager une opération à impact mesuré."
+        return "Recommended action: launch an intel sweep to reduce uncertainty."
+    return "Recommended action: launch a measured operation."
+
+

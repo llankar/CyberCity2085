@@ -74,6 +74,21 @@ class MissionObjectivesTest(unittest.TestCase):
 
         self.assertEqual(loaded.objective_type, "sabotage")
 
+    def test_mission_template_load_translates_legacy_french_briefing_text(self):
+        payload = _mission("extract").to_dict()
+        payload["emotional_impact_hint"] = {
+            "level": "critical",
+            "text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade.",
+            "short_text": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+            "emotional_impact_summary": "Risque de s\u00e9quelles \u00e9motionnelles durables pour l'escouade (s\u00e9quelles \u00e9motionnelles probables).",
+        }
+
+        loaded = MissionTemplate.from_dict(payload)
+
+        self.assertTrue(loaded.emotional_impact_hint["text"].startswith("Risk of lasting emotional scars"))
+        self.assertIn("likely emotional scars", loaded.emotional_impact_hint["short_text"])
+        self.assertIn("likely emotional scars", loaded.emotional_impact_hint["emotional_impact_summary"])
+
     def test_mission_template_load_defaults_missing_or_unknown_type_to_eliminate(self):
         legacy_payload = _mission("extract").to_dict()
         legacy_payload.pop("objective_type")
