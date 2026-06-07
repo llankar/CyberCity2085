@@ -122,6 +122,7 @@ class GameState:
     unavailable_mission_ids: list[str] = field(default_factory=list)
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
+    combat_mission_ui_engine: str = "godot"
     ui_language: str = "fr"
     tutorial_progress: dict = field(
         default_factory=lambda: {
@@ -562,6 +563,7 @@ class GameState:
             "unavailable_mission_ids": list(self.unavailable_mission_ids),
             "ui_high_contrast": self.ui_high_contrast,
             "ui_audio_feedback_enabled": self.ui_audio_feedback_enabled,
+            "combat_mission_ui_engine": self.combat_mission_ui_engine,
             "tutorial_progress": dict(self.tutorial_progress),
             "active_research": [
                 research.to_dict() for research in self.active_research
@@ -646,7 +648,12 @@ class GameState:
         gs.next_event_id = int(data.get("next_event_id", len(gs.active_events) + 1))
         gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
         gs.ui_high_contrast = bool(data.get("ui_high_contrast", gs.ui_high_contrast))
-        gs.ui_audio_feedback_enabled = bool(data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled))
+        gs.ui_audio_feedback_enabled = bool(
+            data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled)
+        )
+        gs.combat_mission_ui_engine = str(
+            data.get("combat_mission_ui_engine", gs.combat_mission_ui_engine)
+        )
         gs.tutorial_progress.update(data.get("tutorial_progress", {}))
         gs.research_tree = create_starter_research_tree()
         gs.active_research = [

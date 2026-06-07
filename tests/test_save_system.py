@@ -32,6 +32,7 @@ class SaveSystemTests(unittest.TestCase):
         game_state.selected_agent_names = ["Nyx"]
         game_state.strategic_resources["credits"] = 55
         game_state.city_budget["armaments"] = 20
+        game_state.combat_mission_ui_engine = "godot"
         game_state.characters[0].mentor_links = {
             "Cipher": {"agent_id": "Cipher", "bond_level": 4, "strategic_day": 12}
         }
@@ -49,6 +50,7 @@ class SaveSystemTests(unittest.TestCase):
         self.assertEqual(loaded.selected_agent_names, ["Nyx"])
         self.assertEqual(loaded.strategic_resources["credits"], 55)
         self.assertEqual(loaded.city_budget["armaments"], 20)
+        self.assertEqual(loaded.combat_mission_ui_engine, "godot")
         self.assertEqual(len(loaded.characters), 1)
         self.assertEqual(
             loaded.characters[0].mentor_links,
