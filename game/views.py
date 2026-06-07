@@ -105,7 +105,7 @@ from .battle_maps import (
 )
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
-from .combat import CombatEngine, CombatState
+from .combat import CombatEngine, CombatState, can_enter_cell
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -1754,6 +1754,7 @@ class BattleView(GameView):
             allied_units=self.player_units,
             enemy_units=self.enemy_units,
             objective=self.battle_objective,
+            movement_mode="tactical_grid",
         )
         self.combat_engine = CombatEngine(
             self.combat_state,
@@ -1880,16 +1881,18 @@ class BattleView(GameView):
         )
 
     def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
-        """Return True when (x, y) is on walkable terrain.
-
-        Occupancy is intentionally not checked here (UI-51: player movement
-        stays unrestricted so melee positioning remains fluid). Terrain
-        obstacles from the walkability mask are still respected.
-        """
-        profile = getattr(self, "terrain_profile", None)
-        if profile is not None and hasattr(profile, "is_walkable") and not profile.is_walkable(x, y):
-            return False
-        return True
+        """Return True when the shared combat movement rule allows a cell."""
+        state = getattr(self, "combat_state", None)
+        movement_mode = getattr(state, "movement_mode", "tactical_grid")
+        return can_enter_cell(
+            x,
+            y,
+            terrain_profile=getattr(self, "terrain_profile", None),
+            allied_units=getattr(self, "player_units", []),
+            enemy_units=getattr(self, "enemy_units", []),
+            exclude=exclude,
+            movement_mode=movement_mode,
+        )
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Check if a map position is occupied by any living unit."""
@@ -2300,6 +2303,8 @@ class BattleView(GameView):
             on_overwatch_shot=callbacks["on_overwatch_shot"],
             can_enter=lambda x, y: self.can_move_to(x, y, exclude=None),
             cover_nodes=getattr(self, "cover_nodes", None),
+            terrain_profile=getattr(self, "terrain_profile", None),
+            movement_mode=getattr(self.combat_state, "movement_mode", "tactical_grid"),
         )
 
     def on_draw(self):
@@ -2581,6 +2586,22 @@ class BattleView(GameView):
             self.pending_attack = pending
         else:
             self.message = "No visible enemy in range"
+
+    def _try_move_active_player(self, player: Unit, dx: int, dy: int) -> bool:
+        """Move the active unit through the shared combat movement rule."""
+        result = self.combat_engine.perform_action(
+            "move",
+            actor=player,
+            move_delta=(dx, dy),
+        )
+        if not result.success:
+            self.message = result.message
+            return False
+        self._sync_view_from_combat_state()
+        self._set_action_aftermath(action_label="MOVE")
+        self._log_move(player)
+        self.game_state.mark_tutorial_event("used_battle_controls")
+        return True
 
     def _perform_combat_action(self, action_key: str) -> bool:
         """Perform a clicked or keyed combat action for the active player unit."""
@@ -2882,25 +2903,13 @@ class BattleView(GameView):
                     self.end_battle(True)
                     return
         elif key == arcade.key.UP:
-            player.move(0, 32)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 0, 32)
         elif key == arcade.key.DOWN:
-            player.move(0, -32)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 0, -32)
         elif key == arcade.key.LEFT:
-            player.move(-32, 0)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, -32, 0)
         elif key == arcade.key.RIGHT:
-            player.move(32, 0)
-            self._set_action_aftermath(action_label="MOVE")
-            self._log_move(player)
-            self.game_state.mark_tutorial_event("used_battle_controls")
+            self._try_move_active_player(player, 32, 0)
         elif key == arcade.key.SPACE:
             self._perform_combat_action("melee")
         elif key == arcade.key.F:
@@ -3171,6 +3180,9 @@ class BattleView(GameView):
             ww = getattr(self.window, "width", 1280)
             nx = max(16, min(ww - 16, unit.position[0] + dx))
             ny = max(16, min(_DEPLOY_ZONE_H - 16, unit.position[1] + dy))
+            if not self.can_move_to(nx, ny, exclude=unit):
+                self.message = "Deployment cell blocked."
+                return
             unit.position = (nx, ny)
             if unit.sprite:
                 unit.sprite.center_x = nx
