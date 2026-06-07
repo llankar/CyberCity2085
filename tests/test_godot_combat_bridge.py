@@ -69,16 +69,16 @@ class GodotCombatBridgeTest(unittest.TestCase):
             self.assertEqual(data["squad"][0]["name"], "Mako")
 
     def test_command_points_godot_to_project_and_handoff(self) -> None:
+        handoff = Path("runtime/godot_combat/mission_handoff.json").resolve()
         command = build_godot_combat_command(
             "runtime/godot_combat/mission_handoff.json",
             executable="godot4",
         )
 
         self.assertEqual(command[0], "godot4")
-        self.assertIn(str(GODOT_COMBAT_PROJECT_DIR), command)
+        self.assertIn(str(GODOT_COMBAT_PROJECT_DIR.resolve()), command)
         self.assertIn("--handoff", command)
-        normalized = [Path(part).as_posix() for part in command]
-        self.assertIn("runtime/godot_combat/mission_handoff.json", normalized)
+        self.assertIn(str(handoff), command)
 
     def test_find_godot_prefers_saved_settings_path(self) -> None:
         previous_path = settings_screen._SETTINGS_PATH
