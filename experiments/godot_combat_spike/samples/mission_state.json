@@ -1,0 +1,13 @@
+{
+  "mission_id": "godot_combat_spike_01",
+  "turn": "player",
+  "turn_number": 1,
+  "result": "in_progress",
+  "units": [
+    {"id": "agent_echo", "team": "agent", "role": "samurai", "hp": 11, "max_hp": 11, "ap": 2, "position": {"x": 1, "y": 2}},
+    {"id": "agent_vesper", "team": "agent", "role": "sniper", "hp": 11, "max_hp": 11, "ap": 2, "position": {"x": 1, "y": 3}},
+    {"id": "enemy_raider_a", "team": "enemy", "role": "grunt", "hp": 10, "max_hp": 10, "ap": 2, "position": {"x": 5, "y": 2}},
+    {"id": "enemy_raider_b", "team": "enemy", "role": "grunt", "hp": 10, "max_hp": 10, "ap": 2, "position": {"x": 5, "y": 3}}
+  ],
+  "event_log": ["Spike mission loaded outside the Arcade runtime."]
+}
