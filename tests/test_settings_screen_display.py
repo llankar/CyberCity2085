@@ -47,7 +47,7 @@ def _capture_draw_text(text, *args, **kwargs):
 
 fake_arcade = types.SimpleNamespace(
     View=_FakeView,
-    key=types.SimpleNamespace(ESCAPE=27),
+    key=types.SimpleNamespace(ESCAPE=27, BACKSPACE=8, ENTER=13, RETURN=13),
     draw_text=_capture_draw_text,
     draw_lrbt_rectangle_filled=lambda *args, **kwargs: None,
     draw_line=lambda *args, **kwargs: None,
@@ -99,18 +99,25 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self._tmpdir.cleanup()
 
     def test_settings_round_trip_includes_display_index_and_text_size(self) -> None:
-        state = settings_screen.SettingsState(display_index=1, resolution_index=2, text_size="large")
+        state = settings_screen.SettingsState(
+            display_index=1,
+            resolution_index=2,
+            text_size="large",
+            godot_bin_path=r"C:\Tools\Godot\Godot.exe",
+        )
         settings_screen.save_settings(state)
 
         with open(settings_screen._SETTINGS_PATH, "r", encoding="utf-8") as handle:
             raw = json.load(handle)
         self.assertEqual(raw["display_index"], 1)
         self.assertEqual(raw["text_size"], "large")
+        self.assertEqual(raw["godot_bin_path"], r"C:\Tools\Godot\Godot.exe")
 
         loaded = settings_screen.load_settings()
         self.assertEqual(loaded.display_index, 1)
         self.assertEqual(loaded.resolution_index, 2)
         self.assertEqual(loaded.text_size, "large")
+        self.assertEqual(loaded.godot_bin_path, r"C:\Tools\Godot\Godot.exe")
 
     def test_settings_panel_exposes_display_and_text_size_selectors(self) -> None:
         view = settings_screen.SettingsView()
@@ -123,6 +130,23 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self.assertTrue(any(action == "text_next" for *_hit, action in view._hits))
         self.assertTrue(any("Display Screen" in text for text in captured_draw_text))
         self.assertTrue(any("Text Size" in text for text in captured_draw_text))
+        self.assertTrue(any(action == "godot_bin_edit" for *_hit, action in view._hits))
+        self.assertTrue(any(action == "godot_bin_clear" for *_hit, action in view._hits))
+        self.assertTrue(any("Godot Executable" in text for text in captured_draw_text))
+
+    def test_godot_executable_path_editor_commits_and_clears(self) -> None:
+        view = settings_screen.SettingsView()
+        view.window = _FakeWindow()
+        view._handle("godot_bin_edit")
+        view.on_text(r"C:\Tools\Godot\Godot.exe")
+        view.on_key_press(fake_arcade.key.ENTER, 0)
+
+        self.assertFalse(view._editing_godot_path)
+        self.assertEqual(view._settings.godot_bin_path, r"C:\Tools\Godot\Godot.exe")
+
+        view._handle("godot_bin_clear")
+        self.assertEqual(view._settings.godot_bin_path, "")
+        self.assertFalse(view._editing_godot_path)
 
     def test_apply_uses_selected_screen(self) -> None:
         view = settings_screen.SettingsView()

@@ -160,10 +160,18 @@ def write_godot_combat_handoff(
 
 def find_godot_executable() -> str | None:
     """Return the configured Godot executable, if available on this machine."""
+    try:
+        from game.ui.screens.settings_screen import load_settings
+
+        configured = str(getattr(load_settings(), "godot_bin_path", "")).strip()
+        if configured:
+            return os.path.expandvars(os.path.expanduser(configured))
+    except Exception:
+        pass
     for env_key in ("CYBERCITY_GODOT_BIN", "GODOT4_BIN", "GODOT_BIN"):
         value = os.environ.get(env_key)
         if value:
-            return value
+            return os.path.expandvars(os.path.expanduser(value))
     return shutil.which("godot4") or shutil.which("godot")
 
 

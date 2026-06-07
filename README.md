@@ -94,7 +94,8 @@ python main.py
 ### Godot Combat Mission UI
 - Mission briefing `DEPLOY` now defaults to `GameState.combat_mission_ui_engine = "godot"`.
 - The Arcade shell writes `runtime/godot_combat/mission_handoff.json` with mission, map, squad, support asset, and tactical action data.
-- If `godot4`, `godot`, or `CYBERCITY_GODOT_BIN` is available, the shell launches `godot/combat_missions_ui` with that handoff.
+- The Settings screen lets you set a Godot executable path in-app; that path is used before `godot4`, `godot`, or `CYBERCITY_GODOT_BIN`.
+- If a Godot executable is available, the shell launches `godot/combat_missions_ui` with that handoff.
 - If no Godot executable is configured, the mission launch now falls back directly to the local Arcade battle view.
 - The handoff screen keeps `F` as a local Arcade battle fallback until Godot result import is implemented.
 

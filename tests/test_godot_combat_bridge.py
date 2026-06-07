@@ -3,20 +3,24 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from game.character import Character
 from game.combat.godot_bridge import (
     GODOT_COMBAT_PROJECT_DIR,
     build_godot_combat_command,
     build_godot_combat_payload,
+    find_godot_executable,
     launch_godot_combat_ui,
     write_godot_combat_handoff,
 )
 from game.gamestate import GameState
 from game.mission_templates import MissionTemplate
+from game.ui.screens import settings_screen
 
 
 def _mission() -> MissionTemplate:
@@ -74,6 +78,22 @@ class GodotCombatBridgeTest(unittest.TestCase):
         self.assertIn("--handoff", command)
         normalized = [Path(part).as_posix() for part in command]
         self.assertIn("runtime/godot_combat/mission_handoff.json", normalized)
+
+    def test_find_godot_prefers_saved_settings_path(self) -> None:
+        previous_path = settings_screen._SETTINGS_PATH
+        try:
+            with tempfile.TemporaryDirectory() as tmp:
+                settings_screen._SETTINGS_PATH = str(Path(tmp) / "settings.json")
+                settings_screen.save_settings(
+                    settings_screen.SettingsState(godot_bin_path=r"C:\Games\Godot\Godot.exe")
+                )
+                with patch.dict(os.environ, {"CYBERCITY_GODOT_BIN": r"C:\Ignored\godot.exe"}, clear=False):
+                    self.assertEqual(
+                        find_godot_executable(),
+                        os.path.expandvars(os.path.expanduser(r"C:\Games\Godot\Godot.exe")),
+                    )
+        finally:
+            settings_screen._SETTINGS_PATH = previous_path
 
     def test_launch_without_executable_still_writes_handoff(self) -> None:
         game_state = GameState(
