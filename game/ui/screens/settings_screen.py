@@ -89,6 +89,13 @@ def save_settings(s: SettingsState) -> None:
         json.dump(asdict(s), f, indent=2)
 
 
+def _persist_godot_bin_path(godot_bin_path: str) -> None:
+    """Save only the Godot executable path without committing unsaved UI changes."""
+    persisted = load_settings()
+    persisted.godot_bin_path = str(godot_bin_path or "").strip()
+    save_settings(persisted)
+
+
 # ── Layout helpers ────────────────────────────────────────────────────────────
 
 def _rect(l, b, r, t, color) -> None:
@@ -539,10 +546,12 @@ class SettingsView(arcade.View):
             selected = _browse_for_godot_executable(self._settings.godot_bin_path)
             if selected:
                 s.godot_bin_path = selected
+                _persist_godot_bin_path(s.godot_bin_path)
                 self._message = "Godot executable selected."
                 self._msg_timer = 2.0
         elif action == "godot_bin_clear":
             s.godot_bin_path = ""
+            _persist_godot_bin_path(s.godot_bin_path)
             self._message = "Godot executable path cleared."
             self._msg_timer = 2.0
 
