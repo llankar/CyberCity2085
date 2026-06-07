@@ -199,10 +199,16 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self.assertEqual(view._settings.godot_bin_path, r"C:\Tools\Godot\Godot.exe")
         self.assertEqual(view._message, "Godot executable selected.")
         self.assertTrue(browse_mock.called)
+        with open(settings_screen._SETTINGS_PATH, "r", encoding="utf-8") as handle:
+            raw = json.load(handle)
+        self.assertEqual(raw["godot_bin_path"], r"C:\Tools\Godot\Godot.exe")
 
         view._handle("godot_bin_clear")
         self.assertEqual(view._settings.godot_bin_path, "")
         self.assertEqual(view._message, "Godot executable path cleared.")
+        with open(settings_screen._SETTINGS_PATH, "r", encoding="utf-8") as handle:
+            raw = json.load(handle)
+        self.assertEqual(raw["godot_bin_path"], "")
 
     def test_apply_uses_selected_screen(self) -> None:
         view = settings_screen.SettingsView()
