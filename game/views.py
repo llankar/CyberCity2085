@@ -105,7 +105,7 @@ from .battle_maps import (
 )
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
-from .combat import CombatEngine, CombatState, can_enter_cell
+from .combat import CombatEngine, CombatEventResult, CombatState, can_enter_cell
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -1900,96 +1900,95 @@ class BattleView(GameView):
             x, y, self.player_units, self.enemy_units, exclude=exclude
         )
 
-    # ── In-battle complication keys that have active effects ──────────────────
-    _COMPLICATION_EFFECTS: dict[str, str] = {
-        "mod_rapid_response": "reinforcements",
-        "rapid_response":     "reinforcements",
-        "mod_watcher_drone":  "blackout",
-        "watcher_drone":      "blackout",
-        "mod_counterintel_ping": "blackout",
-        "counterintel_ping":  "blackout",
-    }
-
     def _check_complications(self, turn_number: int) -> None:
-        """Trigger mid-battle complication effects keyed to turn milestones."""
+        """Resolve pure mid-battle events, then translate their results for Arcade."""
         if not self.mission:
             return
-        triggered = getattr(self, "_triggered_complication_keys", set())
-        if not hasattr(self, "_triggered_complication_keys"):
-            self._triggered_complication_keys: set[str] = set()
-            triggered = self._triggered_complication_keys
-
-        for comp in self.mission.possible_complications or []:
-            key = comp.key
-            effect = self._COMPLICATION_EFFECTS.get(key)
-            if not effect or key in triggered:
-                continue
-            # Reinforcements fire on turn 3
-            if effect == "reinforcements" and turn_number >= 3:
-                triggered.add(key)
-                self._spawn_reinforcements(comp.name)
-            # Blackout fires on turn 2
-            elif effect == "blackout" and turn_number >= 2:
-                triggered.add(key)
-                self._trigger_blackout(comp.name)
-
-    def _spawn_reinforcements(self, comp_name: str) -> None:
-        """Spawn 2 grunt reinforcements from a random map edge."""
-        import random as _rnd
-        from game.stats import EnemyStats
-        w = getattr(self.window, "width", 1280)
-        h = getattr(self.window, "height", 720)
-        edges = [(32, _rnd.randint(64, h - 64)), (w - 32, _rnd.randint(64, h - 64))]
-        spawned = 0
-        for ex, ey in edges[:2]:
-            if spawned >= 2:
-                break
-            stats = EnemyStats(hp=4, max_hp=4, agi=2, defense=1)
-            new_enemy = Unit(
-                position=(ex, ey),
-                stats=stats,
-                unit_type="grunt",
-                enemy_subtype="grunt",
-                health=4,
-                action_points=2,
-                attack_range=1,
+        self._sync_combat_state_from_view()
+        self.combat_state.turn_number = turn_number
+        results = self.combat_engine.resolve_combat_events(
+            battlefield_size=(
+                getattr(self.window, "width", 1280),
+                getattr(self.window, "height", 720),
             )
-            try:
-                sprite = arcade.Sprite(
-                    "assets/enemy.png",
-                    center_x=ex,
-                    center_y=ey,
-                    scale=battle_token_scale_for_unit(new_enemy),
-                )
-                new_enemy.sprite = sprite
-                self.enemy_list.append(sprite)
-            except Exception:
-                pass
-            self.enemy_units.append(new_enemy)
-            spawned += 1
-        self._snd().play("sfx_reinforce")
-        self._add_screen_shake(10)
-        for eu in self.enemy_units[-spawned:]:
-            self._spawn_particles(*eu.position, count=14, color=(255, 60, 40))
-        self.message = f"COMPLICATION: {comp_name} — Reinforcements incoming!"
-        self.combat_log_messages.append(f"⚠ REINFORCEMENTS: {comp_name}")
-        self._aftermath_line = f"COMPLICATION: {comp_name}"
-        self._aftermath_timer = 3.0
+        )
+        for event_result in results:
+            self._apply_combat_event_result(event_result)
+        self._sync_view_from_combat_state()
 
-    def _trigger_blackout(self, comp_name: str) -> None:
-        """Reduce fog-of-war sight radius for 2 turns."""
-        # Patch the FOG sight radius constant in battle_hud temporarily
+    def _apply_combat_event_result(self, event_result: CombatEventResult) -> None:
+        """Translate a render-agnostic event result into battle view effects."""
+        if event_result.kind == "spawn_enemy":
+            self._spawn_event_enemy(event_result)
+        elif event_result.kind == "visibility_changed":
+            self._apply_visibility_event(event_result)
+        elif event_result.kind == "log_message":
+            self._apply_log_event(event_result)
+        elif event_result.kind == "screen_shake":
+            self._add_screen_shake(event_result.payload.get("intensity", 0))
+        elif event_result.kind == "sound_key":
+            sound_key = event_result.payload.get("key")
+            if sound_key:
+                self._snd().play(sound_key)
+
+    def _spawn_event_enemy(self, event_result: CombatEventResult) -> None:
+        """Create the concrete Unit and sprite requested by a combat event."""
+        from game.stats import EnemyStats
+
+        payload = event_result.payload
+        x, y = payload.get("position", (32, 64))
+        stat_payload = payload.get("stats", {})
+        hp = stat_payload.get("hp", 4)
+        stats = EnemyStats(
+            hp=hp,
+            max_hp=stat_payload.get("max_hp", hp),
+            agi=stat_payload.get("agi", 2),
+            defense=stat_payload.get("defense", 1),
+        )
+        new_enemy = Unit(
+            position=(x, y),
+            stats=stats,
+            unit_type=payload.get("unit_type", "grunt"),
+            enemy_subtype=payload.get("enemy_subtype", "grunt"),
+            health=hp,
+            action_points=2,
+            attack_range=1,
+        )
+        try:
+            sprite = arcade.Sprite(
+                "assets/enemy.png",
+                center_x=x,
+                center_y=y,
+                scale=battle_token_scale_for_unit(new_enemy),
+            )
+            new_enemy.sprite = sprite
+            self.enemy_list.append(sprite)
+        except Exception:
+            pass
+        self.enemy_units.append(new_enemy)
+        self._spawn_particles(*new_enemy.position, count=14, color=(255, 60, 40))
+
+    def _apply_visibility_event(self, event_result: CombatEventResult) -> None:
+        """Apply a pure visibility change request to the HUD fog setting."""
         try:
             import game.ui.screens.battle_hud as _hud
             if not hasattr(self, "_original_fog_radius"):
                 self._original_fog_radius = getattr(_hud, "_FOG_SIGHT_RADIUS", 5)
-                _hud._FOG_SIGHT_RADIUS = 3
-                self._blackout_turns_left = 2
+            _hud._FOG_SIGHT_RADIUS = event_result.payload.get("fog_radius", 3)
+            self._blackout_turns_left = event_result.payload.get("duration_turns", 2)
         except Exception:
             pass
-        self.message = f"COMPLICATION: {comp_name} — Visibility reduced!"
-        self.combat_log_messages.append(f"⚠ BLACKOUT: {comp_name}")
-        self._aftermath_line = f"COMPLICATION: {comp_name}"
+
+    def _apply_log_event(self, event_result: CombatEventResult) -> None:
+        """Apply event text to BattleView's message, log, and flash banner slots."""
+        banner = event_result.payload.get("banner") or event_result.message
+        if banner:
+            self.message = banner
+        if event_result.message:
+            self.combat_log_messages.append(event_result.message)
+        self._aftermath_line = (
+            f"COMPLICATION: {event_result.label}" if event_result.label else banner
+        )
         self._aftermath_timer = 3.0
 
     def _sync_combat_state_from_view(self) -> None:
