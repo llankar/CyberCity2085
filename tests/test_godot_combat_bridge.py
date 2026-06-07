@@ -72,7 +72,8 @@ class GodotCombatBridgeTest(unittest.TestCase):
         self.assertEqual(command[0], "godot4")
         self.assertIn(str(GODOT_COMBAT_PROJECT_DIR), command)
         self.assertIn("--handoff", command)
-        self.assertIn("runtime/godot_combat/mission_handoff.json", command)
+        normalized = [Path(part).as_posix() for part in command]
+        self.assertIn("runtime/godot_combat/mission_handoff.json", normalized)
 
     def test_launch_without_executable_still_writes_handoff(self) -> None:
         game_state = GameState(
