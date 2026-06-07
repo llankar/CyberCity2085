@@ -150,7 +150,8 @@ class GodotCombatBridgeTest(unittest.TestCase):
             self.assertEqual(result.returncode, 0, output)
             self.assertNotIn("Parse Error", output)
             self.assertNotIn("Failed to load script", output)
-            self.assertIn("Combat live.", output)
+            self.assertIn("TACTICAL COMBAT UI READY", output)
+            self.assertIn("grid / timeline / action bar / unit panel / log", output)
 
 
 if __name__ == "__main__":
