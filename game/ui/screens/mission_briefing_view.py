@@ -362,10 +362,19 @@ class MissionBriefingView(arcade.View):
             from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
 
             result = launch_godot_combat_ui(self.game_state, self.mission)
-            self.game_state.add_event(result.message)
-            self.window.show_view(
-                GodotCombatHandoffView(self.game_state, self.mission, result)
-            )
+            if result.ready_for_godot:
+                self.game_state.add_event(result.message)
+                self.window.show_view(
+                    GodotCombatHandoffView(self.game_state, self.mission, result)
+                )
+                return
+
+            self.game_state.add_event("Godot unavailable; launching local Arcade battle fallback.")
+            from game.views import BattleView
+
+            battle = BattleView(self.game_state)
+            battle.setup(self.mission)
+            self.window.show_view(battle)
             return
 
         from game.views import BattleView
