@@ -41,6 +41,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ## Gameplay systems explicit status
 
+- [x] BATTLE-ENG1 Combat engine package: added `game/combat/` as a pure tactical state/transition boundary and wired `BattleView` through it for turn/AP checks. (completed Jun 7, 2026)
 - [x] UI-51 Combat movement unrestricted: removed terrain and occupancy gating from the battle window so player and enemy moves are no longer blocked by path rules inside combat. (completed May 28, 2026)
 - [x] UI-50 Battle map walkability masks: battle terrain now prefers explicit `*.walkable.png` sidecars instead of reading movement from the art directly, with a small generator tool so shipped maps can keep an editable collision layer. (completed May 28, 2026)
 - [x] UI-49 Terrain classifier correction: replaced the battle map brightness-only walkability guess with a brightness-plus-texture score so open ground and blocked objects no longer get treated the same just because they share similar lighting. (completed May 28, 2026)
