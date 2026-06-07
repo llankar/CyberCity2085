@@ -1,0 +1,15 @@
+; Engine evaluation spike only. Do not load from the Arcade runtime.
+config_version=5
+
+[application]
+config/name="CyberCity2085 Godot Combat Spike"
+run/main_scene="res://scenes/combat_spike.tscn"
+config/features=PackedStringArray("4.2")
+
+[display]
+window/size/viewport_width=960
+window/size/viewport_height=640
+
+[input]
+end_turn={"deadzone":0.5,"events":[Object(InputEventKey,"physical_keycode":84)]}
+export_state={"deadzone":0.5,"events":[Object(InputEventKey,"physical_keycode":74)]}
