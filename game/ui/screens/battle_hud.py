@@ -857,7 +857,7 @@ def draw_unit_status_panel(
         stress_col = palette.DANGER if stress >= 70 else (palette.WARNING if stress >= 40 else palette.MUTED_TEXT)
         arcade.draw_text(f"STRESS {stress:>3}%", px + pp + 18, py + 16, stress_col, font_size=9)
     if unit.stats:
-        arcade.draw_text(f"DEF {unit.stats.defense}", px + pp + 18, py + 6, palette.MUTED_TEXT, font_size=9)
+        arcade.draw_text(f"DEF {unit.stats.defense}", px + pp + 18, py + 2, palette.MUTED_TEXT, font_size=9)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

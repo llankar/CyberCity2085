@@ -274,7 +274,7 @@ def draw_icon_resource_hud(
         )
         _draw_icon("credits", 40, height - 56, 18, palette.RESOURCE)
         arcade.draw_text("FUNDS", 56, height - 50, palette.MUTED_TEXT, font_size=8, bold=True)
-        arcade.draw_text(f"¥ {available_funds:,}", 56, height - 61, palette.TEXT, font_size=12, bold=True)
+        arcade.draw_text(f"¥ {available_funds:,}", 56, height - 64, palette.TEXT, font_size=12, bold=True)
     keys = (
         ("credits", "CREDITS"),
         ("intel", "INTEL"),
@@ -295,7 +295,7 @@ def draw_icon_resource_hud(
             key, x + 18, bottom + 17, 22, palette.RESOURCE
         )
         value = max(0, int(resources.get(key, 0)))
-        arcade.draw_text(label, x + 36, bottom + 19, palette.TEXT, font_size=8, bold=True)
+        arcade.draw_text(label, x + 36, bottom + 21, palette.TEXT, font_size=8, bold=True)
         arcade.draw_text(str(value), x + 36, bottom + 6, palette.RESOURCE, font_size=12, bold=True)
 
 
@@ -595,9 +595,9 @@ def draw_action_button(button: ActionButton, border, pulse_elapsed: float = 0.0)
         arcade.draw_text(
             button.action.label.upper(),
             rect.center_x,
-            rect.bottom - 20,
+            rect.bottom - 18,
             palette.TEXT,
-            typography.body_secondary,
+            9,
             anchor_x="center",
         )
 

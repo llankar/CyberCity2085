@@ -333,7 +333,7 @@ func _draw_portrait_strip() -> void:
 		# Name + role text
 		_ds(str(unit.get("name", "Agent")).substr(0, 7).to_upper(),
 			Vector2(x + 48.0, strip_y + 20.0), 8, TEXT)
-		_ds(role.to_upper().substr(0, 5), Vector2(x + 48.0, strip_y + 30.0), 7, rc)
+		_ds(role.to_upper().substr(0, 5), Vector2(x + 48.0, strip_y + 33.0), 7, rc)
 
 		# HP bar
 		var hp_frac : float = clampf(

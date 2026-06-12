@@ -1211,20 +1211,20 @@ class ManagementView(GameView):
             if asset.deploy_cost > 0:
                 arcade.draw_text(f"DEPLOY ¥{asset.deploy_cost}", tx, ct - 50, palette.RESOURCE, font_size=9)
 
-            # Pilot badge for power armors
+            # Pilot badge for power armors (shown inline above integrity bar)
             if is_armor:
                 pilot = getattr(asset, 'pilot_agent_name', None)
                 pilot_txt = f"PILOT: {pilot}" if pilot else "PILOT: NONE"
                 pilot_col = palette.TACTICAL_GREEN if pilot else palette.WARNING
-                arcade.draw_text(pilot_txt, tx, cb + 8, pilot_col, font_size=9, bold=True)
+                arcade.draw_text(pilot_txt, tx, cb + 4, pilot_col, font_size=9, bold=True)
 
             # Integrity bar
             int_frac = asset.maintenance.integrity / 100
             bw = dx1 - 20 - tx
-            arcade.draw_lrbt_rectangle_filled(tx, tx + bw, cb + 24, cb + 32, palette.PANEL_FILL_DARK)
+            arcade.draw_lrbt_rectangle_filled(tx, tx + bw, cb + 28, cb + 36, palette.PANEL_FILL_DARK)
             int_col = palette.TACTICAL_GREEN if int_frac >= 0.7 else (palette.WARNING if int_frac >= 0.4 else palette.DANGER)
-            arcade.draw_lrbt_rectangle_filled(tx, tx + int(bw * int_frac), cb + 24, cb + 32, int_col)
-            arcade.draw_text(f"INT {asset.maintenance.integrity}%", tx, cb + 14, int_col, font_size=8)
+            arcade.draw_lrbt_rectangle_filled(tx, tx + int(bw * int_frac), cb + 28, cb + 36, int_col)
+            arcade.draw_text(f"INT {asset.maintenance.integrity}%", tx, cb + 18, int_col, font_size=8)
 
             # Status text
             if asset.maintenance.cooldown_days > 0:
@@ -1728,13 +1728,13 @@ class ManagementView(GameView):
         cols = 3
         node_gap = 6
         node_w = max(90, (x1 - x0 - 32 - node_gap * (cols - 1)) // cols)
-        node_h = 36
+        node_h = 48
         node_top = talent_top - 26
         for idx, node in enumerate(nodes[:6]):
             row = idx // cols
             col = idx % cols
             left = x0 + 16 + col * (node_w + node_gap)
-            top = node_top - row * (node_h + 6)
+            top = node_top - row * (node_h + 8)
             bottom = top - node_h
             unlocked_node = node.id in unlocked
             available_node = node in available_talent_nodes(char.role, unlocked)
@@ -1750,13 +1750,13 @@ class ManagementView(GameView):
             _rect(left, bottom, left + node_w, top, fill)
             arcade.draw_line(left, top, left + node_w, top, border, 2)
             arcade.draw_text(node.name.upper(), left + 8, top - 13, palette.TEXT, font_size=9, bold=True)
+            max_desc_chars = max(18, (node_w - 18) // 5)
             arcade.draw_text(
-                node.description,
+                node.description[:max_desc_chars],
                 left + 8,
-                bottom + 6,
+                bottom + 8,
                 palette.MUTED_TEXT,
                 font_size=7,
-                width=max(60, node_w - 16),
             )
             status = "OWNED" if unlocked_node else ("UNLOCK" if available_node else "LOCKED")
             arcade.draw_text(status, left + node_w - 8, bottom + 6, border, font_size=8, bold=True, anchor_x="right")
@@ -1777,8 +1777,9 @@ class ManagementView(GameView):
             for stat, val in bonuses_total.items():
                 if val:
                     col = palette.TACTICAL_GREEN if val > 0 else palette.DANGER
-                    arcade.draw_text(f"{stat.upper()} {val:+d}", bx, by, col, font_size=10)
-                    bx += 80
+                    stat_str = f"{stat.upper()} {val:+d}"
+                    arcade.draw_text(stat_str, bx, by, col, font_size=10)
+                    bx += len(stat_str) * 8 + 14
                     if bx > x1 - 20:
                         break
 
