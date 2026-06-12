@@ -35,6 +35,7 @@ if TYPE_CHECKING:
 CELL = 32           # pixels per tile
 MOVE_RANGE = 1      # tiles per action point for movement preview
 ATTACK_RANGE_DEFAULT = 4
+MOVE_RANGE_CELL_SCALE = 0.5
 
 # ── Palette aliases ──────────────────────────────────────────────────────────
 
@@ -210,7 +211,14 @@ def draw_movement_range(
                 cy = uy + dy * CELL
                 if 0 <= cx < width and 0 <= cy < height:
                     col = _MOVE_COL if (cx, cy) in reachable else _MOVE_BLOCKED_COL
-                    arcade.draw_lrbt_rectangle_filled(cx, cx + CELL, cy, cy + CELL, col)
+                    inset = CELL * (1.0 - MOVE_RANGE_CELL_SCALE) * 0.5
+                    arcade.draw_lrbt_rectangle_filled(
+                        cx + inset,
+                        cx + CELL - inset,
+                        cy + inset,
+                        cy + CELL - inset,
+                        col,
+                    )
 
 
 def draw_path_blocking_overlay(

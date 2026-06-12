@@ -27,6 +27,7 @@ class _DummyUnit:
         self.name = name
         self.subtype = subtype
         self.position = (0, 0)
+        self.action_points = 1
 
 
 class BattleHUDUITest(unittest.TestCase):
@@ -100,6 +101,19 @@ class BattleHUDUITest(unittest.TestCase):
         self.assertEqual(triggers, [(36, 4), (68, 4), (100, 4)])
         self.assertIn((36, 36), coverage)
         self.assertIn((100, 100), coverage)
+
+    def test_movement_range_draws_half_size_cells(self) -> None:
+        unit = _DummyUnit("Agent 1")
+        unit.position = (32, 32)
+
+        battle_hud.draw_movement_range(unit, 96, 96)
+
+        self.assertEqual(len(captured_rects), 5)
+        for left, right, bottom, top, _color in captured_rects:
+            self.assertAlmostEqual(right - left, 16.0)
+            self.assertAlmostEqual(top - bottom, 16.0)
+            self.assertAlmostEqual(left % 32.0, 8.0)
+            self.assertAlmostEqual(bottom % 32.0, 8.0)
 
 
 if __name__ == "__main__":
