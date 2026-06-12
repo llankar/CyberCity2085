@@ -24,7 +24,8 @@ const LEFT_MARGIN  : float = 70.0
 const CARD_W       : float = 80.0
 const CARD_GAP     : float = 4.0
 
-const ACTIONS: Array[String] = ["MOVE", "MELEE", "FIRE", "PSI", "DEFEND", "OVERWATCH", "NEXT", "END TURN"]
+# System actions always shown; agent combat actions come from active unit's available_actions.
+const _SYSTEM_ACTIONS: Array[String] = ["NEXT", "END TURN"]
 
 # ── State ─────────────────────────────────────────────────────────────────────
 var player_units      : Array[Dictionary] = []
@@ -42,7 +43,8 @@ var _elapsed          : float  = 0.0
 var _hovered_portrait : int    = -1
 
 # ── Action buttons ────────────────────────────────────────────────────────────
-var _action_btns: Dictionary = {}   # action → Button
+var _action_btns   : Dictionary      = {}   # action name → Button
+var _visible_actions: Array[String]  = []   # current ordered display list
 
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -83,38 +85,72 @@ func update_state(
 	combat_log         = log
 	portrait_textures  = portraits
 	status_line        = s_line
+	_rebuild_agent_actions()
 	_update_button_styles()
 	queue_redraw()
 
 # ── Button management ─────────────────────────────────────────────────────────
 
 func _build_action_buttons() -> void:
-	for action: String in ACTIONS:
+	# Buttons are created lazily on first update_state — nothing to do here.
+	_reposition_buttons()
+
+func _rebuild_agent_actions() -> void:
+	# Derive the current agent's action list; fall back to a generic set.
+	var agent_actions: Array[String] = []
+	if not player_units.is_empty() and active_player_idx < player_units.size():
+		var agent := player_units[active_player_idx] as Dictionary
+		var raw: Variant = agent.get("available_actions", null)
+		if typeof(raw) == TYPE_ARRAY:
+			for a: Variant in raw as Array:
+				agent_actions.append(str(a))
+	if agent_actions.is_empty():
+		agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
+	# Always append system actions at the bottom.
+	var full: Array[String] = []
+	full.assign(agent_actions)
+	for s in _SYSTEM_ACTIONS:
+		if s not in full:
+			full.append(s)
+	_visible_actions = full
+	_ensure_action_buttons(_visible_actions)
+	# Hide buttons that are no longer in the visible list.
+	for key in _action_btns.keys():
+		(_action_btns[key] as Button).visible = key in _visible_actions
+	_reposition_buttons()
+
+func _ensure_action_buttons(actions: Array[String]) -> void:
+	for action in actions:
+		if _action_btns.has(action):
+			continue
 		var btn := Button.new()
-		btn.text        = action
-		btn.focus_mode  = Control.FOCUS_NONE
+		btn.text         = action
+		btn.focus_mode   = Control.FOCUS_NONE
 		btn.mouse_filter = Control.MOUSE_FILTER_STOP
 		btn.pressed.connect(_on_action_pressed.bind(action))
 		_style_btn(btn, false, false)
 		add_child(btn)
 		_action_btns[action] = btn
-	_reposition_buttons()
 
 func _reposition_buttons() -> void:
 	if size.x == 0.0:
 		return
 	var rp_x  := size.x - RIGHT_PANEL_W + 8.0
 	var pw    := RIGHT_PANEL_W - 16.0
-	# Distribute all buttons evenly in the space below initiative and above the strip.
 	var y0    := TOP_BAR_H + 4.0 + 186.0
 	var y_max := size.y - STRIP_H - 8.0
-	var n     := float(ACTIONS.size())
-	var step  := clampf((y_max - y0) / n, 34.0, 42.0)
+	# Only lay out currently visible buttons.
+	var visible: Array[String] = []
+	for a in _visible_actions:
+		if _action_btns.has(a) and (_action_btns[a] as Button).visible:
+			visible.append(a)
+	var n := float(visible.size())
+	if n == 0:
+		return
+	var step  := clampf((y_max - y0) / n, 28.0, 42.0)
 	var btn_h := step - 4.0
 	var by    := y0
-	for action: String in ACTIONS:
-		if not _action_btns.has(action):
-			continue
+	for action: String in visible:
 		var btn := _action_btns[action] as Button
 		btn.position = Vector2(rp_x, by)
 		btn.size     = Vector2(pw, btn_h)
@@ -140,11 +176,13 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 
 func _update_button_styles() -> void:
 	var is_player := turn_side == "player"
-	for action: String in ACTIONS:
-		if not _action_btns.has(action):
-			continue
+	for action: String in _action_btns.keys():
 		var btn := _action_btns[action] as Button
-		_style_btn(btn, action == selected_action, not is_player)
+		if not btn.visible:
+			continue
+		# System actions (NEXT, END TURN) are never "selected" — keep them neutral.
+		var is_selected := action == selected_action and action not in _SYSTEM_ACTIONS
+		_style_btn(btn, is_selected, not is_player)
 
 func _on_action_pressed(action: String) -> void:
 	CombatSignals.action_pressed.emit(action)
@@ -249,12 +287,7 @@ func _draw_portrait_strip() -> void:
 	var card_h  := STRIP_H - 12.0
 	var start_x := LEFT_MARGIN + 4.0
 
-	# Full-width background
-	var bf_w  := maxf(300.0, size.x - RIGHT_PANEL_W - LEFT_MARGIN - 10.0)
-	draw_rect(Rect2(LEFT_MARGIN - 4.0, strip_y, bf_w + 8.0, card_h + 4.0),
-			  Color(0, 0, 0, 0.88), true)
-	draw_line(Vector2(LEFT_MARGIN - 4.0, strip_y),
-			  Vector2(LEFT_MARGIN - 4.0 + bf_w + 8.0, strip_y), NEON, 2.0)
+	var bf_w := maxf(300.0, size.x - RIGHT_PANEL_W - LEFT_MARGIN - 10.0)
 
 	for i in range(player_units.size()):
 		var unit   : Dictionary = player_units[i]

@@ -82,7 +82,9 @@ func update_data(data: Dictionary) -> void:
 	queue_redraw()
 
 func _recalc_dims() -> void:
-	_card_w  = cell_size.x * 0.30
+	# Giant units carry size_scale ≈ 3.5 in their unit_data; normal units = 1.0.
+	var scale := clampf(float(unit_data.get("size_scale", 1.0)), 0.5, 5.0)
+	_card_w  = cell_size.x * 0.30 * scale
 	_card_h  = _card_w * 1.55
 	_base_rx = _card_w * 0.46
 	_sw      = _card_w * 0.5
@@ -239,10 +241,6 @@ func _draw() -> void:
 		var gw := cw * 0.14
 		draw_rect(Rect2(-cw * 0.5 - gw, -ch - gw, cw + gw * 2.0, ch + gw * 2.0),
 				  Color(rc.r, rc.g, rc.b, ga), true)
-
-	# 4 — Team-colour border around the sprite area (no opaque fill — sprite is transparent).
-	var card_rect := Rect2(-cw * 0.5, -ch, cw, ch)
-	draw_rect(card_rect, Color(rc.r, rc.g, rc.b, 0.80), false, 1.8)
 
 	# 6 — HP bar: thin coloured strip just below the card bottom, on the base.
 	var hp     := int(unit_data.get("hp",     0))

@@ -1,0 +1,646 @@
+{
+  "generated_on": "2026-06-12",
+  "asset_note": "AI-generated category sheets were chroma-keyed, cropped into individual transparent unit tokens, cleaned of tiny detached alpha debris, and exported as 512px and 64px PNG pairs.",
+  "categories": [
+    {
+      "category": "mutants",
+      "count": 20,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c5b43f8ec8191ad6598bcdfe22e3c.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "hulk",
+          "file_512": "enemy_mutant_01_hulk_512.png",
+          "file_64": "enemy_mutant_01_hulk.png"
+        },
+        {
+          "id": 2,
+          "slug": "spine_stalker",
+          "file_512": "enemy_mutant_02_spine_stalker_512.png",
+          "file_64": "enemy_mutant_02_spine_stalker.png"
+        },
+        {
+          "id": 3,
+          "slug": "acid_psychic",
+          "file_512": "enemy_mutant_03_acid_psychic_512.png",
+          "file_64": "enemy_mutant_03_acid_psychic.png"
+        },
+        {
+          "id": 4,
+          "slug": "four_arm_brawler",
+          "file_512": "enemy_mutant_04_four_arm_brawler_512.png",
+          "file_64": "enemy_mutant_04_four_arm_brawler.png"
+        },
+        {
+          "id": 5,
+          "slug": "irradiated_medic",
+          "file_512": "enemy_mutant_05_irradiated_medic_512.png",
+          "file_64": "enemy_mutant_05_irradiated_medic.png"
+        },
+        {
+          "id": 6,
+          "slug": "pit_fighter",
+          "file_512": "enemy_mutant_06_pit_fighter_512.png",
+          "file_64": "enemy_mutant_06_pit_fighter.png"
+        },
+        {
+          "id": 7,
+          "slug": "sewer_veil",
+          "file_512": "enemy_mutant_07_sewer_veil_512.png",
+          "file_64": "enemy_mutant_07_sewer_veil.png"
+        },
+        {
+          "id": 8,
+          "slug": "crystal_growth",
+          "file_512": "enemy_mutant_08_crystal_growth_512.png",
+          "file_64": "enemy_mutant_08_crystal_growth.png"
+        },
+        {
+          "id": 9,
+          "slug": "toxin_carrier",
+          "file_512": "enemy_mutant_09_toxin_carrier_512.png",
+          "file_64": "enemy_mutant_09_toxin_carrier.png"
+        },
+        {
+          "id": 10,
+          "slug": "bone_blade",
+          "file_512": "enemy_mutant_10_bone_blade_512.png",
+          "file_64": "enemy_mutant_10_bone_blade.png"
+        },
+        {
+          "id": 11,
+          "slug": "cyber_graft",
+          "file_512": "enemy_mutant_11_cyber_graft_512.png",
+          "file_64": "enemy_mutant_11_cyber_graft.png"
+        },
+        {
+          "id": 12,
+          "slug": "plague_monk",
+          "file_512": "enemy_mutant_12_plague_monk_512.png",
+          "file_64": "enemy_mutant_12_plague_monk.png"
+        },
+        {
+          "id": 13,
+          "slug": "scrap_shield",
+          "file_512": "enemy_mutant_13_scrap_shield_512.png",
+          "file_64": "enemy_mutant_13_scrap_shield.png"
+        },
+        {
+          "id": 14,
+          "slug": "crawler",
+          "file_512": "enemy_mutant_14_crawler_512.png",
+          "file_64": "enemy_mutant_14_crawler.png"
+        },
+        {
+          "id": 15,
+          "slug": "horned_warlord",
+          "file_512": "enemy_mutant_15_horned_warlord_512.png",
+          "file_64": "enemy_mutant_15_horned_warlord.png"
+        },
+        {
+          "id": 16,
+          "slug": "gasmask_scavenger",
+          "file_512": "enemy_mutant_16_gasmask_scavenger_512.png",
+          "file_64": "enemy_mutant_16_gasmask_scavenger.png"
+        },
+        {
+          "id": 17,
+          "slug": "glowing_vein",
+          "file_512": "enemy_mutant_17_glowing_vein_512.png",
+          "file_64": "enemy_mutant_17_glowing_vein.png"
+        },
+        {
+          "id": 18,
+          "slug": "blind_sonar",
+          "file_512": "enemy_mutant_18_blind_sonar_512.png",
+          "file_64": "enemy_mutant_18_blind_sonar.png"
+        },
+        {
+          "id": 19,
+          "slug": "hive_scarred",
+          "file_512": "enemy_mutant_19_hive_scarred_512.png",
+          "file_64": "enemy_mutant_19_hive_scarred.png"
+        },
+        {
+          "id": 20,
+          "slug": "rust_mangler",
+          "file_512": "enemy_mutant_20_rust_mangler_512.png",
+          "file_64": "enemy_mutant_20_rust_mangler.png"
+        }
+      ]
+    },
+    {
+      "category": "starvers",
+      "count": 20,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c5bbc54148191b824ce89e1f51c7d.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "crawler",
+          "file_512": "enemy_starver_01_crawler_512.png",
+          "file_64": "enemy_starver_01_crawler.png"
+        },
+        {
+          "id": 2,
+          "slug": "hooded_knife",
+          "file_512": "enemy_starver_02_hooded_knife_512.png",
+          "file_64": "enemy_starver_02_hooded_knife.png"
+        },
+        {
+          "id": 3,
+          "slug": "hospital_gown",
+          "file_512": "enemy_starver_03_hospital_gown_512.png",
+          "file_64": "enemy_starver_03_hospital_gown.png"
+        },
+        {
+          "id": 4,
+          "slug": "ash_burned",
+          "file_512": "enemy_starver_04_ash_burned_512.png",
+          "file_64": "enemy_starver_04_ash_burned.png"
+        },
+        {
+          "id": 5,
+          "slug": "riot_armor",
+          "file_512": "enemy_starver_05_riot_armor_512.png",
+          "file_64": "enemy_starver_05_riot_armor.png"
+        },
+        {
+          "id": 6,
+          "slug": "pack_leader",
+          "file_512": "enemy_starver_06_pack_leader_512.png",
+          "file_64": "enemy_starver_06_pack_leader.png"
+        },
+        {
+          "id": 7,
+          "slug": "gasmask",
+          "file_512": "enemy_starver_07_gasmask_512.png",
+          "file_64": "enemy_starver_07_gasmask.png"
+        },
+        {
+          "id": 8,
+          "slug": "famine_bloater",
+          "file_512": "enemy_starver_08_famine_bloater_512.png",
+          "file_64": "enemy_starver_08_famine_bloater.png"
+        },
+        {
+          "id": 9,
+          "slug": "bone_sprinter",
+          "file_512": "enemy_starver_09_bone_sprinter_512.png",
+          "file_64": "enemy_starver_09_bone_sprinter.png"
+        },
+        {
+          "id": 10,
+          "slug": "chained",
+          "file_512": "enemy_starver_10_chained_512.png",
+          "file_64": "enemy_starver_10_chained.png"
+        },
+        {
+          "id": 11,
+          "slug": "sewer_wretch",
+          "file_512": "enemy_starver_11_sewer_wretch_512.png",
+          "file_64": "enemy_starver_11_sewer_wretch.png"
+        },
+        {
+          "id": 12,
+          "slug": "pale_blind",
+          "file_512": "enemy_starver_12_pale_blind_512.png",
+          "file_64": "enemy_starver_12_pale_blind.png"
+        },
+        {
+          "id": 13,
+          "slug": "burned_welder",
+          "file_512": "enemy_starver_13_burned_welder_512.png",
+          "file_64": "enemy_starver_13_burned_welder.png"
+        },
+        {
+          "id": 14,
+          "slug": "tech_worker",
+          "file_512": "enemy_starver_14_tech_worker_512.png",
+          "file_64": "enemy_starver_14_tech_worker.png"
+        },
+        {
+          "id": 15,
+          "slug": "ruined_priest",
+          "file_512": "enemy_starver_15_ruined_priest_512.png",
+          "file_64": "enemy_starver_15_ruined_priest.png"
+        },
+        {
+          "id": 16,
+          "slug": "frostbitten",
+          "file_512": "enemy_starver_16_frostbitten_512.png",
+          "file_64": "enemy_starver_16_frostbitten.png"
+        },
+        {
+          "id": 17,
+          "slug": "split_jaw",
+          "file_512": "enemy_starver_17_split_jaw_512.png",
+          "file_64": "enemy_starver_17_split_jaw.png"
+        },
+        {
+          "id": 18,
+          "slug": "cyber_junk",
+          "file_512": "enemy_starver_18_cyber_junk_512.png",
+          "file_64": "enemy_starver_18_cyber_junk.png"
+        },
+        {
+          "id": 19,
+          "slug": "corpse_soldier",
+          "file_512": "enemy_starver_19_corpse_soldier_512.png",
+          "file_64": "enemy_starver_19_corpse_soldier.png"
+        },
+        {
+          "id": 20,
+          "slug": "long_claw",
+          "file_512": "enemy_starver_20_long_claw_512.png",
+          "file_64": "enemy_starver_20_long_claw.png"
+        }
+      ]
+    },
+    {
+      "category": "raiders",
+      "count": 20,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c5c03e9548191ba48d58d0b984cf4.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "sawblade_marauder",
+          "file_512": "enemy_raider_01_sawblade_marauder_512.png",
+          "file_64": "enemy_raider_01_sawblade_marauder.png"
+        },
+        {
+          "id": 2,
+          "slug": "tire_armor_brute",
+          "file_512": "enemy_raider_02_tire_armor_brute_512.png",
+          "file_64": "enemy_raider_02_tire_armor_brute.png"
+        },
+        {
+          "id": 3,
+          "slug": "flame_lancer",
+          "file_512": "enemy_raider_03_flame_lancer_512.png",
+          "file_64": "enemy_raider_03_flame_lancer.png"
+        },
+        {
+          "id": 4,
+          "slug": "scrap_sniper",
+          "file_512": "enemy_raider_04_scrap_sniper_512.png",
+          "file_64": "enemy_raider_04_scrap_sniper.png"
+        },
+        {
+          "id": 5,
+          "slug": "bike_scout",
+          "file_512": "enemy_raider_05_bike_scout_512.png",
+          "file_64": "enemy_raider_05_bike_scout.png"
+        },
+        {
+          "id": 6,
+          "slug": "chain_hook",
+          "file_512": "enemy_raider_06_chain_hook_512.png",
+          "file_64": "enemy_raider_06_chain_hook.png"
+        },
+        {
+          "id": 7,
+          "slug": "wasteland_medic",
+          "file_512": "enemy_raider_07_wasteland_medic_512.png",
+          "file_64": "enemy_raider_07_wasteland_medic.png"
+        },
+        {
+          "id": 8,
+          "slug": "shield_brawler",
+          "file_512": "enemy_raider_08_shield_brawler_512.png",
+          "file_64": "enemy_raider_08_shield_brawler.png"
+        },
+        {
+          "id": 9,
+          "slug": "mohawk_duelist",
+          "file_512": "enemy_raider_09_mohawk_duelist_512.png",
+          "file_64": "enemy_raider_09_mohawk_duelist.png"
+        },
+        {
+          "id": 10,
+          "slug": "dust_preacher",
+          "file_512": "enemy_raider_10_dust_preacher_512.png",
+          "file_64": "enemy_raider_10_dust_preacher.png"
+        },
+        {
+          "id": 11,
+          "slug": "drone_scavenger",
+          "file_512": "enemy_raider_11_drone_scavenger_512.png",
+          "file_64": "enemy_raider_11_drone_scavenger.png"
+        },
+        {
+          "id": 12,
+          "slug": "explosive_thrower",
+          "file_512": "enemy_raider_12_explosive_thrower_512.png",
+          "file_64": "enemy_raider_12_explosive_thrower.png"
+        },
+        {
+          "id": 13,
+          "slug": "nailgunner",
+          "file_512": "enemy_raider_13_nailgunner_512.png",
+          "file_64": "enemy_raider_13_nailgunner.png"
+        },
+        {
+          "id": 14,
+          "slug": "armored_queen",
+          "file_512": "enemy_raider_14_armored_queen_512.png",
+          "file_64": "enemy_raider_14_armored_queen.png"
+        },
+        {
+          "id": 15,
+          "slug": "skull_helm_heavy",
+          "file_512": "enemy_raider_15_skull_helm_heavy_512.png",
+          "file_64": "enemy_raider_15_skull_helm_heavy.png"
+        },
+        {
+          "id": 16,
+          "slug": "harpoon_gunner",
+          "file_512": "enemy_raider_16_harpoon_gunner_512.png",
+          "file_64": "enemy_raider_16_harpoon_gunner.png"
+        },
+        {
+          "id": 17,
+          "slug": "cyber_jaw",
+          "file_512": "enemy_raider_17_cyber_jaw_512.png",
+          "file_64": "enemy_raider_17_cyber_jaw.png"
+        },
+        {
+          "id": 18,
+          "slug": "banner_carrier",
+          "file_512": "enemy_raider_18_banner_carrier_512.png",
+          "file_64": "enemy_raider_18_banner_carrier.png"
+        },
+        {
+          "id": 19,
+          "slug": "oil_mechanic",
+          "file_512": "enemy_raider_19_oil_mechanic_512.png",
+          "file_64": "enemy_raider_19_oil_mechanic.png"
+        },
+        {
+          "id": 20,
+          "slug": "twin_axe",
+          "file_512": "enemy_raider_20_twin_axe_512.png",
+          "file_64": "enemy_raider_20_twin_axe.png"
+        }
+      ]
+    },
+    {
+      "category": "mutant_animals",
+      "count": 20,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c5c499df08191994c2fd092c5979c.png",
+      "chroma_key": "#ff00ff",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "sewer_boar",
+          "file_512": "enemy_mutant_animal_01_sewer_boar_512.png",
+          "file_64": "enemy_mutant_animal_01_sewer_boar.png"
+        },
+        {
+          "id": 2,
+          "slug": "two_head_hound",
+          "file_512": "enemy_mutant_animal_02_two_head_hound_512.png",
+          "file_64": "enemy_mutant_animal_02_two_head_hound.png"
+        },
+        {
+          "id": 3,
+          "slug": "rat_king",
+          "file_512": "enemy_mutant_animal_03_rat_king_512.png",
+          "file_64": "enemy_mutant_animal_03_rat_king.png"
+        },
+        {
+          "id": 4,
+          "slug": "rad_stag",
+          "file_512": "enemy_mutant_animal_04_rad_stag_512.png",
+          "file_64": "enemy_mutant_animal_04_rad_stag.png"
+        },
+        {
+          "id": 5,
+          "slug": "six_leg_wolf",
+          "file_512": "enemy_mutant_animal_05_six_leg_wolf_512.png",
+          "file_64": "enemy_mutant_animal_05_six_leg_wolf.png"
+        },
+        {
+          "id": 6,
+          "slug": "plated_crocodile",
+          "file_512": "enemy_mutant_animal_06_plated_crocodile_512.png",
+          "file_64": "enemy_mutant_animal_06_plated_crocodile.png"
+        },
+        {
+          "id": 7,
+          "slug": "vulture_raptor",
+          "file_512": "enemy_mutant_animal_07_vulture_raptor_512.png",
+          "file_64": "enemy_mutant_animal_07_vulture_raptor.png"
+        },
+        {
+          "id": 8,
+          "slug": "mole_brute",
+          "file_512": "enemy_mutant_animal_08_mole_brute_512.png",
+          "file_64": "enemy_mutant_animal_08_mole_brute.png"
+        },
+        {
+          "id": 9,
+          "slug": "horned_bear",
+          "file_512": "enemy_mutant_animal_09_horned_bear_512.png",
+          "file_64": "enemy_mutant_animal_09_horned_bear.png"
+        },
+        {
+          "id": 10,
+          "slug": "acid_lizard",
+          "file_512": "enemy_mutant_animal_10_acid_lizard_512.png",
+          "file_64": "enemy_mutant_animal_10_acid_lizard.png"
+        },
+        {
+          "id": 11,
+          "slug": "cyber_hyena",
+          "file_512": "enemy_mutant_animal_11_cyber_hyena_512.png",
+          "file_64": "enemy_mutant_animal_11_cyber_hyena.png"
+        },
+        {
+          "id": 12,
+          "slug": "bone_panther",
+          "file_512": "enemy_mutant_animal_12_bone_panther_512.png",
+          "file_64": "enemy_mutant_animal_12_bone_panther.png"
+        },
+        {
+          "id": 13,
+          "slug": "mutant_elk",
+          "file_512": "enemy_mutant_animal_13_mutant_elk_512.png",
+          "file_64": "enemy_mutant_animal_13_mutant_elk.png"
+        },
+        {
+          "id": 14,
+          "slug": "scarab_dog",
+          "file_512": "enemy_mutant_animal_14_scarab_dog_512.png",
+          "file_64": "enemy_mutant_animal_14_scarab_dog.png"
+        },
+        {
+          "id": 15,
+          "slug": "cave_gorilla",
+          "file_512": "enemy_mutant_animal_15_cave_gorilla_512.png",
+          "file_64": "enemy_mutant_animal_15_cave_gorilla.png"
+        },
+        {
+          "id": 16,
+          "slug": "quillback_beast",
+          "file_512": "enemy_mutant_animal_16_quillback_beast_512.png",
+          "file_64": "enemy_mutant_animal_16_quillback_beast.png"
+        },
+        {
+          "id": 17,
+          "slug": "scrap_turtle",
+          "file_512": "enemy_mutant_animal_17_scrap_turtle_512.png",
+          "file_64": "enemy_mutant_animal_17_scrap_turtle.png"
+        },
+        {
+          "id": 18,
+          "slug": "irradiated_cougar",
+          "file_512": "enemy_mutant_animal_18_irradiated_cougar_512.png",
+          "file_64": "enemy_mutant_animal_18_irradiated_cougar.png"
+        },
+        {
+          "id": 19,
+          "slug": "mandible_horse",
+          "file_512": "enemy_mutant_animal_19_mandible_horse_512.png",
+          "file_64": "enemy_mutant_animal_19_mandible_horse.png"
+        },
+        {
+          "id": 20,
+          "slug": "bat_wing_dog",
+          "file_512": "enemy_mutant_animal_20_bat_wing_dog_512.png",
+          "file_64": "enemy_mutant_animal_20_bat_wing_dog.png"
+        }
+      ]
+    },
+    {
+      "category": "giant_combat_robots",
+      "count": 20,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c5c8b7fd08191a15a3edc12c41c06.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "assault_mech",
+          "file_512": "enemy_giant_robot_01_assault_mech_512.png",
+          "file_64": "enemy_giant_robot_01_assault_mech.png"
+        },
+        {
+          "id": 2,
+          "slug": "quadruped_siege",
+          "file_512": "enemy_giant_robot_02_quadruped_siege_512.png",
+          "file_64": "enemy_giant_robot_02_quadruped_siege.png"
+        },
+        {
+          "id": 3,
+          "slug": "missile_artillery",
+          "file_512": "enemy_giant_robot_03_missile_artillery_512.png",
+          "file_64": "enemy_giant_robot_03_missile_artillery.png"
+        },
+        {
+          "id": 4,
+          "slug": "riot_walker",
+          "file_512": "enemy_giant_robot_04_riot_walker_512.png",
+          "file_64": "enemy_giant_robot_04_riot_walker.png"
+        },
+        {
+          "id": 5,
+          "slug": "railgun_sniper",
+          "file_512": "enemy_giant_robot_05_railgun_sniper_512.png",
+          "file_64": "enemy_giant_robot_05_railgun_sniper.png"
+        },
+        {
+          "id": 6,
+          "slug": "flame_unit",
+          "file_512": "enemy_giant_robot_06_flame_unit_512.png",
+          "file_64": "enemy_giant_robot_06_flame_unit.png"
+        },
+        {
+          "id": 7,
+          "slug": "drone_carrier",
+          "file_512": "enemy_giant_robot_07_drone_carrier_512.png",
+          "file_64": "enemy_giant_robot_07_drone_carrier.png"
+        },
+        {
+          "id": 8,
+          "slug": "claw_demolisher",
+          "file_512": "enemy_giant_robot_08_claw_demolisher_512.png",
+          "file_64": "enemy_giant_robot_08_claw_demolisher.png"
+        },
+        {
+          "id": 9,
+          "slug": "spider_tank",
+          "file_512": "enemy_giant_robot_09_spider_tank_512.png",
+          "file_64": "enemy_giant_robot_09_spider_tank.png"
+        },
+        {
+          "id": 10,
+          "slug": "pacification_titan",
+          "file_512": "enemy_giant_robot_10_pacification_titan_512.png",
+          "file_64": "enemy_giant_robot_10_pacification_titan.png"
+        },
+        {
+          "id": 11,
+          "slug": "samurai_warbot",
+          "file_512": "enemy_giant_robot_11_samurai_warbot_512.png",
+          "file_64": "enemy_giant_robot_11_samurai_warbot.png"
+        },
+        {
+          "id": 12,
+          "slug": "corp_security",
+          "file_512": "enemy_giant_robot_12_corp_security_512.png",
+          "file_64": "enemy_giant_robot_12_corp_security.png"
+        },
+        {
+          "id": 13,
+          "slug": "salvage_warbot",
+          "file_512": "enemy_giant_robot_13_salvage_warbot_512.png",
+          "file_64": "enemy_giant_robot_13_salvage_warbot.png"
+        },
+        {
+          "id": 14,
+          "slug": "killer_medic",
+          "file_512": "enemy_giant_robot_14_killer_medic_512.png",
+          "file_64": "enemy_giant_robot_14_killer_medic.png"
+        },
+        {
+          "id": 15,
+          "slug": "stealth_mech",
+          "file_512": "enemy_giant_robot_15_stealth_mech_512.png",
+          "file_64": "enemy_giant_robot_15_stealth_mech.png"
+        },
+        {
+          "id": 16,
+          "slug": "twin_cannon",
+          "file_512": "enemy_giant_robot_16_twin_cannon_512.png",
+          "file_64": "enemy_giant_robot_16_twin_cannon.png"
+        },
+        {
+          "id": 17,
+          "slug": "blade_hunter",
+          "file_512": "enemy_giant_robot_17_blade_hunter_512.png",
+          "file_64": "enemy_giant_robot_17_blade_hunter.png"
+        },
+        {
+          "id": 18,
+          "slug": "anti_air",
+          "file_512": "enemy_giant_robot_18_anti_air_512.png",
+          "file_64": "enemy_giant_robot_18_anti_air.png"
+        },
+        {
+          "id": 19,
+          "slug": "mining_combat",
+          "file_512": "enemy_giant_robot_19_mining_combat_512.png",
+          "file_64": "enemy_giant_robot_19_mining_combat.png"
+        },
+        {
+          "id": 20,
+          "slug": "command_titan",
+          "file_512": "enemy_giant_robot_20_command_titan_512.png",
+          "file_64": "enemy_giant_robot_20_command_titan.png"
+        }
+      ]
+    }
+  ]
+}
