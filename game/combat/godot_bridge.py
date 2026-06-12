@@ -23,6 +23,8 @@ from game.ui.portraits import portrait_path_for_character
 
 GODOT_COMBAT_PROJECT_DIR = Path("godot/combat_missions_ui")
 DEFAULT_HANDOFF_PATH = Path("runtime/godot_combat/mission_handoff.json")
+RESULT_JSON_PATH = Path("runtime/godot_combat/mission_result.json")
+GODOT_AUDIO_DIR = Path("godot/combat_missions_ui/audio")
 GODOT_SCHEMA_VERSION = 1
 
 
@@ -34,11 +36,20 @@ class GodotCombatLaunchResult:
     command: list[str]
     launched: bool
     message: str
+    combat_result: dict[str, Any] | None = None
+    process_pid: int | None = None
 
     @property
     def ready_for_godot(self) -> bool:
         """Return whether the handoff payload and command are available."""
         return bool(self.command)
+
+    @property
+    def outcome(self) -> str:
+        """Shortcut for the mission outcome string ('victory', 'defeat', 'retreat')."""
+        if self.combat_result is None:
+            return "unknown"
+        return str(self.combat_result.get("outcome", "unknown"))
 
 
 def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
@@ -96,6 +107,39 @@ def _asset_payload(asset) -> dict[str, Any]:
     }
 
 
+def copy_audio_assets() -> None:
+    """Copy WAV files from assets/audio/ into the Godot project's audio/ directory.
+
+    Godot loads audio as ``res://audio/*.wav``.  This copies both sfx and music
+    sub-folders.  Missing source directories are silently skipped.
+    """
+    src_root = Path("assets/audio")
+    if not src_root.is_dir():
+        return
+    GODOT_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+    for wav in src_root.rglob("*.wav"):
+        dest = GODOT_AUDIO_DIR / wav.name
+        if not dest.exists() or dest.stat().st_mtime < wav.stat().st_mtime:
+            shutil.copy2(wav, dest)
+
+
+def read_godot_combat_result(
+    result_path: Path | str = RESULT_JSON_PATH,
+) -> dict[str, Any] | None:
+    """Read and return the mission result JSON written by Godot's MissionResults node.
+
+    Returns ``None`` if the file does not exist or is malformed.
+    """
+    path = Path(result_path)
+    if not path.exists():
+        return None
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else None
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def build_godot_combat_payload(
     game_state: GameState,
     mission: MissionTemplate,
@@ -113,6 +157,9 @@ def build_godot_combat_payload(
         "schema_version": GODOT_SCHEMA_VERSION,
         "source": "CyberCity2085",
         "ui_engine": "godot",
+        # Absolute path to the CyberCity2085 project root so Godot can locate
+        # assets/units/, assets/maps/, etc. regardless of its working directory.
+        "asset_base_dir": str(Path.cwd().resolve()),
         "campaign": {
             "corp_name": game_state.corp_name,
             "city_name": game_state.city_name,
@@ -203,9 +250,23 @@ def launch_godot_combat_ui(
     *,
     handoff_path: Path | str = DEFAULT_HANDOFF_PATH,
     start_process: bool = True,
+    wait: bool = False,
     executable: str | None = None,
 ) -> GodotCombatLaunchResult:
-    """Prepare the Godot handoff and optionally start Godot in a separate process."""
+    """Prepare the Godot handoff and optionally start Godot in a separate process.
+
+    Args:
+        wait: When True, block until Godot exits and read the result JSON.
+              Arcade's event loop will be frozen for the duration — this is
+              intentional since the player is inside the Godot combat window.
+    """
+    # Remove stale result so we don't accidentally read a previous mission's data.
+    result_path = Path("runtime/godot_combat/mission_result.json")
+    if result_path.exists():
+        result_path.unlink(missing_ok=True)
+
+    copy_audio_assets()
+
     path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
     command = build_godot_combat_command(path, executable=executable)
     if not command:
@@ -220,9 +281,17 @@ def launch_godot_combat_ui(
             path, command, False, "Godot combat UI command prepared."
         )
     try:
-        subprocess.Popen(command)
+        if wait:
+            subprocess.run(command, check=False)
+            combat_result = read_godot_combat_result(result_path)
+            return GodotCombatLaunchResult(
+                path, command, True, "Godot combat UI completed.", combat_result
+            )
+        proc = subprocess.Popen(command)
     except OSError as exc:
         return GodotCombatLaunchResult(
             path, command, False, f"Godot launch failed: {exc}"
         )
-    return GodotCombatLaunchResult(path, command, True, "Godot combat UI launched.")
+    return GodotCombatLaunchResult(
+        path, command, True, "Godot combat UI launched.", process_pid=proc.pid
+    )
