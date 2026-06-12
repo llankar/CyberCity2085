@@ -180,7 +180,7 @@ class TitleView(arcade.View):
         pulse = 0.6 + 0.4 * math.sin(self._elapsed * 1.8)
         g_alpha = int(28 + 18 * pulse)
         arcade.draw_lrbt_rectangle_filled(
-            cx - 500, cx + 500, cy - 12, cy + 76, (247, 171, 69, g_alpha)
+            cx - 500, cx + 500, cy - 46, cy + 76, (247, 171, 69, g_alpha)
         )
 
         # Main title
@@ -193,10 +193,10 @@ class TitleView(arcade.View):
             anchor_x="center", anchor_y="center",
         )
 
-        # Subtitle
+        # Subtitle — placed 42px below title centre to clear the 64px descenders
         arcade.draw_text(
             "COVERT OPERATIONS COMMAND",
-            cx, cy - 12,
+            cx, cy - 36,
             MUTED_TEXT,
             font_size=14,
             anchor_x="center", anchor_y="center",

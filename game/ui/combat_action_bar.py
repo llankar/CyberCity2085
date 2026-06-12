@@ -118,7 +118,7 @@ def draw_combat_action_bar(
             arcade.draw_text(
                 action.hotkey,
                 rect.center_x,
-                rect.bottom + 12,
+                rect.bottom + 8,
                 palette.WARNING,
                 8,
                 anchor_x="center",
