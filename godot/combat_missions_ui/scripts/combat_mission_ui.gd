@@ -16,6 +16,23 @@ const ROLE_PSI     := Color(0.76, 0.56, 1.0,  1.0)
 const ROLE_SAMURAI := Color(0.28, 1.0,  0.74, 1.0)
 
 const ACTIONS: Array[String] = ["MOVE", "MELEE", "FIRE", "PSI", "DEFEND", "OVERWATCH", "END TURN"]
+
+# Named action → mechanics. Covers every action name that can appear in
+# a squad member's available_actions list from the handoff JSON.
+const _ACTION_DEFS: Dictionary = {
+	"Move":          {"type": "MOVE",     "range": 0, "damage": 0, "heal": 0, "ap": 0},
+	"Defend":        {"type": "DEFEND",   "range": 0, "damage": 0, "heal": 0, "ap": 1},
+	"Overwatch":     {"type": "OVERWATCH","range": 0, "damage": 0, "heal": 0, "ap": 1},
+	"Pistol Shot":   {"type": "FIRE",     "range": 3, "damage": 3, "heal": 0, "ap": 1},
+	"Rifle Burst":   {"type": "FIRE",     "range": 6, "damage": 5, "heal": 0, "ap": 1},
+	"Plasma Burst":  {"type": "FIRE",     "range": 5, "damage": 8, "heal": 0, "ap": 2},
+	"Katana Slash":  {"type": "MELEE",    "range": 1, "damage": 7, "heal": 0, "ap": 1},
+	"Blade Strike":  {"type": "MELEE",    "range": 1, "damage": 5, "heal": 0, "ap": 1},
+	"Servo Punch":   {"type": "MELEE",    "range": 1, "damage": 9, "heal": 0, "ap": 1},
+	"Psi Focus":     {"type": "PSI_HEAL", "range": 0, "damage": 0, "heal": 0, "ap": 1, "stress_relief": 25},
+	"Trauma Patch":  {"type": "HEAL",     "range": 0, "damage": 0, "heal": 12,"ap": 1},
+	"Missile Salvo": {"type": "FIRE_AOE", "range": 8, "damage": 6, "heal": 0, "ap": 2, "aoe_radius": 2},
+}
 const GRID_COLS := 40
 const GRID_ROWS := 28
 const TOP_BAR_H    : float = 44.0
@@ -30,6 +47,7 @@ const _BNRScript = preload("res://scripts/phase_banner.gd")
 const _AUDScript = preload("res://scripts/audio_manager.gd")
 const _RESScript = preload("res://scripts/mission_results.gd")
 const _TOKScript = preload("res://scripts/unit_token.gd")
+const _ENCScript = preload("res://scripts/encounter_generator.gd")
 
 # ─── Component refs (untyped to avoid class-name scope errors) ────────────────
 var _battlefield                 = null   # Battlefield
@@ -66,9 +84,12 @@ var enemy_turn_duration: float = 0.9
 var combat_log    : Array[String] = []
 var deploy_rect   : Rect2 = Rect2()
 var battlefield_rect: Rect2 = Rect2()
-var objective_cell  : Vector2i = Vector2i(20, 14)
+var objective           : Dictionary = {}   # cell, type, label, action_key, …
+var objective_progress  : int        = 0
+var objective_completed : bool       = false
 var player_units    : Array[Dictionary] = []
 var enemy_units     : Array[Dictionary] = []
+var vehicle_units   : Array[Dictionary] = []   # decorative only; not in combat
 var initiative_entries: Array[Dictionary] = []
 var overwatch_indices: Array[int] = []
 var defend_indices   : Array[int] = []
@@ -212,18 +233,34 @@ func _sync_display() -> void:
 	if battle_ended: return
 	_refresh_initiative()
 
+	# Objective proximity hint — overrides status line when actionable.
+	if turn_side == "player" and not objective.is_empty() \
+			and objective.get("needs_marker", false) and not objective_completed:
+		var active := _current_active_player()
+		if not active.is_empty() and int(active.get("ap", 0)) > 0:
+			var apos     := _cell_position(active)
+			var obj_cell := objective["cell"] as Vector2i
+			var dist     := absi(obj_cell.x - apos.x) + absi(obj_cell.y - apos.y)
+			var needed   := int(objective.get("progress_needed", 1))
+			if dist <= int(objective.get("interact_range", 2)):
+				status_line = "[%s] click objective to %s (%d/%d)" % [
+					str(active.get("name", "Agent")),
+					str(objective.get("label", "interact")),
+					objective_progress, needed]
+
 	# Battlefield range highlights
 	if turn_side == "player":
 		var active := _current_active_player()
 		if not active.is_empty():
 			var origin := _cell_position(active)
-			if selected_action == "MOVE":
+			var atype  := _action_type(selected_action)
+			if atype == "MOVE":
 				var budget := maxi(1, int(active.get("ap", 2)))
 				_battlefield.show_move_range(_battlefield.reachable_cells(origin, budget), origin)
-			elif selected_action in ["FIRE", "MELEE", "PSI"]:
-				var rng := 3
-				if selected_action == "MELEE": rng = 1
-				elif selected_action == "PSI":  rng = 5
+			elif atype in ["FIRE", "MELEE", "FIRE_AOE"]:
+				var rng := _action_range(selected_action)
+				if rng == 0:
+					rng = _role_attack_range(str(active.get("role", "")), selected_action)
 				_battlefield.show_attack_range(_battlefield.reachable_cells(origin, rng))
 			else:
 				_battlefield.clear_highlights()
@@ -285,6 +322,10 @@ func _resize_tokens() -> void:
 		var k := "e%d" % j
 		if _unit_tokens.has(k) and is_instance_valid(_unit_tokens[k]):
 			_unit_tokens[k].position = _battlefield.cell_to_world(_cell_position(enemy_units[j]))
+	for vi in range(vehicle_units.size()):
+		var k := "v%d" % vi
+		if _unit_tokens.has(k) and is_instance_valid(_unit_tokens[k]):
+			_unit_tokens[k].position = _battlefield.cell_to_world(_cell_position(vehicle_units[vi]))
 
 func _spawn_all_tokens() -> void:
 	# Destroy old tokens first
@@ -303,8 +344,8 @@ func _spawn_all_tokens() -> void:
 
 	for i in range(player_units.size()):
 		var u    := player_units[i] as Dictionary
-		var role := str(u.get("role", "samurai")).to_lower()
-		var tex  := unit_textures.get("agent_%s" % role, null) as Texture2D
+		var tkey := _unit_texture_key(u, false)
+		var tex  := unit_textures.get(tkey, null) as Texture2D
 		var tok  = _TOKScript.new()
 		tok.name = "Player%d" % i
 		_units_layer.add_child(tok)
@@ -324,6 +365,20 @@ func _spawn_all_tokens() -> void:
 		var wp1 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
 		tok.position = wp1
 		_unit_tokens["e%d" % j] = tok
+
+	# Decorative vehicle tokens — use id ≥ 1000 so click handler ignores them.
+	for vi in range(vehicle_units.size()):
+		var v    := vehicle_units[vi] as Dictionary
+		var vkey := str(v.get("vehicle_key", "vehicle_agent_vtol"))
+		var tex  := unit_textures.get(vkey, null) as Texture2D
+		var is_ev := str(v.get("kind", "player")) == "enemy"
+		var tok  = _TOKScript.new()
+		tok.name = "Vehicle%d" % vi
+		_units_layer.add_child(tok)
+		# id ≥ 1000 signals "vehicle" to _on_unit_clicked so it is silently ignored.
+		tok.setup(v, 1000 + vi, is_ev, tex, cell_size)
+		tok.position = _battlefield.cell_to_world(_cell_position(v))
+		_unit_tokens["v%d" % vi] = tok
 
 # ─── Handoff & assets ─────────────────────────────────────────────────────────
 
@@ -348,11 +403,11 @@ func _load_handoff() -> void:
 		project_root = base_from_json
 	else:
 		project_root = handoff_path.get_base_dir().get_base_dir().get_base_dir()
-	status_line = "Loaded %s" % handoff_path
+	status_line = ""
 
 func _load_unit_textures() -> void:
 	unit_textures = {}
-	# Prefer 512×512 hi-res sprites for crisp circular portrait tokens.
+	# Prefer 512×512 hi-res sprites; fall back to standard resolution.
 	var base: Dictionary = {
 		"agent_samurai":   "assets/units/agent_samurai_512.png",
 		"agent_sniper":    "assets/units/agent_sniper_512.png",
@@ -361,21 +416,67 @@ func _load_unit_textures() -> void:
 		"enemy_heavy":     "assets/units/enemy_heavy_512.png",
 		"enemy_elite":     "assets/units/enemy_elite_512.png",
 		"enemy_commander": "assets/units/enemy_commander_512.png",
-		"enemy_sniper":    "assets/units/enemy_grunt_512.png",
+		# sniper and psi fall back to elite when no themed override is found
+		"enemy_sniper":    "assets/units/enemy_elite_512.png",
+		"enemy_psi":       "assets/units/enemy_elite_512.png",
 	}
 	for key: String in base:
-		# Try hi-res first; fall back to standard resolution.
 		_try_load_tex(key, str(base[key]))
 		if not unit_textures.has(key):
 			_try_load_tex(key, str(base[key]).replace("_512.png", ".png"))
+
 	var theme := str(_mission_data().get("enemy_theme", "")).to_lower().replace(" ", "_")
-	if theme != "" and theme != "generic":
-		for sub: String in ["grunt", "heavy", "elite", "commander"]:
+	if theme == "" or theme == "generic":
+		return
+
+	# Standard subtypes — themed sprites exist for all factions.
+	for sub: String in ["grunt", "heavy", "elite", "commander"]:
+		_try_load_tex("enemy_%s_%s" % [theme, sub],
+					  "assets/units/enemy_%s_%s_512.png" % [theme, sub])
+		if not unit_textures.has("enemy_%s_%s" % [theme, sub]):
 			_try_load_tex("enemy_%s_%s" % [theme, sub],
-						  "assets/units/enemy_%s_%s_512.png" % [theme, sub])
-			if not unit_textures.has("enemy_%s_%s" % [theme, sub]):
-				_try_load_tex("enemy_%s_%s" % [theme, sub],
-							  "assets/units/enemy_%s_%s.png" % [theme, sub])
+						  "assets/units/enemy_%s_%s.png" % [theme, sub])
+
+	# Sniper variant — named sprites where available, else reuse elite.
+	var sniper_sprite: Dictionary = {
+		"raider":       "assets/units/enemy_raider_04_scrap_sniper.png",
+		"mutant":       "assets/units/enemy_mutant_02_spine_stalker.png",
+		"starver":      "assets/units/enemy_starver_elite_512.png",
+		"corp_37":      "assets/units/enemy_corp_37_elite_512.png",
+		"corp_samurai": "assets/units/enemy_corp_samurai_elite_512.png",
+	}
+	if sniper_sprite.has(theme):
+		_try_load_tex("enemy_%s_sniper" % theme, str(sniper_sprite[theme]))
+	if not unit_textures.has("enemy_%s_sniper" % theme):
+		var elite_key := "enemy_%s_elite" % theme
+		if unit_textures.has(elite_key):
+			unit_textures["enemy_%s_sniper" % theme] = unit_textures[elite_key]
+
+	# Psi variant — named sprites where available, else reuse elite.
+	var psi_sprite: Dictionary = {
+		"mutant":       "assets/units/enemy_mutant_03_acid_psychic.png",
+		"raider":       "assets/units/enemy_raider_10_dust_preacher.png",
+		"starver":      "assets/units/enemy_starver_07_gasmask.png",
+		"corp_37":      "assets/units/enemy_corp_37_robot_support.png",
+		"corp_samurai": "assets/units/enemy_corp_samurai_robot_support.png",
+	}
+	if psi_sprite.has(theme):
+		_try_load_tex("enemy_%s_psi" % theme, str(psi_sprite[theme]))
+	if not unit_textures.has("enemy_%s_psi" % theme):
+		var elite_key := "enemy_%s_elite" % theme
+		if unit_textures.has(elite_key):
+			unit_textures["enemy_%s_psi" % theme] = unit_textures[elite_key]
+
+	# Vehicle textures — agent VTOL + faction-specific enemy ground vehicles.
+	# Mechs and drones are NOT vehicles and are not loaded here.
+	var vehicle_map: Dictionary = {
+		"vehicle_agent_vtol":       "assets/units/vehicle_aerial_military_01_vtol_gunship_512.png",
+		"vehicle_enemy_corp_37":    "assets/units/vehicle_terrestrial_military_03_apc_512.png",
+		"vehicle_enemy_corp_samurai": "assets/units/vehicle_terrestrial_military_01_battle_tank_512.png",
+		"vehicle_enemy_raider":     "assets/units/vehicle_terrestrial_civil_07_cargo_hauler_512.png",
+	}
+	for vk: String in vehicle_map:
+		_try_load_tex(vk, str(vehicle_map[vk]))
 
 func _asset_path(rel: String) -> String:
 	if rel.begins_with("/") or (rel.length() > 1 and rel[1] == ":"):
@@ -400,14 +501,25 @@ func _try_load_tex(key: String, path: String) -> void:
 
 func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 	if not is_enemy:
-		return "agent_%s" % str(unit.get("role", "samurai")).to_lower()
+		var role := str(unit.get("role", "samurai")).to_lower()
+		# Prefer role-specific sprite; fall back through known keys to samurai.
+		for candidate: String in ["agent_%s" % role, "agent_sniper", "agent_psi", "agent_samurai"]:
+			if unit_textures.has(candidate):
+				return candidate
+		return "agent_samurai"
 	var theme := str(unit.get("enemy_theme", "")).to_lower().replace(" ", "_")
 	var sub   := str(unit.get("enemy_subtype", "grunt")).to_lower()
+	# Themed key first (covers all subtypes including sniper/psi loaded above).
 	if theme != "" and theme != "generic":
 		var themed := "enemy_%s_%s" % [theme, sub]
 		if unit_textures.has(themed):
 			return themed
-	return "enemy_%s" % sub
+	# Generic fallback (enemy_grunt / enemy_heavy / enemy_elite /
+	# enemy_commander / enemy_sniper / enemy_psi).
+	var generic := "enemy_%s" % sub
+	if unit_textures.has(generic):
+		return generic
+	return "enemy_grunt"
 
 func _load_map_and_portraits() -> void:
 	var map_path := str(_map_data().get("path", ""))
@@ -524,7 +636,7 @@ func _gui_input(event: InputEvent) -> void:
 					_start_combat("ENTER")
 				elif pending_end_turn_confirmation:
 					_end_player_turn()
-				elif selected_action in ["FIRE", "MELEE", "PSI"]:
+				elif _action_type(selected_action) in ["FIRE", "MELEE", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
 					_resolve_selected_attack()
 				accept_event()
 
@@ -598,27 +710,53 @@ func _on_action_pressed(action: String) -> void:
 func _on_cell_clicked(cell: Vector2i) -> void:
 	if not battle_started or turn_side != "player":
 		return
-	if selected_action == "MOVE":
+
+	# Objective interaction: clicking the objective cell when the active player
+	# is within interact_range and has AP triggers the mission-specific action.
+	if not objective.is_empty() and objective.get("needs_marker", false) \
+			and not objective_completed:
+		var obj_cell := objective["cell"] as Vector2i
+		if cell == obj_cell:
+			var active := _current_active_player()
+			if not active.is_empty() and int(active.get("ap", 0)) > 0:
+				var apos := _cell_position(active)
+				var dist := absi(cell.x - apos.x) + absi(cell.y - apos.y)
+				if dist <= int(objective.get("interact_range", 2)):
+					_interact_with_objective()
+					return
+
+	var atype := _action_type(selected_action)
+	if atype == "MOVE":
 		_move_active_unit_to(cell)
-	elif selected_action in ["FIRE", "MELEE", "PSI"]:
+	elif atype in ["FIRE", "MELEE"]:
 		var ti := _enemy_at_cell(cell)
 		if ti >= 0:
 			selected_target_index = ti
 			_attack_enemy(ti, selected_action)
-		elif selected_action == "PSI":
-			_apply_psi_pulse()
 		else:
 			_resolve_selected_attack()
-	elif selected_action in ["DEFEND", "OVERWATCH"]:
+	elif atype == "FIRE_AOE":
+		_apply_missile_salvo(cell)
+	elif atype == "PSI_HEAL":
+		_apply_psi_focus()
+	elif atype == "HEAL":
+		_apply_trauma_patch()
+	elif atype in ["DEFEND", "OVERWATCH"]:
 		_execute_action(selected_action)
 
 func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 	if not battle_started or turn_side != "player":
 		return
+	if unit_id >= 1000:
+		return   # vehicle token — decorative, not a combat target
 	if is_enemy:
-		if selected_action in ["FIRE", "MELEE", "PSI"]:
+		var atype := _action_type(selected_action)
+		if atype in ["FIRE", "MELEE"]:
 			selected_target_index = unit_id
 			_attack_enemy(unit_id, selected_action)
+		elif atype == "FIRE_AOE":
+			if unit_id >= 0 and unit_id < enemy_units.size():
+				_apply_missile_salvo(_cell_position(enemy_units[unit_id]))
 	else:
 		if unit_id >= 0 and unit_id < player_units.size() \
 				and int(player_units[unit_id].get("hp", 0)) > 0:
@@ -626,6 +764,39 @@ func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 			status_line = "Active: %s" % str(player_units[unit_id].get("name", "Agent"))
 			_refresh_initiative()
 			_sync_display()
+
+func _interact_with_objective() -> void:
+	var active := _current_active_player()
+	if active.is_empty(): return
+	var ap := int(active.get("ap", 0))
+	if ap <= 0: return
+
+	var label      := str(objective.get("label",           "Interact"))
+	var needed     := int(objective.get("progress_needed", 1))
+	var action_key := str(objective.get("action_key",      ""))
+
+	# Spend 1 AP per interaction tick.
+	active["ap"] = ap - 1
+	player_units[active_player_index] = active
+	objective_progress += 1
+
+	if objective_progress >= needed:
+		objective_completed = true
+		var line := "%s: %s — OBJECTIVE COMPLETE!" % [
+				str(active.get("name", "Agent")), label]
+		status_line = line
+		_log_event(line)
+		CombatSignals.audio_event.emit("ui_click")
+		_sync_display()
+		_complete_mission()
+	else:
+		var line := "%s: %s (%d/%d)" % [
+				str(active.get("name", "Agent")), label,
+				objective_progress, needed]
+		status_line = line
+		_log_event(line)
+		CombatSignals.audio_event.emit("ui_click")
+		_sync_display()
 
 func _cycle_active_unit() -> void:
 	var count := player_units.size()
@@ -661,9 +832,20 @@ func _auto_advance_unit() -> void:
 
 func _seed_combat_state() -> void:
 	player_units        = _build_player_units()
-	enemy_units         = _build_enemy_units()
 	cover_nodes         = _build_cover_nodes()
-	objective_cell      = Vector2i(20, 14)
+	var enc             := _ENCScript.new()
+	var enc_result      := enc.generate(handoff, GRID_COLS, GRID_ROWS)
+	enemy_units         = enc_result["enemy_units"] as Array[Dictionary]
+	objective           = enc_result["objective"]   as Dictionary
+	# Extract decorative vehicle tokens (giant vehicles are already in enemy_units).
+	vehicle_units = []
+	var vehicles := enc_result.get("vehicles", {}) as Dictionary
+	for vk: String in ["agent_vehicle", "enemy_vehicle"]:
+		var vd := vehicles.get(vk, {}) as Dictionary
+		if not vd.is_empty():
+			vehicle_units.append(vd)
+	objective_progress  = 0
+	objective_completed = false
 	combat_log          = []
 	selected_action     = "MOVE"
 	pending_end_turn_confirmation = false
@@ -698,7 +880,8 @@ func _start_combat(source: String) -> void:
 	_layout_combat_hud()
 	# Pass 2× the viewport size so the battlefield grid is twice as large.
 	# Camera2D starts at zoom=0.5 (fit-to-screen) and can zoom in/out.
-	_battlefield.configure(size * 4.0, map_texture, cover_nodes, objective_cell)
+	var obj_cell := objective.get("cell", Vector2i(GRID_COLS / 2, GRID_ROWS / 2)) as Vector2i
+	_battlefield.configure(size * 4.0, map_texture, cover_nodes, obj_cell)
 
 	_hud_layer.visible = true
 	# Force HUD to fill the viewport — Controls inside a CanvasLayer don't
@@ -744,7 +927,8 @@ func _execute_action(action_name: String) -> void:
 		# Manual cycle — select the next alive unit regardless of remaining AP.
 		_cycle_active_unit()
 		return
-	if action_name == "OVERWATCH":
+	var atype := _action_type(action_name)
+	if atype == "OVERWATCH":
 		if active_player_index in overwatch_indices:
 			overwatch_indices.erase(active_player_index)
 			_log_event("%s leaves overwatch." % _active_unit_name())
@@ -754,7 +938,7 @@ func _execute_action(action_name: String) -> void:
 		status_line = "Overwatch toggled."
 		_sync_display()
 		return
-	if action_name == "DEFEND":
+	if atype == "DEFEND":
 		if active_player_index in defend_indices:
 			defend_indices.erase(active_player_index)
 			var u := player_units[active_player_index] as Dictionary
@@ -769,6 +953,12 @@ func _execute_action(action_name: String) -> void:
 			_log_event("%s braces: DEF +3." % _active_unit_name())
 		status_line = "Defend toggled."
 		_sync_display()
+		return
+	if atype == "PSI_HEAL":
+		_apply_psi_focus()
+		return
+	if atype == "HEAL":
+		_apply_trauma_patch()
 		return
 	selected_action = action_name
 	pending_end_turn_confirmation = false
@@ -785,7 +975,110 @@ func _apply_psi_pulse() -> void:
 	CombatSignals.audio_event.emit("psi")
 	_sync_display()
 
+func _apply_psi_focus() -> void:
+	var active := _current_active_player()
+	if active.is_empty(): return
+	var ap := int(active.get("ap", 0))
+	if ap <= 0:
+		status_line = "No AP remaining."
+		_sync_display()
+		return
+	var relief: int = int((_ACTION_DEFS.get("Psi Focus", {}) as Dictionary).get("stress_relief", 25))
+	active["ap"] = maxi(0, ap - 1)
+	player_units[active_player_index] = active
+	for i in range(player_units.size()):
+		var u := player_units[i] as Dictionary
+		u["stress"] = maxi(0, int(u.get("stress", 0)) - relief)
+		player_units[i] = u
+	var line := "%s: Psi Focus — squad stress −%d." % [_active_unit_name(), relief]
+	_log_event(line)
+	status_line = line
+	CombatSignals.audio_event.emit("psi")
+	_sync_display()
+	if int(active.get("ap", 0)) == 0:
+		_auto_advance_unit()
+
+func _apply_trauma_patch() -> void:
+	var active := _current_active_player()
+	if active.is_empty(): return
+	var ap := int(active.get("ap", 0))
+	if ap <= 0:
+		status_line = "No AP remaining."
+		_sync_display()
+		return
+	var heal_amt: int = int((_ACTION_DEFS.get("Trauma Patch", {}) as Dictionary).get("heal", 12))
+	var old_hp  := int(active.get("hp", 0))
+	var max_hp  := maxi(1, int(active.get("max_hp", 1)))
+	if old_hp >= max_hp:
+		status_line = "%s is already at full HP." % _active_unit_name()
+		_sync_display()
+		return
+	active["ap"] = maxi(0, ap - 1)
+	active["hp"] = mini(max_hp, old_hp + heal_amt)
+	player_units[active_player_index] = active
+	var healed := int(active.get("hp", 0)) - old_hp
+	var line := "%s: Trauma Patch +%d HP." % [_active_unit_name(), healed]
+	_log_event(line)
+	status_line = line
+	var pkey := "p%d" % active_player_index
+	if _unit_tokens.has(pkey) and is_instance_valid(_unit_tokens[pkey]):
+		_unit_tokens[pkey].update_data(active)
+	CombatSignals.audio_event.emit("ui_click")
+	_sync_display()
+	if int(active.get("ap", 0)) == 0:
+		_auto_advance_unit()
+
+func _apply_missile_salvo(center_cell: Vector2i) -> void:
+	var active := _current_active_player()
+	if active.is_empty(): return
+	var ap := int(active.get("ap", 0))
+	var ap_cost: int = _action_ap_cost("Missile Salvo")
+	if ap < ap_cost:
+		status_line = "Not enough AP (Missile Salvo costs %d AP)." % ap_cost
+		_sync_display()
+		return
+	active["ap"] = maxi(0, ap - ap_cost)
+	player_units[active_player_index] = active
+	var base_dmg   := _action_damage("Missile Salvo")
+	var aoe_radius := int((_ACTION_DEFS.get("Missile Salvo", {}) as Dictionary).get("aoe_radius", 2))
+	var hits := 0
+	for j in range(enemy_units.size()):
+		var eu := enemy_units[j] as Dictionary
+		if int(eu.get("hp", 0)) <= 0: continue
+		var epos := _cell_position(eu)
+		var dist := absi(epos.x - center_cell.x) + absi(epos.y - center_cell.y)
+		if dist > aoe_radius: continue
+		var dmg := maxi(1, base_dmg - dist)
+		eu["hp"] = maxi(0, int(eu.get("hp", 0)) - dmg)
+		enemy_units[j] = eu
+		var ekey := "e%d" % j
+		if _unit_tokens.has(ekey) and is_instance_valid(_unit_tokens[ekey]):
+			_unit_tokens[ekey].play_hit(dmg, true)
+			if int(eu.get("hp", 0)) <= 0:
+				_unit_tokens[ekey].play_death()
+				CombatSignals.unit_died.emit(j, true)
+		hits += 1
+	var line := "%s: Missile Salvo — %d enemies hit." % [_active_unit_name(), hits]
+	_log_event(line)
+	status_line = line
+	CombatSignals.audio_event.emit("fire")
+	_selected_target_validity()
+	_refresh_initiative()
+	if _enemy_alive_count() == 0:
+		_complete_mission()
+		return
+	_sync_display()
+	if int(active.get("ap", 0)) == 0:
+		_auto_advance_unit()
+
 func _resolve_selected_attack() -> void:
+	var atype := _action_type(selected_action)
+	if atype == "PSI_HEAL":
+		_apply_psi_focus()
+		return
+	if atype == "HEAL":
+		_apply_trauma_patch()
+		return
 	if _current_target().is_empty():
 		status_line = "No live target."
 		_sync_display()
@@ -836,19 +1129,27 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var target := enemy_units[target_index] as Dictionary
 	if int(target.get("hp", 0)) <= 0: return
 	var attacker := player_units[active_player_index] as Dictionary
-	var ap: int   = int(attacker.get("ap", 0))
-	if ap <= 0:
-		status_line = "No AP remaining."
+	# Silently ignore clicks outside weapon range.
+	var rng := _action_range(action_name)
+	if rng == 0:
+		rng = _role_attack_range(str(attacker.get("role", "")), action_name)
+	var apos := _cell_position(attacker)
+	var tpos := _cell_position(target)
+	if absi(apos.x - tpos.x) + absi(apos.y - tpos.y) > rng:
+		return
+	var ap: int      = int(attacker.get("ap", 0))
+	var ap_cost: int = _action_ap_cost(action_name)
+	if ap < ap_cost:
+		status_line = "Not enough AP (%s costs %d AP)." % [action_name, ap_cost]
 		_sync_display()
 		return
-	attacker["ap"] = ap - 1
+	attacker["ap"] = maxi(0, ap - ap_cost)
 	player_units[active_player_index] = attacker
 
 	var defense: int  = int(target.get("defense", 6))
 	var chance: float = clampf(float(70 - defense * 2 + ap * 4), 20.0, 95.0)
 	var hit := randf() * 100.0 < chance
 
-	# Attacker lunge animation
 	var ekey := "e%d" % target_index
 	var akey := "p%d" % active_player_index
 	if _unit_tokens.has(akey) and _unit_tokens.has(ekey):
@@ -868,11 +1169,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 			_auto_advance_unit()
 		return
 
-	var damage: int = 4
-	match action_name:
-		"FIRE":  damage = 5
-		"MELEE": damage = 4
-		"PSI":   damage = 3
+	var damage: int = _action_damage(action_name)
 	target["hp"] = maxi(0, int(target.get("hp", 0)) - damage)
 	enemy_units[target_index] = target
 
@@ -881,13 +1178,14 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		if int(target.get("hp", 0)) <= 0:
 			_unit_tokens[ekey].play_death()
 
-	CombatSignals.audio_event.emit("fire" if action_name == "FIRE" else action_name.to_lower())
+	var atype := _action_type(action_name)
+	CombatSignals.audio_event.emit("fire" if atype == "FIRE" else "hit")
 	CombatSignals.unit_attacked.emit(
 		active_player_index, false, target_index, true, damage, true)
 	if int(target.get("hp", 0)) <= 0:
 		CombatSignals.unit_died.emit(target_index, true)
 
-	var line := "%s %s for %d dmg." % [_active_unit_name(), action_name.to_lower(), damage]
+	var line := "%s: %s → %d dmg." % [_active_unit_name(), action_name, damage]
 	_log_event(line)
 	status_line = line
 	if int(target.get("hp", 0)) <= 0:
@@ -923,6 +1221,9 @@ func _resolve_enemy_turn() -> void:
 	if turn_side != "enemy": return
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) > 0:
+			enemy_units[i]["ap"] = 2
+	for i in range(enemy_units.size()):
+		if int(enemy_units[i].get("hp", 0)) > 0:
 			_enemy_act(i)
 	turn_side    = "player"
 	turn_number += 1
@@ -937,65 +1238,161 @@ func _resolve_enemy_turn() -> void:
 	CombatSignals.audio_event.emit("turn_player")
 	_sync_display()
 
+func _subtype_attack_range(subtype: String) -> int:
+	match subtype:
+		"grunt":     return 3    # pistol — short
+		"heavy":     return 2    # shotgun — very short
+		"sniper":    return 10   # sniper rifle — long
+		"elite":     return 6    # assault rifle — medium
+		"commander": return 6    # rifle — medium
+		"psi":       return 4    # psi range
+		_:           return 3
+
+func _role_attack_range(role: String, action: String) -> int:
+	if action == "MELEE": return 1
+	if action == "PSI":   return 5
+	match role.to_lower():
+		"sniper":  return 10
+		"samurai": return 3
+		_:         return 6
+
+# ─── Named-action helpers ─────────────────────────────────────────────────────
+
+func _action_type(action: String) -> String:
+	# Handle legacy uppercase names used internally.
+	match action:
+		"MOVE":      return "MOVE"
+		"FIRE":      return "FIRE"
+		"MELEE":     return "MELEE"
+		"PSI":       return "PSI_HEAL"
+		"DEFEND":    return "DEFEND"
+		"OVERWATCH": return "OVERWATCH"
+	var def := _ACTION_DEFS.get(action, {}) as Dictionary
+	return str(def.get("type", "SYSTEM"))
+
+func _action_range(action: String) -> int:
+	var def := _ACTION_DEFS.get(action, {}) as Dictionary
+	if def.is_empty(): return 0
+	return int(def.get("range", 0))
+
+func _action_damage(action: String) -> int:
+	var def := _ACTION_DEFS.get(action, {}) as Dictionary
+	if def.is_empty():
+		match action:
+			"FIRE":  return 5
+			"MELEE": return 4
+			"PSI":   return 3
+		return 4
+	return int(def.get("damage", 4))
+
+func _action_ap_cost(action: String) -> int:
+	var def := _ACTION_DEFS.get(action, {}) as Dictionary
+	return int(def.get("ap", 1))
+
 func _enemy_act(enemy_index: int) -> void:
 	var enemy   := enemy_units[enemy_index] as Dictionary
 	var subtype := str(enemy.get("enemy_subtype", "grunt")).to_lower()
 	var ti: int  = _nearest_player_to(enemy)
 	if ti < 0: return
-	var target := player_units[ti] as Dictionary
-	var ep     := _cell_position(enemy)
-	var tp     := _cell_position(target)
-	var dist: int = absi(ep.x - tp.x) + absi(ep.y - tp.y)
-	var rng: int  = 3
-	match subtype:
-		"grunt":     rng = 3
-		"heavy":     rng = 2
-		"sniper":    rng = 6
-		"elite":     rng = 4
-		"commander": rng = 5
-	if dist <= rng:
-		var damage: int = 2
-		match subtype:
-			"grunt":     damage = 2
-			"heavy":     damage = 4
-			"sniper":    damage = 3
-			"elite":     damage = 3
-			"commander": damage = 2
-		if ti in defend_indices:
-			damage = maxi(0, damage - 1)
-		var hit_chance: float = 65.0 - float(int(target.get("defense", 4))) * 3.0
-		if randf() * 100.0 >= hit_chance:
-			_log_event("%s misses %s." % [str(enemy.get("name","?")), str(target.get("name","?"))])
-			return
-		target["hp"]     = maxi(0, int(target.get("hp", 0)) - damage)
-		target["stress"] = mini(100, int(target.get("stress", 0)) + 5)
-		player_units[ti] = target
-		# Token hit effect
-		var pkey := "p%d" % ti
-		if _unit_tokens.has(pkey):
-			_unit_tokens[pkey].play_hit(damage, true)
-			if int(target.get("hp", 0)) <= 0:
-				_unit_tokens[pkey].play_death()
-		CombatSignals.unit_attacked.emit(enemy_index, true, ti, false, damage, true)
-		CombatSignals.audio_event.emit("hit")
-		_log_event("%s hits %s for %d." % [
-				str(enemy.get("name","?")), str(target.get("name","?")), damage])
-	else:
-		var dx := signi(tp.x - ep.x)
-		var dy := signi(tp.y - ep.y)
-		var new_pos: Vector2i
-		if absi(tp.x - ep.x) >= absi(tp.y - ep.y):
-			new_pos = Vector2i(clampi(ep.x + dx, 0, GRID_COLS - 1), ep.y)
-		else:
-			new_pos = Vector2i(ep.x, clampi(ep.y + dy, 0, GRID_ROWS - 1))
-		if not _is_cell_occupied(new_pos, -1, enemy_index):
-			enemy["position"] = new_pos
-			enemy_units[enemy_index] = enemy
-			# Animate enemy token to new position
+	var ap: int = int(enemy.get("ap", 2))
+	var rng: int = _subtype_attack_range(subtype)
+
+	# ── Move phase — BFS to best reachable cell ───────────────────────────────
+	var ep   := _cell_position(enemy)
+	var tp   := _cell_position(player_units[ti] as Dictionary)
+	var dist := absi(ep.x - tp.x) + absi(ep.y - tp.y)
+
+	# How many AP to spend moving: save 1 for attack if possible.
+	# Snipers stay put when target is already within extended range.
+	var move_ap := 0
+	if dist > rng:
+		move_ap = maxi(0, ap - 1)
+	if subtype == "sniper" and dist <= rng + 4:
+		move_ap = 0
+
+	if move_ap > 0:
+		var reachable: Array[Vector2i] = _battlefield.reachable_cells(ep, move_ap)
+		var best_cell := ep
+		var best_dist := dist
+		for cell: Vector2i in reachable:
+			if _is_cell_occupied(cell, -1, enemy_index): continue
+			var d := absi(cell.x - tp.x) + absi(cell.y - tp.y)
+			if d < best_dist:
+				best_dist = d
+				best_cell = cell
+		if best_cell != ep:
+			var steps := absi(best_cell.x - ep.x) + absi(best_cell.y - ep.y)
+			ap   -= mini(steps, move_ap)
+			dist  = best_dist
+			enemy["position"] = best_cell
+			ep    = best_cell
 			var ekey := "e%d" % enemy_index
 			if _unit_tokens.has(ekey):
-				var new_world : Vector2 = _battlefield.cell_to_world(new_pos)
-				_unit_tokens[ekey].move_to(new_world, enemy)
+				_unit_tokens[ekey].move_to(_battlefield.cell_to_world(best_cell), enemy)
+
+	# ── Attack phase ──────────────────────────────────────────────────────────
+	if dist <= rng and ap > 0:
+		_enemy_attack(enemy_index, ti, subtype)
+		ap -= 1
+
+	enemy["ap"] = ap
+	enemy_units[enemy_index] = enemy
+
+func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void:
+	var enemy  := enemy_units[enemy_index] as Dictionary
+	var target := player_units[target_index] as Dictionary
+	var is_psi := subtype == "psi"
+
+	var damage: int
+	var base_hit: float
+	match subtype:
+		"grunt":     damage = 2; base_hit = 60.0   # pistol
+		"heavy":     damage = 5; base_hit = 70.0   # shotgun — reliable up close
+		"sniper":    damage = 6; base_hit = 82.0   # sniper rifle — high damage, accurate
+		"elite":     damage = 4; base_hit = 70.0   # assault rifle
+		"commander": damage = 3; base_hit = 68.0   # rifle
+		"psi":       damage = 2; base_hit = 65.0
+		_:           damage = 2; base_hit = 60.0
+
+	var defense: int = int(target.get("defense", 4))
+	var chance: float = clampf(base_hit - float(defense) * 3.0, 10.0, 90.0)
+	if target_index in defend_indices:
+		damage  = maxi(0, damage - 1)
+		chance -= 12.0
+
+	# Lunge animation toward target
+	var ekey := "e%d" % enemy_index
+	var pkey := "p%d" % target_index
+	if _unit_tokens.has(ekey) and _unit_tokens.has(pkey):
+		_unit_tokens[ekey].attack_lunge(_unit_tokens[pkey].position)
+
+	if randf() * 100.0 >= chance:
+		_log_event("%s misses %s." % [str(enemy.get("name","?")), str(target.get("name","?"))])
+		if _unit_tokens.has(pkey):
+			_unit_tokens[pkey].play_hit(0, false)
+		CombatSignals.audio_event.emit("miss")
+		return
+
+	target["hp"] = maxi(0, int(target.get("hp", 0)) - damage)
+	if is_psi:
+		var stress_gain := 22
+		target["stress"] = mini(100, int(target.get("stress", 0)) + stress_gain)
+		_log_event("%s PSI-blasts %s: -%d HP +%d stress." % [
+				str(enemy.get("name","?")), str(target.get("name","?")), damage, stress_gain])
+	else:
+		target["stress"] = mini(100, int(target.get("stress", 0)) + 5)
+		_log_event("%s hits %s for %d." % [
+				str(enemy.get("name","?")), str(target.get("name","?")), damage])
+	player_units[target_index] = target
+
+	if _unit_tokens.has(pkey):
+		_unit_tokens[pkey].play_hit(damage, true)
+		if int(target.get("hp", 0)) <= 0:
+			_unit_tokens[pkey].play_death()
+	CombatSignals.unit_attacked.emit(enemy_index, true, target_index, false, damage, true)
+	CombatSignals.audio_event.emit("hit")
+	if int(target.get("hp", 0)) <= 0:
+		CombatSignals.unit_died.emit(target_index, false)
 
 func _nearest_player_to(enemy: Dictionary) -> int:
 	var ep := _cell_position(enemy)
@@ -1080,18 +1477,31 @@ func _build_player_units() -> Array[Dictionary]:
 		var clean  : String  = str(raw_n).strip_edges() if raw_n != null else ""
 		if clean == "" or clean.to_lower() == "null":
 			clean = role.to_upper().substr(0, 6) + "-%d" % (i + 1)
+		# Carry the handoff action list so the HUD can show agent-specific buttons.
+		var raw_actions: Variant = agent.get("available_actions", null)
+		var agent_actions: Array[String] = []
+		if typeof(raw_actions) == TYPE_ARRAY:
+			for a: Variant in raw_actions as Array:
+				agent_actions.append(str(a))
+		if agent_actions.is_empty():
+			# Sensible fallback by role if handoff omits the list.
+			match role:
+				"sniper": agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
+				"psi":    agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Psi Focus"]
+				_:        agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
 		units.append({
-			"name":        clean,
-			"role":        role,
-			"hp":          int(agent.get("hp", 30)),
-			"max_hp":      maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),
-			"stress":      int(agent.get("stress", 0)),
-			"ap":          2 if int(agent.get("stress", 0)) >= 80 else 4,
-			"defense":     def,
-			"initiative":  20 + int(agent.get("level", 1)) * 2 - i,
-			"position":    Vector2i(1, row),
-			"kind":        "player",
-			"status_effects": [],
+			"name":              clean,
+			"role":              role,
+			"hp":                int(agent.get("hp", 30)),
+			"max_hp":            maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),
+			"stress":            int(agent.get("stress", 0)),
+			"ap":                2 if int(agent.get("stress", 0)) >= 80 else 4,
+			"defense":           def,
+			"initiative":        20 + int(agent.get("level", 1)) * 2 - i,
+			"position":          Vector2i(1, row),
+			"kind":              "player",
+			"status_effects":    [],
+			"available_actions": agent_actions,
 		})
 	return units
 
@@ -1099,7 +1509,7 @@ func _build_enemy_units() -> Array[Dictionary]:
 	var mission    := _mission_data()
 	var count: int  = maxi(1, mini(6, int(mission.get("starting_enemy_count", 3))))
 	var theme      := str(mission.get("enemy_theme", "generic")).to_lower()
-	var subtypes: Array[String] = ["grunt", "grunt", "sniper", "elite", "commander", "grunt"]
+	var subtypes: Array[String] = ["grunt", "psi", "sniper", "elite", "commander", "grunt"]
 	var units: Array[Dictionary] = []
 	for i in range(count):
 		var sub: String = subtypes[mini(i, subtypes.size() - 1)]
@@ -1111,6 +1521,7 @@ func _build_enemy_units() -> Array[Dictionary]:
 			"commander": hp += 8;  defen += 4; init += 4
 			"heavy":     hp += 5;  defen += 3
 			"sniper":    init += 3; defen -= 1
+			"psi":       hp -= 2;  defen -= 2; init += 2
 		units.append({
 			"name":          "%s %02d" % [theme.replace("_", " ").to_upper(), i + 1],
 			"role":          "enemy",

@@ -1,0 +1,482 @@
+{
+  "generated_on": "2026-06-12",
+  "asset_note": "AI-generated vehicle sheets were chroma-keyed, cropped into individual transparent vehicle tokens, cleaned of tiny detached alpha debris, and exported as 512px and 64px PNG pairs.",
+  "requirements": {
+    "terrestrial_civilian": 10,
+    "terrestrial_military": 10,
+    "aerial_civilian": 10,
+    "aerial_military": 10,
+    "crashed_versions_for_each_aerial_vehicle": 20,
+    "minimum_vtol_aerial_tokens": 4
+  },
+  "categories": [
+    {
+      "category": "terrestrial_civilian_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c659a77d481919d6d889c3be485ac.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "neon_taxi",
+          "file_512": "vehicle_terrestrial_civil_01_neon_taxi_512.png",
+          "file_64": "vehicle_terrestrial_civil_01_neon_taxi.png"
+        },
+        {
+          "id": 2,
+          "slug": "courier_van",
+          "file_512": "vehicle_terrestrial_civil_02_courier_van_512.png",
+          "file_64": "vehicle_terrestrial_civil_02_courier_van.png"
+        },
+        {
+          "id": 3,
+          "slug": "street_food_truck",
+          "file_512": "vehicle_terrestrial_civil_03_street_food_truck_512.png",
+          "file_64": "vehicle_terrestrial_civil_03_street_food_truck.png"
+        },
+        {
+          "id": 4,
+          "slug": "armored_ambulance",
+          "file_512": "vehicle_terrestrial_civil_04_armored_ambulance_512.png",
+          "file_64": "vehicle_terrestrial_civil_04_armored_ambulance.png"
+        },
+        {
+          "id": 5,
+          "slug": "executive_sedan",
+          "file_512": "vehicle_terrestrial_civil_05_executive_sedan_512.png",
+          "file_64": "vehicle_terrestrial_civil_05_executive_sedan.png"
+        },
+        {
+          "id": 6,
+          "slug": "utility_crawler",
+          "file_512": "vehicle_terrestrial_civil_06_utility_crawler_512.png",
+          "file_64": "vehicle_terrestrial_civil_06_utility_crawler.png"
+        },
+        {
+          "id": 7,
+          "slug": "cargo_hauler",
+          "file_512": "vehicle_terrestrial_civil_07_cargo_hauler_512.png",
+          "file_64": "vehicle_terrestrial_civil_07_cargo_hauler.png"
+        },
+        {
+          "id": 8,
+          "slug": "family_transport",
+          "file_512": "vehicle_terrestrial_civil_08_family_transport_512.png",
+          "file_64": "vehicle_terrestrial_civil_08_family_transport.png"
+        },
+        {
+          "id": 9,
+          "slug": "delivery_rover",
+          "file_512": "vehicle_terrestrial_civil_09_delivery_rover_512.png",
+          "file_64": "vehicle_terrestrial_civil_09_delivery_rover.png"
+        },
+        {
+          "id": 10,
+          "slug": "bus_shuttle",
+          "file_512": "vehicle_terrestrial_civil_10_bus_shuttle_512.png",
+          "file_64": "vehicle_terrestrial_civil_10_bus_shuttle.png"
+        }
+      ]
+    },
+    {
+      "category": "terrestrial_military_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c65d6cb088191a9fa9c761ee59111.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "battle_tank",
+          "file_512": "vehicle_terrestrial_military_01_battle_tank_512.png",
+          "file_64": "vehicle_terrestrial_military_01_battle_tank.png"
+        },
+        {
+          "id": 2,
+          "slug": "missile_truck",
+          "file_512": "vehicle_terrestrial_military_02_missile_truck_512.png",
+          "file_64": "vehicle_terrestrial_military_02_missile_truck.png"
+        },
+        {
+          "id": 3,
+          "slug": "apc",
+          "file_512": "vehicle_terrestrial_military_03_apc_512.png",
+          "file_64": "vehicle_terrestrial_military_03_apc.png"
+        },
+        {
+          "id": 4,
+          "slug": "riot_crawler",
+          "file_512": "vehicle_terrestrial_military_04_riot_crawler_512.png",
+          "file_64": "vehicle_terrestrial_military_04_riot_crawler.png"
+        },
+        {
+          "id": 5,
+          "slug": "railgun_destroyer",
+          "file_512": "vehicle_terrestrial_military_05_railgun_destroyer_512.png",
+          "file_64": "vehicle_terrestrial_military_05_railgun_destroyer.png"
+        },
+        {
+          "id": 6,
+          "slug": "recon_buggy",
+          "file_512": "vehicle_terrestrial_military_06_recon_buggy_512.png",
+          "file_64": "vehicle_terrestrial_military_06_recon_buggy.png"
+        },
+        {
+          "id": 7,
+          "slug": "drone_command_halftrack",
+          "file_512": "vehicle_terrestrial_military_07_drone_command_halftrack_512.png",
+          "file_64": "vehicle_terrestrial_military_07_drone_command_halftrack.png"
+        },
+        {
+          "id": 8,
+          "slug": "mine_clearer",
+          "file_512": "vehicle_terrestrial_military_08_mine_clearer_512.png",
+          "file_64": "vehicle_terrestrial_military_08_mine_clearer.png"
+        },
+        {
+          "id": 9,
+          "slug": "anti_air_truck",
+          "file_512": "vehicle_terrestrial_military_09_anti_air_truck_512.png",
+          "file_64": "vehicle_terrestrial_military_09_anti_air_truck.png"
+        },
+        {
+          "id": 10,
+          "slug": "shield_generator_carrier",
+          "file_512": "vehicle_terrestrial_military_10_shield_generator_carrier_512.png",
+          "file_64": "vehicle_terrestrial_military_10_shield_generator_carrier.png"
+        }
+      ]
+    },
+    {
+      "category": "aerial_civilian_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c661786ec81919917808db4f5458e.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "vtol_air_taxi",
+          "file_512": "vehicle_aerial_civil_01_vtol_air_taxi_512.png",
+          "file_64": "vehicle_aerial_civil_01_vtol_air_taxi.png",
+          "vtol": true
+        },
+        {
+          "id": 2,
+          "slug": "vtol_medevac",
+          "file_512": "vehicle_aerial_civil_02_vtol_medevac_512.png",
+          "file_64": "vehicle_aerial_civil_02_vtol_medevac.png",
+          "vtol": true
+        },
+        {
+          "id": 3,
+          "slug": "vtol_cargo_lifter",
+          "file_512": "vehicle_aerial_civil_03_vtol_cargo_lifter_512.png",
+          "file_64": "vehicle_aerial_civil_03_vtol_cargo_lifter.png",
+          "vtol": true
+        },
+        {
+          "id": 4,
+          "slug": "vtol_news_drone_van",
+          "file_512": "vehicle_aerial_civil_04_vtol_news_drone_van_512.png",
+          "file_64": "vehicle_aerial_civil_04_vtol_news_drone_van.png",
+          "vtol": true
+        },
+        {
+          "id": 5,
+          "slug": "commuter_skimmer",
+          "file_512": "vehicle_aerial_civil_05_commuter_skimmer_512.png",
+          "file_64": "vehicle_aerial_civil_05_commuter_skimmer.png"
+        },
+        {
+          "id": 6,
+          "slug": "aero_limo",
+          "file_512": "vehicle_aerial_civil_06_aero_limo_512.png",
+          "file_64": "vehicle_aerial_civil_06_aero_limo.png"
+        },
+        {
+          "id": 7,
+          "slug": "courier_quadcopter",
+          "file_512": "vehicle_aerial_civil_07_courier_quadcopter_512.png",
+          "file_64": "vehicle_aerial_civil_07_courier_quadcopter.png"
+        },
+        {
+          "id": 8,
+          "slug": "maintenance_hover_crane",
+          "file_512": "vehicle_aerial_civil_08_maintenance_hover_crane_512.png",
+          "file_64": "vehicle_aerial_civil_08_maintenance_hover_crane.png"
+        },
+        {
+          "id": 9,
+          "slug": "passenger_shuttle",
+          "file_512": "vehicle_aerial_civil_09_passenger_shuttle_512.png",
+          "file_64": "vehicle_aerial_civil_09_passenger_shuttle.png"
+        },
+        {
+          "id": 10,
+          "slug": "delivery_blimp_drone",
+          "file_512": "vehicle_aerial_civil_10_delivery_blimp_drone_512.png",
+          "file_64": "vehicle_aerial_civil_10_delivery_blimp_drone.png"
+        }
+      ],
+      "vtol_count": 4
+    },
+    {
+      "category": "aerial_military_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c665506c48191a4f0c1507aa4ae9c.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "vtol_gunship",
+          "file_512": "vehicle_aerial_military_01_vtol_gunship_512.png",
+          "file_64": "vehicle_aerial_military_01_vtol_gunship.png",
+          "vtol": true
+        },
+        {
+          "id": 2,
+          "slug": "vtol_troop_carrier",
+          "file_512": "vehicle_aerial_military_02_vtol_troop_carrier_512.png",
+          "file_64": "vehicle_aerial_military_02_vtol_troop_carrier.png",
+          "vtol": true
+        },
+        {
+          "id": 3,
+          "slug": "vtol_missile_interceptor",
+          "file_512": "vehicle_aerial_military_03_vtol_missile_interceptor_512.png",
+          "file_64": "vehicle_aerial_military_03_vtol_missile_interceptor.png",
+          "vtol": true
+        },
+        {
+          "id": 4,
+          "slug": "vtol_stealth_dropship",
+          "file_512": "vehicle_aerial_military_04_vtol_stealth_dropship_512.png",
+          "file_64": "vehicle_aerial_military_04_vtol_stealth_dropship.png",
+          "vtol": true
+        },
+        {
+          "id": 5,
+          "slug": "attack_hover_drone",
+          "file_512": "vehicle_aerial_military_05_attack_hover_drone_512.png",
+          "file_64": "vehicle_aerial_military_05_attack_hover_drone.png"
+        },
+        {
+          "id": 6,
+          "slug": "railgun_strike_craft",
+          "file_512": "vehicle_aerial_military_06_railgun_strike_craft_512.png",
+          "file_64": "vehicle_aerial_military_06_railgun_strike_craft.png"
+        },
+        {
+          "id": 7,
+          "slug": "armored_recon_flyer",
+          "file_512": "vehicle_aerial_military_07_armored_recon_flyer_512.png",
+          "file_64": "vehicle_aerial_military_07_armored_recon_flyer.png"
+        },
+        {
+          "id": 8,
+          "slug": "heavy_bomber_skimmer",
+          "file_512": "vehicle_aerial_military_08_heavy_bomber_skimmer_512.png",
+          "file_64": "vehicle_aerial_military_08_heavy_bomber_skimmer.png"
+        },
+        {
+          "id": 9,
+          "slug": "electronic_warfare_drone",
+          "file_512": "vehicle_aerial_military_09_electronic_warfare_drone_512.png",
+          "file_64": "vehicle_aerial_military_09_electronic_warfare_drone.png"
+        },
+        {
+          "id": 10,
+          "slug": "command_airship_platform",
+          "file_512": "vehicle_aerial_military_10_command_airship_platform_512.png",
+          "file_64": "vehicle_aerial_military_10_command_airship_platform.png"
+        }
+      ],
+      "vtol_count": 4
+    },
+    {
+      "category": "crashed_aerial_civilian_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c669589188191b03832f537e60a86.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "vtol_air_taxi_crashed",
+          "file_512": "vehicle_aerial_civil_01_vtol_air_taxi_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_01_vtol_air_taxi_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 1
+        },
+        {
+          "id": 2,
+          "slug": "vtol_medevac_crashed",
+          "file_512": "vehicle_aerial_civil_02_vtol_medevac_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_02_vtol_medevac_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 2
+        },
+        {
+          "id": 3,
+          "slug": "vtol_cargo_lifter_crashed",
+          "file_512": "vehicle_aerial_civil_03_vtol_cargo_lifter_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_03_vtol_cargo_lifter_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 3
+        },
+        {
+          "id": 4,
+          "slug": "vtol_news_drone_van_crashed",
+          "file_512": "vehicle_aerial_civil_04_vtol_news_drone_van_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_04_vtol_news_drone_van_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 4
+        },
+        {
+          "id": 5,
+          "slug": "commuter_skimmer_crashed",
+          "file_512": "vehicle_aerial_civil_05_commuter_skimmer_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_05_commuter_skimmer_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 5
+        },
+        {
+          "id": 6,
+          "slug": "aero_limo_crashed",
+          "file_512": "vehicle_aerial_civil_06_aero_limo_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_06_aero_limo_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 6
+        },
+        {
+          "id": 7,
+          "slug": "courier_quadcopter_crashed",
+          "file_512": "vehicle_aerial_civil_07_courier_quadcopter_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_07_courier_quadcopter_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 7
+        },
+        {
+          "id": 8,
+          "slug": "maintenance_hover_crane_crashed",
+          "file_512": "vehicle_aerial_civil_08_maintenance_hover_crane_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_08_maintenance_hover_crane_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 8
+        },
+        {
+          "id": 9,
+          "slug": "passenger_shuttle_crashed",
+          "file_512": "vehicle_aerial_civil_09_passenger_shuttle_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_09_passenger_shuttle_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 9
+        },
+        {
+          "id": 10,
+          "slug": "delivery_blimp_drone_crashed",
+          "file_512": "vehicle_aerial_civil_10_delivery_blimp_drone_crashed_512.png",
+          "file_64": "vehicle_aerial_civil_10_delivery_blimp_drone_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 10
+        }
+      ],
+      "crashed_of_category": "aerial_civilian_vehicles"
+    },
+    {
+      "category": "crashed_aerial_military_vehicles",
+      "count": 10,
+      "source_image": "C:\\Users\\llank\\.codex\\generated_images\\019ebd3d-ea46-7dc0-a206-89709a02ab12\\ig_0833a55732b2c40a016a2c66d4d128819194089ca21f11b01b.png",
+      "chroma_key": "#00ff00",
+      "tokens": [
+        {
+          "id": 1,
+          "slug": "vtol_gunship_crashed",
+          "file_512": "vehicle_aerial_military_01_vtol_gunship_crashed_512.png",
+          "file_64": "vehicle_aerial_military_01_vtol_gunship_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 1
+        },
+        {
+          "id": 2,
+          "slug": "vtol_troop_carrier_crashed",
+          "file_512": "vehicle_aerial_military_02_vtol_troop_carrier_crashed_512.png",
+          "file_64": "vehicle_aerial_military_02_vtol_troop_carrier_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 2
+        },
+        {
+          "id": 3,
+          "slug": "vtol_missile_interceptor_crashed",
+          "file_512": "vehicle_aerial_military_03_vtol_missile_interceptor_crashed_512.png",
+          "file_64": "vehicle_aerial_military_03_vtol_missile_interceptor_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 3
+        },
+        {
+          "id": 4,
+          "slug": "vtol_stealth_dropship_crashed",
+          "file_512": "vehicle_aerial_military_04_vtol_stealth_dropship_crashed_512.png",
+          "file_64": "vehicle_aerial_military_04_vtol_stealth_dropship_crashed.png",
+          "vtol": true,
+          "crashed": true,
+          "crashed_of_id": 4
+        },
+        {
+          "id": 5,
+          "slug": "attack_hover_drone_crashed",
+          "file_512": "vehicle_aerial_military_05_attack_hover_drone_crashed_512.png",
+          "file_64": "vehicle_aerial_military_05_attack_hover_drone_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 5
+        },
+        {
+          "id": 6,
+          "slug": "railgun_strike_craft_crashed",
+          "file_512": "vehicle_aerial_military_06_railgun_strike_craft_crashed_512.png",
+          "file_64": "vehicle_aerial_military_06_railgun_strike_craft_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 6
+        },
+        {
+          "id": 7,
+          "slug": "armored_recon_flyer_crashed",
+          "file_512": "vehicle_aerial_military_07_armored_recon_flyer_crashed_512.png",
+          "file_64": "vehicle_aerial_military_07_armored_recon_flyer_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 7
+        },
+        {
+          "id": 8,
+          "slug": "heavy_bomber_skimmer_crashed",
+          "file_512": "vehicle_aerial_military_08_heavy_bomber_skimmer_crashed_512.png",
+          "file_64": "vehicle_aerial_military_08_heavy_bomber_skimmer_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 8
+        },
+        {
+          "id": 9,
+          "slug": "electronic_warfare_drone_crashed",
+          "file_512": "vehicle_aerial_military_09_electronic_warfare_drone_crashed_512.png",
+          "file_64": "vehicle_aerial_military_09_electronic_warfare_drone_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 9
+        },
+        {
+          "id": 10,
+          "slug": "command_airship_platform_crashed",
+          "file_512": "vehicle_aerial_military_10_command_airship_platform_crashed_512.png",
+          "file_64": "vehicle_aerial_military_10_command_airship_platform_crashed.png",
+          "crashed": true,
+          "crashed_of_id": 10
+        }
+      ],
+      "crashed_of_category": "aerial_military_vehicles"
+    }
+  ]
+}
