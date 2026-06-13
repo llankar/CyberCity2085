@@ -21,8 +21,10 @@ class SceneChoice:
     id: str
     label: str              # short text on the button (≤30 chars)
     skill_check: SkillCheck
-    success_scene: str      # scene id on great/success
-    failure_scene: str      # scene id on partial/failure
+    success_scene: str      # scene id on success
+    failure_scene: str      # scene id on failure
+    great_scene: str = ""   # scene id on great success ("" → use success_scene)
+    partial_scene: str = "" # scene id on partial failure ("" → use failure_scene)
 
 
 @dataclass(frozen=True)

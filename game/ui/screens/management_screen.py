@@ -389,6 +389,7 @@ class ManagementView(GameView):
             "samurai": palette.ROLE_SAMURAI,
             "sniper": palette.ROLE_SNIPER,
             "psi": palette.ROLE_PSI,
+            "robot": palette.ROLE_ROBOT,
         }.get(char.role, palette.ACCENT)
 
         _rect(0, 0, w, h, (0, 0, 0, 195))
@@ -707,6 +708,7 @@ class ManagementView(GameView):
                 "samurai": palette.ROLE_SAMURAI,
                 "sniper": palette.ROLE_SNIPER,
                 "psi": palette.ROLE_PSI,
+                "robot": palette.ROLE_ROBOT,
             }.get(candidate.role, palette.ACCENT)
             affordable = gs.available_funds >= candidate.price
             fill = (13, 26, 34, 236) if affordable else (31, 23, 22, 236)
@@ -1560,6 +1562,7 @@ class ManagementView(GameView):
             role_col = {
                 "sniper": palette.ROLE_SNIPER,
                 "psi":    palette.ROLE_PSI,
+                "robot":  palette.ROLE_ROBOT,
             }.get(char.role, palette.ROLE_SAMURAI)
             arcade.draw_line(px0, py1, px1, py1, role_col, 2)
 
@@ -2758,6 +2761,7 @@ class ManagementView(GameView):
             "samurai": palette.ROLE_SAMURAI,
             "sniper": palette.ROLE_SNIPER,
             "psi": palette.ROLE_PSI,
+            "robot": palette.ROLE_ROBOT,
         }.get(char.role, palette.ACCENT)
 
         _rect(0, 0, w, h, (0, 0, 0, 195))

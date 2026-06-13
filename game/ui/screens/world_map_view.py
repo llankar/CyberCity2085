@@ -144,8 +144,10 @@ def build_world_map_layout(width: int, height: int, selected_pin_x: int | None =
 _TXT_CITY_PINS: list[tuple[float, float]] = [
     (0.14, 0.72), (0.40, 0.76), (0.68, 0.64), (0.90, 0.58),
 ]
+# Wasteland pins are placed in the mid-band of the map (y ≥ 0.38) to stay clear
+# of the info-panel overlay that occupies the bottom ~35% of the map image.
 _TXT_WASTE_PINS: list[tuple[float, float]] = [
-    (0.20, 0.18), (0.50, 0.12), (0.80, 0.20), (0.35, 0.08),
+    (0.12, 0.44), (0.46, 0.40), (0.72, 0.48), (0.30, 0.52),
 ]
 
 

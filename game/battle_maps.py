@@ -187,6 +187,12 @@ def _is_robot_unit(unit: Any) -> bool:
     if unit_type in {"combat_robot", "support_robot", "drone", "robot"} or unit_type.endswith("_robot"):
         return True
 
+    char = getattr(unit, "character", None)
+    if char is not None:
+        char_role = str(getattr(char, "role", "") or "").strip().lower()
+        if char_role in {"robot", "combat_robot"}:
+            return True
+
     theme = str(getattr(unit, "enemy_theme", "") or "").strip().lower()
     if theme.endswith("_robot") or "robot" in theme:
         return True

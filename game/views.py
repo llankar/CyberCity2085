@@ -238,6 +238,7 @@ _ROLE_SPRITES: dict[str, str] = {
     "samurai": "agent_samurai.png",
     "sniper":  "agent_sniper.png",
     "psi":     "agent_psi.png",
+    "robot":   "robot_combat.png",
 }
 
 _ASSET_TYPE_SPRITES: dict[str, str] = {

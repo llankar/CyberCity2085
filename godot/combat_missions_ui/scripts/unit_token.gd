@@ -290,4 +290,5 @@ func _role_color() -> Color:
 	match str(unit_data.get("role", "")).to_lower():
 		"sniper": return ROLE_SNIPER
 		"psi":    return ROLE_PSI
+		"robot":  return Color(1.0, 0.35, 0.20, 1.0)
 		_:        return ROLE_SAMURAI
