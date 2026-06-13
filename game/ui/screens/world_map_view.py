@@ -224,8 +224,6 @@ class MissionWorldMapView(GameView):
             arcade.draw_circle_filled(node.pin_x, node.pin_y, 8 if selected else 6, risk_col)
             arcade.draw_circle_outline(node.pin_x, node.pin_y, 14, palette.WARNING if selected else risk_col, 2)
             arcade.draw_line(node.pin_x, node.pin_y - 2, node.pin_x, node.pin_y - 15, palette.WARNING if selected else risk_col, 2)
-            _rect = (node.label_left, node.label_bottom, node.label_right, node.label_top)
-            arcade.draw_line(_rect[0], _rect[3], _rect[2], _rect[3], palette.WARNING if selected else risk_col, 2)
             arcade.draw_text(
                 mission_label_text(node.mission),
                 node.label_left + 8,
@@ -234,14 +232,6 @@ class MissionWorldMapView(GameView):
                 font_size=9,
                 bold=True,
                 anchor_y="top",
-            )
-            arcade.draw_text(
-                mission_site_name(node.site_key),
-                node.label_left + 8,
-                node.label_bottom + 5,
-                palette.MUTED_TEXT,
-                font_size=8,
-                anchor_y="bottom",
             )
             self._hits.append(
                 _HitRegion(

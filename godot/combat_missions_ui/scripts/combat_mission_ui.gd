@@ -407,16 +407,38 @@ func _load_handoff() -> void:
 
 func _load_unit_textures() -> void:
 	unit_textures = {}
-	# Prefer 512×512 hi-res sprites; fall back to standard resolution.
+	# ── Agent tokens: 25 diverse sprites, one per roster slot via name hash ──
+	var _agent_names: Array[String] = [
+		"neon_blade", "longcoat_gunner", "magenta_pistol", "trench_sniper",
+		"psi_doctor", "street_medic", "hooded_infiltrator", "holo_hacker",
+		"blue_mohawk_scout", "ronin_duelist", "rail_sniper", "violet_fixer",
+		"silver_pistol", "armored_vanguard", "chrome_medic", "heavy_breacher",
+		"yellow_strike", "red_enforcer", "drone_handler", "cyber_doc",
+		"twin_blade_adept", "veteran_inquisitor", "dreadlock_rifle",
+		"hooded_psion", "redline_runner",
+	]
+	for i in range(_agent_names.size()):
+		var n  := i + 1
+		var key  := "agent_diverse_%02d" % n
+		var hi   := "assets/units/agent_diverse_%02d_%s_512.png" % [n, _agent_names[i]]
+		var lo   := "assets/units/agent_diverse_%02d_%s.png"     % [n, _agent_names[i]]
+		_try_load_tex(key, hi)
+		if not unit_textures.has(key):
+			_try_load_tex(key, lo)
+	# Role-based legacy fallbacks.
+	_try_load_tex("agent_samurai", "assets/units/agent_samurai_512.png")
+	if not unit_textures.has("agent_samurai"):
+		_try_load_tex("agent_samurai", "assets/units/agent_samurai.png")
+	_try_load_tex("agent_psi", "assets/units/agent_psi_512.png")
+	if not unit_textures.has("agent_psi"):
+		_try_load_tex("agent_psi", "assets/units/agent_psi.png")
+
+	# ── Enemy generic fallbacks ───────────────────────────────────────────────
 	var base: Dictionary = {
-		"agent_samurai":   "assets/units/agent_samurai_512.png",
-		"agent_sniper":    "assets/units/agent_sniper_512.png",
-		"agent_psi":       "assets/units/agent_psi_512.png",
 		"enemy_grunt":     "assets/units/enemy_grunt_512.png",
 		"enemy_heavy":     "assets/units/enemy_heavy_512.png",
 		"enemy_elite":     "assets/units/enemy_elite_512.png",
 		"enemy_commander": "assets/units/enemy_commander_512.png",
-		# sniper and psi fall back to elite when no themed override is found
 		"enemy_sniper":    "assets/units/enemy_elite_512.png",
 		"enemy_psi":       "assets/units/enemy_elite_512.png",
 	}
@@ -501,9 +523,16 @@ func _try_load_tex(key: String, path: String) -> void:
 
 func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 	if not is_enemy:
+		# Deterministic token: same agent name always maps to the same sprite.
+		var agent_name := str(unit.get("name", "")).strip_edges()
+		if agent_name != "":
+			var idx := (agent_name.hash() & 0x7FFFFFFF) % 25 + 1
+			var key := "agent_diverse_%02d" % idx
+			if unit_textures.has(key):
+				return key
+		# Fallback: role-based sprite.
 		var role := str(unit.get("role", "samurai")).to_lower()
-		# Prefer role-specific sprite; fall back through known keys to samurai.
-		for candidate: String in ["agent_%s" % role, "agent_sniper", "agent_psi", "agent_samurai"]:
+		for candidate: String in ["agent_%s" % role, "agent_psi", "agent_samurai"]:
 			if unit_textures.has(candidate):
 				return candidate
 		return "agent_samurai"
