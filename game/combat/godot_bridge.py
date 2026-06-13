@@ -121,12 +121,21 @@ def _agent_payload(character) -> dict[str, Any]:
 
 
 def _asset_payload(asset) -> dict[str, Any]:
+    stats = asset.combat_stats()
+    asset_type = str(asset.asset_type)
+    is_robot = asset_type in {"combat_robot", "support_robot"} or asset_type.endswith("_robot")
     return {
         "id": asset.id,
         "name": asset.name,
-        "asset_type": asset.asset_type,
-        "hp": asset.combat_stats().hp,
+        "asset_type": asset_type,
+        "role": "robot" if is_robot else "power_armor",
+        "hp": stats.hp,
+        "max_hp": stats.max_hp,
+        "defense": stats.defense,
+        "initiative": 14 + stats.agi,
+        "action_points": int(getattr(asset, "action_points", 2)),
         "actions": list(asset.combat_actions),
+        "size_scale": 3.5 if is_robot else 2.0,
         "pilot_agent_name": getattr(asset, "pilot_agent_name", ""),
     }
 
