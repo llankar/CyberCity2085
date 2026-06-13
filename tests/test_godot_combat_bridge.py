@@ -20,6 +20,7 @@ from game.combat.godot_bridge import (
     write_godot_combat_handoff,
 )
 from game.gamestate import GameState
+from game.management.spec_ops_assets import ArmorRating, CombatRobot, WeaponHardpoint
 from game.mission_templates import MissionTemplate
 from game.ui.screens import settings_screen
 
@@ -52,6 +53,44 @@ class GodotCombatBridgeTest(unittest.TestCase):
         self.assertEqual(payload["squad"][0]["role"], "sniper")
         self.assertIn("path", payload["map"])
         self.assertEqual(payload["combat_ui"]["movement_mode"], "tactical_grid")
+
+    def test_payload_contains_selected_support_asset_for_godot_units(self) -> None:
+        agent = Character("Vera", role="sniper")
+        robot = CombatRobot(
+            id="drone",
+            name="Drone",
+            armor=ArmorRating(plating=3, sealed_systems=1),
+            hardpoints=[
+                WeaponHardpoint(
+                    "Rail Stubber",
+                    damage_bonus=2,
+                    range_cells=5,
+                    action_name="Rail Burst",
+                )
+            ],
+            missile_capacity=1,
+        )
+        game_state = GameState(
+            characters=[agent],
+            selected_agent_names=["Vera"],
+            spec_ops_assets=[robot],
+            selected_asset_ids=["drone"],
+        )
+
+        payload = build_godot_combat_payload(game_state, _mission())
+
+        self.assertEqual(payload["support_assets"][0]["id"], "drone")
+        self.assertEqual(payload["support_assets"][0]["asset_type"], "combat_robot")
+        self.assertEqual(payload["support_assets"][0]["role"], "robot")
+        self.assertGreater(payload["support_assets"][0]["hp"], 0)
+        self.assertGreaterEqual(
+            payload["support_assets"][0]["max_hp"],
+            payload["support_assets"][0]["hp"],
+        )
+        self.assertIn("Rail Burst", payload["support_assets"][0]["actions"])
+        self.assertIn("Missile Salvo", payload["support_assets"][0]["actions"])
+        self.assertEqual(payload["support_assets"][0]["action_points"], 2)
+        self.assertGreater(payload["support_assets"][0]["size_scale"], 1.0)
 
     def test_write_handoff_creates_godot_readable_json(self) -> None:
         agent = Character("Mako", role="samurai")

@@ -1501,9 +1501,12 @@ func _end_combat(outcome: String) -> void:
 # ─── Data builders ────────────────────────────────────────────────────────────
 
 func _build_player_units() -> Array[Dictionary]:
-	var squad: Array = handoff.get("squad", [])
+	var squad_raw: Variant = handoff.get("squad", [])
+	var squad: Array = squad_raw as Array if typeof(squad_raw) == TYPE_ARRAY else []
+	var assets_raw: Variant = handoff.get("support_assets", [])
+	var support_assets: Array = assets_raw as Array if typeof(assets_raw) == TYPE_ARRAY else []
 	var units: Array[Dictionary] = []
-	if squad.is_empty():
+	if squad.is_empty() and support_assets.is_empty():
 		units.append({"name": "ECHO",   "role": "samurai", "hp": 30, "max_hp": 30,
 					  "stress": 20, "ap": 4, "defense": 5, "initiative": 18,
 					  "position": Vector2i(2, 6), "kind": "player", "status_effects": []})
@@ -1551,6 +1554,45 @@ func _build_player_units() -> Array[Dictionary]:
 			"status_effects":    [],
 			"available_actions": agent_actions,
 			"size_scale":        clampf(float(agent.get("size_scale", 1.0)), 0.5, 5.0),
+		})
+	for j in range(support_assets.size()):
+		var raw_asset: Variant = support_assets[j]
+		if typeof(raw_asset) != TYPE_DICTIONARY: continue
+		var asset: Dictionary = raw_asset as Dictionary
+		var asset_type := str(asset.get("asset_type", "")).to_lower()
+		var role := "robot" if asset_type in ["combat_robot", "support_robot"] or asset_type.ends_with("_robot") else "power_armor"
+		var row_index := units.size()
+		var row: int = mini(GRID_ROWS - 1, 1 + (row_index % maxi(1, GRID_ROWS / 2)) * 2)
+		var raw_name: Variant = asset.get("name", null)
+		var clean_name: String = str(raw_name).strip_edges() if raw_name != null else ""
+		if clean_name == "" or clean_name.to_lower() == "null":
+			clean_name = "SUPPORT-%d" % (j + 1)
+		var raw_asset_actions: Variant = asset.get("actions", [])
+		var asset_actions: Array[String] = []
+		if typeof(raw_asset_actions) == TYPE_ARRAY:
+			for action: Variant in raw_asset_actions as Array:
+				asset_actions.append(str(action))
+		if asset_actions.is_empty():
+			asset_actions = ["Move", "Defend", "Missile Salvo"] if role == "robot" else ["Move", "Defend", "Rifle Burst", "Servo Punch"]
+		var hp := maxi(1, int(asset.get("hp", 24)))
+		units.append({
+			"name":              clean_name,
+			"role":              role,
+			"asset_type":        asset_type,
+			"asset_id":          str(asset.get("id", "")),
+			"hp":                hp,
+			"max_hp":            maxi(hp, int(asset.get("max_hp", hp))),
+			"stress":            0,
+			"ap":                maxi(1, int(asset.get("action_points", 2))),
+			"defense":           int(asset.get("defense", 6 if role == "robot" else 8)),
+			"initiative":        int(asset.get("initiative", 16 - row_index)),
+			"aim":               int(asset.get("aim", 5)),
+			"melee_power":       int(asset.get("melee_power", 0)),
+			"position":          Vector2i(1, row),
+			"kind":              "player",
+			"status_effects":    [],
+			"available_actions": asset_actions,
+			"size_scale":        clampf(float(asset.get("size_scale", 3.5 if role == "robot" else 2.0)), 0.5, 5.0),
 		})
 	return units
 

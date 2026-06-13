@@ -26,6 +26,7 @@ Before launch, confirm:
 - Assets are labeled as **Support Asset** in the HUD.
 - Agents are labeled as **Agent**.
 - Support assets focus on fire/missiles/defend actions.
+- In the Godot combat UI, selected support assets are appended to the player-side unit strip and deploy as tactical units beside the selected agents.
 
 ## 6) Post-mission outcomes
 After battle, review in debrief/base UI:
