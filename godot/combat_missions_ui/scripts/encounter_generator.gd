@@ -142,15 +142,18 @@ func scale_stats(b: Dictionary, risk: int, is_story: bool) -> Dictionary:
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Giant decision
-# Only robots and starvers (non-humanoid creatures) are eligible.
-# Corp, human, raider, and mutant faction units stay at normal token size.
+# Non-humanoid categories — robots, starvers, and mutants — are eligible.
+# Corp (including power armor), raider, and generic humanoids are never giant;
+# their larger-looking artwork is purely aesthetic, not a physical size change.
 # Vehicles handle their own giant logic in build_vehicles(). At most one giant per encounter.
 # ──────────────────────────────────────────────────────────────────────────────
 
 func should_be_giant(_subtype: String, category: String,
 					  risk: int, is_story: bool, giant_used: bool) -> bool:
 	if giant_used: return false   # one giant per encounter at most
-	var eligible := category in ["robot", "starver"]
+	# Power armor and human corps are excluded even though they have bulky sprites;
+	# they are still human-sized combatants.
+	var eligible := category in ["robot", "starver", "mutant"]
 	if not eligible: return false
 	var p := 0.0
 	if   is_story:  p = 0.50
@@ -328,6 +331,7 @@ func build_vehicles(analysis: Dictionary, giant_used: bool,
 	var mid_row  := grid_rows / 2
 
 	# Agent VTOL — always present, decorative, left edge.
+	# scale 3.5 so it looks impressively large without dominating the screen.
 	var agent_vtol: Dictionary = {
 		"name":        "VTOL",
 		"role":        "vehicle",
@@ -338,7 +342,7 @@ func build_vehicles(analysis: Dictionary, giant_used: bool,
 		"ap":          0,
 		"defense":     10,
 		"initiative":  0,
-		"size_scale":  5.0,
+		"size_scale":  3.5,
 		"is_vehicle":  true,
 		"is_giant":    false,
 		"vehicle_key": "vehicle_agent_vtol",
@@ -360,6 +364,7 @@ func build_vehicles(analysis: Dictionary, giant_used: bool,
 	var vh_hp  := 40 + risk * 8 + (20 if is_story else 0)
 	var vh_def := 10 + risk
 
+	# Decorative vehicles use scale 3.5; giant combat vehicles use 5.0.
 	var enemy_veh: Dictionary = {
 		"name":           "%s %s" % [theme.replace("_", " ").to_upper(), _enemy_vehicle_subtype_label(theme)],
 		"role":           "vehicle",
@@ -370,7 +375,7 @@ func build_vehicles(analysis: Dictionary, giant_used: bool,
 		"ap":             2,
 		"defense":        vh_def,
 		"initiative":     8,
-		"size_scale":     5.0,
+		"size_scale":     5.0 if becomes_giant else 3.5,
 		"is_vehicle":     true,
 		"is_giant":       becomes_giant,
 		"enemy_subtype":  _enemy_vehicle_subtype_label(theme).to_lower(),
@@ -407,6 +412,20 @@ func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary
 	var units:      Array[Dictionary] = []
 	var giant_used := false
 
+	# Base visual scale by category so sprites feel appropriately sized.
+	# Power-armor corp units have bulkier art; reduce their token slightly so
+	# they read as human-sized. Robot corps are mechanically larger than humans.
+	var base_scale: float
+	match category:
+		"corp":
+			# Distinguish power-armor (visually oversized art) from regular corp.
+			if "power_armor" in theme: base_scale = 0.82
+			elif "robot" in theme:     base_scale = 1.15
+			else:                      base_scale = 1.0
+		"robot":   base_scale = 1.2
+		"mutant":  base_scale = 1.1
+		_:         base_scale = 1.0
+
 	for i in range(count):
 		var sub   := subtypes[i]
 		var b     := base_stats(sub)
@@ -427,7 +446,7 @@ func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary
 			"enemy_theme":    theme,
 			"status_effects": [],
 			"defense":        stats["defense"],
-			"size_scale":     1.0,
+			"size_scale":     base_scale,
 			"is_giant":       false,
 			"position":       Vector2i.ZERO,
 		}

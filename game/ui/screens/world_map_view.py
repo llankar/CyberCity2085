@@ -15,6 +15,7 @@ from game.mission_system import (
     launch_selected_mission as _launch_mission,
     selected_mission as _selected_mission,
 )
+from game.text_missions.text_mission_library import text_missions_for_day
 from game.ui import GameView
 from game.ui import palette
 from game.ui.management.action_requirements import blocked_launch_reason
@@ -31,6 +32,10 @@ from game.narrative.mission_briefing_conventions import translate_legacy_briefin
 
 if TYPE_CHECKING:
     from game.mission_templates import MissionTemplate
+    from game.text_missions.text_mission_template import TextMissionTemplate
+
+# Colour for narrative-mission pins (cyan-purple to distinguish from combat green/yellow)
+_TXT_PIN_COL = (130, 100, 220, 255)
 
 
 @dataclass(frozen=True)
@@ -134,8 +139,44 @@ def build_world_map_layout(width: int, height: int, selected_pin_x: int | None =
     )
 
 
+# Normalized (x, y) anchors for text-mission pins, separated by district type.
+# These sit in visually distinct map regions from the combat-mission pins.
+_TXT_CITY_PINS: list[tuple[float, float]] = [
+    (0.14, 0.72), (0.40, 0.76), (0.68, 0.64), (0.90, 0.58),
+]
+_TXT_WASTE_PINS: list[tuple[float, float]] = [
+    (0.20, 0.18), (0.50, 0.12), (0.80, 0.20), (0.35, 0.08),
+]
+
+
+def _txt_pin_xy(
+    district_type: str,
+    type_idx: int,
+    map_l: int, map_b: int, map_r: int, map_t: int,
+) -> tuple[int, int]:
+    bases = _TXT_CITY_PINS if district_type == "city" else _TXT_WASTE_PINS
+    nx, ny = bases[type_idx % len(bases)]
+    return int(map_l + nx * (map_r - map_l)), int(map_b + ny * (map_t - map_b))
+
+
+def _draw_diamond(x: int, y: int, r: int, col) -> None:
+    """Draw a diamond (rotated square) as a text-mission pin marker."""
+    pts = [(x, y + r), (x + r, y), (x, y - r), (x - r, y)]
+    for i in range(4):
+        x0, y0 = pts[i]
+        x1, y1 = pts[(i + 1) % 4]
+        arcade.draw_line(x0, y0, x1, y1, col, 2)
+
+
 class MissionWorldMapView(GameView):
-    """Full-screen mission selector backed by the world map art."""
+    """Full-screen mission selector backed by the world map art.
+
+    Shows two overlapping pin layers:
+      • Circle pins  — combat missions (existing system)
+      • Diamond pins — narrative text missions (new)
+
+    The active selection tracks which type is selected; LAUNCH routes accordingly.
+    """
 
     def __init__(self, game_state) -> None:
         super().__init__(game_state)
@@ -143,10 +184,16 @@ class MissionWorldMapView(GameView):
         self._message = ""
         self._pending_launch_confirm = False
         self._pending_launch_mission_id: str | None = None
+        # Text-mission state
+        self._text_missions: list["TextMissionTemplate"] = []
+        self._selection_type: str = "combat"   # "combat" | "text"
+        self._selected_text_index: int = 0
 
     def on_show_view(self) -> None:
         arcade.set_background_color((5, 10, 18))
         ensure_mission_templates(self.game_state)
+        day = self.game_state.calendar.current_day
+        self._text_missions = text_missions_for_day(day, count=6)
 
     def on_draw(self) -> None:
         self.clear()
@@ -217,10 +264,8 @@ class MissionWorldMapView(GameView):
         for node in nodes:
             if node.mission_index == selected_index:
                 selected_node = node
-            selected = node.mission_index == selected_index
+            selected = node.mission_index == selected_index and self._selection_type == "combat"
             risk_col = palette.TACTICAL_GREEN if selected else palette.WARNING
-            if selected:
-                risk_col = palette.TACTICAL_GREEN
             arcade.draw_circle_filled(node.pin_x, node.pin_y, 8 if selected else 6, risk_col)
             arcade.draw_circle_outline(node.pin_x, node.pin_y, 14, palette.WARNING if selected else risk_col, 2)
             arcade.draw_line(node.pin_x, node.pin_y - 2, node.pin_x, node.pin_y - 15, palette.WARNING if selected else risk_col, 2)
@@ -244,8 +289,53 @@ class MissionWorldMapView(GameView):
                 )
             )
 
-        mission = missions[selected_index] if missions else None
-        if mission is not None:
+        # Text mission diamond pins
+        city_idx = 0
+        waste_idx = 0
+        for ti, tm in enumerate(self._text_missions):
+            type_idx = city_idx if tm.district_type == "city" else waste_idx
+            tx, ty = _txt_pin_xy(
+                tm.district_type, type_idx,
+                int(pin_left), int(pin_bottom), int(pin_right), int(pin_top),
+            )
+            if tm.district_type == "city":
+                city_idx += 1
+            else:
+                waste_idx += 1
+            sel_t = (self._selection_type == "text" and self._selected_text_index == ti)
+            col = _TXT_PIN_COL
+            r = 11 if sel_t else 7
+            # Fill diamond for selected
+            if sel_t:
+                arcade.draw_triangle_filled(tx, ty + r, tx + r, ty, tx - r, ty, (*col[:3], 80))
+                arcade.draw_triangle_filled(tx, ty - r, tx + r, ty, tx - r, ty, (*col[:3], 80))
+            _draw_diamond(tx, ty, r, col)
+            if sel_t:
+                _draw_diamond(tx, ty, r + 4, (*col[:3], 90))
+            arcade.draw_text(
+                _shorten(tm.title, 14),
+                tx, ty - r - 2,
+                col, font_size=7, bold=True,
+                anchor_x="center", anchor_y="top",
+            )
+            pad = r + 8
+            self._hits.append(
+                _HitRegion(tx - pad, ty - pad, tx + pad, ty + pad, "select_text_mission", ti)
+            )
+
+        # Briefing card
+        if self._selection_type == "text" and self._text_missions:
+            tm = self._text_missions[self._selected_text_index]
+            briefing_layout = build_world_map_layout(w, h, None)
+            self._draw_text_mission_details(
+                briefing_layout.briefing_left,
+                briefing_layout.briefing_bottom,
+                briefing_layout.briefing_right,
+                briefing_layout.briefing_top,
+                tm,
+            )
+        elif missions and self._selection_type == "combat":
+            mission = missions[selected_index]
             briefing_layout = build_world_map_layout(w, h, selected_node.pin_x if selected_node is not None else None)
             self._draw_mission_details(
                 briefing_layout.briefing_left,
@@ -255,7 +345,7 @@ class MissionWorldMapView(GameView):
                 mission,
                 selected_node,
             )
-        else:
+        elif not missions and not self._text_missions:
             arcade.draw_text(
                 "No missions available.",
                 (map_left + map_right) // 2,
@@ -394,8 +484,14 @@ class MissionWorldMapView(GameView):
     def _handle_action(self, action: str, data: object) -> None:
         if action == "select_mission":
             self.game_state.selected_mission_index = int(data)
+            self._selection_type = "combat"
             self._pending_launch_confirm = False
             self._pending_launch_mission_id = None
+            self._message = ""
+            return
+        if action == "select_text_mission":
+            self._selected_text_index = int(data)
+            self._selection_type = "text"
             self._message = ""
             return
         if action == "confirm_mission":
@@ -408,6 +504,9 @@ class MissionWorldMapView(GameView):
             self._back_to_management()
 
     def _launch_selected_mission(self) -> None:
+        if self._selection_type == "text":
+            self._launch_text_mission()
+            return
         gs = self.game_state
         gs.selected_agent_names = sanitize_selected_agent_names(gs.characters, gs.selected_agent_names)
         selected_squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
@@ -454,6 +553,81 @@ class MissionWorldMapView(GameView):
 
         from game.ui.screens.mission_briefing_view import MissionBriefingView
         self.window.show_view(MissionBriefingView(gs, mission))
+
+    def _launch_text_mission(self) -> None:
+        if not self._text_missions:
+            self._message = "No narrative mission selected."
+            return
+        gs = self.game_state
+        gs.selected_agent_names = sanitize_selected_agent_names(gs.characters, gs.selected_agent_names)
+        squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
+        if not squad:
+            self._message = "Assign at least one operative before launching a narrative mission."
+            return
+        tm = self._text_missions[self._selected_text_index]
+        from game.ui.screens.text_mission_view import TextMissionView
+        self.window.show_view(TextMissionView(gs, tm))
+
+    def _draw_text_mission_details(
+        self,
+        left: int, bottom: int, right: int, top: int,
+        tm: "TextMissionTemplate",
+    ) -> None:
+        draw_panel(left, bottom, right - left, top - bottom)
+        x = left + 14
+        panel_w = right - left
+
+        # Header strip
+        top_y = top - 18
+        arcade.draw_text("NARRATIVE MISSION", x, top_y, _TXT_PIN_COL, font_size=10, bold=True)
+        arcade.draw_text(
+            tm.district_type.upper(),
+            right - 14, top_y,
+            _TXT_PIN_COL, font_size=9, anchor_x="right",
+        )
+
+        y = top - 42
+        arcade.draw_text(
+            _shorten(tm.title.upper(), 24), x, y,
+            palette.HEADER, font_size=13, bold=True,
+        )
+        y -= 22
+        arcade.draw_text(
+            f"RISK {tm.risk_level}  |  {tm.duration_days}D  |  ¥{tm.fund_reward}",
+            x, y, palette.WARNING, font_size=9,
+        )
+        y -= 20
+        arcade.draw_line(x, y, right - 14, y, palette.PANEL_BORDER_MUTED, 1)
+        y -= 16
+
+        # Description word-wrap
+        desc = tm.description
+        cpl = max(20, (panel_w - 28) // 7)
+        while desc and y > bottom + 50:
+            if len(desc) <= cpl:
+                arcade.draw_text(desc, x, y, palette.TEXT, font_size=8)
+                desc = ""
+            else:
+                cut = desc[:cpl + 1].rfind(" ")
+                if cut <= 0:
+                    cut = cpl
+                arcade.draw_text(desc[:cut], x, y, palette.TEXT, font_size=8)
+                desc = desc[cut + 1:]
+            y -= 13
+
+        if tm.required_skills:
+            y -= 4
+            arcade.draw_text(
+                "Skills: " + ", ".join(s.replace("_", " ") for s in tm.required_skills),
+                x, y, palette.ACCENT, font_size=8,
+            )
+
+        # "LAUNCH" hint at bottom of card
+        arcade.draw_text(
+            "Press LAUNCH MISSION to deploy",
+            x, bottom + 10,
+            palette.MUTED_TEXT, font_size=7,
+        )
 
     def _back_to_management(self) -> None:
         from game.ui.screens.management_screen import ManagementView

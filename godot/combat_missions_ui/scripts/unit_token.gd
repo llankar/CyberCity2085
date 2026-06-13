@@ -49,13 +49,8 @@ func _ready() -> void:
 	sprite = Sprite2D.new()
 	sprite.centered  = true
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	sprite.name = "Sprite2D"
-	# Standee shader: preserves full sprite shape, only applies damaged tint.
-	var standee_shader := load("res://shaders/standee_portrait.gdshader") as Shader
-	if standee_shader != null:
-		var mat := ShaderMaterial.new()
-		mat.shader = standee_shader
-		sprite.material = mat
+	sprite.name    = "Sprite2D"
+	sprite.visible = false   # texture is drawn manually in _draw(); Sprite2D is data-only
 	add_child(sprite)
 
 func setup(data: Dictionary, id: int, enemy: bool,
@@ -66,14 +61,7 @@ func setup(data: Dictionary, id: int, enemy: bool,
 	cell_size = c_size
 	_recalc_dims()
 	if tex != null:
-		sprite.texture = tex
-		var tw := float(tex.get_width())
-		if tw > 0:
-			# Scale so the sprite fills the card height (portrait orientation).
-			sprite.scale = Vector2.ONE * (_card_h / float(tex.get_height()))
-	# Centre sprite so its bottom aligns with y=0 (the base level).
-	sprite.position = Vector2(0.0, -_card_h * 0.5)
-	_apply_damaged_shader()
+		sprite.texture = tex   # stored here; drawn via draw_texture_rect in _draw()
 	queue_redraw()
 
 func update_data(data: Dictionary) -> void:
@@ -89,19 +77,11 @@ func _recalc_dims() -> void:
 	_base_rx = _card_w * 0.46
 	_sw      = _card_w * 0.5
 	_sh      = _card_h
-	# Reposition sprite if it already exists.
 	if sprite != null:
-		sprite.position = Vector2(0.0, -_card_h * 0.5)
-		if sprite.texture != null:
-			var th := float(sprite.texture.get_height())
-			if th > 0:
-				sprite.scale = Vector2.ONE * (_card_h / th)
+		queue_redraw()   # texture drawn in _draw(); just trigger a redraw
 
 func _apply_damaged_shader() -> void:
-	var hp_frac := float(int(unit_data.get("hp", 1))) / \
-				   float(maxi(1, int(unit_data.get("max_hp", 1))))
-	if sprite.material is ShaderMaterial:
-		(sprite.material as ShaderMaterial).set_shader_parameter("hp_fraction", hp_frac)
+	pass   # hp tint is applied directly in _draw() via draw_texture_rect colour
 
 # ── Process ──────────────────────────────────────────────────────────────────
 
@@ -150,15 +130,14 @@ func attack_lunge(target_pos: Vector2) -> void:
 func play_hit(damage: int, hit: bool) -> void:
 	if hit:
 		var tw := create_tween()
-		tw.tween_property(sprite, "modulate", Color(1.0, 0.12, 0.12, 1.0), 0.05)
-		tw.tween_property(sprite, "modulate", Color(1.0, 1.0,  1.0,  1.0), 0.18)
+		tw.tween_property(self, "modulate", Color(1.0, 0.12, 0.12, 1.0), 0.05)
+		tw.tween_property(self, "modulate", Color(1.0, 1.0,  1.0,  1.0), 0.18)
 		_spawn_float_text("-%d" % damage, Color(1.0, 0.28, 0.18, 1.0))
 		hp_canvas_redraw()
-		_apply_damaged_shader()
 	else:
 		var tw := create_tween()
-		tw.tween_property(sprite, "modulate", Color(0.55, 0.55, 1.0, 1.0), 0.08)
-		tw.tween_property(sprite, "modulate", Color(1.0,  1.0,  1.0, 1.0), 0.22)
+		tw.tween_property(self, "modulate", Color(0.55, 0.55, 1.0, 1.0), 0.08)
+		tw.tween_property(self, "modulate", Color(1.0,  1.0,  1.0, 1.0), 0.22)
 		_spawn_float_text("MISS", Color(0.58, 0.68, 1.0, 1.0))
 
 func hp_canvas_redraw() -> void:
@@ -167,8 +146,8 @@ func hp_canvas_redraw() -> void:
 func play_death() -> void:
 	var tw := create_tween()
 	for _i in range(3):
-		tw.tween_property(sprite, "modulate:a", 0.08, 0.07)
-		tw.tween_property(sprite, "modulate:a", 0.9,  0.07)
+		tw.tween_property(self, "modulate:a", 0.08, 0.07)
+		tw.tween_property(self, "modulate:a", 0.9,  0.07)
 	tw.set_parallel(false)
 	tw.tween_property(self, "position:y", position.y + 14.0, 0.35)
 	tw.parallel().tween_property(self, "modulate:a", 0.0, 0.35)
@@ -212,9 +191,8 @@ func _unhandled_input(event: InputEvent) -> void:
 # ── Custom drawing ────────────────────────────────────────────────────────────
 # Draw order (back to front):
 #   shadow ellipse → isometric base disc → card glow (if active) →
-#   white card rect → team-colour border → HP bar strip → name + badges.
-# The Sprite2D child renders AFTER this, showing the character art on the card.
-# Art is transparent outside the character so the card edges and labels show.
+#   character art (draw_texture_rect, always fills card exactly) →
+#   HP bar strip → targeted chevrons → name label → status badges.
 
 func _draw() -> void:
 	if int(unit_data.get("hp", 0)) <= 0:
@@ -241,6 +219,17 @@ func _draw() -> void:
 		var gw := cw * 0.14
 		draw_rect(Rect2(-cw * 0.5 - gw, -ch - gw, cw + gw * 2.0, ch + gw * 2.0),
 				  Color(rc.r, rc.g, rc.b, ga), true)
+
+	# 4 — Character art: always fill the card rect exactly, no scale arithmetic.
+	if sprite != null and sprite.texture != null:
+		var hp_frac := float(int(unit_data.get("hp", 1))) / \
+					   float(maxi(1, int(unit_data.get("max_hp", 1))))
+		var art_col := Color.WHITE
+		if hp_frac < 0.5:
+			art_col = Color.WHITE.lerp(Color(1.0, 0.45, 0.35, 1.0), (0.5 - hp_frac) * 2.0)
+		draw_texture_rect(sprite.texture,
+						  Rect2(-cw * 0.5, -ch, cw, ch),
+						  false, art_col)
 
 	# 6 — HP bar: thin coloured strip just below the card bottom, on the base.
 	var hp     := int(unit_data.get("hp",     0))
