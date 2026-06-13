@@ -464,13 +464,48 @@ class ManagementView(GameView):
         _meter(left_x0, meter_y + 28, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
         _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
-        loadout_lines = char.loadout.summary_lines()[:5]
-        loadout_top = my0 + 34
-        _rect(left_x0 - 6, loadout_top - 8, left_x1 - 2, loadout_top + 118, (9, 20, 26, 210))
-        arcade.draw_line(left_x0 - 6, loadout_top + 118, left_x1 - 2, loadout_top + 118, palette.PANEL_BORDER_MUTED, 1)
-        arcade.draw_text("LOADOUT", left_x0 + 6, loadout_top + 98, palette.ACCENT, font_size=11, bold=True)
-        for idx, line in enumerate(loadout_lines or ["No equipment assigned."]):
-            arcade.draw_text(line, left_x0 + 6, loadout_top + 76 - idx * 18, palette.MUTED_TEXT, font_size=9, width=left_w - 18, align="left")
+        # Specialization tree — replaces loadout summary (loadout lives in the equipment panel)
+        spec_bottom = my0 + 26
+        spec_top    = my0 + 152
+        spec_cols   = 3
+        spec_gap    = 6
+        spec_node_w = max(70, (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols)
+        spec_node_h = 40
+        _rect(left_x0 - 6, spec_bottom, left_x1 - 2, spec_top, (10, 22, 30, 210))
+        arcade.draw_line(left_x0 - 6, spec_top, left_x1 - 2, spec_top, palette.ACCENT, 2)
+        arcade.draw_text(
+            f"SPECIALIZATION  |  {char.role.upper()}  |  TP {char.talent_points}",
+            left_x0 + 6, spec_top - 14, palette.ACCENT, font_size=9, bold=True,
+        )
+        _unlocked = set(char.specializations)
+        _spec_nodes = list(talent_nodes_for_role(char.role))
+        _node_top = spec_top - 24
+        for _si, _sn in enumerate(_spec_nodes[:6]):
+            _sr = _si // spec_cols
+            _sc = _si % spec_cols
+            _sl = left_x0 + _sc * (spec_node_w + spec_gap)
+            _st = _node_top - _sr * (spec_node_h + 6)
+            _sb = _st - spec_node_h
+            if _sb < spec_bottom:
+                break
+            _un = _sn.id in _unlocked
+            _av = _sn in available_talent_nodes(char.role, _unlocked)
+            if _un:
+                _sf = (*palette.TACTICAL_GREEN[:3], 70); _sbr = palette.TACTICAL_GREEN
+            elif _av and char.talent_points > 0:
+                _sf = (36, 68, 48, 190); _sbr = palette.RESOURCE
+            else:
+                _sf = (14, 24, 34, 190); _sbr = palette.PANEL_BORDER_MUTED
+            _rect(_sl, _sb, _sl + spec_node_w, _st, _sf)
+            arcade.draw_line(_sl, _st, _sl + spec_node_w, _st, _sbr, 2)
+            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 12, palette.TEXT, font_size=8, bold=True)
+            _lbl = "OWNED" if _un else ("UNLOCK" if _av else "LOCKED")
+            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=7, bold=True, anchor_x="right")
+            if _av and char.talent_points > 0 and not _un:
+                self._modal_hits.append(_HitRegion(
+                    _sl, _sb, _sl + spec_node_w, _st,
+                    "unlock_talent", (self.expanded_agent_sheet_index, _sn.id),
+                ))
 
         # Right details column
         stats_top = my1 - 104
@@ -1637,8 +1672,7 @@ class ManagementView(GameView):
                     (self.deployment_cursor, skey),
                 ))
 
-        talent_panel_h = 112
-        slot_h  = min(78, (y1 - y0 - 90 - stat_panel_h - talent_panel_h - 16) // len(_SLOTS))
+        slot_h  = min(78, (y1 - y0 - 90 - stat_panel_h - 16) // len(_SLOTS))
         slot_gap = 4
         sy       = y1 - 34 - (stat_panel_h + 6 if pts > 0 else 0)
 
@@ -1711,64 +1745,10 @@ class ManagementView(GameView):
 
             sy -= slot_h + slot_gap
 
-        talent_bottom = y0 + 8
-        talent_top = talent_bottom + talent_panel_h
-        _rect(x0 + 8, talent_bottom, x1 - 8, talent_top, (10, 22, 30, 210))
-        arcade.draw_line(x0 + 8, talent_top, x1 - 8, talent_top, palette.ACCENT, 2)
-        arcade.draw_text(
-            f"SPECIALIZATION  |  {char.role.upper()}  |  POINTS {char.talent_points}",
-            x0 + 16,
-            talent_top - 14,
-            palette.ACCENT,
-            font_size=10,
-            bold=True,
-        )
-        unlocked = set(char.specializations)
-        nodes = list(talent_nodes_for_role(char.role))
-        cols = 3
-        node_gap = 6
-        node_w = max(90, (x1 - x0 - 32 - node_gap * (cols - 1)) // cols)
-        node_h = 48
-        node_top = talent_top - 26
-        for idx, node in enumerate(nodes[:6]):
-            row = idx // cols
-            col = idx % cols
-            left = x0 + 16 + col * (node_w + node_gap)
-            top = node_top - row * (node_h + 8)
-            bottom = top - node_h
-            unlocked_node = node.id in unlocked
-            available_node = node in available_talent_nodes(char.role, unlocked)
-            if unlocked_node:
-                fill = (*palette.TACTICAL_GREEN[:3], 70)
-                border = palette.TACTICAL_GREEN
-            elif available_node and char.talent_points > 0:
-                fill = (36, 68, 48, 190)
-                border = palette.RESOURCE
-            else:
-                fill = (14, 24, 34, 190)
-                border = palette.PANEL_BORDER_MUTED
-            _rect(left, bottom, left + node_w, top, fill)
-            arcade.draw_line(left, top, left + node_w, top, border, 2)
-            arcade.draw_text(node.name.upper(), left + 8, top - 13, palette.TEXT, font_size=9, bold=True)
-            max_desc_chars = max(18, (node_w - 18) // 5)
-            arcade.draw_text(
-                node.description[:max_desc_chars],
-                left + 8,
-                bottom + 8,
-                palette.MUTED_TEXT,
-                font_size=7,
-            )
-            status = "OWNED" if unlocked_node else ("UNLOCK" if available_node else "LOCKED")
-            arcade.draw_text(status, left + node_w - 8, bottom + 6, border, font_size=8, bold=True, anchor_x="right")
-            prereq = " + ".join(node.prerequisites) if node.prerequisites else "START"
-            arcade.draw_text(prereq[:18], left + 8, bottom + node_h - 24, border, font_size=7)
-            if available_node and char.talent_points > 0 and not unlocked_node:
-                self._hits.append(_HitRegion(left, bottom, left + node_w, top, "unlock_talent", (self.deployment_cursor, node.id)))
-
         # Summary row: total bonuses
         bonuses_total = loadout.total_stat_bonuses()
         if bonuses_total:
-            summary_y = talent_top + 6
+            summary_y = y0 + 12
             arcade.draw_line(x0 + 10, summary_y + 18, x1 - 10, summary_y + 18, palette.GRID_LINE, 1)
             bx = x0 + 12
             by = summary_y
@@ -2802,13 +2782,48 @@ class ManagementView(GameView):
         _meter(left_x0, meter_y + 28, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
         _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
-        loadout_lines = char.loadout.summary_lines()[:5]
-        loadout_top = my0 + 34
-        _rect(left_x0 - 6, loadout_top - 8, left_x1 - 2, loadout_top + 118, (9, 20, 26, 210))
-        arcade.draw_line(left_x0 - 6, loadout_top + 118, left_x1 - 2, loadout_top + 118, palette.PANEL_BORDER_MUTED, 1)
-        arcade.draw_text("LOADOUT", left_x0 + 6, loadout_top + 98, palette.ACCENT, font_size=11, bold=True)
-        for idx, line in enumerate(loadout_lines or ["No equipment assigned."]):
-            arcade.draw_text(line, left_x0 + 6, loadout_top + 76 - idx * 18, palette.MUTED_TEXT, font_size=9, width=left_w - 18, align="left")
+        # Specialization tree — replaces loadout summary (loadout lives in the equipment panel)
+        spec_bottom = my0 + 26
+        spec_top    = my0 + 152
+        spec_cols   = 3
+        spec_gap    = 6
+        spec_node_w = max(70, (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols)
+        spec_node_h = 40
+        _rect(left_x0 - 6, spec_bottom, left_x1 - 2, spec_top, (10, 22, 30, 210))
+        arcade.draw_line(left_x0 - 6, spec_top, left_x1 - 2, spec_top, palette.ACCENT, 2)
+        arcade.draw_text(
+            f"SPECIALIZATION  |  {char.role.upper()}  |  TP {char.talent_points}",
+            left_x0 + 6, spec_top - 14, palette.ACCENT, font_size=9, bold=True,
+        )
+        _unlocked = set(char.specializations)
+        _spec_nodes = list(talent_nodes_for_role(char.role))
+        _node_top = spec_top - 24
+        for _si, _sn in enumerate(_spec_nodes[:6]):
+            _sr = _si // spec_cols
+            _sc = _si % spec_cols
+            _sl = left_x0 + _sc * (spec_node_w + spec_gap)
+            _st = _node_top - _sr * (spec_node_h + 6)
+            _sb = _st - spec_node_h
+            if _sb < spec_bottom:
+                break
+            _un = _sn.id in _unlocked
+            _av = _sn in available_talent_nodes(char.role, _unlocked)
+            if _un:
+                _sf = (*palette.TACTICAL_GREEN[:3], 70); _sbr = palette.TACTICAL_GREEN
+            elif _av and char.talent_points > 0:
+                _sf = (36, 68, 48, 190); _sbr = palette.RESOURCE
+            else:
+                _sf = (14, 24, 34, 190); _sbr = palette.PANEL_BORDER_MUTED
+            _rect(_sl, _sb, _sl + spec_node_w, _st, _sf)
+            arcade.draw_line(_sl, _st, _sl + spec_node_w, _st, _sbr, 2)
+            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 12, palette.TEXT, font_size=8, bold=True)
+            _lbl = "OWNED" if _un else ("UNLOCK" if _av else "LOCKED")
+            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=7, bold=True, anchor_x="right")
+            if _av and char.talent_points > 0 and not _un:
+                self._modal_hits.append(_HitRegion(
+                    _sl, _sb, _sl + spec_node_w, _st,
+                    "unlock_talent", (self.expanded_agent_sheet_index, _sn.id),
+                ))
 
         stats_top = my1 - 104
         arcade.draw_text("ATTRIBUTES", right_x0, stats_top + 16, palette.ACCENT, font_size=12, bold=True)
