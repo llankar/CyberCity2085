@@ -464,12 +464,13 @@ class ManagementView(GameView):
         _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
         # Specialization tree — replaces loadout summary (loadout lives in the equipment panel)
-        spec_bottom = my0 + 26
-        spec_top    = my0 + 152
-        spec_cols   = 3
-        spec_gap    = 6
-        spec_node_w = max(70, (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols)
-        spec_node_h = 40
+        # Spec tree fills all space between the stress meter and the modal bottom.
+        spec_top    = meter_y - 42
+        spec_bottom = my0 + 16
+        spec_cols   = 2
+        spec_gap    = 8
+        spec_node_w = (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols
+        spec_node_h = min(84, max(40, (spec_top - spec_bottom - 28) // 3))
         _rect(left_x0 - 6, spec_bottom, left_x1 - 2, spec_top, (10, 22, 30, 210))
         arcade.draw_line(left_x0 - 6, spec_top, left_x1 - 2, spec_top, palette.ACCENT, 2)
         arcade.draw_text(
@@ -497,9 +498,18 @@ class ManagementView(GameView):
                 _sf = (14, 24, 34, 190); _sbr = palette.PANEL_BORDER_MUTED
             _rect(_sl, _sb, _sl + spec_node_w, _st, _sf)
             arcade.draw_line(_sl, _st, _sl + spec_node_w, _st, _sbr, 2)
-            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 12, palette.TEXT, font_size=8, bold=True)
-            _lbl = "OWNED" if _un else ("UNLOCK" if _av else "LOCKED")
-            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=7, bold=True, anchor_x="right")
+            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 14, palette.TEXT, font_size=9, bold=True)
+            arcade.draw_text(f"T{_sn.tier}", _sl + spec_node_w - 6, _st - 14, palette.MUTED_TEXT, font_size=7, anchor_x="right")
+            arcade.draw_text(
+                _sn.description,
+                _sl + 6, _st - 30,
+                palette.MUTED_TEXT, font_size=7,
+                width=spec_node_w - 12, multiline=True,
+            )
+            _bonus_str = "  ".join(f"+{v} {k.upper()}" for k, v in _sn.bonuses.items())
+            arcade.draw_text(_bonus_str, _sl + 6, _sb + 18, palette.RESOURCE if not _un else palette.TACTICAL_GREEN, font_size=8, bold=True)
+            _lbl = "OWNED" if _un else ("UNLOCK" if _av and char.talent_points > 0 else "LOCKED")
+            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=8, bold=True, anchor_x="right")
             if _av and char.talent_points > 0 and not _un:
                 self._modal_hits.append(_HitRegion(
                     _sl, _sb, _sl + spec_node_w, _st,
@@ -567,10 +577,11 @@ class ManagementView(GameView):
             "stealth": "AGI", "composure": "CON", "psychokinesis": "PSI",
             "pyrokinesis": "PSI", "cryokinesis": "PSI", "telepathy": "PSI",
         }
+        _attr_to_key = {"AGI": "agi", "STR": "str", "CHA": "cha", "PSI": "psi", "CON": "con"}
         skill_cols = 3
         skill_gap = 8
         skill_card_w = (right_x1 - right_x0 - skill_gap * (skill_cols - 1)) // skill_cols
-        skill_card_h = 80
+        skill_card_h = 96
         for idx, skill_key in enumerate(ALLOWED_SKILL_KEYS):
             row = idx // skill_cols
             col = idx % skill_cols
@@ -585,20 +596,23 @@ class ManagementView(GameView):
             _rect(card_left, card_bottom, card_left + skill_card_w, card_top, fill)
             arcade.draw_line(card_left, card_top, card_left + skill_card_w, card_top, border, 2)
             attr_tag = _sk_attr.get(skill_key, "")
-            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 14, palette.TEXT, font_size=8, bold=True)
-            if attr_tag:
-                arcade.draw_text(f"[{attr_tag}]", card_left + skill_card_w - 6, card_top - 14, palette.MUTED_TEXT, font_size=7, anchor_x="right")
+            attr_val = sheet_attrs.get(_attr_to_key.get(attr_tag, ""), 0)
+            # Name + linked attribute value
+            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 15, palette.TEXT, font_size=9, bold=True)
+            arcade.draw_text(f"[{attr_tag}: {attr_val}]", card_left + skill_card_w - 6, card_top - 15, palette.MUTED_TEXT, font_size=8, anchor_x="right")
+            # Progress bar (rank/10)
             bar_l = card_left + 6
             bar_r = card_left + skill_card_w - 6
-            bar_y = card_top - 32
-            _rect(bar_l, bar_y - 4, bar_r, bar_y + 2, (30, 42, 52, 200))
+            bar_y = card_top - 28
+            _rect(bar_l, bar_y - 6, bar_r, bar_y + 2, (30, 42, 52, 200))
             filled_w = int((bar_r - bar_l) * rank / SKILL_MAX_RANK)
             if filled_w > 0:
-                _rect(bar_l, bar_y - 4, bar_l + filled_w, bar_y + 2, (*palette.RESOURCE[:3], 200))
-            arcade.draw_text(f"RANK {rank}/{SKILL_MAX_RANK}", card_left + 6, card_top - 48, palette.MUTED_TEXT, font_size=8)
-            arcade.draw_text(f"TOTAL {total}", card_left + 6, card_top - 62, palette.ACCENT, font_size=8, bold=True)
+                _rect(bar_l, bar_y - 6, bar_l + filled_w, bar_y + 2, (*palette.RESOURCE[:3], 200))
+            arcade.draw_text(f"RANK  {rank} / {SKILL_MAX_RANK}", card_left + 6, card_top - 48, palette.MUTED_TEXT, font_size=8)
+            # Total = attr + rank (prominent)
+            arcade.draw_text(f"TOTAL  {total}", card_left + 6, card_top - 68, palette.ACCENT, font_size=13, bold=True)
             if can_spend:
-                arcade.draw_text("+1", card_left + skill_card_w - 6, card_bottom + 8, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
+                arcade.draw_text("+1", card_left + skill_card_w - 6, card_top - 68, palette.RESOURCE, font_size=13, bold=True, anchor_x="right")
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + skill_card_w, card_top, "sheet_spend_skill_rank", (self.expanded_agent_sheet_index, skill_key)))
 
         footer_y = my0 + 14
@@ -2802,12 +2816,13 @@ class ManagementView(GameView):
         _meter(left_x0, meter_y - 16, left_w - 24, char.stress / max(1, derived["stress_cap"]), palette.WARNING, "STRESS", label_offset=18)
 
         # Specialization tree — replaces loadout summary (loadout lives in the equipment panel)
-        spec_bottom = my0 + 26
-        spec_top    = my0 + 152
-        spec_cols   = 3
-        spec_gap    = 6
-        spec_node_w = max(70, (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols)
-        spec_node_h = 40
+        # Spec tree fills all space between the stress meter and the modal bottom.
+        spec_top    = meter_y - 42
+        spec_bottom = my0 + 16
+        spec_cols   = 2
+        spec_gap    = 8
+        spec_node_w = (left_w - 12 - spec_gap * (spec_cols - 1)) // spec_cols
+        spec_node_h = min(84, max(40, (spec_top - spec_bottom - 28) // 3))
         _rect(left_x0 - 6, spec_bottom, left_x1 - 2, spec_top, (10, 22, 30, 210))
         arcade.draw_line(left_x0 - 6, spec_top, left_x1 - 2, spec_top, palette.ACCENT, 2)
         arcade.draw_text(
@@ -2835,9 +2850,18 @@ class ManagementView(GameView):
                 _sf = (14, 24, 34, 190); _sbr = palette.PANEL_BORDER_MUTED
             _rect(_sl, _sb, _sl + spec_node_w, _st, _sf)
             arcade.draw_line(_sl, _st, _sl + spec_node_w, _st, _sbr, 2)
-            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 12, palette.TEXT, font_size=8, bold=True)
-            _lbl = "OWNED" if _un else ("UNLOCK" if _av else "LOCKED")
-            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=7, bold=True, anchor_x="right")
+            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 14, palette.TEXT, font_size=9, bold=True)
+            arcade.draw_text(f"T{_sn.tier}", _sl + spec_node_w - 6, _st - 14, palette.MUTED_TEXT, font_size=7, anchor_x="right")
+            arcade.draw_text(
+                _sn.description,
+                _sl + 6, _st - 30,
+                palette.MUTED_TEXT, font_size=7,
+                width=spec_node_w - 12, multiline=True,
+            )
+            _bonus_str = "  ".join(f"+{v} {k.upper()}" for k, v in _sn.bonuses.items())
+            arcade.draw_text(_bonus_str, _sl + 6, _sb + 18, palette.RESOURCE if not _un else palette.TACTICAL_GREEN, font_size=8, bold=True)
+            _lbl = "OWNED" if _un else ("UNLOCK" if _av and char.talent_points > 0 else "LOCKED")
+            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 5, _sbr, font_size=8, bold=True, anchor_x="right")
             if _av and char.talent_points > 0 and not _un:
                 self._modal_hits.append(_HitRegion(
                     _sl, _sb, _sl + spec_node_w, _st,
@@ -2904,10 +2928,11 @@ class ManagementView(GameView):
             "stealth": "AGI", "composure": "CON", "psychokinesis": "PSI",
             "pyrokinesis": "PSI", "cryokinesis": "PSI", "telepathy": "PSI",
         }
+        _attr_to_key = {"AGI": "agi", "STR": "str", "CHA": "cha", "PSI": "psi", "CON": "con"}
         skill_cols = 3
         skill_gap = 8
         skill_card_w = (right_x1 - right_x0 - skill_gap * (skill_cols - 1)) // skill_cols
-        skill_card_h = 80
+        skill_card_h = 96
         for idx, skill_key in enumerate(ALLOWED_SKILL_KEYS):
             row = idx // skill_cols
             col = idx % skill_cols
@@ -2922,20 +2947,23 @@ class ManagementView(GameView):
             _rect(card_left, card_bottom, card_left + skill_card_w, card_top, fill)
             arcade.draw_line(card_left, card_top, card_left + skill_card_w, card_top, border, 2)
             attr_tag = _sk_attr.get(skill_key, "")
-            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 14, palette.TEXT, font_size=8, bold=True)
-            if attr_tag:
-                arcade.draw_text(f"[{attr_tag}]", card_left + skill_card_w - 6, card_top - 14, palette.MUTED_TEXT, font_size=7, anchor_x="right")
+            attr_val = sheet_attrs.get(_attr_to_key.get(attr_tag, ""), 0)
+            # Name + linked attribute value
+            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 15, palette.TEXT, font_size=9, bold=True)
+            arcade.draw_text(f"[{attr_tag}: {attr_val}]", card_left + skill_card_w - 6, card_top - 15, palette.MUTED_TEXT, font_size=8, anchor_x="right")
+            # Progress bar (rank/10)
             bar_l = card_left + 6
             bar_r = card_left + skill_card_w - 6
-            bar_y = card_top - 32
-            _rect(bar_l, bar_y - 4, bar_r, bar_y + 2, (30, 42, 52, 200))
+            bar_y = card_top - 28
+            _rect(bar_l, bar_y - 6, bar_r, bar_y + 2, (30, 42, 52, 200))
             filled_w = int((bar_r - bar_l) * rank / SKILL_MAX_RANK)
             if filled_w > 0:
-                _rect(bar_l, bar_y - 4, bar_l + filled_w, bar_y + 2, (*palette.RESOURCE[:3], 200))
-            arcade.draw_text(f"RANK {rank}/{SKILL_MAX_RANK}", card_left + 6, card_top - 48, palette.MUTED_TEXT, font_size=8)
-            arcade.draw_text(f"TOTAL {total}", card_left + 6, card_top - 62, palette.ACCENT, font_size=8, bold=True)
+                _rect(bar_l, bar_y - 6, bar_l + filled_w, bar_y + 2, (*palette.RESOURCE[:3], 200))
+            arcade.draw_text(f"RANK  {rank} / {SKILL_MAX_RANK}", card_left + 6, card_top - 48, palette.MUTED_TEXT, font_size=8)
+            # Total = attr + rank (prominent)
+            arcade.draw_text(f"TOTAL  {total}", card_left + 6, card_top - 68, palette.ACCENT, font_size=13, bold=True)
             if can_spend:
-                arcade.draw_text("+1", card_left + skill_card_w - 6, card_bottom + 8, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
+                arcade.draw_text("+1", card_left + skill_card_w - 6, card_top - 68, palette.RESOURCE, font_size=13, bold=True, anchor_x="right")
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + skill_card_w, card_top, "sheet_spend_skill_rank", (self.expanded_agent_sheet_index, skill_key)))
 
         footer_y = my0 + 14
