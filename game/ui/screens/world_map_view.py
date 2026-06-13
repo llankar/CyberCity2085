@@ -225,7 +225,6 @@ class MissionWorldMapView(GameView):
             arcade.draw_circle_outline(node.pin_x, node.pin_y, 14, palette.WARNING if selected else risk_col, 2)
             arcade.draw_line(node.pin_x, node.pin_y - 2, node.pin_x, node.pin_y - 15, palette.WARNING if selected else risk_col, 2)
             _rect = (node.label_left, node.label_bottom, node.label_right, node.label_top)
-            arcade.draw_lrbt_rectangle_filled(_rect[0], _rect[2], _rect[1], _rect[3], (10, 20, 26, 235) if selected else (8, 16, 22, 220))
             arcade.draw_line(_rect[0], _rect[3], _rect[2], _rect[3], palette.WARNING if selected else risk_col, 2)
             arcade.draw_text(
                 mission_label_text(node.mission),

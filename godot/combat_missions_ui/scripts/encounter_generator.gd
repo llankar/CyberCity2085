@@ -142,14 +142,15 @@ func scale_stats(b: Dictionary, risk: int, is_story: bool) -> Dictionary:
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Giant decision
-# Only robots and mutants (non-humanoid categories) are eligible, or heavy units
-# from any faction. At most one giant per encounter.
+# Only robots and starvers (non-humanoid creatures) are eligible.
+# Corp, human, raider, and mutant faction units stay at normal token size.
+# Vehicles handle their own giant logic in build_vehicles(). At most one giant per encounter.
 # ──────────────────────────────────────────────────────────────────────────────
 
-func should_be_giant(subtype: String, category: String,
+func should_be_giant(_subtype: String, category: String,
 					  risk: int, is_story: bool, giant_used: bool) -> bool:
 	if giant_used: return false   # one giant per encounter at most
-	var eligible := category in ["robot", "mutant"] or subtype == "heavy"
+	var eligible := category in ["robot", "starver"]
 	if not eligible: return false
 	var p := 0.0
 	if   is_story:  p = 0.50
