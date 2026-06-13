@@ -897,9 +897,15 @@ func _start_combat(source: String) -> void:
 	_spawn_all_tokens()
 	_sync_display()
 
-	# Centre the camera and set the overview zoom.
+	# Centre the camera on the agent squad and set the overview zoom.
 	if _camera != null:
-		_camera.position = _battlefield.cell_to_world(Vector2i(GRID_COLS / 2, GRID_ROWS / 2))
+		var center_cell := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
+		if not player_units.is_empty():
+			var sum := Vector2i.ZERO
+			for pu in player_units:
+				sum += pu.get("position", center_cell) as Vector2i
+			center_cell = sum / player_units.size()
+		_camera.position = _battlefield.cell_to_world(center_cell)
 		_camera.zoom = Vector2.ONE * _overview_zoom()
 
 	_banner.show_banner("player", turn_number)

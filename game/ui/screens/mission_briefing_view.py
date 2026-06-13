@@ -168,11 +168,11 @@ class MissionBriefingView(arcade.View):
             arcade.draw_text("HUMAN IMPACT", panel_l + 14, y, level_col, font_size=10, bold=True)
             y -= 18
             arcade.draw_text(
-                translate_legacy_briefing_text(hint["text"])[:80],
+                translate_legacy_briefing_text(hint["text"]),
                 panel_l + 14, y, palette.MUTED_TEXT, font_size=9,
                 width=panel_w - 28, multiline=True,
             )
-            y -= 30
+            y -= 50
 
         # Map thumbnail
         thumb_y = panel_b + 8

@@ -1667,7 +1667,7 @@ class ManagementView(GameView):
             # Item name / Empty
             if item:
                 arcade.draw_text(
-                    item.name.upper(), tx, st - 30,
+                    item.name.upper(), tx, st - 38,
                     palette.TEXT, font_size=12, bold=True,
                 )
                 # Extra info for weapons / armor (priority line)
