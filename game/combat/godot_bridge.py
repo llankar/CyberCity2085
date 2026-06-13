@@ -100,6 +100,7 @@ def _agent_payload(character) -> dict[str, Any]:
     )
     loadout_bonuses = character.loadout.total_stat_bonuses()
     derived = compute_derived_stats(sheet_attrs, character.skills, loadout_bonuses, stress_state)
+    is_robot = str(getattr(character, "role", "")).lower() == "robot"
     return {
         "name": character.name,
         "role": character.role,
@@ -115,6 +116,7 @@ def _agent_payload(character) -> dict[str, Any]:
         "defense":     derived["defense"],
         "initiative":  derived["initiative"],
         "melee_power": derived["melee_power"],
+        "size_scale":  3.5 if is_robot else 1.0,
     }
 
 

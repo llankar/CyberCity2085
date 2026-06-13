@@ -32,7 +32,7 @@ WORLD_MAP_SITES: dict[str, tuple[float, float]] = {
     "new_delhi": (0.80, 0.36),
     "beijing": (0.83, 0.56),
     "tokyo": (0.93, 0.49),
-    "badlands": (0.50, 0.17),
+    "badlands": (0.50, 0.42),
 }
 
 _DEFAULT_SITES = (
@@ -219,7 +219,7 @@ def build_world_map_mission_nodes(
             fx += cos(angle) * 0.03
             fy += sin(angle) * 0.03
         fx = max(0.05, min(0.95, fx))
-        fy = max(0.08, min(0.90, fy))
+        fy = max(0.36, min(0.90, fy))  # 0.36 floor keeps pins above the map image's info panel area
 
         pin_x = int(left + fx * width)
         pin_y = int(bottom + fy * height)

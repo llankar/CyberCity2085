@@ -11,12 +11,13 @@ from .character import Character
 from .narrative.personality_traits import assign_personality_traits
 from .relationships.mentor_history import upsert_mentor_link
 from .stats import PlayerStats
-from .ui.portraits import portrait_path_for_agent, portrait_sex_for_agent
+from .ui.portraits import portrait_path_for_agent, portrait_path_for_robot, portrait_sex_for_agent
 
 ROLE_STAT_BONUSES = {
     "samurai": "str",
     "sniper": "agi",
     "psi": "psi",
+    "robot": "con",
 }
 
 ROLE_SKILL_POOLS: dict[str, tuple[str, ...]] = {
@@ -41,6 +42,13 @@ ROLE_SKILL_POOLS: dict[str, tuple[str, ...]] = {
         "influence",
         "stealth",
     ),
+    "robot": (
+        "close_combat",
+        "firearms",
+        "tactics",
+        "composure",
+        "tech",
+    ),
 }
 
 ROLE_NAME_POOLS: dict[str, tuple[str, ...]] = {
@@ -53,18 +61,24 @@ ROLE_NAME_POOLS: dict[str, tuple[str, ...]] = {
     "psi": (
         "Oracle", "Wisp", "Hex", "Veil", "Null", "Siren", "Nova", "Morrow",
     ),
+    "robot": (
+        "Bastion", "Forger", "Colossus", "Sentinel", "Rampart",
+        "Vector", "Titan", "Wraith-7",
+    ),
 }
 
 ROLE_TAGLINES = {
     "samurai": "Close-range breach specialist.",
     "sniper": "Long-range strike and overwatch expert.",
     "psi": "Psychic disruption and battlefield control.",
+    "robot": "Heavy combat chassis — frontline suppression unit.",
 }
 
 ROLE_FUNCTIONS = {
     "samurai": "Breach / front line",
     "sniper": "Overwatch / precision",
     "psi": "Disruption / control",
+    "robot": "Heavy assault / suppression",
 }
 
 ROLE_BACKGROUNDS = {
@@ -86,6 +100,12 @@ ROLE_BACKGROUNDS = {
         "Street mystic who treats fear like data.",
         "Quiet analyst whose mind moves before the body does.",
     ),
+    "robot": (
+        "Reclaimed military chassis, reprogrammed for squad deployment.",
+        "Industrial labour unit retrofitted with combat firmware.",
+        "Corporate prototype acquired through a black-market broker.",
+        "Decommissioned perimeter security drone, field-modified for ops.",
+    ),
 }
 
 ROLE_ADVANTAGES = {
@@ -106,6 +126,12 @@ ROLE_ADVANTAGES = {
         "Resolve pressure",
         "Battlefield disruption",
         "Crowd control",
+    ),
+    "robot": (
+        "Giant combat token",
+        "High HP pool",
+        "Immune to stress",
+        "Heavy suppression",
     ),
 }
 
@@ -181,7 +207,7 @@ def create_character(
         skills=skills,
         derived_stats=derived_stats,
     )
-    sex = sex or portrait_sex_for_agent(cleaned_name, role)
+    sex = sex if sex is not None else ("" if role == "robot" else portrait_sex_for_agent(cleaned_name, role))
     return Character(
         name=cleaned_name,
         role=role,
@@ -205,6 +231,18 @@ def _clamp_attribute(value: int) -> int:
 
 
 def _candidate_stats_for_role(role: str, rng: random.Random) -> PlayerStats:
+    if role == "robot":
+        stats = PlayerStats(
+            level=rng.randint(2, 5),
+            defense=rng.randint(3, 6),
+            str=rng.randint(5, 8),
+            agi=rng.randint(2, 4),
+            con=rng.randint(5, 8),
+            cha=1,
+            psi=1,
+        )
+        stats.recalculate_hp()
+        return stats
     base_levels = {
         "samurai": (1, 3),
         "sniper": (1, 3),
@@ -250,7 +288,7 @@ def _candidate_skill_ranks(role: str, rng: random.Random) -> dict[str, int]:
 def _candidate_price(role: str, stats: PlayerStats, skills: dict[str, int]) -> int:
     stat_total = stats.str + stats.agi + stats.con + stats.cha + stats.psi + stats.defense
     skill_total = sum(int(rank) for rank in skills.values())
-    role_bias = {"samurai": 2, "sniper": 3, "psi": 4}.get(role, 2)
+    role_bias = {"samurai": 2, "sniper": 3, "psi": 4, "robot": 10}.get(role, 2)
     price = 6 + stats.level * 3 + stat_total // 4 + skill_total // 2 + role_bias
     return max(8, price)
 
@@ -265,8 +303,13 @@ def _candidate_profile(role: str, name: str, rng: random.Random) -> tuple[Player
     shuffled_advantages = list(advantages)
     rng.shuffle(shuffled_advantages)
     candidate_advantages = tuple(shuffled_advantages[:2]) if len(shuffled_advantages) > 1 else (shuffled_advantages[0],)
-    sex = rng.choice(("female", "male"))
-    return stats, skills, price, background, sex, candidate_advantages, portrait_path_for_agent(name, role, sex)
+    if role == "robot":
+        sex = ""
+        portrait = portrait_path_for_robot(name, role)
+    else:
+        sex = rng.choice(("female", "male"))
+        portrait = portrait_path_for_agent(name, role, sex)
+    return stats, skills, price, background, sex, candidate_advantages, portrait
 
 
 def is_placeholder_agent_name(name: str) -> bool:
@@ -298,7 +341,7 @@ def normalize_agent_name(name: str, roster: list[Character], role: str) -> str:
 def build_recruitment_candidates(
     roster: list[Character],
     *,
-    roles: tuple[str, ...] = ("samurai", "sniper", "psi"),
+    roles: tuple[str, ...] = ("samurai", "sniper", "psi", "robot"),
     count: int | None = None,
     rng: random.Random | None = None,
 ) -> list[RecruitCandidate]:

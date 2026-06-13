@@ -432,6 +432,9 @@ func _load_unit_textures() -> void:
 	_try_load_tex("agent_psi", "assets/units/agent_psi_512.png")
 	if not unit_textures.has("agent_psi"):
 		_try_load_tex("agent_psi", "assets/units/agent_psi.png")
+	_try_load_tex("robot_combat", "assets/units/robot_combat_512.png")
+	if not unit_textures.has("robot_combat"):
+		_try_load_tex("robot_combat", "assets/units/robot_combat.png")
 
 	# ── Enemy generic fallbacks ───────────────────────────────────────────────
 	var base: Dictionary = {
@@ -525,6 +528,11 @@ func _try_load_tex(key: String, path: String) -> void:
 
 func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 	if not is_enemy:
+		var role := str(unit.get("role", "samurai")).to_lower()
+		# Robots always use the robot_combat sprite, not a diverse agent sprite.
+		if role == "robot":
+			if unit_textures.has("robot_combat"):
+				return "robot_combat"
 		# Deterministic token: same agent name always maps to the same sprite.
 		var agent_name := str(unit.get("name", "")).strip_edges()
 		if agent_name != "":
@@ -533,7 +541,6 @@ func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 			if unit_textures.has(key):
 				return key
 		# Fallback: role-based sprite.
-		var role := str(unit.get("role", "samurai")).to_lower()
 		for candidate: String in ["agent_%s" % role, "agent_psi", "agent_samurai"]:
 			if unit_textures.has(candidate):
 				return candidate
@@ -1543,6 +1550,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"kind":              "player",
 			"status_effects":    [],
 			"available_actions": agent_actions,
+			"size_scale":        clampf(float(agent.get("size_scale", 1.0)), 0.5, 5.0),
 		})
 	return units
 

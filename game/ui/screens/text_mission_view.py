@@ -865,7 +865,14 @@ class TextMissionView(GameView):
         total = _agent_skill_total(char, chk.skill)
         result_key, roll, total_roll = resolve_skill_check(total, chk.difficulty)
 
-        next_sid = choice.success_scene if result_key in ("great", "success") else choice.failure_scene
+        if result_key == "great":
+            next_sid = choice.great_scene or choice.success_scene
+        elif result_key == "success":
+            next_sid = choice.success_scene
+        elif result_key == "partial":
+            next_sid = choice.partial_scene or choice.failure_scene
+        else:
+            next_sid = choice.failure_scene
         next_scene = self._mission.scenes.get(next_sid)
         if next_scene:
             self._total_funds_earned += next_scene.fund_delta
