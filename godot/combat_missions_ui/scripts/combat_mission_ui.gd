@@ -1153,11 +1153,7 @@ func _move_active_unit_to(cell: Vector2i) -> void:
 	status_line = "%s → %d,%d  (AP: %d)" % [
 			str(u.get("name", "Agent")), cell.x, cell.y, int(u.get("ap", 0))]
 	_log_event("%s moved to %d,%d" % [str(u.get("name", "Agent")), cell.x, cell.y])
-	_refresh_initiative()
-	_hud.update_state(player_units, enemy_units, initiative_entries,
-					  active_player_index, selected_action,
-					  turn_side, turn_number, combat_log,
-					  portrait_textures, status_line)
+	_sync_display()
 	if int(u.get("ap", 0)) == 0:
 		_auto_advance_unit()
 
