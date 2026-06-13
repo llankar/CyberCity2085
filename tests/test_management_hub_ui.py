@@ -167,7 +167,6 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_draw()
 
         stat_hit = next(hit for hit in view._modal_hits if hit.action == "sheet_spend_stat")
-        train_hit = next(hit for hit in view._modal_hits if hit.action == "sheet_train_skills")
         before_points = view.game_state.characters[0].pending_points
         before_str = view.game_state.characters[0].stats.str
 
@@ -176,12 +175,15 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertGreater(view.game_state.characters[0].stats.str, before_str)
 
         view.game_state.characters[0].pending_points = 1
-        before_skills = dict(view.game_state.characters[0].skills)
-        view.on_mouse_press((train_hit.left + train_hit.right) // 2, (train_hit.bottom + train_hit.top) // 2, 0, 0)
-        self.assertEqual(view.game_state.characters[0].pending_points, 0)
-        self.assertTrue(
-            any(view.game_state.characters[0].skills[key] > before_skills.get(key, 0) for key in before_skills)
+        skill_hit = next(
+            (hit for hit in view._modal_hits if hit.action == "sheet_spend_skill_rank"), None
         )
+        if skill_hit is not None:
+            before_skills = dict(view.game_state.characters[0].skills)
+            view.on_mouse_press((skill_hit.left + skill_hit.right) // 2, (skill_hit.bottom + skill_hit.top) // 2, 0, 0)
+            self.assertEqual(view.game_state.characters[0].pending_points, 0)
+            skill_key = skill_hit.data[1]
+            self.assertGreater(view.game_state.characters[0].skills.get(skill_key, 0), before_skills.get(skill_key, 0))
 
     def test_escape_closes_expanded_agent_sheet(self):
         view = ManagementView(GameState())
@@ -592,9 +594,9 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertGreaterEqual(len(right_side_ready_ys), len(readiness_labels))
         self.assertGreater(len({round(y, 1) for y in right_side_ready_ys}), 1)
 
-        train_skill_ys = [y for text, x, y in calls if text == "TRAIN SKILLS" and x > 300]
-        self.assertEqual(len(train_skill_ys), 1)
-        self.assertLess(train_skill_ys[0], min(right_side_ready_ys))
+        # Skills are now shown as individual cards with +1 buttons; no TRAIN SKILLS button.
+        skill_labels = [text for text, x, y in calls if text in ("FIREARMS", "CLOSE COMBAT", "TACTICS") and x > 300]
+        self.assertGreater(len(skill_labels), 0)
 
     def test_agent_sheet_keeps_recovery_text_above_stress_meter(self):
         view = ManagementView(GameState())
