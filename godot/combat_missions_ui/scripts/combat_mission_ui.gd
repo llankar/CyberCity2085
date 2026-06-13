@@ -447,6 +447,10 @@ func _load_unit_textures() -> void:
 		if not unit_textures.has(key):
 			_try_load_tex(key, str(base[key]).replace("_512.png", ".png"))
 
+	# Agent VTOL is always present in every mission regardless of enemy faction.
+	_try_load_tex("vehicle_agent_vtol",
+				  "assets/units/vehicle_aerial_military_01_vtol_gunship_512.png")
+
 	var theme := str(_mission_data().get("enemy_theme", "")).to_lower().replace(" ", "_")
 	if theme == "" or theme == "generic":
 		return
@@ -489,13 +493,11 @@ func _load_unit_textures() -> void:
 		if unit_textures.has(elite_key):
 			unit_textures["enemy_%s_psi" % theme] = unit_textures[elite_key]
 
-	# Vehicle textures — agent VTOL + faction-specific enemy ground vehicles.
-	# Mechs and drones are NOT vehicles and are not loaded here.
+	# Faction-specific enemy ground vehicles (agent VTOL already loaded above).
 	var vehicle_map: Dictionary = {
-		"vehicle_agent_vtol":       "assets/units/vehicle_aerial_military_01_vtol_gunship_512.png",
-		"vehicle_enemy_corp_37":    "assets/units/vehicle_terrestrial_military_03_apc_512.png",
+		"vehicle_enemy_corp_37":      "assets/units/vehicle_terrestrial_military_03_apc_512.png",
 		"vehicle_enemy_corp_samurai": "assets/units/vehicle_terrestrial_military_01_battle_tank_512.png",
-		"vehicle_enemy_raider":     "assets/units/vehicle_terrestrial_civil_07_cargo_hauler_512.png",
+		"vehicle_enemy_raider":       "assets/units/vehicle_terrestrial_civil_07_cargo_hauler_512.png",
 	}
 	for vk: String in vehicle_map:
 		_try_load_tex(vk, str(vehicle_map[vk]))
@@ -1181,8 +1183,10 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	attacker["ap"] = maxi(0, ap - ap_cost)
 	player_units[active_player_index] = attacker
 
+	var aim: int      = int(attacker.get("aim", 5))
 	var defense: int  = int(target.get("defense", 6))
-	var chance: float = clampf(float(70 - defense * 2 + ap * 4), 20.0, 95.0)
+	# aim raises hit chance; enemy defense lowers it.  Base 50 keeps it balanced.
+	var chance: float = clampf(50.0 + aim * 2.0 - defense * 2.0, 20.0, 95.0)
 	var hit := randf() * 100.0 < chance
 
 	var ekey := "e%d" % target_index
@@ -1205,6 +1209,9 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		return
 
 	var damage: int = _action_damage(action_name)
+	# Melee attacks gain a bonus from the attacker's melee_power (str + close_combat).
+	if _action_type(action_name) == "MELEE":
+		damage += int(attacker.get("melee_power", 0)) / 3
 	target["hp"] = maxi(0, int(target.get("hp", 0)) - damage)
 	enemy_units[target_index] = target
 
@@ -1507,7 +1514,8 @@ func _build_player_units() -> Array[Dictionary]:
 		var agent: Dictionary = raw as Dictionary
 		var role   := str(agent.get("role", "agent")).to_lower()
 		var row: int = mini(GRID_ROWS - 1, 1 + (i % maxi(1, GRID_ROWS / 2)) * 2)
-		var def: int = 4 + (2 if role == "samurai" else (-1 if role == "psi" else 0))
+		# Fallback defense/initiative by role when not supplied by handoff.
+		var role_def_base: int = 4 + (2 if role == "samurai" else (-1 if role == "psi" else 0))
 		var raw_n  : Variant = agent.get("name", null)
 		var clean  : String  = str(raw_n).strip_edges() if raw_n != null else ""
 		if clean == "" or clean.to_lower() == "null":
@@ -1531,8 +1539,10 @@ func _build_player_units() -> Array[Dictionary]:
 			"max_hp":            maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),
 			"stress":            int(agent.get("stress", 0)),
 			"ap":                2 if int(agent.get("stress", 0)) >= 80 else 4,
-			"defense":           def,
-			"initiative":        20 + int(agent.get("level", 1)) * 2 - i,
+			"defense":           int(agent.get("defense", role_def_base)),
+			"initiative":        int(agent.get("initiative", 20 + int(agent.get("level", 1)) * 2 - i)),
+			"aim":               int(agent.get("aim", 5)),
+			"melee_power":       int(agent.get("melee_power", 0)),
 			"position":          Vector2i(1, row),
 			"kind":              "player",
 			"status_effects":    [],

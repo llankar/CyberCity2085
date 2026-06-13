@@ -15,6 +15,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from game.agents.sheet_calculations import compute_derived_stats
 from game.battle_maps import select_battle_map_entry
 from game.deployment import selected_deployable_agents, selected_deployable_assets
 from game.gamestate import GameState
@@ -82,6 +83,23 @@ def _map_payload(mission: MissionTemplate) -> dict[str, Any]:
 def _agent_payload(character) -> dict[str, Any]:
     stats = character.stats
     portrait_path = portrait_path_for_character(character)
+    sheet_attrs = {
+        "level": int(stats.level),
+        "str": int(stats.str),
+        "agi": int(stats.agi),
+        "con": int(stats.con),
+        "cha": int(stats.cha),
+        "psi": int(stats.psi),
+        "defense": int(stats.defense),
+    }
+    stress_state = (
+        "steady" if character.stress < 35
+        else "rattled" if character.stress < 65
+        else "frayed" if character.stress < 85
+        else "breaking"
+    )
+    loadout_bonuses = character.loadout.total_stat_bonuses()
+    derived = compute_derived_stats(sheet_attrs, character.skills, loadout_bonuses, stress_state)
     return {
         "name": character.name,
         "role": character.role,
@@ -93,6 +111,10 @@ def _agent_payload(character) -> dict[str, Any]:
         "emotional_hook": getattr(character, "background", "")
         or getattr(character, "personality_primary_trait", ""),
         "available_actions": character.loadout.combat_actions(),
+        "aim":         derived["aim"],
+        "defense":     derived["defense"],
+        "initiative":  derived["initiative"],
+        "melee_power": derived["melee_power"],
     }
 
 
