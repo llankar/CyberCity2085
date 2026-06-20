@@ -12,6 +12,7 @@ CyberCity2085 playable loop must always follow this chain:
 4. **Battle resolution**
    - Tactical outcome resolves mission objectives, casualties, and objective branches.
    - The post-battle debrief must show objective result, rewards, per-agent performance/stress/injuries/XP, triggered complications, faction/district changes, narrative consequences, and a clear return to management.
+   - The compact consequence summary must expose city pressure, faction hostility/influence/legitimacy, tags gained, agent scars, rewards, unavailable missions, intel unlocks, and campaign state changes.
 5. **Consequences**
    - Rewards/penalties apply (funds/resources/faction/narrative aftermath/stress).
 6. **Next day**

@@ -138,6 +138,90 @@ def build_battle_debrief_summary(
     }
 
 
+def _tag_names(tags: object) -> list[str]:
+    if not tags:
+        return []
+    names = []
+    for tag in tags:
+        names.append(str(getattr(tag, "name", tag)))
+    return names
+
+
+def build_consequence_summary_lines(
+    game_state: "GameState",
+    victory: bool,
+    mission: "MissionTemplate | None",
+    agent_stats: list[AgentDebriefStat],
+    triggered_complication: "MissionComplication | None" = None,
+) -> list[str]:
+    """Build compact post-resolution state changes for the debrief panel."""
+    consequences = _applied_consequences(mission, victory, triggered_complication)
+    district = getattr(game_state, "district", None)
+    lines: list[str] = []
+    if district is not None:
+        lines.append(
+            "City pressure: "
+            f"stability {getattr(district, 'stability', '?')}, "
+            f"unrest {getattr(district, 'unrest', '?')}, "
+            f"media heat {getattr(district, 'media_heat', '?')}"
+        )
+
+    faction = None
+    if mission is not None and hasattr(game_state, "get_faction"):
+        faction = game_state.get_faction(mission.target_faction)
+    if faction is not None:
+        lines.append(
+            f"Faction {faction.name}: hostility {faction.hostility_to_player}, "
+            f"influence {faction.influence}, legitimacy {faction.public_legitimacy}"
+        )
+
+    gained_tags: list[str] = []
+    for consequence in consequences:
+        gained_tags.extend(_tag_names(getattr(consequence, "tags", [])))
+    if not gained_tags and district is not None:
+        gained_tags = _tag_names(getattr(district, "tags", []))[-3:]
+    lines.append(f"Tags gained: {', '.join(gained_tags) if gained_tags else 'none'}")
+
+    scars: list[str] = []
+    for character in getattr(game_state, "characters", []) or []:
+        for scar in getattr(character, "temporary_scars", []) or []:
+            label = scar.get("name") or scar.get("label") or scar.get("type") or "scar"
+            scars.append(f"{character.name}: {label}")
+    lines.append(f"Agent scars: {', '.join(scars[:3]) if scars else 'none'}")
+
+    summary = build_battle_debrief_summary(
+        game_state,
+        victory,
+        mission,
+        agent_stats,
+        triggered_complication,
+    )
+    rewards = ", ".join(str(line) for line in summary["rewards"])
+    lines.append(f"Rewards: {rewards}")
+
+    unavailable = list(getattr(game_state, "unavailable_mission_ids", []) or [])
+    lines.append(
+        "Unavailable missions: "
+        + (", ".join(str(mid) for mid in unavailable[:3]) if unavailable else "none")
+    )
+
+    campaign = getattr(game_state, "campaign", None)
+    discovered = list(getattr(campaign, "discovered_intel", []) or []) if campaign else []
+    lines.append(
+        "Intel unlocks: "
+        + (", ".join(str(fid) for fid in discovered[-3:]) if discovered else "none")
+    )
+    if campaign is not None:
+        world = getattr(campaign, "world", None)
+        lines.append(
+            f"Campaign: act {campaign.current_act} progress {campaign.act_progress}/{campaign.missions_required}; "
+            f"Hungry Tide {getattr(world, 'hungry_tide_progress', 0)}%; "
+            f"New York {getattr(world, 'new_york_status', 'unknown')}"
+        )
+
+    return lines
+
+
 class BattleDebriefView(arcade.View):
     """Full-screen post-battle debrief shown after end_battle resolves."""
 
@@ -299,6 +383,21 @@ class BattleDebriefView(arcade.View):
                 arcade.draw_text(line, panel_l + 14, y, palette.TEXT, font_size=9)
                 y -= 15
             y -= 10
+
+        consequence_summary = build_consequence_summary_lines(
+            self.game_state,
+            self.victory,
+            self.mission,
+            self.agent_stats,
+            self.triggered_complication,
+        )
+        if consequence_summary:
+            arcade.draw_text("CONSEQUENCE SUMMARY", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
+            y -= 18
+            for line in consequence_summary[:5]:
+                arcade.draw_text(str(line)[:72], panel_l + 14, y, palette.MUTED_TEXT, font_size=8)
+                y -= 13
+            y -= 6
 
         triggered = list(summary["triggered_complications"])
         if triggered:
