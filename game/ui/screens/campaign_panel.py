@@ -52,7 +52,8 @@ _WORLD_LABELS = {
 }
 
 from game.campaign.acts import ACT_TITLES
-from game.campaign.intel_fragments import fragments_for_act
+from game.campaign.intel_fragments import fragments_for_act, get_fragment
+from game.campaign.story_missions import STORY_MISSIONS
 
 
 def _status_text(field_name: str, value: str) -> str:
@@ -133,6 +134,84 @@ def build_hungry_tide_summary(game_state: "GameState") -> dict[str, object]:
     }
 
 
+def _mentions_three_sevens(text: str) -> bool:
+    lowered = text.lower()
+    return "three sevens" in lowered or "warsaw" in lowered or "37" in lowered
+
+
+def build_three_sevens_presence_summary(game_state: "GameState") -> dict[str, object]:
+    """Summarize Three Sevens antagonist pressure from existing campaign hooks."""
+    campaign = game_state.campaign
+    world = campaign.world
+    story_hooks = [
+        mission
+        for mission in STORY_MISSIONS
+        if (
+            "three_sevens" in mission.tags
+            or "warsaw" in mission.tags
+            or _mentions_three_sevens(mission.title)
+            or _mentions_three_sevens(mission.briefing)
+        )
+    ]
+    visible_story = [mission.title for mission in story_hooks if mission.act <= campaign.current_act]
+    discovered_intel = []
+    for fragment_id in campaign.discovered_intel:
+        fragment = get_fragment(fragment_id)
+        text = " ".join(
+            [
+                fragment_id,
+                getattr(fragment, "title", ""),
+                getattr(fragment, "text", ""),
+            ]
+        )
+        if _mentions_three_sevens(text):
+            discovered_intel.append(getattr(fragment, "title", fragment_id))
+
+    active_event_hooks = []
+    for event in getattr(game_state, "active_events", []) or []:
+        event_text = " ".join(
+            [
+                getattr(event, "title", ""),
+                getattr(event, "description", ""),
+                " ".join(getattr(choice, "summary", "") for choice in getattr(event, "choices", [])),
+            ]
+        )
+        if _mentions_three_sevens(event_text):
+            active_event_hooks.append(getattr(event, "title", "Three Sevens pressure"))
+
+    enemy_themes = sorted(
+        {
+            mission.enemy_theme
+            for mission in story_hooks
+            if mission.act <= campaign.current_act
+            and (
+                mission.enemy_theme.startswith("corp_37")
+                or mission.enemy_theme.startswith("corp_samurai")
+            )
+        }
+    )
+    propaganda = (
+        "Recovered Three Sevens propaganda is in the intel archive."
+        if "act1_three_sevens_banner" in campaign.discovered_intel
+        else "Warsaw propaganda signatures are suspected but not fully archived."
+    )
+    warsaw_pressure = _status_text("warsaw_status", world.warsaw_status)
+    late_escalation = (
+        "Emergency authority decrees are active or imminent."
+        if campaign.current_act >= 5
+        else "Late-campaign escalation points toward emergency authority decrees."
+    )
+    return {
+        "story_mission_hooks": visible_story,
+        "intel_fragments": discovered_intel,
+        "event_hooks": active_event_hooks,
+        "special_enemy_themes": enemy_themes,
+        "propaganda": propaganda,
+        "warsaw_reference": f"Warsaw: {warsaw_pressure}",
+        "late_campaign_escalation": late_escalation,
+    }
+
+
 def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
     """Return Intel-room campaign facts without depending on Arcade rendering."""
     campaign = game_state.campaign
@@ -159,6 +238,7 @@ def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
         "major_known_threats": _major_known_threats(game_state),
         "unresolved_global_events": _unresolved_global_events(game_state),
         "hungry_tide": build_hungry_tide_summary(game_state),
+        "three_sevens": build_three_sevens_presence_summary(game_state),
     }
 
 
@@ -268,6 +348,24 @@ def draw_campaign_panel(
         f"If ignored: {tide_summary['consequence_if_ignored']}",
     ]
     for line in tide_lines:
+        if cy < y + 92:
+            break
+        arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
+    three_sevens = dict(summary["three_sevens"])
+    arcade.draw_text("THREE SEVENS PRESSURE", x + 14, cy, palette.WARNING, font_size=9, bold=True)
+    cy -= 14
+    story_hooks = list(three_sevens["story_mission_hooks"])
+    enemy_themes = list(three_sevens["special_enemy_themes"])
+    three_sevens_lines = [
+        str(three_sevens["warsaw_reference"]),
+        str(three_sevens["propaganda"]),
+        f"Story hook: {story_hooks[-1] if story_hooks else 'none visible yet'}",
+        f"Special enemies: {', '.join(enemy_themes) if enemy_themes else 'none revealed'}",
+        str(three_sevens["late_campaign_escalation"]),
+    ]
+    for line in three_sevens_lines[:4]:
         if cy < y + 92:
             break
         arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)

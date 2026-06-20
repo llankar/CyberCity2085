@@ -9,6 +9,7 @@ from game.management.events import ActiveEvent, EventChoice, EventTemplate, STAR
 from game.ui.screens.campaign_panel import (
     build_global_scenario_summary,
     build_hungry_tide_summary,
+    build_three_sevens_presence_summary,
 )
 
 
@@ -77,6 +78,46 @@ class CampaignPanelSummaryTest(unittest.TestCase):
         self.assertIn("New York perimeter", summary["affected_regions"])
         self.assertEqual(summary["expected_new_york_impact"], "New York is under siege")
         self.assertIn("worldwide", summary["consequence_if_ignored"])
+
+    def test_three_sevens_presence_summary_exposes_campaign_antagonist_hooks(self) -> None:
+        game_state = GameState()
+        game_state.campaign.current_act = 5
+        game_state.campaign.world.warsaw_status = "three_sevens_controlled"
+        game_state.campaign.discovered_intel = [
+            "act1_three_sevens_banner",
+            "act5_twenty_one",
+        ]
+        game_state.active_events = [
+            ActiveEvent(
+                id="three_sevens_decrees",
+                template=EventTemplate(
+                    title="Three Sevens Emergency Decrees",
+                    category=STARVERS_OUTBREAK,
+                    description="Warsaw authority broadcasts are rewriting response law.",
+                    severity=5,
+                    choices=[
+                        EventChoice(
+                            "jam",
+                            "Jam broadcast",
+                            summary="Risk conflict with Three Sevens.",
+                        )
+                    ],
+                    expiration_days=2,
+                ),
+                created_day=game_state.calendar.current_day,
+                expires_day=game_state.calendar.current_day + 1,
+            )
+        ]
+
+        summary = build_three_sevens_presence_summary(game_state)
+
+        self.assertTrue(any("Warsaw" in title for title in summary["story_mission_hooks"]))
+        self.assertTrue(any("Three Sevens" in title for title in summary["intel_fragments"]))
+        self.assertEqual(summary["event_hooks"], ["Three Sevens Emergency Decrees"])
+        self.assertIn("corp_37_power_armor", summary["special_enemy_themes"])
+        self.assertIn("propaganda", summary["propaganda"].lower())
+        self.assertEqual(summary["warsaw_reference"], "Warsaw: 3-7s Controlled")
+        self.assertIn("Emergency authority decrees", summary["late_campaign_escalation"])
 
 
 if __name__ == "__main__":
