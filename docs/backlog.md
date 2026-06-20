@@ -35,7 +35,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 ### Phase 3 — Global Scenario & Intel Room
 
-- [ ] CAMPAIGN-UI-01 Global Scenario Panel: Create or expand the Intel room panel to display current act, act title, act progress, Hungry Tide percentage, New York status, Warsaw status, discovered intel count, major known threats, and unresolved global events.
+- [x] CAMPAIGN-UI-01 Global Scenario Panel: Expanded the Intel room panel to display current act, act title, act progress, Hungry Tide percentage, New York status, Warsaw status, discovered intel count, major known threats, and unresolved global events. Added regression coverage for the Global Scenario summary. (completed June 20, 2026)
 - [ ] CAMPAIGN-UI-02 Intel Fragment Browser: Add a readable browser for discovered intel fragments grouped by act/source/faction, distinguish known and unknown entries, and show short lore text plus mechanical relevance.
 - [ ] CAMPAIGN-UI-03 World State Change Feed: Add a campaign feed that records major world changes such as New York siege escalation, Warsaw occupation, faction breakthroughs, AI hints, and Starver tide milestones.
 - [ ] CAMPAIGN-UI-04 Act Transition Presentation: When an act advances, show a dedicated overlay or screen with act number, title, summary, newly revealed stakes, and immediate strategic consequences.
