@@ -7,7 +7,8 @@ CyberCity2085 playable loop must always follow this chain:
 2. **Squad preparation**
    - Player recruits/selects agents, equips loadouts, manages stress/recovery, assigns support assets.
 3. **Mission launch**
-   - Player picks an operation and confirms deployment.
+   - Player picks an operation and reviews the mission briefing before deployment.
+   - The briefing must expose objective, target faction, district, risk, expected stress band, emotional impact, complications, map preview, squad roster, selected support assets, reward preview, and DEPLOY / ABORT actions.
 4. **Battle resolution**
    - Tactical outcome resolves mission objectives, casualties, and objective branches.
 5. **Consequences**
