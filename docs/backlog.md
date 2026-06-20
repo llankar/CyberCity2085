@@ -12,6 +12,85 @@
 - [x] BATTLE-W5D1 Agent promotion view: sequenced level-up screen (portrait + level badge + stat gains) between battle and debrief.
 - [x] BATTLE-W5D2 Morale cascade: 30% chance each surviving agent becomes SUPPRESSED when an ally is KIA.
 
+## Wave 6 — Campaign Coherence, Mission Flow & CyberCity Identity (planned)
+
+This wave turns existing systems into a coherent playable campaign loop.
+
+### Phase 1 — Complete the Core Mission Loop
+
+- [x] MISSION-FLOW-01 Mission Briefing Screen: Created a full mission briefing screen before battle launch showing mission title, objective, target faction, district, risk level, expected stress band, emotional impact, complications, map thumbnail, squad roster, selected support assets, reward preview, and clear DEPLOY / ABORT actions. Added regression coverage for the required briefing fields. (completed June 20, 2026)
+- [ ] MISSION-FLOW-02 Pre-battle Deployment Phase: Add a deployment mode before combat starts; show the deployment zone, allow repositioning selected agents and support assets, hide enemies until battle begins, and start combat only after player confirms deployment.
+- [ ] MISSION-FLOW-03 Enhanced Post-battle Debrief: Create a stronger post-battle debrief screen showing objective result, victory/defeat, rewards, per-agent kills/damage/stress/injuries/XP, triggered complications, faction changes, district changes, narrative consequence lines, and continue button back to ManagementView.
+- [ ] MISSION-FLOW-04 Consequence Summary Panel: After mission resolution, display a compact consequence panel summarizing changes to city pressure, faction hostility/influence/legitimacy, tags gained, agent scars, rewards, unavailable missions, intel unlocks, and campaign state changes.
+- [ ] MISSION-FLOW-05 End-to-end Mission Flow Regression: Add tests for mission selection -> launch -> battle fallback or Godot handoff -> mission resolution -> debrief/consequences -> return to management.
+
+### Phase 2 — Make CyberCity 2085 Identity Visible
+
+- [ ] LORE-01 Expand Core Faction Set: Add first-class faction/content entries for Starvers, Three Sevens, Pharmacorp, Novatek, raiders, mutants, corporate security, hidden AI factions, and local city factions while keeping current vertical slice factions compatible.
+- [ ] LORE-02 Starvers / Hungry Tide Integration: Make the Hungry Tide visible in the Intel/Global Scenario UI, showing its progress, threat level, affected regions, expected New York impact, and consequences if ignored.
+- [ ] LORE-03 Three Sevens Campaign Presence: Strengthen Three Sevens as a campaign antagonist through story mission injection, intel fragments, event choices, special enemies, propaganda, Warsaw references, and late-campaign escalation.
+- [ ] LORE-04 Pharmacorp Cure Thread: Add mission/intel/event hooks around Pharmacorp, the hidden cure, cured Starvers, moral ambiguity, containment failures, and black-market medical choices.
+- [ ] LORE-05 Novatek Experiment Thread: Add mission/intel/event hooks around Novatek experiments, cyborg-Starver hybrids, mutant escalation, failed containment sites, and special enemy themes.
+- [ ] LORE-06 Hidden AI Conspiracy Thread: Add late-act intel and event hooks for two hidden AI factions: one trying to protect humanity/creators, one seeking human extinction. Do not reveal them too early in the campaign.
+
+### Phase 3 — Global Scenario & Intel Room
+
+- [ ] CAMPAIGN-UI-01 Global Scenario Panel: Create or expand the Intel room panel to display current act, act title, act progress, Hungry Tide percentage, New York status, Warsaw status, discovered intel count, major known threats, and unresolved global events.
+- [ ] CAMPAIGN-UI-02 Intel Fragment Browser: Add a readable browser for discovered intel fragments grouped by act/source/faction, distinguish known and unknown entries, and show short lore text plus mechanical relevance.
+- [ ] CAMPAIGN-UI-03 World State Change Feed: Add a campaign feed that records major world changes such as New York siege escalation, Warsaw occupation, faction breakthroughs, AI hints, and Starver tide milestones.
+- [ ] CAMPAIGN-UI-04 Act Transition Presentation: When an act advances, show a dedicated overlay or screen with act number, title, summary, newly revealed stakes, and immediate strategic consequences.
+
+### Phase 4 — Agent Attachment & RPG Continuity
+
+- [ ] AGENT-RPG-01 Recovery Room Dialogues: Add small post-mission recovery/support dialogue snippets between stressed, wounded, traumatized, or bonded agents.
+- [ ] AGENT-RPG-02 Relationship and Mentor Events: Make mentor/protege links and relationships produce occasional event-log lines, recovery bonuses, stress modifiers, or mission banter.
+- [ ] AGENT-RPG-03 Temporary Scar Presentation: Make serious wounds and temporary scars visible in agent sheets, debriefs, mission readiness, and recovery panels.
+- [ ] AGENT-RPG-04 Agent Nicknames and Reputation: Allow agents to earn nicknames or reputation tags after standout mission events, such as killing an elite, surviving a critical injury, saving a civilian, or failing a traumatic objective.
+- [ ] AGENT-RPG-05 Personality-driven Mission Logs: Expand existing personality modulation so mission logs, complications, debrief lines, and stress reactions reflect each agent's personality traits.
+
+### Phase 5 — Tactical Combat Readability and Feel
+
+- [ ] BATTLE-FEEL-01 Floating Damage / Healing / Miss Text: Add short-lived floating combat text for damage, healing, criticals, misses, suppression, and status changes.
+- [ ] BATTLE-FEEL-02 Combat Log Side Panel: Make the combat log accessible during battle, ideally with a Tab toggle, category icons, and the latest events.
+- [ ] BATTLE-FEEL-03 Status Effects System: Add `status_effects` to units and implement at least suppressed, bleeding, stunned, burning, contaminated, and panicked. Show status badges in the HUD.
+- [ ] BATTLE-FEEL-04 Objective Marker Clarity: Ensure all non-elimination objectives have visible map markers, interaction prompts, progress indicators, and failure/success conditions.
+- [ ] BATTLE-FEEL-05 Enemy AI Upgrade: Improve enemy AI with cover-seeking, flanking preference, target scoring, commander aura/buffs, and objective pressure behavior.
+- [ ] BATTLE-FEEL-06 In-battle Pause Menu: Add an Escape pause overlay with Resume, Settings, Abandon Mission, and Return options where appropriate.
+
+### Phase 6 — Mission Objective Variety
+
+- [ ] OBJECTIVE-01 Extraction Objective: Implement an objective where the squad must reach a target, secure it, and evacuate.
+- [ ] OBJECTIVE-02 Sabotage Objective: Implement an objective where the squad must plant a charge or hack a device, then survive or evacuate.
+- [ ] OBJECTIVE-03 Data Theft Objective: Implement an objective where an agent must remain near a terminal for a number of turns while the team protects them.
+- [ ] OBJECTIVE-04 Containment Objective: Implement an objective where the squad must prevent Starvers or mutants from crossing a threshold or breaching a zone.
+- [ ] OBJECTIVE-05 Civilian Rescue Objective: Implement an objective where the squad must rescue multiple civilians or cured Starvers before they are killed or lost.
+- [ ] OBJECTIVE-06 Recon / Scan Objective: Implement an objective where the squad must scan several points and may win without eliminating all enemies.
+
+### Phase 7 — Architecture and Maintainability
+
+- [ ] ARCH-01 GameState Domain Split Plan: Document a safe incremental plan to reduce `GameState` god-object risk by moving logic into domain services while keeping save compatibility.
+- [ ] ARCH-02 Extract Campaign Service: Keep campaign ticking, act progression, intel reveal, and world state transitions in campaign-specific modules with tests.
+- [ ] ARCH-03 Extract Mission Flow Service: Separate mission board generation, launch, handoff, objective resolution, rewards, and consequence presentation from UI screens.
+- [ ] ARCH-04 Keep UI Code in `game/ui/screens/`: Continue the existing migration rule: new view-level UI goes into `game/ui/screens/`, while compatibility wrappers stay thin.
+- [ ] ARCH-05 Save Migration Tests: Add tests for loading older save payloads and preserving new fields such as campaign state, intel, scars, selected assets, faction tags, and mission board state.
+- [ ] ARCH-06 Godot Handoff Contract Tests: Add tests validating that `runtime/godot_combat/mission_handoff.json` contains campaign, mission, map, squad, support assets, tactical actions, and schema version.
+
+### Recommended implementation order
+
+1. MISSION-FLOW-01 Mission Briefing Screen
+2. MISSION-FLOW-03 Enhanced Post-battle Debrief
+3. MISSION-FLOW-04 Consequence Summary Panel
+4. CAMPAIGN-UI-01 Global Scenario Panel
+5. LORE-02 Starvers / Hungry Tide Integration
+6. LORE-03 Three Sevens Campaign Presence
+7. MISSION-FLOW-02 Pre-battle Deployment Phase
+8. BATTLE-FEEL-01 Floating Damage / Healing / Miss Text
+9. BATTLE-FEEL-03 Status Effects System
+10. ARCH-01 GameState Domain Split Plan
+
+Design intent:
+CyberCity2085 should not simply gain more isolated features. The goal of Wave 6 is to make the existing systems form a readable emotional loop: strategic choice, mission briefing, squad preparation, tactical action, debrief, visible consequences, and world escalation.
+
 ## Mission View Professional Upgrade — Planned
 
 Three-phase plan to bring the battle/mission view to professional tactical-RPG standard. Tasks are tracked in `tools/docs/generate_docs.py` (BATTLE-* entries) and will be promoted to the roadmap on next generation run.
@@ -26,7 +105,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ### Phase 2 — Full Mission Arc
 
-- [ ] BATTLE-A01 Mission Briefing Screen: new `MissionBriefingView` between the world-map mission selector and BattleView — shows mission name/objectives/intel/map thumbnail/squad roster/emotional impact hint; DEPLOY or ABORT actions. Route through the mission launch flow after `world_map_view.py`.
+- [x] BATTLE-A01 Mission Briefing Screen: `MissionBriefingView` now sits between the world-map mission selector and BattleView/Godot handoff, showing mission name/objectives/intel/map thumbnail/squad roster/support assets/emotional impact/stress/reward preview with DEPLOY or ABORT actions. (completed June 20, 2026)
 - [ ] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 — highlighted deployment zone, movable unit sprites, DEPLOYMENT phase banner, Enter to begin; enemy units hidden until battle starts.
 - [ ] BATTLE-A03 Enhanced Post-battle Debrief: new `battle_debrief_view.py` — left panel per-agent stats (damage/kills/AP), right panel objectives+rewards+stress+narrative lines from `DebriefReport`; CONTINUE routes back to management.
 

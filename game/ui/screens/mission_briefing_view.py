@@ -10,13 +10,17 @@ from typing import TYPE_CHECKING
 
 import arcade
 
+from game.agent_readiness import estimate_mission_stress, projected_stress
 from game.battle_maps import select_battle_map_entry
+from game.deployment import selected_deployable_agents
 from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
 from game.ui import palette
 from game.ui.panels import draw_panel
 
 if TYPE_CHECKING:
+    from game.character import Character
     from game.gamestate import GameState
+    from game.management.spec_ops_assets import SpecOpsAsset
     from game.mission_templates import MissionTemplate
 
 
@@ -25,6 +29,85 @@ _THUMB_W = 200
 _THUMB_H = 112
 _CARD_W  = 64
 _CARD_H  = 80
+
+
+def _complication_label(complication: object) -> str:
+    if isinstance(complication, str):
+        return complication
+    return (
+        getattr(complication, "trigger_text", None)
+        or getattr(complication, "name", None)
+        or str(complication)
+    )
+
+
+def _emotional_impact_text(mission: "MissionTemplate") -> str:
+    hint = getattr(mission, "emotional_impact_hint", None)
+    if isinstance(hint, dict):
+        return translate_legacy_briefing_text(
+            hint.get("short_text") or hint.get("text") or "No unusual emotional impact forecast."
+        )
+    return "No unusual emotional impact forecast."
+
+
+def selected_support_assets(game_state: "GameState") -> list["SpecOpsAsset"]:
+    """Return selected deployable support assets in stable roster order."""
+    selected_ids = set(getattr(game_state, "selected_asset_ids", []) or [])
+    return [
+        asset
+        for asset in getattr(game_state, "spec_ops_assets", []) or []
+        if asset.id in selected_ids
+    ]
+
+
+def expected_stress_band(agents: list["Character"], mission: "MissionTemplate") -> str:
+    """Build the pre-battle projected stress band shown in the briefing."""
+    baseline = estimate_mission_stress(mission)
+    if not agents:
+        return f"+{baseline} mission pressure; no squad selected"
+    projected = [projected_stress(agent, mission) for agent in agents]
+    return f"{min(projected)}-{max(projected)} projected stress; +{baseline} mission pressure"
+
+
+def reward_preview(mission: "MissionTemplate", assets: list["SpecOpsAsset"]) -> str:
+    """Summarize mission funds after selected support asset deployment costs."""
+    mission_reward = int(getattr(mission, "fund_reward", 0))
+    deploy_cost = sum(max(0, int(getattr(asset, "deploy_cost", 0))) for asset in assets)
+    if deploy_cost <= 0:
+        return f"Funds +{mission_reward}"
+    return f"Funds +{mission_reward}; assets -{deploy_cost}; net {mission_reward - deploy_cost}"
+
+
+def build_mission_briefing_facts(game_state: "GameState", mission: "MissionTemplate") -> dict[str, object]:
+    """Collect the Wave 6 briefing fields without depending on Arcade rendering."""
+    agents = selected_deployable_agents(
+        getattr(game_state, "characters", []),
+        getattr(game_state, "selected_agent_names", []),
+    )
+    assets = selected_support_assets(game_state)
+    try:
+        map_entry = select_battle_map_entry(mission)
+        map_thumbnail = str(map_entry.path) if map_entry is not None else "mission-matched tactical map"
+    except Exception:
+        map_thumbnail = "mission-matched tactical map"
+    return {
+        "title": mission.title,
+        "objective": mission.objective_text,
+        "target_faction": mission.target_faction,
+        "district": mission.district,
+        "risk_level": mission.risk_level,
+        "expected_stress_band": expected_stress_band(agents, mission),
+        "emotional_impact": _emotional_impact_text(mission),
+        "complications": [
+            _complication_label(complication)
+            for complication in getattr(mission, "possible_complications", [])
+        ],
+        "map_thumbnail": map_thumbnail,
+        "squad_roster": [agent.name for agent in agents],
+        "selected_support_assets": [asset.name for asset in assets],
+        "reward_preview": reward_preview(mission, assets),
+        "actions": ["DEPLOY", "ABORT"],
+    }
 
 
 class MissionBriefingView(arcade.View):
@@ -61,7 +144,6 @@ class MissionBriefingView(arcade.View):
 
         # Load agent portraits for selected squad
         from game.ui.portraits import portrait_path_for_character
-        from game.deployment import selected_deployable_agents
         selected = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
         )
@@ -140,21 +222,29 @@ class MissionBriefingView(arcade.View):
             else palette.WARNING if self.mission.risk_level <= 6
             else palette.DANGER
         )
+        rewards = reward_preview(self.mission, selected_support_assets(self.game_state))
         arcade.draw_text(
-            f"RISK: {self.mission.risk_level}/10   DURATION: {self.mission.duration_days}d   REWARD: ¥{self.mission.fund_reward}",
+            f"RISK: {self.mission.risk_level}/10   DURATION: {self.mission.duration_days}d   {rewards.upper()}",
             panel_l + 14, y, risk_col, font_size=10,
         )
         y -= 26
+
+        agents = selected_deployable_agents(self.game_state.characters, self.game_state.selected_agent_names)
+        arcade.draw_text("EXPECTED STRESS", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
+        y -= 18
+        arcade.draw_text(
+            expected_stress_band(agents, self.mission),
+            panel_l + 14, y, palette.MUTED_TEXT, font_size=9,
+            width=panel_w - 28, multiline=True,
+        )
+        y -= 30
 
         # Complications
         if self.mission.possible_complications:
             arcade.draw_text("COMPLICATIONS", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
             y -= 18
             for comp in self.mission.possible_complications[:3]:
-                if isinstance(comp, str):
-                    label = comp
-                else:
-                    label = getattr(comp, "trigger_text", None) or getattr(comp, "name", str(comp))
+                label = _complication_label(comp)
                 arcade.draw_text(f"  • {label[:60]}", panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
                 y -= 15
             y -= 8
@@ -220,8 +310,6 @@ class MissionBriefingView(arcade.View):
         draw_panel(panel_l, panel_b, panel_w, panel_h, "DEPLOYED SQUAD")
 
         y = panel_b + panel_h - 50
-        selected_names = set(self.game_state.selected_agent_names or [])
-        from game.deployment import selected_deployable_agents
         agents = selected_deployable_agents(self.game_state.characters, self.game_state.selected_agent_names)
 
         if not agents:
@@ -278,6 +366,23 @@ class MissionBriefingView(arcade.View):
                 tags_str = "  ".join(f"[{t}]" for t in self.mission.tags[:6])
                 arcade.draw_text(tags_str, panel_l + 14, y, palette.ACCENT, font_size=9)
                 y -= 20
+
+            assets = selected_support_assets(self.game_state)
+            arcade.draw_text("SUPPORT ASSETS:", panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
+            y -= 16
+            if assets:
+                for asset in assets[:4]:
+                    role = getattr(asset, "display_role", getattr(asset, "asset_type", "asset"))
+                    cost = int(getattr(asset, "deploy_cost", 0))
+                    arcade.draw_text(
+                        f"  {asset.name[:32]} ({str(role).upper()}, cost {cost})",
+                        panel_l + 14, y, palette.ACCENT, font_size=8,
+                    )
+                    y -= 13
+            else:
+                arcade.draw_text("  None selected", panel_l + 14, y, palette.MUTED_TEXT, font_size=8)
+                y -= 13
+            y -= 8
 
             # Consequence preview
             def _consequence_text(c) -> str:
