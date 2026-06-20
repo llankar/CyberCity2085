@@ -19,7 +19,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 ### Phase 1 — Complete the Core Mission Loop
 
 - [x] MISSION-FLOW-01 Mission Briefing Screen: Created a full mission briefing screen before battle launch showing mission title, objective, target faction, district, risk level, expected stress band, emotional impact, complications, map thumbnail, squad roster, selected support assets, reward preview, and clear DEPLOY / ABORT actions. Added regression coverage for the required briefing fields. (completed June 20, 2026)
-- [ ] MISSION-FLOW-02 Pre-battle Deployment Phase: Add a deployment mode before combat starts; show the deployment zone, allow repositioning selected agents and support assets, hide enemies until battle begins, and start combat only after player confirms deployment.
+- [x] MISSION-FLOW-02 Pre-battle Deployment Phase: Added a deployment mode before combat starts; shows the deployment zone, allows repositioning selected agents and support assets, hides enemies until battle begins, and starts combat only after player confirms deployment. Added regression coverage for deployment gating, hidden enemies, and support asset repositioning. (completed June 20, 2026)
 - [x] MISSION-FLOW-03 Enhanced Post-battle Debrief: Created a stronger post-battle debrief screen showing objective result, victory/defeat, rewards, per-agent kills/damage/stress/injuries/XP, triggered complications, faction changes, district changes, narrative consequence lines, and continue button back to ManagementView. Added regression coverage for the required debrief summary fields. (completed June 20, 2026)
 - [x] MISSION-FLOW-04 Consequence Summary Panel: After mission resolution, display a compact consequence panel summarizing changes to city pressure, faction hostility/influence/legitimacy, tags gained, agent scars, rewards, unavailable missions, intel unlocks, and campaign state changes. Added regression coverage for consequence summary lines. (completed June 20, 2026)
 - [ ] MISSION-FLOW-05 End-to-end Mission Flow Regression: Add tests for mission selection -> launch -> battle fallback or Godot handoff -> mission resolution -> debrief/consequences -> return to management.
@@ -50,9 +50,9 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 ### Phase 5 — Tactical Combat Readability and Feel
 
-- [ ] BATTLE-FEEL-01 Floating Damage / Healing / Miss Text: Add short-lived floating combat text for damage, healing, criticals, misses, suppression, and status changes.
+- [x] BATTLE-FEEL-01 Floating Damage / Healing / Miss Text: Added short-lived floating combat text for damage, healing, criticals, misses, suppression, and status changes. Added regression coverage for combat popup payloads. (completed June 20, 2026)
 - [ ] BATTLE-FEEL-02 Combat Log Side Panel: Make the combat log accessible during battle, ideally with a Tab toggle, category icons, and the latest events.
-- [ ] BATTLE-FEEL-03 Status Effects System: Add `status_effects` to units and implement at least suppressed, bleeding, stunned, burning, contaminated, and panicked. Show status badges in the HUD.
+- [x] BATTLE-FEEL-03 Status Effects System: Added `status_effects` support for suppressed, bleeding, stunned, burning, contaminated, and panicked; turn start applies damage/AP effects and the HUD renders status badges. Added regression coverage for required statuses and turn-start effects. (completed June 20, 2026)
 - [ ] BATTLE-FEEL-04 Objective Marker Clarity: Ensure all non-elimination objectives have visible map markers, interaction prompts, progress indicators, and failure/success conditions.
 - [ ] BATTLE-FEEL-05 Enemy AI Upgrade: Improve enemy AI with cover-seeking, flanking preference, target scoring, commander aura/buffs, and objective pressure behavior.
 - [ ] BATTLE-FEEL-06 In-battle Pause Menu: Add an Escape pause overlay with Resume, Settings, Abandon Mission, and Return options where appropriate.
@@ -98,7 +98,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 ### Phase 1 — Visual Polish & In-Battle UX
 
 - [ ] BATTLE-P01 Camera pan: activate existing Camera2D with Shift+arrows; Home re-centers on active unit; clamp to map bounds. Keeps HUD screen-anchored.
-- [ ] BATTLE-P02 Floating damage numbers: short-lived text sprites above hit units (`-N` red, `+N` green, `MISS` grey); float 40 px upward, fade over 0.8 s; separate `damage_popups` list in BattleView.
+- [x] BATTLE-P02 Floating damage numbers: short-lived text sprites above hit units (`-N` red, `+N HP` green, `MISS` grey, status labels); float 40 px upward, fade quickly; separate `damage_popups` list in BattleView. (completed June 20, 2026)
 - [ ] BATTLE-P03 Action bar icon pass: extend `draw_action_button` in `battle_hud.py` to accept Unicode icon glyph + label; no new assets required.
 - [ ] BATTLE-P04 In-battle pause menu: Escape key during player turn opens Resume/Settings/Abandon overlay; Abandon reuses `confirm_dialog.py`; blocked during enemy turn.
 - [ ] BATTLE-P05 Combat log side panel: promote existing `combat_log_panel.py` to player-accessible Tab-toggle side column (8 events, category icons).
@@ -106,7 +106,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 ### Phase 2 — Full Mission Arc
 
 - [x] BATTLE-A01 Mission Briefing Screen: `MissionBriefingView` now sits between the world-map mission selector and BattleView/Godot handoff, showing mission name/objectives/intel/map thumbnail/squad roster/support assets/emotional impact/stress/reward preview with DEPLOY or ABORT actions. (completed June 20, 2026)
-- [ ] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 — highlighted deployment zone, movable unit sprites, DEPLOYMENT phase banner, Enter to begin; enemy units hidden until battle starts.
+- [x] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 with highlighted deployment zone, movable agent/support asset sprites, DEPLOYMENT phase banner, Enter to begin, and enemy units hidden until battle starts. (completed June 20, 2026)
 - [x] BATTLE-A03 Enhanced Post-battle Debrief: `battle_debrief_view.py` now shows per-agent damage/kills/stress/injuries/XP plus objectives, rewards, triggered complications, faction/district changes, narrative consequence lines, and CONTINUE routing back to management. (completed June 20, 2026)
 
 ### Phase 3 — Gameplay Depth
@@ -114,7 +114,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 - [x] BATTLE-G01 Terrain pathfinding: reduced to one shared tactical movement rule in `game/combat/movement.py`; BattleView deployment/keyboard movement and enemy AI now use the same terrain + occupancy checks. (completed June 7, 2026)
 - [ ] BATTLE-G02 Enhanced enemy AI: cover-seeking before attacking; flanking preference using `cover_system.py::flanking_detection`; commander subtype buffs adjacent grunt/heavy AGI.
 - [x] BATTLE-G03 Dynamic mid-battle events: added a render-independent `game/combat/events.py` layer for complication-triggered reinforcements and blackout, with `CombatEngine` returning descriptive results for `BattleView` to translate into sprites, sound, screen shake, logs, and fog changes. (completed June 7, 2026)
-- [ ] BATTLE-G04 Status effects: add `status_effects: list[str]` to `Unit`; support `suppressed` (−2 move AP), `bleeding` (−1 HP/turn), `stunned` (skip next action); icon badges on unit labels in HUD.
+- [x] BATTLE-G04 Status effects: `Unit.status_effects` now covers suppressed, bleeding, stunned, burning, contaminated, and panicked with turn-start effects and HUD badges on unit labels. (completed June 20, 2026)
 
 ---
 

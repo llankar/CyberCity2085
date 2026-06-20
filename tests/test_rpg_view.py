@@ -287,6 +287,70 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertIn(0.75, scales)
         self.assertIn(1.5, scales)
 
+    def test_battle_view_starts_in_deployment_until_confirmed(self):
+        game_state = GameState(
+            characters=[Character("Alpha")],
+            selected_agent_names=["Alpha"],
+            mission_templates=[_mission()],
+        )
+        view = views.BattleView(game_state)
+        view.window = _FakeWindow()
+        view.setup(game_state.mission_templates[0])
+
+        self.assertTrue(view._deploying)
+        self.assertEqual(view.combat_state.logs, [])
+        self.assertIn("Deployment phase", view.message)
+        for enemy in view.enemy_units:
+            enemy.sprite.visible = True
+        self.assertEqual(view.enemy_units_visible_for_render(), [])
+        self.assertTrue(all(not enemy.sprite.visible for enemy in view.enemy_units))
+
+        view._handle_deployment_key(views.arcade.key.ENTER)
+
+        self.assertFalse(view._deploying)
+        self.assertTrue(any("Turn 1" in line for line in view.combat_state.logs))
+        self.assertEqual(view.message, "Squad deployed. Combat begins.")
+        self.assertEqual(view.enemy_units_visible_for_render(), view.enemy_units)
+
+    def test_deployment_repositions_support_assets_and_ignores_hidden_enemies(self):
+        game_state = GameState(
+            characters=[Character("Alpha")],
+            selected_agent_names=["Alpha"],
+            spec_ops_assets=default_spec_ops_assets(),
+            selected_asset_ids=["robot_k9_01"],
+            mission_templates=[_mission()],
+        )
+        view = views.BattleView(game_state)
+        view.window = _FakeWindow()
+        view.setup(game_state.mission_templates[0])
+        view._deploy_cursor = 1
+        support_unit = view.player_units[1]
+        start = support_unit.position
+        for enemy in view.enemy_units:
+            enemy.position = (start[0] + 32, start[1])
+
+        view._handle_deployment_key(views.arcade.key.RIGHT)
+
+        self.assertEqual(support_unit.position, (start[0] + 32, start[1]))
+        self.assertLess(support_unit.position[1], 128)
+
+    def test_combat_popups_cover_damage_healing_miss_and_status(self):
+        view = views.BattleView.__new__(views.BattleView)
+        view.damage_popups = []
+        unit = types.SimpleNamespace(position=(100, 120))
+
+        view._add_damage_popup(unit, 7)
+        view._add_damage_popup(unit, 0)
+        view._add_healing_popup(unit, 5)
+        view._add_status_popup(unit, "suppressed")
+
+        texts = [popup["text"] for popup in view.damage_popups]
+        self.assertEqual(texts, ["-7", "MISS", "+5 HP", "SUPPRESSED"])
+        self.assertTrue(all(popup["max_age"] <= 1.0 for popup in view.damage_popups))
+        self.assertEqual(view.damage_popups[0]["color"], (255, 80, 60))
+        self.assertEqual(view.damage_popups[1]["color"], (160, 160, 160))
+        self.assertEqual(view.damage_popups[2]["color"], (70, 230, 120))
+
     def test_invisible_enemies_are_not_targetable(self):
         game_state = GameState(
             characters=[Character("Ghost", role="sniper")],

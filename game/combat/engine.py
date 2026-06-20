@@ -69,11 +69,12 @@ class CombatEngine:
     def start_player_turn(self) -> BattleCheckResult:
         """Reset allied AP/statuses and advance from enemy to player phase."""
         for unit in self.state.allied_units:
-            for msg in unit.tick_status_effects():
-                if "bleeding" in msg:
-                    name = unit.character.name if unit.character else unit.unit_type
-                    self.state.logs.append(f"{name} is bleeding (-1 HP)")
             unit.reset_actions()
+            for msg in unit.tick_status_effects():
+                if msg in {"bleeding", "burning", "contaminated"}:
+                    name = unit.character.name if unit.character else unit.unit_type
+                    damage = 2 if msg == "burning" else 1
+                    self.state.logs.append(f"{name} is {msg} (-{damage} HP)")
         if self.state.turn == "enemy":
             self.state.turn_number += 1
         self.state.turn = "player"

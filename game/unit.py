@@ -14,6 +14,18 @@ if TYPE_CHECKING:
 STATUS_SUPPRESSED = "suppressed"  # -2 movement AP next turn (triggered by overwatch fire)
 STATUS_BLEEDING   = "bleeding"    # -1 HP at start of next player turn; cleared by first-aid
 STATUS_STUNNED    = "stunned"     # skip next action; triggered by heavy melee
+STATUS_BURNING = "burning"        # -2 HP at start of turn until cleared
+STATUS_CONTAMINATED = "contaminated"  # -1 HP at start of turn until cleared
+STATUS_PANICKED = "panicked"      # skip next action, then clears
+
+ALL_STATUS_EFFECTS = (
+    STATUS_SUPPRESSED,
+    STATUS_BLEEDING,
+    STATUS_STUNNED,
+    STATUS_BURNING,
+    STATUS_CONTAMINATED,
+    STATUS_PANICKED,
+)
 
 
 @dataclass
@@ -60,13 +72,21 @@ class Unit:
     def tick_status_effects(self) -> list[str]:
         """Apply and expire turn-based status effects. Returns messages."""
         messages: list[str] = []
-        # Bleeding: lose 1 HP this turn then the effect persists until healed
+        # Persistent damage-over-time effects stay until another action clears them.
         if STATUS_BLEEDING in self.status_effects and self.stats:
             self.stats.hp = max(0, self.stats.hp - 1)
             self.health = self.stats.hp
             messages.append("bleeding")
-        # Suppressed / stunned clear after one turn
-        for effect in (STATUS_SUPPRESSED, STATUS_STUNNED):
+        if STATUS_BURNING in self.status_effects and self.stats:
+            self.stats.hp = max(0, self.stats.hp - 2)
+            self.health = self.stats.hp
+            messages.append("burning")
+        if STATUS_CONTAMINATED in self.status_effects and self.stats:
+            self.stats.hp = max(0, self.stats.hp - 1)
+            self.health = self.stats.hp
+            messages.append("contaminated")
+        # Suppressed / stunned / panicked clear after one turn.
+        for effect in (STATUS_SUPPRESSED, STATUS_STUNNED, STATUS_PANICKED):
             if effect in self.status_effects:
                 self.status_effects.remove(effect)
                 messages.append(f"{effect} cleared")
@@ -89,6 +109,8 @@ class Unit:
             base_ap = max(0, base_ap - 2)
         # Stunned units get 0 AP next turn
         if STATUS_STUNNED in self.status_effects:
+            base_ap = 0
+        if STATUS_PANICKED in self.status_effects:
             base_ap = 0
         self.action_points = base_ap
         self.is_defending = False
