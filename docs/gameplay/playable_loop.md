@@ -9,6 +9,7 @@ CyberCity2085 playable loop must always follow this chain:
 3. **Mission launch**
    - Player picks an operation and reviews the mission briefing before deployment.
    - The briefing must expose objective, target faction, district, risk, expected stress band, emotional impact, complications, map preview, squad roster, selected support assets, reward preview, and DEPLOY / ABORT actions.
+   - Before combat starts, deployment mode must show the deployment zone, allow selected agents/support assets to reposition, hide enemies, and wait for player confirmation.
 4. **Battle resolution**
    - Tactical outcome resolves mission objectives, casualties, and objective branches.
    - The post-battle debrief must show objective result, rewards, per-agent performance/stress/injuries/XP, triggered complications, faction/district changes, narrative consequences, and a clear return to management.

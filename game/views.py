@@ -1747,6 +1747,7 @@ class BattleView(GameView):
         self.enemy_units, self.initial_enemy_count = create_enemy_units(
             self.mission, selected_squad
         )
+        self._arrange_player_units_for_deployment()
         self.player_list = arcade.SpriteList()
         self.enemy_list = arcade.SpriteList()
         self.battle_objective = create_battle_objective(self.mission)
@@ -1853,7 +1854,7 @@ class BattleView(GameView):
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.cover_system import generate_cover_nodes
         self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
-        self.start_player_turn()
+        self.message = "Deployment phase: reposition squad, then press Enter to deploy."
 
     def _load_battle_map(self, index: int) -> None:
         """Load the active tactical map texture and terrain profile."""
@@ -1881,6 +1882,17 @@ class BattleView(GameView):
             forced_walkable=forced,
         )
 
+    def _arrange_player_units_for_deployment(self) -> None:
+        """Place agents and support assets into the pre-battle deployment zone."""
+        width = getattr(self.window, "width", 1280)
+        cols = max(1, min(8, (max(96, width - 96) // 64)))
+        for index, unit in enumerate(getattr(self, "player_units", [])):
+            col = index % cols
+            row = index // cols
+            x = min(width - 32, 96 + col * 64)
+            y = min(112, 64 + row * 32)
+            unit.position = (x, y)
+
     def can_move_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Return True when the shared combat movement rule allows a cell."""
         state = getattr(self, "combat_state", None)
@@ -1894,6 +1906,29 @@ class BattleView(GameView):
             exclude=exclude,
             movement_mode=movement_mode,
         )
+
+    def can_deploy_to(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
+        """Return True when a unit can be placed in the pre-battle deployment zone."""
+        state = getattr(self, "combat_state", None)
+        movement_mode = getattr(state, "movement_mode", "tactical_grid")
+        return can_enter_cell(
+            x,
+            y,
+            terrain_profile=getattr(self, "terrain_profile", None),
+            allied_units=getattr(self, "player_units", []),
+            enemy_units=[],
+            exclude=exclude,
+            movement_mode=movement_mode,
+        )
+
+    def enemy_units_visible_for_render(self) -> list[Unit]:
+        """Return enemy units that may be rendered in the current battle phase."""
+        if getattr(self, "_deploying", False):
+            for enemy in getattr(self, "enemy_units", []):
+                if enemy.sprite:
+                    enemy.sprite.visible = False
+            return []
+        return list(getattr(self, "enemy_units", []))
 
     def is_occupied(self, x: int, y: int, *, exclude: Unit | None = None) -> bool:
         """Check if a map position is occupied by any living unit."""
@@ -2254,6 +2289,7 @@ class BattleView(GameView):
                 # Heavy melee applies STUNNED
                 if enemy.enemy_subtype == "heavy" and enemy.distance_to(target) <= 32:
                     target.apply_status(STATUS_STUNNED)
+                    self._add_status_popup(target, "STUNNED")
                     self._snd().play("sfx_stun", 0.9)
                     self._flash_unit(target, color=(160, 100, 255), duration=0.25)
                     self.combat_log_messages.append(f"{target_name} is stunned!")
@@ -2277,6 +2313,7 @@ class BattleView(GameView):
             for ally in self.player_units:
                 if ally is not target and ally.health > 0 and _mr.random() < 0.30:
                     ally.apply_status(STATUS_SUPPRESSED)
+                    self._add_status_popup(ally, "SUPPRESSED")
                     ally_name = ally.character.name if ally.character else "Agent"
                     self.combat_log_messages.append(f"{ally_name} shaken by {kia_name}'s fall")
 
@@ -2288,6 +2325,8 @@ class BattleView(GameView):
             if damage > 0:
                 self.message = f"OVERWATCH! {watcher_name} hits for {damage}"
                 enemy.apply_status(STATUS_SUPPRESSED)
+                self._add_damage_popup(enemy, damage)
+                self._add_status_popup(enemy, "SUPPRESSED")
                 self.combat_log_messages.append(f"Overwatch! Enemy suppressed.")
                 self._spawn_particles(*enemy.position, count=8, color=(255, 200, 60))
                 self._flash_unit(enemy, color=(255, 200, 60))
@@ -2297,6 +2336,7 @@ class BattleView(GameView):
                 self._flash_alpha = 200
             else:
                 self.message = f"OVERWATCH! {watcher_name} misses"
+                self._add_damage_popup(enemy, 0)
 
         return {
             "on_attack": on_attack,
@@ -2403,10 +2443,14 @@ class BattleView(GameView):
         draw_objective_marker(self.battle_objective, elapsed)
 
         # ── Fog of war — darken unseen tiles, hide invisible enemies ────
-        update_enemy_visibility(self.player_units, self.enemy_units)
-        for enemy in self.enemy_units:
-            if enemy.sprite:
-                enemy.sprite.visible = enemy.visible
+        if self._deploying:
+            visible_enemy_units = self.enemy_units_visible_for_render()
+        else:
+            update_enemy_visibility(self.player_units, self.enemy_units)
+            visible_enemy_units = self.enemy_units
+            for enemy in self.enemy_units:
+                if enemy.sprite:
+                    enemy.sprite.visible = enemy.visible
         draw_fog_of_war(self.player_units, w, h)
 
         # ── Units ────────────────────────────────────────────────────────
@@ -2418,10 +2462,10 @@ class BattleView(GameView):
             draw_active_unit_ring(active_unit, elapsed)
 
         # ── Unit labels (HP bars + names) ────────────────────────────────
-        draw_unit_labels(self.player_units, self.enemy_units, self.active_index)
+        draw_unit_labels(self.player_units, visible_enemy_units, self.active_index)
 
         # ── Assassination target marker ──────────────────────────────────
-        if self._assassination_target and self._assassination_target in self.enemy_units:
+        if not self._deploying and self._assassination_target and self._assassination_target in self.enemy_units:
             from game.ui.screens.battle_hud import draw_assassination_marker
             draw_assassination_marker(self._assassination_target, elapsed)
 
@@ -2457,7 +2501,7 @@ class BattleView(GameView):
         )
         draw_muzzle_flashes(self._muzzle_flashes)
         draw_psi_waves(self._psi_waves)
-        all_units = self.player_units + self.enemy_units
+        all_units = self.player_units + visible_enemy_units
         draw_hit_flashes(all_units, self._unit_flashes)
         draw_particles(self.particles)
         draw_death_rings(self._death_rings)
@@ -2641,6 +2685,7 @@ class BattleView(GameView):
             healed = player.health - before
             self.message = result.message
             if healed > 0:
+                self._add_healing_popup(player, healed)
                 self._spawn_particles(*player.position, count=10, color=(60, 220, 120))
                 self._flash_unit(player, color=(60, 220, 120))
             self._set_action_aftermath(
@@ -2956,13 +3001,35 @@ class BattleView(GameView):
         """Spawn a floating damage number above the given unit."""
         text = f"-{damage}" if damage > 0 else "MISS"
         color = (255, 80, 60) if damage > 0 else (160, 160, 160)
+        self._add_combat_popup(unit, text, color)
+
+    def _add_healing_popup(self, unit: "Unit", amount: int) -> None:
+        """Spawn a floating healing number above the given unit."""
+        self._add_combat_popup(unit, f"+{max(0, amount)} HP", (70, 230, 120))
+
+    def _add_status_popup(self, unit: "Unit", label: str) -> None:
+        """Spawn a floating status-change label above the given unit."""
+        status = str(label or "STATUS").upper()
+        color = (120, 180, 255) if status == "SUPPRESSED" else (255, 210, 80)
+        self._add_combat_popup(unit, status, color, max_age=1.0, y_offset=34)
+
+    def _add_combat_popup(
+        self,
+        unit: "Unit",
+        text: str,
+        color: tuple[int, int, int],
+        *,
+        max_age: float = 0.8,
+        y_offset: int = 20,
+    ) -> None:
+        """Spawn a short-lived floating combat text payload."""
         self.damage_popups.append({
             "x": unit.position[0],
-            "y": unit.position[1] + 20,
+            "y": unit.position[1] + y_offset,
             "text": text,
             "color": color,
             "age": 0.0,
-            "max_age": 0.8,
+            "max_age": max_age,
         })
 
     def _add_screen_shake(self, intensity: float) -> None:
@@ -3174,6 +3241,14 @@ class BattleView(GameView):
             self._deploying = False
             self.combat_log_messages.append("Squad deployed — battle begins!")
             self._snd().play("sfx_deploy")
+            self._sync_combat_state_from_view()
+            result = self.combat_engine.start_player_turn()
+            self._sync_view_from_combat_state()
+            self.message = "Squad deployed. Combat begins."
+            if result.outcome == "victory":
+                self.end_battle(True)
+            elif result.outcome == "defeat":
+                self.end_battle(False)
             return
         if not self.player_units or self._deploy_cursor >= len(self.player_units):
             return
@@ -3192,7 +3267,7 @@ class BattleView(GameView):
             ww = getattr(self.window, "width", 1280)
             nx = max(16, min(ww - 16, unit.position[0] + dx))
             ny = max(16, min(_DEPLOY_ZONE_H - 16, unit.position[1] + dy))
-            if not self.can_move_to(nx, ny, exclude=unit):
+            if not self.can_deploy_to(nx, ny, exclude=unit):
                 self.message = "Deployment cell blocked."
                 return
             unit.position = (nx, ny)

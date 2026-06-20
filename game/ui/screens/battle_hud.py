@@ -527,12 +527,15 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
                 font_size=7, anchor_x="center",
             )
 
-    # Status effect badges (suppressed / bleeding / stunned)
+    # Status effect badges (suppressed / bleeding / stunned / burning / contaminated / panicked)
     status_effects = getattr(unit, "status_effects", [])
     _STATUS_BADGES = {
         "suppressed": ("SUP", (255, 200, 50)),
         "bleeding":   ("BLD", (220, 60, 60)),
         "stunned":    ("STN", (160, 120, 255)),
+        "burning":    ("BRN", (255, 110, 40)),
+        "contaminated": ("CON", (90, 220, 120)),
+        "panicked":   ("PAN", (255, 120, 220)),
     }
     badge_x = cx - 12 * (len(status_effects) - 1) // 2
     for effect in status_effects:

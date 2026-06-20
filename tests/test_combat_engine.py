@@ -6,7 +6,14 @@ import unittest
 
 from game.combat import CombatEngine, CombatState
 from game.stats import EnemyStats, PlayerStats
-from game.unit import STATUS_BLEEDING, Unit
+from game.unit import (
+    ALL_STATUS_EFFECTS,
+    STATUS_BLEEDING,
+    STATUS_BURNING,
+    STATUS_CONTAMINATED,
+    STATUS_PANICKED,
+    Unit,
+)
 
 
 def _ally(ap: int = 0, hp: int = 11) -> Unit:
@@ -37,6 +44,30 @@ class CombatEngineTest(unittest.TestCase):
         self.assertEqual(ally.action_points, 2)
         self.assertEqual(ally.health, 4)
         self.assertIn("── Turn 2 ──", state.logs)
+
+    def test_status_effect_set_covers_required_wave6_statuses(self) -> None:
+        self.assertEqual(
+            set(ALL_STATUS_EFFECTS),
+            {"suppressed", "bleeding", "stunned", "burning", "contaminated", "panicked"},
+        )
+
+    def test_burning_contaminated_and_panicked_tick_on_turn_start(self) -> None:
+        ally = _ally(ap=2, hp=8)
+        ally.apply_status(STATUS_BURNING)
+        ally.apply_status(STATUS_CONTAMINATED)
+        ally.apply_status(STATUS_PANICKED)
+        state = CombatState(None, [ally], [_enemy()], turn="enemy", turn_number=1)
+        engine = CombatEngine(state)
+
+        engine.start_player_turn()
+
+        self.assertEqual(ally.health, 5)
+        self.assertEqual(ally.action_points, 0)
+        self.assertTrue(ally.has_status(STATUS_BURNING))
+        self.assertTrue(ally.has_status(STATUS_CONTAMINATED))
+        self.assertFalse(ally.has_status(STATUS_PANICKED))
+        self.assertIn("agent is burning (-2 HP)", state.logs)
+        self.assertIn("agent is contaminated (-1 HP)", state.logs)
 
     def test_end_turn_action_consumes_remaining_ap(self) -> None:
         ally = _ally(ap=2)
