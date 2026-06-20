@@ -20,7 +20,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 - [x] MISSION-FLOW-01 Mission Briefing Screen: Created a full mission briefing screen before battle launch showing mission title, objective, target faction, district, risk level, expected stress band, emotional impact, complications, map thumbnail, squad roster, selected support assets, reward preview, and clear DEPLOY / ABORT actions. Added regression coverage for the required briefing fields. (completed June 20, 2026)
 - [ ] MISSION-FLOW-02 Pre-battle Deployment Phase: Add a deployment mode before combat starts; show the deployment zone, allow repositioning selected agents and support assets, hide enemies until battle begins, and start combat only after player confirms deployment.
-- [ ] MISSION-FLOW-03 Enhanced Post-battle Debrief: Create a stronger post-battle debrief screen showing objective result, victory/defeat, rewards, per-agent kills/damage/stress/injuries/XP, triggered complications, faction changes, district changes, narrative consequence lines, and continue button back to ManagementView.
+- [x] MISSION-FLOW-03 Enhanced Post-battle Debrief: Created a stronger post-battle debrief screen showing objective result, victory/defeat, rewards, per-agent kills/damage/stress/injuries/XP, triggered complications, faction changes, district changes, narrative consequence lines, and continue button back to ManagementView. Added regression coverage for the required debrief summary fields. (completed June 20, 2026)
 - [ ] MISSION-FLOW-04 Consequence Summary Panel: After mission resolution, display a compact consequence panel summarizing changes to city pressure, faction hostility/influence/legitimacy, tags gained, agent scars, rewards, unavailable missions, intel unlocks, and campaign state changes.
 - [ ] MISSION-FLOW-05 End-to-end Mission Flow Regression: Add tests for mission selection -> launch -> battle fallback or Godot handoff -> mission resolution -> debrief/consequences -> return to management.
 
@@ -107,7 +107,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 - [x] BATTLE-A01 Mission Briefing Screen: `MissionBriefingView` now sits between the world-map mission selector and BattleView/Godot handoff, showing mission name/objectives/intel/map thumbnail/squad roster/support assets/emotional impact/stress/reward preview with DEPLOY or ABORT actions. (completed June 20, 2026)
 - [ ] BATTLE-A02 Pre-battle Deployment Phase: deployment-mode state in BattleView before turn 1 — highlighted deployment zone, movable unit sprites, DEPLOYMENT phase banner, Enter to begin; enemy units hidden until battle starts.
-- [ ] BATTLE-A03 Enhanced Post-battle Debrief: new `battle_debrief_view.py` — left panel per-agent stats (damage/kills/AP), right panel objectives+rewards+stress+narrative lines from `DebriefReport`; CONTINUE routes back to management.
+- [x] BATTLE-A03 Enhanced Post-battle Debrief: `battle_debrief_view.py` now shows per-agent damage/kills/stress/injuries/XP plus objectives, rewards, triggered complications, faction/district changes, narrative consequence lines, and CONTINUE routing back to management. (completed June 20, 2026)
 
 ### Phase 3 — Gameplay Depth
 

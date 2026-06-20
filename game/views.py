@@ -2090,14 +2090,18 @@ class BattleView(GameView):
             if not unit.character or id(unit.character) in processed_character_ids:
                 continue
             processed_character_ids.add(id(unit.character))
+            unit.character._pre_battle_stress = getattr(unit.character, "stress", 0)
+            unit.character._pre_battle_level = getattr(unit.character.stats, "level", 1)
+            unit.character._mission_xp_gained = 0
             if unit.health <= 0:
                 self.resolve_defeated_player_unit(unit)
                 continue
             unit.character.stats.hp = unit.health
             surviving_participants.append(unit.character)
-            unit.character._pre_battle_level = getattr(unit.character.stats, "level", 1)
             if victory:
-                unit.character.gain_xp(50 * defeated)
+                xp_award = 50 * defeated
+                unit.character._mission_xp_gained = xp_award
+                unit.character.gain_xp(xp_award)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
             self.game_state.characters, self.game_state.selected_agent_names
         )
@@ -2195,9 +2199,17 @@ class BattleView(GameView):
                 kills=getattr(unit, "_kills", 0),
                 kia=(unit.health <= 0),
                 stress_delta=unit.character.stress - old_stress,
+                xp_gained=getattr(unit.character, "_mission_xp_gained", 0),
+                injuries=list(getattr(unit.character, "injuries", [])),
             ))
 
-        debrief_view = BattleDebriefView(self.game_state, victory, self.mission, agent_stats)
+        debrief_view = BattleDebriefView(
+            self.game_state,
+            victory,
+            self.mission,
+            agent_stats,
+            self.triggered_complication,
+        )
         if promotions:
             self.window.show_view(AgentPromotionView(self.game_state, promotions, debrief_view))
         else:

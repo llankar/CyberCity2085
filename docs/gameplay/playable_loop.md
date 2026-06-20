@@ -11,6 +11,7 @@ CyberCity2085 playable loop must always follow this chain:
    - The briefing must expose objective, target faction, district, risk, expected stress band, emotional impact, complications, map preview, squad roster, selected support assets, reward preview, and DEPLOY / ABORT actions.
 4. **Battle resolution**
    - Tactical outcome resolves mission objectives, casualties, and objective branches.
+   - The post-battle debrief must show objective result, rewards, per-agent performance/stress/injuries/XP, triggered complications, faction/district changes, narrative consequences, and a clear return to management.
 5. **Consequences**
    - Rewards/penalties apply (funds/resources/faction/narrative aftermath/stress).
 6. **Next day**
