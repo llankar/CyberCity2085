@@ -96,6 +96,43 @@ def _unresolved_global_events(game_state: "GameState") -> list[str]:
     return lines or ["No unresolved global events"]
 
 
+def build_hungry_tide_summary(game_state: "GameState") -> dict[str, object]:
+    """Summarize Starver/Hungry Tide pressure for the Intel room."""
+    world = game_state.campaign.world
+    progress = max(0, min(100, int(world.hungry_tide_progress)))
+    if progress >= 80:
+        threat_level = "critical"
+        affected_regions = ["Badlands", "Atlantic corridor", "New York perimeter"]
+        expected_new_york_impact = "siege imminent or active"
+        consequence_if_ignored = "New York falls into open siege and Starver pressure spikes worldwide."
+    elif progress >= 50:
+        threat_level = "high"
+        affected_regions = ["Badlands", "Atlantic corridor"]
+        expected_new_york_impact = "major assault forming"
+        consequence_if_ignored = "The Tide reaches New York with fewer warning windows and higher civilian losses."
+    elif progress >= 20:
+        threat_level = "rising"
+        affected_regions = ["Badlands", "outer evacuation routes"]
+        expected_new_york_impact = "early warning signs"
+        consequence_if_ignored = "Recon gaps let the Tide accelerate without prepared containment."
+    else:
+        threat_level = "low"
+        affected_regions = ["Badlands"]
+        expected_new_york_impact = "no immediate impact"
+        consequence_if_ignored = "Delayed response risks losing the first movement pattern."
+    if world.new_york_status == "siege":
+        expected_new_york_impact = "New York is under siege"
+    elif world.new_york_status == "alert" and progress < 50:
+        expected_new_york_impact = "New York is on alert"
+    return {
+        "progress": progress,
+        "threat_level": threat_level,
+        "affected_regions": affected_regions,
+        "expected_new_york_impact": expected_new_york_impact,
+        "consequence_if_ignored": consequence_if_ignored,
+    }
+
+
 def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
     """Return Intel-room campaign facts without depending on Arcade rendering."""
     campaign = game_state.campaign
@@ -121,6 +158,7 @@ def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
         "known_intel_this_act": len(current_act_fragments),
         "major_known_threats": _major_known_threats(game_state),
         "unresolved_global_events": _unresolved_global_events(game_state),
+        "hungry_tide": build_hungry_tide_summary(game_state),
     }
 
 
@@ -221,6 +259,20 @@ def draw_campaign_panel(
     cy -= 14
 
     # ── Latest intel fragments ────────────────────────────────────────────────
+    tide_summary = dict(summary["hungry_tide"])
+    arcade.draw_text("HUNGRY TIDE INTEL", x + 14, cy, palette.DANGER, font_size=9, bold=True)
+    cy -= 14
+    tide_lines = [
+        f"Threat: {tide_summary['threat_level']} | Regions: {', '.join(tide_summary['affected_regions'])}",
+        f"NY impact: {tide_summary['expected_new_york_impact']}",
+        f"If ignored: {tide_summary['consequence_if_ignored']}",
+    ]
+    for line in tide_lines:
+        if cy < y + 92:
+            break
+        arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
     arcade.draw_text("MAJOR KNOWN THREATS", x + 14, cy, palette.WARNING, font_size=9, bold=True)
     cy -= 14
     for threat in list(summary["major_known_threats"])[:3]:
