@@ -52,6 +52,76 @@ _WORLD_LABELS = {
 }
 
 from game.campaign.acts import ACT_TITLES
+from game.campaign.intel_fragments import fragments_for_act
+
+
+def _status_text(field_name: str, value: str) -> str:
+    labels = _WORLD_LABELS.get(field_name, {})
+    entry = labels.get(value)
+    return entry[1] if entry else str(value).replace("_", " ").title()
+
+
+def _major_known_threats(game_state: "GameState") -> list[str]:
+    world = game_state.campaign.world
+    threats: list[str] = []
+    if world.hungry_tide_progress > 0:
+        threats.append(f"Hungry Tide at {world.hungry_tide_progress}%")
+    if world.new_york_status != "normal":
+        threats.append(f"New York {_status_text('new_york_status', world.new_york_status)}")
+    if world.warsaw_status != "open":
+        threats.append(f"Warsaw {_status_text('warsaw_status', world.warsaw_status)}")
+    if world.pharmacorp_secret != "hidden":
+        threats.append(f"Pharmacorp {_status_text('pharmacorp_secret', world.pharmacorp_secret)}")
+    if world.ai_factions_status != "unknown":
+        threats.append(f"AI factions {_status_text('ai_factions_status', world.ai_factions_status)}")
+    if world.perfs_status != "unknown":
+        threats.append(f"PERFs {_status_text('perfs_status', world.perfs_status)}")
+    return threats or ["No major known threats confirmed"]
+
+
+def _unresolved_global_events(game_state: "GameState") -> list[str]:
+    current_day = int(getattr(game_state.calendar, "current_day", 1))
+    lines: list[str] = []
+    for event in getattr(game_state, "active_events", []) or []:
+        title = getattr(event, "title", "Unresolved event")
+        severity = getattr(event, "severity", "?")
+        if hasattr(event, "days_remaining"):
+            remaining = event.days_remaining(current_day)
+            lines.append(f"{title} (severity {severity}, {remaining}d left)")
+        else:
+            lines.append(f"{title} (severity {severity})")
+    if not lines:
+        seen = list(getattr(game_state.campaign, "act_triggers_seen", []) or [])
+        lines = [f"Trigger seen: {trigger}" for trigger in seen[-3:]]
+    return lines or ["No unresolved global events"]
+
+
+def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
+    """Return Intel-room campaign facts without depending on Arcade rendering."""
+    campaign = game_state.campaign
+    world = campaign.world
+    required = campaign.missions_required
+    act_progress = min(campaign.act_progress, required)
+    current_act_fragments = fragments_for_act(campaign.current_act)
+    discovered_this_act = [
+        fragment_id
+        for fragment_id in campaign.discovered_intel
+        if fragment_id.startswith(f"act{campaign.current_act}_")
+    ]
+    return {
+        "current_act": campaign.current_act,
+        "act_title": ACT_TITLES.get(campaign.current_act, f"Act {campaign.current_act}"),
+        "act_progress": act_progress,
+        "act_required": required,
+        "hungry_tide_percentage": world.hungry_tide_progress,
+        "new_york_status": world.new_york_status,
+        "warsaw_status": world.warsaw_status,
+        "discovered_intel_count": len(campaign.discovered_intel),
+        "discovered_intel_this_act": len(discovered_this_act),
+        "known_intel_this_act": len(current_act_fragments),
+        "major_known_threats": _major_known_threats(game_state),
+        "unresolved_global_events": _unresolved_global_events(game_state),
+    }
 
 
 def draw_campaign_panel(
@@ -64,12 +134,13 @@ def draw_campaign_panel(
 ) -> None:
     """Draw the Global Scenario campaign panel at the given screen position."""
     c = game_state.campaign
+    summary = build_global_scenario_summary(game_state)
     draw_panel(x, y, width, height, "GLOBAL SCENARIO")
 
     cy = y + height - 44
 
     # ── Act header ────────────────────────────────────────────────────────────
-    act_title = ACT_TITLES.get(c.current_act, f"Act {c.current_act}")
+    act_title = str(summary["act_title"])
     pulse = 0.85 + 0.15 * math.sin(elapsed * 1.8)
     act_col = (*palette.HEADER[:3], int(230 * pulse))
     arcade.draw_text(
@@ -81,8 +152,8 @@ def draw_campaign_panel(
     cy -= 18
 
     # Progress bar for act advancement
-    req = c.missions_required
-    prog = min(c.act_progress, req)
+    req = int(summary["act_required"])
+    prog = int(summary["act_progress"])
     bar_w = width - 28
     bar_h = 6
     bx = x + 14
@@ -150,10 +221,28 @@ def draw_campaign_panel(
     cy -= 14
 
     # ── Latest intel fragments ────────────────────────────────────────────────
-    total = len(c.discovered_intel)
-    act_total = sum(1 for f in c.discovered_intel
-                    if f.startswith(f"act{c.current_act}_"))
-    act_possible = 5  # 5 fragments per act
+    arcade.draw_text("MAJOR KNOWN THREATS", x + 14, cy, palette.WARNING, font_size=9, bold=True)
+    cy -= 14
+    for threat in list(summary["major_known_threats"])[:3]:
+        if cy < y + 72:
+            break
+        arcade.draw_text(f"- {str(threat)[:40]}", x + 14, cy, palette.TEXT, font_size=8)
+        cy -= 12
+
+    arcade.draw_text("UNRESOLVED GLOBAL EVENTS", x + 14, cy, palette.ACCENT, font_size=9, bold=True)
+    cy -= 14
+    for event_line in list(summary["unresolved_global_events"])[:2]:
+        if cy < y + 46:
+            break
+        arcade.draw_text(f"- {str(event_line)[:42]}", x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
+    arcade.draw_line(x + 8, cy, x + width - 8, cy, palette.PANEL_BORDER_MUTED, 1)
+    cy -= 14
+
+    total = int(summary["discovered_intel_count"])
+    act_total = int(summary["discovered_intel_this_act"])
+    act_possible = int(summary["known_intel_this_act"])
     arcade.draw_text(
         f"INTEL  {total} total  ({act_total}/{act_possible} this act)",
         x + 14, cy,
