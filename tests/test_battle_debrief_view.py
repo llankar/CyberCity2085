@@ -4,12 +4,15 @@ from __future__ import annotations
 
 import unittest
 
+from game.character import Character
 from game.consequences import Consequence
 from game.gamestate import GameState
 from game.mission_templates import MissionComplication, MissionTemplate
+from game.savage_fate import tag_from_library
 from game.ui.screens.battle_debrief_view import (
     AgentDebriefStat,
     build_battle_debrief_summary,
+    build_consequence_summary_lines,
 )
 
 
@@ -30,6 +33,7 @@ def _mission() -> MissionTemplate:
                 affected_faction="Warrens Free Clinic",
                 narrative_text="The witness reaches the clinic and safehouse routes open.",
                 mechanical_effects={"stability": 5, "unrest": -4},
+                tags=[tag_from_library("civilian_panic")],
             )
         ],
     )
@@ -52,7 +56,12 @@ def _complication() -> MissionComplication:
 
 class BattleDebriefSummaryTest(unittest.TestCase):
     def test_summary_covers_wave6_required_debrief_fields(self) -> None:
-        game_state = GameState()
+        game_state = GameState(characters=[Character("Vera")])
+        game_state.characters[0].temporary_scars = [{"name": "Shrapnel cuts"}]
+        game_state.unavailable_mission_ids = ["jackal_relay_lockdown"]
+        game_state.campaign.discover_intel("act1_three_sevens_banner")
+        game_state.campaign.world.hungry_tide_progress = 17
+        game_state.campaign.world.new_york_status = "alert"
         game_state.latest_mission_debrief = {
             "lines": [
                 {
@@ -108,6 +117,23 @@ class BattleDebriefSummaryTest(unittest.TestCase):
             any("Vera returns injured" in line for line in summary["narrative_consequences"])
         )
         self.assertEqual(summary["continue_action"], "ManagementView")
+
+        consequence_lines = build_consequence_summary_lines(
+            game_state,
+            True,
+            _mission(),
+            agent_stats,
+            _complication(),
+        )
+
+        self.assertTrue(any(line.startswith("City pressure:") for line in consequence_lines))
+        self.assertTrue(any("Faction Chrome Jackals:" in line for line in consequence_lines))
+        self.assertTrue(any("civilian_panic" in line for line in consequence_lines))
+        self.assertTrue(any("Agent scars: Vera: Shrapnel cuts" in line for line in consequence_lines))
+        self.assertTrue(any("Rewards: Credits: +120" in line for line in consequence_lines))
+        self.assertTrue(any("jackal_relay_lockdown" in line for line in consequence_lines))
+        self.assertTrue(any("act1_three_sevens_banner" in line for line in consequence_lines))
+        self.assertTrue(any("Hungry Tide 17%" in line for line in consequence_lines))
 
 
 if __name__ == "__main__":
