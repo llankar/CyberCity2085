@@ -18,8 +18,10 @@ from game.ui import palette
 from game.ui.panels import draw_panel
 
 if TYPE_CHECKING:
+    from game.consequences import Consequence
     from game.gamestate import GameState
     from game.narrative.debrief import DebriefReport
+    from game.mission_templates import MissionComplication
     from game.mission_templates import MissionTemplate
 
 
@@ -36,6 +38,104 @@ class AgentDebriefStat:
     kills: int = 0
     kia: bool = False
     stress_delta: int = 0
+    xp_gained: int = 0
+    injuries: list[str] = field(default_factory=list)
+
+
+def _consequence_text(consequence: "Consequence") -> str:
+    text = str(getattr(consequence, "narrative_text", "") or "").strip()
+    if text:
+        return text
+    effects = getattr(consequence, "mechanical_effects", {}) or {}
+    return _effect_summary(consequence) if effects else "No explicit consequence text."
+
+
+def _effect_summary(consequence: "Consequence") -> str:
+    effects = getattr(consequence, "mechanical_effects", {}) or {}
+    if not effects:
+        return f"severity {getattr(consequence, 'severity', 1)}"
+    parts = []
+    for key, value in effects.items():
+        if isinstance(value, (int, float)):
+            parts.append(f"{key} {value:+}")
+        else:
+            parts.append(f"{key} {value}")
+    return ", ".join(parts)
+
+
+def _applied_consequences(
+    mission: "MissionTemplate | None",
+    victory: bool,
+    triggered_complication: "MissionComplication | None",
+) -> list["Consequence"]:
+    if mission is None:
+        return []
+    consequences = list(mission.success_consequences if victory else mission.failure_consequences)
+    if triggered_complication is not None:
+        consequences.append(triggered_complication.consequence)
+    return consequences
+
+
+def build_battle_debrief_summary(
+    game_state: "GameState",
+    victory: bool,
+    mission: "MissionTemplate | None",
+    agent_stats: list[AgentDebriefStat],
+    triggered_complication: "MissionComplication | None" = None,
+) -> dict[str, object]:
+    """Build a render-independent post-battle report for UI and regression tests."""
+    consequences = _applied_consequences(mission, victory, triggered_complication)
+    debrief_raw = getattr(game_state, "latest_mission_debrief", {}) or {}
+    narrative_lines: list[str] = []
+    if isinstance(debrief_raw, dict):
+        for line_dict in debrief_raw.get("lines", []):
+            if isinstance(line_dict, dict) and line_dict.get("text"):
+                narrative_lines.append(str(line_dict["text"]))
+        for key in ("decision_key", "risk_taken", "heroic_action"):
+            if debrief_raw.get(key):
+                narrative_lines.append(str(debrief_raw[key]))
+    narrative_lines.extend(_consequence_text(consequence) for consequence in consequences)
+
+    agent_rows = []
+    for stat in agent_stats:
+        agent_rows.append(
+            {
+                "name": stat.name,
+                "role": stat.role,
+                "kills": stat.kills,
+                "damage_dealt": stat.damage_dealt,
+                "damage_taken": stat.damage_taken,
+                "stress_delta": stat.stress_delta,
+                "injuries": list(stat.injuries),
+                "xp_gained": stat.xp_gained,
+                "status": "KIA" if stat.kia else "ACTIVE",
+            }
+        )
+
+    return {
+        "objective_result": "All objectives completed" if victory else "Mission objectives failed",
+        "outcome": "victory" if victory else "defeat",
+        "rewards": [
+            f"Credits: +{getattr(mission, 'fund_reward', 0) if victory and mission else 0}",
+            f"Duration: {getattr(mission, 'duration_days', 0) if mission else 0}d",
+        ],
+        "agent_rows": agent_rows,
+        "triggered_complications": (
+            [triggered_complication.trigger_text] if triggered_complication is not None else []
+        ),
+        "faction_changes": [
+            f"{consequence.affected_faction}: {_effect_summary(consequence)}"
+            for consequence in consequences
+            if getattr(consequence, "affected_faction", None)
+        ],
+        "district_changes": [
+            f"{consequence.affected_district}: {_effect_summary(consequence)}"
+            for consequence in consequences
+            if getattr(consequence, "affected_district", None)
+        ],
+        "narrative_consequences": narrative_lines[:10],
+        "continue_action": "ManagementView",
+    }
 
 
 class BattleDebriefView(arcade.View):
@@ -47,12 +147,14 @@ class BattleDebriefView(arcade.View):
         victory: bool,
         mission: "MissionTemplate | None",
         agent_stats: list[AgentDebriefStat],
+        triggered_complication: "MissionComplication | None" = None,
     ) -> None:
         super().__init__()
         self.game_state = game_state
         self.victory = victory
         self.mission = mission
         self.agent_stats = agent_stats
+        self.triggered_complication = triggered_complication
         self._continue_rect: tuple[int, int, int, int] | None = None
         self._portrait_cache: dict[str, arcade.Texture | None] = {}
 
@@ -120,7 +222,7 @@ class BattleDebriefView(arcade.View):
 
         # Column headers
         col_y = panel_b + panel_h - 46
-        headers = [("AGENT", 14), ("DEALT", 160), ("TAKEN", 210), ("KILLS", 260), ("AP", 305), ("STATUS", 340)]
+        headers = [("AGENT", 14), ("DEALT", 160), ("TAKEN", 210), ("KILLS", 260), ("XP", 305), ("STATUS", 340)]
         for label, ox in headers:
             arcade.draw_text(label, panel_l + ox, col_y, palette.MUTED_TEXT, font_size=9, bold=True)
         arcade.draw_line(panel_l + 14, col_y - 8, panel_l + panel_w - 14, col_y - 8, palette.PANEL_BORDER_MUTED, 1)
@@ -149,7 +251,7 @@ class BattleDebriefView(arcade.View):
             arcade.draw_text(str(stat.damage_dealt),  panel_l + 160, row_y - 20, palette.WARNING, font_size=11, bold=True, anchor_x="center")
             arcade.draw_text(str(stat.damage_taken),  panel_l + 210, row_y - 20, palette.DANGER,  font_size=11, bold=True, anchor_x="center")
             arcade.draw_text(str(stat.kills),         panel_l + 260, row_y - 20, palette.TACTICAL_GREEN, font_size=11, bold=True, anchor_x="center")
-            arcade.draw_text(str(stat.actions_used),  panel_l + 305, row_y - 20, palette.ACCENT,  font_size=11, bold=True, anchor_x="center")
+            arcade.draw_text(str(stat.xp_gained),  panel_l + 305, row_y - 20, palette.ACCENT,  font_size=11, bold=True, anchor_x="center")
 
             if stat.kia:
                 arcade.draw_text("KIA", panel_l + 350, row_y - 20, palette.DANGER, font_size=10, bold=True)
@@ -157,6 +259,8 @@ class BattleDebriefView(arcade.View):
                 stress_s = f"+{stat.stress_delta}%" if stat.stress_delta > 0 else f"{stat.stress_delta}%"
                 stress_col = palette.DANGER if stat.stress_delta > 10 else palette.WARNING if stat.stress_delta > 0 else palette.TACTICAL_GREEN
                 arcade.draw_text(stress_s, panel_l + 350, row_y - 20, stress_col, font_size=9)
+                if stat.injuries:
+                    arcade.draw_text(str(stat.injuries[0])[:24], panel_l + 350, row_y - 34, palette.DANGER, font_size=8)
 
             row_y -= row_h + 4
 
@@ -169,13 +273,20 @@ class BattleDebriefView(arcade.View):
         draw_panel(panel_l, panel_b, panel_w, panel_h, "MISSION OUTCOME")
 
         y = panel_b + panel_h - 50
+        summary = build_battle_debrief_summary(
+            self.game_state,
+            self.victory,
+            self.mission,
+            self.agent_stats,
+            self.triggered_complication,
+        )
 
         # Objective result
         outcome_col = palette.TACTICAL_GREEN if self.victory else palette.DANGER
         arcade.draw_text("OBJECTIVES", panel_l + 14, y, outcome_col, font_size=10, bold=True)
         y -= 18
         arcade.draw_text(
-            "✓ All objectives completed" if self.victory else "✗ Mission objectives failed",
+            str(summary["objective_result"]),
             panel_l + 14, y, outcome_col, font_size=10,
         )
         y -= 30
@@ -184,14 +295,28 @@ class BattleDebriefView(arcade.View):
         if self.mission:
             arcade.draw_text("REWARDS", panel_l + 14, y, palette.RESOURCE, font_size=10, bold=True)
             y -= 18
-            reward_lines = [
-                f"  Credits:  ¥{self.mission.fund_reward if self.victory else 0}",
-                f"  Duration: {self.mission.duration_days}d",
-            ]
-            for line in reward_lines:
+            for line in summary["rewards"]:
                 arcade.draw_text(line, panel_l + 14, y, palette.TEXT, font_size=9)
                 y -= 15
             y -= 10
+
+        triggered = list(summary["triggered_complications"])
+        if triggered:
+            arcade.draw_text("TRIGGERED COMPLICATIONS", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
+            y -= 18
+            for line in triggered[:2]:
+                arcade.draw_text(str(line)[:68], panel_l + 14, y, palette.WARNING, font_size=9)
+                y -= 15
+            y -= 6
+
+        campaign_lines = list(summary["faction_changes"])[:2] + list(summary["district_changes"])[:2]
+        if campaign_lines:
+            arcade.draw_text("FACTION / DISTRICT CHANGES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
+            y -= 18
+            for line in campaign_lines[:4]:
+                arcade.draw_text(str(line)[:68], panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
+                y -= 15
+            y -= 6
 
         # Narrative debrief lines
         debrief_raw = getattr(self.game_state, "latest_mission_debrief", None)
@@ -229,19 +354,31 @@ class BattleDebriefView(arcade.View):
                     y -= 14
             y -= 8
 
+        consequence_lines = list(summary["narrative_consequences"])
+        if consequence_lines:
+            arcade.draw_text("NARRATIVE CONSEQUENCES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
+            y -= 18
+            for line in consequence_lines[:3]:
+                arcade.draw_text(str(line)[:72], panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
+                y -= 15
+            y -= 6
+
         # RPG links (stress/progression)
         if debrief_raw and isinstance(debrief_raw, dict):
             rpg = debrief_raw.get("rpg_links", "")
             if rpg:
                 arcade.draw_text("CONSEQUENCES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
                 y -= 18
-                arcade.draw_text(
-                    str(rpg)[:80],
-                    panel_l + 14, y,
-                    palette.MUTED_TEXT, font_size=9,
-                    width=panel_w - 28, multiline=True,
-                )
-                y -= 32
+                rpg_lines = rpg if isinstance(rpg, list) else [rpg]
+                for line in rpg_lines[:2]:
+                    arcade.draw_text(
+                        str(line)[:72],
+                        panel_l + 14, y,
+                        palette.MUTED_TEXT, font_size=9,
+                        width=panel_w - 28, multiline=True,
+                    )
+                    y -= 15
+                y -= 8
 
         # Aftermath lines from game_state
         aftermath = getattr(self.game_state, "latest_agent_aftermath", [])
