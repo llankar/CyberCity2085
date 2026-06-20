@@ -68,7 +68,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 ### Phase 7 — Architecture and Maintainability
 
-- [ ] ARCH-01 GameState Domain Split Plan: Document a safe incremental plan to reduce `GameState` god-object risk by moving logic into domain services while keeping save compatibility.
+- [x] ARCH-01 GameState Domain Split Plan: Documented a safe incremental plan in `docs/architecture/gamestate_domain_split.md` to reduce `GameState` god-object risk by moving behavior into domain services while keeping save compatibility. (completed June 20, 2026)
 - [ ] ARCH-02 Extract Campaign Service: Keep campaign ticking, act progression, intel reveal, and world state transitions in campaign-specific modules with tests.
 - [ ] ARCH-03 Extract Mission Flow Service: Separate mission board generation, launch, handoff, objective resolution, rewards, and consequence presentation from UI screens.
 - [ ] ARCH-04 Keep UI Code in `game/ui/screens/`: Continue the existing migration rule: new view-level UI goes into `game/ui/screens/`, while compatibility wrappers stay thin.
