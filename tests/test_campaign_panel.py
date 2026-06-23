@@ -9,8 +9,11 @@ from game.management.events import ActiveEvent, EventChoice, EventTemplate, STAR
 from game.ui.screens.campaign_panel import (
     build_act_transition_summary,
     build_global_scenario_summary,
+    build_hidden_ai_conspiracy_summary,
     build_hungry_tide_summary,
     build_intel_fragment_browser,
+    build_novatek_experiment_thread_summary,
+    build_pharmacorp_cure_thread_summary,
     build_three_sevens_presence_summary,
     build_world_state_change_feed,
 )
@@ -62,6 +65,9 @@ class CampaignPanelSummaryTest(unittest.TestCase):
         self.assertTrue(any("New York Alert" in line for line in summary["major_known_threats"]))
         self.assertTrue(any("Warsaw 3-7s Controlled" in line for line in summary["major_known_threats"]))
         self.assertTrue(any("Starver Surge" in line for line in summary["unresolved_global_events"]))
+        self.assertIn("pharmacorp", summary)
+        self.assertIn("novatek", summary)
+        self.assertIn("hidden_ai", summary)
 
         hungry_tide = summary["hungry_tide"]
         self.assertEqual(hungry_tide["progress"], 64)
@@ -108,6 +114,79 @@ class CampaignPanelSummaryTest(unittest.TestCase):
         self.assertIn("Hungry Tide critical milestone", titles)
         self.assertTrue(any("Updates new york status" in summary for summary in summaries))
         self.assertLessEqual(len(feed), 12)
+
+    def test_pharmacorp_cure_thread_summary_exposes_campaign_hooks(self) -> None:
+        game_state = GameState()
+        game_state.campaign.current_act = 5
+        game_state.campaign.world.pharmacorp_secret = "exposed"
+        game_state.campaign.discovered_intel = [
+            "act3_cure_signal",
+            "act4_hungry_thinks",
+            "act4_pharmacorp_secret",
+        ]
+
+        summary = build_pharmacorp_cure_thread_summary(game_state)
+
+        self.assertEqual(summary["world_status"], "Pharmacorp: EXPOSED")
+        self.assertTrue(any("Pharmacorp" in title for title in summary["story_mission_hooks"]))
+        self.assertIn("Pharmacorp: Anomalous Research Log", summary["intel_fragments"])
+        self.assertIn("The Cure Has Always Existed", summary["intel_fragments"])
+        self.assertIn("Black-Market Cure Vials", summary["event_hooks"])
+        self.assertIn("Buy samples from the clinic", summary["black_market_choices"])
+        self.assertIn("Project P-77 cure data is exposed.", summary["hidden_cure"])
+        self.assertIn("Cured Starver subject hooks are visible.", summary["cured_starvers"])
+        self.assertTrue(any("containment" in line for line in summary["containment_failures"]))
+        self.assertTrue(any("leverage" in line for line in summary["moral_ambiguity"]))
+
+    def test_novatek_experiment_thread_summary_exposes_hybrid_hooks(self) -> None:
+        game_state = GameState()
+        game_state.campaign.current_act = 4
+        game_state.campaign.discovered_intel = ["act4_novatek_hybrids"]
+
+        summary = build_novatek_experiment_thread_summary(game_state)
+
+        self.assertIn("Novatek Containment Site Delta-9", summary["event_hooks"])
+        self.assertIn("Novatek: Hybrid Containment Failure", summary["intel_fragments"])
+        self.assertIn("Novatek containment-site breach", summary["mission_hooks"])
+        self.assertIn("cyborg-Starver hybrids", summary["experiment_themes"])
+        self.assertIn("mutant escalation", summary["experiment_themes"])
+        self.assertIn("failed containment sites", summary["experiment_themes"])
+        self.assertEqual(summary["special_enemy_themes"], ["novatek_hybrid"])
+        self.assertIn("Expose the hybrid program", summary["event_choices"])
+
+    def test_hidden_ai_summary_stays_gated_until_late_campaign(self) -> None:
+        game_state = GameState()
+        game_state.campaign.current_act = 3
+        game_state.campaign.discovered_intel = ["act4_ai_existence"]
+
+        summary = build_hidden_ai_conspiracy_summary(game_state)
+
+        self.assertFalse(summary["revealed"])
+        self.assertEqual(summary["intel_fragments"], [])
+        self.assertEqual(summary["event_hooks"], [])
+        self.assertEqual(summary["faction_roles"], {})
+        self.assertIn("Act 4+", summary["reveal_timing"])
+
+    def test_hidden_ai_summary_exposes_two_late_act_factions(self) -> None:
+        game_state = GameState()
+        game_state.campaign.current_act = 5
+        game_state.campaign.world.ai_factions_status = "confirmed"
+        game_state.campaign.discovered_intel = [
+            "act4_ai_existence",
+            "act4_ai_factions",
+            "act5_final_choice",
+        ]
+
+        summary = build_hidden_ai_conspiracy_summary(game_state)
+
+        self.assertTrue(summary["revealed"])
+        self.assertEqual(summary["active_status"], "CONFIRMED")
+        self.assertIn("They Have Been Watching", summary["intel_fragments"])
+        self.assertIn("Preservationists vs Exterminators", summary["intel_fragments"])
+        self.assertIn("The AI Message", summary["event_hooks"])
+        self.assertIn("The Final Decision", summary["event_hooks"])
+        self.assertIn("protect humanity", summary["faction_roles"]["Preservationist AIs"])
+        self.assertIn("human extinction", summary["faction_roles"]["Exterminator AIs"])
 
     def test_act_transition_summary_exposes_stakes_and_consequences(self) -> None:
         summary = build_act_transition_summary(4, "The Truth")

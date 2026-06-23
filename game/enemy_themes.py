@@ -14,6 +14,7 @@ ENEMY_THEME_CORP_SAMURAI_POWER_ARMOR = "corp_samurai_power_armor"
 ENEMY_THEME_CORP_37 = "corp_37"
 ENEMY_THEME_CORP_37_ROBOT = "corp_37_robot"
 ENEMY_THEME_CORP_37_POWER_ARMOR = "corp_37_power_armor"
+ENEMY_THEME_NOVATEK_HYBRID = "novatek_hybrid"
 
 ENEMY_THEMES: tuple[str, ...] = (
     ENEMY_THEME_GENERIC,
@@ -26,6 +27,7 @@ ENEMY_THEMES: tuple[str, ...] = (
     ENEMY_THEME_CORP_37,
     ENEMY_THEME_CORP_37_ROBOT,
     ENEMY_THEME_CORP_37_POWER_ARMOR,
+    ENEMY_THEME_NOVATEK_HYBRID,
 )
 
 _THEME_ALIASES = {
@@ -48,6 +50,11 @@ _THEME_ALIASES = {
     "corp_37": ENEMY_THEME_CORP_37,
     "corp_37_robot": ENEMY_THEME_CORP_37_ROBOT,
     "corp_37_power_armor": ENEMY_THEME_CORP_37_POWER_ARMOR,
+    "novatek": ENEMY_THEME_NOVATEK_HYBRID,
+    "novatek_hybrid": ENEMY_THEME_NOVATEK_HYBRID,
+    "cyborg_starver": ENEMY_THEME_NOVATEK_HYBRID,
+    "cyborg starver": ENEMY_THEME_NOVATEK_HYBRID,
+    "hybrid": ENEMY_THEME_NOVATEK_HYBRID,
 }
 
 _STATS_BY_THEME: dict[str, dict[str, float]] = {
@@ -61,6 +68,7 @@ _STATS_BY_THEME: dict[str, dict[str, float]] = {
     ENEMY_THEME_CORP_37: {"hp": 1.15, "str": 1.20, "agi": 1.00, "def": 1.10, "range": 3},
     ENEMY_THEME_CORP_37_ROBOT: {"hp": 1.40, "str": 1.25, "agi": 0.95, "def": 1.30, "range": 4},
     ENEMY_THEME_CORP_37_POWER_ARMOR: {"hp": 1.95, "str": 1.50, "agi": 0.80, "def": 1.75, "range": 3},
+    ENEMY_THEME_NOVATEK_HYBRID: {"hp": 1.60, "str": 1.35, "agi": 1.05, "def": 1.20, "range": 2},
 }
 
 
@@ -110,6 +118,9 @@ def mission_enemy_theme(mission: Any) -> str:
     haystack = " ".join(text_bits).strip().lower()
 
     risk = int(getattr(mission, "risk_level", 1) or 1)
+    if _contains_any(haystack, ("novatek", "cyborg-starver", "cyborg starver", "hybrid", "containment site")):
+        return ENEMY_THEME_NOVATEK_HYBRID
+
     if _contains_any(haystack, ("badlands", "wasteland", "outskirts", "outside", "frontier", "raider", "mutant", "starver")):
         if risk >= 8:
             return ENEMY_THEME_RAIDER

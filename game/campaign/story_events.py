@@ -233,6 +233,78 @@ STORY_EVENT_SPECS: list[dict] = [
         ],
     },
     {
+        "id": "campaign_black_market_cure_vials",
+        "act": 4,
+        "trigger_id": "campaign_black_market_cure_vials",
+        "title": "Black-Market Cure Vials",
+        "description": (
+            "A street clinic offers three alleged P-77 cure vials taken from a Pharmacorp convoy. "
+            "One vial may restore a Starver. One may kill them. One may be a tracker. "
+            "Pharmacorp security wants the stock destroyed before anyone proves what it is."
+        ),
+        "category": "CITY_POLITICS",
+        "severity": 8,
+        "expiration_days": 4,
+        "intel_reveal": "act4_pharmacorp_secret",
+        "world_effect": {"pharmacorp_secret": "exposed"},
+        "choices": [
+            {
+                "key": "protect_cured",
+                "label": "Protect the treated Starvers",
+                "summary": "Prioritize cured subjects as people. Pharmacorp hostility rises.",
+                "effects": {"faction_pressure": 15, "funds": -1200},
+            },
+            {
+                "key": "buy_samples",
+                "label": "Buy samples from the clinic",
+                "summary": "Gain medical leverage through the black market. Moral risk high.",
+                "effects": {"funds": -2500},
+            },
+            {
+                "key": "expose_failure",
+                "label": "Expose the containment failure",
+                "summary": "Force public scrutiny of Pharmacorp containment and P-77 secrecy.",
+                "effects": {"city_unrest": 20},
+            },
+        ],
+    },
+    {
+        "id": "campaign_novatek_containment_failure",
+        "act": 4,
+        "trigger_id": "campaign_novatek_containment_failure",
+        "title": "Novatek Containment Site Delta-9",
+        "description": (
+            "A Novatek black site has gone dark after cyborg-Starver hybrid subjects "
+            "breached containment. Mutant tissue growth is accelerating inside the facility. "
+            "Corporate security wants the site erased before the hybrid program becomes public."
+        ),
+        "category": "MUTANT_INVASION",
+        "severity": 9,
+        "expiration_days": 5,
+        "intel_reveal": "act4_novatek_hybrids",
+        "world_effect": {},
+        "choices": [
+            {
+                "key": "extract_data",
+                "label": "Extract experiment data",
+                "summary": "Recover Novatek hybrid files before the site burns.",
+                "effects": {"funds": -1000},
+            },
+            {
+                "key": "quarantine_site",
+                "label": "Quarantine the failed site",
+                "summary": "Contain mutant escalation and buy time for civilians nearby.",
+                "effects": {"city_unrest": -10, "funds": -1800},
+            },
+            {
+                "key": "expose_hybrids",
+                "label": "Expose the hybrid program",
+                "summary": "Reveal cyborg-Starver experiments and force Novatek into the open.",
+                "effects": {"city_unrest": 25},
+            },
+        ],
+    },
+    {
         "id": "campaign_ai_signal",
         "act": 4,
         "trigger_id": "campaign_ai_signal",

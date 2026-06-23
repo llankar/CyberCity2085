@@ -254,6 +254,19 @@ _FRAGMENTS: list[IntelFragment] = [
         world_value="exposed",
     ),
     IntelFragment(
+        id="act4_novatek_hybrids",
+        act=4,
+        title="Novatek: Hybrid Containment Failure",
+        text=(
+            "Novatek emergency packet, containment site Delta-9: cyborg-Starver hybrids "
+            "breached the surgical wing after neural restraint failure. "
+            "The subjects showed coordinated pack aggression, implanted targeting reflexes, "
+            "and mutant tissue acceleration. "
+            "The official report calls it a failed weapons trial. The body count says outbreak."
+        ),
+        source="story_event",
+    ),
+    IntelFragment(
         id="act4_ai_pattern",
         act=4,
         title="Patterns in the Chaos",
