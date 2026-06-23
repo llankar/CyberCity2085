@@ -40,6 +40,17 @@ class MissionObjectivesTest(unittest.TestCase):
         self.assertEqual(objective.label, "CACHE")
         self.assertFalse(objective.completed)
         self.assertIn("CACHE", objective.status_text)
+        self.assertIn("Press E near CACHE", objective.interaction_prompt)
+        self.assertIn("0/2", objective.progress_text)
+
+    def test_legacy_objective_branch_aliases_create_tactical_objectives(self):
+        extraction = create_battle_objective(_mission("safe_extraction"))
+        sabotage = create_battle_objective(_mission("sabotage_window"))
+        data = create_battle_objective(_mission("data_with_detour"))
+
+        self.assertEqual(extraction.kind, "extract")
+        self.assertEqual(sabotage.kind, "sabotage")
+        self.assertEqual(data.kind, "data_theft")
 
     def test_interaction_range_allows_one_grid_cell(self):
         objective = BattleObjective(kind="extract", position=(448, 320), label="WITNESS")
@@ -57,6 +68,18 @@ class MissionObjectivesTest(unittest.TestCase):
         self.assertTrue(objective.completed)
         self.assertEqual(objective.progress, 1)
         self.assertIn("complete", message.lower())
+
+    def test_data_theft_requires_two_interaction_turns(self):
+        objective = create_battle_objective(_mission("data_theft"))
+
+        first_completed, first_message = interact_with_objective((448, 320), objective)
+        second_completed, second_message = interact_with_objective((448, 320), objective)
+
+        self.assertFalse(first_completed)
+        self.assertIn("1/2", first_message)
+        self.assertTrue(second_completed)
+        self.assertTrue(objective.completed)
+        self.assertIn("complete", second_message.lower())
 
     def test_interaction_out_of_range_keeps_objective_pending(self):
         objective = BattleObjective(kind="extract", position=(448, 320), label="WITNESS")

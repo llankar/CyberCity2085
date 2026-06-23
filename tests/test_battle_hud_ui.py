@@ -22,6 +22,10 @@ def _draw_lrbt_rectangle_outline(*args, **kwargs):
     return None
 
 
+def _draw_rect_outline(*args, **kwargs):
+    return None
+
+
 def _draw_line(*args, **kwargs):
     return None
 
@@ -41,16 +45,19 @@ class BattleHUDUITest(unittest.TestCase):
         self._orig_draw_text = arcade.draw_text
         self._orig_rect = arcade.draw_lrbt_rectangle_filled
         self._orig_rect_outline = arcade.draw_lrbt_rectangle_outline
+        self._orig_draw_rect_outline = arcade.draw_rect_outline
         self._orig_line = arcade.draw_line
         arcade.draw_text = _draw_text
         arcade.draw_lrbt_rectangle_filled = _draw_lrbt_rectangle_filled
         arcade.draw_lrbt_rectangle_outline = _draw_lrbt_rectangle_outline
+        arcade.draw_rect_outline = _draw_rect_outline
         arcade.draw_line = _draw_line
 
     def tearDown(self) -> None:
         arcade.draw_text = self._orig_draw_text
         arcade.draw_lrbt_rectangle_filled = self._orig_rect
         arcade.draw_lrbt_rectangle_outline = self._orig_rect_outline
+        arcade.draw_rect_outline = self._orig_draw_rect_outline
         arcade.draw_line = self._orig_line
 
     def _font_size_for_contains(self, needle: str) -> int:
@@ -149,6 +156,26 @@ class BattleHUDUITest(unittest.TestCase):
                 battle_hud.PAUSE_ABANDON,
             ],
         )
+
+    def test_objective_marker_renders_label_prompt_and_progress(self) -> None:
+        objective = type(
+            "Objective",
+            (),
+            {
+                "position": (448, 320),
+                "completed": False,
+                "label": "CACHE",
+                "interaction_prompt": "Press E near CACHE to copy data.",
+                "progress_text": "Progress: 1/2",
+            },
+        )()
+
+        battle_hud.draw_objective_marker(objective, elapsed=0.0)
+
+        rendered = [str(call[0]) for call in captured_draw_text]
+        self.assertIn("OBJECTIVE: CACHE", rendered)
+        self.assertIn("Press E near CACHE to copy data.", rendered)
+        self.assertIn("Progress: 1/2", rendered)
 
 
 if __name__ == "__main__":

@@ -9,23 +9,47 @@ if TYPE_CHECKING:
 GRID_SIZE = 32
 DEFAULT_OBJECTIVE_POSITION = (448, 320)
 FALLBACK_OBJECTIVE_TYPE = "eliminate"
-SUPPORTED_OBJECTIVE_TYPES = {"extract", "sabotage", "data_theft", "defend", "assassination", FALLBACK_OBJECTIVE_TYPE}
+OBJECTIVE_TYPE_ALIASES = {
+    "safe_extraction": "extract",
+    "sabotage_window": "sabotage",
+    "data_with_detour": "data_theft",
+}
+SUPPORTED_OBJECTIVE_TYPES = {
+    "extract",
+    "sabotage",
+    "data_theft",
+    "defend",
+    "assassination",
+    FALLBACK_OBJECTIVE_TYPE,
+}
 
 _OBJECTIVE_PROTOTYPES = {
     "extract": {
         "label": "WITNESS",
-        "description": "reach WITNESS extraction point",
+        "description": "reach WITNESS extraction point, secure them, then evacuate",
+        "interaction_prompt": "Press E near WITNESS to secure extraction.",
+        "success_condition": "Squad reaches the marker and confirms extraction.",
+        "failure_condition": "Extraction fails if the squad is wiped before securing WITNESS.",
         "completion_message": "Witness secured. Extraction complete.",
+        "required_interactions": 1,
     },
     "sabotage": {
         "label": "RELAY",
-        "description": "sabotage RELAY at close range",
+        "description": "plant a charge or hack RELAY, then survive the counterpush",
+        "interaction_prompt": "Press E near RELAY to plant the sabotage charge.",
+        "success_condition": "Charge is planted or device is hacked.",
+        "failure_condition": "Sabotage fails if the squad is wiped before arming RELAY.",
         "completion_message": "Relay burned. Sabotage complete.",
+        "required_interactions": 1,
     },
     "data_theft": {
         "label": "CACHE",
-        "description": "steal CACHE data at close range",
+        "description": "hold CACHE for two interaction turns while the team protects the runner",
+        "interaction_prompt": "Press E near CACHE to copy data and maintain the link.",
+        "success_condition": "Two CACHE interaction turns complete.",
+        "failure_condition": "Data theft fails if the squad is wiped before download finishes.",
         "completion_message": "Cache copied. Data theft complete.",
+        "required_interactions": 2,
     },
     "defend": {
         "label": "POSITION",
@@ -51,17 +75,29 @@ class BattleObjective:
     progress: int = 0
     description: str = "complete the battlefield objective"
     completion_message: str = "Objective complete."
+    interaction_prompt: str = "Press E near the marker to interact."
+    success_condition: str = "Complete the objective marker."
+    failure_condition: str = "Mission fails if the squad is wiped before completion."
+    required_interactions: int = 1
 
     @property
     def status_text(self) -> str:
         state = "complete" if self.completed else self.description
         return f"Objective: {state}"
 
+    @property
+    def progress_text(self) -> str:
+        if self.completed:
+            return "Progress: complete"
+        total = max(1, self.required_interactions)
+        return f"Progress: {self.progress}/{total}"
+
 
 def normalize_objective_type(objective_type: str | None) -> str:
     """Return a supported objective type, preserving old saves with safe elimination."""
-    if objective_type in SUPPORTED_OBJECTIVE_TYPES:
-        return objective_type
+    normalized = OBJECTIVE_TYPE_ALIASES.get(str(objective_type or ""), objective_type)
+    if normalized in SUPPORTED_OBJECTIVE_TYPES:
+        return str(normalized)
     return FALLBACK_OBJECTIVE_TYPE
 
 
@@ -80,6 +116,10 @@ def create_battle_objective(
         label=prototype["label"],
         description=prototype["description"],
         completion_message=prototype["completion_message"],
+        interaction_prompt=prototype.get("interaction_prompt", "Press E to interact."),
+        success_condition=prototype.get("success_condition", "Complete the marker."),
+        failure_condition=prototype.get("failure_condition", "Squad wipe before completion."),
+        required_interactions=int(prototype.get("required_interactions", 1)),
     )
 
 
@@ -105,7 +145,12 @@ def interact_with_objective(
     if objective.completed:
         return True, objective.completion_message
     if not is_in_interaction_range(actor_position, objective):
-        return False, f"Move within one grid cell of {objective.label} to interact."
-    objective.completed = True
-    objective.progress = 1
-    return True, objective.completion_message
+        return False, f"Move within one grid cell of {objective.label} to interact. {objective.interaction_prompt}"
+    objective.progress = min(
+        max(1, objective.required_interactions),
+        objective.progress + 1,
+    )
+    if objective.progress >= max(1, objective.required_interactions):
+        objective.completed = True
+        return True, objective.completion_message
+    return False, f"{objective.label} progress {objective.progress}/{objective.required_interactions}. Hold position."
