@@ -45,17 +45,17 @@ This wave turns existing systems into a coherent playable campaign loop.
 - [x] AGENT-RPG-01 Recovery Room Dialogues: Added daily recovery/support dialogue snippets between stressed, wounded, traumatized, scarred, or bonded agents and persisted the latest recovery beats for the narrative feed. Added regression coverage for recovery-room triggers and day-advance logging. (completed June 23, 2026)
 - [x] AGENT-RPG-02 Relationship and Mentor Events: Mentor links and relationships now influence recovery dialogue pairing and produce event-log recovery bond lines with a small stress relief modifier. Added regression coverage for mentor-linked recovery bonuses. (completed June 23, 2026)
 - [x] AGENT-RPG-03 Temporary Scar Presentation: Serious wounds and temporary scars are now visible through agent dossier lines, debrief consequence summaries, mission briefing readiness facts, and recovery/command-deck panel text. Added regression coverage for briefing and debrief scar titles. (completed June 23, 2026)
-- [ ] AGENT-RPG-04 Agent Nicknames and Reputation: Allow agents to earn nicknames or reputation tags after standout mission events, such as killing an elite, surviving a critical injury, saving a civilian, or failing a traumatic objective.
-- [ ] AGENT-RPG-05 Personality-driven Mission Logs: Expand existing personality modulation so mission logs, complications, debrief lines, and stress reactions reflect each agent's personality traits.
+- [x] AGENT-RPG-04 Agent Nicknames and Reputation: Added deterministic post-mission reputation awards and first nickname assignment for standout events such as high kills, critical survival, civilian rescue, or traumatic failure. Awards appear in debrief data, event lines, agent dossiers, and saved agent payloads. Added regression coverage for award rules and serialization. (completed June 23, 2026)
+- [x] AGENT-RPG-05 Personality-driven Mission Logs: Expanded personality modulation into mission debrief lines and high-stress reactions while preserving existing mission complication log modulation. Added regression coverage for trait-colored debrief text, secondary trait suffixes, and neutral fallback. (completed June 23, 2026)
 
 ### Phase 5 — Tactical Combat Readability and Feel
 
 - [x] BATTLE-FEEL-01 Floating Damage / Healing / Miss Text: Added short-lived floating combat text for damage, healing, criticals, misses, suppression, and status changes. Added regression coverage for combat popup payloads. (completed June 20, 2026)
-- [ ] BATTLE-FEEL-02 Combat Log Side Panel: Make the combat log accessible during battle, ideally with a Tab toggle, category icons, and the latest events.
+- [x] BATTLE-FEEL-02 Combat Log Side Panel: BattleView exposes the combat log during battle through a Tab-toggled side panel showing the latest events, backed by the existing modular combat log builders and new keyboard/HUD regressions. (completed June 23, 2026)
 - [x] BATTLE-FEEL-03 Status Effects System: Added `status_effects` support for suppressed, bleeding, stunned, burning, contaminated, and panicked; turn start applies damage/AP effects and the HUD renders status badges. Added regression coverage for required statuses and turn-start effects. (completed June 20, 2026)
 - [ ] BATTLE-FEEL-04 Objective Marker Clarity: Ensure all non-elimination objectives have visible map markers, interaction prompts, progress indicators, and failure/success conditions.
 - [ ] BATTLE-FEEL-05 Enemy AI Upgrade: Improve enemy AI with cover-seeking, flanking preference, target scoring, commander aura/buffs, and objective pressure behavior.
-- [ ] BATTLE-FEEL-06 In-battle Pause Menu: Add an Escape pause overlay with Resume, Settings, Abandon Mission, and Return options where appropriate.
+- [x] BATTLE-FEEL-06 In-battle Pause Menu: Escape opens an in-battle pause overlay with Resume, Settings, and Abandon actions where appropriate; Escape closes it again. Added HUD and BattleView keyboard regressions. (completed June 23, 2026)
 
 ### Phase 6 — Mission Objective Variety
 
@@ -100,8 +100,8 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 - [ ] BATTLE-P01 Camera pan: activate existing Camera2D with Shift+arrows; Home re-centers on active unit; clamp to map bounds. Keeps HUD screen-anchored.
 - [x] BATTLE-P02 Floating damage numbers: short-lived text sprites above hit units (`-N` red, `+N HP` green, `MISS` grey, status labels); float 40 px upward, fade quickly; separate `damage_popups` list in BattleView. (completed June 20, 2026)
 - [ ] BATTLE-P03 Action bar icon pass: extend `draw_action_button` in `battle_hud.py` to accept Unicode icon glyph + label; no new assets required.
-- [ ] BATTLE-P04 In-battle pause menu: Escape key during player turn opens Resume/Settings/Abandon overlay; Abandon reuses `confirm_dialog.py`; blocked during enemy turn.
-- [ ] BATTLE-P05 Combat log side panel: promote existing `combat_log_panel.py` to player-accessible Tab-toggle side column (8 events, category icons).
+- [x] BATTLE-P04 In-battle pause menu: Escape key opens the in-battle Resume/Settings/Abandon overlay and Escape closes it again; covered by HUD and BattleView keyboard regressions. (completed June 23, 2026)
+- [x] BATTLE-P05 Combat log side panel: Existing `combat_log_panel.py` functionality is player-accessible through the BattleView Tab-toggle side column with latest-event display and regression coverage. (completed June 23, 2026)
 
 ### Phase 2 — Full Mission Arc
 

@@ -57,6 +57,8 @@ def _complication() -> MissionComplication:
 class BattleDebriefSummaryTest(unittest.TestCase):
     def test_summary_covers_wave6_required_debrief_fields(self) -> None:
         game_state = GameState(characters=[Character("Vera")])
+        game_state.characters[0].nickname = "Breaker"
+        game_state.characters[0].reputation = ["elite_breaker"]
         game_state.characters[0].temporary_scars = [{"title": "Nights of Sirens"}]
         game_state.unavailable_mission_ids = ["jackal_relay_lockdown"]
         game_state.campaign.discover_intel("act1_three_sevens_banner")
@@ -75,6 +77,14 @@ class BattleDebriefSummaryTest(unittest.TestCase):
             "risk_taken": "Major narrative risk accepted.",
             "heroic_action": "Vera held the line.",
             "rpg_links": ["Stress: Vera at 62/100, recovery priority."],
+            "reputation_awards": [
+                {
+                    "agent_name": "Vera",
+                    "tag": "elite_breaker",
+                    "nickname": "Breaker",
+                    "reason": "eliminated 3 hostiles during Glass Breakpoint",
+                }
+            ],
         }
         agent_stats = [
             AgentDebriefStat(
@@ -102,6 +112,8 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertEqual(summary["outcome"], "victory")
         self.assertIn("Credits: +120", summary["rewards"])
         self.assertEqual(summary["agent_rows"][0]["kills"], 2)
+        self.assertEqual(summary["agent_rows"][0]["nickname"], "Breaker")
+        self.assertIn("elite_breaker", summary["agent_rows"][0]["reputation"])
         self.assertEqual(summary["agent_rows"][0]["damage_dealt"], 18)
         self.assertEqual(summary["agent_rows"][0]["damage_taken"], 7)
         self.assertEqual(summary["agent_rows"][0]["stress_delta"], 12)
@@ -115,6 +127,9 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertTrue(any("Chrome Warrens" in line for line in summary["district_changes"]))
         self.assertTrue(
             any("Vera returns injured" in line for line in summary["narrative_consequences"])
+        )
+        self.assertTrue(
+            any("elite_breaker" in line for line in summary["narrative_consequences"])
         )
         self.assertEqual(summary["continue_action"], "ManagementView")
 

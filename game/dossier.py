@@ -26,14 +26,20 @@ def first_wound_or_trauma(character: Character) -> str:
 def build_agent_dossier_lines(character: Character) -> tuple[str, str]:
     """Build concise RPG-view dossier lines for an agent."""
     stats = character.stats
+    display_name = (
+        f"{character.name} '{character.nickname}'"
+        if character.nickname
+        else character.name
+    )
     summary = (
-        f"{character.name} ({character.role}) HP {stats.hp}/{stats.max_hp} "
+        f"{display_name} ({character.role}) HP {stats.hp}/{stats.max_hp} "
         f"Stress {character.stress} Loyalty {character.loyalty}"
     )
     detail = (
         f"  Trait: {first_or_default(character.traits, NO_TRAIT)} | "
         f"Scar: {first_wound_or_trauma(character)} | "
         f"Temp: {build_temporary_scar_summary(character)[0]} | "
+        f"Rep: {first_or_default(character.reputation, 'No reputation tag')} | "
         f"History: {first_or_default(character.history, NO_HISTORY)}"
     )
     return summary, detail

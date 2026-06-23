@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 
 from ..character import Character
 from ..mission_templates import MissionComplication, MissionTemplate
+from .agent_reputation import AgentReputationAward, build_agent_reputation_awards
+from .personality_traits import modulate_mission_log_tone, personality_stress_reaction
 
 
 @dataclass(frozen=True)
@@ -47,6 +49,7 @@ class DebriefReport:
     heroic_action: str = ""
     rpg_links: list[str] = field(default_factory=list)
     skill_check_outcomes: list[str] = field(default_factory=list)
+    reputation_awards: list[AgentReputationAward] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -58,6 +61,9 @@ class DebriefReport:
             "heroic_action": self.heroic_action,
             "rpg_links": list(self.rpg_links),
             "skill_check_outcomes": list(self.skill_check_outcomes),
+            "reputation_awards": [
+                award.to_dict() for award in self.reputation_awards
+            ],
         }
 
     @classmethod
@@ -72,6 +78,10 @@ class DebriefReport:
             rpg_links=[str(line) for line in data.get("rpg_links", [])],
             skill_check_outcomes=[
                 str(line) for line in data.get("skill_check_outcomes", [])
+            ],
+            reputation_awards=[
+                AgentReputationAward.from_dict(award)
+                for award in data.get("reputation_awards", [])
             ],
         )
 
@@ -116,14 +126,20 @@ def _build_rpg_links(characters: list[Character]) -> list[str]:
         key=lambda c: max(c.relationships.values(), default=0),
     )
     top_level = max(characters, key=lambda c: c.stats.level)
+    known_reputation = [
+        f"{character.name}: {character.nickname or character.reputation[0]}"
+        for character in characters
+        if character.nickname or character.reputation
+    ]
     return [
         f"Stress: {highest_stress.name} at {highest_stress.stress}/100, recovery priority.",
         (
-            "Relationships: "
+            "Relations: "
             f"{strongest_bond.name} reinforces the squad bond "
             f"(max {max(strongest_bond.relationships.values(), default=0)})."
         ),
         f"Progression: {top_level.name} level {top_level.stats.level}, capitalize on the role.",
+        "Reputation: " + (", ".join(known_reputation[:3]) if known_reputation else "no standout tags yet."),
     ]
 
 
@@ -179,6 +195,18 @@ def _line_text(
     base = templates[outcome][consequence_type].format(name=character.name, mission=mission_title)
     if complication:
         base += f" Complication: {complication.name.lower()}."
+    stress_reaction = personality_stress_reaction(
+        character.name,
+        character.stress,
+        character.personality_primary_trait,
+    )
+    if stress_reaction:
+        base += f" {stress_reaction}"
+    base = modulate_mission_log_tone(
+        base,
+        character.personality_primary_trait,
+        character.personality_secondary_trait,
+    )
     return tone, consequence_type, base
 
 
@@ -188,6 +216,7 @@ def build_mission_debrief_report(
     victory: bool,
     complication: MissionComplication | None = None,
     skill_check_outcomes: list[str] | None = None,
+    performance_by_agent: dict[str, dict] | None = None,
 ) -> DebriefReport:
     """Build a deterministic debrief report from post-mission agent states."""
     mission_title = mission.title if mission else "Unknown Operation"
@@ -204,6 +233,13 @@ def build_mission_debrief_report(
                 text=text,
             )
         )
+    reputation_awards = build_agent_reputation_awards(
+        characters,
+        performance_by_agent,
+        victory,
+        mission,
+        complication,
+    )
     return DebriefReport(
         mission_title=mission_title,
         mission_outcome=_mission_outcome_label(victory),
@@ -213,4 +249,5 @@ def build_mission_debrief_report(
         heroic_action=_extract_heroic_action(lines),
         rpg_links=_build_rpg_links(characters),
         skill_check_outcomes=list(skill_check_outcomes or []),
+        reputation_awards=reputation_awards,
     )

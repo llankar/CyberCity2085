@@ -18,6 +18,10 @@ def _draw_lrbt_rectangle_filled(left, right, bottom, top, color):
     captured_rects.append((float(left), float(right), float(bottom), float(top), color))
 
 
+def _draw_lrbt_rectangle_outline(*args, **kwargs):
+    return None
+
+
 def _draw_line(*args, **kwargs):
     return None
 
@@ -36,14 +40,17 @@ class BattleHUDUITest(unittest.TestCase):
         captured_rects.clear()
         self._orig_draw_text = arcade.draw_text
         self._orig_rect = arcade.draw_lrbt_rectangle_filled
+        self._orig_rect_outline = arcade.draw_lrbt_rectangle_outline
         self._orig_line = arcade.draw_line
         arcade.draw_text = _draw_text
         arcade.draw_lrbt_rectangle_filled = _draw_lrbt_rectangle_filled
+        arcade.draw_lrbt_rectangle_outline = _draw_lrbt_rectangle_outline
         arcade.draw_line = _draw_line
 
     def tearDown(self) -> None:
         arcade.draw_text = self._orig_draw_text
         arcade.draw_lrbt_rectangle_filled = self._orig_rect
+        arcade.draw_lrbt_rectangle_outline = self._orig_rect_outline
         arcade.draw_line = self._orig_line
 
     def _font_size_for_contains(self, needle: str) -> int:
@@ -114,6 +121,34 @@ class BattleHUDUITest(unittest.TestCase):
             self.assertAlmostEqual(top - bottom, 16.0)
             self.assertAlmostEqual(left % 32.0, 8.0)
             self.assertAlmostEqual(bottom % 32.0, 8.0)
+
+    def test_combat_log_side_panel_renders_latest_events_and_tab_hint(self) -> None:
+        events = [f"event {idx}" for idx in range(10)]
+
+        battle_hud.draw_combat_log_side_panel(1280, 720, events)
+
+        rendered = [str(call[0]) for call in captured_draw_text]
+        self.assertIn("COMBAT LOG  [Tab]", rendered)
+        self.assertIn("event 9", rendered)
+        self.assertIn("event 2", rendered)
+        self.assertNotIn("event 1", rendered)
+
+    def test_pause_overlay_exposes_resume_settings_and_abandon_actions(self) -> None:
+        buttons = battle_hud.draw_pause_overlay(1280, 720)
+
+        rendered = [str(call[0]) for call in captured_draw_text]
+        self.assertIn("PAUSED", rendered)
+        self.assertIn("RESUME", rendered)
+        self.assertIn("SETTINGS", rendered)
+        self.assertIn("ABANDON", rendered)
+        self.assertEqual(
+            [button[0] for button in buttons],
+            [
+                battle_hud.PAUSE_RESUME,
+                battle_hud.PAUSE_SETTINGS,
+                battle_hud.PAUSE_ABANDON,
+            ],
+        )
 
 
 if __name__ == "__main__":

@@ -94,14 +94,35 @@ def build_battle_debrief_summary(
         for key in ("decision_key", "risk_taken", "heroic_action"):
             if debrief_raw.get(key):
                 narrative_lines.append(str(debrief_raw[key]))
+        for award in debrief_raw.get("reputation_awards", []):
+            if not isinstance(award, dict):
+                continue
+            agent = str(award.get("agent_name", "Unknown"))
+            tag = str(award.get("tag", "reputation"))
+            nickname = str(award.get("nickname", ""))
+            reason = str(award.get("reason", "standout mission event"))
+            label = f" '{nickname}'" if nickname else ""
+            narrative_lines.append(
+                f"Reputation: {agent}{label} earned {tag} ({reason})."
+            )
     narrative_lines.extend(_consequence_text(consequence) for consequence in consequences)
 
     agent_rows = []
     for stat in agent_stats:
+        character = next(
+            (
+                candidate
+                for candidate in getattr(game_state, "characters", [])
+                if candidate.name == stat.name
+            ),
+            None,
+        )
         agent_rows.append(
             {
                 "name": stat.name,
                 "role": stat.role,
+                "nickname": getattr(character, "nickname", "") if character else "",
+                "reputation": list(getattr(character, "reputation", [])) if character else [],
                 "kills": stat.kills,
                 "damage_dealt": stat.damage_dealt,
                 "damage_taken": stat.damage_taken,

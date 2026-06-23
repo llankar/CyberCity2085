@@ -30,11 +30,12 @@ class TestAgentSheetSchema(unittest.TestCase):
         self.assertEqual(restored.skills["firearms"], 0)
 
     def test_sex_field_persists_through_character_serialization(self):
-        character = Character("Vega", role="sniper", sex="female")
+        character = Character("Vega", role="sniper", sex="female", nickname="Breaker")
 
         restored = Character.from_dict(character.to_dict())
 
         self.assertEqual(restored.sex, "female")
+        self.assertEqual(restored.nickname, "Breaker")
 
 
 if __name__ == "__main__":
