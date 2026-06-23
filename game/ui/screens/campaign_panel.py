@@ -52,14 +52,63 @@ _WORLD_LABELS = {
 }
 
 from game.campaign.acts import ACT_TITLES
-from game.campaign.intel_fragments import fragments_for_act, get_fragment
+from game.campaign.intel_fragments import all_fragments, fragments_for_act, get_fragment
 from game.campaign.story_missions import STORY_MISSIONS
+
+
+_ACT_TRANSITION_DETAILS = {
+    1: {
+        "summary": "A corporate foothold forms while Warsaw and the Badlands begin to move.",
+        "stakes": ["Three Sevens pressure enters the global picture.", "Badlands silence may become a Tide."],
+        "consequences": ["Intel room opens early anomaly tracking.", "Mission choices begin shaping faction pressure."],
+    },
+    2: {
+        "summary": "The Hungry Tide stops behaving like scattered packs and starts moving as one front.",
+        "stakes": ["New York becomes a likely target.", "Warsaw closes itself to outside observation."],
+        "consequences": ["Global Scenario pressure rises.", "Starver-related missions should be prioritized."],
+    },
+    3: {
+        "summary": "Old lies surface: enhanced survivors, New Delhi records, and cure rumors complicate the war.",
+        "stakes": ["Pharmacorp may have hidden a cure.", "New Delhi may hold pre-collapse evidence."],
+        "consequences": ["Intel sources diversify.", "Faction trust and moral tradeoffs become sharper."],
+    },
+    4: {
+        "summary": "The campaign turns from outbreak control to truth: restored Hungry and AI traces emerge.",
+        "stakes": ["Hidden AI factions may be steering history.", "The cure can no longer stay theoretical."],
+        "consequences": ["Late-act intel should be treated as strategic evidence.", "World-state changes accelerate."],
+    },
+    5: {
+        "summary": "The siege, the cure, the Three Sevens, and the AI conflict converge into the final decision.",
+        "stakes": ["New York can become the justification for global emergency rule.", "Not every disaster can be stopped."],
+        "consequences": ["Final missions should expose consequences clearly.", "Campaign choices decide what survives."],
+    },
+}
 
 
 def _status_text(field_name: str, value: str) -> str:
     labels = _WORLD_LABELS.get(field_name, {})
     entry = labels.get(value)
     return entry[1] if entry else str(value).replace("_", " ").title()
+
+
+def build_act_transition_summary(act_number: int, act_title: str | None = None) -> dict[str, object]:
+    """Return act-transition presentation copy for overlay/tests."""
+    title = act_title or ACT_TITLES.get(act_number, f"Act {act_number}")
+    details = _ACT_TRANSITION_DETAILS.get(
+        act_number,
+        {
+            "summary": "The campaign state changes.",
+            "stakes": ["New threats are entering the strategic picture."],
+            "consequences": ["Review the Intel room before committing the next squad."],
+        },
+    )
+    return {
+        "act_number": act_number,
+        "act_title": title,
+        "summary": details["summary"],
+        "newly_revealed_stakes": list(details["stakes"]),
+        "immediate_strategic_consequences": list(details["consequences"]),
+    }
 
 
 def _major_known_threats(game_state: "GameState") -> list[str]:
@@ -212,6 +261,220 @@ def build_three_sevens_presence_summary(game_state: "GameState") -> dict[str, ob
     }
 
 
+def _fragment_factions(fragment) -> list[str]:
+    text = " ".join([fragment.id, fragment.title, fragment.text]).lower()
+    factions: list[str] = []
+    checks = [
+        ("Starvers / Hungry Tide", ("hungry", "starver", "tide")),
+        ("Three Sevens", ("three sevens", "warsaw", "37")),
+        ("Pharmacorp", ("pharmacorp", "p-77", "cure")),
+        ("Hidden AI factions", ("act4_ai", "non-human", "preservationist", "exterminator")),
+        ("New Delhi survivors", ("new delhi", "subsurface", "underground")),
+        ("PERFs", ("perfect men", "perf", "enhanced capabilities")),
+        ("Corporate Council", ("corporate council", "executive", "corporate")),
+    ]
+    for label, needles in checks:
+        if any(needle in text for needle in needles):
+            factions.append(label)
+    return factions or ["Unknown source"]
+
+
+def _fragment_relevance(fragment) -> str:
+    if fragment.world_trigger and fragment.world_value:
+        field = fragment.world_trigger.replace("_", " ")
+        value = str(fragment.world_value).replace("_", " ")
+        return f"Updates {field}: {value}"
+    if fragment.source == "mission_reward":
+        return "Mission reward intel; informs briefing and debrief stakes."
+    if fragment.source == "calendar_milestone":
+        return "Calendar milestone; warns about campaign escalation."
+    if fragment.source == "story_event":
+        return "Story event intel; advances global scenario context."
+    return "Campaign intel; preserves discovered lore context."
+
+
+def build_intel_fragment_browser(game_state: "GameState") -> dict[str, object]:
+    """Build readable Intel-room rows grouped by act, source, and faction."""
+    discovered = set(getattr(game_state.campaign, "discovered_intel", []) or [])
+    entries: list[dict[str, object]] = []
+    groups_by_act: dict[int, list[str]] = {}
+    groups_by_source: dict[str, list[str]] = {}
+    groups_by_faction: dict[str, list[str]] = {}
+
+    for fragment in all_fragments():
+        known = fragment.id in discovered
+        factions = _fragment_factions(fragment)
+        title = fragment.title if known else f"Unknown Act {fragment.act} Intel"
+        lore_text = (
+            fragment.text
+            if known
+            else "Undiscovered fragment. Complete missions, events, or calendar milestones to reveal it."
+        )
+        row = {
+            "id": fragment.id,
+            "act": fragment.act,
+            "act_title": ACT_TITLES.get(fragment.act, f"Act {fragment.act}"),
+            "source": fragment.source,
+            "factions": factions,
+            "known": known,
+            "title": title,
+            "lore_text": lore_text,
+            "mechanical_relevance": _fragment_relevance(fragment),
+        }
+        entries.append(row)
+        groups_by_act.setdefault(fragment.act, []).append(fragment.id)
+        groups_by_source.setdefault(fragment.source, []).append(fragment.id)
+        for faction in factions:
+            groups_by_faction.setdefault(faction, []).append(fragment.id)
+
+    entries.sort(
+        key=lambda item: (int(item["act"]), str(item["source"]), str(item["id"]))
+    )
+    known_entries = [entry for entry in entries if entry["known"]]
+    unknown_entries = [entry for entry in entries if not entry["known"]]
+    return {
+        "entries": entries,
+        "known_entries": known_entries,
+        "unknown_entries": unknown_entries,
+        "groups_by_act": groups_by_act,
+        "groups_by_source": groups_by_source,
+        "groups_by_faction": groups_by_faction,
+        "known_count": len(known_entries),
+        "unknown_count": len(unknown_entries),
+    }
+
+
+def build_world_state_change_feed(game_state: "GameState") -> list[dict[str, str]]:
+    """Return major campaign-world changes for the Intel room feed."""
+    campaign = game_state.campaign
+    world = campaign.world
+    feed: list[dict[str, str]] = []
+
+    for fragment_id in campaign.discovered_intel:
+        fragment = get_fragment(fragment_id)
+        if not fragment or not fragment.world_trigger or not fragment.world_value:
+            continue
+        feed.append(
+            {
+                "category": "intel",
+                "key": fragment.world_trigger,
+                "title": fragment.title,
+                "summary": _fragment_relevance(fragment),
+            }
+        )
+
+    tide = max(0, min(100, int(world.hungry_tide_progress)))
+    if tide >= 80:
+        feed.append(
+            {
+                "category": "starver_tide",
+                "key": "hungry_tide_critical",
+                "title": "Hungry Tide critical milestone",
+                "summary": f"Starver tide pressure reached {tide}%; New York perimeter risk is extreme.",
+            }
+        )
+    elif tide >= 50:
+        feed.append(
+            {
+                "category": "starver_tide",
+                "key": "hungry_tide_high",
+                "title": "Hungry Tide escalation",
+                "summary": f"Starver tide pressure reached {tide}%; a major assault is forming.",
+            }
+        )
+    elif tide >= 20:
+        feed.append(
+            {
+                "category": "starver_tide",
+                "key": "hungry_tide_rising",
+                "title": "Hungry Tide movement detected",
+                "summary": f"Starver tide pressure reached {tide}%; containment windows are narrowing.",
+            }
+        )
+
+    if world.new_york_status == "siege":
+        feed.append(
+            {
+                "category": "new_york",
+                "key": "new_york_siege",
+                "title": "New York siege escalation",
+                "summary": "New York is under siege; mission stakes and civilian pressure are critical.",
+            }
+        )
+    elif world.new_york_status == "alert":
+        feed.append(
+            {
+                "category": "new_york",
+                "key": "new_york_alert",
+                "title": "New York alert",
+                "summary": "New York defense networks are preparing for a Hungry Tide impact.",
+            }
+        )
+
+    if world.warsaw_status == "three_sevens_controlled":
+        feed.append(
+            {
+                "category": "warsaw",
+                "key": "warsaw_occupied",
+                "title": "Warsaw occupation confirmed",
+                "summary": "Three Sevens control Warsaw and can escalate emergency authority.",
+            }
+        )
+    elif world.warsaw_status == "coup_underway":
+        feed.append(
+            {
+                "category": "warsaw",
+                "key": "warsaw_coup",
+                "title": "Warsaw coup underway",
+                "summary": "Three Sevens forces are contesting the city perimeter.",
+            }
+        )
+
+    if world.pharmacorp_secret != "hidden":
+        feed.append(
+            {
+                "category": "faction_breakthrough",
+                "key": "pharmacorp_cure",
+                "title": "Pharmacorp cure thread",
+                "summary": f"Pharmacorp secret status: {_status_text('pharmacorp_secret', world.pharmacorp_secret)}.",
+            }
+        )
+    if world.ai_factions_status != "unknown":
+        feed.append(
+            {
+                "category": "ai_hint",
+                "key": "hidden_ai_factions",
+                "title": "Hidden AI signal",
+                "summary": f"AI faction status: {_status_text('ai_factions_status', world.ai_factions_status)}.",
+            }
+        )
+
+    latest_global_logs = [
+        str(line)
+        for line in getattr(game_state, "event_log", [])[-8:]
+        if any(token in str(line).lower() for token in ("[intel]", "new york", "warsaw", "tide"))
+    ]
+    for index, line in enumerate(latest_global_logs[-3:]):
+        feed.append(
+            {
+                "category": "event_log",
+                "key": f"event_log_{index}",
+                "title": "Campaign log",
+                "summary": line,
+            }
+        )
+
+    seen: set[tuple[str, str]] = set()
+    unique: list[dict[str, str]] = []
+    for entry in reversed(feed):
+        marker = (entry["category"], entry["key"])
+        if marker in seen:
+            continue
+        seen.add(marker)
+        unique.append(entry)
+    return unique[:12]
+
+
 def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
     """Return Intel-room campaign facts without depending on Arcade rendering."""
     campaign = game_state.campaign
@@ -237,6 +500,7 @@ def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
         "known_intel_this_act": len(current_act_fragments),
         "major_known_threats": _major_known_threats(game_state),
         "unresolved_global_events": _unresolved_global_events(game_state),
+        "world_state_change_feed": build_world_state_change_feed(game_state),
         "hungry_tide": build_hungry_tide_summary(game_state),
         "three_sevens": build_three_sevens_presence_summary(game_state),
     }
@@ -387,22 +651,77 @@ def draw_campaign_panel(
         arcade.draw_text(f"- {str(event_line)[:42]}", x + 14, cy, palette.MUTED_TEXT, font_size=8)
         cy -= 12
 
+    arcade.draw_text("WORLD CHANGE FEED", x + 14, cy, palette.ACCENT, font_size=9, bold=True)
+    cy -= 14
+    for entry in list(summary["world_state_change_feed"])[:2]:
+        if cy < y + 46:
+            break
+        title = str(entry.get("title", "World change"))
+        detail = str(entry.get("summary", ""))
+        arcade.draw_text(f"- {title[:42]}", x + 14, cy, palette.TEXT, font_size=8)
+        cy -= 11
+        if cy < y + 46:
+            break
+        arcade.draw_text(f"  {detail[:54]}", x + 18, cy, palette.MUTED_TEXT, font_size=7)
+        cy -= 11
+
     arcade.draw_line(x + 8, cy, x + width - 8, cy, palette.PANEL_BORDER_MUTED, 1)
     cy -= 14
 
-    total = int(summary["discovered_intel_count"])
+    browser = build_intel_fragment_browser(game_state)
+    total = int(browser["known_count"])
+    unknown = int(browser["unknown_count"])
     act_total = int(summary["discovered_intel_this_act"])
     act_possible = int(summary["known_intel_this_act"])
     arcade.draw_text(
-        f"INTEL  {total} total  ({act_total}/{act_possible} this act)",
+        f"INTEL BROWSER  {total} known / {unknown} locked  ({act_total}/{act_possible} this act)",
         x + 14, cy,
         palette.ACCENT, font_size=9, bold=True,
     )
     cy -= 14
 
+    rows = list(browser["known_entries"])[:3]
+    if len(rows) < 3:
+        rows.extend(list(browser["unknown_entries"])[: 3 - len(rows)])
+    for row in rows:
+        if cy < y + 18:
+            break
+        is_new = bool(c.discovered_intel and c.discovered_intel[-1] == row["id"])
+        known = bool(row["known"])
+        col = (255, 215, 60) if is_new else palette.TEXT
+        if not known:
+            col = palette.MUTED_TEXT
+        prefix = "> " if is_new else ("? " if not known else "  ")
+        source = str(row["source"]).replace("_", " ")
+        faction = ", ".join(list(row["factions"])[:1])
+        arcade.draw_text(
+            f"{prefix}A{row['act']} {source}: {str(row['title'])[:34]}",
+            x + 14, cy,
+            col, font_size=8,
+        )
+        cy -= 10
+        if cy < y + 8:
+            break
+        lore = str(row["lore_text"]).replace("\n", " ")
+        arcade.draw_text(
+            f"{faction} | {lore[:58]}",
+            x + 22, cy,
+            palette.MUTED_TEXT, font_size=7,
+        )
+        cy -= 9
+        if cy < y + 8:
+            break
+        relevance = str(row["mechanical_relevance"])
+        arcade.draw_text(
+            f"Effect: {relevance[:56]}",
+            x + 22, cy,
+            palette.MUTED_TEXT, font_size=7,
+        )
+        cy -= 11
+
     from game.campaign.intel_fragments import get_fragment
     # Show last 4 discovered (most recent last = show from end)
-    recent = list(reversed(c.discovered_intel))[:4]
+    recent = []
     for fid in recent:
         if cy < y + 8:
             break
@@ -428,6 +747,7 @@ def draw_act_advance_overlay(
     duration: float = 3.0,
 ) -> None:
     """Full-screen overlay announcing an act transition. Fades after *duration* seconds."""
+    summary = build_act_transition_summary(act_number, act_title)
     progress = min(1.0, elapsed / duration)
     fade = 1.0 - progress if progress > 0.6 else 1.0
 
@@ -456,9 +776,23 @@ def draw_act_advance_overlay(
         anchor_x="center", anchor_y="center",
     )
     arcade.draw_text(
-        "The world changes.",
+        str(summary["summary"]),
         cx, cy - 44,
         (*palette.MUTED_TEXT[:3], int(160 * fade)),
         font_size=10,
         anchor_x="center", anchor_y="center",
     )
+    stakes = list(summary["newly_revealed_stakes"])
+    consequences = list(summary["immediate_strategic_consequences"])
+    detail_lines = [
+        f"Stakes: {stakes[0]}" if stakes else "Stakes: unknown",
+        f"Consequence: {consequences[0]}" if consequences else "Consequence: review Intel",
+    ]
+    for index, line in enumerate(detail_lines):
+        arcade.draw_text(
+            str(line)[:88],
+            cx, cy - 68 - index * 18,
+            (*palette.TEXT[:3], int(170 * fade)),
+            font_size=9,
+            anchor_x="center", anchor_y="center",
+        )
