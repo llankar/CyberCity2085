@@ -62,9 +62,9 @@ This wave turns existing systems into a coherent playable campaign loop.
 - [x] OBJECTIVE-01 Extraction Objective: Extraction objectives now create a tactical WITNESS marker from both canonical and legacy safe-extraction mission types, requiring the squad to reach and secure the target before completion. Added regression coverage for alias routing and interaction prompts. (completed June 23, 2026)
 - [x] OBJECTIVE-02 Sabotage Objective: Sabotage objectives now create a tactical RELAY marker from both canonical and legacy sabotage-window mission types, with explicit plant/hack prompt, success condition, and wipe-before-arm failure condition. Added regression coverage for alias routing and completion. (completed June 23, 2026)
 - [x] OBJECTIVE-03 Data Theft Objective: Data-theft objectives now create a tactical CACHE marker from both canonical and legacy detour mission types and require two interaction turns before completion. Added regression coverage for multi-turn progress and completion text. (completed June 23, 2026)
-- [ ] OBJECTIVE-04 Containment Objective: Implement an objective where the squad must prevent Starvers or mutants from crossing a threshold or breaching a zone.
-- [ ] OBJECTIVE-05 Civilian Rescue Objective: Implement an objective where the squad must rescue multiple civilians or cured Starvers before they are killed or lost.
-- [ ] OBJECTIVE-06 Recon / Scan Objective: Implement an objective where the squad must scan several points and may win without eliminating all enemies.
+- [x] OBJECTIVE-04 Containment Objective: Added a containment objective type with a BREACH LINE marker, explicit hold prompt, success/failure metadata, and a battle failure check when enemies cross the configured threshold. Added regression coverage for breach detection. (completed June 23, 2026)
+- [x] OBJECTIVE-05 Civilian Rescue Objective: Added a civilian-rescue objective type with multi-group rescue progress, sequential marker positions, readable mission-board label, and completion after three extracted groups. Added regression coverage for multi-group progress. (completed June 23, 2026)
+- [x] OBJECTIVE-06 Recon / Scan Objective: Added a recon-scan objective type with sequential scan markers, readable mission-board label, and completion after three scan points so missions can win without eliminating all enemies. Added regression coverage for scan-point advancement. (completed June 23, 2026)
 
 ### Phase 7 — Architecture and Maintainability
 

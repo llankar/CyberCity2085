@@ -7,6 +7,7 @@ from game.mission_objectives import (
     create_battle_objective,
     interact_with_objective,
     is_in_interaction_range,
+    objective_failed_by_enemy_positions,
 )
 from game.mission_templates import MissionTemplate, create_mission_templates
 
@@ -81,6 +82,50 @@ class MissionObjectivesTest(unittest.TestCase):
         self.assertTrue(objective.completed)
         self.assertIn("complete", second_message.lower())
 
+    def test_containment_fails_when_enemy_crosses_breach_line(self):
+        objective = create_battle_objective(_mission("containment"))
+
+        safe, _ = objective_failed_by_enemy_positions([(448, 224)], objective)
+        failed, reason = objective_failed_by_enemy_positions([(448, 160)], objective)
+
+        self.assertFalse(safe)
+        self.assertTrue(failed)
+        self.assertIn("crosses the breach line", reason)
+
+    def test_civilian_rescue_requires_multiple_groups(self):
+        objective = create_battle_objective(_mission("civilian_rescue"))
+        first_position = objective.position
+
+        done_1, msg_1 = interact_with_objective(first_position, objective)
+        second_position = objective.position
+        done_2, msg_2 = interact_with_objective(second_position, objective)
+        done_3, msg_3 = interact_with_objective(objective.position, objective)
+
+        self.assertFalse(done_1)
+        self.assertFalse(done_2)
+        self.assertTrue(done_3)
+        self.assertNotEqual(first_position, second_position)
+        self.assertIn("1/3", msg_1)
+        self.assertIn("2/3", msg_2)
+        self.assertIn("complete", msg_3.lower())
+
+    def test_recon_scan_advances_between_scan_points(self):
+        objective = create_battle_objective(_mission("recon_scan"))
+        first_position = objective.position
+
+        done_1, _ = interact_with_objective(first_position, objective)
+        second_position = objective.position
+        done_2, _ = interact_with_objective(second_position, objective)
+        third_position = objective.position
+        done_3, message = interact_with_objective(third_position, objective)
+
+        self.assertFalse(done_1)
+        self.assertFalse(done_2)
+        self.assertTrue(done_3)
+        self.assertNotEqual(first_position, second_position)
+        self.assertNotEqual(second_position, third_position)
+        self.assertIn("recon", message.lower())
+
     def test_interaction_out_of_range_keeps_objective_pending(self):
         objective = BattleObjective(kind="extract", position=(448, 320), label="WITNESS")
 
@@ -96,6 +141,12 @@ class MissionObjectivesTest(unittest.TestCase):
         loaded = MissionTemplate.from_dict(mission.to_dict())
 
         self.assertEqual(loaded.objective_type, "sabotage")
+
+    def test_mission_template_save_load_preserves_new_objective_types(self):
+        for objective_type in ("containment", "civilian_rescue", "recon_scan"):
+            with self.subTest(objective_type=objective_type):
+                loaded = MissionTemplate.from_dict(_mission(objective_type).to_dict())
+                self.assertEqual(loaded.objective_type, objective_type)
 
     def test_mission_template_load_translates_legacy_french_briefing_text(self):
         payload = _mission("extract").to_dict()

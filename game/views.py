@@ -151,7 +151,11 @@ from .ui.room_interaction import (
 from .enemy_themes import enemy_sprite_filename, normalize_enemy_theme
 from .ui.portraits import portrait_path_for_character
 from .gamestate import GameState
-from .mission_objectives import create_battle_objective, interact_with_objective
+from .mission_objectives import (
+    create_battle_objective,
+    interact_with_objective,
+    objective_failed_by_enemy_positions,
+)
 from .mission_system import (
     ensure_mission_templates,
     launch_selected_mission as launch_mission_system,
@@ -2078,6 +2082,14 @@ class BattleView(GameView):
                     self.message = "POSITION BREACHED — Mission failed!"
                     self.end_battle(False)
                     return
+        failed, reason = objective_failed_by_enemy_positions(
+            [enemy.position for enemy in self.enemy_units],
+            self.battle_objective,
+        )
+        if failed:
+            self.message = reason or "Objective breached - Mission failed!"
+            self.end_battle(False)
+            return
         # Tick blackout duration
         if hasattr(self, "_blackout_turns_left"):
             self._blackout_turns_left -= 1
