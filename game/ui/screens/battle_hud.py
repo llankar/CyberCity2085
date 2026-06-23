@@ -1033,12 +1033,35 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
     arcade.draw_lrbt_rectangle_filled(ox - 12, ox + 12, oy - 12, oy + 12, (*col[:3], 80))
     arcade.draw_rect_outline(arcade.LBWH(ox - 16, oy - 16, 32, 32), col, border_width=2)
 
-    # Label
-    label = "OBJECTIVE COMPLETE" if completed else "OBJECTIVE"
+    # Label, prompt, and progress
+    objective_label = getattr(objective, "label", "OBJECTIVE")
+    label = "OBJECTIVE COMPLETE" if completed else f"OBJECTIVE: {objective_label}"
     arcade.draw_text(
         label, ox, oy + 34, col,
         font_size=9, bold=True, anchor_x="center",
     )
+    if not completed:
+        prompt = getattr(objective, "interaction_prompt", "Press E near marker.")
+        progress = getattr(objective, "progress_text", "")
+        arcade.draw_text(
+            prompt,
+            ox,
+            oy - 38,
+            palette.TEXT,
+            font_size=8,
+            anchor_x="center",
+            width=220,
+            align="center",
+        )
+        if progress:
+            arcade.draw_text(
+                progress,
+                ox,
+                oy - 52,
+                palette.MUTED_TEXT,
+                font_size=8,
+                anchor_x="center",
+            )
 
 
 # ══════════════════════════════════════════════════════════════════════════════

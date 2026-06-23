@@ -53,15 +53,15 @@ This wave turns existing systems into a coherent playable campaign loop.
 - [x] BATTLE-FEEL-01 Floating Damage / Healing / Miss Text: Added short-lived floating combat text for damage, healing, criticals, misses, suppression, and status changes. Added regression coverage for combat popup payloads. (completed June 20, 2026)
 - [x] BATTLE-FEEL-02 Combat Log Side Panel: BattleView exposes the combat log during battle through a Tab-toggled side panel showing the latest events, backed by the existing modular combat log builders and new keyboard/HUD regressions. (completed June 23, 2026)
 - [x] BATTLE-FEEL-03 Status Effects System: Added `status_effects` support for suppressed, bleeding, stunned, burning, contaminated, and panicked; turn start applies damage/AP effects and the HUD renders status badges. Added regression coverage for required statuses and turn-start effects. (completed June 20, 2026)
-- [ ] BATTLE-FEEL-04 Objective Marker Clarity: Ensure all non-elimination objectives have visible map markers, interaction prompts, progress indicators, and failure/success conditions.
+- [x] BATTLE-FEEL-04 Objective Marker Clarity: Objective markers now show the objective label, interaction prompt, progress text, and explicit success/failure condition metadata for non-elimination objectives. Added regression coverage for marker prompt/progress rendering and objective contracts. (completed June 23, 2026)
 - [ ] BATTLE-FEEL-05 Enemy AI Upgrade: Improve enemy AI with cover-seeking, flanking preference, target scoring, commander aura/buffs, and objective pressure behavior.
 - [x] BATTLE-FEEL-06 In-battle Pause Menu: Escape opens an in-battle pause overlay with Resume, Settings, and Abandon actions where appropriate; Escape closes it again. Added HUD and BattleView keyboard regressions. (completed June 23, 2026)
 
 ### Phase 6 — Mission Objective Variety
 
-- [ ] OBJECTIVE-01 Extraction Objective: Implement an objective where the squad must reach a target, secure it, and evacuate.
-- [ ] OBJECTIVE-02 Sabotage Objective: Implement an objective where the squad must plant a charge or hack a device, then survive or evacuate.
-- [ ] OBJECTIVE-03 Data Theft Objective: Implement an objective where an agent must remain near a terminal for a number of turns while the team protects them.
+- [x] OBJECTIVE-01 Extraction Objective: Extraction objectives now create a tactical WITNESS marker from both canonical and legacy safe-extraction mission types, requiring the squad to reach and secure the target before completion. Added regression coverage for alias routing and interaction prompts. (completed June 23, 2026)
+- [x] OBJECTIVE-02 Sabotage Objective: Sabotage objectives now create a tactical RELAY marker from both canonical and legacy sabotage-window mission types, with explicit plant/hack prompt, success condition, and wipe-before-arm failure condition. Added regression coverage for alias routing and completion. (completed June 23, 2026)
+- [x] OBJECTIVE-03 Data Theft Objective: Data-theft objectives now create a tactical CACHE marker from both canonical and legacy detour mission types and require two interaction turns before completion. Added regression coverage for multi-turn progress and completion text. (completed June 23, 2026)
 - [ ] OBJECTIVE-04 Containment Objective: Implement an objective where the squad must prevent Starvers or mutants from crossing a threshold or breaching a zone.
 - [ ] OBJECTIVE-05 Civilian Rescue Objective: Implement an objective where the squad must rescue multiple civilians or cured Starvers before they are killed or lost.
 - [ ] OBJECTIVE-06 Recon / Scan Objective: Implement an objective where the squad must scan several points and may win without eliminating all enemies.
