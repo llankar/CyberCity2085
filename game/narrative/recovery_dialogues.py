@@ -76,6 +76,22 @@ def _pair_affinity_score(
     right: Character,
     squad_by_agent: dict[str, str],
 ) -> tuple[int, str]:
+    left_link = left.mentor_links.get(right.name, {})
+    right_link = right.mentor_links.get(left.name, {})
+    mentor_bond = max(
+        int(left_link.get("bond_level", 0) or 0),
+        int(right_link.get("bond_level", 0) or 0),
+    )
+    if mentor_bond > 0:
+        return 4 + mentor_bond, "mentor_link"
+
+    relationship_bond = max(
+        int(left.relationships.get(right.name, 0) or 0),
+        int(right.relationships.get(left.name, 0) or 0),
+    )
+    if relationship_bond > 0:
+        return 4 + relationship_bond, "relationship"
+
     left_squad = squad_by_agent.get(left.name)
     right_squad = squad_by_agent.get(right.name)
     if left_squad and right_squad and left_squad == right_squad:
@@ -85,6 +101,15 @@ def _pair_affinity_score(
         return 2, "complementary_roles"
 
     return 1, "baseline"
+
+
+def _needs_recovery_support(agent: Character, stress_threshold: int) -> bool:
+    return (
+        agent.stress >= stress_threshold
+        or agent.recovery_turns > 0
+        or bool(agent.trauma)
+        or bool(agent.temporary_scars)
+    )
 
 
 def generate_recovery_dialogues(
@@ -100,13 +125,15 @@ def generate_recovery_dialogues(
     squad_by_agent = dict(recovery_state.get("squad_by_agent", {}))
     memory = RecoveryNarrativeMemory.from_dict(recovery_state.get("memory"))
 
-    stressed = [agent for agent in agents if agent.stress >= stress_threshold]
-    if len(stressed) < 2 or max_dialogues <= 0:
+    candidates = [
+        agent for agent in agents if _needs_recovery_support(agent, stress_threshold)
+    ]
+    if len(candidates) < 2 or max_dialogues <= 0:
         return []
 
     scored_pairs: list[tuple[int, str, Character, Character]] = []
-    for i, left in enumerate(stressed):
-        for right in stressed[i + 1 :]:
+    for i, left in enumerate(candidates):
+        for right in candidates[i + 1 :]:
             score, reason = _pair_affinity_score(left, right, squad_by_agent)
             scored_pairs.append((score, reason, left, right))
     scored_pairs.sort(key=lambda item: (-item[0], -(item[2].stress + item[3].stress)))
@@ -145,3 +172,32 @@ def generate_recovery_dialogues(
     recovery_state["memory"] = memory.to_dict()
 
     return [dialogue.to_output() for dialogue in output]
+
+
+def apply_recovery_dialogue_effects(
+    agents: list[Character],
+    dialogues: list[dict],
+) -> list[str]:
+    """Apply tiny recovery bonuses from support/mentor dialogue beats."""
+    by_name = {agent.name: agent for agent in agents}
+    lines: list[str] = []
+    for dialogue in dialogues:
+        pair = [str(name) for name in dialogue.get("pair", [])]
+        if len(pair) != 2:
+            continue
+        left = by_name.get(pair[0])
+        right = by_name.get(pair[1])
+        if left is None or right is None:
+            continue
+        reduced: list[str] = []
+        for agent in (left, right):
+            if agent.stress > 0:
+                agent.stress = max(0, agent.stress - 1)
+                reduced.append(agent.name)
+        reason = str(dialogue.get("affinity_reason", "support"))
+        if reduced:
+            lines.append(
+                f"Recovery bond: {left.name} and {right.name} steady each other "
+                f"({reason}, -1 stress)."
+            )
+    return lines

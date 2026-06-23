@@ -79,6 +79,14 @@ class MissionBriefingLaunchTest(unittest.TestCase):
             spec_ops_assets=[robot],
             selected_asset_ids=["drone"],
         )
+        game_state.characters[0].temporary_scars = [
+            {
+                "title": "Nights of Sirens",
+                "days_remaining": 3,
+                "tone": "vigilant",
+                "tags": ["injury"],
+            }
+        ]
 
         facts = build_mission_briefing_facts(game_state, _mission())
 
@@ -92,6 +100,9 @@ class MissionBriefingLaunchTest(unittest.TestCase):
         self.assertEqual(facts["complications"], ["A countertrace exposes the squad route."])
         self.assertIn("maps", facts["map_thumbnail"])
         self.assertEqual(facts["squad_roster"], ["Vera", "Mako"])
+        self.assertTrue(
+            any("Vera: Nights of Sirens" in line for line in facts["temporary_scar_summary"])
+        )
         self.assertEqual(facts["selected_support_assets"], ["Kestrel Drone"])
         self.assertEqual(facts["reward_preview"], "Funds +90; assets -15; net 75")
         self.assertEqual(facts["actions"], ["DEPLOY", "ABORT"])

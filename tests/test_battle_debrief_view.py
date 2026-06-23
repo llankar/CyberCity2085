@@ -57,7 +57,7 @@ def _complication() -> MissionComplication:
 class BattleDebriefSummaryTest(unittest.TestCase):
     def test_summary_covers_wave6_required_debrief_fields(self) -> None:
         game_state = GameState(characters=[Character("Vera")])
-        game_state.characters[0].temporary_scars = [{"name": "Shrapnel cuts"}]
+        game_state.characters[0].temporary_scars = [{"title": "Nights of Sirens"}]
         game_state.unavailable_mission_ids = ["jackal_relay_lockdown"]
         game_state.campaign.discover_intel("act1_three_sevens_banner")
         game_state.campaign.world.hungry_tide_progress = 17
@@ -129,7 +129,7 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertTrue(any(line.startswith("City pressure:") for line in consequence_lines))
         self.assertTrue(any("Faction Chrome Jackals:" in line for line in consequence_lines))
         self.assertTrue(any("civilian_panic" in line for line in consequence_lines))
-        self.assertTrue(any("Agent scars: Vera: Shrapnel cuts" in line for line in consequence_lines))
+        self.assertTrue(any("Agent scars: Vera: Nights of Sirens" in line for line in consequence_lines))
         self.assertTrue(any("Rewards: Credits: +120" in line for line in consequence_lines))
         self.assertTrue(any("jackal_relay_lockdown" in line for line in consequence_lines))
         self.assertTrue(any("act1_three_sevens_banner" in line for line in consequence_lines))

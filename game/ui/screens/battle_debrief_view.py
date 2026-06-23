@@ -185,7 +185,13 @@ def build_consequence_summary_lines(
     scars: list[str] = []
     for character in getattr(game_state, "characters", []) or []:
         for scar in getattr(character, "temporary_scars", []) or []:
-            label = scar.get("name") or scar.get("label") or scar.get("type") or "scar"
+            label = (
+                scar.get("title")
+                or scar.get("name")
+                or scar.get("label")
+                or scar.get("type")
+                or "scar"
+            )
             scars.append(f"{character.name}: {label}")
     lines.append(f"Agent scars: {', '.join(scars[:3]) if scars else 'none'}")
 

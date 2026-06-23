@@ -3,7 +3,10 @@
 import unittest
 
 from game.character import Character
-from game.narrative.recovery_dialogues import generate_recovery_dialogues
+from game.narrative.recovery_dialogues import (
+    apply_recovery_dialogue_effects,
+    generate_recovery_dialogues,
+)
 
 
 class RecoveryDialoguesTest(unittest.TestCase):
@@ -62,6 +65,42 @@ class RecoveryDialoguesTest(unittest.TestCase):
         self.assertEqual(len(day_2), 1)
         self.assertNotEqual(day_1[0]["pair"], day_2[0]["pair"])
         self.assertNotEqual(day_1[0]["line"], day_2[0]["line"])
+
+    def test_wounded_traumatized_or_bonded_agents_can_trigger_dialogue(self):
+        wounded = Character("Vera", role="sniper", stress=20, recovery_turns=2)
+        traumatized = Character("Mako", role="medic", stress=25)
+        traumatized.trauma.append("Haunted by Relay Trace")
+        wounded.mentor_links[traumatized.name] = {
+            "agent_id": traumatized.name,
+            "bond_level": 3,
+            "strategic_day": 4,
+        }
+
+        dialogues = generate_recovery_dialogues(
+            [wounded, traumatized],
+            {"day": 12, "memory": {}},
+        )
+
+        self.assertEqual(len(dialogues), 1)
+        self.assertEqual(dialogues[0]["pair"], ["Vera", "Mako"])
+        self.assertEqual(dialogues[0]["affinity_reason"], "mentor_link")
+
+    def test_recovery_dialogue_effect_applies_small_stress_relief(self):
+        first = Character("Nyx", stress=70)
+        second = Character("Patch", stress=68)
+        dialogues = [
+            {
+                "pair": ["Nyx", "Patch"],
+                "line": "Nyx stays with Patch.",
+                "affinity_reason": "relationship",
+            }
+        ]
+
+        lines = apply_recovery_dialogue_effects([first, second], dialogues)
+
+        self.assertEqual(first.stress, 69)
+        self.assertEqual(second.stress, 67)
+        self.assertTrue(any("Recovery bond" in line for line in lines))
 
 
 if __name__ == "__main__":
