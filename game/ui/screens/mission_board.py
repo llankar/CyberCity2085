@@ -8,10 +8,13 @@ from ..components.mission.mission_card import build_mission_card_line
 from ..components.mission.mission_detail import build_mission_detail_sections
 
 OBJECTIVE_LABELS = {
+    "civilian_rescue": "RESCUE",
+    "containment": "CONTAIN",
     "extract": "EXTRACT",
     "sabotage": "SABOTAGE",
     "data_theft": "DATA THEFT",
     "eliminate": "ELIMINATE",
+    "recon_scan": "RECON",
     "safe_extraction": "EXTRACT",
     "data_with_detour": "DATA THEFT",
     "sabotage_window": "SABOTAGE",

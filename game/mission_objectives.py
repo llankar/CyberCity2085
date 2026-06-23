@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -15,10 +15,13 @@ OBJECTIVE_TYPE_ALIASES = {
     "data_with_detour": "data_theft",
 }
 SUPPORTED_OBJECTIVE_TYPES = {
+    "civilian_rescue",
+    "containment",
     "extract",
     "sabotage",
     "data_theft",
     "defend",
+    "recon_scan",
     "assassination",
     FALLBACK_OBJECTIVE_TYPE,
 }
@@ -51,6 +54,36 @@ _OBJECTIVE_PROTOTYPES = {
         "completion_message": "Cache copied. Data theft complete.",
         "required_interactions": 2,
     },
+    "containment": {
+        "label": "BREACH LINE",
+        "description": "hold the containment line and prevent Starvers or mutants from crossing",
+        "interaction_prompt": "Hold enemies north of the breach line.",
+        "success_condition": "Win while no enemy crosses the containment threshold.",
+        "failure_condition": "Containment fails if an enemy crosses the breach line.",
+        "completion_message": "Containment line held. Threat contained.",
+        "required_interactions": 1,
+        "breach_y": 192,
+    },
+    "civilian_rescue": {
+        "label": "CIVILIANS",
+        "description": "rescue multiple civilians or cured Starvers before they are lost",
+        "interaction_prompt": "Press E near CIVILIANS to extract the next group.",
+        "success_condition": "Three civilian groups are extracted.",
+        "failure_condition": "Rescue fails if the squad is wiped before extraction completes.",
+        "completion_message": "Civilian groups extracted. Rescue complete.",
+        "required_interactions": 3,
+        "marker_offsets": [(0, 0), (64, 32), (-64, 64)],
+    },
+    "recon_scan": {
+        "label": "SCAN",
+        "description": "scan several points and extract without eliminating every enemy",
+        "interaction_prompt": "Press E near SCAN to complete this sweep point.",
+        "success_condition": "Three scan points are completed.",
+        "failure_condition": "Recon fails if the squad is wiped before all scan points are complete.",
+        "completion_message": "Scan sweep complete. Recon objective achieved.",
+        "required_interactions": 3,
+        "marker_offsets": [(0, 0), (96, 0), (32, 96)],
+    },
     "defend": {
         "label": "POSITION",
         "description": "hold POSITION until extraction window",
@@ -79,6 +112,8 @@ class BattleObjective:
     success_condition: str = "Complete the objective marker."
     failure_condition: str = "Mission fails if the squad is wiped before completion."
     required_interactions: int = 1
+    marker_positions: list[tuple[int, int]] = field(default_factory=list)
+    breach_y: int | None = None
 
     @property
     def status_text(self) -> str:
@@ -110,9 +145,13 @@ def create_battle_objective(
     prototype = _OBJECTIVE_PROTOTYPES.get(kind)
     if prototype is None:
         return None
+    marker_positions = [
+        (position[0] + offset[0], position[1] + offset[1])
+        for offset in prototype.get("marker_offsets", [(0, 0)])
+    ]
     return BattleObjective(
         kind=kind,
-        position=position,
+        position=marker_positions[0],
         label=prototype["label"],
         description=prototype["description"],
         completion_message=prototype["completion_message"],
@@ -120,6 +159,8 @@ def create_battle_objective(
         success_condition=prototype.get("success_condition", "Complete the marker."),
         failure_condition=prototype.get("failure_condition", "Squad wipe before completion."),
         required_interactions=int(prototype.get("required_interactions", 1)),
+        marker_positions=marker_positions,
+        breach_y=prototype.get("breach_y"),
     )
 
 
@@ -153,4 +194,26 @@ def interact_with_objective(
     if objective.progress >= max(1, objective.required_interactions):
         objective.completed = True
         return True, objective.completion_message
+    if objective.marker_positions and objective.progress < len(objective.marker_positions):
+        objective.position = objective.marker_positions[objective.progress]
     return False, f"{objective.label} progress {objective.progress}/{objective.required_interactions}. Hold position."
+
+
+def objective_failed_by_enemy_positions(
+    enemy_positions: list[tuple[int, int]],
+    objective: BattleObjective | None,
+    *,
+    grid_size: int = GRID_SIZE,
+) -> tuple[bool, str]:
+    """Return whether enemy movement has failed a defensive objective."""
+    if objective is None or objective.completed:
+        return False, ""
+    if objective.kind == "containment" and objective.breach_y is not None:
+        if any(y <= objective.breach_y for _, y in enemy_positions):
+            return True, objective.failure_condition
+    if objective.kind == "defend":
+        ox, oy = objective.position
+        for x, y in enemy_positions:
+            if abs(x - ox) <= grid_size and abs(y - oy) <= grid_size:
+                return True, objective.failure_condition
+    return False, ""

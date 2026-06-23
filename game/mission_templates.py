@@ -115,7 +115,18 @@ class MissionTemplate:
             starting_enemy_count=data.get("starting_enemy_count", 1),
             enemy_theme=normalize_enemy_theme(data.get("enemy_theme", "generic")),
             objective_type=data.get("objective_type")
-            if data.get("objective_type") in {"extract", "sabotage", "data_theft", "eliminate", "safe_extraction", "data_with_detour", "sabotage_window"}
+            if data.get("objective_type") in {
+                "civilian_rescue",
+                "containment",
+                "data_theft",
+                "data_with_detour",
+                "eliminate",
+                "extract",
+                "recon_scan",
+                "safe_extraction",
+                "sabotage",
+                "sabotage_window",
+            }
             else "eliminate",
             possible_complications=[
                 MissionComplication.from_dict(complication)

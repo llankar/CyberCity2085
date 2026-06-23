@@ -17,6 +17,9 @@ class MissionBoardUITest(unittest.TestCase):
         self.assertEqual(risk_label(3), "elevated")
         self.assertEqual(risk_label(4), "severe")
         self.assertEqual(objective_label("data_theft"), "DATA THEFT")
+        self.assertEqual(objective_label("containment"), "CONTAIN")
+        self.assertEqual(objective_label("civilian_rescue"), "RESCUE")
+        self.assertEqual(objective_label("recon_scan"), "RECON")
         self.assertEqual(objective_label("unknown"), "ELIMINATE")
 
     def test_mission_board_lines_mark_selected_mission(self):
