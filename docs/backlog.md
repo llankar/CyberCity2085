@@ -26,7 +26,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 ### Phase 2 — Make CyberCity 2085 Identity Visible
 
-- [ ] LORE-01 Expand Core Faction Set: Add first-class faction/content entries for Starvers, Three Sevens, Pharmacorp, Novatek, raiders, mutants, corporate security, hidden AI factions, and local city factions while keeping current vertical slice factions compatible.
+- [x] LORE-01 Expand Core Faction Set: Added first-class faction/content entries for Starvers, Three Sevens, Pharmacorp, Novatek, raiders, mutants, corporate security, hidden AI factions, and local city factions while keeping the current vertical slice faction factory compatible. Added regression coverage for required names, categories, and hidden-AI omission. (completed June 23, 2026)
 - [x] LORE-02 Starvers / Hungry Tide Integration: Made the Hungry Tide visible in the Intel/Global Scenario UI, showing its progress, threat level, affected regions, expected New York impact, and consequences if ignored. Added regression coverage for Hungry Tide summary states. (completed June 20, 2026)
 - [x] LORE-03 Three Sevens Campaign Presence: Strengthened Three Sevens as a campaign antagonist through visible story mission hooks, intel fragments, event hooks, special enemy themes, propaganda, Warsaw references, and late-campaign escalation in the Global Scenario UI. Added regression coverage for Three Sevens campaign presence. (completed June 20, 2026)
 - [ ] LORE-04 Pharmacorp Cure Thread: Add mission/intel/event hooks around Pharmacorp, the hidden cure, cured Starvers, moral ambiguity, containment failures, and black-market medical choices.
@@ -36,9 +36,9 @@ This wave turns existing systems into a coherent playable campaign loop.
 ### Phase 3 — Global Scenario & Intel Room
 
 - [x] CAMPAIGN-UI-01 Global Scenario Panel: Expanded the Intel room panel to display current act, act title, act progress, Hungry Tide percentage, New York status, Warsaw status, discovered intel count, major known threats, and unresolved global events. Added regression coverage for the Global Scenario summary. (completed June 20, 2026)
-- [ ] CAMPAIGN-UI-02 Intel Fragment Browser: Add a readable browser for discovered intel fragments grouped by act/source/faction, distinguish known and unknown entries, and show short lore text plus mechanical relevance.
-- [ ] CAMPAIGN-UI-03 World State Change Feed: Add a campaign feed that records major world changes such as New York siege escalation, Warsaw occupation, faction breakthroughs, AI hints, and Starver tide milestones.
-- [ ] CAMPAIGN-UI-04 Act Transition Presentation: When an act advances, show a dedicated overlay or screen with act number, title, summary, newly revealed stakes, and immediate strategic consequences.
+- [x] CAMPAIGN-UI-02 Intel Fragment Browser: Added a readable Intel-room browser for fragments grouped by act, source, and faction; it distinguishes known and locked entries and shows lore excerpts plus mechanical relevance. Added regression coverage for grouping and known/unknown rows. (completed June 23, 2026)
+- [x] CAMPAIGN-UI-03 World State Change Feed: Added a compact campaign feed that records major world changes such as New York siege escalation, Warsaw occupation, faction breakthroughs, AI hints, Starver tide milestones, and recent global intel log lines. Added regression coverage for the required feed categories. (completed June 23, 2026)
+- [x] CAMPAIGN-UI-04 Act Transition Presentation: Expanded the act-advance overlay with act number, title, summary, newly revealed stakes, and immediate strategic consequences. Added regression coverage for the transition presentation contract. (completed June 23, 2026)
 
 ### Phase 4 — Agent Attachment & RPG Continuity
 
