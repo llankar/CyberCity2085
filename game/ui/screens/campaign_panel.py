@@ -53,6 +53,7 @@ _WORLD_LABELS = {
 
 from game.campaign.acts import ACT_TITLES
 from game.campaign.intel_fragments import all_fragments, fragments_for_act, get_fragment
+from game.campaign.story_events import STORY_EVENT_SPECS
 from game.campaign.story_missions import STORY_MISSIONS
 
 
@@ -258,6 +259,256 @@ def build_three_sevens_presence_summary(game_state: "GameState") -> dict[str, ob
         "propaganda": propaganda,
         "warsaw_reference": f"Warsaw: {warsaw_pressure}",
         "late_campaign_escalation": late_escalation,
+    }
+
+
+def _mentions_pharmacorp(text: str) -> bool:
+    lowered = text.lower()
+    return any(
+        needle in lowered
+        for needle in (
+            "pharmacorp",
+            "cure",
+            "p-77",
+            "cured",
+            "containment",
+            "black-market",
+            "medical",
+        )
+    )
+
+
+def build_pharmacorp_cure_thread_summary(game_state: "GameState") -> dict[str, object]:
+    """Summarize Pharmacorp cure hooks for the Intel room."""
+    campaign = game_state.campaign
+    world = campaign.world
+    story_hooks = [
+        mission
+        for mission in STORY_MISSIONS
+        if (
+            "pharmacorp" in mission.tags
+            or "cure" in mission.tags
+            or _mentions_pharmacorp(mission.title)
+            or _mentions_pharmacorp(mission.briefing)
+            or _mentions_pharmacorp(mission.objective_text)
+        )
+    ]
+    visible_story = [mission.title for mission in story_hooks if mission.act <= campaign.current_act]
+
+    discovered_intel = []
+    for fragment_id in campaign.discovered_intel:
+        fragment = get_fragment(fragment_id)
+        text = " ".join(
+            [
+                fragment_id,
+                getattr(fragment, "title", ""),
+                getattr(fragment, "text", ""),
+            ]
+        )
+        if _mentions_pharmacorp(text):
+            discovered_intel.append(getattr(fragment, "title", fragment_id))
+
+    event_specs = [
+        spec
+        for spec in STORY_EVENT_SPECS
+        if spec.get("act", 99) <= campaign.current_act
+        and _mentions_pharmacorp(
+            " ".join(
+                [
+                    str(spec.get("title", "")),
+                    str(spec.get("description", "")),
+                    " ".join(str(choice.get("summary", "")) for choice in spec.get("choices", [])),
+                ]
+            )
+        )
+    ]
+    active_event_hooks = []
+    for event in getattr(game_state, "active_events", []) or []:
+        event_text = " ".join(
+            [
+                getattr(event, "title", ""),
+                getattr(event, "description", ""),
+                " ".join(getattr(choice, "summary", "") for choice in getattr(event, "choices", [])),
+            ]
+        )
+        if _mentions_pharmacorp(event_text):
+            active_event_hooks.append(getattr(event, "title", "Pharmacorp pressure"))
+
+    black_market_choices = []
+    for spec in event_specs:
+        for choice in spec.get("choices", []):
+            text = " ".join([str(choice.get("label", "")), str(choice.get("summary", ""))])
+            if _mentions_pharmacorp(text) or "black market" in text.lower():
+                black_market_choices.append(str(choice.get("label", choice.get("key", "choice"))))
+
+    secret_status = _status_text("pharmacorp_secret", world.pharmacorp_secret)
+    hidden_cure = (
+        "Project P-77 cure data is exposed."
+        if world.pharmacorp_secret == "exposed"
+        else "Project P-77 cure data is rumored but not proven."
+        if world.pharmacorp_secret == "rumored"
+        else "Project P-77 remains hidden."
+    )
+    cured_starvers = (
+        "Cured Starver subject hooks are visible."
+        if campaign.current_act >= 4 or "act4_hungry_thinks" in campaign.discovered_intel
+        else "Cured Starver subject hooks are not public yet."
+    )
+    containment_failures = [
+        "A conscious Hungry subject escaped normal containment.",
+        "Black-market P-77 vials imply Pharmacorp convoy leakage.",
+    ]
+    moral_ambiguity = [
+        "Cured Starvers can be treated as patients, evidence, or leverage.",
+        "Buying samples accelerates truth but rewards a dangerous market.",
+    ]
+    return {
+        "world_status": f"Pharmacorp: {secret_status}",
+        "story_mission_hooks": visible_story,
+        "intel_fragments": discovered_intel,
+        "event_hooks": sorted({spec["title"] for spec in event_specs} | set(active_event_hooks)),
+        "hidden_cure": hidden_cure,
+        "cured_starvers": cured_starvers,
+        "moral_ambiguity": moral_ambiguity,
+        "containment_failures": containment_failures,
+        "black_market_choices": sorted(set(black_market_choices)),
+    }
+
+
+def _mentions_novatek(text: str) -> bool:
+    lowered = text.lower()
+    return any(
+        needle in lowered
+        for needle in (
+            "novatek",
+            "cyborg-starver",
+            "cyborg starver",
+            "hybrid",
+            "mutant escalation",
+            "containment site",
+            "failed site",
+        )
+    )
+
+
+def build_novatek_experiment_thread_summary(game_state: "GameState") -> dict[str, object]:
+    """Summarize Novatek experiment hooks for the Intel room."""
+    campaign = game_state.campaign
+    discovered_intel = []
+    for fragment_id in campaign.discovered_intel:
+        fragment = get_fragment(fragment_id)
+        text = " ".join(
+            [
+                fragment_id,
+                getattr(fragment, "title", ""),
+                getattr(fragment, "text", ""),
+            ]
+        )
+        if _mentions_novatek(text):
+            discovered_intel.append(getattr(fragment, "title", fragment_id))
+
+    event_specs = [
+        spec
+        for spec in STORY_EVENT_SPECS
+        if spec.get("act", 99) <= campaign.current_act
+        and _mentions_novatek(
+            " ".join(
+                [
+                    str(spec.get("title", "")),
+                    str(spec.get("description", "")),
+                    " ".join(str(choice.get("summary", "")) for choice in spec.get("choices", [])),
+                ]
+            )
+        )
+    ]
+    event_choices = [
+        str(choice.get("label", choice.get("key", "choice")))
+        for spec in event_specs
+        for choice in spec.get("choices", [])
+    ]
+    return {
+        "event_hooks": sorted({spec["title"] for spec in event_specs}),
+        "intel_fragments": discovered_intel,
+        "mission_hooks": [
+            "Novatek containment-site breach",
+            "Hybrid specimen extraction",
+            "Failed lab quarantine",
+        ],
+        "experiment_themes": [
+            "cyborg-Starver hybrids",
+            "mutant escalation",
+            "failed containment sites",
+        ],
+        "special_enemy_themes": ["novatek_hybrid"],
+        "event_choices": sorted(set(event_choices)),
+    }
+
+
+def _mentions_hidden_ai(text: str) -> bool:
+    lowered = text.lower()
+    return any(
+        needle in lowered
+        for needle in (
+            "ai",
+            "non-human",
+            "preservationist",
+            "exterminator",
+            "infrastructure node",
+            "watching",
+        )
+    )
+
+
+def build_hidden_ai_conspiracy_summary(game_state: "GameState") -> dict[str, object]:
+    """Summarize late-act hidden AI hooks without revealing them too early."""
+    campaign = game_state.campaign
+    if campaign.current_act < 4:
+        return {
+            "revealed": False,
+            "reveal_timing": "late-act only (Act 4+)",
+            "intel_fragments": [],
+            "event_hooks": [],
+            "faction_roles": {},
+            "active_status": "No confirmed AI factions.",
+        }
+
+    discovered_intel = []
+    for fragment_id in campaign.discovered_intel:
+        fragment = get_fragment(fragment_id)
+        text = " ".join(
+            [
+                fragment_id,
+                getattr(fragment, "title", ""),
+                getattr(fragment, "text", ""),
+            ]
+        )
+        if _mentions_hidden_ai(text):
+            discovered_intel.append(getattr(fragment, "title", fragment_id))
+
+    event_hooks = [
+        spec["title"]
+        for spec in STORY_EVENT_SPECS
+        if spec.get("act", 99) <= campaign.current_act
+        and _mentions_hidden_ai(
+            " ".join(
+                [
+                    str(spec.get("title", "")),
+                    str(spec.get("description", "")),
+                    " ".join(str(choice.get("summary", "")) for choice in spec.get("choices", [])),
+                ]
+            )
+        )
+    ]
+    return {
+        "revealed": True,
+        "reveal_timing": "late-act only (Act 4+)",
+        "intel_fragments": discovered_intel,
+        "event_hooks": sorted(set(event_hooks)),
+        "faction_roles": {
+            "Preservationist AIs": "tries to protect humanity and its creators",
+            "Exterminator AIs": "seeks human extinction through escalation",
+        },
+        "active_status": _status_text("ai_factions_status", campaign.world.ai_factions_status),
     }
 
 
@@ -503,6 +754,9 @@ def build_global_scenario_summary(game_state: "GameState") -> dict[str, object]:
         "world_state_change_feed": build_world_state_change_feed(game_state),
         "hungry_tide": build_hungry_tide_summary(game_state),
         "three_sevens": build_three_sevens_presence_summary(game_state),
+        "pharmacorp": build_pharmacorp_cure_thread_summary(game_state),
+        "novatek": build_novatek_experiment_thread_summary(game_state),
+        "hidden_ai": build_hidden_ai_conspiracy_summary(game_state),
     }
 
 
@@ -633,6 +887,41 @@ def draw_campaign_panel(
         if cy < y + 92:
             break
         arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
+    pharmacorp = dict(summary["pharmacorp"])
+    arcade.draw_text("PHARMACORP CURE THREAD", x + 14, cy, palette.ACCENT, font_size=9, bold=True)
+    cy -= 14
+    pharmacorp_lines = [
+        str(pharmacorp["world_status"]),
+        str(pharmacorp["hidden_cure"]),
+        f"Choice hooks: {', '.join(list(pharmacorp['black_market_choices'])[:2]) or 'none revealed'}",
+    ]
+    for line in pharmacorp_lines[:2]:
+        if cy < y + 72:
+            break
+        arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
+    novatek = dict(summary["novatek"])
+    novatek_lines = [
+        f"NOVATEK: {', '.join(list(novatek['experiment_themes'])[:2])}",
+        f"Enemy theme: {', '.join(list(novatek['special_enemy_themes']))}",
+    ]
+    for line in novatek_lines[:1]:
+        if cy < y + 72:
+            break
+        arcade.draw_text(str(line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
+        cy -= 12
+
+    hidden_ai = dict(summary["hidden_ai"])
+    ai_line = (
+        f"HIDDEN AI: {hidden_ai['active_status']}"
+        if hidden_ai["revealed"]
+        else "HIDDEN AI: unrevealed until late act"
+    )
+    if cy >= y + 72:
+        arcade.draw_text(str(ai_line)[:72], x + 14, cy, palette.MUTED_TEXT, font_size=8)
         cy -= 12
 
     arcade.draw_text("MAJOR KNOWN THREATS", x + 14, cy, palette.WARNING, font_size=9, bold=True)

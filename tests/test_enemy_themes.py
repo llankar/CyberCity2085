@@ -22,7 +22,23 @@ class EnemyThemeTest(unittest.TestCase):
 
         self.assertEqual(normalize_enemy_theme("Three Sevens"), "corp_37")
         self.assertEqual(normalize_enemy_theme("Cyber Samurai"), "corp_samurai")
+        self.assertEqual(normalize_enemy_theme("cyborg starver"), "novatek_hybrid")
         self.assertEqual(mission_enemy_theme(mission), "raider")
+
+    def test_novatek_hybrid_theme_detects_experiment_mission_text(self):
+        mission = MissionTemplate(
+            id="novatek_delta",
+            title="Novatek Containment Site Delta-9",
+            objective_text="Extract cyborg-Starver hybrid data before mutant escalation.",
+            target_faction="Novatek",
+            district="Chrome Warrens",
+            district_pressure={},
+            starting_enemy_count=2,
+            enemy_theme="",
+            risk_level=7,
+        )
+
+        self.assertEqual(mission_enemy_theme(mission), "novatek_hybrid")
 
     def test_enemy_theme_round_trips_through_mission_template_serialization(self):
         mission = MissionTemplate(
