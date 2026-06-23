@@ -68,7 +68,7 @@ class NarrativeDebriefTest(unittest.TestCase):
         report = build_mission_debrief_report([frayed], _mission("Neon Dusk"), False, _complication())
 
         self.assertIn("Neon Dusk", report.decision_key)
-        self.assertIn("Risque", report.risk_taken)
+        self.assertIn("risk", report.risk_taken.lower())
         self.assertIn("Frayed", report.heroic_action)
 
     def test_report_links_to_rpg_layers(self):
@@ -79,10 +79,11 @@ class NarrativeDebriefTest(unittest.TestCase):
 
         report = build_mission_debrief_report([lead, scout], _mission(), True)
 
-        self.assertEqual(len(report.rpg_links), 3)
+        self.assertEqual(len(report.rpg_links), 4)
         self.assertTrue(any("Stress:" in line for line in report.rpg_links))
         self.assertTrue(any("Relations:" in line for line in report.rpg_links))
         self.assertTrue(any("Progression:" in line for line in report.rpg_links))
+        self.assertTrue(any("Reputation:" in line for line in report.rpg_links))
 
     def test_report_keeps_skill_check_outcomes_for_readability(self):
         agent = Character("Nyx", stress=20)
@@ -94,6 +95,33 @@ class NarrativeDebriefTest(unittest.TestCase):
         )
         self.assertEqual(len(report.skill_check_outcomes), 1)
         self.assertIn("Tech Check", report.skill_check_outcomes[0])
+
+    def test_debrief_lines_use_personality_and_stress_reactions(self):
+        agent = Character(
+            "Vera",
+            stress=82,
+            personality_primary_trait="steadfast",
+            personality_secondary_trait="cunning",
+        )
+
+        report = build_mission_debrief_report([agent], _mission(), True)
+
+        self.assertIn("Steady voice:", report.lines[0].text)
+        self.assertIn("turns fear into procedure", report.lines[0].text)
+        self.assertIn("Finds leverage in chaos.", report.lines[0].text)
+
+    def test_debrief_reports_reputation_awards_from_standout_events(self):
+        agent = Character("Vera")
+
+        report = build_mission_debrief_report(
+            [agent],
+            _mission(),
+            True,
+            performance_by_agent={"Vera": {"kills": 3}},
+        )
+
+        self.assertEqual(len(report.reputation_awards), 1)
+        self.assertEqual(report.reputation_awards[0].tag, "elite_breaker")
 
 
 if __name__ == "__main__":

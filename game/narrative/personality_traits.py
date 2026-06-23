@@ -8,18 +8,22 @@ TRAIT_TONE_MODULATORS: dict[str, dict[str, str]] = {
     "steadfast": {
         "prefix": "Steady voice:",
         "suffix": "Holds formation under pressure.",
+        "stress_reaction": "turns fear into procedure",
     },
     "reckless": {
         "prefix": "Hot-blooded report:",
         "suffix": "Pushes ahead before the smoke clears.",
+        "stress_reaction": "answers panic with motion",
     },
     "empathetic": {
         "prefix": "Human-focused brief:",
         "suffix": "Keeps civilians and squad morale in sight.",
+        "stress_reaction": "checks who is still breathing first",
     },
     "cunning": {
         "prefix": "Sharp-angle debrief:",
         "suffix": "Finds leverage in chaos.",
+        "stress_reaction": "starts bargaining with the chaos",
     },
 }
 
@@ -70,3 +74,17 @@ def modulate_mission_log_tone(
         suffix = f"{suffix} {secondary['suffix']}"
 
     return f"{primary['prefix']} {text} {suffix}"
+
+
+def personality_stress_reaction(
+    name: str,
+    stress: int,
+    primary_trait: str | None,
+) -> str:
+    """Return a compact trait-specific stress reaction line."""
+    if stress < 65:
+        return ""
+    trait = TRAIT_TONE_MODULATORS.get(primary_trait or "")
+    if not trait:
+        return f"{name} shows visible strain but stays functional."
+    return f"{name} {trait['stress_reaction']}."

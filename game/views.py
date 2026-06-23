@@ -2158,8 +2158,31 @@ class BattleView(GameView):
             self.triggered_complication,
         )
         self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
+        performance_by_agent = {}
+        for unit in all_player_units:
+            if not unit.character:
+                continue
+            performance_by_agent[unit.character.name] = {
+                "kills": getattr(unit, "_kills", 0),
+                "damage_dealt": getattr(unit, "_damage_dealt", 0),
+                "damage_taken": getattr(unit, "_damage_taken", 0),
+                "kia": unit.health <= 0,
+                "xp_gained": getattr(unit.character, "_mission_xp_gained", 0),
+                "objective_type": getattr(self.mission, "objective_type", ""),
+                "saved_civilian": bool(getattr(unit, "_saved_civilian", False)),
+            }
         debrief_report = build_mission_debrief_report(
-            surviving_participants, self.mission, victory, self.triggered_complication
+            surviving_participants,
+            self.mission,
+            victory,
+            self.triggered_complication,
+            performance_by_agent=performance_by_agent,
+        )
+        from game.narrative.agent_reputation import apply_agent_reputation_awards
+
+        reputation_lines = apply_agent_reputation_awards(
+            surviving_participants,
+            debrief_report.reputation_awards,
         )
         self.game_state.latest_mission_debrief = debrief_report.to_dict()
         outcomes = []
@@ -2182,6 +2205,8 @@ class BattleView(GameView):
             )
         self.game_state.latest_spec_ops_outcomes = outcomes
         for line in aftermath_lines:
+            self.game_state.add_event(line)
+        for line in reputation_lines:
             self.game_state.add_event(line)
 
         # Sound: victory fanfare or defeat tone; stop battle music

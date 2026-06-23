@@ -25,6 +25,7 @@ class Character:
     stress: int = 0
     trauma: list[str] = field(default_factory=list)
     injuries: list[str] = field(default_factory=list)
+    nickname: str = ""
     reputation: list[str] = field(default_factory=list)
     relationships: dict[str, int] = field(default_factory=dict)
     mentor_links: dict[str, dict] = field(default_factory=dict)
@@ -56,6 +57,7 @@ class Character:
             "stress": self.stress,
             "trauma": list(self.trauma),
             "injuries": list(self.injuries),
+            "nickname": self.nickname,
             "reputation": list(self.reputation),
             "relationships": dict(self.relationships),
             "mentor_links": serialize_links(self.mentor_links),
@@ -97,6 +99,7 @@ class Character:
             stress=data.get("stress", 0),
             trauma=list(data.get("trauma", [])),
             injuries=list(data.get("injuries", [])),
+            nickname=str(data.get("nickname", "")),
             reputation=list(data.get("reputation", [])),
             relationships=dict(data.get("relationships", {})),
             mentor_links=serialize_links(dict(data.get("mentor_links", {}))),
