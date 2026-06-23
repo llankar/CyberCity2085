@@ -42,9 +42,9 @@ This wave turns existing systems into a coherent playable campaign loop.
 
 ### Phase 4 — Agent Attachment & RPG Continuity
 
-- [ ] AGENT-RPG-01 Recovery Room Dialogues: Add small post-mission recovery/support dialogue snippets between stressed, wounded, traumatized, or bonded agents.
-- [ ] AGENT-RPG-02 Relationship and Mentor Events: Make mentor/protege links and relationships produce occasional event-log lines, recovery bonuses, stress modifiers, or mission banter.
-- [ ] AGENT-RPG-03 Temporary Scar Presentation: Make serious wounds and temporary scars visible in agent sheets, debriefs, mission readiness, and recovery panels.
+- [x] AGENT-RPG-01 Recovery Room Dialogues: Added daily recovery/support dialogue snippets between stressed, wounded, traumatized, scarred, or bonded agents and persisted the latest recovery beats for the narrative feed. Added regression coverage for recovery-room triggers and day-advance logging. (completed June 23, 2026)
+- [x] AGENT-RPG-02 Relationship and Mentor Events: Mentor links and relationships now influence recovery dialogue pairing and produce event-log recovery bond lines with a small stress relief modifier. Added regression coverage for mentor-linked recovery bonuses. (completed June 23, 2026)
+- [x] AGENT-RPG-03 Temporary Scar Presentation: Serious wounds and temporary scars are now visible through agent dossier lines, debrief consequence summaries, mission briefing readiness facts, and recovery/command-deck panel text. Added regression coverage for briefing and debrief scar titles. (completed June 23, 2026)
 - [ ] AGENT-RPG-04 Agent Nicknames and Reputation: Allow agents to earn nicknames or reputation tags after standout mission events, such as killing an elite, surviving a critical injury, saving a civilian, or failing a traumatic objective.
 - [ ] AGENT-RPG-05 Personality-driven Mission Logs: Expand existing personality modulation so mission logs, complications, debrief lines, and stress reactions reflect each agent's personality traits.
 

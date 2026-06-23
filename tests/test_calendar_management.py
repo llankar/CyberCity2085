@@ -62,6 +62,33 @@ class CalendarManagementTest(unittest.TestCase):
             any("Stitch is deployable after recovery" in event for event in game_state.event_log)
         )
 
+    def test_day_advance_logs_recovery_dialogue_and_bond_bonus(self):
+        vera = Character("Vera", role="sniper", stress=80, recovery_turns=1)
+        mako = Character("Mako", role="medic", stress=72)
+        vera.mentor_links[mako.name] = {
+            "agent_id": mako.name,
+            "bond_level": 2,
+            "strategic_day": 1,
+        }
+        game_state = GameState(
+            characters=[vera, mako],
+            selected_agent_names=["Vera", "Mako"],
+        )
+
+        game_state.advance_one_day("recovery room test")
+
+        self.assertTrue(game_state.latest_recovery_dialogues)
+        self.assertEqual(
+            game_state.latest_recovery_dialogues[0]["affinity_reason"],
+            "mentor_link",
+        )
+        self.assertTrue(
+            any("Recovery room:" in event for event in game_state.event_log)
+        )
+        self.assertTrue(
+            any("Recovery bond:" in event for event in game_state.event_log)
+        )
+
     def test_mission_resolution_advances_calendar_on_success_and_failure(self):
         success_state = GameState()
         failure_state = GameState()

@@ -30,6 +30,10 @@ from .management.funds import (
 from .management.stress import daily_stress_recovery
 from .campaign import CampaignState
 from .narrative.temporary_scars import tick_temporary_scars
+from .narrative.recovery_dialogues import (
+    apply_recovery_dialogue_effects,
+    generate_recovery_dialogues,
+)
 from .management.spec_ops_assets import (
     SpecOpsAsset,
     pay_asset_maintenance,
@@ -106,6 +110,7 @@ class GameState:
     )
     latest_agent_aftermath: list[str] = field(default_factory=list)
     latest_mission_debrief: dict = field(default_factory=dict)
+    latest_recovery_dialogues: list[dict] = field(default_factory=list)
     recovery_narrative_memory: dict = field(default_factory=dict)
     faction_reward_journal: list[dict[str, str]] = field(default_factory=list)
     selected_agent_names: list[str] = field(default_factory=list)
@@ -385,7 +390,29 @@ class GameState:
         expire_events(self)
         roll_random_event(self)
         from .campaign.engine import tick_campaign
+
         tick_campaign(self)
+        recovery_state = {
+            "day": self.calendar.current_day,
+            "squad_by_agent": {
+                name: "selected_squad" for name in self.selected_agent_names
+            },
+            "memory": dict(self.recovery_narrative_memory),
+        }
+        self.latest_recovery_dialogues = generate_recovery_dialogues(
+            self.characters,
+            recovery_state,
+        )
+        self.recovery_narrative_memory = dict(recovery_state.get("memory", {}))
+        for dialogue in self.latest_recovery_dialogues:
+            line = str(dialogue.get("line", "")).strip()
+            if line:
+                self.add_event(f"{self.calendar.campaign_date_label}: Recovery room: {line}")
+        for line in apply_recovery_dialogue_effects(
+            self.characters,
+            self.latest_recovery_dialogues,
+        ):
+            self.add_event(f"{self.calendar.campaign_date_label}: {line}")
         for name, amount, remaining in stress_recovery_log:
             self.add_event(
                 f"{self.calendar.campaign_date_label}: {name} decompresses ({amount} stress relief, {remaining}/100)."
@@ -555,6 +582,9 @@ class GameState:
             ],
             "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "latest_mission_debrief": dict(self.latest_mission_debrief),
+            "latest_recovery_dialogues": [
+                dict(item) for item in self.latest_recovery_dialogues
+            ],
             "recovery_narrative_memory": dict(self.recovery_narrative_memory),
             "faction_reward_journal": list(self.faction_reward_journal),
             "event_log": list(self.event_log),
@@ -639,6 +669,9 @@ class GameState:
         ] or [create_opening_consequence(gs.district.name)]
         gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.latest_mission_debrief = dict(data.get("latest_mission_debrief", {}))
+        gs.latest_recovery_dialogues = [
+            dict(item) for item in data.get("latest_recovery_dialogues", [])
+        ]
         gs.recovery_narrative_memory = dict(data.get("recovery_narrative_memory", {}))
         gs.faction_reward_journal = list(data.get("faction_reward_journal", []))
         gs.event_log = list(data.get("event_log", gs.event_log))

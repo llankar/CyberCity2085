@@ -14,6 +14,7 @@ from game.agent_readiness import estimate_mission_stress, projected_stress
 from game.battle_maps import select_battle_map_entry
 from game.deployment import selected_deployable_agents
 from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
+from game.narrative.temporary_scars import build_temporary_scar_summary
 from game.ui import palette
 from game.ui.panels import draw_panel
 
@@ -104,6 +105,12 @@ def build_mission_briefing_facts(game_state: "GameState", mission: "MissionTempl
         ],
         "map_thumbnail": map_thumbnail,
         "squad_roster": [agent.name for agent in agents],
+        "temporary_scar_summary": [
+            f"{agent.name}: {line}"
+            for agent in agents
+            for line in build_temporary_scar_summary(agent)
+            if line != "Temporary scars: none"
+        ],
         "selected_support_assets": [asset.name for asset in assets],
         "reward_preview": reward_preview(mission, assets),
         "actions": ["DEPLOY", "ABORT"],
