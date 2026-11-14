@@ -1,4 +1,14 @@
-## Next 20 Coding Steps
+## Release 1.0 Priority
+
+The authoritative finish line, audit, and ordered slices are defined in
+[`docs/release_plan.md`](release_plan.md). The `RELEASE-01` through `RELEASE-05`
+finishability batch is complete: campaign ending state, Act V resolution,
+ending UI, save/full-campaign tests, and release documentation are implemented.
+The strategic-management and tactical-polish batches are also complete;
+remaining work is release-candidate validation and balance feedback rather than
+new feature scope.
+
+## Historical Next 20 Coding Steps
 
 1. [campaign] CAMP-01 — Persist CampaignState and WorldState in GameState (5 acts).
 2. [campaign] CAMP-02 — 25 narrative intel fragments spread across the 5 acts.

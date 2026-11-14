@@ -26,8 +26,8 @@ from game.text_missions.text_mission_runner import (
     resolve_skill_check,
 )
 from game.ui import GameView
-from game.ui import palette
 from game.ui.panels import _load_texture_once
+from game.ui.theme.colors import colors
 
 if TYPE_CHECKING:
     from game.text_missions.text_mission_template import (
@@ -221,23 +221,23 @@ class TextMissionView(GameView):
     def _draw_header(self, w: int, h: int, scene: "MissionScene") -> None:
         hb = h - self.HEADER_H
         _rect(0, hb, w, h, (4, 10, 16, 240))
-        arcade.draw_line(0, hb, w, hb, palette.ACCENT, 2)
+        arcade.draw_line(0, hb, w, hb, colors.accent_primary, 2)
         arcade.draw_text(
             self._mission.title.upper(),
             self.PANEL_MARGIN + 4, h - self.HEADER_H // 2,
-            palette.HEADER, font_size=13, bold=True, anchor_y="center",
+            colors.text_primary, font_size=13, bold=True, anchor_y="center",
         )
         mission_type = "NARRATIVE MISSION"
         arcade.draw_text(
             f"{mission_type}  ·  RISK {self._mission.risk_level}  ·  ¥{self._mission.fund_reward} REWARD",
             w - self.PANEL_MARGIN,
             h - self.HEADER_H // 2,
-            palette.MUTED_TEXT, font_size=9, anchor_x="right", anchor_y="center",
+            colors.text_secondary, font_size=9, anchor_x="right", anchor_y="center",
         )
         arcade.draw_text(
             "ESC = ABORT",
             w // 2, h - self.HEADER_H // 2,
-            palette.PANEL_BORDER_MUTED, font_size=8, anchor_x="center", anchor_y="center",
+            colors.text_secondary, font_size=8, anchor_x="center", anchor_y="center",
         )
 
     def _layout(self, w: int, h: int) -> tuple[int, int, int, int, int, int, int, int]:
@@ -263,12 +263,12 @@ class TextMissionView(GameView):
 
         # Narrative panel
         _rect(narr_l, narr_b, narr_r, narr_t, (4, 12, 20, 220))
-        _outline(narr_l, narr_b, narr_r, narr_t, palette.PANEL_BORDER)
+        _outline(narr_l, narr_b, narr_r, narr_t, colors.text_secondary)
         self._draw_narrative_text(scene, narr_l + 14, narr_b, narr_r - 14, narr_t)
 
         # Agent panel
         _rect(ag_l, ag_b, ag_r, ag_t, (4, 10, 16, 215))
-        _outline(ag_l, ag_b, ag_r, ag_t, palette.PANEL_BORDER)
+        _outline(ag_l, ag_b, ag_r, ag_t, colors.text_secondary)
         self._draw_agent_panel(scene, ag_l, ag_b, ag_r, ag_t)
 
         # Choice bar
@@ -287,7 +287,7 @@ class TextMissionView(GameView):
         for line in lines:
             if y < y_bot + 14:
                 break
-            arcade.draw_text(line, x0, y, palette.TEXT, font_size=11)
+            arcade.draw_text(line, x0, y, colors.text_primary, font_size=11)
             y -= 18
 
     def _draw_agent_panel(
@@ -301,8 +301,8 @@ class TextMissionView(GameView):
         x = l + 10
         y = t - 16
 
-        arcade.draw_text("OPERATIVES", x, y, palette.ACCENT, font_size=9, bold=True)
-        arcade.draw_line(l + 6, y - 8, r - 6, y - 8, palette.ACCENT, 1)
+        arcade.draw_text("OPERATIVES", x, y, colors.accent_primary, font_size=9, bold=True)
+        arcade.draw_line(l + 6, y - 8, r - 6, y - 8, colors.accent_primary, 1)
         y -= 24
 
         agents = self._deployed_agents()
@@ -328,19 +328,19 @@ class TextMissionView(GameView):
             else:
                 _rect(px, pb, px + portrait_size, pb + portrait_size, (30, 52, 68, 200))
             if sel:
-                _outline(px - 2, pb - 2, px + portrait_size + 2, pb + portrait_size + 2, palette.TACTICAL_GREEN, 2)
+                _outline(px - 2, pb - 2, px + portrait_size + 2, pb + portrait_size + 2, colors.accent_success, 2)
             arcade.draw_text(
                 char.name.split()[0][:8],
                 px + portrait_size // 2,
                 pb - 12,
-                palette.TACTICAL_GREEN if sel else palette.MUTED_TEXT,
+                colors.accent_success if sel else colors.text_secondary,
                 font_size=7, anchor_x="center",
             )
             arcade.draw_text(
                 "ASSIGNED" if sel else "click",
                 px + portrait_size // 2,
                 pb - 22,
-                palette.TACTICAL_GREEN if sel else (60, 80, 70, 180),
+                colors.accent_success if sel else (60, 80, 70, 180),
                 font_size=6, anchor_x="center",
             )
             self._hits.append(_Hit(px, pb, px + portrait_size, pb + portrait_size, "preselect_agent", i))
@@ -349,8 +349,8 @@ class TextMissionView(GameView):
 
         # Required skills section
         if scene.choices:
-            arcade.draw_text("SKILL CHECKS", x, y, palette.ACCENT, font_size=9, bold=True)
-            arcade.draw_line(l + 6, y - 8, r - 6, y - 8, palette.PANEL_BORDER_MUTED, 1)
+            arcade.draw_text("SKILL CHECKS", x, y, colors.accent_primary, font_size=9, bold=True)
+            arcade.draw_line(l + 6, y - 8, r - 6, y - 8, colors.text_secondary, 1)
             y -= 22
 
             for i, choice in enumerate(scene.choices):
@@ -375,35 +375,35 @@ class TextMissionView(GameView):
                     break
                 bg = (24, 44, 32, 200) if hover else (14, 26, 36, 200)
                 _rect(l + 6, card_b, r - 6, y, bg)
-                _outline(l + 6, card_b, r - 6, y, palette.RESOURCE if hover else palette.PANEL_BORDER_MUTED)
+                _outline(l + 6, card_b, r - 6, y, colors.accent_primary if hover else colors.text_secondary)
 
-                arcade.draw_text(skill_lbl, x, y - 14, palette.RESOURCE, font_size=9, bold=True)
+                arcade.draw_text(skill_lbl, x, y - 14, colors.accent_primary, font_size=9, bold=True)
                 arcade.draw_text(
                     f"Difficulty  {chk.difficulty}",
                     r - 10, y - 14,
-                    palette.MUTED_TEXT, font_size=8, anchor_x="right",
+                    colors.text_secondary, font_size=8, anchor_x="right",
                 )
                 arcade.draw_text(
                     f"{stat_prefix}: {display_name}  {display_val}",
                     x, y - 30,
-                    palette.TACTICAL_GREEN if stat_prefix == "Assigned" else palette.TEXT,
+                    colors.accent_success if stat_prefix == "Assigned" else colors.text_primary,
                     font_size=8,
                 )
                 delta = display_val - chk.difficulty
                 if delta >= 2:
-                    diff_txt, diff_col = "Likely ✓", palette.TACTICAL_GREEN
+                    diff_txt, diff_col = "Likely ✓", colors.accent_success
                 elif delta >= 0:
-                    diff_txt, diff_col = "Possible", palette.RESOURCE
+                    diff_txt, diff_col = "Possible", colors.accent_primary
                 elif delta >= -2:
-                    diff_txt, diff_col = "Risky", palette.WARNING
+                    diff_txt, diff_col = "Risky", colors.accent_warning
                 else:
-                    diff_txt, diff_col = "Unlikely ✗", palette.DANGER
+                    diff_txt, diff_col = "Unlikely ✗", colors.accent_danger
                 arcade.draw_text(diff_txt, r - 10, y - 30, diff_col, font_size=8, anchor_x="right")
                 y -= card_h + 6
 
     def _draw_choice_bar(self, scene: "MissionScene", w: int, h: int) -> None:
         _rect(0, 0, w, self.CHOICE_BAR_H, (4, 10, 16, 235))
-        arcade.draw_line(0, self.CHOICE_BAR_H, w, self.CHOICE_BAR_H, palette.ACCENT, 2)
+        arcade.draw_line(0, self.CHOICE_BAR_H, w, self.CHOICE_BAR_H, colors.accent_primary, 2)
 
         choices = scene.choices
         if not choices:
@@ -428,7 +428,7 @@ class TextMissionView(GameView):
             btn_t = self.CHOICE_BAR_H - 8
 
             bg = (26, 54, 38, 240) if hover else (12, 28, 22, 235)
-            border = palette.TACTICAL_GREEN if hover else palette.RESOURCE
+            border = colors.accent_success if hover else colors.accent_primary
             _rect(btn_l, btn_b, btn_r, btn_t, bg)
             arcade.draw_line(btn_l, btn_t, btn_r, btn_t, border, 2)
             arcade.draw_line(btn_l, btn_b, btn_r, btn_b, border, 1)
@@ -439,14 +439,14 @@ class TextMissionView(GameView):
             arcade.draw_text(
                 choice.label.upper(),
                 center_x, center_y + 12,
-                palette.TEXT, font_size=11, bold=True,
+                colors.text_primary, font_size=11, bold=True,
                 anchor_x="center", anchor_y="center",
             )
             skill_lbl = chk.skill.replace("_", " ").upper()
             arcade.draw_text(
                 f"{skill_lbl}  {best}  vs  {chk.difficulty}",
                 center_x, center_y - 10,
-                palette.RESOURCE, font_size=8,
+                colors.accent_primary, font_size=8,
                 anchor_x="center", anchor_y="center",
             )
 
@@ -469,22 +469,22 @@ class TextMissionView(GameView):
         # Header
         hb = h - self.HEADER_H
         _rect(0, hb, w, h, (4, 10, 16, 245))
-        arcade.draw_line(0, hb, w, hb, palette.ACCENT, 2)
+        arcade.draw_line(0, hb, w, hb, colors.accent_primary, 2)
         arcade.draw_text(
             self._mission.title.upper(),
             self.PANEL_MARGIN + 4, h - self.HEADER_H // 2,
-            palette.HEADER, font_size=13, bold=True, anchor_y="center",
+            colors.text_primary, font_size=13, bold=True, anchor_y="center",
         )
         arcade.draw_text(
             "CHOOSE OPERATIVE  ·  ESC = BACK",
             w - self.PANEL_MARGIN, h - self.HEADER_H // 2,
-            palette.MUTED_TEXT, font_size=9, anchor_x="right", anchor_y="center",
+            colors.text_secondary, font_size=9, anchor_x="right", anchor_y="center",
         )
 
         # Bottom action bar
         bar_h = 72
         _rect(0, 0, w, bar_h, (4, 10, 16, 240))
-        arcade.draw_line(0, bar_h, w, bar_h, palette.ACCENT, 2)
+        arcade.draw_line(0, bar_h, w, bar_h, colors.accent_primary, 2)
 
         gap = 16
         btn_w = (w - gap * 3) // 2
@@ -492,11 +492,11 @@ class TextMissionView(GameView):
         cl, cr = gap, gap + btn_w
         cb, ct = 10, bar_h - 10
         _rect(cl, cb, cr, ct, (18, 44, 28, 240))
-        arcade.draw_line(cl, ct, cr, ct, palette.TACTICAL_GREEN, 2)
+        arcade.draw_line(cl, ct, cr, ct, colors.accent_success, 2)
         arcade.draw_text(
             "ROLL WITH OPERATIVE",
             (cl + cr) // 2, (cb + ct) // 2,
-            palette.TACTICAL_GREEN, font_size=12, bold=True,
+            colors.accent_success, font_size=12, bold=True,
             anchor_x="center", anchor_y="center",
         )
         self._hits.append(_Hit(cl, cb, cr, ct, "confirm_agent"))
@@ -505,11 +505,11 @@ class TextMissionView(GameView):
         canc_l = gap * 2 + btn_w
         canc_r = canc_l + btn_w
         _rect(canc_l, cb, canc_r, ct, (28, 16, 16, 240))
-        arcade.draw_line(canc_l, ct, canc_r, ct, palette.MUTED_TEXT, 2)
+        arcade.draw_line(canc_l, ct, canc_r, ct, colors.text_secondary, 2)
         arcade.draw_text(
             "BACK TO CHOICES",
             (canc_l + canc_r) // 2, (cb + ct) // 2,
-            palette.MUTED_TEXT, font_size=12, bold=True,
+            colors.text_secondary, font_size=12, bold=True,
             anchor_x="center", anchor_y="center",
         )
         self._hits.append(_Hit(canc_l, cb, canc_r, ct, "cancel_agent"))
@@ -523,49 +523,49 @@ class TextMissionView(GameView):
 
         # Left panel — context
         _rect(ctx_l, panel_bot, ctx_r, panel_top, (4, 12, 20, 220))
-        _outline(ctx_l, panel_bot, ctx_r, panel_top, palette.PANEL_BORDER)
+        _outline(ctx_l, panel_bot, ctx_r, panel_top, colors.text_secondary)
 
         ctx_w = ctx_r - ctx_l
         cpl = max(24, ctx_w // 7)
         y = panel_top - 18
-        arcade.draw_text("SITUATION", ctx_l + 10, y, palette.ACCENT, font_size=9, bold=True)
+        arcade.draw_text("SITUATION", ctx_l + 10, y, colors.accent_primary, font_size=9, bold=True)
         y -= 20
         for line in _wrap_lines(scene.text, cpl)[:6]:
             if y < panel_bot + 80:
                 break
-            arcade.draw_text(line, ctx_l + 10, y, palette.MUTED_TEXT, font_size=9)
+            arcade.draw_text(line, ctx_l + 10, y, colors.text_secondary, font_size=9)
             y -= 16
 
         y -= 10
-        arcade.draw_line(ctx_l + 8, y, ctx_r - 8, y, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(ctx_l + 8, y, ctx_r - 8, y, colors.text_secondary, 1)
         y -= 20
 
-        arcade.draw_text("YOUR CHOICE", ctx_l + 10, y, palette.ACCENT, font_size=9, bold=True)
+        arcade.draw_text("YOUR CHOICE", ctx_l + 10, y, colors.accent_primary, font_size=9, bold=True)
         y -= 18
         for line in _wrap_lines(choice.label, cpl):
             if y < panel_bot + 60:
                 break
-            arcade.draw_text(line, ctx_l + 10, y, palette.TEXT, font_size=10, bold=True)
+            arcade.draw_text(line, ctx_l + 10, y, colors.text_primary, font_size=10, bold=True)
             y -= 16
 
         y -= 16
         skill_lbl = chk.skill.replace("_", " ").upper()
-        arcade.draw_text(f"SKILL CHECK: {skill_lbl}", ctx_l + 10, y, palette.RESOURCE, font_size=9)
+        arcade.draw_text(f"SKILL CHECK: {skill_lbl}", ctx_l + 10, y, colors.accent_primary, font_size=9)
         y -= 16
-        arcade.draw_text(f"DIFFICULTY: {chk.difficulty}", ctx_l + 10, y, palette.WARNING, font_size=9)
+        arcade.draw_text(f"DIFFICULTY: {chk.difficulty}", ctx_l + 10, y, colors.accent_warning, font_size=9)
 
         # Right panel — agent list
         _rect(ag_l, panel_bot, ag_r, panel_top, (4, 10, 16, 215))
-        _outline(ag_l, panel_bot, ag_r, panel_top, palette.PANEL_BORDER)
+        _outline(ag_l, panel_bot, ag_r, panel_top, colors.text_secondary)
 
         y = panel_top - 16
-        arcade.draw_text("SELECT OPERATIVE", ag_l + 12, y, palette.HEADER, font_size=10, bold=True)
+        arcade.draw_text("SELECT OPERATIVE", ag_l + 12, y, colors.text_primary, font_size=10, bold=True)
         arcade.draw_text(
             "↑↓ navigate  ·  Enter confirm",
-            ag_r - 12, y, palette.MUTED_TEXT, font_size=8, anchor_x="right",
+            ag_r - 12, y, colors.text_secondary, font_size=8, anchor_x="right",
         )
         y -= 18
-        arcade.draw_line(ag_l + 8, y, ag_r - 8, y, palette.ACCENT, 1)
+        arcade.draw_line(ag_l + 8, y, ag_r - 8, y, colors.accent_primary, 1)
         y -= 14
 
         agents = self._deployed_agents()
@@ -581,7 +581,7 @@ class TextMissionView(GameView):
             card_l = ag_l + 8
             card_r = ag_r - 8
 
-            border_col = palette.TACTICAL_GREEN if selected else palette.PANEL_BORDER_MUTED
+            border_col = colors.accent_success if selected else colors.text_secondary
             bg_col     = (20, 48, 32, 235) if selected else (10, 22, 32, 220)
             _rect(card_l, card_b, card_r, y, bg_col)
             _outline(card_l, card_b, card_r, y, border_col, 2 if selected else 1)
@@ -608,31 +608,31 @@ class TextMissionView(GameView):
             arcade.draw_text(
                 char.name,
                 info_x, info_y,
-                palette.HEADER if selected else palette.TEXT,
+                colors.text_primary,
                 font_size=11, bold=True,
             )
             role = getattr(char, "role", "") or ""
             if role:
-                arcade.draw_text(role.upper(), info_x, info_y - 16, palette.MUTED_TEXT, font_size=8)
+                arcade.draw_text(role.upper(), info_x, info_y - 16, colors.text_secondary, font_size=8)
 
             # Skill breakdown
             attr_key, attr_val, rank, total = _agent_skill_breakdown(char, chk.skill)
             info_y -= 34
             arcade.draw_text(
                 f"{skill_lbl}:  {attr_key.upper()}({attr_val}) + rank({rank}) = {total}",
-                info_x, info_y, palette.RESOURCE, font_size=9,
+                info_x, info_y, colors.accent_primary, font_size=9,
             )
 
             # Chance indicator
             delta = total - chk.difficulty
             if delta >= 2:
-                diff_txt, diff_col = "LIKELY   (roll 1+ to succeed)", palette.TACTICAL_GREEN
+                diff_txt, diff_col = "LIKELY   (roll 1+ to succeed)", colors.accent_success
             elif delta >= 0:
-                diff_txt, diff_col = "POSSIBLE (roll 0+ to succeed)", palette.RESOURCE
+                diff_txt, diff_col = "POSSIBLE (roll 0+ to succeed)", colors.accent_primary
             elif delta >= -2:
-                diff_txt, diff_col = "RISKY    (need lucky roll)",      palette.WARNING
+                diff_txt, diff_col = "RISKY    (need lucky roll)",      colors.accent_warning
             else:
-                diff_txt, diff_col = "UNLIKELY (very hard)",            palette.DANGER
+                diff_txt, diff_col = "UNLIKELY (very hard)",            colors.accent_danger
             info_y -= 16
             arcade.draw_text(diff_txt, info_x, info_y, diff_col, font_size=9, bold=True)
 
@@ -666,7 +666,7 @@ class TextMissionView(GameView):
         _rect(cx, cy, cx + card_w, cy + card_h, (6, 16, 24, 248))
         result_col = tuple(RESULT_COLORS[result_key]) + (255,)
         arcade.draw_line(cx, cy + card_h, cx + card_w, cy + card_h, result_col, 3)
-        _outline(cx, cy, cx + card_w, cy + card_h, palette.PANEL_BORDER)
+        _outline(cx, cy, cx + card_w, cy + card_h, colors.text_secondary)
 
         y = cy + card_h - 24
         arcade.draw_text(
@@ -684,12 +684,12 @@ class TextMissionView(GameView):
         arcade.draw_text(
             f"{agent_name.split()[0]}  ·  {skill_lbl} {best}  +  roll {roll}  =  {total}  vs  {chk.difficulty}",
             cx + card_w // 2, y,
-            palette.MUTED_TEXT, font_size=9,
+            colors.text_secondary, font_size=9,
             anchor_x="center",
         )
 
         y -= 28
-        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, colors.text_secondary, 1)
         y -= 16
 
         # Outcome scene text (outcome of this result)
@@ -701,12 +701,12 @@ class TextMissionView(GameView):
             for line in lines[:8]:
                 if y < cy + 64:
                     break
-                arcade.draw_text(line, cx + 20, y, palette.TEXT, font_size=10)
+                arcade.draw_text(line, cx + 20, y, colors.text_primary, font_size=10)
                 y -= 16
 
             if next_scene.fund_delta:
                 y -= 8
-                delta_col = palette.TACTICAL_GREEN if next_scene.fund_delta > 0 else palette.DANGER
+                delta_col = colors.accent_success if next_scene.fund_delta > 0 else colors.accent_danger
                 arcade.draw_text(
                     f"Reward: ¥{next_scene.fund_delta}" if next_scene.fund_delta > 0 else f"Loss: ¥{abs(next_scene.fund_delta)}",
                     cx + 20, y, delta_col, font_size=9, bold=True,
@@ -715,7 +715,7 @@ class TextMissionView(GameView):
                 stress_y = y - (20 if next_scene.fund_delta else 8)
                 arcade.draw_text(
                     f"Stress: +{next_scene.stress_delta} per operative",
-                    cx + 20, stress_y, palette.WARNING, font_size=9,
+                    cx + 20, stress_y, colors.accent_warning, font_size=9,
                 )
 
         # Continue button
@@ -724,11 +724,11 @@ class TextMissionView(GameView):
         btn_l = cx + card_w // 2 - 80
         btn_r = cx + card_w // 2 + 80
         _rect(btn_l, btn_b, btn_r, btn_t, (18, 40, 28, 235))
-        arcade.draw_line(btn_l, btn_t, btn_r, btn_t, palette.TACTICAL_GREEN, 2)
+        arcade.draw_line(btn_l, btn_t, btn_r, btn_t, colors.accent_success, 2)
         arcade.draw_text(
             "CONTINUE",
             (btn_l + btn_r) // 2, (btn_b + btn_t) // 2,
-            palette.TACTICAL_GREEN, font_size=11, bold=True,
+            colors.accent_success, font_size=11, bold=True,
             anchor_x="center", anchor_y="center",
         )
         self._hits.append(_Hit(btn_l, btn_b, btn_r, btn_t, "continue_result", next_scene_id))
@@ -749,16 +749,16 @@ class TextMissionView(GameView):
         outcome = scene.outcome
         if outcome == "success":
             title = "MISSION COMPLETE"
-            border_col = palette.TACTICAL_GREEN
+            border_col = colors.accent_success
         elif outcome == "partial":
             title = "PARTIAL SUCCESS"
-            border_col = palette.WARNING
+            border_col = colors.accent_warning
         else:
             title = "MISSION FAILED"
-            border_col = palette.DANGER
+            border_col = colors.accent_danger
 
         arcade.draw_line(cx, cy + card_h, cx + card_w, cy + card_h, border_col, 3)
-        _outline(cx, cy, cx + card_w, cy + card_h, palette.PANEL_BORDER)
+        _outline(cx, cy, cx + card_w, cy + card_h, colors.text_secondary)
 
         y = cy + card_h - 24
         arcade.draw_text(
@@ -770,14 +770,14 @@ class TextMissionView(GameView):
         arcade.draw_text(
             self._mission.title.upper(),
             cx + card_w // 2, y,
-            palette.TEXT, font_size=11, anchor_x="center",
+            colors.text_primary, font_size=11, anchor_x="center",
         )
         y -= 28
-        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, colors.text_secondary, 1)
         y -= 18
 
         if self._total_funds_earned:
-            col = palette.TACTICAL_GREEN if self._total_funds_earned > 0 else palette.DANGER
+            col = colors.accent_success if self._total_funds_earned > 0 else colors.accent_danger
             arcade.draw_text(
                 f"EARNED  ¥{self._total_funds_earned}",
                 cx + 20, y, col, font_size=11, bold=True,
@@ -786,19 +786,19 @@ class TextMissionView(GameView):
         if self._total_stress:
             arcade.draw_text(
                 f"STRESS  +{self._total_stress} per operative",
-                cx + 20, y, palette.WARNING, font_size=10,
+                cx + 20, y, colors.accent_warning, font_size=10,
             )
             y -= 20
 
         y -= 8
-        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(cx + 20, y, cx + card_w - 20, y, colors.text_secondary, 1)
         y -= 18
 
         agents = self._deployed_agents()
         for char in agents[:4]:
             arcade.draw_text(
                 f"{char.name}  —  HP {char.stats.hp}/{char.stats.max_hp}  Stress {char.stress}",
-                cx + 20, y, palette.MUTED_TEXT, font_size=8,
+                cx + 20, y, colors.text_secondary, font_size=8,
             )
             y -= 14
 

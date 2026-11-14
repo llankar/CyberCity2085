@@ -125,6 +125,8 @@ class GameState:
     active_events: list[ActiveEvent] = field(default_factory=list)
     next_event_id: int = 1
     unavailable_mission_ids: list[str] = field(default_factory=list)
+    weekly_directive_week: int = 0
+    weekly_directive_id: str = ""
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
     combat_mission_ui_engine: str = "godot"
@@ -389,7 +391,7 @@ class GameState:
         advance_research_days(self, 1, self.research_tree)
         expire_events(self)
         roll_random_event(self)
-        from .campaign.engine import tick_campaign
+        from .campaign.service import tick_campaign
 
         tick_campaign(self)
         recovery_state = {
@@ -591,6 +593,8 @@ class GameState:
             "active_events": [event.to_dict() for event in self.active_events],
             "next_event_id": self.next_event_id,
             "unavailable_mission_ids": list(self.unavailable_mission_ids),
+            "weekly_directive_week": self.weekly_directive_week,
+            "weekly_directive_id": self.weekly_directive_id,
             "ui_high_contrast": self.ui_high_contrast,
             "ui_audio_feedback_enabled": self.ui_audio_feedback_enabled,
             "combat_mission_ui_engine": self.combat_mission_ui_engine,
@@ -680,6 +684,8 @@ class GameState:
         ]
         gs.next_event_id = int(data.get("next_event_id", len(gs.active_events) + 1))
         gs.unavailable_mission_ids = list(data.get("unavailable_mission_ids", []))
+        gs.weekly_directive_week = int(data.get("weekly_directive_week", 0))
+        gs.weekly_directive_id = str(data.get("weekly_directive_id", ""))
         gs.ui_high_contrast = bool(data.get("ui_high_contrast", gs.ui_high_contrast))
         gs.ui_audio_feedback_enabled = bool(
             data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled)

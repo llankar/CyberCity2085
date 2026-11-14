@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from game.character import Character
 from game.gamestate import GameState
-from game.mission_system import (
+from game.missions.flow import (
     launch_selected_mission,
     resolve_mission_outcome,
     selected_mission,

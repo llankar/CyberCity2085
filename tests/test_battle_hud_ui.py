@@ -4,6 +4,8 @@ from collections import defaultdict
 import arcade
 
 from game.ui.screens import battle_hud
+from game.stats import EnemyStats, PlayerStats
+from game.unit import Unit
 
 
 captured_draw_text = []
@@ -39,6 +41,16 @@ class _DummyUnit:
 
 
 class BattleHUDUITest(unittest.TestCase):
+    def test_map_obstacle_contours_do_not_obscure_the_background(self):
+        from game.cover_system import CoverNode
+
+        battle_hud.draw_cover_nodes([
+            CoverNode(4, 4, "high", passable=False),
+            CoverNode(4, 5, "high", passable=False),
+        ])
+        self.assertEqual(captured_rects, [])
+        self.assertEqual(captured_draw_text, [])
+
     def setUp(self) -> None:
         captured_draw_text.clear()
         captured_rects.clear()
@@ -101,6 +113,28 @@ class BattleHUDUITest(unittest.TestCase):
     def test_contextual_shortcut_banner_prioritizes_end_turn_confirmation(self) -> None:
         confirm = battle_hud.battle_shortcut_banner("keyboard_mouse", True, True)
         self.assertIn("confirm end turn", confirm.lower())
+
+    def test_enemy_intent_badge_names_action_and_target(self) -> None:
+        target = Unit(
+            position=(96, 64),
+            stats=PlayerStats(hp=10, max_hp=10),
+            health=10,
+            character=type("Agent", (), {"name": "Mara", "role": "sniper"})(),
+        )
+        target.in_cover_bonus = 2
+        enemy = Unit(
+            position=(32, 64),
+            stats=EnemyStats(hp=8, max_hp=8),
+            health=8,
+            attack_range=4,
+            unit_type="enemy",
+            enemy_theme="corp_samurai",
+        )
+
+        intents = battle_hud.draw_enemy_intents([enemy], [target], None, 0.5)
+
+        self.assertEqual(intents[0].action, "FLANK")
+        self.assertTrue(any("FLANK" in str(call[0]) and "MARA" in str(call[0]) for call in captured_draw_text))
 
     def test_overwatch_preview_cells_build_forward_line_and_cone(self) -> None:
         player = _DummyUnit("Agent 1", "sniper")

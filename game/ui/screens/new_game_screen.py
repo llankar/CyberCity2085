@@ -11,6 +11,8 @@ import string
 
 import arcade
 
+from game.ui.new_game_options import DIFFICULTY_LABELS
+
 from game.ui.palette import (
     AMBER_BORDER, AMBER_FILL, BACKGROUND, DANGER,
     GRID_LINE, HEADER, MUTED_TEXT, PANEL_BORDER,
@@ -26,11 +28,7 @@ _FIELD_W   = 480
 _FIELD_H   = 52
 _LABEL_H   = 24
 
-_DIFF_LABELS = [
-    ("ROOKIE",   "Easy — agents rarely die",         palette_key := "tactical_green"),
-    ("VETERAN",  "Normal — authentic XCOM tension",  "warning"),
-    ("LEGEND",   "Hard — every decision is final",   "danger"),
-]
+_DIFF_LABELS = DIFFICULTY_LABELS
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -206,10 +204,12 @@ class NewGameSetupView(arcade.View):
                 anchor_x="center", anchor_y="center",
             )
             arcade.draw_text(
-                ddesc, bx + diff_w // 2, by + 10,
+                ddesc, bx + 6, by + 6,
                 diff_col if sel else (40, 65, 80),
                 font_size=8,
-                anchor_x="center", anchor_y="center",
+                width=diff_w - 12,
+                multiline=True,
+                align="center",
             )
             self._hit_diffs.append((bx, by, bx + diff_w, fy))
 

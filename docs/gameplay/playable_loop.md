@@ -6,10 +6,16 @@ CyberCity2085 playable loop must always follow this chain:
    - Player allocates resources, handles events, prepares economy and recovery.
 2. **Squad preparation**
    - Player recruits/selects agents, equips loadouts, manages stress/recovery, assigns support assets.
+   - Recruits arrive with a role-specific starter kit and are assigned to the
+     active squad while capacity remains. The player can immediately deploy or
+     deliberately replace equipment and squad membership.
 3. **Mission launch**
    - Player picks an operation and reviews the mission briefing before deployment.
    - The briefing must expose objective, target faction, district, risk, expected stress band, emotional impact, complications, map preview, squad roster, selected support assets, reward preview, and DEPLOY / ABORT actions.
    - Before combat starts, deployment mode must show the deployment zone, allow selected agents/support assets to reposition, hide enemies, and wait for player confirmation.
+   - The world map exposes squad/weapon readiness and the enemy doctrine before
+     launch. It also names capability gaps and forecasts recovery load, turning
+     roster composition into an informed tactical and management decision.
 4. **Battle resolution**
    - Tactical outcome resolves mission objectives, casualties, and objective branches.
    - The post-battle debrief must show objective result, rewards, per-agent performance/stress/injuries/XP, triggered complications, faction/district changes, narrative consequences, and a clear return to management.
@@ -27,3 +33,9 @@ This loop keeps **agents as the emotional core** while preserving a compact modu
 - New downtime menu in Squad view with three activities.
 - Each activity spends 1 day + strategic resource, then updates selected agents' stress, morale (loyalty proxy), and traits.
 - Shortcuts: keys 7/8/9.
+
+## Tactical camera controls
+
+During Arcade combat, hold Shift and press an arrow key to inspect nearby parts
+of the battlefield. Press Home to bring the active agent back toward the centre.
+Camera movement is deliberately bounded so the battle map never disappears.

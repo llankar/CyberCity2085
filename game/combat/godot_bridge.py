@@ -224,6 +224,53 @@ def build_godot_combat_payload(
     }
 
 
+def validate_godot_combat_payload(payload: dict[str, Any]) -> list[str]:
+    """Return contract violations for the versioned Arcade-to-Godot handoff."""
+    errors: list[str] = []
+    if payload.get("schema_version") != GODOT_SCHEMA_VERSION:
+        errors.append(f"schema_version must be {GODOT_SCHEMA_VERSION}")
+    required_objects = {
+        "campaign": ("corp_name", "city_name", "base_name", "calendar_day"),
+        "mission": ("id", "title", "objective_text", "objective_type", "district"),
+        "map": ("key", "label", "path", "environment"),
+        "combat_ui": ("grid_size", "movement_mode", "primary_actions", "fallback"),
+    }
+    for section, keys in required_objects.items():
+        value = payload.get(section)
+        if not isinstance(value, dict):
+            errors.append(f"{section} must be an object")
+            continue
+        for key in keys:
+            if key not in value:
+                errors.append(f"{section}.{key} is required")
+    for section in ("squad", "support_assets", "narrative_priorities"):
+        if not isinstance(payload.get(section), list):
+            errors.append(f"{section} must be a list")
+    for index, agent in enumerate(payload.get("squad", [])):
+        if not isinstance(agent, dict):
+            errors.append(f"squad[{index}] must be an object")
+            continue
+        for key in ("name", "role", "hp", "max_hp", "available_actions"):
+            if key not in agent:
+                errors.append(f"squad[{index}].{key} is required")
+    for index, asset in enumerate(payload.get("support_assets", [])):
+        if not isinstance(asset, dict):
+            errors.append(f"support_assets[{index}] must be an object")
+            continue
+        for key in ("id", "name", "asset_type", "hp", "max_hp", "actions"):
+            if key not in asset:
+                errors.append(f"support_assets[{index}].{key} is required")
+    combat_ui = payload.get("combat_ui", {})
+    primary_actions = combat_ui.get("primary_actions", []) if isinstance(combat_ui, dict) else []
+    if not isinstance(primary_actions, list):
+        errors.append("combat_ui.primary_actions must be a list")
+    else:
+        for action in ("move", "fire", "defend", "overwatch"):
+            if action not in primary_actions:
+                errors.append(f"combat_ui.primary_actions must include {action}")
+    return errors
+
+
 def write_godot_combat_handoff(
     game_state: GameState,
     mission: MissionTemplate,
@@ -234,6 +281,9 @@ def write_godot_combat_handoff(
     path = Path(handoff_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = build_godot_combat_payload(game_state, mission)
+    errors = validate_godot_combat_payload(payload)
+    if errors:
+        raise ValueError("Invalid Godot combat handoff: " + "; ".join(errors))
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return path
 

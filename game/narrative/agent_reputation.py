@@ -51,6 +51,7 @@ def _award_for_agent(
     kills = int(performance.get("kills", 0) or 0)
     damage_taken = int(performance.get("damage_taken", 0) or 0)
     saved_civilian = bool(performance.get("saved_civilian", False))
+    objective_contribution = int(performance.get("objective_contribution", 0) or 0)
     objective_type = _objective_type(mission, performance)
     reason_mission = getattr(mission, "title", "the mission") if mission else "the mission"
 
@@ -67,6 +68,13 @@ def _award_for_agent(
             "critical_survivor",
             "" if character.nickname else "Last Light",
             f"survived {damage_taken} damage and extracted",
+        )
+    if objective_contribution >= 2:
+        return AgentReputationAward(
+            character.name,
+            "objective_specialist",
+            "" if character.nickname else "Keymaker",
+            f"completed {objective_contribution} decisive objective actions during {reason_mission}",
         )
     if saved_civilian or objective_type in {"civilian_rescue", "rescue"}:
         return AgentReputationAward(

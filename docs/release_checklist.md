@@ -1,0 +1,44 @@
+# CyberCity 2085 — Release Candidate Checklist
+
+Date: November 13, 2026
+
+## Automated gates
+
+- [x] New game state can progress through all 15 authored story missions.
+- [x] Act V resolves to a deterministic ending with named agent epilogues.
+- [x] Current and legacy saves load; campaign, intel, scars, assets, faction
+  tags, mission-board state, and endings round-trip.
+- [x] Arcade remains a complete fallback when Godot is unavailable.
+- [x] Godot handoff schema is validated before JSON is written.
+- [x] Battle actions use distinct icons; camera pan is bounded and Home focuses
+  the active unit.
+- [x] Semantic-theme and release-screen architecture contracts pass.
+- [x] Canonical test suite passes.
+- [x] Test-gated Windows onedir package builds.
+- [x] Packaged executable survives the startup smoke window.
+
+## Player-path checks performed at 1920×1000
+
+- [x] Title and new-campaign setup are readable.
+- [x] Management rooms, weekly command planning, squad selection, recruitment,
+  and the responsive command cards are usable.
+- [x] World map, mission consequences, tactical preflight, deployment, and live
+  Arcade combat are readable.
+
+## Known 1.0 limitations
+
+- Godot is an optional presentation client. Arcade is the authoritative,
+  finishable tactical path until the Godot result round trip is fully proven.
+- The large Arcade `BattleView` remains in `game/views.py` for compatibility;
+  new screens belong in `game/ui/screens/`.
+- Balance across a human-played five-act campaign still benefits from community
+  feedback; automated progression proves reachability, persistence, and ending
+  resolution rather than subjective difficulty.
+- Windowed play at 1920×1000 is the visually validated target. Smaller layouts
+  are responsive but have not received the same exhaustive visual pass.
+
+## Release command
+
+Run `powershell -ExecutionPolicy Bypass -File tools/build_windows.ps1` from the
+repository root. The playable package is written to
+`dist/CyberCity2085/CyberCity2085.exe`.

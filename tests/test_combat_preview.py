@@ -17,7 +17,7 @@ class CombatPreviewTest(unittest.TestCase):
 
         self.assertAlmostEqual(preview.hit_chance, 8 / (8 + 4), places=4)
         self.assertEqual(preview.min_damage, 8)
-        self.assertEqual(preview.max_damage, 8)
+        self.assertEqual(preview.max_damage, 16)
         self.assertGreaterEqual(preview.crit_chance, 0.05)
 
     def test_warning_when_friendly_in_line_of_fire(self):

@@ -5,6 +5,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+from .ending import CampaignEnding
+
 
 @dataclass
 class WorldState:
@@ -50,7 +52,7 @@ class WorldState:
 
 
 # Missions required per act to trigger act-advance
-_ACT_MISSIONS_REQUIRED = {1: 3, 2: 4, 3: 5, 4: 5, 5: 3}
+_ACT_MISSIONS_REQUIRED = {1: 3, 2: 3, 3: 3, 4: 3, 5: 3}
 
 
 @dataclass
@@ -61,6 +63,8 @@ class CampaignState:
     act_progress: int = 0
     act_triggers_seen: list[str] = field(default_factory=list)
     discovered_intel: list[str] = field(default_factory=list)
+    completed_story_missions: list[str] = field(default_factory=list)
+    ending: CampaignEnding | None = None
     world: WorldState = field(default_factory=WorldState)
     # Hidden factions not yet in game_state.factions (keyed by name)
     hidden_faction_hostility: dict[str, int] = field(default_factory=lambda: {
@@ -98,6 +102,8 @@ class CampaignState:
             "act_progress": self.act_progress,
             "act_triggers_seen": list(self.act_triggers_seen),
             "discovered_intel": list(self.discovered_intel),
+            "completed_story_missions": list(self.completed_story_missions),
+            "ending": self.ending.to_dict() if self.ending else None,
             "world": self.world.to_dict(),
             "hidden_faction_hostility": dict(self.hidden_faction_hostility),
         }
@@ -109,6 +115,8 @@ class CampaignState:
         cs.act_progress = int(d.get("act_progress", 0))
         cs.act_triggers_seen = list(d.get("act_triggers_seen", []))
         cs.discovered_intel = list(d.get("discovered_intel", []))
+        cs.completed_story_missions = list(d.get("completed_story_missions", []))
+        cs.ending = CampaignEnding.from_dict(d.get("ending"))
         cs.world = WorldState.from_dict(d.get("world", {}))
         cs.hidden_faction_hostility = dict(d.get("hidden_faction_hostility", cs.hidden_faction_hostility))
         return cs

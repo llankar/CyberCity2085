@@ -127,23 +127,23 @@ def available_combat_actions(unit: Unit | None) -> list[CombatAction]:
     if unit is None or unit.health <= 0:
         return []
 
-    actions = [CombatAction("move", "Move", "radar", "Arrows")]
+    actions = [CombatAction("move", "Move", "combat_move", "Arrows")]
     if unit_can_fire(unit):
-        actions.append(CombatAction("fire", "Fire", "armory", "F"))
+        actions.append(CombatAction("fire", "Fire", "combat_fire", "F"))
     if unit_can_melee(unit):
-        actions.append(CombatAction("melee", "Melee", "black_ops", "Space"))
+        actions.append(CombatAction("melee", "Melee", "combat_melee", "Space"))
     if unit_can_use_psi(unit):
-        actions.append(CombatAction("psi", "Psi", "research", "P"))
+        actions.append(CombatAction("psi", "Psi", "combat_psi", "P"))
     if unit_can_first_aid(unit):
-        actions.append(CombatAction("first_aid", "First Aid", "medbay", "A"))
+        actions.append(CombatAction("first_aid", "First Aid", "combat_aid", "A"))
     if unit_can_use_missiles(unit):
-        actions.append(CombatAction("missiles", "Missiles", "launch", "M"))
+        actions.append(CombatAction("missiles", "Missiles", "combat_missile", "M"))
     if unit_can_overwatch(unit):
-        actions.append(CombatAction("overwatch", "Overwatch", "radar", "O"))
+        actions.append(CombatAction("overwatch", "Overwatch", "combat_overwatch", "O"))
     actions.extend(
         [
-            CombatAction("defend", "Defend", "shield", "D"),
-            CombatAction("end_turn", "End Turn", "right", "Enter"),
+            CombatAction("defend", "Defend", "combat_defend", "D"),
+            CombatAction("end_turn", "End Turn", "combat_end", "Enter"),
         ]
     )
     return actions

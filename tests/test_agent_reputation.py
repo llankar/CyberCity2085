@@ -65,6 +65,20 @@ class AgentReputationTest(unittest.TestCase):
 
         self.assertEqual(awards, [])
 
+    def test_two_objective_actions_create_a_debrief_turning_point(self):
+        agent = Character("Iris", role="hacker")
+
+        awards = build_agent_reputation_awards(
+            [agent],
+            {"Iris": {"objective_contribution": 2}},
+            True,
+            _mission("data_theft"),
+        )
+
+        self.assertEqual(awards[0].tag, "objective_specialist")
+        self.assertEqual(awards[0].nickname, "Keymaker")
+        self.assertIn("2 decisive objective actions", awards[0].reason)
+
     def test_existing_nickname_is_not_replaced_by_later_award(self):
         agent = Character("Patch", nickname="Shield")
 

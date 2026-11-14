@@ -6,6 +6,7 @@ from dataclasses import dataclass
 
 from .character import Character, is_deployable
 from .management.spec_ops_assets import SpecOpsAsset
+from .combat.tactical_identity import profile_for_theme
 
 
 def deployable_agents(characters: list[Character]) -> list[Character]:
@@ -187,3 +188,87 @@ def toggle_asset_selection(
     removed = next((asset for asset in assets if asset.id == removed_id), None)
     name = removed.name if removed else removed_id
     return sanitized, f"{name} removed from support assets."
+
+
+@dataclass(frozen=True)
+class TacticalBriefing:
+    """Compact bridge between strategic squad preparation and tactical play."""
+
+    enemy_label: str
+    doctrine: str
+    squad_count: int
+    armed_count: int
+    loadout_summary: str
+    capability_summary: str
+    tactical_gap: str
+    recovery_load: str
+
+    @property
+    def ready(self) -> bool:
+        return self.squad_count > 0 and self.armed_count == self.squad_count
+
+
+def build_tactical_briefing(mission: object, selected_agents: list[Character]) -> TacticalBriefing:
+    """Describe the opposition and whether the selected squad can fight immediately."""
+    profile = profile_for_theme(getattr(mission, "enemy_theme", "generic"))
+    armed = [agent for agent in selected_agents if agent.loadout.primary_weapon is not None]
+    kits = [
+        f"{agent.name}: {agent.loadout.primary_weapon.name if agent.loadout.primary_weapon else 'UNARMED'}"
+        for agent in selected_agents[:3]
+    ]
+    if len(selected_agents) > 3:
+        kits.append(f"+{len(selected_agents) - 3} more")
+
+    roles = {str(agent.role).lower() for agent in selected_agents}
+    ranges = [
+        int(agent.loadout.primary_weapon.range_cells)
+        for agent in selected_agents
+        if agent.loadout.primary_weapon is not None
+    ]
+    capabilities: list[str] = []
+    if roles & {"samurai", "robot"} or any(value <= 2 for value in ranges):
+        capabilities.append("frontline")
+    if "sniper" in roles or any(value >= 4 for value in ranges):
+        capabilities.append("ranged")
+    if "psi" in roles:
+        capabilities.append("control")
+    if roles & {"medic", "support"}:
+        capabilities.append("support")
+
+    if not selected_agents:
+        tactical_gap = "Assign agents"
+    elif len(selected_agents) < 2:
+        tactical_gap = "Understrength squad"
+    elif "frontline" not in capabilities:
+        tactical_gap = "No frontline anchor"
+    elif "ranged" not in capabilities:
+        tactical_gap = "No ranged pressure"
+    elif not ({"control", "support"} & set(capabilities)):
+        tactical_gap = "No control/support specialist"
+    else:
+        tactical_gap = "Balanced response"
+
+    average_stress = (
+        sum(int(agent.stress) for agent in selected_agents) // len(selected_agents)
+        if selected_agents
+        else 0
+    )
+    recovery_score = average_stress + int(getattr(mission, "risk_level", 1)) * 8
+    if len(selected_agents) == 1:
+        recovery_score += 12
+    recovery_load = (
+        "CRITICAL" if recovery_score >= 95
+        else "HIGH" if recovery_score >= 70
+        else "MODERATE" if recovery_score >= 40
+        else "LOW"
+    )
+    return TacticalBriefing(
+        enemy_label=profile.label,
+        doctrine=profile.doctrine,
+        squad_count=len(selected_agents),
+        armed_count=len(armed),
+        loadout_summary=" | ".join(kits) if kits else "No agents assigned",
+        capability_summary=" / ".join(capabilities).upper() if capabilities else "NONE",
+        tactical_gap=tactical_gap,
+        recovery_load=recovery_load,
+    )

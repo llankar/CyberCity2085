@@ -26,6 +26,7 @@ from typing import TYPE_CHECKING
 import arcade
 
 from game.ui import palette
+from game.combat.tactical_identity import EnemyIntent, build_enemy_intents
 
 if TYPE_CHECKING:
     from game.unit import Unit
@@ -138,6 +139,30 @@ def draw_action_aftermath_line(width: int, height: int, text: str | None) -> Non
         text_color=palette.TACTICAL_GREEN,
         font_size=12,
     )
+
+
+def draw_enemy_intents(
+    enemy_units: list["Unit"],
+    player_units: list["Unit"],
+    objective: object | None,
+    elapsed: float,
+) -> list[EnemyIntent]:
+    """Draw reliable next-action telegraphs above visible enemies."""
+
+    intents = build_enemy_intents(enemy_units, player_units, objective=objective)
+    pulse = 0.78 + 0.22 * math.sin(elapsed * 4.0)
+    for intent in intents:
+        x, y = intent.enemy.position
+        color = (*intent.color, int(230 * pulse))
+        if intent.target is not None:
+            tx, ty = intent.target.position
+            arcade.draw_line(x, y, tx, ty, (*intent.color, 70), 1)
+        label = f"{intent.action}  {intent.target_name.upper()}"
+        width = max(88, min(170, 18 + len(label) * 6))
+        arcade.draw_lrbt_rectangle_filled(x - width / 2, x + width / 2, y + 34, y + 54, (4, 10, 14, 215))
+        arcade.draw_lrbt_rectangle_outline(x - width / 2, x + width / 2, y + 34, y + 54, color, 1)
+        arcade.draw_text(label, x, y + 44, color, font_size=8, bold=True, anchor_x="center", anchor_y="center")
+    return intents
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Grid & range overlays
@@ -320,6 +345,28 @@ def draw_overwatch_preview(
 # Cover nodes overlay
 # ══════════════════════════════════════════════════════════════════════════════
 
+def draw_access_lanes(cells) -> None:
+    """Mark procedural traversable lanes where image inference was uncertain."""
+    for x, y in cells:
+        arcade.draw_lrbt_rectangle_filled(x - 10, x + 10, y - 10, y + 10, (75, 185, 205, 40))
+        arcade.draw_line(x - 8, y - 8, x + 8, y - 8, (75, 185, 205, 130), 1)
+
+
+def draw_hazard_zones(zones) -> None:
+    """Readable patterned zones with named consequences before commitment."""
+    colors = {"fire": (255, 110, 45), "contamination": (150, 220, 65), "blackout": (175, 125, 255)}
+    labels = {"fire": "FIRE -2 HP", "contamination": "TOXIC -1 HP", "blackout": "BLACKOUT -1 AP"}
+    for zone in zones:
+        x, y = zone.position
+        radius = zone.radius_cells * CELL
+        col = colors[zone.kind]
+        arcade.draw_circle_filled(x, y, radius, (*col, 35))
+        arcade.draw_circle_outline(x, y, radius, (*col, 180), 2)
+        arcade.draw_line(x - 8, y - 8, x + 8, y + 8, col, 2)
+        arcade.draw_line(x - 8, y + 8, x + 8, y - 8, col, 2)
+        arcade.draw_text(labels[zone.kind], x, y + radius + 4, col, font_size=8, anchor_x="center")
+
+
 def draw_cover_nodes(cover_nodes: list) -> None:
     """Draw low/high cover tiles on the battlefield grid.
 
@@ -329,9 +376,25 @@ def draw_cover_nodes(cover_nodes: list) -> None:
     if not cover_nodes:
         return
     from game.cover_system import COVER_LOW_COL, COVER_HIGH_COL
+    blocked = {(node.grid_x, node.grid_y) for node in cover_nodes if not node.passable}
     for node in cover_nodes:
         col = COVER_HIGH_COL if node.cover_type == "high" else COVER_LOW_COL
         wx, wy = node.world_x, node.world_y
+        if not node.passable:
+            # Map geometry needs a quiet contour, not hundreds of filled tiles
+            # concealing the background. Match the sampled cell centre.
+            half = CELL / 2
+            gx, gy = node.grid_x, node.grid_y
+            border = (105, 180, 190, 75)
+            if (gx - 1, gy) not in blocked:
+                arcade.draw_line(wx-half, wy-half, wx-half, wy+half, border, 1)
+            if (gx + 1, gy) not in blocked:
+                arcade.draw_line(wx+half, wy-half, wx+half, wy+half, border, 1)
+            if (gx, gy - 1) not in blocked:
+                arcade.draw_line(wx-half, wy-half, wx+half, wy-half, border, 1)
+            if (gx, gy + 1) not in blocked:
+                arcade.draw_line(wx-half, wy+half, wx+half, wy+half, border, 1)
+            continue
         arcade.draw_lrbt_rectangle_filled(wx, wx + CELL, wy, wy + CELL, col)
         # Outline via two line pairs (compatible with all arcade stubs)
         border = (*col[:3], min(255, col[3] + 80))
@@ -872,12 +935,14 @@ def draw_target_lock_panel(
     target: "Unit | None",
     attack_key: str,
     player: "Unit | None",
+    *,
+    preview=None,
 ) -> None:
     """Draw a target-lock info panel when the player is picking a target."""
     if target is None or player is None:
         return
 
-    pw, ph = 270, 80
+    pw, ph = 290, 96
     px = width - pw - 14
     py = _COMBAT_BAR_TOP + _STRIP_H + 12
 
@@ -936,12 +1001,13 @@ def draw_target_lock_panel(
                 arcade.LBWH(portrait_x, portrait_y, portrait_size, portrait_size),
             )
 
-    # Hit chance calculation
-    stat_map = {"melee": "str", "shoot": "agi", "psi": "psi"}
-    sname   = stat_map.get(attack_key, "str")
-    atk     = getattr(player.stats, sname, 1) if player.stats else 1
+    # Authoritative calculation shared with execution.
+    if preview is None:
+        from game.combat_preview import estimate_attack_preview
+
+        preview = estimate_attack_preview(player, target, attack_key)
     defense = target.stats.defense if target.stats else 1
-    chance  = atk / (atk + max(1, defense))
+    chance = preview.hit_chance
     pct     = int(chance * 100)
     chance_col = (
         palette.TACTICAL_GREEN if pct >= 70
@@ -949,7 +1015,18 @@ def draw_target_lock_panel(
         else palette.DANGER
     )
     arcade.draw_text(f"HIT  {pct}%", px + 10, py + ph - 48, chance_col, font_size=13, bold=True)
-    arcade.draw_text(f"DEF  {defense}", px + 10, py + ph - 62, palette.MUTED_TEXT, font_size=9)
+    tactical = "FLANK · COVER 0" if preview.flanking else f"COVER +{preview.cover_bonus}"
+    arcade.draw_text(
+        f"DMG {preview.min_damage}-{preview.max_damage} · {tactical}",
+        px + 10,
+        py + ph - 64,
+        palette.WARNING if preview.flanking else palette.MUTED_TEXT,
+        font_size=9,
+    )
+    cost = f"AP {preview.ap_cost}"
+    if preview.resource_cost:
+        cost += f" · MISSILE {preview.resource_cost}"
+    arcade.draw_text(cost, px + 10, py + 5, palette.MUTED_TEXT, font_size=9)
 
     bw = pw - 20
     arcade.draw_lrbt_rectangle_filled(px + 10, px + 10 + bw, py + 16, py + 26, palette.PANEL_FILL)
@@ -958,7 +1035,7 @@ def draw_target_lock_panel(
     # Target HP
     t_hp  = target.health
     t_max = target.stats.max_hp if target.stats else 1
-    arcade.draw_text(f"HP {t_hp}/{t_max}", px + bw - 20, py + 6, palette.DANGER, font_size=9)
+    arcade.draw_text(f"HP {t_hp}/{t_max}", px + bw - 20, py + 5, palette.DANGER, font_size=9)
 
 
 def draw_resource_summary(
@@ -1035,7 +1112,8 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
 
     # Label, prompt, and progress
     objective_label = getattr(objective, "label", "OBJECTIVE")
-    label = "OBJECTIVE COMPLETE" if completed else f"OBJECTIVE: {objective_label}"
+    objective_phase = getattr(objective, "phase_text", objective_label)
+    label = "OBJECTIVE COMPLETE" if completed else f"OBJECTIVE: {objective_phase}"
     arcade.draw_text(
         label, ox, oy + 34, col,
         font_size=9, bold=True, anchor_x="center",
@@ -1064,6 +1142,27 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
             )
 
 
+def draw_objective_brief(height: int, objective: object) -> None:
+    """Keep objective phase readable even when its marker is behind the HUD."""
+    if objective is None:
+        return
+    left, top = 14, height - 112
+    arcade.draw_lrbt_rectangle_filled(left, left + 350, top - 76, top, (4, 12, 18, 225))
+    arcade.draw_line(left, top, left + 350, top, palette.WARNING, 2)
+    arcade.draw_text(
+        f"OBJECTIVE / {objective.phase_text}", left + 10, top - 21,
+        palette.WARNING, font_size=11, bold=True,
+    )
+    arcade.draw_text(
+        f"{objective.progress_text}  |  [E] near marker", left + 10, top - 43,
+        palette.TEXT, font_size=10,
+    )
+    arcade.draw_text(
+        "Hostiles adjacent to marker contest interaction.", left + 10, top - 62,
+        palette.MUTED_TEXT, font_size=9,
+    )
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # Mission status bar — top chrome
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1090,15 +1189,15 @@ def draw_mission_status_bar(
     # Title
     arcade.draw_text(
         mission_title.upper(),
-        cx,
+        20,
         height - bh // 2,
         palette.HEADER,
         font_size=13,
         bold=True,
-        anchor_x="center",
+        anchor_x="left",
         anchor_y="center",
-        width=max(140, width - 240),
-        align="center",
+        width=max(140, int(width * 0.40)),
+        align="left",
     )
     # Decorative flanking lines
     arcade.draw_line(cx - 200, height - bh // 2, cx - 140, height - bh // 2, palette.PANEL_BORDER_MUTED, 1)
@@ -1107,7 +1206,7 @@ def draw_mission_status_bar(
     # Squad count
     arcade.draw_text(
         f"◉ SQUAD  {player_count}",
-        cx - 280, height - bh // 2,
+        width * 0.46, height - bh // 2,
         palette.TACTICAL_GREEN, font_size=12,
         anchor_y="center",
     )
@@ -1115,7 +1214,7 @@ def draw_mission_status_bar(
     # Enemy count
     arcade.draw_text(
         f"◉ ENEMIES  {enemy_count}",
-        cx + 170, height - bh // 2,
+        width * 0.60, height - bh // 2,
         palette.DANGER, font_size=12,
         anchor_y="center",
     )
@@ -1123,7 +1222,7 @@ def draw_mission_status_bar(
     # Turn counter
     arcade.draw_text(
         f"TURN {turn_number:02d}",
-        width - 14, height - bh // 2,
+        width - 200, height - bh // 2,
         palette.MUTED_TEXT, font_size=12,
         bold=True, anchor_x="right", anchor_y="center",
     )

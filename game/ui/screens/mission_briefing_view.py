@@ -42,6 +42,30 @@ def _complication_label(complication: object) -> str:
     )
 
 
+def mission_tag_label(tag: object) -> str:
+    """Turn tag objects and legacy dictionaries into compact player-facing text."""
+    if isinstance(tag, dict):
+        value = tag.get("name") or tag.get("key") or tag.get("label") or ""
+    elif isinstance(tag, str):
+        value = tag
+    else:
+        value = getattr(tag, "name", None) or getattr(tag, "key", None) or ""
+    cleaned = str(value).strip().replace("_", " ")
+    return cleaned.title() if cleaned else "Unknown"
+
+
+def pressure_label(pressure: object) -> str:
+    """Format pressure effects as player-facing consequences, not raw data."""
+    if isinstance(pressure, dict):
+        parts = [
+            f"{str(key).replace('_', ' ').upper()} {int(value):+d}"
+            for key, value in pressure.items()
+            if isinstance(value, (int, float))
+        ]
+        return " | ".join(parts) if parts else "STABLE"
+    return f"{pressure}/10"
+
+
 def _emotional_impact_text(mission: "MissionTemplate") -> str:
     hint = getattr(mission, "emotional_impact_hint", None)
     if isinstance(hint, dict):
@@ -217,7 +241,7 @@ class MissionBriefingView(arcade.View):
         arcade.draw_text("OBJECTIVE", panel_l + 14, y, palette.TACTICAL_GREEN, font_size=10, bold=True)
         y -= 18
         arcade.draw_text(
-            self.mission.objective_text[:72],
+            self.mission.objective_text,
             panel_l + 14, y, palette.TEXT, font_size=10,
             width=panel_w - 28, multiline=True,
         )
@@ -303,7 +327,7 @@ class MissionBriefingView(arcade.View):
                 palette.ACCENT, font_size=9,
             )
         arcade.draw_text(
-            f"PRESSURE: {self.mission.district_pressure}/10",
+            f"PRESSURE: {pressure_label(self.mission.district_pressure)}",
             enemy_x, thumb_y + _THUMB_H // 2 - 38,
             palette.WARNING, font_size=9,
         )
@@ -370,9 +394,19 @@ class MissionBriefingView(arcade.View):
             if self.mission.tags:
                 arcade.draw_text("MISSION TAGS:", panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
                 y -= 16
-                tags_str = "  ".join(f"[{t}]" for t in self.mission.tags[:6])
-                arcade.draw_text(tags_str, panel_l + 14, y, palette.ACCENT, font_size=9)
-                y -= 20
+                tags_str = "  ".join(
+                    f"[{mission_tag_label(tag)}]" for tag in self.mission.tags[:5]
+                )
+                arcade.draw_text(
+                    tags_str,
+                    panel_l + 14,
+                    y,
+                    palette.ACCENT,
+                    font_size=9,
+                    width=panel_w - 28,
+                    multiline=True,
+                )
+                y -= 34
 
             assets = selected_support_assets(self.game_state)
             arcade.draw_text("SUPPORT ASSETS:", panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
@@ -401,15 +435,21 @@ class MissionBriefingView(arcade.View):
                 arcade.draw_text("ON SUCCESS:", panel_l + 14, y, palette.TACTICAL_GREEN, font_size=9, bold=True)
                 y -= 15
                 for c in self.mission.success_consequences[:2]:
-                    arcade.draw_text(f"  {_consequence_text(c)[:55]}", panel_l + 14, y, palette.MUTED_TEXT, font_size=8)
-                    y -= 13
+                    arcade.draw_text(
+                        f"  {_consequence_text(c)[:110]}", panel_l + 14, y,
+                        palette.MUTED_TEXT, font_size=8, width=panel_w - 28, multiline=True,
+                    )
+                    y -= 26
             y -= 8
             if self.mission.failure_consequences:
                 arcade.draw_text("ON FAILURE:", panel_l + 14, y, palette.DANGER, font_size=9, bold=True)
                 y -= 15
                 for c in self.mission.failure_consequences[:2]:
-                    arcade.draw_text(f"  {_consequence_text(c)[:55]}", panel_l + 14, y, palette.MUTED_TEXT, font_size=8)
-                    y -= 13
+                    arcade.draw_text(
+                        f"  {_consequence_text(c)[:110]}", panel_l + 14, y,
+                        palette.MUTED_TEXT, font_size=8, width=panel_w - 28, multiline=True,
+                    )
+                    y -= 26
 
     def _draw_footer(self, w: int, h: int) -> None:
         fh = 68

@@ -10,6 +10,7 @@ from .agents.sheet_schema import build_default_skills, normalize_agent_sheet
 from .character import Character
 from .narrative.personality_traits import assign_personality_traits
 from .relationships.mentor_history import upsert_mentor_link
+from .management.equipment import equip_starter_loadout
 from .stats import PlayerStats
 from .ui.portraits import portrait_path_for_agent, portrait_path_for_robot, portrait_sex_for_agent
 
@@ -420,6 +421,7 @@ def recruit_agent(
         attributes=attributes,
         derived_stats=derived_stats,
     )
+    equip_starter_loadout(agent.loadout, role)
     next_index = len(roster) + 1
     primary_trait, secondary_trait = assign_personality_traits(agent.name, role, roster_index=next_index)
     agent.personality_primary_trait = primary_trait

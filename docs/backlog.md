@@ -1,4 +1,44 @@
 
+## Release 1.0 — Finishable Campaign (active November 2026)
+
+Authoritative scope and release gates: [`docs/release_plan.md`](release_plan.md).
+This batch is intentionally limited to five tasks.
+
+- [x] RELEASE-01 Serialisable campaign-ending state and deterministic outcome evaluator. (completed November 12, 2026)
+- [x] RELEASE-02 Fifteen authored story missions, reachable Act V finale trigger, idempotent mission completion, and resolved-campaign tick guard. (completed November 12, 2026)
+- [x] RELEASE-03 Ending presentation with world consequences and named agent epilogues. (completed November 12, 2026)
+- [x] RELEASE-04 Save migration, round-trip, finale, and full-campaign smoke tests. (completed November 12, 2026)
+- [x] RELEASE-05 Player-facing progression/release documentation and canonical test gate: 427 tests plus 8 subtests passing. (completed November 12, 2026)
+
+Engine decision: retain Python/Arcade as the release authority and keep Godot as
+an optional tactical presentation client until a complete versioned result
+round trip is proven. A full migration is not part of the 1.0 scope.
+
+## Release 1.0 — Strategic Management Pass (completed November 2026)
+
+- [x] MGMT-01 Read-only weekly forecast for income, upkeep, readiness, district pressure, and urgent events.
+- [x] MGMT-02 Three mutually exclusive weekly directives composed from existing funds, city pressure, agents, and strategic resources.
+- [x] MGMT-03 Persistent directive state with old-save compatibility and one-choice-per-week enforcement.
+- [x] MGMT-04 Command-room presentation with explicit costs, benefits, drawbacks, lock state, threat tier, and event deadline.
+- [x] MGMT-05 Focused/full regression coverage plus management documentation and backlog update.
+
+Design decision: replace the command room's shallow repeated allocation buttons
+with one forecasted weekly commitment. Research, city investment, recruitment,
+equipment, and assets remain in their dedicated rooms; command now answers the
+more interesting question: what does the corporation prioritize this week?
+
+## Release 1.0 — Tactical Identity Pass (completed November 2026)
+
+- [x] TACT-01 Six readable doctrine families for Hungry packs, mutants, raiders, corporate strike teams, Three Sevens, and Novatek hybrids.
+- [x] TACT-02 Doctrine-driven target scoring, cover/flank/objective biases, inspectable action reasons, and non-stacking commander auras.
+- [x] TACT-03 Deterministic next-action intent prediction derived from the same doctrine used by the AI.
+- [x] TACT-04 World-space HUD intent badges and target lines for visible enemies during the player turn.
+- [x] TACT-05 Focused/full regression coverage plus tactical documentation and backlog update.
+
+Design decision: enemy factions differ through priorities the player can read and
+counter, not hidden accuracy bonuses. Intent telegraphs expose the likely action
+without guaranteeing hit results, preserving uncertainty while enabling plans.
+
 ## Wave 5 — Gameplay Depth, Spectacle & Mission Variety (completed May 2026)
 
 - [x] BATTLE-W5A2 AI target scoring: enemies now pick the most dangerous/weakest target instead of always attacking index 0.
@@ -54,7 +94,7 @@ This wave turns existing systems into a coherent playable campaign loop.
 - [x] BATTLE-FEEL-02 Combat Log Side Panel: BattleView exposes the combat log during battle through a Tab-toggled side panel showing the latest events, backed by the existing modular combat log builders and new keyboard/HUD regressions. (completed June 23, 2026)
 - [x] BATTLE-FEEL-03 Status Effects System: Added `status_effects` support for suppressed, bleeding, stunned, burning, contaminated, and panicked; turn start applies damage/AP effects and the HUD renders status badges. Added regression coverage for required statuses and turn-start effects. (completed June 20, 2026)
 - [x] BATTLE-FEEL-04 Objective Marker Clarity: Objective markers now show the objective label, interaction prompt, progress text, and explicit success/failure condition metadata for non-elimination objectives. Added regression coverage for marker prompt/progress rendering and objective contracts. (completed June 23, 2026)
-- [ ] BATTLE-FEEL-05 Enemy AI Upgrade: Improve enemy AI with cover-seeking, flanking preference, target scoring, commander aura/buffs, and objective pressure behavior.
+- [x] BATTLE-FEEL-05 Enemy AI Upgrade: Improved enemy AI with inspectable target scoring, cover-seeking decision reasons, flanking reposition preference against covered targets, commander aura AGI buffs, and containment/defend objective-pressure movement. Added focused regression coverage for each decision path. (completed June 23, 2026)
 - [x] BATTLE-FEEL-06 In-battle Pause Menu: Escape opens an in-battle pause overlay with Resume, Settings, and Abandon actions where appropriate; Escape closes it again. Added HUD and BattleView keyboard regressions. (completed June 23, 2026)
 
 ### Phase 6 — Mission Objective Variety
@@ -69,11 +109,11 @@ This wave turns existing systems into a coherent playable campaign loop.
 ### Phase 7 — Architecture and Maintainability
 
 - [x] ARCH-01 GameState Domain Split Plan: Documented a safe incremental plan in `docs/architecture/gamestate_domain_split.md` to reduce `GameState` god-object risk by moving behavior into domain services while keeping save compatibility. (completed June 20, 2026)
-- [ ] ARCH-02 Extract Campaign Service: Keep campaign ticking, act progression, intel reveal, and world state transitions in campaign-specific modules with tests.
-- [ ] ARCH-03 Extract Mission Flow Service: Separate mission board generation, launch, handoff, objective resolution, rewards, and consequence presentation from UI screens.
-- [ ] ARCH-04 Keep UI Code in `game/ui/screens/`: Continue the existing migration rule: new view-level UI goes into `game/ui/screens/`, while compatibility wrappers stay thin.
-- [ ] ARCH-05 Save Migration Tests: Add tests for loading older save payloads and preserving new fields such as campaign state, intel, scars, selected assets, faction tags, and mission board state.
-- [ ] ARCH-06 Godot Handoff Contract Tests: Add tests validating that `runtime/godot_combat/mission_handoff.json` contains campaign, mission, map, squad, support assets, tactical actions, and schema version.
+- [x] ARCH-02 Extract Campaign Service: Added `game/campaign/service.py` as the stable campaign progression boundary while retaining `GameState` as the save-compatible state root. (completed November 13, 2026)
+- [x] ARCH-03 Extract Mission Flow Service: Added `game/missions/flow.py` as the stable board/launch/objective/reward/resolution boundary and migrated release-path callers while preserving the legacy facade. (completed November 13, 2026)
+- [x] ARCH-04 Keep UI Code in `game/ui/screens/`: Added an architecture contract proving management, map, briefing, debrief, and ending views remain in `game/ui/screens/`; the legacy battle shell remains an explicit compatibility path. (completed November 13, 2026)
+- [x] ARCH-05 Save Migration Tests: Added legacy-payload defaults plus round-trip coverage for campaign state, intel, scars, selected assets, faction tags, and mission board state. (completed November 13, 2026)
+- [x] ARCH-06 Godot Handoff Contract Tests: Added a versioned validator for campaign, mission, map, squad, support assets, tactical actions, and schema version; invalid handoffs are rejected before writing. (completed November 13, 2026)
 
 ### Recommended implementation order
 
@@ -97,9 +137,9 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 
 ### Phase 1 — Visual Polish & In-Battle UX
 
-- [ ] BATTLE-P01 Camera pan: activate existing Camera2D with Shift+arrows; Home re-centers on active unit; clamp to map bounds. Keeps HUD screen-anchored.
+- [x] BATTLE-P01 Camera pan: Shift+arrows now pan within overscanned map bounds and Home focuses the active unit while the HUD stays screen-anchored. (completed November 13, 2026)
 - [x] BATTLE-P02 Floating damage numbers: short-lived text sprites above hit units (`-N` red, `+N HP` green, `MISS` grey, status labels); float 40 px upward, fade quickly; separate `damage_popups` list in BattleView. (completed June 20, 2026)
-- [ ] BATTLE-P03 Action bar icon pass: extend `draw_action_button` in `battle_hud.py` to accept Unicode icon glyph + label; no new assets required.
+- [x] BATTLE-P03 Action bar icon pass: Added distinct code-drawn icons for move, fire, melee, psi, aid, missiles, overwatch, defend, and end turn without new asset dependencies. (completed November 13, 2026)
 - [x] BATTLE-P04 In-battle pause menu: Escape key opens the in-battle Resume/Settings/Abandon overlay and Escape closes it again; covered by HUD and BattleView keyboard regressions. (completed June 23, 2026)
 - [x] BATTLE-P05 Combat log side panel: Existing `combat_log_panel.py` functionality is player-accessible through the BattleView Tab-toggle side column with latest-event display and regression coverage. (completed June 23, 2026)
 
@@ -112,7 +152,7 @@ Three-phase plan to bring the battle/mission view to professional tactical-RPG s
 ### Phase 3 — Gameplay Depth
 
 - [x] BATTLE-G01 Terrain pathfinding: reduced to one shared tactical movement rule in `game/combat/movement.py`; BattleView deployment/keyboard movement and enemy AI now use the same terrain + occupancy checks. (completed June 7, 2026)
-- [ ] BATTLE-G02 Enhanced enemy AI: cover-seeking before attacking; flanking preference using `cover_system.py::flanking_detection`; commander subtype buffs adjacent grunt/heavy AGI.
+- [x] BATTLE-G02 Enhanced enemy AI: Enemy AI now covers target scoring, cover-seeking, flanking preference using `cover_system.py`, commander subtype AGI buffs for adjacent units, and objective-pressure movement for defensive missions. (completed June 23, 2026)
 - [x] BATTLE-G03 Dynamic mid-battle events: added a render-independent `game/combat/events.py` layer for complication-triggered reinforcements and blackout, with `CombatEngine` returning descriptive results for `BattleView` to translate into sprites, sound, screen shake, logs, and fog changes. (completed June 7, 2026)
 - [x] BATTLE-G04 Status effects: `Unit.status_effects` now covers suppressed, bleeding, stunned, burning, contaminated, and panicked with turn-start effects and HUD badges on unit labels. (completed June 20, 2026)
 
@@ -410,3 +450,38 @@ Automation status:
 ## Engine evaluation spikes
 
 - [x] GODOT-SPIKE-01 Evaluate Godot without migrating the game: isolated project under `experiments/godot_combat_spike/`, minimal 2-agent/2-enemy grid mission, JSON state contract, comparison report, and regression checks. Decision: keep disconnected from the Arcade runtime until a documented migration plan exists.
+
+## Release visual QA and packaging
+
+- [x] UI-QA-01 Keep all three new-campaign difficulty descriptions inside their cards.
+- [x] UI-QA-02 Label collapsed-base rooms with names and F1-F6 shortcuts.
+- [x] UI-QA-03 Prevent recruitment feedback from overlapping downtime actions.
+- [x] PKG-01 Add a Windows onedir PyInstaller release specification.
+- [x] PKG-02 Gate the Windows build on tests and document the distribution flow.
+
+## Tactical deployment continuity
+
+- [x] TACTICAL-01 Give each recruit role a distinct battle-ready starter kit.
+- [x] TACTICAL-02 Auto-assign new recruits while the active squad has capacity.
+- [x] TACTICAL-03 Surface assigned/armed readiness and named kits before launch.
+- [x] TACTICAL-04 Preview the enemy faction doctrine on the mission world map.
+- [x] TACTICAL-05 Validate recruitment → briefing → deployment → battle visually;
+  keep 6-9 candidate pools readable, sanitize technical mission-tag payloads,
+  and present pressure plus mission fallout without raw data or clipped copy.
+
+## Management command-card and squad forecast polish
+
+- [x] PREFLIGHT-01 Summarize frontline, ranged, control, and support coverage.
+- [x] PREFLIGHT-02 Forecast the likely post-mission recovery load from stress and risk.
+- [x] MGMT-UI-01 Replace square icon tiles with compact responsive command cards.
+- [x] MGMT-UI-02 Give primary, destructive, system, and standard commands distinct hierarchy.
+- [x] MGMT-UI-03 Validate Command Core, Squad Ops, and mission preflight visually;
+  keep eleven-command layouts on one row at 1920px and covered by regression tests.
+
+## Tactical Combat Retrofit (active November 2026)
+
+The completed release backlog below remains closed. The new tactical-combat
+retrofit is tracked separately in [`tactical_backlog.md`](tactical_backlog.md),
+with its evidence-based target in
+[`tactical_combat_retrofit.md`](tactical_combat_retrofit.md). Work proceeds in
+validated slices of no more than five tasks while Arcade remains authoritative.

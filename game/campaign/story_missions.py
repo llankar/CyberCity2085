@@ -1,4 +1,4 @@
-"""Story mission templates — 10 special missions (2 per act) that advance the campaign.
+"""Story mission templates — 15 special missions (3 per act) that advance the campaign.
 
 Story missions appear on the mission board with a [STORY] marker. Completing them
 awards intel fragments and updates world state.
@@ -65,6 +65,26 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         intel_rewards=["act1_badlands_silence", "act1_recon_anomaly"],
         tags=["recon", "badlands", "hungry", "story"],
     ),
+    StoryMissionTemplate(
+        id="sm_act1_witnesses",
+        act=1,
+        title="The Vistula Witnesses",
+        briefing=(
+            "Three Sevens security is erasing the last civilian witnesses to the Warsaw coup. "
+            "A street clinic beside the Vistula is sheltering twelve of them, including a child "
+            "who recorded the first unmarked transports entering the city. Hold the clinic until "
+            "an independent evacuation convoy arrives. These people are not evidence packages; "
+            "they are the first voices the new regime tried to silence."
+        ),
+        objective_text="Hold the clinic until the witnesses evacuate",
+        objective_type="defend",
+        risk_level=5,
+        fund_reward=2300,
+        enemy_theme="corp_37",
+        intel_rewards=["act1_warsaw_coup", "act1_corporate_admiration"],
+        world_effects={"warsaw_status": "coup_underway"},
+        tags=["defense", "civilians", "warsaw", "story"],
+    ),
 
     # ── Act II ───────────────────────────────────────────────────────────────
     StoryMissionTemplate(
@@ -107,6 +127,25 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         enemy_theme="corp_samurai",
         intel_rewards=["act2_corporate_denial", "act2_tide_growth"],
         tags=["data_theft", "corporate", "cover_up", "story"],
+    ),
+    StoryMissionTemplate(
+        id="sm_act2_breakwater",
+        act=2,
+        title="Breakwater Nine",
+        briefing=(
+            "A coastal settlement lies directly across the Tide's projected route. Corporate "
+            "evacuation craft have room for executives only, while local volunteers keep an old "
+            "storm barrier alive by hand. Escort the engineers through the flooded service deck "
+            "and restart the gates. The barrier will not stop the Hungry, but it can buy thousands "
+            "of ordinary people the six hours they need to leave."
+        ),
+        objective_text="Restart the storm barrier before the Tide arrives",
+        objective_type="sabotage",
+        risk_level=7,
+        fund_reward=3200,
+        enemy_theme="starver",
+        intel_rewards=["act2_warsaw_lockdown"],
+        tags=["rescue", "tide", "civilians", "story"],
     ),
 
     # ── Act III ──────────────────────────────────────────────────────────────
@@ -151,6 +190,25 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         intel_rewards=["act3_new_delhi", "act3_underground", "act3_cure_signal"],
         world_effects={"new_delhi_status": "revealed", "pharmacorp_secret": "rumored"},
         tags=["infiltration", "new_delhi", "archive", "story"],
+    ),
+    StoryMissionTemplate(
+        id="sm_act3_names_below",
+        act=3,
+        title="The Names Below",
+        briefing=(
+            "The New Delhi survivors will share their archive only if we recover the people "
+            "trapped in a collapsed transit vault. Pharmacorp retrieval teams are already "
+            "descending toward the same level. Reach the vault, bring the survivors home, and "
+            "prove that our interest in the underground is more than another corporate extraction."
+        ),
+        objective_text="Extract the transit-vault survivors",
+        objective_type="extract",
+        risk_level=8,
+        fund_reward=4200,
+        enemy_theme="corp_samurai",
+        intel_rewards=["act3_underground"],
+        world_effects={"new_delhi_status": "revealed"},
+        tags=["rescue", "new_delhi", "trust", "story"],
     ),
 
     # ── Act IV ───────────────────────────────────────────────────────────────
@@ -197,6 +255,26 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         world_effects={"ai_factions_status": "confirmed"},
         tags=["ai", "infiltration", "archive", "story"],
     ),
+    StoryMissionTemplate(
+        id="sm_act4_two_voices",
+        act=4,
+        title="Two Voices in the Wire",
+        briefing=(
+            "The breached node is broadcasting two incompatible messages. One intelligence "
+            "offers evacuation routes; the other is steering kill-drones toward those same "
+            "corridors. Enter the switching station, isolate both signal chains, and recover "
+            "their directives before either faction burns the evidence. For once, humanity "
+            "gets to hear the argument being conducted over its head."
+        ),
+        objective_text="Isolate and copy both hidden AI signal chains",
+        objective_type="data_theft",
+        risk_level=9,
+        fund_reward=6500,
+        enemy_theme="corp_samurai_robot",
+        intel_rewards=["act4_novatek_hybrids", "act4_ai_factions"],
+        world_effects={"ai_factions_status": "confirmed"},
+        tags=["ai", "choice", "signals", "story"],
+    ),
 
     # ── Act V ────────────────────────────────────────────────────────────────
     StoryMissionTemplate(
@@ -239,6 +317,25 @@ STORY_MISSIONS: list[StoryMissionTemplate] = [
         intel_rewards=["act5_final_choice", "act5_endgame"],
         world_effects={"pharmacorp_secret": "exposed", "new_york_status": "siege"},
         tags=["pharmacorp", "new_york", "broadcast", "finale", "story"],
+    ),
+    StoryMissionTemplate(
+        id="sm_act5_seven_minutes",
+        act=5,
+        title="Seven Minutes to Dawn",
+        briefing=(
+            "The broadcast is live, but the Three Sevens emergency authority will become law "
+            "in seven minutes. Their command architect is directing the siege from a mobile "
+            "citadel beneath Times Square. Cut through the final cordon, sever the decree uplink, "
+            "and extract whoever still stands. The world already has the truth. This mission "
+            "decides whether it has enough freedom left to act on it."
+        ),
+        objective_text="Sever the emergency-decree uplink",
+        objective_type="assassination",
+        risk_level=10,
+        fund_reward=12000,
+        enemy_theme="corp_37_power_armor",
+        intel_rewards=["act5_endgame"],
+        tags=["three_sevens", "new_york", "finale", "story"],
     ),
 ]
 

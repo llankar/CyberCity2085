@@ -46,7 +46,7 @@ class KeyboardNavigationTest(unittest.TestCase):
         help_lines = build_help_lines("command_center", "executive", ["Advance day", "Fund politics"], has_room_open=True)
         self.assertIn("Tab focus", hint)
         self.assertLessEqual(len(help_lines), 14)
-        self.assertTrue(any("Raccourcis actifs" in line for line in help_lines))
+        self.assertTrue(any("Active shortcuts" in line for line in help_lines))
 
     def test_focus_item_maps_to_same_keyboard_activation_intent(self):
         model = build_view_focus_model("command_deck", 1280, 720)
