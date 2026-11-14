@@ -2,6 +2,10 @@
 
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
+Launch maintenance — November 14, 2026: fixed portable Godot executable discovery
+and the briefing's failed-launch routing. Added headless scene-load and launch
+failure regressions; no desktop activation/input is required for verification.
+
 Only the current five-task slice is active. Later slices remain ordered but are
 not implementation commitments until the previous slice is validated.
 

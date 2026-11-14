@@ -1728,6 +1728,7 @@ class BattleView(GameView):
         else:
             import random as _rnd
             self.map_index = _rnd.randint(0, len(self.available_maps) - 1) if self.available_maps else 0
+        self._load_battle_map(self.map_index)
         self.camera = arcade.Camera2D()
         self.gui_camera = arcade.Camera2D()
         self._cam_pan_x = 0.0
@@ -1857,30 +1858,7 @@ class BattleView(GameView):
         _snd.play_music("music_battle", loop=True)
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.combat.battlefield import build_battlefield_plan, reachable_objective_positions, connect_inferred_terrain
-        
-        # Ensure terrain_profile exists before using it - create fallback if missing
-        if not hasattr(self, "terrain_profile") or self.terrain_profile is None:
-            # Default walkable terrain when no map loaded (fallback for briefings/standalone)
-            from game.map_terrain import TerrainProfile
-            
-            forced = tuple(unit.position for unit in self.player_units + self.enemy_units) if self.player_units else ()
-            objective_positions = (
-                tuple(self.battle_objective.marker_positions or [self.battle_objective.position])
-                if self.battle_objective else ()
-            )
-            # Create a fake TerrainProfile object for fallback - minimal required fields
-            self.terrain_profile = TerrainProfile(
-                image_path="",  # No real map path for fallback
-                width=1280, height=720, cell_size=16, 
-                walkable_cells=frozenset(forced + objective_positions),
-                threshold=100
-            )
-        else:
-            self.terrain_profile, access_lanes = connect_inferred_terrain(
-                self.terrain_profile,
-                tuple(unit.position for unit in self.player_units + self.enemy_units) + objective_positions,
-            )
-        
+
         objective_positions = (
             tuple(self.battle_objective.marker_positions or [self.battle_objective.position])
             if self.battle_objective else ()
