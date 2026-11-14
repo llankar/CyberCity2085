@@ -181,7 +181,7 @@ Previous tactical commits (TAC-ROLE-01 through TAC-ROLE-03) in separate commits.
 **Slice 4 Complete** - All tactical role identification, stance management, Psi state tracking, cooldown systems, and comprehensive test coverage implemented and validated with **76 dedicated tests passing**. Ready for Windows distribution build and full gameplay validation.
 
 
-## Slice 5 — Enemy plans and encounter composition
+## Slice 5 — Enemy plans and encounter composition (active)
 
 - [ ] TAC-ENEMY-01 Stable intent plans with explicit disruption conditions.
 - [ ] TAC-ENEMY-02 Corporate combined arms and commander network.
