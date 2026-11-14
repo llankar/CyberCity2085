@@ -2,6 +2,10 @@ import arcade
 import os
 import types
 
+# ── HUD layout constants ───────────────────────────────────────────────
+# Espace réservé pour le HUD en bas de l'écran (portrait strip + action bar)
+HUD_HEIGHT = 300
+
 if not hasattr(arcade, "View"):
     class _FallbackArcadeView:
         def __init__(self, *args, **kwargs):
@@ -137,6 +141,7 @@ from .ui.room_interaction import (
     ROOM_ACTIONS,
     RoomAction,
     RoomUIState,
+    UIRect,
     action_at_point,
     actions_for_room,
     active_room_rect,
@@ -1720,12 +1725,9 @@ class BattleView(GameView):
                 import random as _rnd
 
                 self.map_index = _rnd.randint(0, len(self.available_maps) - 1)
-            self._load_battle_map(self.map_index)
         else:
-            self.map_index = 0
-            self.background = None
-            self.map_path = None
-            self.terrain_profile = None
+            import random as _rnd
+            self.map_index = _rnd.randint(0, len(self.available_maps) - 1) if self.available_maps else 0
         self.camera = arcade.Camera2D()
         self.gui_camera = arcade.Camera2D()
         self._cam_pan_x = 0.0
@@ -1787,7 +1789,7 @@ class BattleView(GameView):
             self.enemy_list.append(sprite)
 
         if getattr(self, "map_path", None):
-            from game.map_terrain import build_terrain_profile
+            from game.map_terrain import build_terrain_profile, TerrainProfile
 
             forced = tuple(unit.position for unit in self.player_units + self.enemy_units)
             self.terrain_profile = build_terrain_profile(
@@ -1855,6 +1857,30 @@ class BattleView(GameView):
         _snd.play_music("music_battle", loop=True)
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.combat.battlefield import build_battlefield_plan, reachable_objective_positions, connect_inferred_terrain
+        
+        # Ensure terrain_profile exists before using it - create fallback if missing
+        if not hasattr(self, "terrain_profile") or self.terrain_profile is None:
+            # Default walkable terrain when no map loaded (fallback for briefings/standalone)
+            from game.map_terrain import TerrainProfile
+            
+            forced = tuple(unit.position for unit in self.player_units + self.enemy_units) if self.player_units else ()
+            objective_positions = (
+                tuple(self.battle_objective.marker_positions or [self.battle_objective.position])
+                if self.battle_objective else ()
+            )
+            # Create a fake TerrainProfile object for fallback - minimal required fields
+            self.terrain_profile = TerrainProfile(
+                image_path="",  # No real map path for fallback
+                width=1280, height=720, cell_size=16, 
+                walkable_cells=frozenset(forced + objective_positions),
+                threshold=100
+            )
+        else:
+            self.terrain_profile, access_lanes = connect_inferred_terrain(
+                self.terrain_profile,
+                tuple(unit.position for unit in self.player_units + self.enemy_units) + objective_positions,
+            )
+        
         objective_positions = (
             tuple(self.battle_objective.marker_positions or [self.battle_objective.position])
             if self.battle_objective else ()
@@ -2471,15 +2497,16 @@ class BattleView(GameView):
             )
             return
 
-        # ── Background map ───────────────────────────────────────────────
+        # ── Background map (clipped to leave room for HUD) ───────────────
         if self.background:
+            # Carte limitée en hauteur pour laisser place au HUD en bas
             arcade.draw_texture_rect(
                 self.background,
-                arcade.LBWH(0, 0, w, h),
+                arcade.LBWH(0, 0, w, h - HUD_HEIGHT),
             )
 
-        # ── Tactical grid ────────────────────────────────────────────────
-        draw_tactical_grid(w, h)
+        # ── Tactical grid (clipped to leave room for HUD) ────────────────
+        draw_tactical_grid(w, h, hud_height=HUD_HEIGHT)
 
         # ── Cover nodes ───────────────────────────────────────────────────
         cover_nodes = getattr(self, "cover_nodes", [])
