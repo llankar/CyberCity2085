@@ -14,6 +14,8 @@ from game.mission_templates import MissionComplication, MissionTemplate
 from game.ui.screens.mission_briefing_view import (
     MissionBriefingView,
     build_mission_briefing_facts,
+    mission_tag_label,
+    pressure_label,
 )
 
 
@@ -62,6 +64,20 @@ class _FakeBattleView:
 
 
 class MissionBriefingLaunchTest(unittest.TestCase):
+    def test_mission_tags_hide_internal_payloads_from_the_briefing(self) -> None:
+        rich_tag = SimpleNamespace(name="neon_blackout", description="Internal detail", intensity=2)
+
+        self.assertEqual(mission_tag_label(rich_tag), "Neon Blackout")
+        self.assertEqual(mission_tag_label({"name": "media_heat", "intensity": 2}), "Media Heat")
+        self.assertEqual(mission_tag_label("civilian_rescue"), "Civilian Rescue")
+
+    def test_pressure_effects_are_presented_as_readable_consequences(self) -> None:
+        self.assertEqual(
+            pressure_label({"unrest": 3, "media_heat": 2}),
+            "UNREST +3 | MEDIA HEAT +2",
+        )
+        self.assertEqual(pressure_label({}), "STABLE")
+
     def test_briefing_facts_cover_wave6_required_fields(self) -> None:
         robot = CombatRobot(
             id="drone",

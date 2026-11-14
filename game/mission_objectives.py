@@ -34,7 +34,9 @@ _OBJECTIVE_PROTOTYPES = {
         "success_condition": "Squad reaches the marker and confirms extraction.",
         "failure_condition": "Extraction fails if the squad is wiped before securing WITNESS.",
         "completion_message": "Witness secured. Extraction complete.",
-        "required_interactions": 1,
+        "required_interactions": 2,
+        "marker_offsets": [(0, 0), (-128, -96)],
+        "phase_labels": ["SECURE WITNESS", "REACH EXTRACTION"],
     },
     "sabotage": {
         "label": "RELAY",
@@ -44,6 +46,8 @@ _OBJECTIVE_PROTOTYPES = {
         "failure_condition": "Sabotage fails if the squad is wiped before arming RELAY.",
         "completion_message": "Relay burned. Sabotage complete.",
         "required_interactions": 1,
+        "hold_turns_after_interaction": 1,
+        "phase_labels": ["PLANT CHARGE", "SURVIVE COUNTERPUSH"],
     },
     "data_theft": {
         "label": "CACHE",
@@ -53,6 +57,7 @@ _OBJECTIVE_PROTOTYPES = {
         "failure_condition": "Data theft fails if the squad is wiped before download finishes.",
         "completion_message": "Cache copied. Data theft complete.",
         "required_interactions": 2,
+        "phase_labels": ["BREACH CACHE", "COMPLETE DOWNLOAD"],
     },
     "containment": {
         "label": "BREACH LINE",
@@ -73,6 +78,7 @@ _OBJECTIVE_PROTOTYPES = {
         "completion_message": "Civilian groups extracted. Rescue complete.",
         "required_interactions": 3,
         "marker_offsets": [(0, 0), (64, 32), (-64, 64)],
+        "phase_labels": ["GROUP ALPHA", "GROUP BETA", "GROUP GAMMA"],
     },
     "recon_scan": {
         "label": "SCAN",
@@ -83,6 +89,7 @@ _OBJECTIVE_PROTOTYPES = {
         "completion_message": "Scan sweep complete. Recon objective achieved.",
         "required_interactions": 3,
         "marker_offsets": [(0, 0), (96, 0), (32, 96)],
+        "phase_labels": ["SCAN ALPHA", "SCAN BETA", "SCAN GAMMA"],
     },
     "defend": {
         "label": "POSITION",
@@ -114,6 +121,12 @@ class BattleObjective:
     required_interactions: int = 1
     marker_positions: list[tuple[int, int]] = field(default_factory=list)
     breach_y: int | None = None
+    phase_labels: list[str] = field(default_factory=list)
+    interaction_turns: list[int] = field(default_factory=list)
+    hold_turns_after_interaction: int = 0
+    hold_until_turn: int | None = None
+    failed: bool = False
+    failure_message: str = ""
 
     @property
     def status_text(self) -> str:
@@ -126,6 +139,18 @@ class BattleObjective:
             return "Progress: complete"
         total = max(1, self.required_interactions)
         return f"Progress: {self.progress}/{total}"
+
+    @property
+    def phase_text(self) -> str:
+        if self.failed:
+            return "FAILED"
+        if self.completed and self.hold_until_turn is None:
+            return "COMPLETE"
+        if self.completed:
+            return self.phase_labels[-1] if self.phase_labels else "HOLD POSITION"
+        if self.phase_labels:
+            return self.phase_labels[min(self.progress, len(self.phase_labels) - 1)]
+        return self.label
 
 
 def normalize_objective_type(objective_type: str | None) -> str:
@@ -161,6 +186,8 @@ def create_battle_objective(
         required_interactions=int(prototype.get("required_interactions", 1)),
         marker_positions=marker_positions,
         breach_y=prototype.get("breach_y"),
+        phase_labels=list(prototype.get("phase_labels", [])),
+        hold_turns_after_interaction=int(prototype.get("hold_turns_after_interaction", 0)),
     )
 
 

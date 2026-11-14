@@ -17,6 +17,7 @@ from game.combat.godot_bridge import (
     build_godot_combat_payload,
     find_godot_executable,
     launch_godot_combat_ui,
+    validate_godot_combat_payload,
     write_godot_combat_handoff,
 )
 from game.gamestate import GameState
@@ -40,6 +41,31 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_payload_satisfies_versioned_handoff_contract(self) -> None:
+        game_state = GameState(
+            characters=[Character("Vera", role="sniper")],
+            selected_agent_names=["Vera"],
+        )
+
+        payload = build_godot_combat_payload(game_state, _mission())
+
+        self.assertEqual(validate_godot_combat_payload(payload), [])
+        self.assertEqual(payload["schema_version"], 1)
+        self.assertTrue({"campaign", "mission", "map", "squad", "support_assets", "combat_ui"} <= payload.keys())
+
+    def test_contract_reports_schema_and_tactical_action_regressions(self) -> None:
+        game_state = GameState(
+            characters=[Character("Vera")], selected_agent_names=["Vera"]
+        )
+        payload = build_godot_combat_payload(game_state, _mission())
+        payload["schema_version"] = 99
+        payload["combat_ui"]["primary_actions"] = ["move"]
+
+        errors = validate_godot_combat_payload(payload)
+
+        self.assertTrue(any("schema_version" in error for error in errors))
+        self.assertTrue(any("overwatch" in error for error in errors))
+
     def test_payload_contains_mission_map_and_selected_squad(self) -> None:
         agent = Character("Vera", role="sniper")
         game_state = GameState(characters=[agent], selected_agent_names=["Vera"])

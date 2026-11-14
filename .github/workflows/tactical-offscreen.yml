@@ -1,0 +1,32 @@
+name: Tactical off-screen QA
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'game/**'
+      - 'assets/maps/**'
+      - 'tests/**'
+      - 'tools/render_tactical_offscreen.py'
+      - '.github/workflows/tactical-offscreen.yml'
+jobs:
+  tactical:
+    runs-on: ubuntu-latest
+    env:
+      LIBGL_ALWAYS_SOFTWARE: '1'
+      ALSOFT_DRIVERS: 'null'
+      PYGLET_HEADLESS: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y libegl1 libgl1-mesa-dri libopengl0
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest -q
+      - run: python tools/render_tactical_offscreen.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tactical-offscreen-frames
+          path: runtime/tactical-qa/*.png
+          if-no-files-found: warn

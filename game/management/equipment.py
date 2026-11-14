@@ -518,3 +518,43 @@ def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
             ),
         ],
     }
+
+
+STARTER_LOADOUT_IDS: dict[str, dict[str, str]] = {
+    "samurai": {
+        "primary_weapon": "katana",
+        "sidearm": "heavy_pistol",
+        "armor": "combat_vest",
+        "utility_item": "trauma_patch",
+    },
+    "sniper": {
+        "primary_weapon": "sniper_rifle",
+        "sidearm": "shock_pistol",
+        "armor": "nanoweave_suit",
+        "utility_item": "tactical_scanner",
+    },
+    "psi": {
+        "primary_weapon": "arc_caster",
+        "sidearm": "shock_pistol",
+        "armor": "kevlar_longcoat",
+        "psi_focus": "echo_implant",
+    },
+    "robot": {
+        "primary_weapon": "plasma_carbine",
+        "sidearm": "heavy_pistol",
+        "armor": "exo_skeleton",
+        "utility_item": "nano_repair",
+    },
+}
+
+
+def equip_starter_loadout(loadout: AgentLoadout, role: str) -> list[str]:
+    """Equip a compact role kit so a new recruit is immediately battle-capable."""
+    catalog = default_equipment_catalog()
+    equipped: list[str] = []
+    for slot, item_id in STARTER_LOADOUT_IDS.get(role, STARTER_LOADOUT_IDS["samurai"]).items():
+        item = next((candidate for candidate in catalog[slot] if candidate.id == item_id), None)
+        if item is not None:
+            loadout.equip(slot, item)
+            equipped.append(item.name)
+    return equipped

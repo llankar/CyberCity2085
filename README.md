@@ -8,6 +8,22 @@ pip install -r requirements.txt
 python main.py
 ```
 
+### Windows release build
+
+Install the release tooling, then run the guarded build script. It executes the
+canonical tests before creating an onedir distribution with the required art,
+maps, and optional Godot client:
+
+```powershell
+pip install -r requirements-dev.txt
+.\tools\build_windows.ps1
+```
+
+The executable is written to `dist/CyberCity2085/CyberCity2085.exe`. Keep the
+whole `CyberCity2085` directory together; saves and runtime handoff files are
+created beside the executable. Godot remains optional because every required
+mission is playable through the bundled Arcade fallback.
+
 ## Project structure
 - `assets/` – game art and other assets
 - `scenes/` – Tiled TMX maps
@@ -15,9 +31,33 @@ python main.py
 - `godot/combat_missions_ui/` – Godot combat mission UI project launched from mission briefing handoff JSON
 - `main.py` – starts the game window and initial view
 
+## Campaign progression and ending
+
+- The release campaign contains five acts with three authored story missions per
+  act. Story missions appear sequentially on the mission board and victories
+  advance the current act.
+- Completing the third Act V story mission resolves the campaign from the world
+  state, exposed intel, faction pressure, and surviving agents accumulated during
+  play.
+- The ending screen reports world consequences and named agent epilogues, then
+  returns to the title screen. The resolved ending is included in save files;
+  older saves without ending data remain loadable.
+- Strategic management and tactical combat are the two main design pillars. See
+  `docs/gameplay/design_pillars.md` for the product doctrine and reference games.
+- Performed release gates, the supported visual target, and known 1.0 limitations
+  are listed in `docs/release_checklist.md`.
+
 ## Controls
 
 ### Corp View
+- The collapsed tower now labels every clickable department directly on its
+  room, including the F1-F6 shortcut, so management navigation does not depend
+  on memorising icon positions.
+- The Command room presents a weekly forecast for income, asset upkeep, squad
+  readiness, district pressure, and the closest event deadline. Once per week,
+  choose one visible strategic commitment: fortify the district, recover the
+  crew, or run a black-intelligence operation. Each option spends existing
+  funds and shows both its benefit and its drawback before commitment.
 - XCOM2-inspired corporate tower frames budget, resources, upgrade sinks,
   district meters and fallout over a generated stacked-base backdrop image
 - Click a highlighted room to expand it into a full-screen room; icon buttons
@@ -102,6 +142,10 @@ python main.py
 - The handoff screen keeps `F` as a local Arcade battle fallback until Godot result import is implemented.
 
 ### Battle View
+- Visible enemies display their likely next action and target during the player
+  turn. These intent badges use the same faction doctrine as the AI: Hungry
+  rush, mutants breach, raiders flank, corporate teams seek disciplined angles,
+  Three Sevens pressure objectives, and Novatek hybrids hunt wounded agents.
 - Tactical combat HUD uses the corporate tower frame for map selection, mission
   objective status, active HP and input actions over the graphical base backdrop
 - Drop-zone selection uses the same room expansion and icon-button flow

@@ -141,9 +141,10 @@ def _inject_story_mission(
 
     # Pick the first story mission whose id hasn't been completed yet
     completed_ids = set(c.act_triggers_seen)
+    completed_story_missions = set(getattr(c, "completed_story_missions", []))
     for sm in act_missions:
         completed_key = f"story_complete_{sm.id}"
-        if completed_key in completed_ids:
+        if completed_key in completed_ids or sm.id in completed_story_missions:
             continue
         # Build a MissionTemplate from the StoryMissionTemplate
         from game.consequences import Consequence

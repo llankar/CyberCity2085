@@ -40,7 +40,7 @@ from game.deployment import (
 )
 from game.gamestate import GameState
 from game.management.equipment import default_equipment_catalog
-from game.mission_system import (
+from game.missions.flow import (
     ensure_mission_templates,
     launch_selected_mission as _launch_mission,
     selected_mission as _selected_mission,
@@ -685,14 +685,16 @@ class ManagementView(GameView):
         arcade.draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
         self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "recruit_close"))
 
-        cols = 2
+        # Six candidates read best as 2x3; larger pools switch to a 3-column
+        # grid so cards never collapse into unreadable 96px rows.
+        cols = 3 if len(self.pending_recruit_candidates) > 6 else 2
         gap = 10
         card_pad = 18
         rows = math.ceil(len(self.pending_recruit_candidates) / cols)
         usable_w = mx1 - mx0 - card_pad * 2
         usable_h = my1 - my0 - 118
         card_w = (usable_w - gap * (cols - 1)) // cols
-        card_h = max(96, min(120, (usable_h - gap * max(0, rows - 1)) // max(1, rows)))
+        card_h = max(118, min(150, (usable_h - gap * max(0, rows - 1)) // max(1, rows)))
         card_top = my1 - 92
 
         for idx, candidate in enumerate(self.pending_recruit_candidates):
@@ -739,39 +741,42 @@ class ManagementView(GameView):
 
             text_left = portrait_left + portrait_size + 12
             text_right = left + card_w - 12
+            action_col_w = 76
+            copy_right = max(text_left + 40, text_right - action_col_w)
             arcade.draw_text(candidate.name.upper(), text_left, top - 18, palette.TEXT, font_size=12, bold=True)
             arcade.draw_text(candidate.role.upper(), text_left, top - 32, role_col, font_size=8, bold=True)
             arcade.draw_text(candidate.function.upper(), text_left, top - 44, palette.MUTED_TEXT, font_size=8, bold=True)
             arcade.draw_text(candidate.stat_line(), text_left, top - 60, palette.TEXT, font_size=8)
             arcade.draw_text(candidate.skill_line(), text_left, top - 74, palette.RESOURCE, font_size=8)
             arcade.draw_text(
-                _trim_text(candidate.background, 92),
+                _trim_text(candidate.background, 38 if cols == 3 else 72),
                 text_left,
-                bottom + 28,
+                bottom + 42,
                 palette.MUTED_TEXT,
                 font_size=8,
-                width=max(40, text_right - text_left),
+                width=max(40, copy_right - text_left),
                 align="left",
             )
             arcade.draw_text(
-                "ADV: " + _trim_text(" | ".join(candidate.advantages), 68),
+                "ADV: " + _trim_text(" | ".join(candidate.advantages), 28 if cols == 3 else 54),
                 text_left,
-                bottom + 12,
+                bottom + 24,
                 palette.RESOURCE,
                 font_size=7,
-                width=max(40, text_right - text_left),
+                width=max(40, copy_right - text_left),
                 align="left",
             )
             price_label = f"¥{candidate.price}"
             price_col = palette.TACTICAL_GREEN if affordable else palette.DANGER
-            arcade.draw_text(price_label, left + card_w - 64, bottom + 10, price_col, font_size=12, bold=True)
+            arcade.draw_text(price_label, left + card_w - 16, bottom + 14, price_col, font_size=12, bold=True, anchor_x="right")
             arcade.draw_text(
                 "HIRE" if affordable else "LOCKED",
-                left + card_w - 66,
-                bottom + 28,
+                left + card_w - 16,
+                bottom + 34,
                 price_col,
                 font_size=8,
                 bold=True,
+                anchor_x="right",
             )
             self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "recruit_candidate", idx))
 
@@ -996,7 +1001,10 @@ class ManagementView(GameView):
     # ── COMMAND tab ───────────────────────────────────────────────────────────
 
     def _draw_command_tab(self, x0: int, y0: int, x1: int, y1: int) -> None:
+        from game.management.weekly_planning import DIRECTIVES, build_management_forecast
+
         gs  = self.game_state
+        forecast = build_management_forecast(gs)
         gap = 10
         cw  = (x1 - x0 - gap * 2) // 3
 
@@ -1011,6 +1019,8 @@ class ManagementView(GameView):
             f"Funds:      ¥ {gs.available_funds:,}",
             f"Income:     ¥ {gs.projected_weekly_income:,} / week",
             f"Next payout: Day {gs.next_weekly_income_date}",
+            f"Net forecast: ¥ {forecast.projected_net:+,}",
+            f"Asset upkeep: ¥ {forecast.asset_upkeep:,}",
             "",
             f"Research:   {len(gs.active_research)} active",
             f"Security:   {gs.corp_budget.get('security', 0)}",
@@ -1081,31 +1091,41 @@ class ManagementView(GameView):
 
         # ── Right column: Actions ────────────────────────────────────────
         rx0, rx1 = mx1 + gap, x1
-        _panel(rx0, y0, rx1, y1, "CORP ACTIONS", palette.TACTICAL_GREEN)
+        _panel(rx0, y0, rx1, y1, "WEEKLY DIRECTIVE", palette.TACTICAL_GREEN)
         ry = y1 - 50
-
-        # Corp upgrade buttons
-        upgrades = [
-            ("research",  "Intel +5",        {"intel": 5}),
-            ("security",  "Credits -10 / Salvage -2", {"credits": 10, "salvage": 2}),
-            ("politics",  "Influence -3",    {"influence": 3}),
-            ("black_ops", "Credits -5 / Intel -3", {"credits": 5, "intel": 3}),
-        ]
-        arcade.draw_text("CORP UPGRADES", rx0 + 12, ry, palette.MUTED_TEXT, font_size=9)
+        lock_text = (
+            f"LOCKED: {forecast.selected_directive.replace('_', ' ').upper()}"
+            if forecast.directive_locked
+            else "CHOOSE ONE PLAN FOR THIS WEEK"
+        )
+        arcade.draw_text(lock_text, rx0 + 12, ry, palette.MUTED_TEXT, font_size=9)
         ry -= 22
-        for ukey, ulabel, _costs in upgrades:
-            alloc = gs.corp_budget.get(ukey, 0)
-            bh = 30
-            _rect(rx0 + 10, ry - bh, rx1 - 10, ry, (12, 28, 36, 220))
-            arcade.draw_line(rx0 + 10, ry, rx1 - 10, ry, palette.ACCENT, 1)
+        for directive in DIRECTIVES:
+            selected = forecast.selected_directive == directive.id
+            available = not forecast.directive_locked and gs.available_funds >= directive.cost
+            bh = 78
+            fill = (15, 42, 32, 230) if selected else (12, 28, 36, 220)
+            accent = palette.TACTICAL_GREEN if selected else palette.ACCENT if available else palette.PANEL_BORDER_MUTED
+            _rect(rx0 + 10, ry - bh, rx1 - 10, ry, fill)
+            arcade.draw_line(rx0 + 10, ry, rx1 - 10, ry, accent, 2)
             arcade.draw_text(
-                f"{ukey.upper():<12} {alloc:>3}",
-                rx0 + 18, ry - bh + 9,
-                palette.TEXT, font_size=10,
+                f"{directive.title}  ¥{directive.cost}",
+                rx0 + 18, ry - 18, palette.TEXT, font_size=10, bold=True,
             )
-            arcade.draw_text(ulabel, rx0 + 18, ry - bh - 2, palette.MUTED_TEXT, font_size=8)
-            self._hits.append(_HitRegion(rx0 + 10, ry - bh, rx1 - 10, ry, f"corp_upgrade_{ukey}", None))
-            ry -= bh + 8
+            arcade.draw_text(directive.promise, rx0 + 18, ry - 38, palette.TACTICAL_GREEN, font_size=8)
+            arcade.draw_text(directive.consequence, rx0 + 18, ry - 57, palette.WARNING, font_size=8)
+            if available:
+                self._hits.append(_HitRegion(rx0 + 10, ry - bh, rx1 - 10, ry, f"weekly_directive_{directive.id}", None))
+            ry -= bh + 10
+
+        urgency = f"{forecast.urgent_event}"
+        if forecast.urgent_event_days is not None:
+            urgency += f" // {forecast.urgent_event_days}d"
+        arcade.draw_text(
+            f"THREAT {forecast.threat_level.upper()} {forecast.district_pressure}%",
+            rx0 + 12, max(y0 + 38, ry - 2), palette.WARNING, font_size=9, bold=True,
+        )
+        arcade.draw_text(urgency[:48], rx0 + 12, max(y0 + 20, ry - 20), palette.MUTED_TEXT, font_size=8)
 
     # ── CITY tab ──────────────────────────────────────────────────────────────
 
@@ -1898,8 +1918,8 @@ class ManagementView(GameView):
             )
             self._hits.append(_HitRegion(x0 + 14, row_bottom, x1 - 14, row_top, "downtime_activity", idx))
 
-        if self.message:
-            arcade.draw_text(self.message, x0 + 14, y0 + 72, palette.WARNING, font_size=10)
+        # Action feedback is already rendered once in the global footer/toast.
+        # Repeating it here collides with the compact downtime rows.
 
     # ── RESEARCH tab ──────────────────────────────────────────────────────────
 
@@ -2361,8 +2381,16 @@ class ManagementView(GameView):
             sex=candidate.sex,
         )
         self.deployment_cursor = len(gs.characters) - 1
+        if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < 4:
+            gs.selected_agent_names.append(agent.name)
+            assignment = " Auto-assigned to the active squad."
+        else:
+            assignment = ""
         self._close_recruit_window()
-        self.message = f"{agent.name} joins as {candidate.role} for ¥{candidate.price}."
+        self.message = (
+            f"{agent.name} joins as {candidate.role} for ¥{candidate.price} with a starter kit."
+            f"{assignment}"
+        )
         gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role} (¥{candidate.price})"))
 
     def _do_remove_agent(self) -> None:
@@ -3201,6 +3229,17 @@ class ManagementView(GameView):
             return
         if action == "load":
             self._do_load()
+            return
+        if action.startswith("weekly_directive_"):
+            from game.management.weekly_planning import apply_weekly_directive
+
+            directive_id = action.removeprefix("weekly_directive_")
+            ok, message = apply_weekly_directive(gs, directive_id)
+            self.message = message
+            if ok:
+                self.notifications.success(message)
+            else:
+                self.notifications.warning(message)
             return
         if action == "slot_prev":
             self.selected_save_slot = ((self.selected_save_slot - 2) % 5) + 1

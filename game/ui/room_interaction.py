@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import math
 
 from .facility import FacilityRoom, build_facility_rooms, facility_room_by_key
 from .theme import spacing, motion_durations
@@ -75,10 +76,10 @@ ROOM_ACTIONS = {
     "hub": {
         "command": [
             RoomAction("advance_day", "city", "Advance day"),
-            RoomAction("corp_upgrade_research", "research", "Fund research"),
-            RoomAction("corp_upgrade_security", "shield", "Fund security"),
-            RoomAction("corp_upgrade_politics", "influence", "Fund politics"),
-            RoomAction("corp_upgrade_black_ops", "black_ops", "Fund black ops"),
+            RoomAction("weekly_directive_civil_defense", "shield", "Fortify"),
+            RoomAction("weekly_directive_crew_recovery", "squad", "Recover"),
+            RoomAction("weekly_directive_black_intel", "black_ops", "Black intel"),
+            RoomAction("save", "select", "Save"),
         ],
         "city": [
             RoomAction("city_upgrade_armaments", "armory", "Fund arms"),
@@ -266,25 +267,34 @@ def actions_for_room(mode: str, room_key: str) -> list[RoomAction]:
 def layout_action_buttons(
     width: int, height: int, actions: list[RoomAction]
 ) -> list[ActionButton]:
-    """Place icon buttons in the expanded room with readable labels and safe spacing."""
+    """Place compact command cards in one or two centered responsive rows."""
     if not actions:
         return []
-    button_size = max(58, min(92, int(min(width, height) * 0.11)))
-    gap = max(spacing.md, button_size // 3)
-    max_total_width = max(0, width - spacing.lg * 2)
-    needed_width = len(actions) * button_size + (len(actions) - 1) * gap
-    if needed_width > max_total_width and len(actions) > 0:
-        gap = max(spacing.sm, min(gap, max(8, max_total_width // max(1, len(actions) * 5))))
-        usable_width = max_total_width - (len(actions) - 1) * gap
-        button_size = max(48, min(button_size, usable_width // len(actions)))
-    total_width = len(actions) * button_size + (len(actions) - 1) * gap
-    start_x = (width - total_width) // 2
+    gap = spacing.md
+    row_gap = spacing.sm
+    max_total_width = max(360, width - spacing.xl * 2)
+    minimum_width = 104
+    columns = max(1, min(len(actions), (max_total_width + gap) // (minimum_width + gap)))
+    rows = math.ceil(len(actions) / columns)
+    if rows > 2:
+        columns = math.ceil(len(actions) / 2)
+    button_width = min(
+        152,
+        max(104, (max_total_width - (columns - 1) * gap) // columns),
+    )
+    button_height = 58
     bottom = max(spacing.xl + 12, int(height * 0.09))
     buttons = []
     for index, action in enumerate(actions):
-        left = start_x + index * (button_size + gap)
+        row = index // columns
+        column = index % columns
+        row_count = min(columns, len(actions) - row * columns)
+        row_width = row_count * button_width + (row_count - 1) * gap
+        start_x = (width - row_width) // 2
+        left = start_x + column * (button_width + gap)
+        row_bottom = bottom + row * (button_height + row_gap)
         buttons.append(
-            ActionButton(action, UIRect(left, bottom, button_size, button_size))
+            ActionButton(action, UIRect(left, row_bottom, button_width, button_height))
         )
     return buttons
 

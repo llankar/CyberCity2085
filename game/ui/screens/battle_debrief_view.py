@@ -545,6 +545,11 @@ class BattleDebriefView(arcade.View):
                 self._go_to_management()
 
     def _go_to_management(self) -> None:
+        if self.game_state.campaign.ending is not None:
+            from game.ui.screens.campaign_ending_view import CampaignEndingView
+
+            self.window.show_view(CampaignEndingView(self.game_state))
+            return
         from game.ui.screens.management_screen import ManagementView
         mgmt = ManagementView(self.game_state)
         mgmt.setup()

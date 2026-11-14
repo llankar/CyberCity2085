@@ -10,9 +10,11 @@ warnings.filterwarnings("ignore", category=PerformanceWarning, module="arcade")
 
 from game.ui.screens.settings_screen import load_settings
 from game.ui.screens.title_screen import TitleView
+from game.runtime import configure_runtime_directory
 
 
 def main() -> None:
+    configure_runtime_directory()
     window = arcade.Window(1920, 1000, "CyberCity 2085")
     load_settings()
     window.show_view(TitleView())

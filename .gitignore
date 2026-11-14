@@ -3,3 +3,5 @@ __pycache__/*
 game/__pycache__/
 
 runtime/
+build/
+dist/

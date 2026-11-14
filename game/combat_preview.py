@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import Iterable
 
 from .unit import Unit
+from .combat.attack_resolution import build_attack_context
 
 GRID_SIZE = 32
 
@@ -17,45 +18,36 @@ class AttackPreview:
     hit_chance: float
     crit_chance: float
     warning: str | None = None
+    cover_bonus: int = 0
+    flanking: bool = False
+    in_range: bool = True
+    ap_cost: int = 1
+    resource_cost: int = 0
 
 
-def estimate_attack_preview(attacker: Unit, defender: Unit, attack_kind: str) -> AttackPreview:
+def estimate_attack_preview(
+    attacker: Unit,
+    defender: Unit,
+    attack_kind: str,
+    *,
+    cover_nodes: list | None = None,
+    allies: Iterable[Unit] = (),
+) -> AttackPreview:
     """Estimate combat outcome from the same core values used by attack resolution."""
-    if not attacker.stats or not defender.stats:
-        return AttackPreview(0, 0, 0.0, 0.0)
-
-    if attack_kind == "psi":
-        stat_name = "psi"
-        is_psi = True
-    elif attack_kind == "melee":
-        stat_name = "str"
-        is_psi = False
-    else:
-        stat_name = "agi"
-        is_psi = False
-
-    attack_value = max(0, int(getattr(attacker.stats, stat_name, 0)))
-    defense_value = max(0, int(getattr(defender.stats, "defense", 0))) + max(0, int(defender.in_cover_bonus))
-
-    if attack_value <= 0:
-        return AttackPreview(0, 0, 0.0, 0.0)
-
-    hit_chance = attack_value / (attack_value + defense_value) if (attack_value + defense_value) else 0.0
-    base_damage = attack_value
-    mitigated_damage = base_damage
-    if is_psi and defender.is_psi_defending:
-        mitigated_damage = max(0, base_damage - 1)
-    elif not is_psi and defender.is_defending:
-        mitigated_damage = max(0, base_damage - 1)
-
-    # Crit is a non-authoritative UI estimate based on attack-vs-defense edge.
-    crit_chance = 0.05 + max(0.0, min(0.25, (attack_value - defense_value) / 100))
-
+    context = build_attack_context(
+        attacker, defender, attack_kind, cover_nodes=cover_nodes, allies=allies
+    )
     return AttackPreview(
-        min_damage=mitigated_damage,
-        max_damage=mitigated_damage,
-        hit_chance=max(0.0, min(1.0, hit_chance)),
-        crit_chance=max(0.0, min(0.30, crit_chance)),
+        min_damage=context.normal_damage,
+        max_damage=context.critical_damage,
+        hit_chance=context.hit_chance,
+        crit_chance=context.crit_chance,
+        warning="LINE BLOCKED" if context.line_blocked else context.line_warning,
+        cover_bonus=context.cover_bonus,
+        flanking=context.flanking,
+        in_range=context.in_range,
+        ap_cost=context.ap_cost,
+        resource_cost=context.resource_cost,
     )
 
 

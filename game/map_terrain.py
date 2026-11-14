@@ -184,6 +184,8 @@ def infer_terrain_profile(
     try:
         with Image.open(path) as source:
             image = source.convert("RGB").resize((width, height), Image.BICUBIC)
+            # PIL rows start at the top; tactical world Y starts at the bottom.
+            image = image.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
     except Exception:
         return TerrainProfile(image_path, width, height, cell_size, frozenset(), 0)
 
@@ -246,7 +248,7 @@ def export_walkable_mask(
     for gx, gy in profile.walkable_cells:
         draw.rectangle((gx, gy, min(map_w, gx + cell_size), min(map_h, gy + cell_size)), fill=255)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    mask.save(out_path)
+    mask.transpose(Image.Transpose.FLIP_TOP_BOTTOM).save(out_path)
     return out_path
 
 
@@ -268,6 +270,7 @@ def build_terrain_profile(
         try:
             with Image.open(mask_path) as source:
                 mask = source.convert("L").resize((width, height), Image.NEAREST)
+                mask = mask.transpose(Image.Transpose.FLIP_TOP_BOTTOM)
         except Exception:
             mask = None
         if mask is not None:

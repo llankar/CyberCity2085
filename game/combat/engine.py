@@ -14,13 +14,16 @@ from typing import Literal
 from game.combat_actions import available_combat_actions
 from game.combat_system import run_enemy_ai
 from game.unit import Unit
+from game.unit import STATUS_BLEEDING
 
+from .attack_resolution import AttackResolution, resolve_attack
 from .events import (
     CombatEventResult,
     events_from_mission,
     resolve_combat_events as resolve_event_results,
 )
 from .state import CombatState
+from .objectives import ObjectiveResult, evaluate_objective, interact_objective
 
 BattleOutcome = Literal["victory", "defeat"]
 
@@ -49,6 +52,8 @@ class CombatActionResult:
     damage: int = 0
     defeated_target: bool = False
     consumed_ap: int = 0
+    consumed_resource: int = 0
+    attack_resolution: AttackResolution | None = None
     battle: BattleCheckResult = field(default_factory=BattleCheckResult)
 
 
@@ -66,6 +71,19 @@ class CombatEngine:
         self.can_enter = can_enter
         self.cover_nodes = cover_nodes
 
+    def apply_battlefield_exposure(self, units: list[Unit]) -> None:
+        """Resolve environmental exposure once when a side starts its phase."""
+        from .battlefield import apply_hazard
+
+        for unit in units:
+            for zone in self.state.tactical_flags.get("hazards", ()):
+                effect = apply_hazard(unit, zone)
+                if effect.damage or effect.ap_lost:
+                    name = unit.character.name if unit.character else unit.unit_type
+                    self.state.logs.append(
+                        f"{name}: {effect.kind.upper()} -{effect.damage} HP / -{effect.ap_lost} AP"
+                    )
+
     def start_player_turn(self) -> BattleCheckResult:
         """Reset allied AP/statuses and advance from enemy to player phase."""
         for unit in self.state.allied_units:
@@ -79,6 +97,7 @@ class CombatEngine:
             self.state.turn_number += 1
         self.state.turn = "player"
         self.state.active_index = 0
+        self.apply_battlefield_exposure(self.state.allied_units)
         self.state.logs.append(f"── Turn {self.state.turn_number} ──")
         return self.end_battle_check()
 
@@ -109,7 +128,11 @@ class CombatEngine:
         """Run the enemy phase without rendering or sound side effects."""
         for enemy in self.state.enemy_units:
             enemy.reset_actions()
+            for status in enemy.tick_status_effects():
+                if status in {"bleeding", "burning", "contaminated"}:
+                    self.state.logs.append(f"{enemy.unit_type} is {status}")
         self.state.turn = "enemy"
+        self.apply_battlefield_exposure(self.state.enemy_units)
         run_enemy_ai(
             self.state.allied_units,
             self.state.enemy_units,
@@ -120,6 +143,7 @@ class CombatEngine:
             can_enter=self.can_enter,
             cover_nodes=self.cover_nodes,
             movement_mode=self.state.movement_mode,
+            objective=self.state.objective,
         )
         return self.end_battle_check()
 
@@ -146,6 +170,8 @@ class CombatEngine:
         message = ""
         damage = 0
         defeated = False
+        consumed_resource = 0
+        attack_resolution = None
 
         if action_key == "move":
             if actor.action_points <= 0 or move_delta is None:
@@ -160,24 +186,46 @@ class CombatEngine:
         elif action_key in {"fire", "melee", "psi", "missiles"}:
             if target is None:
                 return CombatActionResult(False, "Action needs a target.", action=action_key, actor=actor)
-            if action_key == "melee":
-                damage = actor.melee_attack(target)
-            elif action_key == "psi":
-                damage = actor.psi_attack(target)
-            else:
-                damage = actor.shoot(target)
-            defeated = target.health <= 0
+            attack_resolution = resolve_attack(
+                actor,
+                target,
+                action_key,
+                cover_nodes=self.cover_nodes,
+                allies=self.state.allied_units,
+            )
+            if not attack_resolution.success:
+                readable_reason = attack_resolution.reason.replace("_", " ")
+                return CombatActionResult(
+                    False,
+                    f"Attack unavailable: {readable_reason}.",
+                    action=action_key,
+                    actor=actor,
+                    target=target,
+                    attack_resolution=attack_resolution,
+                )
+            damage = attack_resolution.damage
+            defeated = attack_resolution.defeated
+            consumed_resource = attack_resolution.consumed_resource
             if defeated and target in self.state.enemy_units:
                 self.state.enemy_units.remove(target)
-            message = f"{action_key.title()} deals {damage} damage."
+            outcome = "CRITICAL" if attack_resolution.critical else "HIT" if attack_resolution.hit else "MISS"
+            flank = " · FLANK" if attack_resolution.context.flanking else ""
+            resource = " · 1 missile" if consumed_resource else ""
+            message = f"{action_key.title()} {outcome}: {damage} damage{flank}{resource}."
         elif action_key == "first_aid":
             if actor.action_points <= 0 or not actor.stats:
                 return CombatActionResult(False, "First aid needs AP.", action=action_key, actor=actor)
-            before_hp = actor.health
-            actor.health = min(actor.stats.max_hp, actor.health + 2)
-            actor.stats.hp = actor.health
+            aid_target = target or actor
+            if not aid_target.stats or actor.distance_to(aid_target) > 32:
+                return CombatActionResult(False, "First aid target is out of reach.", action=action_key, actor=actor)
+            before_hp = aid_target.health
+            aid_target.health = min(aid_target.stats.max_hp, aid_target.health + 2)
+            aid_target.stats.hp = aid_target.health
+            cleared_bleeding = aid_target.has_status(STATUS_BLEEDING)
+            aid_target.clear_status(STATUS_BLEEDING)
             actor.action_points -= 1
-            message = f"First aid restores {actor.health - before_hp} HP."
+            suffix = " and clears BLEEDING" if cleared_bleeding else ""
+            message = f"First aid restores {aid_target.health - before_hp} HP{suffix}."
         elif action_key == "overwatch":
             if not actor.set_overwatch():
                 return CombatActionResult(False, "Overwatch unavailable.", action=action_key, actor=actor)
@@ -203,6 +251,8 @@ class CombatEngine:
             damage=damage,
             defeated_target=defeated,
             consumed_ap=consumed,
+            consumed_resource=consumed_resource,
+            attack_resolution=attack_resolution,
             battle=battle,
         )
 
@@ -217,10 +267,45 @@ class CombatEngine:
             return self.start_enemy_turn()
         return self.end_battle_check()
 
+    def interact_with_objective(self, actor: Unit | None = None) -> ObjectiveResult:
+        """Advance the active mission objective through the pure lifecycle."""
+        actor = actor or self.state.active_unit
+        if actor is None:
+            return ObjectiveResult(
+                "ongoing",
+                "no_active_unit",
+                "No active allied unit.",
+                getattr(self.state.objective, "kind", "eliminate"),
+            )
+        result = interact_objective(
+            self.state.objective,
+            actor,
+            turn_number=self.state.turn_number,
+            enemy_units=self.state.enemy_units,
+        )
+        contributions = self.state.tactical_flags.setdefault("objective_contributions", {})
+        if result.reason in {"objective_progress", "objective_completed"} and result.actor_name:
+            contributions[result.actor_name] = contributions.get(result.actor_name, 0) + 1
+        return result
+
+    def objective_result(self) -> ObjectiveResult:
+        """Return the current mission result without rendering side effects."""
+        return evaluate_objective(
+            self.state.objective,
+            turn_number=self.state.turn_number,
+            allied_units=self.state.allied_units,
+            enemy_units=self.state.enemy_units,
+            assassination_target=self.state.tactical_flags.get("assassination_target"),
+            defend_turns_required=int(
+                self.state.tactical_flags.get("defend_turns_required", 4)
+            ),
+        )
+
     def end_battle_check(self) -> BattleCheckResult:
-        """Return victory/defeat when one side has no living units left."""
-        if not any(unit.health > 0 for unit in self.state.allied_units):
-            return BattleCheckResult("defeat", "all_allies_down")
-        if not any(unit.health > 0 for unit in self.state.enemy_units):
-            return BattleCheckResult("victory", "all_enemies_down")
+        """Return victory/defeat from the authoritative objective lifecycle."""
+        objective = self.objective_result()
+        if objective.status == "victory":
+            return BattleCheckResult("victory", objective.reason)
+        if objective.status == "defeat":
+            return BattleCheckResult("defeat", objective.reason)
         return BattleCheckResult()

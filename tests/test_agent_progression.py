@@ -20,7 +20,7 @@ class AgentProgressionTest(unittest.TestCase):
 
         self.assertEqual(len(candidates), 6)
         self.assertTrue(all(candidate.name for candidate in candidates))
-        self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi"} for candidate in candidates))
+        self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi", "robot"} for candidate in candidates))
         self.assertTrue(all(candidate.function for candidate in candidates))
         self.assertTrue(all(candidate.background for candidate in candidates))
         self.assertTrue(all(candidate.advantages for candidate in candidates))
@@ -39,6 +39,20 @@ class AgentProgressionTest(unittest.TestCase):
         self.assertEqual(recruit.name, "Sable")
         self.assertEqual(roster[0].name, "Sable")
         self.assertEqual(recruit.talent_points, 1)
+        self.assertIsNotNone(recruit.loadout.primary_weapon)
+        self.assertIsNotNone(recruit.loadout.sidearm)
+        self.assertIsNotNone(recruit.loadout.armor)
+        self.assertIn("Katana Slash", recruit.loadout.combat_actions())
+
+    def test_each_recruit_role_gets_a_distinct_battle_ready_starter_kit(self):
+        recruits = [recruit_agent([], role, role.title()) for role in ("samurai", "sniper", "psi", "robot")]
+
+        self.assertTrue(all(agent.loadout.primary_weapon for agent in recruits))
+        self.assertEqual(
+            [agent.loadout.primary_weapon.id for agent in recruits],
+            ["katana", "sniper_rifle", "arc_caster", "plasma_carbine"],
+        )
+        self.assertIsNotNone(recruits[2].loadout.psi_focus)
 
     def test_placeholder_roster_labels_are_normalized_to_codename_names(self):
         character = create_character("Agent 1", "samurai")

@@ -133,6 +133,15 @@ def facility_room_by_key(rooms: list[FacilityRoom], key: str) -> FacilityRoom:
     raise KeyError(key)
 
 
+def room_directory_entries(width: int, height: int, mode: str) -> list[tuple[FacilityRoom, str]]:
+    """Return stable labels for the collapsed base without depending on Arcade."""
+    entries = []
+    for index, room in enumerate(build_facility_rooms(width, height, mode), start=1):
+        label = f"F{index}  {room.title.upper()}" if mode == "hub" else room.title.upper()
+        entries.append((room, label))
+    return entries
+
+
 
 def build_interactive_tooltips() -> dict[str, str]:
     """English tooltip copy for key interactive UI elements."""

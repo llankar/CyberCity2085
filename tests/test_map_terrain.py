@@ -68,8 +68,26 @@ class MapTerrainTest(unittest.TestCase):
             self.assertTrue(profile.is_walkable(32, 0))
 
     def test_generated_map_variants_exist(self):
-        self.assertTrue((Path("assets/maps") / "streets_neon_rain.png").exists())
-        self.assertTrue((Path("assets/maps") / "bridge_breach.png").exists())
+        self.assertTrue((Path("assets/maps") / "city_district_holo_square.png").exists())
+        self.assertTrue((Path("assets/maps") / "wasteland_outdoor_03_wrecked_highway.png").exists())
+
+    def test_top_of_background_and_mask_corresponds_to_high_world_y(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "asymmetric.png"
+            art = Image.new("RGB", (128, 128), (5, 5, 5))
+            for x in range(128):
+                for y in range(48):
+                    art.putpixel((x, y), (240, 240, 240))
+            art.save(path)
+            inferred = build_terrain_profile(str(path), 128, 128, cell_size=16)
+            self.assertTrue(inferred.is_walkable(64, 112))
+            self.assertFalse(inferred.is_walkable(64, 16))
+            mask = art.convert("L")
+            mask.save(path.with_suffix(".walkable.png"))
+            build_terrain_profile.cache_clear()
+            authored = build_terrain_profile(str(path), 128, 128, cell_size=16)
+            self.assertTrue(authored.is_walkable(64, 112))
+            self.assertFalse(authored.is_walkable(64, 16))
 
 
 if __name__ == "__main__":

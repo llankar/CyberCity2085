@@ -21,16 +21,14 @@ from .story_events import STORY_EVENT_SPECS
 
 import random as _rnd
 
-# Act advancement thresholds (story missions completed)
-_ADVANCE_THRESHOLDS = {1: 3, 2: 4, 3: 5, 4: 5, 5: 999}
-
-
 def tick_campaign(game_state: "GameState") -> None:
     """Advance the global campaign state by one in-game day.
 
     Called from GameState.advance_one_day(). Pure side effects on game_state.
     """
     c = game_state.campaign
+    if c.ending is not None:
+        return
     day = game_state.calendar.current_day
 
     # ── 1. Hungry Tide: +2 every 7 days ──────────────────────────────────────
@@ -58,9 +56,15 @@ def record_story_mission_complete(game_state: "GameState", story_mission_id: str
     from .story_missions import STORY_MISSIONS_BY_ID
     c = game_state.campaign
     mission = STORY_MISSIONS_BY_ID.get(story_mission_id)
-    if mission is None or mission.act != c.current_act:
+    if (
+        mission is None
+        or mission.act != c.current_act
+        or story_mission_id in c.completed_story_missions
+        or c.ending is not None
+    ):
         return
 
+    c.completed_story_missions.append(story_mission_id)
     c.act_progress += 1
     game_state.add_event(
         f"[STORY] Story mission complete: {mission.title}. "
@@ -75,6 +79,7 @@ def record_story_mission_complete(game_state: "GameState", story_mission_id: str
     for attr, value in mission.world_effects.items():
         if hasattr(c.world, attr):
             setattr(c.world, attr, value)
+    _check_act_advance(game_state)
 def _reveal_intel(game_state: "GameState", fragment_id: str) -> None:
     """Reveal an intel fragment if not already discovered."""
     c = game_state.campaign
@@ -204,10 +209,17 @@ def _fire_management_event(game_state: "GameState", spec: dict, day: int) -> Non
 def _check_act_advance(game_state: "GameState") -> None:
     """Advance to the next act if progress threshold is met."""
     c = game_state.campaign
-    if c.current_act >= 5:
+    if c.ending is not None:
         return
-    required = _ADVANCE_THRESHOLDS.get(c.current_act, 5)
+    required = c.missions_required
     if c.act_progress < required:
+        return
+    if c.current_act >= 5:
+        from .ending import evaluate_campaign_ending
+
+        c.ending = evaluate_campaign_ending(game_state)
+        c.record_trigger("campaign_complete")
+        game_state.add_event(f"[FINALE] {c.ending.title}: {c.ending.summary}")
         return
     if f"act_{c.current_act}_complete" in c.act_triggers_seen:
         return

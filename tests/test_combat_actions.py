@@ -14,6 +14,18 @@ def action_keys(unit):
 
 
 class CombatActionsTest(unittest.TestCase):
+    def test_actions_use_distinct_combat_specific_icons(self):
+        catalog = default_equipment_catalog()
+        agent = Character("Icon", role="psi", traits=["first aid"])
+        agent.loadout.equip("primary_weapon", catalog["primary_weapon"][0])
+        agent.loadout.equip("psi_focus", catalog["psi_focus"][0])
+
+        actions = available_combat_actions(create_player_units([agent])[0])
+        icons = [action.icon for action in actions]
+
+        self.assertTrue(all(icon.startswith("combat_") for icon in icons))
+        self.assertEqual(len(icons), len(set(icons)))
+
     def test_ranged_agent_gets_fire_without_psi_or_missiles(self):
         catalog = default_equipment_catalog()
         agent = Character("Vega", role="sniper")

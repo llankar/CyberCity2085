@@ -5,7 +5,7 @@ from __future__ import annotations
 import arcade
 
 from . import palette
-from .facility import BASE_BACKDROP_ASSET, FacilityRoom, build_facility_rooms
+from .facility import BASE_BACKDROP_ASSET, FacilityRoom, build_facility_rooms, room_directory_entries
 from .room_interaction import (
     ActionButton,
     RoomUIState,
@@ -255,10 +255,26 @@ def draw_graphical_command_surface(
 ) -> None:
     """Draw the image-first room UI without text panels."""
     draw_city_corporate_backdrop(width, height, state.mode)
+    if not state.is_open and state.mode == "hub":
+        draw_room_directory(width, height, state.mode)
     draw_icon_resource_hud(width, height, resources or {}, available_funds)
     draw_expanded_room_ui(
         width, height, state, room_info_lines or {}, roster_cards or [], draw_controls=draw_controls
     )
+
+
+def draw_room_directory(width: int, height: int, mode: str) -> None:
+    """Label every clickable room on the collapsed base without hiding its art."""
+    for room, label in room_directory_entries(width, height, mode):
+        accent = _room_accent_color(room)
+        left = room.left + 10
+        bottom = room.bottom + 10
+        label_width = min(room.width - 20, max(132, len(label) * 8 + 22))
+        arcade.draw_lrbt_rectangle_filled(
+            left, left + label_width, bottom, bottom + 27, (4, 12, 18, 220)
+        )
+        arcade.draw_line(left, bottom + 27, left + label_width, bottom + 27, accent, 2)
+        arcade.draw_text(label, left + 9, bottom + 8, palette.TEXT, font_size=9, bold=True)
 
 
 def draw_icon_resource_hud(
@@ -572,33 +588,69 @@ def _draw_upgrade_badge(points: int, left: int, bottom: int) -> None:
 
 
 def draw_action_button(button: ActionButton, border, pulse_elapsed: float = 0.0) -> None:
-    """Draw an action button with an icon and a short readable label."""
+    """Draw a compact cyber-command card with an integrated label."""
     rect = button.rect
-    micro = int(8 * pulse_from_elapsed(pulse_elapsed))
-    fill = (*palette.ACTION_BUTTON_FILL[:3], min(255, palette.ACTION_BUTTON_FILL[3] + micro))
-    arcade.draw_lrbt_rectangle_filled(
-        rect.left, rect.right, rect.bottom, rect.top, fill
+    key = button.action.key
+    primary = key in {"next_step", "open_mission_map", "advance_day", "launch"}
+    destructive = key in {"remove_agent", "abandon"}
+    system = key in {"save", "load", "slot_prev", "slot_next"}
+    accent = (
+        palette.DANGER if destructive
+        else palette.TACTICAL_GREEN if primary
+        else palette.PANEL_BORDER_MUTED if system
+        else border
     )
-    arcade.draw_line(rect.left, rect.top, rect.right, rect.top, border, 2)
-    arcade.draw_line(rect.left, rect.bottom, rect.right, rect.bottom, palette.GRID_LINE, 1)
-    arcade.draw_line(rect.left, rect.bottom, rect.left, rect.top, border, 1)
-    arcade.draw_line(rect.right, rect.bottom, rect.right, rect.top, border, 1)
-    label_height = 18 if button.action.label else 0
+    micro = int(10 * pulse_from_elapsed(pulse_elapsed)) if primary else 0
+    fill = (7 + micro // 3, 20 + micro // 2, 28 + micro, 238)
+
+    # Drop shadow and layered card surface.
+    arcade.draw_lrbt_rectangle_filled(
+        rect.left + 4, rect.right + 4, rect.bottom - 4, rect.top - 4, (0, 0, 0, 150)
+    )
+    arcade.draw_lrbt_rectangle_filled(rect.left, rect.right, rect.bottom, rect.top, fill)
+    arcade.draw_lrbt_rectangle_filled(
+        rect.left, rect.left + 5, rect.bottom, rect.top, accent
+    )
+    arcade.draw_line(rect.left + 5, rect.top, rect.right - 8, rect.top, accent, 2)
+    arcade.draw_line(rect.left + 5, rect.bottom, rect.right, rect.bottom, palette.GRID_LINE, 1)
+    arcade.draw_line(rect.right - 8, rect.top, rect.right, rect.top - 8, accent, 1)
+    arcade.draw_line(rect.right, rect.top - 8, rect.right, rect.bottom, palette.GRID_LINE, 1)
+
+    icon_x = rect.left + 29
+    _draw_circle_filled(icon_x, rect.center_y, 18, (3, 12, 18, 230))
+    _draw_circle_outline(icon_x, rect.center_y, 18, accent, 1)
     _draw_icon(
         button.action.icon,
-        rect.center_x,
-        rect.center_y + label_height // 2,
-        rect.width - 30,
-        border,
+        icon_x,
+        rect.center_y,
+        22,
+        accent,
     )
     if button.action.label:
+        label = button.action.label.upper()
+        label = label if len(label) <= 16 else f"{label[:15]}…"
         arcade.draw_text(
-            button.action.label.upper(),
-            rect.center_x,
-            rect.bottom - 18,
+            label,
+            rect.left + 54,
+            rect.center_y + 6,
             palette.TEXT,
-            9,
-            anchor_x="center",
+            9 if rect.width >= 124 else 8,
+            bold=True,
+            anchor_y="center",
+        )
+        category = (
+            "DANGER" if destructive
+            else "PRIMARY" if primary
+            else "SYSTEM" if system
+            else "COMMAND"
+        )
+        arcade.draw_text(
+            category,
+            rect.left + 54,
+            rect.center_y - 11,
+            accent,
+            7,
+            anchor_y="center",
         )
 
 
@@ -636,6 +688,46 @@ def _draw_room_symbol(key: str, center_x: int, center_y: int, size: int, color) 
 
 def _draw_icon(kind: str, center_x: int, center_y: int, size: int, color) -> None:
     half = size // 2
+    if kind == "combat_move":
+        for dx, dy in ((half, 0), (-half, 0), (0, half), (0, -half)):
+            arcade.draw_line(center_x, center_y, center_x + dx, center_y + dy, color, 3)
+        _draw_circle_filled(center_x, center_y, max(2, half // 5), color)
+        return
+    if kind == "combat_fire":
+        _draw_circle_outline(center_x, center_y, max(3, half - 2), color, 2)
+        _draw_circle_filled(center_x, center_y, max(2, half // 5), color)
+        arcade.draw_line(center_x - half, center_y, center_x + half, center_y, color, 2)
+        arcade.draw_line(center_x, center_y - half, center_x, center_y + half, color, 2)
+        return
+    if kind == "combat_melee":
+        arcade.draw_line(center_x - half, center_y - half, center_x + half, center_y + half, color, 4)
+        arcade.draw_line(center_x - half, center_y + half, center_x + half, center_y - half, color, 4)
+        return
+    if kind == "combat_psi":
+        for radius in (max(3, half // 3), max(5, 2 * half // 3), half):
+            _draw_circle_outline(center_x, center_y, radius, color, 1 if radius < half else 2)
+        return
+    if kind == "combat_aid":
+        arcade.draw_lrbt_rectangle_filled(center_x - half // 5, center_x + half // 5, center_y - half, center_y + half, color)
+        arcade.draw_lrbt_rectangle_filled(center_x - half, center_x + half, center_y - half // 5, center_y + half // 5, color)
+        return
+    if kind == "combat_missile":
+        arcade.draw_line(center_x - half, center_y - half, center_x + half, center_y + half, color, 4)
+        arcade.draw_line(center_x - half, center_y - half, center_x - half, center_y, color, 3)
+        arcade.draw_line(center_x - half, center_y - half, center_x, center_y - half, color, 3)
+        return
+    if kind == "combat_overwatch":
+        arcade.draw_arc_outline(center_x, center_y, size, size * 0.65, color, 0, 180, 2)
+        _draw_circle_outline(center_x, center_y, max(3, half // 3), color, 2)
+        _draw_circle_filled(center_x, center_y, max(2, half // 7), color)
+        return
+    if kind == "combat_defend":
+        kind = "shield"
+    if kind == "combat_end":
+        arcade.draw_line(center_x - half, center_y + half, center_x + half, center_y, color, 4)
+        arcade.draw_line(center_x + half, center_y, center_x - half, center_y - half, color, 4)
+        arcade.draw_line(center_x + half, center_y - half, center_x + half, center_y + half, color, 3)
+        return
     if kind in {"credits", "influence"}:
         _draw_circle_outline(center_x, center_y, half // 2, color, 2)
         _draw_circle_filled(center_x, center_y, max(3, half // 6), color)

@@ -449,7 +449,7 @@ class ManagementHubUITest(unittest.TestCase):
         self._seed_interactive_state(view)
 
         cases = {
-            "command": ("corp_upgrade_",),
+            "command": ("weekly_directive_",),
             "city": ("city_upgrade_",),
             "squad": ("agent_card", "spend_stat_point", "equip_prev", "equip_next", "select_mission"),
             "assets": ("asset_select", "asset_repair", "asset_deploy_toggle", "catalog_acquire", "catalog_scroll"),
@@ -525,7 +525,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertTrue(view.recruit_window_open)
         self.assertGreaterEqual(len(view.pending_recruit_candidates), 6)
         self.assertTrue(all(candidate.name for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi"} for candidate in view.pending_recruit_candidates))
+        self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi", "robot"} for candidate in view.pending_recruit_candidates))
         self.assertTrue(all(candidate.function for candidate in view.pending_recruit_candidates))
         self.assertTrue(all(candidate.background for candidate in view.pending_recruit_candidates))
         self.assertTrue(all(candidate.advantages for candidate in view.pending_recruit_candidates))
@@ -565,6 +565,10 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertEqual(len(view.pending_recruit_candidates), 0)
         self.assertFalse(view.recruit_window_open)
         self.assertIn(recruited_name, {character.name for character in view.game_state.characters})
+        self.assertIn(recruited_name, view.game_state.selected_agent_names)
+        recruited = next(character for character in view.game_state.characters if character.name == recruited_name)
+        self.assertIsNotNone(recruited.loadout.primary_weapon)
+        self.assertIn("starter kit", view.message.lower())
         self.assertEqual(view.game_state.available_funds, before_funds - recruited_price)
 
     def test_agent_sheet_spreads_readiness_and_skills_better(self):

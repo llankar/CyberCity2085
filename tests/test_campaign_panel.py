@@ -23,7 +23,7 @@ class CampaignPanelSummaryTest(unittest.TestCase):
     def test_global_scenario_summary_covers_wave6_required_fields(self) -> None:
         game_state = GameState()
         game_state.campaign.current_act = 2
-        game_state.campaign.act_progress = 3
+        game_state.campaign.act_progress = 2
         game_state.campaign.discovered_intel = [
             "act1_warsaw_coup",
             "act2_tide_forming",
@@ -53,8 +53,8 @@ class CampaignPanelSummaryTest(unittest.TestCase):
 
         self.assertEqual(summary["current_act"], 2)
         self.assertEqual(summary["act_title"], "The Tide")
-        self.assertEqual(summary["act_progress"], 3)
-        self.assertEqual(summary["act_required"], 4)
+        self.assertEqual(summary["act_progress"], 2)
+        self.assertEqual(summary["act_required"], 3)
         self.assertEqual(summary["hungry_tide_percentage"], 64)
         self.assertEqual(summary["new_york_status"], "alert")
         self.assertEqual(summary["warsaw_status"], "three_sevens_controlled")

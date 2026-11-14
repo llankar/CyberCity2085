@@ -103,3 +103,15 @@ def advance_one_day(self, reason: str = "manual") -> None:
 ## Decision
 
 Keep `GameState` as the stable campaign state root, but stop adding new domain behavior directly to it. Future Wave 6 work should add or extend domain services first, then leave `GameState` as a compatibility facade until save migration tests justify moving serialized data.
+
+## Implemented release boundaries — November 13, 2026
+
+- `game/campaign/service.py` is the public boundary for daily campaign ticking
+  and story-mission completion. Its focused engine remains internal.
+- `game/missions/flow.py` is the public boundary for mission-board generation,
+  selection, launch, objective helpers, rewards, and outcome resolution.
+- `game.mission_system` remains import-compatible for extensions and older tests.
+- Release-path views live under `game/ui/screens/`. `game/views.py` retains the
+  mature Arcade battle implementation as a compatibility shell to avoid a risky
+  cosmetic move before 1.0.
+- `tests/test_architecture_boundaries.py` prevents these boundaries regressing.

@@ -88,7 +88,9 @@ def draw_combat_action_bar(
         preview_text = (
             f"DMG {preview.min_damage}-{preview.max_damage}  "
             f"HIT {int(preview.hit_chance * 100)}%  "
-            f"CRIT {int(preview.crit_chance * 100)}%"
+            f"CRIT {int(preview.crit_chance * 100)}%  "
+            f"{'FLANK' if preview.flanking else f'COVER +{preview.cover_bonus}'}  "
+            f"AP {preview.ap_cost}"
         )
         arcade.draw_text(preview_text, bar.left + 18, bar.top - 69, palette.TEXT, 10)
     if warning:

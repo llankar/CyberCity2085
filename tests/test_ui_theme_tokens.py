@@ -20,3 +20,14 @@ def test_expanded_room_and_actions_use_spacing_tokens() -> None:
     assert expanded.left >= spacing.lg
     buttons = layout_action_buttons(1280, 720, [RoomAction("a", "city"), RoomAction("b", "city")])
     assert buttons[1].rect.left - buttons[0].rect.right >= spacing.md
+
+
+def test_management_commands_use_wide_cards_and_wrap_without_overflow() -> None:
+    actions = [RoomAction(str(index), "city", f"Command {index}") for index in range(11)]
+
+    buttons = layout_action_buttons(1280, 720, actions)
+
+    assert all(button.rect.width > button.rect.height for button in buttons)
+    assert len({button.rect.bottom for button in buttons}) == 2
+    assert min(button.rect.left for button in buttons) >= spacing.xl
+    assert max(button.rect.right for button in buttons) <= 1280 - spacing.xl

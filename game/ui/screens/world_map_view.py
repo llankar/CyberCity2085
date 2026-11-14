@@ -9,15 +9,19 @@ import arcade
 
 from game.agent_readiness import agents_at_breaking_risk
 from game.character import is_deployable
-from game.deployment import sanitize_selected_agent_names, selected_deployable_agents
-from game.mission_system import (
+from game.deployment import (
+    build_tactical_briefing,
+    sanitize_selected_agent_names,
+    selected_deployable_agents,
+)
+from game.missions.flow import (
     ensure_mission_templates,
     launch_selected_mission as _launch_mission,
     selected_mission as _selected_mission,
 )
 from game.text_missions.text_mission_library import text_missions_for_day
 from game.ui import GameView
-from game.ui import palette
+from game.ui.theme.colors import colors
 from game.ui.management.action_requirements import blocked_launch_reason
 from game.ui.mission_board import risk_label
 from game.ui.panels import draw_panel
@@ -205,12 +209,12 @@ class MissionWorldMapView(GameView):
 
         arcade.draw_lrbt_rectangle_filled(0, w, 0, h, (5, 10, 18, 255))
         arcade.draw_lrbt_rectangle_filled(0, w, h - layout.header_height, h, (0, 0, 0, 180))
-        arcade.draw_line(0, h - layout.header_height, w, h - layout.header_height, palette.PANEL_BORDER, 2)
+        arcade.draw_line(0, h - layout.header_height, w, h - layout.header_height, colors.text_secondary, 2)
         arcade.draw_text(
             "MISSION WORLD MAP",
             22,
             h - layout.header_height // 2,
-            palette.HEADER,
+            colors.text_primary,
             font_size=17,
             bold=True,
             anchor_y="center",
@@ -219,7 +223,7 @@ class MissionWorldMapView(GameView):
             "Click a pin to inspect the mission. Select Mission returns to management.",
             w - 22,
             h - layout.header_height // 2,
-            palette.MUTED_TEXT,
+            colors.text_secondary,
             font_size=10,
             anchor_x="right",
             anchor_y="center",
@@ -250,7 +254,7 @@ class MissionWorldMapView(GameView):
                 arcade.draw_line(image_left, gy, image_right, gy, (40, 58, 68, 120), 1)
             pin_left, pin_bottom, pin_right, pin_top = image_left, image_bottom, image_right, image_top
 
-        arcade.draw_lrbt_rectangle_outline(map_left, map_right, map_bottom, map_top, palette.PANEL_BORDER, 2)
+        arcade.draw_lrbt_rectangle_outline(map_left, map_right, map_bottom, map_top, colors.text_secondary, 2)
 
         missions = self.game_state.mission_templates
         selected_index = self.game_state.selected_mission_index
@@ -267,15 +271,15 @@ class MissionWorldMapView(GameView):
             if node.mission_index == selected_index:
                 selected_node = node
             selected = node.mission_index == selected_index and self._selection_type == "combat"
-            risk_col = palette.TACTICAL_GREEN if selected else palette.WARNING
+            risk_col = colors.accent_success if selected else colors.accent_warning
             arcade.draw_circle_filled(node.pin_x, node.pin_y, 8 if selected else 6, risk_col)
-            arcade.draw_circle_outline(node.pin_x, node.pin_y, 14, palette.WARNING if selected else risk_col, 2)
-            arcade.draw_line(node.pin_x, node.pin_y - 2, node.pin_x, node.pin_y - 15, palette.WARNING if selected else risk_col, 2)
+            arcade.draw_circle_outline(node.pin_x, node.pin_y, 14, colors.accent_warning if selected else risk_col, 2)
+            arcade.draw_line(node.pin_x, node.pin_y - 2, node.pin_x, node.pin_y - 15, colors.accent_warning if selected else risk_col, 2)
             arcade.draw_text(
                 mission_label_text(node.mission),
                 node.label_left + 8,
                 node.label_top - 15,
-                palette.TEXT,
+                colors.text_primary,
                 font_size=9,
                 bold=True,
                 anchor_y="top",
@@ -352,7 +356,7 @@ class MissionWorldMapView(GameView):
                 "No missions available.",
                 (map_left + map_right) // 2,
                 (map_bottom + map_top) // 2,
-                palette.MUTED_TEXT,
+                colors.text_secondary,
                 font_size=11,
                 anchor_x="center",
                 anchor_y="center",
@@ -367,25 +371,28 @@ class MissionWorldMapView(GameView):
         back_left = launch_right + 12
         back_right = w - 24
 
-        self._draw_button(select_left, select_bottom, select_right, select_top, "SELECT MISSION", palette.ACCENT, "confirm_mission")
-        self._draw_button(launch_left, select_bottom, launch_right, select_top, "LAUNCH MISSION", palette.TACTICAL_GREEN, "launch_mission")
-        self._draw_button(back_left, select_bottom, back_right, select_top, "BACK", palette.MUTED_TEXT, "back")
+        self._draw_button(select_left, select_bottom, select_right, select_top, "PREPARE SQUAD", colors.accent_primary, "confirm_mission")
+        launch_label, launch_color = self._launch_button_presentation()
+        self._draw_button(launch_left, select_bottom, launch_right, select_top, launch_label, launch_color, "launch_mission")
+        self._draw_button(back_left, select_bottom, back_right, select_top, "BACK", colors.text_secondary, "back")
 
         arcade.draw_text(
             "Enter/Return launches. Esc closes.",
             w // 2,
             12,
-            palette.MUTED_TEXT,
+            colors.text_secondary,
             font_size=9,
             anchor_x="center",
         )
 
         if self._message:
+            arcade.draw_lrbt_rectangle_filled(18, min(w - 18, 720), h - 82, h - 52, (20, 8, 8, 235))
+            arcade.draw_line(18, h - 52, min(w - 18, 720), h - 52, colors.accent_warning, 2)
             arcade.draw_text(
                 self._message,
-                24,
-                h - 68,
-                palette.WARNING,
+                28,
+                h - 71,
+                colors.accent_warning,
                 font_size=10,
             )
 
@@ -422,7 +429,7 @@ class MissionWorldMapView(GameView):
             "MISSION BRIEFING",
             x,
             top_strip_y,
-            palette.HEADER,
+            colors.text_primary,
             font_size=10,
             bold=True,
         )
@@ -431,7 +438,7 @@ class MissionWorldMapView(GameView):
                 f"SITE: {mission_site_name(selected_node.site_key)}",
                 right - 14,
                 top_strip_y,
-                palette.ACCENT,
+                colors.accent_primary,
                 font_size=9,
                 bold=True,
                 anchor_x="right",
@@ -441,7 +448,7 @@ class MissionWorldMapView(GameView):
             _shorten(mission.title.upper(), 24),
             x,
             y,
-            palette.HEADER,
+            colors.text_primary,
             font_size=12 if panel_w < 360 else 13,
             bold=True,
         )
@@ -450,17 +457,29 @@ class MissionWorldMapView(GameView):
             f"RISK {mission.risk_level}  |  DURATION {mission.duration_days}D  |  REWARD ¥{mission.fund_reward}",
             x,
             y,
-            palette.WARNING,
+            colors.accent_warning,
             font_size=9 if panel_w < 360 else 10,
         )
         y -= 22
 
-        for line in _compact_briefing_lines(mission):
+        selected = selected_deployable_agents(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        tactical = build_tactical_briefing(mission, selected)
+        tactical_lines = [
+            f"ENEMY: {tactical.enemy_label}",
+            f"DOCTRINE: {_shorten(tactical.doctrine, 52)}",
+            f"SQUAD: {tactical.squad_count} assigned | {tactical.armed_count} armed",
+            f"KIT: {_shorten(tactical.loadout_summary, 52)}",
+            f"ROLES: {tactical.capability_summary} | {tactical.tactical_gap}",
+            f"RECOVERY LOAD: {tactical.recovery_load}",
+        ]
+        for line in tactical_lines:
             arcade.draw_text(
                 line,
                 x,
                 y,
-                palette.TEXT if not line.startswith("Launch status:") else palette.WARNING,
+                colors.text_primary if not line.startswith("Launch status:") else colors.accent_warning,
                 font_size=8,
                 width=max(10, panel_w - 28),
                 multiline=True,
@@ -468,6 +487,26 @@ class MissionWorldMapView(GameView):
             y -= 15
             if y < bottom + 18:
                 break
+
+    def _launch_button_presentation(self) -> tuple[str, tuple[int, int, int]]:
+        """Make missing squad preparation visible before the player clicks launch."""
+        if self._selection_type == "text":
+            selected = selected_deployable_agents(
+                self.game_state.characters, self.game_state.selected_agent_names
+            )
+            return ("LAUNCH NARRATIVE MISSION", colors.accent_success) if selected else ("ASSIGN AN AGENT FIRST", colors.accent_warning)
+        mission = _selected_mission(self.game_state)
+        selected = selected_deployable_agents(
+            self.game_state.characters, self.game_state.selected_agent_names
+        )
+        if mission is None:
+            return "SELECT A MISSION", colors.accent_warning
+        if not selected:
+            return "ASSIGN AN AGENT FIRST", colors.accent_warning
+        tactical = build_tactical_briefing(mission, selected)
+        if not tactical.ready:
+            return "CHECK UNARMED AGENTS", colors.accent_warning
+        return "LAUNCH MISSION", colors.accent_success
 
     def on_mouse_press(self, x, y, button, modifiers) -> None:
         xi, yi = int(x), int(y)
@@ -591,15 +630,15 @@ class MissionWorldMapView(GameView):
         y = top - 42
         arcade.draw_text(
             _shorten(tm.title.upper(), 24), x, y,
-            palette.HEADER, font_size=13, bold=True,
+            colors.text_primary, font_size=13, bold=True,
         )
         y -= 22
         arcade.draw_text(
             f"RISK {tm.risk_level}  |  {tm.duration_days}D  |  ¥{tm.fund_reward}",
-            x, y, palette.WARNING, font_size=9,
+            x, y, colors.accent_warning, font_size=9,
         )
         y -= 20
-        arcade.draw_line(x, y, right - 14, y, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(x, y, right - 14, y, colors.text_secondary, 1)
         y -= 16
 
         # Description word-wrap
@@ -607,13 +646,13 @@ class MissionWorldMapView(GameView):
         cpl = max(20, (panel_w - 28) // 7)
         while desc and y > bottom + 50:
             if len(desc) <= cpl:
-                arcade.draw_text(desc, x, y, palette.TEXT, font_size=8)
+                arcade.draw_text(desc, x, y, colors.text_primary, font_size=8)
                 desc = ""
             else:
                 cut = desc[:cpl + 1].rfind(" ")
                 if cut <= 0:
                     cut = cpl
-                arcade.draw_text(desc[:cut], x, y, palette.TEXT, font_size=8)
+                arcade.draw_text(desc[:cut], x, y, colors.text_primary, font_size=8)
                 desc = desc[cut + 1:]
             y -= 13
 
@@ -621,14 +660,14 @@ class MissionWorldMapView(GameView):
             y -= 4
             arcade.draw_text(
                 "Skills: " + ", ".join(s.replace("_", " ") for s in tm.required_skills),
-                x, y, palette.ACCENT, font_size=8,
+                x, y, colors.accent_primary, font_size=8,
             )
 
         # "LAUNCH" hint at bottom of card
         arcade.draw_text(
             "Press LAUNCH MISSION to deploy",
             x, bottom + 10,
-            palette.MUTED_TEXT, font_size=7,
+            colors.text_secondary, font_size=7,
         )
 
     def _back_to_management(self) -> None:

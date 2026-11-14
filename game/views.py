@@ -153,10 +153,8 @@ from .ui.portraits import portrait_path_for_character
 from .gamestate import GameState
 from .mission_objectives import (
     create_battle_objective,
-    interact_with_objective,
-    objective_failed_by_enemy_positions,
 )
-from .mission_system import (
+from .missions.flow import (
     ensure_mission_templates,
     launch_selected_mission as launch_mission_system,
     resolve_mission_outcome as resolve_mission_outcome_system,
@@ -1856,8 +1854,33 @@ class BattleView(GameView):
         _snd.configure_from_settings(_load_settings())
         _snd.play_music("music_battle", loop=True)
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
-        from game.cover_system import generate_cover_nodes
-        self.cover_nodes = generate_cover_nodes(self.map_index, seed_offset=self.turn_number)
+        from game.combat.battlefield import build_battlefield_plan, reachable_objective_positions, connect_inferred_terrain
+        objective_positions = (
+            tuple(self.battle_objective.marker_positions or [self.battle_objective.position])
+            if self.battle_objective else ()
+        )
+        self.terrain_profile, access_lanes = connect_inferred_terrain(
+            self.terrain_profile,
+            tuple(unit.position for unit in self.player_units + self.enemy_units) + objective_positions,
+        )
+        self.combat_state.tactical_flags["access_lanes"] = access_lanes
+        if self.player_units and self.battle_objective and self.battle_objective.kind not in {"containment", "assassination"}:
+            objective_positions = reachable_objective_positions(
+                objective_positions, self.player_units[0].position, self.terrain_profile
+            )
+            self.battle_objective.marker_positions = list(objective_positions)
+            self.battle_objective.position = objective_positions[0]
+        plan = build_battlefield_plan(
+            map_index=self.map_index,
+            width=getattr(self.window, "width", 1280),
+            height=getattr(self.window, "height", 720),
+            reserved_positions=tuple(unit.position for unit in self.player_units + self.enemy_units) + objective_positions,
+            terrain_profile=self.terrain_profile,
+            objective_kind=getattr(self.battle_objective, "kind", "eliminate"),
+        )
+        self.cover_nodes = list(plan.cover_nodes)
+        self.combat_state.tactical_flags["hazards"] = plan.hazards
+        self.combat_engine.cover_nodes = self.cover_nodes
         self.message = "Deployment phase: reposition squad, then press Enter to deploy."
 
     def _load_battle_map(self, index: int) -> None:
@@ -2068,26 +2091,13 @@ class BattleView(GameView):
         if result.outcome == "defeat":
             self.end_battle(False)
             return
-        # Defend objective: check if hold turns are reached
-        if self._defend_turns_needed > 0 and self.turn_number > self._defend_turns_needed:
+        objective_result = self.combat_engine.objective_result()
+        if objective_result.status == "victory":
+            self.message = objective_result.message
             self.end_battle(True)
             return
-        # Defend objective: check if enemy reached the objective position
-        if self._defend_turns_needed > 0 and self.battle_objective:
-            obj_pos = self.battle_objective.position
-            for enemy in self.enemy_units:
-                dx = abs(enemy.position[0] - obj_pos[0])
-                dy = abs(enemy.position[1] - obj_pos[1])
-                if dx <= 32 and dy <= 32:
-                    self.message = "POSITION BREACHED — Mission failed!"
-                    self.end_battle(False)
-                    return
-        failed, reason = objective_failed_by_enemy_positions(
-            [enemy.position for enemy in self.enemy_units],
-            self.battle_objective,
-        )
-        if failed:
-            self.message = reason or "Objective breached - Mission failed!"
+        if objective_result.status == "defeat":
+            self.message = objective_result.message
             self.end_battle(False)
             return
         # Tick blackout duration
@@ -2157,7 +2167,7 @@ class BattleView(GameView):
         # Campaign: record story mission completion
         if self.mission and self.mission.id.startswith("sm_"):
             try:
-                from game.campaign.engine import record_story_mission_complete
+                from game.campaign.service import record_story_mission_complete
                 if victory:
                     record_story_mission_complete(self.game_state, self.mission.id)
                     self.game_state.campaign.record_trigger(f"story_complete_{self.mission.id}")
@@ -2171,6 +2181,12 @@ class BattleView(GameView):
         )
         self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
         performance_by_agent = {}
+        combat_state = getattr(self, "combat_state", None)
+        objective_contributions = (
+            combat_state.tactical_flags.get("objective_contributions", {})
+            if combat_state is not None
+            else {}
+        )
         for unit in all_player_units:
             if not unit.character:
                 continue
@@ -2182,6 +2198,9 @@ class BattleView(GameView):
                 "xp_gained": getattr(unit.character, "_mission_xp_gained", 0),
                 "objective_type": getattr(self.mission, "objective_type", ""),
                 "saved_civilian": bool(getattr(unit, "_saved_civilian", False)),
+                "objective_contribution": int(
+                    objective_contributions.get(unit.character.name, 0)
+                ),
             }
         debrief_report = build_mission_debrief_report(
             surviving_participants,
@@ -2417,6 +2436,7 @@ class BattleView(GameView):
             battle_shortcut_banner,
             draw_battle_shortcut_banner,
             draw_action_aftermath_line,
+            draw_enemy_intents,
             update_enemy_visibility,
         )
 
@@ -2426,6 +2446,11 @@ class BattleView(GameView):
 
         # ── World camera (panned + shake) ────────────────────────────────
         import random as _rr
+        from game.combat.camera import camera_pan_limits, clamp_camera_pan
+
+        self._cam_pan_x, self._cam_pan_y = clamp_camera_pan(
+            self._cam_pan_x, self._cam_pan_y, w, h
+        )
         sx = _rr.uniform(-1, 1) * self._shake_intensity if self._shake_intensity > 0 else 0.0
         sy = _rr.uniform(-1, 1) * self._shake_intensity if self._shake_intensity > 0 else 0.0
         self.camera.position = arcade.Vec2(
@@ -2448,7 +2473,10 @@ class BattleView(GameView):
 
         # ── Background map ───────────────────────────────────────────────
         if self.background:
-            arcade.draw_texture_rect(self.background, arcade.LBWH(0, 0, w, h))
+            arcade.draw_texture_rect(
+                self.background,
+                arcade.LBWH(0, 0, w, h),
+            )
 
         # ── Tactical grid ────────────────────────────────────────────────
         draw_tactical_grid(w, h)
@@ -2456,6 +2484,9 @@ class BattleView(GameView):
         # ── Cover nodes ───────────────────────────────────────────────────
         cover_nodes = getattr(self, "cover_nodes", [])
         draw_cover_nodes(cover_nodes)
+        from game.ui.screens.battle_hud import draw_hazard_zones, draw_access_lanes
+        draw_access_lanes(self.combat_state.tactical_flags.get("access_lanes", ()))
+        draw_hazard_zones(self.combat_state.tactical_flags.get("hazards", ()))
 
         # ── Movement range (player turn only) ───────────────────────────
         has_active = bool(self.player_units) and 0 <= self.active_index < len(self.player_units)
@@ -2500,6 +2531,13 @@ class BattleView(GameView):
 
         # ── Unit labels (HP bars + names) ────────────────────────────────
         draw_unit_labels(self.player_units, visible_enemy_units, self.active_index)
+        if self.turn == "player" and not self._deploying:
+            draw_enemy_intents(
+                visible_enemy_units,
+                self.player_units,
+                self.battle_objective,
+                elapsed,
+            )
 
         # ── Assassination target marker ──────────────────────────────────
         if not self._deploying and self._assassination_target and self._assassination_target in self.enemy_units:
@@ -2518,7 +2556,20 @@ class BattleView(GameView):
                     arcade.LBWH(cx - tw / 2, cy - th / 2, tw, th),
                     palette.WARNING, border_width=2,
                 )
-            draw_target_lock_panel(w, target, self.pending_attack or "melee", active_unit)
+            target_preview = estimate_attack_preview(
+                active_unit,
+                target,
+                self.pending_attack or "melee",
+                cover_nodes=self.cover_nodes,
+                allies=self.player_units,
+            )
+            draw_target_lock_panel(
+                w,
+                target,
+                self.pending_attack or "melee",
+                active_unit,
+                preview=target_preview,
+            )
 
         # ── Attack animation ─────────────────────────────────────────────
         if self.attack_line:
@@ -2564,6 +2615,8 @@ class BattleView(GameView):
             self.turn_number,
         )
         draw_resource_summary(w, h, self.game_state.strategic_resources, self.game_state.available_funds)
+        from game.ui.screens.battle_hud import draw_objective_brief
+        draw_objective_brief(h, self.battle_objective)
 
         # ── Phase indicator (top-right) ──────────────────────────────────
         draw_phase_banner(w, h, self.turn, self.turn_number, elapsed)
@@ -2602,8 +2655,14 @@ class BattleView(GameView):
             if self.selecting_target and self.target_candidates:
                 target = self.target_candidates[self.selected_target_idx]
                 attack_kind = self.pending_attack or "shoot"
-                preview = estimate_attack_preview(active_unit, target, attack_kind)
-                warning = line_of_fire_warning(active_unit, target, self.player_units)
+                preview = estimate_attack_preview(
+                    active_unit,
+                    target,
+                    attack_kind,
+                    cover_nodes=self.cover_nodes,
+                    allies=self.player_units,
+                )
+                warning = preview.warning or line_of_fire_warning(active_unit, target, self.player_units)
             self.combat_action_buttons = draw_combat_action_bar(
                 w, h,
                 available_combat_actions(active_unit),
@@ -2664,6 +2723,9 @@ class BattleView(GameView):
         elif attack_key == "fire":
             range_cells = max(1, player.attack_range)
             pending = "shoot"
+        elif attack_key == "missiles":
+            range_cells = max(1, player.attack_range)
+            pending = "missiles"
         else:
             range_cells = 10
             pending = "psi"
@@ -2732,7 +2794,7 @@ class BattleView(GameView):
             self.check_active_player()
             return True
         if action_key == "missiles":
-            self._begin_target_action(player, "fire")
+            self._begin_target_action(player, "missiles")
             self.message = "Missile target lock acquired."
             return True
         if action_key == "overwatch":
@@ -2811,6 +2873,8 @@ class BattleView(GameView):
         # ── Camera pan: Shift + arrows (works any turn) ──────────────────
         _PAN = 64  # 2 grid cells per step
         if modifiers & arcade.key.MOD_SHIFT:
+            from game.combat.camera import clamp_camera_pan
+
             if key == arcade.key.LEFT:
                 self._cam_pan_x -= _PAN
             elif key == arcade.key.RIGHT:
@@ -2819,12 +2883,23 @@ class BattleView(GameView):
                 self._cam_pan_y += _PAN
             elif key == arcade.key.DOWN:
                 self._cam_pan_y -= _PAN
+            self._cam_pan_x, self._cam_pan_y = clamp_camera_pan(
+                self._cam_pan_x, self._cam_pan_y, self.window.width, self.window.height
+            )
             return
 
         # ── Home: re-center camera on active unit ────────────────────────
         if key == arcade.key.HOME:
-            self._cam_pan_x = 0.0
-            self._cam_pan_y = 0.0
+            from game.combat.camera import camera_pan_to_focus
+
+            focus = (
+                self.player_units[self.active_index].position
+                if self.player_units and 0 <= self.active_index < len(self.player_units)
+                else (self.window.width / 2, self.window.height / 2)
+            )
+            self._cam_pan_x, self._cam_pan_y = camera_pan_to_focus(
+                focus, self.window.width, self.window.height
+            )
             return
 
         # ── Deployment phase input ───────────────────────────────────────
@@ -2855,6 +2930,7 @@ class BattleView(GameView):
                 arcade.key.SPACE,
                 arcade.key.F,
                 arcade.key.P,
+                arcade.key.M,
             ):
                 target = self.target_candidates[self.selected_target_idx]
                 if not getattr(target, "visible", True):
@@ -2863,28 +2939,40 @@ class BattleView(GameView):
                     self.target_candidates = []
                     self.pending_attack = None
                     return
-                if self.pending_attack == "melee":
-                    damage = player.melee_attack(target)
-                elif self.pending_attack == "shoot":
-                    damage = player.shoot(target)
-                else:
-                    damage = player.psi_attack(target)
+                engine_action = {
+                    "melee": "melee",
+                    "shoot": "fire",
+                    "psi": "psi",
+                    "missiles": "missiles",
+                }.get(self.pending_attack or "shoot", "fire")
+                action_result = self.combat_engine.perform_action(
+                    engine_action,
+                    actor=player,
+                    target=target,
+                )
+                if not action_result.success:
+                    self.message = action_result.message
+                    self.selecting_target = False
+                    self.target_candidates = []
+                    self.pending_attack = None
+                    return
+                damage = action_result.damage
                 self._add_damage_popup(target, damage)
                 atk_type = self.pending_attack or "shoot"
                 # Sound
-                _sfx_map = {"melee": "sfx_melee", "shoot": "sfx_fire", "psi": "sfx_psi"}
+                _sfx_map = {"melee": "sfx_melee", "shoot": "sfx_fire", "psi": "sfx_psi", "missiles": "sfx_fire"}
                 self._snd().play(_sfx_map.get(atk_type, "sfx_fire"))
                 # Muzzle flash at attacker
                 self._spawn_muzzle_flash(*player.position)
                 if damage > 0:
-                    atk_name = {"melee": "slashes", "shoot": "shoots", "psi": "psy hits"}[atk_type]
+                    atk_name = {"melee": "slashes", "shoot": "shoots", "psi": "psy hits", "missiles": "strikes"}[atk_type]
                     attacker_name = (
                         player.character.name if player.character
                         else player.spec_ops_asset.name if player.spec_ops_asset
                         else player.unit_type
                     )
-                    cover_note = " (through cover)" if target.in_cover_bonus > 0 else ""
-                    self.message = f"{attacker_name} {atk_name} for {damage}{cover_note}"
+                    tactical_note = " (FLANK)" if action_result.attack_resolution and action_result.attack_resolution.context.flanking else ""
+                    self.message = f"{attacker_name} {atk_name} for {damage}{tactical_note}"
                     self.combat_log_messages.append(f"{attacker_name} → {damage} dmg")
                     self.start_attack_animation(player, target)
                     self._flash_hit   = True
@@ -2938,18 +3026,11 @@ class BattleView(GameView):
                         target.sprite.kill()
                     if target in self.enemy_units:
                         self.enemy_units.remove(target)
-                    # Assassination: instant win when the target dies
-                    if self._assassination_target is target:
+                    if action_result.battle.ended:
                         self.selecting_target = False
                         self.target_candidates = []
                         self.pending_attack = None
-                        self.end_battle(True)
-                        return
-                    if not self.enemy_units:
-                        self.selecting_target = False
-                        self.target_candidates = []
-                        self.pending_attack = None
-                        self.end_battle(True)
+                        self.end_battle(action_result.battle.outcome == "victory")
                         return
 
                 self.selecting_target = False
@@ -2986,16 +3067,14 @@ class BattleView(GameView):
 
         # Normal input handling when not selecting target
         if key == arcade.key.E:
-            if not self.battle_objective:
-                self.message = "No battlefield objective on this mission. Eliminate enemies to win."
-            else:
-                completed, message = interact_with_objective(
-                    player.position, self.battle_objective
-                )
-                self.message = message
-                if completed:
-                    self.end_battle(True)
-                    return
+            objective_result = self.combat_engine.interact_with_objective(player)
+            self.message = objective_result.message
+            if objective_result.status == "victory":
+                self.end_battle(True)
+                return
+            if objective_result.status == "defeat":
+                self.end_battle(False)
+                return
         elif key == arcade.key.UP:
             self._try_move_active_player(player, 0, 32)
         elif key == arcade.key.DOWN:
@@ -3266,8 +3345,10 @@ class BattleView(GameView):
                 self.enemy_units,
                 key=lambda u: priority.get(u.enemy_subtype, 0),
             )
+            self.combat_state.tactical_flags["assassination_target"] = self._assassination_target
         elif obj_type == "defend" and self.mission:
             self._defend_turns_needed = max(4, (self.mission.duration_days or 1) * 4)
+            self.combat_state.tactical_flags["defend_turns_required"] = self._defend_turns_needed
 
     def _handle_deployment_key(self, key: int) -> None:
         """Process arrow/tab/enter input during the pre-battle deployment phase."""
