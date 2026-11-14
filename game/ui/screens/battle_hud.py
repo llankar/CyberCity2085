@@ -21,12 +21,16 @@ from __future__ import annotations
 
 import math
 from collections import deque
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
 
 import arcade
 
 from game.ui import palette
 from game.combat.tactical_identity import EnemyIntent, build_enemy_intents
+from game.agent_specializations import (
+    signature_for_role, Stance, PsiState,
+    update_unit_stance, update_unit_psi_state, default_stance_for_unit,
+)
 
 if TYPE_CHECKING:
     from game.unit import Unit
@@ -168,11 +172,14 @@ def draw_enemy_intents(
 # Grid & range overlays
 # ══════════════════════════════════════════════════════════════════════════════
 
-def draw_tactical_grid(width: int, height: int) -> None:
+def draw_tactical_grid(width: int, height: int, *, hud_height: int = 0) -> None:
     """Draw a faint cross-hatch grid over the whole map."""
+    if hud_height > 0:
+        # Limiter le dessin au-dessus du HUD pour éviter tout chevauchement
+        height = height - hud_height
     for x in range(0, width + CELL, CELL):
-        arcade.draw_line(x, 0, x, height, _GRID_COL, 1)
-    for y in range(0, height + CELL, CELL):
+        arcade.draw_line(x, 0, x, max(0, height), _GRID_COL, 1)
+    for y in range(0, max(0, height) + CELL, CELL):
         arcade.draw_line(0, y, width, y, _GRID_COL, 1)
 
 
@@ -622,11 +629,16 @@ def draw_unit_portrait_strip(
     width: int,
     elapsed: float,
 ) -> None:
-    """Bottom strip: one card per player unit with portrait, HP, AP dots, name."""
+    """Bottom strip: one card per player unit with portrait, HP, AP dots, name.
+    
+    Positioned above the combat action bar (combat_action_bar_rect).
+    The action bar goes from bottom=18 to bottom+112=Y=130.
+    This strip goes from Y=130 to Y=130+80=Y=210, fitting within the HUD area.
+    """
     if not player_units:
         return
 
-    strip_y = _COMBAT_BAR_TOP + 4  # bottom of strip — sits above the combat action bar
+    strip_y = _COMBAT_BAR_TOP  # Aligned with action bar top edge (Y=130)
     n       = len(player_units)
     total_w = n * _STRIP_CARD_W + (n - 1) * 4
     start_x = (width - total_w) // 2
@@ -715,6 +727,221 @@ def draw_unit_portrait_strip(
         if unit.health <= 0:
             arcade.draw_lrbt_rectangle_filled(cx, cx + _STRIP_CARD_W, strip_y + 2, strip_y + _STRIP_H - 2, (180, 0, 0, 80))
             arcade.draw_text("KIA", cx + _STRIP_CARD_W // 2, strip_y + _STRIP_H // 2, palette.DANGER, font_size=9, bold=True, anchor_x="center", anchor_y="center")
+        
+        # Role signature indicator — drawn after portrait/name for all roles
+        draw_role_signature_indicator(unit, cx, strip_y, elapsed)
+
+
+# ─═══════════════════════════════════════════════════════════════════════════
+# Role signature indicators — Visual identity for each role tree
+# ════════════════════════════════════════════════════════════════════════════
+
+def draw_role_signature_indicator(
+    unit: "Unit",
+    cx: int,
+    strip_y: int,
+    elapsed: float,
+) -> None:
+    """Draw role-specific visual signature above the portrait card."""
+    sig = signature_for_role(unit.character.role if unit.character else "")
+    if not sig:
+        return
+    
+    # Get current stance/state for mode-based visuals
+    active_stance = (
+        getattr(unit, "stance", None) or update_unit_stance(unit)
+    )
+    active_psi = (
+        getattr(unit, "psi_state", None) or update_unit_psi_state(unit)
+    )
+    
+    # Portrait center for drawing indicators
+    portrait_center_x = cx + _STRIP_CARD_W - 2
+    portrait_center_y = strip_y + 15
+    
+    # ─────────────────────────────────────────────────────────────────────────
+    # SAMURAI: Breach/Guard stance indicator
+    # ─────────────────────────────────────────────────────────────────────────
+    if sig.key == "samurai":
+        # Stance ring above portrait
+        stance_color = sig.mode_colors.get(
+            str(active_stance), 
+            (200, 200, 200)
+        )
+        
+        # Outer glow ring with pulse
+        pulse = 1.0 + 0.15 * math.sin(elapsed * 8.0)
+        ring_radius = int(36 / pulse) + 4
+        
+        # Draw circle as line segments (arcade doesn't have native circles)
+        num_points = 8
+        
+        for i in range(num_points):
+            angle = math.pi * 2 * i / num_points
+            next_i = (i + 1) % num_points
+            px = int(portrait_center_x + ring_radius * math.cos(angle))
+            py = int(portrait_center_y + ring_radius * math.sin(angle))
+            nx = int(portrait_center_x + ring_radius * math.cos(math.pi * 2 * next_i / num_points))
+            ny = int(portrait_center_y + ring_radius * math.sin(math.pi * 2 * next_i / num_points))
+            arcade.draw_line(px, py, nx, ny, stance_color, 1.5)
+        
+        # Mode label above portrait
+        mode_label = str(active_stance).upper()
+        arcade.draw_text(
+            mode_label,
+            portrait_center_x,
+            strip_y + _STRIP_H - 18,
+            stance_color,
+            font_size=7,
+            bold=True,
+            anchor_x="center",
+        )
+    
+    # ─────────────────────────────────────────────────────────────────────────
+    # PSY: Control/Risk state indicator  
+    # ─────────────────────────────────────────────────────────────────────────
+    elif sig.key == "psi":
+        psi_color = sig.mode_colors.get(
+            str(active_psi), 
+            (200, 200, 200)
+        )
+        
+        # Pulsing ring indicating psychic activity
+        pulse = 1.0 + 0.1 * math.sin(elapsed * 10.0) if active_psi == PsiState.RISK else 1.0
+        
+        # Draw outer pulsing ring
+        ring_radius = int(36 / pulse) + 2
+        
+        for i in range(num_points):
+            angle = math.pi * 2 * i / num_points
+            next_i = (i + 1) % num_points
+            px = int(portrait_center_x + ring_radius * math.cos(angle))
+            py = int(portrait_center_y + ring_radius * math.sin(angle))
+            nx = int(portrait_center_x + ring_radius * math.cos(math.pi * 2 * next_i / num_points))
+            ny = int(portrait_center_y + ring_radius * math.sin(math.pi * 2 * next_i / num_points))
+            arcade.draw_line(px, py, nx, ny, psi_color, 1.5)
+        
+        # Inner core with psi symbol hint (concentric circle)
+        inner_radius = max(4, int(36 * 0.3 / pulse))
+        
+        for i in range(num_points):
+            angle = math.pi * 2 * i / num_points
+            next_i = (i + 1) % num_points
+            px = int(portrait_center_x + inner_radius * math.cos(angle))
+            py = int(portrait_center_y + inner_radius * math.sin(angle))
+            nx = int(portrait_center_x + inner_radius * math.cos(math.pi * 2 * next_i / num_points))
+            ny = int(portrait_center_y + inner_radius * math.sin(math.pi * 2 * next_i / num_points))
+            arcade.draw_line(px, py, nx, ny, sig.secondary_color, 1)
+        
+        # State indicator below name area
+        state_label = "CONTROL" if active_psi == PsiState.CONTROL else "RISK"
+        stress_color = psi_color if active_psi == PsiState.CONTROL else (255, 50, 50)
+        arcade.draw_text(
+            state_label,
+            portrait_center_x,
+            strip_y + _STRIP_H - 18,
+            stress_color,
+            font_size=6,
+            anchor_x="center",
+        )
+    
+    # ─────────────────────────────────────────────────────────────────────────
+    # SNIPER: Scope/Overwatch indicator
+    # ─────────────────────────────────────────────────────────────────────────
+    elif sig.key == "sniper":
+        overwatch_active = getattr(unit, "overwatching", False) or bool(getattr(unit, "_pending_overwatch", []))
+        
+        scope_color = (150, 230, 80) if overwatch_active else sig.accent_color
+        
+        # Crosshair-style indicator centered on portrait
+        # Draw crosshair as lines through portrait center
+        arcade.draw_line(
+            portrait_center_x - 6, portrait_center_y, portrait_center_x + 6, portrait_center_y,
+            scope_color, 2
+        )
+        arcade.draw_line(
+            portrait_center_x, portrait_center_y - 5, portrait_center_x, portrait_center_y + 5,
+            (int(c) for c in scope_color), 1.5
+        )
+        
+        # Overwatch status indicator below
+        if overwatch_active:
+            arcade.draw_lrbt_rectangle_filled(
+                portrait_center_x - 6, portrait_center_x + 4,
+                strip_y + _STRIP_H - 10,
+                strip_y + _STRIP_H - 3,
+                (50, 180, 50)  # green active status
+            )
+            arcade.draw_text(
+                "OW",
+                portrait_center_x,
+                strip_y + _STRIP_H - 6,
+                (50, 180, 50),
+                font_size=6,
+                anchor_x="center",
+            )
+    
+    # ─────────────────────────────────────────────────────────────────────────
+    # MEDIC: Stabilization indicator
+    # ─────────────────────────────────────────────────────────────────────────
+    elif sig.key == "medic":
+        is_stabilizing = getattr(unit, "stabilizing", False)
+        
+        med_color = (200, 180, 80) if is_stabilizing else (60, 200, 100)
+        
+        # Cross symbol for medic at portrait center
+        arcade.draw_line(
+            portrait_center_x - 4, portrait_center_y, portrait_center_x + 4, portrait_center_y,
+            med_color, 2
+        )
+        arcade.draw_line(
+            portrait_center_x, portrait_center_y - 3, portrait_center_x, portrait_center_y + 3,
+            (int(c) for c in med_color), 1.5
+        )
+    
+    # ─────────────────────────────────────────────────────────────────────────
+    # ROBOT: Heat/Asset status
+    # ─────────────────────────────────────────────────────────────────────────
+    elif sig.key == "robot":
+        heat = getattr(unit, "heat", 0)
+        heat_pct = min(1.0, heat / max(1, getattr(unit.stats, "max_heat", 100)))
+        
+        # Thermal gradient ring
+        temp_color = (255, 100, 80) if heat_pct > 0.7 else (255, 200, 80) if heat_pct > 0.4 else (180, 220, 60)
+        
+        ring_w = int(36 * heat_pct) + 2
+        
+        # Draw thermal ring at portrait center
+        for i in range(num_points):
+            angle = math.pi * 2 * i / num_points
+            px = int(portrait_center_x + ring_w * math.cos(angle))
+            py = int(portrait_center_y + ring_w * math.sin(angle))
+            nx = int(portrait_center_x + ring_w * math.cos(math.pi * 2 * next_i / num_points))
+            ny = int(portrait_center_y + ring_w * math.sin(math.pi * 2 * next_i / num_points))
+            arcade.draw_line(px, py, nx, ny, temp_color, 1.5)
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# Combat actions — movement, attack, abilities
+# ════════════════════════════════════════════════════════════════════════════
+
+def arc_draw_lrbt_circle_filled(center_x: int, center_y: int, radius: int, color: tuple[int, int, int]) -> None:
+    """Helper to draw a filled circle using arcade's LRBTR rectangle (arcade doesn't have built-in circle fill)."""
+    # Approximate circle with polygon - 8 points for smooth look
+    num_points = 8
+    x_center = center_x
+    y_center = center_y
+    
+    for i in range(num_points):
+        angle = math.pi * 2 * i / num_points
+        px = int(x_center + radius * math.cos(angle))
+        py = int(y_center + radius * math.sin(angle))
+        next_i = (i + 1) % num_points
+        nx = int(x_center + radius * math.cos(math.pi * 2 * next_i / num_points))
+        ny = int(y_center + radius * math.sin(math.pi * 2 * next_i / num_points))
+        
+        # Draw line segments approximating the circle
+        arcade.draw_line(px, py, nx, ny, color, 1)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -839,11 +1066,15 @@ def draw_phase_banner(
 def draw_unit_status_panel(
     _width: int, _height: int, unit: "Unit | None", turn: str
 ) -> None:
-    """Detailed stats panel for the active player unit — bottom-left corner."""
+    """Detailed stats panel for the active player unit — bottom-left corner.
+    
+    Positioned below the portrait strip (Y=210) and above the combat action bar (Y=18-130).
+    This fills the gap between Y=130 and Y=210, creating a clean HUD layout.
+    """
     pw = 320
     ph = 90
     px = 12
-    py = 12  # dock to the bottom-left edge instead of floating above the strip
+    py = _COMBAT_BAR_TOP - ph  # Position au-dessus de la barre d'action mais en dessous du portrait strip (Y=130-90=Y=40)
 
     # Top border colour indicates whose turn it is
     turn_col = _PHASE_PLAYER if turn == "player" else (_PHASE_ENEMY if turn == "enemy" else _PHASE_END)

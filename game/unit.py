@@ -51,8 +51,23 @@ class Unit:
     enemy_theme: str = "generic"     # for enemy units: themed roster key
     visible: bool = True             # hidden by fog of war when False (enemies only)
     in_cover_bonus: int = 0          # defense bonus from cover nodes; updated each frame by BattleView
+    
     # Phase 3-G04: status effects
     status_effects: list[str] = field(default_factory=list)
+    
+    # Phase 4: Role state management (stances, Psi states, cooldowns)
+    stance_override: str | None = None      # Manual stance selection override (BREACH/GUARD)
+    psi_state_override: str | None = None   # Manual Psi state toggle override (CONTROL/RISK)
+    
+    # Cooldown tracking for role abilities and state changes
+    stance_change_cooldown: int = 0         # Turns until next stance change allowed
+    psi_state_change_cooldown: int = 0      # Turns until next Psi state toggle allowed
+    breach_ability_cooldown: int = 0        # Turns until BREACH mode can be manually activated
+    psi_ability_cooldown: int = 0           # Turns until Psi abilities can be used
+    
+    # Ability usage counters (for player choice)
+    manual_breach_used_this_turn: bool = False  # Track if player forced breach this turn
+    psi_overdrive_active_this_turn: bool = False  # Track if player used overdrive this turn
 
     # ── Status effect helpers ──────────────────────────────────────────────
 
@@ -72,6 +87,17 @@ class Unit:
     def tick_status_effects(self) -> list[str]:
         """Apply and expire turn-based status effects. Returns messages."""
         messages: list[str] = []
+        
+        # First handle role state cooldowns (stance, Psi changes)
+        self.stance_change_cooldown = max(0, self.stance_change_cooldown - 1)
+        self.psi_state_change_cooldown = max(0, self.psi_state_change_cooldown - 1)
+        self.breach_ability_cooldown = max(0, self.breach_ability_cooldown - 1)
+        self.psi_ability_cooldown = max(0, self.psi_ability_cooldown - 1)
+        
+        # Clear manual state flags at end of turn
+        self.manual_breach_used_this_turn = False
+        self.psi_overdrive_active_this_turn = False
+        
         # Persistent damage-over-time effects stay until another action clears them.
         if STATUS_BLEEDING in self.status_effects and self.stats:
             self.stats.hp = max(0, self.stats.hp - 1)
@@ -90,7 +116,78 @@ class Unit:
             if effect in self.status_effects:
                 self.status_effects.remove(effect)
                 messages.append(f"{effect} cleared")
+        
         return messages
+
+    # ── Role state management methods ──────────────────────────────────────
+
+    def can_change_stance(self) -> bool:
+        """Check if unit can change stance (cooldown not active)."""
+        return self.stance_change_cooldown == 0
+    
+    def can_use_breach(self) -> bool:
+        """Check if breach ability is available (cooldown not active)."""
+        return self.breach_ability_cooldown == 0
+    
+    def activate_stance(self, new_stance: str) -> bool:
+        """Manually set stance. Returns True if successful."""
+        from game.agent_specializations import Stance
+        
+        if new_stance not in ("BREACH", "GUARD"):
+            return False
+        
+        if not self.can_change_stance():
+            # If cooldown is active, revert to auto-detection (remove override)
+            if self.stance_override == new_stance:
+                self.stance_override = None
+                return True
+            return False
+        
+        self.stance_override = new_stance
+        self.stance_change_cooldown = 2  # 2 turn cooldown after manual change
+        return True
+    
+    def clear_stance_override(self) -> bool:
+        """Clear stance override, reverting to automatic detection."""
+        if self.stance_override is not None:
+            self.stance_override = None
+            self.stance_change_cooldown += 1  # Add a turn for the clearance action
+            return True
+        return False
+    
+    def can_toggle_psi_state(self) -> bool:
+        """Check if unit can toggle Psi state (cooldown not active)."""
+        return self.psi_state_change_cooldown == 0
+    
+    def activate_psi_state(self, new_state: str) -> bool:
+        """Manually set Psi state. Returns True if successful."""
+        from game.agent_specializations import PsiState
+        
+        if new_state not in ("CONTROL", "RISK"):
+            return False
+        
+        if not self.can_toggle_psi_state():
+            return False
+        
+        self.psi_state_override = new_state
+        self.psi_state_change_cooldown = 2  # 2 turn cooldown after manual toggle
+        self.psi_ability_cooldown = 2      # Also triggers Psi ability cooldown
+        
+        if new_state == "RISK":
+            # Using overdrive - activate this turn flag for combat penalty tracking
+            self.psi_overdrive_active_this_turn = True
+        else:
+            self.psi_overdrive_active_this_turn = False
+        
+        return True
+    
+    def clear_psi_override(self) -> bool:
+        """Clear Psi state override, reverting to automatic detection."""
+        if self.psi_state_override is not None:
+            self.psi_state_override = None
+            self.psi_state_change_cooldown += 1
+            return True
+        return False
 
     def move(self, dx: int, dy: int):
         x, y = self.position
