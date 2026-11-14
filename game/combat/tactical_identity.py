@@ -7,6 +7,12 @@ from typing import Iterable
 
 from game.enemy_themes import normalize_enemy_theme
 
+# Import enemy plan system for enhanced AI prediction
+try:
+    from game.combat.enemy_plans import get_best_plan_for_enemy, EnemyPlanTemplate
+except ImportError:
+    EnemyPlanTemplate = None
+
 
 @dataclass(frozen=True)
 class TacticalProfile:
@@ -153,10 +159,106 @@ def predict_enemy_intent(
     *,
     objective: object | None = None,
 ) -> EnemyIntent:
-    """Predict the next AI priority without mutating combat state."""
+    """Predict the next AI priority using plan-based decision making."""
 
     profile = profile_for_theme(getattr(enemy, "enemy_theme", "generic"))
     living = [unit for unit in player_units if int(getattr(unit, "health", 0)) > 0]
+    
+    # Use enemy plan system for strategic intent prediction
+    if EnemyPlanTemplate is not None:
+        # Get context from game state
+        has_objectives = objective is not None and str(getattr(objective, "kind", "")).lower() in {"defend", "containment"}
+        specialist_threat = any(
+            hasattr(unit, 'character') and 
+            getattr(unit, 'character', None) is not None and
+            str(getattr(unit.character, 'role', '')).lower() in {'psi', 'sniper', 'commander'}
+            for unit in living
+        )
+        
+        # Get best plan for this enemy based on context
+        template = get_best_plan_for_enemy(
+            enemy_theme=enemy.enemy_theme if hasattr(enemy, "enemy_theme") else "generic",
+            player_units_count=len(living),
+            has_objectives=has_objectives,
+            specialist_threat=specialist_threat
+        )
+        
+        # Derive intent from plan type
+        plan_key = template.key.lower()
+        target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+        
+        if "objective" in plan_key:
+            action, rationale = "SEIZE", f"{template.label}: {template.description}"
+        elif "specialist" in plan_key or "hunter" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None)
+            if target is None:
+                action, rationale = "HOLD", f"Wait for specialist opportunity"
+            else:
+                dist = float(enemy.distance_to(target))
+                if dist <= 32:
+                    action, rationale = "STRIKE", f"Hunter Kill on {_target_name(target)}"
+                else:
+                    action, rationale = "FIRE", f"Eliminate {_target_name(target)} (specialist)"
+        elif "swarm" in plan_key or "tide" in plan_key or "starver" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "RUSH", f"Tide assault on {_target_name(target)}"
+            else:
+                action, rationale = "HOLD", "Overwhelming numbers ready"
+        elif "breach" in plan_key or "charge" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "BREACH", f"Mutant charge on {_target_name(target)}"
+            else:
+                action, rationale = "AVANCE", "Close assault position"
+        elif "isolate" in plan_key or "circle" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "FLANK", f"Isolate {_target_name(target)}"
+            else:
+                action, rationale = "HUNT", "Seek isolated target"
+        elif "cover" in plan_key and "advance" in plan_key:
+            action, rationale = "COVER_ADVANCE", f"Methodical advance ({template.label})"
+        elif "pressure" in plan_key or "assault" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "PRESSURE", f"Frontal attack on {_target_name(target)}"
+            else:
+                action, rationale = "ADVANCE", "Prepare assault"
+        elif "hunt" in plan_key and "wounded" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "HUNT_WOUNDED", f"Hybrid hunt on {_target_name(target)}"
+            else:
+                action, rationale = "SEARCH", "Look for wounded targets"
+        elif "hunt" in plan_key:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                action, rationale = "HUNT", f"Hunt on {_target_name(target)}"
+            else:
+                action, rationale = "SEARCH", "Seek targets"
+        else:
+            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
+            if target is not None:
+                dist = float(enemy.distance_to(target))
+                if dist <= 32:
+                    action, rationale = "EXECUTE_PLAN", f"Execute {template.label}"
+                elif dist <= template.attack_range if hasattr(template, 'attack_range') else 96:
+                    action, rationale = "EXECUTE_PLAN", f"Attack range - {template.label}"
+                else:
+                    action, rationale = "EXECUTE_PLAN", f"Advance - {template.label}"
+            else:
+                action, rationale = "HOLD", f"{template.label}: Waiting for opportunity"
+        
+        return EnemyIntent(enemy, action, target, _target_name(target), rationale, profile.color)
+    
+    # Fallback to original doctrine-based prediction if plans not available
     target = max(living, key=lambda unit: tactical_target_score(enemy, unit), default=None)
     if target is None:
         return EnemyIntent(enemy, "HOLD", None, "none", "No viable target", profile.color)

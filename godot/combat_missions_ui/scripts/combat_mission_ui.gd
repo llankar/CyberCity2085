@@ -95,6 +95,9 @@ var overwatch_indices: Array[int] = []
 var defend_indices   : Array[int] = []
 var cover_nodes      : Array[Dictionary] = []
 
+# ─── IPC to Python ────────────────────────────────────────────────────────────
+var ipc_pipe_path  : String = ""   # Unix pipe path for IPC signal to Python
+
 # ─── Camera / zoom / pan ──────────────────────────────────────────────────────
 const _ZOOM_MIN        := 0.25
 const _ZOOM_MAX        := 3.0
@@ -387,11 +390,10 @@ func _read_args() -> void:
 	for index in range(args.size()):
 		if args[index] == "--handoff" and index + 1 < args.size():
 			handoff_path = args[index + 1]
+		elif args[index] == "--ipc_pipe" and index + 1 < args.size():
+			ipc_pipe_path = args[index + 1]
 
 func _load_handoff() -> void:
-	if not FileAccess.file_exists(handoff_path):
-		status_line = "No handoff JSON at %s" % handoff_path
-		return
 	var text := FileAccess.get_file_as_string(handoff_path)
 	var parsed = JSON.parse_string(text)
 	if typeof(parsed) != TYPE_DICTIONARY:
@@ -1494,7 +1496,7 @@ func _end_combat(outcome: String) -> void:
 	}
 	_banner.show_banner("ended", turn_number)
 	CombatSignals.combat_ended.emit(outcome, result)
-	_results.show_results(outcome, result, project_root)
+	_results.show_results(outcome, result, project_root, ipc_pipe_path)
 	_results.visible = true
 	battle_ended = true   # block all further sync / input processing
 
