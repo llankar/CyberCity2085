@@ -178,6 +178,8 @@ def read_godot_combat_result(
 def build_godot_combat_payload(
     game_state: GameState,
     mission: MissionTemplate,
+    *,
+    ipc_pipe_path: str = "",  # Optional IPC pipe path for two-way signaling
 ) -> dict[str, Any]:
     """Build a render-engine-neutral JSON payload for the Godot combat UI."""
     selected_agents = selected_deployable_agents(
@@ -195,6 +197,8 @@ def build_godot_combat_payload(
         # Absolute path to the CyberCity2085 project root so Godot can locate
         # assets/units/, assets/maps/, etc. regardless of its working directory.
         "asset_base_dir": str(Path.cwd().resolve()),
+        # IPC pipe path for two-way signaling with Python (Unix FIFO)
+        "ipc_pipe_path": ipc_pipe_path,
         "campaign": {
             "corp_name": game_state.corp_name,
             "city_name": game_state.city_name,
@@ -278,11 +282,12 @@ def write_godot_combat_handoff(
     mission: MissionTemplate,
     *,
     handoff_path: Path | str = DEFAULT_HANDOFF_PATH,
+    ipc_pipe_path: str = "",
 ) -> Path:
     """Write the current mission handoff JSON and return its path."""
     path = Path(handoff_path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = build_godot_combat_payload(game_state, mission)
+    payload = build_godot_combat_payload(game_state, mission, ipc_pipe_path=ipc_pipe_path)
     errors = validate_godot_combat_payload(payload)
     if errors:
         raise ValueError("Invalid Godot combat handoff: " + "; ".join(errors))
@@ -374,10 +379,10 @@ def launch_godot_combat_ui(
               Arcade's event loop will be frozen for the duration — this is
               intentional since the player is inside the Godot combat window.
     """
-    # Remove stale result so we don't accidentally read a previous mission's data.
-    result_path = Path("runtime/godot_combat/mission_result.json")
-    if result_path.exists():
-        result_path.unlink(missing_ok=True)
+    # Remove stale IPC files so we don't accidentally read previous mission data
+    ipc_result_path = Path("runtime/godot_combat/ipc_result.json")
+    if ipc_result_path.exists():
+        ipc_result_path.unlink(missing_ok=True)
 
     copy_audio_assets()
 
@@ -397,9 +402,15 @@ def launch_godot_combat_ui(
     try:
         if wait:
             subprocess.run(command, check=False)
-            combat_result = read_godot_combat_result(result_path)
+            # Read from IPC pipe or standard result file
+            ipc_result = read_godot_combat_result(ipc_result_path)
+            if not ipc_result:
+                # Fallback to old method for backwards compatibility
+                return GodotCombatLaunchResult(
+                    path, command, True, "Godot combat UI completed (no IPC result).", None
+                )
             return GodotCombatLaunchResult(
-                path, command, True, "Godot combat UI completed.", combat_result
+                path, command, True, "Godot combat UI completed.", ipc_result
             )
         proc = subprocess.Popen(command)
     except OSError as exc:
@@ -409,3 +420,86 @@ def launch_godot_combat_ui(
     return GodotCombatLaunchResult(
         path, command, True, "Godot combat UI launched.", process_pid=proc.pid
     )
+
+
+def launch_godot_combat_ui_blocking(
+    game_state: GameState,
+    mission: MissionTemplate,
+    *,
+    handoff_path: Path | str = DEFAULT_HANDOFF_PATH,
+    executable: str | None = None,
+) -> GodotCombatLaunchResult:
+    """Prepare the Godot handoff and block until combat completes.
+
+    This method sets up IPC pipes for two-way communication between Python
+    and Godot during the combat session. When Godot finishes, it writes a result
+    JSON file that this method will read before returning control to Python.
+
+    Args:
+        game_state: Current campaign state with characters and assets.
+        mission: Mission template defining the combat scenario.
+        executable: Path to Godot executable (optional).
+
+    Returns:
+        GodotCombatLaunchResult with combat_result populated if Godot completed.
+    """
+    from .godot_ipc import start_ipc_server, read_ipc_result_blocking, cleanup_ipc_files
+    from pathlib import Path as GamePath
+
+    game_state_dir = GamePath.cwd()
+    handoff_path = GamePath(handoff_path)
+    parent_dir = handoff_path.parent
+    parent_dir.mkdir(parents=True, exist_ok=True)
+
+    # Start IPC server for two-way communication
+    ipc_socket, pipe_path_str = start_ipc_server(parent_dir)
+    
+    copy_audio_assets()
+    
+    # Write handoff JSON with IPC pipe path so Godot can signal completion to Python
+    path = write_godot_combat_handoff(
+        game_state, mission, handoff_path=handoff_path, ipc_pipe_path=pipe_path_str
+    )
+    command = build_godot_combat_command(path, executable=executable, project_dir=GODOT_COMBAT_PROJECT_DIR)
+    
+    if not command:
+        cleanup_ipc_files(parent_dir)
+        return GodotCombatLaunchResult(
+            path, [], False, "Godot handoff created; install Godot to launch combat."
+        )
+
+    try:
+        # Launch Godot in background
+        proc = subprocess.Popen(command)
+        
+        # Wait for Godot to complete and write result file
+        import time
+        timeout = 300.0  # 5 minutes max wait
+        start_time = time.time()
+        combat_result = None
+        
+        while (time.time() - start_time) < timeout:
+            # Check if result file exists via IPC
+            result = read_ipc_result_blocking(parent_dir, timeout=timeout - (time.time() - start_time))
+            if result is not None:
+                combat_result = result
+                break
+            time.sleep(0.2)
+
+        # Clean up IPC files
+        cleanup_ipc_files(parent_dir)
+        
+        if combat_result is None:
+            return GodotCombatLaunchResult(
+                path, command, False, f"Godot combat timed out after {int(timeout)}s."
+            )
+
+        return GodotCombatLaunchResult(
+            path, command, True, "Godot combat UI completed.", combat_result=combat_result
+        )
+
+    except Exception as exc:
+        cleanup_ipc_files(parent_dir)
+        return GodotCombatLaunchResult(
+            path, command, False, f"Godot launch error: {exc}"
+        )

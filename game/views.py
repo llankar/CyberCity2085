@@ -110,6 +110,7 @@ from .battle_maps import (
 from .battle_outcomes import resolve_defeated_agent_outcome
 from .combat_preview import estimate_attack_preview, line_of_fire_warning
 from .combat import CombatEngine, CombatEventResult, CombatState, can_enter_cell
+from .combat.godot_bridge import launch_godot_combat_ui_blocking
 from .narrative.debrief import build_mission_debrief_report
 from .character import Character, is_deployable
 from .management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
@@ -1042,10 +1043,40 @@ class RPGView(GameView):
         self.pending_breakdown_confirmation = False
         self.pending_breakdown_mission_id = None
         self.game_state.mark_tutorial_event("launched_mission")
-        mission = launch_mission_system(self.game_state)
-        battle_view = BattleView(self.game_state)
-        battle_view.setup(mission)
-        self.window.show_view(battle_view)
+        
+        # Launch mission via Godot combat UI (blocks until combat completes)
+        handoff_path = "runtime/godot_combat/mission_handoff.json"
+        result = launch_godot_combat_ui_blocking(
+            game_state=self.game_state,
+            mission=selected_mission,
+            handoff_path=handoff_path
+        )
+        
+        # Combat completed - Godot wrote results to IPC
+        if result.success and result.combat_result:
+            # Apply mission aftermath based on combat result
+            from .agent_aftermath import apply_mission_aftermath
+            
+            combat_result = result.combat_result
+            outcome = combat_result.get("outcome", "victory")
+            xp_gains = combat_result.get("xp_gains", {})
+            fund_gain = combat_result.get("fund_reward", 0)
+            
+            # Apply mission rewards/casualties to campaign state
+            apply_mission_aftermath(
+                self.game_state,
+                selected_mission.id,
+                outcome=outcome,
+                xp_gains=xp_gains,
+                fund_gain=fund_gain
+            )
+            
+            # Add log entry about the completed mission
+            victory_text = f"Victory! +{fund_gain} funds." if outcome == "victory" else f"Defeat. Lost {fund_gain} funds."
+            self.game_state.add_event(victory_text)
+        
+        # Mission complete - return to squad room or next available action
+        # (Python continues campaign flow, no Godot window remains)
 
     def on_draw(self):
         self.clear()

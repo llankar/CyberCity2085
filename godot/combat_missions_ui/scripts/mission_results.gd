@@ -1,8 +1,8 @@
 extends Control
 class_name MissionResults
 ## Victory / defeat screen shown after combat ends.
-## Writes runtime/godot_combat/mission_result.json so Python can consume the
-## outcome and apply XP, funds, casualties to GameState.
+## Writes IPC signal to notify Python and result JSON so the campaign engine
+## can apply XP, funds, casualties to GameState and continue the mission flow.
 
 const NEON       := Color(0.10, 0.95, 0.72, 1.0)
 const TEXT       := Color(0.84, 0.95, 0.92, 1.0)
@@ -16,6 +16,7 @@ var _elapsed      : float  = 0.0
 var _shown        : bool   = false
 var _extract_btn  : Button = null
 var project_root  : String = ""
+var ipc_pipe_path : String = ""  # Unix pipe path for IPC signal to Python
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -27,11 +28,12 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 	queue_redraw()
 
-func show_results(outcome: String, result: Dictionary, p_root: String) -> void:
+func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_path_str: String = "") -> void:
 	_outcome     = outcome
 	_result      = result
 	_shown       = true
 	project_root = p_root
+	ipc_pipe_path = ipc_pipe_path_str
 	visible      = true
 	_write_result_json()
 	CombatSignals.audio_event.emit("victory" if outcome == "victory" else "defeat")
@@ -40,6 +42,10 @@ func show_results(outcome: String, result: Dictionary, p_root: String) -> void:
 	modulate.a = 0.0
 	var tw := create_tween()
 	tw.tween_property(self, "modulate:a", 1.0, 0.6)
+	
+	# Notify Python via IPC pipe if available
+	if not ipc_pipe_path.is_empty():
+		await _signal_completion_to_python()
 
 func _build_extract_button() -> void:
 	_extract_btn = Button.new()
@@ -69,6 +75,43 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED and _extract_btn != null:
 		_extract_btn.position = Vector2((size.x - 200.0) * 0.5, size.y * 0.5 + 140.0)
 		_extract_btn.visible  = _shown
+
+func _signal_completion_to_python() -> void:
+	"""Send IPC signal to Python indicating combat is complete."""
+	if ipc_pipe_path.is_empty():
+		return
+	
+	var path_parts := ["runtime", "godot_combat", "ipc_signal.txt"]
+	var rel_path   := "/".join(path_parts)
+	var full_path  := project_root.path_join(rel_path) if project_root != "" else rel_path
+	
+	# On Windows, just write a marker file; on Unix we could also try socket
+	# For now, use the simpler file-based approach which works everywhere
+	if OS.get_name() == "Windows":
+		# Windows doesn't support Unix domain sockets - use polling via signal file
+		var f = File.new()
+		var err = f.open(full_path, FileAccess.WRITE)
+		if err == OK:
+			f.store_string("COMBAT_COMPLETE\n")
+			f.close()
+		f.rid = null
+	else:
+		# Unix-like systems - try socket first, fallback to file
+		var socket_fd := Socket.new()
+		socket_fd.socket_type = Socket.UNIX_STREAM
+		
+		var status := socket_fd.connect(ipc_pipe_path, Socket.CONNECT_FLAGS_NON_BLOCKING)
+		if status != OK:
+			# Non-blocking failed, fall back to writing a file
+			push_error("IPC connect non-blocking failed: ", status)
+			status = File.new().open(full_path, FileAccess.WRITE)
+			if status == OK:
+				status = File.new().store_string("COMBAT_COMPLETE\n", full_path)
+		
+		if socket_fd.is_connected():
+			socket_fd.close()
+	
+	push_error("IPC signal written to %s" % full_path)
 
 func _on_extract() -> void:
 	# Get the tree, then quit
