@@ -80,24 +80,58 @@ def profile_for_theme(theme: object) -> TacticalProfile:
 
 def tactical_target_score(enemy: object, target: object) -> int:
     """Score a target using the enemy faction's visible doctrine."""
-
+    
     profile = profile_for_theme(getattr(enemy, "enemy_theme", "generic"))
     score = 0
     stats = getattr(target, "stats", None)
     health = int(getattr(target, "health", 0))
     max_hp = max(1, int(getattr(stats, "max_hp", health or 1)))
+    
+    # Base scoring: wounded units are priority targets
     if health < max_hp * 0.40:
         score += profile.wounded_weight
+    
     character = getattr(target, "character", None)
     role = str(getattr(character, "role", ""))
+    
+    # Specialist weighting for key roles (psi is high value threat)
     if role in {"psi", "sniper", "commander"}:
         score += profile.specialist_weight
     elif role in {"samurai", "assault", "heavy"}:
         score += profile.specialist_weight // 2
-    if stats is not None and int(getattr(stats, "defense", 3)) < 3:
-        score += profile.low_defense_weight
+    
+    # PENALTY TARGETING: Enemy avoids targets in dangerous states (telegraphed AI behavior)
+    from game.agent_specializations import default_psi_state_for_unit, PsiState, Stance
+    
+    # Get current state of target for threat assessment
+    psi_state = None
+    stance = None
+    
+    if character is not None and hasattr(target, 'unit_context'):
+        # Access unit context if available (used by combat system)
+        unit_ctx = getattr(target, 'unit_context', {})
+        if 'psi_state' in unit_ctx:
+            psi_state = PsiState(unit_ctx['psi_state'])
+        if 'stance' in unit_ctx:
+            stance = Stance(unit_ctx['stance'])
+    elif hasattr(target, 'get_psi_state') or callable(getattr(character, 'get_psi_state', None)):
+        # Fallback: try direct method call
+        psi_state = getattr(character, 'get_psi_state', lambda: PsiState.CONTROL)()
+    
+    # Apply state-based scoring adjustments for intelligent AI behavior
+    if psi_state == PsiState.RISK:
+        # Enemy targets RISK state units more aggressively (telegraphed threat detection)
+        score += 15  # High priority - player is unstable/dangerous
+        score += profile.wounded_weight  # Also treat as wounded due to instability
+    
+    elif psi_state == PsiState.CONTROL:
+        # CONTROL state targets are less prioritized but still legitimate targets
+        pass  # No penalty, normal scoring applies
+    
+    # Distance factor - enemies prefer closer targets per their doctrine
     distance = float(enemy.distance_to(target))
     score -= int(distance / 32) * profile.distance_weight
+    
     return score
 
 

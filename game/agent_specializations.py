@@ -217,6 +217,188 @@ def unlock_talent(character, node_id: str) -> bool:
     return True
 
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Role signatures — Visual and behavioral identity per role tree
+# ──────────────────────────────────────────────────────────────────────────────
+
+from dataclasses import dataclass
+from typing import Literal
+from enum import Enum
+
+
+@dataclass(frozen=True)
+class RoleSignature:
+    """Visual and behavioral identity for a role."""
+    
+    key: str
+    name: str
+    primary_color: tuple[int, int, int]
+    secondary_color: tuple[int, int, int]
+    accent_color: tuple[int, int, int]
+    description: str
+    
+    # Visual indicators
+    has_mode_switch: bool = False  # e.g., breach/guard stance
+    mode_names: tuple[str, str] = ("", "")  # (active, passive)
+    
+    # Combat behaviors that trigger automatically
+    auto_behaviors: list[str] = None
+    
+    @property
+    def mode_colors(self) -> dict[str, tuple[int, int, int]]:
+        """Return colors for stance-based visual toggles."""
+        return {
+            "breach": (*self.accent_color[:3], 200),
+            "guard": (*self.primary_color[:3], 200),
+        }
+
+
+_ROLE_SIGNATURES: dict[str, RoleSignature] = {
+    "samurai": RoleSignature(
+        key="samurai",
+        name="SAMURAI",
+        primary_color=(80, 190, 255),
+        secondary_color=(140, 60, 30),
+        accent_color=(255, 70, 30),  # Red for breach charge
+        description="Close-combat specialist. Breach walls and guard choke points.",
+        has_mode_switch=True,
+        mode_names=("BREACH", "GUARD"),
+        auto_behaviors=["breath_stance_detection"],
+    ),
+    "sniper": RoleSignature(
+        key="sniper",
+        name="SNIPER",
+        primary_color=(100, 200, 60),
+        secondary_color=(40, 80, 40),
+        accent_color=(180, 255, 120),
+        description="Long-range precision. Overwatch and eliminate high-value targets.",
+        auto_behaviors=["sniper_scope_highlight", "overwatch_indication"],
+    ),
+    "psi": RoleSignature(
+        key="psi",
+        name="PSI",
+        primary_color=(180, 50, 200),
+        secondary_color=(60, 20, 100),
+        accent_color=(240, 100, 255),
+        description="Psychic warfare. Control minds and destabilize enemies.",
+        has_mode_switch=True,
+        mode_names=("CONTROL", "RISK"),
+        auto_behaviors=["psi_pulse_ring"],
+    ),
+    "medic": RoleSignature(
+        key="medic",
+        name="MEDIC",
+        primary_color=(60, 200, 100),
+        secondary_color=(30, 70, 40),
+        accent_color=(255, 200, 80),
+        description="Field surgeon. Stabilize and cleanse wounds under fire.",
+        auto_behaviors=["stabilization_indicator"],
+    ),
+    "robot": RoleSignature(
+        key="robot",
+        name="ROBOT",
+        primary_color=(150, 150, 150),
+        secondary_color=(80, 80, 80),
+        accent_color=(200, 200, 200),
+        description="Asset unit. Heat/ammunition management.",
+        auto_behaviors=["heat_warning"],
+    ),
+}
+
+
+def signature_for_role(role: str) -> RoleSignature | None:
+    """Get the signature data for a role."""
+    key = role.lower() if isinstance(role, str) else str(role).lower()
+    return _ROLE_SIGNATURES.get(key)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Stance/Psi state management — per-unit tactical modes
+# ──────────────────────────────────────────────────────────────────────────────
+
+class Stance(Enum):
+    """Samurai stance: BREACH (offensive charge) or GUARD (defensive anchor)."""
+    BREACH = "breach"
+    GUARD = "guard"
+
+
+class PsiState(Enum):
+    """Psi state: CONTROL (focused) or RISK (unstable/overdriven)."""
+    CONTROL = "control"
+    RISK = "risk"
+
+
+def default_stance_for_unit(unit) -> Stance:
+    """Determine the appropriate stance for a samurai unit."""
+    character = getattr(unit, "character", None)
+    if not character:
+        return Stance.GUARD
+    
+    role = str(character.role).lower()
+    if role != "samurai":
+        return Stance.GUARD
+    
+    # Breach when at close range with enemies
+    enemy_units = getattr(unit, "_combat_context", {}).get("enemy_units", [])
+    living_enemies = [e for e in enemy_units if getattr(e, "health", 0) > 0]
+    
+    if not living_enemies:
+        return Stance.GUARD
+    
+    nearest_dist = float("inf")
+    for enemy in living_enemies:
+        dist = unit.distance_to(enemy) if hasattr(unit, "distance_to") else getattr(enemy, "x", None)
+        if dist is None:
+            # Fallback: check grid coordinates
+            ux, uy = getattr(unit, "x", 0), getattr(unit, "y", 0)
+            ex, ey = getattr(enemy, "x", 0), getattr(enemy, "y", 0)
+            dist = ((ux - ex) ** 2 + (uy - ey) ** 2) ** 0.5
+        nearest_dist = min(nearest_dist, dist)
+    
+    # 32 pixels is approx 1 tile — switch to breach when very close
+    return Stance.BREACH if nearest_dist < 48 else Stance.GUARD
+
+
+def default_psi_state_for_unit(unit) -> PsiState:
+    """Determine the appropriate psi state for a psi unit."""
+    character = getattr(unit, "character", None)
+    if not character:
+        return PsiState.CONTROL
+    
+    role = str(character.role).lower()
+    if role != "psi":
+        return PsiState.CONTROL
+    
+    # Risk when using psi powers frequently or under stress
+    psi_stamina = getattr(unit, "psi_stamina", 10)
+    psi_max = getattr(unit, "psi_max", 10)
+    
+    # Higher risk when low stamina (overdriving) and stressed character
+    if psi_stamina < psi_max * 0.4 or unit.character.stress > 8:
+        return PsiState.RISK
+    
+    return PsiState.CONTROL
+
+
+def update_unit_stance(unit, stance_override=None) -> Stance:
+    """Update a samurai's stance based on tactical situation."""
+    if stance_override is not None:
+        return stance_override
+    
+    return default_stance_for_unit(unit)
+
+
+def update_unit_psi_state(unit, psi_override=None) -> PsiState:
+    """Update a psi unit's state based on mental load."""
+    if psi_override is not None:
+        return psi_override
+    
+    return default_psi_state_for_unit(unit)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+
+
 def apply_talent_bonuses(stats: PlayerStats, unlocked_talent_ids: list[str]) -> PlayerStats:
     """Return a stats copy with role-tree bonuses applied."""
     adjusted = replace(stats)
@@ -230,4 +412,98 @@ def apply_talent_bonuses(stats: PlayerStats, unlocked_talent_ids: list[str]) -> 
     adjusted.recalculate_hp()
     adjusted.hp = min(adjusted.hp, adjusted.max_hp)
     return adjusted
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Role signatures — Visual and behavioral identity per role tree
+# ──────────────────────────────────────────────────────────────────────────────
+
+from dataclasses import dataclass
+from typing import Literal
+
+
+@dataclass(frozen=True)
+class RoleSignature:
+    """Visual and behavioral identity for a role."""
+    
+    key: str
+    name: str
+    primary_color: tuple[int, int, int]
+    secondary_color: tuple[int, int, int]
+    accent_color: tuple[int, int, int]
+    description: str
+    
+    # Visual indicators
+    has_mode_switch: bool = False  # e.g., breach/guard stance
+    mode_names: tuple[str, str] = ("", "")  # (active, passive)
+    
+    # Combat behaviors that trigger automatically
+    auto_behaviors: list[str] = None
+    
+    @property
+    def mode_colors(self) -> dict[str, tuple[int, int, int]]:
+        """Return colors for stance-based visual toggles."""
+        return {
+            "breach": (*self.accent_color[:3], 200),
+            "guard": (*self.primary_color[:3], 200),
+        }
+
+
+_ROLE_SIGNATURES: dict[str, RoleSignature] = {
+    "samurai": RoleSignature(
+        key="samurai",
+        name="SAMURAI",
+        primary_color=(80, 190, 255),
+        secondary_color=(140, 60, 30),
+        accent_color=(255, 70, 30),  # Red for breach charge
+        description="Close-combat specialist. Breach walls and guard choke points.",
+        has_mode_switch=True,
+        mode_names=("BREACH", "GUARD"),
+        auto_behaviors=["breath_stance_detection"],
+    ),
+    "sniper": RoleSignature(
+        key="sniper",
+        name="SNIPER",
+        primary_color=(100, 200, 60),
+        secondary_color=(40, 80, 40),
+        accent_color=(180, 255, 120),
+        description="Long-range precision. Overwatch and eliminate high-value targets.",
+        auto_behaviors=["sniper_scope_highlight", "overwatch_indication"],
+    ),
+    "psi": RoleSignature(
+        key="psi",
+        name="PSI",
+        primary_color=(180, 50, 200),
+        secondary_color=(60, 20, 100),
+        accent_color=(240, 100, 255),
+        description="Psychic warfare. Control minds and destabilize enemies.",
+        has_mode_switch=True,
+        mode_names=("CONTROL", "RISK"),
+        auto_behaviors=["psi_pulse_ring"],
+    ),
+    "medic": RoleSignature(
+        key="medic",
+        name="MEDIC",
+        primary_color=(60, 200, 100),
+        secondary_color=(30, 70, 40),
+        accent_color=(255, 200, 80),
+        description="Field surgeon. Stabilize and cleanse wounds under fire.",
+        auto_behaviors=["stabilization_indicator"],
+    ),
+    "robot": RoleSignature(
+        key="robot",
+        name="ROBOT",
+        primary_color=(150, 150, 150),
+        secondary_color=(80, 80, 80),
+        accent_color=(200, 200, 200),
+        description="Asset unit. Heat/ammunition management.",
+        auto_behaviors=["heat_warning"],
+    ),
+}
+
+
+def signature_for_role(role: str) -> RoleSignature | None:
+    """Get the signature data for a role."""
+    key = role.lower() if isinstance(role, str) else str(role).lower()
+    return _ROLE_SIGNATURES.get(key)
 
