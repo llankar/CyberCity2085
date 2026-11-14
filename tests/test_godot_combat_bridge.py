@@ -181,9 +181,10 @@ class GodotCombatBridgeTest(unittest.TestCase):
             self.assertIn("Godot handoff created", result.message)
 
     def test_headless_godot_loads_the_combat_ui_script(self) -> None:
-        godot_executable = Path(r"E:\Godot\Godot_v4.6.3\Godot_v4.6.3-stable_win64.exe")
-        if not godot_executable.exists():
+        discovered = find_godot_executable()
+        if not discovered or not Path(discovered).is_file():
             self.skipTest("Godot executable not available for headless load check")
+        godot_executable = Path(discovered)
 
         game_state = GameState(
             characters=[Character("Vera", role="sniper")],
@@ -217,6 +218,30 @@ class GodotCombatBridgeTest(unittest.TestCase):
             self.assertNotIn("Failed to load script", output)
             self.assertIn("TACTICAL COMBAT UI READY", output)
             self.assertIn("grid / timeline / action bar / unit panel / log", output)
+
+    def test_portable_install_is_discovered_without_settings_or_path(self) -> None:
+        from game.combat.godot_bridge import _find_portable_godot
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            version = root / "Godot_v4.6.3"
+            version.mkdir()
+            executable = version / "Godot_v4.6.3-stable_win64.exe"
+            executable.touch()
+            (version / "Godot_v4.6.3-stable_win64_console.exe").touch()
+            with patch("game.combat.godot_bridge._godot_installation_roots", return_value=[root]):
+                self.assertEqual(_find_portable_godot(), str(executable.resolve()))
+
+    def test_launch_os_error_is_reported_as_not_launched(self) -> None:
+        state = GameState(characters=[Character("Iris")], selected_agent_names=["Iris"])
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("game.combat.godot_bridge.subprocess.Popen", side_effect=OSError("not executable")):
+                result = launch_godot_combat_ui(
+                    state, _mission(), handoff_path=Path(tmp) / "handoff.json", executable="invalid.exe"
+                )
+        self.assertTrue(result.ready_for_godot)
+        self.assertFalse(result.launched)
+        self.assertIn("not executable", result.message)
 
 
 if __name__ == "__main__":

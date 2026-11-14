@@ -11,6 +11,8 @@ import json
 import os
 import shutil
 import subprocess
+import re
+import string
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -288,6 +290,35 @@ def write_godot_combat_handoff(
     return path
 
 
+def _godot_installation_roots() -> list[Path]:
+    """Bounded portable-install locations; never recursively scan user disks."""
+    roots = [Path("tools/godot"), Path("bin/godot")]
+    if os.name == "nt":
+        roots.extend(Path(f"{drive}:/Godot") for drive in string.ascii_uppercase)
+        for key in ("PROGRAMFILES", "LOCALAPPDATA"):
+            if os.environ.get(key):
+                roots.append(Path(os.environ[key]) / "Godot")
+    return roots
+
+
+def _find_portable_godot() -> str | None:
+    candidates: list[Path] = []
+    for root in _godot_installation_roots():
+        if not root.is_dir():
+            continue
+        for pattern in ("Godot*.exe", "godot.exe", "*/Godot*.exe"):
+            candidates.extend(path for path in root.glob(pattern) if path.is_file())
+    if not candidates:
+        return None
+
+    def priority(path: Path):
+        version = re.search(r"(?:v)?(\d+)\.(\d+)(?:\.(\d+))?", path.name)
+        numbers = tuple(int(part or 0) for part in version.groups()) if version else (0, 0, 0)
+        return numbers, "console" not in path.stem.lower(), str(path)
+
+    return str(max(candidates, key=priority).resolve())
+
+
 def find_godot_executable() -> str | None:
     """Return the configured Godot executable, if available on this machine."""
     try:
@@ -302,7 +333,7 @@ def find_godot_executable() -> str | None:
         value = os.environ.get(env_key)
         if value:
             return os.path.expandvars(os.path.expanduser(value))
-    return shutil.which("godot4") or shutil.which("godot")
+    return shutil.which("godot4") or shutil.which("godot") or _find_portable_godot()
 
 
 def build_godot_combat_command(

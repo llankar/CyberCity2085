@@ -64,6 +64,24 @@ class _FakeBattleView:
 
 
 class MissionBriefingLaunchTest(unittest.TestCase):
+    @patch("game.views.BattleView", new=_FakeBattleView)
+    @patch("game.combat.godot_bridge.launch_godot_combat_ui")
+    def test_failed_process_start_does_not_open_an_endless_loading_screen(self, launch_mock):
+        state = GameState()
+        view = MissionBriefingView.__new__(MissionBriefingView)
+        view.game_state = state
+        view.mission = _mission()
+        view.window = _FakeWindow()
+        launch_mock.return_value = SimpleNamespace(
+            command=["invalid-godot.exe"], ready_for_godot=True,
+            launched=False, message="Godot launch failed: not executable",
+        )
+
+        view._launch_battle()
+
+        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertIn("Godot launch failed: not executable", state.event_log)
+
     def test_mission_tags_hide_internal_payloads_from_the_briefing(self) -> None:
         rich_tag = SimpleNamespace(name="neon_blackout", description="Internal detail", intensity=2)
 

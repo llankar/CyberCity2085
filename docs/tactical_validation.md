@@ -8,6 +8,18 @@ separately instead of describing contract tests as a rendered playthrough.
 
 ## Current automated checks
 
+- Godot launch correction (November 14, 2026): executable resolution keeps saved
+  Settings, environment variables, and PATH priority, then checks bounded
+  portable-install directories (including drive-root `Godot` folders on Windows).
+  The mission briefing enters the handoff screen only after a process actually
+  starts; an OS launch failure records its reason and uses the Arcade fallback.
+  Regression tests cover portable discovery, console/GUI preference, failed
+  process starts, and headless scene loading through the discovered executable.
+  Restored fallback map loading and removed a duplicate terrain-connect block
+  that used objective positions before initialization. Verified locally with
+  578 tests plus 8 subtests; the discovered Godot 4.6.3 executable loads the
+  combat scene in headless mode. No visible launch or desktop input was used.
+
 - `python tools/render_tactical_offscreen.py`: renders production Arcade frames
   with EGL, silent audio, and an invisible window. Desktop fallback is disabled.
   Local Windows lacks EGL. The explicit `--backend hidden` uses an invisible
