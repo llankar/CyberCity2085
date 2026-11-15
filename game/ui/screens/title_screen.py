@@ -58,6 +58,11 @@ class TitleView(arcade.View):
     def on_show_view(self) -> None:
         arcade.set_background_color(BACKGROUND)
         self._background_texture = self._load_background_texture()
+        from game.audio import SoundManager
+        from game.ui.screens.settings_screen import load_settings
+        music = SoundManager.get()
+        music.configure_from_settings(load_settings())
+        music.play_music("music_title")
 
     def on_draw(self) -> None:
         self.clear()

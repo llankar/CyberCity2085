@@ -1,4 +1,4 @@
-"""Sound manager — loads synthesised WAV files and plays them via Arcade's audio API.
+"""Sound manager — plays WAV effects and the contextual MP3 soundtrack.
 
 Usage:
     from game.audio import SoundManager
@@ -15,6 +15,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+from .music_catalog import MUSIC_TRACKS, music_path
 
 _SFX_DIR   = Path("assets/audio/sfx")
 _MUSIC_DIR = Path("assets/audio/music")
@@ -27,7 +28,7 @@ _SFX_NAMES = [
     "sfx_intel_reveal", "sfx_act_advance",
 ]
 
-_MUSIC_NAMES = ["music_battle", "music_briefing", "music_debrief"]
+_MUSIC_NAMES = list(MUSIC_TRACKS)
 
 
 class SoundManager:
@@ -44,6 +45,7 @@ class SoundManager:
     def __init__(self) -> None:
         self._sfx:    dict[str, Any] = {}
         self._music:  dict[str, Any] = {}
+        self._music_paths: dict[str, Path] = {}
         self._music_player: Any = None
         self._current_music: str | None = None
         self._enabled: bool = True
@@ -115,6 +117,22 @@ class SoundManager:
         if not self._enabled:
             return
         self.ensure_loaded()
+        if name in self._music_paths:
+            # Arcade streaming sources cannot loop/replay reliably. Decode only
+            # the selected song and release the previous one, not the catalogue.
+            import arcade
+            self._music.clear()
+            candidates = [self._music_paths[name]]
+            fallback = _MUSIC_DIR / ("music_briefing.wav" if name in {"music_title", "music_management", "music_briefing", "music_ending"} else "music_battle.wav")
+            candidates.append(fallback)
+            for path in candidates:
+                if not path.is_file():
+                    continue
+                try:
+                    self._music[name] = arcade.load_sound(str(path), streaming=False)
+                    break
+                except Exception:
+                    continue
         sound = self._music.get(name)
         if sound is None:
             return
@@ -153,9 +171,6 @@ class SoundManager:
                 except Exception:
                     pass
         for name in _MUSIC_NAMES:
-            path = _MUSIC_DIR / f"{name}.wav"
-            if path.exists():
-                try:
-                    self._music[name] = arcade.load_sound(str(path), streaming=True)
-                except Exception:
-                    pass
+            path = music_path(name)
+            if path is not None:
+                self._music_paths[name] = path

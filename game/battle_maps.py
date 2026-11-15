@@ -108,7 +108,7 @@ def _build_base_catalog() -> list[BattleMapEntry]:
         if not path.is_file() or path.suffix.lower() not in _IMAGE_SUFFIXES:
             continue
         filename = path.name
-        if "walkable" in filename.lower():
+        if "walkable" in filename.lower() or filename.lower().startswith("preview_"):
             continue
         environment = "city" if _is_city_map(filename) else "wasteland"
         scene = _scene_for(filename, environment)

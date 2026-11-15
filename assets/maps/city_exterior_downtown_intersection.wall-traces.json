@@ -1,0 +1,207 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "northwest_roof",
+      "rect": [
+        162,
+        0,
+        372,
+        61
+      ]
+    },
+    {
+      "id": "northeast_roof",
+      "rect": [
+        587,
+        0,
+        838,
+        71
+      ]
+    },
+    {
+      "id": "far_northwest",
+      "rect": [
+        0,
+        0,
+        61,
+        70
+      ]
+    },
+    {
+      "id": "far_northeast",
+      "rect": [
+        914,
+        0,
+        960,
+        75
+      ]
+    },
+    {
+      "id": "southwest_roof",
+      "rect": [
+        0,
+        237,
+        95,
+        540
+      ]
+    },
+    {
+      "id": "southwest_annex",
+      "rect": [
+        100,
+        418,
+        340,
+        540
+      ]
+    },
+    {
+      "id": "southeast_roof",
+      "rect": [
+        595,
+        415,
+        815,
+        540
+      ]
+    },
+    {
+      "id": "east_roof",
+      "rect": [
+        851,
+        218,
+        960,
+        365
+      ]
+    },
+    {
+      "id": "northwest_kiosk",
+      "rect": [
+        238,
+        114,
+        297,
+        151
+      ]
+    },
+    {
+      "id": "southeast_kiosk",
+      "rect": [
+        651,
+        236,
+        766,
+        332
+      ]
+    },
+    {
+      "id": "west_barrier",
+      "rect": [
+        207,
+        231,
+        377,
+        247
+      ]
+    },
+    {
+      "id": "east_barrier",
+      "rect": [
+        548,
+        234,
+        639,
+        250
+      ]
+    },
+    {
+      "id": "car_north",
+      "rect": [
+        501,
+        44,
+        534,
+        89
+      ]
+    },
+    {
+      "id": "car_north_east",
+      "rect": [
+        664,
+        109,
+        694,
+        150
+      ]
+    },
+    {
+      "id": "car_west",
+      "rect": [
+        98,
+        112,
+        121,
+        156
+      ]
+    },
+    {
+      "id": "car_midwest",
+      "rect": [
+        410,
+        143,
+        439,
+        186
+      ]
+    },
+    {
+      "id": "car_mideast",
+      "rect": [
+        526,
+        131,
+        557,
+        175
+      ]
+    },
+    {
+      "id": "car_southwest",
+      "rect": [
+        135,
+        278,
+        189,
+        306
+      ]
+    },
+    {
+      "id": "car_south",
+      "rect": [
+        496,
+        410,
+        523,
+        458
+      ]
+    },
+    {
+      "id": "car_southeast",
+      "rect": [
+        372,
+        315,
+        421,
+        353
+      ]
+    },
+    {
+      "id": "planter_w",
+      "rect": [
+        190,
+        358,
+        219,
+        382
+      ]
+    },
+    {
+      "id": "planter_e",
+      "rect": [
+        766,
+        346,
+        799,
+        382
+      ]
+    }
+  ]
+}

@@ -2,6 +2,69 @@
 
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
+Manual wall pass — November 14, 2026 (five scoped tasks, complete):
+- [x] Exhaustive inventory: 122 playable maps, 92 distinct images; diagnostic preview excluded.
+- [x] Visually examine every distinct background and author named manual footprints.
+- [x] Inspect footprint overlays; reuse only the 30 byte-identical duplicates.
+- [x] Compile every source; add exhaustive source/compiled, duplicate-art and landmark regressions.
+- [x] Update wall documentation and [per-file coverage](manual_wall_inventory.md).
+
+All playable surveys now use `manual_wall_traces_v1`. The temporary visible
+overlay stays enabled. The 40x28 collision grid and single-floor representation
+remain explicit precision limits. Earlier candidate counts below are historical
+and superseded by this completed pass.
+
+Validation: `python -m pytest tests/test_map_geometry.py tests/test_battle_maps.py -q`
+— 22 passed, including source/compiled equality for all 122 maps and isolated
+headless Godot path/LOS/placement checks. No desktop control was used.
+
+## Earlier wall work (historical)
+
+Service Tunnel re-pass: inspected the original background and traced 74 named
+records for partitions, machinery, pipes, non-colliding floor details and voids.
+Polyline walls now compile exact stroke polygons instead of cell-aligned debug
+tiles. Reviewed the overlay; 10 geometry tests pass, including corridor openness
+and exact stroke thickness. Four maps manually surveyed; 119 still unreviewed.
+
+Dockside visual correction: inspected the original Dockside Terminal image and
+authored 67 named records (including water and a deliberately non-colliding floor
+grate). Reviewed the rendered footprint overlay; added aisle/container and water
+LOS regressions. Three maps now have manually traced surveys, while the other
+120 remain explicitly unreviewed automatic candidates.
+
+Holo Square alignment correction: replaced the dark-region survey with 39
+manually traced named footprints. The debug renderer now projects exact authored
+contours; collisions use the stored tactical cells. Current sidecars override
+stale handoff geometry. Reviewed `runtime/holo-wall-review.png`; 12 targeted
+map/Godot tests pass, including central obstacle/open-aisle and stale-handoff
+regressions. Other unreviewed maps still require manual alignment work.
+
+Wall loading regression: reproduced zero Godot walls from actual Riot Square JSON.
+Fixed float/int grid-array validation and added real serialized-survey coverage.
+The temporary high-visibility obstacle overlay remains enabled by default.
+
+Wall QA visibility: enabled a temporary magenta/yellow/white obstruction overlay
+by default in Godot, with wall identifiers, loaded-cell count, and an F8 visual
+toggle. Added dock-map obstruction coverage and verified hiding the overlay does
+not disable physical walls. Automatic dock surveys still need manual review.
+
+Godot map-wall follow-up — November 14, 2026 (five scoped tasks):
+- [x] Persistent image-specific surveys for all 123 backgrounds.
+- [x] Handoff/standalone loading replaces the fixed cover pattern.
+- [x] Stored solids govern pathfinding, direct LOS, AP route costs and placement.
+- [x] Wall-by-wall authoring/review tooling; data vault manually traced (23 objects).
+- [x] Asset-wide and headless Godot regressions plus `gameplay/godot_map_walls.md`.
+
+Quality gate still open: the other 122 image-scanned surveys require visual
+wall-by-wall review. Generated candidates are not labelled manually verified.
+
+Soundtrack integration — November 14, 2026 (five scoped tasks):
+- [x] Shared MP3 catalogue and mission-theme/finale routing.
+- [x] Arcade loading/fallback, title, management, briefing, battle, ending hooks.
+- [x] Godot MP3 handoff/loading/looping with saved audio preferences.
+- [x] Silent routing/decoder/Godot regressions without desktop control.
+- [x] Soundtrack mapping and validation documentation in `gameplay/soundtrack.md`.
+
 Push checkpoint (November 14, 2026): the latest combined run of `tests/` plus
 `game/combat/test_ai_decision.py` and `game/combat/test_enemy_plans.py` reports
 603 passed, 10 failed, and 8 subtests passed. Current failures include Windows

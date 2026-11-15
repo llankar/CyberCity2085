@@ -1,0 +1,309 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        18,
+        18,
+        39,
+        448
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        922,
+        18,
+        945,
+        450
+      ]
+    },
+    {
+      "id": "north_wall",
+      "rect": [
+        26,
+        15,
+        937,
+        33
+      ]
+    },
+    {
+      "id": "south_wall_w",
+      "rect": [
+        23,
+        442,
+        395,
+        468
+      ]
+    },
+    {
+      "id": "south_wall_e",
+      "rect": [
+        565,
+        442,
+        939,
+        468
+      ]
+    },
+    {
+      "id": "central_chamber",
+      "rect": [
+        410,
+        175,
+        550,
+        265
+      ]
+    },
+    {
+      "id": "north_console",
+      "rect": [
+        329,
+        29,
+        626,
+        87
+      ]
+    },
+    {
+      "id": "west_pods",
+      "rect": [
+        254,
+        121,
+        289,
+        284
+      ]
+    },
+    {
+      "id": "east_pods",
+      "rect": [
+        671,
+        118,
+        707,
+        285
+      ]
+    },
+    {
+      "id": "south_console",
+      "rect": [
+        434,
+        301,
+        558,
+        352
+      ]
+    },
+    {
+      "id": "nw_bench",
+      "rect": [
+        109,
+        129,
+        178,
+        181
+      ]
+    },
+    {
+      "id": "nw_sink",
+      "rect": [
+        109,
+        39,
+        184,
+        81
+      ]
+    },
+    {
+      "id": "west_cabinet",
+      "rect": [
+        47,
+        145,
+        77,
+        205
+      ]
+    },
+    {
+      "id": "west_rack",
+      "rect": [
+        207,
+        124,
+        230,
+        217
+      ]
+    },
+    {
+      "id": "west_south_machine",
+      "rect": [
+        82,
+        318,
+        113,
+        399
+      ]
+    },
+    {
+      "id": "west_south_desk",
+      "rect": [
+        167,
+        338,
+        208,
+        392
+      ]
+    },
+    {
+      "id": "east_cabinet",
+      "rect": [
+        874,
+        103,
+        915,
+        154
+      ]
+    },
+    {
+      "id": "east_desk",
+      "rect": [
+        834,
+        31,
+        889,
+        68
+      ]
+    },
+    {
+      "id": "east_south_desk",
+      "rect": [
+        842,
+        405,
+        896,
+        432
+      ]
+    },
+    {
+      "id": "east_south_rack",
+      "rect": [
+        742,
+        306,
+        785,
+        390
+      ]
+    },
+    {
+      "id": "west_partition_n",
+      "width": 16,
+      "points": [
+        [
+          239,
+          33
+        ],
+        [
+          239,
+          276
+        ]
+      ]
+    },
+    {
+      "id": "east_partition_n",
+      "width": 16,
+      "points": [
+        [
+          722,
+          33
+        ],
+        [
+          722,
+          276
+        ]
+      ]
+    },
+    {
+      "id": "west_cross",
+      "width": 16,
+      "points": [
+        [
+          34,
+          291
+        ],
+        [
+          236,
+          291
+        ]
+      ]
+    },
+    {
+      "id": "east_cross",
+      "width": 16,
+      "points": [
+        [
+          726,
+          291
+        ],
+        [
+          929,
+          291
+        ]
+      ]
+    },
+    {
+      "id": "west_south_partition",
+      "width": 16,
+      "points": [
+        [
+          238,
+          347
+        ],
+        [
+          238,
+          447
+        ]
+      ]
+    },
+    {
+      "id": "east_south_partition",
+      "width": 16,
+      "points": [
+        [
+          722,
+          348
+        ],
+        [
+          722,
+          447
+        ]
+      ]
+    },
+    {
+      "id": "center_south_w",
+      "width": 16,
+      "points": [
+        [
+          247,
+          363
+        ],
+        [
+          414,
+          363
+        ],
+        [
+          414,
+          511
+        ]
+      ]
+    },
+    {
+      "id": "center_south_e",
+      "width": 16,
+      "points": [
+        [
+          546,
+          511
+        ],
+        [
+          546,
+          363
+        ],
+        [
+          714,
+          363
+        ]
+      ]
+    }
+  ]
+}

@@ -74,11 +74,13 @@ def _map_payload(mission: MissionTemplate) -> dict[str, Any]:
     map_entry = select_battle_map_entry(mission)
     if map_entry is None:
         return {}
+    from game.map_geometry import load_map_geometry
     return {
         "key": map_entry.key,
         "label": map_entry.label,
         "path": map_entry.path,
         "environment": map_entry.environment,
+        "geometry": load_map_geometry(map_entry.path),
     }
 
 
@@ -190,10 +192,20 @@ def build_godot_combat_payload(
         game_state.selected_asset_ids,
         selected_agents,
     )
+    from game.audio.music_catalog import battle_music_key, music_path
+    from game.ui.screens.settings_screen import load_settings
+    audio_settings = load_settings()
+    track = music_path(battle_music_key(mission))
     return {
         "schema_version": GODOT_SCHEMA_VERSION,
         "source": "CyberCity2085",
         "ui_engine": "godot",
+        "audio": {
+            "battle_music_path": str(track.resolve()) if track else "",
+            "enabled": audio_settings.audio_enabled,
+            "music_volume": audio_settings.music_volume / 100.0,
+            "sfx_volume": audio_settings.sfx_volume / 100.0,
+        },
         # Absolute path to the CyberCity2085 project root so Godot can locate
         # assets/units/, assets/maps/, etc. regardless of its working directory.
         "asset_base_dir": str(Path.cwd().resolve()),
@@ -401,6 +413,8 @@ def launch_godot_combat_ui(
         )
     try:
         if wait:
+            from game.audio import SoundManager
+            SoundManager.get().stop_music()
             subprocess.run(command, check=False)
             # Read from IPC pipe or standard result file
             ipc_result = read_godot_combat_result(ipc_result_path)
@@ -417,6 +431,8 @@ def launch_godot_combat_ui(
         return GodotCombatLaunchResult(
             path, command, False, f"Godot launch failed: {exc}"
         )
+    from game.audio import SoundManager
+    SoundManager.get().stop_music()
     return GodotCombatLaunchResult(
         path, command, True, "Godot combat UI launched.", process_pid=proc.pid
     )
@@ -471,6 +487,8 @@ def launch_godot_combat_ui_blocking(
     try:
         # Launch Godot in background
         proc = subprocess.Popen(command)
+        from game.audio import SoundManager
+        SoundManager.get().stop_music()
         
         # Wait for Godot to complete and write result file
         import time

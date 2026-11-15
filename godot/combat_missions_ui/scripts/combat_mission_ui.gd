@@ -123,6 +123,7 @@ func _ready() -> void:
 	_load_unit_textures()
 	_load_map_and_portraits()
 	_build_children()
+	_audio.configure_soundtrack(handoff.get("audio", {}))
 	_connect_signals()
 	_seed_combat_state()
 	call_deferred("_start_combat", "AUTO-DEPLOY")
@@ -922,6 +923,7 @@ func _start_combat(source: String) -> void:
 	# Camera2D starts at zoom=0.5 (fit-to-screen) and can zoom in/out.
 	var obj_cell := objective.get("cell", Vector2i(GRID_COLS / 2, GRID_ROWS / 2)) as Vector2i
 	_battlefield.configure(size * 4.0, map_texture, cover_nodes, obj_cell)
+	preload("res://scripts/map_wall_layout.gd").place_encounter(player_units, enemy_units, objective, _battlefield)
 
 	_hud_layer.visible = true
 	# Force HUD to fill the viewport — Controls inside a CanvasLayer don't
@@ -953,7 +955,14 @@ func _start_combat(source: String) -> void:
 	CombatSignals.audio_event.emit("turn_player")
 
 	status_line = "TACTICAL COMBAT UI READY"
+	var solid_count := 0
+	for node: Dictionary in cover_nodes:
+		if bool(node.get("solid", false)):
+			solid_count += 1
+	status_line += " | WALL TEST: %d blocked cells (F8)" % solid_count
+	_log_event("WALL TEST: %d loaded obstruction cells. Magenta = blocked; F8 hides/shows the overlay." % solid_count)
 	_log_event("%s: tactical insertion live." % source)
+	_sync_display()
 	print("TACTICAL COMBAT UI READY")
 	print("grid / timeline / action bar / unit panel / log")
 	queue_redraw()
@@ -1139,6 +1148,10 @@ func _move_active_unit_to(cell: Vector2i) -> void:
 	var ap: int   = int(u.get("ap", 0))
 	var dist: int = absi(cell.x - origin.x) + absi(cell.y - origin.y)
 	if dist == 0: return
+	var route: Array[Vector2i] = _battlefield.find_path(origin, cell)
+	if route.is_empty(): return
+	dist = route.size() - 1
+	if dist > ap: return
 	if cell not in _battlefield.move_range_cells:
 		status_line = "Out of move range."
 		_sync_display()
@@ -1177,6 +1190,10 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		rng = _role_attack_range(str(attacker.get("role", "")), action_name)
 	var apos := _cell_position(attacker)
 	var tpos := _cell_position(target)
+	if not _battlefield.has_los(apos, tpos, []):
+		status_line = "Shot blocked by a map wall."
+		_sync_display()
+		return
 	if absi(apos.x - tpos.x) + absi(apos.y - tpos.y) > rng:
 		return
 	var ap: int      = int(attacker.get("ap", 0))
@@ -1352,23 +1369,26 @@ func _enemy_act(enemy_index: int) -> void:
 	# How many AP to spend moving: save 1 for attack if possible.
 	# Snipers stay put when target is already within extended range.
 	var move_ap := 0
-	if dist > rng:
+	if dist > rng or not _battlefield.has_los(ep, tp, []):
 		move_ap = maxi(0, ap - 1)
-	if subtype == "sniper" and dist <= rng + 4:
+	if subtype == "sniper" and dist <= rng + 4 and _battlefield.has_los(ep, tp, []):
 		move_ap = 0
 
 	if move_ap > 0:
 		var reachable: Array[Vector2i] = _battlefield.reachable_cells(ep, move_ap)
 		var best_cell := ep
 		var best_dist := dist
+		var best_route_length: int = _battlefield.find_path(ep, tp).size()
 		for cell: Vector2i in reachable:
 			if _is_cell_occupied(cell, -1, enemy_index): continue
 			var d := absi(cell.x - tp.x) + absi(cell.y - tp.y)
-			if d < best_dist:
+			var route_length: int = _battlefield.find_path(cell, tp).size()
+			if route_length > 0 and route_length < best_route_length:
+				best_route_length = route_length
 				best_dist = d
 				best_cell = cell
 		if best_cell != ep:
-			var steps := absi(best_cell.x - ep.x) + absi(best_cell.y - ep.y)
+			var steps: int = _battlefield.find_path(ep, best_cell).size() - 1
 			ap   -= mini(steps, move_ap)
 			dist  = best_dist
 			enemy["position"] = best_cell
@@ -1378,7 +1398,7 @@ func _enemy_act(enemy_index: int) -> void:
 				_unit_tokens[ekey].move_to(_battlefield.cell_to_world(best_cell), enemy)
 
 	# ── Attack phase ──────────────────────────────────────────────────────────
-	if dist <= rng and ap > 0:
+	if dist <= rng and ap > 0 and _battlefield.has_los(ep, tp, []):
 		_enemy_attack(enemy_index, ti, subtype)
 		ap -= 1
 
@@ -1631,34 +1651,9 @@ func _build_enemy_units() -> Array[Dictionary]:
 	return units
 
 func _build_cover_nodes() -> Array[Dictionary]:
-	return [
-		# Left flank
-		{"cell": Vector2i(6,  12), "high": true},
-		{"cell": Vector2i(10,  6), "high": false},
-		{"cell": Vector2i(10, 18), "high": true},
-		{"cell": Vector2i(14,  4), "high": false},
-		{"cell": Vector2i(14, 22), "high": true},
-		# Centre corridor
-		{"cell": Vector2i(16, 10), "high": false},
-		{"cell": Vector2i(16, 20), "high": true},
-		{"cell": Vector2i(20,  8), "high": true},
-		{"cell": Vector2i(20, 18), "high": false},
-		{"cell": Vector2i(22, 14), "high": true},
-		# Right flank
-		{"cell": Vector2i(24,  6), "high": true},
-		{"cell": Vector2i(24, 22), "high": false},
-		{"cell": Vector2i(28, 10), "high": false},
-		{"cell": Vector2i(28, 24), "high": true},
-		{"cell": Vector2i(30,  4), "high": false},
-		{"cell": Vector2i(30, 14), "high": true},
-		# Far side
-		{"cell": Vector2i(34, 10), "high": false},
-		{"cell": Vector2i(34, 20), "high": true},
-		{"cell": Vector2i(36,  6), "high": true},
-		{"cell": Vector2i(36, 16), "high": false},
-		{"cell": Vector2i(38, 22), "high": true},
-		{"cell": Vector2i(38,  8), "high": false},
-	]
+	var layout = preload("res://scripts/map_wall_layout.gd")
+	var map_data := handoff.get("map", {}) as Dictionary
+	return layout.cover_nodes(layout.geometry_for_map(map_data, project_root))
 
 # Updated to match HudController's expected fields: name, is_enemy, active, hp, max_hp
 func _refresh_initiative() -> void:

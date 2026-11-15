@@ -1,0 +1,428 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        22,
+        24,
+        49,
+        519
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        909,
+        24,
+        937,
+        519
+      ]
+    },
+    {
+      "id": "north_wall",
+      "rect": [
+        48,
+        14,
+        914,
+        32
+      ]
+    },
+    {
+      "id": "south_wall_w",
+      "rect": [
+        28,
+        509,
+        428,
+        530
+      ]
+    },
+    {
+      "id": "south_wall_e",
+      "rect": [
+        532,
+        509,
+        932,
+        530
+      ]
+    },
+    {
+      "id": "central_chamber",
+      "rect": [
+        429,
+        200,
+        540,
+        320
+      ]
+    },
+    {
+      "id": "west_lab_table",
+      "rect": [
+        101,
+        252,
+        179,
+        354
+      ]
+    },
+    {
+      "id": "nw_desk",
+      "rect": [
+        69,
+        50,
+        151,
+        116
+      ]
+    },
+    {
+      "id": "nw_pods",
+      "rect": [
+        175,
+        37,
+        242,
+        103
+      ]
+    },
+    {
+      "id": "nw_bench",
+      "rect": [
+        119,
+        128,
+        167,
+        161
+      ]
+    },
+    {
+      "id": "central_nw_machine",
+      "rect": [
+        315,
+        151,
+        382,
+        224
+      ]
+    },
+    {
+      "id": "central_nw_pods",
+      "rect": [
+        343,
+        35,
+        396,
+        95
+      ]
+    },
+    {
+      "id": "central_ne_pods",
+      "rect": [
+        548,
+        39,
+        631,
+        115
+      ]
+    },
+    {
+      "id": "central_ne_console",
+      "rect": [
+        598,
+        154,
+        640,
+        245
+      ]
+    },
+    {
+      "id": "central_w_console",
+      "rect": [
+        341,
+        288,
+        369,
+        358
+      ]
+    },
+    {
+      "id": "central_se_machine",
+      "rect": [
+        592,
+        324,
+        650,
+        376
+      ]
+    },
+    {
+      "id": "ne_table",
+      "rect": [
+        744,
+        98,
+        855,
+        140
+      ]
+    },
+    {
+      "id": "ne_cabinets",
+      "rect": [
+        708,
+        44,
+        887,
+        82
+      ]
+    },
+    {
+      "id": "east_pods",
+      "rect": [
+        827,
+        215,
+        895,
+        285
+      ]
+    },
+    {
+      "id": "east_machine",
+      "rect": [
+        767,
+        228,
+        811,
+        284
+      ]
+    },
+    {
+      "id": "se_pods",
+      "rect": [
+        777,
+        339,
+        864,
+        414
+      ]
+    },
+    {
+      "id": "se_table",
+      "rect": [
+        781,
+        447,
+        850,
+        490
+      ]
+    },
+    {
+      "id": "sw_table",
+      "rect": [
+        78,
+        448,
+        192,
+        487
+      ]
+    },
+    {
+      "id": "sw_cabinets",
+      "rect": [
+        76,
+        397,
+        186,
+        434
+      ]
+    },
+    {
+      "id": "south_pods_w",
+      "rect": [
+        297,
+        426,
+        336,
+        486
+      ]
+    },
+    {
+      "id": "south_pods_e",
+      "rect": [
+        597,
+        419,
+        638,
+        491
+      ]
+    },
+    {
+      "id": "south_console",
+      "rect": [
+        383,
+        419,
+        410,
+        482
+      ]
+    },
+    {
+      "id": "west_partition",
+      "width": 15,
+      "points": [
+        [
+          273,
+          31
+        ],
+        [
+          273,
+          507
+        ]
+      ]
+    },
+    {
+      "id": "east_partition",
+      "width": 15,
+      "points": [
+        [
+          686,
+          31
+        ],
+        [
+          686,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "nw_partition",
+      "width": 16,
+      "points": [
+        [
+          49,
+          171
+        ],
+        [
+          193,
+          171
+        ]
+      ]
+    },
+    {
+      "id": "nw_door_return",
+      "width": 16,
+      "points": [
+        [
+          234,
+          171
+        ],
+        [
+          273,
+          171
+        ]
+      ]
+    },
+    {
+      "id": "sw_partition",
+      "width": 16,
+      "points": [
+        [
+          48,
+          394
+        ],
+        [
+          194,
+          394
+        ]
+      ]
+    },
+    {
+      "id": "sw_door_return",
+      "width": 16,
+      "points": [
+        [
+          231,
+          394
+        ],
+        [
+          273,
+          394
+        ]
+      ]
+    },
+    {
+      "id": "ne_partition",
+      "width": 16,
+      "points": [
+        [
+          686,
+          174
+        ],
+        [
+          717,
+          174
+        ]
+      ]
+    },
+    {
+      "id": "ne_room_wall",
+      "width": 16,
+      "points": [
+        [
+          750,
+          174
+        ],
+        [
+          911,
+          174
+        ]
+      ]
+    },
+    {
+      "id": "east_room_wall",
+      "width": 16,
+      "points": [
+        [
+          686,
+          307
+        ],
+        [
+          716,
+          307
+        ]
+      ]
+    },
+    {
+      "id": "east_room_return",
+      "width": 16,
+      "points": [
+        [
+          751,
+          307
+        ],
+        [
+          915,
+          307
+        ]
+      ]
+    },
+    {
+      "id": "south_partition_w",
+      "width": 16,
+      "points": [
+        [
+          273,
+          393
+        ],
+        [
+          437,
+          393
+        ],
+        [
+          437,
+          508
+        ]
+      ]
+    },
+    {
+      "id": "south_partition_e",
+      "width": 16,
+      "points": [
+        [
+          532,
+          508
+        ],
+        [
+          532,
+          393
+        ],
+        [
+          686,
+          393
+        ]
+      ]
+    }
+  ]
+}

@@ -37,7 +37,10 @@ var selected_cell     : Vector2i = Vector2i(-1, -1)
 var _elapsed    : float = 0.0
 var _astar      := AStar2D.new()
 var _blocked    : Array[Vector2i] = []
+var _wall_cells : Array[Vector2i] = []
+var _opaque_cells : Array[Vector2i] = []
 var pan_lock    : bool = false   # set by CombatRoot while camera pan is active
+var debug_walls_visible: bool = true  # Temporary test overlay; F8 toggles visuals only.
 
 # ── Isometric parameters ──────────────────────────────────────────────────────
 # iso_origin  = screen position of the TOP vertex of the diamond grid (tile 0,0 top)
@@ -62,6 +65,14 @@ func configure(vp_size: Vector2, map_tex: Texture2D,
 	viewport_size  = vp_size
 	map_texture    = map_tex
 	cover_nodes    = covers
+	_wall_cells.clear()
+	_opaque_cells.clear()
+	for wall: Dictionary in covers:
+		if bool(wall.get("solid", false)):
+			_wall_cells.append(wall["cell"] as Vector2i)
+			if bool(wall.get("high", true)):
+				_opaque_cells.append(wall["cell"] as Vector2i)
+	_blocked = _wall_cells.duplicate()
 	objective_cell = obj_cell
 	_compute_rect()
 	_rebuild_astar()
@@ -179,8 +190,27 @@ func _cell_id(cell: Vector2i) -> int:
 	return cell.y * GRID_COLS + cell.x
 
 func set_blocked(cells: Array[Vector2i]) -> void:
-	_blocked = cells
+	_blocked = _wall_cells.duplicate()
+	for cell: Vector2i in cells:
+		if not _blocked.has(cell):
+			_blocked.append(cell)
 	_rebuild_astar()
+
+func is_wall(cell: Vector2i) -> bool:
+	return _wall_cells.has(cell)
+
+func nearest_open_cell(origin: Vector2i, occupied: Array[Vector2i] = []) -> Vector2i:
+	var queue: Array[Vector2i] = [origin]
+	var seen: Dictionary = {origin: true}
+	while not queue.is_empty():
+		var cell: Vector2i = queue.pop_front()
+		if not is_wall(cell) and not occupied.has(cell):
+			return cell
+		for neighbor: Vector2i in [cell+Vector2i.RIGHT, cell+Vector2i.LEFT, cell+Vector2i.UP, cell+Vector2i.DOWN]:
+			if neighbor.x >= 0 and neighbor.x < GRID_COLS and neighbor.y >= 0 and neighbor.y < GRID_ROWS and not seen.has(neighbor):
+				seen[neighbor] = true
+				queue.append(neighbor)
+	return Vector2i(-1, -1)
 
 func _rebuild_astar() -> void:
 	_astar.clear()
@@ -236,7 +266,7 @@ func reachable_cells(from_cell: Vector2i, max_steps: int) -> Array[Vector2i]:
 # ── Line of Sight ─────────────────────────────────────────────────────────────
 
 func has_los(from_cell: Vector2i, to_cell: Vector2i,
-			 high_cover_cells: Array[Vector2i]) -> bool:
+			 high_cover_cells: Array = []) -> bool:
 	var dx  := absi(to_cell.x - from_cell.x)
 	var dy  := absi(to_cell.y - from_cell.y)
 	var sx  := signi(to_cell.x - from_cell.x)
@@ -249,13 +279,18 @@ func has_los(from_cell: Vector2i, to_cell: Vector2i,
 		if e2 > -dy: err -= dy; x += sx
 		if e2 <  dx: err += dx; y += sy
 		var cur := Vector2i(x, y)
-		if cur != to_cell and high_cover_cells.has(cur):
+		if cur != to_cell and (high_cover_cells.has(cur) or _opaque_cells.has(cur)):
 			return false
 	return true
 
 # ── Input ─────────────────────────────────────────────────────────────────────
 
 func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F8:
+		debug_walls_visible = not debug_walls_visible
+		queue_redraw()
+		get_viewport().set_input_as_handled()
+		return
 	if pan_lock: return
 	# Camera2D is active: convert viewport pixels → canvas/world coordinates.
 	var inv := get_viewport().get_canvas_transform().affine_inverse()
@@ -384,9 +419,40 @@ func _draw_vignette() -> void:
 # ── Cover nodes ───────────────────────────────────────────────────────────────
 
 func _draw_cover_nodes() -> void:
+	var labelled_walls: Dictionary = {}
 	for node: Dictionary in cover_nodes:
 		var cell := node.get("cell", Vector2i.ZERO) as Vector2i
 		var high := bool(node.get("high", false))
+		if bool(node.get("solid", false)):
+			var outline := _iso_corners(cell)
+			if debug_walls_visible:
+				var exact: Array = node.get("outline_uv", [])
+				var object_id := str(node.get("wall_id", "wall"))
+				if exact.size() >= 3:
+					if labelled_walls.has(object_id):
+						continue
+					labelled_walls[object_id] = true
+					var polygon := PackedVector2Array()
+					for point: Array in exact:
+						var col := float(point[0]) * GRID_COLS
+						var row := float(point[1]) * GRID_ROWS
+						polygon.append(iso_origin + Vector2((col-row)*iso_tw, (col+row)*iso_th))
+					var fill := Color(0.1,0.45,1.0,0.48) if str(node.get("kind", "")) == "water" else Color(1.0,0.05,0.45,0.48)
+					draw_colored_polygon(polygon, fill)
+					polygon.append(polygon[0])
+					draw_polyline(polygon, Color(1.0,0.85,0.1,1.0), 4.0)
+					draw_string(ThemeDB.fallback_font, polygon[0], object_id, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color.WHITE)
+					continue
+				draw_colored_polygon(outline, Color(1.0, 0.05, 0.45, 0.68))
+				draw_polyline(PackedVector2Array([outline[0], outline[1], outline[2], outline[3], outline[0]]), Color(1.0, 0.85, 0.1, 1.0), 3.5)
+				var center := cell_to_world(cell)
+				draw_line(outline[0], outline[2], Color(1.0, 1.0, 1.0, 0.85), 2.0)
+				draw_line(outline[1], outline[3], Color(1.0, 1.0, 1.0, 0.85), 2.0)
+				var wall_id := str(node.get("wall_id", "wall"))
+				if not labelled_walls.has(wall_id):
+					labelled_walls[wall_id] = true
+					draw_string(ThemeDB.fallback_font, center + Vector2(0, -10), wall_id, HORIZONTAL_ALIGNMENT_LEFT, -1, 24, Color.WHITE)
+			continue
 		var d    := _iso_corners_inner(cell, 0.25)
 		var al   := 0.75 if high else 0.50
 		var col  := Color(0.72, 0.88, 0.32, al)

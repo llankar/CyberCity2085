@@ -1886,7 +1886,8 @@ class BattleView(GameView):
         _snd.ensure_loaded()
         from game.ui.screens.settings_screen import load_settings as _load_settings
         _snd.configure_from_settings(_load_settings())
-        _snd.play_music("music_battle", loop=True)
+        from game.audio.music_catalog import battle_music_key
+        _snd.play_music(battle_music_key(self.mission), loop=True)
         # Cover nodes (generated once per map, used for defense bonuses + HUD)
         from game.combat.battlefield import build_battlefield_plan, reachable_objective_positions, connect_inferred_terrain
 

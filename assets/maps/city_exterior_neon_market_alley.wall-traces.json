@@ -1,0 +1,225 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "nw_building",
+      "rect": [
+        0,
+        0,
+        153,
+        111
+      ]
+    },
+    {
+      "id": "west_building",
+      "rect": [
+        0,
+        111,
+        57,
+        234
+      ]
+    },
+    {
+      "id": "north_building",
+      "rect": [
+        268,
+        0,
+        397,
+        118
+      ]
+    },
+    {
+      "id": "ne_building",
+      "rect": [
+        580,
+        0,
+        753,
+        100
+      ]
+    },
+    {
+      "id": "east_building",
+      "rect": [
+        832,
+        0,
+        960,
+        205
+      ]
+    },
+    {
+      "id": "sw_building",
+      "rect": [
+        0,
+        338,
+        124,
+        540
+      ]
+    },
+    {
+      "id": "se_building",
+      "rect": [
+        800,
+        328,
+        960,
+        540
+      ]
+    },
+    {
+      "id": "south_building_w",
+      "rect": [
+        252,
+        485,
+        352,
+        540
+      ]
+    },
+    {
+      "id": "south_building_e",
+      "rect": [
+        435,
+        476,
+        630,
+        540
+      ]
+    },
+    {
+      "id": "north_awning",
+      "rect": [
+        396,
+        53,
+        503,
+        122
+      ]
+    },
+    {
+      "id": "market_nw",
+      "rect": [
+        170,
+        194,
+        318,
+        257
+      ]
+    },
+    {
+      "id": "market_nmid",
+      "rect": [
+        354,
+        201,
+        410,
+        263
+      ]
+    },
+    {
+      "id": "market_ne",
+      "rect": [
+        484,
+        179,
+        732,
+        258
+      ]
+    },
+    {
+      "id": "market_sw",
+      "rect": [
+        203,
+        308,
+        278,
+        398
+      ]
+    },
+    {
+      "id": "market_smid",
+      "rect": [
+        322,
+        328,
+        403,
+        391
+      ]
+    },
+    {
+      "id": "market_se",
+      "rect": [
+        506,
+        326,
+        580,
+        403
+      ]
+    },
+    {
+      "id": "market_east",
+      "rect": [
+        661,
+        310,
+        734,
+        405
+      ]
+    },
+    {
+      "id": "south_stall_w",
+      "rect": [
+        196,
+        440,
+        245,
+        505
+      ]
+    },
+    {
+      "id": "south_stall_m",
+      "rect": [
+        438,
+        446,
+        502,
+        480
+      ]
+    },
+    {
+      "id": "south_stall_e",
+      "rect": [
+        642,
+        470,
+        714,
+        540
+      ]
+    },
+    {
+      "id": "west_awning",
+      "rect": [
+        82,
+        341,
+        124,
+        414
+      ]
+    },
+    {
+      "id": "north_bins",
+      "rect": [
+        177,
+        34,
+        207,
+        73
+      ]
+    },
+    {
+      "id": "north_bench",
+      "rect": [
+        171,
+        131,
+        196,
+        203
+      ]
+    },
+    {
+      "id": "east_bins",
+      "rect": [
+        698,
+        294,
+        738,
+        326
+      ]
+    }
+  ]
+}
