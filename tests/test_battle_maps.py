@@ -8,6 +8,9 @@ from game import battle_maps
 
 
 class BattleMapsTest(unittest.TestCase):
+    def test_diagnostic_previews_are_not_playable_maps(self) -> None:
+        self.assertFalse(any(entry.filename.startswith("preview_") for entry in battle_maps.build_battle_map_catalog()))
+
     def test_catalog_has_city_maps_and_split_pools(self) -> None:
         catalog = battle_maps.build_battle_map_catalog()
 
@@ -74,7 +77,7 @@ class BattleMapsTest(unittest.TestCase):
         self.assertEqual(battle_maps.battle_token_scale_for_unit(robot_enemy_unit), 1.5)
 
     def test_new_map_assets_exist_on_disk(self) -> None:
-        city_files = [path for path in Path("assets/maps").iterdir() if path.is_file() and path.name.startswith("city_")]
+        city_files = [path for path in Path("assets/maps").iterdir() if path.is_file() and path.name.startswith("city_") and path.suffix.lower() == ".png"]
         self.assertEqual(len(city_files), 36)
         self.assertTrue(all(path.suffix.lower() == ".png" for path in city_files))
 

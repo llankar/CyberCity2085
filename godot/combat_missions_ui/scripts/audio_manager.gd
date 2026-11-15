@@ -29,6 +29,8 @@ var _sfx_players : Array[AudioStreamPlayer] = []
 var _music_player: AudioStreamPlayer = null
 var _streams     : Dictionary         = {}   # filename → AudioStream
 var _pool_idx    : int                = 0
+var _battle_music: String = "music_battle.wav"
+var _enabled: bool = true
 const POOL_SIZE  := 6
 
 func _ready() -> void:
@@ -59,6 +61,12 @@ func _preload_streams() -> void:
 func _load_stream(filename: String) -> void:
 	if _streams.has(filename):
 		return
+	if filename.to_lower().ends_with(".mp3") and FileAccess.file_exists(filename):
+		var mp3 := AudioStreamMP3.new()
+		mp3.data = FileAccess.get_file_as_bytes(filename)
+		mp3.loop = true
+		_streams[filename] = mp3
+		return
 	var path := "res://audio/" + filename
 	if not ResourceLoader.exists(path):
 		return
@@ -67,6 +75,8 @@ func _load_stream(filename: String) -> void:
 		_streams[filename] = s
 
 func _play_sfx(filename: String) -> void:
+	if not _enabled:
+		return
 	if not _streams.has(filename):
 		return
 	var player := _sfx_players[_pool_idx % POOL_SIZE] as AudioStreamPlayer
@@ -75,12 +85,29 @@ func _play_sfx(filename: String) -> void:
 	player.play()
 
 func _play_music(filename: String) -> void:
+	if not _enabled:
+		return
 	if not _streams.has(filename):
 		return
 	if _music_player.stream == _streams[filename]:
 		return
 	_music_player.stream = _streams[filename] as AudioStream
 	_music_player.play()
+
+func configure_soundtrack(settings: Dictionary) -> void:
+	_enabled = bool(settings.get("enabled", true))
+	_music_player.volume_linear = clampf(float(settings.get("music_volume", 0.7)), 0.0, 1.0)
+	for player in _sfx_players:
+		player.volume_linear = clampf(float(settings.get("sfx_volume", 0.8)), 0.0, 1.0)
+	if not _enabled:
+		_music_player.stop()
+		return
+	var path := str(settings.get("battle_music_path", ""))
+	if not path.is_empty():
+		_load_stream(path)
+		if _streams.has(path):
+			_battle_music = path
+	_play_music(_battle_music)
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
@@ -93,7 +120,7 @@ func _on_audio_event(event_name: String) -> void:
 		"death":                  _play_sfx("sfx_death.wav")
 		"overwatch":              _play_sfx("sfx_overwatch.wav")
 		"ui_click":               _play_sfx("sfx_ui_click.wav")
-		"turn_player":            _play_sfx("sfx_turn_player.wav"); _play_music("music_battle.wav")
+		"turn_player":            _play_sfx("sfx_turn_player.wav"); _play_music(_battle_music)
 		"turn_enemy":             _play_sfx("sfx_turn_enemy.wav")
 		"victory":                _play_sfx("sfx_victory.wav");    _play_music("music_debrief.wav")
 		"defeat":                 _play_sfx("sfx_defeat.wav");     _play_music("music_debrief.wav")

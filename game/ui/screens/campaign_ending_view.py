@@ -35,6 +35,11 @@ class CampaignEndingView(arcade.View):
 
     def on_show_view(self) -> None:
         arcade.set_background_color(colors.surface_elevated)
+        from game.audio import SoundManager
+        from game.ui.screens.settings_screen import load_settings
+        music = SoundManager.get()
+        music.configure_from_settings(load_settings())
+        music.play_music("music_ending")
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time

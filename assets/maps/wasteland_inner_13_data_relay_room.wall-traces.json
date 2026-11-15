@@ -1,0 +1,284 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        16,
+        14,
+        38,
+        511
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        927,
+        14,
+        946,
+        511
+      ]
+    },
+    {
+      "id": "north_wall",
+      "rect": [
+        27,
+        9,
+        937,
+        30
+      ]
+    },
+    {
+      "id": "south_wall",
+      "rect": [
+        25,
+        497,
+        938,
+        522
+      ]
+    },
+    {
+      "id": "relay_core",
+      "rect": [
+        401,
+        156,
+        562,
+        306
+      ]
+    },
+    {
+      "id": "core_w",
+      "rect": [
+        352,
+        204,
+        375,
+        268
+      ]
+    },
+    {
+      "id": "core_e",
+      "rect": [
+        580,
+        201,
+        613,
+        277
+      ]
+    },
+    {
+      "id": "core_sw",
+      "rect": [
+        382,
+        296,
+        448,
+        346
+      ]
+    },
+    {
+      "id": "north_rack_w",
+      "rect": [
+        307,
+        44,
+        350,
+        97
+      ]
+    },
+    {
+      "id": "north_rack_e",
+      "rect": [
+        610,
+        45,
+        649,
+        99
+      ]
+    },
+    {
+      "id": "west_desk",
+      "rect": [
+        133,
+        131,
+        180,
+        206
+      ]
+    },
+    {
+      "id": "east_desk",
+      "rect": [
+        787,
+        116,
+        843,
+        200
+      ]
+    },
+    {
+      "id": "south_e_desk",
+      "rect": [
+        792,
+        286,
+        867,
+        331
+      ]
+    },
+    {
+      "id": "south_w_desk",
+      "rect": [
+        47,
+        294,
+        110,
+        329
+      ]
+    },
+    {
+      "id": "south_console",
+      "rect": [
+        108,
+        465,
+        144,
+        485
+      ]
+    },
+    {
+      "id": "west_cabinets",
+      "rect": [
+        48,
+        386,
+        73,
+        456
+      ]
+    },
+    {
+      "id": "east_rack",
+      "rect": [
+        879,
+        105,
+        918,
+        223
+      ]
+    },
+    {
+      "id": "west_rack",
+      "rect": [
+        45,
+        44,
+        75,
+        221
+      ]
+    },
+    {
+      "id": "west_partition_n",
+      "width": 17,
+      "points": [
+        [
+          274,
+          30
+        ],
+        [
+          274,
+          159
+        ]
+      ]
+    },
+    {
+      "id": "west_partition_s",
+      "width": 17,
+      "points": [
+        [
+          268,
+          243
+        ],
+        [
+          268,
+          435
+        ]
+      ]
+    },
+    {
+      "id": "east_partition_n",
+      "width": 17,
+      "points": [
+        [
+          685,
+          30
+        ],
+        [
+          685,
+          159
+        ]
+      ]
+    },
+    {
+      "id": "east_partition_s",
+      "width": 17,
+      "points": [
+        [
+          685,
+          243
+        ],
+        [
+          685,
+          434
+        ]
+      ]
+    },
+    {
+      "id": "west_cross",
+      "width": 17,
+      "points": [
+        [
+          35,
+          237
+        ],
+        [
+          219,
+          237
+        ]
+      ]
+    },
+    {
+      "id": "east_cross",
+      "width": 17,
+      "points": [
+        [
+          735,
+          237
+        ],
+        [
+          931,
+          237
+        ]
+      ]
+    },
+    {
+      "id": "southwest_return",
+      "width": 17,
+      "points": [
+        [
+          218,
+          434
+        ],
+        [
+          218,
+          497
+        ]
+      ]
+    },
+    {
+      "id": "southeast_return",
+      "width": 17,
+      "points": [
+        [
+          735,
+          434
+        ],
+        [
+          735,
+          497
+        ]
+      ]
+    }
+  ],
+  "same_pixels_as": "wasteland_inner_08_data_relay_room.png"
+}
