@@ -105,6 +105,7 @@ class GameState:
     active_mission: MissionTemplate | None = None
     selected_mission_index: int = 0
     mission_board_generated_day: int = 0
+    mission_board_version: int = 2
     recent_consequences: list[Consequence] = field(
         default_factory=lambda: [create_opening_consequence()]
     )
@@ -178,6 +179,8 @@ class GameState:
         # ensure_mission_templates() won't immediately throw them away.
         if self.mission_templates and self.mission_board_generated_day == 0:
             self.mission_board_generated_day = self.calendar.current_day
+        if {m.id for m in self.mission_templates} == {"extraction", "sabotage", "data_theft"}:
+            self.mission_board_version = 0
 
     def service_spec_ops_assets(self) -> int:
         """Pay upkeep/repair for robots and power armor from corporate funds."""
@@ -583,6 +586,7 @@ class GameState:
             ),
             "selected_mission_index": self.selected_mission_index,
             "mission_board_generated_day": self.mission_board_generated_day,
+            "mission_board_version": self.mission_board_version,
             "selected_agent_names": list(self.selected_agent_names),
             "spec_ops_assets": [asset.to_dict() for asset in self.spec_ops_assets],
             "selected_asset_ids": list(self.selected_asset_ids),
@@ -668,6 +672,7 @@ class GameState:
         gs.mission_board_generated_day = int(
             data.get("mission_board_generated_day", gs.calendar.current_day)
         )
+        gs.mission_board_version = int(data.get("mission_board_version", 0))
         gs.selected_agent_names = list(data.get("selected_agent_names", []))
         gs.spec_ops_assets = [
             SpecOpsAsset.from_dict(asset) for asset in data.get("spec_ops_assets", [])
