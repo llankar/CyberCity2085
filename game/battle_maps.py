@@ -51,7 +51,7 @@ def _hash_index(seed: str, pool_size: int) -> int:
 
 
 def _is_city_map(filename: str) -> bool:
-    return filename.lower().startswith("city_")
+    return filename.lower().startswith(("city_", "cybercity_"))
 
 
 def _scene_for(filename: str, environment: str) -> str:
@@ -59,7 +59,7 @@ def _scene_for(filename: str, environment: str) -> str:
     if environment == "city":
         if "subway" in lower or "underground" in lower:
             return "subway"
-        if "interior" in lower or "arcology" in lower:
+        if "interior" in lower or "arcology" in lower or "inner" in lower:
             return "interior"
         if "rooftop" in lower:
             return "rooftop"

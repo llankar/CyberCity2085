@@ -8,6 +8,8 @@ if TYPE_CHECKING:
     from .gamestate import GameState
 from .i18n import t
 from .enemy_themes import mission_enemy_theme
+from .battle_maps import infer_battle_environment
+from .consequences import Consequence
 from .mission_templates import MissionTemplate, create_mission_templates
 from .missions.complications import select_complications
 from .missions.evacuation import create_evacuation_template
@@ -79,6 +81,10 @@ def _build_emotional_impact_hint(mission: MissionTemplate, language: str | None 
 def generate_mission_board(game_state: "GameState", board_size: int | None = None) -> list[MissionTemplate]:
     """Generate a small daily mission board based on district pressure."""
     templates = create_mission_templates(game_state.district.name)
+    for template in templates:
+        template.battle_environment = "city"
+        template.enemy_theme = "raider" if template.id in {"extraction", "sabotage"} else "corp_37"
+    templates.extend(_regional_missions(game_state.district.name))
     district_pressure = game_state.district.unrest + game_state.district.media_heat
     evac_probability = min(0.65, max(0.15, district_pressure / 140))
     if random.Random(_mission_seed(game_state) + 404).random() < evac_probability:
@@ -91,10 +97,32 @@ def generate_mission_board(game_state: "GameState", board_size: int | None = Non
     pressure_mod = max(0, pressure_score - game_state.district.stability) // 20
 
     generated: list[MissionTemplate] = []
-    slots = board_size if board_size is not None else random.Random(_mission_seed(game_state) + 313).randint(3, 6)
+    slots = board_size if board_size is not None else random.Random(_mission_seed(game_state) + 313).randint(5, 6)
     slots = max(1, slots)
+    candidates = list(templates)
+    rng.shuffle(candidates)
+    environment_counts: dict[str, int] = {}
+    seen_themes: set[str] = set()
+    seen_objectives: set[str] = set()
     for slot in range(slots):
-        base = templates[slot % len(templates)]
+        if not candidates:
+            candidates = list(templates)
+            rng.shuffle(candidates)
+        def variety_score(candidate):
+            environment = infer_battle_environment(candidate)
+            theme = mission_enemy_theme(candidate)
+            return (
+                40 * (environment not in environment_counts)
+                + 24 * (theme not in seen_themes)
+                + 12 * (candidate.objective_type not in seen_objectives)
+                - 5 * environment_counts.get(environment, 0)
+            )
+        base = max(candidates, key=variety_score)
+        candidates.remove(base)
+        environment = infer_battle_environment(base)
+        environment_counts[environment] = environment_counts.get(environment, 0) + 1
+        seen_themes.add(mission_enemy_theme(base))
+        seen_objectives.add(base.objective_type)
         mission = MissionTemplate.from_dict(base.to_dict())
         risk_delta = rng.choice([-1, 0, 1]) + pressure_mod
         mission.risk_level = max(1, mission.risk_level + risk_delta)
@@ -120,7 +148,55 @@ def generate_mission_board(game_state: "GameState", board_size: int | None = Non
     _inject_story_mission(game_state, generated)
 
     rng.shuffle(generated)
-    return generated
+    # Keep the first visible cards diverse too, even when the UI shows only three.
+    ordered: list[MissionTemplate] = []
+    while generated:
+        if not ordered:
+            chosen = generated[0]
+        else:
+            environments = {infer_battle_environment(m) for m in ordered}
+            themes = {mission_enemy_theme(m) for m in ordered}
+            chosen = max(generated, key=lambda m: (
+                40 * (infer_battle_environment(m) not in environments)
+                + 20 * (mission_enemy_theme(m) not in themes)
+                + 10 * (m.objective_type not in {item.objective_type for item in ordered})
+            ))
+        ordered.append(chosen)
+        generated.remove(chosen)
+    return ordered
+
+
+def _regional_missions(district_name: str) -> list[MissionTemplate]:
+    """Playable contracts with explicit factions, environments and supported objectives."""
+    contracts = [
+        ("road_relay", "Sabotage : relais du convoi", "Détruire le relais des pillards sur la route de poussière avant le départ du convoi.", "Wasteland Raiders", "raider", "wasteland", "sabotage", 3),
+        ("shelter_hostages", "Sauvetage : abri assiégé", "Libérer les survivants enfermés dans un abri des terres désolées et sécuriser leur sortie.", "Wasteland Raiders", "raider", "wasteland", "civilian_rescue", 2),
+        ("mutant_signal", "Reconnaissance : signal irradié", "Relever les données de la balise perdue dans le bassin irradié occupé par les mutants.", "Mutant Clans", "mutant", "wasteland", "recon_scan", 3),
+        ("starver_clinic", "Extraction : les derniers patients", "Ouvrir une voie de sortie pour les patients d'une clinique urbaine encerclée par les affamés.", "Starver Swarm", "starver", "city", "safe_extraction", 2),
+        ("samurai_archive", "Infiltration : archives du clan", "Pirater le terminal d'archives du clan samouraï et récupérer les ordres de surveillance.", "Samurai Consortium", "corp_samurai", "city", "data_theft", 4),
+        ("robot_factory", "Sabotage : chaîne autonome", "Arrêter le contrôleur de production d'une usine défendue par des robots de sécurité.", "Three Sevens Corp", "corp_37_robot", "city", "sabotage", 4),
+        ("mutant_overpass", "Nettoyage : passage effondré", "Éliminer la meute mutante qui bloque le passage effondré et rouvrir la route des réfugiés.", "Mutant Clans", "mutant", "wasteland", "eliminate", 3),
+        ("starver_depot", "Récupération : médicaments perdus", "Récupérer les données du dépôt médical abandonné avant que les affamés ne ferment les accès.", "Starver Swarm", "starver", "wasteland", "data_theft", 2),
+    ]
+    missions = []
+    for key, title, objective, faction, theme, environment, objective_type, risk in contracts:
+        missions.append(MissionTemplate(
+            id=key, title=title, objective_text=objective, target_faction=faction,
+            district=district_name, district_pressure={"unrest": 3, "media_heat": 1},
+            starting_enemy_count=2 + risk // 2, enemy_theme=theme,
+            battle_environment=environment, objective_type=objective_type,
+            risk_level=risk, fund_reward=65 + risk * 20,
+            duration_days=2 if environment == "wasteland" else 1,
+            success_consequences=[Consequence(
+                affected_district=district_name, affected_faction=faction, severity=1,
+                narrative_text=f"{title} : objectif accompli, les routes et les refuges gagnent en sécurité.",
+                mechanical_effects={"stability": 3, "unrest": -3})],
+            failure_consequences=[Consequence(
+                affected_district=district_name, affected_faction=faction, severity=2,
+                narrative_text=f"{title} : l'échec renforce la pression sur les habitants.",
+                mechanical_effects={"unrest": 4, "media_heat": 2})],
+        ))
+    return missions
 
 
 def _inject_story_mission(
@@ -163,7 +239,7 @@ def story_mission_to_template(sm, game_state: "GameState") -> MissionTemplate:
         id=sm.id,
         title=f"[STORY] {sm.title}",
         objective_text=sm.objective_text,
-        target_faction="Three Sevens Corp",
+        target_faction={"mutant": "Mutant Clans", "raider": "Wasteland Raiders", "starver": "Starver Swarm", "corp_samurai": "Samurai Consortium"}.get(sm.enemy_theme, "Three Sevens Corp"),
         district=game_state.district.name,
         district_pressure={"unrest": game_state.district.unrest},
         starting_enemy_count=max(3, sm.risk_level // 2),

@@ -84,6 +84,7 @@ var show_combat_log: bool = false
 var turn_side     : String = "player"
 var turn_number   : int    = 1
 var active_player_index: int = 0
+var _queued_player_index: int = -1
 var selected_target_index: int = 0
 var enemy_turn_timer  : float = 0.0
 var enemy_turn_duration: float = 0.9
@@ -760,6 +761,10 @@ func _input(event: InputEvent) -> void:
 					get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_LEFT:
 				if mbe.pressed:
+					if _hud.has_method("blocks_map_input") and _hud.blocks_map_input(mbe.position):
+						_pan_active = false
+						_drag_started = false
+						return
 					_pan_active   = true
 					_drag_started = false
 					_pan_start_screen = mbe.position
@@ -836,7 +841,13 @@ func _on_cell_clicked(cell: Vector2i) -> void:
 		_execute_action(selected_action)
 
 func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
-	if not battle_started or turn_side != "player":
+	if battle_started and not battle_ended and turn_side == "enemy" and not is_enemy:
+		if unit_id >= 0 and unit_id < player_units.size() and int(player_units[unit_id].get("hp",0)) > 0:
+			_queued_player_index = unit_id
+			status_line = "%s jouera au retour du tour joueur." % str(player_units[unit_id].get("name","Agent"))
+			_sync_display()
+		return
+	if not battle_started or battle_ended or turn_side != "player":
 		return
 	if unit_id >= 1000:
 		return   # vehicle token — decorative, not a combat target
@@ -851,10 +862,7 @@ func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 	else:
 		if unit_id >= 0 and unit_id < player_units.size() \
 				and int(player_units[unit_id].get("hp", 0)) > 0:
-			active_player_index = unit_id
-			status_line = "Active: %s" % str(player_units[unit_id].get("name", "Agent"))
-			_refresh_initiative()
-			_sync_display()
+			_activate_player_from_portrait(unit_id)
 
 func _interact_with_objective() -> void:
 	var active := _current_active_player()
@@ -1356,6 +1364,12 @@ func _resolve_enemy_turn() -> void:
 	_banner.show_banner("player", turn_number)
 	CombatSignals.turn_changed.emit("player", turn_number)
 	CombatSignals.audio_event.emit("turn_player")
+	if _queued_player_index >= 0:
+		var chosen := _queued_player_index
+		_queued_player_index = -1
+		if chosen < player_units.size() and int(player_units[chosen].get("hp",0)) > 0:
+			_activate_player_from_portrait(chosen)
+			return
 	_sync_display()
 
 func _subtype_attack_range(subtype: String) -> int:
@@ -1965,3 +1979,14 @@ func _fit_hud_viewport() -> void:
 		_hud.size = size
 		_hud.position = Vector2.ZERO
 		_hud._reposition_buttons()
+
+func _activate_player_from_portrait(index: int) -> void:
+	active_player_index = index
+	pending_end_turn_confirmation = false
+	var unit := player_units[index] as Dictionary
+	selected_action = "Move" if "Move" in unit.get("available_actions",[]) else "MOVE"
+	var ap := int(unit.get("ap",0))
+	status_line = "%s — à vous de jouer (%d PA)." % [unit.get("name","Agent"),ap] if ap > 0 else "%s : aucun PA restant pour ce tour." % unit.get("name","Agent")
+	if _camera != null: _camera.position = _battlefield.cell_to_world(_cell_position(unit))
+	_refresh_initiative()
+	_sync_display()
