@@ -9,6 +9,9 @@ var fade := false
 var tint := Color(0.75,0.82,0.88)
 var outline := Color(0.22,0.3,0.34,0.28)
 
+func _ready() -> void:
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+
 func configure(wall: Dictionary, board, texture: Texture2D) -> void:
 	map_texture = texture
 	var raw: Array = wall.get("outline_uv", [])
@@ -42,14 +45,20 @@ func update_occlusion(world_position: Vector2) -> void:
 
 func _draw() -> void:
 	if top.size() < 3: return
-	# Soft footprint shadow; side panels retain the surveyed footprint.
+	# Wrap an inward strip of the object's own image down each side.
+	# Both UV rows stay inside the surveyed object instead of sampling the floor.
+	var center_uv := Vector2.ZERO
+	for uv: Vector2 in uvs: center_uv += uv
+	center_uv /= float(uvs.size())
 	for i in range(top.size()):
 		var j := (i+1)%top.size()
 		var face := PackedVector2Array([ground[i],ground[j],top[j],top[i]])
-		var light := 0.13 if ground[j].x > ground[i].x else 0.075
-		draw_colored_polygon(face,Color(light,light*1.18,light*1.35))
-		if ground[i].y+ground[j].y > -height*2:
-			draw_line(ground[i].lerp(top[i],0.5),ground[j].lerp(top[j],0.5),Color(0.22,0.3,0.34),1,true)
+		var side_uv := PackedVector2Array([uvs[i].lerp(center_uv,0.22),uvs[j].lerp(center_uv,0.22),uvs[j],uvs[i]])
+		var light := 0.72 if ground[j].x > ground[i].x else 0.52
+		if map_texture != null:
+			draw_polygon(face,PackedColorArray([Color(light,light,light)]),side_uv,map_texture)
+		else:
+			draw_colored_polygon(face,Color(0.05,0.06,0.07))
 	if map_texture != null:
 		draw_polygon(top,PackedColorArray([tint]),uvs,map_texture)
 	else:

@@ -58,6 +58,7 @@ class MissionTemplate:
     starting_enemy_count: int
     enemy_theme: str = "generic"
     objective_type: str = "eliminate"
+    battle_environment: str = ""
     possible_complications: list[MissionComplication] = field(default_factory=list)
     success_consequences: list[Consequence] = field(default_factory=list)
     failure_consequences: list[Consequence] = field(default_factory=list)
@@ -79,6 +80,7 @@ class MissionTemplate:
             "starting_enemy_count": self.starting_enemy_count,
             "enemy_theme": normalize_enemy_theme(self.enemy_theme),
             "objective_type": self.objective_type,
+            "battle_environment": self.battle_environment,
             "possible_complications": [
                 complication.to_dict() for complication in self.possible_complications
             ],
@@ -114,6 +116,7 @@ class MissionTemplate:
             district_pressure=dict(data.get("district_pressure", {})),
             starting_enemy_count=data.get("starting_enemy_count", 1),
             enemy_theme=normalize_enemy_theme(data.get("enemy_theme", "generic")),
+            battle_environment=str(data.get("battle_environment", "")),
             objective_type=data.get("objective_type")
             if data.get("objective_type") in {
                 "civilian_rescue",

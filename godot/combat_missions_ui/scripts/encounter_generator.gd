@@ -268,11 +268,11 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int) -> Dictio
 	match obj_type:
 		"data_with_detour", "data_theft", "data_extract", "intel_gather":
 			label = "Hack Terminal";  action_key = "HACK"
-		"extraction", "extract_vip":
+		"extraction", "extract_vip", "safe_extraction", "extract":
 			label = "Extract VIP";    action_key = "EXTRACT"
-		"rescue_hostage", "rescue":
+		"rescue_hostage", "rescue", "civilian_rescue":
 			label = "Free Hostage";   action_key = "RESCUE"
-		"sabotage", "demolition", "destroy_target":
+		"sabotage", "demolition", "destroy_target", "sabotage_window":
 			label = "Sabotage";       action_key = "SABOTAGE"
 		"assassination", "elimination", "kill_all":
 			needs_marker = false;     label = "";  action_key = ""
@@ -280,7 +280,7 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int) -> Dictio
 			label = "Retrieve";       action_key = "RETRIEVE"
 		"plant_explosive", "bomb_plant":
 			label = "Plant Bomb";     action_key = "PLANT"
-		"investigate", "search", "patrol":
+		"investigate", "search", "patrol", "recon_scan":
 			label = "Investigate";    action_key = "SEARCH"; progress_needed = 3
 		"repair", "fix":
 			label = "Repair";         action_key = "REPAIR"
