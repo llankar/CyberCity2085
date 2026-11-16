@@ -15,10 +15,11 @@ class BattleMapsTest(unittest.TestCase):
         catalog = battle_maps.build_battle_map_catalog()
 
         self.assertEqual(len(catalog), len(battle_maps.CITY_BATTLE_MAPS) + len(battle_maps.WASTELAND_BATTLE_MAPS))
-        self.assertEqual(len(battle_maps.CITY_BATTLE_MAPS), 36)
+        self.assertEqual(len(battle_maps.CITY_BATTLE_MAPS), 77)
+        self.assertEqual(len(battle_maps.WASTELAND_BATTLE_MAPS), 45)
         self.assertTrue(battle_maps.WASTELAND_BATTLE_MAPS)
-        self.assertTrue(all(entry.filename.startswith("city_") for entry in battle_maps.CITY_BATTLE_MAPS))
-        self.assertTrue(all(not entry.filename.startswith("city_") for entry in battle_maps.WASTELAND_BATTLE_MAPS))
+        self.assertTrue(all(entry.filename.startswith(("city_", "cybercity_")) for entry in battle_maps.CITY_BATTLE_MAPS))
+        self.assertTrue(all(not entry.filename.startswith(("city_", "cybercity_")) for entry in battle_maps.WASTELAND_BATTLE_MAPS))
 
     def test_infers_city_and_wasteland_missions(self) -> None:
         city_mission = SimpleNamespace(
@@ -58,8 +59,8 @@ class BattleMapsTest(unittest.TestCase):
         self.assertIsNotNone(selected_wasteland)
         self.assertEqual(selected_city.environment, "city")
         self.assertEqual(selected_wasteland.environment, "wasteland")
-        self.assertTrue(Path(selected_city.path).name.startswith("city_"))
-        self.assertFalse(Path(selected_wasteland.path).name.startswith("city_"))
+        self.assertTrue(Path(selected_city.path).name.startswith(("city_", "cybercity_")))
+        self.assertFalse(Path(selected_wasteland.path).name.startswith(("city_", "cybercity_")))
 
     def test_battle_token_scale_is_one_point_five(self) -> None:
         self.assertEqual(battle_maps.BATTLE_TOKEN_SCALE, 1.5)

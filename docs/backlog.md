@@ -485,3 +485,15 @@ retrofit is tracked separately in [`tactical_backlog.md`](tactical_backlog.md),
 with its evidence-based target in
 [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md). Work proceeds in
 validated slices of no more than five tasks while Arcade remains authoritative.
+
+## All-map 8K rollout — November 16, 2026
+
+- [x] MAP8K-01 Promote all 122 playable backgrounds to 7680-pixel width while preserving each original aspect ratio; reuse the accepted neon market restoration.
+- [x] MAP8K-02 Preserve all obstacle IDs, grid cells, normalized outlines and flags; refresh only image dimensions and SHA-256; retain manual trace files byte-for-byte.
+- [x] MAP8K-03 Record source/output fingerprints and restoration sizes, with five resample-only exceptions after three distinct image-generation rejections.
+- [x] MAP8K-04 Validate 92 distinct image/survey pairs, inspect six overview sheets and pass all 24 focused map/catalogue/geometry tests.
+- [x] MAP8K-05 Publish assets and documentation on `codex/all-maps-8k`, then merge into `main`; production asset names and paths stay unchanged.
+
+The result follows the accepted restoration-plus-resampling workflow; it is not
+native 8K generation. Individual visual collision contours remain available for
+in-game review. Details: [8K map restoration](maps_8k.md).
