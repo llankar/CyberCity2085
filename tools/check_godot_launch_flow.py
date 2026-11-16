@@ -29,7 +29,10 @@ def main():
     original_cwd = Path.cwd()
     real_popen = subprocess.Popen
     checks = []
-    window = arcade.Window(1280,720,'Godot launch integration',visible=False)
+    from game.ui.music_window import MusicTransitionMixin
+    class GameWindow(MusicTransitionMixin, arcade.Window):
+        pass
+    window = GameWindow(1280,720,'Godot launch integration',visible=False)
     try:
         with tempfile.TemporaryDirectory(prefix='cybercity-launch-') as directory:
             session = Path(directory)

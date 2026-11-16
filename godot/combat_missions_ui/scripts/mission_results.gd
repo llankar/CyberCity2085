@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 	queue_redraw()
 
-func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_path_str: String = "") -> void:
+func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_path_str: String = "", audio: Node = null) -> void:
 	_outcome     = outcome
 	_result      = result
 	_shown       = true
@@ -37,8 +37,9 @@ func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_
 	visible      = true
 	_extract_btn.visible = true
 	_extract_btn.position = Vector2((size.x - 200.0) * 0.5, size.y * 0.5 + 140.0)
-	_write_result_json()
 	CombatSignals.audio_event.emit("victory" if outcome == "victory" else "defeat")
+	if audio != null: _result["music_playback"] = audio.playback_bookmark()
+	_write_result_json()
 
 	# Fade in
 	modulate.a = 0.0
@@ -110,6 +111,7 @@ func _write_result_json() -> void:
 		"xp_per_agent":   _xp_for_outcome(),
 		"funds_earned":   int(_result.get("fund_reward", 0)),
 		"timestamp":      Time.get_unix_time_from_system(),
+		"music_playback": _result.get("music_playback", {}),
 	}
 	var f := FileAccess.open(full_path, FileAccess.WRITE)
 	if f != null:

@@ -165,7 +165,7 @@ def copy_audio_assets() -> None:
 def read_godot_combat_result(
     result_path: Path | str = RESULT_JSON_PATH,
 ) -> dict[str, Any] | None:
-    """Read and return the mission result JSON written by Godot's MissionResults node.
+    """Read a Godot result and retain its external music playback bookmark.
 
     Returns ``None`` if the file does not exist or is malformed.
     """
@@ -174,7 +174,23 @@ def read_godot_combat_result(
         return None
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else None
+        if not isinstance(data, dict):
+            return None
+        bookmark = data.get("music_playback")
+        if isinstance(bookmark, dict) and isinstance(bookmark.get("path"), str):
+            try:
+                from game.audio import SoundManager
+                position = float(bookmark["position"])
+                if "captured_at" in bookmark:
+                    import math
+                    import time
+                    captured = float(bookmark["captured_at"])
+                    if math.isfinite(captured):
+                        position += max(0.0, time.time() - captured)
+                SoundManager.get().remember_music_position(bookmark["path"], position)
+            except (KeyError, TypeError, ValueError):
+                pass
+        return data
     except (json.JSONDecodeError, OSError):
         return None
 
@@ -198,12 +214,14 @@ def build_godot_combat_payload(
     from game.ui.screens.settings_screen import load_settings
     audio_settings = load_settings()
     track = music_path(battle_music_key(mission))
+    from game.audio import SoundManager
     return {
         "schema_version": GODOT_SCHEMA_VERSION,
         "source": "CyberCity2085",
         "ui_engine": "godot",
         "audio": {
             "battle_music_path": str(track.resolve()) if track else "",
+            "start_position": SoundManager.get().music_position_for(track) if track else 0.0,
             "enabled": audio_settings.audio_enabled,
             "music_volume": audio_settings.music_volume / 100.0,
             "sfx_volume": audio_settings.sfx_volume / 100.0,
@@ -426,7 +444,7 @@ def launch_godot_combat_ui(
             path, command, False, f"Godot launch failed: {exc}"
         )
     from game.audio import SoundManager
-    SoundManager.get().stop_music()
+    SoundManager.get().pause_music(external=True)
     return GodotCombatLaunchResult(
         path, command, True, "Godot combat UI launched.", process_pid=proc.pid, process=proc
     )
@@ -463,7 +481,7 @@ def launch_godot_combat_ui_blocking(
             return GodotCombatLaunchResult(path, [], False, "Godot unavailable; use Arcade fallback.")
         proc = subprocess.Popen(command)
         from game.audio import SoundManager
-        SoundManager.get().stop_music()
+        SoundManager.get().pause_music(external=True)
         deadline = time.monotonic() + max(0, timeout) if timeout is not None else None
         while True:
             result = read_ipc_result(directory)

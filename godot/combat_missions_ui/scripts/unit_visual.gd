@@ -14,6 +14,9 @@ var _moving: Tween
 var _death := false
 var _art_rect := Rect2()
 var _hit_image: Image
+var _portrait_bounds_uv := Rect2(0,0,1,1)
+var _active_bounds_uv := Rect2(0,0,1,1)
+var _frame_bounds: Dictionary = {}
 static var _atlas_cache: Dictionary = {}
 
 func _ready() -> void:
@@ -28,14 +31,18 @@ func configure_animation(key: String, root: String) -> void:
 		var cached: Dictionary = _atlas_cache[path]
 		manifest = cached.get("manifest", {})
 		atlas = cached.get("atlas", null)
+		_frame_bounds = cached.get("frame_bounds", {})
 		return
 	if FileAccess.file_exists(path):
 		var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 		if raw is Dictionary:
 			manifest = raw
 			var image := Image.load_from_file(root.path_join(str(manifest.get("texture", ""))))
-			if image != null: atlas = ImageTexture.create_from_image(image)
-	_atlas_cache[path] = {"manifest": manifest, "atlas": atlas}
+			if image != null:
+				atlas = ImageTexture.create_from_image(image)
+				var frame_size: Array = manifest.get("frame_size",[256,256])
+				_frame_bounds = _measure_atlas_bounds(image,Vector2i(int(frame_size[0]),int(frame_size[1])))
+	_atlas_cache[path] = {"manifest": manifest, "atlas": atlas, "frame_bounds": _frame_bounds}
 
 func play_action(action: String, toward: Vector2 = Vector2.ZERO) -> bool:
 	if toward != Vector2.ZERO:
@@ -97,19 +104,23 @@ func play_death() -> void:
 func _draw() -> void:
 	var dead := int(unit_data.get("hp", 0)) <= 0
 	if dead and (not _death or clip != "death"): return
-	var rc := ENEMY_COL if is_enemy else PLAYER_COL
+	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
 	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0)
 	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
 	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.34))
 	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
 	if is_active or has_defend or has_overwatch:
-		var ring := PackedVector2Array([Vector2(0,-footprint*0.5), Vector2(footprint,0), Vector2(0,footprint*0.5), Vector2(-footprint,0), Vector2(0,-footprint*0.5)])
+		var radius := maxf(footprint,cell_size.x*0.21) if is_active else footprint
+		var ring := PackedVector2Array([Vector2(0,-radius*0.5),Vector2(radius,0),Vector2(0,radius*0.5),Vector2(-radius,0),Vector2(0,-radius*0.5)])
 		draw_colored_polygon(ring, Color(rc, 0.08))
-		draw_polyline(ring, Color(rc, 0.8), 1.8, true)
+		if is_active:
+			draw_polyline(ring,Color(rc,0.12),10*_screen_pixel().x,true)
+		draw_polyline(ring,Color(rc,0.9),2*_screen_pixel().x,true)
 	var tex := sprite.texture if sprite != null else null
 	if tex == null: return
 	var height := _body_height()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
+	_active_bounds_uv = _portrait_bounds_uv
 	if atlas != null and not manifest.is_empty():
 		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
 		var rows: Array = anim.get("rows", [])
@@ -120,6 +131,7 @@ func _draw() -> void:
 			var columns := maxi(1, int(atlas.get_width() / fsize.x))
 			source = Rect2(Vector2(idx % columns, idx / columns) * fsize, fsize)
 			tex = atlas
+			_active_bounds_uv = _frame_bounds.get(idx,Rect2(0,0,1,1))
 	var width := height * source.size.x / maxf(1, source.size.y)
 	_art_rect = Rect2(-width * 0.5, -height, width, height)
 	draw_texture_rect_region(tex, _art_rect, source, Color(0.36,0.4,0.44) if dead else Color.WHITE)
@@ -127,10 +139,7 @@ func _draw() -> void:
 	_card_h = height
 	_sh = height
 	if dead: return
-	var hp := float(unit_data.get("hp", 0)) / maxf(1, float(unit_data.get("max_hp", 1)))
-	var bw := minf(width, cell_size.x * 0.7)
-	draw_rect(Rect2(-bw*0.5,-height-9,bw,4), Color(0.01,0.025,0.035,0.9))
-	draw_rect(Rect2(-bw*0.5,-height-9,bw*hp,4), rc)
+	_draw_segmented_health(rc)
 	if is_targeted:
 		var r := _art_rect.grow(5)
 		for p: Vector2 in [r.position, Vector2(r.end.x,r.position.y), r.end, Vector2(r.position.x,r.end.y)]:
@@ -143,7 +152,13 @@ func _draw() -> void:
 
 func setup(data: Dictionary, id: int, enemy: bool, tex: Texture2D, c_size: Vector2) -> void:
 	super.setup(data,id,enemy,tex,c_size)
-	if tex != null: _hit_image = tex.get_image()
+	if tex != null:
+		_hit_image = tex.get_image()
+		if _hit_image != null:
+			var used := _hit_image.get_used_rect()
+			var dimensions := Vector2(_hit_image.get_size())
+			_portrait_bounds_uv = Rect2(Vector2(used.position)/dimensions,Vector2(used.size)/dimensions)
+			_active_bounds_uv = _portrait_bounds_uv
 	_recalc_dims()
 
 func _recalc_dims() -> void:
@@ -212,3 +227,57 @@ func hit_test_screen(screen_point: Vector2) -> bool:
 	var zoom := maxf(0.05,get_global_transform_with_canvas().get_scale().x)
 	var padding := 5.0*clampf(get_viewport_rect().size.y/1080.0,0.85,2.5)/zoom
 	return bounds.grow(padding).has_point(local)
+
+func _screen_pixel() -> Vector2:
+	var zoom := get_global_transform_with_canvas().get_scale().abs()
+	return Vector2(1.0/maxf(0.01,zoom.x),1.0/maxf(0.01,zoom.y))
+
+func _visible_body_rect() -> Rect2:
+	return Rect2(_art_rect.position+_active_bounds_uv.position*_art_rect.size,_active_bounds_uv.size*_art_rect.size)
+
+func _health_bar_rect() -> Rect2:
+	var pixel := _screen_pixel()
+	var body := _visible_body_rect()
+	var width := clampf(body.size.y/pixel.y*1.05,48,108)*pixel.x
+	return Rect2(Vector2(body.get_center().x-width*0.5,body.position.y-14*pixel.y),Vector2(width,6*pixel.y))
+
+func _health_segment_fills() -> Array[float]:
+	var maximum := maxf(1,float(unit_data.get("max_hp",1)))
+	var count := clampi(ceili(maximum/6.0),3,10)
+	var fraction := clampf(float(unit_data.get("hp",0))/maximum,0,1)
+	var result: Array[float] = []
+	for i in range(count): result.append(clampf(fraction*count-i,0,1))
+	return result
+
+func _health_bevel(rect: Rect2,slant: float) -> PackedVector2Array:
+	slant = minf(slant,rect.size.x*0.35)
+	return PackedVector2Array([rect.position+Vector2(slant,0),Vector2(rect.end.x,rect.position.y),rect.end-Vector2(slant,0),Vector2(rect.position.x,rect.end.y)])
+
+func _draw_segmented_health(color: Color) -> void:
+	var pixel := _screen_pixel()
+	var bar := _health_bar_rect()
+	var fills := _health_segment_fills()
+	var gap := 1.5*pixel.x
+	var width := (bar.size.x-gap*(fills.size()-1))/fills.size()
+	for i in range(fills.size()):
+		var segment := Rect2(bar.position+Vector2(i*(width+gap),0),Vector2(width,bar.size.y))
+		var shape := _health_bevel(segment,2*pixel.x)
+		draw_colored_polygon(shape,Color(0.005,0.015,0.02,0.95))
+		if fills[i] > 0:
+			var fill := segment
+			fill.size.x *= fills[i]
+			draw_colored_polygon(_health_bevel(fill,2*pixel.x),color)
+		shape.append(shape[0])
+		draw_polyline(shape,Color(0.005,0.015,0.02,1),pixel.x,true)
+
+func _measure_atlas_bounds(image: Image, frame_size: Vector2i) -> Dictionary:
+	# Cache tiny normalized rectangles, not another copy of the full atlas.
+	var result: Dictionary = {}
+	if frame_size.x <= 0 or frame_size.y <= 0: return result
+	var columns := image.get_width()/frame_size.x
+	var rows := image.get_height()/frame_size.y
+	for y in range(rows):
+		for x in range(columns):
+			var used := image.get_region(Rect2i(Vector2i(x,y)*frame_size,frame_size)).get_used_rect()
+			result[y*columns+x] = Rect2(Vector2(used.position)/Vector2(frame_size),Vector2(used.size)/Vector2(frame_size))
+	return result
