@@ -6,7 +6,8 @@ Référence : maquette jointe par Laurent dans la conversation.
 
 **Objectif global NON ATTEINT.** Le nouveau rendu est intégré et jouable ; il
 ne possède pas encore la qualité artistique, les poses ni les animations de la
-référence. Aucun push, publication ou déploiement effectué.
+référence. Branche poussée sur `origin/combat/visual-2` à la demande de Laurent
+le 16 novembre 2026. Aucune fusion dans `main` ni aucun déploiement effectué.
 
 ## Les cinq chantiers et leur état
 
