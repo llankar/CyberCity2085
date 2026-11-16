@@ -1760,9 +1760,172 @@
         942
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_city_12_cratered_waterfront.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "f78d1f31db915bf5faeeedbd1e7ad65f0f0b64880aa2669fe6cc2de2c7623b17",
+      "geometry_sha256": "70a632b243b67de7fa8b893e6ae79c0689e6e4d78e311e1831ece9333825d201",
+      "trace_sha256": "7b1edf951d3ab59034be82d276603641fa1d8d1e12062856da827b45de2d6b47",
+      "output_sha256": "13f26cb674dbb75703f5cd77944f77cfdb121b2a4206e13fdfe4a498aa8380f9",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_01_abandoned_safehouse.png",
+      "source_size": [
+        1671,
+        941
+      ],
+      "target_size": [
+        7680,
+        4325
+      ],
+      "source_sha256": "d358169e104ce2dba31d453351e93355376f278c2ff1379ebb9eaba13fbcb676",
+      "geometry_sha256": "443531435d51ba52e739066497f0f1bba6c01081840e8f52bad3566b02ee6b0b",
+      "trace_sha256": "a77cc25c5e2794385ad30333849745d2e1033af488223f35b8f453598d44239c",
+      "output_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_02_collapsed_tunnel.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "3245305bf6b0af8e75d78ad9c1d56479c760bcd07c744c5d06164b1cad47ed75",
+      "geometry_sha256": "0a1744f9ff9a0bc2aee6752732c39ee2903e75ee26462dc1ddff06f281ee5af7",
+      "trace_sha256": "68017d7fc740eebabdaedb5eec6d2819e2084866f5072f6193a46fd02d407219",
+      "output_sha256": "fbe193ae11ac0fe65bb47d85bcf7ccd228beb36f6e4c6e30a207d200a56a58e5",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_03_ruined_clinic.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "15d3ba18225adbd11cd6618db922f8098217fccc2f6eeeed287a10f9f227f6e1",
+      "geometry_sha256": "977ce927224d388fc41b19b9d8049b3e1f7f54c3e546249dd72351284dcf1d99",
+      "trace_sha256": "dd0adabe9b9de691d2657311ccf62a6bbdbb509c7603c45a0bf204bc6a950dec",
+      "output_sha256": "f342ba8d078bec60193c437d02ec9585a711655f800359113f2bb4b364d81de6",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "resample_only_generation_rejected"
+    },
+    {
+      "name": "wasteland_inner_04_bunker_command_post.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "eed11fcb483eee9539e5def5046a3fb67e22ca901e6551f2cb14e8025df71afe",
+      "geometry_sha256": "d3193dc224316688b51bdf1ab994339359a0e4b392ef35fd359d990f2b74a5e3",
+      "trace_sha256": "a7acde63585cfdc2e965dcc4a78cb07123019c1021ed7f8520fbab4d812ba44e",
+      "output_sha256": "c62cd0fe875f2dbc40d9207d6615142673088106865ff3cf0d0c1704e96d6bfb",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "resample_only_generation_rejected"
+    },
+    {
+      "name": "wasteland_inner_06_abandoned_safehouse.png",
+      "source_size": [
+        1671,
+        941
+      ],
+      "target_size": [
+        7680,
+        4325
+      ],
+      "source_sha256": "d358169e104ce2dba31d453351e93355376f278c2ff1379ebb9eaba13fbcb676",
+      "geometry_sha256": "443531435d51ba52e739066497f0f1bba6c01081840e8f52bad3566b02ee6b0b",
+      "trace_sha256": "44389f3b5e3026d74f57a0abd68ca665e99a5920a39bf46d5ab00d7f2d49347b",
+      "output_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_07_collapsed_tunnel.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "3245305bf6b0af8e75d78ad9c1d56479c760bcd07c744c5d06164b1cad47ed75",
+      "geometry_sha256": "0a1744f9ff9a0bc2aee6752732c39ee2903e75ee26462dc1ddff06f281ee5af7",
+      "trace_sha256": "4bbc8d757182c34af584c2132e764b7ae4bae726d93736242af80194f834b718",
+      "output_sha256": "fbe193ae11ac0fe65bb47d85bcf7ccd228beb36f6e4c6e30a207d200a56a58e5",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_08_ruined_clinic.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "15d3ba18225adbd11cd6618db922f8098217fccc2f6eeeed287a10f9f227f6e1",
+      "geometry_sha256": "977ce927224d388fc41b19b9d8049b3e1f7f54c3e546249dd72351284dcf1d99",
+      "trace_sha256": "8b7d5e9159285a261da9566684a583284a70afc1c372bd57cb7c52b9ac242cd3",
+      "output_sha256": "f342ba8d078bec60193c437d02ec9585a711655f800359113f2bb4b364d81de6",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "resample_only_generation_rejected"
     }
   ],
   "resample_only_maps": [
-    "city_interior_safehouse.png"
+    "city_interior_safehouse.png",
+    "wasteland_inner_03_ruined_clinic.png",
+    "wasteland_inner_04_bunker_command_post.png",
+    "wasteland_inner_08_ruined_clinic.png"
   ]
 }
