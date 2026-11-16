@@ -35,6 +35,8 @@ func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_
 	project_root = p_root
 	ipc_pipe_path = ipc_pipe_path_str
 	visible      = true
+	_extract_btn.visible = true
+	_extract_btn.position = Vector2((size.x - 200.0) * 0.5, size.y * 0.5 + 140.0)
 	_write_result_json()
 	CombatSignals.audio_event.emit("victory" if outcome == "victory" else "defeat")
 

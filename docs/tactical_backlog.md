@@ -2,6 +2,20 @@
 
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
+
+Combat Visual 2.0 — November 16, 2026 (five workstreams, goal NOT complete):
+
+- [x] Integrate the new HUD and retain the legacy interface/render launch mode.
+- [x] Ground existing high-resolution silhouettes and provide reusable atlas loading.
+- [x] Add shared map depth, occlusion and environment presentation without changing surveys.
+- [x] Add bounded action effects, quality settings and real input/render regression checks.
+- [ ] Produce genuine multidirectional character animation and final isometric environment art.
+
+Evidence, commands and remaining art/validation gates:
+[COMBAT_VISUAL_2_PROGRESS.md](COMBAT_VISUAL_2_PROGRESS.md).
+Branch pushed to origin/combat/visual-2 with user authorization; no merge or deployment.
+Rendering compatibility is not final artistic approval.
+
 Enemy control-effect parity — November 16, 2026:
 
 - [x] Audit incoming-phase callbacks for gameplay effects absent from headless combat.
