@@ -1,6 +1,6 @@
 extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
-const HUMAN_HEIGHT_PER_TILE := 0.22
+const HUMAN_HEIGHT_PER_TILE := 0.286
 
 var visual_key := ""
 var animation_root := ""
@@ -200,3 +200,15 @@ func _spawn_float_text(text: String, color: Color) -> void:
 func _body_height() -> float:
 	# Terrain scale, independent of HUD size, window resolution and camera zoom.
 	return cell_size.x * HUMAN_HEIGHT_PER_TILE * _visual_size_scale()
+
+func hit_test_screen(screen_point: Vector2) -> bool:
+	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return false
+	var local := get_global_transform_with_canvas().affine_inverse()*screen_point
+	var bounds := _art_rect
+	if _hit_image != null and atlas == null:
+		var used := _hit_image.get_used_rect()
+		var image_size := Vector2(_hit_image.get_width(),_hit_image.get_height())
+		bounds = Rect2(_art_rect.position+Vector2(used.position)/image_size*_art_rect.size,Vector2(used.size)/image_size*_art_rect.size)
+	var zoom := maxf(0.05,get_global_transform_with_canvas().get_scale().x)
+	var padding := 5.0*clampf(get_viewport_rect().size.y/1080.0,0.85,2.5)/zoom
+	return bounds.grow(padding).has_point(local)
