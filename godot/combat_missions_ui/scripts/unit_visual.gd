@@ -96,7 +96,7 @@ func _draw() -> void:
 	var dead := int(unit_data.get("hp", 0)) <= 0
 	if dead and (not _death or clip != "death"): return
 	var rc := ENEMY_COL if is_enemy else PLAYER_COL
-	var footprint := cell_size.x * 0.25 * clampf(float(unit_data.get("size_scale", 1)), 0.6, 3)
+	var footprint := cell_size.x * 0.25 * minf(_visual_size_scale(),3.0)
 	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
 	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.34))
 	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
@@ -106,7 +106,7 @@ func _draw() -> void:
 		draw_polyline(ring, Color(rc, 0.8), 1.8, true)
 	var tex := sprite.texture if sprite != null else null
 	if tex == null: return
-	var height := cell_size.x * 1.10 * clampf(float(unit_data.get("size_scale", 1)), 0.5, 3.5)
+	var height := cell_size.x * 1.10 * _visual_size_scale()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
 	if atlas != null and not manifest.is_empty():
 		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
@@ -147,7 +147,7 @@ func setup(data: Dictionary, id: int, enemy: bool, tex: Texture2D, c_size: Vecto
 func _recalc_dims() -> void:
 	super._recalc_dims()
 	var tex: Texture2D = sprite.texture if sprite != null else null
-	var height := cell_size.x * 1.10 * clampf(float(unit_data.get("size_scale",1)),0.5,3.5)
+	var height := cell_size.x * 1.10 * _visual_size_scale()
 	var aspect := float(tex.get_width()) / maxf(1,float(tex.get_height())) if tex != null else 0.7
 	_card_w = height*aspect
 	_card_h = height
@@ -169,3 +169,28 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 	else:
 		CombatSignals.unit_hovered.emit(unit_id,is_enemy)
+
+func _visual_size_scale() -> float:
+	var role := str(unit_data.get("role",""))
+	var theme := str(unit_data.get("enemy_theme",""))
+	if role in ["power_armor","heavy_armor"] or "power_armor" in theme: return 1.15
+	return clampf(float(unit_data.get("size_scale",1)),0.5,3.5)
+
+func _spawn_float_text(text: String, color: Color) -> void:
+	var zoom := maxf(0.05,get_global_transform_with_canvas().get_scale().x)
+	var factor := clampf(get_viewport_rect().size.y/1080.0,0.85,2.5)/zoom
+	var label := Label.new()
+	label.text = text
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	label.add_theme_font_size_override("font_size",21)
+	label.add_theme_color_override("font_color",color)
+	label.add_theme_color_override("font_outline_color",Color(0.01,0.02,0.03))
+	label.add_theme_constant_override("outline_size",5)
+	label.scale = Vector2.ONE*factor
+	label.position = Vector2(-20*factor,-_sh-12*factor)
+	label.z_index = 60
+	add_child(label)
+	var tween := create_tween()
+	tween.tween_property(label,"position:y",label.position.y-30*factor,1.1)
+	tween.parallel().tween_property(label,"modulate:a",0.0,0.65).set_delay(0.45)
+	tween.tween_callback(label.queue_free)
