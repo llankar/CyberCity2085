@@ -944,6 +944,166 @@
         941
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_13_warehouse_floor.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "9446d046660560bed2265f368f5e029a58e33aee752118a421843d61448f7a82",
+      "geometry_sha256": "46d950a69a4d07caa7e73465d1e3e8c3e7d460852253462389b5fb1aa4046e17",
+      "trace_sha256": "abb1891751b2d7433c52493c7998e9acd2cf58e7ce4f6fe317be9d02ab4b5b17",
+      "output_sha256": "3a7d29887f37e3c9501dce7aa5452a052e9a0e3b14d2f34f0458a7bad08bc8d8",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_14_detention_block.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "a3caf5ef827bc1f2b068f4bf6b69379cacad25df2b7b34c3a2ed78446c4a0a84",
+      "geometry_sha256": "61c9010ea2d3e88ea357bdba39919687c3822412f1de4162dc3c2a9bbc30ed45",
+      "trace_sha256": "c2e10f76a9f4306fafb2c70ff4a71eef0f08e9baac45882683d66a3bd4e5285b",
+      "output_sha256": "2ed0ac3e93dec050b505d61ad140bdd975496836cd3d0dcd78376c5909008075",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_15_data_vault.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "626b21d00cf66b3fcf81e5c993c9c965978d9830d696121841552f48bf96df65",
+      "geometry_sha256": "034742631eed3087ff33809208c0041838c5483f5788969d95a5aaac1ea711ca",
+      "trace_sha256": "08aacfa167d927f549e18fa6ec7ea73dd9a85c0c8b778692e9d8b41042dde35d",
+      "output_sha256": "db21cc7ef608f00c4660a5e89cb087961d9d0a614a55021819e75f775f2f3481",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_01_downtown_intersection.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "5b5cd0ed6a5fc9b1b9a814a019bd1e2b508f64b6d1272fb32567a4766388a1d5",
+      "geometry_sha256": "09f42ddffe3547f22e5f7f959ce181c7ccc2269b7a0265846931894dbb4bf388",
+      "trace_sha256": "6308e35362133909f843f32ef6358a575fb7c728163f7253005f2211345f6b6f",
+      "output_sha256": "b0f0447688b85bebf24318579255aca87082df111014f2ccf2d974672aae18e9",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_02_neon_market_alley.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "24ccc821cf9c26d2897a81f0733bbf5e2a50012902bc9a670e4faf137ee1bb7a",
+      "geometry_sha256": "eab408a5171c9a7faaf1060ae6ce553cc83db9f9eaa74b58262dbb20f74bd78f",
+      "trace_sha256": "ea894c7e5f23b4072e0c4e77a7e1751628c1c3f461b48b68e042f66708775a65",
+      "output_sha256": "f7c5a417c9ac90635e7caa09bf5a21fd2fd5d3ecbd75b6d372952a3f5dbb8144",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_03_elevated_freeway.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "a1b2e0b05cd9b91c0fea797c62400eee309a113a300a47f0604e36f4a337667c",
+      "geometry_sha256": "5cc113320c8aa8c7184ea26b21f39b9eec74aacdb7dffc4175045f9a40d24319",
+      "trace_sha256": "141476fd10b0af6a79f359155f14c0bc942035011e008a6a6bdc57f327664e7a",
+      "output_sha256": "61b7ae45fdd8074b007cf93c840afdfe8a4861f99c924ccaa3f42b9a9e5ed73a",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_04_waterfront_docks.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "0cf86fa478526673a440c704ca81eac0f27fcf2f5991125d0a47403dfd834b3b",
+      "geometry_sha256": "5b209412eda8c0cb0ad428b1773cee95f79b0246301af1b1fb53e284d4a544b2",
+      "trace_sha256": "21739202c4808e112cc534b0aced8f8f8c341ed4404100060939dc255c885db4",
+      "output_sha256": "ec80abac1eccde5a253bc3f7a2fac1b4493aad3896e376910460e41fe6fe35df",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_05_civic_plaza.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "622a354e1f57e295746780213e694b17882851c808ae9a1c904e3333ccd05040",
+      "geometry_sha256": "b10784e46c90d6a01258112f4e0fe605ec5465d3c3c751ecd873f4be4c47f445",
+      "trace_sha256": "1945ad67f43bcbb43d963fb4b3aa3137221462023ad4ed76ed15b52f407e8572",
+      "output_sha256": "52b220d167a656da4d43fc1918ce984903ade8058e89a3e4d6a0b7dbb5a4dfc5",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ]
 }
