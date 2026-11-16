@@ -2222,6 +2222,86 @@
       "restoration_method": "image_restoration_then_resample"
     },
     {
+      "name": "wasteland_outdoor_02_ashfield_ruins.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "64f55c57134b58bf2097bfd3de9ba93784a8fcb886a5fe63c5cf27415be5d64b",
+      "geometry_sha256": "9d4e8249723aa1755f2a65e0d921880df25c475cb8148cd76ad294b55cdd68e0",
+      "trace_sha256": "6bdf97c16f83b143baae3ee63a172d39dec8956976f635881577c597e6bc2918",
+      "output_sha256": "79da316094c7c48c0da5c3a5c6a5b08aec07b52e8e2e3789596a944252c72c2e",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_03_wrecked_highway.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "86756f69d70f145eaa5cfbc6872230712715c21ce62c6063fdcc407c60bf2522",
+      "geometry_sha256": "a0cd4cb24158e80577f9b63e315e0ea9a39704d83227b2796c9e8e7355e5ba0b",
+      "trace_sha256": "728b4e21a4a88eab8e2066885d059c70b0f9031abfb282dd1c30c26c6db1391a",
+      "output_sha256": "b37edb025b3602c1c66783c26189b118a1551579ca6f62a26ce3c783e3ad3ef5",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_04_rusted_trainyard.png",
+      "source_size": [
+        1672,
+        940
+      ],
+      "target_size": [
+        7680,
+        4318
+      ],
+      "source_sha256": "e18e58624bb3a3196e5a85a0e8f666b475fe6816d286d4616f6b0e60d5ff2e67",
+      "geometry_sha256": "774ecfb9102b622ec39c1cf06c86146abc60a3331e1b366020a84d7516fa8702",
+      "trace_sha256": "d0ae44c22f0325486308b0bfe82261f3db932cdc6c689850aec87b03ff4c6e4a",
+      "output_sha256": "c0238e27caaaf3534ffc158c49c830dd0648971edbddf1bfad2a2142f3d32b38",
+      "restoration_native_size": [
+        1672,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_05_irradiated_basin.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "49fc1fc28f17271f77e4d03865f0041b8f58e55fba6cb326ffc1b1039ae106c3",
+      "geometry_sha256": "7638ff183983b1a6c6c9db9ca287475fd8effd9f34b5ffaf5c518e9fc32069d1",
+      "trace_sha256": "470891067ba6bff343fa18595d5c262a8a4945f09b60bf3ec3c9ab0583c4b237",
+      "output_sha256": "b37df8773e1f25b1beb8abff1d92b9a97db552ca742356add0815863ba67456a",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "wasteland_outdoor_06_dust_road_ambush.png",
       "source_size": [
         1672,
@@ -2235,6 +2315,86 @@
       "geometry_sha256": "a09f24bb1db69fbe8b07a4afa3378409f22c6587470f63e82efb0b0b7dc791bf",
       "trace_sha256": "59f9173a2fb31620267c11664445b1313d3a581b7988ac43865af90d4a722116",
       "output_sha256": "9a299c272be1e9c93d3d549f4ce062d7f9df5a0c69e9ba67417a12440bf5dd82",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_07_ashfield_ruins.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "64f55c57134b58bf2097bfd3de9ba93784a8fcb886a5fe63c5cf27415be5d64b",
+      "geometry_sha256": "9d4e8249723aa1755f2a65e0d921880df25c475cb8148cd76ad294b55cdd68e0",
+      "trace_sha256": "e7feb0b06e76697aa95c3bc1697530f9522689c94dfea6ec27c31ffdc3bf28a4",
+      "output_sha256": "79da316094c7c48c0da5c3a5c6a5b08aec07b52e8e2e3789596a944252c72c2e",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_08_wrecked_highway.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "86756f69d70f145eaa5cfbc6872230712715c21ce62c6063fdcc407c60bf2522",
+      "geometry_sha256": "a0cd4cb24158e80577f9b63e315e0ea9a39704d83227b2796c9e8e7355e5ba0b",
+      "trace_sha256": "27aff610b901ee9bac033cbaeefd7a93bedd6b133b29dbb6357f9d4799986ee5",
+      "output_sha256": "b37edb025b3602c1c66783c26189b118a1551579ca6f62a26ce3c783e3ad3ef5",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_09_rusted_trainyard.png",
+      "source_size": [
+        1672,
+        940
+      ],
+      "target_size": [
+        7680,
+        4318
+      ],
+      "source_sha256": "e18e58624bb3a3196e5a85a0e8f666b475fe6816d286d4616f6b0e60d5ff2e67",
+      "geometry_sha256": "774ecfb9102b622ec39c1cf06c86146abc60a3331e1b366020a84d7516fa8702",
+      "trace_sha256": "55fa24a7d5244c520cffe1256d0f1e4d7d8b9cfe50ff24600954d05a2a88b4d0",
+      "output_sha256": "c0238e27caaaf3534ffc158c49c830dd0648971edbddf1bfad2a2142f3d32b38",
+      "restoration_native_size": [
+        1672,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_10_irradiated_basin.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "49fc1fc28f17271f77e4d03865f0041b8f58e55fba6cb326ffc1b1039ae106c3",
+      "geometry_sha256": "7638ff183983b1a6c6c9db9ca287475fd8effd9f34b5ffaf5c518e9fc32069d1",
+      "trace_sha256": "c28a348470ecb37f099c59ec5dd50fdb2d995517f8506b82af1a1613e22933b8",
+      "output_sha256": "b37df8773e1f25b1beb8abff1d92b9a97db552ca742356add0815863ba67456a",
       "restoration_native_size": [
         1672,
         941
