@@ -112,7 +112,12 @@ func run() -> void:
 	check(not scene._hud.target_info.is_empty(),"contextual target reflects actual combat")
 	for _i in range(100): scene._visual_fx.burst("explosion",Vector2.ZERO,Vector2.ONE)
 	check(scene._visual_fx.effects.size() <= 64,"effects bounded")
-	await create_timer(2.1).timeout
+	# Smoke lives longer than its explosion; use the actual remaining lifetimes.
+	var remaining := 0.0
+	for effect: Dictionary in scene._visual_fx.effects:
+		remaining = maxf(remaining,float(effect["life"])-float(effect["age"]))
+	await create_timer(remaining+0.15).timeout
+	await process_frame
 	check(scene._visual_fx.effects.is_empty(),"effects reclaimed")
 	# Result UI and Python JSON writer are the actual existing implementation.
 	var result_root := OS.get_cmdline_user_args()

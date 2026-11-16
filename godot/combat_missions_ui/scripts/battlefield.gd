@@ -305,6 +305,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			if hovered_cell != Vector2i(-1, -1):
 				hovered_cell = Vector2i(-1, -1)
+				CombatSignals.cell_hovered.emit(hovered_cell)
 				queue_redraw()
 	elif event is InputEventMouseButton:
 		var mbe := event as InputEventMouseButton

@@ -30,6 +30,8 @@ var _music_player: AudioStreamPlayer = null
 var _streams     : Dictionary         = {}   # filename → AudioStream
 var _pool_idx    : int                = 0
 var _battle_music: String = "music_battle.wav"
+var _current_track := ""
+var _asset_root := ""
 var _enabled: bool = true
 const POOL_SIZE  := 6
 
@@ -48,7 +50,6 @@ func _ready() -> void:
 	add_child(_music_player)
 
 	_preload_streams()
-	_play_music("music_battle.wav")
 
 	CombatSignals.audio_event.connect(_on_audio_event)
 
@@ -87,7 +88,7 @@ func _play_sfx(filename: String) -> void:
 	player.stream = _streams[filename] as AudioStream
 	player.play()
 
-func _play_music(filename: String) -> void:
+func _play_music(filename: String, start_position: float = 0.0) -> void:
 	if not _enabled:
 		return
 	if not _streams.has(filename):
@@ -101,10 +102,13 @@ func _play_music(filename: String) -> void:
 		stream.loop_end = maxi(1,int(stream.get_length()*float(stream.mix_rate)))
 	elif stream is AudioStreamMP3:
 		stream.loop = true
+	_current_track = filename
 	_music_player.stream = stream
-	_music_player.play()
+	var length := stream.get_length()
+	_music_player.play(fposmod(maxf(0,start_position),length) if length > 0 else 0.0)
 
-func configure_soundtrack(settings: Dictionary) -> void:
+func configure_soundtrack(settings: Dictionary, asset_root: String = "") -> void:
+	_asset_root = asset_root
 	_enabled = bool(settings.get("enabled", true))
 	_music_player.volume_linear = clampf(float(settings.get("music_volume", 0.7)), 0.0, 1.0)
 	for player in _sfx_players:
@@ -118,7 +122,7 @@ func configure_soundtrack(settings: Dictionary) -> void:
 		if _streams.has(path):
 			_battle_music = path
 	if not _streams.has(_battle_music): _battle_music = "music_battle.wav"
-	_play_music(_battle_music)
+	_play_music(_battle_music,float(settings.get("start_position",0.0)))
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
@@ -138,3 +142,8 @@ func _on_audio_event(event_name: String) -> void:
 		"deploy":                 _play_sfx("sfx_deploy.wav")
 		"stun":                   _play_sfx("sfx_stun.wav")
 		"bleed":                  _play_sfx("sfx_bleed.wav")
+
+func playback_bookmark() -> Dictionary:
+	if _current_track.is_empty() or _music_player == null: return {}
+	var path := _current_track if _current_track.is_absolute_path() else _asset_root.path_join("assets/audio/music").path_join(_current_track)
+	return {"path":path,"position":_music_player.get_playback_position(),"captured_at":Time.get_unix_time_from_system()}
