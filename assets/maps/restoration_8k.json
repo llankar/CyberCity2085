@@ -447,6 +447,46 @@
       "restoration_method": "image_restoration_then_resample"
     },
     {
+      "name": "city_interior_corporate_lobby.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "49c33b5fbfdaa3c1e8842936c03223a1662b66f9f3166d4232bc49cb28a6a451",
+      "geometry_sha256": "c8c416db7a6da9449b9a9c30335d5a715fc67eaede462a6c0729225d0eafcd76",
+      "trace_sha256": "047ecf69e817201d037408c84ff7eaf6a88a8532f3dc4200a4cc694f2abbab0f",
+      "output_sha256": "ae0a2f386b1b55caae2003ce51919837b12fc8dc5e393936e8d59c33d78f5128",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_interior_cyber_cafe.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "8ea515e25282f104cc2b836ae7f2da95b420a1b03b56af2148c2b95864200abb",
+      "geometry_sha256": "63ef0e35bcc1e07155e441fb58d1d4abfaa268200de50fcf79ea7969982cfe96",
+      "trace_sha256": "3a24e7a36e4bdc38179827279e65e773f6df3ce1067dfc218e06c49c2d0cc37b",
+      "output_sha256": "5b6f8488077e8d68e4acbbadafacf730ad48780aacd0780e9073d6fe77a0c112",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "city_interior_medical_clinic.png",
       "source_size": [
         1920,
@@ -464,6 +504,126 @@
         1672,
         941
       ]
+    },
+    {
+      "name": "city_interior_penthouse_atrium.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "5739cc59af002cb9036bf5c09ad0bec7fd12dc0e2cac7a7b3531a7a47dfbb555",
+      "geometry_sha256": "d78e2b9a4a9b3cc2595b074d5e350e4c9ca2607fd2214d43272c92ae8c71d5fd",
+      "trace_sha256": "6e21dd2b0624a7661df84e01056778acfb928ca918f524904b248ce8b59cbf9e",
+      "output_sha256": "104374b6a5837b8c86bb2f7f82bf003b020cb9f76410525e9adc256377263c57",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_interior_police_records.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "6fb823758d016207acecfbbeaa7ce6a1b5aeccd77a620935bfa1acc001520078",
+      "geometry_sha256": "7ab81028aaa40c022a834b300fd088a8166cef2930c7f2e8cc82b331cadcf805",
+      "trace_sha256": "b5d2ae559eae152034a250af4327bed277bd3b6782340ad4879d2601c564aad2",
+      "output_sha256": "9b3d02e44d32a228296104494d000b157c4e26addfba756e3a308617246a2c87",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_interior_research_lab.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "9026da02230403d134e9900824fdb867b93943c10183939674dc00f68402d4c9",
+      "geometry_sha256": "700dc95f7f0058bb98d83e77801d127fe07b6fe853a39ba5bf15cdee603c9831",
+      "trace_sha256": "c1d37bbb0d856be947061f9561ee27b98ab9bba692df52c1971485240eeb36bd",
+      "output_sha256": "ea1304ced100f3ba29b84b87e3a83a86b52ff4c34fd3b478d25b003a88f800de",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_interior_safehouse.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "91e19060895762ae189f15fd549f39bfa6fe2ccc97f190d39496e57fca1c689f",
+      "geometry_sha256": "4517678643f7fda394bc4fff56e84af58005388b5dc343c04252bc9aa1d6e346",
+      "trace_sha256": "479a9b9d6e76acc0b4ea9f66beb69d940745e0c600f57cf88ab89c8b44e0da13",
+      "output_sha256": "309eaaf0bdfb5fae1afd7973f9835aafe010885eaa3018c40ab389948416d1f1",
+      "restoration_native_size": [
+        1920,
+        1080
+      ],
+      "restoration_method": "resample_only_generation_rejected"
+    },
+    {
+      "name": "city_interior_server_room.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "7d3a972e1fd42a9ddd91319f5464259f0d794dc4c4b735f8537eb7d0b606f22e",
+      "geometry_sha256": "84a3ca69bdd41454cae67839a4e78b545a6b11ec3682e2200f537833cff08147",
+      "trace_sha256": "ea1b12e27563083e4ea4adf0f9b99627828c27b171d91c3bb85094f0090ee677",
+      "output_sha256": "60e42c0bf67f0b06cf058d9f5ef5291fee16dcd5cae52aa3215a007ab2a3491c",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_rooftop_skybridge_spine.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "b448afe4c3b4d2c5cdae4afa6002bffeed059026ccf643e8630e283a4688365e",
+      "geometry_sha256": "1e0210aaedb8073a86229d64e2072ac5051e4a0276daa96c4fe734e27adb04f8",
+      "trace_sha256": "1fd5e143839fe739ea614b49194a0122a97fb757139f336a252aca80848b560b",
+      "output_sha256": "fe925c6744d2726f35447647771e031d93c3bfd19a11fbd02670f07fa43debe1",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ]
 }
