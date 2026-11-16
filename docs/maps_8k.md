@@ -39,3 +39,12 @@ The metadata-only helper is `tools/maps/refresh_geometry_metadata.py`.
 Maps are loaded one at a time; an RGBA 7680×4320 texture is about 127 MiB before
 mipmaps (roughly 169 MiB with a full mip chain), and 3:2 maps use more memory.
 Keep graphics memory in mind when testing machines with integrated graphics.
+
+Five maps use their original artwork resampled to 8K without generated
+restoration, because the image tool rejected three distinct source interiors:
+
+- `city_interior_safehouse.png`
+- `wasteland_inner_03_ruined_clinic.png` and its exact duplicate `wasteland_inner_08_ruined_clinic.png`
+- `wasteland_inner_04_bunker_command_post.png` and its exact duplicate `wasteland_inner_09_bunker_command_post.png`
+
+Their obstacle data is preserved by the same metadata-only process.

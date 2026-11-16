@@ -78,6 +78,46 @@
       ]
     },
     {
+      "name": "city_district_tech_market.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "bd8cd87bd3a30f026b81b9d0f594aeda5d3b90b4da3fc8e1210b5e1396d8c666",
+      "geometry_sha256": "8f855114bc334db5a3450e56ed1dea41aa69e18bb82049e65317cb93f9ea0ce2",
+      "trace_sha256": "7b93664779583cf0d04bb080daa9cfc089ac76796cfd280e5e17204c362dde3f",
+      "output_sha256": "3b3c16a75c052c1310aa9062d25fb207207573d230119794a10057739d7efc0f",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_exterior_billboard_avenue.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "216d20e577ffc77c3a1835055c3e2faa1287a450a7756c93d25327aeb14fa327",
+      "geometry_sha256": "8747c148bffede51a2070481cf745664a6b7c3665a96ea27f75919070eb9472d",
+      "trace_sha256": "ab07af6fe639a4a914494be3f03c0a8907e9f738317af22672207ffed0cb073d",
+      "output_sha256": "18ac7cfe4d5fffaaef830c431f4822830ff433bbbbd27a15919a819c9a84a3c9",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "city_exterior_corporate_plaza.png",
       "source_size": [
         1920,
@@ -173,6 +213,46 @@
       ]
     },
     {
+      "name": "city_exterior_rooftop_access.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "6dd01a882458466a751af3ba453d74d88618b3967f2a578f26ed3010d5e60f7b",
+      "geometry_sha256": "8ebcf37456dbcb259094faae0c722e49f4faf0d31da335882c1287948ae95800",
+      "trace_sha256": "4d07dde14526c4fcfc68f3e99e8b57a97431c2efea2ae686db6722520239624d",
+      "output_sha256": "d20d671a16c8412f5dfd893e17cc25263e2cd3427301ffbd5625722fcbe99128",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_exterior_waterfront_docks.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "fc3176d8d962f00466589916572df52d387f1ecebed8cb827a2a212ac927cf0f",
+      "geometry_sha256": "6a49b2c74cc77b7eb5885f492af6bdd0a4e3de645e47b4b25dde5e849c97c9b7",
+      "trace_sha256": "dad3347b71ab8170de62d4051e79de55c63ca478be7a2a1b20f161f32f16d612",
+      "output_sha256": "208dc966b42ea4dcab99bf431730dce45e617132ebbdc600382746e5aea4156b",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "city_industrial_data_vault.png",
       "source_size": [
         1920,
@@ -190,6 +270,66 @@
         1672,
         941
       ]
+    },
+    {
+      "name": "city_industrial_dockside_terminal.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "d2719ad8330a4b9fbb1db556f4d50edc2b1f39a38bd95fad7dfffe0b90870be3",
+      "geometry_sha256": "ebd26bb18330b7a836ec8d688070d3ca0794f56d8072545e073de8cf68d6cd33",
+      "trace_sha256": "7314c2b5a0a71713fd2a0f34cea7222d9fd0a5a1ac98bf0ce954f86e9972ac08",
+      "output_sha256": "678df8ffd5ccb76dfa31a5fe58daae2e4fcf4a44cb9ae135a2ad1d2216a3d043",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_industrial_factory_floor.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "7203a498d3356caf40e3d1f386240de21229953064adb05739c4353a2b975d4b",
+      "geometry_sha256": "487dcab86d9bb12c6b83cf6e79d98d8ba908048093be5cff4ebdc26a02e6af75",
+      "trace_sha256": "f4aac86ee3cf7d55e2f5d76b69839cb53a785561f2b5cfcb72ac7d723a13b272",
+      "output_sha256": "da05dafc0b935fca12ba34463b618c6a92df7028f9ba4068ccc66e6aaaa50e73",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "city_industrial_power_substation.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "9a03f8aa62515b0a884c8fa6e68a741dc7e8089bc441b8682d78e9f184b23e34",
+      "geometry_sha256": "8284dbadaadfacb838b2e6d9961401b54f011080ddb19b4ba9f9662e9c7d8247",
+      "trace_sha256": "87d431752dd241938866d3959d05a756b8ddf4f0277850fde056b0d021a5b206",
+      "output_sha256": "c79b96f003836a2a06fb4e93c175b92b65a3049c26e93230d7bc3d1ebe069754",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_industrial_security_checkpoint.png",
@@ -285,6 +425,26 @@
         1672,
         941
       ]
+    },
+    {
+      "name": "city_interior_control_center.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "0c558084174ea4a270b6553f95fb9fc9085cbcd7d69bbc84b61cf3ca6b836047",
+      "geometry_sha256": "8870479525abacd201c0be3cd0414a823edaac945848397d2b1c87617cc211b6",
+      "trace_sha256": "a1181e8ad874eae0e01a3ddd704a55c072db0024e22f48a64cfd81c6d33506b1",
+      "output_sha256": "d4b762af20f714e6f57cd72c9be6d4548800a3e199b345490d9347c6294dfbb1",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_interior_medical_clinic.png",
