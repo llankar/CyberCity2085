@@ -7,6 +7,7 @@ var target_info: Dictionary = {}
 var settings_open := false
 var quality := 2
 var _portrait_rects: Array[Rect2] = []
+var _portrait_press_index := -1
 var _log_button: Button
 var _settings_button: Button
 var _command_rows := 1
@@ -220,12 +221,30 @@ func _draw_combat_log() -> void:
 		_ds(_fit(combat_log[combat_log.size()-count+i],rect.size.x-28,17),rect.position+Vector2(14,59+i*28),17,TEXT)
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		for i in range(_portrait_rects.size()):
-			if _portrait_rects[i].has_point(get_global_transform_with_canvas().affine_inverse()*event.position):
-				if not event.pressed: CombatSignals.unit_clicked.emit(i, false)
-				get_viewport().set_input_as_handled()
-				return
+	if event is not InputEventMouseButton or event.button_index != MOUSE_BUTTON_LEFT: return
+	if not event.pressed and _portrait_press_index >= 0:
+		_portrait_press_index = -1
+		get_viewport().set_input_as_handled()
+		return
+	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*event.position
+	for i in range(_portrait_rects.size()):
+		if _portrait_rects[i].has_point(local):
+			if event.pressed:
+				_portrait_press_index = i
+				CombatSignals.unit_clicked.emit(i,false)
+			get_viewport().set_input_as_handled()
+			return
+
+func blocks_map_input(point: Vector2) -> bool:
+	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*point
+	for rect: Rect2 in _portrait_rects:
+		if rect.has_point(local): return true
+	for child: Node in get_children():
+		if child is Button and child.visible:
+			var button := child as Button
+			var button_point := button.get_global_transform_with_canvas().affine_inverse()*point
+			if Rect2(Vector2.ZERO,button.size).has_point(button_point): return true
+	return false
 
 func _ensure_action_buttons(actions: Array[String]) -> void:
 	super._ensure_action_buttons(actions)

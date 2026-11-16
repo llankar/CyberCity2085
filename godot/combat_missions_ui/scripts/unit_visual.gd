@@ -106,7 +106,7 @@ func _draw() -> void:
 		draw_polyline(ring, Color(rc, 0.8), 1.8, true)
 	var tex := sprite.texture if sprite != null else null
 	if tex == null: return
-	var height := cell_size.x * 1.10 * _visual_size_scale()
+	var height := cell_size.x * 0.65 * _visual_size_scale()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
 	if atlas != null and not manifest.is_empty():
 		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
@@ -147,7 +147,7 @@ func setup(data: Dictionary, id: int, enemy: bool, tex: Texture2D, c_size: Vecto
 func _recalc_dims() -> void:
 	super._recalc_dims()
 	var tex: Texture2D = sprite.texture if sprite != null else null
-	var height := cell_size.x * 1.10 * _visual_size_scale()
+	var height := cell_size.x * 0.65 * _visual_size_scale()
 	var aspect := float(tex.get_width()) / maxf(1,float(tex.get_height())) if tex != null else 0.7
 	_card_w = height*aspect
 	_card_h = height

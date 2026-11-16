@@ -45,9 +45,11 @@ def ensure_mission_templates(game_state: GameState) -> None:
     if (
         not game_state.mission_templates
         or game_state.mission_board_generated_day != game_state.calendar.current_day
+        or game_state.mission_board_version < 2
     ):
         game_state.mission_templates = generate_mission_board(game_state)
         game_state.mission_board_generated_day = game_state.calendar.current_day
+        game_state.mission_board_version = 2
         game_state.selected_mission_index = 0
     game_state.selected_mission_index %= len(game_state.mission_templates)
 
