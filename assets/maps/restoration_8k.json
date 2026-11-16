@@ -18,7 +18,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_district_civic_center.png",
@@ -37,7 +38,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_district_holo_square.png",
@@ -56,7 +58,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_district_riot_square.png",
@@ -75,7 +78,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_district_tech_market.png",
@@ -134,7 +138,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_exterior_downtown_intersection.png",
@@ -153,7 +158,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_exterior_elevated_freeway.png",
@@ -172,7 +178,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_exterior_neon_market_alley.png",
@@ -191,7 +198,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_exterior_parking_garage.png",
@@ -210,7 +218,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_exterior_rooftop_access.png",
@@ -269,7 +278,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_industrial_dockside_terminal.png",
@@ -348,7 +358,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_industrial_service_tunnel.png",
@@ -367,7 +378,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_industrial_warehouse_floor.png",
@@ -386,7 +398,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_interior_blacksite_lab.png",
@@ -405,7 +418,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_interior_command_deck.png",
@@ -424,7 +438,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_interior_control_center.png",
@@ -503,7 +518,8 @@
       "restoration_native_size": [
         1672,
         941
-      ]
+      ],
+      "restoration_method": "image_restoration_then_resample"
     },
     {
       "name": "city_interior_penthouse_atrium.png",
@@ -1104,6 +1120,169 @@
         941
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_06_downtown_intersection.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "7c428f16a5e1df22537a0f06c731d25712a7b2268b9e480df6c20a761996548d",
+      "geometry_sha256": "05f85cc1a4686a2c47254fcd381745a638cc0800191c3b3b7409d7fc4d87dc02",
+      "trace_sha256": "f95914be5b820983629105e7fff5acab9638af00f6f073cbcc22ac20644bf756",
+      "output_sha256": "9fb3ed827c01a5aec8b1b0c226cc73a1e0292b405ea83f8c0f6bb723f163a5b3",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_06_transit_interchange.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "791e249111ca3d931ecfb88f500da241b71748b62e1a34a9ad0bf8fe54a88555",
+      "geometry_sha256": "c3e42092c6a39b9c33f0766c7bd86af69f63334bfab6629047b841659ac32c2d",
+      "trace_sha256": "7d1910bacc2e61a29575d73df4a4650ef7c23595d0827cf293ca43c0f83b02b0",
+      "output_sha256": "a1b265183d1796f5a410a4d9dc1e3d730698d2c497b2a1272ba338838a1a7ad8",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_07_downtown_intersection.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "7c428f16a5e1df22537a0f06c731d25712a7b2268b9e480df6c20a761996548d",
+      "geometry_sha256": "05f85cc1a4686a2c47254fcd381745a638cc0800191c3b3b7409d7fc4d87dc02",
+      "trace_sha256": "02b15e40411eb9bc1df475f9a60ad30596978e521e6ecf0b58b949961f966948",
+      "output_sha256": "9fb3ed827c01a5aec8b1b0c226cc73a1e0292b405ea83f8c0f6bb723f163a5b3",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_07_neon_market_alley.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "e2ae64120b18502682a9d38b9e4b66f9eb37fb145bb773688919d660841270ab",
+      "geometry_sha256": "01385d0afeeb6b67ed2a285d450eac2426bff2effeaf52502dfa31e1c94721e8",
+      "trace_sha256": "5c8068e7e32450202d2adf47933745bc1ecf0c1fff7e1901345e4de5015909ba",
+      "output_sha256": "bd8fe08a4a9bbd374d061b7d1116d6b34b82faab4155429f5a8e7eb87115a4cd",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_08_elevated_freeway.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "ab054498961d89cddf51ed10ecbbc7e516a7bc5bbb9bcde0596cdbbc4ce38337",
+      "geometry_sha256": "2c6888073fc2775a2e302b8dbce2f511577331d7d72d545f6356f6fa390d969f",
+      "trace_sha256": "731695889f0dc9dc9dfe882a95b0dc8695ce581f65faecf96c7a9ff25b972178",
+      "output_sha256": "6088626418d6ceda41007c33996d889d093014417f4f4fa4a6b4c2095dd18fee",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_08_neon_market_alley.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "e2ae64120b18502682a9d38b9e4b66f9eb37fb145bb773688919d660841270ab",
+      "geometry_sha256": "01385d0afeeb6b67ed2a285d450eac2426bff2effeaf52502dfa31e1c94721e8",
+      "trace_sha256": "ca42eda60cbf5d658293cc1764da55ae48c066af9e307a7292bd5a9c2b10a177",
+      "output_sha256": "bd8fe08a4a9bbd374d061b7d1116d6b34b82faab4155429f5a8e7eb87115a4cd",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_09_elevated_freeway.png",
+      "source_size": [
+        1536,
+        1024
+      ],
+      "target_size": [
+        7680,
+        5120
+      ],
+      "source_sha256": "ab054498961d89cddf51ed10ecbbc7e516a7bc5bbb9bcde0596cdbbc4ce38337",
+      "geometry_sha256": "2c6888073fc2775a2e302b8dbce2f511577331d7d72d545f6356f6fa390d969f",
+      "trace_sha256": "9726debc80088e685185c2d23a5a6157ed4011defc5ced6012ccaeeb328c8c1f",
+      "output_sha256": "6088626418d6ceda41007c33996d889d093014417f4f4fa4a6b4c2095dd18fee",
+      "restoration_native_size": [
+        1536,
+        1024
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_09_waterfront_docks.png",
+      "source_size": [
+        1625,
+        968
+      ],
+      "target_size": [
+        7680,
+        4575
+      ],
+      "source_sha256": "05aea824e5a99b180e7ed4acdfb0506205ab0824dc979ad473133555021e44c3",
+      "geometry_sha256": "ca419b60d653baeaa1e9779230623c76d306bd14b673624272ccabe63d561459",
+      "trace_sha256": "9a9847500522402029bf018e3627ceccb266b807edeea5e8f628cea1d463318e",
+      "output_sha256": "3415ccc8b64af6b839120bb3dade271d813d9a1952b1225e22bff786466db763",
+      "restoration_native_size": [
+        1625,
+        968
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
+  ],
+  "resample_only_maps": [
+    "city_interior_safehouse.png"
   ]
 }

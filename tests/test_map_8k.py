@@ -32,12 +32,16 @@ def test_metadata_refresh_preserves_all_collision_data_and_does_not_mutate_input
 def test_all_8k_maps_preserve_survey_and_trace_fingerprints():
     manifest = json.loads(Path('assets/maps/restoration_8k.json').read_text())
     records = {r['name']: r for r in manifest['maps']}
+    fallbacks = set(manifest['resample_only_maps'])
+    assert len(fallbacks) == 5
     entries = build_battle_map_catalog()
     assert len(records) == len(entries) == 122
     assert set(records) == {entry.filename for entry in entries}
     for entry in entries:
         path = Path(entry.path)
         record = records[path.name]
+        expected = 'resample_only_generation_rejected' if path.name in fallbacks else 'image_restoration_then_resample'
+        assert record['restoration_method'] == expected
         geometry = load_map_geometry(path)
         assert geometry, path.name
         with Image.open(path) as image:
