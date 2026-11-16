@@ -153,9 +153,7 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED and _battlefield != null and not battle_ended:
 		_battlefield.resize(size * 4.0)
 		if _hud != null:
-			_hud.set_deferred("size", size)
-			_hud.position = Vector2.ZERO
-			_hud._reposition_buttons()
+			_fit_hud_viewport()
 		# Re-centre the camera whenever the window is resized (e.g. Win32 overlay
 		# repositions the window to match Arcade's client area).  iso_tw changes
 		# with the new viewport size so the camera must be recalculated.
@@ -247,7 +245,7 @@ func _connect_signals() -> void:
 	CombatSignals.cell_clicked.connect(_on_cell_clicked)
 	CombatSignals.unit_clicked.connect(_on_unit_clicked)
 	CombatSignals.fx_at.connect(func(kind: String, pos: Vector2):
-		if visual_mode: _visual_fx.burst(kind,pos,pos))
+		if visual_mode: _visual_fx.burst(kind,pos,pos,0.2 if kind == "impact" else 0.0))
 	CombatSignals.cell_hovered.connect(_visual_cell_hovered)
 	CombatSignals.unit_hovered.connect(_visual_unit_hovered)
 
@@ -562,7 +560,7 @@ func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 	if visual_mode:
 		var vehicle_key := str(unit.get("vehicle_key", ""))
 		if not vehicle_key.is_empty() and unit_textures.has(vehicle_key): return vehicle_key
-		if not is_enemy and str(unit.get("role", "")) == "power_armor":
+		if not is_enemy and str(unit.get("role", "")) in ["power_armor","heavy_armor"]:
 			var armor_key := "visual_power_armor"
 			if not unit_textures.has(armor_key): _try_load_tex(armor_key,"assets/units/enemy_corp_37_power_armor_grunt.png")
 			if unit_textures.has(armor_key): return armor_key
@@ -608,17 +606,23 @@ func _load_map_and_portraits() -> void:
 	if map_path != "":
 		map_texture = _load_tex(map_path)
 	portrait_textures = {}
-	var squad_raw: Variant = handoff.get("squad", [])
-	if typeof(squad_raw) == TYPE_ARRAY:
-		for entry: Variant in squad_raw as Array:
-			if typeof(entry) != TYPE_DICTIONARY: continue
-			var agent := entry as Dictionary
-			var portrait_path := str(agent.get("portrait_path", ""))
-			var agent_name    := str(agent.get("name", ""))
-			if portrait_path != "" and agent_name != "":
-				var tex := _load_tex(portrait_path)
-				if tex != null:
-					portrait_textures[agent_name] = tex
+	for group_name: String in ["squad","support_assets"]:
+		var entries: Variant = handoff.get(group_name,[])
+		if entries is not Array: continue
+		for entry: Variant in entries:
+			if entry is not Dictionary: continue
+			var data: Dictionary = entry
+			var agent_name := str(data.get("name",""))
+			if agent_name.is_empty(): continue
+			var tex := _load_tex(str(data.get("portrait_path","")))
+			var role := str(data.get("role",data.get("asset_type","agent"))).to_lower()
+			if tex == null:
+				var fallback := "assets/ui/portraits/agent_%02d.png" % ((agent_name.hash() & 0x7fffffff)%124+1)
+				if "robot" in role: fallback = "assets/ui/portraits/robot_combat.png"
+				elif "armor" in role: fallback = "assets/ui/portraits/power_armor_01.png"
+				tex = _load_tex(fallback)
+			if tex == null: tex = _load_tex("assets/ui/portraits/agent_01.png")
+			if tex != null: portrait_textures[agent_name] = tex
 
 # ─── Layout helper (kept for handoff scene) ──────────────────────────────────
 
@@ -974,9 +978,7 @@ func _start_combat(source: String) -> void:
 	_hud_layer.visible = true
 	# Force HUD to fill the viewport — Controls inside a CanvasLayer don't
 	# have their anchors resolved before _ready() returns, so size may be wrong.
-	_hud.size     = size
-	_hud.position = Vector2.ZERO
-	_hud._reposition_buttons()
+	_fit_hud_viewport()
 	_hud.update_state(player_units, enemy_units, initiative_entries,
 					  active_player_index, selected_action,
 					  turn_side, turn_number, combat_log,
@@ -1065,7 +1067,7 @@ func _execute_action(action_name: String) -> void:
 		return
 	selected_action = action_name
 	pending_end_turn_confirmation = false
-	status_line = "%s selected." % action_name
+	status_line = "%s : cliquez une cible à portée." % action_name if atype in ["FIRE","MELEE","FIRE_AOE"] else "%s sélectionné." % action_name
 	_sync_display()
 
 func _apply_psi_pulse() -> void:
@@ -1247,6 +1249,8 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		_sync_display()
 		return
 	if absi(apos.x - tpos.x) + absi(apos.y - tpos.y) > rng:
+		status_line = "Cible hors de portée (%d cases)." % rng
+		_sync_display()
 		return
 	var ap: int      = int(attacker.get("ap", 0))
 	var ap_cost: int = _action_ap_cost(action_name)
@@ -1266,7 +1270,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var ekey := "e%d" % target_index
 	var akey := "p%d" % active_player_index
 	if _unit_tokens.has(akey) and _unit_tokens.has(ekey):
-		_visual_attack(akey, ekey, _action_type(action_name))
+		_visual_attack(akey, ekey, _action_type(action_name), action_name)
 
 	if not hit:
 		_log_event("%s misses %s. (%d%%)" % [
@@ -1666,7 +1670,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"kind":              "player",
 			"status_effects":    [],
 			"available_actions": asset_actions,
-			"size_scale":        clampf(float(asset.get("size_scale", 3.5 if role == "robot" else 2.0)), 0.5, 5.0),
+			"size_scale":        (clampf(float(asset.get("size_scale",3.5)),0.5,5.0) if role == "robot" else 1.15),
 		})
 	return units
 
@@ -1915,17 +1919,19 @@ func _visual_move_token(key: String, origin: Vector2i, destination: Vector2i, da
 	if points.is_empty(): points.append(_battlefield.cell_to_world(destination))
 	tok.move_route(points,data)
 
-func _visual_attack(attacker_key: String, target_key: String, action_type: String) -> void:
+func _visual_attack(attacker_key: String, target_key: String, action_type: String, action_name: String = "") -> void:
 	var attacker = _unit_tokens[attacker_key]
 	var target = _unit_tokens[target_key]
 	if not attacker.has_method("play_action"):
 		attacker.attack_lunge(target.position)
 		return
 	var kind := "melee" if action_type == "MELEE" else ("psi" if action_type.begins_with("PSI") else "fire")
-	attacker.play_action(kind,target.position)
+	if "Plasma" in action_name: kind = "plasma"
+	attacker.play_action("fire" if kind == "plasma" else kind,target.position)
 	var a: Vector2 = attacker.position-Vector2(0,attacker._sh*0.55)
 	var b: Vector2 = target.position-Vector2(0,target._sh*0.5)
-	_visual_fx.burst(kind,a,b)
+	var shots := 3 if "Burst" in action_name else 1
+	for shot in range(shots): _visual_fx.burst(kind,a,b,float(shot)*0.12)
 
 func _visual_self_effect(kind: String) -> void:
 	if not visual_mode: return
@@ -1943,10 +1949,19 @@ func _toggle_visual_interface() -> void:
 	_hud = preload("res://scripts/visual_hud.gd").new() if premium else _HUDScript.new()
 	_hud_layer.add_child(_hud)
 	_hud.set_anchors_preset(Control.PRESET_TOP_LEFT)
-	_hud.size = size
+	_fit_hud_viewport()
 	_configure_visual_hud()
 	_sync_display()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	# The map root does not take GUI focus; route global tactical shortcuts here.
 	_gui_input(event)
+
+func _fit_hud_viewport() -> void:
+	if _hud.has_method("fit_viewport"):
+		_hud.fit_viewport(size)
+	else:
+		_hud.scale = Vector2.ONE
+		_hud.size = size
+		_hud.position = Vector2.ZERO
+		_hud._reposition_buttons()
