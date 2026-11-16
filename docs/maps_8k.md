@@ -48,3 +48,14 @@ restoration, because the image tool rejected three distinct source interiors:
 - `wasteland_inner_04_bunker_command_post.png` and its exact duplicate `wasteland_inner_09_bunker_command_post.png`
 
 Their obstacle data is preserved by the same metadata-only process.
+
+## Overview sheets
+
+The 122 restored/resampled maps can be reviewed without downloading every PNG:
+
+- [Maps 1–24](maps_8k_previews/01.jpg)
+- [Maps 25–48](maps_8k_previews/02.jpg)
+- [Maps 49–72](maps_8k_previews/03.jpg)
+- [Maps 73–96](maps_8k_previews/04.jpg)
+- [Maps 97–120](maps_8k_previews/05.jpg)
+- [Maps 121–122](maps_8k_previews/06.jpg)
