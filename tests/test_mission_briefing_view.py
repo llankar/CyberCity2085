@@ -80,7 +80,7 @@ class MissionBriefingLaunchTest(unittest.TestCase):
 
         view._launch_battle()
 
-        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertTrue(view.window.shown_view._launch_failed)
         self.assertIn("Godot launch failed: not executable", state.event_log)
 
     def test_mission_tags_hide_internal_payloads_from_the_briefing(self) -> None:
@@ -144,7 +144,7 @@ class MissionBriefingLaunchTest(unittest.TestCase):
 
     @patch("game.views.BattleView", new=_FakeBattleView)
     @patch("game.combat.godot_bridge.launch_godot_combat_ui")
-    def test_launch_falls_back_to_arcade_when_godot_is_unavailable(self, launch_mock) -> None:
+    def test_missing_godot_requires_explicit_arcade_choice(self, launch_mock) -> None:
         game_state = GameState()
         game_state.combat_mission_ui_engine = "godot"
         mission = _mission()
@@ -162,10 +162,15 @@ class MissionBriefingLaunchTest(unittest.TestCase):
 
         view._launch_battle()
 
+        bridge = view.window.shown_view
+        self.assertTrue(bridge._launch_failed)
+        self.assertIs(bridge.game_state, game_state)
+        self.assertIs(bridge.mission, mission)
+        from game.ui.screens.godot_combat_handoff_view import arcade
+        with patch.object(arcade, "key", SimpleNamespace(R=82,G=71,F=70,ESCAPE=27)):
+            bridge.on_key_press(70, 0)
         self.assertIsInstance(view.window.shown_view, _FakeBattleView)
-        self.assertIs(view.window.shown_view.game_state, game_state)
-        self.assertIs(view.window.shown_view.mission, mission)
-        self.assertIn("Godot unavailable; launching local Arcade battle fallback.", game_state.event_log[-1])
+        self.assertIn("Arcade choisi explicitement", game_state.event_log[-1])
 
 
 if __name__ == "__main__":

@@ -1046,19 +1046,8 @@ class RPGView(GameView):
         self.game_state.mark_tutorial_event("launched_mission")
         self.game_state.active_mission = selected_mission
         
-        if getattr(self.game_state, "combat_mission_ui_engine", "arcade") == "godot":
-            from .combat.godot_bridge import launch_godot_combat_ui
-            from .ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
-            result = launch_godot_combat_ui(self.game_state, selected_mission)
-            if result.launched:
-                self.game_state.add_event(result.message)
-                self.window.show_view(GodotCombatHandoffView(self.game_state, selected_mission, result))
-                return
-            self.game_state.add_event("Godot unavailable; launching local Arcade battle fallback.")
-
-        battle = BattleView(self.game_state)
-        battle.setup(selected_mission)
-        self.window.show_view(battle)
+        from .ui.screens.godot_combat_handoff_view import open_mission_combat
+        open_mission_combat(self.window, self.game_state, selected_mission)
 
     def on_draw(self):
         self.clear()

@@ -129,7 +129,8 @@ class GameState:
     weekly_directive_id: str = ""
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
-    combat_mission_ui_engine: str = "arcade"
+    combat_mission_ui_engine: str = "godot"
+    combat_visual_version: int = 2
     ui_language: str = "fr"
     tutorial_progress: dict = field(
         default_factory=lambda: {
@@ -605,6 +606,7 @@ class GameState:
             "ui_high_contrast": self.ui_high_contrast,
             "ui_audio_feedback_enabled": self.ui_audio_feedback_enabled,
             "combat_mission_ui_engine": self.combat_mission_ui_engine,
+            "combat_visual_version": self.combat_visual_version,
             "tutorial_progress": dict(self.tutorial_progress),
             "active_research": [
                 research.to_dict() for research in self.active_research
@@ -697,9 +699,14 @@ class GameState:
         gs.ui_audio_feedback_enabled = bool(
             data.get("ui_audio_feedback_enabled", gs.ui_audio_feedback_enabled)
         )
-        gs.combat_mission_ui_engine = str(
-            data.get("combat_mission_ui_engine", gs.combat_mission_ui_engine)
+        # Pre-Visual-2 saves persisted the old default, without a user-facing choice.
+        # Migrate it once; a current-format explicit Arcade choice still roundtrips.
+        visual_version = int(data.get("combat_visual_version", 1))
+        engine = str(data.get("combat_mission_ui_engine", "godot")).lower()
+        gs.combat_mission_ui_engine = (
+            engine if visual_version >= 2 and engine in {"godot", "arcade"} else "godot"
         )
+        gs.combat_visual_version = 2
         gs.tutorial_progress.update(data.get("tutorial_progress", {}))
         gs.research_tree = create_starter_research_tree()
         gs.active_research = [

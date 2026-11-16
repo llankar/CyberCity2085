@@ -33,6 +33,20 @@ _WIN = sys.platform == "win32"
 _HWND_POLL_INTERVAL   = 0.15   # seconds between HWND-search attempts
 
 
+def open_mission_combat(window, game_state, mission) -> None:
+    """One route for both launch screens; Arcade is an explicit compatibility choice."""
+    if getattr(game_state, "combat_mission_ui_engine", "godot") == "arcade":
+        from game.views import BattleView
+        battle = BattleView(game_state)
+        battle.setup(mission)
+        window.show_view(battle)
+        return
+    from game.combat.godot_bridge import launch_godot_combat_ui
+    result = launch_godot_combat_ui(game_state, mission)
+    game_state.add_event(result.message)
+    window.show_view(GodotCombatHandoffView(game_state, mission, result, window=window))
+
+
 class GodotCombatHandoffView(arcade.View):
     """Bridge screen: overlays Godot's borderless window over Arcade's window."""
 
@@ -41,8 +55,11 @@ class GodotCombatHandoffView(arcade.View):
         game_state: "GameState",
         mission: "MissionTemplate",
         launch_result: GodotCombatLaunchResult,
+        *, window=None,
     ) -> None:
-        super().__init__()
+        super().__init__(window=window)
+        if window is not None:
+            self.window = window
         self.game_state    = game_state
         self.mission       = mission
         self.launch_result = launch_result
@@ -52,7 +69,10 @@ class GodotCombatHandoffView(arcade.View):
         self._godot_hwnd:     int | None = None
         self._arcade_hwnd:    int | None = None
         self._hwnd_timer:     float    = 0.0
-        self._status:         str      = "LAUNCHING COMBAT UI…"
+        self._launch_failed = not getattr(launch_result, "launched", True)
+        self._status: str = (
+            str(launch_result.message) if self._launch_failed else "LANCEMENT DU COMBAT GODOT…"
+        )
 
     # ── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -67,7 +87,7 @@ class GodotCombatHandoffView(arcade.View):
     # ── Update ────────────────────────────────────────────────────────────────
 
     def on_update(self, delta_time: float) -> None:
-        if self._result_applied:
+        if self._result_applied or self._launch_failed:
             return
 
         # Poll results even before a native window is found (and on Linux).
@@ -80,10 +100,10 @@ class GodotCombatHandoffView(arcade.View):
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
-            self._result_applied = True
             self._cleanup_godot()
-            self.game_state.add_event("Godot closed without a result; continuing in Arcade.")
-            self._fallback_to_arcade_battle()
+            self._launch_failed = True
+            self._status = f"Godot s'est fermé sans résultat (code {process.returncode}). Réessayez ou choisissez son exécutable."
+            self.game_state.add_event(self._status)
             return
 
         if not self._overlaid:
@@ -99,12 +119,12 @@ class GodotCombatHandoffView(arcade.View):
         if not pid:
             # No PID means Godot wasn't launched (or non-Windows); jump to polling.
             self._overlaid = True
-            self._status   = "COMBAT IN PROGRESS"
+            self._status   = "COMBAT GODOT EN COURS"
             return
 
         if not _WIN:
             self._overlaid = True
-            self._status   = "COMBAT IN PROGRESS"
+            self._status   = "COMBAT GODOT EN COURS"
             return
 
         from game.combat.win32_embed import (
@@ -124,7 +144,7 @@ class GodotCombatHandoffView(arcade.View):
 
         self._godot_hwnd = hwnd
         self._overlaid   = True
-        self._status     = "COMBAT IN PROGRESS"
+        self._status     = "COMBAT GODOT EN COURS"
 
     def _cleanup_godot(self) -> None:
         """Terminate Godot and restore Arcade's window."""
@@ -151,7 +171,7 @@ class GodotCombatHandoffView(arcade.View):
 
     def on_draw(self) -> None:
         self.clear()
-        if self._overlaid:
+        if self._overlaid and _WIN:
             return  # Godot is visible; Arcade's window is hidden.
         self._draw_splash()
 
@@ -167,7 +187,7 @@ class GodotCombatHandoffView(arcade.View):
         draw_panel(left, bottom, panel_w, panel_h)
 
         arcade.draw_text(
-            "COMBAT MISSION",
+            "COMBAT GODOT INDISPONIBLE" if self._launch_failed else "COMBAT GODOT",
             w // 2, bottom + panel_h - 52,
             colors.text_primary,
             font_size=24, bold=True, anchor_x="center",
@@ -182,10 +202,10 @@ class GodotCombatHandoffView(arcade.View):
             self._status,
             w // 2, bottom + panel_h - 138,
             colors.text_secondary,
-            font_size=12, anchor_x="center",
+            font_size=12, anchor_x="center", width=panel_w - 64, multiline=True,
         )
         arcade.draw_text(
-            "F = Arcade fallback   |   Esc = return to management",
+            "R : réessayer | G : choisir Godot | F : ancien combat Arcade | Échap : retour",
             w // 2, bottom + 28,
             colors.text_secondary,
             font_size=10, anchor_x="center",
@@ -194,12 +214,33 @@ class GodotCombatHandoffView(arcade.View):
     # ── Input ─────────────────────────────────────────────────────────────────
 
     def on_key_press(self, key: int, _modifiers: int) -> None:
-        if key == arcade.key.F:
+        if key == arcade.key.R and self._launch_failed:
+            self._retry_godot()
+        elif key == arcade.key.G and self._launch_failed:
+            from game.ui.screens.settings_screen import (
+                _browse_for_godot_executable, _persist_godot_bin_path, load_settings,
+            )
+            selected = _browse_for_godot_executable(load_settings().godot_bin_path)
+            if selected:
+                _persist_godot_bin_path(selected)
+                self._retry_godot()
+        elif key == arcade.key.F:
+            self._result_applied = True
             self._cleanup_godot()
+            self.game_state.add_event("Ancien combat Arcade choisi explicitement pour cette mission.")
             self._fallback_to_arcade_battle()
         elif key == arcade.key.ESCAPE:
             self._cleanup_godot()
             self._return_to_management()
+
+    def _retry_godot(self) -> None:
+        from game.combat.godot_bridge import launch_godot_combat_ui
+        self._cleanup_godot()
+        self.launch_result = launch_godot_combat_ui(self.game_state, self.mission)
+        self._launch_failed = not self.launch_result.launched
+        self._overlaid = False
+        self._status = self.launch_result.message
+        self.game_state.add_event(self._status)
 
     # ── Result application ────────────────────────────────────────────────────
 
