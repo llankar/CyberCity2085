@@ -59,3 +59,15 @@ The 122 restored/resampled maps can be reviewed without downloading every PNG:
 - [Maps 73–96](maps_8k_previews/04.jpg)
 - [Maps 97–120](maps_8k_previews/05.jpg)
 - [Maps 121–122](maps_8k_previews/06.jpg)
+
+## Completed verification — November 16, 2026
+
+- 92/92 distinct image/survey pairs passed dimension, PNG CRC, image hash and
+  original obstacle fingerprint checks before promotion.
+- The 122-entry catalogue contains 117 restored/resampled maps and five
+  resample-only maps identified above and in the provenance manifest.
+- Focused regression suite: **24 passed** in 377.86 seconds. This includes
+  recompiling every stored survey from its unchanged manual trace source,
+  verifying exact duplicates, catalogue integrity and Godot wall projection.
+- All six overview sheets were inspected for overall layout consistency.
+  This is not an exhaustive visual collision-edge approval inside the game.
