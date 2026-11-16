@@ -1862,6 +1862,26 @@
       "restoration_method": "resample_only_generation_rejected"
     },
     {
+      "name": "wasteland_inner_05_looted_vault.png",
+      "source_size": [
+        1673,
+        940
+      ],
+      "target_size": [
+        7680,
+        4315
+      ],
+      "source_sha256": "77859a344b946181fdbcb3ad9bc06c00cc7787beef8c18a81252774acfc2e6d2",
+      "geometry_sha256": "f9abe584f8247cd23e3f44600043185a89318bfabfab9d21bda35a4fb5b8a33f",
+      "trace_sha256": "337df9c2bc680fb2d4b3263a25df9cd8d7972262dfecee4880ed67b90d8b9bcd",
+      "output_sha256": "45f565f081c0b8a6fb181cb0a9450a3f886f167c01b0c1c95e3aeb645507391e",
+      "restoration_native_size": [
+        1673,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "wasteland_inner_06_abandoned_safehouse.png",
       "source_size": [
         1671,
@@ -1877,6 +1897,46 @@
       "output_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
       "restoration_native_size": [
         1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_06_maintenance_depot.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "f634223a92c245a90c21fe4244df4ee657c7edbf41b6e486b3f2e9deef17c3d9",
+      "geometry_sha256": "8076b5a4ec69bdce3a41f7f7864fe79be62dc8a1e58d838f0e0b3cec7e7c68ff",
+      "trace_sha256": "1c1b96fda2dbcfe677e7a3aa24bc2d56c52adf7acc461a87b731b9843d87a3d2",
+      "output_sha256": "5eb050e4e7ba0c02d6d7415e2c0a5b083dcc91868d41f0ff4dbdc016e2248531",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_07_apartment_shelter.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "d6505dbf7ffb80e61cc6bf35fa89d0d14b908b7319edb6253db8eb5cc46d7c22",
+      "geometry_sha256": "6d676c0688f9d9e5b12fa5302c6efd1ed03650f4c07493eb14c9df195f410523",
+      "trace_sha256": "ab56ca419052c242c9fee6d07fea7b07c1a92e6fc3e6d2ada4d8c3504db3aa56",
+      "output_sha256": "512a33094b79834db4cb2f373da604a925668cd0e9a0b971421a6eb8d1bec87b",
+      "restoration_native_size": [
+        1671,
         941
       ],
       "restoration_method": "image_restoration_then_resample"
@@ -1902,6 +1962,26 @@
       "restoration_method": "image_restoration_then_resample"
     },
     {
+      "name": "wasteland_inner_08_data_relay_room.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "b0e29e77be3379cd779cf99df7cede64613582c5de2017033c93963269603bfc",
+      "geometry_sha256": "51fabdbab94935b78dc0779543917328dec826a6f9603e6028b04beea73766d4",
+      "trace_sha256": "7e4656cab7488f8eb80b5baacaf05dc7908b52daa4b0a2ef4db8260b79309de0",
+      "output_sha256": "a3098cedf33850109154330c7103c92d9f70cb1d1e4c02afd209ce65b1f844b6",
+      "restoration_native_size": [
+        1670,
+        942
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "wasteland_inner_08_ruined_clinic.png",
       "source_size": [
         1672,
@@ -1920,12 +2000,93 @@
         941
       ],
       "restoration_method": "resample_only_generation_rejected"
+    },
+    {
+      "name": "wasteland_inner_09_bunker_command_post.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "eed11fcb483eee9539e5def5046a3fb67e22ca901e6551f2cb14e8025df71afe",
+      "geometry_sha256": "d3193dc224316688b51bdf1ab994339359a0e4b392ef35fd359d990f2b74a5e3",
+      "trace_sha256": "3558d9e99324d4b92a911bdd2a6f151abebdcaee59f2e4f4cd0ace4c525b415b",
+      "output_sha256": "c62cd0fe875f2dbc40d9207d6615142673088106865ff3cf0d0c1704e96d6bfb",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "resample_only_generation_rejected"
+    },
+    {
+      "name": "wasteland_inner_10_looted_vault.png",
+      "source_size": [
+        1673,
+        940
+      ],
+      "target_size": [
+        7680,
+        4315
+      ],
+      "source_sha256": "77859a344b946181fdbcb3ad9bc06c00cc7787beef8c18a81252774acfc2e6d2",
+      "geometry_sha256": "f9abe584f8247cd23e3f44600043185a89318bfabfab9d21bda35a4fb5b8a33f",
+      "trace_sha256": "2cfa58dfe22238d8fac878c5f71037b8f39eb2d2c6a151f497b2cc90e7372168",
+      "output_sha256": "45f565f081c0b8a6fb181cb0a9450a3f886f167c01b0c1c95e3aeb645507391e",
+      "restoration_native_size": [
+        1673,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_11_maintenance_depot.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "f634223a92c245a90c21fe4244df4ee657c7edbf41b6e486b3f2e9deef17c3d9",
+      "geometry_sha256": "8076b5a4ec69bdce3a41f7f7864fe79be62dc8a1e58d838f0e0b3cec7e7c68ff",
+      "trace_sha256": "6e568363d64ae7b7f2073ed99f0616b0b1565fd6075d7b4e55fbae494d75c802",
+      "output_sha256": "5eb050e4e7ba0c02d6d7415e2c0a5b083dcc91868d41f0ff4dbdc016e2248531",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_12_apartment_shelter.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "d6505dbf7ffb80e61cc6bf35fa89d0d14b908b7319edb6253db8eb5cc46d7c22",
+      "geometry_sha256": "6d676c0688f9d9e5b12fa5302c6efd1ed03650f4c07493eb14c9df195f410523",
+      "trace_sha256": "810126d405ee71bbd767c0994c368c7419822883500f487ec2e2d3751ad6bf4a",
+      "output_sha256": "512a33094b79834db4cb2f373da604a925668cd0e9a0b971421a6eb8d1bec87b",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ],
   "resample_only_maps": [
     "city_interior_safehouse.png",
     "wasteland_inner_03_ruined_clinic.png",
     "wasteland_inner_04_bunker_command_post.png",
-    "wasteland_inner_08_ruined_clinic.png"
+    "wasteland_inner_08_ruined_clinic.png",
+    "wasteland_inner_09_bunker_command_post.png"
   ]
 }
