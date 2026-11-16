@@ -111,6 +111,7 @@ const _ZOOM_MAX        := 3.0
 const _DRAG_THRESHOLD  := 8.0   # pixels moved before a click becomes a pan
 var _camera       : Camera2D  = null
 var _map_root     : Node2D    = null
+var _pressed_map_unit: Node2D = null
 var _pan_active   : bool      = false
 var _drag_started : bool      = false
 var _pan_start_screen: Vector2 = Vector2.ZERO
@@ -761,9 +762,18 @@ func _input(event: InputEvent) -> void:
 					get_viewport().set_input_as_handled()
 			MOUSE_BUTTON_LEFT:
 				if mbe.pressed:
+					_pressed_map_unit = null
 					if _hud.has_method("blocks_map_input") and _hud.blocks_map_input(mbe.position):
 						_pan_active = false
 						_drag_started = false
+						return
+					var picked: Node2D = _pick_map_unit(mbe.position)
+					if picked != null:
+						_pressed_map_unit = picked
+						_pan_start_screen = mbe.position
+						_pan_active = false
+						_drag_started = false
+						get_viewport().set_input_as_handled()
 						return
 					_pan_active   = true
 					_drag_started = false
@@ -771,6 +781,13 @@ func _input(event: InputEvent) -> void:
 					_pan_start_cam    = _camera.position
 					# Don't consume — could still be a plain click.
 				else:
+					if is_instance_valid(_pressed_map_unit):
+						var picked := _pressed_map_unit
+						_pressed_map_unit = null
+						if mbe.position.distance_to(_pan_start_screen) <= _DRAG_THRESHOLD*1.5:
+							_on_unit_clicked(int(picked.get("unit_id")),bool(picked.get("is_enemy")))
+						get_viewport().set_input_as_handled()
+						return
 					if _drag_started:
 						# Was a drag; consume release so children don't fire a click.
 						_battlefield.pan_lock = false
@@ -820,6 +837,11 @@ func _on_cell_clicked(cell: Vector2i) -> void:
 				if dist <= int(objective.get("interact_range", 2)):
 					_interact_with_objective()
 					return
+
+	for index in range(player_units.size()):
+		if int(player_units[index].get("hp",0)) > 0 and _cell_position(player_units[index]) == cell:
+			_on_unit_clicked(index,false)
+			return
 
 	var atype := _action_type(selected_action)
 	if atype == "MOVE":
@@ -1990,3 +2012,17 @@ func _activate_player_from_portrait(index: int) -> void:
 	if _camera != null: _camera.position = _battlefield.cell_to_world(_cell_position(unit))
 	_refresh_initiative()
 	_sync_display()
+
+func _pick_map_unit(screen_point: Vector2) -> Node2D:
+	var nearest: Node2D = null
+	var nearest_distance := INF
+	for key: String in _unit_tokens:
+		var token = _unit_tokens[key]
+		if not is_instance_valid(token) or not token.has_method("hit_test_screen"): continue
+		if not token.hit_test_screen(screen_point): continue
+		var center: Vector2 = token.get_global_transform_with_canvas()*Vector2(0,-token._sh*0.5)
+		var distance := center.distance_squared_to(screen_point)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest = token
+	return nearest
