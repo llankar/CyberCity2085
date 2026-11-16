@@ -2022,6 +2022,46 @@
       "restoration_method": "resample_only_generation_rejected"
     },
     {
+      "name": "wasteland_inner_09_underground_market.png",
+      "source_size": [
+        1672,
+        940
+      ],
+      "target_size": [
+        7680,
+        4318
+      ],
+      "source_sha256": "60b886abab9cbfe96532daa1b764ea88e619c42735be9538786c5ceaa92d9bd7",
+      "geometry_sha256": "fb17640e89e315607c0f5bc6c8953dbdd202c72a13ee7706bb68edc33a4cf3dd",
+      "trace_sha256": "cb0155aeb5fec8d348a61696b5a93afbd90798cad4ac51c370cfc254877be8e7",
+      "output_sha256": "7c4629e082e9620f70f5852772366ee59f354e444fa7b7bdcf6b579756e5ad56",
+      "restoration_native_size": [
+        1672,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_10_detention_block.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "520d19de26739ef2aba9bb37cd9fc5b033d59613117097110943299a96176621",
+      "geometry_sha256": "11672386f2c1e09a09bcb192e00ea18a06787c626e74e9273eb48920e93279b7",
+      "trace_sha256": "6435bc5d68c217221589cec5bb04038233adf66f12f73bc714c2e1dfc509f9dc",
+      "output_sha256": "66c81d1122328f303014bbd716d09c4147e3e49da1b7114d1003eb4630a88a3b",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
       "name": "wasteland_inner_10_looted_vault.png",
       "source_size": [
         1673,
@@ -2038,6 +2078,26 @@
       "restoration_native_size": [
         1673,
         940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_11_emergency_medbay.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "4392da9f7f8ebd76e88ce0ef6908339c1d7e1d3a6267d8b6359d48194ccd1077",
+      "geometry_sha256": "dbb95abaf21929aed55719669a4dfe18609be21a1c9df67230b33f6903e30941",
+      "trace_sha256": "87a3fcfacbf16c456f78fde56212151e26f62953c8aaaaec8b1accfe20738a7e",
+      "output_sha256": "e5221cd101639e6457466236286e8bbc6cbfd2f2eadf1f88e4f16d7383791d7f",
+      "restoration_native_size": [
+        1671,
+        941
       ],
       "restoration_method": "image_restoration_then_resample"
     },
@@ -2077,6 +2137,106 @@
       "output_sha256": "512a33094b79834db4cb2f373da604a925668cd0e9a0b971421a6eb8d1bec87b",
       "restoration_native_size": [
         1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_13_data_relay_room.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "b0e29e77be3379cd779cf99df7cede64613582c5de2017033c93963269603bfc",
+      "geometry_sha256": "51fabdbab94935b78dc0779543917328dec826a6f9603e6028b04beea73766d4",
+      "trace_sha256": "59ea9c3cbcc5d845a7521a4b027b1093dafa5c0095ea683deb5c99bf2bdd0cb1",
+      "output_sha256": "a3098cedf33850109154330c7103c92d9f70cb1d1e4c02afd209ce65b1f844b6",
+      "restoration_native_size": [
+        1670,
+        942
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_14_underground_market.png",
+      "source_size": [
+        1672,
+        940
+      ],
+      "target_size": [
+        7680,
+        4318
+      ],
+      "source_sha256": "60b886abab9cbfe96532daa1b764ea88e619c42735be9538786c5ceaa92d9bd7",
+      "geometry_sha256": "fb17640e89e315607c0f5bc6c8953dbdd202c72a13ee7706bb68edc33a4cf3dd",
+      "trace_sha256": "7bd688079466e0683f3736a190317a5315727a5bb0fb1a5a7b056d9954aaa482",
+      "output_sha256": "7c4629e082e9620f70f5852772366ee59f354e444fa7b7bdcf6b579756e5ad56",
+      "restoration_native_size": [
+        1672,
+        940
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_inner_15_detention_block.png",
+      "source_size": [
+        1670,
+        941
+      ],
+      "target_size": [
+        7680,
+        4327
+      ],
+      "source_sha256": "520d19de26739ef2aba9bb37cd9fc5b033d59613117097110943299a96176621",
+      "geometry_sha256": "11672386f2c1e09a09bcb192e00ea18a06787c626e74e9273eb48920e93279b7",
+      "trace_sha256": "d8eba9c77b22a6a99628d8b9b4fc0910ef20e66bbfd68f3f769280e9ac13d28a",
+      "output_sha256": "66c81d1122328f303014bbd716d09c4147e3e49da1b7114d1003eb4630a88a3b",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_01_dust_road_ambush.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "b752615cc6757b82f5720a157732084ea37adc784a64d5a08dd27ee92ee0d6e9",
+      "geometry_sha256": "a09f24bb1db69fbe8b07a4afa3378409f22c6587470f63e82efb0b0b7dc791bf",
+      "trace_sha256": "833343a2fc4d386c594ba30819c2af283073c4b9570a2f48075adda5706f033d",
+      "output_sha256": "9a299c272be1e9c93d3d549f4ce062d7f9df5a0c69e9ba67417a12440bf5dd82",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_06_dust_road_ambush.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "b752615cc6757b82f5720a157732084ea37adc784a64d5a08dd27ee92ee0d6e9",
+      "geometry_sha256": "a09f24bb1db69fbe8b07a4afa3378409f22c6587470f63e82efb0b0b7dc791bf",
+      "trace_sha256": "59f9173a2fb31620267c11664445b1313d3a581b7988ac43865af90d4a722116",
+      "output_sha256": "9a299c272be1e9c93d3d549f4ce062d7f9df5a0c69e9ba67417a12440bf5dd82",
+      "restoration_native_size": [
+        1672,
         941
       ],
       "restoration_method": "image_restoration_then_resample"
