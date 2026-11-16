@@ -2400,6 +2400,46 @@
         941
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_11_convoy_crossing.png",
+      "source_size": [
+        1671,
+        941
+      ],
+      "target_size": [
+        7680,
+        4325
+      ],
+      "source_sha256": "ef4569c46689f9052bfe160ad43191b571b80d2e2af45f97662e8107968852a3",
+      "geometry_sha256": "a02b381a7624258b63e6379bf18321066165b2d6e78e134600ddbd6991abcb6f",
+      "trace_sha256": "666dca6ba6fce8d299f3c92ed8c57276f5bbf35f58b24475a113f060560d7d17",
+      "output_sha256": "fed1c51a7242e8c636507aa9ad4033a9bf2502f346fb16947d78fcd9b8e1be8c",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_outdoor_12_salt_flat_ambush.png",
+      "source_size": [
+        1671,
+        941
+      ],
+      "target_size": [
+        7680,
+        4325
+      ],
+      "source_sha256": "19bb5b47d54c0f7700073e7f893ec2791f718ce579d5cf8df274a5d54e24296b",
+      "geometry_sha256": "aeb5c2f343d57709a630720071fda9004a2cc9ef72f69371d6c00f962af03e1d",
+      "trace_sha256": "5aca80c5b4c08012c6d8885b387ece5dacbcf10549a28f7468196de7d6587ee2",
+      "output_sha256": "7c25c5f0dfdfcb2548e737e31ff7ba380c0a49156b0581ce56e0e79ded33bd29",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ],
   "resample_only_maps": [
