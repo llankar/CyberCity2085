@@ -134,7 +134,7 @@ func _ready() -> void:
 	_load_unit_textures()
 	_load_map_and_portraits()
 	_build_children()
-	_audio.configure_soundtrack(handoff.get("audio", {}))
+	_audio.configure_soundtrack(handoff.get("audio", {}),project_root)
 	_connect_signals()
 	_seed_combat_state()
 	call_deferred("_start_combat", "AUTO-DEPLOY")
@@ -1608,7 +1608,7 @@ func _end_combat(outcome: String) -> void:
 	}
 	_banner.show_banner("ended", turn_number)
 	CombatSignals.combat_ended.emit(outcome, result)
-	_results.show_results(outcome, result, project_root, ipc_pipe_path)
+	_results.show_results(outcome, result, project_root, ipc_pipe_path, _audio)
 	_results.visible = true
 	battle_ended = true   # block all further sync / input processing
 
@@ -1927,6 +1927,10 @@ func _update_visual_context() -> void:
 	_hud.target_info["chance_label"] = "LIGNE DE VUE BLOQUÉE" if not los else ("HORS DE PORTÉE" if distance > rng else "TIR : %d %%" % int(chance))
 
 func _visual_cell_hovered(cell: Vector2i) -> void:
+	if cell.x < 0 or cell.y < 0 or cell.x >= GRID_COLS or cell.y >= GRID_ROWS:
+		var no_path: Array[Vector2i] = []
+		_battlefield.show_path(no_path)
+		return
 	if not battle_started or battle_ended or turn_side != "player": return
 	if _action_type(selected_action) != "MOVE": return
 	var active := _current_active_player()

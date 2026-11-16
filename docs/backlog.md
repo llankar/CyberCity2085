@@ -497,3 +497,13 @@ validated slices of no more than five tasks while Arcade remains authoritative.
 The result follows the accepted restoration-plus-resampling workflow; it is not
 native 8K generation. Individual visual collision contours remain available for
 in-game review. Details: [8K map restoration](maps_8k.md).
+
+## Tactical reference and continuity follow-up — November 16, 2026
+
+- [x] REF-01 Deploy encounters in the main connected floor region; fix the underground market's isolated perimeter without changing wall surveys.
+- [x] REF-02 Match the reference route/arrow/AP badge, active ground marker and segmented beveled HP bars with zoom-stable strokes and visible sprite/atlas anchors.
+- [x] REF-03 Pause/resume soundtrack transport across UI changes, reuse physical-file aliases and transfer playback positions across the Godot handoff/result boundary.
+- [x] REF-04 Pass 37 focused tests, verify connected deployment on all 122 maps and execute/capture a real rightward market move with correct AP and animation.
+- [x] REF-05 Document the behavior and capture; publish the verified changes and merge into main.
+
+Details and actual game capture: [Tactical reference](tactical_reference.md).

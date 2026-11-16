@@ -37,7 +37,12 @@ def main(argv=None) -> int:
 
     warnings.filterwarnings("ignore", category=PerformanceWarning, module="arcade")
     settings = load_settings()
-    window = arcade.Window(1920, 1000, "CyberCity 2085", visible=False)
+    from game.ui.music_window import MusicTransitionMixin
+
+    class GameWindow(MusicTransitionMixin, arcade.Window):
+        pass
+
+    window = GameWindow(1920, 1000, "CyberCity 2085", visible=False)
     apply_settings(window, settings)
     window.show_view(TitleView())
     window.set_visible(True)

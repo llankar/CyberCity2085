@@ -48,6 +48,10 @@ class SoundManager:
         self._music_paths: dict[str, Path] = {}
         self._music_player: Any = None
         self._current_music: str | None = None
+        self._current_path: str | None = None
+        self._music_positions: dict[str, float] = {}
+        self._external_music = False
+        self._view_transition_depth = 0
         self._enabled: bool = True
         self._sfx_vol: float = 0.80
         self._music_vol: float = 0.42
@@ -109,27 +113,87 @@ class SoundManager:
         except Exception:
             pass
 
-    def play_music(self, name: str, loop: bool = True) -> None:
-        """Start looping background music. Stops current track first."""
-        if name == self._current_music and self._music_player is not None and getattr(self._music_player, "playing", False):
+    @staticmethod
+    def _track_id(path: str | Path) -> str:
+        import os
+        return os.path.normcase(str(Path(path).resolve()))
+
+    def music_position_for(self, path: str | Path) -> float:
+        track = self._track_id(path)
+        if track == self._current_path and self._music_player is not None:
+            try:
+                return max(0.0, float(self._music_player.time))
+            except (AttributeError, TypeError, ValueError):
+                pass
+        return self._music_positions.get(track, 0.0)
+
+    def remember_music_position(self, path: str | Path, position: float) -> None:
+        import math
+        if not math.isfinite(position) or position < 0:
             return
-        self.stop_music()
+        track = self._track_id(path)
+        self._music_positions[track] = position
+        if track == self._current_path and self._music_player is not None:
+            try:
+                duration = getattr(getattr(self._music_player, "source", None), "duration", None)
+                self._music_player.seek(position % duration if duration and duration > 0 else position)
+            except Exception:
+                pass
+
+    def begin_view_transition(self) -> None:
+        self._view_transition_depth += 1
+        self.pause_music()
+
+    def end_view_transition(self) -> None:
+        self._view_transition_depth = max(0, self._view_transition_depth - 1)
+        if self._view_transition_depth == 0:
+            self.resume_music()
+
+    def pause_music(self, *, external: bool = False) -> None:
+        if external:
+            self._external_music = True
+        if self._music_player is None:
+            return
+        if self._current_path:
+            self._music_positions[self._current_path] = self.music_position_for(self._current_path)
+        try:
+            self._music_player.pause()
+        except Exception:
+            pass
+
+    def resume_music(self) -> None:
+        if not self._enabled or self._external_music or self._view_transition_depth or self._music_player is None:
+            return
+        try:
+            if not self._music_player.playing:
+                self._music_player.play()
+        except Exception:
+            pass
+
+    def play_music(self, name: str, loop: bool = True) -> None:
+        """Reuse the same physical track across UI aliases and resume its transport."""
         if not self._enabled:
             return
+        self._external_music = False
         self.ensure_loaded()
-        if name in self._music_paths:
-            # Arcade streaming sources cannot loop/replay reliably. Decode only
-            # the selected song and release the previous one, not the catalogue.
+        requested = self._music_paths.get(name)
+        same_file = requested is not None and self._track_id(requested) == self._current_path
+        if self._music_player is not None and (name == self._current_music or same_file):
+            self._current_music = name
+            self.resume_music()
+            return
+        self.stop_music()
+        selected_path = None
+        if requested is not None:
             import arcade
             self._music.clear()
-            candidates = [self._music_paths[name]]
-            fallback = _MUSIC_DIR / ("music_briefing.wav" if name in {"music_title", "music_management", "music_briefing", "music_ending"} else "music_battle.wav")
-            candidates.append(fallback)
+            candidates = [requested, _MUSIC_DIR / ("music_briefing.wav" if name in {"music_title", "music_management", "music_briefing", "music_ending"} else "music_battle.wav")]
             for path in candidates:
                 if not path.is_file():
                     continue
                 try:
                     self._music[name] = arcade.load_sound(str(path), streaming=False)
+                    selected_path = path
                     break
                 except Exception:
                     continue
@@ -138,24 +202,33 @@ class SoundManager:
             return
         try:
             import arcade
-            self._music_player = arcade.play_sound(
-                sound, volume=self._music_vol, loop=loop
-            )
+            player = arcade.play_sound(sound, volume=self._music_vol, loop=loop)
+            if player is None:
+                return
+            self._music_player = player
             self._current_music = name
+            self._current_path = self._track_id(selected_path) if selected_path else None
+            position = self._music_positions.get(self._current_path, 0.0)
+            if position > 0:
+                duration = getattr(getattr(player, "source", None), "duration", None)
+                player.seek(position % duration if duration and duration > 0 else position)
+            if self._view_transition_depth:
+                player.pause()
         except Exception:
             pass
 
     def stop_music(self) -> None:
-        self._current_music = None
-        if self._music_player is None:
-            return
-        try:
-            import arcade
-            arcade.stop_sound(self._music_player)
-        except Exception:
-            pass
+        """Release playback while retaining the track bookmark for later UI visits."""
+        if self._music_player is not None:
+            self.pause_music()
+            try:
+                import arcade
+                arcade.stop_sound(self._music_player)
+            except Exception:
+                pass
         self._music_player = None
         self._current_music = None
+        self._current_path = None
 
     # ── Internals ─────────────────────────────────────────────────────────────
 

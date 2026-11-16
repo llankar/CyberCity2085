@@ -37,12 +37,40 @@ static func cover_nodes(geometry: Dictionary) -> Array[Dictionary]:
 			result.append({"cell": cell, "high": bool(wall.get("blocks_sight", true)), "solid": true, "wall_id": str(wall.get("id", "")), "kind":str(wall.get("kind", "solid_obstacle")), "outline_uv": wall.get("outline_uv", [])})
 	return result
 
+static func largest_floor_region(board, near: Vector2i) -> Array[Vector2i]:
+	# Ignore temporary unit occupancy when choosing the playable arena.
+	var remaining: Dictionary = {}
+	for y in range(board.GRID_ROWS):
+		for x in range(board.GRID_COLS):
+			var cell := Vector2i(x, y)
+			if not board.is_wall(cell): remaining[cell] = true
+	var best: Array[Vector2i] = []
+	var best_distance := 999999
+	while not remaining.is_empty():
+		var first: Vector2i = remaining.keys()[0]
+		var region: Array[Vector2i] = [first]
+		remaining.erase(first)
+		var index := 0
+		var distance := 999999
+		while index < region.size():
+			var cell := region[index]
+			index += 1
+			distance = mini(distance, absi(cell.x-near.x)+absi(cell.y-near.y))
+			for neighbor: Vector2i in [cell+Vector2i.RIGHT, cell+Vector2i.DOWN, cell+Vector2i.LEFT, cell+Vector2i.UP]:
+				if remaining.has(neighbor):
+					remaining.erase(neighbor)
+					region.append(neighbor)
+		if region.size() > best.size() or (region.size() == best.size() and distance < best_distance):
+			best = region
+			best_distance = distance
+	return best
+
 static func place_encounter(players: Array[Dictionary], enemies: Array[Dictionary], objective: Dictionary, board) -> void:
 	if players.is_empty():
 		return
-	var origin: Vector2i = board.nearest_open_cell(players[0].get("position", Vector2i.ZERO))
-	var floor_cells: Array[Vector2i] = board.reachable_cells(origin, 40*28)
-	floor_cells.append(origin)
+	var floor_cells := largest_floor_region(board, players[0].get("position", Vector2i.ZERO))
+	if floor_cells.is_empty(): return
+	var origin: Vector2i = floor_cells[0]
 	var occupied: Array[Vector2i] = []
 	for group: Array in [players, enemies]:
 		for unit: Dictionary in group:
