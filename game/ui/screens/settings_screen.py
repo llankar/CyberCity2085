@@ -89,6 +89,37 @@ def save_settings(s: SettingsState) -> None:
         json.dump(asdict(s), f, indent=2)
 
 
+def apply_settings(window, s: SettingsState) -> None:
+    """Apply the saved preferences identically at startup and from Apply/Save."""
+    set_text_size(s.text_size)
+    from game.audio import SoundManager
+    SoundManager.get().configure_from_settings(s)
+    try:
+        screens = _available_screens()
+        screen = screens[s.display_index] if 0 <= s.display_index < len(screens) else None
+        rw, rh = _RESOLUTIONS[s.resolution_index % len(_RESOLUTIONS)]
+        if screen is not None:
+            try:
+                rw = min(rw, max(640, int(screen.width) - 80))
+                rh = min(rh, max(480, int(screen.height) - 80))
+            except Exception:
+                pass
+        if s.fullscreen:
+            window.set_fullscreen(True, screen=screen)
+        else:
+            window.set_fullscreen(False)
+            window.set_size(rw, rh)
+            if screen is not None:
+                try:
+                    x = int(getattr(screen, "x", 0) + max(0, (int(screen.width) - rw) // 2))
+                    y = int(getattr(screen, "y", 0) + max(0, (int(screen.height) - rh) // 2))
+                    window.set_location(x, y)
+                except Exception:
+                    pass
+    except Exception:
+        pass   # Not all platforms support dynamic resize
+
+
 def _persist_godot_bin_path(godot_bin_path: str) -> None:
     """Save only the Godot executable path without committing unsaved UI changes."""
     persisted = load_settings()
@@ -558,31 +589,7 @@ class SettingsView(arcade.View):
     def _apply_and_save(self) -> None:
         s = self._settings
         save_settings(s)
-        # Apply fullscreen immediately
-        try:
-            screens = _available_screens()
-            screen = screens[s.display_index] if 0 <= s.display_index < len(screens) else None
-            rw, rh = _RESOLUTIONS[s.resolution_index]
-            if screen is not None:
-                try:
-                    rw = min(rw, max(640, int(screen.width) - 80))
-                    rh = min(rh, max(480, int(screen.height) - 80))
-                except Exception:
-                    pass
-            if s.fullscreen:
-                self.window.set_fullscreen(True, screen=screen)
-            else:
-                self.window.set_fullscreen(False)
-                self.window.set_size(rw, rh)
-                if screen is not None:
-                    try:
-                        x = int(getattr(screen, "x", 0) + max(0, (int(screen.width) - rw) // 2))
-                        y = int(getattr(screen, "y", 0) + max(0, (int(screen.height) - rh) // 2))
-                        self.window.set_location(x, y)
-                    except Exception:
-                        pass
-        except Exception:
-            pass   # Not all platforms support dynamic resize
+        apply_settings(self.window, s)
         self._message   = "Settings saved."
         self._msg_timer = 2.5
 
