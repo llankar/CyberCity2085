@@ -61,18 +61,21 @@ func _preload_streams() -> void:
 func _load_stream(filename: String) -> void:
 	if _streams.has(filename):
 		return
-	if filename.to_lower().ends_with(".mp3") and FileAccess.file_exists(filename):
+	var path := filename.replace("\\","/")
+	if not path.is_absolute_path() and not path.begins_with("res://"):
+		path = "res://audio/"+path
+	if not FileAccess.file_exists(path): return
+	if path.to_lower().ends_with(".mp3"):
 		var mp3 := AudioStreamMP3.new()
-		mp3.data = FileAccess.get_file_as_bytes(filename)
+		var bytes := FileAccess.get_file_as_bytes(path)
+		if bytes.is_empty(): return
+		mp3.data = bytes
 		mp3.loop = true
-		_streams[filename] = mp3
-		return
-	var path := "res://audio/" + filename
-	if not ResourceLoader.exists(path):
-		return
-	var s := load(path) as AudioStream
-	if s != null:
-		_streams[filename] = s
+		if mp3.get_length() > 0.0: _streams[filename] = mp3
+	elif path.to_lower().ends_with(".wav"):
+		# Read source files directly: a source checkout has no imported audio cache.
+		var wav := AudioStreamWAV.load_from_file(path)
+		if wav != null: _streams[filename] = wav
 
 func _play_sfx(filename: String) -> void:
 	if not _enabled:
@@ -89,9 +92,16 @@ func _play_music(filename: String) -> void:
 		return
 	if not _streams.has(filename):
 		return
-	if _music_player.stream == _streams[filename]:
+	if _music_player.stream == _streams[filename] and _music_player.playing:
 		return
-	_music_player.stream = _streams[filename] as AudioStream
+	var stream := _streams[filename] as AudioStream
+	if stream is AudioStreamWAV:
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		stream.loop_begin = 0
+		stream.loop_end = maxi(1,int(stream.get_length()*float(stream.mix_rate)))
+	elif stream is AudioStreamMP3:
+		stream.loop = true
+	_music_player.stream = stream
 	_music_player.play()
 
 func configure_soundtrack(settings: Dictionary) -> void:
@@ -107,6 +117,7 @@ func configure_soundtrack(settings: Dictionary) -> void:
 		_load_stream(path)
 		if _streams.has(path):
 			_battle_music = path
+	if not _streams.has(_battle_music): _battle_music = "music_battle.wav"
 	_play_music(_battle_music)
 
 func _on_audio_event(event_name: String) -> void:
