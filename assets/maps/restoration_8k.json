@@ -1,0 +1,309 @@
+{
+  "method": "Image restoration followed by Lanczos resampling; not native 8K detail",
+  "maps": [
+    {
+      "name": "city_district_apartment_block.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "533d912c2663fdb185d3af1e95f55b84a5d1d1bff30f211c6ce60d5b69549b45",
+      "geometry_sha256": "3a31f308b90b471d73c7ab75f223bd782ac07f17a823a4c5c427c5645b27a76c",
+      "trace_sha256": "9bfad04db8da45d768ce94668c320dfe346049fe31bde1a183b3cc2419baa4a5",
+      "output_sha256": "06a002a312b241246d66d69c9f60a0fef099b2fc38cffde2b1fdcc719f0c7b06",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_district_civic_center.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "607539180036f06725ebcc9e2461cb81d662217d5c03231c796a69afd5080d7c",
+      "geometry_sha256": "99a0aedd8af9e5c3fb5f5938796db70d1f836d1477b28614b26d0908d2cd388d",
+      "trace_sha256": "be6ba3da01e2a37267b24de0b88422f359eecb1a8bfbfdde7ea7de86cb1082c8",
+      "output_sha256": "37973c1bc52dcb49618cdd968aa5f1ba5dc49c4e9bc38082b6a0cff910f2b932",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_district_holo_square.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "9e6df1c37b8451e68f9f705fbedcc06edd5067ca032c296fc2b08511e85dc6f2",
+      "geometry_sha256": "fdf491e684e2baee05654897e63f3bda0af22b05125eba2c36bfed1ea9e01437",
+      "trace_sha256": "62a4a0b945a6083ea4cdd1a4c94b3ab89663aa91dbb52e48e276ac0710e062fb",
+      "output_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_district_riot_square.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "70c954296dc7342049aba500d545839716a921f18e6c027183ae0f3ca431eac4",
+      "geometry_sha256": "f161369a9fdc65817f5ba742490b419951bf8b33be99e7a9a3784e187648db32",
+      "trace_sha256": "bd48b1bdfa376ce7c7d1b40295bc9aa01aeb82c353b4975e6a331774f3e274b8",
+      "output_sha256": "61f03db7c45f21c6f76dd82d964d13ca6465c4545a13b46f39244de905e76acf",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_exterior_corporate_plaza.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "67fa07720c1f6235ce3c09d09d93032cc2a372088c8bb7c577cf48dee8942638",
+      "geometry_sha256": "15f17d5ef7d6c3554b964772d1ede35ac6e4c23ad319c87db3d3646d756331d4",
+      "trace_sha256": "1aa951f5747fa75b835b11b86cac89bec9e6202f1262fab04897a9b74abd90c6",
+      "output_sha256": "788a471bec1196a50eba4312563ea6fdea80736ae22580360193557efd2dcb97",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_exterior_downtown_intersection.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "bb3f83134452279ad32e0b2a0a19577a5a7acf1e08cf785377f9359f6a8273be",
+      "geometry_sha256": "35b4c492a2eab73df8cf3a3588c25c900190effcb9237c81476a89b4b712c1cb",
+      "trace_sha256": "2fcd8fe6fb55deaccac37710966117ad654e7f756a8afc5aa2277c6bd4903d7a",
+      "output_sha256": "248e5a0c133d2072ab9feea40622ca363956402d407883115be1641db31bb5c4",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_exterior_elevated_freeway.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "5aeeacffbc297bd075b95d5094e32acaf917f1b4b4d44855b23d041db5c15a05",
+      "geometry_sha256": "10cdfc8ce475201c8a8ffb83264e649322c5fafbf283125b4fb799211b38f7e2",
+      "trace_sha256": "a66bd18f1ae02bbed04ccf893e319301fccb81429ef198f1c0a230a7ac1045b3",
+      "output_sha256": "59ac85790d4d2e31e98cbeb11614c7cf69d8f49b75b13f7ceebb0cb866503b8c",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_exterior_neon_market_alley.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "264c5fdf4eb35f781e1d707a9b52b0c1f0a22ce0e66f56956919530d61fcc11b",
+      "geometry_sha256": "737c29744f91aef4fd3a2a9553f288e71aa275c004d729c71db3ab551ca67a3f",
+      "trace_sha256": "a5a1b25b63a1b0c094f1fcf806ab90df81b41ef8960670f9e6ded3a626e51d89",
+      "output_sha256": "78da81c6b3d9eb160891ea019faf718790392fd06504dc10ae175fa270cece6e",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_exterior_parking_garage.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "a540cee449953f7abbdc3e6d614ebddd0d33b0a21c4d24b80da47bae199fb0f0",
+      "geometry_sha256": "e7da9b0c6601b72f3d59a164a64a7132a52a7186742429c4bb3593a875e7d2d7",
+      "trace_sha256": "a1880b52530e09c3ef90356dbb894adb8144545d132f3133eda5e6ae937fcf0e",
+      "output_sha256": "3b1c6be96b00a184c028cae12cd94ced01f147bd5a8b7bf0bf2a46a23adfb43c",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_industrial_data_vault.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "05603f3f25a3eca5c3ea4b482f858a7964b1e7e7788bc270bc551065736f073b",
+      "geometry_sha256": "a89359c2ab619f1ca130c2630dc98b15d552c902ab475ce8e4093c2bbd7e23c3",
+      "trace_sha256": "d6221680762a0cbefffac38925aab7ee268412f4b0659b05d9b468eb2cd71f53",
+      "output_sha256": "78b56dab11e5961068e4dbc6810f6b05048fa59fd255d6eb45cfcd37b86447ed",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_industrial_security_checkpoint.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "1cbd6fb1690dcb99e7367beaf896a745d0bc5bf57db55641b02ed896824c2c8e",
+      "geometry_sha256": "dfee05611a7f605b869935977c5badb1c751bf9cbaf0c5dee8f5bf754de28be1",
+      "trace_sha256": "6719edaf2c02ab9ce0561d4ef580445e545b21fa24c4ba917a7f77f29b3b7daa",
+      "output_sha256": "41c7c9514c5e00d513065f18241c2a8a81fed924b36eb67b7df033b2ded1ccf7",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_industrial_service_tunnel.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "4a2d3bf12bbd8f346b192673395d2b8e407250bf137898dbf9c38de638dc1958",
+      "geometry_sha256": "151502b2ce1874b1e01ef9ac178dcf7ef813f6d0258693eff38ee819dd88597b",
+      "trace_sha256": "30a412702c78deef85181aff77f90c84b0772dd4057e1805750ab2227a279c8d",
+      "output_sha256": "2bab2dd72faf5f1f788c60036fae146f36b9d9f1ea5bcee1410713a8728c294c",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_industrial_warehouse_floor.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "f9ecee8e55d38770085c20693a6034deed658d3455f9ccd42050341148c802db",
+      "geometry_sha256": "414261d9070351ab32e1e6ca0209211ee2b78a682801f1f5dbe7a203c14cb1b8",
+      "trace_sha256": "ee482492a7766bc23454a7fd35bf81266f8a846f8b34b5360d5924634942c2d8",
+      "output_sha256": "8f3d7bfe8a07b103f21296d11dfbc43db26c1bf7d37f50b924cac3a189b44449",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_interior_blacksite_lab.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "9db96ee65dc10cf4817084fd76690a56aa9d261d7fb1f915608b6bd36f6575e1",
+      "geometry_sha256": "1d8ba293eb7f2b43abb3ef54cc5a4d1ed9b49595103dcecd0f9e7dc3de50436c",
+      "trace_sha256": "499d311ce6cd78a03eed18a33661905bcc99b8d55378389878394f107d8fb3e8",
+      "output_sha256": "106fe4c9fc4c47c2744244b77ef24b3732ba0b59d8424b0b95aa4777e20b805e",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_interior_command_deck.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "98af4167679867a3f492964f438e6171b2687ee5ee493ec4ce01dafe1fef9283",
+      "geometry_sha256": "82990ea74b057e2a4dc0f12aba6fbf5d05e8ea2a41c85fbbb8e65317d1984f0f",
+      "trace_sha256": "dde2eb05b68d512580a6df6c134199f8be7262656099db4f0fe26bdf3a075460",
+      "output_sha256": "856c07bcdd09ae1ece6200fa2ee5d69b0103867c2937924248c5849a64d7329c",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    },
+    {
+      "name": "city_interior_medical_clinic.png",
+      "source_size": [
+        1920,
+        1080
+      ],
+      "target_size": [
+        7680,
+        4320
+      ],
+      "source_sha256": "8e83a18dd709a2e1c3d8c362e0c2d4af9a419dbb76a1aa66e532c647736b949f",
+      "geometry_sha256": "e3e3f3dadba31a96a8d066af7de28523e4e4467071a017906bb1cd0890914e24",
+      "trace_sha256": "2e6e51e6b92b4ffe4d33dfd2e6d967e71bc4cd32df3104e9094f3185e7d1229e",
+      "output_sha256": "8703ad9dae4435a4eb9e70ca48d620e3896110d7336dd2c3246fbbde7c83691e",
+      "restoration_native_size": [
+        1672,
+        941
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# 8K map restoration
+
+All 122 playable maps use restored images resampled to a width of 7680 pixels.
+Heights retain the original aspect ratio (rounded to the nearest pixel): 16:9
+art is 7680×4320 and 3:2 art is 7680×5120. Generated restoration images are
+smaller than 8K; these assets must not be described as native 8K detail.
+The accepted neon market restoration is reused unchanged as the visual source.
+
+The production asset paths remain unchanged, so both the Arcade and Godot
+clients load the new images through the existing map selection logic.
+The diagnostic `preview_control_center_edges.png` is excluded.
+
+## Obstacles
+
+Every `.walls.json` keeps its original obstacle IDs, grid cells, normalized
+outlines, sight-blocking flags and survey method. Only `image_size` and
+`image_sha256` change. Manual `.wall-traces.json` files remain byte-identical:
+their coordinates belong to their own `canvas_size`, not the output image.
+They must not be multiplied by four or rescanned from the restored art.
+
+`assets/maps/restoration_8k.json` records original image sizes and hashes,
+restoration sizes, target sizes, output hashes, original obstacle fingerprints
+and manual trace fingerprints. Exact-pixel duplicate maps share the same
+restored image, with independent survey metadata.
+
+Automated checks verify data alignment, not that generated textures preserve
+every visual edge exactly. The accepted sample and contact-sheet inspections
+are visual checks; individual obstacle contours may still need manual review.
+
+## Verification
+
+From the repository root:
+
+```sh
+python -m pytest -q tests/test_map_8k.py tests/test_map_geometry.py tests/test_battle_maps.py
+```
+
+The metadata-only helper is `tools/maps/refresh_geometry_metadata.py`.
+Maps are loaded one at a time; an RGBA 7680×4320 texture is about 127 MiB before
+mipmaps (roughly 169 MiB with a full mip chain), and 3:2 maps use more memory.
+Keep graphics memory in mind when testing machines with integrated graphics.
