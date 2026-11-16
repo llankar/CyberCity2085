@@ -1440,6 +1440,166 @@
         941
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_14_bridge_access.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "517aaaba4a695fd7eaf5444903e03af18a19ef878ca2d0dd209467a7c762a490",
+      "geometry_sha256": "c2a5e33353e03527329181a8e8cc2e3ff3f52b99a7836c0b6fc98d1cd541fa14",
+      "trace_sha256": "c91c58708ee1bfb9f392b10affe8bf1f6d8b87ddfb04e1cb195d9e2bc3da194a",
+      "output_sha256": "872048fdd5b5093582266b9ead0c0ad5110f8588b85ed450b30740e55d2f577a",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_14_flood_prone_avenue.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "2748bed99cb13c755a436ef6a49115ccbb24dd699c2a579b23fdacd10169afa1",
+      "geometry_sha256": "25d42fcd21cca11f9245887bb64eca44c5d309acac9abb4abae456e0ebb8a8ad",
+      "trace_sha256": "c2a4bd92d2d87201bc939f2f01509d3a3c58443c546225b8dd8be9b3c00a37c5",
+      "output_sha256": "085aad9b1e37c89b335fa61b2982bf32186c65530b28478f8b70065c6aedec5e",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_15_billboard_avenue.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "df7e4db9892105daf64b68395f96200c4fe11be4001280e528b3c32e3bbbcfde",
+      "geometry_sha256": "37978003cf5023f9a7dabbac57dc056cb52ad99f28e5712eba5d478b242016fd",
+      "trace_sha256": "bbe9837cf8c2bb7b9985e091e9a1a312de72cb7ea8b0de37dffd3a76be091d76",
+      "output_sha256": "bd3b3c5d7f774ab77981ebe4731b178ea7cad2f3c33c5d753224b4229c3a346c",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_15_bridge_access.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "517aaaba4a695fd7eaf5444903e03af18a19ef878ca2d0dd209467a7c762a490",
+      "geometry_sha256": "c2a5e33353e03527329181a8e8cc2e3ff3f52b99a7836c0b6fc98d1cd541fa14",
+      "trace_sha256": "04140a885075f9eab0cc086053d01b13733f35f5feae4f0c2f64d929aa9cd429",
+      "output_sha256": "872048fdd5b5093582266b9ead0c0ad5110f8588b85ed450b30740e55d2f577a",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_street_16_billboard_avenue.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "df7e4db9892105daf64b68395f96200c4fe11be4001280e528b3c32e3bbbcfde",
+      "geometry_sha256": "37978003cf5023f9a7dabbac57dc056cb52ad99f28e5712eba5d478b242016fd",
+      "trace_sha256": "64f29c69c1d6930246063a171bb1e927acd1ce8f0ca2e880a1752d1207858f08",
+      "output_sha256": "bd3b3c5d7f774ab77981ebe4731b178ea7cad2f3c33c5d753224b4229c3a346c",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_city_01_ruined_downtown.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "90905f2ee1c9d1da31001063037b5054ac0f70919b8336f65442d710985c5187",
+      "geometry_sha256": "f440b943400b5798fc9e497223460f94117ad8b91ecf56222dae276bec64efb5",
+      "trace_sha256": "2e505908ca7a0d441e969aa894ea5963453c63022a17bcb439fcc999d6f392ae",
+      "output_sha256": "35c716edaed26bbc83d03257a494a3531a0eaa42984bcdaea3d866e1ba7d44f1",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_city_02_burned_market_block.png",
+      "source_size": [
+        1671,
+        941
+      ],
+      "target_size": [
+        7680,
+        4325
+      ],
+      "source_sha256": "febae155ae129c7ef4a83143eeb62897a04f350c0ba839e9900b1c5663278572",
+      "geometry_sha256": "9ff97a3650b4dd00d77cceb67bf893aa7b64cef2fafe61a442f8b31086cf9191",
+      "trace_sha256": "34d3a12e502adb3090962c62c71b6c22cbbb56bc2ba466c9406135bf991e0301",
+      "output_sha256": "47374fd82047e902b07b1fdd2c1f003e96f7aa3720565ae3eebaa15ade7fe27d",
+      "restoration_native_size": [
+        1670,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "wasteland_city_06_ruined_downtown.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "90905f2ee1c9d1da31001063037b5054ac0f70919b8336f65442d710985c5187",
+      "geometry_sha256": "f440b943400b5798fc9e497223460f94117ad8b91ecf56222dae276bec64efb5",
+      "trace_sha256": "3fa510971ba958620f74ce3ee0f40a7e55950fd0247df1dec46d66872f5902d2",
+      "output_sha256": "35c716edaed26bbc83d03257a494a3531a0eaa42984bcdaea3d866e1ba7d44f1",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ],
   "resample_only_maps": [
