@@ -20,7 +20,7 @@ from typing import TYPE_CHECKING, Any
 
 import arcade
 
-from game.combat.godot_bridge import GodotCombatLaunchResult, RESULT_JSON_PATH
+from game.combat.godot_bridge import GodotCombatLaunchResult
 from game.ui.panels import draw_panel
 from game.ui.theme import colors
 
@@ -31,7 +31,6 @@ if TYPE_CHECKING:
 _WIN = sys.platform == "win32"
 
 _HWND_POLL_INTERVAL   = 0.15   # seconds between HWND-search attempts
-_RESULT_POLL_INTERVAL = 0.25   # seconds between result-JSON checks
 
 
 class GodotCombatHandoffView(arcade.View):
@@ -53,7 +52,6 @@ class GodotCombatHandoffView(arcade.View):
         self._godot_hwnd:     int | None = None
         self._arcade_hwnd:    int | None = None
         self._hwnd_timer:     float    = 0.0
-        self._result_timer:   float    = 0.0
         self._status:         str      = "LAUNCHING COMBAT UI…"
 
     # ── Lifecycle ─────────────────────────────────────────────────────────────
@@ -72,24 +70,28 @@ class GodotCombatHandoffView(arcade.View):
         if self._result_applied:
             return
 
+        # Poll results even before a native window is found (and on Linux).
+        from game.combat.godot_bridge import read_godot_combat_result
+        result = read_godot_combat_result()
+        if result is not None:
+            self._result_applied = True
+            self._cleanup_godot()
+            self._apply_combat_result(result)
+            return
+        process = getattr(self.launch_result, "process", None)
+        if process is not None and process.poll() is not None:
+            self._result_applied = True
+            self._cleanup_godot()
+            self.game_state.add_event("Godot closed without a result; continuing in Arcade.")
+            self._fallback_to_arcade_battle()
+            return
+
         if not self._overlaid:
             self._hwnd_timer += delta_time
             if self._hwnd_timer >= _HWND_POLL_INTERVAL:
                 self._hwnd_timer = 0.0
                 self._try_overlay()
             return
-
-        # Godot is visible — poll for the result JSON.
-        self._result_timer += delta_time
-        if self._result_timer >= _RESULT_POLL_INTERVAL:
-            self._result_timer = 0.0
-            if RESULT_JSON_PATH.exists():
-                from game.combat.godot_bridge import read_godot_combat_result
-                result = read_godot_combat_result()
-                if result is not None:
-                    self._result_applied = True
-                    self._cleanup_godot()
-                    self._apply_combat_result(result)
 
     def _try_overlay(self) -> None:
         """Find Godot's window, make it borderless, place it over Arcade, hide Arcade."""
@@ -126,6 +128,9 @@ class GodotCombatHandoffView(arcade.View):
 
     def _cleanup_godot(self) -> None:
         """Terminate Godot and restore Arcade's window."""
+        process = getattr(self.launch_result, "process", None)
+        if process is not None and process.poll() is None:
+            process.terminate()
         if not _WIN:
             return
         from game.combat.win32_embed import hide_window, show_window, terminate_pid
@@ -137,7 +142,7 @@ class GodotCombatHandoffView(arcade.View):
         if self._arcade_hwnd:
             show_window(self._arcade_hwnd)
 
-        if self.launch_result.process_pid:
+        if process is None and self.launch_result.process_pid:
             terminate_pid(self.launch_result.process_pid)
 
         self._overlaid = False

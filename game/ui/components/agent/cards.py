@@ -46,6 +46,8 @@ def draw_agent_card(card: dict, left: int, bottom: int, width: int, height: int,
         arcade.draw_text(label, text_left, bottom + height - 76, palette.ACCENT, typography.meta)
     if card.get("pending_points", 0) > 0:
         draw_upgrade_badge(card.get("pending_points", 0), left + width - 48, bottom + height - 32)
+    if card.get("infection_status"):
+        arcade.draw_text(card["infection_status"], text_left, bottom + 8, palette.DANGER, 8)
 
 
 def _role_color(card: dict):

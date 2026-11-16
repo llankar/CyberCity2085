@@ -129,7 +129,7 @@ class GameState:
     weekly_directive_id: str = ""
     ui_high_contrast: bool = False
     ui_audio_feedback_enabled: bool = False
-    combat_mission_ui_engine: str = "godot"
+    combat_mission_ui_engine: str = "arcade"
     ui_language: str = "fr"
     tutorial_progress: dict = field(
         default_factory=lambda: {
@@ -350,7 +350,14 @@ class GameState:
         """Move the shared strategic clock one day and process daily systems."""
         recovered_agents = []
         stress_recovery_log = []
+        from .starver_infection import advance_infection
         for character in self.characters:
+            infection_beat = advance_infection(character)
+            if infection_beat:
+                self.add_event(infection_beat)
+            if character.starver_transformed:
+                self.selected_agent_names = [name for name in self.selected_agent_names if name != character.name]
+                continue
             stress_result = daily_stress_recovery(character)
             if stress_result.changed:
                 stress_recovery_log.append((character.name, stress_result.amount, character.stress))
@@ -402,7 +409,7 @@ class GameState:
             "memory": dict(self.recovery_narrative_memory),
         }
         self.latest_recovery_dialogues = generate_recovery_dialogues(
-            self.characters,
+            [character for character in self.characters if not character.starver_transformed],
             recovery_state,
         )
         self.recovery_narrative_memory = dict(recovery_state.get("memory", {}))

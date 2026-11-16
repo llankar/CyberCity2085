@@ -68,6 +68,7 @@ class MissionBriefingLaunchTest(unittest.TestCase):
     @patch("game.combat.godot_bridge.launch_godot_combat_ui")
     def test_failed_process_start_does_not_open_an_endless_loading_screen(self, launch_mock):
         state = GameState()
+        state.combat_mission_ui_engine = "godot"
         view = MissionBriefingView.__new__(MissionBriefingView)
         view.game_state = state
         view.mission = _mission()
@@ -145,6 +146,7 @@ class MissionBriefingLaunchTest(unittest.TestCase):
     @patch("game.combat.godot_bridge.launch_godot_combat_ui")
     def test_launch_falls_back_to_arcade_when_godot_is_unavailable(self, launch_mock) -> None:
         game_state = GameState()
+        game_state.combat_mission_ui_engine = "godot"
         mission = _mission()
         view = MissionBriefingView.__new__(MissionBriefingView)
         view.game_state = game_state

@@ -358,7 +358,74 @@
           475
         ]
       ]
+    },
+    {
+      "id": "outside_top_margin",
+      "rect": [
+        0,
+        0,
+        960,
+        18
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_bottom_margin",
+      "rect": [
+        0,
+        501,
+        960,
+        540
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_west_margin",
+      "rect": [
+        0,
+        18,
+        15,
+        501
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_east_margin",
+      "rect": [
+        938,
+        18,
+        960,
+        501
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_northwest_margin",
+      "rect": [
+        0,
+        18,
+        115,
+        140
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_north_notch_margin",
+      "rect": [
+        406,
+        18,
+        507,
+        50
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
     }
   ],
-  "same_pixels_as": "wasteland_inner_02_collapsed_tunnel.png"
+  "same_pixels_as": "wasteland_inner_02_collapsed_tunnel.png",
+  "boundary_review": "2026-11-15: manually inspected exterior padding and northwest/north notches; original 23 obstacles preserved."
 }

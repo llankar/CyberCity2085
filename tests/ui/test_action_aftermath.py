@@ -14,9 +14,17 @@ def test_action_aftermath_line_includes_damage_status_and_suppression() -> None:
     assert "SUPPRESSION créée" in line
 
 
-def test_action_aftermath_line_keeps_fixed_tokens_for_move() -> None:
+def test_movement_does_not_announce_zero_attack_damage() -> None:
     line = build_action_aftermath_line(action_label="MOVE")
-    assert line == "MOVE | DMG 0"
+    assert line == "MOVE"
+
+
+def test_elimination_is_distinct_from_suppression_and_aid_is_not_an_attack():
+    line=build_action_aftermath_line(action_label="FIRE",damage=4,defeated_target=True,status_applied="CRITICAL")
+    assert "HOSTILE DOWN" in line and "CRITICAL" in line
+    assert "SUPPRESSION" not in line
+    aid=build_action_aftermath_line(action_label="FIRST AID",status_applied="Restores 2 HP")
+    assert "DMG" not in aid and "Restores 2 HP" in aid
 
 
 def test_action_aftermath_line_appends_skill_check_outcome() -> None:

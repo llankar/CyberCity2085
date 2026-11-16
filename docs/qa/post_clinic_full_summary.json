@@ -1,0 +1,154 @@
+{
+  "scope": "Complete matrix after clinic bounds, before defense-opening spacing",
+  "combat_sources_sha256": "f96ad6fe761512e51af28ef71b153de4264c9a24417a7ad9419bbaac45227542",
+  "coverage_exact": true,
+  "summary": {
+    "victory": 957,
+    "defeat": 121,
+    "turn_limit": 20
+  },
+  "by_objective": {
+    "eliminate": {
+      "victory": 108,
+      "defeat": 10,
+      "turn_limit": 4
+    },
+    "extract": {
+      "victory": 119,
+      "turn_limit": 3
+    },
+    "data_theft": {
+      "victory": 120,
+      "turn_limit": 2
+    },
+    "sabotage": {
+      "victory": 120,
+      "turn_limit": 2
+    },
+    "recon_scan": {
+      "victory": 116,
+      "turn_limit": 5,
+      "defeat": 1
+    },
+    "civilian_rescue": {
+      "victory": 117,
+      "turn_limit": 3,
+      "defeat": 2
+    },
+    "defend": {
+      "victory": 118,
+      "defeat": 4
+    },
+    "containment": {
+      "defeat": 102,
+      "victory": 20
+    },
+    "assassination": {
+      "victory": 119,
+      "defeat": 2,
+      "turn_limit": 1
+    }
+  },
+  "limits": [
+    {
+      "map": "city_exterior_rooftop_access.png",
+      "objective": "recon_scan",
+      "streak": 0
+    },
+    {
+      "map": "city_industrial_power_substation.png",
+      "objective": "recon_scan",
+      "streak": 1
+    },
+    {
+      "map": "city_interior_safehouse.png",
+      "objective": "eliminate",
+      "streak": 1
+    },
+    {
+      "map": "city_interior_safehouse.png",
+      "objective": "assassination",
+      "streak": 3
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "eliminate",
+      "streak": 0
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "recon_scan",
+      "streak": 1
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "civilian_rescue",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_city_06_ruined_downtown.png",
+      "objective": "extract",
+      "streak": 1
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "eliminate",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "extract",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "data_theft",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "sabotage",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "recon_scan",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "civilian_rescue",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "eliminate",
+      "streak": 1
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "extract",
+      "streak": 1
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "data_theft",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "sabotage",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "recon_scan",
+      "streak": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "civilian_rescue",
+      "streak": 1
+    }
+  ]
+}

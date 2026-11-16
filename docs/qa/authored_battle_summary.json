@@ -1,0 +1,287 @@
+{
+  "combat_sources_sha256": "1671f0e044a8595f19ce1efa3005eda6171759c65fd7f865eb109eb6ebb18c4d",
+  "map_count": 122,
+  "battle_count": 1098,
+  "summary": {
+    "defeat": 118,
+    "victory": 947,
+    "turn_limit": 33
+  },
+  "coverage_exact": true,
+  "geometry_checked": true,
+  "by_objective": {
+    "eliminate": {
+      "defeat": 9,
+      "victory": 106,
+      "turn_limit": 7
+    },
+    "extract": {
+      "victory": 118,
+      "turn_limit": 4
+    },
+    "data_theft": {
+      "victory": 118,
+      "turn_limit": 4
+    },
+    "sabotage": {
+      "victory": 118,
+      "turn_limit": 4
+    },
+    "recon_scan": {
+      "victory": 114,
+      "turn_limit": 6,
+      "defeat": 2
+    },
+    "civilian_rescue": {
+      "victory": 114,
+      "turn_limit": 5,
+      "defeat": 3
+    },
+    "defend": {
+      "victory": 120,
+      "defeat": 2
+    },
+    "containment": {
+      "defeat": 98,
+      "victory": 24
+    },
+    "assassination": {
+      "victory": 115,
+      "defeat": 4,
+      "turn_limit": 3
+    }
+  },
+  "limited_runs": [
+    {
+      "map": "city_industrial_data_vault.png",
+      "objective": "eliminate",
+      "theme": "corp_37_robot",
+      "survivors": 2,
+      "allied_losses": 2
+    },
+    {
+      "map": "city_industrial_power_substation.png",
+      "objective": "recon_scan",
+      "theme": "corp_37_robot",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "city_industrial_power_substation.png",
+      "objective": "civilian_rescue",
+      "theme": "corp_37_robot",
+      "survivors": 0,
+      "allied_losses": 0
+    },
+    {
+      "map": "city_interior_safehouse.png",
+      "objective": "eliminate",
+      "theme": "novatek_hybrid",
+      "survivors": 3,
+      "allied_losses": 2
+    },
+    {
+      "map": "city_interior_safehouse.png",
+      "objective": "assassination",
+      "theme": "novatek_hybrid",
+      "survivors": 5,
+      "allied_losses": 2
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "eliminate",
+      "theme": "raider",
+      "survivors": 3,
+      "allied_losses": 2
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "recon_scan",
+      "theme": "raider",
+      "survivors": 5,
+      "allied_losses": 2
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "civilian_rescue",
+      "theme": "raider",
+      "survivors": 6,
+      "allied_losses": 1
+    },
+    {
+      "map": "wasteland_city_06_ruined_downtown.png",
+      "objective": "extract",
+      "theme": "mutant",
+      "survivors": 5,
+      "allied_losses": 2
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "eliminate",
+      "theme": "starver",
+      "survivors": 3,
+      "allied_losses": 1
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "extract",
+      "theme": "starver",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "data_theft",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "sabotage",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "recon_scan",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "civilian_rescue",
+      "theme": "starver",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "assassination",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 1
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "eliminate",
+      "theme": "mutant",
+      "survivors": 4,
+      "allied_losses": 1
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "extract",
+      "theme": "mutant",
+      "survivors": 1,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "data_theft",
+      "theme": "mutant",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "sabotage",
+      "theme": "mutant",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "recon_scan",
+      "theme": "mutant",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "civilian_rescue",
+      "theme": "mutant",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "eliminate",
+      "theme": "mutant",
+      "survivors": 4,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "extract",
+      "theme": "mutant",
+      "survivors": 5,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "data_theft",
+      "theme": "mutant",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "sabotage",
+      "theme": "mutant",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "recon_scan",
+      "theme": "mutant",
+      "survivors": 4,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective": "civilian_rescue",
+      "theme": "mutant",
+      "survivors": 3,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "eliminate",
+      "theme": "starver",
+      "survivors": 4,
+      "allied_losses": 1
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "data_theft",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "sabotage",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "recon_scan",
+      "theme": "starver",
+      "survivors": 2,
+      "allied_losses": 0
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "assassination",
+      "theme": "starver",
+      "survivors": 4,
+      "allied_losses": 1
+    }
+  ]
+}

@@ -409,6 +409,54 @@
           331
         ]
       ]
+    },
+    {
+      "id": "outside_top_margin",
+      "kind": "unplayable_margin",
+      "blocks_sight": false,
+      "rect": [
+        0,
+        0,
+        960,
+        18
+      ]
+    },
+    {
+      "id": "outside_bottom_margin",
+      "kind": "unplayable_margin",
+      "blocks_sight": false,
+      "rect": [
+        0,
+        507,
+        960,
+        540
+      ]
+    },
+    {
+      "id": "outside_west_margin",
+      "kind": "unplayable_margin",
+      "blocks_sight": false,
+      "rect": [
+        0,
+        18,
+        23,
+        507
+      ]
+    },
+    {
+      "id": "outside_east_margin",
+      "kind": "unplayable_margin",
+      "blocks_sight": false,
+      "rect": [
+        946,
+        18,
+        960,
+        507
+      ]
     }
-  ]
+  ],
+  "boundary_review": {
+    "date": "2026-11-15",
+    "reason": "Exclude the dark margin beyond the outer clinic walls; preserve the existing 34 obstacle traces and visible interior floor."
+  }
 }

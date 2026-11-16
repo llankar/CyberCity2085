@@ -12,6 +12,7 @@ from game.combat.battlefield import (
     reachable_objective_positions,
 )
 from game.map_terrain import build_terrain_profile
+from game.combat.encounter_placement import fit_encounter
 
 
 def representative_maps():
@@ -26,6 +27,10 @@ def test_real_map_preserves_mission_approach_and_every_sequential_anchor(entry):
     spawn = (96, 64)
     anchors = (spawn, (160, 64), (640, 448), (448, 320), (320, 224))
     terrain = build_terrain_profile(entry.path, 1280, 720, forced_walkable=anchors[:3])
+    if terrain.source == "manual_wall_traces_v1":
+        placed = fit_encounter(terrain, anchors[:2], anchors[2:3], anchors[3:])
+        anchors = (*placed.allies, *placed.enemies, *placed.objectives)
+        spawn = placed.allies[0]
     terrain, lanes = connect_inferred_terrain(terrain, anchors)
     resolved = reachable_objective_positions(anchors[3:], spawn, terrain)
     # Inferred maps must preserve the authored mission distance, not collapse

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import deque
-from collections.abc import Iterable
+from collections.abc import Iterable, Callable
 from typing import Literal, Protocol
 
 from game.unit import Unit
@@ -135,6 +135,7 @@ def path_to_cell(
     enemy_units: Iterable[Unit] | None = None,
     exclude: Unit | None = None,
     movement_mode: MovementMode = "tactical_grid",
+    can_enter: Callable[[int, int], bool] | None = None,
 ) -> list[tuple[int, int]] | None:
     """Return the shortest cardinal path from ``start`` to ``goal``, if reachable."""
     if start == goal:
@@ -170,6 +171,8 @@ def path_to_cell(
                 exclude=exclude,
                 movement_mode=movement_mode,
             ):
+                continue
+            if can_enter is not None and not can_enter(next_x, next_y):
                 continue
             previous[cell] = (x, y)
             if cell == goal:

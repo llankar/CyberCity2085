@@ -13,7 +13,7 @@ import shutil
 import subprocess
 import re
 import string
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -41,6 +41,7 @@ class GodotCombatLaunchResult:
     message: str
     combat_result: dict[str, Any] | None = None
     process_pid: int | None = None
+    process: Any = field(default=None, repr=False, compare=False)
 
     @property
     def ready_for_godot(self) -> bool:
@@ -391,6 +392,12 @@ def launch_godot_combat_ui(
               Arcade's event loop will be frozen for the duration — this is
               intentional since the player is inside the Godot combat window.
     """
+    if wait and start_process:
+        return launch_godot_combat_ui_blocking(
+            game_state, mission, handoff_path=handoff_path, executable=executable
+        )
+    # Remove stale results so a new battle cannot apply the previous reward twice.
+    RESULT_JSON_PATH.unlink(missing_ok=True)
     # Remove stale IPC files so we don't accidentally read previous mission data
     ipc_result_path = Path("runtime/godot_combat/ipc_result.json")
     if ipc_result_path.exists():
@@ -412,20 +419,6 @@ def launch_godot_combat_ui(
             path, command, False, "Godot combat UI command prepared."
         )
     try:
-        if wait:
-            from game.audio import SoundManager
-            SoundManager.get().stop_music()
-            subprocess.run(command, check=False)
-            # Read from IPC pipe or standard result file
-            ipc_result = read_godot_combat_result(ipc_result_path)
-            if not ipc_result:
-                # Fallback to old method for backwards compatibility
-                return GodotCombatLaunchResult(
-                    path, command, True, "Godot combat UI completed (no IPC result).", None
-                )
-            return GodotCombatLaunchResult(
-                path, command, True, "Godot combat UI completed.", ipc_result
-            )
         proc = subprocess.Popen(command)
     except OSError as exc:
         return GodotCombatLaunchResult(
@@ -434,7 +427,7 @@ def launch_godot_combat_ui(
     from game.audio import SoundManager
     SoundManager.get().stop_music()
     return GodotCombatLaunchResult(
-        path, command, True, "Godot combat UI launched.", process_pid=proc.pid
+        path, command, True, "Godot combat UI launched.", process_pid=proc.pid, process=proc
     )
 
 
@@ -444,80 +437,58 @@ def launch_godot_combat_ui_blocking(
     *,
     handoff_path: Path | str = DEFAULT_HANDOFF_PATH,
     executable: str | None = None,
+    timeout: float | None = None,
 ) -> GodotCombatLaunchResult:
-    """Prepare the Godot handoff and block until combat completes.
+    """Compatibility API: wait for a result or child exit, without an OS pipe.
 
-    This method sets up IPC pipes for two-way communication between Python
-    and Godot during the combat session. When Godot finishes, it writes a result
-    JSON file that this method will read before returning control to Python.
-
-    Args:
-        game_state: Current campaign state with characters and assets.
-        mission: Mission template defining the combat scenario.
-        executable: Path to Godot executable (optional).
-
-    Returns:
-        GodotCombatLaunchResult with combat_result populated if Godot completed.
+    The campaign UI uses the nonblocking handoff view. This API has no arbitrary
+    battle time limit by default; callers may supply an explicit timeout.
     """
-    from .godot_ipc import start_ipc_server, read_ipc_result_blocking, cleanup_ipc_files
-    from pathlib import Path as GamePath
+    import time
+    from .godot_ipc import start_ipc_server, read_ipc_result, cleanup_ipc_files
 
-    game_state_dir = GamePath.cwd()
-    handoff_path = GamePath(handoff_path)
-    parent_dir = handoff_path.parent
-    parent_dir.mkdir(parents=True, exist_ok=True)
-
-    # Start IPC server for two-way communication
-    ipc_socket, pipe_path_str = start_ipc_server(parent_dir)
-    
-    copy_audio_assets()
-    
-    # Write handoff JSON with IPC pipe path so Godot can signal completion to Python
-    path = write_godot_combat_handoff(
-        game_state, mission, handoff_path=handoff_path, ipc_pipe_path=pipe_path_str
-    )
-    command = build_godot_combat_command(path, executable=executable, project_dir=GODOT_COMBAT_PROJECT_DIR)
-    
-    if not command:
-        cleanup_ipc_files(parent_dir)
-        return GodotCombatLaunchResult(
-            path, [], False, "Godot handoff created; install Godot to launch combat."
-        )
-
+    path = Path(handoff_path)
+    directory = path.parent
+    command = []
+    proc = None
     try:
-        # Launch Godot in background
+        _, signal_path = start_ipc_server(directory)
+        copy_audio_assets()
+        path = write_godot_combat_handoff(
+            game_state, mission, handoff_path=path, ipc_pipe_path=signal_path
+        )
+        command = build_godot_combat_command(path, executable=executable)
+        if not command:
+            return GodotCombatLaunchResult(path, [], False, "Godot unavailable; use Arcade fallback.")
         proc = subprocess.Popen(command)
         from game.audio import SoundManager
         SoundManager.get().stop_music()
-        
-        # Wait for Godot to complete and write result file
-        import time
-        timeout = 300.0  # 5 minutes max wait
-        start_time = time.time()
-        combat_result = None
-        
-        while (time.time() - start_time) < timeout:
-            # Check if result file exists via IPC
-            result = read_ipc_result_blocking(parent_dir, timeout=timeout - (time.time() - start_time))
+        deadline = time.monotonic() + max(0, timeout) if timeout is not None else None
+        while True:
+            result = read_ipc_result(directory)
             if result is not None:
-                combat_result = result
-                break
-            time.sleep(0.2)
-
-        # Clean up IPC files
-        cleanup_ipc_files(parent_dir)
-        
-        if combat_result is None:
-            return GodotCombatLaunchResult(
-                path, command, False, f"Godot combat timed out after {int(timeout)}s."
-            )
-
-        return GodotCombatLaunchResult(
-            path, command, True, "Godot combat UI completed.", combat_result=combat_result
-        )
-
-    except Exception as exc:
-        cleanup_ipc_files(parent_dir)
-        return GodotCombatLaunchResult(
-            path, command, False, f"Godot launch error: {exc}"
-        )
+                return GodotCombatLaunchResult(path, command, True, "Godot combat UI completed.", combat_result=result)
+            code = proc.poll()
+            if code is not None:
+                # One final read in case the child published just before exiting.
+                result = read_ipc_result(directory)
+                if result is not None:
+                    return GodotCombatLaunchResult(path, command, True, "Godot combat UI completed.", combat_result=result)
+                return GodotCombatLaunchResult(path, command, False, f"Godot exited ({code}) without a combat result; use Arcade fallback.")
+            if deadline is not None and time.monotonic() >= deadline:
+                return GodotCombatLaunchResult(path, command, False, "Godot combat timed out; use Arcade fallback.")
+            time.sleep(0.05)
+    except (OSError, ValueError) as exc:
+        return GodotCombatLaunchResult(path, command, False, f"Godot launch error: {exc}")
+    finally:
+        if proc is not None and proc.poll() is None:
+            proc.terminate()
+            try:
+                proc.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait(timeout=5)
+        try:
+            cleanup_ipc_files(directory)
+        except OSError:
+            pass

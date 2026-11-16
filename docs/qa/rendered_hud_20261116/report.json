@@ -1,0 +1,36 @@
+{
+  "scope": "Two constructed post-deployment defense frames; no desktop capture or human playthrough",
+  "audio_mocked": true,
+  "frames": [
+    {
+      "logical_size": [
+        1280,
+        720
+      ],
+      "framebuffer_size": [
+        1920,
+        1080
+      ],
+      "image": "docs\\qa\\rendered_hud_20261116\\tactical_snapshot_1280_fixed.png",
+      "sha256": "1dbf416f2a5a9e2e3e249f95c051c89c3cff8922c994b2a1b736b1eea4a2ab43",
+      "renderer": "real Arcade/OpenGL",
+      "visible_window": false
+    },
+    {
+      "logical_size": [
+        960,
+        640
+      ],
+      "framebuffer_size": [
+        1440,
+        960
+      ],
+      "image": "docs\\qa\\rendered_hud_20261116\\tactical_snapshot_960_fixed.png",
+      "sha256": "0b7826716b8c6c6a20a3e3cad43868be3b05f1f15f7f6fc45086d43c0a11b5df",
+      "renderer": "real Arcade/OpenGL",
+      "visible_window": false
+    }
+  ],
+  "fixed": "psi indicator uninitialized variable; oversized badges; journal/timeline overlap",
+  "remaining": "lower status/action panel overlap; top header congestion; units beneath reserved HUD/fog; more scenarios and live controls unverified"
+}

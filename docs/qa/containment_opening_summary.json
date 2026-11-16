@@ -1,0 +1,34 @@
+{
+  "scope": "122 authored containment battles; four rifle agents, seed 0, 60 turns; not human balance proof",
+  "combat_sources_sha256": "f2703cb898d6242202461cc873d8051c33ee9be95d3331f15759fdcb70c32ddf",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "before": {
+    "defeat": 102,
+    "victory": 20
+  },
+  "after": {
+    "defeat": 99,
+    "victory": 21,
+    "turn_limit": 2
+  },
+  "shallow_8_enemy_placement_cases": [
+    {
+      "map": "city_exterior_elevated_freeway.png",
+      "size": [
+        1280,
+        720
+      ],
+      "minimum_steps": 2
+    },
+    {
+      "map": "city_exterior_elevated_freeway.png",
+      "size": [
+        960,
+        640
+      ],
+      "minimum_steps": 1
+    }
+  ],
+  "first_turn_defeats": 1
+}

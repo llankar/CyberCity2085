@@ -37,6 +37,8 @@ class EnemyIntent:
     target_name: str
     rationale: str
     color: tuple[int, int, int]
+    coordinator: object | None = None
+    destination: tuple[int, int] | None = None
 
 
 _GENERIC = TacticalProfile(
@@ -47,27 +49,27 @@ _GENERIC = TacticalProfile(
 _PROFILES: dict[str, TacticalProfile] = {
     "generic": _GENERIC,
     "starver": TacticalProfile(
-        "starver", "HUNGRY PACK", "Rush the nearest living target and overwhelm objectives.",
+        "starver", "HUNGRY PACK", "Fast melee pack: +1 stride, stronger bites. A damaging bite has a 0.5% incurable infection risk: conversion in 3 strategic days. Screen lanes and use overwatch.",
         10, 0, 0, 5, 0.0, 0.0, 1.4, (255, 82, 64),
     ),
     "mutant": TacticalProfile(
-        "mutant", "MUTANT BRUTE", "Breach the line and force close combat.",
+        "mutant", "MUTANT BRUTE", "Brutes breach the line; specialists mark a tile for 2 AP sludge denial. Leave the mark or break sight before release.",
         15, 0, 5, 4, 0.0, 0.0, 1.2, (220, 100, 255),
     ),
     "raider": TacticalProfile(
-        "raider", "RAIDER", "Circle cover, isolate weak agents, and take opportunistic flanks.",
+        "raider", "RAIDER", "Hunt isolated agents; fire then spend the remaining AP on a safer position. Regroup within 3 tiles or trap the exit with overwatch.",
         28, 8, 15, 2, 0.6, 1.4, 0.8, (255, 176, 72),
     ),
     "corp_samurai": TacticalProfile(
-        "corp_samurai", "CORP STRIKE", "Use disciplined cover and eliminate battlefield specialists.",
+        "corp_samurai", "CORP STRIKE", "Hunt specialists from cover. Command link (4 tiles): focus fire; heavies suppress for 2 AP. Robot elites/commanders lock a 2 AP precision shot: move the marked target or break sight to spoil aim.",
         16, 28, 10, 1, 1.4, 1.3, 0.8, (80, 190, 255),
     ),
     "corp_37": TacticalProfile(
-        "corp_37", "THREE SEVENS", "Advance under command cohesion and seize mission objectives.",
+        "corp_37", "THREE SEVENS", "Seize objectives under command cohesion. Command link (4 tiles): focus fire; heavies suppress for 2 AP. Robot elites/commanders lock a 2 AP precision shot: move the marked target or break sight to spoil aim.",
         18, 20, 8, 2, 1.0, 1.0, 1.5, (255, 70, 120),
     ),
     "novatek_hybrid": TacticalProfile(
-        "novatek_hybrid", "NOVATEK HYBRID", "Hunt wounded agents with unstable close-range aggression.",
+        "novatek_hybrid", "NOVATEK HYBRID", "Hunt wounded agents. Elites/commanders lock a 2 AP precision shot (+2 attack, 30% crit). Move the marked target or break sight: aim is spoiled and costs 1 AP.",
         38, 5, 12, 3, 0.0, 0.4, 1.1, (120, 255, 170),
     ),
 }
@@ -164,101 +166,19 @@ def predict_enemy_intent(
     profile = profile_for_theme(getattr(enemy, "enemy_theme", "generic"))
     living = [unit for unit in player_units if int(getattr(unit, "health", 0)) > 0]
     
-    # Use enemy plan system for strategic intent prediction
+    template = None
     if EnemyPlanTemplate is not None:
-        # Get context from game state
-        has_objectives = objective is not None and str(getattr(objective, "kind", "")).lower() in {"defend", "containment"}
-        specialist_threat = any(
-            hasattr(unit, 'character') and 
-            getattr(unit, 'character', None) is not None and
-            str(getattr(unit.character, 'role', '')).lower() in {'psi', 'sniper', 'commander'}
-            for unit in living
-        )
-        
-        # Get best plan for this enemy based on context
         template = get_best_plan_for_enemy(
-            enemy_theme=enemy.enemy_theme if hasattr(enemy, "enemy_theme") else "generic",
+            enemy_theme=getattr(enemy, "enemy_theme", "generic"),
             player_units_count=len(living),
-            has_objectives=has_objectives,
-            specialist_threat=specialist_threat
+            has_objectives=objective is not None and not bool(getattr(objective, "completed", False)),
+            specialist_threat=any(
+                str(getattr(getattr(unit, "character", None), "role", "")).lower()
+                in {"psi", "sniper", "commander"} for unit in living
+            ),
         )
-        
-        # Derive intent from plan type
-        plan_key = template.key.lower()
-        target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-        
-        if "objective" in plan_key:
-            action, rationale = "SEIZE", f"{template.label}: {template.description}"
-        elif "specialist" in plan_key or "hunter" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None)
-            if target is None:
-                action, rationale = "HOLD", f"Wait for specialist opportunity"
-            else:
-                dist = float(enemy.distance_to(target))
-                if dist <= 32:
-                    action, rationale = "STRIKE", f"Hunter Kill on {_target_name(target)}"
-                else:
-                    action, rationale = "FIRE", f"Eliminate {_target_name(target)} (specialist)"
-        elif "swarm" in plan_key or "tide" in plan_key or "starver" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "RUSH", f"Tide assault on {_target_name(target)}"
-            else:
-                action, rationale = "HOLD", "Overwhelming numbers ready"
-        elif "breach" in plan_key or "charge" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "BREACH", f"Mutant charge on {_target_name(target)}"
-            else:
-                action, rationale = "AVANCE", "Close assault position"
-        elif "isolate" in plan_key or "circle" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "FLANK", f"Isolate {_target_name(target)}"
-            else:
-                action, rationale = "HUNT", "Seek isolated target"
-        elif "cover" in plan_key and "advance" in plan_key:
-            action, rationale = "COVER_ADVANCE", f"Methodical advance ({template.label})"
-        elif "pressure" in plan_key or "assault" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "PRESSURE", f"Frontal attack on {_target_name(target)}"
-            else:
-                action, rationale = "ADVANCE", "Prepare assault"
-        elif "hunt" in plan_key and "wounded" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "HUNT_WOUNDED", f"Hybrid hunt on {_target_name(target)}"
-            else:
-                action, rationale = "SEARCH", "Look for wounded targets"
-        elif "hunt" in plan_key:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                action, rationale = "HUNT", f"Hunt on {_target_name(target)}"
-            else:
-                action, rationale = "SEARCH", "Seek targets"
-        else:
-            target = max(living, key=lambda u: tactical_target_score(enemy, u), default=None) if living else None
-            if target is not None:
-                dist = float(enemy.distance_to(target))
-                if dist <= 32:
-                    action, rationale = "EXECUTE_PLAN", f"Execute {template.label}"
-                elif dist <= template.attack_range if hasattr(template, 'attack_range') else 96:
-                    action, rationale = "EXECUTE_PLAN", f"Attack range - {template.label}"
-                else:
-                    action, rationale = "EXECUTE_PLAN", f"Advance - {template.label}"
-            else:
-                action, rationale = "HOLD", f"{template.label}: Waiting for opportunity"
-        
-        return EnemyIntent(enemy, action, target, _target_name(target), rationale, profile.color)
-    
-    # Fallback to original doctrine-based prediction if plans not available
+
+    # Describe an immediate priority; the strategic label is context, not an action.
     target = max(living, key=lambda unit: tactical_target_score(enemy, unit), default=None)
     if target is None:
         return EnemyIntent(enemy, "HOLD", None, "none", "No viable target", profile.color)
@@ -273,13 +193,21 @@ def predict_enemy_intent(
             action, rationale = "FLANK", f"Break {_target_name(target)}'s cover"
         else:
             action, rationale = "FIRE", f"Ranged attack on {_target_name(target)}"
-    elif objective_kind in {"defend", "containment"} and profile.objective_bias >= 1.1:
+    elif objective_kind in {"defend", "containment", "extract", "data_theft", "sabotage", "civilian_rescue", "recon_scan"} and not bool(getattr(objective, "completed", False)) and profile.objective_bias >= 1.1:
         action, rationale = "BREACH", f"Pressure {objective_kind} objective"
         target = None
+    elif profile.key == "starver":
+        action, rationale = "RUSH", f"Tide assault on {_target_name(target)}"
+    elif profile.key == "mutant":
+        action, rationale = "BREACH", f"Charge toward {_target_name(target)}"
+    elif profile.key == "raider":
+        action, rationale = "FLANK", f"Isolate {_target_name(target)}"
     elif profile.cover_bias >= 1.0 and int(getattr(enemy, "in_cover_bonus", 0)) <= 0:
         action, rationale = "COVER", "Seek a protected firing position"
     else:
         action, rationale = "HUNT", f"Advance on {_target_name(target)}"
+    if template is not None:
+        rationale = f"{template.label}: {rationale}"
     return EnemyIntent(enemy, action, target, _target_name(target), rationale, profile.color)
 
 
@@ -289,6 +217,7 @@ def build_enemy_intents(
     *,
     objective: object | None = None,
 ) -> list[EnemyIntent]:
+    player_units = tuple(player_units)
     return [
         predict_enemy_intent(enemy, player_units, objective=objective)
         for enemy in enemy_units

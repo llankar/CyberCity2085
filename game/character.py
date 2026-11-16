@@ -33,6 +33,8 @@ class Character:
     savage_tags: list[str] = field(default_factory=list)
     temporary_scars: list[dict] = field(default_factory=list)
     recovery_turns: int = 0
+    starver_infection_days: int | None = None
+    starver_transformed: bool = False
     loadout: AgentLoadout = field(default_factory=AgentLoadout)
     personality_primary_trait: str = ""
     personality_secondary_trait: str = ""
@@ -65,6 +67,8 @@ class Character:
             "savage_tags": list(self.savage_tags),
             "temporary_scars": [dict(scar) for scar in self.temporary_scars],
             "recovery_turns": self.recovery_turns,
+            "starver_infection_days": self.starver_infection_days,
+            "starver_transformed": self.starver_transformed,
             "loadout": self.loadout.to_dict(),
             "personality_primary_trait": self.personality_primary_trait,
             "personality_secondary_trait": self.personality_secondary_trait,
@@ -107,6 +111,8 @@ class Character:
             savage_tags=list(data.get("savage_tags", [])),
             temporary_scars=[dict(scar) for scar in data.get("temporary_scars", [])],
             recovery_turns=data.get("recovery_turns", 0),
+            starver_infection_days=data.get("starver_infection_days"),
+            starver_transformed=bool(data.get("starver_transformed", False)),
             loadout=AgentLoadout.from_dict(data.get("loadout")),
             personality_primary_trait=str(data.get("personality_primary_trait", "")),
             personality_secondary_trait=str(data.get("personality_secondary_trait", "")),
@@ -131,4 +137,4 @@ class Character:
 
 def is_deployable(character: Character) -> bool:
     """Return whether an agent can currently be assigned to a mission."""
-    return character.stats.hp > 0 and character.recovery_turns <= 0
+    return character.stats.hp > 0 and character.recovery_turns <= 0 and not character.starver_transformed

@@ -1,0 +1,51 @@
+{
+  "scope": "122 authored defense encounters, four rifle agents, seed 0, 60-turn cap; automated policy, not human balance proof",
+  "combat_sources_sha256": "55e87b7d8e5d3504189dcbfa8d0e811f3c1968bd2e4fcfc61b4c74c8bcf6a079",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "summary": {
+    "victory": 118,
+    "defeat": 4
+  },
+  "changed_cases": [
+    {
+      "map": "city_industrial_power_substation.png",
+      "before": "defeat",
+      "before_turns": 2,
+      "after": "defeat",
+      "after_turns": 3
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "before": "defeat",
+      "before_turns": 1,
+      "after": "defeat",
+      "after_turns": 2
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "before": "defeat",
+      "before_turns": 1,
+      "after": "defeat",
+      "after_turns": 2
+    }
+  ],
+  "defeats": [
+    {
+      "map": "city_industrial_power_substation.png",
+      "turns": 3
+    },
+    {
+      "map": "cybercity_street_08_elevated_freeway.png",
+      "turns": 3
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "turns": 2
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "turns": 2
+    }
+  ]
+}

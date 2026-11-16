@@ -401,6 +401,7 @@ func _load_handoff() -> void:
 		status_line = "Handoff JSON unreadable."
 		return
 	handoff = parsed
+	ipc_pipe_path = str(handoff.get("ipc_pipe_path", ipc_pipe_path))
 	var base_from_json := str(handoff.get("asset_base_dir", "")).strip_edges()
 	if base_from_json != "":
 		project_root = base_from_json

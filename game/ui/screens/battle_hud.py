@@ -82,67 +82,21 @@ def battle_shortcut_banner(input_mode: str, selecting_target: bool, pending_end_
     return "Active shortcuts: " + " | ".join(hints)
 
 
-def _draw_top_centered_banner(
-    width: int,
-    height: int,
-    text: str,
-    *,
-    bottom_offset: int,
-    banner_ratio: float,
-    min_width: int,
-    max_width: int | None = None,
-    text_color=palette.TEXT,
-    font_size: int = 10,
-) -> None:
-    banner_cap = width - 24
-    if max_width is not None:
-        banner_cap = min(banner_cap, max_width)
-    banner_w = min(banner_cap, max(min_width, int(width * banner_ratio)))
-    left = (width - banner_w) // 2
-    right = left + banner_w
-    bottom = max(0, height - bottom_offset)
-    top = bottom + 24
-    arcade.draw_lrbt_rectangle_filled(left, right, bottom, top, (0, 0, 0, 175))
-    arcade.draw_line(left, top, right, top, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_text(
-        text,
-        width // 2,
-        bottom + 12,
-        text_color,
-        font_size,
-        anchor_x="center",
-        anchor_y="center",
-    )
+def _draw_footer_banner(width, text, color):
+    arcade.draw_lrbt_rectangle_filled(0,width,0,18,(4,12,18,255))
+    arcade.draw_line(0,18,width,18,palette.PANEL_BORDER_MUTED,1)
+    arcade.draw_text(text,width//2,9,color,font_size=12,anchor_x="center",anchor_y="center")
 
 
 def draw_battle_shortcut_banner(width: int, height: int, text: str) -> None:
-    """Draw a thin contextual shortcut banner at the top-center of the screen."""
-    _draw_top_centered_banner(
-        width,
-        height,
-        text,
-        bottom_offset=60,
-        banner_ratio=0.62,
-        min_width=620,
-        font_size=12,
-    )
+    """Contextual controls in the reserved footer, away from header panels."""
+    _draw_footer_banner(width,text,palette.TEXT)
 
 
 def draw_action_aftermath_line(width: int, height: int, text: str | None) -> None:
-    """Draw a fixed HUD slot for temporary action-causality feedback."""
-    if not text:
-        return
-    _draw_top_centered_banner(
-        width,
-        height,
-        text,
-        bottom_offset=88,
-        banner_ratio=0.42,
-        min_width=320,
-        max_width=680,
-        text_color=palette.TACTICAL_GREEN,
-        font_size=12,
-    )
+    """Transient causal feedback replaces footer hints while active."""
+    if text:
+        _draw_footer_banner(width,text,palette.TACTICAL_GREEN)
 
 
 def draw_enemy_intents(
@@ -150,22 +104,53 @@ def draw_enemy_intents(
     player_units: list["Unit"],
     objective: object | None,
     elapsed: float,
+    *,
+    reserved_intents: list[EnemyIntent] | None = None,
+    label_boxes=None,
+    label_bounds=None,
 ) -> list[EnemyIntent]:
     """Draw reliable next-action telegraphs above visible enemies."""
 
-    intents = build_enemy_intents(enemy_units, player_units, objective=objective)
+    intents = reserved_intents if reserved_intents is not None else build_enemy_intents(enemy_units, player_units, objective=objective)
     pulse = 0.78 + 0.22 * math.sin(elapsed * 4.0)
+    from game.ui.components.combat.world_labels import place_caption
+    label_boxes = [] if label_boxes is None else label_boxes
     for intent in intents:
+        if not getattr(intent.enemy, "visible", True) or intent.enemy.health <= 0:
+            continue
         x, y = intent.enemy.position
         color = (*intent.color, int(230 * pulse))
         if intent.target is not None:
             tx, ty = intent.target.position
             arcade.draw_line(x, y, tx, ty, (*intent.color, 70), 1)
-        label = f"{intent.action}  {intent.target_name.upper()}"
-        width = max(88, min(170, 18 + len(label) * 6))
-        arcade.draw_lrbt_rectangle_filled(x - width / 2, x + width / 2, y + 34, y + 54, (4, 10, 14, 215))
-        arcade.draw_lrbt_rectangle_outline(x - width / 2, x + width / 2, y + 34, y + 54, color, 1)
-        arcade.draw_text(label, x, y + 44, color, font_size=8, bold=True, anchor_x="center", anchor_y="center")
+        if intent.coordinator is not None and getattr(intent.coordinator, "visible", True):
+            cx, cy = intent.coordinator.position
+            arcade.draw_line(x, y, cx, cy, (80, 190, 255, 100), 1)
+        if intent.destination is not None:
+            dx, dy = intent.destination
+            arcade.draw_line(x, y, dx, dy, (*intent.color, 100), 1)
+            arcade.draw_circle_outline(dx, dy, 6, (*intent.color, 180), 1)
+        interrupted = "! " if intent.rationale.startswith("INTERRUPTED") else ""
+        link = " [LINK]" if intent.coordinator is not None else ""
+        target_name = intent.target_name.upper()
+        if len(target_name) > 18:
+            target_name = target_name[:15]+"..."
+        label = f"{interrupted}{intent.action}  {target_name}{link}"
+        hint = "2 AP / 30% CRIT - MOVE OR CUT SIGHT" if intent.action == "LOCK" else ""
+        width = max(88, 16+len(label)*7, 16+len(hint)*6)
+        box = place_caption(x, y+34, width, label_boxes,
+                            height=40 if hint else 22, bounds=label_bounds)
+        if box is None:
+            continue
+        left,bottom,right,top = box
+        cx = (left+right)/2
+        arcade.draw_line(x,y+16,cx,bottom,(*intent.color,160),1)
+        arcade.draw_lrbt_rectangle_filled(left,right,bottom,top,(4,10,14,235))
+        arcade.draw_lrbt_rectangle_outline(left,right,bottom,top,color,1)
+        arcade.draw_text(label,cx,top-11,color,font_size=8,bold=True,
+                         anchor_x="center",anchor_y="center")
+        if hint:
+            arcade.draw_text(hint,cx,bottom+6,color,font_size=7,anchor_x="center")
     return intents
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -359,19 +344,34 @@ def draw_access_lanes(cells) -> None:
         arcade.draw_line(x - 8, y - 8, x + 8, y - 8, (75, 185, 205, 130), 1)
 
 
-def draw_hazard_zones(zones) -> None:
+def _draw_world_caption(text, x, y, color, occupied, bounds=None) -> None:
+    from game.ui.components.combat.world_labels import place_caption
+    width = max(100, len(text)*7+16)
+    box = place_caption(x, y, width, occupied, bounds=bounds)
+    if box is None:
+        return
+    left, bottom, right, top = box
+    arcade.draw_line(x, y-4, (left+right)/2, bottom, (*color[:3], 170), 1)
+    arcade.draw_lrbt_rectangle_filled(left, right, bottom, top, (4, 12, 18, 235))
+    arcade.draw_line(left, bottom, right, bottom, color, 1)
+    arcade.draw_text(text, (left+right)/2, bottom+6, color, font_size=8,
+                     bold=True, anchor_x="center")
+
+
+def draw_hazard_zones(zones, *, label_boxes=None, label_bounds=None) -> None:
     """Readable patterned zones with named consequences before commitment."""
-    colors = {"fire": (255, 110, 45), "contamination": (150, 220, 65), "blackout": (175, 125, 255)}
-    labels = {"fire": "FIRE -2 HP", "contamination": "TOXIC -1 HP", "blackout": "BLACKOUT -1 AP"}
+    colors = {"fire": (255, 110, 45), "contamination": (150, 220, 65), "blackout": (175, 125, 255), "sludge": (140, 225, 65)}
+    labels = {"fire": "FIRE -2 HP", "contamination": "TOXIC -1 HP", "blackout": "BLACKOUT -1 AP", "sludge": "SLUDGE -1 HP / -1 AP"}
+    label_boxes = [] if label_boxes is None else label_boxes
     for zone in zones:
         x, y = zone.position
-        radius = zone.radius_cells * CELL
+        radius = max(8, zone.radius_cells * CELL)
         col = colors[zone.kind]
         arcade.draw_circle_filled(x, y, radius, (*col, 35))
         arcade.draw_circle_outline(x, y, radius, (*col, 180), 2)
         arcade.draw_line(x - 8, y - 8, x + 8, y + 8, col, 2)
         arcade.draw_line(x - 8, y + 8, x + 8, y - 8, col, 2)
-        arcade.draw_text(labels[zone.kind], x, y + radius + 4, col, font_size=8, anchor_x="center")
+        _draw_world_caption(labels[zone.kind], x, y+radius+4, col, label_boxes, label_bounds)
 
 
 def draw_cover_nodes(cover_nodes: list) -> None:
@@ -532,25 +532,49 @@ def draw_unit_labels(
     player_units: list["Unit"],
     enemy_units:  list["Unit"],
     active_index: int,
+    *, label_boxes=None, label_bounds=None,
 ) -> None:
     """Draw HP bars and role labels above every unit sprite."""
-    for i, unit in enumerate(player_units):
+    label_boxes = [] if label_boxes is None else label_boxes
+    ordered = sorted(enumerate(player_units), key=lambda item: item[0] != active_index)
+    for i, unit in ordered:
         if not unit.sprite or not unit.stats:
             continue
-        _draw_unit_bar(unit, active=(i == active_index), is_enemy=False)
+        _draw_unit_bar(unit, active=(i == active_index), is_enemy=False, label_boxes=label_boxes, label_bounds=label_bounds)
     for unit in enemy_units:
         if not unit.sprite or not unit.stats:
             continue
-        _draw_unit_bar(unit, active=False, is_enemy=True)
+        _draw_unit_bar(unit, active=False, is_enemy=True, label_boxes=label_boxes, label_bounds=label_bounds)
 
 
-def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
+def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool, label_boxes=None, label_bounds=None) -> None:
     # Never draw labels/HP bar for enemies hidden in fog of war
     if is_enemy and not getattr(unit, "visible", True):
         return
-    cx   = unit.sprite.center_x
-    top  = unit.sprite.center_y + unit.sprite.height // 2 + 4
-    bw   = max(40, unit.sprite.width + 12)
+    anchor_x = unit.sprite.center_x
+    anchor_y = unit.sprite.center_y + unit.sprite.height // 2 + 4
+    name = (unit.character.name.split()[0] if unit.character else
+            unit.spec_ops_asset.name if unit.spec_ops_asset else unit.unit_type).upper()
+    if len(name) > 18:
+        name = name[:15]+"..."
+    if getattr(unit, "on_overwatch", False):
+        name += " / OW"
+    statuses = getattr(unit, "status_effects", [])
+    subtype = getattr(unit, "enemy_subtype", "") if is_enemy else ""
+    subtype_height = 12 if subtype and subtype != "grunt" else 0
+    bw = max(64, min(100, unit.sprite.width+12), len(name)*7+8, len(statuses)*24+8)
+    from game.ui.components.combat.world_labels import place_caption
+    boxes = [] if label_boxes is None else label_boxes
+    box = place_caption(
+        anchor_x, anchor_y-subtype_height-3, bw, boxes,
+        height=30+subtype_height+(14 if statuses else 0), bounds=label_bounds)
+    if box is None:
+        return
+    left, bottom, right, plate_top = box
+    cx = (left+right)/2
+    top = bottom+subtype_height+3
+    arcade.draw_line(anchor_x, anchor_y, cx, bottom, palette.PANEL_BORDER_MUTED, 1)
+    arcade.draw_lrbt_rectangle_filled(left, right, bottom, plate_top, (4, 12, 18, 225))
     bh   = 6
     lx   = cx - bw // 2
     rx   = cx + bw // 2
@@ -565,26 +589,10 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
     arcade.draw_line(lx, top + bh, rx, top + bh, palette.PANEL_BORDER_MUTED, 1)
 
     # Name
-    name = ""
-    if unit.character:
-        name = unit.character.name.split()[0].upper()
-    elif unit.spec_ops_asset:
-        name = unit.spec_ops_asset.name[:8].upper()
-    else:
-        name = unit.unit_type.upper()[:6]
     name_col = palette.HEADER if active else (
         palette.DANGER if is_enemy else palette.MUTED_TEXT
     )
-    # Overwatch indicator — yellow ◈ prefix
-    if getattr(unit, "on_overwatch", False):
-        arcade.draw_text(
-            "◈ OW",
-            cx, top + bh + 3,
-            _OVERWATCH_COL,
-            font_size=8, bold=True, anchor_x="center",
-        )
-    else:
-        arcade.draw_text(name, cx, top + bh + 3, name_col, font_size=9, anchor_x="center")
+    arcade.draw_text(name, cx, top+bh+3, name_col, font_size=8, bold=active, anchor_x="center")
 
     # Enemy subtype label (grunt / heavy / elite / commander) — shown below HP bar
     if is_enemy:
@@ -592,7 +600,7 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
         if subtype and subtype != "grunt":
             arcade.draw_text(
                 subtype.upper(),
-                cx, top - 2,
+                cx, bottom+2,
                 (*palette.DANGER[:3], 180),
                 font_size=7, anchor_x="center",
             )
@@ -607,12 +615,12 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
         "contaminated": ("CON", (90, 220, 120)),
         "panicked":   ("PAN", (255, 120, 220)),
     }
-    badge_x = cx - 12 * (len(status_effects) - 1) // 2
+    badge_x = cx - 12 * (len(status_effects) - 1)
     for effect in status_effects:
         badge_label, badge_col = _STATUS_BADGES.get(effect, (effect[:3].upper(), palette.WARNING))
         arcade.draw_text(
             badge_label,
-            badge_x, top + bh + 14,
+            badge_x, top + bh + 18,
             (*badge_col, 230),
             font_size=7, bold=True, anchor_x="center",
         )
@@ -622,6 +630,11 @@ def _draw_unit_bar(unit: "Unit", *, active: bool, is_enemy: bool) -> None:
 # ══════════════════════════════════════════════════════════════════════════════
 # Portrait strip — bottom edge, shows all player units
 # ══════════════════════════════════════════════════════════════════════════════
+
+def unit_status_panel_visible(width, unit_count):
+    total = unit_count*_STRIP_CARD_W + max(0,unit_count-1)*4
+    return total <= width-340
+
 
 def draw_unit_portrait_strip(
     player_units: list["Unit"],
@@ -642,6 +655,8 @@ def draw_unit_portrait_strip(
     n       = len(player_units)
     total_w = n * _STRIP_CARD_W + (n - 1) * 4
     start_x = (width - total_w) // 2
+    if unit_status_panel_visible(width,n):
+        start_x = max(324,start_x)
 
     # Strip background
     arcade.draw_lrbt_rectangle_filled(
@@ -710,16 +725,16 @@ def draw_unit_portrait_strip(
             )
 
         # Name (right of portrait)
-        tx = px + pp + 4
+        tx = cx + 4
         name = ""
         if unit.character:
-            name = unit.character.name.split()[0].upper()[:6]
+            name = unit.character.name.split()[0].upper()[:9]
         elif unit.spec_ops_asset:
-            name = unit.spec_ops_asset.name[:6].upper()
+            name = unit.spec_ops_asset.name[:9].upper()
         else:
             name = unit.unit_type.upper()[:5]
         arcade.draw_text(
-            name, tx, strip_y + _STRIP_H - 16,
+            name, tx, strip_y + 28,
             palette.TEXT if active else palette.MUTED_TEXT,
             font_size=8, bold=active,
         )
@@ -756,8 +771,9 @@ def draw_role_signature_indicator(
     )
     
     # Portrait center for drawing indicators
-    portrait_center_x = cx + _STRIP_CARD_W - 2
+    portrait_center_x = cx + _STRIP_CARD_W - 12
     portrait_center_y = strip_y + 15
+    num_points = 8
     
     # ─────────────────────────────────────────────────────────────────────────
     # SAMURAI: Breach/Guard stance indicator
@@ -765,13 +781,13 @@ def draw_role_signature_indicator(
     if sig.key == "samurai":
         # Stance ring above portrait
         stance_color = sig.mode_colors.get(
-            str(active_stance), 
+            getattr(active_stance, "value", str(active_stance)),
             (200, 200, 200)
         )
         
         # Outer glow ring with pulse
         pulse = 1.0 + 0.15 * math.sin(elapsed * 8.0)
-        ring_radius = int(36 / pulse) + 4
+        ring_radius = int(8 / pulse) + 1
         
         # Draw circle as line segments (arcade doesn't have native circles)
         num_points = 8
@@ -786,15 +802,15 @@ def draw_role_signature_indicator(
             arcade.draw_line(px, py, nx, ny, stance_color, 1.5)
         
         # Mode label above portrait
-        mode_label = str(active_stance).upper()
+        mode_label = getattr(active_stance, "value", str(active_stance)).upper()
         arcade.draw_text(
             mode_label,
-            portrait_center_x,
-            strip_y + _STRIP_H - 18,
+            cx + _STRIP_CARD_W - 4,
+            strip_y + _STRIP_H - 16,
             stance_color,
-            font_size=7,
+            font_size=6,
             bold=True,
-            anchor_x="center",
+            anchor_x="right",
         )
     
     # ─────────────────────────────────────────────────────────────────────────
@@ -802,7 +818,7 @@ def draw_role_signature_indicator(
     # ─────────────────────────────────────────────────────────────────────────
     elif sig.key == "psi":
         psi_color = sig.mode_colors.get(
-            str(active_psi), 
+            getattr(active_psi, "value", str(active_psi)),
             (200, 200, 200)
         )
         
@@ -810,7 +826,7 @@ def draw_role_signature_indicator(
         pulse = 1.0 + 0.1 * math.sin(elapsed * 10.0) if active_psi == PsiState.RISK else 1.0
         
         # Draw outer pulsing ring
-        ring_radius = int(36 / pulse) + 2
+        ring_radius = int(8 / pulse) + 1
         
         for i in range(num_points):
             angle = math.pi * 2 * i / num_points
@@ -822,7 +838,7 @@ def draw_role_signature_indicator(
             arcade.draw_line(px, py, nx, ny, psi_color, 1.5)
         
         # Inner core with psi symbol hint (concentric circle)
-        inner_radius = max(4, int(36 * 0.3 / pulse))
+        inner_radius = 3
         
         for i in range(num_points):
             angle = math.pi * 2 * i / num_points
@@ -838,11 +854,11 @@ def draw_role_signature_indicator(
         stress_color = psi_color if active_psi == PsiState.CONTROL else (255, 50, 50)
         arcade.draw_text(
             state_label,
-            portrait_center_x,
-            strip_y + _STRIP_H - 18,
+            cx + _STRIP_CARD_W - 4,
+            strip_y + _STRIP_H - 16,
             stress_color,
-            font_size=6,
-            anchor_x="center",
+            font_size=5,
+            anchor_x="right",
         )
     
     # ─────────────────────────────────────────────────────────────────────────
@@ -878,7 +894,7 @@ def draw_role_signature_indicator(
                 strip_y + _STRIP_H - 6,
                 (50, 180, 50),
                 font_size=6,
-                anchor_x="center",
+                anchor_x="right",
             )
     
     # ─────────────────────────────────────────────────────────────────────────
@@ -991,15 +1007,15 @@ def draw_attack_flash(
     hit: bool,
     flash_alpha: int,
 ) -> None:
-    """Draw a red (miss) or green (hit) screen-edge flash.
+    """Draw a restrained red edge cue for incoming damage.
 
     *flash_alpha* should be driven externally and fade over ~0.4 s.
     Call with flash_alpha=0 to skip drawing entirely.
     """
-    if flash_alpha <= 0:
+    if flash_alpha <= 0 or hit:
         return
-    col = (*palette.TACTICAL_GREEN[:3], flash_alpha) if hit else (*palette.DANGER[:3], flash_alpha)
-    edge = max(30, int(width * 0.06))
+    col = (*palette.DANGER[:3], min(60, flash_alpha))
+    edge = 8
     arcade.draw_lrbt_rectangle_filled(0,         edge,    0, height, col)
     arcade.draw_lrbt_rectangle_filled(width-edge, width,  0, height, col)
     arcade.draw_lrbt_rectangle_filled(0,  width, 0,          edge,   col)
@@ -1030,7 +1046,7 @@ def draw_phase_banner(
     # Background pill
     pill_w, pill_h = 230, 32
     px = width - pill_w - 12
-    py = height - 48
+    py = height - 84
     arcade.draw_lrbt_rectangle_filled(px, px + pill_w, py, py + pill_h, (0, 0, 0, 190))
     arcade.draw_line(px, py + pill_h, px + pill_w, py + pill_h, (*color[:3], int(200 * pulse)), 2)
     arcade.draw_line(px, py, px + 24, py, color, 1)
@@ -1047,34 +1063,17 @@ def draw_phase_banner(
         anchor_x="right", anchor_y="center",
     )
 
-    # Turn-number dot track
-    dot_x = px + 14
-    dot_y  = py + 10
-    for i in range(min(turn_number, 10)):
-        alpha = int(200 * pulse) if i < turn_number else 50
-        arcade.draw_lrbt_rectangle_filled(
-            dot_x + i * 16, dot_x + i * 16 + 10,
-            dot_y, dot_y + 10,
-            (*color[:3], alpha),
-        )
+    arcade.draw_lrbt_rectangle_filled(px+14,px+22,py+12,py+20,(*color[:3],int(220*pulse)))
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-# Unit detail panel — bottom-left, active unit stats
-# ══════════════════════════════════════════════════════════════════════════════
 
 def draw_unit_status_panel(
     _width: int, _height: int, unit: "Unit | None", turn: str
 ) -> None:
-    """Detailed stats panel for the active player unit — bottom-left corner.
-    
-    Positioned below the portrait strip (Y=210) and above the combat action bar (Y=18-130).
-    This fills the gap between Y=130 and Y=210, creating a clean HUD layout.
-    """
-    pw = 320
-    ph = 90
+    """Active stats in the upper lower-HUD row, beside the squad portrait strip."""
+    pw = 300
+    ph = 80
     px = 12
-    py = _COMBAT_BAR_TOP - ph  # Position au-dessus de la barre d'action mais en dessous du portrait strip (Y=130-90=Y=40)
+    py = _COMBAT_BAR_TOP
 
     # Top border colour indicates whose turn it is
     turn_col = _PHASE_PLAYER if turn == "player" else (_PHASE_ENEMY if turn == "enemy" else _PHASE_END)
@@ -1105,7 +1104,7 @@ def draw_unit_status_panel(
     }.get(role, palette.ROLE_SAMURAI)
 
     # Portrait
-    pp = 68
+    pp = 54
     arcade.draw_lrbt_rectangle_filled(px + 8, px + 8 + pp, py + 12, py + 12 + pp, palette.AGENT_PORTRAIT_FILL)
     arcade.draw_line(px + 8, py + 12 + pp, px + 8 + pp, py + 12 + pp, role_col, 2)
 
@@ -1124,42 +1123,74 @@ def draw_unit_status_panel(
         else unit.spec_ops_asset.name if unit.spec_ops_asset
         else unit.unit_type
     )
-    arcade.draw_text(name.upper(), px + pp + 18, py + ph - 16, palette.TEXT, font_size=13, bold=True)
+    arcade.draw_text(name.upper()[:20], px + pp + 18, py + ph - 16, palette.TEXT, font_size=13, bold=True)
     arcade.draw_text(role.upper() or unit.unit_type.upper(), px + pp + 18, py + ph - 30, role_col, font_size=10)
 
     # HP bar
-    bw = pw - pp - 32
+    bw = pw - pp - 84
     max_hp   = max(1, unit.stats.max_hp) if unit.stats else 1
     hp_frac  = max(0.0, min(1.0, unit.health / max_hp))
     hp_col   = palette.TACTICAL_GREEN if hp_frac > 0.5 else (palette.WARNING if hp_frac > 0.25 else palette.DANGER)
-    arcade.draw_text("HP", px + pp + 18, py + 50, palette.MUTED_TEXT, font_size=9)
-    arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + bw, py + 48, py + 58, palette.PANEL_FILL)
-    arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + int(bw * hp_frac), py + 48, py + 58, hp_col)
-    arcade.draw_text(f"{unit.health}/{max_hp}", px + pp + 34 + bw, py + 48, hp_col, font_size=9)
+    arcade.draw_text("HP", px + pp + 18, py + 36, palette.MUTED_TEXT, font_size=9)
+    arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + bw, py + 34, py + 42, palette.PANEL_FILL)
+    arcade.draw_lrbt_rectangle_filled(px + pp + 32, px + pp + 32 + int(bw * hp_frac), py + 34, py + 42, hp_col)
+    arcade.draw_text(f"{unit.health}/{max_hp}", px + pp + 34 + bw, py + 34, hp_col, font_size=9)
 
     # AP pips
     max_ap = max(1, getattr(unit, "action_points", 1) + 1)
     ap_now  = max(0, getattr(unit, "action_points", 0))
-    arcade.draw_text("AP", px + pp + 18, py + 34, palette.MUTED_TEXT, font_size=9)
+    arcade.draw_text("AP", px + pp + 18, py + 20, palette.MUTED_TEXT, font_size=9)
     for i in range(max_ap):
         col = palette.ACCENT if i < ap_now else (18, 36, 48, 200)
         arcade.draw_lrbt_rectangle_filled(
-            px + pp + 32 + i * 20, px + pp + 48 + i * 20, py + 32, py + 43, col
+            px + pp + 32 + i * 20, px + pp + 48 + i * 20, py + 18, py + 29, col
         )
-        arcade.draw_line(px + pp + 32 + i * 20, py + 32, px + pp + 48 + i * 20, py + 32, palette.PANEL_BORDER_MUTED, 1)
+        arcade.draw_line(px + pp + 32 + i * 20, py + 18, px + pp + 48 + i * 20, py + 18, palette.PANEL_BORDER_MUTED, 1)
 
     # Stress & defense
     if unit.character:
         stress     = unit.character.stress
         stress_col = palette.DANGER if stress >= 70 else (palette.WARNING if stress >= 40 else palette.MUTED_TEXT)
-        arcade.draw_text(f"STRESS {stress:>3}%", px + pp + 18, py + 16, stress_col, font_size=9)
+        arcade.draw_text(f"STRESS {stress:>3}%", px + pp + 18, py + 4, stress_col, font_size=9)
     if unit.stats:
-        arcade.draw_text(f"DEF {unit.stats.defense}", px + pp + 18, py + 2, palette.MUTED_TEXT, font_size=9)
+        arcade.draw_text(f"DEF {unit.stats.defense}", px + pw - 60, py + 4, palette.MUTED_TEXT, font_size=9)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Target-lock panel
 # ══════════════════════════════════════════════════════════════════════════════
+
+def target_lock_bounds(width):
+    left, bottom = width-290-14, _COMBAT_BAR_TOP+_STRIP_H+12
+    return left, bottom, left+290, bottom+96
+
+
+def combat_log_bounds(width, height, max_lines=8):
+    left, bottom = width-260-8, (height-(max_lines*18+44))//2
+    return left, bottom, left+260, bottom+max_lines*18+44
+
+
+def battlefield_hud_regions(width, height, *, target_lock=False, show_log=False,
+                            objective_visible=False, timeline_slots=0):
+    """Actual opaque HUD regions shared by pointer and caption layout."""
+    regions = [(0,0,width,_COMBAT_BAR_TOP+_STRIP_H), (0,height-38,width,height),
+               (14,height-92,min(width-14,534),height-46),
+               (width-242,height-84,width-12,height-52)]
+    if objective_visible:
+        regions.append((14,height-188,364,height-112))
+    if timeline_slots and not show_log and not target_lock:
+        regions.append((width-334,height-92-34-30*timeline_slots,width-14,height-92))
+    if target_lock:
+        regions.append(target_lock_bounds(width))
+    if show_log and not target_lock:
+        regions.append(combat_log_bounds(width,height))
+    return regions
+
+
+def hud_blocks_battlefield_pointer(width, height, x, y, **context):
+    regions = battlefield_hud_regions(width, height, **context)
+    return any(left<=x<=right and bottom<=y<=top for left,bottom,right,top in regions)
+
 
 def draw_target_lock_panel(
     width: int,
@@ -1173,9 +1204,8 @@ def draw_target_lock_panel(
     if target is None or player is None:
         return
 
-    pw, ph = 290, 96
-    px = width - pw - 14
-    py = _COMBAT_BAR_TOP + _STRIP_H + 12
+    px, py, right, top = target_lock_bounds(width)
+    pw, ph = right-px, top-py
 
     arcade.draw_lrbt_rectangle_filled(px, px + pw, py, py + ph, (0, 0, 0, 200))
     arcade.draw_line(px, py + ph, px + pw, py + ph, palette.DANGER, 2)
@@ -1192,7 +1222,7 @@ def draw_target_lock_panel(
     portrait_x = px + pw - portrait_size - 10
     portrait_y = py + ph - portrait_size - 10
     arcade.draw_text(
-        target_name.upper(),
+        target_name.upper() if len(target_name) <= 22 else target_name[:19].upper()+"...",
         px + 10,
         py + ph - 30,
         palette.TEXT,
@@ -1266,7 +1296,8 @@ def draw_target_lock_panel(
     # Target HP
     t_hp  = target.health
     t_max = target.stats.max_hp if target.stats else 1
-    arcade.draw_text(f"HP {t_hp}/{t_max}", px + bw - 20, py + 5, palette.DANGER, font_size=9)
+    arcade.draw_text(f"HP {t_hp}/{t_max}", right-10, py+5, palette.DANGER,
+                     font_size=9, anchor_x="right")
 
 
 def draw_resource_summary(
@@ -1316,7 +1347,8 @@ def draw_resource_summary(
 # Objective marker
 # ══════════════════════════════════════════════════════════════════════════════
 
-def draw_objective_marker(objective: object, elapsed: float) -> None:
+def draw_objective_marker(objective: object, elapsed: float, *, battlefield_width: int = 1280,
+                          compact=False, label_boxes=None, label_bounds=None, **context) -> None:
     """Draw an animated pulsing ring on the mission objective."""
     if objective is None:
         return
@@ -1325,6 +1357,31 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
     pulse     = 0.7 + 0.3 * math.sin(elapsed * 2.2)
     col       = palette.TACTICAL_GREEN if completed else palette.WARNING
     pcol      = (*col[:3], int(180 * pulse))
+
+    if getattr(objective, "kind", "") == "containment" and not completed:
+        breach_y = getattr(objective, "breach_y", None)
+        if breach_y is not None:
+            # The <= predicate includes centres on the threshold. Outline the
+            # upper tile edge, not the centre of the last forbidden row.
+            edge = (breach_y // CELL + 0.5) * CELL
+            danger = (255, 95, 90, 210)
+            arcade.draw_lrbt_rectangle_filled(0, battlefield_width, max(0, edge-CELL), edge,
+                                               (*danger[:3], 36))
+            arcade.draw_line(0, edge, battlefield_width, edge, danger, 3)
+            for x in range(16, battlefield_width, 64):
+                arcade.draw_line(x, edge-6, x+12, edge-18, danger, 2)
+                arcade.draw_line(x+12, edge-18, x+24, edge-6, danger, 2)
+            arcade.draw_text("BREACH LINE - KEEP HOSTILES ABOVE", battlefield_width/2, edge+8,
+                             danger, font_size=10, bold=True, anchor_x="center")
+
+    if getattr(objective, "kind", "") == "defend" and not completed:
+        # Nine grid-cell centres can breach the defense; show their full tiles.
+        half = CELL * 1.5
+        arcade.draw_lrbt_rectangle_filled(ox-half, ox+half, oy-half, oy+half, (*col[:3], 24))
+        arcade.draw_lrbt_rectangle_outline(ox-half, ox+half, oy-half, oy+half, pcol, 2)
+        if not compact:
+            arcade.draw_text("KEEP HOSTILES OUT", ox, oy+half+8, col,
+                             font_size=8, bold=True, anchor_x="center")
 
     # Pulsing outer ring
     r = 24 + int(6 * pulse)
@@ -1345,6 +1402,15 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
     objective_label = getattr(objective, "label", "OBJECTIVE")
     objective_phase = getattr(objective, "phase_text", objective_label)
     label = "OBJECTIVE COMPLETE" if completed else f"OBJECTIVE: {objective_phase}"
+    if compact:
+        kind = getattr(objective, "kind", "")
+        label = ("OBJECTIVE COMPLETE" if completed else "OBJECTIVE FAILED" if getattr(objective, "failed", False)
+                 else "HOLD / KEEP HOSTILES OUT" if kind == "defend" else f"OBJECTIVE: {objective_phase}")
+        if len(label) > 32:
+            label = label[:29]+"..."
+        _draw_world_caption(label, ox, oy+(CELL*1.5+8 if kind == "defend" else 36), col,
+                            [] if label_boxes is None else label_boxes, label_bounds)
+        return
     arcade.draw_text(
         label, ox, oy + 34, col,
         font_size=9, bold=True, anchor_x="center",
@@ -1352,6 +1418,9 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
     if not completed:
         prompt = getattr(objective, "interaction_prompt", "Press E near marker.")
         progress = getattr(objective, "progress_text", "")
+        if getattr(objective,"kind","") in {"defend","containment","assassination"} or getattr(objective,"failed",False):
+            from game.ui.components.combat.objective_brief import objective_brief_lines
+            progress, prompt = objective_brief_lines(objective, **context)
         arcade.draw_text(
             prompt,
             ox,
@@ -1373,10 +1442,12 @@ def draw_objective_marker(objective: object, elapsed: float) -> None:
             )
 
 
-def draw_objective_brief(height: int, objective: object) -> None:
+def draw_objective_brief(height: int, objective: object, **context) -> None:
     """Keep objective phase readable even when its marker is behind the HUD."""
     if objective is None:
         return
+    from game.ui.components.combat.objective_brief import objective_brief_lines
+    progress, instruction = objective_brief_lines(objective, **context)
     left, top = 14, height - 112
     arcade.draw_lrbt_rectangle_filled(left, left + 350, top - 76, top, (4, 12, 18, 225))
     arcade.draw_line(left, top, left + 350, top, palette.WARNING, 2)
@@ -1385,11 +1456,11 @@ def draw_objective_brief(height: int, objective: object) -> None:
         palette.WARNING, font_size=11, bold=True,
     )
     arcade.draw_text(
-        f"{objective.progress_text}  |  [E] near marker", left + 10, top - 43,
+        progress, left + 10, top - 43,
         palette.TEXT, font_size=10,
     )
     arcade.draw_text(
-        "Hostiles adjacent to marker contest interaction.", left + 10, top - 62,
+        instruction, left + 10, top - 62,
         palette.MUTED_TEXT, font_size=9,
     )
 
@@ -1419,7 +1490,7 @@ def draw_mission_status_bar(
 
     # Title
     arcade.draw_text(
-        mission_title.upper(),
+        (mission_title.upper() if len(mission_title)<=max(12,(width-460)//14) else mission_title.upper()[:max(12,(width-460)//14)-3]+"..."),
         20,
         height - bh // 2,
         palette.HEADER,
@@ -1430,14 +1501,10 @@ def draw_mission_status_bar(
         width=max(140, int(width * 0.40)),
         align="left",
     )
-    # Decorative flanking lines
-    arcade.draw_line(cx - 200, height - bh // 2, cx - 140, height - bh // 2, palette.PANEL_BORDER_MUTED, 1)
-    arcade.draw_line(cx + 140, height - bh // 2, cx + 200, height - bh // 2, palette.PANEL_BORDER_MUTED, 1)
-
     # Squad count
     arcade.draw_text(
         f"◉ SQUAD  {player_count}",
-        width * 0.46, height - bh // 2,
+        width - 390, height - bh // 2,
         palette.TACTICAL_GREEN, font_size=12,
         anchor_y="center",
     )
@@ -1445,7 +1512,7 @@ def draw_mission_status_bar(
     # Enemy count
     arcade.draw_text(
         f"◉ ENEMIES  {enemy_count}",
-        width * 0.60, height - bh // 2,
+        width - 260, height - bh // 2,
         palette.DANGER, font_size=12,
         anchor_y="center",
     )
@@ -1453,7 +1520,7 @@ def draw_mission_status_bar(
     # Turn counter
     arcade.draw_text(
         f"TURN {turn_number:02d}",
-        width - 200, height - bh // 2,
+        width - 18, height - bh // 2,
         palette.MUTED_TEXT, font_size=12,
         bold=True, anchor_x="right", anchor_y="center",
     )
@@ -1463,20 +1530,30 @@ def draw_mission_status_bar(
 # Floating damage numbers (P02)
 # ══════════════════════════════════════════════════════════════════════════════
 
-def draw_damage_popups(popups: list[dict]) -> None:
+def draw_damage_popups(popups: list[dict], *, label_boxes=None, label_bounds=None) -> None:
     """Draw floating damage/miss text above hit units (world-space).
 
     Each popup dict: {x, y, text, color: (r,g,b), age: float, max_age: float}
     """
+    from game.ui.components.combat.world_labels import place_caption
+    label_boxes = [] if label_boxes is None else label_boxes
     for popup in popups:
         progress = popup["age"] / max(0.001, popup["max_age"])
         alpha = max(0, int(255 * (1.0 - progress)))
+        if alpha == 0:
+            continue
         offset_y = int(40 * progress)
         r, g, b = popup["color"][:3]
+        width = max(40, len(popup["text"])*11+16)
+        box = place_caption(popup["x"], popup["y"]+offset_y-14, width, label_boxes,
+                            height=28, bounds=label_bounds)
+        if box is None:
+            continue
+        left,bottom,right,top = box
         arcade.draw_text(
             popup["text"],
-            popup["x"],
-            popup["y"] + offset_y,
+            (left+right)/2,
+            (bottom+top)/2,
             (r, g, b, alpha),
             font_size=14,
             bold=True,
@@ -1560,10 +1637,8 @@ def draw_combat_log_side_panel(
 
     *events* is a plain list of recent message strings (newest last).
     """
-    panel_w = 260
-    panel_h = max_lines * 18 + 44
-    px = width - panel_w - 8
-    py = (height - panel_h) // 2
+    px, py, right, top = combat_log_bounds(width,height,max_lines)
+    panel_w, panel_h = right-px, top-py
 
     arcade.draw_lrbt_rectangle_filled(px, px + panel_w, py, py + panel_h, (8, 18, 28, 220))
     arcade.draw_lrbt_rectangle_outline(px, px + panel_w, py, py + panel_h, palette.PANEL_BORDER, 1)
@@ -1607,6 +1682,7 @@ def draw_deployment_overlay(
     player_units: list,
     deploy_cursor: int,
     elapsed: float,
+    *, deployment_cells=None, camera_offset=(0,0),
 ) -> None:
     """Draw the pre-battle deployment overlay (GUI/screen space).
 
@@ -1614,11 +1690,13 @@ def draw_deployment_overlay(
     selector, and renders controls hint.
     """
     # Deployment zone tint (bottom of the map)
-    arcade.draw_lrbt_rectangle_filled(
-        0, width, 0, _DEPLOY_ZONE_H,
-        (60, 200, 120, 30),
-    )
-    arcade.draw_line(0, _DEPLOY_ZONE_H, width, _DEPLOY_ZONE_H, (60, 200, 120, 120), 2)
+    offset_x,offset_y=camera_offset
+    if deployment_cells is None:
+        arcade.draw_lrbt_rectangle_filled(-offset_x,width-offset_x,-offset_y,_DEPLOY_ZONE_H-offset_y,(60,200,120,30))
+        arcade.draw_line(-offset_x,_DEPLOY_ZONE_H-offset_y,width-offset_x,_DEPLOY_ZONE_H-offset_y,(60,200,120,120),2)
+    else:
+        for x, y in deployment_cells:
+            arcade.draw_lrbt_rectangle_filled(x-offset_x-12,x-offset_x+12,y-offset_y-12,y-offset_y+12,(60,200,120,40))
 
     # "DEPLOYMENT" phase banner — same position as regular phase banner
     pulse = 0.85 + 0.15 * math.sin(elapsed * 2.5)
@@ -1640,6 +1718,7 @@ def draw_deployment_overlay(
     if player_units and 0 <= deploy_cursor < len(player_units):
         unit = player_units[deploy_cursor]
         ux, uy = unit.position
+        ux,uy=ux-offset_x,uy-offset_y
         ring_r = 22 + 3 * math.sin(elapsed * 4)
         arcade.draw_circle_outline(ux, uy, ring_r, _ACTIVE_COL, 3)
         name = (

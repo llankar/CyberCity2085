@@ -1,0 +1,54 @@
+{
+  "output": "docs\\qa\\local_attack_feedback_20261116\\fire_960.png",
+  "width": 960,
+  "height": 640,
+  "visible_window": false,
+  "framebuffer_size": [
+    1440,
+    960
+  ],
+  "background_world_size": [
+    960,
+    640
+  ],
+  "bounded_caption_count": 11,
+  "omitted_captions": [],
+  "targeting": false,
+  "input_checks": {
+    "checks": [
+      "keyboard_cancel_costs_no_ap",
+      "action_bar_opens_real_fire_targeting",
+      "pointer_cancel_preserves_ap_and_journal",
+      "first_target_click_is_preview_only",
+      "second_click_resolves_real_attack_once_for_one_ap"
+    ],
+    "actor_ap_before": 2,
+    "actor_ap_after": 1,
+    "target_hp_before": 100,
+    "target_hp_after": 98,
+    "outgoing_edge_flash_alpha": 0,
+    "rng": "forced hit and critical; no balance claim",
+    "journal_preference_preserved": true
+  },
+  "sidebar_draws": {
+    "target_lock": false,
+    "combat_log": true,
+    "initiative": false
+  },
+  "deployment": false,
+  "deployment_pan_before_combat": [
+    64.0,
+    -32.0
+  ],
+  "camera_pan": [
+    64.0,
+    -146.0
+  ],
+  "active_unit_screen": [
+    96.0,
+    242.0
+  ],
+  "renderer": "real Arcade/OpenGL",
+  "fixture_only": true,
+  "map": "assets\\maps\\city_interior_server_room.png"
+}

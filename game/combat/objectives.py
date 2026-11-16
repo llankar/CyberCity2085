@@ -24,6 +24,7 @@ class ObjectiveResult:
     required: int = 0
     phase: str = ""
     actor_name: str = ""
+    consumed_ap: int = 0
 
     @property
     def ended(self) -> bool:
@@ -37,6 +38,7 @@ def _result(
     message: str,
     *,
     actor_name: str = "",
+    consumed_ap: int = 0,
 ) -> ObjectiveResult:
     return ObjectiveResult(
         status,
@@ -47,6 +49,7 @@ def _result(
         objective.required_interactions if objective else 0,
         objective.phase_text if objective else "ELIMINATE HOSTILES",
         actor_name,
+        consumed_ap,
     )
 
 
@@ -69,6 +72,12 @@ def interact_objective(
         return _result(objective, "defeat", "objective_failed", objective.failure_message, actor_name=actor_name)
     if objective.completed:
         return _result(objective, "ongoing", "objective_already_complete", objective.completion_message, actor_name=actor_name)
+    if objective.kind in {"defend", "containment", "assassination"}:
+        return _result(objective, "ongoing", "objective_not_interactable",
+                       "This objective advances through its victory conditions, not interaction.", actor_name=actor_name)
+    if actor.health <= 0 or actor.action_points < 1:
+        return _result(objective, "ongoing", "interaction_unavailable",
+                       "Objective interaction needs a living operative and 1 AP.", actor_name=actor_name)
     if objective.interaction_turns and objective.interaction_turns[-1] == turn_number:
         return _result(
             objective,
@@ -96,7 +105,9 @@ def interact_objective(
     completed, message = interact_with_objective(actor.position, objective)
     advanced = objective.progress > previous_progress
     if advanced:
+        actor.action_points -= 1
         objective.interaction_turns.append(turn_number)
+        message = f"{message} (1 AP)"
     if completed and objective.hold_turns_after_interaction:
         objective.hold_until_turn = turn_number + objective.hold_turns_after_interaction
         message = f"{message} Hold until turn {objective.hold_until_turn}."
@@ -115,6 +126,7 @@ def interact_objective(
         ),
         message,
         actor_name=actor_name,
+        consumed_ap=int(advanced),
     )
 
 
@@ -132,6 +144,8 @@ def evaluate_objective(
         return _result(objective, "defeat", "all_allies_down", "All allied operatives are down.")
 
     living_enemies = [unit for unit in enemy_units if unit.health > 0]
+    if objective is not None and objective.failed:
+        return _result(objective, "defeat", "objective_failed", objective.failure_message)
     if objective is None:
         if not living_enemies:
             return _result(None, "victory", "all_enemies_down", "All hostiles neutralized.")

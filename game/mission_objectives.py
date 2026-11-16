@@ -62,7 +62,7 @@ _OBJECTIVE_PROTOTYPES = {
     "containment": {
         "label": "BREACH LINE",
         "description": "hold the containment line and prevent Starvers or mutants from crossing",
-        "interaction_prompt": "Hold enemies north of the breach line.",
+        "interaction_prompt": "Keep hostiles above the marked breach line. Eliminate them to contain the threat.",
         "success_condition": "Win while no enemy crosses the containment threshold.",
         "failure_condition": "Containment fails if an enemy crosses the breach line.",
         "completion_message": "Containment line held. Threat contained.",
@@ -94,11 +94,17 @@ _OBJECTIVE_PROTOTYPES = {
     "defend": {
         "label": "POSITION",
         "description": "hold POSITION until extraction window",
+        "interaction_prompt": "Keep hostiles out of the marked zone until support arrives.",
+        "success_condition": "Keep hostiles outside the marked zone until support arrives.",
+        "failure_condition": "Defense fails if a hostile enters the marked zone.",
         "completion_message": "Position held. Extraction inbound.",
     },
     "assassination": {
         "label": "TARGET",
         "description": "eliminate HIGH-VALUE TARGET",
+        "interaction_prompt": "Eliminate the marked high-value target.",
+        "success_condition": "The marked high-value target is eliminated.",
+        "failure_condition": "Mission fails if the squad is wiped before the target is eliminated.",
         "completion_message": "Target eliminated. Mission accomplished.",
     },
 }
@@ -180,7 +186,9 @@ def create_battle_objective(
         label=prototype["label"],
         description=prototype["description"],
         completion_message=prototype["completion_message"],
-        interaction_prompt=prototype.get("interaction_prompt", "Press E to interact."),
+        interaction_prompt=(prototype.get("interaction_prompt", "Press E to interact.") + " Costs 1 AP; once per squad turn."
+                            if kind not in {"defend", "containment", "assassination"}
+                            else prototype.get("interaction_prompt", "Complete the mission victory condition.")),
         success_condition=prototype.get("success_condition", "Complete the marker."),
         failure_condition=prototype.get("failure_condition", "Squad wipe before completion."),
         required_interactions=int(prototype.get("required_interactions", 1)),

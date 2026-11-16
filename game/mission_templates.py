@@ -118,6 +118,8 @@ class MissionTemplate:
             if data.get("objective_type") in {
                 "civilian_rescue",
                 "containment",
+                "defend",
+                "assassination",
                 "data_theft",
                 "data_with_detour",
                 "eliminate",

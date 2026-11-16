@@ -1,0 +1,53 @@
+{
+  "scope": "33 previously limited cases; full 1098-case matrix not rerun",
+  "combat_sources_sha256": "2c999911545aa3eecd40b69d199ab36c22b9dab49b2cd10c1387f92d18c55a6e",
+  "baseline_sources_sha256": "1671f0e044a8595f19ce1efa3005eda6171759c65fd7f865eb109eb6ebb18c4d",
+  "coverage_exact": true,
+  "summary": {
+    "victory": 2,
+    "turn_limit": 31
+  },
+  "unchanged_streak_distribution": {
+    "1": 5,
+    "3": 5,
+    "0": 12,
+    "2": 5,
+    "13": 1,
+    "36": 1,
+    "29": 2
+  },
+  "completed": [
+    {
+      "map": "city_industrial_data_vault.png",
+      "objective": "eliminate",
+      "turns": 59
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective": "assassination",
+      "turns": 53
+    }
+  ],
+  "long_stagnation": [
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "objective": "civilian_rescue",
+      "streak": 13
+    },
+    {
+      "map": "wasteland_city_06_ruined_downtown.png",
+      "objective": "extract",
+      "streak": 36
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "eliminate",
+      "streak": 29
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "assassination",
+      "streak": 29
+    }
+  ]
+}

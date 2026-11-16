@@ -1,0 +1,188 @@
+{
+  "scope": "Complete R2 pre-pilot-correction snapshot; 122 maps x 9 objectives, fixed four-rifle level-4 squad, six enemies, risk 5, seed 0, 60-turn cap",
+  "combat_sources_sha256": "aa0a267bf0b173577db61feafdf4757e8a7492b754f04a42217b99937490ded7",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "summary": {
+    "victory": 958,
+    "defeat": 118,
+    "turn_limit": 22
+  },
+  "by_objective": {
+    "eliminate": {
+      "victory": 108,
+      "defeat": 10,
+      "turn_limit": 4
+    },
+    "extract": {
+      "victory": 119,
+      "turn_limit": 3
+    },
+    "data_theft": {
+      "victory": 120,
+      "turn_limit": 2
+    },
+    "sabotage": {
+      "victory": 120,
+      "turn_limit": 2
+    },
+    "recon_scan": {
+      "victory": 116,
+      "turn_limit": 5,
+      "defeat": 1
+    },
+    "civilian_rescue": {
+      "victory": 117,
+      "turn_limit": 3,
+      "defeat": 2
+    },
+    "defend": {
+      "victory": 118,
+      "defeat": 4
+    },
+    "containment": {
+      "defeat": 99,
+      "victory": 21,
+      "turn_limit": 2
+    },
+    "assassination": {
+      "victory": 119,
+      "defeat": 2,
+      "turn_limit": 1
+    }
+  },
+  "limited_cases": [
+    {
+      "map_file": "city_exterior_rooftop_access.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "containment",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "eliminate",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "assassination",
+      "turns": 60,
+      "longest_unchanged_rounds": 3
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "eliminate",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "civilian_rescue",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "containment",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_city_06_ruined_downtown.png",
+      "objective_kind": "extract",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "eliminate",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "extract",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "data_theft",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "sabotage",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "civilian_rescue",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "eliminate",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "extract",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "data_theft",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "sabotage",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "civilian_rescue",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    }
+  ]
+}

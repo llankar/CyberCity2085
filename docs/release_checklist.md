@@ -2,6 +2,22 @@
 
 Date: November 13, 2026
 
+## Current tactical retrofit status — November 15, 2026
+
+The earlier candidate is preserved. Current R2 evidence is
+[documented separately](qa/windows_candidate_20261115_r2.md):
+
+- [x] R2 build-gate suite: 785 passed, eight subtests passed.
+- [x] Isolated Windows candidate builds and its actual executable passes a window-free resource/save/combat smoke.
+- [x] Portable ZIP has validated CRCs, SHA-256 and reports; active Godot handoffs/editor caches are excluded.
+- [x] Fifteen actual story templates execute at three seeds with corrected objectives: 45 victories, no limits or geometry errors.
+- [x] Complete the R2 pre-pilot 1,098-case matrix: 958 wins/118 defeats/22 limits, exact coverage and survey hashes verified. See [report](qa/authored_r2_full_matrix.md).
+- [ ] Resolve the remaining pacing limits and verify later pilot fixes across appropriate mixed-team scenarios; the fixed-rifle R2 snapshot does not certify those fixes.
+- [ ] Validate current mixed/understrength squads, support footprints and campaign balance.
+- [ ] Perform current graphical keyboard/mouse, visual and audio playthrough validation.
+
+The retrofit goal remains active; no desktop control was used for the new checks.
+
 ## Automated gates
 
 - [x] New game state can progress through all 15 authored story missions.

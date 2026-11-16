@@ -1,0 +1,143 @@
+{
+  "scope": "18 complete tunnel cases, same R2 inputs/caps, after manual boundary correction",
+  "combat_sources_sha256": "1d0be7132fab29a83193990d83a505693e466f5b5ee500ca121b4309951a12d7",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "before": {
+    "turn_limit": 12,
+    "victory": 4,
+    "defeat": 2
+  },
+  "after": {
+    "victory": 16,
+    "defeat": 2
+  },
+  "cases": [
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "eliminate",
+      "outcome": "victory",
+      "turns": 20,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "extract",
+      "outcome": "victory",
+      "turns": 10,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "data_theft",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "sabotage",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 29,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 11,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "defend",
+      "outcome": "victory",
+      "turns": 5,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "containment",
+      "outcome": "defeat",
+      "turns": 2,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_02_collapsed_tunnel.png",
+      "objective_kind": "assassination",
+      "outcome": "victory",
+      "turns": 7,
+      "map_survey_sha256": "74f9b2778d9d51d829edb59baa31c86574b9db16a9c67f348d13f4b61242e274"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "eliminate",
+      "outcome": "victory",
+      "turns": 27,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "extract",
+      "outcome": "victory",
+      "turns": 12,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "data_theft",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "sabotage",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 10,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 12,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "defend",
+      "outcome": "victory",
+      "turns": 5,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "containment",
+      "outcome": "defeat",
+      "turns": 3,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    },
+    {
+      "map_file": "wasteland_inner_07_collapsed_tunnel.png",
+      "objective_kind": "assassination",
+      "outcome": "victory",
+      "turns": 15,
+      "map_survey_sha256": "9ca21d0887757bbd48506f45786402e791697b003155b4ff1b3f4e40918e990b"
+    }
+  ]
+}

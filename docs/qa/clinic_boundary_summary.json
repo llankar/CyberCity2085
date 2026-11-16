@@ -1,0 +1,135 @@
+{
+  "scope": "Two identical clinic maps x nine objectives, plus replay of the older 27 limited cases; full matrix pending",
+  "before": {
+    "turn_limit": 12,
+    "victory": 4,
+    "defeat": 2
+  },
+  "after": {
+    "victory": 14,
+    "defeat": 4
+  },
+  "before_surveys_sha256": {
+    "wasteland_inner_03_ruined_clinic.png": "c82c9ff86796b129bbd4f07ba219766899911d7c090cdc7c29e2cc25a05ecc01",
+    "wasteland_inner_08_ruined_clinic.png": "13a29a693f9880f3f6584513f896d1437864a84db26519d990b2eb3cec4f8532"
+  },
+  "after_surveys_sha256": {
+    "wasteland_inner_03_ruined_clinic.png": "ebfc022acfa5b62102a29676f0198e84ca29a989760583476a2160f42db56d08",
+    "wasteland_inner_08_ruined_clinic.png": "55e3935bb9bcd83c167349dfe36f10b36fc9a430f13196586d9beea6c95d62df"
+  },
+  "combat_sources_sha256": "f96ad6fe761512e51af28ef71b153de4264c9a24417a7ad9419bbaac45227542",
+  "limited_retest": {
+    "turn_limit": 18,
+    "victory": 9
+  },
+  "clinic_runs": [
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "eliminate",
+      "outcome": "victory",
+      "turns": 16
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "extract",
+      "outcome": "victory",
+      "turns": 23
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "data_theft",
+      "outcome": "victory",
+      "turns": 23
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "sabotage",
+      "outcome": "victory",
+      "turns": 23
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "recon_scan",
+      "outcome": "victory",
+      "turns": 24
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 23
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "defend",
+      "outcome": "defeat",
+      "turns": 1
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "containment",
+      "outcome": "defeat",
+      "turns": 2
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "objective": "assassination",
+      "outcome": "victory",
+      "turns": 10
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "eliminate",
+      "outcome": "victory",
+      "turns": 11
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "extract",
+      "outcome": "victory",
+      "turns": 18
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "data_theft",
+      "outcome": "victory",
+      "turns": 18
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "sabotage",
+      "outcome": "victory",
+      "turns": 18
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "recon_scan",
+      "outcome": "victory",
+      "turns": 20
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 20
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "defend",
+      "outcome": "defeat",
+      "turns": 1
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "containment",
+      "outcome": "defeat",
+      "turns": 1
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "objective": "assassination",
+      "outcome": "victory",
+      "turns": 4
+    }
+  ]
+}
