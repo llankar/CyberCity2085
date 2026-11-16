@@ -784,6 +784,166 @@
         941
       ],
       "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_05_server_room.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "2a660dc7f2d94d378233fed6ca54cd11f8c129ddddb562a4bac735d9b6e79f3c",
+      "geometry_sha256": "6048361ce99fac4c2592a67750a706ec9a946d9128d356d18386e848f6e9d588",
+      "trace_sha256": "d5fcdf8c6b5d729bcb51b955fb9febebd705327537ae7d1c3fe5ff621eaced75",
+      "output_sha256": "5ebf335860156353b42cb285bc91ac187a819dd4b172867ee1edb8e3af626cad",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_06_blacksite_lab.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "ea56f44de0b23f3c5f690e317206ca82d7e90774051ab776bf9999217e7412d0",
+      "geometry_sha256": "3192504f03cb1db005a986c3d236bf2f7a2e75ea32dc3a985b3349b33456c32f",
+      "trace_sha256": "0571612f8ceda5f946e65ed0975d7ca1924581be8d74d8da812c40dbb99b08e8",
+      "output_sha256": "37933ec1d505b556f8500f3bc07cd992d4d81a531f9532d7fae31ab96912a1b6",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_07_corporate_lobby.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "03eed977b5c519bd5c07c783db41e1da864bed7bb170559ac5d5d080b73c532d",
+      "geometry_sha256": "a69c55cfcee274f08a57772a0bd821560e89f6efb0c56ca17914500bdb29a699",
+      "trace_sha256": "3b57e384b0234aa2c2148107cc69c71cebc23603c174de925c5adb3c043b9dc2",
+      "output_sha256": "18f8f6e48e676e49c98aaf8738996129a828d2442d94f8e0f8ab2135fe0b86e0",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_08_police_records.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "599e3a0e6ee7b94f4b26ed1fbb79e2f31b8a594ad90aa2034f2588901060b3ab",
+      "geometry_sha256": "e05934da08574cd846f722e09caa702b35a6a3b7e42904a77f659431f32061e4",
+      "trace_sha256": "b9a7cf8f7ef875aeb5e5a36366087eb233c405681e5b980ac98983d68f75d422",
+      "output_sha256": "a6e98f1a127d3c8f81beca55b4b0add92732b9ac27b7754b2e548a3ed44d4c2b",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_09_apartment_block.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "51d9ea466f0f1c6a5076154dfd61263b7f4afa570ed1ef32b8e59431fb202418",
+      "geometry_sha256": "717830ac7d6dd7b46bbde8e4bea3fea16c75e6bb4a6d680d9e0d8b1a1ab51d22",
+      "trace_sha256": "d179b005b55464c1bb4c135a97f5adbb3cd0ba5d6925bf3b91af8dbdb2018a9c",
+      "output_sha256": "b115824e430861519da94fd7d721512beb252093b033efbddda89c2db74d9cc0",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_10_penthouse_atrium.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "4b8e7a713a1bd258bbd1ef76ceed4a7e11fa486d72f9c94b26346f3614f91aa2",
+      "geometry_sha256": "b35704b80da101f80d575016653369c82dcade66c695e7471b2ee50e2e2bafc3",
+      "trace_sha256": "c18289cbd100e1f6b56667a018616f38deaa2967cc119f573ec4e6f9945f00e9",
+      "output_sha256": "2702f32081971cf45ae437989b69feabc82d3a2018cef81258fe28404efe85d6",
+      "restoration_native_size": [
+        1672,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_11_cyber_cafe.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "d4437c43d4a90428694ac976530cb84ff7c8d10c76b1fa4769f067be6b045b69",
+      "geometry_sha256": "e6f075de426cbfa384fd3fd110f3f9145e662c66c781c7a218c2384593ff6870",
+      "trace_sha256": "b78c2d918d953a23c46d8733e91f55eca67f985ff0098a0122d0900969f611f0",
+      "output_sha256": "751adb8be41aeb12d9a1cb2bbdc3e0ae07a98175e4514844fd4060447a38a8fb",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
+    },
+    {
+      "name": "cybercity_inner_12_maintenance_tunnel.png",
+      "source_size": [
+        1672,
+        941
+      ],
+      "target_size": [
+        7680,
+        4322
+      ],
+      "source_sha256": "06924b0a436321a8e3d4b4e9bc5d669e2a62b5ad02a9823c25f4f1812b05b672",
+      "geometry_sha256": "92c056c41e0e8350a5c46cb019eea5f12261ee70cc6efce29f028db11c0b205f",
+      "trace_sha256": "58079b8b8d190349d1f8c1fcd4bb315aaaf3cee89e1c94e2bdc8dec907d1f8ab",
+      "output_sha256": "351afab61d4e99a11e968c17fa54b4bc01b5d1e87be4aaa4e26b5b2045f3aa35",
+      "restoration_native_size": [
+        1671,
+        941
+      ],
+      "restoration_method": "image_restoration_then_resample"
     }
   ]
 }
