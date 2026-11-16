@@ -509,7 +509,7 @@ class MissionBriefingView(arcade.View):
                 self._abort()
 
     def _launch_battle(self) -> None:
-        if getattr(self.game_state, "combat_mission_ui_engine", "godot") == "godot":
+        if getattr(self.game_state, "combat_mission_ui_engine", "arcade") == "godot":
             from game.combat.godot_bridge import launch_godot_combat_ui
             from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
 

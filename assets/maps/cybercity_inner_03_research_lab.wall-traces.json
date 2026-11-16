@@ -382,6 +382,73 @@
           500
         ]
       ]
+    },
+    {
+      "id": "outside_top_margin",
+      "rect": [
+        0,
+        0,
+        960,
+        20
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_bottom_margin",
+      "rect": [
+        0,
+        523,
+        960,
+        540
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_west_margin",
+      "rect": [
+        0,
+        20,
+        22,
+        523
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_east_margin",
+      "rect": [
+        946,
+        20,
+        960,
+        523
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_north_notch_margin",
+      "rect": [
+        234,
+        20,
+        309,
+        40
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_northeast_margin",
+      "rect": [
+        800,
+        20,
+        946,
+        42
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
     }
-  ]
+  ],
+  "boundary_review": "2026-11-15: direct artwork review of exterior padding/notches, original objects preserved."
 }

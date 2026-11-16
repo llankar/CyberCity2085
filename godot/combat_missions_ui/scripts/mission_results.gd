@@ -45,7 +45,7 @@ func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_
 	
 	# Notify Python via IPC pipe if available
 	if not ipc_pipe_path.is_empty():
-		await _signal_completion_to_python()
+		_signal_completion_to_python()
 
 func _build_extract_button() -> void:
 	_extract_btn = Button.new()
@@ -77,41 +77,12 @@ func _notification(what: int) -> void:
 		_extract_btn.visible  = _shown
 
 func _signal_completion_to_python() -> void:
-	"""Send IPC signal to Python indicating combat is complete."""
 	if ipc_pipe_path.is_empty():
 		return
-	
-	var path_parts := ["runtime", "godot_combat", "ipc_signal.txt"]
-	var rel_path   := "/".join(path_parts)
-	var full_path  := project_root.path_join(rel_path) if project_root != "" else rel_path
-	
-	# On Windows, just write a marker file; on Unix we could also try socket
-	# For now, use the simpler file-based approach which works everywhere
-	if OS.get_name() == "Windows":
-		# Windows doesn't support Unix domain sockets - use polling via signal file
-		var f = File.new()
-		var err = f.open(full_path, FileAccess.WRITE)
-		if err == OK:
-			f.store_string("COMBAT_COMPLETE\n")
-			f.close()
-		f.rid = null
-	else:
-		# Unix-like systems - try socket first, fallback to file
-		var socket_fd := Socket.new()
-		socket_fd.socket_type = Socket.UNIX_STREAM
-		
-		var status := socket_fd.connect(ipc_pipe_path, Socket.CONNECT_FLAGS_NON_BLOCKING)
-		if status != OK:
-			# Non-blocking failed, fall back to writing a file
-			push_error("IPC connect non-blocking failed: ", status)
-			status = File.new().open(full_path, FileAccess.WRITE)
-			if status == OK:
-				status = File.new().store_string("COMBAT_COMPLETE\n", full_path)
-		
-		if socket_fd.is_connected():
-			socket_fd.close()
-	
-	push_error("IPC signal written to %s" % full_path)
+	var f := FileAccess.open(ipc_pipe_path, FileAccess.WRITE)
+	if f != null:
+		f.store_string("COMBAT_COMPLETE\n")
+		f.close()
 
 func _on_extract() -> void:
 	# Get the tree, then quit
@@ -141,6 +112,16 @@ func _write_result_json() -> void:
 	var f := FileAccess.open(full_path, FileAccess.WRITE)
 	if f != null:
 		f.store_string(JSON.stringify(payload, "  "))
+		f.close()
+	if not ipc_pipe_path.is_empty():
+		var ipc_result := ipc_pipe_path.get_base_dir().path_join("ipc_result.json")
+		var temporary := ipc_result + ".tmp"
+		var ipc_file := FileAccess.open(temporary, FileAccess.WRITE)
+		if ipc_file != null:
+			ipc_file.store_string(JSON.stringify(payload))
+			ipc_file.close()
+			DirAccess.rename_absolute(temporary, ipc_result)
+
 
 func _xp_for_outcome() -> int:
 	if _outcome == "victory": return 120

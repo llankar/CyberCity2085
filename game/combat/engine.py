@@ -66,18 +66,66 @@ class CombatEngine:
         *,
         can_enter: Callable[[int, int], bool] | None = None,
         cover_nodes: list | None = None,
+        terrain_profile=None,
     ) -> None:
         self.state = state
         self.can_enter = can_enter
         self.cover_nodes = cover_nodes
+        self.terrain_profile = terrain_profile
+        self._memory_participants = tuple(unit for unit in state.allied_units if unit.health > 0)
+        from .enemy_orders import EnemyOrders
+        self.enemy_orders = EnemyOrders()
+
+    def enemy_intents(self):
+        """Return the same reservations consumed by the enemy activation."""
+        self.refresh_cover()
+        self.enemy_orders.reconcile(
+            self.state.enemy_units, self.state.allied_units, self.state.objective,
+            self.cover_nodes, self.state.logs,
+            can_enter=self.can_enter,
+            terrain_profile=self.terrain_profile,
+        )
+        return self.enemy_orders.intents(self.state.enemy_units)
+
+    def refresh_cover(self):
+        if self.cover_nodes is not None:
+            from game.cover_system import cover_defense_bonus
+            for unit in [*self.state.allied_units, *self.state.enemy_units]:
+                unit.in_cover_bonus = cover_defense_bonus(unit, self.cover_nodes)
+
+    def interrupt_enemy_plan(self, enemy, reason):
+        self.enemy_orders.interrupt(
+            enemy, reason, self.state.allied_units, self.state.objective,
+            self.cover_nodes, self.state.logs,
+            can_enter=self.can_enter,
+            terrain_profile=self.terrain_profile,
+        )
+
+    def release_enemy_projection(self, enemy, position) -> None:
+        from .battlefield import HazardZone
+
+        zones = list(self.state.tactical_flags.get("hazards", ()))
+        zones.append(HazardZone("sludge", tuple(position), radius_cells=0,
+                                expires_after_turn=self.state.turn_number + 1))
+        self.state.tactical_flags["hazards"] = zones
+        self.state.logs.append(f"Mutant projection at {position}: 2 AP committed; sludge lasts one round.")
 
     def apply_battlefield_exposure(self, units: list[Unit]) -> None:
         """Resolve environmental exposure once when a side starts its phase."""
         from .battlefield import apply_hazard
 
+        zones = [zone for zone in self.state.tactical_flags.get("hazards", ())
+                 if zone.expires_after_turn is None or self.state.turn_number <= zone.expires_after_turn]
+        self.state.tactical_flags["hazards"] = zones
         for unit in units:
-            for zone in self.state.tactical_flags.get("hazards", ()):
+            sludge_applied = False
+            for zone in zones:
+                # Several specialists cannot multiply the same tile's punishment.
+                if zone.kind == "sludge" and sludge_applied:
+                    continue
                 effect = apply_hazard(unit, zone)
+                if zone.kind == "sludge" and (effect.damage or effect.ap_lost):
+                    sludge_applied = True
                 if effect.damage or effect.ap_lost:
                     name = unit.character.name if unit.character else unit.unit_type
                     self.state.logs.append(
@@ -86,7 +134,9 @@ class CombatEngine:
 
     def start_player_turn(self) -> BattleCheckResult:
         """Reset allied AP/statuses and advance from enemy to player phase."""
+        from .agent_moments import record_panic
         for unit in self.state.allied_units:
+            record_panic(self.state, unit)
             unit.reset_actions()
             for msg in unit.tick_status_effects():
                 if msg in {"bleeding", "burning", "contaminated"}:
@@ -98,6 +148,13 @@ class CombatEngine:
         self.state.turn = "player"
         self.state.active_index = 0
         self.apply_battlefield_exposure(self.state.allied_units)
+        self.refresh_cover()
+        self.enemy_orders.reserve(
+            self.state.enemy_units, self.state.allied_units, self.state.objective,
+            self.cover_nodes, refresh=True,
+            can_enter=self.can_enter,
+            terrain_profile=self.terrain_profile,
+        )
         self.state.logs.append(f"── Turn {self.state.turn_number} ──")
         return self.end_battle_check()
 
@@ -126,6 +183,7 @@ class CombatEngine:
         on_overwatch_shot: Callable[[Unit, Unit, int], None] | None = None,
     ) -> BattleCheckResult:
         """Run the enemy phase without rendering or sound side effects."""
+        self.enemy_intents()
         for enemy in self.state.enemy_units:
             enemy.reset_actions()
             for status in enemy.tick_status_effects():
@@ -133,7 +191,7 @@ class CombatEngine:
                     self.state.logs.append(f"{enemy.unit_type} is {status}")
         self.state.turn = "enemy"
         self.apply_battlefield_exposure(self.state.enemy_units)
-        run_enemy_ai(
+        results = run_enemy_ai(
             self.state.allied_units,
             self.state.enemy_units,
             defeated_player_units=defeated_player_units,
@@ -142,9 +200,24 @@ class CombatEngine:
             on_overwatch_shot=on_overwatch_shot,
             can_enter=self.can_enter,
             cover_nodes=self.cover_nodes,
+            terrain_profile=self.terrain_profile,
             movement_mode=self.state.movement_mode,
             objective=self.state.objective,
+            reserved_orders=self.enemy_orders.orders,
+            on_plan_interrupted=self.interrupt_enemy_plan,
+            on_projection=self.release_enemy_projection,
         )
+        for result in results:
+            if result.decision_reason in {"precision_lock", "precision_missed"}:
+                name = getattr(getattr(result.target, "character", None), "name", "agent")
+                self.state.logs.append(f"{name}: {result.decision_reason.upper()} / specialist committed 2 AP")
+            if result.infection_transmitted:
+                name = getattr(getattr(result.target, "character", None), "name", "agent")
+                self.state.logs.append(f"{name}: STARVER INFECTION — INCURABLE. Conversion in 3 strategic days.")
+            if result.decision_reason in {"suppressing_fire", "suppression_missed"}:
+                name = getattr(getattr(result.target, "character", None), "name", "agent")
+                effect = "SUPPRESSED" if result.decision_reason == "suppressing_fire" else "suppression missed"
+                self.state.logs.append(f"{name}: {effect} / linked heavy committed 2 AP")
         return self.end_battle_check()
 
     def perform_action(
@@ -159,8 +232,9 @@ class CombatEngine:
         if self.state.turn != "player":
             return CombatActionResult(False, "Not the player turn.", action=action_key)
         actor = actor or self.state.active_unit
-        if actor is None or actor.health <= 0:
+        if actor is None or actor.health <= 0 or not any(actor is unit for unit in self.state.allied_units):
             return CombatActionResult(False, "No active allied unit.", action=action_key)
+        self.enemy_intents()
 
         available = {action.key for action in available_combat_actions(actor)}
         if action_key not in available:
@@ -177,6 +251,17 @@ class CombatEngine:
             if actor.action_points <= 0 or move_delta is None:
                 return CombatActionResult(False, "Move needs AP and a destination.", action=action_key, actor=actor)
             dx, dy = move_delta
+            from .movement import CELL_SIZE, can_enter_cell
+            if self.state.movement_mode == "tactical_grid" and (dx,dy) not in (
+                    (CELL_SIZE,0),(-CELL_SIZE,0),(0,CELL_SIZE),(0,-CELL_SIZE)):
+                return CombatActionResult(False, "Move one cardinal grid cell.", action=action_key, actor=actor)
+            nx, ny = actor.position[0]+dx, actor.position[1]+dy
+            if not can_enter_cell(nx,ny,terrain_profile=self.terrain_profile,
+                                  allied_units=self.state.allied_units,enemy_units=self.state.enemy_units,
+                                  exclude=actor,movement_mode=self.state.movement_mode):
+                return CombatActionResult(False, "Destination blocked.", action=action_key, actor=actor)
+            if any(not node.passable and (node.world_x,node.world_y)==(nx,ny) for node in self.cover_nodes or []):
+                return CombatActionResult(False, "Destination blocked.", action=action_key, actor=actor)
             if self.can_enter is not None:
                 nx, ny = actor.position[0] + dx, actor.position[1] + dy
                 if not self.can_enter(nx, ny):
@@ -184,8 +269,8 @@ class CombatEngine:
             actor.move(dx, dy)
             message = "Unit moved."
         elif action_key in {"fire", "melee", "psi", "missiles"}:
-            if target is None:
-                return CombatActionResult(False, "Action needs a target.", action=action_key, actor=actor)
+            if target is None or target.health <= 0 or not any(target is unit for unit in self.state.enemy_units):
+                return CombatActionResult(False, "Action needs a living hostile target.", action=action_key, actor=actor)
             attack_resolution = resolve_attack(
                 actor,
                 target,
@@ -206,6 +291,8 @@ class CombatEngine:
             damage = attack_resolution.damage
             defeated = attack_resolution.defeated
             consumed_resource = attack_resolution.consumed_resource
+            from .agent_moments import record_last_stand
+            record_last_stand(self.state, actor, target, defeated=defeated)
             if defeated and target in self.state.enemy_units:
                 self.state.enemy_units.remove(target)
             outcome = "CRITICAL" if attack_resolution.critical else "HIT" if attack_resolution.hit else "MISS"
@@ -216,7 +303,8 @@ class CombatEngine:
             if actor.action_points <= 0 or not actor.stats:
                 return CombatActionResult(False, "First aid needs AP.", action=action_key, actor=actor)
             aid_target = target or actor
-            if not aid_target.stats or actor.distance_to(aid_target) > 32:
+            if (aid_target.health <= 0 or not any(aid_target is unit for unit in self.state.allied_units)
+                    or not aid_target.stats or actor.distance_to(aid_target) > 32):
                 return CombatActionResult(False, "First aid target is out of reach.", action=action_key, actor=actor)
             before_hp = aid_target.health
             aid_target.health = min(aid_target.stats.max_hp, aid_target.health + 2)
@@ -224,6 +312,8 @@ class CombatEngine:
             cleared_bleeding = aid_target.has_status(STATUS_BLEEDING)
             aid_target.clear_status(STATUS_BLEEDING)
             actor.action_points -= 1
+            from .agent_moments import record_rescue
+            record_rescue(self.state, actor, aid_target, before_hp=before_hp, cleared_bleeding=cleared_bleeding)
             suffix = " and clears BLEEDING" if cleared_bleeding else ""
             message = f"First aid restores {aid_target.health - before_hp} HP{suffix}."
         elif action_key == "overwatch":
@@ -270,6 +360,9 @@ class CombatEngine:
     def interact_with_objective(self, actor: Unit | None = None) -> ObjectiveResult:
         """Advance the active mission objective through the pure lifecycle."""
         actor = actor or self.state.active_unit
+        if self.state.turn != "player" or (actor is not None and not any(actor is unit for unit in self.state.allied_units)):
+            return ObjectiveResult("ongoing", "interaction_unavailable", "Only allied operatives may interact during the player phase.",
+                                   getattr(self.state.objective, "kind", "eliminate"))
         if actor is None:
             return ObjectiveResult(
                 "ongoing",
@@ -303,6 +396,8 @@ class CombatEngine:
 
     def end_battle_check(self) -> BattleCheckResult:
         """Return victory/defeat from the authoritative objective lifecycle."""
+        from .agent_moments import record_losses
+        record_losses(self.state, self._memory_participants)
         objective = self.objective_result()
         if objective.status == "victory":
             return BattleCheckResult("victory", objective.reason)

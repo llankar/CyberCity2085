@@ -68,6 +68,8 @@ class Unit:
     # Ability usage counters (for player choice)
     manual_breach_used_this_turn: bool = False  # Track if player forced breach this turn
     psi_overdrive_active_this_turn: bool = False  # Track if player used overdrive this turn
+    bonus_move_points: int = 0
+    control_cooldown: int = 0
 
     # ── Status effect helpers ──────────────────────────────────────────────
 
@@ -195,11 +197,15 @@ class Unit:
         if self.sprite:
             self.sprite.center_x = self.position[0]
             self.sprite.center_y = self.position[1]
-        self.action_points -= 1
+        if self.bonus_move_points > 0:
+            self.bonus_move_points -= 1
+        else:
+            self.action_points -= 1
         self.has_moved = True
         self.on_overwatch = False  # moving cancels your overwatch
 
     def reset_actions(self):
+        self.control_cooldown = max(0, self.control_cooldown - 1)
         # Suppressed units get reduced AP next turn
         base_ap = 2
         if STATUS_SUPPRESSED in self.status_effects:
@@ -210,6 +216,8 @@ class Unit:
         if STATUS_PANICKED in self.status_effects:
             base_ap = 0
         self.action_points = base_ap
+        from .enemy_themes import normalize_enemy_theme
+        self.bonus_move_points = int(base_ap > 0 and self.unit_type == "enemy" and normalize_enemy_theme(self.enemy_theme) == "starver")
         self.is_defending = False
         self.is_psi_defending = False
         self.has_moved = False

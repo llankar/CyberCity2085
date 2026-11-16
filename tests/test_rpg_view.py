@@ -135,6 +135,195 @@ class _FakeBattleView:
 
 
 class RPGViewMissionLaunchTest(unittest.TestCase):
+    def test_pointer_move_previews_then_executes_two_real_grid_steps(self):
+        from unittest.mock import Mock
+        from types import SimpleNamespace
+        from game.combat import CombatEngine, CombatState
+        from game.unit import Unit
+        from game.stats import PlayerStats, EnemyStats
+        actor=Unit(position=(64,64),stats=PlayerStats())
+        enemy=Unit(position=(640,400),stats=EnemyStats(),unit_type="enemy")
+        view=views.BattleView.__new__(views.BattleView)
+        view.window=SimpleNamespace(width=1280,height=720)
+        view.player_units=[actor]
+        view.enemy_units=[enemy]
+        view.combat_state=CombatState(None,[actor],[enemy])
+        view.combat_engine=CombatEngine(view.combat_state)
+        view.game_state=SimpleNamespace(mark_tutorial_event=Mock())
+        view._pointer_camera_offset=(64,64)
+        view._pointer_moving=True
+        view.can_move_to=lambda x,y,exclude=None: True
+        for name in ("_sync_view_from_combat_state","_set_action_aftermath","_log_move","check_active_player"):
+            setattr(view,name,Mock())
+        view._handle_pointer_move(actor,64,0)
+        self.assertEqual(actor.position,(64,64))
+        self.assertEqual(actor.action_points,2)
+        self.assertEqual(view._pointer_move_path,[(64,64),(96,64),(128,64)])
+        view._handle_pointer_move(actor,64,0)
+        self.assertEqual(actor.position,(128,64))
+        self.assertEqual(actor.action_points,0)
+        self.assertFalse(view._pointer_moving)
+        view.check_active_player.assert_called_once()
+
+    def test_pointer_move_does_not_commit_an_unreachable_or_newly_blocked_path(self):
+        from unittest.mock import Mock
+        from types import SimpleNamespace
+        from game.combat import CombatEngine, CombatState
+        from game.unit import Unit
+        actor=Unit(position=(64,64))
+        view=views.BattleView.__new__(views.BattleView)
+        view.window=SimpleNamespace(width=1280,height=720)
+        view.player_units=[actor]
+        view.enemy_units=[]
+        view.combat_state=CombatState(None,[actor],[])
+        view.combat_engine=CombatEngine(view.combat_state)
+        view._pointer_moving=True
+        view.can_move_to=lambda x,y,exclude=None: True
+        view._try_move_active_player=Mock()
+        view._handle_pointer_move(actor,128,64)
+        view.can_move_to=lambda x,y,exclude=None: (x,y)!=(96,64)
+        view._handle_pointer_move(actor,128,64)
+        view._try_move_active_player.assert_not_called()
+        self.assertIsNone(view._pointer_move_path)
+        self.assertEqual(actor.action_points,2)
+
+    def test_mouse_target_selection_requires_second_click_and_right_click_cancels(self):
+        from unittest.mock import Mock
+        from types import SimpleNamespace
+        from game.unit import Unit
+        actor=Unit(position=(64,64))
+        target=Unit(position=(480,384))
+        view=views.BattleView.__new__(views.BattleView)
+        for key,value in dict(map_index=0,_paused=False,pending_end_turn_confirmation=False,
+                              turn="player",player_units=[actor],active_index=0,combat_action_buttons=[],
+                              selecting_target=True,target_candidates=[target],selected_target_idx=0,
+                              _deploying=False,_pointer_camera_offset=(64,32)).items():
+            setattr(view,key,value)
+        view.window=SimpleNamespace(width=1280,height=720)
+        view.on_key_press=Mock()
+        view.on_mouse_press(416,352,1,0)
+        view.on_key_press.assert_not_called()
+        self.assertEqual(view.last_input_mode,"keyboard_mouse")
+        view.on_mouse_press(416,352,1,0)
+        view.on_key_press.assert_called_once_with(views.arcade.key.ENTER,0)
+        view.on_key_press.reset_mock()
+        view.on_mouse_press(416,352,4,0)
+        view.on_key_press.assert_called_once_with(views.arcade.key.ESCAPE,0)
+        view.on_key_press.reset_mock()
+        view._show_combat_log=True
+        view._pointer_camera_offset=(0,0)
+        target.position=(1100,260)  # The visible target-lock panel blocks input.
+        view.on_mouse_press(1100,260,1,0)
+        view.on_mouse_press(1100,260,1,0)
+        view.on_key_press.assert_not_called()
+        self.assertIsNone(view._mouse_selected_target)
+        target.position=(1100,350)  # The journal is hidden during targeting.
+        view.on_mouse_press(1100,350,1,0)
+        view.on_mouse_press(1100,350,1,0)
+        view.on_key_press.assert_called_once_with(views.arcade.key.ENTER,0)
+
+    def test_first_aid_opens_allied_selection_without_spending_ap(self):
+        from types import SimpleNamespace
+        from game.unit import Unit
+        medic_char=Character("Echo",role="medic")
+        patient_char=Character("Rook")
+        medic=Unit(position=(0,0),stats=medic_char.stats,character=medic_char)
+        medic.health=medic.stats.max_hp
+        patient=Unit(position=(32,0),stats=patient_char.stats,character=patient_char)
+        patient.health=1
+        view=views.BattleView.__new__(views.BattleView)
+        view.turn="player"
+        view.player_units=[medic,patient]
+        view.active_index=0
+        before=medic.action_points
+        self.assertTrue(view._perform_combat_action("first_aid"))
+        self.assertEqual(view.target_candidates,[patient])
+        self.assertTrue(view.selecting_target)
+        self.assertEqual(view.pending_attack,"first_aid")
+        self.assertEqual(medic.action_points,before)
+        from unittest.mock import Mock
+        from game.combat import CombatEngine, CombatState
+        from game.stats import EnemyStats
+        enemy=Unit(position=(256,0),stats=EnemyStats(),unit_type="enemy")
+        view.combat_engine=CombatEngine(CombatState(None,[medic,patient],[enemy]))
+        for name in ("_sync_view_from_combat_state","_add_healing_popup","_spawn_particles",
+                     "_flash_unit","_set_action_aftermath","check_active_player"):
+            setattr(view,name,Mock())
+        view._treat_selected_ally(medic,patient)
+        self.assertEqual(patient.health,3)
+        self.assertEqual(medic.action_points,before-1)
+        self.assertFalse(view.selecting_target)
+        view._add_healing_popup.assert_called_once_with(patient,2)
+
+    def test_roster_displays_incurable_countdown_and_converted_dossier(self):
+        char = Character("Rook")
+        char.starver_infection_days = 2
+        card = views.build_roster_cards([char], [char.name])[0]
+        self.assertIn("INCURABLE", card["infection_status"])
+        self.assertIn("2d", card["infection_status"])
+        from game.starver_infection import advance_infection
+        advance_infection(char)
+        advance_infection(char)
+        card = views.build_roster_cards([char], [])[0]
+        self.assertEqual(card["role"], "starver")
+        self.assertIn("LOST TO THE SQUAD", card["infection_status"])
+
+    def test_godot_child_exit_before_overlay_returns_to_arcade_once(self):
+        from unittest.mock import Mock, patch
+        from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+        process = Mock()
+        process.poll.return_value = 1
+        launch = types.SimpleNamespace(process=process, process_pid=123)
+        bridge = GodotCombatHandoffView(GameState(), _mission(), launch)
+        bridge._cleanup_godot = Mock()
+        bridge._fallback_to_arcade_battle = Mock()
+        with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=None):
+            bridge.on_update(0.3)
+            bridge.on_update(0.3)
+        bridge._cleanup_godot.assert_called_once()
+        bridge._fallback_to_arcade_battle.assert_called_once()
+
+    def test_godot_result_before_overlay_is_applied_once_without_relaunch(self):
+        from unittest.mock import Mock, patch
+        from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+        process = Mock()
+        process.poll.return_value = 0
+        bridge = GodotCombatHandoffView(GameState(), _mission(), types.SimpleNamespace(process=process, process_pid=123))
+        bridge._cleanup_godot = Mock()
+        bridge._apply_combat_result = Mock()
+        bridge._fallback_to_arcade_battle = Mock()
+        result = {"outcome": "defeat", "funds_earned": 0}
+        with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=result):
+            bridge.on_update(0.3)
+            bridge.on_update(0.3)
+        bridge._apply_combat_result.assert_called_once_with(result)
+        bridge._fallback_to_arcade_battle.assert_not_called()
+
+    def test_new_campaign_defaults_to_arcade_without_external_launch(self):
+        from unittest.mock import patch
+        state = GameState(characters=[Character("Ready")], selected_agent_names=["Ready"], mission_templates=[_mission()])
+        self.assertEqual(state.combat_mission_ui_engine, "arcade")
+        view = views.RPGView(state)
+        view.window = _FakeWindow()
+        view.setup()
+        with patch.object(views, "BattleView", _FakeBattleView), patch("game.combat.godot_bridge.subprocess.Popen") as process:
+            view.launch_selected_mission()
+        process.assert_not_called()
+        self.assertIs(view.window.shown_view.mission, state.active_mission)
+
+    def test_explicit_godot_failure_falls_back_without_applying_rewards(self):
+        from unittest.mock import patch
+        state = GameState(characters=[Character("Ready")], selected_agent_names=["Ready"], mission_templates=[_mission()])
+        state.combat_mission_ui_engine = "godot"
+        view = views.RPGView(state)
+        view.window = _FakeWindow()
+        view.setup()
+        failure = types.SimpleNamespace(launched=False, message="unavailable")
+        with patch.object(views, "BattleView", _FakeBattleView), patch("game.combat.godot_bridge.launch_godot_combat_ui", return_value=failure):
+            view.launch_selected_mission()
+        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertEqual(state.combat_mission_ui_engine, "godot")
+
     def test_launch_without_agents_sets_message_and_keeps_rpg_view(self):
         game_state = GameState()
         view = views.RPGView(game_state)
@@ -312,6 +501,28 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertEqual(view.message, "Squad deployed. Combat begins.")
         self.assertEqual(view.enemy_units_visible_for_render(), view.enemy_units)
 
+    def test_authored_interior_map_refits_units_sprites_and_deployment_without_wall_holes(self):
+        from game.battle_maps import build_battle_map_catalog
+        from unittest.mock import patch
+        entry = next(e for e in build_battle_map_catalog() if e.filename == "cybercity_inner_02_safehouse.png")
+        state = GameState(characters=[Character("Alpha")], selected_agent_names=["Alpha"], mission_templates=[_mission()])
+        view = views.BattleView(state)
+        view.window = _FakeWindow()
+        with patch.object(views, "battle_map_pool_for_mission", return_value=[entry]), patch.object(views, "select_battle_map_entry", return_value=entry):
+            view.setup(state.mission_templates[0])
+        self.assertEqual(view.terrain_profile.source, "manual_wall_traces_v1")
+        self.assertGreater(min(y for x, y in view._deployment_cells), 112)
+        for unit in view.player_units + view.enemy_units:
+            self.assertTrue(view.terrain_profile.is_walkable(*unit.position))
+            self.assertEqual((unit.sprite.center_x, unit.sprite.center_y), unit.position)
+        self.assertFalse(view.combat_state.tactical_flags["access_lanes"])
+        self.assertFalse(view.can_deploy_to(640, 352, exclude=view.player_units[0]))
+        view._deploying = False
+        old_profile = view.terrain_profile
+        view._load_battle_map(0)
+        self.assertIs(view.terrain_profile, old_profile)
+        self.assertIn("deployment only", view.message)
+
     def test_deployment_repositions_support_assets_and_ignores_hidden_enemies(self):
         game_state = GameState(
             characters=[Character("Alpha")],
@@ -326,13 +537,18 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view._deploy_cursor = 1
         support_unit = view.player_units[1]
         start = support_unit.position
+        moves = [(32, 0, views.arcade.key.RIGHT), (-32, 0, views.arcade.key.LEFT),
+                 (0, 32, views.arcade.key.UP), (0, -32, views.arcade.key.DOWN)]
+        dx, dy, key = next((dx, dy, key) for dx, dy, key in moves
+                          if view.can_deploy_to(start[0]+dx, start[1]+dy, exclude=support_unit))
+        destination = (start[0]+dx, start[1]+dy)
         for enemy in view.enemy_units:
-            enemy.position = (start[0] + 32, start[1])
+            enemy.position = destination
 
-        view._handle_deployment_key(views.arcade.key.RIGHT)
+        view._handle_deployment_key(key)
 
-        self.assertEqual(support_unit.position, (start[0] + 32, start[1]))
-        self.assertLess(support_unit.position[1], 128)
+        self.assertEqual(support_unit.position, destination)
+        self.assertTrue(view.can_deploy_to(*destination, exclude=support_unit))
 
     def test_combat_popups_cover_damage_healing_miss_and_status(self):
         view = views.BattleView.__new__(views.BattleView)

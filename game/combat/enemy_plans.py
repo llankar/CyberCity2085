@@ -440,6 +440,7 @@ class EnemyPlanState:
     # Disruption tracking
     disruption_count: dict[str, int] = field(default_factory=dict)  # Dict[DisruptionType, int]
     last_disruption_turn: int = 0
+    retry_turn: int = 0
     
     # Execution progress
     progress_stages: list[int] = field(default_factory=list)
@@ -456,7 +457,7 @@ class EnemyPlanState:
     @property
     def can_attempt_execution(self) -> bool:
         """Check if plan can be attempted (not disrupted recently)."""
-        if self.state == PlanState.DISRUPTED:
+        if self.state not in {PlanState.INITIATING, PlanState.ACTIVE}:
             return False
         
         # Check cooldowns
@@ -529,34 +530,42 @@ class EnemyPlanManager:
         state = self.plans[enemy_id]
         
         # Get the template for this enemy
-        theme_key = normalize_enemy_theme(state.template_key)
-        template = list(_PLAN_REGISTRY.get(theme_key, {}).values())[0] if theme_key in _PLAN_REGISTRY else GENERIC_PLAN
+        if state.state in {PlanState.CANCELLED, PlanState.COMPLETED, PlanState.ABORTED}:
+            return
+        templates = [plan for plans in _PLAN_REGISTRY.values() for plan in plans.values()]
+        template = next((plan for plan in templates if plan.key == state.template_key), GENERIC_PLAN)
         
         # Check if this is actually severe enough to disrupt
-        condition = template.disruption_conditions.get(disruption_type.key)
+        condition = template.disruption_conditions.get(disruption_type.name)
         if not condition or severity < condition.severity_threshold:
             return
         
         # Mark as disrupted
         state.state = PlanState.DISRUPTED
         state.last_disruption_turn = game_turn
+        state.retry_turn = max(state.retry_turn, game_turn + condition.reset_turns)
         state.disruption_count[disruption_type] = state.disruption_count.get(disruption_type, 0) + 1
         
         # Get alternative plan if available
         alternate_key = condition.alternative_plan
-        if alternate_key and alternate_key in _PLAN_REGISTRY:
-            state.alternate_template_key = alternate_key
+        state.alternate_template_key = next(
+            (plan.key for plan in templates if plan.key == alternate_key), None
+        )
     
     def tick(self, game_turn: int) -> None:
         """Process turn end - reset cooldowns for plans that can retry."""
-        for enemy_id, state in self.plans.items():
-            if state.state == PlanState.DISRUPTED:
-                # Reset disruptions after configured turns
-                pass  # Full implementation would reset based on template config
+        for state in self.plans.values():
+            if state.state == PlanState.DISRUPTED and game_turn >= state.retry_turn:
+                if state.alternate_template_key:
+                    state.template_key = state.alternate_template_key
+                state.alternate_template_key = None
+                state.disruption_count.clear()
+                state.state = PlanState.ACTIVE
     
     def destroy_enemy(self, enemy_id: str) -> None:
         """Mark enemy as destroyed - cancel their plan."""
-        self.plans[enemy_id].state = PlanState.CANCELLED
+        if enemy_id in self.plans:
+            self.plans[enemy_id].state = PlanState.CANCELLED
 
 
 # Global manager instance for combat system
@@ -567,6 +576,7 @@ def apply_enemy_disruption(
     enemy_id: str,
     disruption_type: DisruptionType,
     severity: float = 1.0,
+    game_turn: int = 0,
 ) -> None:
     """
     Apply a player action that disrupts an enemy's plan.
@@ -574,7 +584,7 @@ def apply_enemy_disruption(
     This gives the AI meaningful reasons to change behavior when
     players take strategic actions.
     """
-    _plan_manager.apply_disruption(enemy_id, disruption_type, severity)
+    _plan_manager.apply_disruption(enemy_id, disruption_type, severity, game_turn)
 
 
 def get_current_plan(enemy_id: str) -> EnemyPlanState | None:

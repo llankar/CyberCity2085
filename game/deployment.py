@@ -107,15 +107,22 @@ def deployable_assets(
 ) -> list[SpecOpsAsset]:
     """Return robots/suits ready for deployment without replacing agent checks."""
     pilot_count = len(selected_agents or [])
+    pilot_names = {agent.name for agent in selected_agents or []}
+    reserved_names = set()
     deployable: list[SpecOpsAsset] = []
     pilots_reserved = 0
     for asset in assets:
         if not asset.is_deployable:
             continue
         if asset.pilot_required:
+            name = asset.pilot_agent_name
+            if name and (name not in pilot_names or name in reserved_names):
+                continue
             if pilot_count <= pilots_reserved:
                 continue
             pilots_reserved += 1
+            if name:
+                reserved_names.add(name)
         deployable.append(asset)
     return deployable
 
@@ -127,11 +134,7 @@ def selected_deployable_assets(
 ) -> list[SpecOpsAsset]:
     """Return selected deployable assets, preserving hangar order."""
     selected_ids = set(selected_asset_ids)
-    return [
-        asset
-        for asset in deployable_assets(assets, selected_agents)
-        if asset.id in selected_ids
-    ]
+    return deployable_assets([asset for asset in assets if asset.id in selected_ids], selected_agents)
 
 
 def sanitize_selected_asset_ids(
@@ -140,7 +143,7 @@ def sanitize_selected_asset_ids(
     selected_agents: list[Character] | None = None,
 ) -> list[str]:
     """Drop damaged, missing, duplicate, or unpiloted assets from selection."""
-    deployable_ids = {asset.id for asset in deployable_assets(assets, selected_agents)}
+    deployable_ids = {asset.id for asset in selected_deployable_assets(assets, selected_asset_ids, selected_agents)}
     sanitized: list[str] = []
     for asset_id in selected_asset_ids:
         if asset_id in deployable_ids and asset_id not in sanitized:

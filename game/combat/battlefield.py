@@ -22,6 +22,7 @@ class HazardZone:
     kind: str
     position: tuple[int, int]
     radius_cells: int = 1
+    expires_after_turn: int | None = None
 
     def contains(self, position: tuple[int, int]) -> bool:
         dx, dy = position[0] - self.position[0], position[1] - self.position[1]
@@ -160,6 +161,13 @@ def apply_hazard(unit, zone: HazardZone) -> HazardEffect:
             unit.stats.hp = unit.health
         unit.apply_status(STATUS_CONTAMINATED)
         return HazardEffect("contamination", damage=1, status=STATUS_CONTAMINATED)
+    if zone.kind == "sludge":
+        lost = min(1, unit.action_points)
+        unit.action_points -= lost
+        unit.health = max(0, unit.health - 1)
+        if unit.stats:
+            unit.stats.hp = unit.health
+        return HazardEffect("sludge", damage=1, ap_lost=lost)
     if zone.kind == "blackout":
         lost = min(1, unit.action_points)
         unit.action_points -= lost
@@ -185,6 +193,7 @@ def build_battlefield_plan(
             for y in range(0, height + 1, step)
             if (x, y) not in reserved
             and not terrain_profile.is_walkable(x, y)
+            and (terrain_profile.sight_blocked_cells is None or (x, y) in terrain_profile.sight_blocked_cells)
             and any(terrain_profile.is_walkable(nx, ny) for nx, ny in (
                 (x+step, y), (x-step, y), (x, y+step), (x, y-step)
             ))

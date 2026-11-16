@@ -462,6 +462,9 @@ class ManagementView(GameView):
             f"XP {stats.xp}   Lvl {stats.level}   Loyalty {char.loyalty}",
             f"Recovery {char.recovery_turns}d   Stress cap {derived['stress_cap']}",
         ]
+        from game.starver_infection import infection_label
+        if infection_label(char):
+            info_lines[0] = infection_label(char)
         for idx, line in enumerate(info_lines):
             arcade.draw_text(line, left_x0, info_y - idx * 20, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
 

@@ -1,0 +1,37 @@
+{
+  "scope": "Only the original 22 R2 limited cases, after tunnel/safehouse/lab bounds; not a complete matrix",
+  "combat_sources_sha256": "1d0be7132fab29a83193990d83a505693e466f5b5ee500ca121b4309951a12d7",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "summary": {
+    "turn_limit": 4,
+    "victory": 17,
+    "defeat": 1
+  },
+  "remaining_limits": [
+    {
+      "map_file": "city_exterior_rooftop_access.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 0
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "recon_scan",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "containment",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    },
+    {
+      "map_file": "wasteland_city_06_ruined_downtown.png",
+      "objective_kind": "extract",
+      "turns": 60,
+      "longest_unchanged_rounds": 1
+    }
+  ]
+}

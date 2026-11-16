@@ -1,0 +1,13 @@
+{
+  "archive": "dist\\CyberCity2085-tactical-candidate-20261115-r2.zip",
+  "bytes": 678141296,
+  "sha256": "d1fa77d185ffdcf0535e9c2631fb78db7ae77cee25fbb24825a75a901ba5fb68",
+  "exe_sha256": "7b557eea45db87d9fcd12681e1d611cdc860d0956f1f480a66d465f5a689a976",
+  "packaged_smoke_status": "ok",
+  "story_objectives_preserved": 15,
+  "battle_outcome": "victory",
+  "battle_turns": 25,
+  "crc_checked": true,
+  "game_window_opened": false,
+  "release_complete": false
+}

@@ -34,6 +34,29 @@ def _agent(name: str, role: str, position=(128, 0), hp=10, defense=3) -> Unit:
     )
 
 
+def test_intent_does_not_advertise_fire_outside_weapon_range_or_an_empty_target():
+    hunter = _enemy("corp_samurai", attack_range=2)
+    target = _agent("Mara", "sniper", (320, 0))
+    assert predict_enemy_intent(hunter, [target]).action == "COVER"
+    assert predict_enemy_intent(hunter, []).action == "HOLD"
+
+
+def test_completed_objective_is_not_advertised_as_a_breach_target():
+    enemy = _enemy("corp_37", attack_range=1)
+    objective = SimpleNamespace(kind="defend", completed=True)
+    target = _agent("Iris", "psi", (320, 0))
+    assert predict_enemy_intent(enemy, [target], objective=objective).action != "BREACH"
+
+
+def test_every_enemy_can_preview_a_one_shot_squad_iterable():
+    target = _agent("Mara", "sniper")
+    intents = build_enemy_intents(
+        [_enemy("starver"), _enemy("raider")], (unit for unit in [target])
+    )
+    assert len(intents) == 2
+    assert all(intent.target is target for intent in intents)
+
+
 def test_theme_families_resolve_to_distinct_readable_doctrines() -> None:
     assert profile_for_theme("corp_37_power_armor").label == "THREE SEVENS"
     assert profile_for_theme("corp_samurai_robot").cover_bias > 1

@@ -5,12 +5,11 @@ from __future__ import annotations
 from typing import Iterable
 
 from game.combat.enemy_plans import (
-    get_best_plan_for_enemy, EnemyPlanTemplate, DisruptionType,
-    apply_enemy_disruption, get_current_plan
+    get_best_plan_for_enemy, DisruptionType,
+    apply_enemy_disruption as _apply_disruption, get_current_plan
 )
 from game.combat.tactical_identity import (
-    predict_enemy_intent, EnemyIntent, profile_for_theme,
-    tactical_target_score, _target_name, build_enemy_intents
+    predict_enemy_intent, EnemyIntent, build_enemy_intents
 )
 
 
@@ -62,6 +61,8 @@ def apply_enemy_disruption(
     enemy_id: str,
     disruption_type: DisruptionType,
     severity: float = 1.0,
+    *,
+    game_turn: int = 0,
 ) -> None:
     """
     Apply a player action that disrupts an enemy's plan.
@@ -69,16 +70,7 @@ def apply_enemy_disruption(
     This gives the AI meaningful reasons to change behavior when
     players take strategic actions.
     """
-    apply_disruption(enemy_id, disruption_type, severity, current_turn())
-
-
-def current_turn() -> int:
-    """Get current game turn number."""
-    try:
-        from game.combat import state as combat_state
-        return getattr(combat_state, 'turn', 0)
-    except ImportError:
-        return 0
+    _apply_disruption(enemy_id, disruption_type, severity, game_turn)
 
 
 def get_enemy_plan_info(enemy_id: str) -> dict:
@@ -107,7 +99,7 @@ def get_enemy_plan_info(enemy_id: str) -> dict:
         "state": str(plan.state.value),
         "is_active": plan.is_active,
         "can_attempt_execution": plan.can_attempt_execution,
-        "disruption_count": dict(plan.disruption_count),
+        "disruption_count": {kind.name: count for kind, count in plan.disruption_count.items()},
         "last_disruption_turn": plan.last_disruption_turn,
         "alternate_plan": plan.alternate_template_key,
         "available_plans": [p.key for p in plans_for_theme] if plans_for_theme else ["generic_assault"],

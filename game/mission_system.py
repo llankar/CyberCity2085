@@ -199,4 +199,9 @@ def resolve_mission_outcome(
     game_state.advance_days(
         duration_days, "mission success" if victory else "mission failure"
     )
+    if victory and mission.id.startswith("sm_"):
+        from .campaign.service import record_story_mission_complete
+        record_story_mission_complete(game_state, mission.id)
+        if mission.id in game_state.campaign.completed_story_missions:
+            game_state.campaign.record_trigger(f"story_complete_{mission.id}")
     return complication

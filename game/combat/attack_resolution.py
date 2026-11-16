@@ -54,6 +54,7 @@ class AttackResolution:
     defeated: bool = False
     consumed_ap: int = 0
     consumed_resource: int = 0
+    infection_transmitted: bool = False
     reason: str = ""
 
 
@@ -125,7 +126,8 @@ def build_attack_context(
         # CONTROL state: +10% bonus for well-calibrated psi use
         psi_state_factor = 1.10
     
-    normalized = {"shoot": "fire"}.get(attack_kind, attack_kind)
+    precision = attack_kind == "precision"
+    normalized = {"shoot": "fire", "precision": "fire"}.get(attack_kind, attack_kind)
     stat = "str" if normalized == "melee" else "psi" if normalized == "psi" else "agi"
     
     # Apply stance bonuses to attack value (BREACH boosts, GUARD reduces for precision trades)
@@ -139,6 +141,8 @@ def build_attack_context(
     # Apply psi state multiplier to attack effectiveness
     if adjusted_attack_value > 0 and psi_state_factor != 1.0:
         adjusted_attack_value = max(1, int(adjusted_attack_value * psi_state_factor))
+    if precision:
+        adjusted_attack_value += 2
     
     base_defense = max(0, int(getattr(defender.stats, "defense", 0))) if defender.stats else 0
     flanking = bool(cover_nodes and is_flanking(attacker, defender, cover_nodes))
@@ -168,6 +172,9 @@ def build_attack_context(
     
     # Calculate damage with stance multipliers
     normal_damage = adjusted_attack_value + damage_bonus
+    from game.enemy_themes import normalize_enemy_theme
+    if normalized == "melee" and attacker.unit_type == "enemy" and normalize_enemy_theme(attacker.enemy_theme) == "starver":
+        normal_damage += max(2, (normal_damage + 3) // 4)
     if normalized == "psi" and getattr(defender, "is_psi_defending", False):
         normal_damage = max(0, int(normal_damage * 0.9))
     elif normalized != "psi" and getattr(defender, "is_defending", False):
@@ -181,7 +188,7 @@ def build_attack_context(
         cover_bonus=cover_bonus,
         effective_defense=effective_defense,
         hit_chance=max(0.0, min(1.0, hit_chance)),
-        crit_chance=BASE_CRIT_CHANCE,
+        crit_chance=0.30 if precision else BASE_CRIT_CHANCE,
         normal_damage=normal_damage,  # Already applies psi RISK factor via adjusted_attack_value
         critical_damage=max(0, int(normal_damage * 2)),
         distance_cells=distance_cells,
@@ -191,6 +198,7 @@ def build_attack_context(
         line_blocked=not sight_line.clear,
         line_warning=_line_warning(attacker, defender, allies),
         resource_cost=1 if normalized == "missiles" else 0,
+        ap_cost=2 if precision else 1,
         attack_stance_bonus=stance_bonus,
         psi_state_penalty=max(0.0, 1.0 - psi_state_factor),
     )
@@ -242,6 +250,10 @@ def resolve_attack(
     if hit:
         defender.is_defending = False
         defender.is_psi_defending = False
+    infected = False
+    if hit and damage > 0 and context.attack_kind == "melee":
+        from game.starver_infection import transmit_bite
+        infected = transmit_bite(attacker, defender, rng)
     return AttackResolution(
         True,
         context,
@@ -251,5 +263,6 @@ def resolve_attack(
         defeated=defender.health <= 0,
         consumed_ap=consumed_ap,
         consumed_resource=consumed_resource,
+        infection_transmitted=infected,
         reason="critical" if critical else "hit" if hit else "miss",
     )

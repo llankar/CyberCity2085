@@ -146,32 +146,38 @@ def _inject_story_mission(
         completed_key = f"story_complete_{sm.id}"
         if completed_key in completed_ids or sm.id in completed_story_missions:
             continue
-        # Build a MissionTemplate from the StoryMissionTemplate
-        from game.consequences import Consequence
-        mt = MissionTemplate(
-            id=sm.id,
-            title=f"[STORY] {sm.title}",
-            objective_text=sm.objective_text,
-            target_faction="Three Sevens Corp",
-            district=game_state.district.name,
-            district_pressure={"unrest": game_state.district.unrest},
-            starting_enemy_count=max(3, sm.risk_level // 2),
-            enemy_theme=sm.enemy_theme,
-            objective_type=sm.objective_type,
-            risk_level=sm.risk_level,
-            fund_reward=sm.fund_reward,
-            duration_days=2,
-            emotional_impact_hint={
-                "level": "critical",
-                "text": sm.briefing[:120],
-                "short_text": sm.briefing[:60],
-                "normalized_tags": sm.tags,
-            },
-        )
-        mt.enemy_theme = mission_enemy_theme(mt)
+        mt = story_mission_to_template(sm, game_state)
         # Insert at front of board (replace last regular mission if board is full)
         if len(board) >= 3:
             board[-1] = mt
         else:
             board.insert(0, mt)
         return  # only one story mission at a time
+
+
+def story_mission_to_template(sm, game_state: "GameState") -> MissionTemplate:
+    """Use the same authored story parameters for the board and pure QA."""
+    # Build a MissionTemplate from the StoryMissionTemplate
+    from game.consequences import Consequence
+    mt = MissionTemplate(
+        id=sm.id,
+        title=f"[STORY] {sm.title}",
+        objective_text=sm.objective_text,
+        target_faction="Three Sevens Corp",
+        district=game_state.district.name,
+        district_pressure={"unrest": game_state.district.unrest},
+        starting_enemy_count=max(3, sm.risk_level // 2),
+        enemy_theme=sm.enemy_theme,
+        objective_type=sm.objective_type,
+        risk_level=sm.risk_level,
+        fund_reward=sm.fund_reward,
+        duration_days=2,
+        emotional_impact_hint={
+            "level": "critical",
+            "text": sm.briefing[:120],
+            "short_text": sm.briefing[:60],
+            "normalized_tags": sm.tags,
+        },
+    )
+    mt.enemy_theme = mission_enemy_theme(mt)
+    return mt

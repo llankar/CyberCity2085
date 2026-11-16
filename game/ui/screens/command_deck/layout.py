@@ -107,6 +107,8 @@ def build_agent_card_lines(
         state = "READY" if is_deployable(character) else "MEDBAY"
         if character.recovery_turns > 0:
             state = f"MEDBAY {character.recovery_turns}T"
+        from game.starver_infection import infection_label
+        state = infection_label(character) or state
         recovery = (
             f" | Recovery: {character.recovery_turns} turns"
             if character.recovery_turns > 0

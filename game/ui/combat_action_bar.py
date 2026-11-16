@@ -30,10 +30,10 @@ def layout_combat_action_buttons(
     if not actions:
         return []
     bar = combat_action_bar_rect(width)
-    button_width = min(BUTTON_WIDTH, max(66, (bar.width - 48) // max(1, len(actions))))
+    button_width = min(BUTTON_WIDTH, max(1, (bar.width-40-(len(actions)-1)*BUTTON_GAP)//len(actions)))
     total_width = len(actions) * button_width + (len(actions) - 1) * BUTTON_GAP
     left = bar.left + max(20, (bar.width - total_width) // 2)
-    bottom = bar.bottom + 24
+    bottom = bar.bottom + 6
     return [
         (
             action,
@@ -71,19 +71,15 @@ def draw_combat_action_bar(
 ) -> list[tuple[CombatAction, UIRect]]:
     """Draw the tactical action bar and return its clickable button rects."""
     bar = combat_action_bar_rect(width)
-    draw_panel(bar.left, bar.bottom, bar.width, bar.height, "Action Deck")
+    draw_panel(bar.left, bar.bottom, bar.width, bar.height)
     arcade.draw_text(
         f"{unit_name.upper()} // AP {max(0, action_points)}",
         bar.left + 18,
-        bar.top - 51,
+        bar.top - 16,
         palette.RESOURCE,
         11,
     )
-    if message:
-        arcade.draw_text(
-            message[:72], bar.left + 220, bar.top - 51, palette.MUTED_TEXT, 10
-        )
-
+    detail = message
     if preview:
         preview_text = (
             f"DMG {preview.min_damage}-{preview.max_damage}  "
@@ -92,9 +88,11 @@ def draw_combat_action_bar(
             f"{'FLANK' if preview.flanking else f'COVER +{preview.cover_bonus}'}  "
             f"AP {preview.ap_cost}"
         )
-        arcade.draw_text(preview_text, bar.left + 18, bar.top - 69, palette.TEXT, 10)
+        detail = preview_text
+    if detail:
+        arcade.draw_text(detail[:int((bar.width-36)/6)],bar.left+18,bar.top-32,palette.TEXT,10)
     if warning:
-        arcade.draw_text(warning[:72], bar.left + 18, bar.top - 87, palette.WARNING, 10)
+        arcade.draw_text(warning[:40],bar.right-18,bar.top-16,palette.WARNING,9,anchor_x="right")
 
     buttons = layout_combat_action_buttons(width, actions)
     for action, rect in buttons:

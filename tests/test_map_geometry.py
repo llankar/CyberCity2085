@@ -134,10 +134,20 @@ def test_godot_wall_layout_blocks_movement_los_and_preserves_projection(tmp_path
         shutil.copy2(scripts / name, tmp_path / name)
     (tmp_path / "project.godot").write_text('config_version=5\n[autoload]\nCombatSignals="*res://combat_signals.gd"\n', encoding="utf-8")
     (tmp_path / "actual.json").write_text(json.dumps(load_map_geometry("assets/maps/city_district_riot_square.png")), encoding="utf-8")
+    (tmp_path / "clinic.json").write_text(json.dumps(load_map_geometry("assets/maps/wasteland_inner_03_ruined_clinic.png")), encoding="utf-8")
     (tmp_path / "city_district_riot_square.walls.json").write_text((tmp_path / "actual.json").read_text(encoding="utf-8"), encoding="utf-8")
     smoke = '''extends SceneTree
 func _initialize():
     var layout = load("res://map_wall_layout.gd")
+    var clinic = JSON.parse_string(FileAccess.get_file_as_string("res://clinic.json"))
+    var margin_found := false
+    for node: Dictionary in layout.cover_nodes(clinic):
+        if node["cell"] == Vector2i(0,0):
+            margin_found = node["solid"] and not node["high"] and node["kind"] == "unplayable_margin"
+    if not margin_found:
+        push_error("Clinic padding must block movement without fabricating a sight wall")
+        quit(8)
+        return
     var actual = JSON.parse_string(FileAccess.get_file_as_string("res://actual.json"))
     var refreshed = layout.geometry_for_map({"path":"city_district_riot_square.png", "geometry":{"grid":[0,0]}}, ProjectSettings.globalize_path("res://"))
     if layout.cover_nodes(refreshed).is_empty():

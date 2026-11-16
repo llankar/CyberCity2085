@@ -1,0 +1,37 @@
+{
+  "scope": "Real hidden-window defense fixture after map/camera coordinate correction",
+  "frames": [
+    {
+      "image": "docs\\qa\\camera_hud_20261116\\tactical_camera_960.png",
+      "logical_size": [
+        960,
+        640
+      ],
+      "framebuffer_size": [
+        1440,
+        960
+      ],
+      "sha256": "55dfbf14f40515949cb70efc31aa99c9caa6705f4c24cf3b7b1b3b679692544d",
+      "active_unit_screen_y": 242,
+      "background_matches_terrain_size": true
+    },
+    {
+      "image": "docs\\qa\\camera_hud_20261116\\tactical_camera_1280.png",
+      "logical_size": [
+        1280,
+        720
+      ],
+      "framebuffer_size": [
+        1920,
+        1080
+      ],
+      "sha256": "a0cf5224a1b4310b82a1d25161c98ba380f13466c7f95ef8c8d658d40e19579e",
+      "active_unit_screen_y": 242,
+      "background_matches_terrain_size": true
+    }
+  ],
+  "desktop_control": false,
+  "world_positions_unchanged": true,
+  "human_playthrough": false,
+  "remaining": "other maps and objectives; deployment camera/GUI alignment; target/log occlusion; full input/audio campaign playthrough"
+}

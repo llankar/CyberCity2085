@@ -6,6 +6,7 @@ from collections import deque
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
+from hashlib import sha256
 
 from PIL import Image, ImageDraw, ImageFilter, ImageStat
 
@@ -20,6 +21,9 @@ class TerrainProfile:
     cell_size: int
     walkable_cells: frozenset[tuple[int, int]]
     threshold: int
+    source: str = "inferred"
+    sight_blocked_cells: frozenset[tuple[int, int]] | None = None
+    survey_sha256: str | None = None
 
     def is_walkable(self, x: int, y: int) -> bool:
         """Return whether a grid position can be entered."""
@@ -264,6 +268,25 @@ def build_terrain_profile(
     path = Path(image_path)
     if not path.exists():
         return TerrainProfile(image_path, width, height, cell_size, frozenset(), 0)
+
+    from .map_geometry import load_map_geometry, geometry_path
+    geometry = load_map_geometry(path)
+    if geometry and geometry.get("reviewed") and geometry.get("method") == "manual_wall_traces_v1":
+        cols, rows = geometry["grid"]
+        blocked = {tuple(cell) for wall in geometry["walls"] for cell in wall["cells"]}
+        opaque = {tuple(cell) for wall in geometry["walls"] if wall.get("blocks_sight", True) for cell in wall["cells"]}
+        walkable, sight = set(), set()
+        for x in range(0, width, cell_size):
+            for y in range(0, height, cell_size):
+                cell = (min(cols-1, int(x/width*cols)), min(rows-1, int((height-y)/height*rows)))
+                if cell not in blocked:
+                    walkable.add((x, y))
+                if cell in opaque:
+                    sight.add((x, y))
+        # Authored geometry is authoritative: forced spawns cannot erase walls.
+        return TerrainProfile(image_path, width, height, cell_size, frozenset(walkable), 255,
+                              source="manual_wall_traces_v1", sight_blocked_cells=frozenset(sight),
+                              survey_sha256=sha256(geometry_path(path).read_bytes()).hexdigest())
 
     mask_path = _mask_sidecar_path(path)
     if mask_path.exists():

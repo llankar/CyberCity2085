@@ -50,6 +50,7 @@ class DebriefReport:
     rpg_links: list[str] = field(default_factory=list)
     skill_check_outcomes: list[str] = field(default_factory=list)
     reputation_awards: list[AgentReputationAward] = field(default_factory=list)
+    tactical_moments: list[dict[str, str]] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         return {
@@ -64,6 +65,7 @@ class DebriefReport:
             "reputation_awards": [
                 award.to_dict() for award in self.reputation_awards
             ],
+            "tactical_moments": [dict(moment) for moment in self.tactical_moments],
         }
 
     @classmethod
@@ -83,6 +85,7 @@ class DebriefReport:
                 AgentReputationAward.from_dict(award)
                 for award in data.get("reputation_awards", [])
             ],
+            tactical_moments=[dict(moment) for moment in data.get("tactical_moments", []) if isinstance(moment, dict)],
         )
 
 
@@ -217,6 +220,7 @@ def build_mission_debrief_report(
     complication: MissionComplication | None = None,
     skill_check_outcomes: list[str] | None = None,
     performance_by_agent: dict[str, dict] | None = None,
+    tactical_moments: list[dict[str, str]] | None = None,
 ) -> DebriefReport:
     """Build a deterministic debrief report from post-mission agent states."""
     mission_title = mission.title if mission else "Unknown Operation"
@@ -240,14 +244,19 @@ def build_mission_debrief_report(
         mission,
         complication,
     )
+    moments = [dict(moment) for moment in tactical_moments or []]
+    moment_lines = [DebriefLine(moment["agent_name"], {"last_stand": "heroic", "rescue": "relief", "downed": "loss", "panic": "tense"}.get(moment["kind"], "neutral"),
+                               moment["kind"], moment["text"]) for moment in moments]
     return DebriefReport(
         mission_title=mission_title,
         mission_outcome=_mission_outcome_label(victory),
-        lines=lines,
+        lines=moment_lines+lines,
         decision_key=_extract_decision_key(lines, mission),
         risk_taken=_extract_risk_taken(lines, complication),
-        heroic_action=_extract_heroic_action(lines),
+        heroic_action=next((moment["text"] for moment in moments if moment["kind"] in {"last_stand", "rescue"}),
+                           "No clutch action recorded in this engagement." if moments else _extract_heroic_action(lines)),
         rpg_links=_build_rpg_links(characters),
         skill_check_outcomes=list(skill_check_outcomes or []),
         reputation_awards=reputation_awards,
+        tactical_moments=moments,
     )

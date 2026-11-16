@@ -494,6 +494,8 @@ def draw_agent_card(card: dict, left: int, bottom: int, width: int, height: int,
         _draw_upgrade_badge(card.get("pending_points", 0), left + width - 48, bottom + height - 32)
     if card.get("recovery_turns", 0) > 0:
         arcade.draw_lrbt_rectangle_filled(left, left + width, bottom, bottom + 8, palette.DANGER)
+    if card.get("infection_status"):
+        arcade.draw_text(card["infection_status"], left + 4, bottom + 9, palette.DANGER, font_size=7)
 
 
 def draw_small_meter(left: int, bottom: int, width: int, ratio: float, color) -> None:

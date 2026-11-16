@@ -11,6 +11,7 @@ from .agent_specializations import apply_talent_bonuses
 from .deployment import (
     deployable_agents,
     selected_deployment_manifest,
+    selected_deployable_agents,
 )
 from .enemy_themes import (
     enemy_theme_stat_scale,
@@ -21,9 +22,12 @@ from .management.equipment import Weapon
 from .management.spec_ops_assets import SpecOpsAsset
 from .stats import EnemyStats, PlayerStats
 from .unit import Unit
-from .cover_system import is_flanking
+from .cover_system import is_flanking, cover_defense_bonus
 from .combat.attack_resolution import resolve_attack
 from .combat.tactical_identity import profile_for_theme, tactical_target_score
+from .combat.command_network import command_accuracy, command_link_active
+from .combat.pack_maneuvers import approach_step, skirmish_exit
+from .combat.encounter_composition import compose_encounter, enemy_spawn_positions
 
 GRID_SIZE = 32
 
@@ -38,6 +42,7 @@ class EnemyActionResult:
     moved: bool = False
     defeated_target: bool = False
     decision_reason: str = ""
+    infection_transmitted: bool = False
 
 
 def is_occupied(
@@ -139,7 +144,8 @@ def create_player_units(
             piloted_by_armor[pilot_name] = asset
 
     pilot_chars: dict[str, "Character"] = {
-        c.name: c for c in deployable_characters if c.name in piloted_by_armor
+        c.name: c for c in selected_deployable_agents(characters, selected_agent_names or [])
+        if c.name in piloted_by_armor
     }
 
     # Staggered formation on the left-center of the map
@@ -188,23 +194,6 @@ def create_player_units(
     return player_units
 
 
-def _enemy_subtype_for_index(i: int, total: int, avg_level: float) -> str:
-    """Assign enemy subtypes for a battle roster.
-
-    Distribution (XCOM-style):
-      - 0th enemy is always at least a grunt
-      - Last enemy (if high level enough) may be an elite/commander
-      - Mix of grunt/heavy for the rest
-    """
-    if total >= 2 and i == total - 1 and avg_level >= 4:
-        return "commander" if avg_level >= 7 else "elite"
-    if avg_level >= 3 and i % 3 == 1:
-        return "heavy"
-    if avg_level >= 5 and i % 4 == 2:
-        return "elite"
-    return "grunt"
-
-
 _SUBTYPE_STAT_SCALE: dict[str, dict[str, float]] = {
     "grunt":     {"hp": 1.0, "str": 1.0, "agi": 1.0, "def": 1.0, "range": 3},
     "heavy":     {"hp": 1.6, "str": 1.4, "agi": 0.8, "def": 1.3, "range": 2},
@@ -216,6 +205,8 @@ _SUBTYPE_STAT_SCALE: dict[str, dict[str, float]] = {
 def create_enemy_units(
     mission: MissionTemplate | None,
     characters: list[Character],
+    *,
+    rng=None,
 ) -> tuple[list[Unit], int]:
     """Generate enemy units scaled to the active roster and mission.
 
@@ -225,20 +216,18 @@ def create_enemy_units(
     avg_level = (
         sum(c.stats.level for c in characters) / len(characters) if characters else 1
     )
-    enemy_count = mission.starting_enemy_count if mission else random.randint(1, 3)
+    rng = rng if rng is not None else random
+    enemy_count = max(0, int(mission.starting_enemy_count)) if mission else rng.randint(1, 3)
     enemy_units: list[Unit] = []
     theme = mission_enemy_theme(mission) if mission else "generic"
     theme_scale = enemy_theme_stat_scale(theme)
 
-    # Staggered formation on the right-center of the map (far from player)
-    _ENEMY_SPAWN = [
-        (1152, 416), (1152, 352), (1088, 416), (1088, 352),
-        (1024, 416), (1024, 352), (960, 416),  (960, 352),
-    ]
+    composition = compose_encounter(enemy_count, avg_level, getattr(mission, "risk_level", 1), theme)
+    positions = enemy_spawn_positions(enemy_count)
 
     for i in range(enemy_count):
-        level = random.randint(1, max(1, int(avg_level)))
-        subtype = _enemy_subtype_for_index(i, enemy_count, avg_level)
+        level = rng.randint(1, max(1, int(avg_level)))
+        subtype = composition.roles[i]
         scale = _SUBTYPE_STAT_SCALE[subtype]
         stat_scale = {
             "hp": scale["hp"] * theme_scale["hp"],
@@ -247,6 +236,9 @@ def create_enemy_units(
             "def": scale["def"] * theme_scale["def"],
         }
         attack_range = max(int(scale["range"]), int(theme_scale["range"]))
+        if profile_for_theme(theme).key == "starver":
+            attack_range = 1
+
 
         base = level
         estats = EnemyStats(
@@ -260,7 +252,7 @@ def create_enemy_units(
         estats.max_hp = max(1, int(estats.max_hp * stat_scale["hp"]))
         estats.hp     = estats.max_hp
 
-        pos = _ENEMY_SPAWN[i % len(_ENEMY_SPAWN)]
+        pos = positions[i]
         enemy_units.append(Unit(
             position=pos,
             stats=estats,
@@ -318,6 +310,8 @@ def _check_overwatch(
                 spend_ap=False,
             )
             dmg = resolution.damage
+            if dmg > 0 and moving_unit.health > 0:
+                moving_unit.apply_status("suppressed")
             if on_overwatch_shot:
                 on_overwatch_shot(watcher, moving_unit, dmg)
             if moving_unit.health <= 0:
@@ -372,7 +366,7 @@ def _nearest_cover_step(
     # Clamp to one-cell step
     step_x = min(GRID_SIZE, max(-GRID_SIZE, dx)) if dx else 0
     step_y = min(GRID_SIZE, max(-GRID_SIZE, dy)) if dy else 0
-    return (step_x or 0, step_y or 0)
+    return (step_x, 0) if step_x else (0, step_y)
 
 
 def _candidate_steps_toward(enemy: Unit, target_position: tuple[int, int]) -> list[tuple[int, int]]:
@@ -449,33 +443,18 @@ def _objective_pressure_step(enemy: Unit, objective: object | None) -> tuple[int
     return None
 
 
-def _apply_commander_buffs(enemy_units: list[Unit]) -> dict[int, tuple[Unit, int]]:
-    """Temporarily boost AGI for enemies adjacent to a commander."""
-    commanders = [e for e in enemy_units if e.enemy_subtype == "commander" and e.health > 0]
-    bonuses: dict[int, tuple[Unit, int]] = {}
-    if not commanders:
-        return bonuses
-    for commander in commanders:
-        for enemy in enemy_units:
-            if enemy is commander or enemy.enemy_subtype == "commander":
-                continue
-            if enemy.health > 0 and enemy.distance_to(commander) <= GRID_SIZE * 2:
-                if id(enemy) not in bonuses:
-                    bonuses[id(enemy)] = (enemy, 0)
-                _, current_bonus = bonuses[id(enemy)]
-                bonuses[id(enemy)] = (enemy, current_bonus + 1)
-                if enemy.stats:
-                    enemy.stats.agi = min(99, enemy.stats.agi + 1)
-    return bonuses
-
-
-def _remove_commander_buffs(bonuses: dict[int, tuple[Unit, int]]) -> None:
-    """Restore stats after the phase so commander auras never stack by turn."""
-
-    for enemy, bonus in bonuses.values():
-        if enemy.stats:
-            enemy.stats.agi = max(0, enemy.stats.agi - bonus)
-
+def _resolve_enemy_attack(enemy, target, action, enemies, cover_nodes, *, suppress=False):
+    """Resolve support at attack time, with an explicit two-AP suppression tradeoff."""
+    before_ap = enemy.action_points
+    with command_accuracy(enemy, enemies, cover_nodes):
+        result = resolve_attack(enemy, target, action, cover_nodes=cover_nodes, allies=enemies)
+    if action == "melee" and enemy.enemy_subtype == "heavy" and result.damage > 0 and target.health > 0:
+        target.apply_status("stunned")
+    if suppress and enemy.action_points < before_ap:
+        enemy.action_points = max(0, before_ap - 2)
+        if result.hit and target.health > 0:
+            target.apply_status("suppressed")
+    return result
 
 
 def _can_enter_ai_cell(
@@ -515,29 +494,121 @@ def run_enemy_ai(
     terrain_profile=None,
     movement_mode: MovementMode = "tactical_grid",
     objective: object | None = None,
+    reserved_orders: dict | None = None,
+    on_plan_interrupted: Callable[[Unit, str], None] | None = None,
+    on_projection: Callable[[Unit, tuple[int, int]], None] | None = None,
 ) -> list[EnemyActionResult]:
     """Run enemy actions and return inspectable outcomes for the view/test layer."""
     results: list[EnemyActionResult] = []
     defeated_player_units = (
         defeated_player_units if defeated_player_units is not None else []
     )
-
-    # Commander buff: boost adjacent grunt/heavy AGI +1 this turn.
-    commander_bonuses = _apply_commander_buffs(enemy_units)
+    blocked_cover = {(node.world_x, node.world_y) for node in cover_nodes or () if not node.passable}
 
     for enemy in list(enemy_units):
         # Skip enemies already killed (e.g. by overwatch during this same AI pass)
         if enemy.health <= 0:
             continue
-        target = _pick_target(enemy, player_units)
+        order = reserved_orders.get(id(enemy)) if reserved_orders is not None else None
+        if order is not None and order.intent.target is not None and order.intent.target.health <= 0:
+            if on_plan_interrupted:
+                on_plan_interrupted(enemy, "target_lost")
+            order = reserved_orders.get(id(enemy))
+        priority = order.intent.action if order is not None else None
+        if priority == "LOCK":
+            from game.combat.precision_orders import lock_valid
+            commander = order.intent.coordinator
+            reason = ""
+            if not lock_valid(enemy, order.intent.target, order.intent.destination, cover_nodes):
+                reason = "lock_broken"
+            elif commander is not None and not command_link_active(enemy, commander, enemy_units, cover_nodes):
+                reason = "command_lost"
+            elif enemy.action_points < 2:
+                reason = "energy_lost"
+            if reason:
+                if on_plan_interrupted:
+                    on_plan_interrupted(enemy, reason)
+                    order = reserved_orders.get(id(enemy))
+                    priority = order.intent.action if order is not None else None
+                else:
+                    enemy.action_points = 0
+                    continue
+        if order is not None and order.ap_penalty:
+            enemy.action_points = max(0, enemy.action_points - order.ap_penalty)
+            order.ap_penalty = 0
+        if priority == "TOXIN":
+            from game.combat.mutant_control import can_project
+            aim = order.intent.destination
+            if enemy.action_points >= 2 and on_projection is not None and can_project(enemy, aim, cover_nodes):
+                enemy.action_points -= 2
+                enemy.control_cooldown = 2
+                on_projection(enemy, aim)
+                results.append(EnemyActionResult(enemy, None, decision_reason="toxic_denial"))
+            else:
+                if on_plan_interrupted:
+                    on_plan_interrupted(enemy, "cast_blocked")
+                enemy.action_points = 0
+                results.append(EnemyActionResult(enemy, None, decision_reason="projection_spoiled"))
+            continue
+        if priority == "HOLD":
+            enemy.action_points = 0
+            results.append(EnemyActionResult(enemy, None, decision_reason="plan_hold"))
+            continue
+        target = order.intent.target if order is not None and order.intent.target is not None else _pick_target(enemy, player_units)
         profile = profile_for_theme(enemy.enemy_theme)
         if not target:
             break
-        while enemy.action_points > 0 and target.health > 0:
+        def legal_step(x, y):
+            return _can_enter_ai_cell(
+                x, y, player_units, enemy_units, exclude=enemy,
+                terrain_profile=terrain_profile, movement_mode=movement_mode,
+                legacy_can_enter=can_enter,
+            ) and (x, y) not in blocked_cover
+        route_width = getattr(terrain_profile, "width", max(1280, enemy.position[0]+64, target.position[0]+64))
+        route_height = getattr(terrain_profile, "height", max(720, enemy.position[1]+64, target.position[1]+64))
+        cover_repositioned = False
+        while enemy.health > 0 and enemy.action_points > 0 and target.health > 0:
+            if order is not None and order.intent.coordinator is not None and not command_link_active(
+                enemy, order.intent.coordinator, enemy_units, cover_nodes
+            ):
+                if on_plan_interrupted:
+                    on_plan_interrupted(enemy, "command_lost")
+                    order = reserved_orders.get(id(enemy))
+                    priority = order.intent.action if order is not None else None
+                    target = order.intent.target if order is not None and order.intent.target is not None else _pick_target(enemy, player_units)
+                    if target is None:
+                        break
+            suppression = False
+            suppression_hit = False
+            precision = False
+            infected = False
+            if priority == "BREACH" and order is not None and order.intent.target is None:
+                from game.combat.objective_movement import objective_route_step
+                step = objective_route_step(enemy, objective, legal_step, width=route_width, height=route_height)
+                if step == (0, 0):
+                    enemy.action_points = 0
+                    break
+                if step and step != (0, 0):
+                    x, y = enemy.position
+                    if legal_step(x+step[0], y+step[1]):
+                        enemy.move(*step)
+                        results.append(EnemyActionResult(enemy, None, moved=True, decision_reason="objective_pressure"))
+                        if _check_overwatch(enemy, player_units, enemy_units, on_overwatch_shot, on_defeated, cover_nodes):
+                            break
+                        continue
+                    if on_plan_interrupted:
+                        on_plan_interrupted(enemy, "movement_blocked")
+                    enemy.action_points = 0
+                    break
+                if on_plan_interrupted:
+                    on_plan_interrupted(enemy, "movement_blocked")
+                enemy.action_points = 0
+                break
             # ── Choose attack type: ranged if enemy has range and target reachable ──
             dist = enemy.distance_to(target)
             can_ranged = (
                 enemy.attack_range > 1
+                and profile.key != "starver"
                 and dist <= enemy.attack_range * GRID_SIZE
             )
             from game.combat.battlefield import trace_sight_line
@@ -547,13 +618,9 @@ def run_enemy_ai(
             can_melee = dist <= 1 * GRID_SIZE
 
             if can_melee:
-                damage = resolve_attack(
-                    enemy,
-                    target,
-                    "melee",
-                    cover_nodes=cover_nodes,
-                    allies=enemy_units,
-                ).damage
+                attack = _resolve_enemy_attack(enemy, target, "melee", enemy_units, cover_nodes)
+                damage = attack.damage
+                infected = getattr(attack, "infection_transmitted", False)
             elif can_ranged:
                 flank_step = _flanking_step(
                     enemy,
@@ -565,7 +632,7 @@ def run_enemy_ai(
                     terrain_profile=terrain_profile,
                     movement_mode=movement_mode,
                 )
-                if flank_step and enemy.action_points > 1 and profile.flank_bias >= 1.0:
+                if flank_step and enemy.action_points > 1 and profile.flank_bias >= 1.0 and priority in {None, "FLANK"}:
                     enemy.move(*flank_step)
                     results.append(
                         EnemyActionResult(
@@ -575,14 +642,16 @@ def run_enemy_ai(
                             decision_reason="flanking",
                         )
                     )
+                    if _check_overwatch(enemy, player_units, enemy_units, on_overwatch_shot, on_defeated, cover_nodes):
+                        break
                     continue
-                damage = resolve_attack(
-                    enemy,
-                    target,
-                    "fire",
-                    cover_nodes=cover_nodes,
-                    allies=enemy_units,
-                ).damage
+                suppression = priority == "SUPPRESS" and enemy.action_points >= 2
+                precision = priority == "LOCK" and enemy.action_points >= 2
+                attack = _resolve_enemy_attack(enemy, target, "precision" if precision else "fire", enemy_units, cover_nodes, suppress=suppression)
+                if precision:
+                    enemy.control_cooldown = 2
+                damage = attack.damage
+                suppression_hit = suppression and attack.hit
             else:
                 damage = 0  # out of range — will move below
 
@@ -593,7 +662,8 @@ def run_enemy_ai(
                 results.append(
                     EnemyActionResult(
                         enemy, target, damage=damage, defeated_target=defeated,
-                        decision_reason="melee" if can_melee else "ranged_fire",
+                        decision_reason="precision_lock" if precision else "suppressing_fire" if suppression_hit else "melee" if can_melee else "ranged_fire",
+                        infection_transmitted=infected,
                     )
                 )
                 if defeated:
@@ -605,10 +675,14 @@ def run_enemy_ai(
                     break
             elif can_melee or can_ranged:
                 # In range but missed — costs the action, stay put
-                results.append(EnemyActionResult(enemy, target, moved=False, decision_reason="attack_missed"))
+                results.append(EnemyActionResult(enemy, target, moved=False, decision_reason="precision_missed" if precision else "suppressing_fire" if suppression_hit else "suppression_missed" if suppression else "attack_missed"))
             else:
+                if cover_repositioned and cover_nodes and cover_defense_bonus(enemy, cover_nodes) > 0:
+                    enemy.defend()
+                    results.append(EnemyActionResult(enemy, target, decision_reason="cover_guard"))
+                    continue
                 objective_step = _objective_pressure_step(enemy, objective)
-                if objective_step and objective_step != (0, 0) and profile.objective_bias >= 1.1:
+                if objective_step and objective_step != (0, 0) and profile.objective_bias >= 1.1 and priority is None:
                     new_x = enemy.position[0] + objective_step[0]
                     new_y = enemy.position[1] + objective_step[1]
                     if _can_enter_ai_cell(
@@ -636,9 +710,10 @@ def run_enemy_ai(
                 cover_step: tuple[int, int] | None = None
                 if (
                     cover_nodes
+                    and priority in {None, "COVER"}
                     and profile.cover_bias >= 1.0
                     and enemy.action_points > 1
-                    and enemy.in_cover_bonus == 0
+                    and cover_defense_bonus(enemy, cover_nodes) == 0
                     and dist > GRID_SIZE * 3  # only seek cover when not too close to target
                 ):
                     cover_step = _nearest_cover_step(enemy, cover_nodes, player_units, enemy_units)
@@ -657,8 +732,9 @@ def run_enemy_ai(
                         movement_mode=movement_mode,
                         legacy_can_enter=can_enter,
                     )
-                    if can_enter_destination:
+                    if can_enter_destination and legal_step(new_x, new_y):
                         enemy.move(step_dx, step_dy)
+                        cover_repositioned = True
                         results.append(
                             EnemyActionResult(
                                 enemy,
@@ -667,10 +743,15 @@ def run_enemy_ai(
                                 decision_reason="cover_seeking",
                             )
                         )
+                        if _check_overwatch(enemy, player_units, enemy_units, on_overwatch_shot, on_defeated, cover_nodes):
+                            break
                         continue
 
                 # Default: step toward target
-                dx, dy = step_toward(enemy, target)
+                destination = order.intent.destination if profile.key == "starver" and order is not None else None
+                step = approach_step(enemy, target, legal_step, destination,
+                                     width=route_width, height=route_height)
+                dx, dy = step or (0, 0)
                 moved = False
                 if dx or dy:
                     step_candidates = [(dx, dy)]
@@ -679,16 +760,7 @@ def run_enemy_ai(
                     for step_dx, step_dy in step_candidates:
                         new_x = enemy.position[0] + step_dx
                         new_y = enemy.position[1] + step_dy
-                        if not _can_enter_ai_cell(
-                            new_x,
-                            new_y,
-                            player_units,
-                            enemy_units,
-                            exclude=enemy,
-                            terrain_profile=terrain_profile,
-                            movement_mode=movement_mode,
-                            legacy_can_enter=can_enter,
-                        ):
+                        if not legal_step(new_x, new_y):
                             continue
                         enemy.move(step_dx, step_dy)
                         moved = True
@@ -701,8 +773,12 @@ def run_enemy_ai(
                             break
                         break
                     if not moved:
+                        if on_plan_interrupted:
+                            on_plan_interrupted(enemy, "movement_blocked")
                         enemy.action_points -= 1
                 else:
+                    if on_plan_interrupted:
+                        on_plan_interrupted(enemy, "movement_blocked")
                     enemy.action_points -= 1
                 results.append(
                     EnemyActionResult(
@@ -712,9 +788,16 @@ def run_enemy_ai(
                         decision_reason="advance" if moved else "",
                     )
                 )
+            if profile.key == "raider" and can_ranged and not can_melee and enemy.action_points > 0:
+                exit_step = skirmish_exit(enemy, target, player_units, legal_step, cover_nodes,
+                                          width=route_width, height=route_height)
+                if exit_step is not None:
+                    enemy.move(*exit_step)
+                    results.append(EnemyActionResult(enemy, target, moved=True, decision_reason="skirmish_reposition"))
+                    if _check_overwatch(enemy, player_units, enemy_units, on_overwatch_shot, on_defeated, cover_nodes):
+                        break
             if enemy.health <= 0 and enemy in enemy_units:
                 enemy_units.remove(enemy)
         if not player_units:
             break
-    _remove_commander_buffs(commander_bonuses)
     return results
