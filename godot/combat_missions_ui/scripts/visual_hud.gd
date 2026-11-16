@@ -198,7 +198,10 @@ func _ensure_action_buttons(actions: Array[String]) -> void:
 		elif "patch" in name_lower: key = "heal"
 		elif "overwatch" in name_lower: key = "watch"
 		elif "missile" in name_lower: key = "missile"
-		btn.icon = load("res://icons/%s.svg" % key)
+		# Runtime SVG decoding also works on a fresh source checkout, before editor import.
+		var icon := Image.new()
+		if icon.load_svg_from_string(FileAccess.get_file_as_string("res://icons/%s.svg" % key)) == OK:
+			btn.icon = ImageTexture.create_from_image(icon)
 
 func _update_button_styles() -> void:
 	for action: String in _action_btns:
