@@ -57,6 +57,10 @@ var _hud_layer     : CanvasLayer = null
 var _banner                      = null   # PhaseBanner
 var _audio                       = null   # AudioManager
 var _results                     = null   # MissionResults
+var visual_mode := true
+var visual_quality := 2
+var _visual_fx = null
+var _visual_obstacles: Array[Node2D] = []
 var _unit_tokens   : Dictionary  = {}    # "p0" / "e1" → UnitToken instance
 
 # ─── Handoff + assets ─────────────────────────────────────────────────────────
@@ -64,6 +68,8 @@ var handoff         : Dictionary = {}
 var handoff_path    := "runtime/godot_combat/mission_handoff.json"
 var project_root    : String = ""
 var unit_textures   : Dictionary = {}
+var _visual_asset_keys: Dictionary = {}
+var _visual_enemy_portraits: Dictionary = {}
 var portrait_textures: Dictionary = {}
 var map_texture     : Texture2D = null
 
@@ -113,11 +119,14 @@ var _pan_start_cam   : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	set_process(true)
-	mouse_filter = Control.MOUSE_FILTER_STOP
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# Set the scene clear colour here so it is unaffected by Camera2D transforms.
 	# draw_rect inside _draw() is subject to the camera's world-space transform,
 	# which makes it appear as a scaled rectangle rather than a full-screen fill.
 	RenderingServer.set_default_clear_color(Color(0.005, 0.015, 0.025, 1.0))
+	var graphics_config := ConfigFile.new()
+	if graphics_config.load("user://combat_visual.cfg") == OK:
+		visual_quality = clampi(int(graphics_config.get_value("graphics", "quality", 2)), 0, 2)
 	_read_args()
 	_load_handoff()
 	_load_unit_textures()
@@ -142,7 +151,7 @@ func _process(delta: float) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED and _battlefield != null and not battle_ended:
-		_battlefield.resize(size * 2.0)
+		_battlefield.resize(size * 4.0)
 		if _hud != null:
 			_hud.set_deferred("size", size)
 			_hud.position = Vector2.ZERO
@@ -155,6 +164,7 @@ func _notification(what: int) -> void:
 			_camera.zoom = Vector2.ONE * _overview_zoom()
 		if battle_started:
 			_resize_tokens()
+			_build_visual_obstacles()
 			_sync_display()
 
 # ─── Child-node construction ──────────────────────────────────────────────────
@@ -172,7 +182,7 @@ func _build_children() -> void:
 	_camera.make_current()
 
 	# Battlefield draws map + grid (behind units)
-	_battlefield = _BFScript.new()
+	_battlefield = preload("res://scripts/visual_battlefield.gd").new() if visual_mode else _BFScript.new()
 	_battlefield.name = "Battlefield"
 	_map_root.add_child(_battlefield)
 
@@ -180,15 +190,20 @@ func _build_children() -> void:
 	_units_layer = Node2D.new()
 	_units_layer.name = "UnitsLayer"
 	_map_root.add_child(_units_layer)
+	_units_layer.y_sort_enabled = visual_mode
+	_visual_fx = preload("res://scripts/combat_visual_fx.gd").new()
+	_visual_fx.z_index = 50
+	_map_root.add_child(_visual_fx)
 
 	# HUD on CanvasLayer 1 — hidden until combat starts
 	_hud_layer = CanvasLayer.new()
 	_hud_layer.layer   = 1
 	_hud_layer.visible = false
 	add_child(_hud_layer)
-	_hud = _HUDScript.new()
+	_hud = preload("res://scripts/visual_hud.gd").new() if visual_mode else _HUDScript.new()
 	_hud.name = "HudController"
 	_hud_layer.add_child(_hud)
+	_configure_visual_hud()
 
 	# Phase banner on CanvasLayer 2
 	var banner_layer := CanvasLayer.new()
@@ -215,6 +230,7 @@ func _build_children() -> void:
 	# CRT post-FX on CanvasLayer 10
 	var crt_layer := CanvasLayer.new()
 	crt_layer.layer = 10
+	crt_layer.visible = not visual_mode
 	add_child(crt_layer)
 	var crt_rect := ColorRect.new()
 	crt_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -230,6 +246,10 @@ func _connect_signals() -> void:
 	CombatSignals.action_pressed.connect(_on_action_pressed)
 	CombatSignals.cell_clicked.connect(_on_cell_clicked)
 	CombatSignals.unit_clicked.connect(_on_unit_clicked)
+	CombatSignals.fx_at.connect(func(kind: String, pos: Vector2):
+		if visual_mode: _visual_fx.burst(kind,pos,pos))
+	CombatSignals.cell_hovered.connect(_visual_cell_hovered)
+	CombatSignals.unit_hovered.connect(_visual_unit_hovered)
 
 # ─── Display sync ─────────────────────────────────────────────────────────────
 
@@ -285,7 +305,7 @@ func _sync_display() -> void:
 		tok.has_overwatch = i in overwatch_indices
 		tok.has_defend    = i in defend_indices
 		tok.set_targeted(false)
-		tok.visible = int(u.get("hp", 0)) > 0
+		tok.visible = int(u.get("hp", 0)) > 0 or (visual_mode and tok._death)
 	for j in range(enemy_units.size()):
 		var key := "e%d" % j
 		if not _unit_tokens.has(key): continue
@@ -295,10 +315,11 @@ func _sync_display() -> void:
 		tok.update_data(u)
 		tok.set_active(false)
 		tok.set_targeted(j == selected_target_index \
-						  and selected_action in ["FIRE", "MELEE", "PSI"] \
+						  and _action_type(selected_action) in ["FIRE", "MELEE", "FIRE_AOE"] \
 						  and turn_side == "player")
-		tok.visible = int(u.get("hp", 0)) > 0
+		tok.visible = int(u.get("hp", 0)) > 0 or (visual_mode and tok._death)
 
+	_update_visual_context()
 	_hud.show_log = show_combat_log
 	_hud.update_state(player_units, enemy_units, initiative_entries,
 					  active_player_index, selected_action,
@@ -350,10 +371,11 @@ func _spawn_all_tokens() -> void:
 		var u    := player_units[i] as Dictionary
 		var tkey := _unit_texture_key(u, false)
 		var tex  := unit_textures.get(tkey, null) as Texture2D
-		var tok  = _TOKScript.new()
+		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Player%d" % i
 		_units_layer.add_child(tok)
 		tok.setup(u, i, false, tex, cell_size)
+		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp0 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
 		tok.position = wp0
 		_unit_tokens["p%d" % i] = tok
@@ -362,10 +384,11 @@ func _spawn_all_tokens() -> void:
 		var u    := enemy_units[j] as Dictionary
 		var tkey := _unit_texture_key(u, true)
 		var tex  := unit_textures.get(tkey, null) as Texture2D
-		var tok  = _TOKScript.new()
+		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Enemy%d" % j
 		_units_layer.add_child(tok)
 		tok.setup(u, j, true, tex, cell_size)
+		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp1 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
 		tok.position = wp1
 		_unit_tokens["e%d" % j] = tok
@@ -376,11 +399,12 @@ func _spawn_all_tokens() -> void:
 		var vkey := str(v.get("vehicle_key", "vehicle_agent_vtol"))
 		var tex  := unit_textures.get(vkey, null) as Texture2D
 		var is_ev := str(v.get("kind", "player")) == "enemy"
-		var tok  = _TOKScript.new()
+		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Vehicle%d" % vi
 		_units_layer.add_child(tok)
 		# id ≥ 1000 signals "vehicle" to _on_unit_clicked so it is silently ignored.
 		tok.setup(v, 1000 + vi, is_ev, tex, cell_size)
+		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(vkey,vkey)), project_root)
 		tok.position = _battlefield.cell_to_world(_cell_position(v))
 		_unit_tokens["v%d" % vi] = tok
 
@@ -391,6 +415,8 @@ func _read_args() -> void:
 	for index in range(args.size()):
 		if args[index] == "--handoff" and index + 1 < args.size():
 			handoff_path = args[index + 1]
+		elif args[index] == "--legacy-visuals":
+			visual_mode = false
 		elif args[index] == "--ipc_pipe" and index + 1 < args.size():
 			ipc_pipe_path = args[index + 1]
 
@@ -526,11 +552,25 @@ func _load_tex(path: String) -> Texture2D:
 	return ImageTexture.create_from_image(img)
 
 func _try_load_tex(key: String, path: String) -> void:
-	var tex := _load_tex(path)
+	var highres := path.get_basename() + "_512.png"
+	var tex := _load_tex(highres) if visual_mode and FileAccess.file_exists(_asset_path(highres)) else _load_tex(path)
 	if tex != null:
 		unit_textures[key] = tex
+		_visual_asset_keys[key] = path.get_file().get_basename().trim_suffix("_512")
 
 func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
+	if visual_mode:
+		var vehicle_key := str(unit.get("vehicle_key", ""))
+		if not vehicle_key.is_empty() and unit_textures.has(vehicle_key): return vehicle_key
+		if not is_enemy and str(unit.get("role", "")) == "power_armor":
+			var armor_key := "visual_power_armor"
+			if not unit_textures.has(armor_key): _try_load_tex(armor_key,"assets/units/enemy_corp_37_power_armor_grunt.png")
+			if unit_textures.has(armor_key): return armor_key
+		var explicit_art := str(unit.get("visual_asset", ""))
+		# A handoff may opt into any catalogued family without executable paths.
+		if not explicit_art.is_empty() and explicit_art == explicit_art.get_file() and not "." in explicit_art:
+			if not unit_textures.has(explicit_art): _try_load_tex(explicit_art,"assets/units/%s.png" % explicit_art)
+			if unit_textures.has(explicit_art): return explicit_art
 	if not is_enemy:
 		var role := str(unit.get("role", "samurai")).to_lower()
 		# Robots always use the robot_combat sprite, not a diverse agent sprite.
@@ -664,9 +704,14 @@ func _gui_input(event: InputEvent) -> void:
 				if battle_started and turn_side == "player":
 					_cycle_active_unit()
 				accept_event()
+			KEY_F9:
+				_toggle_visual_interface()
+				accept_event()
 			KEY_L:
 				show_combat_log = not show_combat_log
-				if _hud != null: _hud.show_log = show_combat_log
+				if _hud != null:
+					_hud.show_log = show_combat_log
+					_hud.queue_redraw()
 				queue_redraw()
 				accept_event()
 			KEY_T:
@@ -938,6 +983,7 @@ func _start_combat(source: String) -> void:
 					  portrait_textures, status_line)
 
 	_spawn_all_tokens()
+	_build_visual_obstacles()
 	_sync_display()
 
 	# Centre the camera on the agent squad and set the overview zoom.
@@ -960,7 +1006,8 @@ func _start_combat(source: String) -> void:
 	for node: Dictionary in cover_nodes:
 		if bool(node.get("solid", false)):
 			solid_count += 1
-	status_line += " | WALL TEST: %d blocked cells (F8)" % solid_count
+	if visual_mode: status_line = "Escouade déployée — choisissez une action."
+	else: status_line += " | WALL TEST: %d blocked cells (F8)" % solid_count
 	_log_event("WALL TEST: %d loaded obstruction cells. Magenta = blocked; F8 hides/shows the overlay." % solid_count)
 	_log_event("%s: tactical insertion live." % source)
 	_sync_display()
@@ -1046,6 +1093,7 @@ func _apply_psi_focus() -> void:
 		var u := player_units[i] as Dictionary
 		u["stress"] = maxi(0, int(u.get("stress", 0)) - relief)
 		player_units[i] = u
+	_visual_self_effect("psi")
 	var line := "%s: Psi Focus — squad stress −%d." % [_active_unit_name(), relief]
 	_log_event(line)
 	status_line = line
@@ -1072,6 +1120,7 @@ func _apply_trauma_patch() -> void:
 	active["ap"] = maxi(0, ap - 1)
 	active["hp"] = mini(max_hp, old_hp + heal_amt)
 	player_units[active_player_index] = active
+	_visual_self_effect("heal")
 	var healed := int(active.get("hp", 0)) - old_hp
 	var line := "%s: Trauma Patch +%d HP." % [_active_unit_name(), healed]
 	_log_event(line)
@@ -1095,6 +1144,8 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 		return
 	active["ap"] = maxi(0, ap - ap_cost)
 	player_units[active_player_index] = active
+	if visual_mode:
+		_visual_fx.burst("explosion", Vector2.ZERO, _battlefield.cell_to_world(center_cell))
 	var base_dmg   := _action_damage("Missile Salvo")
 	var aoe_radius := int((_ACTION_DEFS.get("Missile Salvo", {}) as Dictionary).get("aoe_radius", 2))
 	var hits := 0
@@ -1167,7 +1218,7 @@ func _move_active_unit_to(cell: Vector2i) -> void:
 	var new_world : Vector2 = _battlefield.cell_to_world(cell)
 	var pkey := "p%d" % active_player_index
 	if _unit_tokens.has(pkey):
-		_unit_tokens[pkey].move_to(new_world, u)
+		_visual_move_token(pkey, _cell_position(u), cell, u)
 
 	u["position"] = cell
 	u["ap"]       = maxi(0, ap - dist)
@@ -1215,7 +1266,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var ekey := "e%d" % target_index
 	var akey := "p%d" % active_player_index
 	if _unit_tokens.has(akey) and _unit_tokens.has(ekey):
-		_unit_tokens[akey].attack_lunge(_unit_tokens[ekey].position)
+		_visual_attack(akey, ekey, _action_type(action_name))
 
 	if not hit:
 		_log_event("%s misses %s. (%d%%)" % [
@@ -1396,7 +1447,7 @@ func _enemy_act(enemy_index: int) -> void:
 			ep    = best_cell
 			var ekey := "e%d" % enemy_index
 			if _unit_tokens.has(ekey):
-				_unit_tokens[ekey].move_to(_battlefield.cell_to_world(best_cell), enemy)
+				_visual_move_token(ekey, _battlefield.world_to_cell(_unit_tokens[ekey].position), best_cell, enemy)
 
 	# ── Attack phase ──────────────────────────────────────────────────────────
 	if dist <= rng and ap > 0 and _battlefield.has_los(ep, tp, []):
@@ -1432,7 +1483,7 @@ func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void
 	var ekey := "e%d" % enemy_index
 	var pkey := "p%d" % target_index
 	if _unit_tokens.has(ekey) and _unit_tokens.has(pkey):
-		_unit_tokens[ekey].attack_lunge(_unit_tokens[pkey].position)
+		_visual_attack(ekey, pkey, "PSI" if is_psi else "FIRE")
 
 	if randf() * 100.0 >= chance:
 		_log_event("%s misses %s." % [str(enemy.get("name","?")), str(target.get("name","?"))])
@@ -1769,3 +1820,133 @@ func _map_data() -> Dictionary:
 
 func _draw_text(text: String, pos: Vector2, font_size: int, color: Color) -> void:
 	draw_string(ThemeDB.fallback_font, pos, text, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+
+# Presentation adapters: no damage, AP, AI or mission result mutations here.
+func _configure_visual_hud() -> void:
+	if not _hud.has_signal("quality_changed"): return
+	_hud.mission_title = str(_mission_data().get("title", "TACTICAL INSERTION"))
+	_hud.objective_text = str(_mission_data().get("objective_text", "Complete the objective"))
+	_hud.quality = visual_quality
+	_hud._quality_button.text = "QUALITÉ : " + ["BASSE", "MOYENNE", "ÉLEVÉE"][visual_quality]
+	_hud.quality_changed.connect(_set_visual_quality)
+
+func _set_visual_quality(level: int) -> void:
+	visual_quality = clampi(level, 0, 2)
+	if "quality" in _battlefield: _battlefield.quality = visual_quality
+	_visual_fx.quality = visual_quality
+	for prop: Node2D in _visual_obstacles: prop.visible = visual_quality > 0
+	var config := ConfigFile.new()
+	config.set_value("graphics", "quality", visual_quality)
+	config.save("user://combat_visual.cfg")
+
+func _build_visual_obstacles() -> void:
+	for prop: Node2D in _visual_obstacles: prop.queue_free()
+	_visual_obstacles.clear()
+	if not visual_mode: return
+	var seen: Dictionary = {}
+	for wall: Dictionary in cover_nodes:
+		var id := str(wall.get("wall_id", ""))
+		if id.is_empty() or seen.has(id): continue
+		seen[id] = true
+		var prop := preload("res://scripts/visual_obstacle.gd").new()
+		_units_layer.add_child(prop)
+		prop.configure(wall, _battlefield, map_texture)
+		_visual_obstacles.append(prop)
+	var path := str(_map_data().get("path", "")).to_lower()
+	_battlefield.weather = "interior" if "inner" in path or "interior" in path or "tunnel" in path else ("dust" if "wasteland" in path else "rain")
+	_set_visual_quality(visual_quality)
+
+func _update_visual_context() -> void:
+	var active := _current_active_player()
+	if not active.is_empty():
+		var focus: Vector2 = _battlefield.cell_to_world(_cell_position(active))
+		for prop: Node2D in _visual_obstacles: prop.update_occlusion(focus)
+	if not _hud.has_signal("quality_changed"): return
+	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
+	_hud.target_info = {}
+	var target := _current_target()
+	var atype := _action_type(selected_action)
+	if target.is_empty() or active.is_empty() or atype not in ["FIRE", "MELEE", "FIRE_AOE"]: return
+	var from := _cell_position(active)
+	var to := _cell_position(target)
+	var distance := absi(from.x-to.x)+absi(from.y-to.y)
+	var rng := _action_range(selected_action)
+	if rng == 0: rng = _role_attack_range(str(active.get("role", "")), selected_action)
+	var los: bool = _battlefield.has_los(from,to,[])
+	var chance := clampf(50.0+float(active.get("aim",5))*2-float(target.get("defense",6))*2,20,95)
+	_hud.target_info = target.duplicate()
+	var portrait_key := str(target.get("name", "enemy"))
+	if not _visual_enemy_portraits.has(portrait_key):
+		var theme := str(target.get("enemy_theme", "generic"))
+		var portrait_path := "assets/ui/portraits/enemy_%s_%02d.png" % [theme,(portrait_key.hash() & 0x7fffffff)%20+1]
+		var portrait := _load_tex(portrait_path)
+		if portrait == null: portrait = _load_tex("assets/ui/portraits/enemy_%s.png" % str(target.get("enemy_subtype","grunt")))
+		_visual_enemy_portraits[portrait_key] = portrait
+	_hud.target_info["portrait"] = _visual_enemy_portraits[portrait_key]
+	_hud.target_info["detail"] = "DISTANCE %d  //  PORTÉE %d  //  %d PA" % [distance,rng,_action_ap_cost(selected_action)]
+	_hud.target_info["chance_label"] = "LIGNE DE VUE BLOQUÉE" if not los else ("HORS DE PORTÉE" if distance > rng else "TIR : %d %%" % int(chance))
+
+func _visual_cell_hovered(cell: Vector2i) -> void:
+	if not battle_started or battle_ended or turn_side != "player": return
+	if _action_type(selected_action) != "MOVE": return
+	var active := _current_active_player()
+	if active.is_empty(): return
+	var route: Array[Vector2i] = _battlefield.find_path(_cell_position(active),cell)
+	if route.size()-1 > int(active.get("ap",0)) or _is_cell_occupied(cell,active_player_index,-1): route.clear()
+	_battlefield.show_path(route)
+
+func _visual_unit_hovered(id: int, enemy: bool) -> void:
+	if enemy and id >= 0 and id < enemy_units.size() and int(enemy_units[id].get("hp",0)) > 0:
+		selected_target_index = id
+		for key: String in _unit_tokens:
+			if key.begins_with("e") and is_instance_valid(_unit_tokens[key]):
+				_unit_tokens[key].set_targeted(key == "e%d" % id and _action_type(selected_action) in ["FIRE","MELEE","FIRE_AOE"])
+		_update_visual_context()
+		_hud.queue_redraw()
+
+func _visual_move_token(key: String, origin: Vector2i, destination: Vector2i, data: Dictionary) -> void:
+	var tok = _unit_tokens[key]
+	if not tok.has_method("move_route"):
+		tok.move_to(_battlefield.cell_to_world(destination),data)
+		return
+	var points: Array[Vector2] = []
+	var path: Array[Vector2i] = _battlefield.find_path(origin,destination)
+	for i in range(1,path.size()): points.append(_battlefield.cell_to_world(path[i]))
+	if points.is_empty(): points.append(_battlefield.cell_to_world(destination))
+	tok.move_route(points,data)
+
+func _visual_attack(attacker_key: String, target_key: String, action_type: String) -> void:
+	var attacker = _unit_tokens[attacker_key]
+	var target = _unit_tokens[target_key]
+	if not attacker.has_method("play_action"):
+		attacker.attack_lunge(target.position)
+		return
+	var kind := "melee" if action_type == "MELEE" else ("psi" if action_type.begins_with("PSI") else "fire")
+	attacker.play_action(kind,target.position)
+	var a: Vector2 = attacker.position-Vector2(0,attacker._sh*0.55)
+	var b: Vector2 = target.position-Vector2(0,target._sh*0.5)
+	_visual_fx.burst(kind,a,b)
+
+func _visual_self_effect(kind: String) -> void:
+	if not visual_mode: return
+	var key := "p%d" % active_player_index
+	if _unit_tokens.has(key):
+		var tok = _unit_tokens[key]
+		tok.play_action(kind)
+		_visual_fx.burst(kind,tok.position,tok.position)
+
+func _toggle_visual_interface() -> void:
+	if not battle_started or battle_ended: return
+	var premium: bool = not _hud.has_signal("quality_changed")
+	_hud_layer.remove_child(_hud)
+	_hud.queue_free()
+	_hud = preload("res://scripts/visual_hud.gd").new() if premium else _HUDScript.new()
+	_hud_layer.add_child(_hud)
+	_hud.set_anchors_preset(Control.PRESET_TOP_LEFT)
+	_hud.size = size
+	_configure_visual_hud()
+	_sync_display()
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	# The map root does not take GUI focus; route global tactical shortcuts here.
+	_gui_input(event)

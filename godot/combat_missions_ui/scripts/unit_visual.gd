@@ -1,0 +1,171 @@
+extends "res://scripts/unit_token.gd"
+## Grounded art; genuine atlas frames only. Missing clips keep static source art.
+var visual_key := ""
+var animation_root := ""
+var atlas: Texture2D
+var manifest: Dictionary = {}
+var facing := 0
+var clip := "idle"
+var frame_time := 0.0
+var frame_index := 0
+var _moving: Tween
+var _death := false
+var _art_rect := Rect2()
+var _hit_image: Image
+static var _atlas_cache: Dictionary = {}
+
+func _ready() -> void:
+	super._ready()
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+
+func configure_animation(key: String, root: String) -> void:
+	visual_key = key
+	animation_root = root
+	var path := root.path_join("assets/combat_visual/animations/%s.json" % key)
+	if _atlas_cache.has(path):
+		var cached: Dictionary = _atlas_cache[path]
+		manifest = cached.get("manifest", {})
+		atlas = cached.get("atlas", null)
+		return
+	if FileAccess.file_exists(path):
+		var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+		if raw is Dictionary:
+			manifest = raw
+			var image := Image.load_from_file(root.path_join(str(manifest.get("texture", ""))))
+			if image != null: atlas = ImageTexture.create_from_image(image)
+	_atlas_cache[path] = {"manifest": manifest, "atlas": atlas}
+
+func play_action(action: String, toward: Vector2 = Vector2.ZERO) -> bool:
+	if toward != Vector2.ZERO:
+		var delta := toward - position
+		facing = posmod(int(round(atan2(delta.y * 2.0, delta.x) / (TAU / 8.0))), 8)
+	if not (manifest.get("animations", {}) as Dictionary).has(action): return false
+	clip = action
+	frame_time = 0
+	frame_index = 0
+	return true
+
+func _process(delta: float) -> void:
+	_elapsed += delta
+	_pulse = sin(_elapsed * 3.0) * 0.5 + 0.5
+	if not manifest.is_empty() and atlas != null:
+		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
+		if not anim.is_empty():
+			var rows: Array = anim.get("rows", [])
+			if rows.size() == 8:
+				var frames: Array = rows[facing]
+				frame_time += delta
+				var tick := int(frame_time * float(anim.get("fps", 8)))
+				frame_index = tick % maxi(1, frames.size()) if bool(anim.get("loop", false)) else mini(tick, frames.size()-1)
+				if tick >= frames.size() and not bool(anim.get("loop", false)) and not _death: play_action("idle")
+	queue_redraw()
+
+func set_active(active: bool) -> void:
+	is_active = active
+	queue_redraw()
+
+func move_to(target_pos: Vector2, updated_data: Dictionary) -> void:
+	move_route([target_pos], updated_data)
+
+func move_route(points: Array[Vector2], updated_data: Dictionary) -> void:
+	unit_data = updated_data.duplicate()
+	if _moving: _moving.kill()
+	_moving = create_tween()
+	for p: Vector2 in points:
+		_moving.tween_callback(play_action.bind("move", p))
+		_moving.tween_property(self, "position", p, 0.13)
+	_moving.tween_callback(play_action.bind("idle"))
+	CombatSignals.audio_event.emit("move")
+
+func attack_lunge(target_pos: Vector2) -> void:
+	# Legacy API: no displacement masquerading as a character animation.
+	play_action("fire", target_pos)
+
+func play_hit(damage: int, hit: bool) -> void:
+	if hit:
+		play_action("hit")
+		CombatSignals.fx_at.emit("impact",position-Vector2(0,_sh*0.5))
+	_spawn_float_text("-%d" % damage if hit else "MISS", ENEMY_COL if hit else TEXT)
+
+func play_death() -> void:
+	_death = true
+	play_action("death")
+	CombatSignals.audio_event.emit("death")
+
+func _draw() -> void:
+	var dead := int(unit_data.get("hp", 0)) <= 0
+	if dead and (not _death or clip != "death"): return
+	var rc := ENEMY_COL if is_enemy else PLAYER_COL
+	var footprint := cell_size.x * 0.25 * clampf(float(unit_data.get("size_scale", 1)), 0.6, 3)
+	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
+	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.34))
+	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
+	if is_active or has_defend or has_overwatch:
+		var ring := PackedVector2Array([Vector2(0,-footprint*0.5), Vector2(footprint,0), Vector2(0,footprint*0.5), Vector2(-footprint,0), Vector2(0,-footprint*0.5)])
+		draw_colored_polygon(ring, Color(rc, 0.08))
+		draw_polyline(ring, Color(rc, 0.8), 1.8, true)
+	var tex := sprite.texture if sprite != null else null
+	if tex == null: return
+	var height := cell_size.x * 1.10 * clampf(float(unit_data.get("size_scale", 1)), 0.5, 3.5)
+	var source := Rect2(Vector2.ZERO, tex.get_size())
+	if atlas != null and not manifest.is_empty():
+		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
+		var rows: Array = anim.get("rows", [])
+		if rows.size() == 8 and not (rows[facing] as Array).is_empty():
+			var fs: Array = manifest.get("frame_size", [256,256])
+			var fsize := Vector2(float(fs[0]), float(fs[1]))
+			var idx := int(rows[facing][clampi(frame_index, 0, rows[facing].size()-1)])
+			var columns := maxi(1, int(atlas.get_width() / fsize.x))
+			source = Rect2(Vector2(idx % columns, idx / columns) * fsize, fsize)
+			tex = atlas
+	var width := height * source.size.x / maxf(1, source.size.y)
+	_art_rect = Rect2(-width * 0.5, -height, width, height)
+	draw_texture_rect_region(tex, _art_rect, source, Color(0.36,0.4,0.44) if dead else Color.WHITE)
+	_card_w = width
+	_card_h = height
+	_sh = height
+	if dead: return
+	var hp := float(unit_data.get("hp", 0)) / maxf(1, float(unit_data.get("max_hp", 1)))
+	var bw := minf(width, cell_size.x * 0.7)
+	draw_rect(Rect2(-bw*0.5,-height-9,bw,4), Color(0.01,0.025,0.035,0.9))
+	draw_rect(Rect2(-bw*0.5,-height-9,bw*hp,4), rc)
+	if is_targeted:
+		var r := _art_rect.grow(5)
+		for p: Vector2 in [r.position, Vector2(r.end.x,r.position.y), r.end, Vector2(r.position.x,r.end.y)]:
+			var dx := 1.0 if p.x < 0 else -1.0
+			var dy := 1.0 if p.y < r.get_center().y else -1.0
+			draw_line(p, p+Vector2(dx*10,0), ENEMY_COL, 2, true)
+			draw_line(p, p+Vector2(0,dy*10), ENEMY_COL, 2, true)
+	if has_defend or has_overwatch:
+		_ds("DEF" if has_defend else "OW", Vector2(width*0.5,-height*0.5), 9, rc)
+
+func setup(data: Dictionary, id: int, enemy: bool, tex: Texture2D, c_size: Vector2) -> void:
+	super.setup(data,id,enemy,tex,c_size)
+	if tex != null: _hit_image = tex.get_image()
+	_recalc_dims()
+
+func _recalc_dims() -> void:
+	super._recalc_dims()
+	var tex: Texture2D = sprite.texture if sprite != null else null
+	var height := cell_size.x * 1.10 * clampf(float(unit_data.get("size_scale",1)),0.5,3.5)
+	var aspect := float(tex.get_width()) / maxf(1,float(tex.get_height())) if tex != null else 0.7
+	_card_w = height*aspect
+	_card_h = height
+	_sh = height
+	_art_rect = Rect2(-_card_w*0.5,-height,_card_w,height)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return
+	if event is not InputEventMouseButton and event is not InputEventMouseMotion: return
+	var local := to_local(get_viewport().get_canvas_transform().affine_inverse()*event.position)
+	if not _art_rect.has_point(local): return
+	if _hit_image != null and atlas == null:
+		var uv := (local-_art_rect.position)/_art_rect.size
+		var pixel := Vector2i(int(uv.x*_hit_image.get_width()),int(uv.y*_hit_image.get_height()))
+		if _hit_image.get_pixelv(pixel).a < 0.15: return
+	if event is InputEventMouseButton:
+		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			CombatSignals.unit_clicked.emit(unit_id,is_enemy)
+			get_viewport().set_input_as_handled()
+	else:
+		CombatSignals.unit_hovered.emit(unit_id,is_enemy)

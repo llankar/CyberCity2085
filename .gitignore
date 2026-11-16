@@ -5,3 +5,8 @@ game/__pycache__/
 runtime/
 build/
 dist/
+work/
+.pytest_cache/
+**/.godot/
+*.import
+*.uid

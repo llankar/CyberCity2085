@@ -1,30 +1,34 @@
-; Engine configuration for CyberCity 2085 combat mission UI.
-; Open with: godot --path godot/combat_missions_ui -- --handoff runtime/godot_combat/mission_handoff.json
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
+
 config/name="CyberCity 2085 Combat UI"
 run/main_scene="res://scenes/combat_mission_ui.tscn"
-config/features=PackedStringArray("4.2")
+config/features=PackedStringArray("4.6")
 
 [autoload]
+
 CombatSignals="*res://scripts/combat_signals.gd"
 
 [display]
+
 window/size/viewport_width=1280
 window/size/viewport_height=720
 
 [input]
 
-# Input mappings - configure these in Godot editor after launch:
-# action_move: W, A, S, D keys for movement
-# action_fire: F key for firing
-# cycle_unit: Page Down (25) for cycling units  
-# end_turn: T key to end turn
-# cancel: Page Up (24) for canceling actions
-
-[rendering]
-renderer/rendering_method="gl_compatibility"
+"#Inputmappings-configuretheseinGodoteditorafterlaunch:#action_move:W,A,S,Dkeysformovement#action_fire:Fkeyforfiring#cycle_unit:PageDown(25)forcyclingunits#end_turn:Tkeytoendturn#cancel:PageUp(24)forcancelingactions[rendering]renderer/rendering_method"="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/canvas_textures/default_texture_filter=0
