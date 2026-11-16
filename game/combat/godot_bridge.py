@@ -22,7 +22,7 @@ from game.battle_maps import select_battle_map_entry
 from game.deployment import selected_deployable_agents, selected_deployable_assets
 from game.gamestate import GameState
 from game.mission_templates import MissionTemplate
-from game.ui.portraits import portrait_path_for_character
+from game.ui.portraits import portrait_path_for_character, portrait_path_for_power_armor, portrait_path_for_robot
 
 GODOT_COMBAT_PROJECT_DIR = Path("godot/combat_missions_ui")
 DEFAULT_HANDOFF_PATH = Path("runtime/godot_combat/mission_handoff.json")
@@ -121,7 +121,7 @@ def _agent_payload(character) -> dict[str, Any]:
         "defense":     derived["defense"],
         "initiative":  derived["initiative"],
         "melee_power": derived["melee_power"],
-        "size_scale":  3.5 if is_robot else 1.0,
+        "size_scale":  3.5 if is_robot else (1.15 if str(character.role).lower() in {"power_armor", "heavy_armor"} else 1.0),
     }
 
 
@@ -140,7 +140,8 @@ def _asset_payload(asset) -> dict[str, Any]:
         "initiative": 14 + stats.agi,
         "action_points": int(getattr(asset, "action_points", 2)),
         "actions": list(asset.combat_actions),
-        "size_scale": 3.5 if is_robot else 2.0,
+        "size_scale": 3.5 if is_robot else 1.15,
+        "portrait_path": portrait_path_for_robot(asset.id, asset_type) if is_robot else portrait_path_for_power_armor(asset.id, asset_type),
         "pilot_agent_name": getattr(asset, "pilot_agent_name", ""),
     }
 
