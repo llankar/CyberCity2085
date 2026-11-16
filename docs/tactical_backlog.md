@@ -13,7 +13,8 @@ Combat Visual 2.0 — November 16, 2026 (five workstreams, goal NOT complete):
 
 Evidence, commands and remaining art/validation gates:
 [COMBAT_VISUAL_2_PROGRESS.md](COMBAT_VISUAL_2_PROGRESS.md).
-No push/publication. Rendering compatibility is not final artistic approval.
+Branch pushed to origin/combat/visual-2 with user authorization; no merge or deployment.
+Rendering compatibility is not final artistic approval.
 
 Enemy control-effect parity — November 16, 2026:
 
