@@ -111,7 +111,7 @@ class SoundManager:
 
     def play_music(self, name: str, loop: bool = True) -> None:
         """Start looping background music. Stops current track first."""
-        if name == self._current_music:
+        if name == self._current_music and self._music_player is not None and getattr(self._music_player, "playing", False):
             return
         self.stop_music()
         if not self._enabled:
@@ -146,6 +146,7 @@ class SoundManager:
             pass
 
     def stop_music(self) -> None:
+        self._current_music = None
         if self._music_player is None:
             return
         try:
