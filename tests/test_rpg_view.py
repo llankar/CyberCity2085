@@ -268,27 +268,28 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         self.assertEqual(card["role"], "starver")
         self.assertIn("LOST TO THE SQUAD", card["infection_status"])
 
-    def test_godot_child_exit_before_overlay_returns_to_arcade_once(self):
+    def test_godot_child_exit_shows_error_without_switching_engine(self):
         from unittest.mock import Mock, patch
         from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
         process = Mock()
         process.poll.return_value = 1
         launch = types.SimpleNamespace(process=process, process_pid=123)
-        bridge = GodotCombatHandoffView(GameState(), _mission(), launch)
+        bridge = GodotCombatHandoffView(GameState(), _mission(), launch, window=_FakeWindow())
         bridge._cleanup_godot = Mock()
         bridge._fallback_to_arcade_battle = Mock()
         with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=None):
             bridge.on_update(0.3)
             bridge.on_update(0.3)
         bridge._cleanup_godot.assert_called_once()
-        bridge._fallback_to_arcade_battle.assert_called_once()
+        bridge._fallback_to_arcade_battle.assert_not_called()
+        self.assertTrue(bridge._launch_failed)
 
     def test_godot_result_before_overlay_is_applied_once_without_relaunch(self):
         from unittest.mock import Mock, patch
         from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
         process = Mock()
         process.poll.return_value = 0
-        bridge = GodotCombatHandoffView(GameState(), _mission(), types.SimpleNamespace(process=process, process_pid=123))
+        bridge = GodotCombatHandoffView(GameState(), _mission(), types.SimpleNamespace(process=process, process_pid=123), window=_FakeWindow())
         bridge._cleanup_godot = Mock()
         bridge._apply_combat_result = Mock()
         bridge._fallback_to_arcade_battle = Mock()
@@ -299,19 +300,20 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         bridge._apply_combat_result.assert_called_once_with(result)
         bridge._fallback_to_arcade_battle.assert_not_called()
 
-    def test_new_campaign_defaults_to_arcade_without_external_launch(self):
+    def test_new_campaign_routes_to_godot(self):
         from unittest.mock import patch
         state = GameState(characters=[Character("Ready")], selected_agent_names=["Ready"], mission_templates=[_mission()])
-        self.assertEqual(state.combat_mission_ui_engine, "arcade")
+        self.assertEqual(state.combat_mission_ui_engine, "godot")
         view = views.RPGView(state)
         view.window = _FakeWindow()
         view.setup()
-        with patch.object(views, "BattleView", _FakeBattleView), patch("game.combat.godot_bridge.subprocess.Popen") as process:
+        launch = types.SimpleNamespace(launched=True,message="Godot started",process=None,process_pid=None)
+        with patch.object(views, "BattleView", _FakeBattleView), patch("game.combat.godot_bridge.launch_godot_combat_ui", return_value=launch) as process:
             view.launch_selected_mission()
-        process.assert_not_called()
+        process.assert_called_once()
         self.assertIs(view.window.shown_view.mission, state.active_mission)
 
-    def test_explicit_godot_failure_falls_back_without_applying_rewards(self):
+    def test_godot_failure_stays_on_error_view_without_applying_rewards(self):
         from unittest.mock import patch
         state = GameState(characters=[Character("Ready")], selected_agent_names=["Ready"], mission_templates=[_mission()])
         state.combat_mission_ui_engine = "godot"
@@ -321,7 +323,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         failure = types.SimpleNamespace(launched=False, message="unavailable")
         with patch.object(views, "BattleView", _FakeBattleView), patch("game.combat.godot_bridge.launch_godot_combat_ui", return_value=failure):
             view.launch_selected_mission()
-        self.assertIsInstance(view.window.shown_view, _FakeBattleView)
+        self.assertTrue(view.window.shown_view._launch_failed)
         self.assertEqual(state.combat_mission_ui_engine, "godot")
 
     def test_launch_without_agents_sets_message_and_keeps_rpg_view(self):
@@ -744,6 +746,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
             None,
         )
         launch_button = view.room_ui.action_buttons[0].rect
+        game_state.combat_mission_ui_engine = "arcade"  # Explicit legacy launch coverage.
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
@@ -1002,6 +1005,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view = views.RPGView(game_state)
         view.window = _FakeWindow()
         view.setup()
+        game_state.combat_mission_ui_engine = "arcade"  # Explicit legacy launch coverage.
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
@@ -1046,6 +1050,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view = views.RPGView(game_state)
         view.window = _FakeWindow()
         view.setup()
+        game_state.combat_mission_ui_engine = "arcade"  # Explicit legacy launch coverage.
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
@@ -1097,6 +1102,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view = views.RPGView(game_state)
         view.window = _FakeWindow()
         view.setup()
+        game_state.combat_mission_ui_engine = "arcade"  # Explicit legacy launch coverage.
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
@@ -1116,6 +1122,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         view = views.RPGView(game_state)
         view.window = _FakeWindow()
         view.setup()
+        game_state.combat_mission_ui_engine = "arcade"  # Explicit legacy launch coverage.
         original_battle_view = views.BattleView
         views.BattleView = _FakeBattleView
         try:
