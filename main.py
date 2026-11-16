@@ -32,13 +32,15 @@ def main(argv=None) -> int:
     import warnings
     import arcade
     from arcade.exceptions import PerformanceWarning
-    from game.ui.screens.settings_screen import load_settings
+    from game.ui.screens.settings_screen import load_settings, apply_settings
     from game.ui.screens.title_screen import TitleView
 
     warnings.filterwarnings("ignore", category=PerformanceWarning, module="arcade")
-    window = arcade.Window(1920, 1000, "CyberCity 2085")
-    load_settings()
+    settings = load_settings()
+    window = arcade.Window(1920, 1000, "CyberCity 2085", visible=False)
+    apply_settings(window, settings)
     window.show_view(TitleView())
+    window.set_visible(True)
     arcade.run()
     return 0
 
