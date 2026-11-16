@@ -104,11 +104,16 @@ def test_end_to_end_mission_flow_regression(launch_mock):
     briefing.window = _FakeWindow()
     briefing._launch_battle()
 
+    bridge = briefing.window.shown_view
+    assert bridge._launch_failed
+    from game.ui.screens.godot_combat_handoff_view import arcade
+    with patch.object(arcade, "key", SimpleNamespace(R=82,G=71,F=70,ESCAPE=27)):
+        bridge.on_key_press(70, 0)
     battle = briefing.window.shown_view
     assert isinstance(battle, _FakeBattleView)
     assert battle.mission is mission
     assert (
-        "Godot unavailable; launching local Arcade battle fallback."
+        "Ancien combat Arcade choisi explicitement pour cette mission."
         in state.event_log[-1]
     )
 
