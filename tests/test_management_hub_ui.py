@@ -15,7 +15,7 @@ class _FakeView:
 
 fake_arcade = types.SimpleNamespace(
     View=_FakeView,
-        key=types.SimpleNamespace(
+    key=types.SimpleNamespace(
         B=66,
         N=78,
         C=67,
@@ -30,11 +30,11 @@ fake_arcade = types.SimpleNamespace(
         H=72,
         M=77,
         TAB=9,
-            F1=1001,
-            F2=1002,
-            F3=1003,
-            F4=1004,
-            F5=1005,
+        F1=1001,
+        F2=1002,
+        F3=1003,
+        F4=1004,
+        F5=1005,
         F6=1006,
         LEFT=1007,
         RIGHT=1008,
@@ -111,25 +111,50 @@ class _FakeWindow:
 
 class _StubPainter:
     """Exercise production geometry/actions without needing an OpenGL context."""
-    def __init__(self): self._texts={}
-    def resize(self): pass
-    def panel(self,*args,**kwargs): pass
-    def glow(self,*args,**kwargs): pass
-    def fit(self,text,width,size,bold=True):
-        count=max(1,int(width/(size*.58)))
-        return str(text) if len(str(text))<=count else str(text)[:count-1]+'…'
-    def text(self,text,x,y,size=12,color=(255,255,255),**kwargs):
+
+    def __init__(self):
+        self._texts = {}
+
+    def resize(self):
+        pass
+
+    def panel(self, *args, **kwargs):
+        pass
+
+    def glow(self, *args, **kwargs):
+        pass
+
+    def fit(self, text, width, size, bold=True):
+        count = max(1, int(width / (size * 0.58)))
+        return str(text) if len(str(text)) <= count else str(text)[: count - 1] + "…"
+
+    def text(self, text, x, y, size=12, color=(255, 255, 255), **kwargs):
         import math
-        width=kwargs.get('width')
-        rows=max(1,math.ceil(len(str(text))*size*.58/width)) if width else 1
-        fake_arcade.draw_text(text,x,y,color,font_size=size,**{k:v for k,v in kwargs.items() if k not in ('accessibility',)})
-        return types.SimpleNamespace(text=str(text),content_width=min(width or 99999,len(str(text))*size*.58),content_height=rows*size*1.3)
+
+        width = kwargs.get("width")
+        rows = max(1, math.ceil(len(str(text)) * size * 0.58 / width)) if width else 1
+        fake_arcade.draw_text(
+            text,
+            x,
+            y,
+            color,
+            font_size=size,
+            **{k: v for k, v in kwargs.items() if k not in ("accessibility",)},
+        )
+        return types.SimpleNamespace(
+            text=str(text),
+            content_width=min(width or 99999, len(str(text)) * size * 0.58),
+            content_height=rows * size * 1.3,
+        )
 
 
 class ManagementHubUITest(unittest.TestCase):
     def setUp(self):
         from unittest.mock import patch
-        self.paint_patch=patch('game.ui.components.squad_command.HolographicRenderer',_StubPainter)
+
+        self.paint_patch = patch(
+            "game.ui.components.visual_kit.HolographicRenderer", _StubPainter
+        )
         self.paint_patch.start()
         self.addCleanup(self.paint_patch.stop)
 
@@ -144,7 +169,6 @@ class ManagementHubUITest(unittest.TestCase):
         view.game_state.characters[0].pending_points = 5
         view.game_state.selected_agent_names = [view.game_state.characters[0].name]
         view.game_state.spec_ops_assets = default_spec_ops_assets()
-
 
     def test_double_click_agent_card_opens_full_sheet(self):
         view = ManagementView(GameState())
@@ -190,24 +214,42 @@ class ManagementHubUITest(unittest.TestCase):
 
         view.on_draw()
 
-        stat_hit = next(hit for hit in view._modal_hits if hit.action == "sheet_spend_stat")
+        stat_hit = next(
+            hit for hit in view._modal_hits if hit.action == "sheet_spend_stat"
+        )
         before_points = view.game_state.characters[0].pending_points
         before_str = view.game_state.characters[0].stats.str
 
-        view.on_mouse_press((stat_hit.left + stat_hit.right) // 2, (stat_hit.bottom + stat_hit.top) // 2, 0, 0)
-        self.assertEqual(view.game_state.characters[0].pending_points, before_points - 1)
+        view.on_mouse_press(
+            (stat_hit.left + stat_hit.right) // 2,
+            (stat_hit.bottom + stat_hit.top) // 2,
+            0,
+            0,
+        )
+        self.assertEqual(
+            view.game_state.characters[0].pending_points, before_points - 1
+        )
         self.assertGreater(view.game_state.characters[0].stats.str, before_str)
 
         view.game_state.characters[0].pending_points = 1
         skill_hit = next(
-            (hit for hit in view._modal_hits if hit.action == "sheet_spend_skill_rank"), None
+            (hit for hit in view._modal_hits if hit.action == "sheet_spend_skill_rank"),
+            None,
         )
         if skill_hit is not None:
             before_skills = dict(view.game_state.characters[0].skills)
-            view.on_mouse_press((skill_hit.left + skill_hit.right) // 2, (skill_hit.bottom + skill_hit.top) // 2, 0, 0)
+            view.on_mouse_press(
+                (skill_hit.left + skill_hit.right) // 2,
+                (skill_hit.bottom + skill_hit.top) // 2,
+                0,
+                0,
+            )
             self.assertEqual(view.game_state.characters[0].pending_points, 0)
             skill_key = skill_hit.data[1]
-            self.assertGreater(view.game_state.characters[0].skills.get(skill_key, 0), before_skills.get(skill_key, 0))
+            self.assertGreater(
+                view.game_state.characters[0].skills.get(skill_key, 0),
+                before_skills.get(skill_key, 0),
+            )
 
     def test_escape_closes_expanded_agent_sheet(self):
         view = ManagementView(GameState())
@@ -219,6 +261,7 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_key_press(management_screen.arcade.key.ESCAPE, 0)
 
         self.assertIsNone(view.expanded_agent_sheet_index)
+
     def test_management_view_uses_the_hub_room_model(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
@@ -228,13 +271,21 @@ class ManagementHubUITest(unittest.TestCase):
         command = rooms[0]
 
         self.assertEqual(view.room_ui.mode, "hub")
-        self.assertEqual([room.key for room in rooms], ["command", "city", "squad", "assets", "research", "intel"])
+        self.assertEqual(
+            [room.key for room in rooms],
+            ["command", "city", "squad", "assets", "research", "intel"],
+        )
 
         view.on_mouse_press(command.left + 1, command.bottom + 1, 0, 0)
 
         self.assertTrue(view.room_ui.is_open)
         self.assertEqual(view.room_ui.active_room_key, "command")
-        self.assertTrue(any(button.action.key == "advance_day" for button in view.room_ui.action_buttons))
+        self.assertTrue(
+            any(
+                button.action.key == "advance_day"
+                for button in view.room_ui.action_buttons
+            )
+        )
 
     def test_keyboard_shortcut_opens_the_correct_room(self):
         view = ManagementView(GameState())
@@ -256,7 +307,12 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.key = original_key_ns
 
         self.assertEqual(view.room_ui.active_room_key, "squad")
-        self.assertTrue(any(button.action.key == "open_mission_map" for button in view.room_ui.action_buttons))
+        self.assertTrue(
+            any(
+                button.action.key == "open_mission_map"
+                for button in view.room_ui.action_buttons
+            )
+        )
 
     def test_room_info_lines_use_the_current_room_content_sources(self):
         view = ManagementView(GameState())
@@ -265,10 +321,19 @@ class ManagementHubUITest(unittest.TestCase):
 
         lines = view._room_info_lines()
 
-        self.assertTrue(any("Funds" in line or "Turn" in line for line in lines["command"]))
-        self.assertTrue(any("District" in line or "Control faction" in line for line in lines["city"]))
+        self.assertTrue(
+            any("Funds" in line or "Turn" in line for line in lines["command"])
+        )
+        self.assertTrue(
+            any(
+                "District" in line or "Control faction" in line
+                for line in lines["city"]
+            )
+        )
         self.assertTrue(any("Squad morale" in line for line in lines["squad"]))
-        self.assertTrue(any("Spec Ops Assets Guide" in line for line in lines["assets"]))
+        self.assertTrue(
+            any("Spec Ops Assets Guide" in line for line in lines["assets"])
+        )
         self.assertTrue(any("Research tree" in line for line in lines["research"]))
         self.assertTrue(any("Event log entries" in line for line in lines["intel"]))
 
@@ -294,11 +359,16 @@ class ManagementHubUITest(unittest.TestCase):
         view.setup()
 
         from unittest.mock import patch
-        with patch.object(management_screen,"draw_graphical_command_surface") as legacy:
+
+        with patch.object(
+            management_screen, "draw_graphical_command_surface"
+        ) as legacy:
             view.on_draw()
             legacy.assert_not_called()
         self.assertIsNotNone(view._headquarters)
-        self.assertEqual(len([hit for hit in view._hits if hit.action == "hq_room"]),12)
+        self.assertEqual(
+            len([hit for hit in view._hits if hit.action == "hq_room"]), 12
+        )
         self.assertFalse(any(hit.action == "agent_card" for hit in view._hits))
 
     def test_squad_room_uses_dedicated_renderer_instead_of_graphical_shell(self):
@@ -311,7 +381,16 @@ class ManagementHubUITest(unittest.TestCase):
 
         captured = {}
 
-        def _capture(width, height, state, resources, room_info_lines=None, roster_cards=None, available_funds=None, draw_controls=None):
+        def _capture(
+            width,
+            height,
+            state,
+            resources,
+            room_info_lines=None,
+            roster_cards=None,
+            available_funds=None,
+            draw_controls=None,
+        ):
             captured["roster_cards"] = roster_cards
 
         original = management_screen.draw_graphical_command_surface
@@ -321,19 +400,22 @@ class ManagementHubUITest(unittest.TestCase):
         finally:
             management_screen.draw_graphical_command_surface = original
 
-        self.assertNotIn("roster_cards",captured)
+        self.assertNotIn("roster_cards", captured)
         self.assertIsNotNone(view._squad_command)
-        self.assertTrue(any(hit.action=="agent_card" for hit in view._hits))
+        self.assertTrue(any(hit.action == "agent_card" for hit in view._hits))
 
     def test_squad_does_not_dispatch_invisible_legacy_buttons(self):
         from unittest.mock import patch
-        view=ManagementView(GameState())
-        view.window=_FakeWindow();view.setup();self._seed_interactive_state(view)
-        open_room(view.room_ui,view.window.width,view.window.height,"squad")
-        button=view.room_ui.action_buttons[0]
-        view._hits=[]
-        with patch.object(view,"_dispatch_hub_action") as dispatch:
-            view.on_mouse_press(button.rect.center_x,button.rect.center_y,0,0)
+
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        open_room(view.room_ui, view.window.width, view.window.height, "squad")
+        button = view.room_ui.action_buttons[0]
+        view._hits = []
+        with patch.object(view, "_dispatch_hub_action") as dispatch:
+            view.on_mouse_press(button.rect.center_x, button.rect.center_y, 0, 0)
             dispatch.assert_not_called()
 
     def test_resource_strip_shows_all_resource_labels(self):
@@ -422,7 +504,9 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertEqual(kwargs.get("align"), "left")
         self.assertGreaterEqual(kwargs.get("font_size", 0), 11)
         content_w = 520 - 100 - 10
-        expected_left_width = min(max(240, int(content_w * 0.60)), max(120, content_w - 150))
+        expected_left_width = min(
+            max(240, int(content_w * 0.60)), max(120, content_w - 150)
+        )
         self.assertEqual(kwargs.get("width"), max(10, expected_left_width - 24))
 
     def test_notification_toast_moves_toward_the_center(self):
@@ -477,11 +561,27 @@ class ManagementHubUITest(unittest.TestCase):
         view.setup()
         self._seed_interactive_state(view)
 
+        view.game_state.strategic_resources.update(
+            credits=50, salvage=50, intel=50, influence=50
+        )
+
         cases = {
             "command": ("weekly_directive_",),
             "city": ("city_upgrade_",),
-            "squad": ("agent_card", "spend_stat_point", "equip_prev", "equip_next", "select_mission"),
-            "assets": ("asset_select", "asset_repair", "asset_deploy_toggle", "catalog_acquire", "catalog_scroll"),
+            "squad": (
+                "agent_card",
+                "spend_stat_point",
+                "equip_prev",
+                "equip_next",
+                "select_mission",
+            ),
+            "assets": (
+                "asset_select",
+                "asset_repair",
+                "asset_deploy_toggle",
+                "catalog_acquire",
+                "catalog_scroll",
+            ),
             "research": ("start_research_",),
         }
 
@@ -500,30 +600,68 @@ class ManagementHubUITest(unittest.TestCase):
                     msg=f"missing expected hit regions for {room_key}: {actions}",
                 )
                 if room_key == "squad":
-                    first_agent = next(hit for hit in view._hits if hit.action == "agent_card")
-                    first_stat = next(hit for hit in view._hits if hit.action == "spend_stat_point")
-                    first_equip = next(hit for hit in view._hits if hit.action == "equip_next")
-                    open_map = next(hit for hit in view._hits if hit.action == "open_mission_map")
+                    first_agent = next(
+                        hit for hit in view._hits if hit.action == "agent_card"
+                    )
+                    first_stat = next(
+                        hit for hit in view._hits if hit.action == "spend_stat_point"
+                    )
+                    first_equip = next(
+                        hit for hit in view._hits if hit.action == "equip_next"
+                    )
+                    open_map = next(
+                        hit for hit in view._hits if hit.action == "open_mission_map"
+                    )
 
                     agent_name = view.game_state.characters[0].name
                     before_points = view.game_state.characters[0].pending_points
                     before_str = view.game_state.characters[0].stats.str
-                    before_item = view.game_state.characters[0].loadout.item_for_slot("primary_weapon")
+                    before_item = view.game_state.characters[0].loadout.item_for_slot(
+                        "primary_weapon"
+                    )
 
-                    view.on_mouse_press((first_agent.left + first_agent.right) // 2, (first_agent.bottom + first_agent.top) // 2, 0, 0)
+                    view.on_mouse_press(
+                        (first_agent.left + first_agent.right) // 2,
+                        (first_agent.bottom + first_agent.top) // 2,
+                        0,
+                        0,
+                    )
                     self.assertNotIn(agent_name, view.game_state.selected_agent_names)
 
-                    view.on_mouse_press((first_stat.left + first_stat.right) // 2, (first_stat.bottom + first_stat.top) // 2, 0, 0)
-                    self.assertEqual(view.game_state.characters[0].pending_points, before_points - 1)
-                    self.assertGreater(view.game_state.characters[0].stats.str, before_str)
+                    view.on_mouse_press(
+                        (first_stat.left + first_stat.right) // 2,
+                        (first_stat.bottom + first_stat.top) // 2,
+                        0,
+                        0,
+                    )
+                    self.assertEqual(
+                        view.game_state.characters[0].pending_points, before_points - 1
+                    )
+                    self.assertGreater(
+                        view.game_state.characters[0].stats.str, before_str
+                    )
 
-                    view.on_mouse_press((first_equip.left + first_equip.right) // 2, (first_equip.bottom + first_equip.top) // 2, 0, 0)
-                    after_item = view.game_state.characters[0].loadout.item_for_slot("primary_weapon")
+                    view.on_mouse_press(
+                        (first_equip.left + first_equip.right) // 2,
+                        (first_equip.bottom + first_equip.top) // 2,
+                        0,
+                        0,
+                    )
+                    after_item = view.game_state.characters[0].loadout.item_for_slot(
+                        "primary_weapon"
+                    )
                     self.assertIsNotNone(after_item)
                     self.assertNotEqual(after_item, before_item)
 
-                    view.on_mouse_press((open_map.left + open_map.right) // 2, (open_map.bottom + open_map.top) // 2, 0, 0)
-                    self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
+                    view.on_mouse_press(
+                        (open_map.left + open_map.right) // 2,
+                        (open_map.bottom + open_map.top) // 2,
+                        0,
+                        0,
+                    )
+                    self.assertEqual(
+                        view.window.shown_view.__class__.__name__, "MissionWorldMapView"
+                    )
 
     def test_rect_skips_invalid_lrbt_inputs(self):
         calls = []
@@ -551,18 +689,42 @@ class ManagementHubUITest(unittest.TestCase):
 
         view._do_recruit_prompt()
         view.on_draw()
-        self.assertTrue(any(hit.action=="recruit_candidate" for hit in view._modal_hits))
+        self.assertTrue(
+            any(hit.action == "recruit_candidate" for hit in view._modal_hits)
+        )
 
         self.assertTrue(view.recruit_window_open)
         self.assertGreaterEqual(len(view.pending_recruit_candidates), 6)
-        self.assertTrue(all(candidate.name for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.role in {"samurai", "sniper", "psi", "robot"} for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.function for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.background for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.advantages for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.price > 0 for candidate in view.pending_recruit_candidates))
-        self.assertTrue(all(candidate.skill_line().startswith("SKILLS") for candidate in view.pending_recruit_candidates))
-        self.assertNotIn("Agent 1", {candidate.name for candidate in view.pending_recruit_candidates})
+        self.assertTrue(
+            all(candidate.name for candidate in view.pending_recruit_candidates)
+        )
+        self.assertTrue(
+            all(
+                candidate.role in {"samurai", "sniper", "psi", "robot"}
+                for candidate in view.pending_recruit_candidates
+            )
+        )
+        self.assertTrue(
+            all(candidate.function for candidate in view.pending_recruit_candidates)
+        )
+        self.assertTrue(
+            all(candidate.background for candidate in view.pending_recruit_candidates)
+        )
+        self.assertTrue(
+            all(candidate.advantages for candidate in view.pending_recruit_candidates)
+        )
+        self.assertTrue(
+            all(candidate.price > 0 for candidate in view.pending_recruit_candidates)
+        )
+        self.assertTrue(
+            all(
+                candidate.skill_line().startswith("SKILLS")
+                for candidate in view.pending_recruit_candidates
+            )
+        )
+        self.assertNotIn(
+            "Agent 1", {candidate.name for candidate in view.pending_recruit_candidates}
+        )
 
         open_room(view.room_ui, view.window.width, view.window.height, "squad")
         view.room_ui.expansion = 1.0
@@ -576,18 +738,30 @@ class ManagementHubUITest(unittest.TestCase):
         management_screen.arcade.draw_text = _capture
         try:
             view.on_draw()
+            pages = view._recruitment_deck.capacities["candidate_detail"][0]
+            for page in range(1, pages):
+                view._dispatch("department_page", ("candidate_detail", 1))
+                view.on_draw()
+
         finally:
             management_screen.arcade.draw_text = original
 
         first_candidate = view.pending_recruit_candidates[0]
         drawn_text = {str(call[0]) for call in calls}
-        from game.ui.components.squad_copy import localized_squad_copy
-        self.assertIn(localized_squad_copy("RECRUITMENT WINDOW",view.game_state.ui_language),drawn_text)
-        self.assertIn(first_candidate.function.upper(), drawn_text)
-        self.assertTrue(any(first_candidate.skill_line() in text for text in drawn_text))
+        normalized = " ".join(" ".join(str(call[0]) for call in calls).split()).upper()
+        self.assertTrue(
+            any("RECRUTEMENT" in text or "RECRUITMENT" in text for text in drawn_text)
+        )
+        self.assertIn(first_candidate.function.upper(), normalized)
+        self.assertIn(first_candidate.skill_line().upper(), normalized)
         self.assertTrue(any(f"¥{first_candidate.price}" in text for text in drawn_text))
-        self.assertTrue(any(first_candidate.background[:24] in text for text in drawn_text))
-        self.assertTrue(any("ADV:" in text for text in drawn_text))
+        self.assertTrue(
+            any(
+                first_candidate.background[:24].upper() in text.upper()
+                for text in drawn_text
+            )
+        )
+        self.assertIn(" / ".join(first_candidate.advantages).upper(), normalized)
 
         recruited_name = view.pending_recruit_candidates[0].name
         recruited_price = view.pending_recruit_candidates[0].price
@@ -596,12 +770,20 @@ class ManagementHubUITest(unittest.TestCase):
 
         self.assertEqual(len(view.pending_recruit_candidates), 0)
         self.assertFalse(view.recruit_window_open)
-        self.assertIn(recruited_name, {character.name for character in view.game_state.characters})
+        self.assertIn(
+            recruited_name, {character.name for character in view.game_state.characters}
+        )
         self.assertIn(recruited_name, view.game_state.selected_agent_names)
-        recruited = next(character for character in view.game_state.characters if character.name == recruited_name)
+        recruited = next(
+            character
+            for character in view.game_state.characters
+            if character.name == recruited_name
+        )
         self.assertIsNotNone(recruited.loadout.primary_weapon)
         self.assertIn("starter kit", view.message.lower())
-        self.assertEqual(view.game_state.available_funds, before_funds - recruited_price)
+        self.assertEqual(
+            view.game_state.available_funds, before_funds - recruited_price
+        )
 
     def test_agent_sheet_spreads_readiness_and_skills_better(self):
         view = ManagementView(GameState())
@@ -626,12 +808,18 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.draw_text = original
 
         readiness_labels = {"HP", "AIM", "DEF", "INIT", "RES", "REC"}
-        right_side_ready_ys = [y for text, x, y in calls if text in readiness_labels and x > 300]
+        right_side_ready_ys = [
+            y for text, x, y in calls if text in readiness_labels and x > 300
+        ]
         self.assertGreaterEqual(len(right_side_ready_ys), len(readiness_labels))
         self.assertGreater(len({round(y, 1) for y in right_side_ready_ys}), 1)
 
         # Skills are now shown as individual cards with +1 buttons; no TRAIN SKILLS button.
-        skill_labels = [text for text, x, y in calls if text in ("FIREARMS", "CLOSE COMBAT", "TACTICS") and x > 300]
+        skill_labels = [
+            text
+            for text, x, y in calls
+            if text in ("FIREARMS", "CLOSE COMBAT", "TACTICS") and x > 300
+        ]
         self.assertGreater(len(skill_labels), 0)
 
     def test_agent_sheet_keeps_recovery_text_above_stress_meter(self):
@@ -664,13 +852,13 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.draw_text = original
             management_screen._rect = original_rect
 
-        recovery_y = max(y for text, x, y in calls if text=="Recovery")
+        recovery_y = max(y for text, x, y in calls if text == "Recovery")
         stress_label_y = max(y for text, x, y in calls if text == "STRESS" and x < 300)
         self.assertGreater(recovery_y, stress_label_y + 20)
 
-        dossier=view._character_sheet_renderer
-        self.assertGreater(dossier.layout.identity.top,dossier.layout.identity.bottom)
-        self.assertEqual(dossier.data.derived['stress_cap'],12)
+        dossier = view._character_sheet_renderer
+        self.assertGreater(dossier.layout.identity.top, dossier.layout.identity.bottom)
+        self.assertEqual(dossier.data.derived["stress_cap"], 12)
 
     def test_squad_room_can_remove_agent_from_roster(self):
         view = ManagementView(GameState())
@@ -682,13 +870,17 @@ class ManagementHubUITest(unittest.TestCase):
 
         open_room(view.room_ui, view.window.width, view.window.height, "squad")
         remove_button = next(
-            button for button in view.room_ui.action_buttons if button.action.key == "remove_agent"
+            button
+            for button in view.room_ui.action_buttons
+            if button.action.key == "remove_agent"
         ).rect
 
         view._do_remove_agent()
 
         self.assertEqual(len(view.game_state.characters), 3)
-        self.assertNotIn(removed_name, {character.name for character in view.game_state.characters})
+        self.assertNotIn(
+            removed_name, {character.name for character in view.game_state.characters}
+        )
         self.assertNotIn(removed_name, view.game_state.selected_agent_names)
 
     def test_select_mission_footer_is_lower_and_separated_from_room_text(self):
@@ -702,15 +894,16 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_draw()
 
         launch_hit = next(
-            button for button in view._hits
-            if button.action == "open_mission_map"
+            button for button in view._hits if button.action == "open_mission_map"
         )
-        renderer=view._squad_command
-        self.assertGreater(launch_hit.bottom,renderer.regions["downtime"].top)
-        self.assertLess(launch_hit.top,renderer.layout.mission.top)
-        footer_hits=[hit for hit in view._hits if hit.action=="squad_nav"]
-        self.assertEqual(len(footer_hits),11)
-        self.assertLess(max(hit.top for hit in footer_hits),renderer.layout.roster.bottom)
+        renderer = view._squad_command
+        self.assertGreater(launch_hit.bottom, renderer.regions["downtime"].top)
+        self.assertLess(launch_hit.top, renderer.layout.mission.top)
+        footer_hits = [hit for hit in view._hits if hit.action == "squad_nav"]
+        self.assertEqual(len(footer_hits), 11)
+        self.assertLess(
+            max(hit.top for hit in footer_hits), renderer.layout.roster.bottom
+        )
 
 
 if __name__ == "__main__":

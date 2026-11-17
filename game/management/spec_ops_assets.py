@@ -214,6 +214,7 @@ class SpecOpsAsset:
         else:
             asset_cls = cls
         return asset_cls(
+            asset_type=asset_type,
             id=str(data.get("id", "asset")),
             name=str(data.get("name", "Spec-Ops Asset")),
             armor=ArmorRating.from_dict(data.get("armor", {})),

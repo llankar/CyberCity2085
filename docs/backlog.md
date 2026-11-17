@@ -641,3 +641,13 @@ Push and merge are authorized by the user's standing publication preference.
 
 Details: [Headquarters Visual 2.0](headquarters_visual_2.md).
 Push and merge are authorized by the user's standing publication preference.
+
+## UI Visual Unification Pass — 17 novembre 2026
+
+- [x] UIUP-01 Extraire le kit graphique partagé de Squad Command : thème, textes et textures en cache, panneaux, cartes, jauges, actions et lecteurs paginés.
+- [x] UIUP-02 Moderniser Asset Bay, Command Core, City Grid, Research Lab et Intel Archive avec leurs vraies données et contrôleurs.
+- [x] UIUP-03 Unifier recrutement, paramètres, création de campagne, promotions, débriefing, épilogue, missions narratives et liaison Godot.
+- [x] UIUP-04 Vérifier les interactions, sauvegardes, langues et résolutions ; corriger la désérialisation des types d’assets du catalogue et conserver les captures réelles.
+- [x] UIUP-05 Documenter les composants et la validation, publier la branche validée et fusionner dans main conformément à l’autorisation explicite de l’utilisateur.
+
+Détails et captures : [UI Visual Unification Pass](ui_visual_unification.md).

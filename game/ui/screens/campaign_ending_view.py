@@ -37,82 +37,66 @@ class CampaignEndingView(arcade.View):
         arcade.set_background_color(colors.surface_elevated)
         from game.audio import SoundManager
         from game.ui.screens.settings_screen import load_settings
+
         music = SoundManager.get()
         music.configure_from_settings(load_settings())
         music.play_music("music_ending")
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
+        if hasattr(self, "_visual_deck"):
+            self._visual_deck.update(delta_time)
 
-    def on_draw(self) -> None:
+    def on_draw(self):
         self.clear()
-        width, height = self.window.width, self.window.height
-        arcade.draw_text(
-            "CYBERCITY 2085 // CAMPAIGN COMPLETE",
-            width / 2,
-            height - 72,
-            colors.text_secondary,
-            12,
-            anchor_x="center",
-        )
-        arcade.draw_text(
-            self.summary.get("title", "THE CITY REMEMBERS"),
-            width / 2,
-            height - 125,
-            colors.accent_primary,
-            28,
-            bold=True,
-            anchor_x="center",
-        )
-        arcade.draw_text(
-            self.summary.get("summary", ""),
-            width / 2,
-            height - 180,
-            colors.text_primary,
-            13,
-            width=min(820, width - 120),
-            multiline=True,
-            align="center",
-            anchor_x="center",
-        )
+        if not hasattr(self, "_visual_deck"):
+            from game.ui.components.utilities.reports import ReportDeck
 
-        left = max(60, width * 0.12)
-        y = height - 275
-        arcade.draw_text("THE WORLD", left, y, colors.accent_warning, 12, bold=True)
-        y -= 28
-        for line in self.summary.get("world_lines", []):
-            arcade.draw_text(line, left, y, colors.text_secondary, 11)
-            y -= 22
+            self._visual_deck = ReportDeck()
+        self._elapsed = getattr(self, "_elapsed", 0.0)
+        self._visual_deck.ending(self)
 
-        right = width * 0.54
-        y = height - 275
-        arcade.draw_text("THE AGENTS", right, y, colors.accent_success, 12, bold=True)
-        y -= 28
-        for line in self.summary.get("agent_epilogues", [])[:8]:
-            arcade.draw_text(
-                line,
-                right,
-                y,
-                colors.text_primary,
-                10,
-                width=max(280, width * 0.38),
-                multiline=True,
-            )
-            y -= 38
+    def on_mouse_motion(self, x, y, dx, dy):
+        if hasattr(self, "_visual_deck"):
+            self._visual_deck.motion(x, y)
 
-        arcade.draw_text(
-            "ENTER  RETURN TO TITLE",
-            width / 2,
-            42,
-            colors.accent_primary,
-            11,
-            bold=True,
-            anchor_x="center",
-        )
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        if hasattr(self, "_visual_deck"):
+            for name, (_, _, rect) in self._visual_deck.capacities.items():
+                if rect.contains(x, y):
+                    self._visual_deck.turn_page(name, -1 if scroll_y > 0 else 1)
+                    break
 
     def on_key_press(self, key, modifiers) -> None:
-        if key in (arcade.key.RETURN, arcade.key.ENTER, arcade.key.SPACE, arcade.key.ESCAPE):
+        if hasattr(self, "_visual_deck") and key in (
+            arcade.key.TAB,
+            arcade.key.UP,
+            arcade.key.DOWN,
+            arcade.key.SPACE,
+        ):
+            result = self._visual_deck.keyboard(key)
+            if result:
+                if (
+                    result is not True
+                    and not self._visual_deck.activate(result)
+                    and result.action == "continue"
+                ):
+                    self._return_to_title()
+                return
+        if key in (
+            arcade.key.RETURN,
+            arcade.key.ENTER,
+            arcade.key.SPACE,
+            arcade.key.ESCAPE,
+        ):
             self._return_to_title()
+
+    def on_mouse_press(self, x, y, button, modifiers):
+        for hit in self._hits:
+            if hit.contains(x, y):
+                if not self._visual_deck.activate(hit):
+                    self._return_to_title()
+                return
 
     def _return_to_title(self) -> None:
         from game.ui.screens.title_screen import TitleView
