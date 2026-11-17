@@ -18,6 +18,7 @@ var _roster_y := 0.0
 var _roster_w := 0.0
 var _compact_w := 82.0
 var _stacked := false
+var _portrait_pulse_clock := 0.0
 var _quality_button: Button
 
 func _ready() -> void:
@@ -52,6 +53,10 @@ func _utility(label: String, callback: Callable) -> Button:
 
 func _process(delta: float) -> void:
 	_elapsed += delta
+	_portrait_pulse_clock+=delta
+	if _portrait_pulse_clock>1.0/20.0:
+		_portrait_pulse_clock=0
+		queue_redraw()
 	# Project the actual enemy body each frame so the connector follows camera
 	# panning, zoom and movement; portraits remain cached textures.
 	if not target_info.is_empty() and is_instance_valid(target_anchor_node):
@@ -184,6 +189,7 @@ func _draw_roster() -> void:
 		_panel(rect,NEON if active else Color(0.1,0.7,0.74))
 		var tex := portrait_textures.get(str(u.get("name","")),null) as Texture2D
 		if tex != null: _portrait(tex,Rect2(x+5,y+5,92 if active else w-10,116 if active else 80))
+		if active:draw_rect(rect.grow(-2),Color(.2,.95,1,.35+.15*sin(_elapsed*1.8)),false,1.2,true)
 		var tx := x+108 if active else x+5
 		_ds(_fit(str(u.get("name","AGENT")).to_upper(),w-116 if active else w-10,22 if active else 16),Vector2(tx,y+25 if active else y+105),22 if active else 16,TEXT)
 		var hp_fraction := float(u.get("hp",0))/maxf(1,float(u.get("max_hp",1)))
