@@ -394,6 +394,10 @@ func build_vehicles(analysis: Dictionary, giant_used: bool,
 # Main entry point
 # ──────────────────────────────────────────────────────────────────────────────
 
+static func is_interior_map(map: Dictionary) -> bool:
+	var filename := str(map.get("path", map.get("key", ""))).get_file().to_lower()
+	return "inner" in filename or "interior" in filename or "tunnel" in filename
+
 func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary:
 	var mission: Dictionary = handoff.get("mission", {}) as Dictionary
 	var map:     Dictionary = handoff.get("map",     {}) as Dictionary
@@ -459,7 +463,7 @@ func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary
 								  tags, grid_cols, grid_rows)
 
 	# Build vehicles — enemy vehicle may become a Giant combat unit.
-	var vehicles   := build_vehicles(analysis, giant_used, grid_cols, grid_rows)
+	var vehicles: Dictionary = {} if is_interior_map(map) else build_vehicles(analysis, giant_used, grid_cols, grid_rows)
 	var enemy_veh  := vehicles.get("enemy_vehicle", {}) as Dictionary
 	if not enemy_veh.is_empty() and enemy_veh.get("is_giant", false):
 		# Vehicle enters combat as a Giant — add to enemy_units, not scenery.

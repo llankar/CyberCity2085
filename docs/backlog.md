@@ -1,3 +1,11 @@
+## Combat feedback and interior vehicles (November 17, 2026)
+
+- [x] CFI-01 Prioritize out-of-range feedback with actual distance/range, consistently in the target card and click message; describe LOS blockers as obstacles.
+- [x] CFI-02 Omit all interior arrival/decorative vehicles and enemy vehicle combat units at encounter generation; retain exterior vehicles and interior power armor.
+- [x] CFI-03 Real-scene regression for feedback, unchanged rejected-shot AP/HP, interior catalogue generation and power-armor support.
+
+Evidence: [Combat Visual 2.1 corrections](combat_visual_21.md#combat-feedback-and-interior-vehicles).
+
 ## Combat Visual 2.1 (November 17, 2026)
 
 - [x] CV21-01 Replace fabricated stretched wall extrusions with source-aligned painted cutouts and calibrated isometric projection.
