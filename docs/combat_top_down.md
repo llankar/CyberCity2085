@@ -41,3 +41,7 @@ DISPLAY=:103 python -m pytest tests/test_top_down_combat.py tests/test_natural_e
 ## Échap pendant un combat
 
 Échap ne quitte plus Godot et ne termine jamais la mission. La touche ferme les paramètres et le journal lorsqu’ils sont affichés ; sans panneau ouvert, elle laisse le combat inchangé. Le comportement est partagé par les HUD moderne et classique. Le test `tests/test_combat_escape.py` envoie de véritables événements clavier répétés aux deux interfaces et vérifie que le combat, le tour et les données tactiques restent intacts.
+
+## Visibilité des cases accessibles
+
+Le remplissage cyan passe de 4,5 % à 16 % d’opacité, et le contour de 26 % / 1 pixel à 85 % / 2 pixels. Un liseré sombre renforce le contraste sur les sols clairs. Les épaisseurs restent constantes à l’écran lors du zoom, dans les deux projections. La portée de déplacement et les coûts en PA restent identiques. Sept tests de projection/combat et un test natif du contraste des pixels sur trois fonds réussissent. [Capture réelle](images/combat-top-down/movement-cells-visible.webp).
