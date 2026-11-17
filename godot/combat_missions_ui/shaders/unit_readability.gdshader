@@ -37,7 +37,7 @@ void fragment() {
         float body = smoothstep(0.02, 0.48, art.a);
         float edge = smoothstep(0.05, 0.50, neighbor) * (1.0 - body);
         vec3 lit = clamp((art.rgb - vec3(0.5)) * 1.12 + vec3(0.62), 0.0, 1.0);
-        vec3 outline = mix(vec3(0.015, 0.025, 0.035), rim_color.rgb, mix(0.18, 0.92, focus_strength));
+        vec3 outline = mix(vec3(0.015, 0.025, 0.035), rim_color.rgb, mix(0.85, 0.98, focus_strength));
         float alpha = body + edge * 0.90;
         vec3 rgb = (lit * body + outline * edge * 0.90) / max(alpha, 0.001);
         COLOR = vec4(rgb, alpha) * modulation;

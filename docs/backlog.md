@@ -1,3 +1,8 @@
+## Always-visible unit outlines (November 17, 2026)
+
+- [x] OUTLINE-01 Clear cyan outlines on all living allies and red outlines on all living enemies, with stronger selection emphasis.
+- [x] OUTLINE-02 Native pixel checks for unselected/untargeted units and updated real capture/documentation.
+
 ## Reference-based unit presentation (November 17, 2026)
 
 - [x] UREF-01 Solid bodies, state-dependent cyan/red silhouette emphasis, grounded selection and visible-body targeting brackets.
