@@ -36,7 +36,7 @@ def main():
     assert Path(args.name).name==args.name
     OUT.mkdir(parents=True,exist_ok=True);backup=OUT/'blender_blocking';backup.mkdir(exist_ok=True)
     source=Image.open(args.atlas).convert('RGBA')
-    shutil.copyfile(args.atlas,OUT/args.name)
+    if args.atlas.resolve()!=(OUT/args.name).resolve():shutil.copyfile(args.atlas,OUT/args.name)
     for row,name in enumerate(names):
         for col,yaw in enumerate([0,90,180,270]):
             target=OUT/f'{name}-{yaw}.png'
@@ -54,6 +54,12 @@ def main():
     for name in names:
         data['assets'][name]['art_finish']='generated_artist_variant'
         data['assets'][name]['atlas_source']=args.name
+    data['files']={}
+    for family in data['assets']:
+        for yaw in [0,90,180,270]:
+            path=OUT/f'{family}-{yaw}.png'
+            with Image.open(path) as frame:
+                data['files'][path.name]={'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'size':list(frame.size),'alpha_bounds':list(frame.getchannel('A').getbbox())}
     manifest.write_text(json.dumps(data,indent=2)+'\n')
     print('ARTIST_VARIANTS_IMPORTED 16 transparent sprites')
 if __name__=='__main__':main()

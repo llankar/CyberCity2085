@@ -160,12 +160,108 @@ def rust_wreck():
  for x in [-.34,.10,.42]:
   crack=box('broken glazing',(x,-.592,1.0),(.025,.012,.28),'rubber',.002);crack.rotation_euler.y=.5+x
 
-BUILD={'sofa':sofa,'armchair':lambda:sofa(True),'table':table,'console':console,'crate':crate,'barrier':barrier,'wall':lambda:barrier(True),'reactor':machine,'server':server,'hvac':hvac,'bench':bench,'wreck':vehicle,'container':container,'market_stall':market_stall,'barrels':barrels,'rust_wreck':rust_wreck}
+def bed():
+ feet(1.5,2.4,.18)
+ box('bed frame',(0,0,.30),(1.5,2.4,.28),'metal',.08)
+ box('mattress',(0,-.03,.54),(1.43,2.27,.30),'fabric',.14)
+ box('headboard',(0,1.15,.83),(1.55,.15,1.12),'wood',.055)
+ for x in [-.36,.36]:box('pillow',(x,.73,.77),(.62,.51,.19),'white',.13)
+ box('folded quilt',(0,-.37,.75),(1.40,1.13,.13),'fabric',.07)
+ for x in [-.64,.64]:box('quilt piping',(x,-.37,.82),(.012,1.04,.012),'paint',.004)
+
+def desk():
+ feet(2.0,.95,.72)
+ box('desk top',(0,0,.77),(2.10,1.05,.09),'wood',.045)
+ box('drawer pedestal',(.72,0,.38),(.55,.85,.72),'paint',.04)
+ for z in [.20,.42,.64]:
+  box('drawer face',(.72,-.44,z),(.48,.035,.19),'metal',.015)
+  box('drawer pull',(.72,-.47,z),(.20,.04,.025),'steel',.008)
+ box('monitor stand',(-.25,.21,.92),(.06,.08,.26),'steel')
+ box('monitor',(-.25,.21,1.18),(.85,.11,.49),'metal')
+ box('screen',(-.25,.145,1.18),(.75,.012,.39),'screen',.015)
+ for z in [1.08,1.15,1.22]:box('screen text',(-.28,.135,z),(.42,.004,.013),'cyan',.002)
+ box('keyboard',(-.23,-.23,.83),(.58,.25,.035),'rubber',.018)
+
+def locker():
+ feet(1.2,.65,.12)
+ box('locker cabinet',(0,0,1.03),(1.20,.67,1.92),'paint',.035)
+ for x in [-.30,.30]:
+  box('door',(x,-.35,1.05),(.56,.035,1.81),'metal',.025)
+  box('handle',(x+.17,-.40,1.02),(.035,.07,.22),'steel',.01)
+  for z in [1.55,1.61,1.67]:box('vent slot',(x,-.374,z),(.32,.008,.022),'rubber',.002)
+
+def planter():
+ if 'foliage' not in M:material('foliage',(.055,.14,.065),0,.83)
+ box('planter basin',(0,0,.34),(2.20,.85,.68),'concrete',.09)
+ box('soil',(0,0,.69),(2.03,.70,.035),'wood',.04)
+ for i in range(13):
+  x=-.9+(i%7)*.30;y=-.20+(i//7)*.35
+  cylinder('stem',(x,y,.88),.022,.43,'wood')
+  for j in range(3):
+   leaf=box('leaf',(x+.10*math.sin(i+j),y+.11*math.cos(i+j),.93+j*.09),(.27,.13,.035),'foliage',.055)
+   leaf.rotation_euler=(.4*math.sin(i),.35*math.cos(j),i+j*1.8)
+
+def transformer():
+ feet(1.65,1.1,.15)
+ box('transformer casing',(0,0,.75),(1.65,1.1,1.2),'paint',.065)
+ for x in [-.90,.90]:
+  for y in [-.43,-.21,0,.21,.43]:box('cooling fin',(x,y,.74),(.15,.065,1.05),'steel',.02)
+ for x in [-.50,0,.50]:
+  cylinder('insulator',(x,0,1.53),.095,.39,'rubber')
+  for z in [1.42,1.51,1.60]:cylinder('insulator ring',(x,0,z),.14,.035,'white')
+ box('diagnostic panel',(0,-.57,.89),(.51,.045,.36),'metal')
+ box('status screen',(0,-.60,.94),(.33,.009,.16),'cyan',.01)
+
+def bin():
+ for x in [-.43,.43]:cylinder('wheel',(x,.23,.13),.13,.10,'rubber',(0,math.pi/2,0))
+ box('refuse bin',(0,0,.56),(1.05,.83,.93),'paint',.08)
+ box('hinged lid',(0,0,1.06),(1.12,.89,.10),'metal',.05)
+ box('lift handle',(0,-.47,.95),(.39,.06,.07),'steel',.025)
+ for x in [-.34,0,.34]:box('reinforcing rib',(x,-.43,.54),(.045,.045,.63),'metal',.02)
+
+def workbench():
+ feet(2.35,.95,.84)
+ box('steel worktop',(0,0,.89),(2.46,1.05,.11),'steel',.035)
+ box('lower shelf',(0,0,.23),(2.28,.82,.055),'metal',.025)
+ box('vice',(-.80,-.38,1.03),(.35,.30,.21),'paint',.04)
+ cylinder('vice screw',(-.80,-.61,1.01),.025,.30,'steel',(math.pi/2,0,0))
+ for x in [-.25,.20,.65]:box('tool',(x,.16,.96),(.08,.46,.035),'metal',.012)
+ box('parts tray',(.76,-.16,.97),(.42,.39,.075),'paint',.025)
+
+def vending():
+ feet(1.05,.82,.12)
+ box('vending cabinet',(0,0,1.05),(1.05,.82,1.98),'paint',.065)
+ box('glass front',(-.10,-.43,1.26),(.66,.018,1.28),'screen',.035)
+ for x in [-.31,-.08,.15]:
+  for z in [.88,1.16,1.44,1.72]:cylinder('product',(x,-.40,z),.068,.18,'amber')
+ box('payment screen',(.38,-.44,1.30),(.15,.018,.22),'cyan',.018)
+ box('delivery slot',(-.08,-.44,.40),(.69,.018,.21),'rubber',.025)
+
+def planter_square():
+ planter()
+ for obj in parts:obj.location.x*=.52;obj.scale.x*=.52
+
+def medical_bed():
+ feet(1.0,2.3,.32)
+ box('medical chassis',(0,0,.46),(1.02,2.3,.22),'steel',.065)
+ box('blue mattress',(0,0,.65),(.92,2.12,.21),'paint',.11)
+ box('pillow',(0,.74,.82),(.78,.44,.14),'white',.11)
+ box('folded sheet',(0,-.35,.80),(.88,1.05,.10),'fabric',.07)
+ for x in [-.54,.54]:
+  box('safety rail',(x,0,.93),(.045,1.85,.055),'steel',.022)
+  for y in [-.83,.83]:box('rail post',(x,y,.73),(.045,.045,.40),'steel',.015)
+ for x in [-.41,.41]:
+  for y in [-.98,.98]:cylinder('castor',(x,y,.15),.12,.09,'rubber',(0,math.pi/2,0))
+ box('medical monitor',(.70,.75,1.06),(.31,.15,.40),'metal',.025)
+ box('vital display',(.70,.66,1.06),(.25,.012,.29),'cyan',.012)
+
+BUILD={'sofa':sofa,'armchair':lambda:sofa(True),'table':table,'console':console,'crate':crate,'barrier':barrier,'wall':lambda:barrier(True),'reactor':machine,'server':server,'hvac':hvac,'bench':bench,'wreck':vehicle,'container':container,'market_stall':market_stall,'barrels':barrels,'rust_wreck':rust_wreck,'bed':bed,'desk':desk,'locker':locker,'planter':planter,'transformer':transformer,'bin':bin,'workbench':workbench,'vending':vending,'planter_square':planter_square,'medical_bed':medical_bed}
 bpy.ops.object.camera_add(location=(0,-4,10));camera=bpy.context.object;scene.camera=camera;camera.data.type='ORTHO'
 for loc,power,size,color in [((-3,-4,7),1100,5,(.65,.82,1)),((4,2,6),1300,4,(1,.64,.32)),((0,4,5),700,3,(.12,.62,1))]:
  bpy.ops.object.light_add(type='AREA',location=loc);light=bpy.context.object;light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.data.color=color;light.rotation_euler=(Vector((0,0,.5))-light.location).to_track_quat('-Z','Y').to_euler()
 manifest={'schema_version':1,'generator':'Blender 4.3 Cycles, 96 samples, transparent RGBA','view':'steep_top_down','assets':{}}
 selected=sys.argv[sys.argv.index("--only")+1].split(",") if "--only" in sys.argv else list(BUILD)
+assert set(selected)<=set(BUILD),'Unknown prop family'
 for key,build in BUILD.items():
  if key not in selected:continue
  for o in list(parts):bpy.data.objects.remove(o,do_unlink=True)

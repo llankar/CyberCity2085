@@ -33,6 +33,8 @@ func run() -> void:
 	assert(absf(enhanced.r-0.239)<0.025 and absf(enhanced.b-0.374)<0.025,"source alpha must not fade the living body")
 	assert(absf(background.r-0.12)<0.01,"transparent margins must preserve terrain")
 	assert(unit._art_sprite.texture==texture and unit._art_sprite.region_rect==Rect2(0,0,64,64),"static source and frame geometry preserved")
+	assert(unit._cast_shadow.visible and unit._cast_shadow.texture==texture,"shadow follows actual entity art")
+	assert(capture.get_pixel(300,190).r<backdrop.color.r-.005,"silhouette projects a translucent shadow onto ground")
 	# The same material must follow atlas animation frames without changing size.
 	var atlas_image := Image.create(128,64,false,Image.FORMAT_RGBA8)
 	atlas_image.fill(Color.TRANSPARENT)
@@ -46,6 +48,7 @@ func run() -> void:
 	var animated := capture.get_pixel(280,117)
 	assert(absf(animated.r-enhanced.r)<0.01 and absf(animated.b-enhanced.b)<0.01,"animated and static bodies have matching opacity and lighting")
 	assert(unit._art_sprite.region_rect==Rect2(64,0,64,64),"atlas frame selection remains exact")
+	assert(unit._cast_shadow.region_rect==unit._art_sprite.region_rect,"animated shadow remains registered to the current frame")
 	# Every living unit has a colored outline before selection or targeting.
 	var edge_x:=floori(unit.position.x+unit._visible_body_rect().position.x)
 	var ally_edge := capture.get_pixel(edge_x,117)
@@ -73,10 +76,16 @@ func run() -> void:
 	assert(rim.r>rim.b,"enemy silhouette uses red, not ally cyan")
 	var body: Rect2 = unit._visible_body_rect()
 	assert(unit._target_frame_rect().get_center().is_equal_approx(body.get_center()),"brackets center on visible art")
+	unit.visual_quality=0;unit.queue_redraw()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(not unit._cast_shadow.visible and unit._art_sprite.visible,"low quality removes cast shadow, never the unit")
+	unit.visual_quality=2
 	unit.unit_data["hp"] = 0
 	unit.queue_redraw()
 	await process_frame
 	await RenderingServer.frame_post_draw
 	assert(not unit._art_sprite.visible,"dead unit without death clip stays hidden")
+	assert(not unit._cast_shadow.visible,"dead art cannot leave a detached ghost shadow")
 	print("UNIT_READABILITY_CHECKS_PASSED")
 	quit()

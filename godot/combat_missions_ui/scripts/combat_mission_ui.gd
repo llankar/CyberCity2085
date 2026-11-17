@@ -1766,7 +1766,7 @@ func _build_player_units() -> Array[Dictionary]:
 			for action: Variant in raw_asset_actions as Array:
 				asset_actions.append(str(action))
 		if asset_actions.is_empty():
-			asset_actions = ["Move", "Defend", "Missile Salvo"] if role == "robot" else ["Move", "Defend", "Rifle Burst", "Servo Punch"]
+			asset_actions.assign(["Move", "Defend", "Missile Salvo"] if role == "robot" else ["Move", "Defend", "Rifle Burst", "Servo Punch"])
 		var hp := maxi(1, int(asset.get("hp", 24)))
 		units.append({
 			"name":              clean_name,
