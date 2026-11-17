@@ -571,4 +571,4 @@ Publication authorized on November 17, 2026: push the verified feature branch an
 - [x] MBUI-05 Test native interactions, source-data integrity and resolutions; compare and retain real captures.
 
 Details: [Mission Briefing Visual 2.0](mission_briefing_visual_2.md).
-Publication awaits authorization specific to this refactor.
+Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
