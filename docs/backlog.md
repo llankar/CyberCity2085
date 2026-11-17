@@ -1,3 +1,12 @@
+## Source-faithful obstacle faces (November 17, 2026)
+
+- [x] SF-01 Preserve original salvage/rock/debris silhouettes and outdoor wasteland art without rectangular plinths or floor replacement.
+- [x] SF-02 Source-derived cached facade swatches, correct texel density and source-toned edges for retained architectural/furniture volumes.
+- [x] SF-03 Catalogue/source-integrity and native interaction tests, plus corrected real captures at multiple resolutions.
+- [x] SF-04 Document the visual correction and publish under the user's standing push/merge authorization.
+
+Evidence: [Source-faithful faces](combat_visual_23.md#source-faithful-faces-correction).
+
 ## Combat Visual 2.3 (November 17, 2026)
 
 - [x] CV23-01 Render-only, bounded elevation profiles and dedicated facade materials across surveyed map obstacles.
