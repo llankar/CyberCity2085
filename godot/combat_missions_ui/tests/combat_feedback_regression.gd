@@ -16,7 +16,7 @@ func run() -> void:
 	scene.active_player_index = 0
 	scene.player_units[0]["position"] = Vector2i(5,5)
 	scene.player_units[0]["ap"] = 4
-	scene.enemy_units[0]["position"] = Vector2i(15,5)
+	scene.enemy_units[0]["position"] = Vector2i(20,5)
 	board._opaque_cells.clear()
 	board._opaque_cells.append(Vector2i(6,5))
 	scene.selected_action = "Pistol Shot"
@@ -24,7 +24,7 @@ func run() -> void:
 	var before := JSON.stringify([scene.player_units,scene.enemy_units])
 	scene._attack_enemy(0,"Pistol Shot")
 	assert(scene.status_line.begins_with("Cible hors de portée"), "range takes priority over blocked LOS")
-	assert("distance 10" in scene.status_line, "actual distance explained")
+	assert("distance 15" in scene.status_line, "actual distance explained")
 	assert(scene._hud.target_info.chance_label=="HORS DE PORTÉE", "target card matches click feedback")
 	assert(JSON.stringify([scene.player_units,scene.enemy_units])==before, "rejected shot spends no AP or HP")
 	scene.enemy_units[0]["position"] = Vector2i(7,5)

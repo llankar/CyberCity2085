@@ -1,0 +1,1117 @@
+{
+  "schema_version": 1,
+  "generator": "Blender 4.3 Cycles; editable .blend sources retain render settings",
+  "view": "steep_top_down",
+  "assets": {
+    "sofa": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "leather",
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_atlas.png"
+    },
+    "armchair": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "leather",
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_secondary_atlas.png"
+    },
+    "table": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "screen",
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_secondary_atlas.png"
+    },
+    "console": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "paint",
+        "rubber",
+        "screen",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_atlas.png"
+    },
+    "crate": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "paint",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_secondary_atlas.png"
+    },
+    "barrier": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "amber",
+        "concrete",
+        "metal",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "wall": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "concrete",
+        "metal",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "reactor": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "paint",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "server": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "rubber",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "hvac": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "rubber",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "bench": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_secondary_atlas.png"
+    },
+    "wreck": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "amber",
+        "metal",
+        "paint",
+        "rubber",
+        "screen"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_atlas.png"
+    },
+    "container": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "steel"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "market_stall": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "fabric",
+        "paint",
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "barrels": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "steel",
+        "wood"
+      ],
+      "status": "resource_available_partial_catalogue_integration"
+    },
+    "rust_wreck": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "rubber",
+        "rust",
+        "screen"
+      ],
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_atlas.png"
+    }
+  },
+  "postproduction": "3x3 median on opaque material interiors only; original alpha retained",
+  "artist_variants": {
+    "artist_atlas.png": {
+      "source": "artist_atlas.png",
+      "source_sha256": "de4b2512d532e8ac581b966c9f567c757fc70a1eca1840e595715bce1bab5d85",
+      "families": [
+        "sofa",
+        "console",
+        "wreck",
+        "rust_wreck"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_secondary_atlas.png": {
+      "source": "artist_secondary_atlas.png",
+      "source_sha256": "99f4da4e86ba870991d7bd4e46ca419b7d37d9881f0662cd945d99f2e0498f70",
+      "families": [
+        "armchair",
+        "table",
+        "crate",
+        "bench"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    }
+  },
+  "files": {
+    "sofa-0.png": {
+      "sha256": "0e7eaa7834330c8979051ed70e3f5cce645980826698192e54a33ddb2d03b9dc",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        45,
+        121,
+        274,
+        232
+      ]
+    },
+    "sofa-90.png": {
+      "sha256": "f57f8bda97a9269e79689c7c9c2f8b97710323e553e9528a6c4b44160201c80c",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        109,
+        52,
+        208,
+        294
+      ]
+    },
+    "sofa-180.png": {
+      "sha256": "802791a1af64863a45f6aa5705afe88d42dfc4fddc531af305026e89f2947db6",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        44,
+        128,
+        272,
+        229
+      ]
+    },
+    "sofa-270.png": {
+      "sha256": "1ea26cfe8598123fb1619679cd72a0273f11fbfe2873a59d4498451c784d1d66",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        114,
+        52,
+        210,
+        292
+      ]
+    },
+    "armchair-0.png": {
+      "sha256": "0f521553d6c5f840a3ee8aef19c735da0e7e12bfc944fe224f1ce49db2e91327",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        92,
+        85,
+        216,
+        248
+      ]
+    },
+    "armchair-90.png": {
+      "sha256": "d2160a410b9b3d1ad1f60ba37db284dbee309771c73db686b4a3fe1da886fc0e",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        96,
+        93,
+        218,
+        249
+      ]
+    },
+    "armchair-180.png": {
+      "sha256": "6dd337080a1159529e7b134769be9a65d651d39205aa460f10bbcaa4d1bf65c0",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        96,
+        96,
+        215,
+        249
+      ]
+    },
+    "armchair-270.png": {
+      "sha256": "58e58f98af780d3c39e975ca424cb0bb8a289f6590a3502b094f95034022131b",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        97,
+        97,
+        220,
+        249
+      ]
+    },
+    "table-0.png": {
+      "sha256": "f907042a140c97eeff865b5761e604808f09f8dae437f86119ad0de45e82894c",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        51,
+        105,
+        259,
+        247
+      ]
+    },
+    "table-90.png": {
+      "sha256": "323e3372c7c16e6d515ca310a206bb96cd9470c74d80539fffef8c69c738e908",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        93,
+        68,
+        223,
+        277
+      ]
+    },
+    "table-180.png": {
+      "sha256": "842334b27665707c75d1631ff53866d869c308b58ce1d1f636ffb32f37e1e5ff",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        58,
+        105,
+        265,
+        246
+      ]
+    },
+    "table-270.png": {
+      "sha256": "4b08b81b4cf99f183666d9d646a9acba85081d4aa4c72d46f03610b9b4984e91",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        93,
+        56,
+        222,
+        274
+      ]
+    },
+    "console-0.png": {
+      "sha256": "7ec1d8fa22577c0eca16e17f2ba2970173d9b5f95f3e8df6f45b5b1558d68c01",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        63,
+        101,
+        256,
+        225
+      ]
+    },
+    "console-90.png": {
+      "sha256": "9fa025a0d81d8fddf7432d99f2557e6d2f9f81755ff04f0a168b99df80b3fd70",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        104,
+        53,
+        210,
+        269
+      ]
+    },
+    "console-180.png": {
+      "sha256": "a4bb65ade8b473faddb6b6f795ccf6ba4b05033b847a421b6c10986aca8c0b8a",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        57,
+        107,
+        256,
+        223
+      ]
+    },
+    "console-270.png": {
+      "sha256": "8151e68ad56a2a393e94076ada2675f6648ccf88a7462f9a841caa017f71f842",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        108,
+        55,
+        213,
+        269
+      ]
+    },
+    "crate-0.png": {
+      "sha256": "b83006d324087a967c13fb3b72eea93de9e6b701e96006993bc2247d1913eef3",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        75,
+        99,
+        247,
+        247
+      ]
+    },
+    "crate-90.png": {
+      "sha256": "4c65e1386d45e7d1021971fe85d1ae3caaab042a37c23c83baeb1ae9092118c6",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        101,
+        76,
+        228,
+        260
+      ]
+    },
+    "crate-180.png": {
+      "sha256": "849f11ada5485f06f0d1b14dc1ba4a9c48ac8f69a74374a80767b55757c74737",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        66,
+        100,
+        247,
+        246
+      ]
+    },
+    "crate-270.png": {
+      "sha256": "3e97620357b5a0c51f843a685a1f6911ff12a1033e91fe5ee5638f8c1d6f01a2",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        90,
+        75,
+        217,
+        263
+      ]
+    },
+    "barrier-0.png": {
+      "sha256": "c85bc46a15bbbda6de2369c00e23c3c2387b7696279d5e8309fc7f989b3308c4",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        61,
+        201,
+        450,
+        309
+      ]
+    },
+    "barrier-90.png": {
+      "sha256": "c95c13faaee7ccd35f3f12294e60b4fdeaa8c1218d364628cece955cab40b085",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        211,
+        61,
+        275,
+        467
+      ]
+    },
+    "barrier-180.png": {
+      "sha256": "3384d218ab6fec175f824ea913e14be32e905f73443064a3e8278cb98d2cf3b1",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        62,
+        226,
+        450,
+        333
+      ]
+    },
+    "barrier-270.png": {
+      "sha256": "34374d9152db9810557a590898b5b3b02f7e6c10d846a1d6e13401a918671ef4",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        237,
+        61,
+        301,
+        467
+      ]
+    },
+    "wall-0.png": {
+      "sha256": "f8280039f2216025220e118792d7cbf1a1786e8172913257f3cee382e127ddfe",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        114,
+        172,
+        398,
+        304
+      ]
+    },
+    "wall-90.png": {
+      "sha256": "dd747a93ac58aac9341fe411ec118cd43c363b410e9713406f4f8794d557f414",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        232,
+        61,
+        280,
+        410
+      ]
+    },
+    "wall-180.png": {
+      "sha256": "fcf76094521b679bac01c7cb9f930ddc020dda6bdf64257dab90617a5672fe92",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        114,
+        172,
+        398,
+        304
+      ]
+    },
+    "wall-270.png": {
+      "sha256": "ea7f9d7d378afb63fe384db19d1b85225696beb45081f38488b47b6806c0d24f",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        232,
+        61,
+        280,
+        410
+      ]
+    },
+    "reactor-0.png": {
+      "sha256": "c0ab254aad9f8b3d33778de4f3cfc4c8bae8e4da023cae5edf30bef2631ee292",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        152,
+        138,
+        360,
+        353
+      ]
+    },
+    "reactor-90.png": {
+      "sha256": "879040af9cbc09a48eefc56807814550f8ec9a18644eb8654a1a15edfbac923c",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        159,
+        132,
+        335,
+        380
+      ]
+    },
+    "reactor-180.png": {
+      "sha256": "316535723cd02428f5dd9706787ef710914a5b0d3ee8ee304e1f9e3ea293ff49",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        152,
+        158,
+        360,
+        373
+      ]
+    },
+    "reactor-270.png": {
+      "sha256": "cbbf214e26cb22b8334b56257ec6f834d0b3731506c736bbf6baeacfcb9d06bf",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        177,
+        132,
+        353,
+        380
+      ]
+    },
+    "server-0.png": {
+      "sha256": "7426c95b50683bf8cb856b891461caa731b832ecf0d81e8584d6cb19d5efb0e4",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        195,
+        86,
+        324,
+        283
+      ]
+    },
+    "server-90.png": {
+      "sha256": "63b751c379f594282fb89ed1d6e3f8dbf33fe90ea77ccfe553413a95526db473",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        145,
+        127,
+        260,
+        341
+      ]
+    },
+    "server-180.png": {
+      "sha256": "a638b2b8f8cd6d275e7dad45eb6bc8d1c84c36c5b40b60969bba5ae37418e12e",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        188,
+        192,
+        316,
+        388
+      ]
+    },
+    "server-270.png": {
+      "sha256": "01c2d21105021a25043393cc853ec4c2c7859219ade99b1fb5a8cae98a86f938",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        252,
+        134,
+        367,
+        348
+      ]
+    },
+    "hvac-0.png": {
+      "sha256": "7568511173da573d250f3a2749a9a85d67e550c787dbfe309879dac2f2b97a5b",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        130,
+        154,
+        382,
+        346
+      ]
+    },
+    "hvac-90.png": {
+      "sha256": "f28f36b60dd79f559a9297ff1973673e4ca630760a0cfcdd39d0cb3c26c3ca36",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        155,
+        131,
+        322,
+        404
+      ]
+    },
+    "hvac-180.png": {
+      "sha256": "6db1ccc562a580d572de909630e78e65ec9017b40f67d55ef33322e0d2c40aed",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        130,
+        189,
+        382,
+        381
+      ]
+    },
+    "hvac-270.png": {
+      "sha256": "24f8f42bb2f2b213261bd2de5725e6504d02eb2207684727e61d7980f375cadd",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        190,
+        131,
+        357,
+        404
+      ]
+    },
+    "bench-0.png": {
+      "sha256": "633891465b44b6c0e4f6d1951697ec8416bbffb6c2909adeb2ff4d6b5131c8b8",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        42,
+        101,
+        273,
+        236
+      ]
+    },
+    "bench-90.png": {
+      "sha256": "55e18f4794a135f6d55a1d569efbfb8a19ba98fd9208422a44579357dddd176e",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        118,
+        25,
+        215,
+        284
+      ]
+    },
+    "bench-180.png": {
+      "sha256": "0351addf197e8b6064580e98196e0bf3e64aaad6f543ab31a8730062c6de1d24",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        37,
+        105,
+        275,
+        204
+      ]
+    },
+    "bench-270.png": {
+      "sha256": "6706c6c81a8779be5d5b5b0fd4e0b1b58547fd209d9f479f80523b43de83f906",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        100,
+        25,
+        196,
+        283
+      ]
+    },
+    "wreck-0.png": {
+      "sha256": "73357f96b547c44a08477a55c44be7a1408e7019629196c5ea942768f7222f41",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        93,
+        39,
+        224,
+        260
+      ]
+    },
+    "wreck-90.png": {
+      "sha256": "5acbe116d8bbd6c4089595e139f1101f3e73798d8d8730afc32433b48ce24ce9",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        25,
+        93,
+        266,
+        218
+      ]
+    },
+    "wreck-180.png": {
+      "sha256": "c520c0f2b369cf15476d9177038025508661fbe9b87c2ea09b7e739a474e9b0b",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        92,
+        53,
+        222,
+        276
+      ]
+    },
+    "wreck-270.png": {
+      "sha256": "35befd7ee93c28fa32f2c07a98cf515607594d62c5fbed6231fec739f98952de",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        47,
+        92,
+        281,
+        217
+      ]
+    },
+    "container-0.png": {
+      "sha256": "4eb27e7e50bacaefed359c71235b79880e769d23451617ac6a6614e408aee751",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        175,
+        48,
+        337,
+        431
+      ]
+    },
+    "container-90.png": {
+      "sha256": "2f680b363cfe3009b09a76d0d7d7cb5d1336e2839670277c106d9d3ee18401ee",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        70,
+        146,
+        431,
+        347
+      ]
+    },
+    "container-180.png": {
+      "sha256": "d8a5f06a3d4514ab160070d1d3404303c7e826790f1582d0a4a40c7e238fbb27",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        175,
+        62,
+        337,
+        445
+      ]
+    },
+    "container-270.png": {
+      "sha256": "76a31d52faf18b1435627662e6a01ba082130e97a045c7e0eaf9eeb33ebe8dbc",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        81,
+        146,
+        442,
+        347
+      ]
+    },
+    "market_stall-0.png": {
+      "sha256": "a8328bb0ff848dc46b71c09b06c8e59990d8930ac09e7516f9dde864e9b3ce1f",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        140,
+        111,
+        372,
+        344
+      ]
+    },
+    "market_stall-90.png": {
+      "sha256": "2477fb0e7f96a813d2c9889be28738df6824d1e54063f46bd6324f73fae7dfcc",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        167,
+        87,
+        335,
+        380
+      ]
+    },
+    "market_stall-180.png": {
+      "sha256": "56fd2263421bf9769463ef669cce9e16b58dc9a454c6fe1e94188a6a8caf25db",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        140,
+        120,
+        372,
+        353
+      ]
+    },
+    "market_stall-270.png": {
+      "sha256": "bdb2ede0c130992cc5159554c6150be6a4a17eb60a219c992e4441d47c078c19",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        177,
+        87,
+        345,
+        380
+      ]
+    },
+    "barrels-0.png": {
+      "sha256": "373730f264328f32347297ab91ebf9878b3ceb6e1d6c3d5f4d71a64c6f93affb",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        148,
+        130,
+        358,
+        365
+      ]
+    },
+    "barrels-90.png": {
+      "sha256": "753676ee028faa3caef5d27c6d2782aa7306b95884de7a6f3a56918d706dc6ce",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        141,
+        142,
+        340,
+        388
+      ]
+    },
+    "barrels-180.png": {
+      "sha256": "e0e2e3e2556419deca429e4d22cf309af7fc67ef1e2965e079639f90d7d63fee",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        154,
+        159,
+        364,
+        394
+      ]
+    },
+    "barrels-270.png": {
+      "sha256": "d2971d8f6b73533fc50d9b1e037ab67c84d7e0596be7e6513edb08867c47af4a",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        172,
+        136,
+        371,
+        382
+      ]
+    },
+    "rust_wreck-0.png": {
+      "sha256": "20dd268cbca1d8237339d009b7e965e3dbd85e99158b8f6801fda4f76031c10f",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        92,
+        40,
+        224,
+        260
+      ]
+    },
+    "rust_wreck-90.png": {
+      "sha256": "a8a70f102ea42d5ad530a45da32848699d18ae4ce945bb642a8f47aa3f100981",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        18,
+        94,
+        270,
+        216
+      ]
+    },
+    "rust_wreck-180.png": {
+      "sha256": "eec15e735dd0c734b3318c02618f0df9afe9099e26e34cfce68e85dad76e8438",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        91,
+        45,
+        223,
+        267
+      ]
+    },
+    "rust_wreck-270.png": {
+      "sha256": "8810869419ed87e33b004ff1a96b4534c03f32695afeb8516370725eb7e86e27",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        37,
+        98,
+        278,
+        214
+      ]
+    }
+  }
+}
