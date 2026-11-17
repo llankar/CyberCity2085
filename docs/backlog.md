@@ -560,4 +560,4 @@ Details and actual game capture: [Tactical reference](tactical_reference.md).
 - [x] CSUI-05 Verify native interactions, resolutions and persistence; retain real captures and documentation.
 
 Details: [Character sheet and medical downtime](character_sheet_visual_2.md).
-Publication is pending user authorization.
+Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
