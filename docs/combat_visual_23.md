@@ -13,7 +13,7 @@ The existing surveys contain texture-space outlines, not measured 3D buildings. 
 
 Height is bounded to 0.90 full tactical-tile widths, compared with the unchanged humanoid visible height of 0.77 tile widths. These are deliberately limited tactical cutaways, not inferred full building stories.
 
-Top surfaces keep their source-map UVs. Facades use separate cached, repeating metal, fabric or stone textures, with orientation-dependent shading and narrow cap lips. Roof/floor texture strips are never stretched down the sides. This avoids the earlier giant extrusions and elongated UVs.
+Top surfaces keep their source-map UVs. Facades use cached source-art material swatches, with orientation-dependent shading and restrained, source-colored cap lips (see the correction below). A neutral procedural texture is retained only for missing source art. Roof/floor texture strips are never stretched down the sides. This avoids the earlier giant extrusions and elongated UVs.
 
 ## Ground separation and occlusion
 
@@ -77,3 +77,18 @@ DISPLAY=:103 godot --path godot/combat_missions_ui \
 ```
 
 Final validation on November 17, 2026: **15 targeted tests passed** (`test_combat_visual_2.py`, `test_tactical_reference_runtime.py`, `test_combat_visual_21.py`, `test_unit_readability_runtime.py`, `test_map_8k.py`). Native before/after capture runs completed on all five environments at all three resolutions without script/shader errors. The matched furniture comparison and native F10/quality test also passed. No source map, wall survey, trace, character-size constant or camera-projection/zoom code was modified.
+
+
+## Source-faithful faces correction
+
+The initial 2.3 facades were too generic, particularly the rectangular plinths around salvage on wasteland maps. This correction preserves the original painted silhouettes of wrecks, rocks, rubble, ruins and debris, with no added rectangular facade or replacement floor underneath. Outdoor wasteland sites use that same source-art policy unless the map explicitly represents a built bunker, fortress, compound or outpost. This is a deliberate visual fallback for silhouettes whose 3D sides have not been surveyed; collisions and LOS are unchanged.
+
+Architectural props and furniture retain their multipart relief. Their vertical surfaces now use small cached swatches extracted from their own source footprint, mirrored into a repeat without resizing. Both UV axes preserve the original map texel density. Face shading is neutral rather than recoloring the swatch, and the lip uses the object's source tone. Generated panel grids are removed, including from the missing-art fallback.
+
+The above initial 2.3 screenshots document the previous iteration. Current real captures:
+
+- [Corrected wasteland, 720p](images/source-facades/wasteland-720.png)
+- [Source-textured industrial structures, 1080p](images/source-facades/industrial-1080.png)
+- [Source-textured interior furniture, 1080p](images/source-facades/furniture-1080.png)
+
+Validation: 15 targeted tests passed, covering the 122-map catalogue, unchanged source-map/survey contracts, combat actions, picking, UI, F10 and quality tiers. Added regressions verify source-colored facade samples, cached materials, unchanged horizontal/vertical texel density, original silhouettes without plinth/floor replacement, and retained architectural relief. Native wasteland and industrial captures were checked at 720p, 1080p and 1440p, plus the matched interior furniture/F10 capture at 1080p. No source map or collision data was edited.
