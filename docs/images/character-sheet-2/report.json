@@ -1,0 +1,52 @@
+{
+  "resolutions": [
+    {
+      "size": [
+        1280,
+        720
+      ],
+      "skills_reached": 12,
+      "talents_reached": 5
+    },
+    {
+      "size": [
+        1672,
+        941
+      ],
+      "skills_reached": 12,
+      "talents_reached": 5
+    },
+    {
+      "size": [
+        1920,
+        1080
+      ],
+      "skills_reached": 12,
+      "talents_reached": 5
+    },
+    {
+      "size": [
+        2560,
+        1440
+      ],
+      "skills_reached": 12,
+      "talents_reached": 5
+    }
+  ],
+  "all_twelve_skills_reachable": true,
+  "all_talents_reachable": true,
+  "point_spending": true,
+  "talent_conditions": true,
+  "large_text": true,
+  "roles": [
+    "sniper",
+    "samurai",
+    "psi",
+    "robot",
+    "power_armor"
+  ],
+  "healing": true,
+  "persistence": true,
+  "close": true,
+  "english": true
+}

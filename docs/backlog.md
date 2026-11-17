@@ -549,3 +549,15 @@ in-game review. Details: [8K map restoration](maps_8k.md).
 - [x] REF-05 Document the behavior and capture; publish the verified changes and merge into main.
 
 Details and actual game capture: [Tactical reference](tactical_reference.md).
+
+
+## Character Sheet Visual 2.0 and healing downtime — November 17, 2026
+
+- [x] CSUI-01 Build reusable dossier geometry, read-only model and shared holographic chrome.
+- [x] CSUI-02 Present real portraits, identity, attributes and readiness with existing upgrade actions.
+- [x] CSUI-03 Expose all skills and role-specific talent cards with prerequisites, hover details and responsive paging.
+- [x] CSUI-04 Add Rest and Hospital for the displayed injured agent; preserve other downtime behavior.
+- [x] CSUI-05 Verify native interactions, resolutions and persistence; retain real captures and documentation.
+
+Details: [Character sheet and medical downtime](character_sheet_visual_2.md).
+Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
