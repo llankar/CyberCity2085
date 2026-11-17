@@ -583,3 +583,14 @@ Publication authorized on November 17, 2026: push the verified feature branch an
 
 Details: [Main Menu Visual 2.0](main_menu_visual_2.md).
 Push and merge are authorized by the user's standing publication preference.
+
+## Headquarters Visual 2.0 — November 17, 2026
+
+- [x] HQUI-01 Refresh six distinct tower interiors while retaining the original base artwork as fallback.
+- [x] HQUI-02 Share calibrated responsive geometry across frames, labels, hover, clicks and footer access.
+- [x] HQUI-03 Add live holographic resources, strong single-room focus and restrained cached ambient effects.
+- [x] HQUI-04 Preserve department actions and shortcuts with image-aligned expansion and reduced-motion support.
+- [x] HQUI-05 Verify native interactions, immutable overview rendering, save/load and resolutions; retain captures and publish the result.
+
+Details: [Headquarters Visual 2.0](headquarters_visual_2.md).
+Push and merge are authorized by the user's standing publication preference.

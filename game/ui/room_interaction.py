@@ -66,6 +66,9 @@ class RoomUIState:
     expansion: float = 0.0
     action_buttons: list[ActionButton] = field(default_factory=list)
     pulse: float = 0.0
+    # Presentation-only origin/art for an image-aligned Headquarters transition.
+    source_rect: UIRect | None = None
+    texture_override: object | None = None
 
     @property
     def is_open(self) -> bool:
@@ -227,7 +230,9 @@ def expanded_room_rect(width: int, height: int) -> UIRect:
 def close_button_rect(width: int, height: int) -> UIRect:
     """Return the icon-only close button area."""
     size = max(42, min(58, int(min(width, height) * 0.065)))
-    return UIRect(width - size - (spacing.xl - 6), height - size - (spacing.xl - 6), size, size)
+    return UIRect(
+        width - size - (spacing.xl - 6), height - size - (spacing.xl - 6), size, size
+    )
 
 
 def interpolate_rect(start: UIRect, end: UIRect, progress: float) -> UIRect:
@@ -261,7 +266,11 @@ def actions_for_room(mode: str, room_key: str) -> list[RoomAction]:
         RoomAction("save", "shield", "Save game"),
         RoomAction("load", "intel", "Load game"),
     ]
-    return [RoomAction("next_step", "radar", "Next step"), *base_actions, *utility_actions]
+    return [
+        RoomAction("next_step", "radar", "Next step"),
+        *base_actions,
+        *utility_actions,
+    ]
 
 
 def layout_action_buttons(
@@ -274,7 +283,9 @@ def layout_action_buttons(
     row_gap = spacing.sm
     max_total_width = max(360, width - spacing.xl * 2)
     minimum_width = 104
-    columns = max(1, min(len(actions), (max_total_width + gap) // (minimum_width + gap)))
+    columns = max(
+        1, min(len(actions), (max_total_width + gap) // (minimum_width + gap))
+    )
     rows = math.ceil(len(actions) / columns)
     if rows > 2:
         columns = math.ceil(len(actions) / 2)
@@ -354,6 +365,8 @@ def open_room(
     """Select a room and refresh its buttons."""
     state.active_room_key = room_key
     state.expansion = 0.0
+    state.source_rect = None
+    state.texture_override = None
     state.action_buttons = layout_action_buttons(
         width, height, actions_for_room(state.mode, room_key)
     )
@@ -364,6 +377,8 @@ def close_room(state: RoomUIState) -> None:
     """Close the active room immediately."""
     state.active_room_key = None
     state.expansion = 0.0
+    state.source_rect = None
+    state.texture_override = None
     state.action_buttons = []
 
 
@@ -389,6 +404,8 @@ def active_room_rect(
     return (
         room,
         interpolate_rect(
-            room_rect(room), expanded_room_rect(width, height), state.expansion
+            state.source_rect or room_rect(room),
+            expanded_room_rect(width, height),
+            state.expansion,
         ),
     )
