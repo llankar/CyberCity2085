@@ -10,6 +10,7 @@ import arcade
 from game.gamestate import GameState
 from game.recruitment import create_character
 from game.management.equipment import EQUIPMENT_SLOTS
+from game.management.downtime import DOWNTIME_ACTIVITIES
 from game.ui.screens.management_screen import ManagementView
 from game.ui.theme.typography import set_text_size
 
@@ -100,10 +101,9 @@ def main():
             ), (w, h)
             assert len([hit for hit in view._hits if hit.action == "equip_next"]) == 6
             assert len([hit for hit in view._hits if hit.action == "equip_prev"]) == 6
-            assert (
-                len([hit for hit in view._hits if hit.action == "downtime_activity"])
-                == 3
-            )
+            assert len(
+                [hit for hit in view._hits if hit.action == "downtime_activity"]
+            ) == len(DOWNTIME_ACTIVITIES)
             before = gs.characters[0].loadout.primary_weapon
             click("equip_next", (0, "primary_weapon"))
             assert gs.characters[0].loadout.primary_weapon != before

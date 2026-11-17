@@ -57,7 +57,9 @@ def draw_mission(self, r):
     right = r.right - 16 * u
     width = right - left
     # Reserve every downtime row and the primary button before allocating art.
-    dt_h = 90 * u
+    row_h = max(21 * u, scale_font_size(13) * 1.15)
+    heading_h = max(27 * u, scale_font_size(13) * 1.4)
+    dt_h = heading_h + row_h * len(DOWNTIME_ACTIVITIES)
     cta_h = 47 * u
     dt = Rect(left, r.bottom + 12 * u, right, r.bottom + 12 * u + dt_h)
     cta = Rect(left, dt.top + 12 * u, right, dt.top + 12 * u + cta_h)
@@ -122,27 +124,30 @@ def draw_mission(self, r):
         art_top = meta_y - 20 * u - objective_label.content_height - 12 * u
         art_bottom = cta.top + info_h + 17 * u
         art = Rect(left, art_bottom, right, max(art_bottom + 30 * u, art_top))
-        self.image(mission_art_path(mission), art)
-        arcade.draw_lrbt_rectangle_outline(
-            art.left, art.right, art.bottom, art.top, (*CYAN, 190), 1.5
-        )
-        self.paint.glow(left + 30 * u, art.bottom + 18 * u, 100 * u, 24 * u, CYAN, 60)
-        arcade.draw_lrbt_rectangle_filled(
-            left + 4 * u,
-            left + min(width * 0.6, 180 * u),
-            art.bottom + 4 * u,
-            art.bottom + 33 * u,
-            (0, 13, 20, 220),
-        )
-        self.label(
-            mission_site_name(infer_world_map_site(mission)),
-            left + 12 * u,
-            art.bottom + 18 * u,
-            16,
-            TEXT,
-            bold=True,
-            width=width * 0.65,
-        )
+        if art_top - art_bottom >= 30 * u:
+            self.image(mission_art_path(mission), art)
+            arcade.draw_lrbt_rectangle_outline(
+                art.left, art.right, art.bottom, art.top, (*CYAN, 190), 1.5
+            )
+            self.paint.glow(
+                left + 30 * u, art.bottom + 18 * u, 100 * u, 24 * u, CYAN, 60
+            )
+            arcade.draw_lrbt_rectangle_filled(
+                left + 4 * u,
+                left + min(width * 0.6, 180 * u),
+                art.bottom + 4 * u,
+                art.bottom + 33 * u,
+                (0, 13, 20, 220),
+            )
+            self.label(
+                mission_site_name(infer_world_map_site(mission)),
+                left + 12 * u,
+                art.bottom + 18 * u,
+                16,
+                TEXT,
+                bold=True,
+                width=width * 0.65,
+            )
         self.regions["mission_art"] = art
         y = art.bottom - 23 * u
         self.label(self.tr("tactical_intel"), left, y, 15, CYAN, bold=True, width=width)
@@ -196,19 +201,43 @@ def draw_mission(self, r):
         primary=True,
     )
     arcade.draw_line(dt.left, dt.top, dt.right, dt.top, (*CYAN, 150), 1)
-    self.label(self.tr("downtime"), dt.left, dt.top - 13 * u, 13, CYAN, bold=True)
+    self.label(
+        self.tr("downtime"), dt.left, dt.top - heading_h / 2, 13, CYAN, bold=True
+    )
     for i, activity in enumerate(DOWNTIME_ACTIVITIES):
-        row_top = dt.top - (28 + i * 21) * u
-        rect = Rect(dt.left, row_top - 20 * u, dt.right, row_top)
+        row_top = dt.top - heading_h - i * row_h
+        rect = Rect(dt.left, row_top - row_h + u, dt.right, row_top)
         label = self.tr("activity." + activity.key)
+        shortcut = str(i + 7) if i < 3 else "R" if activity.key == "rest" else "H"
+        focused = (
+            self.gs.characters[self.view.deployment_cursor]
+            if 0 <= self.view.deployment_cursor < len(self.gs.characters)
+            else None
+        )
+        medical = activity.healing_fraction > 0 or activity.heal_to_full
         detail = (
             self.tr("short_days", count=activity.days_cost)
             + f" -{activity.resource_cost} "
             + self.tr("resource_short." + activity.resource_key)
             + f"  M{activity.morale_delta:+} S{activity.stress_delta:+}"
         )
+        if medical:
+            detail = (
+                self.tr("short_days", count=activity.days_cost)
+                + " "
+                + self.tr(
+                    "full_hp" if activity.heal_to_full else "heal_percent",
+                    percent=round(activity.healing_fraction * 100),
+                )
+                + " · "
+                + (
+                    f"{activity.resource_cost} CR"
+                    if activity.resource_cost
+                    else self.tr("free")
+                )
+            )
         self.label(
-            f"{i+7}. {label}",
+            f"{shortcut}. {label}",
             rect.left + 3 * u,
             rect.center[1],
             12,
@@ -229,6 +258,14 @@ def draw_mission(self, r):
             rect,
             "downtime_activity",
             i,
-            f"{label} · {activity.days_cost}d · {activity.resource_cost} {activity.resource_key} · morale {activity.morale_delta:+} · stress {activity.stress_delta:+}",
+            (
+                (
+                    self.tr("treatment_target", name=focused.name if focused else "—")
+                    + " · "
+                    + detail
+                )
+                if medical
+                else f"{label} · {activity.days_cost}d · {activity.resource_cost} {activity.resource_key} · morale {activity.morale_delta:+} · stress {activity.stress_delta:+}"
+            ),
         )
     self.regions["downtime"] = dt
