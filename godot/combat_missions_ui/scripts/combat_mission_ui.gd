@@ -61,6 +61,7 @@ var visual_mode := true
 var visual_quality := 2
 var _visual_fx = null
 var _visual_obstacles: Array[Node2D] = []
+var _visual_lighting: Node2D
 var _unit_tokens   : Dictionary  = {}    # "p0" / "e1" → UnitToken instance
 
 # ─── Handoff + assets ─────────────────────────────────────────────────────────
@@ -161,8 +162,7 @@ func _notification(what: int) -> void:
 		# repositions the window to match Arcade's client area).  iso_tw changes
 		# with the new viewport size so the camera must be recalculated.
 		if _camera != null:
-			_camera.position = _battlefield.cell_to_world(Vector2i(GRID_COLS / 2, GRID_ROWS / 2))
-			_camera.zoom = Vector2.ONE * _overview_zoom()
+			_frame_squad()
 		if battle_started:
 			_resize_tokens()
 			_build_visual_obstacles()
@@ -711,6 +711,9 @@ func _gui_input(event: InputEvent) -> void:
 				if battle_started and turn_side == "player":
 					_cycle_active_unit()
 				accept_event()
+			KEY_HOME:
+				_frame_squad()
+				accept_event()
 			KEY_F9:
 				_toggle_visual_interface()
 				accept_event()
@@ -808,7 +811,7 @@ func _input(event: InputEvent) -> void:
 
 func _zoom_at(cursor_screen: Vector2, factor: float) -> void:
 	var old_zoom := _camera.zoom.x
-	var new_zoom := clampf(old_zoom * factor, _ZOOM_MIN, _overview_zoom())
+	var new_zoom := clampf(old_zoom * factor, _ZOOM_MIN, _close_zoom())
 	if absf(new_zoom - old_zoom) < 0.001: return
 	var vp_center   := size * 0.5
 	# World point that must stay under the cursor before and after the zoom.
@@ -988,10 +991,25 @@ func _seed_combat_state() -> void:
 	combat_log.append("Press Enter or click DEPLOY to begin.")
 
 func _overview_zoom() -> float:
-	# The supplied reference shows a full tile around 280 screen pixels wide.
-	# Use that same framing at startup and as the wheel's maximum zoom.
 	var tile_width := maxf(1.0,_battlefield.iso_tw*2.0) if _battlefield != null else 280.0
-	return clampf(_REFERENCE_TILE_WIDTH/tile_width,_ZOOM_MIN,_ZOOM_MAX)
+	var target := 200.0*clampf(size.y/941.0,.75,1.7) if visual_mode else _REFERENCE_TILE_WIDTH
+	return clampf(target/tile_width,_ZOOM_MIN,_ZOOM_MAX)
+
+func _close_zoom() -> float:
+	return minf(_ZOOM_MAX,_overview_zoom()*1.65) if visual_mode else _overview_zoom()
+
+func _frame_squad() -> void:
+	if _camera==null or player_units.is_empty():return
+	var bounds:=Rect2(_battlefield.cell_to_world(_cell_position(player_units[0])),Vector2.ZERO)
+	for unit: Dictionary in player_units:
+		if int(unit.get("hp",0))>0:bounds=bounds.expand(_battlefield.cell_to_world(_cell_position(unit)))
+	var reading:=_overview_zoom()
+	var available:=Vector2(size.x*.70,size.y*.55)
+	var margin: float=_battlefield.iso_tw*3.0
+	var fit:=minf(available.x/maxf(1,bounds.size.x+margin),available.y/maxf(1,bounds.size.y+margin))
+	_camera.zoom=Vector2.ONE*clampf(minf(reading,fit),_ZOOM_MIN,_close_zoom())
+	# Offset toward the usable viewport above the portrait/action HUD.
+	_camera.position=bounds.get_center()+Vector2(0,size.y*.07/_camera.zoom.y)
 
 func _start_combat(source: String) -> void:
 	if battle_started: return
@@ -1018,16 +1036,7 @@ func _start_combat(source: String) -> void:
 	_build_visual_obstacles()
 	_sync_display()
 
-	# Centre the camera on the agent squad and set the overview zoom.
-	if _camera != null:
-		var center_cell := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
-		if not player_units.is_empty():
-			var sum := Vector2i.ZERO
-			for pu in player_units:
-				sum += pu.get("position", center_cell) as Vector2i
-			center_cell = sum / player_units.size()
-		_camera.position = _battlefield.cell_to_world(center_cell)
-		_camera.zoom = Vector2.ONE * _overview_zoom()
+	_frame_squad()
 
 	_banner.show_banner("player", turn_number)
 	CombatSignals.turn_changed.emit("player", turn_number)
@@ -1874,6 +1883,7 @@ func _set_visual_quality(level: int) -> void:
 	visual_quality = clampi(level, 0, 2)
 	if "quality" in _battlefield: _battlefield.quality = visual_quality
 	_visual_fx.quality = visual_quality
+	if is_instance_valid(_visual_lighting): _visual_lighting.visible = visual_quality>0
 	for prop: Node2D in _visual_obstacles: prop.visible = visual_quality > 0
 	var config := ConfigFile.new()
 	config.set_value("graphics", "quality", visual_quality)
@@ -1894,13 +1904,22 @@ func _build_visual_obstacles() -> void:
 		_visual_obstacles.append(prop)
 	var path := str(_map_data().get("path", "")).to_lower()
 	_battlefield.weather = "interior" if "inner" in path or "interior" in path or "tunnel" in path else ("dust" if "wasteland" in path else "rain")
+	if is_instance_valid(_visual_lighting):_visual_lighting.free()
+	_visual_lighting=preload("res://scripts/visual_lighting.gd").new()
+	_map_root.add_child(_visual_lighting)
+	_map_root.move_child(_visual_lighting,_units_layer.get_index())
+	_visual_lighting.configure(map_texture,_battlefield,_battlefield.weather)
 	_set_visual_quality(visual_quality)
 
 func _update_visual_context() -> void:
 	var active := _current_active_player()
-	if not active.is_empty():
-		var focus: Vector2 = _battlefield.cell_to_world(_cell_position(active))
-		for prop: Node2D in _visual_obstacles: prop.update_occlusion(focus)
+	var bodies: Array[Rect2]=[]
+	for key: String in _unit_tokens:
+		var token: Node2D=_unit_tokens[key]
+		if not token.has_method("_visible_body_rect") or int(token.unit_data.get("hp",0))<=0:continue
+		var body: Rect2=token._visible_body_rect()
+		bodies.append(Rect2(token.position+body.position,body.size))
+	for prop: Node2D in _visual_obstacles: prop.update_occlusion_for_units(bodies)
 	if not _hud.has_signal("quality_changed"): return
 	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}
@@ -2000,6 +2019,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	_gui_input(event)
 
 func _fit_hud_viewport() -> void:
+	if is_instance_valid(_banner):_banner.size=size
 	if _hud.has_method("fit_viewport"):
 		_hud.fit_viewport(size)
 	else:

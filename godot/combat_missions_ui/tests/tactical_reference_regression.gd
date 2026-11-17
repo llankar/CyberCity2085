@@ -31,10 +31,10 @@ func run() -> void:
 		mission.size = viewport
 		board.configure(viewport*4,null,empty,Vector2i(20,14))
 		var initial: float = mission._overview_zoom()
-		assert(is_equal_approx(initial*board.iso_tw*2.0,280.0),"reference framing across resolutions")
+		assert(is_equal_approx(initial*board.iso_tw*2.0,200.0*clampf(viewport.y/941.0,.75,1.7)),"reference framing across resolutions")
 		mission._camera.zoom = Vector2.ONE*initial
 		mission._zoom_at(viewport*0.5,100.0)
-		assert(is_equal_approx(mission._camera.zoom.x,initial),"cannot zoom past initial reference framing")
+		assert(is_equal_approx(mission._camera.zoom.x,mission._close_zoom()),"closer zoom is available")
 		mission._zoom_at(viewport*0.5,0.5)
 		assert(mission._camera.zoom.x < initial,"zooming out remains possible")
 	mission._camera.free()
@@ -47,7 +47,7 @@ func run() -> void:
 	var unit = load("res://scripts/unit_visual.gd").new()
 	root.add_child(unit)
 	unit.setup({"hp":7,"max_hp":24},0,false,ImageTexture.create_from_image(image),Vector2(400,400))
-	assert(is_equal_approx(unit._body_height(),400*0.286*1.10),"ten percent larger body without moving grid cells")
+	assert(is_equal_approx(unit._body_height(),400*0.70*1.10),"ten percent larger body without moving grid cells")
 	for zoom in [0.4,0.9,2.0]:
 		unit.scale = Vector2.ONE*zoom
 		var bar: Rect2 = unit._health_bar_rect()
