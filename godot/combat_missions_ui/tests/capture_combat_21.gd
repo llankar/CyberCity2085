@@ -22,19 +22,40 @@ func run() -> void:
 			selected_size=Vector2i(int(pair[0]),int(pair[1]))
 		elif args[i]=="--quality": capture_quality=int(args[i+1])
 	DirAccess.make_dir_recursive_absolute(output)
+	# Persist completed maps across an interrupted desktop/environment session.
+	# A changed renderer or resource catalogue invalidates old checkpoints.
+	var fingerprint_parts: Array[String]=[]
+	for directory: String in ["res://scripts","res://shaders","res://art/environment"]:
+		for filename: String in DirAccess.get_files_at(directory):
+			if filename.get_extension() in ["gd","gdshader","json"]:fingerprint_parts.append(filename+FileAccess.get_sha256(directory.path_join(filename)))
+	fingerprint_parts.append(FileAccess.get_sha256("res://art/environment/props25/library.json"))
+	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review]))
+	var fingerprint:=str(fingerprint_parts).sha256_text()
+	var completed: Dictionary={}
+	if "--resume" in args and FileAccess.file_exists(output.path_join("native-report.json")):
+		var previous: Variant=JSON.parse_string(FileAccess.get_file_as_string(output.path_join("native-report.json")))
+		if previous is Array:
+			for row: Dictionary in previous:
+				if row.get("capture_signature","")==fingerprint:
+					catalogue_report.append(row);completed[row.map]=true
 	var base := ProjectSettings.globalize_path("res://../..")
 	var maps := ["city_exterior_neon_market_alley","city_industrial_factory_floor","city_interior_blacksite_lab","wasteland_outdoor_01_dust_road_ambush"]
 	if "--depth-catalogue" in args:
 		maps=["cybercity_inner_02_safehouse","city_industrial_factory_floor","city_exterior_neon_market_alley","city_interior_blacksite_lab","wasteland_outdoor_01_dust_road_ambush"]
+	if "--expansion-details" in args:
+		maps=["city_district_civic_center","cybercity_inner_02_safehouse","city_interior_medical_clinic","city_industrial_power_substation","city_interior_police_records"]
 	if "--all-maps" in args:
 		maps=[]
 		for filename: String in DirAccess.get_files_at(base.path_join("assets/maps")):
 			if filename.ends_with(".walls.json"):maps.append(filename.trim_suffix(".walls.json"))
 	for name: String in maps:
+		if completed.has(name+".png"):continue
 		if not selected_map.is_empty() and name!=selected_map: continue
 		if not selected_prefix.is_empty() and not name.begins_with(selected_prefix):continue
 		var payload := {"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":name.replace("_"," "),"objective_text":"Atteindre et sécuriser le terminal","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%name,"environment":"wasteland" if "wasteland" in name else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_01.png"},{"name":"Longshot","role":"sniper","hp":18,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_02.png"},{"name":"Oracle","role":"psi","hp":16,"max_hp":20,"portrait_path":"assets/ui/portraits/agent_male_03.png"}]}
 		var file := FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE)
+		if "--entities" in args:
+			payload["support_assets"]=[{"name":"Mantis","asset_type":"power_armor","hp":40},{"name":"Combat Robot","asset_type":"combat_robot","hp":36}]
 		file.store_string(JSON.stringify(payload));file.close()
 		var started_usec:=Time.get_ticks_usec()
 		seed(2085)
@@ -44,6 +65,11 @@ func run() -> void:
 		scene._set_visual_quality(capture_quality)
 		await create_timer(.05 if art_review else 2.15).timeout
 		if art_review:scene._banner.hide() # Inspect scenery after the transient turn announcement.
+		if "--entities" in args:
+			scene.enemy_units[1]["visual_asset"]="enemy_corp_37_robot_grunt"
+			scene.enemy_units[2]["visual_asset"]="enemy_corp_37_power_armor_grunt"
+			scene.enemy_units[2]["enemy_theme"]="corp_37_power_armor"
+			scene._spawn_all_tokens()
 		if polish or art_review: stage_polish_scene()
 		for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(2560,1440)]:
 			if selected_size!=Vector2i.ZERO and dimensions!=selected_size: continue
@@ -53,10 +79,11 @@ func run() -> void:
 			if scene.has_method("_frame_squad"):scene._frame_squad()
 			scene.selected_action="MOVE";scene._sync_display()
 			if polish or art_review: preview_polish_route()
-			if "--prop-focus" in args:
+			if "--prop-focus" in args or "--new-prop-focus" in args:
 				var annotations: Array=preload("res://scripts/environment_catalog.gd").art_maps().get(name+".png",{}).get("props",[])
 				for annotation: Dictionary in annotations:
 					if not bool(annotation.enabled):continue
+					if "--new-prop-focus" in args and annotation.get("source_review","")!="detail_crop_sheet":continue
 					var b: Array=annotation.bounds_uv
 					scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*2.2)
 					scene._camera.position=scene._battlefield.uv_to_world(Vector2((b[0]+b[2])*.5,(b[1]+b[3])*.5))+Vector2(0,scene.size.y*.06/scene._camera.zoom.y)
@@ -66,6 +93,18 @@ func run() -> void:
 			await RenderingServer.frame_post_draw
 			var path := output.path_join("%s-%dx%d%s.png"%[name,dimensions.x,dimensions.y,"-before" if baseline else ""])
 			assert(root.get_texture().get_image().save_png(path)==OK)
+			if "--entities" in args and not scene.vehicle_units.is_empty():
+				var original_position: Vector2=scene._camera.position
+				var original_zoom: Vector2=scene._camera.zoom
+				var vehicle=scene._unit_tokens["v0"]
+				scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),dimensions.y*.38/vehicle._body_height())
+				scene._camera.position=vehicle.position-Vector2(0,vehicle._body_height()*.4)
+				scene._camera.force_update_scroll()
+				await process_frame
+				await RenderingServer.frame_post_draw
+				assert(root.get_texture().get_image().save_png(output.path_join("%s-%dx%d-vehicle.png"%[name,dimensions.x,dimensions.y]))==OK)
+				scene._camera.position=original_position;scene._camera.zoom=original_zoom
+				scene._camera.force_update_scroll()
 			if "--wall-overlay" in args:
 				scene._battlefield.debug_walls_visible=true
 				scene._battlefield.queue_redraw()
@@ -78,6 +117,15 @@ func run() -> void:
 				await capture_polish_target(output,"%s-%dx%d"%[name,dimensions.x,dimensions.y])
 			if art_review:
 				await verify_interactions()
+			if "--entities" in args:
+				for token in scene._unit_tokens.values():
+					assert(token._art_sprite.visible and token._cast_shadow.visible)
+					assert(token._cast_shadow.texture==token._art_sprite.texture)
+					assert(token._cast_shadow.region_rect==token._art_sprite.region_rect)
+					assert(token._art_sprite.scale.x==token._art_sprite.scale.y,"source aspect is preserved")
+					assert(token.modulate.a==1.0,"no ghost opacity")
+					if token.unit_id<1000:
+						assert(token.hit_test_screen(token.get_global_transform_with_canvas()*token._visible_body_rect().get_center()),"all combat entity families retain picking")
 			if not baseline and not polish and not art_review and scene._battlefield.has_method("uv_to_world"):
 				await verify_interactions()
 				# Extra close framing verifies the requested larger visible characters.
@@ -93,7 +141,7 @@ func run() -> void:
 		if art_review and scene.environment_depth_enabled and scene._battlefield.top_down:
 			var expected: int=preload("res://scripts/environment_catalog.gd").art_walls("assets/maps/"+name+".png").size()
 			assert(active_sprites==expected,"every annotated resource must actually render")
-		catalogue_report.append({"map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review})
+		catalogue_report.append({"map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size()})
 		var report:=FileAccess.open(output.path_join("native-report.json"),FileAccess.WRITE)
 		report.store_string(JSON.stringify(catalogue_report,"  "));report.close()
 		scene.queue_free();await process_frame
@@ -123,7 +171,9 @@ func stage_polish_scene() -> void:
 		for index in range(group.size()):
 			var desired_players := [Vector2i(16,14),Vector2i(12,16),Vector2i(16,18)]
 			var desired_enemies := [Vector2i(20,13),Vector2i(22,15),Vector2i(22,18)]
-			var desired: Vector2i = desired_players[index%3] if group==scene.player_units else desired_enemies[index%3]
+			var desired: Vector2i
+			if group==scene.player_units:desired=desired_players[index] if index<3 else Vector2i(10+(index-3)*9,20)
+			else:desired=desired_enemies[index%3]
 			var best := Vector2i(-1,-1)
 			var distance := 99999
 			for cell: Vector2i in arena:

@@ -1,0 +1,67 @@
+[
+  {
+    "capture_signature": "d70c44c69e0d761105d03f5a71abd2dd061b583f4a527f0c1a52404569925846",
+    "elapsed_ms": 66587.311,
+    "entity_families_checked": false,
+    "map": "city_district_civic_center.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 33,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260064470,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "d70c44c69e0d761105d03f5a71abd2dd061b583f4a527f0c1a52404569925846",
+    "elapsed_ms": 13785.393,
+    "entity_families_checked": false,
+    "map": "cybercity_inner_02_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 5,
+    "static_memory_bytes": 259720386,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "d70c44c69e0d761105d03f5a71abd2dd061b583f4a527f0c1a52404569925846",
+    "elapsed_ms": 11682.529,
+    "entity_families_checked": false,
+    "map": "city_interior_medical_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 259748318,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "d166cc454b55ce45d0dcf139351787f707d8bd7eb3157d3fa70a249010759053",
+    "elapsed_ms": 36084.923,
+    "entity_families_checked": false,
+    "map": "city_industrial_power_substation.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260759338,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "d70c44c69e0d761105d03f5a71abd2dd061b583f4a527f0c1a52404569925846",
+    "elapsed_ms": 6403.304,
+    "entity_families_checked": false,
+    "map": "city_interior_police_records.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 262331450,
+    "vehicle_count": 0
+  }
+]
