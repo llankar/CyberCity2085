@@ -20,11 +20,14 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
 	var base := ProjectSettings.globalize_path("res://../..")
 	var maps := ["city_exterior_neon_market_alley","city_industrial_factory_floor","city_interior_blacksite_lab","wasteland_outdoor_01_dust_road_ambush"]
+	if "--depth-catalogue" in args:
+		maps=["cybercity_inner_02_safehouse","city_industrial_factory_floor","city_exterior_neon_market_alley","city_interior_blacksite_lab","wasteland_outdoor_01_dust_road_ambush"]
 	for name: String in maps:
 		if not selected_map.is_empty() and name!=selected_map: continue
 		var payload := {"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":name.replace("_"," "),"objective_text":"Atteindre et sécuriser le terminal","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%name,"environment":"wasteland" if "wasteland" in name else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_01.png"},{"name":"Longshot","role":"sniper","hp":18,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_02.png"},{"name":"Oracle","role":"psi","hp":16,"max_hp":20,"portrait_path":"assets/ui/portraits/agent_male_03.png"}]}
 		var file := FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE)
 		file.store_string(JSON.stringify(payload));file.close()
+		seed(2085)
 		scene=load("res://scenes/combat_mission_ui.tscn").instantiate()
 		scene.handoff_path=output.path_join("handoff.json")
 		root.add_child(scene)

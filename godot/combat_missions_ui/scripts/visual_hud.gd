@@ -9,6 +9,7 @@ var _target_anchor := Vector2(-10000,-10000)
 var _target_rect := Rect2()
 var settings_open := false
 var quality := 2
+var environment_depth_enabled := true
 var _portrait_rects: Array[Rect2] = []
 var _portrait_press_index := -1
 var _log_button: Button
@@ -170,9 +171,10 @@ func _draw() -> void:
 		_ds(_fit(status_line,size.x-50,17),Vector2(18,_roster_y-12),17,NEON)
 	if show_log: _draw_combat_log()
 	if settings_open:
-		_panel(Rect2(size.x-346,80,330,128),NEON)
+		_panel(Rect2(size.x-346,80,330,152),NEON)
 		_ds("QUALITÉ GRAPHIQUE",Vector2(size.x-330,104),19,TEXT)
 		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
+		_ds("F10 : relief " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
 
 func _fit(value: String, width: float, font_size: int) -> String:
 	var font := ThemeDB.fallback_font

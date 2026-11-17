@@ -59,6 +59,8 @@ var _audio                       = null   # AudioManager
 var _results                     = null   # MissionResults
 var visual_mode := true
 var visual_quality := 2
+var environment_depth_enabled := true
+var _depth_occlusion_clock := 0.0
 var _visual_fx = null
 var _visual_obstacles: Array[Node2D] = []
 var _visual_lighting: Node2D
@@ -131,6 +133,7 @@ func _ready() -> void:
 	var graphics_config := ConfigFile.new()
 	if graphics_config.load("user://combat_visual.cfg") == OK:
 		visual_quality = clampi(int(graphics_config.get_value("graphics", "quality", 2)), 0, 2)
+		environment_depth_enabled = bool(graphics_config.get_value("graphics","environment_depth",true))
 	_read_args()
 	_load_handoff()
 	_load_unit_textures()
@@ -148,6 +151,11 @@ func _process(delta: float) -> void:
 		queue_redraw()
 		return
 	elapsed_time += delta
+	if visual_mode and environment_depth_enabled and visual_quality>0 and not battle_ended:
+		_depth_occlusion_clock+=delta
+		if _depth_occlusion_clock>=.05:
+			_depth_occlusion_clock=0
+			_update_prop_occlusion()
 	if turn_side == "enemy":
 		enemy_turn_timer = maxf(0.0, enemy_turn_timer - delta)
 		if enemy_turn_timer <= 0.0:
@@ -416,6 +424,10 @@ func _read_args() -> void:
 	for index in range(args.size()):
 		if args[index] == "--handoff" and index + 1 < args.size():
 			handoff_path = args[index + 1]
+		elif args[index] == "--flat-environment":
+			environment_depth_enabled=false
+		elif args[index] == "--environment-depth":
+			environment_depth_enabled=true
 		elif args[index] == "--legacy-visuals":
 			visual_mode = false
 		elif args[index] == "--ipc_pipe" and index + 1 < args.size():
@@ -713,6 +725,11 @@ func _gui_input(event: InputEvent) -> void:
 				accept_event()
 			KEY_HOME:
 				_frame_squad()
+				accept_event()
+			KEY_F10:
+				environment_depth_enabled = not environment_depth_enabled
+				_build_visual_obstacles()
+				_update_visual_context()
 				accept_event()
 			KEY_F9:
 				_toggle_visual_interface()
@@ -1887,7 +1904,12 @@ func _configure_visual_hud() -> void:
 	_hud.quality_changed.connect(_set_visual_quality)
 
 func _set_visual_quality(level: int) -> void:
+	var rebuild_depth := (visual_quality==0)!=(clampi(level,0,2)==0)
 	visual_quality = clampi(level, 0, 2)
+	if rebuild_depth and visual_mode and battle_started:
+		_build_visual_obstacles()
+		_update_visual_context()
+		return
 	if "quality" in _battlefield: _battlefield.quality = visual_quality
 	_visual_fx.quality = visual_quality
 	if is_instance_valid(_visual_lighting):
@@ -1896,7 +1918,12 @@ func _set_visual_quality(level: int) -> void:
 	for token: Node in _unit_tokens.values():
 		if "visual_quality" in token: token.visual_quality = visual_quality
 	for prop: Node2D in _visual_obstacles: prop.visible = visual_quality > 0
+	if is_instance_valid(_hud) and "environment_depth_enabled" in _hud:
+		_hud.environment_depth_enabled=environment_depth_enabled
+		_hud.queue_redraw()
 	var config := ConfigFile.new()
+	config.load("user://combat_visual.cfg")
+	config.set_value("graphics", "environment_depth",environment_depth_enabled)
 	config.set_value("graphics", "quality", visual_quality)
 	config.save("user://combat_visual.cfg")
 
@@ -1904,6 +1931,8 @@ func _build_visual_obstacles() -> void:
 	for prop: Node2D in _visual_obstacles: prop.queue_free()
 	_visual_obstacles.clear()
 	if not visual_mode: return
+	var depth = preload("res://scripts/environment_depth.gd").new() if environment_depth_enabled and visual_quality>0 else null
+	if depth!=null: depth.prepare(map_texture,_battlefield)
 	var seen: Dictionary = {}
 	for wall: Dictionary in cover_nodes:
 		var id := str(wall.get("wall_id", ""))
@@ -1911,8 +1940,9 @@ func _build_visual_obstacles() -> void:
 		seen[id] = true
 		var prop := preload("res://scripts/visual_obstacle.gd").new()
 		_units_layer.add_child(prop)
-		prop.configure(wall, _battlefield, map_texture)
+		prop.configure(wall, _battlefield, map_texture,depth)
 		_visual_obstacles.append(prop)
+	_battlefield.set_depth_props(_visual_obstacles)
 	var path := str(_map_data().get("path", "")).to_lower()
 	_battlefield.weather = "interior" if _is_interior_map() else ("dust" if "wasteland" in path else "rain")
 	if is_instance_valid(_visual_lighting):_visual_lighting.free()
@@ -1922,15 +1952,23 @@ func _build_visual_obstacles() -> void:
 	_visual_lighting.configure(map_texture,_battlefield,_battlefield.weather,path)
 	_set_visual_quality(visual_quality)
 
-func _update_visual_context() -> void:
-	var active := _current_active_player()
+func _update_prop_occlusion() -> void:
+	if _visual_obstacles.is_empty(): return
 	var bodies: Array[Rect2]=[]
 	for key: String in _unit_tokens:
 		var token: Node2D=_unit_tokens[key]
 		if not token.has_method("_visible_body_rect") or int(token.unit_data.get("hp",0))<=0:continue
 		var body: Rect2=token._visible_body_rect()
 		bodies.append(Rect2(token.position+body.position,body.size))
+	# Route ribbons remain visible through foreground props while previewing.
+	for cell: Vector2i in _battlefield.path_cells:
+		var point: Vector2=_battlefield.cell_to_world(cell)
+		bodies.append(Rect2(point-Vector2(8,5),Vector2(16,10)))
 	for prop: Node2D in _visual_obstacles: prop.update_occlusion_for_units(bodies)
+
+func _update_visual_context() -> void:
+	var active := _current_active_player()
+	_update_prop_occlusion()
 	if not _hud.has_signal("quality_changed"): return
 	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}
@@ -1970,6 +2008,7 @@ func _visual_cell_hovered(cell: Vector2i) -> void:
 	var route: Array[Vector2i] = _battlefield.find_path(_cell_position(active),cell)
 	if route.size()-1 > int(active.get("ap",0)) or _is_cell_occupied(cell,active_player_index,-1): route.clear()
 	_battlefield.show_path(route)
+	_update_prop_occlusion()
 
 func _visual_unit_hovered(id: int, enemy: bool) -> void:
 	if enemy and id >= 0 and id < enemy_units.size() and int(enemy_units[id].get("hp",0)) > 0:
