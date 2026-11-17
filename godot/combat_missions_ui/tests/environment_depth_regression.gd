@@ -1,93 +1,88 @@
 extends SceneTree
-func _initialize() -> void: call_deferred("run")
+func _initialize() -> void:call_deferred("run")
 func run() -> void:
-	var model = load("res://scripts/environment_depth.gd")
-	var board = load("res://scripts/visual_battlefield.gd").new()
+	var model=load("res://scripts/environment_depth.gd")
+	var shapes=load("res://scripts/natural_prop_shapes.gd")
+	var catalog=load("res://scripts/environment_catalog.gd")
+	var board=load("res://scripts/visual_battlefield.gd").new()
 	root.add_child(board)
-	var empty: Array[Dictionary]=[]
-	board.configure(Vector2(5120,2880),null,empty,Vector2i(20,14))
-	var source := Image.create(128,128,false,Image.FORMAT_RGBA8)
-	source.fill(Color(.2,.25,.3,1))
-	var texture := ImageTexture.create_from_image(source)
-	var depth = model.new()
-	depth.prepare(texture,board)
-	var polygon: PackedVector2Array = model.rect_uv(Rect2(.3,.3,.4,.4))
-	var floor: Dictionary=depth.floor_patch(polygon)
-	var filled: Image=floor.texture.get_image()
-	var sample: Color=filled.get_pixel(filled.get_width()/2,filled.get_height()/2)
-	assert(depth.floor_patch(polygon).texture==floor.texture,"floor patches are cached across rebuilds")
-	assert(model.material_texture("fabric")==model.material_texture("fabric"),"material textures are shared")
-	assert(absf(sample.r-.2)<.04 and absf(sample.g-.25)<.04 and absf(sample.b-.3)<.04, "floor completion preserves surrounding color, no white holes")
-	assert(texture.get_image().get_data()==source.get_data(),"original source never mutated")
-	var source_facade: Texture2D=depth.facade_texture("metal",polygon)
-	assert(source_facade==depth.facade_texture("metal",polygon),"source facade texture is cached")
-	var facade_pixel := source_facade.get_image().get_pixel(0,0)
-	assert(absf(facade_pixel.r-.2)<.01 and absf(facade_pixel.g-.25)<.01 and absf(facade_pixel.b-.3)<.01,"facades preserve actual source colors instead of adding a grid")
-	for id in ["wreck_mid","rubble_w","rock_n","ruin_ne","scrap_heap"]:
-		assert(model.profile({"id":id}).height==0,"irregular art keeps its original silhouette")
-	assert(model.profile({"id":"west_wall"},"wasteland_outdoor_01_dust_road_ambush.png").height==0,"salvage-map wall labels are not invented building facades")
-	assert(model.profile({"id":"west_wall"},"city_interior_blacksite_lab.png").height>0,"architectural relief retained")
-	var probe=load("res://scripts/visual_obstacle.gd").new()
-	root.add_child(probe)
-	probe.configure({"id":"test_crate","outline_uv":[[.3,.3],[.5,.3],[.5,.5],[.3,.5]]},board,texture,depth)
-	var probe_face: Dictionary=probe.parts[0].faces[0]
-	assert(probe.parts[0].source_material,"real-map facades use the source art")
-	var texel: float=board._u_axis.length()/float(source.get_width())
-	var material_size: Vector2=probe.parts[0].material.get_size()
-	assert(is_equal_approx(probe_face.points[0].distance_to(probe_face.points[1])/probe_face.uvs[1].x,material_size.x*texel),"facade detail preserves source horizontal texel density")
-	assert(is_equal_approx(probe.height/probe_face.uvs[0].y,material_size.y*texel),"facade detail preserves source vertical texel density")
-	var midpoint: Vector2=probe.position
-	for point: Vector2 in probe_face.points: midpoint+=point*.25
-	var bodies: Array[Rect2]=[Rect2(midpoint-Vector2(3,6),Vector2(6,12))]
-	probe.update_occlusion_for_units(bodies)
-	assert(probe.fade,"raised side geometry fades for an occluded unit")
-	bodies=[Rect2(Vector2(100000,100000),Vector2(10,10))]
-	probe.update_occlusion_for_units(bodies)
-	assert(not probe.fade,"unrelated props stay opaque")
-	probe.free()
-	var assets:=ProjectSettings.globalize_path("res://../../assets/maps")
 	var layout=load("res://scripts/map_wall_layout.gd")
-	var count:=0
-	var raised:=0
+	var assets:=ProjectSettings.globalize_path("res://../../assets/maps")
+	var count:=0;var authored:=0
+	assert(model.profile({"id":"sofa_n"},"unknown.png").height==0,"a furniture name is not a measured silhouette")
+	assert(model.profile({"id":"west_wall"},"city_interior_blacksite_lab.png").height==0,"collision walls are not visual mesh specifications")
 	for filename: String in DirAccess.get_files_at(assets):
 		if not filename.ends_with(".walls.json"):continue
 		var data: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(assets.path_join(filename)))
 		var before:=JSON.stringify(data)
-		var covers: Array[Dictionary]=layout.cover_nodes(data)
-		var tex:=PlaceholderTexture2D.new()
-		var dimensions: Array=data.get("image_size",[7680,4320])
-		tex.size=Vector2(dimensions[0],dimensions[1])
-		board.configure(Vector2(5120,2880),tex,covers,Vector2i(20,14))
-		var blocked: Array[Vector2i]=board._blocked.duplicate()
-		depth=model.new();depth.prepare(tex,board,filename)
+		var image_name: String=data.image
+		var placeholder:=PlaceholderTexture2D.new()
+		var dimensions: Array=data.image_size
+		placeholder.size=Vector2(dimensions[0],dimensions[1])
+		board.configure(Vector2(5120,2880),placeholder,layout.cover_nodes(data),Vector2i(20,14))
+		var blocked=board._blocked.duplicate()
+		var depth=model.new();depth.prepare(placeholder,board,image_name)
 		for wall: Dictionary in data.walls:
-			if wall.get("outline_uv",[]).size()<3:continue
-			var prop=load("res://scripts/visual_obstacle.gd").new()
-			root.add_child(prop)
-			prop.configure(wall,board,tex,depth)
-			assert(prop.height>=0 and prop.height<=board.iso_tw*2*.91,"human-scale bounded relief")
-			for i in range(prop.ground.size()):
-				var uv:=Vector2(wall.outline_uv[i][0],wall.outline_uv[i][1])
-				assert((prop.position+prop.ground[i]).distance_to(board.uv_to_world(uv))<.01,"footprint remains exactly surveyed")
-			if model.profile(wall,filename).kind=="baked":
-				assert(prop.height==0 and prop.parts.is_empty() and prop.floor.is_empty(),"source silhouette is preserved without pedestal or floor replacement")
-			if prop.height>0:
-				raised+=1
-				assert(not prop.parts.is_empty())
-				for part: Dictionary in prop.parts:
-					assert(part.cap.size()==part.uvs.size())
-					for i in range(part.cap.size()):
-						var expected: Vector2=board.uv_to_world(part.uvs[i])-prop.position
-						assert(is_equal_approx(part.cap[i].x,expected.x),"roof projection stays aligned")
-						assert(part.cap[i].y<=expected.y,"positive elevation only")
-					for face: Dictionary in part.faces:
-						assert(face.points.size()==4 and face.uvs.size()==4)
-						assert(part.material!=tex,"facades have dedicated materials, not stretched source roofs")
-				if model.profile(wall).kind=="table" and prop.uvs.size()==4: assert(prop.parts.size()==5,"separate tabletop and four legs")
-			prop.free()
-		assert(board._blocked==blocked and JSON.stringify(data)==before,"no tactical or survey mutations")
+			var uv:=PackedVector2Array()
+			for pair in wall.outline_uv:uv.append(Vector2(pair[0],pair[1]))
+			var volume: Dictionary=depth.build_volume(wall,uv,Vector2.ZERO)
+			assert(volume.parts.is_empty() and volume.floor.is_empty(),"missing source validation always keeps the original 2D scene")
+		assert(board._blocked==blocked and JSON.stringify(data)==before,"catalogue navigation/LOS geometry is immutable")
 		count+=1
-	assert(count==122 and raised>1000)
+	for image_name: String in catalog.maps():
+		var source_path:=assets.path_join(image_name)
+		var texture:=ImageTexture.create_from_image(Image.load_from_file(source_path))
+		var empty: Array[Dictionary]=[]
+		board.configure(Vector2(5120,2880),texture,empty,Vector2i(20,14))
+		var depth=model.new();depth.prepare(texture,board,image_name,source_path)
+		assert(depth._verified,"reviewed render records match their real source SHA-256")
+		var image_hash:=FileAccess.get_sha256(source_path)
+		for id: String in catalog.maps()[image_name].props:
+			var prop=load("res://scripts/visual_obstacle.gd").new();root.add_child(prop)
+			# Deliberately oversized collision: the visual model must ignore it.
+			prop.configure({"id":id,"outline_uv":[[.1,.1],[.9,.1],[.9,.9],[.1,.9]]},board,texture,depth)
+			assert(prop.height>0 and prop.height<=board.iso_tw*.64,"bounded category-specific human-scale elevation")
+			var entry: Dictionary=catalog.maps()[image_name].props[id]
+			for part: Dictionary in prop.parts:
+				assert(part.cap.size()==part.uvs.size())
+				for uv: Vector2 in part.uvs:assert(uv.x>.1 or uv.y>.1,"part UVs come from the authored source object")
+			if entry.family=="table":
+				assert(prop.parts.size()==5,"a table has four legs and a thin top, no solid platform")
+				var tops:=0
+				for part: Dictionary in prop.parts:
+					if part.role=="top":tops+=1
+				assert(tops==1 and prop._contact_shapes.size()==4,"four separate foot contacts; no collision-sized ground platform")
+			if entry.family in ["sofa","armchair"]:
+				assert(prop.parts.any(func(part):return part.role=="back") and prop.parts.any(func(part):return part.role=="cushion"),"separate upholstered back, seat and arms")
+				for part: Dictionary in prop.parts:
+					if part.role in ["back","cushion"]:assert(part.get("source_panel",false),"seat surfaces use an actual reviewed upholstery panel, never rug pixels from a collision cap")
+			assert(prop._ground_patches.size()==1,"floor completion is clipped to the source object")
+			var side: Dictionary=prop.parts[0].faces[0]
+			var midpoint: Vector2=prop.position+(side.points[0]+side.points[1]+side.points[2]+side.points[3])*.25
+			var bodies: Array[Rect2]=[Rect2(midpoint-Vector2.ONE,Vector2.ONE*2)]
+			prop.update_occlusion_for_units(bodies)
+			assert(prop.fade,"actual component surfaces fade for an overlapping unit")
+			bodies=[Rect2(Vector2(100000,100000),Vector2.ONE*2)]
+			prop.update_occlusion_for_units(bodies)
+			assert(not prop.fade,"unrelated units do not fade scenery")
+			for i in range(prop.ground.size()):
+				assert((prop.ground[i]+prop.position).distance_to(board.uv_to_world(prop.uvs[i]))<.01,"visual sorting never changes surveyed world coordinates")
+			if entry.family=="table":assert(prop.parts[-1].role=="top","tabletop paints above separate feet")
+			if entry.family in ["sofa","armchair"]:
+				assert(prop.parts.any(func(part):return part.has("soft_cap")),"upholstery has rounded shoulder geometry")
+			var face: Dictionary=prop.parts[0].faces[0]
+			var center: Vector2=(face.points[0]+face.points[1]+face.points[2]+face.points[3])*.25+prop.position
+			var body: Array[Rect2]=[Rect2(center-Vector2(1,2),Vector2(2,4))]
+			prop.update_occlusion_for_units(body)
+			assert(prop.fade,"actual raised faces participate in unit occlusion")
+			body=[Rect2(Vector2(100000,100000),Vector2(1,1))]
+			prop.update_occlusion_for_units(body)
+			assert(not prop.fade,"distant units do not fade props")
+			prop.free();authored+=1
+		assert(FileAccess.get_sha256(source_path)==image_hash,"source map bytes remain immutable")
+		var rejected=model.new();rejected.prepare(texture,board,image_name,"missing.png")
+		assert(not rejected._verified,"unverifiable art falls back instead of guessing")
+	assert(count==122 and authored==28)
 	board.free()
-	print("ENVIRONMENT_DEPTH_CHECKS_PASSED ",count," maps; ",raised," volumes")
+	print("ENVIRONMENT_DEPTH_CHECKS_PASSED ",count," maps; ",authored," source-reviewed component models; unknown geometry kept 2D")
 	quit()

@@ -4,7 +4,10 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(1920,1080)
 	var base:=ProjectSettings.globalize_path("res://../..")
-	var output:=base.path_join("work/combat-23-detail")
+	var output:=base.path_join("work/combat-24-detail")
+	var args:=OS.get_cmdline_user_args()
+	for i in range(args.size()-1):
+		if args[i]=="--output":output=args[i+1]
 	DirAccess.make_dir_recursive_absolute(output)
 	var fixture:=output.path_join("handoff.json")
 	var file:=FileAccess.open(fixture,FileAccess.WRITE)
@@ -63,6 +66,28 @@ func run() -> void:
 		assert(raised==0 if level==0 else raised>0,"low quality bypasses volume construction; other tiers restore it")
 		assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])==state)
 		assert(scene._camera.transform==camera)
+	# Actual battlefield/controller signal routes after rendering and quality changes.
+	scene._on_unit_clicked(0,false)
+	scene._on_action_pressed("Move")
+	var origin: Vector2i=scene.player_units[0].position
+	var ap: int=int(scene.player_units[0].ap)
+	var destination:=Vector2i(-1,-1)
+	for cell: Vector2i in board.move_range_cells:
+		if absi(cell.x-origin.x)+absi(cell.y-origin.y)==1 and cell!=scene.objective.get("cell",Vector2i(-1,-1)):
+			destination=cell;break
+	assert(destination.x>=0,"real legal movement candidate")
+	assert(board.world_to_cell(board.cell_to_world(destination))==destination,"pick coordinates retain exact tactical cells")
+	root.get_node("CombatSignals").cell_clicked.emit(destination)
+	assert(scene.player_units[0].position==destination and int(scene.player_units[0].ap)==ap-1,"real movement signal spends the unchanged one-cell AP cost")
+	await create_timer(.6).timeout
+	assert(scene._unit_tokens["p0"].position.distance_to(board.cell_to_world(destination))<.1,"animated unit reaches the clicked ground cell")
+	scene._on_unit_clicked(0,true)
+	assert(scene.selected_target_index==0,"enemy target route remains functional")
+	var turn: int=scene.turn_number
+	scene._end_player_turn()
+	assert(scene.turn_side=="enemy")
+	scene._resolve_enemy_turn()
+	assert(scene.turn_side=="player" and scene.turn_number==turn+1,"real AI and turn transition remain intact")
 	scene.queue_free();await process_frame
 	print("DEPTH_COMPARISON_CAPTURE_PASSED")
 	quit()
