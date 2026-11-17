@@ -1,11 +1,4 @@
-"""Enhanced Post-Battle Debrief Screen (Phase 2-A03).
-
-Two-panel layout:
-  Left  — Per-agent performance (damage dealt/taken, kills, AP used)
-  Right — Objectives outcome, rewards, stress changes, narrative lines
-
-Replaces the thin single-line end-screen with a structured after-action report.
-"""
+"""Post-battle report: shared squad cards, consequences and full paginated dossiers."""
 
 from __future__ import annotations
 
@@ -13,9 +6,6 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 import arcade
-
-from game.ui import palette
-from game.ui.panels import draw_panel
 
 if TYPE_CHECKING:
     from game.consequences import Consequence
@@ -70,7 +60,9 @@ def _applied_consequences(
 ) -> list["Consequence"]:
     if mission is None:
         return []
-    consequences = list(mission.success_consequences if victory else mission.failure_consequences)
+    consequences = list(
+        mission.success_consequences if victory else mission.failure_consequences
+    )
     if triggered_complication is not None:
         consequences.append(triggered_complication.consequence)
     return consequences
@@ -105,7 +97,9 @@ def build_battle_debrief_summary(
             narrative_lines.append(
                 f"Reputation: {agent}{label} earned {tag} ({reason})."
             )
-    narrative_lines.extend(_consequence_text(consequence) for consequence in consequences)
+    narrative_lines.extend(
+        _consequence_text(consequence) for consequence in consequences
+    )
 
     agent_rows = []
     for stat in agent_stats:
@@ -122,7 +116,9 @@ def build_battle_debrief_summary(
                 "name": stat.name,
                 "role": stat.role,
                 "nickname": getattr(character, "nickname", "") if character else "",
-                "reputation": list(getattr(character, "reputation", [])) if character else [],
+                "reputation": (
+                    list(getattr(character, "reputation", [])) if character else []
+                ),
                 "kills": stat.kills,
                 "damage_dealt": stat.damage_dealt,
                 "damage_taken": stat.damage_taken,
@@ -134,7 +130,9 @@ def build_battle_debrief_summary(
         )
 
     return {
-        "objective_result": "All objectives completed" if victory else "Mission objectives failed",
+        "objective_result": (
+            "All objectives completed" if victory else "Mission objectives failed"
+        ),
         "outcome": "victory" if victory else "defeat",
         "rewards": [
             f"Credits: +{getattr(mission, 'fund_reward', 0) if victory and mission else 0}",
@@ -142,7 +140,9 @@ def build_battle_debrief_summary(
         ],
         "agent_rows": agent_rows,
         "triggered_complications": (
-            [triggered_complication.trigger_text] if triggered_complication is not None else []
+            [triggered_complication.trigger_text]
+            if triggered_complication is not None
+            else []
         ),
         "faction_changes": [
             f"{consequence.affected_faction}: {_effect_summary(consequence)}"
@@ -233,7 +233,9 @@ def build_consequence_summary_lines(
     )
 
     campaign = getattr(game_state, "campaign", None)
-    discovered = list(getattr(campaign, "discovered_intel", []) or []) if campaign else []
+    discovered = (
+        list(getattr(campaign, "discovered_intel", []) or []) if campaign else []
+    )
     lines.append(
         "Intel unlocks: "
         + (", ".join(str(fid) for fid in discovered[-3:]) if discovered else "none")
@@ -274,9 +276,11 @@ class BattleDebriefView(arcade.View):
         self._load_portraits()
         from game.audio import SoundManager
         from game.ui.screens.settings_screen import SettingsState
+
         sm = SoundManager.get()
         sm.ensure_loaded()
         from game.ui.screens.settings_screen import load_settings as _ls
+
         sm.configure_from_settings(_ls())
         sm.play_music("music_debrief", loop=True)
 
@@ -284,265 +288,67 @@ class BattleDebriefView(arcade.View):
         for stat in self.agent_stats:
             if stat.portrait_path and stat.portrait_path not in self._portrait_cache:
                 try:
-                    self._portrait_cache[stat.portrait_path] = arcade.load_texture(stat.portrait_path)
+                    self._portrait_cache[stat.portrait_path] = arcade.load_texture(
+                        stat.portrait_path
+                    )
                 except Exception:
                     self._portrait_cache[stat.portrait_path] = None
 
-    def on_draw(self) -> None:
+    def on_update(self, dt):
+        self._elapsed = getattr(self, "_elapsed", 0.0) + dt
+        if hasattr(self, "_visual_deck"):
+            self._visual_deck.update(dt)
+
+    def on_draw(self):
         self.clear()
-        w, h = self.window.width, self.window.height
-        self._draw_header(w, h)
-        self._draw_left_panel(w, h)
-        self._draw_right_panel(w, h)
-        self._draw_footer(w, h)
+        if not hasattr(self, "_visual_deck"):
+            from game.ui.components.utilities.reports import ReportDeck
 
-    def _draw_header(self, w: int, h: int) -> None:
-        hh = 54
-        outcome_col = palette.TACTICAL_GREEN if self.victory else palette.DANGER
-        outcome_label = "MISSION COMPLETE" if self.victory else "MISSION FAILED"
-        arcade.draw_lrbt_rectangle_filled(0, w, h - hh, h, (0, 0, 0, 220))
-        arcade.draw_line(0, h - hh, w, h - hh, outcome_col, 3)
-        arcade.draw_line(0, h, 20, h - 20, outcome_col, 2)
-        arcade.draw_text(
-            "AFTER-ACTION REPORT",
-            20, h - hh // 2,
-            palette.MUTED_TEXT, font_size=11, bold=True,
-            anchor_y="center",
-        )
-        arcade.draw_text(
-            outcome_label,
-            w // 2, h - hh // 2,
-            outcome_col, font_size=18, bold=True,
-            anchor_x="center", anchor_y="center",
-        )
-        title = self.mission.title.upper() if self.mission else "UNKNOWN MISSION"
-        arcade.draw_text(
-            title,
-            w - 20, h - hh // 2,
-            palette.MUTED_TEXT, font_size=10,
-            anchor_x="right", anchor_y="center",
-        )
+            self._visual_deck = ReportDeck()
+        self._elapsed = getattr(self, "_elapsed", 0.0)
+        self._visual_deck.debrief(self)
 
-    def _draw_left_panel(self, w: int, h: int) -> None:
-        panel_l = 20
-        panel_b = 80
-        panel_w = w // 2 - 30
-        panel_h = h - 150
+    def on_mouse_motion(self, x, y, dx, dy):
+        if hasattr(self, "_visual_deck"):
+            self._visual_deck.motion(x, y)
 
-        draw_panel(panel_l, panel_b, panel_w, panel_h, "SQUAD PERFORMANCE")
-
-        # Column headers
-        col_y = panel_b + panel_h - 46
-        headers = [("AGENT", 14), ("DEALT", 160), ("TAKEN", 210), ("KILLS", 260), ("XP", 305), ("STATUS", 340)]
-        for label, ox in headers:
-            arcade.draw_text(label, panel_l + ox, col_y, palette.MUTED_TEXT, font_size=9, bold=True)
-        arcade.draw_line(panel_l + 14, col_y - 8, panel_l + panel_w - 14, col_y - 8, palette.PANEL_BORDER_MUTED, 1)
-
-        row_y = col_y - 24
-        row_h = 52
-
-        for stat in self.agent_stats[:6]:
-            if row_y - row_h < panel_b + 8:
-                break
-            bg_col = (40, 10, 10, 160) if stat.kia else (12, 24, 36, 160)
-            arcade.draw_lrbt_rectangle_filled(panel_l + 14, panel_l + panel_w - 14, row_y - row_h, row_y, bg_col)
-
-            # Portrait thumbnail
-            portrait = self._portrait_cache.get(stat.portrait_path or "")
-            if portrait:
-                arcade.draw_texture_rect(portrait, arcade.LBWH(panel_l + 16, row_y - row_h + 4, 40, 44))
-            else:
-                arcade.draw_lrbt_rectangle_filled(panel_l + 16, panel_l + 56, row_y - row_h + 4, row_y - 4,
-                                                  palette.ACTION_BUTTON_FILL)
-
-            name_col = palette.DANGER if stat.kia else palette.TEXT
-            arcade.draw_text(stat.name[:12], panel_l + 62, row_y - 14, name_col, font_size=10, bold=True)
-            arcade.draw_text(stat.role.upper()[:8], panel_l + 62, row_y - 28, palette.MUTED_TEXT, font_size=8)
-
-            arcade.draw_text(str(stat.damage_dealt),  panel_l + 160, row_y - 20, palette.WARNING, font_size=11, bold=True, anchor_x="center")
-            arcade.draw_text(str(stat.damage_taken),  panel_l + 210, row_y - 20, palette.DANGER,  font_size=11, bold=True, anchor_x="center")
-            arcade.draw_text(str(stat.kills),         panel_l + 260, row_y - 20, palette.TACTICAL_GREEN, font_size=11, bold=True, anchor_x="center")
-            arcade.draw_text(str(stat.xp_gained),  panel_l + 305, row_y - 20, palette.ACCENT,  font_size=11, bold=True, anchor_x="center")
-
-            if stat.kia:
-                arcade.draw_text("KIA", panel_l + 350, row_y - 20, palette.DANGER, font_size=10, bold=True)
-            else:
-                stress_s = f"+{stat.stress_delta}%" if stat.stress_delta > 0 else f"{stat.stress_delta}%"
-                stress_col = palette.DANGER if stat.stress_delta > 10 else palette.WARNING if stat.stress_delta > 0 else palette.TACTICAL_GREEN
-                arcade.draw_text(stress_s, panel_l + 350, row_y - 20, stress_col, font_size=9)
-                if stat.injuries:
-                    arcade.draw_text(str(stat.injuries[0])[:24], panel_l + 350, row_y - 34, palette.DANGER, font_size=8)
-
-            row_y -= row_h + 4
-
-    def _draw_right_panel(self, w: int, h: int) -> None:
-        panel_l = w // 2 + 10
-        panel_b = 80
-        panel_w = w // 2 - 30
-        panel_h = h - 150
-
-        draw_panel(panel_l, panel_b, panel_w, panel_h, "MISSION OUTCOME")
-
-        y = panel_b + panel_h - 50
-        summary = build_battle_debrief_summary(
-            self.game_state,
-            self.victory,
-            self.mission,
-            self.agent_stats,
-            self.triggered_complication,
-        )
-
-        # Objective result
-        outcome_col = palette.TACTICAL_GREEN if self.victory else palette.DANGER
-        arcade.draw_text("OBJECTIVES", panel_l + 14, y, outcome_col, font_size=10, bold=True)
-        y -= 18
-        arcade.draw_text(
-            str(summary["objective_result"]),
-            panel_l + 14, y, outcome_col, font_size=10,
-        )
-        y -= 30
-
-        # Rewards
-        if self.mission:
-            arcade.draw_text("REWARDS", panel_l + 14, y, palette.RESOURCE, font_size=10, bold=True)
-            y -= 18
-            for line in summary["rewards"]:
-                arcade.draw_text(line, panel_l + 14, y, palette.TEXT, font_size=9)
-                y -= 15
-            y -= 10
-
-        consequence_summary = build_consequence_summary_lines(
-            self.game_state,
-            self.victory,
-            self.mission,
-            self.agent_stats,
-            self.triggered_complication,
-        )
-        if consequence_summary:
-            arcade.draw_text("CONSEQUENCE SUMMARY", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
-            y -= 18
-            for line in consequence_summary[:5]:
-                arcade.draw_text(str(line)[:72], panel_l + 14, y, palette.MUTED_TEXT, font_size=8)
-                y -= 13
-            y -= 6
-
-        triggered = list(summary["triggered_complications"])
-        if triggered:
-            arcade.draw_text("TRIGGERED COMPLICATIONS", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
-            y -= 18
-            for line in triggered[:2]:
-                arcade.draw_text(str(line)[:68], panel_l + 14, y, palette.WARNING, font_size=9)
-                y -= 15
-            y -= 6
-
-        campaign_lines = list(summary["faction_changes"])[:2] + list(summary["district_changes"])[:2]
-        if campaign_lines:
-            arcade.draw_text("FACTION / DISTRICT CHANGES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
-            y -= 18
-            for line in campaign_lines[:4]:
-                arcade.draw_text(str(line)[:68], panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
-                y -= 15
-            y -= 6
-
-        # Narrative debrief lines
-        debrief_raw = getattr(self.game_state, "latest_mission_debrief", None)
-        if debrief_raw and isinstance(debrief_raw, dict):
-            arcade.draw_text("DEBRIEF", panel_l + 14, y, palette.ACCENT, font_size=10, bold=True)
-            y -= 18
-            # Full narrative lines (tone-coloured sentences from DebriefReport.lines)
-            _tone_colors = {
-                "tense":   palette.WARNING,
-                "loss":    palette.DANGER,
-                "relief":  palette.TACTICAL_GREEN,
-                "heroic":  (255, 215, 60),
-                "neutral": palette.TEXT,
-            }
-            for line_dict in debrief_raw.get("lines", [])[:5]:
-                if not isinstance(line_dict, dict):
-                    continue
-                text = str(line_dict.get("text", ""))
-                tone = str(line_dict.get("tone", "neutral"))
-                col = _tone_colors.get(tone, palette.TEXT)
-                # Truncate + wrap tight in panel
-                arcade.draw_text(
-                    f"  {text[:68]}",
-                    panel_l + 14, y,
-                    col, font_size=9,
-                    width=panel_w - 28, multiline=False,
-                )
-                y -= 15
-            # Fallback: single-field strings
-            for key, label in [("decision_key", "Decision"), ("risk_taken", "Risk"), ("heroic_action", "Heroics")]:
-                text = debrief_raw.get(key, "")
-                if text:
-                    arcade.draw_text(f"{label}: {str(text)[:55]}", panel_l + 14, y,
-                                     palette.MUTED_TEXT, font_size=9)
-                    y -= 14
-            y -= 8
-
-        consequence_lines = list(summary["narrative_consequences"])
-        if consequence_lines:
-            arcade.draw_text("NARRATIVE CONSEQUENCES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
-            y -= 18
-            for line in consequence_lines[:3]:
-                arcade.draw_text(str(line)[:72], panel_l + 14, y, palette.MUTED_TEXT, font_size=9)
-                y -= 15
-            y -= 6
-
-        # RPG links (stress/progression)
-        if debrief_raw and isinstance(debrief_raw, dict):
-            rpg = debrief_raw.get("rpg_links", "")
-            if rpg:
-                arcade.draw_text("CONSEQUENCES", panel_l + 14, y, palette.WARNING, font_size=10, bold=True)
-                y -= 18
-                rpg_lines = rpg if isinstance(rpg, list) else [rpg]
-                for line in rpg_lines[:2]:
-                    arcade.draw_text(
-                        str(line)[:72],
-                        panel_l + 14, y,
-                        palette.MUTED_TEXT, font_size=9,
-                        width=panel_w - 28, multiline=True,
-                    )
-                    y -= 15
-                y -= 8
-
-        # Aftermath lines from game_state
-        aftermath = getattr(self.game_state, "latest_agent_aftermath", [])
-        if aftermath:
-            arcade.draw_text("AGENT STATUS", panel_l + 14, y, palette.ACCENT, font_size=10, bold=True)
-            y -= 18
-            for line in aftermath[:4]:
-                arcade.draw_text(str(line)[:66], panel_l + 14, y, palette.TEXT, font_size=9)
-                y -= 15
-
-    def _draw_footer(self, w: int, h: int) -> None:
-        fh = 68
-        arcade.draw_lrbt_rectangle_filled(0, w, 0, fh, (0, 0, 0, 200))
-        arcade.draw_line(0, fh, w, fh, palette.PANEL_BORDER, 2)
-
-        bw, bh = 220, 44
-        bx = (w - bw) // 2
-        by = (fh - bh) // 2
-        col = palette.TACTICAL_GREEN if self.victory else palette.WARNING
-        arcade.draw_lrbt_rectangle_filled(bx, bx + bw, by, by + bh, (16, 40, 24, 230))
-        arcade.draw_line(bx, by + bh, bx + bw, by + bh, col, 2)
-        arcade.draw_text(
-            "CONTINUE  [Enter]",
-            bx + bw // 2, by + bh // 2,
-            col, font_size=13, bold=True,
-            anchor_x="center", anchor_y="center",
-        )
-        self._continue_rect = (bx, by, bx + bw, by + bh)
+    def on_mouse_scroll(self, x, y, scroll_x, scroll_y):
+        if hasattr(self, "_visual_deck"):
+            for name, (_, _, rect) in self._visual_deck.capacities.items():
+                if rect.contains(x, y):
+                    self._visual_deck.turn_page(name, -1 if scroll_y > 0 else 1)
+                    break
 
     def on_key_press(self, key, modifiers) -> None:
-        if key in (arcade.key.RETURN, arcade.key.ENTER, arcade.key.ESCAPE, arcade.key.SPACE):
+        if hasattr(self, "_visual_deck") and key in (
+            arcade.key.TAB,
+            arcade.key.UP,
+            arcade.key.DOWN,
+            arcade.key.SPACE,
+        ):
+            result = self._visual_deck.keyboard(key)
+            if result:
+                if (
+                    result is not True
+                    and not self._visual_deck.activate(result)
+                    and result.action == "continue"
+                ):
+                    self._go_to_management()
+                return
+        if key in (
+            arcade.key.RETURN,
+            arcade.key.ENTER,
+            arcade.key.ESCAPE,
+            arcade.key.SPACE,
+        ):
             self._go_to_management()
 
-    def on_mouse_press(self, x, y, button, modifiers) -> None:
-        if self._continue_rect:
-            l, b, r, t = self._continue_rect
-            if l <= x <= r and b <= y <= t:
-                self._go_to_management()
+    def on_mouse_press(self, x, y, button, modifiers):
+        for hit in getattr(self, "_hits", []):
+            if hit.contains(x, y):
+                if not self._visual_deck.activate(hit) and hit.action == "continue":
+                    self._go_to_management()
+                return
 
     def _go_to_management(self) -> None:
         if self.game_state.campaign.ending is not None:
@@ -551,6 +357,7 @@ class BattleDebriefView(arcade.View):
             self.window.show_view(CampaignEndingView(self.game_state))
             return
         from game.ui.screens.management_screen import ManagementView
+
         mgmt = ManagementView(self.game_state)
         mgmt.setup()
         mgmt.active_tab = "squad"
