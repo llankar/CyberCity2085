@@ -1,3 +1,13 @@
+## Combat Visual 2.3 (November 17, 2026)
+
+- [x] CV23-01 Render-only, bounded elevation profiles and dedicated facade materials across surveyed map obstacles.
+- [x] CV23-02 Multipart furniture, sloped supported canopies and source-UV top surfaces without stretched walls.
+- [x] CV23-03 Cached local floor completion, ground shadows, depth sorting and moving-unit/route occlusion.
+- [x] CV23-04 F10 flat-render fallback, persisted preference and quality tiers, preserving camera/HUD/character proportions.
+- [x] CV23-05 Complete-catalogue geometry/rules tests and real before/after captures on five environments at three resolutions.
+
+Evidence and reproduction: [Combat Visual 2.3](combat_visual_23.md).
+
 ## Combat Visual 2.2 (November 17, 2026)
 
 - [x] CV22-01 Cached map-emissive lighting profiles, restrained reflections and quality-dependent local pools.

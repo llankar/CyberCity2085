@@ -2,10 +2,12 @@ extends "res://scripts/battlefield.gd"
 ## Original tactical board and geometry APIs; presentation overrides only.
 var quality := 2
 var weather := "rain"
+var _depth_props: Array[Node2D] = []
 var _redraw_clock := 0.0
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	debug_walls_visible = false
 
 func _process(delta: float) -> void:
@@ -153,6 +155,8 @@ func _draw_map() -> void:
 	var quad:=PackedVector2Array([uv_to_world(Vector2.ZERO),uv_to_world(Vector2(1,0)),uv_to_world(Vector2.ONE),uv_to_world(Vector2(0,1))])
 	if map_texture!=null:draw_polygon(quad,PackedColorArray([Color.WHITE]),PackedVector2Array([Vector2.ZERO,Vector2(1,0),Vector2.ONE,Vector2(0,1)]),map_texture)
 	else:draw_colored_polygon(quad,Color(.025,.055,.065))
+	for prop: Node2D in _depth_props:
+		if is_instance_valid(prop) and prop.visible: prop.draw_ground(self,quality)
 
 func _draw_cover_nodes() -> void:
 	var seen: Dictionary={}
@@ -183,3 +187,7 @@ func _draw_objective() -> void:
 	draw_polyline(ring,Color(1,.8,.3),2*pixel,true)
 	draw_line(center-Vector2(0,8*pixel),center-Vector2(0,35*pixel),Color(1,.72,.18,.8),2*pixel,true)
 	draw_string(ThemeDB.fallback_font,center+Vector2(9,-24)*pixel,"OBJ",HORIZONTAL_ALIGNMENT_LEFT,-1,maxi(1,roundi(14*pixel)),Color(1,.8,.3))
+
+func set_depth_props(props: Array[Node2D]) -> void:
+	_depth_props=props.duplicate()
+	queue_redraw()
