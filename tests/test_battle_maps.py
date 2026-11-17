@@ -62,8 +62,8 @@ class BattleMapsTest(unittest.TestCase):
         self.assertTrue(Path(selected_city.path).name.startswith(("city_", "cybercity_")))
         self.assertFalse(Path(selected_wasteland.path).name.startswith(("city_", "cybercity_")))
 
-    def test_battle_token_scale_is_one_point_five(self) -> None:
-        self.assertEqual(battle_maps.BATTLE_TOKEN_SCALE, 1.5)
+    def test_battle_tokens_are_ten_percent_larger(self) -> None:
+        self.assertAlmostEqual(battle_maps.BATTLE_TOKEN_SCALE, 1.65)
 
     def test_non_robot_battle_tokens_use_half_scale(self) -> None:
         human_unit = SimpleNamespace(unit_type="agent")
@@ -73,9 +73,9 @@ class BattleMapsTest(unittest.TestCase):
         )
         robot_enemy_unit = SimpleNamespace(unit_type="enemy", enemy_theme="corp_37_robot")
 
-        self.assertEqual(battle_maps.battle_token_scale_for_unit(human_unit), 0.75)
-        self.assertEqual(battle_maps.battle_token_scale_for_unit(robot_asset_unit), 0.75)
-        self.assertEqual(battle_maps.battle_token_scale_for_unit(robot_enemy_unit), 1.5)
+        self.assertAlmostEqual(battle_maps.battle_token_scale_for_unit(human_unit), 0.825)
+        self.assertAlmostEqual(battle_maps.battle_token_scale_for_unit(robot_asset_unit), 0.825)
+        self.assertAlmostEqual(battle_maps.battle_token_scale_for_unit(robot_enemy_unit), 1.65)
 
     def test_new_map_assets_exist_on_disk(self) -> None:
         city_files = [path for path in Path("assets/maps").iterdir() if path.is_file() and path.name.startswith("city_") and path.suffix.lower() == ".png"]

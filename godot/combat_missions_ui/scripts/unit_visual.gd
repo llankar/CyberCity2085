@@ -105,7 +105,7 @@ func _draw() -> void:
 	var dead := int(unit_data.get("hp", 0)) <= 0
 	if dead and (not _death or clip != "death"): return
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
-	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0)
+	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
 	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
 	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.34))
 	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
@@ -214,7 +214,7 @@ func _spawn_float_text(text: String, color: Color) -> void:
 
 func _body_height() -> float:
 	# Terrain scale, independent of HUD size, window resolution and camera zoom.
-	return cell_size.x * HUMAN_HEIGHT_PER_TILE * _visual_size_scale()
+	return cell_size.x * HUMAN_HEIGHT_PER_TILE * _visual_size_scale() * TOKEN_PRESENTATION_SCALE
 
 func hit_test_screen(screen_point: Vector2) -> bool:
 	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return false

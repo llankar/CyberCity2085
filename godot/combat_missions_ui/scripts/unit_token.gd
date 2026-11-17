@@ -1,5 +1,7 @@
 extends Node2D
 class_name UnitToken
+
+const TOKEN_PRESENTATION_SCALE := 1.10
 ## Per-unit visual rendered as a paper miniature standee: a rectangular card
 ## standing upright on a small isometric base, as seen in tabletop RPG setups.
 ## The Sprite2D child renders the character art on top of _draw() which paints
@@ -72,7 +74,7 @@ func update_data(data: Dictionary) -> void:
 func _recalc_dims() -> void:
 	# Giant units carry size_scale ≈ 3.5 in their unit_data; normal units = 1.0.
 	var scale := clampf(float(unit_data.get("size_scale", 1.0)), 0.5, 5.0)
-	_card_w  = cell_size.x * 0.30 * scale
+	_card_w  = cell_size.x * 0.30 * scale * TOKEN_PRESENTATION_SCALE
 	_card_h  = _card_w * 1.55
 	_base_rx = _card_w * 0.46
 	_sw      = _card_w * 0.5
