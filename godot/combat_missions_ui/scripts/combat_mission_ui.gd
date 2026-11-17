@@ -1904,9 +1904,10 @@ func _update_visual_context() -> void:
 	if not _hud.has_signal("quality_changed"): return
 	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}
+	_hud.target_anchor_node = null
 	var target := _current_target()
 	var atype := _action_type(selected_action)
-	if target.is_empty() or active.is_empty() or atype not in ["FIRE", "MELEE", "FIRE_AOE"]: return
+	if turn_side != "player" or target.is_empty() or active.is_empty() or atype not in ["FIRE", "MELEE", "FIRE_AOE"]: return
 	var from := _cell_position(active)
 	var to := _cell_position(target)
 	var distance := absi(from.x-to.x)+absi(from.y-to.y)
@@ -1915,6 +1916,7 @@ func _update_visual_context() -> void:
 	var los: bool = _battlefield.has_los(from,to,[])
 	var chance := clampf(50.0+float(active.get("aim",5))*2-float(target.get("defense",6))*2,20,95)
 	_hud.target_info = target.duplicate()
+	_hud.target_anchor_node = _unit_tokens.get("e%d" % selected_target_index,null)
 	var portrait_key := str(target.get("name", "enemy"))
 	if not _visual_enemy_portraits.has(portrait_key):
 		var theme := str(target.get("enemy_theme", "generic"))
