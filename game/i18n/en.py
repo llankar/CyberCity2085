@@ -195,3 +195,10 @@ STRINGS.update(
         "briefing.support.power_armor": "POWER ARMOR",
     }
 )
+
+# Headquarters Visual 2.0
+STRINGS.update(
+    {"hq.title": "HEADQUARTERS", "hq.subtitle": "BASE MANAGEMENT", "hq.close": "CLOSE"}
+)
+
+STRINGS.update({"hq.saved": "GAME SAVED", "hq.loaded": "GAME LOADED"})

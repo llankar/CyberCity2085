@@ -1,0 +1,43 @@
+{
+  "resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1672,
+      941
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      2560,
+      1440
+    ],
+    [
+      1920,
+      1000
+    ]
+  ],
+  "departments": [
+    "command",
+    "city",
+    "squad",
+    "assets",
+    "research",
+    "intel"
+  ],
+  "mouse_footer_keyboard": true,
+  "hover_transition": true,
+  "live_resources": true,
+  "read_only_rendering": true,
+  "large_text": true,
+  "reduced_motion": true,
+  "legacy_fallback": true,
+  "return_to_title": true,
+  "save_load": true,
+  "language": true,
+  "cached_frames": true
+}
