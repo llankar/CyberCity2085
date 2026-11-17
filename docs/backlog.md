@@ -1,3 +1,13 @@
+## Squad Command UI 2.0 (November 17, 2026)
+
+- [x] SCUI-01 Dedicated responsive three-column Arcade command deck, shared holographic typography/panels and illustrated equipment/vector resources.
+- [x] SCUI-02 Real portrait roster, readiness and squad selection, equipment cycling, attribute controls and complete agent-sheet routes.
+- [x] SCUI-03 Dynamic mission artwork/intelligence and all downtime activities, localized chrome and accessible text-size adaptations.
+- [x] SCUI-04 Eleven icon commands, settings/World Map return routes, keyboard/paging, original save/load/recruit/remove handlers and no hidden legacy hit targets.
+- [x] SCUI-05 Real 720p/941p/1080p/1440p captures, native interaction/regression validation and documented visual comparison; push/merge authorized by the user.
+
+Evidence and reproduction: [Squad Command UI 2.0](squad_command_2.md).
+
 ## Always-visible unit outlines (November 17, 2026)
 
 - [x] OUTLINE-01 Clear cyan outlines on all living allies and red outlines on all living enemies, with stronger selection emphasis.

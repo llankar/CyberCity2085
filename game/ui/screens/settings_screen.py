@@ -211,8 +211,9 @@ def _browse_for_godot_executable(current_path: str = "") -> str | None:
 class SettingsView(arcade.View):
     """Full-screen settings panel accessible from the title menu."""
 
-    def __init__(self) -> None:
+    def __init__(self, return_view=None) -> None:
         super().__init__()
+        self._return_view = return_view
         self._settings  = load_settings()
         self._elapsed   = 0.0
         self._message   = ""
@@ -594,5 +595,8 @@ class SettingsView(arcade.View):
         self._msg_timer = 2.5
 
     def _back(self) -> None:
+        if self._return_view is not None:
+            self.window.show_view(self._return_view)
+            return
         from game.ui.screens.title_screen import TitleView
         self.window.show_view(TitleView())
