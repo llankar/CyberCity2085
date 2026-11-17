@@ -47,7 +47,7 @@ func run() -> void:
 		scene.enemy_units[j]["max_hp"] = 24
 		occupied.append(cell)
 	scene._resize_tokens()
-	scene._camera.zoom = Vector2.ONE*0.95
+	scene._camera.zoom = Vector2.ONE*scene._overview_zoom()
 	scene._camera.position = board.cell_to_world(origin)+Vector2(150,-60)
 	scene.selected_action = "MOVE"
 	scene._sync_display()

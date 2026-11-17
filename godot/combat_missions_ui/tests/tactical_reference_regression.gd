@@ -24,12 +24,30 @@ func run() -> void:
 	var no_path: Array[Vector2i] = []
 	board.show_path(no_path)
 	assert(board._route_preview_geometry().is_empty(),"cleared path hides arrow and AP badge")
+	var mission = load("res://scripts/combat_mission_ui.gd").new()
+	mission._battlefield = board
+	mission._camera = Camera2D.new()
+	for viewport in [Vector2(1280,720),Vector2(1920,1080),Vector2(2560,1440)]:
+		mission.size = viewport
+		board.configure(viewport*4,null,empty,Vector2i(20,14))
+		var initial: float = mission._overview_zoom()
+		assert(is_equal_approx(initial*board.iso_tw*2.0,280.0),"reference framing across resolutions")
+		mission._camera.zoom = Vector2.ONE*initial
+		mission._zoom_at(viewport*0.5,100.0)
+		assert(is_equal_approx(mission._camera.zoom.x,initial),"cannot zoom past initial reference framing")
+		mission._zoom_at(viewport*0.5,0.5)
+		assert(mission._camera.zoom.x < initial,"zooming out remains possible")
+	mission._camera.free()
+	mission._camera = null
+	mission._battlefield = null
+	mission.free()
 	var image := Image.create(100,100,false,Image.FORMAT_RGBA8)
 	image.fill(Color.TRANSPARENT)
 	image.fill_rect(Rect2i(30,20,40,80),Color.WHITE)
 	var unit = load("res://scripts/unit_visual.gd").new()
 	root.add_child(unit)
 	unit.setup({"hp":7,"max_hp":24},0,false,ImageTexture.create_from_image(image),Vector2(400,400))
+	assert(is_equal_approx(unit._body_height(),400*0.286*1.10),"ten percent larger body without moving grid cells")
 	for zoom in [0.4,0.9,2.0]:
 		unit.scale = Vector2.ONE*zoom
 		var bar: Rect2 = unit._health_bar_rect()

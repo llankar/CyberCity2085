@@ -1,3 +1,14 @@
+## World Map Visual 2.0 and reference combat framing (November 17, 2026)
+
+- [x] WMV2-01 Reusable, cached holographic beacons for every combat/narrative mission, category colors and hover/selection animations.
+- [x] WMV2-02 Collision-aware cartouches and selected briefing connection; original map, cities and legends preserved.
+- [x] WMV2-03 Readable dynamic, scrollable briefing and existing mission/squad/navigation routes preserved across resolutions.
+- [x] WMV2-04 Reference initial/maximum combat zoom and +10% token presentation without changing tactical geometry.
+- [x] WMV2-05 Real Arcade/Godot captures, interaction/runtime regression tests and documentation; publication authorized by the user.
+
+Evidence and reproduction: [World Map Visual 2.0](world_map_visual_2.md) and
+[combat reference](tactical_reference.md).
+
 
 ## Release 1.0 — Finishable Campaign (active November 2026)
 

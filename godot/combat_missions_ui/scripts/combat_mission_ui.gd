@@ -108,6 +108,7 @@ var ipc_pipe_path  : String = ""   # Unix pipe path for IPC signal to Python
 # ─── Camera / zoom / pan ──────────────────────────────────────────────────────
 const _ZOOM_MIN        := 0.25
 const _ZOOM_MAX        := 3.0
+const _REFERENCE_TILE_WIDTH := 280.0
 const _DRAG_THRESHOLD  := 8.0   # pixels moved before a click becomes a pan
 var _camera       : Camera2D  = null
 var _map_root     : Node2D    = null
@@ -807,7 +808,7 @@ func _input(event: InputEvent) -> void:
 
 func _zoom_at(cursor_screen: Vector2, factor: float) -> void:
 	var old_zoom := _camera.zoom.x
-	var new_zoom := clampf(old_zoom * factor, _ZOOM_MIN, _ZOOM_MAX)
+	var new_zoom := clampf(old_zoom * factor, _ZOOM_MIN, _overview_zoom())
 	if absf(new_zoom - old_zoom) < 0.001: return
 	var vp_center   := size * 0.5
 	# World point that must stay under the cursor before and after the zoom.
@@ -987,11 +988,10 @@ func _seed_combat_state() -> void:
 	combat_log.append("Press Enter or click DEPLOY to begin.")
 
 func _overview_zoom() -> float:
-	# Fixed overview zoom: grid fills ~87-98% of the available play area,
-	# tiles appear 86 px wide at 1280×720 and 137 px at 1920×1080.
-	# Player can zoom out to _ZOOM_MIN (0.25) for a broader overview or in
-	# to _ZOOM_MAX for detail.
-	return 0.40
+	# The supplied reference shows a full tile around 280 screen pixels wide.
+	# Use that same framing at startup and as the wheel's maximum zoom.
+	var tile_width := maxf(1.0,_battlefield.iso_tw*2.0) if _battlefield != null else 280.0
+	return clampf(_REFERENCE_TILE_WIDTH/tile_width,_ZOOM_MIN,_ZOOM_MAX)
 
 func _start_combat(source: String) -> void:
 	if battle_started: return
