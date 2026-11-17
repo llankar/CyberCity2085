@@ -121,13 +121,13 @@ func _draw() -> void:
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
 	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
 	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
-	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.34))
+	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.50))
 	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
-	if is_active or has_defend or has_overwatch:
-		var radius := maxf(footprint,cell_size.x*0.21) if is_active else footprint
+	if is_active or is_targeted or has_defend or has_overwatch:
+		var radius := maxf(footprint,cell_size.x*0.21) if is_active or is_targeted else footprint
 		var ring := PackedVector2Array([Vector2(0,-radius*0.5),Vector2(radius,0),Vector2(0,radius*0.5),Vector2(-radius,0),Vector2(0,-radius*0.5)])
 		draw_colored_polygon(ring, Color(rc, 0.08))
-		if is_active:
+		if is_active or is_targeted:
 			draw_polyline(ring,Color(rc,0.12),10*_screen_pixel().x,true)
 		draw_polyline(ring,Color(rc,0.9),2*_screen_pixel().x,true)
 	var tex := sprite.texture if sprite != null else null
@@ -161,22 +161,25 @@ func _draw() -> void:
 	var pixel := _screen_pixel()
 	var texture_size := tex.get_size()
 	var sample_step := source.size / _art_rect.size * pixel / texture_size
-	_art_material.set_shader_parameter("outline_step",sample_step*1.25)
+	_art_material.set_shader_parameter("outline_step",sample_step*(1.6 if is_active or is_targeted else 1.0))
 	_art_material.set_shader_parameter("frame_uv",Vector4(source.position.x/texture_size.x,source.position.y/texture_size.y,source.end.x/texture_size.x,source.end.y/texture_size.y))
 	_art_material.set_shader_parameter("rim_color",Color(1.0,0.45,0.38) if is_enemy else Color(0.40,0.88,0.94))
 	_art_material.set_shader_parameter("fallen",dead)
+	_art_material.set_shader_parameter("focus_strength",1.0 if is_active or is_targeted else 0.0)
 	_card_w = width
 	_card_h = height
 	_sh = height
 	if dead: return
 	_draw_segmented_health(rc)
 	if is_targeted:
-		var r := _art_rect.grow(5)
+		var r := _target_frame_rect()
 		for p: Vector2 in [r.position, Vector2(r.end.x,r.position.y), r.end, Vector2(r.position.x,r.end.y)]:
-			var dx := 1.0 if p.x < 0 else -1.0
+			var dx := 1.0 if p.x < r.get_center().x else -1.0
 			var dy := 1.0 if p.y < r.get_center().y else -1.0
-			draw_line(p, p+Vector2(dx*10,0), ENEMY_COL, 2, true)
-			draw_line(p, p+Vector2(0,dy*10), ENEMY_COL, 2, true)
+			for stroke in [7.0,2.0]:
+				var color := Color(ENEMY_COL,0.12 if stroke>2 else 1.0)
+				draw_line(p,p+Vector2(dx*12*pixel.x,0),color,stroke*pixel.x,true)
+				draw_line(p,p+Vector2(0,dy*12*pixel.y),color,stroke*pixel.x,true)
 	if has_defend or has_overwatch:
 		_ds("DEF" if has_defend else "OW", Vector2(width*0.5,-height*0.5), 9, rc)
 
@@ -311,3 +314,7 @@ func _measure_atlas_bounds(image: Image, frame_size: Vector2i) -> Dictionary:
 			var used := image.get_region(Rect2i(Vector2i(x,y)*frame_size,frame_size)).get_used_rect()
 			result[y*columns+x] = Rect2(Vector2(used.position)/Vector2(frame_size),Vector2(used.size)/Vector2(frame_size))
 	return result
+
+func _target_frame_rect() -> Rect2:
+	# Follow actual opaque art, not padded portrait/atlas cell dimensions.
+	return _visible_body_rect().grow_individual(8*_screen_pixel().x,5*_screen_pixel().y,8*_screen_pixel().x,5*_screen_pixel().y)
