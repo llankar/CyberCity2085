@@ -99,7 +99,7 @@ func _draw() -> void:
 		else: draw_colored_polygon(part.cap,part.tint)
 		# One material lip per edge, without neon outlines on scenery.
 		for face: Dictionary in part.faces:
-			draw_line(face.points[2],face.points[3],Color(.58,.68,.72,.46),pixel,true)
+			draw_line(face.points[2],face.points[3],Color(part.tint.lightened(.25),.20),pixel,true)
 			draw_line(face.points[0],face.points[1],Color(0,0,0,.22),pixel,true)
 
 func draw_ground(canvas: CanvasItem, quality: int) -> void:
