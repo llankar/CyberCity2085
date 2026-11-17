@@ -46,6 +46,14 @@ func run() -> void:
 			await RenderingServer.frame_post_draw
 			var path := output.path_join("%s-%dx%d%s.png"%[name,dimensions.x,dimensions.y,"-before" if baseline else ""])
 			assert(root.get_texture().get_image().save_png(path)==OK)
+			if "--wall-overlay" in args:
+				scene._battlefield.debug_walls_visible=true
+				scene._battlefield.queue_redraw()
+				await process_frame
+				await RenderingServer.frame_post_draw
+				assert(root.get_texture().get_image().save_png(output.path_join("%s-%dx%d-walls.png"%[name,dimensions.x,dimensions.y]))==OK)
+				scene._battlefield.debug_walls_visible=false
+				scene._battlefield.queue_redraw()
 			if polish:
 				await capture_polish_target(output,"%s-%dx%d"%[name,dimensions.x,dimensions.y])
 			if not baseline and not polish and scene._battlefield.has_method("uv_to_world"):

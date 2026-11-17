@@ -109,7 +109,7 @@ var cover_nodes      : Array[Dictionary] = []
 var ipc_pipe_path  : String = ""   # Unix pipe path for IPC signal to Python
 
 # ─── Camera / zoom / pan ──────────────────────────────────────────────────────
-const _ZOOM_MIN        := 0.25
+const _ZOOM_MIN        := 0.10
 const _ZOOM_MAX        := 3.0
 const _REFERENCE_TILE_WIDTH := 280.0
 const _DRAG_THRESHOLD  := 8.0   # pixels moved before a click becomes a pan
@@ -192,6 +192,9 @@ func _build_children() -> void:
 
 	# Battlefield draws map + grid (behind units)
 	_battlefield = preload("res://scripts/visual_battlefield.gd").new() if visual_mode else _BFScript.new()
+	if visual_mode:
+		_battlefield.top_down = "--isometric" not in OS.get_cmdline_user_args()
+		_battlefield.human_height_ratio = preload("res://scripts/map_presentation.gd").human_height_ratio(_map_data())
 	_battlefield.name = "Battlefield"
 	_map_root.add_child(_battlefield)
 
@@ -346,6 +349,7 @@ func _resize_tokens() -> void:
 			_unit_tokens.erase(key)
 			continue
 		tok.cell_size = cs
+		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
 		tok._recalc_dims()
 		tok.queue_redraw()
 	for i in range(player_units.size()):
@@ -383,6 +387,7 @@ func _spawn_all_tokens() -> void:
 		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Player%d" % i
 		_units_layer.add_child(tok)
+		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
 		tok.setup(u, i, false, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp0 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
@@ -396,6 +401,7 @@ func _spawn_all_tokens() -> void:
 		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Enemy%d" % j
 		_units_layer.add_child(tok)
+		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
 		tok.setup(u, j, true, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp1 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
@@ -412,6 +418,7 @@ func _spawn_all_tokens() -> void:
 		tok.name = "Vehicle%d" % vi
 		_units_layer.add_child(tok)
 		# id ≥ 1000 signals "vehicle" to _on_unit_clicked so it is silently ignored.
+		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
 		tok.setup(v, 1000 + vi, is_ev, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(vkey,vkey)), project_root)
 		tok.position = _battlefield.cell_to_world(_cell_position(v))
@@ -726,6 +733,15 @@ func _gui_input(event: InputEvent) -> void:
 			KEY_HOME:
 				_frame_squad()
 				accept_event()
+			KEY_F11:
+				if visual_mode:
+					_battlefield.top_down = not _battlefield.top_down
+					_battlefield.resize(size*4.0)
+					_resize_tokens()
+					_build_visual_obstacles()
+					_sync_display()
+					_frame_squad()
+				accept_event()
 			KEY_F10:
 				environment_depth_enabled = not environment_depth_enabled
 				_build_visual_obstacles()
@@ -1003,12 +1019,14 @@ func _seed_combat_state() -> void:
 	combat_log.append("Press Enter or click DEPLOY to begin.")
 
 func _overview_zoom() -> float:
+	if visual_mode and _battlefield.top_down:
+		return clampf(minf(size.x*.94/_battlefield.source_rect.size.x,size.y*.72/_battlefield.source_rect.size.y),_ZOOM_MIN,_ZOOM_MAX)
 	var tile_width := maxf(1.0,_battlefield.iso_tw*2.0) if _battlefield != null else 280.0
 	var target := 200.0*clampf(size.y/941.0,.75,1.7) if visual_mode else _REFERENCE_TILE_WIDTH
 	return clampf(target/tile_width,_ZOOM_MIN,_ZOOM_MAX)
 
 func _close_zoom() -> float:
-	return minf(_ZOOM_MAX,_overview_zoom()*1.65) if visual_mode else _overview_zoom()
+	return minf(_ZOOM_MAX,_overview_zoom()*(3.0 if _battlefield.top_down else 1.65)) if visual_mode else _overview_zoom()
 
 func _frame_squad() -> void:
 	if _camera==null or player_units.is_empty():return
@@ -1016,6 +1034,10 @@ func _frame_squad() -> void:
 	for unit: Dictionary in player_units:
 		if int(unit.get("hp",0))>0:bounds=bounds.expand(_battlefield.cell_to_world(_cell_position(unit)))
 	var reading:=_overview_zoom()
+	if visual_mode and _battlefield.top_down:
+		_camera.zoom=Vector2.ONE*reading
+		_camera.position=_battlefield.source_rect.get_center()+Vector2(0,size.y*.035/reading)
+		return
 	var available:=Vector2(size.x*.70,size.y*.55)
 	var margin: float=_battlefield.iso_tw*3.0
 	var fit:=minf(available.x/maxf(1,bounds.size.x+margin),available.y/maxf(1,bounds.size.y+margin))
@@ -1936,9 +1958,9 @@ func _build_visual_obstacles() -> void:
 	if "--legacy-environment" in OS.get_cmdline_user_args() and environment_depth_enabled and visual_quality>0:
 		depth=preload("res://scripts/environment_depth_legacy.gd").new()
 		depth.prepare(map_texture,_battlefield,path)
-	elif depth!=null: depth.prepare(map_texture,_battlefield,path,_asset_path(path))
+	elif depth!=null and not _battlefield.top_down: depth.prepare(map_texture,_battlefield,path,_asset_path(path))
 	var seen: Dictionary = {}
-	for wall: Dictionary in cover_nodes:
+	for wall: Dictionary in ([] if _battlefield.top_down else cover_nodes):
 		var id := str(wall.get("wall_id", ""))
 		if id.is_empty() or seen.has(id): continue
 		seen[id] = true
