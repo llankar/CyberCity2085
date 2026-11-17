@@ -107,3 +107,44 @@ DISPLAY=:103 ALSOFT_DRIVERS=null python -m pytest -q tests/test_unit_readability
 Replace `:103` with the available X11 display. The pixel test requires the real
 compatibility renderer and skips without a display; headless geometry tests
 remain independent of it.
+
+## Reference-based ally and enemy presentation
+
+The supplied infiltration reference now guides unit presentation with the existing
+character artwork and current token scale. Living bodies stay solid and brighter
+than the terrain. The active ally gets a narrow cyan silhouette and ground
+selection diamond; targeted enemies get a red silhouette, ground diamond and
+luminous corner brackets fitted to the visible body. Ordinary units retain a
+quieter contour, so selection has clear visual priority. Silhouette and bracket
+thickness use screen pixels across camera zooms; source images, atlas animation,
+collision cells and tactical scale are preserved.
+
+The red enemy card now connects to the actual rendered enemy, follows camera
+panning/zooming and unit motion, and flips sides near the viewport edge. It stays
+above the squad/action area, shows the real portrait, name, segmented HP,
+defense, hit chance, distance, range and AP cost. Offscreen targets dock the card
+without drawing a misleading connector. It is hidden outside the player's
+attack context and consumes mouse clicks to prevent attacks through the card.
+
+The reference's example “coverage 50%” is not fabricated: this client resolves
+shots using the target's defense, so the card displays that real defense value.
+The displayed hit probability uses the same aim/defense formula as shot resolution;
+blocked line of sight and out-of-range warnings remain explicit.
+
+Real in-game captures on the neon-market map:
+[ally selection and movement](images/unit-reference/movement.png),
+[targeted enemy and linked card](images/unit-reference/target.png).
+These use an isolated live handoff; they do not alter a player's campaign.
+The screenshot contains the existing art rather than replacement character models.
+
+Native tests cover solid body rendering, selected-ally and targeted-enemy
+materials, exact atlas framing, body-fit brackets, card projection after camera
+pan, card click consumption, and edge/footer placement at 1280×720, 1672×941 and
+2560×1440. Existing movement/AP and Arcade→Godot→management checks also pass.
+
+```sh
+DISPLAY=:103 ALSOFT_DRIVERS=null python -m pytest -q tests/test_unit_readability_runtime.py tests/test_tactical_reference_runtime.py tests/test_godot_launch_routing.py tests/test_godot_move_highlights.py
+```
+
+Use an available X11 display. The reference capture can also be reproduced with
+`godot --path godot/combat_missions_ui --rendering-method gl_compatibility --audio-driver Dummy --script tests/capture_reference.gd -- --target-reference`.

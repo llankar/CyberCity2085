@@ -46,6 +46,21 @@ func run() -> void:
 	var animated := capture.get_pixel(280,117)
 	assert(absf(animated.r-enhanced.r)<0.01 and absf(animated.b-enhanced.b)<0.01,"animated and static bodies have matching opacity and lighting")
 	assert(unit._art_sprite.region_rect==Rect2(64,0,64,64),"atlas frame selection remains exact")
+	unit.set_active(true)
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(unit._art_material.get_shader_parameter("focus_strength")==1.0,"active silhouette uses cyan emphasis without body transparency")
+	assert(unit.modulate.a==1.0,"selection never pulses body opacity")
+	unit.set_active(false)
+	unit.is_enemy = true
+	unit.set_targeted(true)
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(unit._art_material.get_shader_parameter("focus_strength")==1.0,"targeted enemy receives silhouette emphasis")
+	var rim: Color = unit._art_material.get_shader_parameter("rim_color")
+	assert(rim.r>rim.b,"enemy silhouette uses red, not ally cyan")
+	var body: Rect2 = unit._visible_body_rect()
+	assert(unit._target_frame_rect().get_center().is_equal_approx(body.get_center()),"brackets center on visible art")
 	unit.unit_data["hp"] = 0
 	unit.queue_redraw()
 	await process_frame
