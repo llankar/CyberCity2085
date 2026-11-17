@@ -1,4 +1,4 @@
-﻿"""CyberCity 2085 — Unified Management Screen.
+"""CyberCity 2085 — Unified Management Screen.
 
 Replaces CorpView, CityView, and RPGView with a single XCOM2-style
 tabbed management interface:
@@ -651,6 +651,9 @@ class ManagementView(GameView):
         arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
 
     def _draw_recruit_window_modal(self, w: int, h: int) -> None:
+        from functools import partial
+        from game.ui.components.squad_copy import draw_localized_squad_text
+        draw_text=partial(draw_localized_squad_text,language=self.game_state.ui_language)
         if not self.recruit_window_open or not self.pending_recruit_candidates:
             return
 
@@ -670,7 +673,7 @@ class ManagementView(GameView):
         _border(mx0, my0, mx1, my1, palette.ACCENT, 2)
         _rect(mx0, my1 - 78, mx1, my1, (10, 24, 32, 246))
         arcade.draw_line(mx0, my1 - 78, mx1, my1 - 78, palette.ACCENT, 2)
-        arcade.draw_text(
+        draw_text(
             "RECRUITMENT WINDOW",
             mx0 + 20,
             my1 - 28,
@@ -678,7 +681,7 @@ class ManagementView(GameView):
             font_size=18,
             bold=True,
         )
-        arcade.draw_text(
+        draw_text(
             f"{len(self.pending_recruit_candidates)} AVAILABLE AGENTS   |   FUNDS ¥{gs.available_funds}   |   N REFRESHES   |   ESC CLOSES",
             mx0 + 20,
             my1 - 50,
@@ -690,7 +693,7 @@ class ManagementView(GameView):
         close_bottom = my1 - 56
         _rect(close_left, close_bottom, close_left + 28, close_bottom + 28, (14, 24, 30, 240))
         arcade.draw_line(close_left, close_bottom + 28, close_left + 28, close_bottom + 28, palette.PANEL_BORDER_MUTED, 1)
-        arcade.draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
+        draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
         self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "recruit_close"))
 
         # Six candidates read best as 2x3; larger pools switch to a 3-column
@@ -751,12 +754,12 @@ class ManagementView(GameView):
             text_right = left + card_w - 12
             action_col_w = 76
             copy_right = max(text_left + 40, text_right - action_col_w)
-            arcade.draw_text(candidate.name.upper(), text_left, top - 18, palette.TEXT, font_size=12, bold=True)
-            arcade.draw_text(candidate.role.upper(), text_left, top - 32, role_col, font_size=8, bold=True)
-            arcade.draw_text(candidate.function.upper(), text_left, top - 44, palette.MUTED_TEXT, font_size=8, bold=True)
-            arcade.draw_text(candidate.stat_line(), text_left, top - 60, palette.TEXT, font_size=8)
-            arcade.draw_text(candidate.skill_line(), text_left, top - 74, palette.RESOURCE, font_size=8)
-            arcade.draw_text(
+            draw_text(candidate.name.upper(), text_left, top - 18, palette.TEXT, font_size=12, bold=True)
+            draw_text(candidate.role.upper(), text_left, top - 32, role_col, font_size=8, bold=True)
+            draw_text(candidate.function.upper(), text_left, top - 44, palette.MUTED_TEXT, font_size=8, bold=True)
+            draw_text(candidate.stat_line(), text_left, top - 60, palette.TEXT, font_size=8)
+            draw_text(candidate.skill_line(), text_left, top - 74, palette.RESOURCE, font_size=8)
+            draw_text(
                 _trim_text(candidate.background, 38 if cols == 3 else 72),
                 text_left,
                 bottom + 42,
@@ -765,7 +768,7 @@ class ManagementView(GameView):
                 width=max(40, copy_right - text_left),
                 align="left",
             )
-            arcade.draw_text(
+            draw_text(
                 "ADV: " + _trim_text(" | ".join(candidate.advantages), 28 if cols == 3 else 54),
                 text_left,
                 bottom + 24,
@@ -776,8 +779,8 @@ class ManagementView(GameView):
             )
             price_label = f"¥{candidate.price}"
             price_col = palette.TACTICAL_GREEN if affordable else palette.DANGER
-            arcade.draw_text(price_label, left + card_w - 16, bottom + 14, price_col, font_size=12, bold=True, anchor_x="right")
-            arcade.draw_text(
+            draw_text(price_label, left + card_w - 16, bottom + 14, price_col, font_size=12, bold=True, anchor_x="right")
+            draw_text(
                 "HIRE" if affordable else "LOCKED",
                 left + card_w - 16,
                 bottom + 34,
@@ -2134,6 +2137,22 @@ class ManagementView(GameView):
     def _dispatch(self, action: str, data: object) -> None:
         gs = self.game_state
 
+        if action == "squad_nav":
+            self._dispatch_hub_action(str(data))
+            return
+        if action == "squad_sheet":
+            self._open_agent_sheet(int(data))
+            return
+        if action == "squad_close":
+            close_room(self.room_ui)
+            return
+        if action == "squad_settings":
+            from game.ui.screens.settings_screen import SettingsView
+            self.window.show_view(SettingsView(return_view=self))
+            return
+        if action == "squad_intel":
+            self._open_mission_map()
+            return
         if action == "tab":
             self.active_tab = data
             return
@@ -2321,6 +2340,7 @@ class ManagementView(GameView):
         if loaded is not None:
             self.game_state = loaded
             self.deployment_cursor = 0
+            if getattr(self,"_squad_command",None) is not None:self._squad_command.roster_first=0
             self.pending_launch_confirm = False
             ensure_mission_templates(self.game_state)
 
@@ -2389,6 +2409,7 @@ class ManagementView(GameView):
             sex=candidate.sex,
         )
         self.deployment_cursor = len(gs.characters) - 1
+        self._cycle_agent_cursor(0)
         if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < 4:
             gs.selected_agent_names.append(agent.name)
             assignment = " Auto-assigned to the active squad."
@@ -2708,6 +2729,7 @@ class ManagementView(GameView):
         self.pending_recruit_candidates: list = []
         self.recruit_window_open = False
         self._elapsed = 0.0
+        self._squad_command = None
         self._hits = []
         self._modal_hits = []
         self.active_tab = "command"
@@ -2740,10 +2762,21 @@ class ManagementView(GameView):
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
         step_room_ui(self.room_ui, delta_time)
+        if self._squad_command is not None:
+            self._squad_command.update(delta_time)
 
     def on_draw(self) -> None:
         self.clear()
         w, h = self.window.width, self.window.height
+        if self.room_ui.active_room_key == "squad":
+            if self._squad_command is None:
+                from game.ui.components.squad_command import SquadCommandRenderer
+                self._squad_command = SquadCommandRenderer()
+            self._squad_command.draw(self,w,h)
+            self._draw_expanded_agent_sheet_modal(w,h)
+            self._draw_recruit_window_modal(w,h)
+            return
+        self._hits = []
         roster_cards = self._build_hub_roster_cards() if self.room_ui.active_room_key == "squad" else []
         draw_graphical_command_surface(
             w,
@@ -2772,6 +2805,9 @@ class ManagementView(GameView):
 
 
     def _draw_expanded_agent_sheet_modal(self, w: int, h: int) -> None:
+        from functools import partial
+        from game.ui.components.squad_copy import draw_localized_squad_text
+        draw_text=partial(draw_localized_squad_text,language=self.game_state.ui_language)
         if self.expanded_agent_sheet_index is None:
             return
         gs = self.game_state
@@ -2816,7 +2852,7 @@ class ManagementView(GameView):
         _border(mx0, my0, mx1, my1, role_col, 2)
         _rect(mx0, my1 - 74, mx1, my1, (10, 24, 34, 248))
         arcade.draw_line(mx0, my1 - 74, mx1, my1 - 74, role_col, 2)
-        arcade.draw_text(
+        draw_text(
             f"{char.name.upper()}  |  {char.role.upper()}  |  LEVEL {stats.level}",
             mx0 + 20,
             my1 - 28,
@@ -2824,7 +2860,7 @@ class ManagementView(GameView):
             font_size=18,
             bold=True,
         )
-        arcade.draw_text(
+        draw_text(
             f"Pending points {char.pending_points}   Talent points {char.talent_points}   Stress {char.stress}",
             mx0 + 20,
             my1 - 50,
@@ -2835,7 +2871,7 @@ class ManagementView(GameView):
         close_bottom = my1 - 56
         _rect(close_left, close_bottom, close_left + 28, close_bottom + 28, (14, 24, 30, 240))
         arcade.draw_line(close_left, close_bottom + 28, close_left + 28, close_bottom + 28, palette.PANEL_BORDER_MUTED, 1)
-        arcade.draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
+        draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
         self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "sheet_close"))
 
         left_w = 340
@@ -2860,7 +2896,7 @@ class ManagementView(GameView):
             radius = portrait_size // 2
             arcade.draw_circle_filled(center_x, center_y, radius, palette.AGENT_PORTRAIT_FILL)
             arcade.draw_circle_outline(center_x, center_y, radius, role_col, 3)
-        arcade.draw_text("DOSSIER PORTRAIT", portrait_left + 10, portrait_bottom + portrait_size + 16, palette.MUTED_TEXT, font_size=8, bold=True)
+        draw_text("DOSSIER PORTRAIT", portrait_left + 10, portrait_bottom + portrait_size + 16, palette.MUTED_TEXT, font_size=8, bold=True)
 
         info_y = portrait_bottom - 18
         info_lines = [
@@ -2870,7 +2906,7 @@ class ManagementView(GameView):
             f"Recovery {char.recovery_turns}d   Stress cap {derived['stress_cap']}",
         ]
         for idx, line in enumerate(info_lines):
-            arcade.draw_text(line, left_x0, info_y - idx * 20, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
+            draw_text(line, left_x0, info_y - idx * 20, palette.TEXT if idx == 0 else palette.MUTED_TEXT, font_size=11 if idx == 0 else 10, bold=idx == 0)
 
         meter_y = info_y - 132
         _meter(left_x0, meter_y + 28, left_w - 24, stats.hp / max(1, stats.max_hp), palette.TACTICAL_GREEN, "HP")
@@ -2885,7 +2921,7 @@ class ManagementView(GameView):
         spec_node_h = min(110, max(60, (spec_top - spec_bottom - 28) // 3))
         _rect(left_x0 - 6, spec_bottom, left_x1 - 2, spec_top, (10, 22, 30, 210))
         arcade.draw_line(left_x0 - 6, spec_top, left_x1 - 2, spec_top, palette.ACCENT, 2)
-        arcade.draw_text(
+        draw_text(
             f"SPECIALIZATION  |  {char.role.upper()}  |  TP {char.talent_points}",
             left_x0 + 6, spec_top - 14, palette.ACCENT, font_size=9, bold=True,
         )
@@ -2913,8 +2949,8 @@ class ManagementView(GameView):
             _rect(_sl, _sb, _sl + spec_node_w, _st, _sf)
             arcade.draw_line(_sl, _st, _sl + spec_node_w, _st, _sbr, 2)
             # Name + tier badge
-            arcade.draw_text(_sn.name.upper(), _sl + 6, _st - 16, palette.TEXT, font_size=9, bold=True)
-            arcade.draw_text(f"T{_sn.tier}", _sl + spec_node_w - 6, _st - 16, palette.MUTED_TEXT, font_size=7, anchor_x="right")
+            draw_text(_sn.name.upper(), _sl + 6, _st - 16, palette.TEXT, font_size=9, bold=True)
+            draw_text(f"T{_sn.tier}", _sl + spec_node_w - 6, _st - 16, palette.MUTED_TEXT, font_size=7, anchor_x="right")
             # Description — word-wrap up to 3 lines; avoids Arcade's mid-word char breaks
             _desc_rem = _sn.description
             _desc_line_ys = [_st - 32, _st - 44, _st - 56]
@@ -2922,20 +2958,20 @@ class ManagementView(GameView):
                 if not _desc_rem:
                     break
                 if len(_desc_rem) <= _spec_cpl:
-                    arcade.draw_text(_desc_rem, _sl + 6, _dly, palette.MUTED_TEXT, font_size=7)
+                    draw_text(_desc_rem, _sl + 6, _dly, palette.MUTED_TEXT, font_size=7)
                     _desc_rem = ""
                 else:
                     _cut = _desc_rem[:_spec_cpl + 1].rfind(" ")
                     if _cut <= 0:
                         _cut = _spec_cpl
-                    arcade.draw_text(_desc_rem[:_cut], _sl + 6, _dly, palette.MUTED_TEXT, font_size=7)
+                    draw_text(_desc_rem[:_cut], _sl + 6, _dly, palette.MUTED_TEXT, font_size=7)
                     _desc_rem = _desc_rem[_cut + 1:]
             # Bonus stats
             _bonus_str = "  ".join(f"+{v} {k.upper()}" for k, v in _sn.bonuses.items())
-            arcade.draw_text(_bonus_str, _sl + 6, _sb + 28, palette.RESOURCE if not _un else palette.TACTICAL_GREEN, font_size=9, bold=True)
+            draw_text(_bonus_str, _sl + 6, _sb + 28, palette.RESOURCE if not _un else palette.TACTICAL_GREEN, font_size=9, bold=True)
             # Status label
             _lbl = "OWNED" if _un else ("UNLOCK" if _av and char.talent_points > 0 else "LOCKED")
-            arcade.draw_text(_lbl, _sl + spec_node_w - 4, _sb + 10, _sbr, font_size=8, bold=True, anchor_x="right")
+            draw_text(_lbl, _sl + spec_node_w - 4, _sb + 10, _sbr, font_size=8, bold=True, anchor_x="right")
             if _av and char.talent_points > 0 and not _un:
                 self._modal_hits.append(_HitRegion(
                     _sl, _sb, _sl + spec_node_w, _st,
@@ -2943,7 +2979,7 @@ class ManagementView(GameView):
                 ))
 
         stats_top = my1 - 104
-        arcade.draw_text("ATTRIBUTES", right_x0, stats_top + 16, palette.ACCENT, font_size=12, bold=True)
+        draw_text("ATTRIBUTES", right_x0, stats_top + 16, palette.ACCENT, font_size=12, bold=True)
         stat_order = [
             ("str", "STR"),
             ("agi", "AGI"),
@@ -2962,14 +2998,14 @@ class ManagementView(GameView):
             accent = role_col if char.pending_points <= 0 else palette.RESOURCE
             _rect(card_left, card_bottom, card_left + stat_card_w, card_bottom + stat_card_h, fill)
             arcade.draw_line(card_left, card_bottom + stat_card_h, card_left + stat_card_w, card_bottom + stat_card_h, accent, 2)
-            arcade.draw_text(label, card_left + 10, card_bottom + 50, palette.MUTED_TEXT, font_size=9, bold=True)
-            arcade.draw_text(str(current), card_left + 10, card_bottom + 20, palette.TEXT, font_size=18, bold=True)
-            arcade.draw_text("SPEND", card_left + stat_card_w - 10, card_bottom + 10, palette.RESOURCE if char.pending_points > 0 else palette.PANEL_BORDER_MUTED, font_size=8, bold=True, anchor_x="right")
+            draw_text(label, card_left + 10, card_bottom + 50, palette.MUTED_TEXT, font_size=9, bold=True)
+            draw_text(str(current), card_left + 10, card_bottom + 20, palette.TEXT, font_size=18, bold=True)
+            draw_text("SPEND", card_left + stat_card_w - 10, card_bottom + 10, palette.RESOURCE if char.pending_points > 0 else palette.PANEL_BORDER_MUTED, font_size=8, bold=True, anchor_x="right")
             if char.pending_points > 0:
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + stat_card_w, card_bottom + stat_card_h, "sheet_spend_stat", (self.expanded_agent_sheet_index, stat_key)))
 
         readiness_top = stats_top - stat_card_h - 20
-        arcade.draw_text("READINESS", right_x0, readiness_top + 16, palette.ACCENT, font_size=12, bold=True)
+        draw_text("READINESS", right_x0, readiness_top + 16, palette.ACCENT, font_size=12, bold=True)
         ready_metrics = [
             ("HP", f"{derived['hp']}"),
             ("AIM", f"{derived['aim']}"),
@@ -2991,11 +3027,11 @@ class ManagementView(GameView):
             card_bottom = card_top - metric_card_h
             _rect(card_left, card_bottom, card_left + metric_card_w, card_bottom + metric_card_h, (10, 21, 28, 220))
             arcade.draw_line(card_left, card_bottom + metric_card_h, card_left + metric_card_w, card_bottom + metric_card_h, palette.PANEL_BORDER_MUTED, 1)
-            arcade.draw_text(label, card_left + 10, card_bottom + 36, palette.MUTED_TEXT, font_size=8, bold=True)
-            arcade.draw_text(value, card_left + 10, card_bottom + 12, palette.TEXT, font_size=14, bold=True)
+            draw_text(label, card_left + 10, card_bottom + 36, palette.MUTED_TEXT, font_size=8, bold=True)
+            draw_text(value, card_left + 10, card_bottom + 12, palette.TEXT, font_size=14, bold=True)
 
         skills_top = readiness_top - metric_rows * (metric_card_h + 10) - 8
-        arcade.draw_text("SKILLS", right_x0, skills_top + 16, palette.ACCENT, font_size=12, bold=True)
+        draw_text("SKILLS", right_x0, skills_top + 16, palette.ACCENT, font_size=12, bold=True)
         _sk_attr = {
             "firearms": "AGI", "close_combat": "STR", "tactics": "CHA",
             "tech": "PSI", "medicine": "CHA", "influence": "CHA",
@@ -3025,8 +3061,8 @@ class ManagementView(GameView):
             attr_tag = _sk_attr.get(skill_key, "")
             attr_val = sheet_attrs.get(_attr_to_key.get(attr_tag, ""), 0)
             # Name + linked attribute tag
-            arcade.draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 16, palette.TEXT, font_size=9, bold=True)
-            arcade.draw_text(f"[{attr_tag}: {attr_val}]", card_left + skill_card_w - 6, card_top - 16, palette.MUTED_TEXT, font_size=8, anchor_x="right")
+            draw_text(skill_key.replace("_", " ").upper(), card_left + 6, card_top - 16, palette.TEXT, font_size=9, bold=True)
+            draw_text(f"[{attr_tag}: {attr_val}]", card_left + skill_card_w - 6, card_top - 16, palette.MUTED_TEXT, font_size=8, anchor_x="right")
             # Progress bar (rank/10), 10px tall
             bar_l = card_left + 6
             bar_r = card_left + skill_card_w - 6
@@ -3035,23 +3071,23 @@ class ManagementView(GameView):
             filled_w = int((bar_r - bar_l) * rank / SKILL_MAX_RANK)
             if filled_w > 0:
                 _rect(bar_l, bar_top - 10, bar_l + filled_w, bar_top, (*palette.RESOURCE[:3], 200))
-            arcade.draw_text(f"RANK  {rank} / {SKILL_MAX_RANK}", card_left + 6, card_top - 52, palette.MUTED_TEXT, font_size=8)
+            draw_text(f"RANK  {rank} / {SKILL_MAX_RANK}", card_left + 6, card_top - 52, palette.MUTED_TEXT, font_size=8)
             # Formula breakdown then big total
-            arcade.draw_text(f"{attr_val} (attr) + {rank} (rank)", card_left + 6, card_top - 70, palette.MUTED_TEXT, font_size=8)
-            arcade.draw_text(f"TOTAL  {total}", card_left + 6, card_top - 96, palette.ACCENT, font_size=14, bold=True)
+            draw_text(f"{attr_val} (attr) + {rank} (rank)", card_left + 6, card_top - 70, palette.MUTED_TEXT, font_size=8)
+            draw_text(f"TOTAL  {total}", card_left + 6, card_top - 96, palette.ACCENT, font_size=14, bold=True)
             if can_spend:
-                arcade.draw_text("+1", card_left + skill_card_w - 6, card_top - 96, palette.RESOURCE, font_size=14, bold=True, anchor_x="right")
+                draw_text("+1", card_left + skill_card_w - 6, card_top - 96, palette.RESOURCE, font_size=14, bold=True, anchor_x="right")
                 self._modal_hits.append(_HitRegion(card_left, card_bottom, card_left + skill_card_w, card_top, "sheet_spend_skill_rank", (self.expanded_agent_sheet_index, skill_key)))
 
         footer_y = my0 + 14
-        arcade.draw_text(
+        draw_text(
             f"Click a stat or skill card to spend 1 pending point ({char.pending_points} remaining).  Talent points: {char.talent_points}.",
             right_x0,
             footer_y,
             palette.MUTED_TEXT,
             font_size=9,
         )
-        arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
+        draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         if self.recruit_window_open:
@@ -3129,6 +3165,10 @@ class ManagementView(GameView):
 
         active_room = self.room_ui.active_room_key
         if active_room == "squad":
+            downtime_keys = [getattr(arcade.key,name,None) for name in ("KEY_7","KEY_8","KEY_9")]
+            if key in [k for k in downtime_keys if k is not None]:
+                self._do_downtime_activity(downtime_keys.index(key))
+                return
             if b_key is not None and key == b_key:
                 self._open_mission_map()
                 return
@@ -3182,13 +3222,15 @@ class ManagementView(GameView):
             return
 
         if self.room_ui.is_open:
-            if close_button_rect(w, h).contains(xi, yi):
+            if self.room_ui.active_room_key != "squad" and close_button_rect(w, h).contains(xi, yi):
                 close_room(self.room_ui)
                 return
             for hit in reversed(self._hits):
                 if hit.contains(xi, yi):
                     self._dispatch(hit.action, hit.data)
                     return
+            if self.room_ui.active_room_key == "squad":
+                return  # Dedicated screen owns every hit region; no hidden legacy controls.
             action = action_at_point(self.room_ui.action_buttons, xi, yi)
             if action is not None:
                 self._dispatch_hub_action(action.key)
@@ -3211,6 +3253,10 @@ class ManagementView(GameView):
         if not self.game_state.characters:
             return
         self.deployment_cursor = (self.deployment_cursor + step) % len(self.game_state.characters)
+        if self._squad_command is not None:
+            first=self._squad_command.roster_first
+            if self.deployment_cursor<first:self._squad_command.roster_first=self.deployment_cursor
+            elif self.deployment_cursor>=first+self._squad_command.roster_capacity:self._squad_command.roster_first=self.deployment_cursor-self._squad_command.roster_capacity+1
 
     def _toggle_selected_agent(self) -> None:
         if not self.game_state.characters:
@@ -3533,3 +3579,20 @@ class ManagementView(GameView):
             "intel": intel_lines,
         }
 
+
+    def on_mouse_motion(self,x,y,dx,dy):
+        renderer=getattr(self,"_squad_command",None)
+        if renderer is None:return
+        renderer.hover=None
+        if self.recruit_window_open or self.expanded_agent_sheet_index is not None:return
+        for hit in reversed(self._hits):
+            if hit.contains(x,y):
+                renderer.hover=(hit.action,hit.data)
+                break
+
+    def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
+        renderer=getattr(self,"_squad_command",None)
+        if renderer is None or self.room_ui.active_room_key!="squad" or self.recruit_window_open or self.expanded_agent_sheet_index is not None:return
+        rect=renderer.regions.get("roster")
+        if rect and rect.contains(x,y):
+            renderer.roster_first=max(0,min(max(0,len(self.game_state.characters)-renderer.roster_capacity),renderer.roster_first-int(scroll_y)))

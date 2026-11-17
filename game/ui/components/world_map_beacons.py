@@ -60,8 +60,14 @@ class HolographicRenderer:
             mesh.clear()
         self._bodies.clear()
         self._panels.clear()
-        self._texts.clear()
+        self.clear_text_cache()
         self._fits.clear()
+
+    def clear_text_cache(self):
+        for label in self._texts.values():
+            if getattr(label, "batch", None) is not None:
+                label.label.delete()
+        self._texts.clear()
 
     def _prepare(self):
         if self._fonts_loaded:
@@ -84,16 +90,31 @@ class HolographicRenderer:
         anchor_x="left",
         anchor_y="baseline",
         multiline=False,
-        accessibility=True
+        accessibility=True,
+        batch=None,
+        draw=True
     ):
         self._prepare()
         if accessibility:
             size = scale_font_size(size)
-        key = (text, size, tuple(color), bold, width, anchor_x, anchor_y, multiline)
+        key = (
+            text,
+            size,
+            tuple(color),
+            bold,
+            width,
+            anchor_x,
+            anchor_y,
+            multiline,
+            id(batch),
+        )
+        if batch is not None:
+            # A shared batch must retain separate labels at repeated card positions.
+            key += (round(x, 3), round(y, 3))
         label = self._texts.get(key)
         if label is None:
             if len(self._texts) > 512:
-                self._texts.clear()
+                self.clear_text_cache()
             label = arcade.Text(
                 text,
                 x,
@@ -106,13 +127,15 @@ class HolographicRenderer:
                 anchor_x=anchor_x,
                 anchor_y=anchor_y,
                 multiline=multiline,
+                batch=batch,
             )
             self._texts[key] = label
         if label.x != x:
             label.x = x
         if label.y != y:
             label.y = y
-        label.draw()
+        if draw:
+            label.draw()
         return label
 
     def glow(self, x, y, w, h, color, alpha):

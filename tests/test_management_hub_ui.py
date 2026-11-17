@@ -109,8 +109,32 @@ class _FakeWindow:
         self.activated = True
 
 
+class _StubPainter:
+    """Exercise production geometry/actions without needing an OpenGL context."""
+    def __init__(self): self._texts={}
+    def resize(self): pass
+    def panel(self,*args,**kwargs): pass
+    def glow(self,*args,**kwargs): pass
+    def fit(self,text,width,size,bold=True):
+        count=max(1,int(width/(size*.58)))
+        return str(text) if len(str(text))<=count else str(text)[:count-1]+'…'
+    def text(self,text,x,y,size=12,color=(255,255,255),**kwargs):
+        import math
+        width=kwargs.get('width')
+        rows=max(1,math.ceil(len(str(text))*size*.58/width)) if width else 1
+        fake_arcade.draw_text(text,x,y,color,font_size=size,**{k:v for k,v in kwargs.items() if k not in ('accessibility',)})
+        return types.SimpleNamespace(text=str(text),content_width=min(width or 99999,len(str(text))*size*.58),content_height=rows*size*1.3)
+
+
 class ManagementHubUITest(unittest.TestCase):
+    def setUp(self):
+        from unittest.mock import patch
+        self.paint_patch=patch('game.ui.components.squad_command.HolographicRenderer',_StubPainter)
+        self.paint_patch.start()
+        self.addCleanup(self.paint_patch.stop)
+
     def _seed_interactive_state(self, view: ManagementView) -> None:
+        view.game_state.ui_language = "en"
         view.game_state.characters = [
             create_character("Rook", "samurai"),
             create_character("Longshot", "sniper"),
@@ -285,7 +309,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertEqual(captured["room_info_lines"], {})
         self.assertEqual(captured["roster_cards"], [])
 
-    def test_squad_room_passes_roster_cards_to_the_graphical_shell(self):
+    def test_squad_room_uses_dedicated_renderer_instead_of_graphical_shell(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
@@ -305,7 +329,20 @@ class ManagementHubUITest(unittest.TestCase):
         finally:
             management_screen.draw_graphical_command_surface = original
 
-        self.assertGreater(len(captured["roster_cards"]), 0)
+        self.assertNotIn("roster_cards",captured)
+        self.assertIsNotNone(view._squad_command)
+        self.assertTrue(any(hit.action=="agent_card" for hit in view._hits))
+
+    def test_squad_does_not_dispatch_invisible_legacy_buttons(self):
+        from unittest.mock import patch
+        view=ManagementView(GameState())
+        view.window=_FakeWindow();view.setup();self._seed_interactive_state(view)
+        open_room(view.room_ui,view.window.width,view.window.height,"squad")
+        button=view.room_ui.action_buttons[0]
+        view._hits=[]
+        with patch.object(view,"_dispatch_hub_action") as dispatch:
+            view.on_mouse_press(button.rect.center_x,button.rect.center_y,0,0)
+            dispatch.assert_not_called()
 
     def test_resource_strip_shows_all_resource_labels(self):
         calls = []
@@ -550,7 +587,8 @@ class ManagementHubUITest(unittest.TestCase):
 
         first_candidate = view.pending_recruit_candidates[0]
         drawn_text = {str(call[0]) for call in calls}
-        self.assertIn("RECRUITMENT WINDOW", drawn_text)
+        from game.ui.components.squad_copy import localized_squad_copy
+        self.assertIn(localized_squad_copy("RECRUITMENT WINDOW",view.game_state.ui_language),drawn_text)
         self.assertIn(first_candidate.function.upper(), drawn_text)
         self.assertTrue(any(first_candidate.skill_line() in text for text in drawn_text))
         self.assertTrue(any(f"¥{first_candidate.price}" in text for text in drawn_text))
@@ -681,12 +719,12 @@ class ManagementHubUITest(unittest.TestCase):
             button for button in view._hits
             if button.action == "open_mission_map"
         )
-        self.assertGreater(launch_hit.bottom, 220)
-        self.assertLess(launch_hit.top, 320)
-
-        strip_bottom = min(button.rect.bottom for button in view.room_ui.action_buttons)
-        self.assertGreater(strip_bottom, 60)
-        self.assertLess(strip_bottom, 110)
+        renderer=view._squad_command
+        self.assertGreater(launch_hit.bottom,renderer.regions["downtime"].top)
+        self.assertLess(launch_hit.top,renderer.layout.mission.top)
+        footer_hits=[hit for hit in view._hits if hit.action=="squad_nav"]
+        self.assertEqual(len(footer_hits),11)
+        self.assertLess(max(hit.top for hit in footer_hits),renderer.layout.roster.bottom)
 
 
 if __name__ == "__main__":
