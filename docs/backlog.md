@@ -651,3 +651,13 @@ Push and merge are authorized by the user's standing publication preference.
 - [x] UIUP-05 Documenter les composants et la validation, publier la branche validée et fusionner dans main conformément à l’autorisation explicite de l’utilisateur.
 
 Détails et captures : [UI Visual Unification Pass](ui_visual_unification.md).
+
+## Combat Visual 2.4 — 17 novembre 2026
+
+- [x] CV24-01 Remplacer les extrusions de collisions par des annotations visuelles liées aux SHA-256 sources, avec fallback 2D sûr.
+- [x] CV24-02 Créer neuf familles d’assemblages et annoter 28 objets identifiés sur quatre environnements.
+- [x] CV24-03 Séparer revêtements, faces latérales, contacts, silhouettes et occultation sans modifier les données tactiques.
+- [x] CV24-04 Vérifier les 122 cartes, les interactions natives et cinq environnements à trois résolutions ; conserver les captures avant/après.
+- [x] CV24-05 Documenter la couverture et les limites ; publier puis fusionner la branche vérifiée conformément à l’autorisation permanente de l’utilisateur.
+
+Détails : [Combat Visual 2.4](combat_visual_24.md).
