@@ -2,8 +2,11 @@ extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
 const HUMAN_HEIGHT_PER_TILE := 0.70
 const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
+const GROUND_SHADOW_SHADER = preload("res://shaders/unit_ground_shadow.gdshader")
 var _art_sprite: Sprite2D
 var _art_material: ShaderMaterial
+var _cast_shadow: Sprite2D
+var _shadow_material: ShaderMaterial
 
 var terrain_scale := 1.0
 var visual_quality := 2
@@ -29,6 +32,16 @@ func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	_art_material = ShaderMaterial.new()
 	_art_material.shader = READABILITY_SHADER
+	_shadow_material=ShaderMaterial.new()
+	_shadow_material.shader=GROUND_SHADOW_SHADER
+	_cast_shadow=Sprite2D.new()
+	_cast_shadow.name="SilhouetteGroundShadow"
+	_cast_shadow.centered=false
+	_cast_shadow.region_enabled=true
+	_cast_shadow.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR
+	_cast_shadow.material=_shadow_material
+	_cast_shadow.show_behind_parent=true
+	add_child(_cast_shadow)
 	_art_sprite = Sprite2D.new()
 	_art_sprite.name = "ReadableArt"
 	_art_sprite.centered = false
@@ -119,6 +132,7 @@ func _draw() -> void:
 	var dead := int(unit_data.get("hp", 0)) <= 0
 	if dead and (not _death or clip != "death"):
 		_art_sprite.hide()
+		_cast_shadow.hide()
 		return
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
 	var footprint := cell_size.x * terrain_scale * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
@@ -133,6 +147,7 @@ func _draw() -> void:
 	var tex := sprite.texture if sprite != null else null
 	if tex == null:
 		_art_sprite.hide()
+		_cast_shadow.hide()
 		return
 	var visible_height := _body_height()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
@@ -166,6 +181,14 @@ func _draw() -> void:
 	_art_sprite.scale = _art_rect.size / source.size
 	_art_sprite.modulate = Color(0.36,0.4,0.44) if dead else Color.WHITE
 	_art_sprite.show()
+	# The same source/frame casts a flattened silhouette for every entity family.
+	# A foot at (0,0) stays fixed; tall art projects to the lower right on the floor.
+	_cast_shadow.texture=tex
+	_cast_shadow.region_rect=source
+	var art_scale:=_art_rect.size/source.size
+	_cast_shadow.transform=Transform2D(Vector2(art_scale.x,0),Vector2(-.40*art_scale.y,-.18*art_scale.y),Vector2(_art_rect.position.x-.40*_art_rect.position.y,-.18*_art_rect.position.y))
+	_cast_shadow.visible=visual_quality>0 and not dead
+	_shadow_material.set_shader_parameter("frame_uv",Vector4(source.position.x/tex.get_width(),source.position.y/tex.get_height(),source.end.x/tex.get_width(),source.end.y/tex.get_height()))
 	var pixel := _screen_pixel()
 	var texture_size := tex.get_size()
 	var sample_step := source.size / _art_rect.size * pixel / texture_size
@@ -339,7 +362,7 @@ func _draw_grounding(footprint: float, color: Color) -> void:
 	# Broad penumbra and small contact core anchor the feet without flat discs.
 	draw_set_transform(Vector2(footprint*.13,footprint*.10),0,Vector2(1,.34))
 	if visual_quality > 0:
-		for layer in range(4,0,-1):
+		for layer in range(2,0,-1):
 			draw_circle(Vector2.ZERO,footprint*(.62+layer*.18),Color(0,.005,.012,.055))
 	draw_circle(Vector2.ZERO,footprint*.68,Color(0,0,0,.38))
 	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)

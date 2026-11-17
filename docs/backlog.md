@@ -691,3 +691,12 @@ Détails : [Vue de haut 2.5D](combat_top_down.md).
 - [ ] ART25-05 Achever la reconstruction artistique de tous les éléments des 122 cartes : gros œuvre, accessoires, raccords et revues détaillées restent à réaliser. La livraison vérifiée documente cette limite.
 
 Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par carte.
+
+
+### Combat Visual 2.5 — extension des décors et des entités
+
+- [x] ART25B-01 Examiner 218 découpes, conserver les décisions et motifs, réutiliser uniquement les illustrations de SHA identique.
+- [x] ART25B-02 Produire 10 familles supplémentaires / 40 orientations et finaliser trois familles techniques existantes ; garder les sources Blender et les empreintes de production.
+- [x] ART25B-03 Étendre les substitutions à 187 objets sur 108 cartes, conserver les orientations validées et les fallbacks lorsque les ressources ne conviennent pas.
+- [x] ART25B-04 Ajouter les ombres de silhouettes aux agents, ennemis, power armors, véhicules et robots ; corriger le chargement typé des actions de soutien sans changer leurs règles.
+- [x] ART25B-05 Terminer les contrôles natifs des 122 cartes, exporter les comparaisons et publier cette extension vérifiée. La reconstruction artistique complète reste ouverte sous ART25-05.

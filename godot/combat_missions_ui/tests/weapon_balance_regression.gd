@@ -20,8 +20,17 @@ func run() -> void:
 	var live=load("res://scenes/combat_mission_ui.tscn").instantiate()
 	live.handoff_path="user://weapon-balance-fixture.json"
 	var file:=FileAccess.open(live.handoff_path,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"audio":{"enabled":false},"mission":{"objective_type":"hack","risk_level":1},"squad":[{"name":"QA","role":"samurai","hp":24,"max_hp":24,"aim":100}]}));file.close()
+	file.store_string(JSON.stringify({"audio":{"enabled":false},"mission":{"objective_type":"hack","risk_level":1},"squad":[{"name":"QA","role":"samurai","hp":24,"max_hp":24,"aim":100}],"support_assets":[{"name":"QA Armor","asset_type":"power_armor","hp":40},{"name":"QA Robot","asset_type":"combat_robot","hp":36}]}));file.close()
 	root.add_child(live);await process_frame;await process_frame
+	assert(live.player_units.size()==3,"both support entity families retain default actions when a handoff omits them")
+	assert(live.player_units[1].available_actions==["Move","Defend","Rifle Burst","Servo Punch"])
+	assert(live.player_units[2].available_actions==["Move","Defend","Missile Salvo"])
+	var selection_state:=JSON.stringify(live.player_units)
+	live._on_unit_clicked(1,false);assert(live.active_player_index==1,"power armor selects through the combat controller")
+	live._on_unit_clicked(2,false);assert(live.active_player_index==2,"robot selects through the combat controller")
+	live._on_unit_clicked(1000,false);assert(live.active_player_index==2,"decorative vehicles never become combat selections")
+	live._on_unit_clicked(0,false);assert(live.active_player_index==0)
+	assert(JSON.stringify(live.player_units)==selection_state,"selection never spends AP or changes unit statistics")
 	live.active_player_index=0;live.player_units[0].position=Vector2i(5,5);live.player_units[0].ap=4;live.player_units[0].aim=100
 	live.enemy_units[0].position=Vector2i(23,5);live.enemy_units[0].hp=100;live.enemy_units[0].defense=0
 	live._battlefield._opaque_cells.clear()

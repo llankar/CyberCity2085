@@ -4,9 +4,9 @@ Cette passe ajoute une bibliothèque de véritables objets séparés et étend l
 
 ## Ce qui est implémenté
 
-- Seize familles d’objets et 64 orientations en PNG transparent : canapé, fauteuil, table, console, caisse, barrière, mur, machine, serveur, ventilation, banc, véhicule, épave rouillée, conteneur, étal de marché et barils.
+- Vingt-six familles d’objets et 104 orientations en PNG transparent : canapé, fauteuil, table, console, caisse, barrière, mur, machine, serveur, ventilation, banc, véhicule, épave rouillée, conteneur, étal de marché, barils, lit, bureau, casier, jardinières rectangulaire et compacte, transformateur, bac, établi, distributeur et lit médical.
 - Modèles Blender éditables avec géométrie propre : pieds, assises, dossiers, poignées, panneaux, tuyaux, moniteurs, roues et ouvertures distincts. Aucun tapis ni sol n’est extrudé.
-- Huit familles ont une finition artistique générée à partir des planches de volumes Blender : cuir, métal, vitrages, bois, écrans, carrosseries et épaves. Les `.blend` correspondants sont des sources de blocage géométrique ; ils ne reproduisent pas exactement la finition générée. Les deux planches finales et les rendus de blocage sont conservés séparément.
+- Vingt familles ont une finition artistique générée à partir des planches de volumes Blender : cuir, métal, vitrages, bois, écrans, carrosseries et épaves. Les `.blend` correspondants sont des sources de blocage géométrique ; ils ne reproduisent pas exactement la finition générée. Les cinq planches finales et les rendus de blocage sont conservés séparément.
 - Raccord au sol non destructif : petit masque visuel séparé, texture de sol voisine et bords fondus pour effacer l’ancien objet et son ombre peinte. Les raccords complexes peuvent encore demander une retouche artistique dédiée.
 - Placement uniforme sans déformation : l’objet est ajusté à son cadre visuel ; une incompatibilité de proportions fait conserver le dessin d’origine. Les contours alpha réels servent aux ombres et à l’occultation des sprites.
 - Séparation des plans pour les éléments conservés : leurs régions de dessin source sont remises au premier plan selon la profondeur des unités, sans leur inventer une catégorie, une hauteur ou un modèle. Il s’agit d’un fallback 2D multicouche, pas d’une reconstruction 3D.
@@ -19,11 +19,21 @@ Les fichiers `environment_catalog.gd`, `environment_depth.gd` et `visual_obstacl
 
 `art/environment/environment_art.json` contient les 122 cartes, leurs empreintes source, cadres visuels, références d’objets, ressources, orientations, éléments encore en 2D, problèmes et validations. Les familles proviennent de sélections explicites après inspection des planches des 92 illustrations distinctes. Les identifiants de relevé sont des liens aux objets examinés, jamais des règles de classification automatique.
 
-La passe active 99 remplacements sur 97 cartes ; 25 candidats sont conservés en rendu original pour incompatibilité de proportions. Les 3 499 entrées de relevé restantes (certaines regroupent plusieurs objets) restent en 2D. L’[inventaire par carte](combat_visual_25_inventory.md) détaille cette couverture. Les candidats rejetés restent listés : ils ne deviennent pas artificiellement des objets améliorés. Un groupe peut n’avoir qu’un élément remplacé ; le reliquat est alors conservé dans l’inventaire 2D.
+La première livraison (`35f7b80`) activait 99 remplacements sur 97 cartes. L’extension active 187 remplacements sur 108 cartes ; 41 candidats sont conservés en rendu original pour incompatibilité de proportions. Les 3 411 entrées de relevé restantes (certaines regroupent plusieurs objets) restent en 2D. L’[inventaire par carte](combat_visual_25_inventory.md) détaille cette couverture. Les candidats rejetés restent listés : ils ne deviennent pas artificiellement des objets améliorés. Un groupe peut n’avoir qu’un élément remplacé ; le reliquat est alors conservé dans l’inventaire 2D.
+
+L’extension examine 218 découpes d’objets. Les 88 décisions de substitution explicites produisent 104 candidats après réutilisation des seules illustrations de SHA identique ; 88 de ces candidats passent le contrôle de proportions. `expansion_reviews.json` conserve chaque décision, les cas rejetés et leur motif : groupes d’objets, matériel spécialisé, formes en L, vues obliques, végétation morte et écarts entre libellé et dessin. Deux placements de transformateurs sont révoqués après examen natif : le modèle à trois isolateurs remplaçait à tort un ensemble complexe. L’original est restauré et la carte est capturée de nouveau. Une orientation de lit imposée par la revue n’est pas retournée automatiquement pour améliorer artificiellement son score.
 
 Les PNG des cartes, `.walls.json`, `.wall-traces.json`, SHA-256, cellules bloquées et relevés ne sont pas modifiés. Les contours sources servent à restituer leur profondeur visuelle ; les nouvelles annotations ne sont jamais injectées dans A*, les collisions ou la ligne de vue. Les données de campagne et sauvegardes ne sont pas réécrites.
 
-## Équilibrage des armes demandé pendant cette passe
+## Agents, ennemis et soutiens
+
+Chaque unité vivante reçoit une ombre projetée à partir du même sprite et de la même frame que son illustration : agents, ennemis, power armors, robots et véhicules. La projection est aplatie au sol, avec adoucissement et contact sous les pieds. Les marges transparentes ne deviennent pas une ombre rectangulaire. Le mode de qualité bas conserve l’ombre de contact simple et retire la projection. L’ombre disparaît avec l’unité morte et suit les animations.
+
+Les illustrations, proportions, profils de taille par carte, équipes, PV et zones de clic restent ceux du jeu. Les vues de validation incluent réellement les deux types de soutien et les véhicules extérieurs, et vérifient leur opacité, leur cadrage de frame et leur sélection. Les cartes intérieures conservent leur exclusion de véhicules. Une erreur de typage Godot empêchant la création des soutiens sans liste d’actions explicite est corrigée par une copie dans le tableau typé, sans changement de la liste d’actions.
+
+Cette passe ne prétend pas remplacer les sprites de personnages par de nouvelles animations ou des modèles 3D.
+
+## Équilibrage des armes de la livraison précédente
 
 Le changement de règles autorisé concerne les portées et dégâts du combat Godot. La hiérarchie s’inspire des rôles tactiques de XCOM et Shadowrun — arme courte, fusil polyvalent, précision, puissance à courte portée — sans prétendre recopier leurs valeurs ni convertir les cases en mètres.
 
@@ -46,17 +56,22 @@ Les tirs de zone utilisent désormais les statistiques de l’arme sélectionné
 
 Les tests couvrent les sources des 122 cartes, leurs coordonnées à trois résolutions, l’intégrité des relevés, les contours, les fallbacks, les ressources transparentes, les interactions, les menus et le bridge. Les tests de tir exécutent réellement un tir de fusil à 18 cases, un refus de pistolet sans dépense de PA, les nouveaux dégâts et les statistiques des tirs de zone.
 
-Les 21 contrôles ciblés finaux passent (ressources, intégrité des sources, régressions visuelles, projections, géométrie visuelle, tirs et règles tactiques).
+Les 20 contrôles ciblés de l’extension passent, avec une reprise des neuf contrôles concernés après les dernières corrections de soutiens et d’ombres (ressources, intégrité des sources, régressions visuelles, projections, géométrie visuelle, tirs et règles tactiques).
 
-La validation native comprend les 122 cartes, les rendus et leur picking/zoom, puis cinq familles en 1280×720, 1920×1080 et 2560×1440. Déplacement réel, ciblage, passage de tour/IA, qualité et F10/F11 sont contrôlés dans la scène complète. Les captures et mesures sont conservées dans le [rapport visuel](images/combat-25/README.md).
+La validation native comprend les 122 cartes, les rendus et leur picking/zoom, puis cinq familles en 1280×720, 1920×1080 et 2560×1440. Déplacement réel, ciblage, passage de tour/IA, qualité et F10/F11 sont contrôlés dans la scène complète. Les captures et mesures sont conservées dans le [rapport visuel de l’extension](images/combat-25-expansion/README.md).
 
-La mémoire statique Godot relevée sur le catalogue s’étend de 246 à 312 Mio. Les fixtures masquent uniquement le bandeau transitoire de début de tour pour inspecter le décor ; le jeu normal le conserve.
+La mémoire statique Godot relevée sur le catalogue reste autour de 246 à 312 Mio sur l’environnement de validation. Les fixtures masquent uniquement le bandeau transitoire de début de tour pour inspecter le décor ; le jeu normal le conserve.
+
+L’extension ajoute des captures de cinq familles de nouveaux objets et de toutes les familles d’entités, aux trois résolutions. Le contrôle de catalogue écrit un résultat par carte, avec signature des ressources et du rendu, pour pouvoir reprendre une session interrompue sans réutiliser une capture d’une autre version.
 
 Le rendu est contrôlé sur OpenGL logiciel llvmpipe : les mesures de mémoire statique Godot et durées de fixtures sont relevées, mais ne remplacent pas un benchmark GPU sur la machine du joueur. Les aperçus des 122 cartes sont inspectables en planches ; la vérification artistique détaillée se concentre sur les familles, et ne vaut pas validation exhaustive de chaque meuble.
 
 Restent notamment : reconstruction du gros œuvre et de nombreux accessoires, annotations détaillées supplémentaires, raccords locaux complexes, variantes de matériaux et finitions de certains modèles. Les couches sources conservées ne résolvent pas tous les cas d’occultation d’un véritable environnement 3D. **La comparaison avec la maquette reste un objectif ouvert, pas un résultat déclaré atteint.**
 
 ## Production reproductible
+
+La suite emploie `--only bed,desk,locker,planter,transformer,bin,workbench,vending,planter_square,medical_bed` pour préserver les ressources artistiques déjà livrées. Importer ensuite les planches avec leurs listes de familles, puis exécuter `apply_reviewed_environment_expansion.py` et `validate_environment_placements.py`. Le générateur ne lit jamais les noms de collisions pour inventer un objet. Les ressources disponibles sans placement suffisamment adapté restent signalées comme telles ; leur simple présence n’est pas une intégration artistique.
+
 
 ```sh
 blender -b --threads 2 --python tools/art/render_environment_library.py -- godot/combat_missions_ui/art/environment/props25
@@ -68,3 +83,5 @@ python tools/art/build_environment_inventory.py
 ```
 
 Blender n’offre pas OpenImageDenoise dans cette installation. Le débruitage de production repose donc sur un filtre médian léger des intérieurs opaques ; l’alpha original des rendus est préservé. L’import des planches nettoie les pixels parasites détachés, conserve les silhouettes complètes et refuse les images coupées. Les cartes source ne sont pas une cible autorisée de ces outils.
+
+Les cinq planches finales sont versionnées dans `props25/` et peuvent être réimportées directement. L’importeur reconnaît le cas où la planche est déjà à son emplacement final et recalcule les empreintes des 104 sprites. Pour les trois planches de la suite, employer respectivement les familles `bed,desk,locker,planter`, `transformer,bin,workbench,planter_square` et `medical_bed,server,hvac,barrier` avec leurs noms `artist_furniture_expansion.png`, `artist_industry_expansion.png` et `artist_facilities_expansion.png`.
