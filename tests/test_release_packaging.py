@@ -60,3 +60,18 @@ def test_godot_bundle_keeps_project_scripts_and_excludes_live_handoffs(tmp_path)
     files = godot_runtime_data(directory)
     assert {Path(source).name for source, destination in files} == {"project.godot", "ui.gd"}
     assert all(Path(destination).parts[0] == "godot" for source, destination in files)
+
+
+def test_frozen_build_footer_retains_actual_packaged_identity(tmp_path, monkeypatch):
+    from tools.packaging_helpers import build_identity_data
+    from game import version
+    data=build_identity_data(tmp_path,label="BUILD abc1234")
+    stamp=Path(data[0][0])
+    assert data[0][1]=="." and json.loads(stamp.read_text())["label"]=="BUILD abc1234"
+    monkeypatch.setattr(version.sys,"frozen",True,raising=False)
+    monkeypatch.setattr(version.sys,"_MEIPASS",str(stamp.parent),raising=False)
+    monkeypatch.delenv("CYBERCITY_BUILD_REVISION",raising=False)
+    monkeypatch.setattr(version,"version",lambda name: (_ for _ in ()).throw(version.PackageNotFoundError(name)))
+    version.build_label.cache_clear()
+    assert version.build_label()=="BUILD abc1234"
+    version.build_label.cache_clear()
