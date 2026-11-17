@@ -1,0 +1,50 @@
+{
+  "resolutions": [
+    {
+      "size": [
+        1280,
+        720
+      ],
+      "hit_regions": 45,
+      "all_equipment_and_activities_visible": true
+    },
+    {
+      "size": [
+        1672,
+        941
+      ],
+      "hit_regions": 45,
+      "all_equipment_and_activities_visible": true
+    },
+    {
+      "size": [
+        1920,
+        1080
+      ],
+      "hit_regions": 45,
+      "all_equipment_and_activities_visible": true
+    },
+    {
+      "size": [
+        2560,
+        1440
+      ],
+      "hit_regions": 45,
+      "all_equipment_and_activities_visible": true
+    }
+  ],
+  "equipment": true,
+  "stat_upgrade": true,
+  "recruitment": true,
+  "roster_scroll": true,
+  "downtime": true,
+  "save_load": true,
+  "navigation": true,
+  "english": true,
+  "empty_roster": true,
+  "modal_allocations": true,
+  "remove_agent": true,
+  "keyboard_rooms": true,
+  "large_text": true,
+  "warm_draw_ms": 86.24733680007921
+}

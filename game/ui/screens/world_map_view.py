@@ -835,6 +835,7 @@ class MissionWorldMapView(GameView):
         view.setup()
         view.active_tab = "squad"
         self.window.show_view(view)
+        view._open_hub_room("squad")
 
 
 __all__ = ["MissionWorldMapView", "WorldMapLayout", "build_world_map_layout"]
