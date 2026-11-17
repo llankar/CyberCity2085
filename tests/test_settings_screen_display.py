@@ -8,6 +8,7 @@ import sys
 import tempfile
 import types
 import unittest
+import unittest.mock
 from pathlib import Path
 
 
@@ -136,6 +137,19 @@ class _FakeWindow:
 
 
 class SettingsScreenDisplayTest(unittest.TestCase):
+    def test_motion_preference_roundtrip_preserves_existing_settings(self):
+        state=settings_screen.SettingsState(music_volume=37,fullscreen=True,reduced_motion=True,extra_flags={"custom":True})
+        settings_screen.save_settings(state)
+        loaded=settings_screen.load_settings()
+        self.assertTrue(loaded.reduced_motion and loaded.fullscreen)
+        self.assertEqual(loaded.music_volume,37)
+        self.assertEqual(loaded.extra_flags,{"custom":True})
+        # Legacy settings without the new field retain the animated default.
+        path=Path(settings_screen._SETTINGS_PATH)
+        data=json.loads(path.read_text());data.pop("reduced_motion")
+        path.write_text(json.dumps(data))
+        self.assertFalse(settings_screen.load_settings().reduced_motion)
+
     def setUp(self) -> None:
         captured_draw_text.clear()
         captured_draw_text_calls.clear()

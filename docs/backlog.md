@@ -572,3 +572,14 @@ Publication authorized on November 17, 2026: push the verified feature branch an
 
 Details: [Mission Briefing Visual 2.0](mission_briefing_visual_2.md).
 Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
+
+## Main Menu Visual 2.0 — November 17, 2026
+
+- [x] MMUI-01 Generate a cinematic city and metallic wordmark; preserve the original artwork fallback.
+- [x] MMUI-02 Build responsive cached chrome, real menu buttons and bounded atmospheric effects.
+- [x] MMUI-03 Preserve actions/music/navigation and safely resume actual saves without creating phantom campaigns.
+- [x] MMUI-04 Persist reduced motion and display truthful source/packaged build identity in the footer.
+- [x] MMUI-05 Verify native controls, resolutions, settings and packaging; retain real captures and publish the validated result.
+
+Details: [Main Menu Visual 2.0](main_menu_visual_2.md).
+Push and merge are authorized by the user's standing publication preference.
