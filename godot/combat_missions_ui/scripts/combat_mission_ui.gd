@@ -1933,7 +1933,10 @@ func _build_visual_obstacles() -> void:
 	if not visual_mode: return
 	var path := str(_map_data().get("path", "")).to_lower()
 	var depth = preload("res://scripts/environment_depth.gd").new() if environment_depth_enabled and visual_quality>0 else null
-	if depth!=null: depth.prepare(map_texture,_battlefield,path)
+	if "--legacy-environment" in OS.get_cmdline_user_args() and environment_depth_enabled and visual_quality>0:
+		depth=preload("res://scripts/environment_depth_legacy.gd").new()
+		depth.prepare(map_texture,_battlefield,path)
+	elif depth!=null: depth.prepare(map_texture,_battlefield,path,_asset_path(path))
 	var seen: Dictionary = {}
 	for wall: Dictionary in cover_nodes:
 		var id := str(wall.get("wall_id", ""))
