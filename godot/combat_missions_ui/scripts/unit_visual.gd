@@ -1,6 +1,9 @@
 extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
 const HUMAN_HEIGHT_PER_TILE := 0.286
+const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
+var _art_sprite: Sprite2D
+var _art_material: ShaderMaterial
 
 var visual_key := ""
 var animation_root := ""
@@ -22,6 +25,15 @@ static var _atlas_cache: Dictionary = {}
 func _ready() -> void:
 	super._ready()
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	_art_material = ShaderMaterial.new()
+	_art_material.shader = READABILITY_SHADER
+	_art_sprite = Sprite2D.new()
+	_art_sprite.name = "ReadableArt"
+	_art_sprite.centered = false
+	_art_sprite.region_enabled = true
+	_art_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	_art_sprite.material = _art_material
+	add_child(_art_sprite)
 
 func configure_animation(key: String, root: String) -> void:
 	visual_key = key
@@ -103,7 +115,9 @@ func play_death() -> void:
 
 func _draw() -> void:
 	var dead := int(unit_data.get("hp", 0)) <= 0
-	if dead and (not _death or clip != "death"): return
+	if dead and (not _death or clip != "death"):
+		_art_sprite.hide()
+		return
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
 	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
 	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
@@ -117,7 +131,9 @@ func _draw() -> void:
 			draw_polyline(ring,Color(rc,0.12),10*_screen_pixel().x,true)
 		draw_polyline(ring,Color(rc,0.9),2*_screen_pixel().x,true)
 	var tex := sprite.texture if sprite != null else null
-	if tex == null: return
+	if tex == null:
+		_art_sprite.hide()
+		return
 	var height := _body_height()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
 	_active_bounds_uv = _portrait_bounds_uv
@@ -134,7 +150,21 @@ func _draw() -> void:
 			_active_bounds_uv = _frame_bounds.get(idx,Rect2(0,0,1,1))
 	var width := height * source.size.x / maxf(1, source.size.y)
 	_art_rect = Rect2(-width * 0.5, -height, width, height)
-	draw_texture_rect_region(tex, _art_rect, source, Color(0.36,0.4,0.44) if dead else Color.WHITE)
+	# Keep the source texture data-only; a separate sprite isolates the material
+	# from HP bars, selection diamonds and floating combat text.
+	_art_sprite.texture = tex
+	_art_sprite.region_rect = source
+	_art_sprite.position = _art_rect.position
+	_art_sprite.scale = _art_rect.size / source.size
+	_art_sprite.modulate = Color(0.36,0.4,0.44) if dead else Color.WHITE
+	_art_sprite.show()
+	var pixel := _screen_pixel()
+	var texture_size := tex.get_size()
+	var sample_step := source.size / _art_rect.size * pixel / texture_size
+	_art_material.set_shader_parameter("outline_step",sample_step*1.25)
+	_art_material.set_shader_parameter("frame_uv",Vector4(source.position.x/texture_size.x,source.position.y/texture_size.y,source.end.x/texture_size.x,source.end.y/texture_size.y))
+	_art_material.set_shader_parameter("rim_color",Color(1.0,0.45,0.38) if is_enemy else Color(0.40,0.88,0.94))
+	_art_material.set_shader_parameter("fallen",dead)
 	_card_w = width
 	_card_h = height
 	_sh = height
