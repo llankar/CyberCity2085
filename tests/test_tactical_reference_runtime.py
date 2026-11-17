@@ -8,6 +8,7 @@ import pytest
 @pytest.mark.parametrize('script,sentinel',[
     ('encounter_floor_regression.gd','ENCOUNTER_FLOOR_CHECKS_PASSED 122'),
     ('tactical_reference_regression.gd','TACTICAL_REFERENCE_CHECKS_PASSED'),
+    ('combat_feedback_regression.gd','COMBAT_FEEDBACK_CHECKS_PASSED'),
 ])
 def test_runtime_contract(script, sentinel):
     executable = shutil.which('godot') or shutil.which('godot4')
