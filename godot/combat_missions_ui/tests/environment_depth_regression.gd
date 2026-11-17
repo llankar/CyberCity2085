@@ -6,6 +6,8 @@ func run() -> void:
 	var catalog=load("res://scripts/environment_catalog.gd")
 	var board=load("res://scripts/visual_battlefield.gd").new()
 	root.add_child(board)
+	board.top_down=false # Exercise the retained 2.4 mesh path explicitly.
+	board.top_down=false # Verify the retained component-mesh renderer.
 	var layout=load("res://scripts/map_wall_layout.gd")
 	var assets:=ProjectSettings.globalize_path("res://../../assets/maps")
 	var count:=0;var authored:=0

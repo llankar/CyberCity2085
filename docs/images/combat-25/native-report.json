@@ -1,0 +1,1222 @@
+[
+  {
+    "elapsed_ms": 4544.864,
+    "map": "city_district_apartment_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258117389
+  },
+  {
+    "elapsed_ms": 3806.463,
+    "map": "city_district_civic_center.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 33,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 258059953
+  },
+  {
+    "elapsed_ms": 3723.604,
+    "map": "city_district_holo_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258805117
+  },
+  {
+    "elapsed_ms": 3064.27,
+    "map": "city_district_riot_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258615649
+  },
+  {
+    "elapsed_ms": 3492.924,
+    "map": "city_district_tech_market.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258840497
+  },
+  {
+    "elapsed_ms": 2966.977,
+    "map": "city_exterior_billboard_avenue.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258694545
+  },
+  {
+    "elapsed_ms": 3314.242,
+    "map": "city_exterior_corporate_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258702673
+  },
+  {
+    "elapsed_ms": 5410.317,
+    "map": "city_exterior_downtown_intersection.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 22,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258715265
+  },
+  {
+    "elapsed_ms": 5217.698,
+    "map": "city_exterior_elevated_freeway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 19,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258593917
+  },
+  {
+    "elapsed_ms": 5664.324,
+    "map": "city_exterior_neon_market_alley.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258908861
+  },
+  {
+    "elapsed_ms": 3688.037,
+    "map": "city_exterior_parking_garage.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258812717
+  },
+  {
+    "elapsed_ms": 2927.424,
+    "map": "city_exterior_rooftop_access.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 22,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258869761
+  },
+  {
+    "elapsed_ms": 3506.0,
+    "map": "city_exterior_waterfront_docks.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 259016105
+  },
+  {
+    "elapsed_ms": 7411.056,
+    "map": "city_industrial_data_vault.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 259887873
+  },
+  {
+    "elapsed_ms": 6884.925,
+    "map": "city_industrial_dockside_terminal.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 62,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260291467
+  },
+  {
+    "elapsed_ms": 8004.09,
+    "map": "city_industrial_factory_floor.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 32,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260175741
+  },
+  {
+    "elapsed_ms": 9268.731,
+    "map": "city_industrial_power_substation.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260158697
+  },
+  {
+    "elapsed_ms": 6958.039,
+    "map": "city_industrial_security_checkpoint.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260083305
+  },
+  {
+    "elapsed_ms": 5719.148,
+    "map": "city_industrial_service_tunnel.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 68,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 258308669
+  },
+  {
+    "elapsed_ms": 5606.436,
+    "map": "city_industrial_warehouse_floor.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260122597
+  },
+  {
+    "elapsed_ms": 6294.679,
+    "map": "city_interior_blacksite_lab.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258062233
+  },
+  {
+    "elapsed_ms": 9657.281,
+    "map": "city_interior_command_deck.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262248853
+  },
+  {
+    "elapsed_ms": 9878.661,
+    "map": "city_interior_control_center.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258056587
+  },
+  {
+    "elapsed_ms": 7613.296,
+    "map": "city_interior_corporate_lobby.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 44,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 258077723
+  },
+  {
+    "elapsed_ms": 5707.278,
+    "map": "city_interior_cyber_cafe.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 37,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260727543
+  },
+  {
+    "elapsed_ms": 8014.833,
+    "map": "city_interior_medical_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260665843
+  },
+  {
+    "elapsed_ms": 6164.401,
+    "map": "city_interior_penthouse_atrium.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 35,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260637193
+  },
+  {
+    "elapsed_ms": 3003.735,
+    "map": "city_interior_police_records.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260586649
+  },
+  {
+    "elapsed_ms": 2790.827,
+    "map": "city_interior_research_lab.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260677599
+  },
+  {
+    "elapsed_ms": 2697.441,
+    "map": "city_interior_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 44,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 327203105
+  },
+  {
+    "elapsed_ms": 4873.694,
+    "map": "city_interior_server_room.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260730183
+  },
+  {
+    "elapsed_ms": 4402.777,
+    "map": "city_rooftop_skybridge_spine.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 20,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262813517
+  },
+  {
+    "elapsed_ms": 4000.303,
+    "map": "city_transit_freight_yard.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 262764309
+  },
+  {
+    "elapsed_ms": 4627.817,
+    "map": "city_transit_metro_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 37,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262791805
+  },
+  {
+    "elapsed_ms": 2764.954,
+    "map": "city_transit_subway_platform.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262731345
+  },
+  {
+    "elapsed_ms": 2525.028,
+    "map": "city_transit_train_tunnel.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260602783
+  },
+  {
+    "elapsed_ms": 2921.612,
+    "map": "cybercity_inner_01_control_center.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260788571
+  },
+  {
+    "elapsed_ms": 3080.253,
+    "map": "cybercity_inner_02_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 260736087
+  },
+  {
+    "elapsed_ms": 2726.108,
+    "map": "cybercity_inner_03_research_lab.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 37,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260836663
+  },
+  {
+    "elapsed_ms": 3026.535,
+    "map": "cybercity_inner_04_medical_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260782199
+  },
+  {
+    "elapsed_ms": 2467.222,
+    "map": "cybercity_inner_05_server_room.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 35,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260748967
+  },
+  {
+    "elapsed_ms": 2670.328,
+    "map": "cybercity_inner_06_blacksite_lab.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 260720243
+  },
+  {
+    "elapsed_ms": 2777.189,
+    "map": "cybercity_inner_07_corporate_lobby.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260762039
+  },
+  {
+    "elapsed_ms": 2595.876,
+    "map": "cybercity_inner_08_police_records.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260795091
+  },
+  {
+    "elapsed_ms": 2967.536,
+    "map": "cybercity_inner_09_apartment_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 45,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260871509
+  },
+  {
+    "elapsed_ms": 5220.854,
+    "map": "cybercity_inner_10_penthouse_atrium.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260674533
+  },
+  {
+    "elapsed_ms": 2986.715,
+    "map": "cybercity_inner_11_cyber_cafe.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 27,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260828335
+  },
+  {
+    "elapsed_ms": 2723.583,
+    "map": "cybercity_inner_12_maintenance_tunnel.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 22,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260667833
+  },
+  {
+    "elapsed_ms": 2784.739,
+    "map": "cybercity_inner_13_warehouse_floor.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 34,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260808221
+  },
+  {
+    "elapsed_ms": 3022.055,
+    "map": "cybercity_inner_14_detention_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 40,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260844667
+  },
+  {
+    "elapsed_ms": 2699.914,
+    "map": "cybercity_inner_15_data_vault.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 260750941
+  },
+  {
+    "elapsed_ms": 2997.418,
+    "map": "cybercity_street_01_downtown_intersection.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262873423
+  },
+  {
+    "elapsed_ms": 3336.998,
+    "map": "cybercity_street_02_neon_market_alley.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300350525
+  },
+  {
+    "elapsed_ms": 2992.441,
+    "map": "cybercity_street_03_elevated_freeway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 21,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263401721
+  },
+  {
+    "elapsed_ms": 2878.335,
+    "map": "cybercity_street_04_waterfront_docks.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263470853
+  },
+  {
+    "elapsed_ms": 2918.734,
+    "map": "cybercity_street_05_civic_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263475161
+  },
+  {
+    "elapsed_ms": 3262.028,
+    "map": "cybercity_street_06_downtown_intersection.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 22,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300147837
+  },
+  {
+    "elapsed_ms": 3715.128,
+    "map": "cybercity_street_06_transit_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300195613
+  },
+  {
+    "elapsed_ms": 4090.175,
+    "map": "cybercity_street_07_downtown_intersection.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 22,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300180755
+  },
+  {
+    "elapsed_ms": 4792.421,
+    "map": "cybercity_street_07_neon_market_alley.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300337667
+  },
+  {
+    "elapsed_ms": 4520.056,
+    "map": "cybercity_street_08_elevated_freeway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300168271
+  },
+  {
+    "elapsed_ms": 4760.738,
+    "map": "cybercity_street_08_neon_market_alley.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300361139
+  },
+  {
+    "elapsed_ms": 4247.161,
+    "map": "cybercity_street_09_elevated_freeway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300191343
+  },
+  {
+    "elapsed_ms": 3581.464,
+    "map": "cybercity_street_09_waterfront_docks.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 275185643
+  },
+  {
+    "elapsed_ms": 5814.013,
+    "map": "cybercity_street_10_civic_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 300152239
+  },
+  {
+    "elapsed_ms": 5001.201,
+    "map": "cybercity_street_10_waterfront_docks.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 275144251
+  },
+  {
+    "elapsed_ms": 6139.298,
+    "map": "cybercity_street_11_civic_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 300171787
+  },
+  {
+    "elapsed_ms": 3346.261,
+    "map": "cybercity_street_11_transit_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300251663
+  },
+  {
+    "elapsed_ms": 3845.481,
+    "map": "cybercity_street_12_industrial_district.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263465097
+  },
+  {
+    "elapsed_ms": 3420.803,
+    "map": "cybercity_street_12_transit_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 300270981
+  },
+  {
+    "elapsed_ms": 3833.957,
+    "map": "cybercity_street_13_flood_prone_avenue.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263451199
+  },
+  {
+    "elapsed_ms": 5500.427,
+    "map": "cybercity_street_13_industrial_district.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263505075
+  },
+  {
+    "elapsed_ms": 3031.039,
+    "map": "cybercity_street_14_bridge_access.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263553423
+  },
+  {
+    "elapsed_ms": 3066.425,
+    "map": "cybercity_street_14_flood_prone_avenue.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263432547
+  },
+  {
+    "elapsed_ms": 3213.585,
+    "map": "cybercity_street_15_billboard_avenue.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263495009
+  },
+  {
+    "elapsed_ms": 3588.137,
+    "map": "cybercity_street_15_bridge_access.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263530311
+  },
+  {
+    "elapsed_ms": 3475.987,
+    "map": "cybercity_street_16_billboard_avenue.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263458269
+  },
+  {
+    "elapsed_ms": 3460.957,
+    "map": "wasteland_city_01_ruined_downtown.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263463821
+  },
+  {
+    "elapsed_ms": 3740.793,
+    "map": "wasteland_city_02_burned_market_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263648565
+  },
+  {
+    "elapsed_ms": 2751.468,
+    "map": "wasteland_city_03_collapsed_overpass.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263361193
+  },
+  {
+    "elapsed_ms": 2800.657,
+    "map": "wasteland_city_04_flooded_civic_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263510797
+  },
+  {
+    "elapsed_ms": 3261.745,
+    "map": "wasteland_city_05_scavenger_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263681631
+  },
+  {
+    "elapsed_ms": 3308.477,
+    "map": "wasteland_city_06_ruined_downtown.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263458591
+  },
+  {
+    "elapsed_ms": 3594.935,
+    "map": "wasteland_city_07_burned_market_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263649169
+  },
+  {
+    "elapsed_ms": 3242.182,
+    "map": "wasteland_city_08_collapsed_overpass.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263361833
+  },
+  {
+    "elapsed_ms": 3459.718,
+    "map": "wasteland_city_09_flooded_civic_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 25,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 263567999
+  },
+  {
+    "elapsed_ms": 3534.208,
+    "map": "wasteland_city_10_scavenger_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263734495
+  },
+  {
+    "elapsed_ms": 3565.976,
+    "map": "wasteland_city_11_ruined_transit_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 27,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264090269
+  },
+  {
+    "elapsed_ms": 4041.394,
+    "map": "wasteland_city_12_cratered_waterfront.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 20,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 263462613
+  },
+  {
+    "elapsed_ms": 3486.73,
+    "map": "wasteland_inner_01_abandoned_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 35,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261486441
+  },
+  {
+    "elapsed_ms": 3224.751,
+    "map": "wasteland_inner_02_collapsed_tunnel.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261452699
+  },
+  {
+    "elapsed_ms": 3280.452,
+    "map": "wasteland_inner_03_ruined_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 38,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261482963
+  },
+  {
+    "elapsed_ms": 3092.583,
+    "map": "wasteland_inner_04_bunker_command_post.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 265910087
+  },
+  {
+    "elapsed_ms": 3600.455,
+    "map": "wasteland_inner_05_looted_vault.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261618127
+  },
+  {
+    "elapsed_ms": 3136.856,
+    "map": "wasteland_inner_06_abandoned_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 35,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262059037
+  },
+  {
+    "elapsed_ms": 3190.274,
+    "map": "wasteland_inner_06_maintenance_depot.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 261977401
+  },
+  {
+    "elapsed_ms": 2748.266,
+    "map": "wasteland_inner_07_apartment_shelter.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261885291
+  },
+  {
+    "elapsed_ms": 2842.679,
+    "map": "wasteland_inner_07_collapsed_tunnel.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261998457
+  },
+  {
+    "elapsed_ms": 4536.435,
+    "map": "wasteland_inner_08_data_relay_room.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262135633
+  },
+  {
+    "elapsed_ms": 3994.613,
+    "map": "wasteland_inner_08_ruined_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 38,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262038271
+  },
+  {
+    "elapsed_ms": 3224.178,
+    "map": "wasteland_inner_09_bunker_command_post.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 266464965
+  },
+  {
+    "elapsed_ms": 3331.441,
+    "map": "wasteland_inner_09_underground_market.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261831831
+  },
+  {
+    "elapsed_ms": 3152.055,
+    "map": "wasteland_inner_10_detention_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 48,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262410763
+  },
+  {
+    "elapsed_ms": 3442.63,
+    "map": "wasteland_inner_10_looted_vault.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261671845
+  },
+  {
+    "elapsed_ms": 3302.979,
+    "map": "wasteland_inner_11_emergency_medbay.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 42,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262042377
+  },
+  {
+    "elapsed_ms": 3823.248,
+    "map": "wasteland_inner_11_maintenance_depot.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 30,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 261975949
+  },
+  {
+    "elapsed_ms": 15410.682,
+    "map": "wasteland_inner_12_apartment_shelter.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261935931
+  },
+  {
+    "elapsed_ms": 3233.589,
+    "map": "wasteland_inner_13_data_relay_room.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 26,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262176725
+  },
+  {
+    "elapsed_ms": 2918.356,
+    "map": "wasteland_inner_14_underground_market.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 31,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 261853753
+  },
+  {
+    "elapsed_ms": 3184.572,
+    "map": "wasteland_inner_15_detention_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 48,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 262430793
+  },
+  {
+    "elapsed_ms": 2741.919,
+    "map": "wasteland_outdoor_01_dust_road_ambush.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 18,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264134187
+  },
+  {
+    "elapsed_ms": 3001.508,
+    "map": "wasteland_outdoor_02_ashfield_ruins.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 15,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 264127405
+  },
+  {
+    "elapsed_ms": 2852.341,
+    "map": "wasteland_outdoor_03_wrecked_highway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 20,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264158959
+  },
+  {
+    "elapsed_ms": 3650.54,
+    "map": "wasteland_outdoor_04_rusted_trainyard.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 27,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264109831
+  },
+  {
+    "elapsed_ms": 2840.137,
+    "map": "wasteland_outdoor_05_irradiated_basin.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264173399
+  },
+  {
+    "elapsed_ms": 2801.998,
+    "map": "wasteland_outdoor_06_dust_road_ambush.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 18,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264139875
+  },
+  {
+    "elapsed_ms": 3582.134,
+    "map": "wasteland_outdoor_07_ashfield_ruins.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 15,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 264133223
+  },
+  {
+    "elapsed_ms": 2835.421,
+    "map": "wasteland_outdoor_08_wrecked_highway.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 20,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264220211
+  },
+  {
+    "elapsed_ms": 2633.225,
+    "map": "wasteland_outdoor_09_rusted_trainyard.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 27,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264119407
+  },
+  {
+    "elapsed_ms": 2973.01,
+    "map": "wasteland_outdoor_10_irradiated_basin.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 24,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264178411
+  },
+  {
+    "elapsed_ms": 2681.224,
+    "map": "wasteland_outdoor_11_convoy_crossing.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 0,
+    "static_memory_bytes": 264289121
+  },
+  {
+    "elapsed_ms": 2850.084,
+    "map": "wasteland_outdoor_12_salt_flat_ambush.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 20,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 264230931
+  }
+]

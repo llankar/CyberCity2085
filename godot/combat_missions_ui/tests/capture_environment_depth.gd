@@ -63,7 +63,7 @@ func run() -> void:
 		var raised:=0
 		for prop: Node2D in scene._visual_obstacles:
 			if prop.height>0:raised+=1
-		assert(raised==0 if level==0 or board.top_down else raised>0,"low quality bypasses volume construction; other tiers restore it")
+		assert(raised==0 if level==0 else raised>0,"low quality bypasses volume construction; other tiers restore it")
 		assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])==state)
 		assert(scene._camera.transform==camera)
 	# Actual battlefield/controller signal routes after rendering and quality changes.
@@ -104,7 +104,7 @@ func run() -> void:
 			await process_frame
 			assert(board.top_down==expected,"F11 switches the actual renderer")
 			assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])==tactical_state,"projection switch preserves tactical state")
-			assert(scene._visual_obstacles.is_empty() if expected else not scene._visual_obstacles.is_empty())
+			assert(not scene._visual_obstacles.is_empty(),"both projections retain their supported art resources")
 	scene._on_unit_clicked(0,true)
 	assert(scene.selected_target_index==0,"enemy target route remains functional")
 	var turn: int=scene.turn_number

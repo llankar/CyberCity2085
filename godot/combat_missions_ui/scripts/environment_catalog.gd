@@ -4,6 +4,7 @@ const PATH := "res://art/environment/natural_geometry.json"
 const FAMILIES := ["sofa","armchair","table","bench","console","crate","machine","wall","partition"]
 static var _maps: Dictionary = {}
 static var _hashes: Dictionary = {}
+static var _art: Dictionary = {}
 
 static func maps() -> Dictionary:
 	if _maps.is_empty():
@@ -36,7 +37,7 @@ static func annotation(map_path: String, wall: Dictionary) -> Dictionary:
 	return entry
 
 static func matches_source(map_path: String, source_path: String, size: Vector2i) -> bool:
-	var record: Dictionary=maps().get(map_path.get_file(),{})
+	var record: Dictionary=maps().get(map_path.get_file(),art_maps().get(map_path.get_file(),{}))
 	if record.is_empty() or source_path.is_empty() or not FileAccess.file_exists(source_path):return false
 	var dimensions: Array=record.get("image_size",[])
 	if dimensions.size()!=2 or size!=Vector2i(int(dimensions[0]),int(dimensions[1])):return false
@@ -44,3 +45,26 @@ static func matches_source(map_path: String, source_path: String, size: Vector2i
 	var key := source_path+":"+str(FileAccess.get_modified_time(source_path))
 	if not _hashes.has(key):_hashes[key]=FileAccess.get_sha256(source_path)
 	return str(_hashes[key])==str(record.get("image_sha256",""))
+
+static func art_maps() -> Dictionary:
+	if _art.is_empty():
+		var path: String="res://art/environment/environment_art.json"
+		if not FileAccess.file_exists(path):return {}
+		var data: Variant=JSON.parse_string(FileAccess.get_file_as_string(path))
+		if data is Dictionary and int(data.get("schema_version",0))==1:_art=data.get("maps",{})
+	return _art
+
+static func art_annotation(map_path: String, wall: Dictionary) -> Dictionary:
+	for entry: Dictionary in art_maps().get(map_path.get_file(),{}).get("props",[]):
+		if entry.get("id","")==str(wall.get("id",wall.get("wall_id",""))) and bool(entry.get("enabled",false)):
+			var bounds: Array=entry.get("bounds_uv",[])
+			if bounds.size()==4 and float(bounds[0])>=0 and float(bounds[1])>=0 and float(bounds[2])<=1 and float(bounds[3])<=1 and float(bounds[2])>float(bounds[0]) and float(bounds[3])>float(bounds[1]):return entry
+	return {}
+
+static func art_walls(map_path: String) -> Array[Dictionary]:
+	var walls: Array[Dictionary]=[]
+	for entry: Dictionary in art_maps().get(map_path.get_file(),{}).get("props",[]):
+		if not bool(entry.get("enabled",false)):continue
+		var b: Array=entry.bounds_uv
+		walls.append({"id":entry.id,"wall_id":entry.id,"source_object_id":entry.source_object_id,"outline_uv":[[b[0],b[1]],[b[2],b[1]],[b[2],b[3]],[b[0],b[3]]]})
+	return walls
