@@ -96,10 +96,83 @@ func _draw_atmosphere() -> void:
 	for i in range(count):
 		var u := fmod(float(i)*0.61803398875,1.0)
 		var v := fmod(float(i)*0.754877666 + _elapsed*(0.085 if weather == "rain" else 0.008),1.0)
-		var p := iso_origin + Vector2((u*GRID_COLS-v*GRID_ROWS)*iso_tw,(u*GRID_COLS+v*GRID_ROWS)*iso_th)
+		var p := uv_to_world(Vector2(u,v))
 		if weather == "rain":
 			draw_line(p,p+Vector2(-3,14),Color(0.5,0.8,1,0.18),0.8,true)
 		elif weather == "dust":
 			draw_circle(p,1.2,Color(0.8,0.65,0.4,0.15))
 		elif weather == "interior":
 			draw_circle(p,0.7,Color(0.3,0.8,1,0.1))
+
+# Visual 2.1: the catalogue images already contain isometric architecture.
+# Their surveys explicitly use texture_top_left coordinates. Map that same UV
+# plane without a second shear; tactical cells/A*/LOS remain the original IDs.
+var source_rect := Rect2()
+var _row_scale := 1.0
+var _u_axis := Vector2.ZERO
+var _v_axis := Vector2.ZERO
+
+func _compute_rect() -> void:
+	# Calibrate the two isometric axes to actual source pixels, not 40:28 by fiat.
+	# Equal source-pixel distances have equal projected scale on either axis.
+	var width := maxf(300.0,viewport_size.x-LEFT_MARGIN*2.0)
+	var ratio := float(map_texture.get_height())/float(map_texture.get_width()) if map_texture!=null else 9.0/16.0
+	_row_scale=float(GRID_COLS)*ratio/float(GRID_ROWS)
+	iso_tw=width/(float(GRID_COLS)+float(GRID_ROWS)*_row_scale)
+	iso_th=iso_tw*.5
+	iso_origin=Vector2(LEFT_MARGIN+float(GRID_ROWS)*_row_scale*iso_tw,TOP_BAR_H+8)
+	_u_axis=Vector2(GRID_COLS*iso_tw,GRID_COLS*iso_th)
+	_v_axis=Vector2(-GRID_ROWS*_row_scale*iso_tw,GRID_ROWS*_row_scale*iso_th)
+	source_rect=Rect2(Vector2(LEFT_MARGIN,TOP_BAR_H+8),Vector2(width,width*.5))
+	battlefield_rect=source_rect
+
+func uv_to_world(uv: Vector2) -> Vector2:
+	return iso_origin+uv.x*_u_axis+uv.y*_v_axis
+
+func cell_to_world(cell: Vector2i) -> Vector2:
+	return uv_to_world((Vector2(cell)+Vector2(.5,.5))/Vector2(GRID_COLS,GRID_ROWS))
+
+func world_to_cell(point: Vector2) -> Vector2i:
+	var local:=point-iso_origin
+	var column: float=(local.x/iso_tw+local.y/iso_th)*.5
+	var row: float=(local.y/iso_th-local.x/iso_tw)*.5/_row_scale
+	return Vector2i(clampi(floori(column),0,GRID_COLS-1),clampi(floori(row),0,GRID_ROWS-1))
+
+func _iso_corners(cell: Vector2i) -> PackedVector2Array:
+	var center:=cell_to_world(cell)
+	return PackedVector2Array([center+Vector2(0,-iso_th),center+Vector2(iso_tw,0),center+Vector2(0,iso_th),center+Vector2(-iso_tw,0)])
+
+func _draw_map() -> void:
+	var quad:=PackedVector2Array([uv_to_world(Vector2.ZERO),uv_to_world(Vector2(1,0)),uv_to_world(Vector2.ONE),uv_to_world(Vector2(0,1))])
+	if map_texture!=null:draw_polygon(quad,PackedColorArray([Color.WHITE]),PackedVector2Array([Vector2.ZERO,Vector2(1,0),Vector2.ONE,Vector2(0,1)]),map_texture)
+	else:draw_colored_polygon(quad,Color(.025,.055,.065))
+
+func _draw_cover_nodes() -> void:
+	var seen: Dictionary={}
+	for cover: Dictionary in cover_nodes:
+		if bool(cover.get("solid",false)):
+			if not debug_walls_visible:continue
+			var id:=str(cover.get("wall_id",""))
+			if seen.has(id):continue
+			seen[id]=true
+			var polygon:=PackedVector2Array()
+			for uv: Array in cover.get("outline_uv",[]):polygon.append(uv_to_world(Vector2(uv[0],uv[1])))
+			if polygon.size()<3:continue
+			draw_colored_polygon(polygon,Color(1,.1,.5,.22))
+			polygon.append(polygon[0]);draw_polyline(polygon,Color(1,.8,.15),2*_screen_unit(),true)
+		else:
+			var center:=cell_to_world(cover.get("cell",Vector2i.ZERO))
+			var pixel:=_screen_unit()
+			draw_arc(center,13*pixel,PI,TAU,12,Color(.3,.9,1,.7),2*pixel,true)
+			draw_line(center-Vector2(9,0)*pixel,center+Vector2(9,0)*pixel,Color(.3,.9,1,.7),2*pixel,true)
+
+func _draw_objective() -> void:
+	var center:=cell_to_world(objective_cell)
+	var pixel:=_screen_unit()
+	var ring:=_iso_corners_inner(objective_cell,.62)
+	draw_colored_polygon(ring,Color(1,.72,.18,.10))
+	ring.append(ring[0])
+	draw_polyline(ring,Color(1,.72,.18,.12),8*pixel,true)
+	draw_polyline(ring,Color(1,.8,.3),2*pixel,true)
+	draw_line(center-Vector2(0,8*pixel),center-Vector2(0,35*pixel),Color(1,.72,.18,.8),2*pixel,true)
+	draw_string(ThemeDB.fallback_font,center+Vector2(9,-24)*pixel,"OBJ",HORIZONTAL_ALIGNMENT_LEFT,-1,maxi(1,roundi(14*pixel)),Color(1,.8,.3))

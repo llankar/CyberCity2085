@@ -1,3 +1,13 @@
+## Combat Visual 2.1 (November 17, 2026)
+
+- [x] CV21-01 Replace fabricated stretched wall extrusions with source-aligned painted cutouts and calibrated isometric projection.
+- [x] CV21-02 Enlarge visible bodies to 70% tile width, preserve sprite proportions/sole anchoring and all-unit occlusion.
+- [x] CV21-03 Responsive squad framing, closer cursor-anchored zoom and exact tactical picking.
+- [x] CV21-04 Map-sampled local lighting, tactical indicators and animated HUD accents, preserving quality/legacy controls.
+- [x] CV21-05 Complete-catalogue geometry/rules regression and real Godot captures across four environments and three resolutions.
+
+Evidence: [Combat Visual 2.1](combat_visual_21.md).
+
 ## Squad Command UI 2.0 (November 17, 2026)
 
 - [x] SCUI-01 Dedicated responsive three-column Arcade command deck, shared holographic typography/panels and illustrated equipment/vector resources.

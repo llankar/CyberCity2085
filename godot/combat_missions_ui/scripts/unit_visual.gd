@@ -1,6 +1,6 @@
 extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
-const HUMAN_HEIGHT_PER_TILE := 0.286
+const HUMAN_HEIGHT_PER_TILE := 0.70
 const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
 var _art_sprite: Sprite2D
 var _art_material: ShaderMaterial
@@ -134,7 +134,7 @@ func _draw() -> void:
 	if tex == null:
 		_art_sprite.hide()
 		return
-	var height := _body_height()
+	var visible_height := _body_height()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
 	_active_bounds_uv = _portrait_bounds_uv
 	if atlas != null and not manifest.is_empty():
@@ -147,9 +147,17 @@ func _draw() -> void:
 			var columns := maxi(1, int(atlas.get_width() / fsize.x))
 			source = Rect2(Vector2(idx % columns, idx / columns) * fsize, fsize)
 			tex = atlas
+			if not _frame_bounds.has(idx):
+				var image := tex.get_image().get_region(Rect2i(source))
+				var used := image.get_used_rect()
+				_frame_bounds[idx]=Rect2(Vector2(used.position)/source.size,Vector2(used.size)/source.size)
 			_active_bounds_uv = _frame_bounds.get(idx,Rect2(0,0,1,1))
+	var reference_height := _portrait_bounds_uv.size.y
+	if atlas != null:
+		reference_height = _atlas_idle_height()
+	var height := visible_height/maxf(.05,reference_height)
 	var width := height * source.size.x / maxf(1, source.size.y)
-	_art_rect = Rect2(-width * 0.5, -height, width, height)
+	_art_rect = Rect2(-_active_bounds_uv.get_center().x*width,-_active_bounds_uv.end.y*height,width,height)
 	# Keep the source texture data-only; a separate sprite isolates the material
 	# from HP bars, selection diamonds and floating combat text.
 	_art_sprite.texture = tex
@@ -168,7 +176,7 @@ func _draw() -> void:
 	_art_material.set_shader_parameter("focus_strength",1.0 if is_active or is_targeted else 0.0)
 	_card_w = width
 	_card_h = height
-	_sh = height
+	_sh = visible_height
 	if dead: return
 	_draw_segmented_health(rc)
 	if is_targeted:
@@ -197,12 +205,12 @@ func setup(data: Dictionary, id: int, enemy: bool, tex: Texture2D, c_size: Vecto
 func _recalc_dims() -> void:
 	super._recalc_dims()
 	var tex: Texture2D = sprite.texture if sprite != null else null
-	var height := _body_height()
+	var height := _body_height()/maxf(.05,_portrait_bounds_uv.size.y)
 	var aspect := float(tex.get_width()) / maxf(1,float(tex.get_height())) if tex != null else 0.7
 	_card_w = height*aspect
 	_card_h = height
 	_sh = height
-	_art_rect = Rect2(-_card_w*0.5,-height,_card_w,height)
+	_art_rect = Rect2(-_portrait_bounds_uv.get_center().x*_card_w,-_portrait_bounds_uv.end.y*height,_card_w,height)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return
@@ -252,7 +260,7 @@ func _body_height() -> float:
 func hit_test_screen(screen_point: Vector2) -> bool:
 	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return false
 	var local := get_global_transform_with_canvas().affine_inverse()*screen_point
-	var bounds := _art_rect
+	var bounds := _visible_body_rect()
 	if _hit_image != null and atlas == null:
 		var used := _hit_image.get_used_rect()
 		var image_size := Vector2(_hit_image.get_width(),_hit_image.get_height())
@@ -318,3 +326,10 @@ func _measure_atlas_bounds(image: Image, frame_size: Vector2i) -> Dictionary:
 func _target_frame_rect() -> Rect2:
 	# Follow actual opaque art, not padded portrait/atlas cell dimensions.
 	return _visible_body_rect().grow_individual(8*_screen_pixel().x,5*_screen_pixel().y,8*_screen_pixel().x,5*_screen_pixel().y)
+
+func _atlas_idle_height() -> float:
+	var rows: Array=manifest.get("animations",{}).get("idle",{}).get("rows",[])
+	if rows.is_empty() or rows[0].is_empty():return maxf(.05,_active_bounds_uv.size.y)
+	var index:=int(rows[0][0])
+	var bounds: Rect2=_frame_bounds.get(index,_active_bounds_uv)
+	return maxf(.05,bounds.size.y)

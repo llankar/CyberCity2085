@@ -16,7 +16,7 @@ func run() -> void:
 	var unit = load("res://scripts/unit_visual.gd").new()
 	root.add_child(unit)
 	unit.position = Vector2(280,180)
-	unit.setup({"hp":24,"max_hp":24},0,false,texture,Vector2(400,400))
+	unit.setup({"hp":24,"max_hp":24},0,false,texture,Vector2(150,150))
 	var raw := Sprite2D.new()
 	raw.texture = texture
 	raw.centered = false
@@ -47,13 +47,14 @@ func run() -> void:
 	assert(absf(animated.r-enhanced.r)<0.01 and absf(animated.b-enhanced.b)<0.01,"animated and static bodies have matching opacity and lighting")
 	assert(unit._art_sprite.region_rect==Rect2(64,0,64,64),"atlas frame selection remains exact")
 	# Every living unit has a colored outline before selection or targeting.
-	var ally_edge := capture.get_pixel(236,117)
+	var edge_x:=floori(unit.position.x+unit._visible_body_rect().position.x)
+	var ally_edge := capture.get_pixel(edge_x,117)
 	assert(ally_edge.g>ally_edge.r+0.15,"unselected ally must have a clear cyan outline")
 	unit.is_enemy = true
 	unit.queue_redraw()
 	await process_frame
 	await RenderingServer.frame_post_draw
-	var enemy_edge := root.get_texture().get_image().get_pixel(236,117)
+	var enemy_edge := root.get_texture().get_image().get_pixel(edge_x,117)
 	assert(enemy_edge.r>enemy_edge.g+0.15,"untargeted enemy must have a clear red outline")
 	assert(not unit.is_active and not unit.is_targeted,"outline is independent of selection")
 	unit.is_enemy = false
