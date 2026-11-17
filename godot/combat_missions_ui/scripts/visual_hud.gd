@@ -100,7 +100,7 @@ func _reposition_buttons() -> void:
 	_command_rows = maxi(1,int(ceil(float(actions.size())/float(columns))))
 	var width := minf(128.0,(available-float(columns-1)*7.0)/float(columns))
 	if _stacked: _roster_y -= float(_command_rows-1)*104.0
-	var labels := {"Move":"BOUGER","Defend":"COUVERT","Rifle Burst":"TIR RAFALE","Pistol Shot":"PISTOLET","Plasma Burst":"PLASMA","Overwatch":"VIGILANCE","Psi Focus":"PSI","Trauma Patch":"SOIGNER","Katana Slash":"KATANA","Blade Strike":"LAME","Servo Punch":"FRAPPE","Missile Salvo":"MISSILES"}
+	var labels := {"Move":"BOUGER","Defend":"COUVERT","Rifle Burst":"TIR RAFALE","Pistol Shot":"PISTOLET","Plasma Burst":"PLASMA","Overwatch":"VIGILANCE","Psi Focus":"PSI","Trauma Patch":"SOIGNER","Katana Slash":"KATANA","Blade Strike":"LAME","Servo Punch":"FRAPPE","Missile Salvo":"MISSILES","Precision Shot":"PRÉCISION","Shotgun Blast":"FUSIL À POMPE","SMG Spray":"RAFALE PM","Plasma Shot":"PISTOLET PLASMA","Magnum Shot":"MAGNUM","Gravity Shot":"GRAVITÉ","Arc Discharge":"ARC ÉLECTRIQUE","Fire Spray":"LANCE-FLAMMES","Shock Burst":"RAFALE CHOC","Minigun Spray":"MINIGUN","Rail Shot":"CANON RAIL","Rocket Volley":"ROQUETTES","Grenade":"GRENADE","EMP Pulse":"IMPULSION IEM","Sensor Lock":"VERROUILLAGE","Stun Strike":"MATRAQUE","Silent Kill":"DAGUE","Shield Bash":"BOUCLIER"}
 	for i in range(actions.size()):
 		var btn := _action_btns[actions[i]] as Button
 		btn.position = Vector2(left+float(i%columns)*(width+7.0),size.y-116.0-float(i/columns)*104.0)
@@ -174,7 +174,7 @@ func _draw() -> void:
 		_panel(Rect2(size.x-346,80,330,184),NEON)
 		_ds("QUALITÉ GRAPHIQUE",Vector2(size.x-330,104),19,TEXT)
 		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
-		_ds("F10 : relief isométrique " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
+		_ds("F10 : décors 2.5D " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
 		_ds("F11 : vue de haut / isométrique",Vector2(size.x-330,242),17,TEXT)
 
 func _fit(value: String, width: float, font_size: int) -> String:
@@ -285,7 +285,7 @@ func _target_segments(rect: Rect2, hp: int, maximum: int) -> void:
 func _draw_target() -> void:
 	_target_rect = Rect2()
 	if target_info.is_empty(): return
-	var linked := is_instance_valid(target_anchor_node) and Rect2(Vector2.ZERO,Vector2(size.x,_roster_y)).has_point(_target_anchor)
+	var linked := is_instance_valid(target_anchor_node) and Rect2(Vector2.ZERO,Vector2(maxf(0,size.x),maxf(0,_roster_y))).has_point(_target_anchor)
 	var anchor := _target_anchor if linked else Vector2(size.x-464,340)
 	var rect := _target_panel_rect(anchor)
 	_target_rect = rect

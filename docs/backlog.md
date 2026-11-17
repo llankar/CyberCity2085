@@ -681,3 +681,13 @@ Détails : [Vue de haut 2.5D](combat_top_down.md).
 
 - [x] MOVEVIS-01 Renforcer le remplissage cyan et les contours avec contraste sombre, sans modifier les cases accessibles.
 - [x] MOVEVIS-02 Vérifier huit tests dont le contraste natif sur trois fonds, inspecter une capture Godot et publier la correction.
+
+## Combat Visual 2.5 — 17 novembre 2026 — couverture artistique partielle
+
+- [x] ART25-01 Inventorier les 122 cartes / 92 illustrations et ajouter des annotations visuelles séparées, avec conservation explicite des cas incertains.
+- [x] ART25-02 Produire 16 familles Blender / 64 orientations, finitions artistiques de huit familles et outils reproductibles.
+- [x] ART25-03 Intégrer les sprites sans plateforme, leurs silhouettes et les couches sources ; conserver le fallback et les données tactiques.
+- [x] ART25-04 Rééquilibrer les portées/dégâts Godot à la demande explicite de l’utilisateur, avec profils courts/longs et tests de tirs réels.
+- [ ] ART25-05 Achever la reconstruction artistique de tous les éléments des 122 cartes : gros œuvre, accessoires, raccords et revues détaillées restent à réaliser. La livraison vérifiée documente cette limite.
+
+Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par carte.

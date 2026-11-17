@@ -6,6 +6,7 @@ const Shapes=preload("res://scripts/natural_prop_shapes.gd")
 var board
 var _path := ""
 var _verified := false
+static var _sprite_cache: Dictionary = {}
 var _surfaces = preload("res://scripts/environment_depth_legacy.gd").new()
 
 func prepare(texture: Texture2D, battlefield, map_path: String="", source_path: String="") -> void:
@@ -29,6 +30,7 @@ static func profile(wall: Dictionary, map_path: String="") -> Dictionary:
 
 func build_volume(wall: Dictionary, _collision_uvs: PackedVector2Array, anchor: Vector2) -> Dictionary:
 	var entry:=Catalog.annotation(_path,wall) if _verified else {}
+	if board.top_down:return _sprite_volume(wall,anchor)
 	var empty: Dictionary={"height":0.0,"parts":[],"floor":{},"ground_shapes":[],"baked_only":true}
 	if entry.is_empty():return empty
 	var tile: float=board.iso_tw*2
@@ -155,3 +157,57 @@ func _source_reflection(part: Dictionary, uvs: PackedVector2Array, anchor: Vecto
 		var toward: Vector2=(origin-(face.points[0]+face.points[1])*.5).normalized()
 		var response:=maxf(.15,normal.dot(toward))*.09
 		face.color=Color(face.color.r+light.r*response,face.color.g+light.g*response,face.color.b+light.b*response,1)
+
+func _sprite_volume(wall: Dictionary, anchor: Vector2) -> Dictionary:
+	var empty: Dictionary={"height":0.0,"parts":[],"floor":{},"ground_shapes":[],"baked_only":true}
+	if not _verified:return empty
+	var entry:=Catalog.art_annotation(_path,wall)
+	if entry.is_empty():
+		# Source-preserving foreground layer, not an inferred object or extrusion.
+		# It only restores the baked silhouette's depth ordering around units.
+		if wall.get("outline_uv",[]).size()>=3 and bool(wall.get("high",true)):
+			return {"height":0.0,"parts":[],"floor":{},"ground_shapes":[],"baked_only":false,"fade_alpha":.20,"source_layer":true}
+		return empty
+	var path: String="res://art/environment/props25/%s-%d.png"%[entry.asset,int(entry.get("yaw",0))]
+	if not FileAccess.file_exists(path):return empty
+	if not _sprite_cache.has(path):
+		var image:=Image.load_from_file(path)
+		if image==null:return empty
+		var cropped:=image.get_region(image.get_used_rect())
+		var bitmap:=BitMap.new();bitmap.create_from_image_alpha(cropped,.12)
+		var shapes: Array[PackedVector2Array]=bitmap.opaque_to_polygons(Rect2i(Vector2i.ZERO,cropped.get_size()),2.0)
+		var luminance:=0.0;var samples:=0
+		for y in range(0,cropped.get_height(),8):
+			for x in range(0,cropped.get_width(),8):
+				var color:=cropped.get_pixel(x,y)
+				if color.a>.8:luminance+=color.v;samples+=1
+		_sprite_cache[path]={"texture":ImageTexture.create_from_image(cropped),"shapes":shapes,"luminance":luminance/maxi(1,samples)}
+	var texture: Texture2D=_sprite_cache[path].texture
+	var b: Array=entry.bounds_uv
+	var origin: Vector2=board.uv_to_world(Vector2(b[0],b[1]))
+	var end: Vector2=board.uv_to_world(Vector2(b[2],b[3]))
+	var target:=Rect2(origin,end-origin)
+	var fit:=minf(target.size.x/texture.get_width(),target.size.y/texture.get_height())
+	var size:=Vector2(texture.get_size())*fit
+	var rect:=Rect2(target.get_center()-size*.5-anchor,size)
+	var silhouette:=PackedVector2Array()
+	for pair: Array in wall.outline_uv:silhouette.append(Vector2(pair[0],pair[1]))
+	# The baked source includes its old contact shadow outside the survey.
+	# Complete that small visual margin too, without moving the object/collision.
+	var pad:=Vector2(minf(.008,(float(b[2])-float(b[0]))*.15),minf(.008,(float(b[3])-float(b[1]))*.15))
+	var erase_bounds: Array=entry.get("erase_bounds_uv",[maxf(0,float(b[0])-pad.x),maxf(0,float(b[1])-pad.y),minf(1,float(b[2])+pad.x),minf(1,float(b[3])+pad.y)])
+	var erase:=PackedVector2Array([Vector2(erase_bounds[0],erase_bounds[1]),Vector2(erase_bounds[2],erase_bounds[1]),Vector2(erase_bounds[2],erase_bounds[3]),Vector2(erase_bounds[0],erase_bounds[3])])
+	var patch: Dictionary=Materials.soft_floor_completion(_surfaces.floor_patch(erase),erase_bounds,_surfaces.source,board).duplicate();patch["uvs"]=erase
+	var polygons: Array[PackedVector2Array]=[]
+	var shadows: Array[PackedVector2Array]=[]
+	for raw_shape: PackedVector2Array in _sprite_cache[path].shapes:
+		var shape:=PackedVector2Array();var shadow:=PackedVector2Array()
+		for point: Vector2 in raw_shape:
+			var local:=rect.position+point*fit
+			shape.append(local)
+			shadow.append((local+anchor-board.source_rect.position)/board.source_rect.size)
+		polygons.append(shape);shadows.append(shadow)
+	var source_tint: Color=Materials.body_tint(_surfaces.source,silhouette)
+	var exposure:=clampf(source_tint.v/maxf(.01,float(_sprite_cache[path].luminance)),.35,1.0)
+	var material_color:=Color(exposure,exposure,exposure)
+	return {"height":board.iso_th*.18,"parts":[],"floor":{"patches":[patch]},"ground_shapes":[],"shadow_shapes":shadows,"baked_only":false,"fade_alpha":.35,"sprite":{"texture":texture,"rect":rect,"silhouettes":polygons,"color":material_color}}
