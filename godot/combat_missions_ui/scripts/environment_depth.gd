@@ -2,13 +2,17 @@ extends RefCounted
 ## Render-only dimensions/materials. Surveyed tactical cells are never edited.
 var board
 var source: Image
+var _map_path := ""
 static var _floor_cache: Dictionary = {}
 var _source_key := 0
 static var _source_cache: Dictionary = {}
 static var _materials: Dictionary = {}
+static var _facade_cache: Dictionary = {}
+var _surface_uvs := PackedVector2Array()
 
-func prepare(texture: Texture2D, battlefield) -> void:
+func prepare(texture: Texture2D, battlefield, map_path: String = "") -> void:
 	board = battlefield
+	_map_path=map_path.to_lower()
 	if texture != null and not texture is PlaceholderTexture2D:
 		var key := texture.get_instance_id()
 		_source_key=key
@@ -17,11 +21,20 @@ func prepare(texture: Texture2D, battlefield) -> void:
 			_source_cache[key] = texture.get_image()
 		source = _source_cache[key]
 
-static func profile(wall: Dictionary) -> Dictionary:
+static func profile(wall: Dictionary, map_path: String = "") -> Dictionary:
 	var id := str(wall.get("id",wall.get("wall_id",""))).to_lower()
+	var location := map_path.get_file().to_lower()
+	var exterior_wastes := "wasteland" in location and not ("inner" in location or "interior" in location or "tunnel" in location)
+	var built_site := "bunker" in location or "fortress" in location or "compound" in location or "outpost" in location
+	if exterior_wastes and not built_site:
+		return {"kind":"baked","height":0.0,"material":"source"}
 	var kind := "block"
 	var elevation := .32
 	var material := "metal"
+	# Irregular baked silhouettes have no surveyed vertical facade. Preserve the
+	# actual wreck/rock/debris art instead of putting its rectangle on a plinth.
+	if "wreck" in id or "rock" in id or "rubble" in id or "ruin" in id or "debris" in id or "scrap" in id or "junk" in id:
+		return {"kind":"baked","height":0.0,"material":"source"}
 	if "water" in id or "pool" in id or "boundary" in id:
 		return {"kind":"flat","height":0.0,"material":"stone"}
 	if "edge" in id or "fountain" in id:
@@ -40,8 +53,6 @@ static func profile(wall: Dictionary) -> Dictionary:
 		kind="canopy";elevation=.56;material="fabric"
 	elif "container" in id or "machine" in id or "reactor" in id or "rack" in id or "server" in id:
 		elevation=.54
-	elif "wreck" in id or "rock" in id or "rubble" in id or "ruin" in id:
-		elevation=.30;material="stone"
 	return {"kind":kind,"height":elevation,"material":material}
 
 func floor_patch(uvs: PackedVector2Array) -> Dictionary:
@@ -111,18 +122,15 @@ static func material_texture(kind: String) -> Texture2D:
 		for x in range(64):
 			var noise := float((x*37+y*19+x*y*3)%17)/170.0
 			var value := .82+noise
-			if kind=="metal":
-				if x%32<2 or y%32<2: value=.48
-				elif y%8==0: value=.76
-			elif kind=="fabric": value=.78+float((x+y)%3)*.04+noise
-			else:
-				if y%32<2: value=.65
+			# Only used without source art; never invent tiled wall panels.
+			if kind=="fabric": value=.78+float((x+y)%3)*.04+noise
 			image.set_pixel(x,y,Color(value,value,value,1))
 	_materials[kind] = ImageTexture.create_from_image(image)
 	return _materials[kind]
 
 func build_volume(wall: Dictionary, uvs: PackedVector2Array, anchor: Vector2) -> Dictionary:
-	var style := profile(wall)
+	_surface_uvs=uvs
+	var style := profile(wall,_map_path)
 	var tile: float = board.iso_tw*2.0
 	var height: float = tile*float(style.height)
 	var parts: Array[Dictionary] = []
@@ -169,6 +177,13 @@ func prism(uvs: PackedVector2Array, low: float, high: float, anchor: Vector2, ti
 			ridge=board.iso_tw*2*.14*maxf(0,1-absf(uv.y-roof_slope.get_center().y)/(roof_slope.size.y*.5))
 		base.append(point-Vector2(0,low+ridge));cap.append(point-Vector2(0,high+ridge))
 		depth=maxf(depth,point.y)
+	var surface: Texture2D=facade_texture(material,_surface_uvs)
+	var source_surface := source!=null and not _surface_uvs.is_empty()
+	var span := Vector2.ONE*maxf(1,board.iso_tw*.8)
+	if source_surface:
+		# The facade keeps the source texel density in both axes.
+		var texel: float=board._u_axis.length()/float(source.get_width())
+		span=surface.get_size()*texel
 	var faces: Array[Dictionary] = []
 	var clockwise := Geometry2D.is_polygon_clockwise(base)
 	for i in range(base.size()):
@@ -177,11 +192,11 @@ func prism(uvs: PackedVector2Array, low: float, high: float, anchor: Vector2, ti
 		var normal := Vector2(edge.y,-edge.x).normalized()
 		if clockwise: normal=-normal
 		if normal.y<=.01: continue
-		var shade := .55+.35*normal.dot(Vector2(-.8,.6))
-		var width: float = edge.length()/maxf(1,board.iso_tw*.8)
-		var rise: float = (high-low)/maxf(1,board.iso_tw*.8)
-		faces.append({"points":PackedVector2Array([base[i],base[j],cap[j],cap[i]]),"uvs":PackedVector2Array([Vector2(0,rise),Vector2(width,rise),Vector2(width,0),Vector2.ZERO]),"color":Color(tint.r*shade,tint.g*shade,tint.b*shade,1)})
-	return {"base":base,"cap":cap,"uvs":uvs,"faces":faces,"material":material_texture(material),"textured":textured_cap,"tint":tint,"depth":depth}
+		var shade := .78+.18*normal.dot(Vector2(-.8,.6))
+		var width: float = edge.length()/maxf(1,span.x)
+		var rise: float = (high-low)/maxf(1,span.y)
+		faces.append({"points":PackedVector2Array([base[i],base[j],cap[j],cap[i]]),"uvs":PackedVector2Array([Vector2(0,rise),Vector2(width,rise),Vector2(width,0),Vector2.ZERO]),"color":Color(shade,shade,shade,1) if source_surface else Color(tint.r*shade,tint.g*shade,tint.b*shade,1)})
+	return {"base":base,"cap":cap,"uvs":uvs,"faces":faces,"material":surface,"source_material":source_surface,"textured":textured_cap,"tint":tint,"depth":depth}
 
 static func rect_uv(rect: Rect2) -> PackedVector2Array:
 	return PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
@@ -193,3 +208,29 @@ static func beveled_uv(rect: Rect2, fraction: float) -> PackedVector2Array:
 	var b := rect.end.y
 	var cut := rect.size*clampf(fraction,0,.2)
 	return PackedVector2Array([Vector2(x+cut.x,y),Vector2(r-cut.x,y),Vector2(r,y+cut.y),Vector2(r,b-cut.y),Vector2(r-cut.x,b),Vector2(x+cut.x,b),Vector2(x,b-cut.y),Vector2(x,y+cut.y)])
+
+func facade_texture(fallback: String, uvs: PackedVector2Array) -> Texture2D:
+	if source==null or uvs.is_empty(): return material_texture(fallback)
+	if not _facade_cache.has(_source_key):
+		if _facade_cache.size()>=2: _facade_cache.clear()
+		_facade_cache[_source_key]={}
+	var bounds := Rect2(uvs[0],Vector2.ZERO)
+	for uv: Vector2 in uvs: bounds=bounds.expand(uv)
+	var dimensions := Vector2i(clampi(roundi(bounds.size.x*source.get_width()*.65),8,96),clampi(roundi(bounds.size.y*source.get_height()*.65),8,96))
+	var origin := Vector2i(bounds.get_center()*Vector2(source.get_size()))-dimensions/2
+	origin.x=clampi(origin.x,0,source.get_width()-dimensions.x)
+	origin.y=clampi(origin.y,0,source.get_height()-dimensions.y)
+	var key := str(Rect2i(origin,dimensions))
+	if not _facade_cache[_source_key].has(key):
+		# Mirror the original pixels into a seamless repeat. No resize, generated
+		# panel grid, flat recoloring or stretched roof strip is introduced.
+		var patch := source.get_region(Rect2i(origin,dimensions))
+		patch.convert(Image.FORMAT_RGBA8)
+		var image := Image.create(dimensions.x*2,dimensions.y*2,false,Image.FORMAT_RGBA8)
+		var region := Rect2i(Vector2i.ZERO,dimensions)
+		image.blit_rect(patch,region,Vector2i.ZERO)
+		patch.flip_x();image.blit_rect(patch,region,Vector2i(dimensions.x,0))
+		patch.flip_y();image.blit_rect(patch,region,dimensions)
+		patch.flip_x();image.blit_rect(patch,region,Vector2i(0,dimensions.y))
+		_facade_cache[_source_key][key]=ImageTexture.create_from_image(image)
+	return _facade_cache[_source_key][key]

@@ -1931,8 +1931,9 @@ func _build_visual_obstacles() -> void:
 	for prop: Node2D in _visual_obstacles: prop.queue_free()
 	_visual_obstacles.clear()
 	if not visual_mode: return
+	var path := str(_map_data().get("path", "")).to_lower()
 	var depth = preload("res://scripts/environment_depth.gd").new() if environment_depth_enabled and visual_quality>0 else null
-	if depth!=null: depth.prepare(map_texture,_battlefield)
+	if depth!=null: depth.prepare(map_texture,_battlefield,path)
 	var seen: Dictionary = {}
 	for wall: Dictionary in cover_nodes:
 		var id := str(wall.get("wall_id", ""))
@@ -1943,7 +1944,6 @@ func _build_visual_obstacles() -> void:
 		prop.configure(wall, _battlefield, map_texture,depth)
 		_visual_obstacles.append(prop)
 	_battlefield.set_depth_props(_visual_obstacles)
-	var path := str(_map_data().get("path", "")).to_lower()
 	_battlefield.weather = "interior" if _is_interior_map() else ("dust" if "wasteland" in path else "rain")
 	if is_instance_valid(_visual_lighting):_visual_lighting.free()
 	_visual_lighting=preload("res://scripts/visual_lighting.gd").new()
