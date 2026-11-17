@@ -676,3 +676,8 @@ Détails : [Vue de haut 2.5D](combat_top_down.md).
 
 - [x] ESC-01 Remplacer la fermeture du processus par la fermeture des panneaux, sans changer l’état de la mission.
 - [x] ESC-02 Vérifier les événements clavier répétés dans les deux HUD ; documenter et publier la correction.
+
+## Cases de déplacement visibles — 17 novembre 2026
+
+- [x] MOVEVIS-01 Renforcer le remplissage cyan et les contours avec contraste sombre, sans modifier les cases accessibles.
+- [x] MOVEVIS-02 Vérifier huit tests dont le contraste natif sur trois fonds, inspecter une capture Godot et publier la correction.
