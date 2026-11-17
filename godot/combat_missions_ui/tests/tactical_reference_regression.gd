@@ -6,6 +6,7 @@ func _initialize() -> void:
 func run() -> void:
 	var board = load("res://scripts/visual_battlefield.gd").new()
 	root.add_child(board)
+	board.top_down=false # Preserve the explicit isometric fallback contract.
 	var empty: Array[Dictionary] = []
 	board.configure(Vector2(5120,2880),null,empty,Vector2i(20,14))
 	var route: Array[Vector2i] = [Vector2i(10,10),Vector2i(11,10),Vector2i(11,11),Vector2i(12,11)]
