@@ -19,7 +19,9 @@ var _roster_w := 0.0
 var _compact_w := 82.0
 var _stacked := false
 var _portrait_pulse_clock := 0.0
+var _hover_levels: Dictionary = {}
 var _quality_button: Button
+var _hover_boxes: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
@@ -53,6 +55,9 @@ func _utility(label: String, callback: Callable) -> Button:
 
 func _process(delta: float) -> void:
 	_elapsed += delta
+	for action: String in _action_btns:
+		var button := _action_btns[action] as Button
+		_hover_levels[action] = move_toward(float(_hover_levels.get(action,0)),1.0 if button.visible and button.is_hovered() else 0.0,delta*7)
 	_portrait_pulse_clock+=delta
 	if _portrait_pulse_clock>1.0/20.0:
 		_portrait_pulse_clock=0
@@ -109,6 +114,7 @@ func _reposition_buttons() -> void:
 			caption.text = str(labels.get(actions[i],actions[i].to_upper()))
 			caption.position = Vector2(3,58)
 			caption.size = Vector2(width-6,30)
+			caption.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	for action: String in _SYSTEM_ACTIONS:
 		if not _action_btns.has(action): continue
 		var btn := _action_btns[action] as Button
@@ -130,6 +136,9 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 		var box := btn.get_theme_stylebox(state).duplicate() as StyleBoxFlat
 		box.bg_color = Color(0.045, 0.065, 0.07, 0.95) if not (active or btn.text.begins_with("FIN")) else Color(0.20, 0.14, 0.035, 0.96)
 		box.border_color = WARN if active or btn.text.begins_with("FIN") else Color(0.12, 0.65, 0.68, 0.7)
+		if state == "hover" and not disabled:
+			box.bg_color = box.bg_color.lightened(.10)
+			box.border_color = WARN if active else Color(.3,1,1)
 		box.set_border_width_all(1)
 		box.set_corner_radius_all(7)
 		box.shadow_color = Color(0, 0, 0, 0.5)
@@ -146,12 +155,15 @@ func _draw() -> void:
 		var h: int = [16,31,43,25,12][i]
 		draw_rect(Rect2(30+i*6,64-h,4,h),NEON)
 	_ds("CYBERCITY 2085",Vector2(72,50),29,TEXT)
-	_ds(_fit(mission_title.to_upper(),header_w-32,20),Vector2(32,82),20,NEON)
+	var title_font := _fitted_font(mission_title.to_upper(),header_w-32,20,16)
+	_ds(_fit(mission_title.to_upper(),header_w-32,title_font),Vector2(32,82),title_font,NEON)
 	_ds(_fit(objective_text,header_w-32,18),Vector2(32,112),18,WARN)
 	var phase_y := 16.0 if size.x >= 1400 else 142.0
 	var phase_x := size.x*0.5-197.0 if size.x >= 1400 else 16.0
 	_panel(Rect2(phase_x,phase_y,394,46),NEON if turn_side == "player" else ENEMY_COL)
 	_ds("TOUR %02d  //  %s" % [turn_number,"PHASE JOUEUR" if turn_side == "player" else "PHASE ENNEMIE"],Vector2(phase_x+15,phase_y+31),22,TEXT)
+	_draw_footer_backplate()
+	_draw_command_hover()
 	_draw_roster()
 	_draw_target()
 	if not status_line.is_empty():
@@ -163,10 +175,12 @@ func _draw() -> void:
 		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
 
 func _fit(value: String, width: float, font_size: int) -> String:
+	var font := ThemeDB.fallback_font
+	if font.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x <= width: return value
 	var result := value
-	while not result.is_empty() and ThemeDB.fallback_font.get_string_size(result,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x > width:
+	while not result.is_empty() and font.get_string_size(result+"…",HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x > width:
 		result = result.left(result.length()-1)
-	return result + ("…" if result.length() < value.length() else "")
+	return result+"…"
 
 func _panel(rect: Rect2, color: Color) -> void:
 	var cut := 8.0
@@ -191,7 +205,10 @@ func _draw_roster() -> void:
 		if tex != null: _portrait(tex,Rect2(x+5,y+5,92 if active else w-10,116 if active else 80))
 		if active:draw_rect(rect.grow(-2),Color(.2,.95,1,.35+.15*sin(_elapsed*1.8)),false,1.2,true)
 		var tx := x+108 if active else x+5
-		_ds(_fit(str(u.get("name","AGENT")).to_upper(),w-116 if active else w-10,22 if active else 16),Vector2(tx,y+25 if active else y+105),22 if active else 16,TEXT)
+		var agent_name := str(u.get("name","AGENT")).to_upper()
+		var name_width := w-116 if active else w-10
+		var name_font := _fitted_font(agent_name,name_width,22 if active else 16,18 if active else 14)
+		_ds(_fit(agent_name,name_width,name_font),Vector2(tx,y+25 if active else y+105),name_font,TEXT)
 		var hp_fraction := float(u.get("hp",0))/maxf(1,float(u.get("max_hp",1)))
 		if active:
 			_ds("PV  %d / %d" % [u.get("hp",0),u.get("max_hp",1)],Vector2(tx,y+52),19,TEXT)
@@ -227,7 +244,28 @@ func _target_panel_rect(anchor: Vector2) -> Rect2:
 	x = clampf(x,16,size.x-width-16)
 	var top := 194.0 if size.x<1400 else 144.0
 	var bottom := maxf(top,_roster_y-height-20)
-	return Rect2(x,clampf(anchor.y-154,top,bottom),width,height)
+	var initial := Rect2(x,clampf(anchor.y-154,top,bottom),width,height)
+	if not is_instance_valid(target_anchor_node): return initial
+	# Prefer a side that leaves the target and other silhouettes unobscured.
+	var bodies: Array[Rect2] = []
+	for unit: Node in target_anchor_node.get_parent().get_children():
+		if not unit.has_method("_visible_body_rect"): continue
+		if int(unit.unit_data.get("hp",0)) <= 0: continue
+		var transform: Transform2D = get_global_transform_with_canvas().affine_inverse()*unit.get_global_transform_with_canvas()
+		bodies.append(transform*unit._visible_body_rect())
+	var best := initial
+	var best_score := INF
+	for candidate_x in [x,clampf(anchor.x-width-50,16,size.x-width-16),clampf(anchor.x+50,16,size.x-width-16)]:
+		for candidate_y in [initial.position.y,top,bottom]:
+			var candidate := Rect2(candidate_x,candidate_y,width,height)
+			var score := candidate.position.distance_to(initial.position)*.04
+			for body: Rect2 in bodies:
+				var overlap := candidate.intersection(body.grow(8))
+				score += overlap.get_area() if overlap.has_area() else 0.0
+			if score < best_score:
+				best = candidate
+				best_score = score
+	return best
 
 func _target_segments(rect: Rect2, hp: int, maximum: int) -> void:
 	var count := clampi(ceili(float(maximum)/6.0),3,10)
@@ -263,9 +301,9 @@ func _draw_target() -> void:
 	if portrait != null:
 		_portrait(portrait,Rect2(x+12,y+12,74,76))
 		draw_rect(Rect2(x+12,y+12,74,76),Color(ENEMY_COL,0.8),false,1)
-	_ds(_fit(str(target_info.get("name","CONTACT")).to_upper(),250,22),Vector2(x+98,y+30),22,TEXT)
+	_ds(_fit(str(target_info.get("name","CONTACT")).to_upper(),rect.size.x-114,22),Vector2(x+98,y+30),22,TEXT)
 	_ds("PV  %d / %d" % [target_info.get("hp",0),target_info.get("max_hp",1)],Vector2(x+98,y+59),20,TEXT)
-	_target_segments(Rect2(x+98,y+70,250,8),int(target_info.get("hp",0)),int(target_info.get("max_hp",1)))
+	_target_segments(Rect2(x+98,y+70,rect.size.x-114,8),int(target_info.get("hp",0)),int(target_info.get("max_hp",1)))
 	var shield := PackedVector2Array([Vector2(x+19,y+100),Vector2(x+29,y+97),Vector2(x+39,y+100),Vector2(x+38,y+113),Vector2(x+29,y+119),Vector2(x+20,y+113)])
 	draw_colored_polygon(shield,NEON)
 	_ds("DÉFENSE : %d" % int(target_info.get("defense",0)),Vector2(x+53,y+116),18,TEXT)
@@ -273,7 +311,7 @@ func _draw_target() -> void:
 	draw_line(Vector2(x+15,y+141),Vector2(x+43,y+141),WARN,1.5,true)
 	draw_line(Vector2(x+29,y+127),Vector2(x+29,y+155),WARN,1.5,true)
 	_ds(_fit(str(target_info.get("chance_label","")),294,23),Vector2(x+53,y+149),23,WARN)
-	_ds(_fit(str(target_info.get("detail","")),332,12),Vector2(x+16,y+174),12,Color(0.65,0.78,0.81))
+	_ds(_fit(str(target_info.get("detail","")),rect.size.x-32,14),Vector2(x+16,y+174),14,Color(0.65,0.78,0.81))
 
 func _draw_combat_log() -> void:
 	var rect := Rect2(16,204,minf(690,size.x-32),minf(280,_roster_y-230))
@@ -303,6 +341,7 @@ func _input(event: InputEvent) -> void:
 
 func blocks_map_input(point: Vector2) -> bool:
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*point
+	if local.y >= _roster_y-4: return true
 	if not target_info.is_empty() and _target_rect.has_point(local): return true
 	for rect: Rect2 in _portrait_rects:
 		if rect.has_point(local): return true
@@ -362,3 +401,37 @@ func _set_utility_icon(btn: Button, key: String, tip: String) -> void:
 		btn.icon = ImageTexture.create_from_image(svg)
 		btn.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		btn.tooltip_text = tip
+
+func _draw_command_hover() -> void:
+	for action: String in _action_btns:
+		var button := _action_btns[action] as Button
+		var intensity := float(_hover_levels.get(action,0))
+		if not button.visible or intensity < .01: continue
+		var color := WARN if action.to_upper()==selected_action.to_upper() else NEON
+		var rect := Rect2(button.position,button.size)
+		draw_style_box(_hover_box(action,color,intensity),rect.grow(2))
+
+func _hover_box(action: String, color: Color, intensity: float) -> StyleBoxFlat:
+	if not _hover_boxes.has(action): _hover_boxes[action] = StyleBoxFlat.new()
+	var box: StyleBoxFlat = _hover_boxes[action]
+	box.bg_color = Color.TRANSPARENT
+	box.border_color = Color(color,.38*intensity)
+	box.set_border_width_all(1)
+	box.set_corner_radius_all(8)
+	box.shadow_color = Color(color,.16*intensity)
+	box.shadow_size = 8
+	return box
+
+func _draw_footer_backplate() -> void:
+	# A consistent HUD surface prevents scenery and units showing through gaps.
+	var top := _roster_y-4
+	var height := size.y-top
+	for band in range(4):
+		draw_rect(Rect2(0,top+band*height/4,size.x,height/4+1),Color(.008,.025,.032,.60+band*.08))
+	draw_line(Vector2(16,top),Vector2(size.x-16,top),Color(NEON,.18),1,true)
+
+func _fitted_font(value: String, width: float, preferred: int, minimum: int) -> int:
+	var result := preferred
+	while result > minimum and ThemeDB.fallback_font.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,result).x > width:
+		result -= 1
+	return result

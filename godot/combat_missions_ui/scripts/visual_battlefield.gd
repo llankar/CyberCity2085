@@ -35,7 +35,7 @@ func _draw_range_highlights() -> void:
 		var corners := _iso_corners_inner(cell,MOVE_MARKER_SCALE)
 		draw_colored_polygon(corners,Color(ROUTE_COLOR,0.045))
 		corners.append(corners[0])
-		draw_polyline(corners,Color(ROUTE_COLOR,0.40),1.2*pixel,true)
+		draw_polyline(corners,Color(ROUTE_COLOR,0.26),1.0*pixel,true)
 	for cell: Vector2i in attack_range_cells:
 		draw_colored_polygon(_iso_corners_inner(cell,MOVE_MARKER_SCALE),Color(1,0.2,0.18,0.075))
 
@@ -61,13 +61,20 @@ func _draw_path_preview() -> void:
 	draw_polyline(points,Color(ROUTE_COLOR,0.07),14*pixel,true)
 	draw_polyline(points,Color(ROUTE_COLOR,0.16),8*pixel,true)
 	draw_polyline(points,ROUTE_COLOR,3*pixel,true)
+	if quality > 0:
+		# Moving light beads follow the actual route, without inventing waypoints.
+		for segment in range(points.size()-1):
+			var travel := fmod(_elapsed*1.15-float(segment)*.12+10.0,1.0)
+			var bead := points[segment].lerp(points[segment+1],travel)
+			draw_circle(bead,4.5*pixel,Color(ROUTE_COLOR,.13))
+			draw_circle(bead,1.8*pixel,Color(.78,1,1,.85))
 	for i in range(1,points.size()-1):
 		draw_set_transform(points[i],0,Vector2(1,0.55))
 		draw_circle(Vector2.ZERO,6.5*pixel,ROUTE_COLOR)
 	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
 	draw_colored_polygon(preview["arrow"],ROUTE_COLOR)
 	var dest := _iso_corners_inner(path_cells[-1],DESTINATION_SCALE)
-	draw_colored_polygon(dest,Color(ROUTE_COLOR,0.12))
+	draw_colored_polygon(dest,Color(ROUTE_COLOR,0.10+sin(_elapsed*3.5)*.025))
 	dest.append(dest[0])
 	draw_polyline(dest,Color(ROUTE_COLOR,0.10),10*pixel,true)
 	draw_polyline(dest,Color(0.5,1,1),2*pixel,true)
