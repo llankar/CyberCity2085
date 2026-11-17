@@ -1,3 +1,11 @@
+## Tactical agent visibility (November 17, 2026)
+
+- [x] VIS-01 Isolated character material: solid living bodies, brighter art and screen-sized silhouette contour on static/animated units.
+- [x] VIS-02 Real framebuffer tests for opacity, lighting, transparent margins and animation parity; market movement and launch regressions.
+- [x] VIS-03 Documented actual before/after captures and preserved tactical geometry.
+
+Evidence: [agent visibility](tactical_reference.md#agent-visibility-on-detailed-terrain).
+
 ## World Map Visual 2.0 and reference combat framing (November 17, 2026)
 
 - [x] WMV2-01 Reusable, cached holographic beacons for every combat/narrative mission, category colors and hover/selection animations.
