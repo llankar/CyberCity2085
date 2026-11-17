@@ -1,3 +1,13 @@
+## Combat Visual 2.2 (November 17, 2026)
+
+- [x] CV22-01 Cached map-emissive lighting profiles, restrained reflections and quality-dependent local pools.
+- [x] CV22-02 Soft ground contact, directional permanent rims and animated red enemy identification, preserving character dimensions.
+- [x] CV22-03 Discreet reachable cells, animated actual routes/PA and bounded action flash/spark/heal effects.
+- [x] CV22-04 Preserve HUD organization; refine hover, text fitting, target-card occlusion and footer input protection.
+- [x] CV22-05 Native four-environment/three-resolution captures, legacy/quality checks, 13 targeted tests and publication authorized by the user.
+
+Evidence and reproduction: [Combat Visual 2.2](combat_visual_22.md).
+
 ## Combat feedback and interior vehicles (November 17, 2026)
 
 - [x] CFI-01 Prioritize out-of-range feedback with actual distance/range, consistently in the target card and click message; describe LOS blockers as obstacles.

@@ -3,6 +3,12 @@ extends Node2D
 var quality := 2
 var effects: Array[Dictionary] = []
 const LIMIT := 64
+const LIGHTING = preload("res://scripts/visual_lighting.gd")
+var _glow: Texture2D
+
+func _ready() -> void:
+	_glow = LIGHTING.glow_texture()
+	set_process(false)
 
 func burst(kind: String, origin: Vector2, target: Vector2, delay: float = 0.0) -> void:
 	if effects.size() >= LIMIT: effects.pop_front()
@@ -34,6 +40,8 @@ func _draw() -> void:
 		var col := Color(1,0.72,0.22,1-t)
 		if kind in ["psi","heal"]: col = Color(0.7,0.35,1,1-t) if kind == "psi" else Color(0.1,1,0.65,1-t)
 		elif kind == "plasma": col = Color(0.15,0.85,1,1-t)
+		if quality > 0 and kind != "smoke":
+			_draw_flash(a,b,kind,age,t,col,px)
 		if kind == "smoke":
 			for i in range(5):
 				var drift := Vector2(sin(float(i)*2.4)*t*20,-t*(22+float(i)*8))*px
@@ -46,6 +54,14 @@ func _draw() -> void:
 				draw_line(tail,tip,Color(col,0.16),12*px,true)
 				draw_line(tail,tip,col,(4.0 if kind == "plasma" else 2.8)*px,true)
 				draw_circle(tip,(4.5 if kind == "plasma" else 2.5)*px,Color(0.9,1,1,col.a))
+			if quality > 0 and age >= .20:
+				var impact_age := age-.20
+				var sparks := 9 if quality == 2 else 4
+				for index in range(sparks):
+					var angle := float(index)*2.39996
+					var direction := Vector2(cos(angle),sin(angle)*.65)
+					var tip_spark := b+(direction*impact_age*(70+index*9)+Vector2(0,impact_age*impact_age*70))*px
+					draw_line(tip_spark,tip_spark-direction*4*px,Color(col,(1-t)*.8),1.4*px,true)
 			if age < 0.14:
 				var radius := (14.0 if kind == "plasma" else 11.0)*(1-age/0.14)*px
 				draw_circle(a,radius*1.8,Color(col,0.12))
@@ -80,3 +96,26 @@ func _draw() -> void:
 				var drift := Vector2(cos(angle),sin(angle)*0.65)
 				var p := b+(drift*t*(20+float(i%5)*10)+Vector2(0,-18*t+22*t*t))*px
 				draw_line(p,p-drift*6*px,col,1.8*px,true)
+
+func _draw_flash(origin: Vector2, target: Vector2, kind: String, age: float, t: float, color: Color, px: float) -> void:
+	if _glow == null: return
+	var center := target
+	var radius := 35.0
+	var alpha := (1-t)*.55
+	if kind in ["fire","plasma"]:
+		center = origin if age < .14 else target
+		alpha = maxf(0,1-age/.14)*1.3 if age < .14 else maxf(0,1-absf(age-.25)/.15)*.7
+		radius = 46 if kind == "plasma" else 34
+	elif kind == "explosion":
+		radius = 85+45*t
+		alpha = pow(1-t,2)*1.3
+	elif kind in ["heal","psi"]:
+		radius = 38+18*sin(t*PI)
+		alpha = sin(t*PI)*.65
+		if kind == "heal":
+			for i in range(3 if quality == 2 else 1):
+				var point := target+Vector2(sin(float(i)*2.4+t*4)*16,-t*55-i*10)*px
+				draw_line(point-Vector2(4,0)*px,point+Vector2(4,0)*px,Color(color,1-t),2*px,true)
+				draw_line(point-Vector2(0,4)*px,point+Vector2(0,4)*px,Color(color,1-t),2*px,true)
+	# Reuse the same cached soft texture as the environment pools.
+	draw_texture_rect(_glow,Rect2(center-Vector2(radius,radius*.65)*px,Vector2(radius*2,radius*1.3)*px),false,Color(color,alpha))

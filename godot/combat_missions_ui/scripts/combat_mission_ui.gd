@@ -1890,7 +1890,11 @@ func _set_visual_quality(level: int) -> void:
 	visual_quality = clampi(level, 0, 2)
 	if "quality" in _battlefield: _battlefield.quality = visual_quality
 	_visual_fx.quality = visual_quality
-	if is_instance_valid(_visual_lighting): _visual_lighting.visible = visual_quality>0
+	if is_instance_valid(_visual_lighting):
+		_visual_lighting.quality = visual_quality
+		_visual_lighting.visible = visual_quality>0
+	for token: Node in _unit_tokens.values():
+		if "visual_quality" in token: token.visual_quality = visual_quality
 	for prop: Node2D in _visual_obstacles: prop.visible = visual_quality > 0
 	var config := ConfigFile.new()
 	config.set_value("graphics", "quality", visual_quality)
@@ -1915,7 +1919,7 @@ func _build_visual_obstacles() -> void:
 	_visual_lighting=preload("res://scripts/visual_lighting.gd").new()
 	_map_root.add_child(_visual_lighting)
 	_map_root.move_child(_visual_lighting,_units_layer.get_index())
-	_visual_lighting.configure(map_texture,_battlefield,_battlefield.weather)
+	_visual_lighting.configure(map_texture,_battlefield,_battlefield.weather,path)
 	_set_visual_quality(visual_quality)
 
 func _update_visual_context() -> void:
