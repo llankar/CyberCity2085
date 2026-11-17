@@ -4,6 +4,9 @@ signal quality_changed(level: int)
 var mission_title := "TACTICAL INSERTION"
 var objective_text := ""
 var target_info: Dictionary = {}
+var target_anchor_node: Node2D
+var _target_anchor := Vector2(-10000,-10000)
+var _target_rect := Rect2()
 var settings_open := false
 var quality := 2
 var _portrait_rects: Array[Rect2] = []
@@ -49,7 +52,17 @@ func _utility(label: String, callback: Callable) -> Button:
 
 func _process(delta: float) -> void:
 	_elapsed += delta
-	# HUD redraws only on state changes; no per-frame portrait uploads.
+	# Project the actual enemy body each frame so the connector follows camera
+	# panning, zoom and movement; portraits remain cached textures.
+	if not target_info.is_empty() and is_instance_valid(target_anchor_node):
+		var local_body := Vector2(0,-target_anchor_node._sh*0.5)
+		if target_anchor_node.has_method("_visible_body_rect"):
+			local_body = target_anchor_node._visible_body_rect().get_center()
+		var screen := target_anchor_node.get_global_transform_with_canvas()*local_body
+		var anchor := get_global_transform_with_canvas().affine_inverse()*screen
+		if anchor.distance_to(_target_anchor)>0.5:
+			_target_anchor = anchor
+			queue_redraw()
 
 func fit_viewport(viewport: Vector2) -> void:
 	# Keep the same physical reading size on high-resolution / Windows HiDPI windows.
@@ -200,17 +213,61 @@ func _bar(rect: Rect2, fraction: float, color: Color) -> void:
 	draw_rect(rect, Color(0.08, 0.15, 0.18))
 	draw_rect(Rect2(rect.position, Vector2(rect.size.x * clampf(fraction, 0, 1), rect.size.y)), color)
 
+func _target_panel_rect(anchor: Vector2) -> Rect2:
+	var width := minf(364,size.x-32)
+	var height := 184.0
+	var x := anchor.x+82
+	if x+width>size.x-16: x = anchor.x-width-82
+	x = clampf(x,16,size.x-width-16)
+	var top := 194.0 if size.x<1400 else 144.0
+	var bottom := maxf(top,_roster_y-height-20)
+	return Rect2(x,clampf(anchor.y-154,top,bottom),width,height)
+
+func _target_segments(rect: Rect2, hp: int, maximum: int) -> void:
+	var count := clampi(ceili(float(maximum)/6.0),3,10)
+	var fraction := clampf(float(hp)/maxf(1,maximum),0,1)
+	var width := (rect.size.x-float(count-1)*3)/count
+	for i in range(count):
+		var segment := Rect2(rect.position+Vector2(i*(width+3),0),Vector2(width,rect.size.y))
+		draw_rect(segment,Color(0.09,0.025,0.035,1))
+		var fill := segment
+		fill.size.x *= clampf(fraction*count-i,0,1)
+		if fill.size.x>0: draw_rect(fill,ENEMY_COL)
+		draw_rect(segment,Color(ENEMY_COL,0.75),false,0.8)
+
 func _draw_target() -> void:
+	_target_rect = Rect2()
 	if target_info.is_empty(): return
-	var x := size.x-380.0
-	_panel(Rect2(x,182,364,170),ENEMY_COL)
+	var linked := is_instance_valid(target_anchor_node) and Rect2(Vector2.ZERO,Vector2(size.x,_roster_y)).has_point(_target_anchor)
+	var anchor := _target_anchor if linked else Vector2(size.x-464,340)
+	var rect := _target_panel_rect(anchor)
+	_target_rect = rect
+	var edge := Vector2(rect.position.x if rect.get_center().x>anchor.x else rect.end.x,clampf(anchor.y,rect.position.y+28,rect.end.y-28))
+	var elbow := Vector2(edge.x+(-24 if edge.x>anchor.x else 24),edge.y)
+	var link := PackedVector2Array([anchor,elbow,edge])
+	if linked:
+		draw_polyline(link,Color(ENEMY_COL,0.12),6,true)
+		draw_polyline(link,Color(ENEMY_COL,0.9),1.5,true)
+		draw_circle(anchor,3,ENEMY_COL)
+	_panel(rect,ENEMY_COL)
+	draw_rect(rect.grow(2),Color(ENEMY_COL,0.10),false,5)
+	var x := rect.position.x
+	var y := rect.position.y
 	var portrait := target_info.get("portrait",null) as Texture2D
-	if portrait != null: _portrait(portrait,Rect2(x+12,194,74,80))
-	_ds(_fit(str(target_info.get("name","CONTACT")),254,23),Vector2(x+98,218),23,TEXT)
-	_ds("PV  %d / %d" % [target_info.get("hp",0),target_info.get("max_hp",1)],Vector2(x+98,246),20,TEXT)
-	_bar(Rect2(x+98,257,250,6),float(target_info.get("hp",0))/maxf(1,float(target_info.get("max_hp",1))),ENEMY_COL)
-	_ds(_fit(str(target_info.get("detail","")),332,17),Vector2(x+16,299),17,TEXT)
-	_ds(_fit(str(target_info.get("chance_label","")),332,24),Vector2(x+16,334),24,WARN)
+	if portrait != null:
+		_portrait(portrait,Rect2(x+12,y+12,74,76))
+		draw_rect(Rect2(x+12,y+12,74,76),Color(ENEMY_COL,0.8),false,1)
+	_ds(_fit(str(target_info.get("name","CONTACT")).to_upper(),250,22),Vector2(x+98,y+30),22,TEXT)
+	_ds("PV  %d / %d" % [target_info.get("hp",0),target_info.get("max_hp",1)],Vector2(x+98,y+59),20,TEXT)
+	_target_segments(Rect2(x+98,y+70,250,8),int(target_info.get("hp",0)),int(target_info.get("max_hp",1)))
+	var shield := PackedVector2Array([Vector2(x+19,y+100),Vector2(x+29,y+97),Vector2(x+39,y+100),Vector2(x+38,y+113),Vector2(x+29,y+119),Vector2(x+20,y+113)])
+	draw_colored_polygon(shield,NEON)
+	_ds("DÉFENSE : %d" % int(target_info.get("defense",0)),Vector2(x+53,y+116),18,TEXT)
+	draw_arc(Vector2(x+29,y+141),10,0,TAU,24,WARN,1.5,true)
+	draw_line(Vector2(x+15,y+141),Vector2(x+43,y+141),WARN,1.5,true)
+	draw_line(Vector2(x+29,y+127),Vector2(x+29,y+155),WARN,1.5,true)
+	_ds(_fit(str(target_info.get("chance_label","")),294,23),Vector2(x+53,y+149),23,WARN)
+	_ds(_fit(str(target_info.get("detail","")),332,12),Vector2(x+16,y+174),12,Color(0.65,0.78,0.81))
 
 func _draw_combat_log() -> void:
 	var rect := Rect2(16,204,minf(690,size.x-32),minf(280,_roster_y-230))
@@ -227,6 +284,9 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		return
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*event.position
+	if not target_info.is_empty() and _target_rect.has_point(local):
+		get_viewport().set_input_as_handled()
+		return
 	for i in range(_portrait_rects.size()):
 		if _portrait_rects[i].has_point(local):
 			if event.pressed:
@@ -237,6 +297,7 @@ func _input(event: InputEvent) -> void:
 
 func blocks_map_input(point: Vector2) -> bool:
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*point
+	if not target_info.is_empty() and _target_rect.has_point(local): return true
 	for rect: Rect2 in _portrait_rects:
 		if rect.has_point(local): return true
 	for child: Node in get_children():

@@ -1,3 +1,11 @@
+## Reference-based unit presentation (November 17, 2026)
+
+- [x] UREF-01 Solid bodies, state-dependent cyan/red silhouette emphasis, grounded selection and visible-body targeting brackets.
+- [x] UREF-02 Enemy-linked portrait card with actual combat values, responsive placement, camera tracking and click-through prevention.
+- [x] UREF-03 Real movement/targeting captures and native presentation/interaction regression coverage; existing scale and rules preserved.
+
+Evidence: [unit reference presentation](tactical_reference.md#reference-based-ally-and-enemy-presentation).
+
 ## Tactical agent visibility (November 17, 2026)
 
 - [x] VIS-01 Isolated character material: solid living bodies, brighter art and screen-sized silhouette contour on static/animated units.
