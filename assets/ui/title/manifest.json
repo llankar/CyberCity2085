@@ -1,0 +1,32 @@
+{
+  "purpose": "Main Menu Visual 2.0, separate background/wordmark assets; all controls remain live Arcade widgets",
+  "assets": [
+    {
+      "path": "assets/ui/title/city_visual_2.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "df001b1ba6c320ea8248f93d23af887a3dae4803d1b018ebf906ec9ca1fb1490",
+      "origin": "image generation, November 17 2026"
+    },
+    {
+      "path": "assets/ui/title/wordmark.png",
+      "size": [
+        2172,
+        724
+      ],
+      "sha256": "c57453883818b78b2c8fdf63b992b11edf215e99c1d01fdfe2ee2d534fe22e99",
+      "origin": "image generation, November 17 2026"
+    },
+    {
+      "path": "assets/ui/title_background.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "c29fb1ca25354c910e0332b2bfbc14fd9770298a082fc02a399b9f1d4d415f86",
+      "origin": "unchanged original fallback"
+    }
+  ]
+}
