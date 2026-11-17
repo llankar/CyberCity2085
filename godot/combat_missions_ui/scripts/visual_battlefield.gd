@@ -37,9 +37,10 @@ func _draw_range_highlights() -> void:
 	var pixel := _screen_unit()
 	for cell: Vector2i in move_range_cells:
 		var corners := _iso_corners_inner(cell,MOVE_MARKER_SCALE)
-		draw_colored_polygon(corners,Color(ROUTE_COLOR,0.045))
+		draw_colored_polygon(corners,Color(ROUTE_COLOR,0.16))
 		corners.append(corners[0])
-		draw_polyline(corners,Color(ROUTE_COLOR,0.26),1.0*pixel,true)
+		draw_polyline(corners,Color(.005,.02,.025,.70),4.0*pixel,true)
+		draw_polyline(corners,Color(ROUTE_COLOR,0.85),2.0*pixel,true)
 	for cell: Vector2i in attack_range_cells:
 		draw_colored_polygon(_iso_corners_inner(cell,MOVE_MARKER_SCALE),Color(1,0.2,0.18,0.075))
 
