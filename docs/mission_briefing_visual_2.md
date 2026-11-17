@@ -92,4 +92,4 @@ python -m pytest -q tests/test_management_hub_ui.py
 DISPLAY=:103 ALSOFT_DRIVERS=null python -m pytest -q tests/test_mission_briefing_visual.py tests/test_mission_briefing_view.py tests/test_agent_readiness.py tests/test_godot_launch_routing.py tests/test_music_continuity.py tests/test_static_game_flow_e2e.py
 ```
 
-These changes remain local pending authorization to publish this refactor.
+Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
