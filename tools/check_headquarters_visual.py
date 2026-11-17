@@ -143,11 +143,12 @@ def main():
             view.on_update(1 / 60)
         draw()
         for action_key in ("save", "load"):
-            button = next(
-                b for b in view.room_ui.action_buttons if b.action.key == action_key
-            )
+            hit = next(h for h in view._hits if h.action == action_key)
             view.on_mouse_press(
-                button.rect.center_x, button.rect.center_y, arcade.MOUSE_BUTTON_LEFT, 0
+                (hit.left + hit.right) / 2,
+                (hit.bottom + hit.top) / 2,
+                arcade.MOUSE_BUTTON_LEFT,
+                0,
             )
         assert SaveSystem.slot_path(1).is_file()
         gs = view.game_state

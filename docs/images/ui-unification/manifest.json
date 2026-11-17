@@ -1,0 +1,854 @@
+{
+  "capture": "Native Arcade framebuffer",
+  "encoding": "WebP lossless; decoded RGB verified pixel-identical to source PNG",
+  "images": [
+    {
+      "file": "assets-1280x720.webp",
+      "source_png": "assets-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "cd6c97abdf440144abc38c2618a5c7f06cfa13093e0fc576d04d813047d94733",
+      "bytes": 279950
+    },
+    {
+      "file": "assets-1920x1080.webp",
+      "source_png": "assets-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "e63c628a377a550eeed2eaa31cb21fbb83638ea38b26d2335f419387e7706f20",
+      "bytes": 473598
+    },
+    {
+      "file": "assets-2560x1440.webp",
+      "source_png": "assets-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "266daf4074d72487d47687c53c71207ebb76469db7e78a3ac3ef58dc0c54e2c9",
+      "bytes": 729208
+    },
+    {
+      "file": "command-1280x720.webp",
+      "source_png": "command-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "617f9ba05789656e28030ab79ffaea3cda3bc48662b050afc42e2197bbb31712",
+      "bytes": 137372
+    },
+    {
+      "file": "command-1920x1080.webp",
+      "source_png": "command-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "4ed99d9defe181eef88c82e565b724a537998c976467362c767785059cb47c36",
+      "bytes": 206500
+    },
+    {
+      "file": "command-2560x1440.webp",
+      "source_png": "command-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "d5fc9f09208da6dce01bdb8ce2373a2b7a5e7accaf968d28121306a1b0f9746b",
+      "bytes": 285618
+    },
+    {
+      "file": "city-1280x720.webp",
+      "source_png": "city-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "a29c83ae79d3429a0dbe744fdc5d1ade85370f27e4076805c0b63bfa361b41ab",
+      "bytes": 203370
+    },
+    {
+      "file": "city-1920x1080.webp",
+      "source_png": "city-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "5d5c005946ee93e94209571282a5402e02464c9b44434ea7f88cdd087a9b5d39",
+      "bytes": 337994
+    },
+    {
+      "file": "city-2560x1440.webp",
+      "source_png": "city-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "4220dddcc0bb975d2b9e47cf546ef744971fe6a893936906fcbd3dc22bd760c8",
+      "bytes": 490500
+    },
+    {
+      "file": "research-1280x720.webp",
+      "source_png": "research-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "190764ac6d805dd9b0319528b228e8c65f6bb51cbadbabeb202b97cfac9b97dd",
+      "bytes": 215262
+    },
+    {
+      "file": "research-1920x1080.webp",
+      "source_png": "research-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "9eb4b6239c4a367d7362fdf8c19dc20ca09453d1cf86ae71e449cfea6fb9c2b5",
+      "bytes": 344370
+    },
+    {
+      "file": "research-2560x1440.webp",
+      "source_png": "research-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "5d444c0fd08690128891c00da8455185cb5cd09690ba9c919d1cba8e6c40be65",
+      "bytes": 501042
+    },
+    {
+      "file": "intel-1280x720.webp",
+      "source_png": "intel-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "c3da819b0941bcec8ecda6589d76cc2690dfb0f51d3f9896b1d0e4f1593d7398",
+      "bytes": 227984
+    },
+    {
+      "file": "intel-1920x1080.webp",
+      "source_png": "intel-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "e2b2b8fa20ae69e25c92a217e4c8d25802d5bdc443d48d011f1e06147b10dc36",
+      "bytes": 373260
+    },
+    {
+      "file": "intel-2560x1440.webp",
+      "source_png": "intel-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "6a89a5a63fc086a2a3d6455ce668ddd2a900e67f116447b9b55c718cc2c383ca",
+      "bytes": 534330
+    },
+    {
+      "file": "settings-1280x720.webp",
+      "source_png": "settings-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "a56d8efa8aae2e7b90ee42f46d90108de169b40f1b9c86e89d6d3b01993c850a",
+      "bytes": 236692
+    },
+    {
+      "file": "settings-1920x1080.webp",
+      "source_png": "settings-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "6db2970c7751eaf8fdb65d8218cd0f28e4fb3f524621ace34323a51f5839eea8",
+      "bytes": 397312
+    },
+    {
+      "file": "settings-2560x1440.webp",
+      "source_png": "settings-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "715fc5dd73d0ae07d34020c2ea81ebcb5e022d0ca6c38065c51b00a13f8acaa3",
+      "bytes": 590258
+    },
+    {
+      "file": "new-game-1280x720.webp",
+      "source_png": "new-game-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "f5fea587600bac2adfefc0a006c41cb566d717885e2f87a331944655de72fb97",
+      "bytes": 484524
+    },
+    {
+      "file": "new-game-1920x1080.webp",
+      "source_png": "new-game-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "1f90ae7d8d9756d6ed3a1844228a8f3db337f619e84a252345370c7e1b822ac0",
+      "bytes": 903474
+    },
+    {
+      "file": "new-game-2560x1440.webp",
+      "source_png": "new-game-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "3a05001dfadae8ef3029afdc218ced44cc466c9fb9a9a28243dfb32558a62b25",
+      "bytes": 1400556
+    },
+    {
+      "file": "recruitment-1280x720.webp",
+      "source_png": "recruitment-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "0cb20beaa761ebe955403208156e653282d63896b873b27462e66f4cea005d0b",
+      "bytes": 411734
+    },
+    {
+      "file": "recruitment-1920x1080.webp",
+      "source_png": "recruitment-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "d22e8104f7889fbb25a74ef99a7e6f718e5a53149817232d0e6b420732709e8d",
+      "bytes": 698880
+    },
+    {
+      "file": "recruitment-2560x1440.webp",
+      "source_png": "recruitment-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "1de4b9f648c646b7c831e1312aa70b3233c2f2c2ca97e7b0f2d48ebf1889e0cb",
+      "bytes": 1042384
+    },
+    {
+      "file": "promotion-1280x720.webp",
+      "source_png": "promotion-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "3113bc76460241822e8805470c867c39993c7f39343a6b2f19b5033be78e9371",
+      "bytes": 416724
+    },
+    {
+      "file": "promotion-1920x1080.webp",
+      "source_png": "promotion-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "79f7e416b41fc36f2d5d7b45393728fc25fce6e4793d84a5455b4b0d9fc5171e",
+      "bytes": 681230
+    },
+    {
+      "file": "promotion-2560x1440.webp",
+      "source_png": "promotion-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "ad5bc04e6e2f21cce25c0d20a4346fa5c251a943158ee16a8ad507dd9c688485",
+      "bytes": 1002942
+    },
+    {
+      "file": "ending-1280x720.webp",
+      "source_png": "ending-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "bf6e4ae83932f2a0eb8adeefaa4b20d0da24aafa81f24c3f18a30ca86ed2d120",
+      "bytes": 348102
+    },
+    {
+      "file": "ending-1920x1080.webp",
+      "source_png": "ending-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "e1486a57623c284e703c489032111e7f0212677f086b6aa657db942548ebce38",
+      "bytes": 645174
+    },
+    {
+      "file": "ending-2560x1440.webp",
+      "source_png": "ending-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "4f2ec585a1889d92a62fab9ebf3088419f957d988fb2cb50eae8c26d42aff96c",
+      "bytes": 1008074
+    },
+    {
+      "file": "debrief-1280x720.webp",
+      "source_png": "debrief-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "1365fa69b42174756536b029c6492adbbc6b41da91f29740dafb78277e489865",
+      "bytes": 356184
+    },
+    {
+      "file": "debrief-1920x1080.webp",
+      "source_png": "debrief-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "8c00d590140c13df1e500a2e37fafe00f11e7bd0011a00c3d58699f61dc155e0",
+      "bytes": 644614
+    },
+    {
+      "file": "debrief-2560x1440.webp",
+      "source_png": "debrief-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "74c97dfde8c1820462d0a38970ee88158b168d1a35bd6f224ad41b996633955d",
+      "bytes": 985090
+    },
+    {
+      "file": "handoff-1280x720.webp",
+      "source_png": "handoff-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "aac7a867f09e6b8fd97e22cacc88103b0c1a0a9921585f216308927c54e5853d",
+      "bytes": 475572
+    },
+    {
+      "file": "handoff-1920x1080.webp",
+      "source_png": "handoff-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "b87d80e7806a9d55aa44d67629a26e62c9125c62a9a9307654039a3f67799fd9",
+      "bytes": 874902
+    },
+    {
+      "file": "handoff-2560x1440.webp",
+      "source_png": "handoff-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "63927c6541f5cc2e80734d13cf72b36ac19ae4422066a9ae83d827140183f3bd",
+      "bytes": 1362300
+    },
+    {
+      "file": "narrative-1280x720.webp",
+      "source_png": "narrative-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "03b816494378eb51affd8fac63e4d072164f0c96435a58614f72d24097631d23",
+      "bytes": 414372
+    },
+    {
+      "file": "narrative-1920x1080.webp",
+      "source_png": "narrative-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "cd300d8f6fcd20512d23acb2167f8205901715606c5ead5285b7a2ae5a7aaf75",
+      "bytes": 762306
+    },
+    {
+      "file": "narrative-2560x1440.webp",
+      "source_png": "narrative-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "7dfdc31edd8a9a78c370341a25093f02482f729227af4a5bf1975ceb015c3d94",
+      "bytes": 1182994
+    },
+    {
+      "file": "narrative-agent-1280x720.webp",
+      "source_png": "narrative-agent-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "44f70d7ea73a281614ebca05c007cb9e6a2bc36ab388c74592298aa6396fcbcb",
+      "bytes": 428420
+    },
+    {
+      "file": "narrative-agent-1920x1080.webp",
+      "source_png": "narrative-agent-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "015d2ab212f75c2ce41f661f8aa8ee4756d344f1faa69b60d16e042f76b123c3",
+      "bytes": 798436
+    },
+    {
+      "file": "narrative-agent-2560x1440.webp",
+      "source_png": "narrative-agent-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "ff7e2d74bc590c0395f657301d01491466a323641fae52e9f4ad3a9560aa8c99",
+      "bytes": 1244358
+    },
+    {
+      "file": "narrative-result-1280x720.webp",
+      "source_png": "narrative-result-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "d359b4f0c41cc0d0ca138d0a2775608ba6f3ae276eabc3ad67b5f071b8a72ac7",
+      "bytes": 427752
+    },
+    {
+      "file": "narrative-result-1920x1080.webp",
+      "source_png": "narrative-result-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "9ee8ea92e97642ba529bc831c3d796161edfb7f7eaf92043f1fad99252e59ef8",
+      "bytes": 796640
+    },
+    {
+      "file": "narrative-result-2560x1440.webp",
+      "source_png": "narrative-result-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "cef28442adf733e311b72de602c461de70e65a303e5d37d4367dde885fa3a8de",
+      "bytes": 1248366
+    },
+    {
+      "file": "narrative-outcome-1280x720.webp",
+      "source_png": "narrative-outcome-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "b02a9e5232b8db86a1b3377437a0bc5a316d11d78b6afdf8956c0b187b7e7d36",
+      "bytes": 418010
+    },
+    {
+      "file": "narrative-outcome-1920x1080.webp",
+      "source_png": "narrative-outcome-1920x1080.png",
+      "resolution": [
+        1920,
+        1080
+      ],
+      "pixels_sha256": "4dbaf6cbe90d90572ce41dc05aca5c06fb40fecf18c3505be163ef28bb015104",
+      "bytes": 772332
+    },
+    {
+      "file": "narrative-outcome-2560x1440.webp",
+      "source_png": "narrative-outcome-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "a601d56e1dd3afac21d1f45ce53e5cb5097ad65a63c903fc100130f6cce0cb7e",
+      "bytes": 1194884
+    },
+    {
+      "file": "assets-before-1280x720.webp",
+      "source_png": "assets-before-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "198d9839002585c3d4bd57dbd8e608907de72fb92e0f46f7371c5614ea8b3a1d",
+      "bytes": 539364
+    },
+    {
+      "file": "assets-pilot-2560x1440.webp",
+      "source_png": "assets-pilot-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "1dd404c7e9dc323ed176d9730006e6662a3f97bd4e8e868338d52628b5b9b847",
+      "bytes": 731130
+    },
+    {
+      "file": "assets-disabled-hover-1280x720.webp",
+      "source_png": "assets-disabled-hover-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "f85e6174ed9c51052a1a4709b84f68224772c70f1ebb969821df8f995a98c4ee",
+      "bytes": 280576
+    },
+    {
+      "file": "research-progress-2560x1440.webp",
+      "source_png": "research-progress-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "23b864225bb04a3135df5d3ef9b147ae745d40961099900da1bc230ca355a7f0",
+      "bytes": 510522
+    },
+    {
+      "file": "debrief-agent-2560x1440.webp",
+      "source_png": "debrief-agent-2560x1440.png",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "pixels_sha256": "086de5dcf95df9adb949af9af84aacf558e16750bb168bc68df5b9b2a6936ee8",
+      "bytes": 801276
+    },
+    {
+      "file": "recruitment-selected-1280x720.webp",
+      "source_png": "recruitment-selected-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "f553108593709c8f55e1ab56c3bfed8d7ecc9f45bbb57bde2c6b4eab092f47b9",
+      "bytes": 409072
+    },
+    {
+      "file": "assets-large-en-1280x720.webp",
+      "source_png": "assets-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "fa4465c3f76979e1406e8dc556f4cfdb8decd257ab938958be54b6740beee202",
+      "bytes": 272198
+    },
+    {
+      "file": "city-large-en-1280x720.webp",
+      "source_png": "city-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "501636f6110c24888c059dbfdf6d3b09ff73da30b70a0bdbd1f02f354964769c",
+      "bytes": 220524
+    },
+    {
+      "file": "command-large-en-1280x720.webp",
+      "source_png": "command-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "954346c912660ed55e6cf11fd3b642d6dca9a1de207e1867fcf948fcdf277ae0",
+      "bytes": 284710
+    },
+    {
+      "file": "debrief-large-en-1280x720.webp",
+      "source_png": "debrief-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "af5e45ed3d46102d0a883d9217b31217ca3a82ed5dd38895f95d93e9cc24c23f",
+      "bytes": 364786
+    },
+    {
+      "file": "ending-large-en-1280x720.webp",
+      "source_png": "ending-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "70be67d87137bb672623227a7eecafb40159686118be79f338992a6a2c20e038",
+      "bytes": 361148
+    },
+    {
+      "file": "handoff-large-en-1280x720.webp",
+      "source_png": "handoff-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "99ac195047d5b884bd065fcfe39f3a9b4698aed75bf75024eb13220b89a5565f",
+      "bytes": 483814
+    },
+    {
+      "file": "intel-large-en-1280x720.webp",
+      "source_png": "intel-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "271280fee47b769b94ba6ff95485c5d22bb5dbee746dec032e192ddd7d41c271",
+      "bytes": 247586
+    },
+    {
+      "file": "narrative-large-en-1280x720.webp",
+      "source_png": "narrative-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "4fe66d2e157c69346986919f262946d3882075f82c8102d602f6593763aaec80",
+      "bytes": 428324
+    },
+    {
+      "file": "promotion-large-en-1280x720.webp",
+      "source_png": "promotion-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "c0558e9f5b894c7907ec543ee2e2865785b601b26f7110574b9f52a2293f76e0",
+      "bytes": 421308
+    },
+    {
+      "file": "research-large-en-1280x720.webp",
+      "source_png": "research-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "2aeff1e709ab4c0a5cd6676069b7866cc49a100d04413044370000d8e3c09408",
+      "bytes": 223134
+    },
+    {
+      "file": "settings-large-en-1280x720.webp",
+      "source_png": "settings-large-en-1280x720.png",
+      "resolution": [
+        1280,
+        720
+      ],
+      "pixels_sha256": "b93be291ddd4c1155192c8b9826bf804e1d3d70f35b1283c738d3f4e6422b084",
+      "bytes": 247742
+    }
+  ],
+  "native_checks": {
+    "departments": {
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ]
+      ],
+      "render_is_readonly": true,
+      "buy_repair_deploy_pilot": true,
+      "research_all_pages": true,
+      "directives_events_upgrades": true,
+      "save_load": true,
+      "keyboard": true,
+      "large_en": true,
+      "warm_draw_ms": 45.53
+    },
+    "utilities": {
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ]
+      ],
+      "settings_actions": true,
+      "recruit_preview": true,
+      "narrative_state_machine": true,
+      "new_game_input": true,
+      "large_text": true
+    },
+    "squad": {
+      "resolutions": [
+        {
+          "size": [
+            1280,
+            720
+          ],
+          "hit_regions": 47,
+          "all_equipment_and_activities_visible": true
+        },
+        {
+          "size": [
+            1672,
+            941
+          ],
+          "hit_regions": 47,
+          "all_equipment_and_activities_visible": true
+        },
+        {
+          "size": [
+            1920,
+            1080
+          ],
+          "hit_regions": 47,
+          "all_equipment_and_activities_visible": true
+        },
+        {
+          "size": [
+            2560,
+            1440
+          ],
+          "hit_regions": 47,
+          "all_equipment_and_activities_visible": true
+        }
+      ],
+      "equipment": true,
+      "stat_upgrade": true,
+      "recruitment": true,
+      "roster_scroll": true,
+      "downtime": true,
+      "save_load": true,
+      "navigation": true,
+      "english": true,
+      "empty_roster": true,
+      "modal_allocations": true,
+      "remove_agent": true,
+      "keyboard_rooms": true,
+      "large_text": true,
+      "warm_draw_ms": 96.13033469977381
+    },
+    "headquarters": {
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1672,
+          941
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ],
+        [
+          1920,
+          1000
+        ]
+      ],
+      "departments": [
+        "command",
+        "city",
+        "squad",
+        "assets",
+        "research",
+        "intel"
+      ],
+      "mouse_footer_keyboard": true,
+      "hover_transition": true,
+      "live_resources": true,
+      "read_only_rendering": true,
+      "large_text": true,
+      "reduced_motion": true,
+      "legacy_fallback": true,
+      "return_to_title": true,
+      "save_load": true,
+      "language": true,
+      "cached_frames": true
+    },
+    "title": {
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1672,
+          941
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ]
+      ],
+      "continue_actual_save": true,
+      "disabled_without_save": true,
+      "corrupt_save_safe": true,
+      "new_game": true,
+      "settings_return": true,
+      "quit": true,
+      "keyboard_mouse": true,
+      "reduced_motion_persisted": true,
+      "fallbacks": true,
+      "title_music": true,
+      "cached_frames": true,
+      "warm_frame_ms": 39.85
+    },
+    "briefing": {
+      "resolutions": [
+        [
+          1280,
+          720
+        ],
+        [
+          1672,
+          941
+        ],
+        [
+          1920,
+          1080
+        ],
+        [
+          2560,
+          1440
+        ]
+      ],
+      "read_only": true,
+      "controls": true,
+      "map_inspection": true,
+      "overflow": true,
+      "empty": true,
+      "language": true
+    }
+  }
+}
