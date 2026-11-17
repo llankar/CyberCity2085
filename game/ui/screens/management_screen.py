@@ -650,146 +650,14 @@ class ManagementView(GameView):
         )
         arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
 
-    def _draw_recruit_window_modal(self, w: int, h: int) -> None:
-        from functools import partial
-        from game.ui.components.squad_copy import draw_localized_squad_text
-        draw_text=partial(draw_localized_squad_text,language=self.game_state.ui_language)
+    def _draw_recruit_window_modal(self, w, h):
         if not self.recruit_window_open or not self.pending_recruit_candidates:
             return
+        if not hasattr(self, "_recruitment_deck"):
+            from game.ui.components.utilities.recruitment import RecruitmentDeck
 
-        gs = self.game_state
-        self._modal_hits = []
-
-        from game.ui.panels import _load_texture_once
-
-        _rect(0, 0, w, h, (0, 0, 0, 185))
-        mw = min(1120, w - 64)
-        mh = min(680, h - 44)
-        mx0 = (w - mw) // 2
-        my0 = (h - mh) // 2
-        mx1 = mx0 + mw
-        my1 = my0 + mh
-        _rect(mx0, my0, mx1, my1, (7, 16, 22, 250))
-        _border(mx0, my0, mx1, my1, palette.ACCENT, 2)
-        _rect(mx0, my1 - 78, mx1, my1, (10, 24, 32, 246))
-        arcade.draw_line(mx0, my1 - 78, mx1, my1 - 78, palette.ACCENT, 2)
-        draw_text(
-            "RECRUITMENT WINDOW",
-            mx0 + 20,
-            my1 - 28,
-            palette.TEXT,
-            font_size=18,
-            bold=True,
-        )
-        draw_text(
-            f"{len(self.pending_recruit_candidates)} AVAILABLE AGENTS   |   FUNDS ¥{gs.available_funds}   |   N REFRESHES   |   ESC CLOSES",
-            mx0 + 20,
-            my1 - 50,
-            palette.MUTED_TEXT,
-            font_size=10,
-        )
-
-        close_left = mx1 - 42
-        close_bottom = my1 - 56
-        _rect(close_left, close_bottom, close_left + 28, close_bottom + 28, (14, 24, 30, 240))
-        arcade.draw_line(close_left, close_bottom + 28, close_left + 28, close_bottom + 28, palette.PANEL_BORDER_MUTED, 1)
-        draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
-        self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "recruit_close"))
-
-        # Six candidates read best as 2x3; larger pools switch to a 3-column
-        # grid so cards never collapse into unreadable 96px rows.
-        cols = 3 if len(self.pending_recruit_candidates) > 6 else 2
-        gap = 10
-        card_pad = 18
-        rows = math.ceil(len(self.pending_recruit_candidates) / cols)
-        usable_w = mx1 - mx0 - card_pad * 2
-        usable_h = my1 - my0 - 118
-        card_w = (usable_w - gap * (cols - 1)) // cols
-        card_h = max(118, min(150, (usable_h - gap * max(0, rows - 1)) // max(1, rows)))
-        card_top = my1 - 92
-
-        for idx, candidate in enumerate(self.pending_recruit_candidates):
-            row = idx // cols
-            col = idx % cols
-            left = mx0 + card_pad + col * (card_w + gap)
-            top = card_top - row * (card_h + gap)
-            bottom = top - card_h
-            if bottom < my0 + 18:
-                break
-
-            role_col = {
-                "samurai": palette.ROLE_SAMURAI,
-                "sniper": palette.ROLE_SNIPER,
-                "psi": palette.ROLE_PSI,
-                "robot": palette.ROLE_ROBOT,
-            }.get(candidate.role, palette.ACCENT)
-            affordable = gs.available_funds >= candidate.price
-            fill = (13, 26, 34, 236) if affordable else (31, 23, 22, 236)
-            border = role_col if affordable else (95, 96, 100)
-            _rect(left, bottom, left + card_w, top, fill)
-            arcade.draw_line(left, top, left + card_w, top, border, 2)
-
-            portrait_size = min(52, card_h - 28)
-            portrait_left = left + 12
-            portrait_bottom = bottom + max(10, (card_h - portrait_size) // 2)
-            tex = _load_texture_once(candidate.portrait_path)
-            if tex is not None and hasattr(arcade, "draw_texture_rect"):
-                arcade.draw_texture_rect(tex, arcade.LBWH(portrait_left, portrait_bottom, portrait_size, portrait_size))
-            else:
-                arcade.draw_circle_filled(
-                    portrait_left + portrait_size // 2,
-                    portrait_bottom + portrait_size // 2,
-                    portrait_size // 2,
-                    palette.AGENT_PORTRAIT_FILL,
-                )
-                arcade.draw_circle_outline(
-                    portrait_left + portrait_size // 2,
-                    portrait_bottom + portrait_size // 2,
-                    portrait_size // 2,
-                    role_col,
-                    2,
-                )
-
-            text_left = portrait_left + portrait_size + 12
-            text_right = left + card_w - 12
-            action_col_w = 76
-            copy_right = max(text_left + 40, text_right - action_col_w)
-            draw_text(candidate.name.upper(), text_left, top - 18, palette.TEXT, font_size=12, bold=True)
-            draw_text(candidate.role.upper(), text_left, top - 32, role_col, font_size=8, bold=True)
-            draw_text(candidate.function.upper(), text_left, top - 44, palette.MUTED_TEXT, font_size=8, bold=True)
-            draw_text(candidate.stat_line(), text_left, top - 60, palette.TEXT, font_size=8)
-            draw_text(candidate.skill_line(), text_left, top - 74, palette.RESOURCE, font_size=8)
-            draw_text(
-                _trim_text(candidate.background, 38 if cols == 3 else 72),
-                text_left,
-                bottom + 42,
-                palette.MUTED_TEXT,
-                font_size=8,
-                width=max(40, copy_right - text_left),
-                align="left",
-            )
-            draw_text(
-                "ADV: " + _trim_text(" | ".join(candidate.advantages), 28 if cols == 3 else 54),
-                text_left,
-                bottom + 24,
-                palette.RESOURCE,
-                font_size=7,
-                width=max(40, copy_right - text_left),
-                align="left",
-            )
-            price_label = f"¥{candidate.price}"
-            price_col = palette.TACTICAL_GREEN if affordable else palette.DANGER
-            draw_text(price_label, left + card_w - 16, bottom + 14, price_col, font_size=12, bold=True, anchor_x="right")
-            draw_text(
-                "HIRE" if affordable else "LOCKED",
-                left + card_w - 16,
-                bottom + 34,
-                price_col,
-                font_size=8,
-                bold=True,
-                anchor_x="right",
-            )
-            self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "recruit_candidate", idx))
+            self._recruitment_deck = RecruitmentDeck()
+        self._recruitment_deck.draw(self, w, h)
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         # Tab shortcuts
@@ -2134,12 +2002,24 @@ class ManagementView(GameView):
     # ── Action dispatch ───────────────────────────────────────────────────────
 
     def _dispatch(self, action: str, data: object) -> None:
+        if action == "recruit_preview":
+            self._recruitment_deck.selection["candidate"] = int(data)
+            self._recruitment_deck.pages["candidate_detail"] = 0
+            return
+        if action == "department_page" and self.recruit_window_open:
+            self._recruitment_deck.turn_page(*data)
+            return
+        if action == "ui_disabled":
+            return
         gs = self.game_state
 
         if action == "sheet_page":
             section, step = data
             if self._character_sheet_renderer is not None:
                 self._character_sheet_renderer.scroll(section, step)
+            return
+        if action.startswith("weekly_directive_"):
+            self._dispatch_hub_action(action)
             return
         if action == "squad_nav":
             self._dispatch_hub_action(str(data))
@@ -2306,6 +2186,10 @@ class ManagementView(GameView):
 
         if action == "asset_deploy_toggle":
             self._do_asset_deploy_toggle(data)  # type: ignore[arg-type]
+            return
+
+        if action == "catalog_acquire_by_id":
+            self._do_catalog_acquire(0, template_id=str(data))
             return
 
         if action == "catalog_acquire":
@@ -2572,7 +2456,9 @@ class ManagementView(GameView):
         self._asset_cursor = len(gs.spec_ops_assets) - 1
         gs.add_event(push_action(self.notifications, "asset_acquire", True, f"Acquired {asset.name}"))
 
-    def _do_catalog_acquire(self, catalog_idx: int) -> None:
+    def _do_catalog_acquire(
+        self, catalog_idx: int, *, template_id: str | None = None
+    ) -> None:
         from game.management.spec_ops_assets import asset_catalog as _ac
         import copy
         gs = self.game_state
@@ -2580,9 +2466,14 @@ class ManagementView(GameView):
         scroll  = self._catalog_scroll % len(catalog)
         items   = catalog[scroll:scroll + 2] + catalog[:max(0, scroll + 2 - len(catalog))]
         items   = items[:2]
-        if catalog_idx >= len(items):
-            return
-        template = items[catalog_idx]
+        if template_id is not None:
+            template = next((item for item in catalog if item.id == template_id), None)
+            if template is None:
+                return
+        else:
+            if not 0 <= catalog_idx < len(items):
+                return
+            template = items[catalog_idx]
         acquire_cost = getattr(template, '_acquire_cost', 60)
         if not gs.spend_funds(acquire_cost, "asset_acquire", f"Purchased {template.name}"):
             gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ¥{acquire_cost}"))
@@ -2744,6 +2635,7 @@ class ManagementView(GameView):
         self._hq_last_room = "command"
         self._hq_reduced_motion = False
         self._squad_command = None
+        self._department_deck = None
         self._character_sheet_renderer = None
         self._hits = []
         self._modal_hits = []
@@ -2784,6 +2676,8 @@ class ManagementView(GameView):
             self._headquarters.update(delta_time, self._hq_reduced_motion)
         if self._squad_command is not None:
             self._squad_command.update(delta_time)
+        if getattr(self, "_department_deck", None) is not None:
+            self._department_deck.update(delta_time)
         if self._character_sheet_renderer is not None:
             self._character_sheet_renderer.update(delta_time)
 
@@ -2810,34 +2704,11 @@ class ManagementView(GameView):
             self._headquarters.draw(self, w, h)
             self._draw_recruit_window_modal(w,h)
             return
-        self._hits = []
-        roster_cards = (
-            self._build_hub_roster_cards()
-            if self.room_ui.active_room_key == "squad"
-            else []
-        )
-        draw_graphical_command_surface(
-            w,
-            h,
-            self.room_ui,
-            self.game_state.strategic_resources,
-            {},
-            roster_cards=roster_cards,
-            available_funds=self.game_state.available_funds,
-            draw_controls=False,
-        )
-        arcade.draw_text(
-            "F1 COMMAND  F2 CITY  F3 SQUAD  F4 ASSETS  F5 RESEARCH  F6 INTEL  |  ESC CLOSE",
-            22,
-            16,
-            (90, 120, 130),
-            10,
-        )
-        if self.message:
-            arcade.draw_text(self.message, 22, 34, palette.WARNING, 10)
-        _draw_notification_toast(self.notifications, w, h)
-        self._draw_legacy_room_content()
-        draw_expanded_room_controls(w, h, self.room_ui)
+        if self._department_deck is None:
+            from game.ui.components.departments.deck import DepartmentDeck
+
+            self._department_deck = DepartmentDeck()
+        self._department_deck.draw(self, w, h)
         self._draw_expanded_agent_sheet_modal(w, h)
         self._draw_recruit_window_modal(w, h)
 
@@ -2860,6 +2731,13 @@ class ManagementView(GameView):
                 self._close_recruit_window()
             elif key == getattr(arcade.key, "N", None):
                 self._do_recruit_prompt()
+            elif hasattr(self, "_recruitment_deck"):
+                original = self._hits
+                self._hits = self._modal_hits
+                result = self._recruitment_deck.keyboard(key)
+                self._hits = original
+                if result and result is not True:
+                    self._dispatch(result.action, result.data)
             return
 
         if self.expanded_agent_sheet_index is not None:
@@ -2940,6 +2818,15 @@ class ManagementView(GameView):
         if not self.room_ui.is_open:
             return
 
+        deck = getattr(self, "_department_deck", None)
+        if (
+            deck is not None
+            and self.room_ui.active_room_key != "squad"
+            and key
+            in {arcade.key.UP, arcade.key.DOWN, arcade.key.TAB, arcade.key.SPACE}
+        ):
+            deck.key(key)
+            return
         active_room = self.room_ui.active_room_key
         if active_room == "squad":
             treatment_keys = {
@@ -3010,7 +2897,13 @@ class ManagementView(GameView):
         if self.expanded_agent_sheet_index is not None:
             for hit in reversed(self._modal_hits):
                 if hit.contains(xi, yi):
-                    self._dispatch(hit.action, hit.data)
+                    if (
+                        hit.action.startswith("department_")
+                        or hit.action == "ui_disabled"
+                    ):
+                        self._department_deck.click(hit.action, hit.data)
+                    else:
+                        self._dispatch(hit.action, hit.data)
                     return
             return
 
@@ -3020,10 +2913,19 @@ class ManagementView(GameView):
                 return
             for hit in reversed(self._hits):
                 if hit.contains(xi, yi):
-                    self._dispatch(hit.action, hit.data)
+                    if (
+                        hit.action.startswith("department_")
+                        or hit.action == "ui_disabled"
+                    ):
+                        self._department_deck.click(hit.action, hit.data)
+                    else:
+                        self._dispatch(hit.action, hit.data)
                     return
-            if self.room_ui.active_room_key == "squad":
-                return  # Dedicated screen owns every hit region; no hidden legacy controls.
+            if (
+                self.room_ui.active_room_key == "squad"
+                or self._department_deck is not None
+            ):
+                return  # Each dedicated screen owns every displayed hit region.
             action = action_at_point(self.room_ui.action_buttons, xi, yi)
             if action is not None:
                 self._dispatch_hub_action(action.key)
@@ -3044,6 +2946,10 @@ class ManagementView(GameView):
         from game.ui.layouts.headquarters import headquarters_layout, ROOMS
         from game.ui.room_interaction import UIRect
 
+        if self._headquarters is None:
+            from game.ui.components.headquarters import HeadquartersRenderer
+
+            self._headquarters = HeadquartersRenderer()
         open_room(self.room_ui, self.window.width, self.window.height, room_key)
         self._hq_last_room = room_key
         legacy = self._headquarters.legacy if self._headquarters is not None else False
@@ -3399,11 +3305,27 @@ class ManagementView(GameView):
 
 
     def on_mouse_motion(self,x,y,dx,dy):
+        if self.recruit_window_open and hasattr(self, "_recruitment_deck"):
+            self._recruitment_deck.hover = next(
+                (
+                    (h.action, h.data)
+                    for h in reversed(self._modal_hits)
+                    if h.contains(x, y)
+                ),
+                None,
+            )
+            return
         if not self.room_ui.is_open and self._headquarters is not None and not self.recruit_window_open and self.expanded_agent_sheet_index is None:
             self._headquarters.motion(x,y,self.window.width,self.window.height)
             return
         if self.expanded_agent_sheet_index is not None and self._character_sheet_renderer is not None:
             self._character_sheet_renderer.mouse_motion(x,y)
+            return
+        if (
+            self.room_ui.active_room_key != "squad"
+            and getattr(self, "_department_deck", None) is not None
+        ):
+            self._department_deck.motion(x, y)
             return
         renderer=getattr(self,"_squad_command",None)
         if renderer is None:return
@@ -3420,6 +3342,17 @@ class ManagementView(GameView):
             and self._character_sheet_renderer is not None
         ):
             self._character_sheet_renderer.mouse_scroll(x, y, scroll_y)
+            return
+        deck = getattr(self, "_department_deck", None)
+        if (
+            deck is not None
+            and self.room_ui.active_room_key not in {None, "squad"}
+            and not self.recruit_window_open
+        ):
+            for name, (_, _, rect) in deck.capacities.items():
+                if rect is not None and rect.contains(x, y):
+                    deck.click("department_page", (name, -1 if scroll_y > 0 else 1))
+                    return
             return
         renderer = getattr(self, "_squad_command", None)
         if (

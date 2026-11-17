@@ -44,7 +44,9 @@ def _capture_draw_text(text, *args, **kwargs):
     if font_size is None and len(args) >= 5:
         font_size = args[4]
     captured_draw_text.append(str(text))
-    captured_draw_text_calls.append((str(text), int(font_size) if font_size is not None else None))
+    captured_draw_text_calls.append(
+        (str(text), int(font_size) if font_size is not None else None)
+    )
 
 
 fake_arcade = types.SimpleNamespace(
@@ -138,15 +140,21 @@ class _FakeWindow:
 
 class SettingsScreenDisplayTest(unittest.TestCase):
     def test_motion_preference_roundtrip_preserves_existing_settings(self):
-        state=settings_screen.SettingsState(music_volume=37,fullscreen=True,reduced_motion=True,extra_flags={"custom":True})
+        state = settings_screen.SettingsState(
+            music_volume=37,
+            fullscreen=True,
+            reduced_motion=True,
+            extra_flags={"custom": True},
+        )
         settings_screen.save_settings(state)
-        loaded=settings_screen.load_settings()
+        loaded = settings_screen.load_settings()
         self.assertTrue(loaded.reduced_motion and loaded.fullscreen)
-        self.assertEqual(loaded.music_volume,37)
-        self.assertEqual(loaded.extra_flags,{"custom":True})
+        self.assertEqual(loaded.music_volume, 37)
+        self.assertEqual(loaded.extra_flags, {"custom": True})
         # Legacy settings without the new field retain the animated default.
-        path=Path(settings_screen._SETTINGS_PATH)
-        data=json.loads(path.read_text());data.pop("reduced_motion")
+        path = Path(settings_screen._SETTINGS_PATH)
+        data = json.loads(path.read_text())
+        data.pop("reduced_motion")
         path.write_text(json.dumps(data))
         self.assertFalse(settings_screen.load_settings().reduced_motion)
 
@@ -157,7 +165,9 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self._old_cwd = Path.cwd()
         self._old_settings_path = settings_screen._SETTINGS_PATH
         Path(self._tmpdir.name, "saves").mkdir(parents=True, exist_ok=True)
-        settings_screen._SETTINGS_PATH = str(Path(self._tmpdir.name, "saves", "settings.json"))
+        settings_screen._SETTINGS_PATH = str(
+            Path(self._tmpdir.name, "saves", "settings.json")
+        )
         settings_screen.save_settings(settings_screen.SettingsState())
 
     def tearDown(self) -> None:
@@ -189,17 +199,58 @@ class SettingsScreenDisplayTest(unittest.TestCase):
     def test_settings_panel_exposes_display_and_text_size_selectors(self) -> None:
         view = settings_screen.SettingsView()
         view.window = _FakeWindow()
-        view.on_draw()
+        from game.ui.components.utilities.settings import SettingsDeck
+        from game.ui.components.visual_kit import VisualKit
 
+        deck = SettingsDeck()
+
+        class Paint:
+            _texts = {}
+
+            def resize(self):
+                pass
+
+            def panel(self, *args, **kwargs):
+                pass
+
+            def glow(self, *args, **kwargs):
+                pass
+
+            def fit(self, text, *args, **kwargs):
+                return text
+
+            def text(self, text, x, y, *args, **kwargs):
+                _capture_draw_text(text, x, y, font_size=args[0])
+                return types.SimpleNamespace(
+                    text=text, content_width=len(text) * 6, content_height=16
+                )
+
+        deck.paint = Paint()
+        view._visual_deck = deck
+        with unittest.mock.patch.object(VisualKit, "image"), unittest.mock.patch.object(
+            VisualKit, "icon"
+        ):
+            view.on_draw()
+
+        self.assertTrue(
+            all(
+                0 <= l < r <= view.window.width and 0 <= b < t <= view.window.height
+                for l, b, r, t, _ in view._hits
+            )
+        )
         self.assertTrue(any(action == "screen_prev" for *_hit, action in view._hits))
         self.assertTrue(any(action == "screen_next" for *_hit, action in view._hits))
         self.assertTrue(any(action == "text_prev" for *_hit, action in view._hits))
         self.assertTrue(any(action == "text_next" for *_hit, action in view._hits))
-        self.assertTrue(any("Display Screen" in text for text in captured_draw_text))
-        self.assertTrue(any("Text Size" in text for text in captured_draw_text))
-        self.assertTrue(any(action == "godot_bin_browse" for *_hit, action in view._hits))
-        self.assertTrue(any(action == "godot_bin_clear" for *_hit, action in view._hits))
-        self.assertTrue(any("Godot Executable" in text for text in captured_draw_text))
+        self.assertTrue(any("Monitor" in text for text in captured_draw_text))
+        self.assertTrue(any("Text size" in text for text in captured_draw_text))
+        self.assertTrue(
+            any(action == "godot_bin_browse" for *_hit, action in view._hits)
+        )
+        self.assertTrue(
+            any(action == "godot_bin_clear" for *_hit, action in view._hits)
+        )
+        self.assertTrue(any("GODOT EXECUTABLE" in text for text in captured_draw_text))
 
     def test_godot_executable_path_browse_commits_and_clears(self) -> None:
         view = settings_screen.SettingsView()
@@ -246,9 +297,13 @@ class SettingsScreenDisplayTest(unittest.TestCase):
 
         view._apply_and_save()
 
-        fullscreen_calls = [call for call in view.window.calls if call[0] == "set_fullscreen"]
+        fullscreen_calls = [
+            call for call in view.window.calls if call[0] == "set_fullscreen"
+        ]
         self.assertTrue(fullscreen_calls)
-        self.assertEqual(fullscreen_calls[-1][2].get("screen").get_monitor_name(), "Studio")
+        self.assertEqual(
+            fullscreen_calls[-1][2].get("screen").get_monitor_name(), "Studio"
+        )
 
     def test_large_text_has_readability_floor_for_small_labels(self) -> None:
         previous = set_text_size("medium")
