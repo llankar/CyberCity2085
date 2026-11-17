@@ -18,13 +18,14 @@ var _baked_only := false
 var _fade_alpha := .16
 var _contact_shapes: Array[PackedVector2Array]=[]
 var _ground_patches: Array[Dictionary]=[]
+var _sprite: Dictionary = {}
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 
 func configure(wall: Dictionary, board, texture: Texture2D, depth = null) -> void:
-	_baked_only=false;_contact_shapes.clear();_ground_patches.clear()
+	_baked_only=false;_contact_shapes.clear();_ground_patches.clear();_sprite.clear()
 	map_texture=texture
 	parts.clear();floor.clear();_occluders.clear()
 	height=0
@@ -50,6 +51,7 @@ func configure(wall: Dictionary, board, texture: Texture2D, depth = null) -> voi
 		height=float(volume.height)
 		parts.assign(volume.parts)
 		floor=volume.floor
+		_sprite=volume.get("sprite",{})
 		_baked_only=bool(volume.get("baked_only",false))
 		_fade_alpha=float(volume.get("fade_alpha",.16))
 		for raw_shape in volume.get("ground_shapes",[]):
@@ -71,7 +73,9 @@ func configure(wall: Dictionary, board, texture: Texture2D, depth = null) -> voi
 					for point: Vector2 in shadow:shifted.append(point+Vector2(height*.18,height*.10))
 					_shadow_polygons.append(shifted)
 		for i in range(top.size()): top[i]-=Vector2(0,height)
-	if parts.is_empty(): _occluders.append(top)
+	if not _sprite.is_empty():
+		for shape: PackedVector2Array in _sprite.silhouettes:_occluders.append(shape)
+	elif parts.is_empty(): _occluders.append(top)
 	else:
 		for part: Dictionary in parts:
 			_occluders.append(part.cap)
@@ -115,6 +119,9 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	if top.size()<3 or _baked_only:return
+	if not _sprite.is_empty():
+		draw_texture_rect(_sprite.texture,_sprite.rect,false,_sprite.get("color",Color.WHITE))
+		return
 	if parts.is_empty():
 		if map_texture!=null: draw_polygon(top,PackedColorArray([Color.WHITE]),uvs,map_texture)
 		return

@@ -20,18 +20,36 @@ const ACTIONS: Array[String] = ["MOVE", "MELEE", "FIRE", "PSI", "DEFEND", "OVERW
 # Named action → mechanics. Covers every action name that can appear in
 # a squad member's available_actions list from the handoff JSON.
 const _ACTION_DEFS: Dictionary = {
+	"Precision Shot": {"type":"FIRE","range":36,"damage":11,"heal":0,"ap":2},
+	"Shotgun Blast": {"type":"FIRE","range":8,"damage":9,"heal":0,"ap":1},
+	"SMG Spray": {"type":"FIRE","range":10,"damage":5,"heal":0,"ap":1},
+	"Plasma Shot": {"type":"FIRE","range":12,"damage":6,"heal":0,"ap":1},
+	"Magnum Shot": {"type":"FIRE","range":12,"damage":6,"heal":0,"ap":1},
+	"Gravity Shot": {"type":"FIRE","range":30,"damage":12,"heal":0,"ap":2},
+	"Arc Discharge": {"type":"FIRE","range":24,"damage":7,"heal":0,"ap":2},
+	"Fire Spray": {"type":"FIRE","range":10,"damage":7,"heal":0,"ap":2},
+	"Shock Burst": {"type":"FIRE","range":18,"damage":7,"heal":0,"ap":1},
+	"Minigun Spray": {"type":"FIRE","range":24,"damage":9,"heal":0,"ap":2},
+	"Rail Shot": {"type":"FIRE","range":36,"damage":12,"heal":0,"ap":2},
+	"Rocket Volley": {"type":"FIRE_AOE","range":24,"damage":10,"heal":0,"ap":2,"aoe_radius":2},
+	"Grenade": {"type":"FIRE_AOE","range":12,"damage":8,"heal":0,"ap":2,"aoe_radius":2},
+	"EMP Pulse": {"type":"FIRE","range":18,"damage":5,"heal":0,"ap":1},
+	"Sensor Lock": {"type":"FIRE","range":9,"damage":3,"heal":0,"ap":1},
+	"Stun Strike": {"type":"MELEE","range":1,"damage":4,"heal":0,"ap":1},
+	"Silent Kill": {"type":"MELEE","range":1,"damage":6,"heal":0,"ap":1},
+	"Shield Bash": {"type":"MELEE","range":1,"damage":6,"heal":0,"ap":1},
 	"Move":          {"type": "MOVE",     "range": 0, "damage": 0, "heal": 0, "ap": 0},
 	"Defend":        {"type": "DEFEND",   "range": 0, "damage": 0, "heal": 0, "ap": 1},
 	"Overwatch":     {"type": "OVERWATCH","range": 0, "damage": 0, "heal": 0, "ap": 1},
-	"Pistol Shot":   {"type": "FIRE",     "range": 3, "damage": 3, "heal": 0, "ap": 1},
-	"Rifle Burst":   {"type": "FIRE",     "range": 6, "damage": 5, "heal": 0, "ap": 1},
-	"Plasma Burst":  {"type": "FIRE",     "range": 5, "damage": 8, "heal": 0, "ap": 2},
+	"Pistol Shot":   {"type": "FIRE",     "range": 10, "damage": 4, "heal": 0, "ap": 1},
+	"Rifle Burst":   {"type": "FIRE",     "range": 24, "damage": 7, "heal": 0, "ap": 1},
+	"Plasma Burst":  {"type": "FIRE",     "range": 18, "damage": 9, "heal": 0, "ap": 2},
 	"Katana Slash":  {"type": "MELEE",    "range": 1, "damage": 7, "heal": 0, "ap": 1},
 	"Blade Strike":  {"type": "MELEE",    "range": 1, "damage": 5, "heal": 0, "ap": 1},
 	"Servo Punch":   {"type": "MELEE",    "range": 1, "damage": 9, "heal": 0, "ap": 1},
 	"Psi Focus":     {"type": "PSI_HEAL", "range": 0, "damage": 0, "heal": 0, "ap": 1, "stress_relief": 25},
 	"Trauma Patch":  {"type": "HEAL",     "range": 0, "damage": 0, "heal": 12,"ap": 1},
-	"Missile Salvo": {"type": "FIRE_AOE", "range": 8, "damage": 6, "heal": 0, "ap": 2, "aoe_radius": 2},
+	"Missile Salvo": {"type": "FIRE_AOE", "range": 24, "damage": 10, "heal": 0, "ap": 2, "aoe_radius": 2},
 }
 const GRID_COLS := 40
 const GRID_ROWS := 28
@@ -1040,8 +1058,12 @@ func _frame_squad() -> void:
 		if int(unit.get("hp",0))>0:bounds=bounds.expand(_battlefield.cell_to_world(_cell_position(unit)))
 	var reading:=_overview_zoom()
 	if visual_mode and _battlefield.top_down:
-		_camera.zoom=Vector2.ONE*reading
-		_camera.position=_battlefield.source_rect.get_center()+Vector2(0,size.y*.035/reading)
+		var body: float=_battlefield.source_rect.size.x*_battlefield.human_height_ratio
+		var cinematic: float=96.0*clampf(size.y/1080.0,.75,1.6)/maxf(1,body)
+		var margin: float=body*2.0
+		var fit: float=minf(size.x*.72/maxf(1,bounds.size.x+margin),size.y*.58/maxf(1,bounds.size.y+margin))
+		_camera.zoom=Vector2.ONE*clampf(minf(maxf(reading,cinematic),fit),reading,_close_zoom())
+		_camera.position=bounds.get_center()+Vector2(0,size.y*.09/_camera.zoom.y)
 		return
 	var available:=Vector2(size.x*.70,size.y*.55)
 	var margin: float=_battlefield.iso_tw*3.0
@@ -1217,17 +1239,25 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	var active := _current_active_player()
 	if active.is_empty(): return
 	var ap := int(active.get("ap", 0))
-	var ap_cost: int = _action_ap_cost("Missile Salvo")
+	var action := selected_action if _action_type(selected_action)=="FIRE_AOE" else "Missile Salvo"
+	var origin := _cell_position(active)
+	var distance := absi(origin.x-center_cell.x)+absi(origin.y-center_cell.y)
+	var reach := _action_range(action)
+	if distance>reach:
+		status_line="Cible hors de portée (distance %d / portée %d cases)."%[distance,reach]
+		_sync_display()
+		return
+	var ap_cost: int = _action_ap_cost(action)
 	if ap < ap_cost:
-		status_line = "Not enough AP (Missile Salvo costs %d AP)." % ap_cost
+		status_line = "Not enough AP (%s costs %d AP)." % [action,ap_cost]
 		_sync_display()
 		return
 	active["ap"] = maxi(0, ap - ap_cost)
 	player_units[active_player_index] = active
 	if visual_mode:
 		_visual_fx.burst("explosion", Vector2.ZERO, _battlefield.cell_to_world(center_cell))
-	var base_dmg   := _action_damage("Missile Salvo")
-	var aoe_radius := int((_ACTION_DEFS.get("Missile Salvo", {}) as Dictionary).get("aoe_radius", 2))
+	var base_dmg   := _action_damage(action)
+	var aoe_radius := int((_ACTION_DEFS.get(action, {}) as Dictionary).get("aoe_radius", 2))
 	var hits := 0
 	for j in range(enemy_units.size()):
 		var eu := enemy_units[j] as Dictionary
@@ -1245,7 +1275,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 				_unit_tokens[ekey].play_death()
 				CombatSignals.unit_died.emit(j, true)
 		hits += 1
-	var line := "%s: Missile Salvo — %d enemies hit." % [_active_unit_name(), hits]
+	var line := "%s: %s — %d enemies hit." % [_active_unit_name(),action,hits]
 	_log_event(line)
 	status_line = line
 	CombatSignals.audio_event.emit("fire")
@@ -1445,11 +1475,11 @@ func _resolve_enemy_turn() -> void:
 
 func _subtype_attack_range(subtype: String) -> int:
 	match subtype:
-		"grunt":     return 3    # pistol — short
-		"heavy":     return 2    # shotgun — very short
-		"sniper":    return 10   # sniper rifle — long
-		"elite":     return 6    # assault rifle — medium
-		"commander": return 6    # rifle — medium
+		"grunt":     return 10    # pistol — short
+		"heavy":     return 8    # shotgun — very short
+		"sniper":    return 36   # sniper rifle — long
+		"elite":     return 24    # assault rifle — medium
+		"commander": return 24    # rifle — medium
 		"psi":       return 4    # psi range
 		_:           return 3
 
@@ -1457,9 +1487,9 @@ func _role_attack_range(role: String, action: String) -> int:
 	if action == "MELEE": return 1
 	if action == "PSI":   return 5
 	match role.to_lower():
-		"sniper":  return 10
-		"samurai": return 3
-		_:         return 6
+		"sniper":  return 36
+		"samurai": return 10
+		_:         return 24
 
 # ─── Named-action helpers ─────────────────────────────────────────────────────
 
@@ -1484,7 +1514,7 @@ func _action_damage(action: String) -> int:
 	var def := _ACTION_DEFS.get(action, {}) as Dictionary
 	if def.is_empty():
 		match action:
-			"FIRE":  return 5
+			"FIRE":  return 7
 			"MELEE": return 4
 			"PSI":   return 3
 		return 4
@@ -1554,11 +1584,11 @@ func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void
 	var damage: int
 	var base_hit: float
 	match subtype:
-		"grunt":     damage = 2; base_hit = 60.0   # pistol
-		"heavy":     damage = 5; base_hit = 70.0   # shotgun — reliable up close
-		"sniper":    damage = 6; base_hit = 82.0   # sniper rifle — high damage, accurate
-		"elite":     damage = 4; base_hit = 70.0   # assault rifle
-		"commander": damage = 3; base_hit = 68.0   # rifle
+		"grunt":     damage = 4; base_hit = 60.0   # pistol
+		"heavy":     damage = 9; base_hit = 70.0   # shotgun — reliable up close
+		"sniper":    damage = 11; base_hit = 82.0   # sniper rifle — high damage, accurate
+		"elite":     damage = 7; base_hit = 70.0   # assault rifle
+		"commander": damage = 7; base_hit = 68.0   # rifle
 		"psi":       damage = 2; base_hit = 65.0
 		_:           damage = 2; base_hit = 60.0
 
@@ -1963,9 +1993,18 @@ func _build_visual_obstacles() -> void:
 	if "--legacy-environment" in OS.get_cmdline_user_args() and environment_depth_enabled and visual_quality>0:
 		depth=preload("res://scripts/environment_depth_legacy.gd").new()
 		depth.prepare(map_texture,_battlefield,path)
-	elif depth!=null and not _battlefield.top_down: depth.prepare(map_texture,_battlefield,path,_asset_path(path))
+	elif depth!=null: depth.prepare(map_texture,_battlefield,path,_asset_path(path))
 	var seen: Dictionary = {}
-	for wall: Dictionary in ([] if _battlefield.top_down else cover_nodes):
+	var render_walls: Array[Dictionary]=[]
+	if _battlefield.top_down and depth!=null:
+		var replacements: Array[Dictionary]=preload("res://scripts/environment_catalog.gd").art_walls(path)
+		var replaced: Dictionary={}
+		for entry: Dictionary in replacements:replaced[entry.source_object_id]=true
+		for wall: Dictionary in cover_nodes:
+			if not replaced.has(str(wall.get("wall_id",""))):render_walls.append(wall)
+		render_walls.append_array(replacements)
+	elif not _battlefield.top_down:render_walls.assign(cover_nodes)
+	for wall: Dictionary in render_walls:
 		var id := str(wall.get("wall_id", ""))
 		if id.is_empty() or seen.has(id): continue
 		seen[id] = true
