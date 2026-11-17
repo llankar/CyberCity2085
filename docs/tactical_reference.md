@@ -114,8 +114,9 @@ The supplied infiltration reference now guides unit presentation with the existi
 character artwork and current token scale. Living bodies stay solid and brighter
 than the terrain. The active ally gets a narrow cyan silhouette and ground
 selection diamond; targeted enemies get a red silhouette, ground diamond and
-luminous corner brackets fitted to the visible body. Ordinary units retain a
-quieter contour, so selection has clear visual priority. Silhouette and bracket
+luminous corner brackets fitted to the visible body. Every living ally has a cyan contour and every living enemy a red contour,
+including unselected units. Selection adds a thicker, brighter contour, so it
+retains clear visual priority. Silhouette and bracket
 thickness use screen pixels across camera zooms; source images, atlas animation,
 collision cells and tactical scale are preserved.
 
@@ -148,3 +149,15 @@ DISPLAY=:103 ALSOFT_DRIVERS=null python -m pytest -q tests/test_unit_readability
 
 Use an available X11 display. The reference capture can also be reproduced with
 `godot --path godot/combat_missions_ui --rendering-method gl_compatibility --audio-driver Dummy --script tests/capture_reference.gd -- --target-reference`.
+
+
+### Always-visible faction contours
+
+Cyan/red silhouette outlines are enabled for all living units, independently of
+selection, targeting or active turn. The ordinary outline is approximately
+1.35 screen pixels; selected/targeted outlines are 1.8 pixels and slightly
+brighter. Empty margins and dead-unit handling remain unchanged. Native pixel
+checks explicitly render an unselected ally and an untargeted enemy and verify
+their cyan/red edges.
+
+[Real capture with all living units outlined](images/unit-reference/all-outlined.png).
