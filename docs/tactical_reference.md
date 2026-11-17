@@ -79,3 +79,31 @@ to anchor above the enlarged visible body.
 [Actual capture at the new zoom with enlarged tokens](images/tactical-zoom-tokens.png).
 The capture driver uses the same adaptive zoom and executes a real rightward
 move on the underground market, including AP deduction and rendered arrival.
+
+## Agent visibility on detailed terrain
+
+Living tactical sprites now have a dedicated unshaded readability material.
+It restores solid body interiors from partially transparent source pixels,
+retains antialiased silhouette edges and empty margins, lifts dark artwork and
+adds a subtle 1.25 screen-pixel silhouette contour (cool for allies, warm for
+enemies). The atlas frame bounds constrain outline sampling, preventing adjacent
+animation frames from bleeding into the contour. Static and animated art share
+the same material; fallen sprites retain their existing subdued rendering.
+
+The art is drawn by a separate child sprite so the correction does not brighten
+health bars, terrain, selection diamonds or combat text. Token scale, collision,
+input hit testing and movement geometry are unchanged.
+
+Actual market captures: [before](images/agent-visibility/before.png) and
+[after](images/agent-visibility/after.png). The capture also executes a rightward
+move and verifies its AP cost and rendered destination. The native readability
+regression checks rendered RGB pixels from semitransparent source art, untouched
+background pixels, atlas/static parity, and dead-token hiding.
+
+```sh
+DISPLAY=:103 ALSOFT_DRIVERS=null python -m pytest -q tests/test_unit_readability_runtime.py tests/test_tactical_reference_runtime.py tests/test_godot_launch_routing.py
+```
+
+Replace `:103` with the available X11 display. The pixel test requires the real
+compatibility renderer and skips without a display; headless geometry tests
+remain independent of it.
