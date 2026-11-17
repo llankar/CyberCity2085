@@ -171,10 +171,11 @@ func _draw() -> void:
 		_ds(_fit(status_line,size.x-50,17),Vector2(18,_roster_y-12),17,NEON)
 	if show_log: _draw_combat_log()
 	if settings_open:
-		_panel(Rect2(size.x-346,80,330,152),NEON)
+		_panel(Rect2(size.x-346,80,330,184),NEON)
 		_ds("QUALITÉ GRAPHIQUE",Vector2(size.x-330,104),19,TEXT)
 		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
-		_ds("F10 : relief " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
+		_ds("F10 : relief isométrique " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
+		_ds("F11 : vue de haut / isométrique",Vector2(size.x-330,242),17,TEXT)
 
 func _fit(value: String, width: float, font_size: int) -> String:
 	var font := ThemeDB.fallback_font

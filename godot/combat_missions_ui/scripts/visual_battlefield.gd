@@ -1,5 +1,7 @@
 extends "res://scripts/battlefield.gd"
 ## Original tactical board and geometry APIs; presentation overrides only.
+var top_down := true
+var human_height_ratio := .035
 var quality := 2
 var weather := "rain"
 var _depth_props: Array[Node2D] = []
@@ -48,6 +50,7 @@ func _route_preview_geometry() -> Dictionary:
 	var center := points[-1]
 	var direction := (center-points[-2]).normalized()
 	var radius := 1.0 / (absf(direction.x)/(iso_tw*DESTINATION_SCALE)+absf(direction.y)/(iso_th*DESTINATION_SCALE))
+	if top_down:radius=minf(iso_tw*DESTINATION_SCALE/maxf(.0001,absf(direction.x)),iso_th*DESTINATION_SCALE/maxf(.0001,absf(direction.y)))
 	var tip := center-direction*radius
 	points[-1] = tip
 	var pixel := _screen_unit()
@@ -122,6 +125,18 @@ var _u_axis := Vector2.ZERO
 var _v_axis := Vector2.ZERO
 
 func _compute_rect() -> void:
+	if top_down:
+		var width := maxf(300.0,viewport_size.x-LEFT_MARGIN*2.0)
+		var ratio := float(map_texture.get_height())/float(map_texture.get_width()) if map_texture!=null else 9.0/16.0
+		iso_origin=Vector2(LEFT_MARGIN,TOP_BAR_H+8)
+		_u_axis=Vector2(width,0)
+		_v_axis=Vector2(0,width*ratio)
+		_row_scale=float(GRID_COLS)*ratio/float(GRID_ROWS)
+		iso_tw=width/float(GRID_COLS)*.5
+		iso_th=width*ratio/float(GRID_ROWS)*.5
+		source_rect=Rect2(iso_origin,Vector2(width,width*ratio))
+		battlefield_rect=source_rect
+		return
 	# Calibrate the two isometric axes to actual source pixels, not 40:28 by fiat.
 	# Equal source-pixel distances have equal projected scale on either axis.
 	var width := maxf(300.0,viewport_size.x-LEFT_MARGIN*2.0)
@@ -143,11 +158,17 @@ func cell_to_world(cell: Vector2i) -> Vector2:
 
 func world_to_cell(point: Vector2) -> Vector2i:
 	var local:=point-iso_origin
+	if top_down:
+		return Vector2i(clampi(floori(local.x/_u_axis.x*GRID_COLS),0,GRID_COLS-1),clampi(floori(local.y/_v_axis.y*GRID_ROWS),0,GRID_ROWS-1))
 	var column: float=(local.x/iso_tw+local.y/iso_th)*.5
 	var row: float=(local.y/iso_th-local.x/iso_tw)*.5/_row_scale
 	return Vector2i(clampi(floori(column),0,GRID_COLS-1),clampi(floori(row),0,GRID_ROWS-1))
 
 func _iso_corners(cell: Vector2i) -> PackedVector2Array:
+	if top_down:
+		var uv := Vector2(cell)/Vector2(GRID_COLS,GRID_ROWS)
+		var step := Vector2.ONE/Vector2(GRID_COLS,GRID_ROWS)
+		return PackedVector2Array([uv_to_world(uv),uv_to_world(uv+Vector2(step.x,0)),uv_to_world(uv+step),uv_to_world(uv+Vector2(0,step.y))])
 	var center:=cell_to_world(cell)
 	return PackedVector2Array([center+Vector2(0,-iso_th),center+Vector2(iso_tw,0),center+Vector2(0,iso_th),center+Vector2(-iso_tw,0)])
 
@@ -191,3 +212,8 @@ func _draw_objective() -> void:
 func set_depth_props(props: Array[Node2D]) -> void:
 	_depth_props=props.duplicate()
 	queue_redraw()
+
+func token_terrain_scale() -> float:
+	# Presentation only: never rescale cells, PA costs, pathfinding or LOS.
+	if not top_down:return 1.0
+	return source_rect.size.x*human_height_ratio/maxf(.001,iso_tw*2.0*.70*1.10)

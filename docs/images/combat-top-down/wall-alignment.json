@@ -1,0 +1,861 @@
+{
+  "projection": "source_top_down",
+  "coordinates": "texture_top_left",
+  "regenerated": 122,
+  "maps": [
+    {
+      "map": "city_district_apartment_block.png",
+      "source_sha256": "06a002a312b241246d66d69c9f60a0fef099b2fc38cffde2b1fdcc719f0c7b06",
+      "walls": 35,
+      "vertices": 150,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_district_civic_center.png",
+      "source_sha256": "37973c1bc52dcb49618cdd968aa5f1ba5dc49c4e9bc38082b6a0cff910f2b932",
+      "walls": 33,
+      "vertices": 167,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_district_holo_square.png",
+      "source_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
+      "walls": 39,
+      "vertices": 219,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_district_riot_square.png",
+      "source_sha256": "61f03db7c45f21c6f76dd82d964d13ca6465c4545a13b46f39244de905e76acf",
+      "walls": 28,
+      "vertices": 127,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_district_tech_market.png",
+      "source_sha256": "3b3c16a75c052c1310aa9062d25fb207207573d230119794a10057739d7efc0f",
+      "walls": 30,
+      "vertices": 169,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_billboard_avenue.png",
+      "source_sha256": "18ac7cfe4d5fffaaef830c431f4822830ff433bbbbd27a15919a819c9a84a3c9",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_corporate_plaza.png",
+      "source_sha256": "788a471bec1196a50eba4312563ea6fdea80736ae22580360193557efd2dcb97",
+      "walls": 23,
+      "vertices": 92,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_downtown_intersection.png",
+      "source_sha256": "248e5a0c133d2072ab9feea40622ca363956402d407883115be1641db31bb5c4",
+      "walls": 22,
+      "vertices": 88,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_elevated_freeway.png",
+      "source_sha256": "59ac85790d4d2e31e98cbeb11614c7cf69d8f49b75b13f7ceebb0cb866503b8c",
+      "walls": 19,
+      "vertices": 88,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_neon_market_alley.png",
+      "source_sha256": "78da81c6b3d9eb160891ea019faf718790392fd06504dc10ae175fa270cece6e",
+      "walls": 24,
+      "vertices": 96,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_parking_garage.png",
+      "source_sha256": "3b1c6be96b00a184c028cae12cd94ced01f147bd5a8b7bf0bf2a46a23adfb43c",
+      "walls": 30,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_rooftop_access.png",
+      "source_sha256": "d20d671a16c8412f5dfd893e17cc25263e2cd3427301ffbd5625722fcbe99128",
+      "walls": 22,
+      "vertices": 128,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_exterior_waterfront_docks.png",
+      "source_sha256": "208dc966b42ea4dcab99bf431730dce45e617132ebbdc600382746e5aea4156b",
+      "walls": 25,
+      "vertices": 121,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_data_vault.png",
+      "source_sha256": "78b56dab11e5961068e4dbc6810f6b05048fa59fd255d6eb45cfcd37b86447ed",
+      "walls": 23,
+      "vertices": 160,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_dockside_terminal.png",
+      "source_sha256": "678df8ffd5ccb76dfa31a5fe58daae2e4fcf4a44cb9ae135a2ad1d2216a3d043",
+      "walls": 67,
+      "vertices": 270,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_factory_floor.png",
+      "source_sha256": "da05dafc0b935fca12ba34463b618c6a92df7028f9ba4068ccc66e6aaaa50e73",
+      "walls": 32,
+      "vertices": 128,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_power_substation.png",
+      "source_sha256": "c79b96f003836a2a06fb4e93c175b92b65a3049c26e93230d7bc3d1ebe069754",
+      "walls": 28,
+      "vertices": 128,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_security_checkpoint.png",
+      "source_sha256": "41c7c9514c5e00d513065f18241c2a8a81fed924b36eb67b7df033b2ded1ccf7",
+      "walls": 29,
+      "vertices": 116,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_service_tunnel.png",
+      "source_sha256": "2bab2dd72faf5f1f788c60036fae146f36b9d9f1ea5bcee1410713a8728c294c",
+      "walls": 74,
+      "vertices": 441,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_industrial_warehouse_floor.png",
+      "source_sha256": "8f3d7bfe8a07b103f21296d11dfbc43db26c1bf7d37f50b924cac3a189b44449",
+      "walls": 35,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_blacksite_lab.png",
+      "source_sha256": "106fe4c9fc4c47c2744244b77ef24b3732ba0b59d8424b0b95aa4777e20b805e",
+      "walls": 39,
+      "vertices": 160,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_command_deck.png",
+      "source_sha256": "856c07bcdd09ae1ece6200fa2ee5d69b0103867c2937924248c5849a64d7329c",
+      "walls": 30,
+      "vertices": 132,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_control_center.png",
+      "source_sha256": "d4b762af20f714e6f57cd72c9be6d4548800a3e199b345490d9347c6294dfbb1",
+      "walls": 29,
+      "vertices": 132,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_corporate_lobby.png",
+      "source_sha256": "ae0a2f386b1b55caae2003ce51919837b12fc8dc5e393936e8d59c33d78f5128",
+      "walls": 44,
+      "vertices": 188,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_cyber_cafe.png",
+      "source_sha256": "5b6f8488077e8d68e4acbbadafacf730ad48780aacd0780e9073d6fe77a0c112",
+      "walls": 37,
+      "vertices": 148,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_medical_clinic.png",
+      "source_sha256": "8703ad9dae4435a4eb9e70ca48d620e3896110d7336dd2c3246fbbde7c83691e",
+      "walls": 36,
+      "vertices": 160,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_penthouse_atrium.png",
+      "source_sha256": "104374b6a5837b8c86bb2f7f82bf003b020cb9f76410525e9adc256377263c57",
+      "walls": 35,
+      "vertices": 158,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_police_records.png",
+      "source_sha256": "9b3d02e44d32a228296104494d000b157c4e26addfba756e3a308617246a2c87",
+      "walls": 25,
+      "vertices": 116,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_research_lab.png",
+      "source_sha256": "ea1304ced100f3ba29b84b87e3a83a86b52ff4c34fd3b478d25b003a88f800de",
+      "walls": 34,
+      "vertices": 160,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_safehouse.png",
+      "source_sha256": "309eaaf0bdfb5fae1afd7973f9835aafe010885eaa3018c40ab389948416d1f1",
+      "walls": 46,
+      "vertices": 204,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_interior_server_room.png",
+      "source_sha256": "60e42c0bf67f0b06cf058d9f5ef5291fee16dcd5cae52aa3215a007ab2a3491c",
+      "walls": 34,
+      "vertices": 148,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_rooftop_skybridge_spine.png",
+      "source_sha256": "fe925c6744d2726f35447647771e031d93c3bfd19a11fbd02670f07fa43debe1",
+      "walls": 20,
+      "vertices": 117,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_transit_freight_yard.png",
+      "source_sha256": "004a45bd35bb61692d4c8d9a31ce364955031c53bc89232a6da90596561f692e",
+      "walls": 29,
+      "vertices": 116,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_transit_metro_interchange.png",
+      "source_sha256": "a06c570b5e700ae7a310607060cd45752d78b060e36a3550610326c678dca79d",
+      "walls": 37,
+      "vertices": 172,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_transit_subway_platform.png",
+      "source_sha256": "39e14a74b0e439c5753ccc91fb419258c90800340c0c929b719b2d0adfef73b9",
+      "walls": 24,
+      "vertices": 96,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "city_transit_train_tunnel.png",
+      "source_sha256": "34dfd3988dfb2fe3ac4f37bdbde28a2c356bf94a8e6103e0ee8f2554d03ea8d3",
+      "walls": 30,
+      "vertices": 120,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_01_control_center.png",
+      "source_sha256": "5e9d1f1207cc02315a1ebc567bba9c2f400fd97191efd595f5c5543c48892172",
+      "walls": 29,
+      "vertices": 124,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_02_safehouse.png",
+      "source_sha256": "8b1ba400053e614dba42d2d3cafb10bf8308b479781b0b6e3bf0d5b22db3bdd7",
+      "walls": 29,
+      "vertices": 124,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "source_sha256": "7c7e66048eb0827e94355468252c1a1da61cfc691ab544335326cc5d8d7c9936",
+      "walls": 38,
+      "vertices": 172,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_04_medical_clinic.png",
+      "source_sha256": "befc138a00d2646b615448fa63b3b189a70fc13adbb3d6297a7b6e9d061b7683",
+      "walls": 34,
+      "vertices": 146,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_05_server_room.png",
+      "source_sha256": "5ebf335860156353b42cb285bc91ac187a819dd4b172867ee1edb8e3af626cad",
+      "walls": 35,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_06_blacksite_lab.png",
+      "source_sha256": "37933ec1d505b556f8500f3bc07cd992d4d81a531f9532d7fae31ab96912a1b6",
+      "walls": 28,
+      "vertices": 116,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_07_corporate_lobby.png",
+      "source_sha256": "18f8f6e48e676e49c98aaf8738996129a828d2442d94f8e0f8ab2135fe0b86e0",
+      "walls": 39,
+      "vertices": 156,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_08_police_records.png",
+      "source_sha256": "a6e98f1a127d3c8f81beca55b4b0add92732b9ac27b7754b2e548a3ed44d4c2b",
+      "walls": 31,
+      "vertices": 128,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_09_apartment_block.png",
+      "source_sha256": "b115824e430861519da94fd7d721512beb252093b033efbddda89c2db74d9cc0",
+      "walls": 45,
+      "vertices": 180,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_10_penthouse_atrium.png",
+      "source_sha256": "2702f32081971cf45ae437989b69feabc82d3a2018cef81258fe28404efe85d6",
+      "walls": 25,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_11_cyber_cafe.png",
+      "source_sha256": "751adb8be41aeb12d9a1cb2bbdc3e0ae07a98175e4514844fd4060447a38a8fb",
+      "walls": 27,
+      "vertices": 114,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_12_maintenance_tunnel.png",
+      "source_sha256": "351afab61d4e99a11e968c17fa54b4bc01b5d1e87be4aaa4e26b5b2045f3aa35",
+      "walls": 22,
+      "vertices": 110,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_13_warehouse_floor.png",
+      "source_sha256": "3a7d29887f37e3c9501dce7aa5452a052e9a0e3b14d2f34f0458a7bad08bc8d8",
+      "walls": 34,
+      "vertices": 146,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_14_detention_block.png",
+      "source_sha256": "2ed0ac3e93dec050b505d61ad140bdd975496836cd3d0dcd78376c5909008075",
+      "walls": 40,
+      "vertices": 170,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_inner_15_data_vault.png",
+      "source_sha256": "db21cc7ef608f00c4660a5e89cb087961d9d0a614a55021819e75f775f2f3481",
+      "walls": 31,
+      "vertices": 146,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_01_downtown_intersection.png",
+      "source_sha256": "b0f0447688b85bebf24318579255aca87082df111014f2ccf2d974672aae18e9",
+      "walls": 28,
+      "vertices": 112,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_02_neon_market_alley.png",
+      "source_sha256": "f7c5a417c9ac90635e7caa09bf5a21fd2fd5d3ecbd75b6d372952a3f5dbb8144",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_03_elevated_freeway.png",
+      "source_sha256": "61b7ae45fdd8074b007cf93c840afdfe8a4861f99c924ccaa3f42b9a9e5ed73a",
+      "walls": 21,
+      "vertices": 84,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_04_waterfront_docks.png",
+      "source_sha256": "ec80abac1eccde5a253bc3f7a2fac1b4493aad3896e376910460e41fe6fe35df",
+      "walls": 30,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_05_civic_plaza.png",
+      "source_sha256": "52b220d167a656da4d43fc1918ce984903ade8058e89a3e4d6a0b7dbb5a4dfc5",
+      "walls": 30,
+      "vertices": 129,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_06_downtown_intersection.png",
+      "source_sha256": "9fb3ed827c01a5aec8b1b0c226cc73a1e0292b405ea83f8c0f6bb723f163a5b3",
+      "walls": 22,
+      "vertices": 88,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_06_transit_interchange.png",
+      "source_sha256": "a1b265183d1796f5a410a4d9dc1e3d730698d2c497b2a1272ba338838a1a7ad8",
+      "walls": 25,
+      "vertices": 100,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_07_downtown_intersection.png",
+      "source_sha256": "9fb3ed827c01a5aec8b1b0c226cc73a1e0292b405ea83f8c0f6bb723f163a5b3",
+      "walls": 22,
+      "vertices": 88,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_07_neon_market_alley.png",
+      "source_sha256": "bd8fe08a4a9bbd374d061b7d1116d6b34b82faab4155429f5a8e7eb87115a4cd",
+      "walls": 36,
+      "vertices": 144,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_08_elevated_freeway.png",
+      "source_sha256": "6088626418d6ceda41007c33996d889d093014417f4f4fa4a6b4c2095dd18fee",
+      "walls": 25,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_08_neon_market_alley.png",
+      "source_sha256": "bd8fe08a4a9bbd374d061b7d1116d6b34b82faab4155429f5a8e7eb87115a4cd",
+      "walls": 36,
+      "vertices": 144,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_09_elevated_freeway.png",
+      "source_sha256": "6088626418d6ceda41007c33996d889d093014417f4f4fa4a6b4c2095dd18fee",
+      "walls": 25,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_09_waterfront_docks.png",
+      "source_sha256": "3415ccc8b64af6b839120bb3dade271d813d9a1952b1225e22bff786466db763",
+      "walls": 24,
+      "vertices": 118,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_10_civic_plaza.png",
+      "source_sha256": "980b6ad122ca6da026046d4f0e598cc92c7568779f90ecbd849b39864cd07164",
+      "walls": 28,
+      "vertices": 123,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_10_waterfront_docks.png",
+      "source_sha256": "3415ccc8b64af6b839120bb3dade271d813d9a1952b1225e22bff786466db763",
+      "walls": 24,
+      "vertices": 118,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_11_civic_plaza.png",
+      "source_sha256": "980b6ad122ca6da026046d4f0e598cc92c7568779f90ecbd849b39864cd07164",
+      "walls": 28,
+      "vertices": 123,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_11_transit_interchange.png",
+      "source_sha256": "15195d0b9b05f46df395c50e12359fd30d0ca8e1b9c7826d2622d7ceb710ef66",
+      "walls": 31,
+      "vertices": 124,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_12_industrial_district.png",
+      "source_sha256": "a54e57ede790596f76fbc49b28d431e1d78e12a631a3e8fe2d819a90123d82c0",
+      "walls": 24,
+      "vertices": 96,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_12_transit_interchange.png",
+      "source_sha256": "15195d0b9b05f46df395c50e12359fd30d0ca8e1b9c7826d2622d7ceb710ef66",
+      "walls": 31,
+      "vertices": 124,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_13_flood_prone_avenue.png",
+      "source_sha256": "085aad9b1e37c89b335fa61b2982bf32186c65530b28478f8b70065c6aedec5e",
+      "walls": 23,
+      "vertices": 92,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_13_industrial_district.png",
+      "source_sha256": "a54e57ede790596f76fbc49b28d431e1d78e12a631a3e8fe2d819a90123d82c0",
+      "walls": 24,
+      "vertices": 96,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_14_bridge_access.png",
+      "source_sha256": "872048fdd5b5093582266b9ead0c0ad5110f8588b85ed450b30740e55d2f577a",
+      "walls": 23,
+      "vertices": 98,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_14_flood_prone_avenue.png",
+      "source_sha256": "085aad9b1e37c89b335fa61b2982bf32186c65530b28478f8b70065c6aedec5e",
+      "walls": 23,
+      "vertices": 92,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_15_billboard_avenue.png",
+      "source_sha256": "bd3b3c5d7f774ab77981ebe4731b178ea7cad2f3c33c5d753224b4229c3a346c",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_15_bridge_access.png",
+      "source_sha256": "872048fdd5b5093582266b9ead0c0ad5110f8588b85ed450b30740e55d2f577a",
+      "walls": 23,
+      "vertices": 98,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "cybercity_street_16_billboard_avenue.png",
+      "source_sha256": "bd3b3c5d7f774ab77981ebe4731b178ea7cad2f3c33c5d753224b4229c3a346c",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_01_ruined_downtown.png",
+      "source_sha256": "35c716edaed26bbc83d03257a494a3531a0eaa42984bcdaea3d866e1ba7d44f1",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_02_burned_market_block.png",
+      "source_sha256": "47374fd82047e902b07b1fdd2c1f003e96f7aa3720565ae3eebaa15ade7fe27d",
+      "walls": 25,
+      "vertices": 100,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_03_collapsed_overpass.png",
+      "source_sha256": "175aa6385a1d22f5bcefd1094c4db16f92095e5adf0280be0f8bb4d6af189016",
+      "walls": 24,
+      "vertices": 114,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_04_flooded_civic_square.png",
+      "source_sha256": "e53fd31eddd536d7a60ebe6656d6a1ece355b6b15d9b2aeb2235fb9b091bd5f6",
+      "walls": 25,
+      "vertices": 112,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_05_scavenger_plaza.png",
+      "source_sha256": "a29fc5308c7f5fec37e52c123b7e904819b7b11fdb8c0e26733776f4cc0a5fbd",
+      "walls": 23,
+      "vertices": 98,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_06_ruined_downtown.png",
+      "source_sha256": "35c716edaed26bbc83d03257a494a3531a0eaa42984bcdaea3d866e1ba7d44f1",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_07_burned_market_block.png",
+      "source_sha256": "47374fd82047e902b07b1fdd2c1f003e96f7aa3720565ae3eebaa15ade7fe27d",
+      "walls": 25,
+      "vertices": 100,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_08_collapsed_overpass.png",
+      "source_sha256": "175aa6385a1d22f5bcefd1094c4db16f92095e5adf0280be0f8bb4d6af189016",
+      "walls": 24,
+      "vertices": 114,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_09_flooded_civic_square.png",
+      "source_sha256": "e53fd31eddd536d7a60ebe6656d6a1ece355b6b15d9b2aeb2235fb9b091bd5f6",
+      "walls": 25,
+      "vertices": 112,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_10_scavenger_plaza.png",
+      "source_sha256": "a29fc5308c7f5fec37e52c123b7e904819b7b11fdb8c0e26733776f4cc0a5fbd",
+      "walls": 23,
+      "vertices": 98,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_11_ruined_transit_plaza.png",
+      "source_sha256": "d9c556c9ecc10fb76fa62d7c4a58993525f85d5b2a67ad59d7f12f0be303a54c",
+      "walls": 27,
+      "vertices": 120,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_city_12_cratered_waterfront.png",
+      "source_sha256": "13f26cb674dbb75703f5cd77944f77cfdb121b2a4206e13fdfe4a498aa8380f9",
+      "walls": 20,
+      "vertices": 116,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_01_abandoned_safehouse.png",
+      "source_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
+      "walls": 35,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_02_collapsed_tunnel.png",
+      "source_sha256": "fbe193ae11ac0fe65bb47d85bcf7ccd228beb36f6e4c6e30a207d200a56a58e5",
+      "walls": 29,
+      "vertices": 149,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_03_ruined_clinic.png",
+      "source_sha256": "f342ba8d078bec60193c437d02ec9585a711655f800359113f2bb4b364d81de6",
+      "walls": 38,
+      "vertices": 174,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_04_bunker_command_post.png",
+      "source_sha256": "c62cd0fe875f2dbc40d9207d6615142673088106865ff3cf0d0c1704e96d6bfb",
+      "walls": 31,
+      "vertices": 144,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_05_looted_vault.png",
+      "source_sha256": "45f565f081c0b8a6fb181cb0a9450a3f886f167c01b0c1c95e3aeb645507391e",
+      "walls": 29,
+      "vertices": 164,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_06_abandoned_safehouse.png",
+      "source_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
+      "walls": 35,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_06_maintenance_depot.png",
+      "source_sha256": "5eb050e4e7ba0c02d6d7415e2c0a5b083dcc91868d41f0ff4dbdc016e2248531",
+      "walls": 30,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_07_apartment_shelter.png",
+      "source_sha256": "512a33094b79834db4cb2f373da604a925668cd0e9a0b971421a6eb8d1bec87b",
+      "walls": 36,
+      "vertices": 152,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_07_collapsed_tunnel.png",
+      "source_sha256": "fbe193ae11ac0fe65bb47d85bcf7ccd228beb36f6e4c6e30a207d200a56a58e5",
+      "walls": 29,
+      "vertices": 149,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_08_data_relay_room.png",
+      "source_sha256": "a3098cedf33850109154330c7103c92d9f70cb1d1e4c02afd209ce65b1f844b6",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_08_ruined_clinic.png",
+      "source_sha256": "f342ba8d078bec60193c437d02ec9585a711655f800359113f2bb4b364d81de6",
+      "walls": 38,
+      "vertices": 174,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_09_bunker_command_post.png",
+      "source_sha256": "c62cd0fe875f2dbc40d9207d6615142673088106865ff3cf0d0c1704e96d6bfb",
+      "walls": 31,
+      "vertices": 144,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_09_underground_market.png",
+      "source_sha256": "7c4629e082e9620f70f5852772366ee59f354e444fa7b7bdcf6b579756e5ad56",
+      "walls": 31,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_10_detention_block.png",
+      "source_sha256": "66c81d1122328f303014bbd716d09c4147e3e49da1b7114d1003eb4630a88a3b",
+      "walls": 48,
+      "vertices": 192,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_10_looted_vault.png",
+      "source_sha256": "45f565f081c0b8a6fb181cb0a9450a3f886f167c01b0c1c95e3aeb645507391e",
+      "walls": 29,
+      "vertices": 164,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_11_emergency_medbay.png",
+      "source_sha256": "e5221cd101639e6457466236286e8bbc6cbfd2f2eadf1f88e4f16d7383791d7f",
+      "walls": 42,
+      "vertices": 176,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_11_maintenance_depot.png",
+      "source_sha256": "5eb050e4e7ba0c02d6d7415e2c0a5b083dcc91868d41f0ff4dbdc016e2248531",
+      "walls": 30,
+      "vertices": 122,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_12_apartment_shelter.png",
+      "source_sha256": "512a33094b79834db4cb2f373da604a925668cd0e9a0b971421a6eb8d1bec87b",
+      "walls": 36,
+      "vertices": 152,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_13_data_relay_room.png",
+      "source_sha256": "a3098cedf33850109154330c7103c92d9f70cb1d1e4c02afd209ce65b1f844b6",
+      "walls": 26,
+      "vertices": 104,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_14_underground_market.png",
+      "source_sha256": "7c4629e082e9620f70f5852772366ee59f354e444fa7b7bdcf6b579756e5ad56",
+      "walls": 31,
+      "vertices": 140,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_inner_15_detention_block.png",
+      "source_sha256": "66c81d1122328f303014bbd716d09c4147e3e49da1b7114d1003eb4630a88a3b",
+      "walls": 48,
+      "vertices": 192,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_01_dust_road_ambush.png",
+      "source_sha256": "9a299c272be1e9c93d3d549f4ce062d7f9df5a0c69e9ba67417a12440bf5dd82",
+      "walls": 18,
+      "vertices": 84,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_02_ashfield_ruins.png",
+      "source_sha256": "79da316094c7c48c0da5c3a5c6a5b08aec07b52e8e2e3789596a944252c72c2e",
+      "walls": 15,
+      "vertices": 77,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_03_wrecked_highway.png",
+      "source_sha256": "b37edb025b3602c1c66783c26189b118a1551579ca6f62a26ce3c783e3ad3ef5",
+      "walls": 20,
+      "vertices": 102,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_04_rusted_trainyard.png",
+      "source_sha256": "c0238e27caaaf3534ffc158c49c830dd0648971edbddf1bfad2a2142f3d32b38",
+      "walls": 27,
+      "vertices": 108,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_05_irradiated_basin.png",
+      "source_sha256": "b37df8773e1f25b1beb8abff1d92b9a97db552ca742356add0815863ba67456a",
+      "walls": 24,
+      "vertices": 108,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_06_dust_road_ambush.png",
+      "source_sha256": "9a299c272be1e9c93d3d549f4ce062d7f9df5a0c69e9ba67417a12440bf5dd82",
+      "walls": 18,
+      "vertices": 84,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_07_ashfield_ruins.png",
+      "source_sha256": "79da316094c7c48c0da5c3a5c6a5b08aec07b52e8e2e3789596a944252c72c2e",
+      "walls": 15,
+      "vertices": 77,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_08_wrecked_highway.png",
+      "source_sha256": "b37edb025b3602c1c66783c26189b118a1551579ca6f62a26ce3c783e3ad3ef5",
+      "walls": 20,
+      "vertices": 102,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_09_rusted_trainyard.png",
+      "source_sha256": "c0238e27caaaf3534ffc158c49c830dd0648971edbddf1bfad2a2142f3d32b38",
+      "walls": 27,
+      "vertices": 108,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_10_irradiated_basin.png",
+      "source_sha256": "b37df8773e1f25b1beb8abff1d92b9a97db552ca742356add0815863ba67456a",
+      "walls": 24,
+      "vertices": 108,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_11_convoy_crossing.png",
+      "source_sha256": "fed1c51a7242e8c636507aa9ad4033a9bf2502f346fb16947d78fcd9b8e1be8c",
+      "walls": 24,
+      "vertices": 108,
+      "tactical_geometry_unchanged": true
+    },
+    {
+      "map": "wasteland_outdoor_12_salt_flat_ambush.png",
+      "source_sha256": "7c25c5f0dfdfcb2548e737e31ff7ba380c0a49156b0581ce56e0e79ded33bd29",
+      "walls": 20,
+      "vertices": 94,
+      "tactical_geometry_unchanged": true
+    }
+  ]
+}

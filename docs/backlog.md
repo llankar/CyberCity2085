@@ -661,3 +661,13 @@ Détails et captures : [UI Visual Unification Pass](ui_visual_unification.md).
 - [x] CV24-05 Documenter la couverture et les limites ; publier puis fusionner la branche vérifiée conformément à l’autorisation permanente de l’utilisateur.
 
 Détails : [Combat Visual 2.4](combat_visual_24.md).
+
+## Combat — vue de haut 2.5D et échelle des cartes — 17 novembre 2026
+
+- [x] TOP-01 Projeter les décors sans rotation ni compression, avec inverse de clic et cases adaptés.
+- [x] TOP-02 Séparer l’échelle artistique des unités des cellules tactiques, avec 122 réglages explicites et zoom adapté.
+- [x] TOP-03 Reconstruire et vérifier les 122 relevés / 3 597 obstacles ; conserver les données identiques et rétablir le mobilier source dans la vue de haut.
+- [x] TOP-04 Tester les interactions, l’IA, le changement de vue et les trois résolutions ; inspecter les captures de cinq environnements.
+- [x] TOP-05 Documenter, archiver les captures et publier/fusionner le résultat vérifié selon l’autorisation permanente de l’utilisateur.
+
+Détails : [Vue de haut 2.5D](combat_top_down.md).

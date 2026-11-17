@@ -5,6 +5,7 @@ const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
 var _art_sprite: Sprite2D
 var _art_material: ShaderMaterial
 
+var terrain_scale := 1.0
 var visual_quality := 2
 var visual_key := ""
 var animation_root := ""
@@ -120,7 +121,7 @@ func _draw() -> void:
 		_art_sprite.hide()
 		return
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
-	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
+	var footprint := cell_size.x * terrain_scale * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
 	_draw_grounding(footprint,rc)
 	if is_active or is_targeted or has_defend or has_overwatch:
 		var radius := maxf(footprint,cell_size.x*0.21) if is_active or is_targeted else footprint
@@ -254,7 +255,7 @@ func _spawn_float_text(text: String, color: Color) -> void:
 
 func _body_height() -> float:
 	# Terrain scale, independent of HUD size, window resolution and camera zoom.
-	return cell_size.x * HUMAN_HEIGHT_PER_TILE * _visual_size_scale() * TOKEN_PRESENTATION_SCALE
+	return cell_size.x * HUMAN_HEIGHT_PER_TILE * _visual_size_scale() * TOKEN_PRESENTATION_SCALE * terrain_scale
 
 func hit_test_screen(screen_point: Vector2) -> bool:
 	if unit_id >= 1000 or int(unit_data.get("hp",0)) <= 0: return false

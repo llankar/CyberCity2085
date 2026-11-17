@@ -63,7 +63,7 @@ func run() -> void:
 		var raised:=0
 		for prop: Node2D in scene._visual_obstacles:
 			if prop.height>0:raised+=1
-		assert(raised==0 if level==0 else raised>0,"low quality bypasses volume construction; other tiers restore it")
+		assert(raised==0 if level==0 or board.top_down else raised>0,"low quality bypasses volume construction; other tiers restore it")
 		assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])==state)
 		assert(scene._camera.transform==camera)
 	# Actual battlefield/controller signal routes after rendering and quality changes.
@@ -77,10 +77,34 @@ func run() -> void:
 			destination=cell;break
 	assert(destination.x>=0,"real legal movement candidate")
 	assert(board.world_to_cell(board.cell_to_world(destination))==destination,"pick coordinates retain exact tactical cells")
-	root.get_node("CombatSignals").cell_clicked.emit(destination)
+	scene._camera.zoom=Vector2.ONE*scene._close_zoom()
+	scene._camera.position=board.cell_to_world(destination)+Vector2(0,160/scene._camera.zoom.y)
+	scene._camera.force_update_scroll()
+	await process_frame
+	var click:=InputEventMouseButton.new()
+	click.button_index=MOUSE_BUTTON_LEFT
+	click.pressed=false
+	click.position=root.get_canvas_transform()*board.cell_to_world(destination)
+	# Exercise the real viewport -> canvas -> cell input path, not a synthetic cell signal.
+	board._unhandled_input(click)
 	assert(scene.player_units[0].position==destination and int(scene.player_units[0].ap)==ap-1,"real movement signal spends the unchanged one-cell AP cost")
 	await create_timer(.6).timeout
 	assert(scene._unit_tokens["p0"].position.distance_to(board.cell_to_world(destination))<.1,"animated unit reaches the clicked ground cell")
+	await process_frame
+	await RenderingServer.frame_post_draw
+	assert(root.get_texture().get_image().save_png(output.path_join("top-down-close.png"))==OK)
+	var tactical_state:=JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])
+	if board.top_down:
+		for expected in [false,true]:
+			var switch_view:=InputEventKey.new()
+			switch_view.keycode=KEY_F11;switch_view.pressed=true
+			Input.parse_input_event(switch_view)
+			await process_frame
+			switch_view.pressed=false;Input.parse_input_event(switch_view)
+			await process_frame
+			assert(board.top_down==expected,"F11 switches the actual renderer")
+			assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective,scene.cover_nodes])==tactical_state,"projection switch preserves tactical state")
+			assert(scene._visual_obstacles.is_empty() if expected else not scene._visual_obstacles.is_empty())
 	scene._on_unit_clicked(0,true)
 	assert(scene.selected_target_index==0,"enemy target route remains functional")
 	var turn: int=scene.turn_number
