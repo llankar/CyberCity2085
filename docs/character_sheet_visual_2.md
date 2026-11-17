@@ -70,4 +70,4 @@ Reproduce captures with:
 DISPLAY=:103 ALSOFT_DRIVERS=null python -m tools.check_character_sheet_visual
 ```
 
-Implementation remains local until publication is authorized.
+Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
