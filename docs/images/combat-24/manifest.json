@@ -1,0 +1,268 @@
+[
+  {
+    "file": "before-city_exterior_neon_market_alley-1280x720.webp",
+    "source": "work/combat-24-before/city_exterior_neon_market_alley-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "5a7b87f0259c9f2292b0f3433e2b65bdbf5ef58fd47db74775af56432a5427fc"
+  },
+  {
+    "file": "before-city_exterior_neon_market_alley-1920x1080.webp",
+    "source": "work/combat-24-before/city_exterior_neon_market_alley-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "bf1bd360c5aec9816f12a3a21e50369f80ff361b6dcb5594cfbe59f5800f7cb4"
+  },
+  {
+    "file": "before-city_exterior_neon_market_alley-2560x1440.webp",
+    "source": "work/combat-24-before/city_exterior_neon_market_alley-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "dbafc8cf1deb734e43553f8fa40b6efe69fe10b8d47670ace09bd3f81e97e6e4"
+  },
+  {
+    "file": "before-city_industrial_factory_floor-1280x720.webp",
+    "source": "work/combat-24-before/city_industrial_factory_floor-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "6cca724a6d5ab79ba528efc1061c6c9f8463290b659a94f5ccefb376731033b8"
+  },
+  {
+    "file": "before-city_industrial_factory_floor-1920x1080.webp",
+    "source": "work/combat-24-before/city_industrial_factory_floor-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "7ff51055e818ffe6052fcc8f7e5c2142f97cbad14a581ed10c344d3527868e70"
+  },
+  {
+    "file": "before-city_industrial_factory_floor-2560x1440.webp",
+    "source": "work/combat-24-before/city_industrial_factory_floor-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "5dca5b812da3259eab1495fbd889fb57a908a0d300d161d1d429111339ad53a5"
+  },
+  {
+    "file": "before-city_interior_blacksite_lab-1280x720.webp",
+    "source": "work/combat-24-before/city_interior_blacksite_lab-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "c6c7f9959ef247707fdaded254d2d1a44ee9dd88a8ea5381daee7399bfb39e3d"
+  },
+  {
+    "file": "before-city_interior_blacksite_lab-1920x1080.webp",
+    "source": "work/combat-24-before/city_interior_blacksite_lab-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "00004a2ee17eb12b3c449b18031407011f309e6f7562df65102a00ae9f656dcb"
+  },
+  {
+    "file": "before-city_interior_blacksite_lab-2560x1440.webp",
+    "source": "work/combat-24-before/city_interior_blacksite_lab-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "6fbf7db2d8d47bbb00983acc84330099110b5f27dea6e2e10c426fe56b16a4c5"
+  },
+  {
+    "file": "before-cybercity_inner_02_safehouse-1280x720.webp",
+    "source": "work/combat-24-before/cybercity_inner_02_safehouse-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "4a295078d9415d33e202c09aa9afb630e7bafaa3b97be6d18f26f5dfef52d470"
+  },
+  {
+    "file": "before-cybercity_inner_02_safehouse-1920x1080.webp",
+    "source": "work/combat-24-before/cybercity_inner_02_safehouse-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "0ba670c957f1d580a063c050e93bed526408cdfabbf5504edb21011ade3bd5bb"
+  },
+  {
+    "file": "before-cybercity_inner_02_safehouse-2560x1440.webp",
+    "source": "work/combat-24-before/cybercity_inner_02_safehouse-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "91fc8ec6943fa646b546b469f741aa305bd63013f5894590a947d5ad3ecb4d47"
+  },
+  {
+    "file": "before-wasteland_outdoor_01_dust_road_ambush-1280x720.webp",
+    "source": "work/combat-24-before/wasteland_outdoor_01_dust_road_ambush-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "0bc0896f28ac6c1d46c586b65e8f0e7c910973423ae1f5e84b82967e600b6aa7"
+  },
+  {
+    "file": "before-wasteland_outdoor_01_dust_road_ambush-1920x1080.webp",
+    "source": "work/combat-24-before/wasteland_outdoor_01_dust_road_ambush-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "650aed56f33258bda75565218e6c6c21558c3fc0234fb837a4dc0244a9651e6d"
+  },
+  {
+    "file": "before-wasteland_outdoor_01_dust_road_ambush-2560x1440.webp",
+    "source": "work/combat-24-before/wasteland_outdoor_01_dust_road_ambush-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "6d6b621f6eab846a7473c804e82b2c6394d47e03f5c788eda8e13d473a8f4ca9"
+  },
+  {
+    "file": "after-city_exterior_neon_market_alley-1280x720.webp",
+    "source": "work/combat-24-after/city_exterior_neon_market_alley-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "101fac07a2e802afe21ffa865691f34ab2295bcb7792dc2197bd5d9625268441"
+  },
+  {
+    "file": "after-city_exterior_neon_market_alley-1920x1080-target-fx.webp",
+    "source": "work/combat-24-after/city_exterior_neon_market_alley-1920x1080-target-fx.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "550a67eca892628a6c28661d4c5b9b5c6bcd280848cc05d665f9c12594f8ca67"
+  },
+  {
+    "file": "after-city_exterior_neon_market_alley-1920x1080.webp",
+    "source": "work/combat-24-after/city_exterior_neon_market_alley-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "56b7d39cd9187a1b962a2e7e1db001895ee5bf12f1a6d7278818acfed1543167"
+  },
+  {
+    "file": "after-city_exterior_neon_market_alley-2560x1440.webp",
+    "source": "work/combat-24-after/city_exterior_neon_market_alley-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "5a7d5aa743203e0a87062151f034ac3ec20ac4ad14b0bdeff8a7c9b7cf000870"
+  },
+  {
+    "file": "after-city_industrial_factory_floor-1280x720.webp",
+    "source": "work/combat-24-after/city_industrial_factory_floor-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "39b0f0c08944c285c4f29a3a2ba620700fdf505e58ff78bef38cce355b5ec0cc"
+  },
+  {
+    "file": "after-city_industrial_factory_floor-1920x1080-target-fx.webp",
+    "source": "work/combat-24-after/city_industrial_factory_floor-1920x1080-target-fx.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "188368e49e1e827a93f117a028564f8f37c85f96797eb2309493d72c66ae5621"
+  },
+  {
+    "file": "after-city_industrial_factory_floor-1920x1080.webp",
+    "source": "work/combat-24-after/city_industrial_factory_floor-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "c4f476da54f397ab314da82f2ee94ff79045947b37a92116c6d2cf4008f2fefc"
+  },
+  {
+    "file": "after-city_industrial_factory_floor-2560x1440.webp",
+    "source": "work/combat-24-after/city_industrial_factory_floor-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "bd683b8a32be19599175f60c580dce8d7ab33cbdd872b803334087e322f8b5df"
+  },
+  {
+    "file": "after-city_interior_blacksite_lab-1280x720.webp",
+    "source": "work/combat-24-after/city_interior_blacksite_lab-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "59aa665cca67adff86fc982b632fcdaa98e27291d8fd55c06ec246a1669e9b57"
+  },
+  {
+    "file": "after-city_interior_blacksite_lab-1920x1080-target-fx.webp",
+    "source": "work/combat-24-after/city_interior_blacksite_lab-1920x1080-target-fx.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "9d09f058e4aa2d0e7b439edbebe55b8724360cb8be7db2651ec3d782736e3c9a"
+  },
+  {
+    "file": "after-city_interior_blacksite_lab-1920x1080.webp",
+    "source": "work/combat-24-after/city_interior_blacksite_lab-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "ab28de37bc7e7cb7ae0d758954b42a1bf31b54ba6ad57a628f393fa61319d245"
+  },
+  {
+    "file": "after-city_interior_blacksite_lab-2560x1440.webp",
+    "source": "work/combat-24-after/city_interior_blacksite_lab-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "891b824cabc4d16b2eb24924b12d72c99197af6e3f38b2de84209fa7a78b73ee"
+  },
+  {
+    "file": "after-cybercity_inner_02_safehouse-1280x720.webp",
+    "source": "work/combat-24-after/cybercity_inner_02_safehouse-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "eac5b621ed224e62c82e512338d3641aacb2700e0145b2fbce326c4a471ffd6b"
+  },
+  {
+    "file": "after-cybercity_inner_02_safehouse-1920x1080-target-fx.webp",
+    "source": "work/combat-24-after/cybercity_inner_02_safehouse-1920x1080-target-fx.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "81ca543721c639dae542876622863437f2b35ee768ee713fd447c7b95e9ef4e3"
+  },
+  {
+    "file": "after-cybercity_inner_02_safehouse-1920x1080.webp",
+    "source": "work/combat-24-after/cybercity_inner_02_safehouse-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "9a2d15a309c7eab31e4a8a94d83b273b99b603f2223f84474bc351c47d16e5ad"
+  },
+  {
+    "file": "after-cybercity_inner_02_safehouse-2560x1440.webp",
+    "source": "work/combat-24-after/cybercity_inner_02_safehouse-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "d1a94f2a589c69754da50d252399abe0d1dd5480be783afe11f4033ec60b90f5"
+  },
+  {
+    "file": "after-wasteland_outdoor_01_dust_road_ambush-1280x720.webp",
+    "source": "work/combat-24-after/wasteland_outdoor_01_dust_road_ambush-1280x720.png",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "6f69a24a0714f9da4be5eb860de18d0e3af9942b627731f7f57bff086c3d16c2"
+  },
+  {
+    "file": "after-wasteland_outdoor_01_dust_road_ambush-1920x1080-target-fx.webp",
+    "source": "work/combat-24-after/wasteland_outdoor_01_dust_road_ambush-1920x1080-target-fx.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "744c4206c2f327fff85fb70b89eacaa48b5d39c79592b8ce4f79f437b04d7f9b"
+  },
+  {
+    "file": "after-wasteland_outdoor_01_dust_road_ambush-1920x1080.webp",
+    "source": "work/combat-24-after/wasteland_outdoor_01_dust_road_ambush-1920x1080.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "cb8444c393cfd9c7201ee52060c9a439d5300cf13650c1ad3e6ab1d59c4c8a2b"
+  },
+  {
+    "file": "after-wasteland_outdoor_01_dust_road_ambush-2560x1440.webp",
+    "source": "work/combat-24-after/wasteland_outdoor_01_dust_road_ambush-2560x1440.png",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "9472fbc2d9a00abbd6062ce9499b1b1b8fcddf5024b68f24c4eeebe16dd85b7f"
+  },
+  {
+    "file": "furniture-source.webp",
+    "source": "work/combat-24-detail/furniture-before.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "49f9efc03c16ee55455c69b50a5fc2ed83e094a929df8f680e7139c7b86f4c9d"
+  },
+  {
+    "file": "furniture-legacy.webp",
+    "source": "work/combat-24-legacy-detail/furniture-after.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "901cd75052e94df03149623a0dca1369a8ca84b6e32c75418732fdd4f4d0146a"
+  },
+  {
+    "file": "furniture-natural.webp",
+    "source": "work/combat-24-detail/furniture-after.png",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "0d2b5328b62c58f43598723e961797bc7324fa144dd2957061a223a4bffd1385"
+  }
+]

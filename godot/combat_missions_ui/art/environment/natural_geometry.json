@@ -1,0 +1,608 @@
+{
+  "schema_version": 1,
+  "coordinates": "texture_top_left",
+  "maps": {
+    "cybercity_inner_02_safehouse.png": {
+      "image_sha256": "8b1ba400053e614dba42d2d3cafb10bf8308b479781b0b6e3bf0d5b22db3bdd7",
+      "image_size": [
+        7680,
+        4322
+      ],
+      "review": "Source-image inspection; object-only visual regions, independent of tactical polygons.",
+      "props": {
+        "sofa_n": {
+          "family": "sofa",
+          "origin": [
+            0.382,
+            0.362
+          ],
+          "axis_u": [
+            0.129,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.11199999999999999
+          ],
+          "material": "fabric",
+          "material_sample_uv": [
+            0.436,
+            0.431,
+            0.457,
+            0.454
+          ],
+          "cushion_sample_uv": [
+            0.409,
+            0.421,
+            0.463,
+            0.464
+          ],
+          "back_sample_uv": [
+            0.407,
+            0.371,
+            0.465,
+            0.404
+          ],
+          "cushions": 2
+        },
+        "sofa_e": {
+          "family": "sofa",
+          "origin": [
+            0.552,
+            0.404
+          ],
+          "axis_u": [
+            0,
+            0.214
+          ],
+          "axis_v": [
+            -0.039,
+            0
+          ],
+          "material": "fabric",
+          "material_sample_uv": [
+            0.436,
+            0.431,
+            0.457,
+            0.454
+          ],
+          "cushion_sample_uv": [
+            0.409,
+            0.421,
+            0.463,
+            0.464
+          ],
+          "back_sample_uv": [
+            0.407,
+            0.371,
+            0.465,
+            0.404
+          ]
+        },
+        "coffee_table": {
+          "family": "table",
+          "origin": [
+            0.423,
+            0.507
+          ],
+          "axis_u": [
+            0.07600000000000001,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.06799999999999995
+          ],
+          "material": "metal",
+          "height": 0.23,
+          "source_silhouette_uv": [
+            [
+              0.422,
+              0.498
+            ],
+            [
+              0.501,
+              0.498
+            ],
+            [
+              0.501,
+              0.606
+            ],
+            [
+              0.491,
+              0.606
+            ],
+            [
+              0.491,
+              0.585
+            ],
+            [
+              0.432,
+              0.585
+            ],
+            [
+              0.432,
+              0.606
+            ],
+            [
+              0.422,
+              0.606
+            ]
+          ]
+        },
+        "chair": {
+          "family": "armchair",
+          "origin": [
+            0.353,
+            0.587
+          ],
+          "axis_u": [
+            0.045,
+            -0.034
+          ],
+          "axis_v": [
+            0.02,
+            0.067
+          ],
+          "material": "fabric",
+          "material_sample_uv": [
+            0.436,
+            0.431,
+            0.457,
+            0.454
+          ],
+          "cushion_sample_uv": [
+            0.409,
+            0.421,
+            0.463,
+            0.464
+          ],
+          "back_sample_uv": [
+            0.407,
+            0.371,
+            0.465,
+            0.404
+          ]
+        },
+        "north_console": {
+          "family": "console",
+          "origin": [
+            0.376,
+            0.092
+          ],
+          "axis_u": [
+            0.07800000000000001,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.096
+          ],
+          "material": "metal",
+          "height": 0.25
+        },
+        "east_store": {
+          "family": "partition",
+          "origin": [
+            0.671,
+            0.585
+          ],
+          "axis_u": [
+            0.01200000000000001,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.29000000000000004
+          ],
+          "material": "metal",
+          "height": 0.18
+        },
+        "south_entry_w": {
+          "family": "wall",
+          "origin": [
+            0.403,
+            0.758
+          ],
+          "axis_u": [
+            0.012999999999999956,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.17500000000000004
+          ],
+          "material": "stone",
+          "height": 0.24
+        },
+        "south_entry_e": {
+          "family": "wall",
+          "origin": [
+            0.556,
+            0.758
+          ],
+          "axis_u": [
+            0.0119999999999999,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.17500000000000004
+          ],
+          "material": "stone",
+          "height": 0.24
+        }
+      }
+    },
+    "city_industrial_factory_floor.png": {
+      "image_sha256": "da05dafc0b935fca12ba34463b618c6a92df7028f9ba4068ccc66e6aaaa50e73",
+      "image_size": [
+        7680,
+        4320
+      ],
+      "review": "Source-image inspection; object-only visual regions, independent of tactical polygons.",
+      "props": {
+        "reactor_north": {
+          "family": "machine",
+          "origin": [
+            0.483,
+            0.085
+          ],
+          "axis_u": [
+            0.03600000000000003,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.187
+          ],
+          "material": "metal",
+          "height": 0.29
+        },
+        "reactor_middle": {
+          "family": "machine",
+          "origin": [
+            0.481,
+            0.395
+          ],
+          "axis_u": [
+            0.041000000000000036,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.19699999999999995
+          ],
+          "material": "metal",
+          "height": 0.29
+        },
+        "west_console": {
+          "family": "console",
+          "origin": [
+            0.37,
+            0.664
+          ],
+          "axis_u": [
+            0.028000000000000025,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.10999999999999999
+          ],
+          "material": "metal",
+          "height": 0.23
+        },
+        "east_console": {
+          "family": "console",
+          "origin": [
+            0.604,
+            0.665
+          ],
+          "axis_u": [
+            0.031000000000000028,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.11099999999999999
+          ],
+          "material": "metal",
+          "height": 0.23
+        },
+        "mid_console": {
+          "family": "console",
+          "origin": [
+            0.435,
+            0.397
+          ],
+          "axis_u": [
+            0.020000000000000018,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.10799999999999998
+          ],
+          "material": "metal",
+          "height": 0.23
+        },
+        "south_crates_w": {
+          "family": "crate",
+          "origin": [
+            0.371,
+            0.833
+          ],
+          "axis_u": [
+            0.028000000000000025,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.03200000000000003
+          ],
+          "material": "wood",
+          "height": 0.17
+        },
+        "south_crates_e": {
+          "family": "crate",
+          "origin": [
+            0.588,
+            0.835
+          ],
+          "axis_u": [
+            0.030000000000000027,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.030000000000000027
+          ],
+          "material": "metal",
+          "height": 0.17
+        }
+      }
+    },
+    "city_interior_blacksite_lab.png": {
+      "image_sha256": "106fe4c9fc4c47c2744244b77ef24b3732ba0b59d8424b0b95aa4777e20b805e",
+      "image_size": [
+        7680,
+        4320
+      ],
+      "review": "Source-image inspection; object-only visual regions, independent of tactical polygons.",
+      "props": {
+        "west_lab_table": {
+          "family": "table",
+          "origin": [
+            0.114,
+            0.474
+          ],
+          "axis_u": [
+            0.06799999999999999,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.16300000000000003
+          ],
+          "material": "metal",
+          "height": 0.28
+        },
+        "ne_table": {
+          "family": "table",
+          "origin": [
+            0.78,
+            0.185
+          ],
+          "axis_u": [
+            0.10299999999999998,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.067
+          ],
+          "material": "metal",
+          "height": 0.28
+        },
+        "se_table": {
+          "family": "table",
+          "origin": [
+            0.82,
+            0.834
+          ],
+          "axis_u": [
+            0.05900000000000005,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.062000000000000055
+          ],
+          "material": "metal",
+          "height": 0.28
+        },
+        "sw_table": {
+          "family": "table",
+          "origin": [
+            0.086,
+            0.835
+          ],
+          "axis_u": [
+            0.10800000000000001,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.05900000000000005
+          ],
+          "material": "metal",
+          "height": 0.28
+        },
+        "central_ne_console": {
+          "family": "console",
+          "origin": [
+            0.628,
+            0.29
+          ],
+          "axis_u": [
+            0.03500000000000003,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.15700000000000003
+          ],
+          "material": "metal",
+          "height": 0.25
+        },
+        "central_w_console": {
+          "family": "console",
+          "origin": [
+            0.359,
+            0.539
+          ],
+          "axis_u": [
+            0.02200000000000002,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.11399999999999999
+          ],
+          "material": "metal",
+          "height": 0.25
+        },
+        "south_console": {
+          "family": "console",
+          "origin": [
+            0.404,
+            0.782
+          ],
+          "axis_u": [
+            0.019999999999999962,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.10399999999999998
+          ],
+          "material": "metal",
+          "height": 0.25
+        },
+        "east_machine": {
+          "family": "machine",
+          "origin": [
+            0.802,
+            0.426
+          ],
+          "axis_u": [
+            0.038999999999999924,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.09300000000000003
+          ],
+          "material": "metal",
+          "height": 0.25
+        },
+        "nw_partition": {
+          "family": "partition",
+          "origin": [
+            0.055,
+            0.308
+          ],
+          "axis_u": [
+            0.14400000000000002,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.018000000000000016
+          ],
+          "material": "stone",
+          "height": 0.2
+        },
+        "sw_partition": {
+          "family": "partition",
+          "origin": [
+            0.054,
+            0.72
+          ],
+          "axis_u": [
+            0.14500000000000002,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.019000000000000017
+          ],
+          "material": "stone",
+          "height": 0.2
+        }
+      }
+    },
+    "city_exterior_neon_market_alley.png": {
+      "image_sha256": "78da81c6b3d9eb160891ea019faf718790392fd06504dc10ae175fa270cece6e",
+      "image_size": [
+        7680,
+        4320
+      ],
+      "review": "Source-image inspection; object-only visual regions, independent of tactical polygons.",
+      "props": {
+        "north_bench": {
+          "family": "bench",
+          "origin": [
+            0.181,
+            0.247
+          ],
+          "axis_u": [
+            0.020000000000000018,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.123
+          ],
+          "material": "wood",
+          "height": 0.18
+        },
+        "north_bins": {
+          "family": "crate",
+          "origin": [
+            0.187,
+            0.069
+          ],
+          "axis_u": [
+            0.023999999999999994,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.055999999999999994
+          ],
+          "material": "metal",
+          "height": 0.18
+        },
+        "east_bins": {
+          "family": "crate",
+          "origin": [
+            0.733,
+            0.552
+          ],
+          "axis_u": [
+            0.031000000000000028,
+            0
+          ],
+          "axis_v": [
+            0,
+            0.04599999999999993
+          ],
+          "material": "metal",
+          "height": 0.18
+        }
+      }
+    }
+  }
+}
