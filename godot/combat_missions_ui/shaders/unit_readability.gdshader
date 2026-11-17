@@ -37,7 +37,10 @@ void fragment() {
         float body = smoothstep(0.02, 0.48, art.a);
         float edge = smoothstep(0.05, 0.50, neighbor) * (1.0 - body);
         vec3 lit = clamp((art.rgb - vec3(0.5)) * 1.12 + vec3(0.62), 0.0, 1.0);
-        vec3 outline = mix(vec3(0.015, 0.025, 0.035), rim_color.rgb, mix(0.85, 0.98, focus_strength));
+        // A directional rim avoids the flat sticker look; every living unit stays outlined.
+        vec2 frame_position = (UV - frame_uv.xy) / max(frame_uv.zw - frame_uv.xy, vec2(0.001));
+        float rim_light = clamp(0.90 - frame_position.x * 0.12 - frame_position.y * 0.08, 0.68, 0.90);
+        vec3 outline = mix(vec3(0.015, 0.025, 0.035), rim_color.rgb, mix(rim_light, 0.98, focus_strength));
         float alpha = body + edge * 0.90;
         vec3 rgb = (lit * body + outline * edge * 0.90) / max(alpha, 0.001);
         COLOR = vec4(rgb, alpha) * modulation;

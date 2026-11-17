@@ -5,6 +5,7 @@ const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
 var _art_sprite: Sprite2D
 var _art_material: ShaderMaterial
 
+var visual_quality := 2
 var visual_key := ""
 var animation_root := ""
 var atlas: Texture2D
@@ -120,9 +121,7 @@ func _draw() -> void:
 		return
 	var rc := ENEMY_COL if is_enemy else Color(0.10,0.95,1.0)
 	var footprint := cell_size.x * 0.10 * minf(_visual_size_scale(),3.0) * TOKEN_PRESENTATION_SCALE
-	draw_set_transform(Vector2(4, 3), 0, Vector2(1, 0.32))
-	draw_circle(Vector2.ZERO, footprint, Color(0, 0, 0, 0.50))
-	draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
+	_draw_grounding(footprint,rc)
 	if is_active or is_targeted or has_defend or has_overwatch:
 		var radius := maxf(footprint,cell_size.x*0.21) if is_active or is_targeted else footprint
 		var ring := PackedVector2Array([Vector2(0,-radius*0.5),Vector2(radius,0),Vector2(0,radius*0.5),Vector2(-radius,0),Vector2(0,-radius*0.5)])
@@ -180,7 +179,7 @@ func _draw() -> void:
 	if dead: return
 	_draw_segmented_health(rc)
 	if is_targeted:
-		var r := _target_frame_rect()
+		var r := _target_frame_rect().grow((1.0+_pulse)*pixel.x)
 		for p: Vector2 in [r.position, Vector2(r.end.x,r.position.y), r.end, Vector2(r.position.x,r.end.y)]:
 			var dx := 1.0 if p.x < r.get_center().x else -1.0
 			var dy := 1.0 if p.y < r.get_center().y else -1.0
@@ -333,3 +332,22 @@ func _atlas_idle_height() -> float:
 	var index:=int(rows[0][0])
 	var bounds: Rect2=_frame_bounds.get(index,_active_bounds_uv)
 	return maxf(.05,bounds.size.y)
+
+func _draw_grounding(footprint: float, color: Color) -> void:
+	var pixel := _screen_pixel().x
+	# Broad penumbra and small contact core anchor the feet without flat discs.
+	draw_set_transform(Vector2(footprint*.13,footprint*.10),0,Vector2(1,.34))
+	if visual_quality > 0:
+		for layer in range(4,0,-1):
+			draw_circle(Vector2.ZERO,footprint*(.62+layer*.18),Color(0,.005,.012,.055))
+	draw_circle(Vector2.ZERO,footprint*.68,Color(0,0,0,.38))
+	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
+	if not is_enemy or unit_id >= 1000 or int(unit_data.get("hp",0))<=0: return
+	draw_set_transform(Vector2.ZERO,0,Vector2(1,.48))
+	draw_circle(Vector2.ZERO,footprint*1.18,Color(color,.075))
+	draw_arc(Vector2.ZERO,footprint*1.18,0,TAU,36,Color(color,.54),1.5*pixel,true)
+	if is_targeted:
+		var angle := _elapsed*1.6
+		for offset in [0.0,PI]:
+			draw_arc(Vector2.ZERO,footprint*1.38,angle+offset,angle+offset+1.1,16,Color(color,.65+_pulse*.25),2*pixel,true)
+	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
