@@ -561,3 +561,14 @@ Details and actual game capture: [Tactical reference](tactical_reference.md).
 
 Details: [Character sheet and medical downtime](character_sheet_visual_2.md).
 Publication authorized on November 17, 2026: push the verified feature branch and merge into main.
+
+## Mission Briefing Visual 2.0 — November 17, 2026
+
+- [x] MBUI-01 Build responsive three-column geometry and reuse cached holographic primitives.
+- [x] MBUI-02 Present contextual mission scenes, all objectives and exact enlarged tactical-map inspection.
+- [x] MBUI-03 Render real metrics, roster, selected support, emotional details and distinct consequence panels.
+- [x] MBUI-04 Preserve launch/abort routing and add independent overflow controls and accessible responsive card counts.
+- [x] MBUI-05 Test native interactions, source-data integrity and resolutions; compare and retain real captures.
+
+Details: [Mission Briefing Visual 2.0](mission_briefing_visual_2.md).
+Publication awaits authorization specific to this refactor.
