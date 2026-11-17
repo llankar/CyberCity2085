@@ -293,21 +293,13 @@ class ManagementHubUITest(unittest.TestCase):
         view.window = _FakeWindow()
         view.setup()
 
-        captured = {}
-
-        def _capture(width, height, state, resources, room_info_lines=None, roster_cards=None, available_funds=None, draw_controls=None):
-            captured["room_info_lines"] = room_info_lines
-            captured["roster_cards"] = roster_cards
-
-        original = management_screen.draw_graphical_command_surface
-        management_screen.draw_graphical_command_surface = _capture
-        try:
+        from unittest.mock import patch
+        with patch.object(management_screen,"draw_graphical_command_surface") as legacy:
             view.on_draw()
-        finally:
-            management_screen.draw_graphical_command_surface = original
-
-        self.assertEqual(captured["room_info_lines"], {})
-        self.assertEqual(captured["roster_cards"], [])
+            legacy.assert_not_called()
+        self.assertIsNotNone(view._headquarters)
+        self.assertEqual(len([hit for hit in view._hits if hit.action == "hq_room"]),12)
+        self.assertFalse(any(hit.action == "agent_card" for hit in view._hits))
 
     def test_squad_room_uses_dedicated_renderer_instead_of_graphical_shell(self):
         view = ManagementView(GameState())
@@ -558,6 +550,8 @@ class ManagementHubUITest(unittest.TestCase):
         view.game_state.add_funds(starting_funds, "test", "Recruitment test budget")
 
         view._do_recruit_prompt()
+        view.on_draw()
+        self.assertTrue(any(hit.action=="recruit_candidate" for hit in view._modal_hits))
 
         self.assertTrue(view.recruit_window_open)
         self.assertGreaterEqual(len(view.pending_recruit_candidates), 6)

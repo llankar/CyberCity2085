@@ -1,0 +1,109 @@
+{
+  "assets": [
+    {
+      "path": "assets/ui/headquarters/tower_visual_2.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "fe26413a90fd2492cd7fb886c76fed6f5289b84f9231605da98fb25ce2d70adc",
+      "origin": "generated from existing base, November 17 2026"
+    },
+    {
+      "path": "assets/ui/corporate_tower_base.png",
+      "size": [
+        1672,
+        941
+      ],
+      "sha256": "8adfb8402eb538d2e2adac9e17a6245ba96c50058da13dfc10e569a69744316a",
+      "origin": "unchanged original fallback"
+    }
+  ],
+  "coordinate_system": "1672x941 pixels, bottom-left origin; fitted without cropping to the viewport",
+  "rooms": {
+    "command": {
+      "visual2": [
+        270,
+        635,
+        773,
+        778
+      ],
+      "legacy": [
+        320,
+        650,
+        765,
+        785
+      ]
+    },
+    "city": {
+      "visual2": [
+        874,
+        635,
+        1398,
+        778
+      ],
+      "legacy": [
+        892,
+        650,
+        1373,
+        771
+      ]
+    },
+    "squad": {
+      "visual2": [
+        265,
+        495,
+        774,
+        623
+      ],
+      "legacy": [
+        274,
+        503,
+        768,
+        630
+      ]
+    },
+    "assets": {
+      "visual2": [
+        873,
+        495,
+        1398,
+        623
+      ],
+      "legacy": [
+        880,
+        497,
+        1384,
+        630
+      ]
+    },
+    "research": {
+      "visual2": [
+        266,
+        346,
+        775,
+        484
+      ],
+      "legacy": [
+        270,
+        351,
+        775,
+        488
+      ]
+    },
+    "intel": {
+      "visual2": [
+        873,
+        346,
+        1398,
+        484
+      ],
+      "legacy": [
+        881,
+        349,
+        1384,
+        492
+      ]
+    }
+  }
+}

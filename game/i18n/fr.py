@@ -195,3 +195,14 @@ STRINGS.update(
         "briefing.support.power_armor": "ARMURE ASSISTÉE",
     }
 )
+
+# Headquarters Visual 2.0
+STRINGS.update(
+    {
+        "hq.title": "QUARTIER GÉNÉRAL",
+        "hq.subtitle": "GESTION DE LA BASE",
+        "hq.close": "FERMER",
+    }
+)
+
+STRINGS.update({"hq.saved": "PARTIE SAUVEGARDÉE", "hq.loaded": "PARTIE CHARGÉE"})

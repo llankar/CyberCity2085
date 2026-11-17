@@ -2740,6 +2740,9 @@ class ManagementView(GameView):
         self.pending_recruit_candidates: list = []
         self.recruit_window_open = False
         self._elapsed = 0.0
+        self._headquarters = None
+        self._hq_last_room = "command"
+        self._hq_reduced_motion = False
         self._squad_command = None
         self._character_sheet_renderer = None
         self._hits = []
@@ -2767,13 +2770,18 @@ class ManagementView(GameView):
         ensure_mission_templates(self.game_state)
         from game.audio import SoundManager
         from game.ui.screens.settings_screen import load_settings
+
         music = SoundManager.get()
-        music.configure_from_settings(load_settings())
+        settings = load_settings()
+        self._hq_reduced_motion = getattr(settings, "reduced_motion", False)
+        music.configure_from_settings(settings)
         music.play_music("music_management")
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
         step_room_ui(self.room_ui, delta_time)
+        if self._headquarters is not None:
+            self._headquarters.update(delta_time, self._hq_reduced_motion)
         if self._squad_command is not None:
             self._squad_command.update(delta_time)
         if self._character_sheet_renderer is not None:
@@ -2783,18 +2791,31 @@ class ManagementView(GameView):
         self.clear()
         w, h = self.window.width, self.window.height
         if self.expanded_agent_sheet_index is not None:
-            self._draw_expanded_agent_sheet_modal(w,h)
+            self._draw_expanded_agent_sheet_modal(w, h)
             return
         if self.room_ui.active_room_key == "squad":
             if self._squad_command is None:
                 from game.ui.components.squad_command import SquadCommandRenderer
+
                 self._squad_command = SquadCommandRenderer()
-            self._squad_command.draw(self,w,h)
-            self._draw_expanded_agent_sheet_modal(w,h)
+            self._squad_command.draw(self, w, h)
+            self._draw_expanded_agent_sheet_modal(w, h)
+            self._draw_recruit_window_modal(w, h)
+            return
+        if not self.room_ui.is_open:
+            if self._headquarters is None:
+                from game.ui.components.headquarters import HeadquartersRenderer
+
+                self._headquarters = HeadquartersRenderer()
+            self._headquarters.draw(self, w, h)
             self._draw_recruit_window_modal(w,h)
             return
         self._hits = []
-        roster_cards = self._build_hub_roster_cards() if self.room_ui.active_room_key == "squad" else []
+        roster_cards = (
+            self._build_hub_roster_cards()
+            if self.room_ui.active_room_key == "squad"
+            else []
+        )
         draw_graphical_command_surface(
             w,
             h,
@@ -3009,26 +3030,51 @@ class ManagementView(GameView):
                 return
             return
 
-        room = room_at_point(w, h, "hub", xi, yi)
-        if room is None:
-            return
-        open_room(self.room_ui, w, h, room.key)
-        self.game_state.mark_tutorial_event("entered_room")
-        self.message = ""
+        from game.ui.layouts.headquarters import headquarters_target_at
+
+        legacy = self._headquarters.legacy if self._headquarters is not None else False
+        from game.ui.theme.typography import get_text_size
+        target = headquarters_target_at(w,h,xi,yi,legacy,1.3 if get_text_size()=="large" else 1.0)
+        if target == "close":
+            self.on_key_press(arcade.key.ESCAPE, 0)
+        elif target is not None:
+            self._open_hub_room(target)
 
     def _open_hub_room(self, room_key: str) -> None:
+        from game.ui.layouts.headquarters import headquarters_layout, ROOMS
+        from game.ui.room_interaction import UIRect
+
         open_room(self.room_ui, self.window.width, self.window.height, room_key)
+        self._hq_last_room = room_key
+        legacy = self._headquarters.legacy if self._headquarters is not None else False
+        layout = headquarters_layout(self.window.width, self.window.height, legacy)
+        index = next(i for i, (key, _, _) in enumerate(ROOMS) if key == room_key)
+        r = layout.rooms[index]
+        self.room_ui.source_rect = UIRect(
+            round(r.left), round(r.bottom), round(r.width), round(r.height)
+        )
+        if self._headquarters is not None:
+            self.room_ui.texture_override = self._headquarters.preview(room_key)
+            self._headquarters.hover_key = None
+        if self._hq_reduced_motion:
+            self.room_ui.expansion = 1.0
         self.game_state.mark_tutorial_event("entered_room")
         self.message = ""
 
     def _cycle_agent_cursor(self, step: int) -> None:
         if not self.game_state.characters:
             return
-        self.deployment_cursor = (self.deployment_cursor + step) % len(self.game_state.characters)
+        self.deployment_cursor = (self.deployment_cursor + step) % len(
+            self.game_state.characters
+        )
         if self._squad_command is not None:
-            first=self._squad_command.roster_first
-            if self.deployment_cursor<first:self._squad_command.roster_first=self.deployment_cursor
-            elif self.deployment_cursor>=first+self._squad_command.roster_capacity:self._squad_command.roster_first=self.deployment_cursor-self._squad_command.roster_capacity+1
+            first = self._squad_command.roster_first
+            if self.deployment_cursor < first:
+                self._squad_command.roster_first = self.deployment_cursor
+            elif self.deployment_cursor >= first + self._squad_command.roster_capacity:
+                self._squad_command.roster_first = (
+                    self.deployment_cursor - self._squad_command.roster_capacity + 1
+                )
 
     def _toggle_selected_agent(self) -> None:
         if not self.game_state.characters:
@@ -3353,6 +3399,9 @@ class ManagementView(GameView):
 
 
     def on_mouse_motion(self,x,y,dx,dy):
+        if not self.room_ui.is_open and self._headquarters is not None and not self.recruit_window_open and self.expanded_agent_sheet_index is None:
+            self._headquarters.motion(x,y,self.window.width,self.window.height)
+            return
         if self.expanded_agent_sheet_index is not None and self._character_sheet_renderer is not None:
             self._character_sheet_renderer.mouse_motion(x,y)
             return
@@ -3366,11 +3415,26 @@ class ManagementView(GameView):
                 break
 
     def on_mouse_scroll(self,x,y,scroll_x,scroll_y):
-        if self.expanded_agent_sheet_index is not None and self._character_sheet_renderer is not None:
-            self._character_sheet_renderer.mouse_scroll(x,y,scroll_y)
+        if (
+            self.expanded_agent_sheet_index is not None
+            and self._character_sheet_renderer is not None
+        ):
+            self._character_sheet_renderer.mouse_scroll(x, y, scroll_y)
             return
-        renderer=getattr(self,"_squad_command",None)
-        if renderer is None or self.room_ui.active_room_key!="squad" or self.recruit_window_open or self.expanded_agent_sheet_index is not None:return
-        rect=renderer.regions.get("roster")
-        if rect and rect.contains(x,y):
-            renderer.roster_first=max(0,min(max(0,len(self.game_state.characters)-renderer.roster_capacity),renderer.roster_first-int(scroll_y)))
+        renderer = getattr(self, "_squad_command", None)
+        if (
+            renderer is None
+            or self.room_ui.active_room_key != "squad"
+            or self.recruit_window_open
+            or self.expanded_agent_sheet_index is not None
+        ):
+            return
+        rect = renderer.regions.get("roster")
+        if rect and rect.contains(x, y):
+            renderer.roster_first = max(
+                0,
+                min(
+                    max(0, len(self.game_state.characters) - renderer.roster_capacity),
+                    renderer.roster_first - int(scroll_y),
+                ),
+            )
