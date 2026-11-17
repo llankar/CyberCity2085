@@ -46,6 +46,17 @@ func run() -> void:
 	var animated := capture.get_pixel(280,117)
 	assert(absf(animated.r-enhanced.r)<0.01 and absf(animated.b-enhanced.b)<0.01,"animated and static bodies have matching opacity and lighting")
 	assert(unit._art_sprite.region_rect==Rect2(64,0,64,64),"atlas frame selection remains exact")
+	# Every living unit has a colored outline before selection or targeting.
+	var ally_edge := capture.get_pixel(236,117)
+	assert(ally_edge.g>ally_edge.r+0.15,"unselected ally must have a clear cyan outline")
+	unit.is_enemy = true
+	unit.queue_redraw()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	var enemy_edge := root.get_texture().get_image().get_pixel(236,117)
+	assert(enemy_edge.r>enemy_edge.g+0.15,"untargeted enemy must have a clear red outline")
+	assert(not unit.is_active and not unit.is_targeted,"outline is independent of selection")
+	unit.is_enemy = false
 	unit.set_active(true)
 	await process_frame
 	await RenderingServer.frame_post_draw

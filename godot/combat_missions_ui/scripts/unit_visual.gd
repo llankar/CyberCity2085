@@ -161,7 +161,7 @@ func _draw() -> void:
 	var pixel := _screen_pixel()
 	var texture_size := tex.get_size()
 	var sample_step := source.size / _art_rect.size * pixel / texture_size
-	_art_material.set_shader_parameter("outline_step",sample_step*(1.6 if is_active or is_targeted else 1.0))
+	_art_material.set_shader_parameter("outline_step",sample_step*(1.8 if is_active or is_targeted else 1.35))
 	_art_material.set_shader_parameter("frame_uv",Vector4(source.position.x/texture_size.x,source.position.y/texture_size.y,source.end.x/texture_size.x,source.end.y/texture_size.y))
 	_art_material.set_shader_parameter("rim_color",Color(1.0,0.45,0.38) if is_enemy else Color(0.40,0.88,0.94))
 	_art_material.set_shader_parameter("fallen",dead)
