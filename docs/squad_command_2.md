@@ -52,8 +52,8 @@ Mission art is selected deterministically from the existing scene library by
 explicit image, environment and contextual keywords; the site label comes from
 the same inference as the World Map.
 
-The reference displays one downtime row; this screen displays all three to keep
-all activities directly usable. At 720p with **large text**, the roster presents
+The reference displays one downtime row; this screen displays all five to keep
+all activities directly usable, including [Rest and Hospital](character_sheet_visual_2.md). At 720p with **large text**, the roster presents
 four cards with a count/scroll rail, and footer icons become faint watermarks
 behind centered captions. This preserves reading size and all eleven commands.
 Long item/intelligence summaries use measured ellipsis. Hover provides full item

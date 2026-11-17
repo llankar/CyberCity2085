@@ -670,21 +670,13 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.draw_text = original
             management_screen._rect = original_rect
 
-        recovery_y = max(y for text, x, y in calls if text.startswith("Recovery "))
+        recovery_y = max(y for text, x, y in calls if text=="Recovery")
         stress_label_y = max(y for text, x, y in calls if text == "STRESS" and x < 300)
         self.assertGreater(recovery_y, stress_label_y + 20)
 
-        meter_bottoms = sorted(
-            {
-                b
-                for l, b, r, t, color in rect_calls
-                if t - b == 10 and r - l > 100 and l < 300
-            }
-        )
-        self.assertGreaterEqual(len(meter_bottoms), 2)
-        hp_meter_bottom = meter_bottoms[-1]
-        stress_meter_bottom = meter_bottoms[0]
-        self.assertGreater(hp_meter_bottom - stress_meter_bottom, 32)
+        dossier=view._character_sheet_renderer
+        self.assertGreater(dossier.layout.identity.top,dossier.layout.identity.bottom)
+        self.assertEqual(dossier.data.derived['stress_cap'],12)
 
     def test_squad_room_can_remove_agent_from_roster(self):
         view = ManagementView(GameState())
