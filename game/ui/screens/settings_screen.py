@@ -45,6 +45,7 @@ class SettingsState:
     text_size:        str   = "medium"
     godot_bin_path:   str   = ""
     extra_flags: dict       = field(default_factory=dict)
+    reduced_motion:   bool  = False  # Main-menu atmospheric animation
 
 
 _RESOLUTIONS: list[tuple[int, int]] = [
@@ -67,6 +68,9 @@ def load_settings() -> SettingsState:
         s.high_contrast    = bool(data.get("high_contrast",    s.high_contrast))
         s.show_grid        = bool(data.get("show_grid",        s.show_grid))
         s.camera_shake     = bool(data.get("camera_shake",     s.camera_shake))
+        s.reduced_motion   = bool(data.get("reduced_motion", s.reduced_motion))
+        if isinstance(data.get("extra_flags"), dict):
+            s.extra_flags = dict(data["extra_flags"])
         s.resolution_index = int(data.get("resolution_index",  s.resolution_index))
         s.display_index    = int(data.get("display_index",     s.display_index))
         s.text_size        = normalize_text_size(data.get("text_size", s.text_size))
