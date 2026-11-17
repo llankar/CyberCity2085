@@ -60,3 +60,22 @@ godot --path godot/combat_missions_ui --rendering-method gl_compatibility --audi
 ```
 
 The driver creates its own isolated handoff and screenshot under `work/`.
+
+## Reference zoom and ten-percent token enlargement
+
+The supplied zoom reference corresponds to a full isometric tile approximately
+280 screen pixels wide (the smaller destination diamond is 46% of that width).
+The initial camera zoom is now also its maximum:
+`clamp(280 / (2 * iso_tw), 0.25, 3.0)`. It adapts to the board's terrain scale;
+zooming out remains available. Runtime checks verify the framing at 1280 × 720,
+1920 × 1080 and 2560 × 1440.
+
+All token presentation dimensions increase by exactly 10%: Godot visual bodies,
+legacy standees and shadows, and Arcade fallback sprite scales (1.5 → 1.65;
+human/power-armor half-scale 0.75 → 0.825). Grid geometry, collision cells,
+pathfinding, AP costs and logical unit size remain unchanged. HP bars continue
+to anchor above the enlarged visible body.
+
+[Actual capture at the new zoom with enlarged tokens](images/tactical-zoom-tokens.png).
+The capture driver uses the same adaptive zoom and executes a real rightward
+move on the underground market, including AP deduction and rendered arrival.

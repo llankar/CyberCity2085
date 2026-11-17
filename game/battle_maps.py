@@ -9,7 +9,7 @@ from typing import Any
 
 
 ASSET_DIR = Path("assets/maps")
-BATTLE_TOKEN_SCALE = 1.5
+BATTLE_TOKEN_SCALE = 1.5 * 1.10
 BATTLE_TOKEN_SCALE_NON_ROBOT = BATTLE_TOKEN_SCALE / 2
 
 _IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg"}
