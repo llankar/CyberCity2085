@@ -331,7 +331,9 @@ def draw_expanded_room_ui(
     room, rect = active
     border = _room_accent_color(room)
     arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (0, 0, 0, opacity.overlay_dim))
-    texture = _load_texture_once(room.image_path) if room.image_path else None
+    texture = state.texture_override
+    if texture is None:
+        texture = _load_texture_once(room.image_path) if room.image_path else None
     if texture is not None:
         room_rect = arcade.LBWH(rect.left, rect.bottom, rect.width, rect.height)
         arcade.draw_texture_rect(texture, room_rect)
