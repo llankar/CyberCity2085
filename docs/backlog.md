@@ -671,3 +671,8 @@ Détails : [Combat Visual 2.4](combat_visual_24.md).
 - [x] TOP-05 Documenter, archiver les captures et publier/fusionner le résultat vérifié selon l’autorisation permanente de l’utilisateur.
 
 Détails : [Vue de haut 2.5D](combat_top_down.md).
+
+## Échap en combat Godot — 17 novembre 2026
+
+- [x] ESC-01 Remplacer la fermeture du processus par la fermeture des panneaux, sans changer l’état de la mission.
+- [x] ESC-02 Vérifier les événements clavier répétés dans les deux HUD ; documenter et publier la correction.

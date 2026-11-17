@@ -37,3 +37,7 @@ DISPLAY=:103 python -m pytest tests/test_top_down_combat.py tests/test_natural_e
 ```
 
 [Captures réelles](images/combat-top-down/README.md). L’ancien cadrage reste consultable dans les [comparatifs 2.4](images/combat-24/README.md).
+
+## Échap pendant un combat
+
+Échap ne quitte plus Godot et ne termine jamais la mission. La touche ferme les paramètres et le journal lorsqu’ils sont affichés ; sans panneau ouvert, elle laisse le combat inchangé. Le comportement est partagé par les HUD moderne et classique. Le test `tests/test_combat_escape.py` envoie de véritables événements clavier répétés aux deux interfaces et vérifie que le combat, le tour et les données tactiques restent intacts.

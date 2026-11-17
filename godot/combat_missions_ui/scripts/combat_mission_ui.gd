@@ -724,7 +724,12 @@ func _gui_input(event: InputEvent) -> void:
 		var ke := event as InputEventKey
 		match ke.keycode:
 			KEY_ESCAPE:
-				get_tree().quit()
+				# Escape dismisses overlays; only mission results may leave combat.
+				show_combat_log = false
+				if is_instance_valid(_hud):
+					if "settings_open" in _hud:_hud.settings_open = false
+					_hud.show_log = false
+					_hud.queue_redraw()
 				accept_event()
 			KEY_TAB:
 				if battle_started and turn_side == "player":
