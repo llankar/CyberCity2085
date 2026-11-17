@@ -14,6 +14,7 @@ def main():
             b=prop['bounds_uv'];w=(b[2]-b[0])*record['image_size'][0];h=(b[3]-b[1])*record['image_size'][1]
             choices=[]
             for yaw in [0,90,180,270]:
+                if 'author_yaw' in prop and yaw!=prop['author_yaw']:continue
                 p=ART/'props25'/f'{prop["asset"]}-{yaw}.png'
                 with Image.open(p) as im:
                     box=im.getbbox();aw,ah=box[2]-box[0],box[3]-box[1]
@@ -21,7 +22,7 @@ def main():
                 choices.append((coverage,-yaw,yaw))
             coverage,_,yaw=max(choices)
             prop['yaw']=yaw;prop['frame_coverage']=round(coverage,4)
-            prop['enabled']=coverage>=.66
+            prop['enabled']=coverage>=.66 and prop.get('author_enabled',True)
             prop['detail_status']='pending_native_review' if prop['enabled'] else 'original_retained_frame_mismatch'
             if prop['enabled']:enabled+=1
             else:rejected+=1

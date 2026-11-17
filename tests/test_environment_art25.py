@@ -22,7 +22,7 @@ def test_every_map_has_reviewed_separate_art_and_an_honest_inventory():
         for prop in entry['props']:
             assert prop['source_object_id'] in ids
             if prop['enabled'] and not prop.get('partial_source_object',False):improved.add(prop['source_object_id'])
-            assert prop['source_review']=='overview_contact_sheet'
+            assert prop['source_review'] in {'overview_contact_sheet','detail_crop_sheet'}
             assert all(0<=v<=1 for v in prop['bounds_uv'])
             assert 'cells' not in prop and 'blocks_sight' not in prop
             for yaw in [0,90,180,270]:assert (ART/'props25'/f'{prop["asset"]}-{yaw}.png').is_file()
@@ -45,7 +45,7 @@ def test_native_contract(script,sentinel):
 def test_production_frames_have_real_transparency_and_complete_silhouettes():
     from PIL import Image
     library=json.loads((ART/'props25/library.json').read_text())
-    assert len(library['assets'])==16
+    assert len(library['assets'])==26
     for family in library['assets']:
         for yaw in [0,90,180,270]:
             with Image.open(ART/'props25'/f'{family}-{yaw}.png') as image:
@@ -55,3 +55,24 @@ def test_production_frames_have_real_transparency_and_complete_silhouettes():
                 # Generated RGBA can quantize an opaque interior to 254/255.
                 assert bounds and alpha.getextrema()[0]==0 and alpha.getextrema()[1]>=250
                 assert bounds[0]>0 and bounds[1]>0 and bounds[2]<image.width and bounds[3]<image.height
+
+
+def test_expansion_decisions_are_visually_reviewed_and_bound_to_exact_art():
+    reviews=json.loads((ART/'expansion_reviews.json').read_text())['candidates']
+    catalog=json.loads((ART/'environment_art.json').read_text())['maps']
+    assert len(reviews)==218
+    for name,entry in catalog.items():
+        for prop in entry['props']:
+            if prop['source_review']!='detail_crop_sheet':continue
+            review=reviews[prop['review_index']]
+            assert review['visual_review']=='detail_crop_inspected'
+            assert review['decision']=='replace'
+            assert name in review['aliases'] and entry['image_sha256']==review['source_sha256']
+            assert (prop['asset'],prop['source_object_id'],prop['bounds_uv'])==(review['asset'],review['source_object_id'],review['bounds_uv'])
+            if prop['enabled'] and 'author_yaw' in prop:assert prop['yaw']==prop['author_yaw']
+
+
+def test_published_sprite_checksums_match_production_manifest():
+    library=json.loads((ART/'props25/library.json').read_text())
+    for key,record in library['files'].items():
+        assert hashlib.sha256((ART/'props25'/key).read_bytes()).hexdigest()==record['sha256']

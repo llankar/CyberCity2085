@@ -100,7 +100,9 @@
         "metal",
         "steel"
       ],
-      "status": "resource_available_partial_catalogue_integration"
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_facilities_expansion.png"
     },
     "wall": {
       "yaw": [
@@ -144,7 +146,9 @@
         "rubber",
         "steel"
       ],
-      "status": "resource_available_partial_catalogue_integration"
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_facilities_expansion.png"
     },
     "hvac": {
       "yaw": [
@@ -158,7 +162,9 @@
         "rubber",
         "steel"
       ],
-      "status": "resource_available_partial_catalogue_integration"
+      "status": "resource_available_partial_catalogue_integration",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_facilities_expansion.png"
     },
     "bench": {
       "yaw": [
@@ -251,6 +257,183 @@
       "status": "resource_available_partial_catalogue_integration",
       "art_finish": "generated_artist_variant",
       "atlas_source": "artist_atlas.png"
+    },
+    "bed": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "fabric",
+        "metal",
+        "paint",
+        "steel",
+        "white",
+        "wood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_furniture_expansion.png"
+    },
+    "desk": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "paint",
+        "rubber",
+        "screen",
+        "steel",
+        "wood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_furniture_expansion.png"
+    },
+    "locker": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "rubber",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_furniture_expansion.png"
+    },
+    "planter": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "concrete",
+        "foliage",
+        "wood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_furniture_expansion.png"
+    },
+    "transformer": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "paint",
+        "rubber",
+        "steel",
+        "white"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_industry_expansion.png"
+    },
+    "bin": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "rubber",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_industry_expansion.png"
+    },
+    "workbench": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_industry_expansion.png"
+    },
+    "vending": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "amber",
+        "cyan",
+        "paint",
+        "rubber",
+        "screen",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review"
+    },
+    "planter_square": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "concrete",
+        "foliage",
+        "wood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_industry_expansion.png"
+    },
+    "medical_bed": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "fabric",
+        "metal",
+        "paint",
+        "rubber",
+        "steel",
+        "white"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_facilities_expansion.png"
     }
   },
   "postproduction": "3x3 median on opaque material interiors only; original alpha retained",
@@ -275,6 +458,42 @@
         "table",
         "crate",
         "bench"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_furniture_expansion.png": {
+      "source": "artist_furniture_expansion.png",
+      "source_sha256": "33a97424105d1156ae0cc9db236fec2536c01baadc9bf8b530b698fe909a12ab",
+      "families": [
+        "bed",
+        "desk",
+        "locker",
+        "planter"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_industry_expansion.png": {
+      "source": "artist_industry_expansion.png",
+      "source_sha256": "a32c49a14a7f8eaf2b3fc8f81a5bb7f1d0b06f4c506c90c20214067da6410ea4",
+      "families": [
+        "transformer",
+        "bin",
+        "workbench",
+        "planter_square"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_facilities_expansion.png": {
+      "source": "artist_facilities_expansion.png",
+      "source_sha256": "29a18629f41de592143a431d0843d0a8201b4412fa7c9eb3bb1d493bdf006ee0",
+      "families": [
+        "medical_bed",
+        "server",
+        "hvac",
+        "barrier"
       ],
       "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
       "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
@@ -542,55 +761,55 @@
       ]
     },
     "barrier-0.png": {
-      "sha256": "c85bc46a15bbbda6de2369c00e23c3c2387b7696279d5e8309fc7f989b3308c4",
+      "sha256": "271a04b38b56cd5a734f4adb29c4428bc78948dcf3d6a1ea708a24a1d025da04",
       "size": [
-        512,
-        512
+        313,
+        314
       ],
       "alpha_bounds": [
-        61,
-        201,
-        450,
-        309
+        28,
+        120,
+        289,
+        197
       ]
     },
     "barrier-90.png": {
-      "sha256": "c95c13faaee7ccd35f3f12294e60b4fdeaa8c1218d364628cece955cab40b085",
+      "sha256": "ca0881af4877e7f0c5f4497d36fa4c7a5981b568d66a81fefbad9b33e63170fc",
       "size": [
-        512,
-        512
+        314,
+        314
       ],
       "alpha_bounds": [
-        211,
-        61,
-        275,
-        467
+        124,
+        27,
+        177,
+        291
       ]
     },
     "barrier-180.png": {
-      "sha256": "3384d218ab6fec175f824ea913e14be32e905f73443064a3e8278cb98d2cf3b1",
+      "sha256": "baec1b996ac13841d9acbfd7376bc0f12e7f7f52de4ea8ab0bae7a73cadc9be9",
       "size": [
-        512,
-        512
+        313,
+        314
       ],
       "alpha_bounds": [
-        62,
-        226,
-        450,
-        333
+        26,
+        129,
+        287,
+        209
       ]
     },
     "barrier-270.png": {
-      "sha256": "34374d9152db9810557a590898b5b3b02f7e6c10d846a1d6e13401a918671ef4",
+      "sha256": "6af6b13d458dd4c87b3d8bbafc501a7d9e253b9837202aa7ed1dc1d30e2c4740",
       "size": [
-        512,
-        512
+        314,
+        314
       ],
       "alpha_bounds": [
-        237,
-        61,
-        301,
-        467
+        141,
+        27,
+        194,
+        291
       ]
     },
     "wall-0.png": {
@@ -698,107 +917,107 @@
       ]
     },
     "server-0.png": {
-      "sha256": "7426c95b50683bf8cb856b891461caa731b832ecf0d81e8584d6cb19d5efb0e4",
+      "sha256": "5ec9c89366d6dd4422b7df8fce777f58c7caec0a4704d1226b1f1596e22eab10",
       "size": [
-        512,
-        512
+        313,
+        314
       ],
       "alpha_bounds": [
-        195,
-        86,
-        324,
-        283
+        112,
+        46,
+        206,
+        219
       ]
     },
     "server-90.png": {
-      "sha256": "63b751c379f594282fb89ed1d6e3f8dbf33fe90ea77ccfe553413a95526db473",
+      "sha256": "f158306370ee5245698cd980e271bd8efc5d0179a9ee4ef911e5e31d12490ac8",
       "size": [
-        512,
-        512
+        314,
+        314
       ],
       "alpha_bounds": [
-        145,
-        127,
-        260,
-        341
+        83,
+        68,
+        174,
+        228
       ]
     },
     "server-180.png": {
-      "sha256": "a638b2b8f8cd6d275e7dad45eb6bc8d1c84c36c5b40b60969bba5ae37418e12e",
+      "sha256": "2941d1833f9052ce7acec4bfa314bd46e9cf4abc6a3b77c821b56c8fff39e8bb",
       "size": [
-        512,
-        512
+        313,
+        314
       ],
       "alpha_bounds": [
-        188,
-        192,
-        316,
-        388
+        107,
+        103,
+        203,
+        251
       ]
     },
     "server-270.png": {
-      "sha256": "01c2d21105021a25043393cc853ec4c2c7859219ade99b1fb5a8cae98a86f938",
+      "sha256": "078cf0dd4e5c1463bbfc8cb947a8f95cec2016b1050b2730a75038b89841bc94",
       "size": [
-        512,
-        512
+        314,
+        314
       ],
       "alpha_bounds": [
-        252,
-        134,
-        367,
-        348
+        145,
+        68,
+        239,
+        228
       ]
     },
     "hvac-0.png": {
-      "sha256": "7568511173da573d250f3a2749a9a85d67e550c787dbfe309879dac2f2b97a5b",
+      "sha256": "09fef41d108a27885016c5bd91b029fd97b02ac38573b63dd25e8d3a4037d3d3",
       "size": [
-        512,
-        512
+        313,
+        313
       ],
       "alpha_bounds": [
-        130,
-        154,
-        382,
-        346
+        70,
+        87,
+        247,
+        220
       ]
     },
     "hvac-90.png": {
-      "sha256": "f28f36b60dd79f559a9297ff1973673e4ca630760a0cfcdd39d0cb3c26c3ca36",
+      "sha256": "0fdceb77d7e8cb97d8e3f5e2d23caea57bc08c835e38efe15da05e4cec51b86a",
       "size": [
-        512,
-        512
+        314,
+        313
       ],
       "alpha_bounds": [
-        155,
-        131,
-        322,
-        404
+        88,
+        64,
+        201,
+        259
       ]
     },
     "hvac-180.png": {
-      "sha256": "6db1ccc562a580d572de909630e78e65ec9017b40f67d55ef33322e0d2c40aed",
+      "sha256": "d8df7d27c2a9cf90e134de9c1ccdfcee8f281cf126ac838e2421b7da77523857",
       "size": [
-        512,
-        512
+        313,
+        313
       ],
       "alpha_bounds": [
-        130,
-        189,
-        382,
-        381
+        71,
+        106,
+        253,
+        241
       ]
     },
     "hvac-270.png": {
-      "sha256": "24f8f42bb2f2b213261bd2de5725e6504d02eb2207684727e61d7980f375cadd",
+      "sha256": "ca9141c9499363b6b7b7c62a5c80ef58bc9a216cb2d5f5c0826fca3bd8146dd4",
       "size": [
-        512,
-        512
+        314,
+        313
       ],
       "alpha_bounds": [
-        190,
-        131,
-        357,
-        404
+        109,
+        63,
+        225,
+        260
       ]
     },
     "bench-0.png": {
@@ -1111,6 +1330,526 @@
         98,
         278,
         214
+      ]
+    },
+    "bed-0.png": {
+      "sha256": "8b413ff97c89122c1dac2e421b6fe6450674860ecb5e24b8ee660a82186d4fc7",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        85,
+        46,
+        227,
+        279
+      ]
+    },
+    "bed-90.png": {
+      "sha256": "0225acefe6097f2d3820dddf601a322bde0b9a10122e3bf2e7c3514b4f6a728b",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        60,
+        70,
+        273,
+        236
+      ]
+    },
+    "bed-180.png": {
+      "sha256": "3b99dec93013f3181b9def95808f427c1baf92ad786839e08ef705bacc2aca21",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        86,
+        53,
+        228,
+        261
+      ]
+    },
+    "bed-270.png": {
+      "sha256": "43703cde2742de35212358f4d9ec335f1c9ad2ad644a09248fc2ab99daa56c34",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        41,
+        71,
+        257,
+        236
+      ]
+    },
+    "desk-0.png": {
+      "sha256": "06b2fe233959b28d8a6940bdc278c6d955be52dbd3dfad9ce351ddb03366901c",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        43,
+        95,
+        244,
+        216
+      ]
+    },
+    "desk-90.png": {
+      "sha256": "0726b934610dd2e352822354b69ef9fe946a2948a646758d9c40c33e50c5dacc",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        97,
+        71,
+        198,
+        280
+      ]
+    },
+    "desk-180.png": {
+      "sha256": "2d0746ce2ea56cace594e0e94926b597569299381391736ccbc014e782931fd9",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        71,
+        110,
+        272,
+        230
+      ]
+    },
+    "desk-270.png": {
+      "sha256": "8cc48fb1452f4c51ca2446fe770d49f043d62e4edb62104f5715a2bc537711d0",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        115,
+        46,
+        217,
+        255
+      ]
+    },
+    "locker-0.png": {
+      "sha256": "c2215310e22e8a07a28ccf9fdf93e6ec0e1e9c68a5607fa1121c6b279c21f3b2",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        98,
+        62,
+        216,
+        190
+      ]
+    },
+    "locker-90.png": {
+      "sha256": "5bb9e42e501e5643665cf1d6d13aba1f16cbe38a428a31b44c6d8c32dfdce7fc",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        103,
+        62,
+        181,
+        234
+      ]
+    },
+    "locker-180.png": {
+      "sha256": "19d98cc4c95f33df490a67adafbb771e382e398965d88f50e07d44504c502d5b",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        100,
+        96,
+        217,
+        229
+      ]
+    },
+    "locker-270.png": {
+      "sha256": "41ea45498675ee33748b16a0b7835f5b62f4f110f77d57991915518731238096",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        136,
+        60,
+        213,
+        232
+      ]
+    },
+    "planter-0.png": {
+      "sha256": "ed3ac58e15d20512a135d9de00a9e8e4b482bafeee341313837dfc75006259b4",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        53,
+        94,
+        274,
+        216
+      ]
+    },
+    "planter-90.png": {
+      "sha256": "2a116962f297723ec84d7c25a52367142de27a4794f094f6e2e00afb72597f4f",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        104,
+        18,
+        211,
+        273
+      ]
+    },
+    "planter-180.png": {
+      "sha256": "34d39109b2b9175cccb9fc0cf17233d0b42c921cd6579403942e17ba9526e074",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        32,
+        93,
+        269,
+        219
+      ]
+    },
+    "planter-270.png": {
+      "sha256": "b845c6cf44ffaa185045ff553fd98305952b7fc0761d1b952b4e20439ae41594",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        110,
+        33,
+        218,
+        279
+      ]
+    },
+    "transformer-0.png": {
+      "sha256": "5249045010d2acdcdcf3fa769237af91562e111435b8fa4b08b8f45ce9bbdebd",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        56,
+        81,
+        256,
+        230
+      ]
+    },
+    "transformer-90.png": {
+      "sha256": "5a0f4d27b6cad0c189ed3a2316f5be49ddf8e5251adccf16255726c3160ac13d",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        100,
+        49,
+        219,
+        268
+      ]
+    },
+    "transformer-180.png": {
+      "sha256": "6671bb188dd04082b0fa102c22d238533ef6c5134002db83586c8e511462462c",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        58,
+        81,
+        257,
+        229
+      ]
+    },
+    "transformer-270.png": {
+      "sha256": "152663de7334015a36c9123b7407df296b3e02b6f4f2760d751bc9b5ba735f36",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        93,
+        49,
+        213,
+        268
+      ]
+    },
+    "bin-0.png": {
+      "sha256": "a1426ac18780ccb423e104ef862294a2b5fa27dce8eac2f250cd268cb787d659",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        92,
+        81,
+        221,
+        235
+      ]
+    },
+    "bin-90.png": {
+      "sha256": "502ff6f18b1e6c2730e7c714fbb984fae03b2ee2bf49e4dafa7067743a5bb59c",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        99,
+        82,
+        201,
+        238
+      ]
+    },
+    "bin-180.png": {
+      "sha256": "11e67d2733cec731da39cbda4f032205ac93a1b54cdb7b29762694330aea41a0",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        94,
+        85,
+        220,
+        236
+      ]
+    },
+    "bin-270.png": {
+      "sha256": "c3971f3ef06bf6c3ca50066fbf0835ef8387a5b285baf049cf0a2bfe47cad6a0",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        112,
+        82,
+        214,
+        238
+      ]
+    },
+    "workbench-0.png": {
+      "sha256": "6994e657716d926c274e110129ce7e3bf69c3ecd42356427dde84922cf73c41a",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        36,
+        91,
+        276,
+        237
+      ]
+    },
+    "workbench-90.png": {
+      "sha256": "7d8983c0dc3dd5332ee3493ee3ab69370dbf8972e5f2cbcc933b2f20aa25ad81",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        97,
+        39,
+        235,
+        289
+      ]
+    },
+    "workbench-180.png": {
+      "sha256": "35c442be1dde884b62ffd8c909a1c2c4aca9c2b3c60eb3608827d17d22b491e3",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        36,
+        70,
+        276,
+        245
+      ]
+    },
+    "workbench-270.png": {
+      "sha256": "e67a9731453bb578bc510447a997ac03e6c4a43cfb37726bcb5dadcb2a4e60a4",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        80,
+        39,
+        217,
+        289
+      ]
+    },
+    "vending-0.png": {
+      "sha256": "c1b4e7508c20f701264aa1db825f2ad81d076d1538f645cb9b183d47f8fd38a2",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        189,
+        99,
+        333,
+        297
+      ]
+    },
+    "vending-90.png": {
+      "sha256": "4557538ad4137225257fd21705a891416e48cb77fa994d05db3e97ebb373ffd2",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        159,
+        118,
+        279,
+        345
+      ]
+    },
+    "vending-180.png": {
+      "sha256": "20d12e62235dacbc09b63b38eba51b028e08e9ce06cca55802bd74c407927948",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        179,
+        175,
+        323,
+        373
+      ]
+    },
+    "vending-270.png": {
+      "sha256": "1021a83d0deca9df22e12b1410fbe84ab8daafeea4cbc2a0efffc7b9c5759f27",
+      "size": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        233,
+        128,
+        353,
+        354
+      ]
+    },
+    "planter_square-0.png": {
+      "sha256": "d832e36f904e1d87e782520f04628d58c9dc1ea45a081a6ac39bdd4a5c3f47e6",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        86,
+        82,
+        226,
+        234
+      ]
+    },
+    "planter_square-90.png": {
+      "sha256": "e0fc287cc93d50b31fe7c0dd20c635c651792d41fcf4206c62bf7662a5587723",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        101,
+        65,
+        211,
+        251
+      ]
+    },
+    "planter_square-180.png": {
+      "sha256": "fa18d713a7ce90835a4e940bf5e002b56ebc3a026f8bba9ee6cff0bc0609b422",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        83,
+        85,
+        231,
+        234
+      ]
+    },
+    "planter_square-270.png": {
+      "sha256": "c0779d27ddcc4c5c3a91d5d0c0cecd6156f21f00b57ceab3729ea38210eec7a7",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        103,
+        67,
+        213,
+        251
+      ]
+    },
+    "medical_bed-0.png": {
+      "sha256": "2e3c28c727954b3941f0bcfd4b1cc58ecf9d4fc1652d6c7fb6bafbe68f554fac",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        91,
+        58,
+        231,
+        285
+      ]
+    },
+    "medical_bed-90.png": {
+      "sha256": "4a77f1e9fdb772711fe9428e95b4d09b4829f8a87f62ec6e89b1ecf3304747be",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        49,
+        67,
+        275,
+        239
+      ]
+    },
+    "medical_bed-180.png": {
+      "sha256": "b4fd3063062e9753c909f52f8e48ba5a9d795e47852d28894774d5aa3f7c6f6f",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        76,
+        49,
+        221,
+        280
+      ]
+    },
+    "medical_bed-270.png": {
+      "sha256": "0acb933756363e73c748463b6a71c659396c8a9b35c95e7a417387155e7782b5",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        34,
+        91,
+        261,
+        234
       ]
     }
   }

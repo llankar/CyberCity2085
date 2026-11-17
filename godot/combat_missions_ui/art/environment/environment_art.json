@@ -24,6 +24,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8135
+        },
+        {
+          "id": "art25_detail_south_planter_horizontal",
+          "source_object_id": "south_planter_horizontal",
+          "asset": "planter",
+          "yaw": 180,
+          "bounds_uv": [
+            0.5338541666666666,
+            0.6046296296296296,
+            0.5963541666666666,
+            0.6648148148148149
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 1,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9815
+        },
+        {
+          "id": "art25_detail_top_ne_planter",
+          "source_object_id": "top_ne_planter",
+          "asset": "planter_square",
+          "yaw": 180,
+          "bounds_uv": [
+            0.6020833333333333,
+            0.06481481481481481,
+            0.6354166666666666,
+            0.12407407407407407
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 2,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9933
         }
       ],
       "art_status": "partial",
@@ -43,14 +77,12 @@
         "southwest_edge_building",
         "southeast_edge_building",
         "top_nw_planter",
-        "top_ne_planter",
         "top_street_vehicle",
         "center_tree_upper",
         "center_tree_lower",
         "center_west_planter",
         "center_nw_vehicle",
         "center_south_vehicle",
-        "south_planter_horizontal",
         "south_center_tree",
         "west_street_crates",
         "west_south_vehicle",
@@ -90,14 +122,12 @@
         "southwest_edge_building",
         "southeast_edge_building",
         "top_nw_planter",
-        "top_ne_planter",
         "top_street_vehicle",
         "center_tree_upper",
         "center_tree_lower",
         "center_west_planter",
         "center_nw_vehicle",
         "center_south_vehicle",
-        "south_planter_horizontal",
         "south_center_tree",
         "west_street_crates",
         "west_south_vehicle",
@@ -135,9 +165,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.5981
+        },
+        {
+          "id": "art25_detail_east_small_planter",
+          "source_object_id": "east_small_planter",
+          "asset": "planter_square",
+          "yaw": 180,
+          "bounds_uv": [
+            0.7484375,
+            0.45925925925925926,
+            0.7890625,
+            0.5305555555555556
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 3,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9806
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 33,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -154,7 +201,6 @@
         "east_inner_bench",
         "south_bench",
         "west_small_planter",
-        "east_small_planter",
         "southwest_planter",
         "southeast_planter",
         "south_inner_tree_west",
@@ -201,7 +247,6 @@
         "east_inner_bench",
         "south_bench",
         "west_small_planter",
-        "east_small_planter",
         "southwest_planter",
         "southeast_planter",
         "south_inner_tree_west",
@@ -244,6 +289,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9516
+        },
+        {
+          "id": "art25_detail_planter_east_lower",
+          "source_object_id": "planter_east_lower",
+          "asset": "planter",
+          "yaw": 0,
+          "bounds_uv": [
+            0.7864583333333334,
+            0.5694444444444444,
+            0.8723958333333334,
+            0.6592592592592592
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 6,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.939
+        },
+        {
+          "id": "art25_detail_planter_north_left",
+          "source_object_id": "planter_north_left",
+          "asset": "planter_square",
+          "yaw": 180,
+          "bounds_uv": [
+            0.42291666666666666,
+            0.0,
+            0.46979166666666666,
+            0.06481481481481481
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 8,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7726
         }
       ],
       "art_status": "partial",
@@ -261,14 +340,12 @@
         "wall_south_west",
         "wall_south_east",
         "holo_platform",
-        "planter_north_left",
         "planter_north_right",
         "planter_nw",
         "planter_ne",
         "planter_west_upper",
         "planter_west_lower",
         "planter_east_upper",
-        "planter_east_lower",
         "planter_sw",
         "planter_se",
         "sign_nw_base",
@@ -312,14 +389,12 @@
         "wall_south_west",
         "wall_south_east",
         "holo_platform",
-        "planter_north_left",
         "planter_north_right",
         "planter_nw",
         "planter_ne",
         "planter_west_upper",
         "planter_west_lower",
         "planter_east_upper",
-        "planter_east_lower",
         "planter_sw",
         "planter_se",
         "sign_nw_base",
@@ -363,6 +438,57 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9015
+        },
+        {
+          "id": "art25_detail_planter_east",
+          "source_object_id": "planter_east",
+          "asset": "planter",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6854166666666667,
+            0.44537037037037036,
+            0.7447916666666666,
+            0.5203703703703704
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 9,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7769
+        },
+        {
+          "id": "art25_detail_planter_ne",
+          "source_object_id": "planter_ne",
+          "asset": "planter",
+          "yaw": 270,
+          "bounds_uv": [
+            0.6401041666666667,
+            0.06018518518518518,
+            0.6697916666666667,
+            0.17314814814814813
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 10,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9397
+        },
+        {
+          "id": "art25_detail_planter_se",
+          "source_object_id": "planter_se",
+          "asset": "planter",
+          "yaw": 270,
+          "bounds_uv": [
+            0.6401041666666667,
+            0.7842592592592592,
+            0.6697916666666667,
+            0.9018518518518519
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 11,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9782
         }
       ],
       "art_status": "partial",
@@ -376,13 +502,10 @@
         "bench_sw",
         "bench_se",
         "planter_west",
-        "planter_east",
         "planter_nw",
-        "planter_ne",
         "planter_north",
         "planter_south",
         "planter_sw",
-        "planter_se",
         "barricade_west",
         "barricade_east",
         "west_north_crates",
@@ -416,13 +539,10 @@
         "bench_sw",
         "bench_se",
         "planter_west",
-        "planter_east",
         "planter_nw",
-        "planter_ne",
         "planter_north",
         "planter_south",
         "planter_sw",
-        "planter_se",
         "barricade_west",
         "barricade_east",
         "west_north_crates",
@@ -561,6 +681,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9874
+        },
+        {
+          "id": "art25_detail_north_planter_1",
+          "source_object_id": "north_planter_1",
+          "asset": "planter",
+          "yaw": 180,
+          "bounds_uv": [
+            0.38333333333333336,
+            0.2574074074074074,
+            0.4666666666666667,
+            0.3055555555555556
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 15,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.6113
         }
       ],
       "art_status": "partial",
@@ -595,7 +732,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -654,6 +792,57 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8013
+        },
+        {
+          "id": "art25_detail_planter_e1",
+          "source_object_id": "planter_e1",
+          "asset": "planter",
+          "yaw": 270,
+          "bounds_uv": [
+            0.6625,
+            0.24444444444444444,
+            0.7177083333333333,
+            0.37037037037037035
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 17,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.5633
+        },
+        {
+          "id": "art25_detail_planter_ne",
+          "source_object_id": "planter_ne",
+          "asset": "planter",
+          "yaw": 180,
+          "bounds_uv": [
+            0.6020833333333333,
+            0.10185185185185185,
+            0.7260416666666667,
+            0.18518518518518517
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 18,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7113
+        },
+        {
+          "id": "art25_detail_planter_se",
+          "source_object_id": "planter_se",
+          "asset": "planter",
+          "yaw": 180,
+          "bounds_uv": [
+            0.5979166666666667,
+            0.825925925925926,
+            0.7197916666666667,
+            0.9166666666666666
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 19,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7877
         }
       ],
       "art_status": "partial",
@@ -668,9 +857,7 @@
         "east_tower_south",
         "monument",
         "planter_nw",
-        "planter_ne",
         "planter_sw",
-        "planter_se",
         "planter_w1",
         "planter_w2",
         "planter_e1",
@@ -685,7 +872,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -703,9 +891,7 @@
         "east_tower_south",
         "monument",
         "planter_nw",
-        "planter_ne",
         "planter_sw",
-        "planter_se",
         "planter_w1",
         "planter_w2",
         "planter_e1",
@@ -905,6 +1091,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9332
+        },
+        {
+          "id": "art25_detail_east_bins",
+          "source_object_id": "east_bins",
+          "asset": "bin",
+          "yaw": 0,
+          "bounds_uv": [
+            0.7270833333333333,
+            0.5444444444444444,
+            0.76875,
+            0.6037037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 21,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6701
         }
       ],
       "art_status": "partial",
@@ -932,8 +1135,7 @@
         "south_stall_m",
         "south_stall_e",
         "west_awning",
-        "north_bins",
-        "east_bins"
+        "north_bins"
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
@@ -968,8 +1170,7 @@
         "south_stall_m",
         "south_stall_e",
         "west_awning",
-        "north_bins",
-        "east_bins"
+        "north_bins"
       ]
     },
     "city_exterior_parking_garage.png": {
@@ -1094,7 +1295,7 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
-          "frame_coverage": 0.7619
+          "frame_coverage": 0.7514
         }
       ],
       "art_status": "partial",
@@ -1174,6 +1375,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9741
+        },
+        {
+          "id": "art25_detail_container_center2",
+          "source_object_id": "container_center2",
+          "asset": "container",
+          "yaw": 90,
+          "bounds_uv": [
+            0.4083333333333333,
+            0.3925925925925926,
+            0.46979166666666666,
+            0.45185185185185184
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 24,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9741
+        },
+        {
+          "id": "art25_detail_container_w1",
+          "source_object_id": "container_w1",
+          "asset": "container",
+          "yaw": 90,
+          "bounds_uv": [
+            0.2635416666666667,
+            0.34444444444444444,
+            0.32395833333333335,
+            0.40370370370370373
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 25,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9909
         }
       ],
       "art_status": "partial",
@@ -1183,11 +1418,9 @@
         "nw_warehouse",
         "east_warehouse",
         "east_south_warehouse",
-        "container_w1",
         "container_w2",
         "container_w3",
         "container_w4",
-        "container_center2",
         "container_east1",
         "container_east2",
         "container_south1",
@@ -1220,11 +1453,9 @@
         "nw_warehouse",
         "east_warehouse",
         "east_south_warehouse",
-        "container_w1",
         "container_w2",
         "container_w3",
         "container_w4",
-        "container_center2",
         "container_east1",
         "container_east2",
         "container_south1",
@@ -1349,6 +1580,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8605
+        },
+        {
+          "id": "art25_detail_central_container_blue",
+          "source_object_id": "central_container_blue",
+          "asset": "container",
+          "yaw": 0,
+          "bounds_uv": [
+            0.5296875,
+            0.32407407407407407,
+            0.5489583333333333,
+            0.48148148148148145
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 30,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.5146
+        },
+        {
+          "id": "art25_detail_central_container_green",
+          "source_object_id": "central_container_green",
+          "asset": "container",
+          "yaw": 0,
+          "bounds_uv": [
+            0.46927083333333336,
+            0.3333333333333333,
+            0.49635416666666665,
+            0.5259259259259259
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 31,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.591
         }
       ],
       "art_status": "partial",
@@ -1424,7 +1689,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -1525,7 +1791,7 @@
           "partial_source_object": true
         }
       ],
-      "art_status": "partial",
+      "art_status": "source_layers_pending_matched_asset",
       "source_objects": 32,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1828,9 +2094,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.6055
+        },
+        {
+          "id": "art25_detail_east_mid_console",
+          "source_object_id": "east_mid_console",
+          "asset": "console",
+          "yaw": 0,
+          "bounds_uv": [
+            0.7723958333333333,
+            0.45092592592592595,
+            0.8135416666666667,
+            0.5101851851851852
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 40,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7931
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 74,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1874,7 +2157,6 @@
         "center_horizontal_south_partition",
         "east_mid_north_wall",
         "east_mid_pipe_west",
-        "east_mid_console",
         "east_outer_service_wall",
         "east_outer_equipment",
         "east_service_pipe",
@@ -1960,7 +2242,6 @@
         "center_horizontal_south_partition",
         "east_mid_north_wall",
         "east_mid_pipe_west",
-        "east_mid_console",
         "east_outer_service_wall",
         "east_outer_equipment",
         "east_service_pipe",
@@ -2006,6 +2287,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.967
+        },
+        {
+          "id": "art25_detail_middle_crate",
+          "source_object_id": "middle_crate",
+          "asset": "crate",
+          "yaw": 270,
+          "bounds_uv": [
+            0.459375,
+            0.6296296296296297,
+            0.48333333333333334,
+            0.7
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 44,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.896
         }
       ],
       "art_status": "partial",
@@ -2044,8 +2342,7 @@
         "north_crate_4",
         "north_crate_5",
         "west_crate_m",
-        "west_crate_s",
-        "middle_crate"
+        "west_crate_s"
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
@@ -2091,8 +2388,7 @@
         "north_crate_4",
         "north_crate_5",
         "west_crate_m",
-        "west_crate_s",
-        "middle_crate"
+        "west_crate_s"
       ]
     },
     "city_interior_blacksite_lab.png": {
@@ -2236,6 +2532,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7846
+        },
+        {
+          "id": "art25_detail_east_north_desk",
+          "source_object_id": "east_north_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.8447916666666667,
+            0.0,
+            0.9052083333333333,
+            0.044444444444444446
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 48,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6931
+        },
+        {
+          "id": "art25_detail_east_mid_console",
+          "source_object_id": "east_mid_console",
+          "asset": "console",
+          "yaw": 180,
+          "bounds_uv": [
+            0.8708333333333333,
+            0.3055555555555556,
+            0.959375,
+            0.362962962962963
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 50,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.6257
         }
       ],
       "art_status": "partial",
@@ -2257,7 +2587,6 @@
         "west_north_table",
         "west_south_table",
         "east_north_table",
-        "east_north_desk",
         "east_mid_table",
         "east_mid_console",
         "east_south_sofa",
@@ -2274,7 +2603,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -2299,7 +2629,6 @@
         "west_north_table",
         "west_south_table",
         "east_north_table",
-        "east_north_desk",
         "east_mid_table",
         "east_mid_console",
         "east_south_sofa",
@@ -2337,6 +2666,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8164
+        },
+        {
+          "id": "art25_detail_ne_desk",
+          "source_object_id": "ne_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8177083333333334,
+            0.17222222222222222,
+            0.878125,
+            0.2518518518518518
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 51,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.812
+        },
+        {
+          "id": "art25_detail_nw_desk",
+          "source_object_id": "nw_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.12083333333333333,
+            0.17222222222222222,
+            0.18333333333333332,
+            0.2462962962962963
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 52,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.903
         }
       ],
       "art_status": "partial",
@@ -2358,10 +2721,8 @@
         "south_console_e",
         "south_cabinet_w",
         "south_cabinet_e",
-        "nw_desk",
         "nw_rack",
         "sw_table",
-        "ne_desk",
         "se_table",
         "nw_room",
         "sw_room",
@@ -2399,10 +2760,8 @@
         "south_console_e",
         "south_cabinet_w",
         "south_cabinet_e",
-        "nw_desk",
         "nw_rack",
         "sw_table",
-        "ne_desk",
         "se_table",
         "nw_room",
         "sw_room",
@@ -2436,6 +2795,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9561
+        },
+        {
+          "id": "art25_detail_central_planter",
+          "source_object_id": "central_planter",
+          "asset": "planter",
+          "yaw": 180,
+          "bounds_uv": [
+            0.4479166666666667,
+            0.575925925925926,
+            0.5458333333333333,
+            0.6592592592592592
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 54,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9005
+        },
+        {
+          "id": "art25_detail_sofa_ne",
+          "source_object_id": "sofa_ne",
+          "asset": "sofa",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6260416666666667,
+            0.3648148148148148,
+            0.6677083333333333,
+            0.40370370370370373
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 56,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9233
         }
       ],
       "art_status": "partial",
@@ -2455,9 +2848,7 @@
         "reception",
         "reception_plant_w",
         "reception_plant_e",
-        "central_planter",
         "sofa_sw",
-        "sofa_ne",
         "sofa_se",
         "table_w",
         "table_e",
@@ -2511,9 +2902,7 @@
         "reception",
         "reception_plant_w",
         "reception_plant_e",
-        "central_planter",
         "sofa_sw",
-        "sofa_ne",
         "sofa_se",
         "table_w",
         "table_e",
@@ -2554,7 +2943,7 @@
           "id": "art25_west_server",
           "source_object_id": "west_server",
           "asset": "server",
-          "yaw": 90,
+          "yaw": 0,
           "bounds_uv": [
             0.30833333333333335,
             0.3611111111111111,
@@ -2564,7 +2953,58 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
-          "frame_coverage": 0.8946
+          "frame_coverage": 0.8848
+        },
+        {
+          "id": "art25_detail_desk_s",
+          "source_object_id": "desk_s",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.31666666666666665,
+            0.7574074074074074,
+            0.365625,
+            0.8574074074074074
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 57,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.5607
+        },
+        {
+          "id": "art25_detail_desk_se",
+          "source_object_id": "desk_se",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.6291666666666667,
+            0.7666666666666667,
+            0.6708333333333333,
+            0.8722222222222222
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 58,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6955
+        },
+        {
+          "id": "art25_detail_east_planter",
+          "source_object_id": "east_planter",
+          "asset": "planter",
+          "yaw": 90,
+          "bounds_uv": [
+            0.6583333333333333,
+            0.5111111111111111,
+            0.690625,
+            0.6592592592592592
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 59,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9235
         }
       ],
       "art_status": "partial",
@@ -2582,7 +3022,6 @@
         "gaming_row_s",
         "east_server",
         "west_planter",
-        "east_planter",
         "game_table_sw",
         "table_e1",
         "table_e2",
@@ -2592,7 +3031,6 @@
         "server_s1",
         "server_s2",
         "desk_s",
-        "desk_se",
         "bath_sinks",
         "bath_cubicles",
         "west_kitchen",
@@ -2610,7 +3048,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -2631,7 +3070,6 @@
         "gaming_row_s",
         "east_server",
         "west_planter",
-        "east_planter",
         "game_table_sw",
         "table_e1",
         "table_e2",
@@ -2641,7 +3079,6 @@
         "server_s1",
         "server_s2",
         "desk_s",
-        "desk_se",
         "bath_sinks",
         "bath_cubicles",
         "west_kitchen",
@@ -2680,9 +3117,63 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.5383
+        },
+        {
+          "id": "art25_detail_bed_north",
+          "source_object_id": "bed_north",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.2833333333333333,
+            0.3925925925925926,
+            0.31145833333333334,
+            0.4648148148148148
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 60,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8908
+        },
+        {
+          "id": "art25_detail_bed_nw1",
+          "source_object_id": "bed_nw1",
+          "asset": "medical_bed",
+          "yaw": 180,
+          "bounds_uv": [
+            0.09270833333333334,
+            0.1425925925925926,
+            0.13020833333333334,
+            0.2759259259259259
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 61,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 180,
+          "frame_coverage": 0.7966
+        },
+        {
+          "id": "art25_detail_bed_w1",
+          "source_object_id": "bed_w1",
+          "asset": "medical_bed",
+          "yaw": 270,
+          "bounds_uv": [
+            0.035416666666666666,
+            0.4,
+            0.125,
+            0.49074074074074076
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 62,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 270,
+          "frame_coverage": 0.9045
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2690,11 +3181,8 @@
         "east_wall",
         "north_wall",
         "south_wall",
-        "bed_nw1",
         "bed_nw2",
-        "bed_w1",
         "bed_w2",
-        "bed_north",
         "north_lab_table",
         "northwest_monitor",
         "northeast_scanner",
@@ -2740,11 +3228,8 @@
         "east_wall",
         "north_wall",
         "south_wall",
-        "bed_nw1",
         "bed_nw2",
-        "bed_w1",
         "bed_w2",
-        "bed_north",
         "north_lab_table",
         "northwest_monitor",
         "northeast_scanner",
@@ -2796,6 +3281,41 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8506
+        },
+        {
+          "id": "art25_detail_bed_se",
+          "source_object_id": "bed_se",
+          "asset": "bed",
+          "yaw": 270,
+          "bounds_uv": [
+            0.6875,
+            0.725925925925926,
+            0.753125,
+            0.8314814814814815
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 63,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 270,
+          "frame_coverage": 0.8443
+        },
+        {
+          "id": "art25_detail_center_planter_e",
+          "source_object_id": "center_planter_e",
+          "asset": "planter",
+          "yaw": 90,
+          "bounds_uv": [
+            0.5583333333333333,
+            0.4166666666666667,
+            0.5864583333333333,
+            0.5648148148148148
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 64,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8043
         }
       ],
       "art_status": "partial",
@@ -2809,7 +3329,6 @@
         "south_edge",
         "center_fountain",
         "center_planter_w",
-        "center_planter_e",
         "sofa_nw_side",
         "table_nw",
         "bar_ne",
@@ -2820,7 +3339,6 @@
         "table_east_room",
         "table_sw_room",
         "bed_sw",
-        "bed_se",
         "bath_sw",
         "bath_se",
         "south_lounge",
@@ -2856,7 +3374,6 @@
         "south_edge",
         "center_fountain",
         "center_planter_w",
-        "center_planter_e",
         "sofa_nw_side",
         "table_nw",
         "bar_ne",
@@ -2867,7 +3384,6 @@
         "table_east_room",
         "table_sw_room",
         "bed_sw",
-        "bed_se",
         "bath_sw",
         "bath_se",
         "south_lounge",
@@ -2907,6 +3423,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8066
+        },
+        {
+          "id": "art25_detail_se_desk",
+          "source_object_id": "se_desk",
+          "asset": "console",
+          "yaw": 0,
+          "bounds_uv": [
+            0.890625,
+            0.5814814814814815,
+            0.965625,
+            0.6851851851851852
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 67,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8261
+        },
+        {
+          "id": "art25_detail_south_w_desk",
+          "source_object_id": "south_w_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.040625,
+            0.8462962962962963,
+            0.128125,
+            0.9314814814814815
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 68,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9173
         }
       ],
       "art_status": "partial",
@@ -2924,8 +3474,6 @@
         "north_server",
         "east_desk",
         "sw_desk",
-        "se_desk",
-        "south_w_desk",
         "central_desk",
         "south_control",
         "west_offices_n",
@@ -2961,8 +3509,6 @@
         "north_server",
         "east_desk",
         "sw_desk",
-        "se_desk",
-        "south_w_desk",
         "central_desk",
         "south_control",
         "west_offices_n",
@@ -2998,6 +3544,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.73
+        },
+        {
+          "id": "art25_detail_east_south_desk",
+          "source_object_id": "east_south_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.825,
+            0.7185185185185186,
+            0.9354166666666667,
+            0.7777777777777778
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 69,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.5057
+        },
+        {
+          "id": "art25_detail_north_desk_m",
+          "source_object_id": "north_desk_m",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.28020833333333334,
+            0.0,
+            0.365625,
+            0.06851851851851852
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 70,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7558
         }
       ],
       "art_status": "partial",
@@ -3007,7 +3587,6 @@
         "west_wall",
         "east_wall",
         "north_desk_w",
-        "north_desk_m",
         "north_desk_e",
         "north_pods",
         "north_east_desk",
@@ -3040,7 +3619,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -3053,7 +3633,6 @@
         "west_wall",
         "east_wall",
         "north_desk_w",
-        "north_desk_m",
         "north_desk_e",
         "north_pods",
         "north_east_desk",
@@ -3107,6 +3686,41 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8833
+        },
+        {
+          "id": "art25_detail_bed_n1",
+          "source_object_id": "bed_n1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6677083333333333,
+            0.08148148148148149,
+            0.709375,
+            0.2740740740740741
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 72,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.6311
+        },
+        {
+          "id": "art25_detail_coffee_table",
+          "source_object_id": "coffee_table",
+          "asset": "table",
+          "yaw": 0,
+          "bounds_uv": [
+            0.39895833333333336,
+            0.26666666666666666,
+            0.4427083333333333,
+            0.34074074074074073
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 73,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7168
         }
       ],
       "art_status": "partial",
@@ -3125,7 +3739,6 @@
         "west_workbench",
         "west_toolrack",
         "sofa_e",
-        "coffee_table",
         "kitchen_n",
         "bed_n1",
         "bed_n2",
@@ -3161,7 +3774,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -3183,7 +3797,6 @@
         "west_workbench",
         "west_toolrack",
         "sofa_e",
-        "coffee_table",
         "kitchen_n",
         "bed_n1",
         "bed_n2",
@@ -3343,7 +3956,7 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
-          "frame_coverage": 0.9012
+          "frame_coverage": 0.9513
         }
       ],
       "art_status": "partial",
@@ -3415,9 +4028,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.2627
+        },
+        {
+          "id": "art25_detail_container_e",
+          "source_object_id": "container_e",
+          "asset": "container",
+          "yaw": 0,
+          "bounds_uv": [
+            0.9520833333333333,
+            0.46111111111111114,
+            0.9802083333333333,
+            0.5740740740740741
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 78,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9556
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3438,7 +4068,6 @@
         "crate_north",
         "crate_ne",
         "container_w",
-        "container_e",
         "container_sw",
         "container_sc",
         "container_se",
@@ -3481,7 +4110,6 @@
         "crate_north",
         "crate_ne",
         "container_w",
-        "container_e",
         "container_sw",
         "container_sc",
         "container_se",
@@ -3632,6 +4260,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9269
+        },
+        {
+          "id": "art25_detail_bins_ne",
+          "source_object_id": "bins_ne",
+          "asset": "bin",
+          "yaw": 180,
+          "bounds_uv": [
+            0.7083333333333334,
+            0.30925925925925923,
+            0.7395833333333334,
+            0.37777777777777777
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 84,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9717
+        },
+        {
+          "id": "art25_detail_bins_se",
+          "source_object_id": "bins_se",
+          "asset": "bin",
+          "yaw": 180,
+          "bounds_uv": [
+            0.709375,
+            0.575925925925926,
+            0.7447916666666666,
+            0.6518518518518519
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 85,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9938
         }
       ],
       "art_status": "partial",
@@ -3656,9 +4318,7 @@
         "column_se",
         "column_far_se",
         "bins_nw",
-        "bins_ne",
         "bins_sw",
-        "bins_se",
         "ticket_north",
         "ticket_south"
       ],
@@ -3692,9 +4352,7 @@
         "column_se",
         "column_far_se",
         "bins_nw",
-        "bins_ne",
         "bins_sw",
-        "bins_se",
         "ticket_north",
         "ticket_south"
       ]
@@ -3822,9 +4480,43 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.5861
+        },
+        {
+          "id": "art25_detail_ne_desk",
+          "source_object_id": "ne_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8177083333333334,
+            0.1648148148148148,
+            0.88125,
+            0.23703703703703705
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 88,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9411
+        },
+        {
+          "id": "art25_detail_nw_desk",
+          "source_object_id": "nw_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.1125,
+            0.16296296296296298,
+            0.17604166666666668,
+            0.23703703703703705
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 89,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9176
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3839,12 +4531,10 @@
         "south_console",
         "west_console",
         "east_console",
-        "nw_desk",
         "nw_rack",
         "west_sofa",
         "west_coffee",
         "east_machine",
-        "ne_desk",
         "sw_table",
         "se_table",
         "south_rack_w",
@@ -3882,12 +4572,10 @@
         "south_console",
         "west_console",
         "east_console",
-        "nw_desk",
         "nw_rack",
         "west_sofa",
         "west_coffee",
         "east_machine",
-        "ne_desk",
         "sw_table",
         "se_table",
         "south_rack_w",
@@ -3956,6 +4644,58 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7934
+        },
+        {
+          "id": "art25_detail_bed_ne",
+          "source_object_id": "bed_ne",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8333333333333334,
+            0.14629629629629629,
+            0.9072916666666667,
+            0.4537037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 91,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.7015
+        },
+        {
+          "id": "art25_detail_south_desk",
+          "source_object_id": "south_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.30520833333333336,
+            0.8648148148148148,
+            0.3625,
+            0.9537037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 92,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6895
+        },
+        {
+          "id": "art25_detail_east_crates",
+          "source_object_id": "east_crates",
+          "asset": "crate",
+          "yaw": 270,
+          "bounds_uv": [
+            0.7208333333333333,
+            0.65,
+            0.7510416666666667,
+            0.7796296296296297
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 93,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.613
         }
       ],
       "art_status": "partial",
@@ -3971,7 +4711,6 @@
         "north_console",
         "north_weapon_bench",
         "sofa_e",
-        "bed_ne",
         "bedroom_desk",
         "west_bath_sink",
         "west_bath_shower",
@@ -3979,7 +4718,6 @@
         "east_storage",
         "east_shelf",
         "east_crates",
-        "south_desk",
         "south_bench",
         "west_bathroom",
         "north_kitchen",
@@ -3991,7 +4729,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -4010,7 +4749,6 @@
         "north_console",
         "north_weapon_bench",
         "sofa_e",
-        "bed_ne",
         "bedroom_desk",
         "west_bath_sink",
         "west_bath_shower",
@@ -4018,7 +4756,6 @@
         "east_storage",
         "east_shelf",
         "east_crates",
-        "south_desk",
         "south_bench",
         "west_bathroom",
         "north_kitchen",
@@ -4051,9 +4788,60 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.5861
+        },
+        {
+          "id": "art25_detail_south_desk_e",
+          "source_object_id": "south_desk_e",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6916666666666667,
+            0.8240740740740741,
+            0.75625,
+            0.8981481481481481
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 94,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9327
+        },
+        {
+          "id": "art25_detail_east_console",
+          "source_object_id": "east_console",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.725,
+            0.387037037037037,
+            0.7645833333333333,
+            0.49074074074074076
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 95,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7195
+        },
+        {
+          "id": "art25_detail_north_console_e",
+          "source_object_id": "north_console_e",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6,
+            0.07222222222222222,
+            0.6572916666666667,
+            0.14629629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 96,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8274
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 38,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4066,15 +4854,12 @@
         "central_chamber",
         "north_console",
         "north_console_w",
-        "north_console_e",
         "west_desk",
         "west_north_servers",
         "west_mid_table",
         "east_pods",
-        "east_console",
         "south_console",
         "south_desk_w",
-        "south_desk_e",
         "east_room_desk",
         "west_pods",
         "west_south_server",
@@ -4118,15 +4903,12 @@
         "central_chamber",
         "north_console",
         "north_console_w",
-        "north_console_e",
         "west_desk",
         "west_north_servers",
         "west_mid_table",
         "east_pods",
-        "east_console",
         "south_console",
         "south_desk_w",
-        "south_desk_e",
         "east_room_desk",
         "west_pods",
         "west_south_server",
@@ -4165,6 +4947,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8124
+        },
+        {
+          "id": "art25_detail_bed_n1",
+          "source_object_id": "bed_n1",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.5145833333333333,
+            0.18703703703703703,
+            0.5541666666666667,
+            0.31666666666666665
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 97,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8798
+        },
+        {
+          "id": "art25_detail_central_desk",
+          "source_object_id": "central_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.5145833333333333,
+            0.4,
+            0.61875,
+            0.524074074074074
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 98,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8981
+        },
+        {
+          "id": "art25_detail_east_bed1",
+          "source_object_id": "east_bed1",
+          "asset": "medical_bed",
+          "yaw": 270,
+          "bounds_uv": [
+            0.8885416666666667,
+            0.49074074074074076,
+            0.95625,
+            0.5851851851851851
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 99,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 270,
+          "frame_coverage": 0.8025
         }
       ],
       "art_status": "partial",
@@ -4180,10 +5015,8 @@
         "north_desk_w",
         "west_scan",
         "operating_table",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
-        "central_desk",
         "central_cryo",
         "north_bench",
         "north_machine",
@@ -4193,7 +5026,6 @@
         "southwest_table",
         "ne_bath",
         "ne_toilet",
-        "east_bed1",
         "east_bed2",
         "east_console",
         "south_rack",
@@ -4226,10 +5058,8 @@
         "north_desk_w",
         "west_scan",
         "operating_table",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
-        "central_desk",
         "central_cryo",
         "north_bench",
         "north_machine",
@@ -4239,7 +5069,6 @@
         "southwest_table",
         "ne_bath",
         "ne_toilet",
-        "east_bed1",
         "east_bed2",
         "east_console",
         "south_rack",
@@ -4385,9 +5214,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.3352
+        },
+        {
+          "id": "art25_detail_east_desk",
+          "source_object_id": "east_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.86875,
+            0.05740740740740741,
+            0.9260416666666667,
+            0.1259259259259259
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 104,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8944
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4408,7 +5254,6 @@
         "west_south_machine",
         "west_south_desk",
         "east_cabinet",
-        "east_desk",
         "east_south_desk",
         "east_south_rack",
         "west_partition_n",
@@ -4450,7 +5295,6 @@
         "west_south_machine",
         "west_south_desk",
         "east_cabinet",
-        "east_desk",
         "east_south_desk",
         "east_south_rack",
         "west_partition_n",
@@ -4604,6 +5448,57 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7687
+        },
+        {
+          "id": "art25_detail_desk_me",
+          "source_object_id": "desk_me",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.5239583333333333,
+            0.3074074074074074,
+            0.615625,
+            0.3888888888888889
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 109,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8379
+        },
+        {
+          "id": "art25_detail_desk_ne",
+          "source_object_id": "desk_ne",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.528125,
+            0.14814814814814814,
+            0.609375,
+            0.2222222222222222
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 110,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.8594
+        },
+        {
+          "id": "art25_detail_desk_se",
+          "source_object_id": "desk_se",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.5239583333333333,
+            0.5,
+            0.615625,
+            0.5907407407407408
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 111,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9331
         }
       ],
       "art_status": "partial",
@@ -4615,11 +5510,8 @@
         "north_wall",
         "south_wall",
         "desk_nw",
-        "desk_ne",
         "desk_mw",
-        "desk_me",
         "desk_sw",
-        "desk_se",
         "desk_smw",
         "desk_sme",
         "west_shelf",
@@ -4658,11 +5550,8 @@
         "north_wall",
         "south_wall",
         "desk_nw",
-        "desk_ne",
         "desk_mw",
-        "desk_me",
         "desk_sw",
-        "desk_se",
         "desk_smw",
         "desk_sme",
         "west_shelf",
@@ -4707,6 +5596,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7667
+        },
+        {
+          "id": "art25_detail_bed_n2",
+          "source_object_id": "bed_n2",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.3260416666666667,
+            0.15,
+            0.3645833333333333,
+            0.28703703703703703
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 112,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.82
+        },
+        {
+          "id": "art25_detail_bed_s2",
+          "source_object_id": "bed_s2",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.20625,
+            0.6981481481481482,
+            0.24583333333333332,
+            0.8555555555555555
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 113,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.7332
+        },
+        {
+          "id": "art25_detail_desk_n3",
+          "source_object_id": "desk_n3",
+          "asset": "desk",
+          "yaw": 90,
+          "bounds_uv": [
+            0.4875,
+            0.15555555555555556,
+            0.521875,
+            0.2814814814814815
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 114,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9963
         }
       ],
       "art_status": "partial",
@@ -4719,16 +5661,13 @@
         "south_wall",
         "bed_nw",
         "table_nw",
-        "bed_n2",
         "bed_n3",
-        "desk_n3",
         "bed_n4",
         "kitchen_n4",
         "kitchen_ne",
         "ne_table",
         "bed_sw",
         "table_sw",
-        "bed_s2",
         "table_s3",
         "chair_s3",
         "bed_s4",
@@ -4776,16 +5715,13 @@
         "south_wall",
         "bed_nw",
         "table_nw",
-        "bed_n2",
         "bed_n3",
-        "desk_n3",
         "bed_n4",
         "kitchen_n4",
         "kitchen_ne",
         "ne_table",
         "bed_sw",
         "table_sw",
-        "bed_s2",
         "table_s3",
         "chair_s3",
         "bed_s4",
@@ -4838,6 +5774,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9711
+        },
+        {
+          "id": "art25_detail_ne_desk",
+          "source_object_id": "ne_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.65625,
+            0.19444444444444445,
+            0.7239583333333334,
+            0.2611111111111111
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 115,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9281
         }
       ],
       "art_status": "partial",
@@ -4854,7 +5807,6 @@
         "coffee_table",
         "chair",
         "north_bar",
-        "ne_desk",
         "west_bar",
         "east_south_chairs",
         "sw_plant",
@@ -4891,7 +5843,6 @@
         "coffee_table",
         "chair",
         "north_bar",
-        "ne_desk",
         "west_bar",
         "east_south_chairs",
         "sw_plant",
@@ -4929,6 +5880,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8688
+        },
+        {
+          "id": "art25_detail_east_office_desk",
+          "source_object_id": "east_office_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.9072916666666667,
+            0.18888888888888888,
+            0.940625,
+            0.2796296296296296
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 118,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7477
         }
       ],
       "art_status": "partial",
@@ -4952,7 +5920,6 @@
         "west_booth4",
         "east_booth1",
         "east_booth2",
-        "east_office_desk",
         "east_office_counter",
         "north_server",
         "south_crates",
@@ -4991,7 +5958,6 @@
         "west_booth4",
         "east_booth1",
         "east_booth2",
-        "east_office_desk",
         "east_office_counter",
         "north_server",
         "south_crates",
@@ -5024,6 +5990,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6751
+        },
+        {
+          "id": "art25_detail_sw_crates",
+          "source_object_id": "sw_crates",
+          "asset": "crate",
+          "yaw": 90,
+          "bounds_uv": [
+            0.14479166666666668,
+            0.7777777777777778,
+            0.16979166666666667,
+            0.8277777777777777
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 123,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7769
         }
       ],
       "art_status": "partial",
@@ -5038,7 +6021,6 @@
         "north_pipe",
         "central_machine",
         "sw_generator",
-        "sw_crates",
         "se_fans",
         "se_console",
         "south_inner_storage",
@@ -5072,7 +6054,6 @@
         "north_pipe",
         "central_machine",
         "sw_generator",
-        "sw_crates",
         "se_fans",
         "se_console",
         "south_inner_storage",
@@ -5109,6 +6090,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8789
+        },
+        {
+          "id": "art25_detail_east_office_desk",
+          "source_object_id": "east_office_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.865625,
+            0.7333333333333333,
+            0.9479166666666666,
+            0.8240740740740741
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 124,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9701
         }
       ],
       "art_status": "partial",
@@ -5135,7 +6133,6 @@
         "barrel_s",
         "crate_shelf",
         "stair_e",
-        "east_office_desk",
         "west_shelf",
         "west_crates",
         "south_shelf",
@@ -5181,7 +6178,6 @@
         "barrel_s",
         "crate_shelf",
         "stair_e",
-        "east_office_desk",
         "west_shelf",
         "west_crates",
         "south_shelf",
@@ -5218,6 +6214,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7344
+        },
+        {
+          "id": "art25_detail_bed_n1",
+          "source_object_id": "bed_n1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.17916666666666667,
+            0.08703703703703704,
+            0.20208333333333334,
+            0.20555555555555555
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 127,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.5638
+        },
+        {
+          "id": "art25_detail_bed_s1",
+          "source_object_id": "bed_s1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.178125,
+            0.7111111111111111,
+            0.20416666666666666,
+            0.8240740740740741
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 128,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.6722
+        },
+        {
+          "id": "art25_detail_west_desk",
+          "source_object_id": "west_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.175,
+            0.4648148148148148,
+            0.22395833333333334,
+            0.5481481481481482
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 129,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.6285
         }
       ],
       "art_status": "partial",
@@ -5234,7 +6283,6 @@
         "bed_n3",
         "bed_n4",
         "bed_n5",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
@@ -5266,7 +6314,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -5286,7 +6335,6 @@
         "bed_n3",
         "bed_n4",
         "bed_n5",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
@@ -5339,6 +6387,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7197
+        },
+        {
+          "id": "art25_detail_north_console_e",
+          "source_object_id": "north_console_e",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6510416666666666,
+            0.053703703703703705,
+            0.7197916666666667,
+            0.12777777777777777
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 130,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9928
         }
       ],
       "art_status": "partial",
@@ -5366,7 +6431,6 @@
         "se_fans",
         "east_control",
         "north_console_w",
-        "north_console_e",
         "west_room_n",
         "west_room_s",
         "east_room_n",
@@ -5409,7 +6473,6 @@
         "se_fans",
         "east_control",
         "north_console_w",
-        "north_console_e",
         "west_room_n",
         "west_room_s",
         "east_room_n",
@@ -5442,6 +6505,23 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9742
+        },
+        {
+          "id": "art25_detail_bin_mid",
+          "source_object_id": "bin_mid",
+          "asset": "bin",
+          "yaw": 0,
+          "bounds_uv": [
+            0.2635416666666667,
+            0.26851851851851855,
+            0.2864583333333333,
+            0.2962962962962963
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 131,
+          "detail_status": "original_retained_frame_mismatch",
+          "frame_coverage": 0.5714
         }
       ],
       "art_status": "partial",
@@ -5478,7 +6558,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -6673,9 +7754,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.631
+        },
+        {
+          "id": "art25_detail_center_planter_e",
+          "source_object_id": "center_planter_e",
+          "asset": "planter",
+          "yaw": 90,
+          "bounds_uv": [
+            0.60625,
+            0.45740740740740743,
+            0.6364583333333333,
+            0.6148148148148148
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 140,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.686
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6691,7 +7789,6 @@
         "south_civic",
         "center_monument",
         "center_planter_w",
-        "center_planter_e",
         "north_planter_w",
         "north_planter_e",
         "west_planter",
@@ -6733,7 +7830,6 @@
         "south_civic",
         "center_monument",
         "center_planter_w",
-        "center_planter_e",
         "north_planter_w",
         "north_planter_e",
         "west_planter",
@@ -6863,9 +7959,26 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.631
+        },
+        {
+          "id": "art25_detail_center_planter_e",
+          "source_object_id": "center_planter_e",
+          "asset": "planter",
+          "yaw": 90,
+          "bounds_uv": [
+            0.60625,
+            0.45740740740740743,
+            0.6364583333333333,
+            0.6148148148148148
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 140,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.686
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6881,7 +7994,6 @@
         "south_civic",
         "center_monument",
         "center_planter_w",
-        "center_planter_e",
         "north_planter_w",
         "north_planter_e",
         "west_planter",
@@ -6923,7 +8035,6 @@
         "south_civic",
         "center_monument",
         "center_planter_w",
-        "center_planter_e",
         "north_planter_w",
         "north_planter_e",
         "west_planter",
@@ -8970,6 +10081,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7961
+        },
+        {
+          "id": "art25_detail_bed_ne",
+          "source_object_id": "bed_ne",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8135416666666667,
+            0.15925925925925927,
+            0.8916666666666667,
+            0.337037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 166,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.781
+        },
+        {
+          "id": "art25_detail_bed_se",
+          "source_object_id": "bed_se",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8447916666666667,
+            0.6944444444444444,
+            0.903125,
+            0.8425925925925926
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 167,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8716
+        },
+        {
+          "id": "art25_detail_chair_s",
+          "source_object_id": "chair_s",
+          "asset": "armchair",
+          "yaw": 270,
+          "bounds_uv": [
+            0.5583333333333333,
+            0.6388888888888888,
+            0.5885416666666666,
+            0.7037037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 168,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9778
         }
       ],
       "art_status": "partial",
@@ -8984,11 +10148,8 @@
         "kitchen_nw",
         "north_crates",
         "table_ne",
-        "bed_ne",
         "bed_sw",
         "table_s",
-        "chair_s",
-        "bed_se",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -9031,11 +10192,8 @@
         "kitchen_nw",
         "north_crates",
         "table_ne",
-        "bed_ne",
         "bed_sw",
         "table_s",
-        "chair_s",
-        "bed_se",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -9163,7 +10321,7 @@
           "id": "art25_west_cabinet",
           "source_object_id": "west_cabinet",
           "asset": "server",
-          "yaw": 90,
+          "yaw": 0,
           "bounds_uv": [
             0.046875,
             0.09814814814814815,
@@ -9173,7 +10331,25 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
-          "frame_coverage": 0.7307
+          "frame_coverage": 0.7227
+        },
+        {
+          "id": "art25_detail_bed_e",
+          "source_object_id": "bed_e",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8364583333333333,
+            0.7055555555555556,
+            0.86875,
+            0.8074074074074075
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 172,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.9135
         }
       ],
       "art_status": "partial",
@@ -9192,7 +10368,6 @@
         "bed_w2",
         "bed_s",
         "bed_s2",
-        "bed_e",
         "desk_ne",
         "desk_s",
         "reception",
@@ -9242,7 +10417,6 @@
         "bed_w2",
         "bed_s",
         "bed_s2",
-        "bed_e",
         "desk_ne",
         "desk_s",
         "reception",
@@ -9287,9 +10461,44 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.4678
+        },
+        {
+          "id": "art25_detail_east_desk",
+          "source_object_id": "east_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.8427083333333333,
+            0.20925925925925926,
+            0.8822916666666667,
+            0.3537037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 175,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9966
+        },
+        {
+          "id": "art25_detail_sw_bed",
+          "source_object_id": "sw_bed",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.042708333333333334,
+            0.6703703703703704,
+            0.08125,
+            0.7611111111111111
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 176,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8084
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9306,8 +10515,6 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
-        "east_desk",
-        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -9351,8 +10558,6 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
-        "east_desk",
-        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -9393,6 +10598,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8462
+        },
+        {
+          "id": "art25_detail_ne_desk",
+          "source_object_id": "ne_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.840625,
+            0.17777777777777778,
+            0.8864583333333333,
+            0.28888888888888886
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 178,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6647
+        },
+        {
+          "id": "art25_detail_sw_desk",
+          "source_object_id": "sw_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.134375,
+            0.6925925925925925,
+            0.17708333333333334,
+            0.8074074074074075
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 180,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7372
         }
       ],
       "art_status": "partial",
@@ -9415,8 +10654,6 @@
         "table_se",
         "nw_shelf",
         "nw_rack",
-        "ne_desk",
-        "sw_desk",
         "se_desk",
         "sw_utility",
         "vault_wall_nw",
@@ -9456,8 +10693,6 @@
         "table_se",
         "nw_shelf",
         "nw_rack",
-        "ne_desk",
-        "sw_desk",
         "se_desk",
         "sw_utility",
         "vault_wall_nw",
@@ -9492,6 +10727,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7961
+        },
+        {
+          "id": "art25_detail_bed_ne",
+          "source_object_id": "bed_ne",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8135416666666667,
+            0.15925925925925927,
+            0.8916666666666667,
+            0.337037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 166,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.781
+        },
+        {
+          "id": "art25_detail_bed_se",
+          "source_object_id": "bed_se",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8447916666666667,
+            0.6944444444444444,
+            0.903125,
+            0.8425925925925926
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 167,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8716
+        },
+        {
+          "id": "art25_detail_chair_s",
+          "source_object_id": "chair_s",
+          "asset": "armchair",
+          "yaw": 270,
+          "bounds_uv": [
+            0.5583333333333333,
+            0.6388888888888888,
+            0.5885416666666666,
+            0.7037037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 168,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9778
         }
       ],
       "art_status": "partial",
@@ -9506,11 +10794,8 @@
         "kitchen_nw",
         "north_crates",
         "table_ne",
-        "bed_ne",
         "bed_sw",
         "table_s",
-        "chair_s",
-        "bed_se",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -9553,11 +10838,8 @@
         "kitchen_nw",
         "north_crates",
         "table_ne",
-        "bed_ne",
         "bed_sw",
         "table_s",
-        "chair_s",
-        "bed_se",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -9707,6 +10989,24 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9976
+        },
+        {
+          "id": "art25_detail_bed_nw",
+          "source_object_id": "bed_nw",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.09479166666666666,
+            0.15185185185185185,
+            0.15729166666666666,
+            0.22592592592592592
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 185,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.4065
         }
       ],
       "art_status": "partial",
@@ -9751,7 +11051,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -9913,6 +11214,57 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9546
+        },
+        {
+          "id": "art25_detail_east_desk",
+          "source_object_id": "east_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.8197916666666667,
+            0.21481481481481482,
+            0.878125,
+            0.37037037037037035
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 187,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7332
+        },
+        {
+          "id": "art25_detail_south_e_desk",
+          "source_object_id": "south_e_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.825,
+            0.5296296296296297,
+            0.903125,
+            0.6129629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 188,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9983
+        },
+        {
+          "id": "art25_detail_south_w_desk",
+          "source_object_id": "south_w_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.04895833333333333,
+            0.5444444444444444,
+            0.11458333333333333,
+            0.6092592592592593
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 189,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9321
         }
       ],
       "art_status": "partial",
@@ -9930,9 +11282,6 @@
         "north_rack_w",
         "north_rack_e",
         "west_desk",
-        "east_desk",
-        "south_e_desk",
-        "south_w_desk",
         "west_cabinets",
         "east_rack",
         "west_rack",
@@ -9968,9 +11317,6 @@
         "north_rack_w",
         "north_rack_e",
         "west_desk",
-        "east_desk",
-        "south_e_desk",
-        "south_w_desk",
         "west_cabinets",
         "east_rack",
         "west_rack",
@@ -9995,7 +11341,7 @@
           "id": "art25_west_cabinet",
           "source_object_id": "west_cabinet",
           "asset": "server",
-          "yaw": 90,
+          "yaw": 0,
           "bounds_uv": [
             0.046875,
             0.09814814814814815,
@@ -10005,7 +11351,25 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
-          "frame_coverage": 0.7307
+          "frame_coverage": 0.7227
+        },
+        {
+          "id": "art25_detail_bed_e",
+          "source_object_id": "bed_e",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8364583333333333,
+            0.7055555555555556,
+            0.86875,
+            0.8074074074074075
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 172,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.9135
         }
       ],
       "art_status": "partial",
@@ -10024,7 +11388,6 @@
         "bed_w2",
         "bed_s",
         "bed_s2",
-        "bed_e",
         "desk_ne",
         "desk_s",
         "reception",
@@ -10074,7 +11437,6 @@
         "bed_w2",
         "bed_s",
         "bed_s2",
-        "bed_e",
         "desk_ne",
         "desk_s",
         "reception",
@@ -10119,9 +11481,44 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.4678
+        },
+        {
+          "id": "art25_detail_east_desk",
+          "source_object_id": "east_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.8427083333333333,
+            0.20925925925925926,
+            0.8822916666666667,
+            0.3537037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 175,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9966
+        },
+        {
+          "id": "art25_detail_sw_bed",
+          "source_object_id": "sw_bed",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.042708333333333334,
+            0.6703703703703704,
+            0.08125,
+            0.7611111111111111
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 176,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.8084
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "partial",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10138,8 +11535,6 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
-        "east_desk",
-        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -10183,8 +11578,6 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
-        "east_desk",
-        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -10328,6 +11721,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.688
+        },
+        {
+          "id": "art25_detail_bed_n1",
+          "source_object_id": "bed_n1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.24479166666666666,
+            0.09444444444444444,
+            0.27395833333333336,
+            0.1962962962962963
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 193,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.834
+        },
+        {
+          "id": "art25_detail_bed_s1",
+          "source_object_id": "bed_s1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.22916666666666666,
+            0.7611111111111111,
+            0.25416666666666665,
+            0.8777777777777778
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 194,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.6241
+        },
+        {
+          "id": "art25_detail_desk_ne",
+          "source_object_id": "desk_ne",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.8739583333333333,
+            0.1574074074074074,
+            0.946875,
+            0.21296296296296297
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 195,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.719
         }
       ],
       "art_status": "partial",
@@ -10343,11 +11789,9 @@
         "south_wall_c",
         "south_wall_e",
         "desk_nw",
-        "desk_ne",
         "table_e",
         "west_bench2",
         "west_bench3",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",
@@ -10384,7 +11828,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -10403,11 +11848,9 @@
         "south_wall_c",
         "south_wall_e",
         "desk_nw",
-        "desk_ne",
         "table_e",
         "west_bench2",
         "west_bench3",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",
@@ -10465,6 +11908,40 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8462
+        },
+        {
+          "id": "art25_detail_ne_desk",
+          "source_object_id": "ne_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.840625,
+            0.17777777777777778,
+            0.8864583333333333,
+            0.28888888888888886
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 178,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.6647
+        },
+        {
+          "id": "art25_detail_sw_desk",
+          "source_object_id": "sw_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.134375,
+            0.6925925925925925,
+            0.17708333333333334,
+            0.8074074074074075
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 180,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7372
         }
       ],
       "art_status": "partial",
@@ -10487,8 +11964,6 @@
         "table_se",
         "nw_shelf",
         "nw_rack",
-        "ne_desk",
-        "sw_desk",
         "se_desk",
         "sw_utility",
         "vault_wall_nw",
@@ -10528,8 +12003,6 @@
         "table_se",
         "nw_shelf",
         "nw_rack",
-        "ne_desk",
-        "sw_desk",
         "se_desk",
         "sw_utility",
         "vault_wall_nw",
@@ -10564,6 +12037,60 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9727
+        },
+        {
+          "id": "art25_detail_bed_center",
+          "source_object_id": "bed_center",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.45625,
+            0.3537037037037037,
+            0.49270833333333336,
+            0.5037037037037037
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 196,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.7003
+        },
+        {
+          "id": "art25_detail_bed_ne",
+          "source_object_id": "bed_ne",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6572916666666667,
+            0.0962962962962963,
+            0.6989583333333333,
+            0.2388888888888889
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 197,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.852
+        },
+        {
+          "id": "art25_detail_bed_ww",
+          "source_object_id": "bed_ww",
+          "asset": "medical_bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.2760416666666667,
+            0.40555555555555556,
+            0.30833333333333335,
+            0.5351851851851852
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 198,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.7177
         }
       ],
       "art_status": "partial",
@@ -10583,12 +12110,9 @@
         "west_bed_s",
         "north_c_table",
         "north_e_desk",
-        "bed_ne",
         "bed_e",
         "bed_mid",
-        "bed_center",
         "bed_w",
-        "bed_ww",
         "central_machine",
         "south_machine_w",
         "south_machine_e",
@@ -10637,12 +12161,9 @@
         "west_bed_s",
         "north_c_table",
         "north_e_desk",
-        "bed_ne",
         "bed_e",
         "bed_mid",
-        "bed_center",
         "bed_w",
-        "bed_ww",
         "central_machine",
         "south_machine_w",
         "south_machine_e",
@@ -10793,6 +12314,24 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9976
+        },
+        {
+          "id": "art25_detail_bed_nw",
+          "source_object_id": "bed_nw",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.09479166666666666,
+            0.15185185185185185,
+            0.15729166666666666,
+            0.22592592592592592
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 185,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.4065
         }
       ],
       "art_status": "partial",
@@ -10837,7 +12376,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -10906,6 +12446,57 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9546
+        },
+        {
+          "id": "art25_detail_east_desk",
+          "source_object_id": "east_desk",
+          "asset": "desk",
+          "yaw": 270,
+          "bounds_uv": [
+            0.8197916666666667,
+            0.21481481481481482,
+            0.878125,
+            0.37037037037037035
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 187,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.7332
+        },
+        {
+          "id": "art25_detail_south_e_desk",
+          "source_object_id": "south_e_desk",
+          "asset": "desk",
+          "yaw": 0,
+          "bounds_uv": [
+            0.825,
+            0.5296296296296297,
+            0.903125,
+            0.6129629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 188,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9983
+        },
+        {
+          "id": "art25_detail_south_w_desk",
+          "source_object_id": "south_w_desk",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.04895833333333333,
+            0.5444444444444444,
+            0.11458333333333333,
+            0.6092592592592593
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 189,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.9321
         }
       ],
       "art_status": "partial",
@@ -10923,9 +12514,6 @@
         "north_rack_w",
         "north_rack_e",
         "west_desk",
-        "east_desk",
-        "south_e_desk",
-        "south_w_desk",
         "west_cabinets",
         "east_rack",
         "west_rack",
@@ -10961,9 +12549,6 @@
         "north_rack_w",
         "north_rack_e",
         "west_desk",
-        "east_desk",
-        "south_e_desk",
-        "south_w_desk",
         "west_cabinets",
         "east_rack",
         "west_rack",
@@ -11102,6 +12687,59 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.688
+        },
+        {
+          "id": "art25_detail_bed_n1",
+          "source_object_id": "bed_n1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.24479166666666666,
+            0.09444444444444444,
+            0.27395833333333336,
+            0.1962962962962963
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 193,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "frame_coverage": 0.834
+        },
+        {
+          "id": "art25_detail_bed_s1",
+          "source_object_id": "bed_s1",
+          "asset": "bed",
+          "yaw": 0,
+          "bounds_uv": [
+            0.22916666666666666,
+            0.7611111111111111,
+            0.25416666666666665,
+            0.8777777777777778
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 194,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "frame_coverage": 0.6241
+        },
+        {
+          "id": "art25_detail_desk_ne",
+          "source_object_id": "desk_ne",
+          "asset": "desk",
+          "yaw": 180,
+          "bounds_uv": [
+            0.8739583333333333,
+            0.1574074074074074,
+            0.946875,
+            0.21296296296296297
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 195,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "frame_coverage": 0.719
         }
       ],
       "art_status": "partial",
@@ -11117,11 +12755,9 @@
         "south_wall_c",
         "south_wall_e",
         "desk_nw",
-        "desk_ne",
         "table_e",
         "west_bench2",
         "west_bench3",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",
@@ -11158,7 +12794,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -11177,11 +12814,9 @@
         "south_wall_c",
         "south_wall_e",
         "desk_nw",
-        "desk_ne",
         "table_e",
         "west_bench2",
         "west_bench3",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",

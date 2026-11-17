@@ -15,11 +15,15 @@ def main():
     parser.add_argument('--captures',type=Path,default=ROOT/'work/art25-release-clear-catalogue')
     parser.add_argument('--families',type=Path,default=ROOT/'work/art25-release-families')
     parser.add_argument('--before',type=Path,default=ROOT/'work/art25-before-clear')
-    args=parser.parse_args();out=ROOT/'docs/images/combat-25';out.mkdir(parents=True,exist_ok=True)
+    parser.add_argument('--output',type=Path,default=ROOT/'docs/images/combat-25')
+    args=parser.parse_args();out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
+    image_links=out.relative_to(ROOT/'docs').as_posix()
     report=json.loads((args.captures/'native-report.json').read_text());assert len(report)==122
     assert 'COMBAT_21_CAPTURE_PASSED' in (args.captures.parent/(args.captures.name+'.log')).read_text()
     assert 'SCRIPT ERROR' not in (args.captures.parent/(args.captures.name+'.log')).read_text()
     records={x['map']:x for x in report}
+    review_path=ART/'expansion_reviews.json'
+    reviews=json.loads(review_path.read_text()).get('candidates',[]) if review_path.exists() else []
     source=ART/'environment_art.json';data=json.loads(source.read_text());inventory=[]
     for name,entry in sorted(data['maps'].items()):
         result=records[name];props=[p for p in entry['props'] if p['enabled']]
@@ -32,7 +36,8 @@ def main():
         entry['validation'].update(native_render='passed',picking_zoom='passed',tactical_catalogue='passed',artistically_complete=False)
         for prop in entry['props']:
             prop['detail_status']='native_render_verified_art_completion_pending' if prop['enabled'] else 'original_retained_frame_mismatch'
-        inventory.append(dict(map=name,source_sha256=entry['image_sha256'],rendered_props=[dict(object=p['source_object_id'],asset=p['asset'],yaw=p['yaw'],partial_group=p.get('partial_source_object',False)) for p in props],retained_2d=entry['remaining_2d'],source_foreground_layers=entry['source_foreground_layers'],issues=entry['issues'],validation=entry['validation'],native=result,screenshot_rgb_sha256=screenshot_hash))
+        decisions=[dict(object=r['source_object_id'],decision=r['decision'],reason=r['reason'],sheet='reviews/'+r['review_sheet'],cell=r['review_cell']) for r in reviews if name in r['aliases']]
+        inventory.append(dict(map=name,source_sha256=entry['image_sha256'],rendered_props=[dict(object=p['source_object_id'],asset=p['asset'],yaw=p['yaw'],partial_group=p.get('partial_source_object',False)) for p in props],retained_2d=entry['remaining_2d'],source_foreground_layers=entry['source_foreground_layers'],issues=entry['issues'],review_decisions=decisions,validation=entry['validation'],native=result,screenshot_rgb_sha256=screenshot_hash))
     source.write_text(json.dumps(data,indent=2)+'\n')
     # Catalog contact sheets are reduced real captures, never invented artwork.
     for page in range((len(inventory)+11)//12):
@@ -54,8 +59,8 @@ def main():
     header=['# Inventaire artistique Combat Visual 2.5','','Statut : travail artistique **partiel**. Les validations natives ne signifient pas qu’une carte est artistiquement terminée. Les nombres de rendu source désignent des entrées de relevé ; une entrée peut regrouper plusieurs objets.','','| Carte | Remplacements actifs | Ressources | Entrées encore en art source | Contrôle natif | Capture |','|---|---|---|---|---|---|']
     for i in inventory:
         models=', '.join(f"{p['object']} → {p['asset']}@{p['yaw']}°" for p in i['rendered_props']) or 'Source conservée'
-        header.append(f"| {i['map']} | {len(i['rendered_props'])} | {models} | {len(i['retained_2d'])} | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case {i['contact_cell']}](images/combat-25/{i['contact_sheet']}) |")
-    header+=['','Les listes complètes des objets améliorés, ressources, éléments 2D, problèmes et résultats sont dans [inventory.json](images/combat-25/inventory.json). Les sources et annotations restent indépendantes des collisions.']
+        header.append(f"| {i['map']} | {len(i['rendered_props'])} | {models} | {len(i['retained_2d'])} | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case {i['contact_cell']}]({image_links}/{i['contact_sheet']}) |")
+    header+=['','Les listes complètes des objets améliorés, ressources, éléments 2D, problèmes et résultats sont dans [inventory.json]('+image_links+'/inventory.json). Les sources et annotations restent indépendantes des collisions.']
     (ROOT/'docs/combat_visual_25_inventory.md').write_text('\n'.join(header)+'\n')
     readme=['# Captures réelles Combat Visual 2.5','','Les 11 planches sont des réductions des 122 captures natives en 1280×720. Les vues détaillées conservent exactement les pixels des captures PNG grâce à WebP sans perte. Les empreintes RGB originales et résultats natifs sont dans le manifeste.','','| Environnement | Avant 1080p | Après 720p | Après 1080p | Après 1440p |','|---|---|---|---|---|']
     for name in names:
