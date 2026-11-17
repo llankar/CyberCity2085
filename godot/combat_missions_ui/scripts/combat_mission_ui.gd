@@ -963,12 +963,7 @@ func _seed_combat_state() -> void:
 	enemy_units         = enc_result["enemy_units"] as Array[Dictionary]
 	objective           = enc_result["objective"]   as Dictionary
 	# Extract decorative vehicle tokens (giant vehicles are already in enemy_units).
-	vehicle_units = []
-	var vehicles := enc_result.get("vehicles", {}) as Dictionary
-	for vk: String in ["agent_vehicle", "enemy_vehicle"]:
-		var vd := vehicles.get(vk, {}) as Dictionary
-		if not vd.is_empty():
-			vehicle_units.append(vd)
+	vehicle_units = _decorative_vehicles(enc_result.get("vehicles", {}) as Dictionary)
 	objective_progress  = 0
 	objective_completed = false
 	combat_log          = []
@@ -1277,18 +1272,19 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var target := enemy_units[target_index] as Dictionary
 	if int(target.get("hp", 0)) <= 0: return
 	var attacker := player_units[active_player_index] as Dictionary
-	# Silently ignore clicks outside weapon range.
+	# Report range before line of sight, consistently with the target card.
 	var rng := _action_range(action_name)
 	if rng == 0:
 		rng = _role_attack_range(str(attacker.get("role", "")), action_name)
 	var apos := _cell_position(attacker)
 	var tpos := _cell_position(target)
-	if not _battlefield.has_los(apos, tpos, []):
-		status_line = "Shot blocked by a map wall."
+	var distance := absi(apos.x - tpos.x) + absi(apos.y - tpos.y)
+	if distance > rng:
+		status_line = "Cible hors de portée (distance %d / portée %d cases)." % [distance, rng]
 		_sync_display()
 		return
-	if absi(apos.x - tpos.x) + absi(apos.y - tpos.y) > rng:
-		status_line = "Cible hors de portée (%d cases)." % rng
+	if not _battlefield.has_los(apos, tpos, []):
+		status_line = "Tir bloqué par un obstacle : ligne de vue obstruée."
 		_sync_display()
 		return
 	var ap: int      = int(attacker.get("ap", 0))
@@ -1861,6 +1857,17 @@ func _campaign_data() -> Dictionary:
 	var raw: Variant = handoff.get("campaign", {})
 	return raw as Dictionary if typeof(raw) == TYPE_DICTIONARY else {}
 
+func _is_interior_map() -> bool:
+	return _ENCScript.is_interior_map(_map_data())
+
+func _decorative_vehicles(vehicles: Dictionary) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	if _is_interior_map(): return result
+	for key: String in ["agent_vehicle", "enemy_vehicle"]:
+		var vehicle := vehicles.get(key, {}) as Dictionary
+		if not vehicle.is_empty(): result.append(vehicle)
+	return result
+
 func _map_data() -> Dictionary:
 	var raw: Variant = handoff.get("map", {})
 	return raw as Dictionary if typeof(raw) == TYPE_DICTIONARY else {}
@@ -1903,7 +1910,7 @@ func _build_visual_obstacles() -> void:
 		prop.configure(wall, _battlefield, map_texture)
 		_visual_obstacles.append(prop)
 	var path := str(_map_data().get("path", "")).to_lower()
-	_battlefield.weather = "interior" if "inner" in path or "interior" in path or "tunnel" in path else ("dust" if "wasteland" in path else "rain")
+	_battlefield.weather = "interior" if _is_interior_map() else ("dust" if "wasteland" in path else "rain")
 	if is_instance_valid(_visual_lighting):_visual_lighting.free()
 	_visual_lighting=preload("res://scripts/visual_lighting.gd").new()
 	_map_root.add_child(_visual_lighting)
@@ -1945,7 +1952,7 @@ func _update_visual_context() -> void:
 		_visual_enemy_portraits[portrait_key] = portrait
 	_hud.target_info["portrait"] = _visual_enemy_portraits[portrait_key]
 	_hud.target_info["detail"] = "DISTANCE %d  //  PORTÉE %d  //  %d PA" % [distance,rng,_action_ap_cost(selected_action)]
-	_hud.target_info["chance_label"] = "LIGNE DE VUE BLOQUÉE" if not los else ("HORS DE PORTÉE" if distance > rng else "TIR : %d %%" % int(chance))
+	_hud.target_info["chance_label"] = "HORS DE PORTÉE" if distance > rng else ("OBSTACLE : VUE BLOQUÉE" if not los else "TIR : %d %%" % int(chance))
 
 func _visual_cell_hovered(cell: Vector2i) -> void:
 	if cell.x < 0 or cell.y < 0 or cell.x >= GRID_COLS or cell.y >= GRID_ROWS:

@@ -29,3 +29,12 @@ DISPLAY=:103 godot --path godot/combat_missions_ui --rendering-method gl_compati
 The capture driver also asserts exact cell picking, cursor-anchored zoom and unchanged combat data after camera operations. Existing native interaction regressions cover movement/AP, attack actions, target cards, quality changes and result export. `tests/test_combat_visual_21.py` compares all 122 maps against the legacy tactical board, including collision/LOS sets, paths, reachable cells, every cell's inverse projection and every surveyed cutout's UV alignment. `tests/test_map_8k.py` verifies the source artwork/survey integrity contracts.
 
 Validation on November 17, 2026: 7 core/catalogue tests passed, 2 native GPU readability/target-card tests passed, and 2 source-map integrity tests passed (11 total). Native captures cover all four environments at 1280×720, 1920×1080 and 2560×1440, plus close framing at each size. The final visible-body multiplier increased from the first 2.1 preview's 0.46 to 0.70 (about 52% taller), retaining the existing 1.10 presentation multiplier. No map PNG or wall survey was modified.
+
+
+## Combat feedback and interior vehicles
+
+Out-of-range shots now report the actual distance and weapon range before checking line of sight. The target card uses the same priority. In-range blocked shots say an obstacle obstructs line of sight, rather than assuming every opaque surveyed cell is a wall. No shot validation conditions or AP/damage rules changed.
+
+Interior maps (the catalogue's `inner`, `interior` and `tunnel` filenames) no longer generate arrival vehicles, decorative enemy vehicles or enemy vehicle combat units. Exterior encounters retain their vehicles; power armor remains deployable indoors. The classification is shared with the interior weather presentation. This affects newly created combats, without rewriting campaign saves or source maps.
+
+`combat_feedback_regression.gd` exercises the real mission scene: out-of-range plus blocked LOS, in-range blocked LOS, matching target-card feedback, unchanged AP/HP after rejected shots, every interior map's generated vehicles, exterior decorative vehicles and interior power-armor support.
