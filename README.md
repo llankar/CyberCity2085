@@ -169,6 +169,7 @@ mission is playable through the bundled Arcade fallback.
 
 ## UI design system
 - Conventions UI et hiérarchie visuelle: `docs/ui/design-system.md`
+- Refonte des combats : [avancement complet de Combat Visual 2.5](docs/combat_visual_25_progress.md).
 - Generated output format is stable:
   - `## Next 20 Coding Steps`
   - numbered list from `1` to `20`

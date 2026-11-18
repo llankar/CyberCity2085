@@ -13,6 +13,9 @@ func run() -> void:
 	var selected_prefix := ""
 	var selected_size := Vector2i.ZERO
 	var capture_quality := 2
+	var intended_depth := "--flat-environment" not in args
+	var reference_catalog := ""
+	var focus_object := ""
 	for i in range(args.size()-1):
 		if args[i]=="--output": output=args[i+1]
 		elif args[i]=="--map": selected_map=args[i+1]
@@ -21,6 +24,8 @@ func run() -> void:
 			var pair := args[i+1].split("x")
 			selected_size=Vector2i(int(pair[0]),int(pair[1]))
 		elif args[i]=="--quality": capture_quality=int(args[i+1])
+		elif args[i]=="--reference-catalog":reference_catalog=args[i+1]
+		elif args[i]=="--focus-object":focus_object=args[i+1]
 	DirAccess.make_dir_recursive_absolute(output)
 	# Persist completed maps across an interrupted desktop/environment session.
 	# A changed renderer or resource catalogue invalidates old checkpoints.
@@ -29,8 +34,16 @@ func run() -> void:
 		for filename: String in DirAccess.get_files_at(directory):
 			if filename.get_extension() in ["gd","gdshader","json"]:fingerprint_parts.append(filename+FileAccess.get_sha256(directory.path_join(filename)))
 	fingerprint_parts.append(FileAccess.get_sha256("res://art/environment/props25/library.json"))
+	if not reference_catalog.is_empty():fingerprint_parts.append(FileAccess.get_sha256(reference_catalog))
 	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review]))
 	var fingerprint:=str(fingerprint_parts).sha256_text()
+	var focus_art: Dictionary=preload("res://scripts/environment_catalog.gd").art_maps().duplicate(true)
+	if not reference_catalog.is_empty():
+		var reference: Variant=JSON.parse_string(FileAccess.get_file_as_string(reference_catalog))
+		assert(reference is Dictionary and reference.get("maps",{}).size()==122)
+		# QA-only replay of a committed catalogue. Source files and campaign stay intact.
+		var active_art: Dictionary=preload("res://scripts/environment_catalog.gd").art_maps()
+		active_art.clear();active_art.merge(reference.maps)
 	var completed: Dictionary={}
 	if "--resume" in args and FileAccess.file_exists(output.path_join("native-report.json")):
 		var previous: Variant=JSON.parse_string(FileAccess.get_file_as_string(output.path_join("native-report.json")))
@@ -44,6 +57,8 @@ func run() -> void:
 		maps=["cybercity_inner_02_safehouse","city_industrial_factory_floor","city_exterior_neon_market_alley","city_interior_blacksite_lab","wasteland_outdoor_01_dust_road_ambush"]
 	if "--expansion-details" in args:
 		maps=["city_district_civic_center","cybercity_inner_02_safehouse","city_interior_medical_clinic","city_industrial_power_substation","city_interior_police_records"]
+	if "--assembly-details" in args:
+		maps=["city_industrial_power_substation","city_industrial_data_vault","city_transit_metro_interchange","city_district_holo_square","wasteland_city_11_ruined_transit_plaza"]
 	if "--all-maps" in args:
 		maps=[]
 		for filename: String in DirAccess.get_files_at(base.path_join("assets/maps")):
@@ -62,9 +77,13 @@ func run() -> void:
 		scene=load("res://scenes/combat_mission_ui.tscn").instantiate()
 		scene.handoff_path=output.path_join("handoff.json")
 		root.add_child(scene)
+		# Other runtime tests toggle persistent preferences. Capture fixtures must
+		# choose their own mode instead of sampling another process's setting.
+		scene.environment_depth_enabled=intended_depth
 		scene._set_visual_quality(capture_quality)
 		await create_timer(.05 if art_review else 2.15).timeout
 		if art_review:scene._banner.hide() # Inspect scenery after the transient turn announcement.
+		assert(scene.environment_depth_enabled==intended_depth)
 		if "--entities" in args:
 			scene.enemy_units[1]["visual_asset"]="enemy_corp_37_robot_grunt"
 			scene.enemy_units[2]["visual_asset"]="enemy_corp_37_power_armor_grunt"
@@ -79,11 +98,13 @@ func run() -> void:
 			if scene.has_method("_frame_squad"):scene._frame_squad()
 			scene.selected_action="MOVE";scene._sync_display()
 			if polish or art_review: preview_polish_route()
-			if "--prop-focus" in args or "--new-prop-focus" in args:
-				var annotations: Array=preload("res://scripts/environment_catalog.gd").art_maps().get(name+".png",{}).get("props",[])
+			if "--prop-focus" in args or "--new-prop-focus" in args or "--assembly-focus" in args:
+				var annotations: Array=focus_art.get(name+".png",{}).get("props",[])
 				for annotation: Dictionary in annotations:
 					if not bool(annotation.enabled):continue
+					if not focus_object.is_empty() and annotation.source_object_id!=focus_object:continue
 					if "--new-prop-focus" in args and annotation.get("source_review","")!="detail_crop_sheet":continue
+					if "--assembly-focus" in args and not annotation.has("assembly"):continue
 					var b: Array=annotation.bounds_uv
 					scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*2.2)
 					scene._camera.position=scene._battlefield.uv_to_world(Vector2((b[0]+b[2])*.5,(b[1]+b[3])*.5))+Vector2(0,scene.size.y*.06/scene._camera.zoom.y)
@@ -136,11 +157,18 @@ func run() -> void:
 				await RenderingServer.frame_post_draw
 				root.get_texture().get_image().save_png(output.path_join("%s-%dx%d-close.png"%[name,dimensions.x,dimensions.y]))
 		var active_sprites:=0
+		var completion_patches:=0
 		for prop in scene._visual_obstacles:
-			if not prop._sprite.is_empty():active_sprites+=1
+			if not prop._sprite.is_empty():
+				active_sprites+=1
+				completion_patches+=prop.floor.get("patches",[]).size()
 		if art_review and scene.environment_depth_enabled and scene._battlefield.top_down:
 			var expected: int=preload("res://scripts/environment_catalog.gd").art_walls("assets/maps/"+name+".png").size()
 			assert(active_sprites==expected,"every annotated resource must actually render")
+			var expected_patches:=0
+			for annotation: Dictionary in preload("res://scripts/environment_catalog.gd").art_maps().get(name+".png",{}).get("props",[]):
+				if bool(annotation.enabled):expected_patches+=1+annotation.get("erase_overhang_uv",[]).size()
+			assert(completion_patches==expected_patches,"authored overhang masks must be rendered with their object")
 		catalogue_report.append({"map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size()})
 		var report:=FileAccess.open(output.path_join("native-report.json"),FileAccess.WRITE)
 		report.store_string(JSON.stringify(catalogue_report,"  "));report.close()
