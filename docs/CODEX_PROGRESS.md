@@ -207,12 +207,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
 - Travail restant dans cette portée : Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules.
 
-### ANIM-COMPLETE — TODO — Actions multidirectionnelles complètes et applicabilité documentée
+### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
 - Fichiers : `assets/combat_visual/animations`, `tools/audit_combat_visuals.py`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : 0 / 231 ensembles complets ; documenter les actions applicables puis produire les clips manquants.
+- Tests / contrôles réellement exécutés : Audit anti-doublons : 1 ensemble complet, 5 partiels; 2 tests Python rÃ©ussis, 1 test X11 ignorÃ©; Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions; Capture native de la mÃªlÃ©e dans la scÃ¨ne tactique rÃ©elle.
+- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/neon-blade-actions/README.md`, `docs/images/neon-blade-actions/audit.json`, `docs/images/neon-blade-actions/animation-report.json`.
+- Travail restant dans cette portée : 1 / 231 ensembles complets ; produire et vÃ©rifier les actions applicables des 230 autres entitÃ©s.
 
 ### TACTICAL-REVIEW — TODO — Validation artistique et fonctionnelle globale aux trois résolutions
 
@@ -224,7 +224,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### GPU-BENCH — DONE — Performance et mémoire sur matériel joueur
 
 - Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `tools/run_windows_gpu_benchmark.ps1`, `tests/test_windows_gpu_benchmark.py`.
-- Tests / contrôles réellement exécutés : Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti; 185,15 FPS moyens ; p95 7,876 ms / 126,97 FPS ; pic mémoire statique Godot 441 MiB; 35 échantillons système : CPU total moyen 5,51 %, GPU moyen 16,31 %, pic GPU 20 %, pic VRAM processus observé 2721 MiB.
+- Tests / contrôles réellement exécutés : Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti; 180,27 FPS moyens ; p95 8,127 ms / 123,05 FPS ; pic mémoire statique Godot 441 MiB; 34 échantillons système : CPU total moyen 5,90 %, GPU moyen 16,74 %, pic GPU 21 %, pic VRAM processus observé 2782 MiB.
 - Preuves : `docs/reports/windows_gpu_benchmark_system.json`.
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale.
@@ -326,6 +326,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIT-COVERAGE/ANIM-COMPLETE : documenter l’applicabilité des neuf actions et produire les atlas authentiques manquants. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows.
+UNIT-COVERAGE/ANIM-COMPLETE : produire et vérifier les actions applicables des 230 autres entités. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

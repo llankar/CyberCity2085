@@ -8,7 +8,8 @@
     "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.",
     "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.",
     "192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.",
-    "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames. Total 288 frames, six références marche/attente × huit directions ; zéro ensemble complet de neuf actions."
+    "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.",
+    "Agente aux lames : 112 frames, toutes les actions applicables complètes et validées ; total 352 frames, 1 ensemble complet et 5 partiels."
   ],
   "tasks": [
     {
@@ -41,11 +42,11 @@
     "reference": "native Windows final environment-art review",
     "evidence": "images/environment-art-review-windows/README.md",
     "summary": "122 cartes examinées sur 21 planches détaillées ; trois aplats corrigés ; catalogue natif final 122/122.",
-    "signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
+    "signature": "8c64722612c85f4837e618db887b1d6aa5deedb2afabf103ffc0c2743dab9a2b",
     "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
-    "Étendre les animations aux 225 autres références éligibles et produire les actions manquantes sur les six premières. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
+    "Produire et vérifier les actions applicables des 230 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",

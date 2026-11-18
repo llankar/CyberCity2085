@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/agent_diverse_01_neon_blade.png",
-  "texture_sha256": "839fb5096756311c84b2d39d80d7f9501edc20a58d63701cb875c29ebfaea152",
+  "texture_sha256": "eddb4f35f31f884492445ac59093a7147e8996a8bb7dee3be2361dbe88cb2009",
   "frame_size": [
     256,
     256
@@ -103,6 +103,158 @@
           47
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
     }
   },
   "source_image": "assets/units/agent_diverse_01_neon_blade_512.png",
@@ -128,17 +280,50 @@
       "clip": "idle",
       "layout": "idle_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/melee-action_pairs-3.png",
+      "sha256": "0ea3a790d5810ae0c5854c42667f18e831868f04ae703371ccee44b12146d214",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/cover-action_pairs-4.png",
+      "sha256": "d9225351d6351121738599d30cce1de2f32d5a80a06e686a3b7b2fb0fe77e146",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/hit-action_pairs-5.png",
+      "sha256": "1be6332b742dd8b46adf884c700df373092e5d5e2634c2e9b0509ca357a3bd1e",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/death-action_pairs-6.png",
+      "sha256": "dc950ab1134dd3435c2e06bfa03d2a1494395c19635f51ec7d7302f6098fbaef",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
-  "coverage": "partial",
-  "missing_clips": [
-    "fire",
+  "required_clips": [
+    "idle",
+    "move",
     "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "review_status": "native_render_verified_partial"
+  "non_applicable_clips": {
+    "fire": "Dual-blade loadout has no ranged weapon.",
+    "psi": "Character has no PSI ability or PSI role.",
+    "heal": "Character has no medical action or medic role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

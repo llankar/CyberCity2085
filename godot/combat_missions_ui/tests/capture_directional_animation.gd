@@ -47,6 +47,15 @@ func run() -> void:
 			save_frame("directions-%02d-%02d"%[direction,phase])
 			frames.append({"direction":direction,"phase":phase,"file":"directions-%02d-%02d.png"%[direction,phase]})
 	assert(JSON.stringify([scene.player_units,scene.enemy_units,scene.objective])==state)
+	var melee_frames: Array[Dictionary]=[]
+	var blade=scene._unit_tokens["p0"]
+	for key: String in token_keys:scene._unit_tokens[key].play_action("idle")
+	for direction in range(8):
+		for phase in range(2):
+			assert(blade.play_action("melee"));blade.facing=direction;blade.frame_time=(phase+.1)/8.0;blade._process(0)
+			await process_frame;await RenderingServer.frame_post_draw
+			var melee_file="melee-%02d-%02d"%[direction,phase]
+			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key];unit.play_action("idle");unit.set_process(true)
 	for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(2560,1440)]:
@@ -56,7 +65,7 @@ func run() -> void:
 	scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	var report: Dictionary=await capture_movement(0,"movement")
 	if roster:report["secondary_movement"]=await capture_movement(1,"movement-secondary")
-	report.merge({"directions":frames,"projection":"top_down","coverage":"idle_and_move_only","campaign_written":false})
+	report.merge({"directions":frames,"melee":melee_frames,"projection":"top_down","coverage":"idle_move_and_neon_blade_melee","campaign_written":false})
 	var captured_assets: Dictionary={}
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key]

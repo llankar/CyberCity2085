@@ -147,7 +147,7 @@ def build_report(root=ROOT):
         add(key, title, status, note+' '+detail, [item['path'] for item in reviewed.get(key, {}).get('evidence', [])])
     complete = summary['animated_units_complete']
     add('ANIMATIONS', 'Actions multidirectionnelles complètes', 'PASS' if complete == counts['animation_eligible'] and complete > 0 else 'FAIL',
-        f"{complete} / {counts['animation_eligible']} ensembles complets selon le contrat actuel de neuf clips ; {summary['animated_units_partial']} partiels. Applicabilité par famille à documenter avant toute exemption.", ['assets/combat_visual/animations/*.json'])
+        f"{complete} / {counts['animation_eligible']} ensembles complets pour toutes leurs actions applicables ; {summary['animated_units_partial']} partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.", ['assets/combat_visual/animations/*.json'])
     issues = registry_issues(root, registry)
     add('REGISTER', 'Registre complet et preuves des tâches DONE', 'FAIL' if issues or not registry.get('tasks') else 'PASS',
         '; '.join(issues) if issues else 'Statuts, portées, tests/contrôles, preuves et travail restant enregistrés.', ['docs/CODEX_PROGRESS.json'])
