@@ -1,0 +1,46 @@
+extends SceneTree
+const KEYS=["agent_diverse_04_trench_sniper","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
+func _initialize() -> void:call_deferred("run")
+func run() -> void:
+	root.size=Vector2i(640,480)
+	var base:=ProjectSettings.globalize_path("res://../..")
+	var unit=load("res://scripts/unit_visual.gd").new();root.add_child(unit)
+	unit.position=Vector2(320,350);unit.facing_y_scale=1.0;unit.set_process(false)
+	var observed:=0
+	for key: String in KEYS:
+		var image:=Image.load_from_file(base.path_join("assets/units/"+key+"_512.png"))
+		var role: String="robot" if key=="robot_combat" else ("power_armor" if "power_armor" in key else "samurai")
+		unit.setup({"hp":24,"max_hp":24,"role":role,"position":Vector2i(4,4)},0,false,ImageTexture.create_from_image(image),Vector2(150,150))
+		unit.configure_animation(key,base)
+		assert(unit.atlas!=null and unit.manifest.animations.has("move"),key+" real atlas loaded")
+		var before:=JSON.stringify(unit.unit_data)
+		var source_height: float=unit._body_height()
+		for direction in range(8):
+			unit.play_action("idle")
+			var angle: float=direction*TAU/8
+			assert(unit.play_action("move",unit.position+Vector2(cos(angle),sin(angle))*100))
+			assert(unit.facing==direction,"top-down facings must match the requested heading")
+			unit.frame_time=.27
+			assert(unit.play_action("move",unit.position+Vector2(cos(angle),sin(angle))*200))
+			assert(is_equal_approx(unit.frame_time,.27),"a new route cell must not restart the gait")
+			for frame in range(4):
+				unit.frame_time=(frame+.1)/8.0;unit._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				assert(unit.frame_index==frame)
+				assert(unit._art_sprite.texture==unit.atlas)
+				assert(unit._cast_shadow.region_rect==unit._art_sprite.region_rect)
+				assert(is_equal_approx(unit._art_sprite.scale.x,unit._art_sprite.scale.y),"no stretching")
+				assert(is_equal_approx(unit._body_height(),source_height))
+				assert(is_equal_approx(unit._art_rect.position.x,-unit._art_rect.size.x*.5),"authored foot anchor remains registered")
+				observed+=1
+		unit.play_action("idle");assert(not unit.play_action("fire"))
+		assert(unit.clip=="idle","missing fire is not disguised as an animated shot")
+		assert(JSON.stringify(unit.unit_data)==before,"animation cannot spend AP or move logical cells")
+	# A missing asset must restore source art, not leave the previous atlas attached.
+	unit.configure_animation("missing_animation_fixture",base)
+	assert(unit.atlas==null and unit.manifest.is_empty())
+	# Reject malformed frame indices before the draw loop can access them.
+	var contract=load("res://scripts/unit_animation_contract.gd")
+	assert(not contract.valid({"frame_size":[0,256]},Image.create(256,256,false,Image.FORMAT_RGBA8),base))
+	print("DIRECTIONAL_ANIMATION_CHECKS_PASSED ",observed," actual frame selections")
+	quit()
