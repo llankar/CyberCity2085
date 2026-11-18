@@ -1,7 +1,7 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 4,
+    "done": 5,
     "total": 15
   },
   "maps": {
@@ -23,7 +23,7 @@
     "expected": 231
   },
   "tests": {
-    "passed": 25,
+    "passed": 26,
     "failed": 0,
     "skipped": 0,
     "not_executed": [
@@ -143,7 +143,7 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 25, 'failed': 0, 'skipped': 0, 'not_executed': ['Nouvelle exécution native Godot dans cette intervention', 'Revue artistique complète des 122 cartes', 'Animations des deux nouvelles agentes', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': 'Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot'}",
+      "detail": "{'passed': 26, 'failed': 0, 'skipped': 0, 'not_executed': ['Nouvelle exécution native Godot dans cette intervention', 'Revue artistique complète des 122 cartes', 'Animations des deux nouvelles agentes', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': 'Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot'}",
       "evidence": [
         "docs/reports/work_governance_tests.xml"
       ]
@@ -153,7 +153,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "4 / 15 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "5 / 15 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -169,5 +169,5 @@
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],
-  "next_action": "Créer le point de sauvegarde local du lot GOV puis vérifier le bilan. À la reprise artistique, commencer par ART-NEXT-01 : examiner les six planches listées dans pending_sources, puis importer uniquement les poses valides."
+  "next_action": "Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi."
 }

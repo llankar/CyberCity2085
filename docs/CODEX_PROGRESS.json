@@ -4,13 +4,7 @@
   "expected_maps": 122,
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/combat-visual-work-governance",
-  "active_batch": [
-    "GOV-01",
-    "GOV-02",
-    "GOV-03",
-    "GOV-04",
-    "GOV-05"
-  ],
+  "active_batch": [],
   "tasks": [
     {
       "id": "GOV-01",
@@ -91,19 +85,22 @@
     {
       "id": "GOV-05",
       "title": "Bilan final, contrôle du périmètre et sauvegarde Git locale",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "AGENTS.md",
         "docs/CODEX_PROGRESS.md",
-        "docs/backlog.md"
+        "docs/backlog.md",
+        "docs/reports/work_governance_scope.json"
       ],
       "tests": [
-        "git diff --name-only 47d593b ; contrôle des chemins autorisés"
+        "git diff --name-only 47d593b ; contrôle des chemins autorisés",
+        "git commit 2a73feb : sauvegarde locale créée",
+        "git diff --name-only 47d593b : aucune modification du gameplay"
       ],
       "evidence": [
         "docs/reports/work_governance_scope.json"
       ],
-      "remaining": "Créer le point de sauvegarde local, vérifier l’état réel puis enregistrer le bilan final",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -258,7 +255,7 @@
   "reviews": {},
   "test_run": {
     "path": "docs/reports/work_governance_tests.xml",
-    "sha256": "4db2bda1c33bdc010ab91b13b92eb84c549b228ff7bf26223ffe3b4c18e5f090",
+    "sha256": "bbc5dbec0e3d213c4c184494202fe7862970f9fb1d7db3ee6ec9f95f5826f828",
     "scope": "Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot",
     "not_executed": [
       "Nouvelle exécution native Godot dans cette intervention",
@@ -270,7 +267,7 @@
     "sources": [
       {
         "path": "tools/check_combat_visual_acceptance.py",
-        "sha256": "390a8b18c030753611531c8e2676ab8fab163c4c7d075f0af004c219f21bca0e"
+        "sha256": "ee2329a78d9746aca569c0e2aced1134eccfe45a0582b3d29363cbc84faf5ef4"
       },
       {
         "path": "tools/art/update_environment_progress.py",
@@ -278,7 +275,7 @@
       },
       {
         "path": "tests/test_combat_visual_acceptance.py",
-        "sha256": "e444d54cd5f70e0d00df47388edd5c17395d5a88945fd388747656645c6eed02"
+        "sha256": "92ee25cbca084e0723022d0bbc83c833a6f4c264c092b76d2a8ddd70dd544488"
       },
       {
         "path": "tests/test_environment_progress.py",
@@ -304,5 +301,25 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "Créer le point de sauvegarde local du lot GOV puis vérifier le bilan. À la reprise artistique, commencer par ART-NEXT-01 : examiner les six planches listées dans pending_sources, puis importer uniquement les poses valides."
+  "next_action": "Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi.",
+  "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
+  "next_batch": [
+    "ART-NEXT-01",
+    "ART-NEXT-02",
+    "ART-NEXT-03",
+    "ART-NEXT-04",
+    "ART-NEXT-05"
+  ],
+  "pending_source_sha256": {
+    "agent_diverse_01_neon_blade": {
+      "front": "53f496a57b73443bef5bd3498dfff4e459c218a50d11187f6efe2dda25fbab68",
+      "rear": "056328d19cb014063e15122017280e86a863a807d7308f7611f8104e5388e61d",
+      "idle_pairs": "b2e1824a7699d51542cc9c2ae20d8d4974d7edccdb365c17ee8b047e278c4563"
+    },
+    "agent_diverse_03_magenta_pistol": {
+      "front": "814538ba22cbace7f645f9e45bb125531d31c9bc630205946c8b7cb109117b26",
+      "rear": "5482058c1a604be12d69fa51ad1653f7a85ae366c0eb56e7529861596db37cac",
+      "idle_pairs": "75c0acf10b1d119430d651767e3f0fd155fb93168a6869248300c408d8464d5c"
+    }
+  }
 }

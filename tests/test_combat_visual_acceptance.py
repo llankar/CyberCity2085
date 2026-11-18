@@ -161,3 +161,14 @@ def test_changed_tested_sources_invalidate_recorded_results(tmp_path):
     assert check.test_counts(tmp_path,record)['passed']==1
     source.write_text('changed implementation')
     assert check.test_counts(tmp_path,record)['passed'] is None
+
+
+def test_failed_refresh_invalidates_an_older_positive_report(tmp_path):
+    import subprocess,sys
+    reports=tmp_path/'docs/reports';reports.mkdir(parents=True)
+    path=reports/'combat_visual_acceptance.json';path.write_text('{"global_status":"PASS"}')
+    result=subprocess.run([sys.executable,'-m','tools.check_combat_visual_acceptance','--root',str(tmp_path),'--write'],capture_output=True,text=True)
+    assert result.returncode==2
+    current=json.loads(path.read_text())
+    assert current['global_status']=='CHANTIER GLOBAL INCOMPLET'
+    assert current['criteria'][0]['status']=='NOT VERIFIED'

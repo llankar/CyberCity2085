@@ -203,7 +203,16 @@ def main():
     try:
         report = build_report(args.root)
     except (OSError, ValueError, KeyError, TypeError) as exc:
-        print('CHANTIER GLOBAL INCOMPLET — NOT VERIFIED: '+str(exc))
+        message = 'CHANTIER GLOBAL INCOMPLET — NOT VERIFIED: '+str(exc)
+        # Never leave an older positive report in place after a failed refresh.
+        if args.write:
+            directory = args.root/'docs/reports';directory.mkdir(parents=True, exist_ok=True)
+            failure = dict(global_status='CHANTIER GLOBAL INCOMPLET', error=str(exc),
+                           criteria=[dict(id='AUDIT-EXECUTION', mandatory=True, status='NOT VERIFIED', detail=str(exc))],
+                           next_action='Réparer la donnée manquante ou corrompue puis relancer la vérification. Le registre existant est conservé.')
+            (directory/'combat_visual_acceptance.json').write_text(json.dumps(failure, ensure_ascii=False, indent=2)+'\n')
+            (directory/'combat_visual_acceptance.md').write_text('# Combat Visual — contrôle non exécuté\n\n'+message+'\n')
+        print(message)
         return 2
     if args.write:
         directory = args.root/'docs/reports';directory.mkdir(parents=True, exist_ok=True)

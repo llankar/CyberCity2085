@@ -14,7 +14,7 @@ python -m pytest -q tests/test_combat_visual_acceptance.py tests/test_environmen
 
 La première commande est en lecture seule. `--write` actualise uniquement les rapports et la version Markdown du registre, depuis `docs/CODEX_PROGRESS.json`. Aucune carte, unité, donnée tactique ou sauvegarde n’est modifiée. Ne pas lancer les captures ou modifier les ressources artistiques au cours d’une intervention limitée au suivi.
 
-Codes de sortie : **0** tous les critères obligatoires PASS ; **1** au moins un critère FAIL ou NOT VERIFIED ; **2** contrôle non exécutable (donnée manquante/corrompue). Le code 1 est actuellement attendu et ne signifie pas que le chantier est terminé. Une erreur d’exécution n’est jamais convertie en PASS.
+Codes de sortie : **0** tous les critères obligatoires PASS ; **1** au moins un critère FAIL ou NOT VERIFIED ; **2** contrôle non exécutable (donnée manquante/corrompue). Le code 1 est actuellement attendu et ne signifie pas que le chantier est terminé. Une erreur d’exécution n’est jamais convertie en PASS. Avec `--write`, elle remplace l’ancien rapport par NOT VERIFIED et conserve le registre, pour ne pas laisser visible un ancien résultat positif.
 
 ## Signification des résultats
 
