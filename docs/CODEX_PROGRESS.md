@@ -36,12 +36,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/reports/work_governance_tests.xml`, `docs/reports/combat_visual_acceptance.json`, `docs/reports/combat_visual_acceptance.md`.
 - Travail restant dans cette portée : Aucun.
 
-### GOV-05 — IN_PROGRESS — Bilan final, contrôle du périmètre et sauvegarde Git locale
+### GOV-05 — DONE — Bilan final, contrôle du périmètre et sauvegarde Git locale
 
-- Fichiers : `AGENTS.md`, `docs/CODEX_PROGRESS.md`, `docs/backlog.md`.
-- Tests / contrôles réellement exécutés : git diff --name-only 47d593b ; contrôle des chemins autorisés.
+- Fichiers : `AGENTS.md`, `docs/CODEX_PROGRESS.md`, `docs/backlog.md`, `docs/reports/work_governance_scope.json`.
+- Tests / contrôles réellement exécutés : git diff --name-only 47d593b ; contrôle des chemins autorisés; git commit 2a73feb : sauvegarde locale créée; git diff --name-only 47d593b : aucune modification du gameplay.
 - Preuves : `docs/reports/work_governance_scope.json`.
-- Travail restant dans cette portée : Créer le point de sauvegarde local, vérifier l’état réel puis enregistrer le bilan final.
+- Travail restant dans cette portée : Aucun.
 
 ### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
 
@@ -124,6 +124,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-Créer le point de sauvegarde local du lot GOV puis vérifier le bilan. À la reprise artistique, commencer par ART-NEXT-01 : examiner les six planches listées dans pending_sources, puis importer uniquement les poses valides.
+Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

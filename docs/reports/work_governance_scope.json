@@ -1,5 +1,6 @@
 {
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
+  "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "changed_paths": [
     "AGENTS.md",
     "docs/CODEX_PROGRESS.json",
@@ -8,11 +9,12 @@
     "docs/backlog.md",
     "docs/reports/combat_visual_acceptance.json",
     "docs/reports/combat_visual_acceptance.md",
+    "docs/reports/work_governance_scope.json",
     "docs/reports/work_governance_tests.xml",
     "tests/test_combat_visual_acceptance.py",
     "tools/check_combat_visual_acceptance.py"
   ],
   "forbidden_paths": [],
   "status": "PASS",
-  "scope": "Instructions, suivi, rapports, outil de vérification et ses tests uniquement ; aucune modification de gameplay ni intégration artistique."
+  "scope": "Instructions, suivi, rapports, outil de vérification et tests uniquement ; aucune modification de gameplay ni intégration artistique."
 }

@@ -760,6 +760,6 @@ Le prototype de rig procédural rejeté reste isolé dans `work/`, hors producti
 - [x] GOV-02 Structurer le registre persistant avec états, fichiers, tests, preuves et reste à faire.
 - [x] GOV-03 Documenter les critères réels et distinguer chargement, présence de ressources et finition artistique.
 - [x] GOV-04 Exécuter et examiner le vérificateur reproductible sur le dépôt réel.
-- [ ] GOV-05 Vérifier le bilan et le périmètre sans gameplay, puis sauvegarder localement la passe.
+- [x] GOV-05 Vérifier le bilan et le périmètre sans gameplay, puis sauvegarder localement la passe.
 
 Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODEX_PROGRESS.md). Le ratio des tâches DONE du registre n’est pas un pourcentage de finition artistique.
