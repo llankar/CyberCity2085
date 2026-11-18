@@ -1,4 +1,4 @@
-"""Slice an approved 4x4 generated prop atlas; preserve Blender blocking sources.
+"""Slice a reviewed four-column prop atlas; preserve Blender blocking sources.
 No source-map image is read or modified. Columns are authored yaw 0/90/180/270.
 """
 import argparse,json,shutil,hashlib
@@ -32,7 +32,7 @@ def clean_alpha(frame):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('atlas',type=Path);parser.add_argument('--families',default=','.join(NAMES));parser.add_argument('--name',default='artist_atlas.png');args=parser.parse_args()
-    names=args.families.split(',');assert len(names)==4
+    names=args.families.split(',');assert 1<=len(names)<=8
     assert Path(args.name).name==args.name
     OUT.mkdir(parents=True,exist_ok=True);backup=OUT/'blender_blocking';backup.mkdir(exist_ok=True)
     source=Image.open(args.atlas).convert('RGBA')
@@ -41,7 +41,7 @@ def main():
         for col,yaw in enumerate([0,90,180,270]):
             target=OUT/f'{name}-{yaw}.png'
             if target.exists() and not (backup/target.name).exists():shutil.copyfile(target,backup/target.name)
-            box=(col*source.width//4,row*source.height//4,(col+1)*source.width//4,(row+1)*source.height//4)
+            box=(col*source.width//4,row*source.height//len(names),(col+1)*source.width//4,(row+1)*source.height//len(names))
             frame=clean_alpha(source.crop(box))
             bounds=frame.getbbox();assert bounds is not None
             assert bounds[0]>0 and bounds[1]>0 and bounds[2]<frame.width and bounds[3]<frame.height, f'{name}/{yaw}: clipped silhouette'
@@ -61,5 +61,5 @@ def main():
             with Image.open(path) as frame:
                 data['files'][path.name]={'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'size':list(frame.size),'alpha_bounds':list(frame.getchannel('A').getbbox())}
     manifest.write_text(json.dumps(data,indent=2)+'\n')
-    print('ARTIST_VARIANTS_IMPORTED 16 transparent sprites')
+    print('ARTIST_VARIANTS_IMPORTED',len(names)*4,'transparent sprites')
 if __name__=='__main__':main()

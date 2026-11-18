@@ -323,6 +323,266 @@
           "review_index": 8,
           "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7726
+        },
+        {
+          "id": "art25_detail_bench_nw",
+          "source_object_id": "bench_nw",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.40208333333333335,
+            0.14629629629629629,
+            0.425,
+            0.21574074074074073
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 236,
+          "detail_status": "original_retained_frame_mismatch",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.6146
+        },
+        {
+          "id": "art25_detail_bench_ne",
+          "source_object_id": "bench_ne",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.571875,
+            0.14537037037037037,
+            0.5947916666666667,
+            0.21666666666666667
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 237,
+          "detail_status": "original_retained_frame_mismatch",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.631
+        },
+        {
+          "id": "art25_detail_bench_west_upper",
+          "source_object_id": "bench_west_upper",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.2708333333333333,
+            0.37962962962962965,
+            0.3125,
+            0.42592592592592593
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 238,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.7918
+        },
+        {
+          "id": "art25_detail_bench_center_nw",
+          "source_object_id": "bench_center_nw",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.3890625,
+            0.37222222222222223,
+            0.4046875,
+            0.4444444444444444
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 239,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9375
+        },
+        {
+          "id": "art25_detail_bench_center_ne",
+          "source_object_id": "bench_center_ne",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.5927083333333333,
+            0.37222222222222223,
+            0.609375,
+            0.4444444444444444
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 240,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8789
+        },
+        {
+          "id": "art25_detail_bench_east_upper",
+          "source_object_id": "bench_east_upper",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6875,
+            0.37777777777777777,
+            0.7302083333333333,
+            0.42407407407407405
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 241,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8116
+        },
+        {
+          "id": "art25_detail_bench_west_lower",
+          "source_object_id": "bench_west_lower",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.2682291666666667,
+            0.5648148148148148,
+            0.3098958333333333,
+            0.6157407407407407
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 242,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.7199
+        },
+        {
+          "id": "art25_detail_bench_center_sw",
+          "source_object_id": "bench_center_sw",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.38645833333333335,
+            0.5518518518518518,
+            0.4036458333333333,
+            0.6240740740740741
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 243,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8523
+        },
+        {
+          "id": "art25_detail_bench_center_se",
+          "source_object_id": "bench_center_se",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.59375,
+            0.5509259259259259,
+            0.6109375,
+            0.6240740740740741
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 244,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8632
+        },
+        {
+          "id": "art25_detail_bench_east_lower",
+          "source_object_id": "bench_east_lower",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.6901041666666666,
+            0.5648148148148148,
+            0.7322916666666667,
+            0.6157407407407407
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 245,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.7288
+        },
+        {
+          "id": "art25_detail_bench_sw",
+          "source_object_id": "bench_sw",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.4010416666666667,
+            0.7916666666666666,
+            0.4244791666666667,
+            0.8657407407407407
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 246,
+          "detail_status": "original_retained_frame_mismatch",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.641
+        },
+        {
+          "id": "art25_detail_bench_south",
+          "source_object_id": "bench_south",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.47239583333333335,
+            0.8009259259259259,
+            0.5244791666666667,
+            0.8472222222222222
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 247,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9898
+        },
+        {
+          "id": "art25_detail_bench_se",
+          "source_object_id": "bench_se",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.571875,
+            0.7916666666666666,
+            0.5963541666666666,
+            0.8657407407407407
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 248,
+          "detail_status": "original_retained_frame_mismatch",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.6137
         }
       ],
       "art_status": "partial",
@@ -354,21 +614,13 @@
         "sign_se_base",
         "bench_nw",
         "bench_ne",
-        "bench_west_upper",
-        "bench_center_nw",
-        "bench_center_ne",
-        "bench_east_upper",
-        "bench_west_lower",
-        "bench_center_sw",
-        "bench_center_se",
-        "bench_east_lower",
         "bench_sw",
-        "bench_south",
         "bench_se"
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -403,16 +655,7 @@
         "sign_se_base",
         "bench_nw",
         "bench_ne",
-        "bench_west_upper",
-        "bench_center_nw",
-        "bench_center_ne",
-        "bench_east_upper",
-        "bench_west_lower",
-        "bench_center_sw",
-        "bench_center_se",
-        "bench_east_lower",
         "bench_sw",
-        "bench_south",
         "bench_se"
       ]
     },
@@ -843,6 +1086,46 @@
           "review_index": 19,
           "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7877
+        },
+        {
+          "id": "art25_detail_bench_w",
+          "source_object_id": "bench_w",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.3375,
+            0.45555555555555555,
+            0.35625,
+            0.5388888888888889
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 272,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9014
+        },
+        {
+          "id": "art25_detail_bench_e",
+          "source_object_id": "bench_e",
+          "asset": "metal_bench2",
+          "yaw": 270,
+          "bounds_uv": [
+            0.640625,
+            0.45555555555555555,
+            0.6614583333333334,
+            0.5388888888888889
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 273,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8113
         }
       ],
       "art_status": "partial",
@@ -862,8 +1145,6 @@
         "planter_w2",
         "planter_e1",
         "planter_e2",
-        "bench_w",
-        "bench_e",
         "bench_s",
         "bench_nw",
         "bench_sw",
@@ -896,8 +1177,6 @@
         "planter_w2",
         "planter_e1",
         "planter_e2",
-        "bench_w",
-        "bench_e",
         "bench_s",
         "bench_nw",
         "bench_sw",
@@ -1493,6 +1772,48 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8328
+        },
+        {
+          "id": "art25_detail_north_server_east",
+          "source_object_id": "north_server_east",
+          "asset": "server_bank6",
+          "yaw": 0,
+          "bounds_uv": [
+            0.575,
+            0.0,
+            0.75,
+            0.14285714285714285
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 28,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "racks": 6
+          },
+          "frame_coverage": 0.8072
+        },
+        {
+          "id": "art25_detail_north_server_west",
+          "source_object_id": "north_server_west",
+          "asset": "server_bank6",
+          "yaw": 0,
+          "bounds_uv": [
+            0.25,
+            0.0,
+            0.425,
+            0.14285714285714285
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 280,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "racks": 6
+          },
+          "frame_coverage": 0.8072
         }
       ],
       "art_status": "partial",
@@ -1501,8 +1822,6 @@
       "remaining_2d": [
         "outer_west",
         "outer_east",
-        "north_server_west",
-        "north_server_east",
         "north_barrier_west",
         "north_barrier_east",
         "west_server_rack",
@@ -1536,8 +1855,6 @@
       "source_foreground_layers": [
         "outer_west",
         "outer_east",
-        "north_server_west",
-        "north_server_east",
         "north_barrier_west",
         "north_barrier_east",
         "west_server_rack",
@@ -1895,6 +2212,262 @@
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
           "frame_coverage": 0.6334
+        },
+        {
+          "id": "art25_detail_ne_transformer",
+          "source_object_id": "ne_transformer",
+          "asset": "insulator_array6",
+          "yaw": 0,
+          "bounds_uv": [
+            0.771875,
+            0.06111111111111111,
+            0.9104166666666667,
+            0.28703703703703703
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 35,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "count": 6,
+            "columns": 3,
+            "rows": 2
+          },
+          "erase_overhang_uv": [
+            [
+              [
+                0.798,
+                0.077
+              ],
+              [
+                0.808,
+                0.04
+              ],
+              [
+                0.813,
+                0.023
+              ],
+              [
+                0.822,
+                0.024
+              ],
+              [
+                0.823,
+                0.05
+              ],
+              [
+                0.821,
+                0.077
+              ]
+            ],
+            [
+              [
+                0.829,
+                0.078
+              ],
+              [
+                0.838,
+                0.039
+              ],
+              [
+                0.841,
+                0.026
+              ],
+              [
+                0.85,
+                0.026
+              ],
+              [
+                0.853,
+                0.055
+              ],
+              [
+                0.852,
+                0.078
+              ]
+            ],
+            [
+              [
+                0.858,
+                0.079
+              ],
+              [
+                0.87,
+                0.039
+              ],
+              [
+                0.872,
+                0.026
+              ],
+              [
+                0.882,
+                0.028
+              ],
+              [
+                0.885,
+                0.053
+              ],
+              [
+                0.883,
+                0.079
+              ]
+            ]
+          ],
+          "erase_bounds_uv": [
+            0.771875,
+            0.06111111111111111,
+            0.9104166666666667,
+            0.28703703703703703
+          ],
+          "partial_source_object": true,
+          "frame_coverage": 0.9704
+        },
+        {
+          "id": "art25_detail_nw_transformer",
+          "source_object_id": "nw_transformer",
+          "asset": "insulator_array6",
+          "yaw": 0,
+          "bounds_uv": [
+            0.08958333333333333,
+            0.06296296296296296,
+            0.21979166666666666,
+            0.2851851851851852
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 37,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "count": 6,
+            "columns": 3,
+            "rows": 2
+          },
+          "erase_overhang_uv": [
+            [
+              [
+                0.114,
+                0.075
+              ],
+              [
+                0.113,
+                0.059
+              ],
+              [
+                0.118,
+                0.053
+              ],
+              [
+                0.125,
+                0.054
+              ],
+              [
+                0.131,
+                0.075
+              ]
+            ],
+            [
+              [
+                0.142,
+                0.077
+              ],
+              [
+                0.138,
+                0.047
+              ],
+              [
+                0.142,
+                0.034
+              ],
+              [
+                0.15,
+                0.034
+              ],
+              [
+                0.16,
+                0.077
+              ]
+            ],
+            [
+              [
+                0.174,
+                0.077
+              ],
+              [
+                0.17,
+                0.047
+              ],
+              [
+                0.175,
+                0.034
+              ],
+              [
+                0.183,
+                0.035
+              ],
+              [
+                0.194,
+                0.077
+              ]
+            ]
+          ],
+          "erase_bounds_uv": [
+            0.08958333333333333,
+            0.06296296296296296,
+            0.21979166666666666,
+            0.2851851851851852
+          ],
+          "partial_source_object": true,
+          "frame_coverage": 0.9847
+        },
+        {
+          "id": "art25_detail_sw_transformer",
+          "source_object_id": "sw_transformer",
+          "asset": "insulator_array4",
+          "yaw": 0,
+          "bounds_uv": [
+            0.07083333333333333,
+            0.6574074074074074,
+            0.203125,
+            0.912962962962963
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 285,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "count": 4,
+            "columns": 2,
+            "rows": 2
+          },
+          "partial_source_object": true,
+          "frame_coverage": 0.9398
+        },
+        {
+          "id": "art25_detail_se_transformer",
+          "source_object_id": "se_transformer",
+          "asset": "insulator_array4",
+          "yaw": 0,
+          "bounds_uv": [
+            0.76875,
+            0.6648148148148149,
+            0.9239583333333333,
+            0.912962962962963
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 286,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 0,
+          "assembly": {
+            "count": 4,
+            "columns": 2,
+            "rows": 2
+          },
+          "partial_source_object": true,
+          "frame_coverage": 0.8807
         }
       ],
       "art_status": "source_layers_pending_matched_asset",
@@ -1947,10 +2520,6 @@
         "east_wall",
         "north_wall",
         "south_wall",
-        "nw_transformer",
-        "ne_transformer",
-        "sw_transformer",
-        "se_transformer",
         "central_west_transformer",
         "central_east_transformer",
         "central_control",
@@ -4145,6 +4714,188 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8757
+        },
+        {
+          "id": "art25_detail_bench_s",
+          "source_object_id": "bench_s",
+          "asset": "metal_bench_pair",
+          "yaw": 0,
+          "bounds_uv": [
+            0.4666666666666667,
+            0.6148148148148148,
+            0.540625,
+            0.6666666666666666
+          ],
+          "enabled": false,
+          "source_review": "detail_crop_sheet",
+          "review_index": 81,
+          "detail_status": "original_retained_frame_mismatch",
+          "author_yaw": 0,
+          "assembly": {
+            "modules": 2,
+            "seats": 4
+          },
+          "frame_coverage": 0.5729
+        },
+        {
+          "id": "art25_detail_east_bench_n2",
+          "source_object_id": "east_bench_n2",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8833333333333333,
+            0.3574074074074074,
+            0.9135416666666667,
+            0.38333333333333336
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 82,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9755
+        },
+        {
+          "id": "art25_detail_east_bench_s2",
+          "source_object_id": "east_bench_s2",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.8833333333333333,
+            0.5833333333333334,
+            0.915625,
+            0.6129629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 83,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9589
+        },
+        {
+          "id": "art25_detail_west_bench_n",
+          "source_object_id": "west_bench_n",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.09375,
+            0.3592592592592593,
+            0.121875,
+            0.38333333333333336
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 314,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9729
+        },
+        {
+          "id": "art25_detail_west_bench_m",
+          "source_object_id": "west_bench_m",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.18125,
+            0.3574074074074074,
+            0.20625,
+            0.38333333333333336
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 315,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8484
+        },
+        {
+          "id": "art25_detail_west_bench_s",
+          "source_object_id": "west_bench_s",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.08958333333333333,
+            0.5851851851851851,
+            0.11875,
+            0.6148148148148148
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 316,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.8661
+        },
+        {
+          "id": "art25_detail_west_bench_s2",
+          "source_object_id": "west_bench_s2",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.16875,
+            0.5851851851851851,
+            0.19791666666666666,
+            0.6129629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 317,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9238
+        },
+        {
+          "id": "art25_detail_east_bench_n",
+          "source_object_id": "east_bench_n",
+          "asset": "metal_bench2",
+          "yaw": 180,
+          "bounds_uv": [
+            0.7989583333333333,
+            0.3592592592592593,
+            0.8291666666666667,
+            0.38333333333333336
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 318,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9577
+        },
+        {
+          "id": "art25_detail_east_bench_s",
+          "source_object_id": "east_bench_s",
+          "asset": "metal_bench2",
+          "yaw": 0,
+          "bounds_uv": [
+            0.7989583333333333,
+            0.5833333333333334,
+            0.8302083333333333,
+            0.6129629629629629
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 319,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "seats": 2
+          },
+          "frame_coverage": 0.9279
         }
       ],
       "art_status": "partial",
@@ -4175,14 +4926,6 @@
         "column_se",
         "ticket_w",
         "ticket_e",
-        "west_bench_n",
-        "west_bench_m",
-        "west_bench_s",
-        "west_bench_s2",
-        "east_bench_n",
-        "east_bench_n2",
-        "east_bench_s",
-        "east_bench_s2",
         "northwest_boundary",
         "northeast_boundary",
         "southwest_boundary",
@@ -4190,7 +4933,8 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Whole-map artistic completion is not claimed.",
+        "Rejected mismatched sprite placement(s); source artwork retained."
       ],
       "validation": {
         "native_render": "passed",
@@ -4224,14 +4968,6 @@
         "column_se",
         "ticket_w",
         "ticket_e",
-        "west_bench_n",
-        "west_bench_m",
-        "west_bench_s",
-        "west_bench_s2",
-        "east_bench_n",
-        "east_bench_n2",
-        "east_bench_s",
-        "east_bench_s2",
         "northwest_boundary",
         "northeast_boundary",
         "southwest_boundary",
@@ -9908,6 +10644,26 @@
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8514
+        },
+        {
+          "id": "art25_detail_center_planter",
+          "source_object_id": "center_planter",
+          "asset": "dry_planter",
+          "yaw": 270,
+          "bounds_uv": [
+            0.45729166666666665,
+            0.3592592592592593,
+            0.546875,
+            0.4981481481481482
+          ],
+          "enabled": true,
+          "source_review": "detail_crop_sheet",
+          "review_index": 161,
+          "detail_status": "native_render_verified_art_completion_pending",
+          "assembly": {
+            "vegetation": "dead branches"
+          },
+          "frame_coverage": 0.8751
         }
       ],
       "art_status": "partial",
@@ -9917,7 +10673,6 @@
         "west_train",
         "west_platform",
         "east_platform",
-        "center_planter",
         "stairs_n",
         "stairs_s",
         "stairs_nw",
@@ -9956,7 +10711,6 @@
         "west_train",
         "west_platform",
         "east_platform",
-        "center_planter",
         "stairs_n",
         "stairs_s",
         "stairs_nw",

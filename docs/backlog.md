@@ -700,3 +700,14 @@ Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par c
 - [x] ART25B-03 Étendre les substitutions à 187 objets sur 108 cartes, conserver les orientations validées et les fallbacks lorsque les ressources ne conviennent pas.
 - [x] ART25B-04 Ajouter les ombres de silhouettes aux agents, ennemis, power armors, véhicules et robots ; corriger le chargement typé des actions de soutien sans changer leurs règles.
 - [x] ART25B-05 Terminer les contrôles natifs des 122 cartes, exporter les comparaisons et publier cette extension vérifiée. La reconstruction artistique complète reste ouverte sous ART25-05.
+
+
+### Combat Visual 2.5 — assemblages et avancement global, 18 novembre 2026
+
+- [x] ART25C-01 Créer un suivi global généré, avec historique, preuves de validation et distinction entre rendu natif et finition artistique.
+- [x] ART25C-02 Produire six familles composées / 24 vues et les sources Blender ; conserver les variantes incompatibles en fallback.
+- [x] ART25C-03 Examiner 145 découpes supplémentaires, annoter les nombres de composants et les débordements visuels séparés des collisions.
+- [x] ART25C-04 Achever les contrôles natifs et les comparaisons à trois résolutions ; préserver les agents, ennemis et soutiens.
+- [ ] ART25C-05 Exporter les preuves, actualiser le fichier d’avancement, push et merge. La reconstruction artistique complète reste ouverte sous ART25-05.
+
+Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_progress.md).

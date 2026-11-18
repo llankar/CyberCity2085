@@ -1,0 +1,67 @@
+[
+  {
+    "capture_signature": "f7fc680dadb3775d0103bdd56963b0b336b815518193d1aa86761dfee453f83e",
+    "elapsed_ms": 7627.502,
+    "entity_families_checked": false,
+    "map": "city_industrial_power_substation.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 28,
+    "rendered_sprites": 4,
+    "static_memory_bytes": 261479758,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "f7fc680dadb3775d0103bdd56963b0b336b815518193d1aa86761dfee453f83e",
+    "elapsed_ms": 7618.879,
+    "entity_families_checked": false,
+    "map": "city_industrial_data_vault.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 262844806,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "f7fc680dadb3775d0103bdd56963b0b336b815518193d1aa86761dfee453f83e",
+    "elapsed_ms": 8143.623,
+    "entity_families_checked": false,
+    "map": "city_transit_metro_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 37,
+    "rendered_sprites": 9,
+    "static_memory_bytes": 263072094,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "f7fc680dadb3775d0103bdd56963b0b336b815518193d1aa86761dfee453f83e",
+    "elapsed_ms": 8469.846,
+    "entity_families_checked": false,
+    "map": "city_district_holo_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 12,
+    "static_memory_bytes": 263236722,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "f7fc680dadb3775d0103bdd56963b0b336b815518193d1aa86761dfee453f83e",
+    "elapsed_ms": 7589.182,
+    "entity_families_checked": false,
+    "map": "wasteland_city_11_ruined_transit_plaza.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 27,
+    "rendered_sprites": 2,
+    "static_memory_bytes": 263649066,
+    "vehicle_count": 1
+  }
+]

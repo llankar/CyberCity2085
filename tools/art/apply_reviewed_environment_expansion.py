@@ -37,6 +37,10 @@ def main():
                         detail_status='pending_frame_and_native_validation')
             if 'author_yaw' in review:
                 prop['author_yaw'] = review['author_yaw']
+            if 'assembly' in review:
+                prop['assembly'] = review['assembly']
+            for optional in ['erase_overhang_uv','erase_bounds_uv','partial_source_object']:
+                if optional in review:prop[optional]=review[optional]
             existing = [p for p in record['props'] if p['id'] != key]
             existing.append(prop)
             record['props'] = existing
