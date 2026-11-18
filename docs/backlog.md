@@ -708,6 +708,6 @@ Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par c
 - [x] ART25C-02 Produire six familles composées / 24 vues et les sources Blender ; conserver les variantes incompatibles en fallback.
 - [x] ART25C-03 Examiner 145 découpes supplémentaires, annoter les nombres de composants et les débordements visuels séparés des collisions.
 - [x] ART25C-04 Achever les contrôles natifs et les comparaisons à trois résolutions ; préserver les agents, ennemis et soutiens.
-- [ ] ART25C-05 Exporter les preuves, actualiser le fichier d’avancement, push et merge. La reconstruction artistique complète reste ouverte sous ART25-05.
+- [x] ART25C-05 Exporter les preuves, actualiser le fichier d’avancement, push et merge. La reconstruction artistique complète reste ouverte sous ART25-05.
 
 Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_progress.md).
