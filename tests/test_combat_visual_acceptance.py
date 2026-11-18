@@ -147,8 +147,8 @@ def test_unfinished_tasks_remain_an_open_global_criterion(project):
 
 
 def test_permanent_rules_preserve_quality_and_distinguish_batches():
-    root=Path(__file__).resolve().parents[1];text=(root/'AGENTS.md').read_text()
-    assert '5 tasks per batch' in text and 'any number of successive batches' in text
+    root=Path(__file__).resolve().parents[1];text=(root/'AGENTS.md').read_text(encoding='utf-8')
+    assert 'tasks per batch' not in text and 'any number of successive batches' in text
     assert 'Modularity' in text and 'Scope control' in text
     assert 'CHANTIER GLOBAL INCOMPLET' in text
     assert 'ne pas publier sans mon accord' not in text.lower()

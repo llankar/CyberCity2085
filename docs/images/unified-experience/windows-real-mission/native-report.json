@@ -1,0 +1,30 @@
+[
+  {
+    "outcome": "victory",
+    "native_godot": true,
+    "real_mission": true,
+    "readiness_seconds": 5.828,
+    "results_waited_for_confirmation": true,
+    "debrief_before_promotions": true,
+    "promotions": true,
+    "reward_replay_blocked": true,
+    "save_reload_verified": true,
+    "return_ack_recovered": false,
+    "tactical_resume_phase": null,
+    "source_process_superseded": false,
+    "requested_viewport": [
+      1280,
+      720
+    ],
+    "actual_viewport": [
+      1920,
+      1080
+    ],
+    "readiness_verified": true,
+    "audio_ownership_verified": true,
+    "crash_recovery": false,
+    "debrief_recovery": false,
+    "native_windows_run": true,
+    "windows_graphics_verified": false
+  }
+]
