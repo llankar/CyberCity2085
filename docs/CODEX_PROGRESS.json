@@ -314,67 +314,107 @@
     {
       "id": "UE2-01",
       "title": "Journal Python durable avant/après résolution",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "game/combat/session_protocol.py",
-        "game/combat/godot_resolution.py"
+        "game/combat/godot_resolution.py",
+        "game/combat/checkpoints.py"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Journal Python durable avant/après résolution",
-      "reason": ""
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
     },
     {
       "id": "UE2-02",
       "title": "Reprendre le débriefing après crash sans rejouer les récompenses",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "game/ui/screens/mission_return.py",
-        "game/ui/screens/godot_combat_handoff_view.py"
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "game/combat/return_snapshot.py",
+        "game/ui/screens/combat_recovery.py",
+        "game/ui/screens/title_screen.py"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Reprendre le débriefing après crash sans rejouer les récompenses",
-      "reason": ""
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
     },
     {
       "id": "UE2-03",
       "title": "Readiness, statuts et délais de communication",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
-        "game/combat/godot_ipc.py",
-        "godot/combat_missions_ui/scripts/combat_signals.gd"
+        "game/combat/session_protocol.py",
+        "godot/combat_missions_ui/scripts/session_mailbox.gd",
+        "game/ui/screens/godot_combat_handoff_view.py"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Readiness, statuts et délais de communication",
-      "reason": ""
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
     },
     {
       "id": "UE2-04",
       "title": "Cycle de vie Win32 et continuité de fenêtre",
-      "status": "TODO",
+      "status": "BLOCKED",
       "files": [
         "game/combat/win32_embed.py",
         "game/ui/screens/godot_combat_handoff_view.py"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Cycle de vie Win32 et continuité de fenêtre",
-      "reason": ""
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre",
+      "reason": "Environnement Linux uniquement ; améliorations Win32 implémentées mais non validées graphiquement"
     },
     {
       "id": "UE2-05",
       "title": "Scénarios de crash, récupération et bilan du lot",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "tests/test_unified_mission_resolution.py",
         "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Scénarios de crash, récupération et bilan du lot",
-      "reason": ""
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
     },
     {
       "id": "SCALE-02",
@@ -601,7 +641,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIFIED UE2-01 : écrire des checkpoints atomiques avant/après la résolution ; conserver les informations de débriefing dans le journal et tester la reprise après crash. Windows graphique reste non disponible sur cet environnement Linux.",
+  "next_action": "UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

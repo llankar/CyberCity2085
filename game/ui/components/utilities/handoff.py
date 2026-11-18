@@ -33,21 +33,27 @@ class HandoffDeck(UtilityDeck):
             right, self.word("CENTRE DE DÉPLOIEMENT", "DEPLOYMENT CONTROL"), "target"
         )
         r = self.body(right)
-        self.document(
-            "handoff_status",
-            v.mission.title + "\n\n" + v._status,
-            Rect(r.left, r.bottom + 245 * u, r.right, r.top),
-            23,
-        )
         items = [
             (self.word("RÉESSAYER [R]", "RETRY [R]"), arcade.key.R),
             (self.word("CHOISIR GODOT [G]", "CHOOSE GODOT [G]"), arcade.key.G),
             (self.word("COMBAT ARCADE [F]", "ARCADE COMBAT [F]"), arcade.key.F),
         ]
+        record=getattr(v.game_state,"combat_sessions",{}).get(getattr(getattr(v,"launch_result",None),"session_id",""),{})
+        from pathlib import Path
+        channels=record.get("session",{})
+        recoverable=any(Path(channels[key]).is_file() for key in ["result_path","prepared_path"] if channels.get(key))
+        if v._launch_failed and recoverable:
+            items.insert(0,(self.word("RÉCUPÉRER LE RÉSULTAT [C]", "RECOVER RESULT [C]"),arcade.key.C))
+        self.document(
+            "handoff_status",
+            v.mission.title + "\n\n" + v._status,
+            Rect(r.left, r.bottom + (len(items)*60+20) * u, r.right, r.top),
+            23,
+        )
         for i, (label, key) in enumerate(items):
-            bottom = r.bottom + (2 - i) * 67 * u
+            bottom = r.bottom + (len(items)-1-i) * 60 * u
             self.action(
-                Rect(r.left, bottom, r.right, bottom + 51 * u),
+                Rect(r.left, bottom, r.right, bottom + 46 * u),
                 label,
                 "handoff_key",
                 key,

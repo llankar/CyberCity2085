@@ -12,7 +12,7 @@ func run() -> void:
 		elif args[i]=="--qa-confirm":confirm_path=args[i+1]
 		elif args[i]=="--qa-captures":capture_dir=args[i+1]
 		elif args[i]=="--qa-outcome":outcome=args[i+1]
-	root.size=Vector2i(1280,720);root.add_child(scene)
+	root.add_child(scene)
 	await create_timer(2.2).timeout
 	assert(scene.battle_started)
 	var original: Vector2i=scene._cell_position(scene.player_units[0])

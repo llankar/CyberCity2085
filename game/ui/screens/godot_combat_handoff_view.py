@@ -31,6 +31,14 @@ _WIN = sys.platform == "win32"
 _HWND_POLL_INTERVAL = 0.15  # seconds between HWND-search attempts
 
 
+def _native_launch_options():
+    if not _WIN:
+        return {}
+    from game.combat.win32_embed import get_current_process_hwnd, get_window_screen_rect
+    hwnd = get_current_process_hwnd()
+    return {"window_rect": get_window_screen_rect(hwnd)} if hwnd else {}
+
+
 def open_mission_combat(window, game_state, mission) -> None:
     """One route for both launch screens; Arcade is an explicit compatibility choice."""
     if getattr(game_state, "combat_mission_ui_engine", "godot") == "arcade":
@@ -42,7 +50,7 @@ def open_mission_combat(window, game_state, mission) -> None:
         return
     from game.combat.godot_bridge import launch_godot_combat_ui
 
-    result = launch_godot_combat_ui(game_state, mission)
+    result = launch_godot_combat_ui(game_state, mission, **_native_launch_options())
     game_state.add_event(result.message)
     window.show_view(GodotCombatHandoffView(game_state, mission, result, window=window))
 
@@ -111,6 +119,21 @@ class GodotCombatHandoffView(arcade.View):
         if self._launch_failed:
             return
 
+        from game.combat.session_protocol import read_session_status
+        session_id = getattr(self.launch_result, "session_id", None)
+        record = self.game_state.combat_sessions.get(session_id, {})
+        status_path = record.get("session", {}).get("status_path")
+        status = read_session_status(status_path, session_id, self.mission.id) if status_path else None
+        if status and status["ready"]:
+            self._session_ready = True
+        # This deadline applies only to initialization, never to a long battle.
+        if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
+            self._cleanup_godot()
+            self._launch_failed = True
+            self._status = "Godot ne confirme pas son démarrage. R : réessayer ; F : choisir Arcade."
+            self.game_state.add_event(self._status)
+            return
+
         # Poll results even before a native window is found (and on Linux).
         from game.combat.godot_bridge import read_godot_combat_result
 
@@ -124,6 +147,13 @@ class GodotCombatHandoffView(arcade.View):
                 self._launch_failed=True
                 self._status=f"Résultat refusé ; campagne inchangée : {exc}"
                 self.game_state.add_event(self._status)
+            return
+        from pathlib import Path
+        if result_path and Path(result_path).is_file():
+            self._cleanup_godot()
+            self._launch_failed = True
+            self._status = "Résultat Godot illisible ; campagne inchangée. C : récupérer ; R : réessayer."
+            self.game_state.add_event(self._status)
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
@@ -139,9 +169,13 @@ class GodotCombatHandoffView(arcade.View):
                 self._hwnd_timer = 0.0
                 self._try_overlay()
             return
+        if _WIN and self._godot_hwnd and self._arcade_hwnd:
+            from game.combat.win32_embed import sync_owned_window
+            self._overlay_rect = sync_owned_window(self._godot_hwnd, self._arcade_hwnd,
+                getattr(self, "_overlay_rect", None))
 
     def _try_overlay(self) -> None:
-        """Find Godot's window, make it borderless, place it over Arcade, hide Arcade."""
+        """Find Godot and retain Arcade behind its borderless owned window."""
         pid = self.launch_result.process_pid
         if not pid:
             # No PID means Godot wasn't launched (or non-Windows); jump to polling.
@@ -158,7 +192,7 @@ class GodotCombatHandoffView(arcade.View):
             get_process_hwnd,
             get_window_screen_rect,
             make_borderless_at,
-            hide_window,
+            attach_owned_window,
         )
 
         hwnd = get_process_hwnd(pid)
@@ -171,7 +205,10 @@ class GodotCombatHandoffView(arcade.View):
             else (0, 0, self.window.width, self.window.height)
         )
 
+        if self._arcade_hwnd:
+            attach_owned_window(hwnd, self._arcade_hwnd)
         make_borderless_at(hwnd, x, y, w, h)
+        self._overlay_rect = (x, y, w, h)
         # Keep the campaign surface behind Godot so exit cannot reveal the desktop.
 
         self._godot_hwnd = hwnd
@@ -273,12 +310,21 @@ class GodotCombatHandoffView(arcade.View):
         record=sessions.get(getattr(self.launch_result,"session_id",""))
         if record is not None and record.get("status")=="pending":
             record["status"]="abandoned"
+            if record.get("checkpoints"):
+                try:
+                    from game.combat.checkpoints import write_campaign_checkpoint
+                    write_campaign_checkpoint(self.game_state, self.launch_result.session_id, "before")
+                except OSError:
+                    self.game_state.add_event("Abandon enregistré en mémoire ; checkpoint indisponible.")
 
     def _recover_prepared_result(self) -> None:
         from game.combat.godot_bridge import read_godot_combat_result
         session=self.game_state.combat_sessions.get(getattr(self.launch_result,"session_id",""),{})
-        path=session.get("session",{}).get("prepared_path")
-        result=read_godot_combat_result(path) if path else None
+        channel=session.get("session",{})
+        from pathlib import Path
+        final=channel.get("result_path")
+        path=final if final and Path(final).is_file() else channel.get("prepared_path")
+        result=read_godot_combat_result(path,advance_bookmark=False) if path else None
         if result is None:
             self._status="Aucun résultat préparé récupérable ; choisissez explicitement une nouvelle tentative."
             return
@@ -293,9 +339,11 @@ class GodotCombatHandoffView(arcade.View):
         from game.combat.godot_bridge import launch_godot_combat_ui
 
         self._cleanup_godot()
-        self.launch_result = launch_godot_combat_ui(self.game_state, self.mission)
+        self.launch_result = launch_godot_combat_ui(self.game_state, self.mission, **_native_launch_options())
         self._launch_failed = not self.launch_result.launched
         self._overlaid = False
+        self._elapsed = 0.0
+        self._session_ready = False
         self._status = self.launch_result.message
         self.game_state.add_event(self._status)
 
@@ -314,10 +362,15 @@ class GodotCombatHandoffView(arcade.View):
         self._write_pending_ack()
         self._result_applied=True
         if resolved is None:
-            self._cleanup_godot()
-            self._return_to_management()
-            return
+            from game.combat.return_snapshot import resume_return
+            resolved=resume_return(self.game_state,self.mission,session_id)
+            if resolved is None:
+                self._cleanup_godot()
+                self._return_to_management()
+                return
         context,survivors,units=resolved
+        from game.combat.return_snapshot import complete_return
+        context.on_return_complete=lambda:complete_return(self.game_state,session_id)
         context._victory=result["outcome"]=="victory"
         self._pending_return=(context,survivors,units)
         self._return_wait=0.0

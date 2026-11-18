@@ -166,6 +166,7 @@ def copy_audio_assets() -> None:
 
 def read_godot_combat_result(
     result_path: Path | str = RESULT_JSON_PATH,
+    *, advance_bookmark: bool=True,
 ) -> dict[str, Any] | None:
     """Read a Godot result and retain its external music playback bookmark.
 
@@ -183,7 +184,7 @@ def read_godot_combat_result(
             try:
                 from game.audio import SoundManager
                 position = float(bookmark["position"])
-                if "captured_at" in bookmark:
+                if advance_bookmark and "captured_at" in bookmark:
                     import math
                     import time
                     captured = float(bookmark["captured_at"])
@@ -380,6 +381,7 @@ def build_godot_combat_command(
     *,
     executable: str | None = None,
     project_dir: Path | str = GODOT_COMBAT_PROJECT_DIR,
+    window_rect: tuple[int, int, int, int] | None = None,
 ) -> list[str]:
     """Build the Godot command that opens the combat-mission UI project."""
     exe = executable if executable is not None else find_godot_executable()
@@ -387,8 +389,15 @@ def build_godot_combat_command(
         return []
     project_path = Path(project_dir).resolve()
     handoff_file = Path(handoff_path).resolve()
+    window_options = []
+    if window_rect is not None:
+        x, y, width, height = window_rect
+        if width <= 0 or height <= 0:
+            raise ValueError("Invalid combat viewport size")
+        window_options = ["--borderless", "--position", f"{x},{y}", "--resolution", f"{width}x{height}"]
     return [
         exe,
+        *window_options,
         "--path",
         str(project_path),
         "--",
@@ -405,6 +414,7 @@ def launch_godot_combat_ui(
     start_process: bool = True,
     wait: bool = False,
     executable: str | None = None,
+    window_rect: tuple[int, int, int, int] | None = None,
 ) -> GodotCombatLaunchResult:
     """Prepare the Godot handoff and optionally start Godot in a separate process.
 
@@ -424,12 +434,14 @@ def launch_godot_combat_ui(
     if ipc_result_path.exists():
         ipc_result_path.unlink(missing_ok=True)
 
-    copy_audio_assets()
-
-    path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
-    from .session_protocol import create_session
-    path, session = create_session(game_state, mission, path)
-    command = build_godot_combat_command(path, executable=executable)
+    try:
+        copy_audio_assets()
+        path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
+        from .session_protocol import create_session
+        path, session = create_session(game_state, mission, path)
+    except (OSError,ValueError,TypeError) as exc:
+        return GodotCombatLaunchResult(Path(handoff_path),[],False,f"Godot session preparation failed: {exc}")
+    command = build_godot_combat_command(path, executable=executable, window_rect=window_rect)
     if not command:
         return GodotCombatLaunchResult(
             path,

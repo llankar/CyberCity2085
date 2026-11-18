@@ -2,15 +2,15 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
-Tâches DONE : 11 / 21. Ce ratio porte sur le registre, pas sur la finition artistique.
-Cartes : 122 / 122 chargées ; 0 artistiquement vérifiées.
+Tâches DONE : 20 / 31. Ce ratio porte sur le registre, pas sur la finition artistique.
+Cartes : 0 / 122 chargées ; 0 artistiquement vérifiées.
 Animations complètes : 0 / 231 ; 6 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
 
 | Critère obligatoire | Résultat | Preuve / limite |
 |---|---|---|
 | MAP-SOURCE — Intégrité des cartes et relevés | PASS | 122 / 122 cartes relevées ; 0 empreintes invalides. |
-| MAP-LOAD — Chargement natif et projection | PASS | 122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition. |
+| MAP-LOAD — Chargement natif et projection | NOT VERIFIED | 0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition. |
 | MAP-ART — Finition artistique de chaque carte | FAIL | 0 / 122 cartes déclarées finalisées ; revue artistique complète absente. |
 | ART-FILES — Présence des ressources de décor déclarées | PASS | 144 / 144 vues déclarées présentes ; 36 familles. Présence ≠ qualité artistique. |
 | ART-OBJECTS — Silhouettes, matériaux et intégration des objets | NOT VERIFIED | 221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue explicite et preuves non enregistrées. |
@@ -22,7 +22,7 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
 | TARGETED-TESTS — Tests exécutés dans la portée du lot | PASS | {'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'} |
-| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 11 / 21 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
+| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 20 / 31 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
 
 ## Tests réellement enregistrés
 
@@ -30,8 +30,8 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 
 ## Critères encore ouverts
 
-MAP-ART, ART-OBJECTS, UNIT-SCALE, UNIT-ART, FUNCTIONAL, RESOLUTIONS, PERFORMANCE, ANIMATIONS, TASK-COMPLETION
+MAP-LOAD, MAP-ART, ART-OBJECTS, UNIT-SCALE, UNIT-ART, FUNCTIONAL, RESOLUTIONS, PERFORMANCE, ANIMATIONS, TASK-COMPLETION
 
 ## Prochaine action précise
 
-SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.
+UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.

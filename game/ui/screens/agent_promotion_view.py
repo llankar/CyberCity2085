@@ -33,11 +33,13 @@ class AgentPromotionView(arcade.View):
         game_state: "GameState",
         promotions: list[PromotionRecord],
         next_view: arcade.View,
+        *, on_complete=None,
     ) -> None:
         super().__init__()
         self.game_state = game_state
         self.promotions = promotions
         self.next_view = next_view
+        self.on_complete=on_complete
         self._index = 0
         self._elapsed = 0.0
         self._portrait_cache: dict[str, arcade.Texture | None] = {}
@@ -123,6 +125,8 @@ class AgentPromotionView(arcade.View):
             from game.audio import SoundManager
 
             SoundManager.get().play("sfx_deploy", 0.5)
+            if self.on_complete is not None:
+                callback=self.on_complete;self.on_complete=None;callback()
             self.window.show_view(self.next_view)
         else:
             from game.audio import SoundManager

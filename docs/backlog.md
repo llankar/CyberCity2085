@@ -797,3 +797,13 @@ Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; 
 - [x] UE1-05 Vérifier 67 tests distincts et trois parcours natifs Linux ; conserver les limites Windows/crash.
 
 Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFIED_EXPERIENCE_PROGRESS.md).
+
+### Unified Experience — lot 2 récupération durable
+
+- [x] UE2-01 Checkpoints Python atomiques avant et après résolution.
+- [x] UE2-02 Continuer reprend le résultat/débriefing et les promotions sans rejouer les récompenses.
+- [x] UE2-03 Mailboxes versionnées readiness/résultat et délai d’initialisation.
+- [ ] UE2-04 Intégration Win32 améliorée, validation graphique Windows bloquée.
+- [x] UE2-05 Crash avant confirmation, reprise du débriefing, captures réelles et régressions ciblées.
+
+Toujours ouverts : reprise du tour en cours avant résultat, préchauffage/continuité audio, véritable parcours de missions non forcées et validation Windows.

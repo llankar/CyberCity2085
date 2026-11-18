@@ -19,10 +19,15 @@ def main():
     from game.ui.screens.agent_promotion_view import AgentPromotionView
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=Path('work/unified-experience'))
+    parser.add_argument("--outcomes", nargs="+", choices=["victory","defeat","retreat"], default=["victory","defeat","retreat"])
+    parser.add_argument("--width", type=int, default=1280)
+    parser.add_argument("--height", type=int, default=720)
+    parser.add_argument("--crash-recovery", action="store_true")
+    parser.add_argument("--resume-debrief", action="store_true")
     args=parser.parse_args();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
     root=Path(__file__).resolve().parents[1];previous=Path.cwd();real_popen=subprocess.Popen
     class Window(MusicTransitionMixin,arcade.Window):pass
-    window=Window(1280,720,'CyberCity unified experience — Linux validation',visible=True)
+    window=Window(args.width,args.height,'CyberCity unified experience — Linux validation',visible=True)
     results=[]
     def frame(path=None):
         window.dispatch_events();window.switch_to()
@@ -32,7 +37,7 @@ def main():
         if path:arcade.get_image().save(path)
         window.flip()
     try:
-        for outcome in ['victory','defeat','retreat']:
+        for outcome in args.outcomes:
             case=output/outcome;case.mkdir(exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='cybercity-unified-') as tmp:
                 sandbox=Path(tmp);(sandbox/'assets').symlink_to(root/'assets',target_is_directory=True);(sandbox/'godot').symlink_to(root/'godot',target_is_directory=True);os.chdir(sandbox)
@@ -46,7 +51,7 @@ def main():
                 log=case/'godot.log'
                 with log.open('w') as stream:
                     def launch(command,*a,**kw):
-                        command=list(command);command[1:1]=['--audio-driver','Dummy','--script','res://tests/unified_return_flow.gd'];command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
+                        command=list(command);command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script','res://tests/unified_return_flow.gd'];command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=launch):
                         window.current_view.on_key_press(arcade.key.ENTER,0)
@@ -59,19 +64,40 @@ def main():
                             assert process.poll() is None,log.read_text()
                             assert time.monotonic()<deadline,log.read_text()
                             time.sleep(.03)
+                        from PIL import Image
+                        assert Image.open(case/'godot-results.png').size == (args.width,args.height)
+                        from game.combat.session_protocol import read_session_status
+                        session=state.combat_sessions[bridge.launch_result.session_id]['session']
+                        assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
                         before=state.available_funds
                         for _ in range(12):frame();time.sleep(.08)
                         assert window.current_view is bridge and process.poll() is None
                         assert state.available_funds==before and not Path(bridge.launch_result.result_path).exists()
-                        confirm.write_text('USER CONFIRMATION IN QA\n')
+                        if args.crash_recovery:
+                            process.kill(); process.wait(timeout=5)
+                            frame()
+                            assert bridge._launch_failed
+                            frame(case/'04-crash-recovery.png')
+                            bridge.on_key_press(arcade.key.C, 0)
+                        else:
+                            confirm.write_text('USER CONFIRMATION IN QA\n')
                         deadline=time.monotonic()+30
                         while isinstance(window.current_view,GodotCombatHandoffView):
                             frame();assert not bridge._launch_failed,bridge._status
                             assert time.monotonic()<deadline,log.read_text()
                             time.sleep(.02)
                         assert isinstance(window.current_view,BattleDebriefView)
-                        frame(case/'05-debrief.png');assert process.wait(timeout=5)==0
-                        actual=json.loads(Path(bridge.launch_result.result_path).read_text())
+                        frame(case/'05-debrief.png')
+                        if not args.crash_recovery: assert process.wait(timeout=5)==0
+                        if args.resume_debrief:
+                            from game.combat.checkpoints import load_combat_checkpoint
+                            from game.ui.screens.combat_recovery import show_combat_recovery
+                            checkpoint=state.combat_sessions[bridge.launch_result.session_id]['checkpoints']['after']
+                            state, sid=load_combat_checkpoint(checkpoint)
+                            assert show_combat_recovery(window,state)
+                            assert isinstance(window.current_view,BattleDebriefView)
+                            frame(case/'05-recovered-debrief.png')
+                        actual=state.combat_sessions[bridge.launch_result.session_id]['confirmed_result']
                         (case/'confirmed-result.json').write_text(json.dumps(actual,indent=2)+'\n')
                         after=state.available_funds;bridge.on_update(.1);assert state.available_funds==after
                         window.current_view._go_to_management()
@@ -87,7 +113,7 @@ def main():
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None
                         assert loaded.available_funds==after
                         assert state.latest_mission_debrief and state.latest_agent_aftermath is not None
-                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,windows_graphics_verified=False))
+                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,viewport=[args.width,args.height],readiness_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
                     finally:
                         if process.poll() is None:process.terminate();process.wait(timeout=5)
     finally:

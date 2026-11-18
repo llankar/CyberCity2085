@@ -162,7 +162,12 @@ func _ready() -> void:
 	_connect_signals()
 	_seed_combat_state()
 	call_deferred("_start_combat", "AUTO-DEPLOY")
+	call_deferred("_announce_session_ready")
 	queue_redraw()
+
+func _announce_session_ready() -> void:
+	await get_tree().process_frame
+	preload("res://scripts/session_mailbox.gd").status(handoff.get("session", {}), "combat_started")
 
 func _process(delta: float) -> void:
 	if not battle_started:

@@ -5,7 +5,7 @@ SwapBuffers overwrites the compositor's work every frame.  The approach here is:
   1. Find Godot's HWND once it starts.
   2. Strip its title bar / border.
   3. Move it to the same screen rect as Arcade's window.
-  4. Hide Arcade's window so only Godot is visible.
+  4. Keep Arcade behind its owned Godot window as the transition surface.
   5. On combat end: hide Godot, show Arcade, terminate the Godot process.
 
 Windows-only. Every function is a safe no-op on Linux/macOS.
@@ -29,6 +29,26 @@ if _WIN:
         ctypes.wintypes.HWND,
         ctypes.wintypes.LPARAM,
     )
+    # HWND is pointer-sized: ctypes defaults truncate handles on 64-bit Windows.
+    _u32.SetWindowPos.argtypes = [ctypes.wintypes.HWND, ctypes.wintypes.HWND,
+        ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.c_int, ctypes.wintypes.UINT]
+    _u32.GetClientRect.argtypes = [ctypes.wintypes.HWND, ctypes.POINTER(ctypes.wintypes.RECT)]
+    _u32.ClientToScreen.argtypes = [ctypes.wintypes.HWND, ctypes.POINTER(ctypes.wintypes.POINT)]
+    _u32.ShowWindow.argtypes = [ctypes.wintypes.HWND, ctypes.c_int]
+    _u32.IsIconic.argtypes = [ctypes.wintypes.HWND]
+    _u32.IsWindowVisible.argtypes = [ctypes.wintypes.HWND]
+    _u32.GetWindowThreadProcessId.argtypes = [ctypes.wintypes.HWND, ctypes.POINTER(ctypes.wintypes.DWORD)]
+    _u32.SetForegroundWindow.argtypes = [ctypes.wintypes.HWND]
+    _u32.GetWindowLongW.argtypes = [ctypes.wintypes.HWND, ctypes.c_int]
+    _u32.GetWindowLongW.restype = ctypes.c_long
+    _u32.SetWindowLongW.argtypes = [ctypes.wintypes.HWND, ctypes.c_int, ctypes.c_long]
+    _k32.OpenProcess.argtypes = [ctypes.wintypes.DWORD, ctypes.wintypes.BOOL, ctypes.wintypes.DWORD]
+    _k32.OpenProcess.restype = ctypes.wintypes.HANDLE
+    _k32.TerminateProcess.argtypes = [ctypes.wintypes.HANDLE, ctypes.wintypes.UINT]
+    _k32.CloseHandle.argtypes = [ctypes.wintypes.HANDLE]
+    _set_window_long_ptr = getattr(_u32, "SetWindowLongPtrW", _u32.SetWindowLongW)
+    _set_window_long_ptr.argtypes = [ctypes.wintypes.HWND, ctypes.c_int, ctypes.c_ssize_t]
+    _set_window_long_ptr.restype = ctypes.c_ssize_t
     _GWL_STYLE      = -16
     _WS_CAPTION     = 0x00C00000
     _WS_THICKFRAME  = 0x00040000
@@ -129,3 +149,25 @@ def terminate_pid(pid: int) -> None:
     if handle:
         _k32.TerminateProcess(handle, 0)
         _k32.CloseHandle(handle)
+
+
+def attach_owned_window(child: int, owner: int) -> None:
+    """Group Godot with Arcade without SetParent/OpenGL child-window rendering."""
+    if not _WIN:
+        return
+    _set_window_long_ptr(child, -8, owner)  # GWLP_HWNDPARENT means owner for a top-level window.
+    style = _u32.GetWindowLongW(child, -20)
+    _u32.SetWindowLongW(child, -20, (style | 0x80) & ~0x40000)  # TOOLWINDOW, no APPWINDOW.
+
+
+def sync_owned_window(child: int, owner: int, previous=None):
+    """Follow client geometry without stealing focus or raising on every frame."""
+    if not _WIN:
+        return previous
+    if _u32.IsIconic(owner):
+        hide_window(child)
+        return None
+    rect = get_window_screen_rect(owner)
+    if rect != previous and rect[2] > 0 and rect[3] > 0:
+        _u32.SetWindowPos(child, 0, *rect, _SWP_NOACTIVATE | _SWP_NOZORDER | _SWP_SHOWWINDOW)
+    return rect

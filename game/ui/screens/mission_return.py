@@ -54,6 +54,10 @@ def show_mission_debrief(self, victory, surviving_participants, all_player_units
         agent_stats,
         self.triggered_complication,
     )
+    def completed():
+        callback=getattr(self,"on_return_complete",None)
+        if callback is not None:callback()
+
     if promotions:
         def after_debrief():
             if self.game_state.campaign.ending is not None:
@@ -63,7 +67,10 @@ def show_mission_debrief(self, victory, surviving_participants, all_player_units
                 from game.ui.screens.management_screen import ManagementView
                 next_view=ManagementView(self.game_state)
                 next_view.setup()
-            self.window.show_view(AgentPromotionView(self.game_state, promotions, next_view))
+            self.window.show_view(AgentPromotionView(self.game_state, promotions, next_view, on_complete=completed))
+            return True
         debrief_view.after_debrief = after_debrief
+    else:
+        debrief_view.after_debrief=completed
     self.window.show_view(debrief_view)
 

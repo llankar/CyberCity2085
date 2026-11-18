@@ -7,6 +7,7 @@ from game.mission_system import resolve_mission_outcome
 from game.unit import Unit
 from .mission_resolution import resolve_campaign_battle
 from .session_protocol import validate_result
+from .checkpoints import write_campaign_checkpoint
 
 
 def resolve_godot_result(game_state,mission,result,session_id):
@@ -46,7 +47,10 @@ def resolve_godot_result(game_state,mission,result,session_id):
     shadow.latest_mission_debrief['external_combat']={k:deepcopy(result[k]) for k in
         ['outcome','turn_reached','enemies_killed','objective_completed','objective_progress'] if k in result}
     shadow.latest_mission_debrief['mission_outcome']=result['outcome']
-    shadow.combat_sessions[session_id].update(status='applied',result_digest=digest,confirmed_result=deepcopy(result))
+    from .return_snapshot import build_return_snapshot
+    shadow.combat_sessions[session_id].update(status='applied',result_digest=digest,confirmed_result=deepcopy(result),
+        ui_status='pending',return_snapshot=build_return_snapshot(context,survivors,units,result['outcome']=='victory'))
+    write_campaign_checkpoint(shadow,session_id,'after')
     # No campaign mutation occurs until the whole resolver succeeds.
     game_state.__dict__.update(shadow.__dict__)
     context.game_state=game_state

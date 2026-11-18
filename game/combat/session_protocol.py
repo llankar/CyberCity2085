@@ -17,6 +17,8 @@ def atomic_json(path, data):
 
 
 def create_session(game_state, mission, handoff_path):
+    from copy import deepcopy
+    previous_sessions=deepcopy(game_state.combat_sessions)
     payload=json.loads(Path(handoff_path).read_text(encoding='utf-8'))
     session_id=uuid4().hex
     directory=Path(handoff_path).parent/'sessions'/session_id
@@ -30,7 +32,14 @@ def create_session(game_state, mission, handoff_path):
     for previous in game_state.combat_sessions.values():
         if previous.get('status')=='pending':previous['status']='superseded'
     game_state.combat_sessions[session_id]=dict(mission_id=mission.id,status='pending',
-        session=session,expected_agents=payload['squad'],expected_support=payload['support_assets'])
+        session=session,expected_agents=payload['squad'],expected_support=payload['support_assets'],
+        mission=mission.to_dict(),checkpoints={phase:str((directory/('campaign_'+phase+'.json')).resolve()) for phase in ['before','after']})
+    try:
+        from .checkpoints import write_campaign_checkpoint
+        write_campaign_checkpoint(game_state,session_id,'before')
+    except (OSError,ValueError,TypeError):
+        game_state.combat_sessions=previous_sessions
+        raise
     return path,session
 
 
@@ -79,3 +88,20 @@ def validate_result(result, record, session_id):
     if any(k in result for k in ['funds_earned','xp_per_agent','rewards']):
         raise ValueError('Rewards must be calculated by the campaign resolver')
     return result_digest(result)
+
+
+def read_session_status(path, session_id, mission_id):
+    """A stale or partially written mailbox cannot declare another mission ready."""
+    try:
+        status = json.loads(Path(path).read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return None
+    if not isinstance(status, dict):
+        return None
+    if (status.get('protocol_version') != PROTOCOL_VERSION
+            or status.get('session_id') != session_id
+            or status.get('mission_id') != mission_id
+            or type(status.get('ready')) is not bool
+            or status.get('event') not in {'combat_started', 'result_prepared', 'result_confirmed'}):
+        return None
+    return status

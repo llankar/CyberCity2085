@@ -365,8 +365,7 @@ class BattleDebriefView(arcade.View):
         callback = getattr(self, "after_debrief", None)
         if callback is not None:
             self.after_debrief = None
-            callback()
-            return
+            if callback():return
         if self.game_state.campaign.ending is not None:
             from game.ui.screens.campaign_ending_view import CampaignEndingView
 

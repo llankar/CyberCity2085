@@ -52,6 +52,9 @@ class TitleView(arcade.View):
         from game.persistence.save_system import SAVE_SLOT_COUNT
 
         paths = [SaveSystem.slot_path(i) for i in range(1, SAVE_SLOT_COUNT + 1)]
+        from game.combat.checkpoints import latest_combat_checkpoint
+        recovery=latest_combat_checkpoint()
+        if recovery is not None:paths.append(recovery)
         existing = []
         for path in paths:
             try:
@@ -163,7 +166,11 @@ class TitleView(arcade.View):
             from game.persistence import SaveSystem
 
             try:
-                loaded, _result = SaveSystem.load_game(self._continue_path)
+                if self._continue_path.name in {"campaign_before.json","campaign_after.json"}:
+                    from game.combat.checkpoints import load_combat_checkpoint
+                    loaded,_session_id=load_combat_checkpoint(self._continue_path)
+                else:
+                    loaded, _result = SaveSystem.load_game(self._continue_path)
             except (OSError, ValueError, KeyError, TypeError, AttributeError):
                 loaded = None
             if loaded is not None:
@@ -179,6 +186,12 @@ class TitleView(arcade.View):
             self.window.show_view(SettingsView(return_view=self))
 
     def _go_management(self, game_state):
+        from game.ui.screens.combat_recovery import show_combat_recovery
+        try:
+            if show_combat_recovery(self.window,game_state):return
+        except (OSError, ValueError, KeyError, TypeError, AttributeError):
+            self._message = "COMBAT RECOVERY INVALID — NO REWARD WAS REAPPLIED"
+            return
         from game.ui.screens.management_screen import ManagementView
 
         view = ManagementView(game_state)

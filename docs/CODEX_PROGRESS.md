@@ -125,40 +125,45 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
 
-### UE2-01 — TODO — Journal Python durable avant/après résolution
+### UE2-01 — DONE — Journal Python durable avant/après résolution
 
-- Fichiers : `game/combat/session_protocol.py`, `game/combat/godot_resolution.py`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Journal Python durable avant/après résolution.
+- Fichiers : `game/combat/session_protocol.py`, `game/combat/godot_resolution.py`, `game/combat/checkpoints.py`.
+- Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
+- Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### UE2-02 — TODO — Reprendre le débriefing après crash sans rejouer les récompenses
+### UE2-02 — DONE — Reprendre le débriefing après crash sans rejouer les récompenses
 
-- Fichiers : `game/ui/screens/mission_return.py`, `game/ui/screens/godot_combat_handoff_view.py`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Reprendre le débriefing après crash sans rejouer les récompenses.
+- Fichiers : `game/ui/screens/mission_return.py`, `game/ui/screens/godot_combat_handoff_view.py`, `game/combat/return_snapshot.py`, `game/ui/screens/combat_recovery.py`, `game/ui/screens/title_screen.py`.
+- Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
+- Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### UE2-03 — TODO — Readiness, statuts et délais de communication
+### UE2-03 — DONE — Readiness, statuts et délais de communication
 
-- Fichiers : `game/combat/godot_ipc.py`, `godot/combat_missions_ui/scripts/combat_signals.gd`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Readiness, statuts et délais de communication.
+- Fichiers : `game/combat/session_protocol.py`, `godot/combat_missions_ui/scripts/session_mailbox.gd`, `game/ui/screens/godot_combat_handoff_view.py`.
+- Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
+- Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### UE2-04 — TODO — Cycle de vie Win32 et continuité de fenêtre
+### UE2-04 — BLOCKED — Cycle de vie Win32 et continuité de fenêtre
 
 - Fichiers : `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Cycle de vie Win32 et continuité de fenêtre.
+- Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
+- Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
+- Travail restant dans cette portée : Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre.
+- Problème / raison : Environnement Linux uniquement ; améliorations Win32 implémentées mais non validées graphiquement.
 
-### UE2-05 — TODO — Scénarios de crash, récupération et bilan du lot
+### UE2-05 — DONE — Scénarios de crash, récupération et bilan du lot
 
 - Fichiers : `tests/test_unified_mission_resolution.py`, `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Scénarios de crash, récupération et bilan du lot.
+- Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
+- Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
 ### SCALE-02 — IN_PROGRESS — Mesurer les repères visuels par illustration et vérifier les variantes
 
@@ -242,6 +247,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIFIED UE2-01 : écrire des checkpoints atomiques avant/après la résolution ; conserver les informations de débriefing dans le journal et tester la reprise après crash. Windows graphique reste non disponible sur cet environnement Linux.
+UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
