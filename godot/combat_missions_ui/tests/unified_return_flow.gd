@@ -13,6 +13,13 @@ func run() -> void:
 		elif args[i]=="--qa-captures":capture_dir=args[i+1]
 		elif args[i]=="--qa-outcome":outcome=args[i+1]
 	root.add_child(scene)
+	if scene.handoff.get("session", {}).has("audio_path"):
+		assert(not scene._audio._music_owned)
+		for attempt in range(100):
+			if scene._audio_released: break
+			await create_timer(0.1).timeout
+		assert(scene._audio_released and scene._audio._music_owned)
+		print("UNIFIED_AUDIO_OWNERSHIP_READY")
 	await create_timer(2.2).timeout
 	assert(scene.battle_started)
 	var original: Vector2i=scene._cell_position(scene.player_units[0])

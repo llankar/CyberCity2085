@@ -161,6 +161,11 @@ class SoundManager:
         except Exception:
             pass
 
+    def release_external_music(self) -> None:
+        """Reclaim transport after the external engine stops or launch fails."""
+        self._external_music = False
+        self.resume_music()
+
     def resume_music(self) -> None:
         if not self._enabled or self._external_music or self._view_transition_depth or self._music_player is None:
             return

@@ -807,3 +807,11 @@ Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFI
 - [x] UE2-05 Crash avant confirmation, reprise du débriefing, captures réelles et régressions ciblées.
 
 Toujours ouverts : reprise du tour en cours avant résultat, préchauffage/continuité audio, véritable parcours de missions non forcées et validation Windows.
+
+### Unified Experience — lot 3 continuité musicale
+
+- [x] UE3-01 Ne transférer la lecture qu’après readiness, avec bookmark actualisé.
+- [x] UE3-02 Restituer la propriété à Arcade après erreur ou retour.
+- [x] UE3-03 Vérifier l’ordre de transfert dans les tests et un vrai processus Godot.
+
+Audio Dummy : pas de validation auditive ni de fondu certifié.

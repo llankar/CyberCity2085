@@ -26,6 +26,7 @@ def create_session(game_state, mission, handoff_path):
                  result_path=str((directory/'result.json').resolve()),
                  prepared_path=str((directory/'prepared_result.json').resolve()),
                  ack_path=str((directory/'ack.json').resolve()),status_path=str((directory/'status.json').resolve()))
+    session['audio_path']=str((directory/'audio_release.json').resolve())
     payload['session']=session
     path=directory/'handoff.json'
     atomic_json(path,payload)

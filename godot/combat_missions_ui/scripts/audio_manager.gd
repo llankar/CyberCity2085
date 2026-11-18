@@ -33,6 +33,7 @@ var _battle_music: String = "music_battle.wav"
 var _current_track := ""
 var _asset_root := ""
 var _enabled: bool = true
+var _music_owned: bool = true
 const POOL_SIZE  := 6
 
 func _ready() -> void:
@@ -89,7 +90,7 @@ func _play_sfx(filename: String) -> void:
 	player.play()
 
 func _play_music(filename: String, start_position: float = 0.0) -> void:
-	if not _enabled:
+	if not _enabled or not _music_owned:
 		return
 	if not _streams.has(filename):
 		return
@@ -107,7 +108,8 @@ func _play_music(filename: String, start_position: float = 0.0) -> void:
 	var length := stream.get_length()
 	_music_player.play(fposmod(maxf(0,start_position),length) if length > 0 else 0.0)
 
-func configure_soundtrack(settings: Dictionary, asset_root: String = "") -> void:
+func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_owned: bool = true) -> void:
+	_music_owned = music_owned
 	_asset_root = asset_root
 	_enabled = bool(settings.get("enabled", true))
 	_music_player.volume_linear = clampf(float(settings.get("music_volume", 0.7)), 0.0, 1.0)
