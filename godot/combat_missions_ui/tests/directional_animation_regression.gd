@@ -33,8 +33,14 @@ func run() -> void:
 				assert(is_equal_approx(unit._body_height(),source_height))
 				assert(is_equal_approx(unit._art_rect.position.x,-unit._art_rect.size.x*.5),"authored foot anchor remains registered")
 				observed+=1
-		unit.play_action("idle");assert(not unit.play_action("fire"))
-		assert(unit.clip=="idle","missing fire is not disguised as an animated shot")
+		unit.play_action("idle")
+		if key=="agent_diverse_03_magenta_pistol":
+			for direction in range(8):
+				unit.facing=direction;assert(unit.play_action("fire"));unit.frame_time=0.2;unit._process(0.0)
+				assert(unit.frame_index==1,"pistol recoil frame must be selected")
+		else:
+			assert(not unit.play_action("fire"))
+			assert(unit.clip=="idle","missing fire is not disguised as an animated shot")
 		assert(JSON.stringify(unit.unit_data)==before,"animation cannot spend AP or move logical cells")
 		if key=="agent_diverse_01_neon_blade":
 			for action in ["melee","cover","hit","death"]:

@@ -7,13 +7,13 @@ Cette passe introduit des poses réellement dessinées dans huit directions. Ell
 | Ressource réelle | Attente | Marche | Autres actions |
 |---|---|---|---|
 | `agent_diverse_01_neon_blade` | 2 poses × 8 directions | 4 poses × 8 directions | Mêlée, couvert, impact et mort : 2 poses × 8 directions |
-| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
+| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | Tir : 2 poses × 8 directions ; autres actions à produire |
 | `agent_diverse_04_trench_sniper` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `enemy_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `enemy_corp_37_power_armor_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `robot_combat` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 
-Total : **352 frames**, dont une référence complète et cinq partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
+Total : **368 frames**, dont une référence complète et cinq partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
 
 L’agente aux lames possède maintenant toutes ses actions applicables : attente, marche, mêlée, couvert, impact et mort. Tir, PSI et soin sont explicitement non applicables à son équipement et à son rôle ; ils ne sont ni simulés ni comptés comme absents. Les cinq autres atlas restent partiels. Le canon d’épaule du robot reste dans une pose de transport ; les véhicules conservent leurs ressources et ombres existantes. **Une unité sur 231 possède toutes ses actions applicables complètes et validées.**
 

@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/agent_diverse_03_magenta_pistol.png",
-  "texture_sha256": "ff17013598ef32345f5f5307d1a53cbbf6ef5c8a67454a1fcd3d65de763cab35",
+  "texture_sha256": "c87bd6520d1fa53d366cf16dca3cbb6fd1496a499cd25820bb195dc946c0448c",
   "frame_size": [
     256,
     256
@@ -103,6 +103,44 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
     }
   },
   "source_image": "assets/units/agent_diverse_03_magenta_pistol_512.png",
@@ -128,17 +166,34 @@
       "clip": "idle",
       "layout": "idle_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/fire-action_pairs-3.png",
+      "sha256": "81fa7e7517925762234351528edf7935e10a798d636ea424b27c0594809a2ace",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
-  "coverage": "partial",
-  "missing_clips": [
+  "required_clips": [
+    "idle",
+    "move",
     "fire",
     "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "Character has no PSI ability or PSI role.",
+    "heal": "Character has no medical action or medic role."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "melee",
+    "cover",
+    "hit",
+    "death"
   ],
   "review_status": "native_render_verified_partial"
 }
