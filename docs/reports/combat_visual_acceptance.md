@@ -2,7 +2,7 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
-Tâches DONE : 10 / 16. Ce ratio porte sur le registre, pas sur la finition artistique.
+Tâches DONE : 11 / 21. Ce ratio porte sur le registre, pas sur la finition artistique.
 Cartes : 122 / 122 chargées ; 0 artistiquement vérifiées.
 Animations complètes : 0 / 231 ; 6 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
@@ -21,12 +21,12 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | PERFORMANCE — Performances et mémoire sur matériel joueur | NOT VERIFIED | Rendu logiciel llvmpipe disponible ; benchmark représentatif sur GPU joueur absent. Revue explicite et preuves non enregistrées. |
 | ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
-| TARGETED-TESTS — Tests exécutés dans la portée du lot | PASS | {'passed': 56, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration d’échelle des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive'} |
-| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 10 / 16 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
+| TARGETED-TESTS — Tests exécutés dans la portée du lot | PASS | {'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'} |
+| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 11 / 21 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
 
 ## Tests réellement enregistrés
 
-{"passed": 56, "failed": 0, "skipped": 0, "not_executed": ["Calibration d’échelle des 122 cartes", "Revue artistique complète des 122 cartes", "Actions de combat manquantes et autres unités", "Benchmark GPU joueur", "Suite intégrale du jeu"], "scope": "56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive"}
+{"passed": 61, "failed": 0, "skipped": 0, "not_executed": ["Calibration approuvée des 122 cartes", "Revue artistique complète des 122 cartes", "Actions de combat manquantes et autres unités", "Benchmark GPU joueur", "Suite intégrale du jeu"], "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"}
 
 ## Critères encore ouverts
 
@@ -34,4 +34,4 @@ MAP-ART, ART-OBJECTS, UNIT-SCALE, UNIT-ART, FUNCTIONAL, RESOLUTIONS, PERFORMANCE
 
 ## Prochaine action précise
 
-SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé.
+SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.

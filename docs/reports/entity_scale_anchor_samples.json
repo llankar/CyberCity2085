@@ -1,0 +1,67 @@
+{
+  "scope": "Two visually examined source references; zero approved map calibrations",
+  "maps": [
+    {
+      "map": "city_exterior_downtown_intersection.png",
+      "source_sha256": "248e5a0c133d2072ab9feea40622ca363956402d407883115be1641db31bb5c4",
+      "coordinates": "texture_top_left",
+      "reference": "Visually identified embedded road car; approximate end-centres of its long axis",
+      "axis_endpoints_px": [
+        [
+          3421,
+          1214
+        ],
+        [
+          3294,
+          1496
+        ]
+      ],
+      "axis_length_px": 309.28,
+      "position_uncertainty_px": 20,
+      "configured_human_ratio": 0.03,
+      "current_human_to_car_axis_ratio": 0.745,
+      "diagnostic_human_to_car_axis_band": [
+        0.32,
+        0.45
+      ],
+      "diagnostic_height_ratio_band": [
+        0.01205,
+        0.01929
+      ],
+      "candidate_human_ratio": 0.015,
+      "status": "PROPOSED_NOT_VERIFIED",
+      "limits": "Visual convention to compare, not a measurement of world metres or an approved physical calibration. One reference per map only; confirm with additional objects and all entity categories."
+    },
+    {
+      "map": "cybercity_street_01_downtown_intersection.png",
+      "source_sha256": "b0f0447688b85bebf24318579255aca87082df111014f2ccf2d974672aae18e9",
+      "coordinates": "texture_top_left",
+      "reference": "Visually identified embedded road car; approximate end-centres of its long axis",
+      "axis_endpoints_px": [
+        [
+          3476,
+          2576
+        ],
+        [
+          3707,
+          2454
+        ]
+      ],
+      "axis_length_px": 261.24,
+      "position_uncertainty_px": 20,
+      "configured_human_ratio": 0.03,
+      "current_human_to_car_axis_ratio": 0.882,
+      "diagnostic_human_to_car_axis_band": [
+        0.32,
+        0.45
+      ],
+      "diagnostic_height_ratio_band": [
+        0.01005,
+        0.01648
+      ],
+      "candidate_human_ratio": 0.015,
+      "status": "PROPOSED_NOT_VERIFIED",
+      "limits": "Visual convention to compare, not a measurement of world metres or an approved physical calibration. One reference per map only; confirm with additional objects and all entity categories."
+    }
+  ]
+}

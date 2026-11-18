@@ -1,0 +1,206 @@
+{
+  "scope": "Visual diagnostics only, no production scale changed",
+  "approved_scale_maps": 0,
+  "cases": [
+    {
+      "capture_signature": "09a293ca174cbf7ab84de33012b9ea4dca9ce1a5d6b55379d60deaadfc0f11e2",
+      "elapsed_ms": 14978.311,
+      "entity_families_checked": true,
+      "human_ratio_applied": 0.03,
+      "human_ratio_requested": -1.0,
+      "map": "city_exterior_downtown_intersection.png",
+      "native_render": true,
+      "projection": "top_down",
+      "projection_and_zoom_checked": true,
+      "props": 22,
+      "rendered_sprites": 1,
+      "scale_calibration_status": "NOT VERIFIED",
+      "scale_comparison_only": true,
+      "static_memory_bytes": 266751914,
+      "vehicle_count": 1,
+      "case": "city-current",
+      "frames": [
+        {
+          "file": "city-current-city_exterior_downtown_intersection-1280x720-vehicle.webp",
+          "rgb_sha256": "3dfa0141546ac08d871739ea59f06a778a29dd04495c241b98d12cfb9a29a7f7",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-current-city_exterior_downtown_intersection-1280x720.webp",
+          "rgb_sha256": "0b2084913382d56c9afea8bba76a4ed8749631f7605b127c5d3a745c1c4feb72",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "city-current-city_exterior_downtown_intersection-1920x1080-vehicle.webp",
+          "rgb_sha256": "2e2e83334c43897ffe1fe2708b6065ab57966d339f52b4f34c66ee4089ad56a4",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-current-city_exterior_downtown_intersection-1920x1080.webp",
+          "rgb_sha256": "44e1bad64ff44d215b66cd42a85502c3abb2a2fb48a3022825fb34e4c19bc1b3",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "city-current-city_exterior_downtown_intersection-2560x1440-vehicle.webp",
+          "rgb_sha256": "d64a9ac419e044fb0cc7cc8c4eea317d8bec012a5379defdc990d6a4c876f32e",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-current-city_exterior_downtown_intersection-2560x1440.webp",
+          "rgb_sha256": "dd888900d9a0f7e2bfde81d6f68a3e348d7d787d8eee64e3d215d8fa092fc245",
+          "camera": "fixed overview"
+        }
+      ]
+    },
+    {
+      "capture_signature": "ded086aa324ec2e8f13d2a6d1b809ccbf840333a6d56755ed6f0d30762ba924b",
+      "elapsed_ms": 15826.177,
+      "entity_families_checked": true,
+      "human_ratio_applied": 0.015,
+      "human_ratio_requested": 0.015,
+      "map": "city_exterior_downtown_intersection.png",
+      "native_render": true,
+      "projection": "top_down",
+      "projection_and_zoom_checked": true,
+      "props": 22,
+      "rendered_sprites": 1,
+      "scale_calibration_status": "NOT VERIFIED",
+      "scale_comparison_only": true,
+      "static_memory_bytes": 265833886,
+      "vehicle_count": 1,
+      "case": "city-candidate",
+      "frames": [
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-1280x720-vehicle.webp",
+          "rgb_sha256": "107167bd0e2f3b01ff2a1a2296826c9b8ed970e340091e2e6b4d3a7fc9b6785f",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-1280x720.webp",
+          "rgb_sha256": "0f4268a4edc9a0a5694c3d4166f74244512a6400a650e158a7f7d93cb55ab440",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-1920x1080-vehicle.webp",
+          "rgb_sha256": "ff193892a07949d1f46207783cf147c00b3a66c450f4b343067b64ffaf529933",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-1920x1080.webp",
+          "rgb_sha256": "294d41cfbf68bc1b325412ae4bce954a2bae82f1a93bce1af6908818a1b39dd0",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-2560x1440-vehicle.webp",
+          "rgb_sha256": "558df3c0329682689c2cb320269797ba1327da7b4e0874d1d8b1f821ef3735dd",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "city-candidate-city_exterior_downtown_intersection-2560x1440.webp",
+          "rgb_sha256": "9a061c6160592eeea92ab164b75e3a0b6091e0f97533391b3f02a693fa6f3fda",
+          "camera": "fixed overview"
+        }
+      ]
+    },
+    {
+      "capture_signature": "09a293ca174cbf7ab84de33012b9ea4dca9ce1a5d6b55379d60deaadfc0f11e2",
+      "elapsed_ms": 15019.561,
+      "entity_families_checked": true,
+      "human_ratio_applied": 0.03,
+      "human_ratio_requested": -1.0,
+      "map": "cybercity_street_01_downtown_intersection.png",
+      "native_render": true,
+      "projection": "top_down",
+      "projection_and_zoom_checked": true,
+      "props": 28,
+      "rendered_sprites": 1,
+      "scale_calibration_status": "NOT VERIFIED",
+      "scale_comparison_only": true,
+      "static_memory_bytes": 267387242,
+      "vehicle_count": 1,
+      "case": "street-current",
+      "frames": [
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-1280x720-vehicle.webp",
+          "rgb_sha256": "b42e5c9d8acd9478b0bb934572c298a332c754c540d814579546d947c410f322",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-1280x720.webp",
+          "rgb_sha256": "e663b3bd031be8abcb0461e8d0719feaf78c5268069ec897d938866c026c1c46",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-1920x1080-vehicle.webp",
+          "rgb_sha256": "2f8b385674167a86cf0c4228a48c6056b74983f6db1ec9fdae735d1a620dd5f6",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-1920x1080.webp",
+          "rgb_sha256": "689c505ee027f8b2b3e81e2c9e078170be6a15656072af9aa9c8932f4da9af77",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-2560x1440-vehicle.webp",
+          "rgb_sha256": "e133c581324225664590f401c5ec3f5b1673c866b3395062643d8c08a8b9843d",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-current-cybercity_street_01_downtown_intersection-2560x1440.webp",
+          "rgb_sha256": "a709a0588378dac5808d9ff2c5f0542e75ff833453baf6039eeab9d938947218",
+          "camera": "fixed overview"
+        }
+      ]
+    },
+    {
+      "capture_signature": "ded086aa324ec2e8f13d2a6d1b809ccbf840333a6d56755ed6f0d30762ba924b",
+      "elapsed_ms": 14887.904,
+      "entity_families_checked": true,
+      "human_ratio_applied": 0.015,
+      "human_ratio_requested": 0.015,
+      "map": "cybercity_street_01_downtown_intersection.png",
+      "native_render": true,
+      "projection": "top_down",
+      "projection_and_zoom_checked": true,
+      "props": 28,
+      "rendered_sprites": 1,
+      "scale_calibration_status": "NOT VERIFIED",
+      "scale_comparison_only": true,
+      "static_memory_bytes": 266468926,
+      "vehicle_count": 1,
+      "case": "street-candidate",
+      "frames": [
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-1280x720-vehicle.webp",
+          "rgb_sha256": "c1409b73d6b17325a4c2a111c7e0e831a04a49eb8b65de26bb94d0a652ee4ba7",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-1280x720.webp",
+          "rgb_sha256": "be209a6a6117e9b7c7073deff7b4a97b03a1d92a958aeffa64dce83a4944f747",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-1920x1080-vehicle.webp",
+          "rgb_sha256": "de6854ac1ed07c09be295103d63864d0df45f52d24184cb1b4764d415f7f1f31",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-1920x1080.webp",
+          "rgb_sha256": "3f25b60af769211e71d167f761ba259fb6a2dd78241559158a11a7a35bbcb175",
+          "camera": "fixed overview"
+        },
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-2560x1440-vehicle.webp",
+          "rgb_sha256": "47e84c2e6305456080372e6c019043832def6ac7e6af93bb2e416d669e773247",
+          "camera": "vehicle closeup uses automatic framing"
+        },
+        {
+          "file": "street-candidate-cybercity_street_01_downtown_intersection-2560x1440.webp",
+          "rgb_sha256": "827271e90e3b68ab24e471163bb556b874a6e6380041a3559e0d2fb663f1aed8",
+          "camera": "fixed overview"
+        }
+      ]
+    }
+  ]
+}

@@ -5,11 +5,11 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/agent-roster-batch2",
   "active_batch": [
-    "ART-NEXT-01",
-    "ART-NEXT-02",
-    "ART-NEXT-03",
-    "ART-NEXT-04",
-    "ART-NEXT-05"
+    "SCALE-01",
+    "SCALE-02",
+    "SCALE-03",
+    "SCALE-04",
+    "SCALE-05"
   ],
   "tasks": [
     {
@@ -110,89 +110,6 @@
       "reason": ""
     },
     {
-      "id": "ENV-FINAL",
-      "title": "Finition artistique individuelle des 122 cartes",
-      "status": "IN_PROGRESS",
-      "files": [
-        "godot/combat_missions_ui/art/environment/environment_art.json",
-        "docs/combat_visual_25_inventory.md"
-      ],
-      "tests": [
-        "Historique : captures natives des 122 cartes ; ne valide pas la finition"
-      ],
-      "evidence": [
-        "docs/images/combat-directional-animation/README.md",
-        "docs/images/combat-directional-animation/validation-results.txt"
-      ],
-      "remaining": "0 / 122 finalisées artistiquement ; poursuivre murs, objets, raccords et revues détaillées",
-      "reason": ""
-    },
-    {
-      "id": "UNIT-COVERAGE",
-      "title": "Identités de toutes les familles d’unités",
-      "status": "IN_PROGRESS",
-      "files": [
-        "assets/units",
-        "assets/combat_visual/animations"
-      ],
-      "tests": [
-        "Historique : audit de 251 références ; 4 atlas partiels vérifiés",
-        "Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement"
-      ],
-      "evidence": [
-        "docs/images/combat-directional-animation/README.md",
-        "docs/images/combat-directional-animation/validation-results.txt"
-      ],
-      "remaining": "Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
-      "reason": ""
-    },
-    {
-      "id": "ANIM-COMPLETE",
-      "title": "Actions multidirectionnelles complètes et applicabilité documentée",
-      "status": "TODO",
-      "files": [
-        "assets/combat_visual/animations",
-        "tools/audit_combat_visuals.py"
-      ],
-      "tests": [],
-      "evidence": [
-        "docs/images/combat-directional-animation/README.md",
-        "docs/images/combat-directional-animation/validation-results.txt"
-      ],
-      "remaining": "0 / 231 ensembles complets ; documenter les actions applicables puis produire les clips manquants",
-      "reason": ""
-    },
-    {
-      "id": "TACTICAL-REVIEW",
-      "title": "Validation artistique et fonctionnelle globale aux trois résolutions",
-      "status": "TODO",
-      "files": [
-        "godot/combat_missions_ui/tests",
-        "docs/images/combat-directional-animation"
-      ],
-      "tests": [
-        "Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle"
-      ],
-      "evidence": [
-        "docs/images/combat-directional-animation/README.md",
-        "docs/images/combat-directional-animation/validation-results.txt"
-      ],
-      "remaining": "Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles",
-      "reason": ""
-    },
-    {
-      "id": "GPU-BENCH",
-      "title": "Performance et mémoire sur matériel joueur",
-      "status": "BLOCKED",
-      "files": [
-        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
-      ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Mesurer sur un GPU représentatif et conserver les preuves",
-      "reason": "L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible"
-    },
-    {
       "id": "ART-NEXT-01",
       "title": "Deux nouvelles agentes : sources dessinées et identité",
       "status": "DONE",
@@ -284,6 +201,169 @@
       "reason": ""
     },
     {
+      "id": "SCALE-01",
+      "title": "Inventorier les profils actuels, sources et variantes du catalogue",
+      "status": "DONE",
+      "files": [
+        "tools/audit_entity_scale.py",
+        "docs/reports/entity_scale_baseline.json",
+        "docs/reports/entity_scale_baseline.md"
+      ],
+      "tests": [
+        "122 cartes / 92 illustrations ; aucune empreinte source incohérente",
+        "33 tests ciblés du suivi et de l’inventaire réussis"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_baseline.json",
+        "docs/reports/entity_scale_baseline.md",
+        "docs/reports/scale_inventory_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-02",
+      "title": "Mesurer les repères visuels par illustration et vérifier les variantes",
+      "status": "IN_PROGRESS",
+      "files": [
+        "docs/reports/entity_scale_baseline.json"
+      ],
+      "tests": [
+        "Deux voitures identifiées visuellement et axes source annotés avec incertitude",
+        "Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié ; tous marqués NOT VERIFIED"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_anchor_samples.json",
+        "docs/images/entity-scale-diagnostics/README.md",
+        "docs/images/entity-scale-diagnostics/native-diagnostics.json"
+      ],
+      "remaining": "Deux illustrations urbaines ont un repère automobile proposé, mais aucune carte n’est approuvée. Ajouter plusieurs repères, examiner appartement/industrie/laboratoire/wasteland, puis toutes les illustrations et variantes. Comparer toutes les catégories et la lisibilité avant application.",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-03",
+      "title": "Appliquer les profils visuels par carte et catégorie",
+      "status": "TODO",
+      "files": [
+        "godot/combat_missions_ui/scripts/map_presentation.gd",
+        "godot/combat_missions_ui/scripts/unit_presentation.gd",
+        "godot/combat_missions_ui/art/environment/map_presentation.json"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Après mesures : adapter les PJ/PNJ/robots/armures/véhicules, préserver proportions, ancrage et données tactiques ; conserver fallback lorsque l’échelle est incertaine",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-04",
+      "title": "Vérifier les 122 cartes et les interactions aux trois résolutions",
+      "status": "TODO",
+      "files": [
+        "godot/combat_missions_ui/tests/capture_combat_21.gd",
+        "godot/combat_missions_ui/tests/directional_animation_regression.gd"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Comparer les tailles au décor, contrôler occultation, zoom, clics et déplacements ; ne pas confondre chargement et échelle visuellement validée",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-05",
+      "title": "Archiver les comparatifs et le résultat réel de la passe d’échelle",
+      "status": "TODO",
+      "files": [
+        "docs/CODEX_PROGRESS.json",
+        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Renseigner uniquement les cartes effectivement calibrées et revues ; conserver NOT VERIFIED pour les autres, sauvegarder puis identifier le lot suivant",
+      "reason": ""
+    },
+    {
+      "id": "ENV-FINAL",
+      "title": "Finition artistique individuelle des 122 cartes",
+      "status": "IN_PROGRESS",
+      "files": [
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "docs/combat_visual_25_inventory.md"
+      ],
+      "tests": [
+        "Historique : captures natives des 122 cartes ; ne valide pas la finition"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "0 / 122 finalisées artistiquement ; poursuivre murs, objets, raccords et revues détaillées",
+      "reason": ""
+    },
+    {
+      "id": "UNIT-COVERAGE",
+      "title": "Identités de toutes les familles d’unités",
+      "status": "IN_PROGRESS",
+      "files": [
+        "assets/units",
+        "assets/combat_visual/animations"
+      ],
+      "tests": [
+        "Historique : audit de 251 références ; 4 atlas partiels vérifiés",
+        "Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "reason": ""
+    },
+    {
+      "id": "ANIM-COMPLETE",
+      "title": "Actions multidirectionnelles complètes et applicabilité documentée",
+      "status": "TODO",
+      "files": [
+        "assets/combat_visual/animations",
+        "tools/audit_combat_visuals.py"
+      ],
+      "tests": [],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "0 / 231 ensembles complets ; documenter les actions applicables puis produire les clips manquants",
+      "reason": ""
+    },
+    {
+      "id": "TACTICAL-REVIEW",
+      "title": "Validation artistique et fonctionnelle globale aux trois résolutions",
+      "status": "TODO",
+      "files": [
+        "godot/combat_missions_ui/tests",
+        "docs/images/combat-directional-animation"
+      ],
+      "tests": [
+        "Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles",
+      "reason": ""
+    },
+    {
+      "id": "GPU-BENCH",
+      "title": "Performance et mémoire sur matériel joueur",
+      "status": "BLOCKED",
+      "files": [
+        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Mesurer sur un GPU représentatif et conserver les preuves",
+      "reason": "L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible"
+    },
+    {
       "id": "SCALE-CATALOGUE",
       "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
       "status": "IN_PROGRESS",
@@ -302,11 +382,11 @@
   ],
   "reviews": {},
   "test_run": {
-    "path": "docs/reports/roster_batch2_tests.xml",
-    "sha256": "feec6f7b34411e55d86292a3f33debaa0aa7a5e9a7d0d8505cc633715c79670f",
-    "scope": "56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive",
+    "path": "docs/reports/current_combat_visual_tests.xml",
+    "sha256": "0c0752ad5f7d04eeed2ee495642c7f64152748b5bea48041cfa375577ab0c120",
+    "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit",
     "not_executed": [
-      "Calibration d’échelle des 122 cartes",
+      "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
       "Benchmark GPU joueur",
@@ -318,8 +398,24 @@
         "sha256": "654c19f33875dcb93de3a26cb794130858719c767cf14a380ca8de47c2d09b8c"
       },
       {
+        "path": "tools/art/update_environment_progress.py",
+        "sha256": "45ecf860231be5d6ac6277728c32bdb6fb60b81a0235dbc7563239c4d68e3b5c"
+      },
+      {
+        "path": "tools/audit_entity_scale.py",
+        "sha256": "23c5e2dff15219da852feecf1a997a5831d02571faba694ff35b3738db910e06"
+      },
+      {
         "path": "tests/test_combat_visual_acceptance.py",
         "sha256": "3005543e277c490074f332546b8af663c196c9c6b75b440187c43c71dcd73d37"
+      },
+      {
+        "path": "tests/test_environment_progress.py",
+        "sha256": "20e27489b74616cf023c23aeebc0d0b1dbb2fb08c382a00217359968db6c3b8c"
+      },
+      {
+        "path": "tests/test_entity_scale_inventory.py",
+        "sha256": "789c103e6689ce4c2881f029ee2feb11e299f14399f9b4cf7c7d54d85c31a98d"
       },
       {
         "path": "tests/test_directional_animation.py",
@@ -335,7 +431,8 @@
     "Le modèle procédural rejeté reste hors production.",
     "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.",
     "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.",
-    "Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis)."
+    "Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).",
+    "Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée."
   ],
   "pending_sources": {
     "agent_diverse_01_neon_blade": {
@@ -349,7 +446,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé.",
+  "next_action": "SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

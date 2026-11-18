@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 10,
-    "total": 16
+    "done": 11,
+    "total": 21
   },
   "maps": {
     "native_verified": 122,
@@ -23,19 +23,19 @@
     "expected": 231
   },
   "tests": {
-    "passed": 56,
+    "passed": 61,
     "failed": 0,
     "skipped": 0,
     "not_executed": [
-      "Calibration d’échelle des 122 cartes",
+      "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
       "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
-    "scope": "56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive"
+    "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"
   },
-  "render_signature": "3df0dee20dd8385962ed504dfbd889e38529af5ace3cc26d34caa00fe80b5c8e",
+  "render_signature": "8e7b72fcc1b90adbe7ea056c724a04ff26d92aaa379a335b8e4dd2e065f06cb8",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -151,9 +151,9 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 56, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration d’échelle des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive'}",
+      "detail": "{'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'}",
       "evidence": [
-        "docs/reports/roster_batch2_tests.xml"
+        "docs/reports/current_combat_visual_tests.xml"
       ]
     },
     {
@@ -161,7 +161,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "10 / 16 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "11 / 21 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -178,5 +178,5 @@
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],
-  "next_action": "SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé."
+  "next_action": "SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic."
 }

@@ -43,6 +43,76 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/reports/work_governance_scope.json`.
 - Travail restant dans cette portée : Aucun.
 
+### ART-NEXT-01 — DONE — Deux nouvelles agentes : sources dessinées et identité
+
+- Fichiers : `assets/units/agent_diverse_01_neon_blade_512.png`, `assets/units/agent_diverse_03_magenta_pistol_512.png`.
+- Tests / contrôles réellement exécutés : Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins; Six planches comparées aux PNG originaux ; empreintes vérifiées avant import.
+- Preuves : `assets/combat_visual/source_sheets/import-plan.json`.
+- Travail restant dans cette portée : Aucun.
+
+### ART-NEXT-02 — DONE — Importer les deux atlas et contrôler les silhouettes
+
+- Fichiers : `tools/art/import_directional_clips.py`, `assets/combat_visual/animations`.
+- Tests / contrôles réellement exécutés : Import existant utilisé ; huit directions et poses uniques contrôlées par validate_atlas; Inspection des deux atlas nettoyés, marges, lames, pistolet et identités.
+- Preuves : `assets/combat_visual/animations/agent_diverse_01_neon_blade.json`, `assets/combat_visual/animations/agent_diverse_03_magenta_pistol.json`.
+- Travail restant dans cette portée : Aucun.
+
+### ART-NEXT-03 — DONE — Étendre les tests aux six références sans perdre les quatre précédentes
+
+- Fichiers : `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
+- Tests / contrôles réellement exécutés : 55 tests ciblés réussis ; 192 sélections de frames natives sur six références.
+- Preuves : `docs/reports/roster_batch2_runtime_tests.xml`.
+- Travail restant dans cette portée : Aucun.
+
+### ART-NEXT-04 — DONE — Captures et interactions natives du nouveau lot
+
+- Fichiers : `godot/combat_missions_ui/tests/capture_directional_animation.gd`.
+- Tests / contrôles réellement exécutés : Deux clics de déplacement : 4 PA dépensés par agente, destinations atteintes et retour idle; Captures réelles aux trois résolutions, orientations et mouvements inspectés.
+- Preuves : `docs/images/roster-batch2/animation-report.json`, `docs/images/roster-batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+
+### ART-NEXT-05 — DONE — Actualiser couverture, preuves et prochain lot artistique
+
+- Fichiers : `docs/combat_visual_25_status.json`, `docs/CODEX_PROGRESS.json`.
+- Tests / contrôles réellement exécutés : 122 captures natives terminées, 221 placements de décor inchangés; Galeries de six références et déplacements archivés ; bilans actualisés.
+- Preuves : `docs/images/roster-batch2/native-report.json`, `docs/images/roster-batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
+
+### SCALE-01 — DONE — Inventorier les profils actuels, sources et variantes du catalogue
+
+- Fichiers : `tools/audit_entity_scale.py`, `docs/reports/entity_scale_baseline.json`, `docs/reports/entity_scale_baseline.md`.
+- Tests / contrôles réellement exécutés : 122 cartes / 92 illustrations ; aucune empreinte source incohérente; 33 tests ciblés du suivi et de l’inventaire réussis.
+- Preuves : `docs/reports/entity_scale_baseline.json`, `docs/reports/entity_scale_baseline.md`, `docs/reports/scale_inventory_tests.xml`.
+- Travail restant dans cette portée : Aucun.
+
+### SCALE-02 — IN_PROGRESS — Mesurer les repères visuels par illustration et vérifier les variantes
+
+- Fichiers : `docs/reports/entity_scale_baseline.json`.
+- Tests / contrôles réellement exécutés : Deux voitures identifiées visuellement et axes source annotés avec incertitude; Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié ; tous marqués NOT VERIFIED.
+- Preuves : `docs/reports/entity_scale_anchor_samples.json`, `docs/images/entity-scale-diagnostics/README.md`, `docs/images/entity-scale-diagnostics/native-diagnostics.json`.
+- Travail restant dans cette portée : Deux illustrations urbaines ont un repère automobile proposé, mais aucune carte n’est approuvée. Ajouter plusieurs repères, examiner appartement/industrie/laboratoire/wasteland, puis toutes les illustrations et variantes. Comparer toutes les catégories et la lisibilité avant application..
+
+### SCALE-03 — TODO — Appliquer les profils visuels par carte et catégorie
+
+- Fichiers : `godot/combat_missions_ui/scripts/map_presentation.gd`, `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/art/environment/map_presentation.json`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Après mesures : adapter les PJ/PNJ/robots/armures/véhicules, préserver proportions, ancrage et données tactiques ; conserver fallback lorsque l’échelle est incertaine.
+
+### SCALE-04 — TODO — Vérifier les 122 cartes et les interactions aux trois résolutions
+
+- Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Comparer les tailles au décor, contrôler occultation, zoom, clics et déplacements ; ne pas confondre chargement et échelle visuellement validée.
+
+### SCALE-05 — TODO — Archiver les comparatifs et le résultat réel de la passe d’échelle
+
+- Fichiers : `docs/CODEX_PROGRESS.json`, `docs/COMBAT_VISUAL_ACCEPTANCE.md`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Renseigner uniquement les cartes effectivement calibrées et revues ; conserver NOT VERIFIED pour les autres, sauvegarder puis identifier le lot suivant.
+
 ### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`.
@@ -79,41 +149,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Mesurer sur un GPU représentatif et conserver les preuves.
 - Problème / raison : L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible.
 
-### ART-NEXT-01 — DONE — Deux nouvelles agentes : sources dessinées et identité
-
-- Fichiers : `assets/units/agent_diverse_01_neon_blade_512.png`, `assets/units/agent_diverse_03_magenta_pistol_512.png`.
-- Tests / contrôles réellement exécutés : Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins; Six planches comparées aux PNG originaux ; empreintes vérifiées avant import.
-- Preuves : `assets/combat_visual/source_sheets/import-plan.json`.
-- Travail restant dans cette portée : Aucun.
-
-### ART-NEXT-02 — DONE — Importer les deux atlas et contrôler les silhouettes
-
-- Fichiers : `tools/art/import_directional_clips.py`, `assets/combat_visual/animations`.
-- Tests / contrôles réellement exécutés : Import existant utilisé ; huit directions et poses uniques contrôlées par validate_atlas; Inspection des deux atlas nettoyés, marges, lames, pistolet et identités.
-- Preuves : `assets/combat_visual/animations/agent_diverse_01_neon_blade.json`, `assets/combat_visual/animations/agent_diverse_03_magenta_pistol.json`.
-- Travail restant dans cette portée : Aucun.
-
-### ART-NEXT-03 — DONE — Étendre les tests aux six références sans perdre les quatre précédentes
-
-- Fichiers : `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : 55 tests ciblés réussis ; 192 sélections de frames natives sur six références.
-- Preuves : `docs/reports/roster_batch2_runtime_tests.xml`.
-- Travail restant dans cette portée : Aucun.
-
-### ART-NEXT-04 — DONE — Captures et interactions natives du nouveau lot
-
-- Fichiers : `godot/combat_missions_ui/tests/capture_directional_animation.gd`.
-- Tests / contrôles réellement exécutés : Deux clics de déplacement : 4 PA dépensés par agente, destinations atteintes et retour idle; Captures réelles aux trois résolutions, orientations et mouvements inspectés.
-- Preuves : `docs/images/roster-batch2/animation-report.json`, `docs/images/roster-batch2/README.md`.
-- Travail restant dans cette portée : Aucun.
-
-### ART-NEXT-05 — DONE — Actualiser couverture, preuves et prochain lot artistique
-
-- Fichiers : `docs/combat_visual_25_status.json`, `docs/CODEX_PROGRESS.json`.
-- Tests / contrôles réellement exécutés : 122 captures natives terminées, 221 placements de décor inchangés; Galeries de six références et déplacements archivés ; bilans actualisés.
-- Preuves : `docs/images/roster-batch2/native-report.json`, `docs/images/roster-batch2/README.md`.
-- Travail restant dans cette portée : Aucun.
-
 ### SCALE-CATALOGUE — IN_PROGRESS — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/unit_visual.gd`, `assets/maps/*.walls.json`.
@@ -128,9 +163,10 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
 - Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.
 - Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).
+- Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée.
 
 ## Prochaine action précise
 
-SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé.
+SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
