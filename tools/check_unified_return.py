@@ -1,8 +1,25 @@
 """Native Linux integration evidence; forced outcomes test plumbing, not Windows embedding."""
 from __future__ import annotations
-import argparse,json,os,subprocess,tempfile,time
+import argparse,json,os,subprocess,sys,tempfile,time
 from pathlib import Path
 from unittest.mock import patch
+
+
+def _link_directory(link: Path, target: Path) -> None:
+    """Create an isolated directory link without requiring Windows dev mode."""
+    try:
+        link.symlink_to(target, target_is_directory=True)
+    except OSError:
+        if os.name != "nt":
+            raise
+        completed = subprocess.run(
+            ["cmd", "/c", "mklink", "/J", str(link), str(target)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if completed.returncode:
+            raise OSError(completed.stderr or completed.stdout)
 
 
 def main():
@@ -27,7 +44,10 @@ def main():
     parser.add_argument("--keep-source-alive", action="store_true")
     parser.add_argument("--crash-recovery", action="store_true")
     parser.add_argument("--resume-debrief", action="store_true")
+    parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
     args=parser.parse_args();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
+    if args.real_mission and args.outcomes != ["victory"]:
+        parser.error("--real-mission currently validates the authored victory condition; use --outcomes victory")
     root=Path(__file__).resolve().parents[1];previous=Path.cwd();real_popen=subprocess.Popen
     class Window(MusicTransitionMixin,arcade.Window):pass
     window=Window(args.width,args.height,'CyberCity unified experience — Linux validation',visible=True)
@@ -43,9 +63,10 @@ def main():
         for outcome in args.outcomes:
             case=output/outcome;case.mkdir(exist_ok=True)
             with tempfile.TemporaryDirectory(prefix='cybercity-unified-') as tmp:
-                sandbox=Path(tmp);(sandbox/'assets').symlink_to(root/'assets',target_is_directory=True);(sandbox/'godot').symlink_to(root/'godot',target_is_directory=True);os.chdir(sandbox)
+                sandbox=Path(tmp);_link_directory(sandbox/'assets',root/'assets');_link_directory(sandbox/'godot',root/'godot');os.chdir(sandbox)
                 mission=MissionTemplate(id='unified_'+outcome,title='Unified '+outcome,objective_text='Protocol validation',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='hack')
-                state=GameState(characters=[Character('Vera')],selected_agent_names=['Vera'],mission_templates=[mission])
+                names = ['Vera', 'Rook', 'Oracle', 'Mantis'] if args.real_mission else ['Vera']
+                state=GameState(characters=[Character(name) for name in names],selected_agent_names=names,mission_templates=[mission])
                 state.mission_board_generated_day=state.calendar.current_day;state.mission_board_version=2
                 hq=ManagementView(state);hq.setup();window.show_view(hq);frame(case/'01-headquarters.png')
                 hq._open_mission_map();assert isinstance(window.current_view,MissionWorldMapView);frame(case/'02-world-map.png')
@@ -54,7 +75,11 @@ def main():
                 log=case/'godot.log'
                 with log.open('w') as stream:
                     def launch(command,*a,**kw):
-                        command=list(command);command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script','res://tests/unified_return_flow.gd'];command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
+                        command=list(command)
+                        driver='res://tests/unified_real_mission_flow.gd' if args.real_mission else 'res://tests/unified_return_flow.gd'
+                        command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',driver]
+                        command+=['--qa-confirm',str(confirm),'--qa-captures',str(case)]
+                        if not args.real_mission: command += ['--qa-outcome',outcome]
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=launch):
@@ -90,18 +115,23 @@ def main():
                                 frame();assert time.monotonic()<deadline,'old Godot did not accept supersession'
                                 time.sleep(.03)
                             if args.keep_source_alive: assert source_process.returncode==0
-                        deadline=time.monotonic()+50
+                        launch_started=time.monotonic();deadline=launch_started+50
                         while 'UNIFIED_NATIVE_RESULTS_WAITING' not in log.read_text():
                             frame();assert not bridge._launch_failed,bridge._status
                             assert process.poll() is None,log.read_text()
                             assert time.monotonic()<deadline,log.read_text()
                             time.sleep(.03)
                         from PIL import Image
-                        assert Image.open(case/'godot-results.png').size == (args.width,args.height)
+                        result_capture = case / ('godot-real-results.png' if args.real_mission else 'godot-results.png')
+                        actual_viewport = Image.open(result_capture).size
+                        assert actual_viewport[0] > 0 and actual_viewport[1] > 0
+                        if sys.platform != 'win32': assert actual_viewport == (args.width,args.height)
                         from game.combat.session_protocol import read_session_status
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
                         assert 'UNIFIED_AUDIO_OWNERSHIP_READY' in log.read_text()
+                        readiness_seconds=time.monotonic()-launch_started
+                        if args.real_mission: assert 'UNIFIED_REAL_MISSION_COMPLETED' in log.read_text()
                         if args.interrupt_phase: assert 'UNIFIED_TACTICAL_STATE_RESUMED' in log.read_text()
                         before=state.available_funds
                         for _ in range(12):frame();time.sleep(.08)
@@ -160,13 +190,14 @@ def main():
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None
                         assert loaded.available_funds==after
                         assert state.latest_mission_debrief and state.latest_agent_aftermath is not None
-                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,return_ack_recovered=args.interrupt_after_resolution,tactical_resume_phase=args.interrupt_phase,source_process_superseded=args.keep_source_alive,viewport=[args.width,args.height],readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
+                        results.append(dict(outcome=outcome,native_godot=True,real_mission=args.real_mission,readiness_seconds=round(readiness_seconds,3),results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,return_ack_recovered=args.interrupt_after_resolution,tactical_resume_phase=args.interrupt_phase,source_process_superseded=args.keep_source_alive,requested_viewport=[args.width,args.height],actual_viewport=list(actual_viewport),readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,native_windows_run=sys.platform=='win32',windows_graphics_verified=False))
                     finally:
                         if process.poll() is None:process.terminate();process.wait(timeout=5)
+                        os.chdir(root)
     finally:
         os.chdir(previous);window.close()
     (output/'native-report.json').write_text(json.dumps(results,indent=2)+'\n')
-    print(json.dumps({'status':'PASS','platform':'Linux native OpenGL','windows_verified':False,'cases':results}))
+    print(json.dumps({'status':'PASS','platform':sys.platform,'native_windows_run':sys.platform=='win32','windows_graphics_verified':False,'cases':results}))
 
 
 if __name__=='__main__':main()

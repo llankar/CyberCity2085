@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 28,
-    "total": 39
+    "done": 29,
+    "total": 40
   },
   "maps": {
     "native_verified": 0,
@@ -23,7 +23,7 @@
     "expected": 231
   },
   "tests": {
-    "passed": 61,
+    "passed": 54,
     "failed": 0,
     "skipped": 0,
     "not_executed": [
@@ -33,9 +33,9 @@
       "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
-    "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"
+    "scope": "54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit"
   },
-  "render_signature": "9e8415f6fc8e5b2b293245f48d261354bb8fdfa7d62e87f98edcd4f604e996d4",
+  "render_signature": "5f6c2e94762f6dce35287897ca153c4b284c138f7c8db486fea037a11093847c",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -123,7 +123,7 @@
       "title": "Performances et mémoire sur matériel joueur",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "Rendu logiciel llvmpipe disponible ; benchmark représentatif sur GPU joueur absent. Revue explicite et preuves non enregistrées.",
+      "detail": "Un parcours natif NVIDIA RTX 5070 Ti est archivé ; benchmark FPS/CPU/GPU/mémoire reproductible encore absent. Revue explicite et preuves non enregistrées.",
       "evidence": []
     },
     {
@@ -151,9 +151,9 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'}",
+      "detail": "{'passed': 54, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit'}",
       "evidence": [
-        "docs/reports/current_combat_visual_tests.xml"
+        "docs/reports/current_unified_progress_tests.xml"
       ]
     },
     {
@@ -161,7 +161,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "28 / 39 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "29 / 40 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -179,5 +179,5 @@
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],
-  "next_action": "UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés."
+  "next_action": "UNIFIED : isoler les temps lancement → readiness et readiness → première frame, puis valider focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans sous Windows. Produire ensuite une défaite réelle et implémenter une commande de retraite réelle avant de vérifier la troisième issue. Validation auditive toujours NOT VERIFIED."
 }

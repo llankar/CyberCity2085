@@ -149,13 +149,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### UE2-04 — BLOCKED — Cycle de vie Win32 et continuité de fenêtre
+### UE2-04 — IN_PROGRESS — Cycle de vie Win32 et continuité de fenêtre
 
 - Fichiers : `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`.
 - Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
 - Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
 - Travail restant dans cette portée : Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre.
-- Problème / raison : Environnement Linux uniquement ; améliorations Win32 implémentées mais non validées graphiquement.
+- Problème / raison : Environnement Windows désormais disponible ; premier parcours natif réussi, mais Alt+Tab, DPI, restauration et multi-écrans restent à exécuter.
 
 ### UE2-05 — DONE — Scénarios de crash, récupération et bilan du lot
 
@@ -301,6 +301,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
 
+### UE5-01 — DONE — Jouer une mission réelle et vérifier le retour complet sous Windows
+
+- Fichiers : `godot/combat_missions_ui/tests/unified_real_mission_flow.gd`, `tools/check_unified_return.py`, `tests/test_unified_mission_resolution.py`, `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 25 tests ciblés PASS dans tests/test_unified_mission_resolution.py; Parcours natif Windows : objectif réel accompli en 27 actions et 10 tours ennemis ; HQ → carte → briefing → Godot → débriefing → promotions → HQ ; sauvegarde/rechargement et application unique.
+- Preuves : `docs/reports/unified_windows_real_mission_tests.xml`, `docs/images/unified-experience/windows-real-mission/native-report.json`, `docs/images/unified-experience/windows-real-mission/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
@@ -311,6 +319,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.
+UNIFIED : isoler les temps lancement → readiness et readiness → première frame, puis valider focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans sous Windows. Produire ensuite une défaite réelle et implémenter une commande de retraite réelle avant de vérifier la troisième issue. Validation auditive toujours NOT VERIFIED.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

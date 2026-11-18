@@ -5,11 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "UE4-01",
-    "UE4-02",
-    "UE4-03",
-    "UE4-04",
-    "UE4-05"
+    "UE5-01"
   ],
   "tasks": [
     {
@@ -379,7 +375,7 @@
     {
       "id": "UE2-04",
       "title": "Cycle de vie Win32 et continuité de fenêtre",
-      "status": "BLOCKED",
+      "status": "IN_PROGRESS",
       "files": [
         "game/combat/win32_embed.py",
         "game/ui/screens/godot_combat_handoff_view.py"
@@ -394,7 +390,7 @@
         "docs/images/unified-experience/batch2/README.md"
       ],
       "remaining": "Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre",
-      "reason": "Environnement Linux uniquement ; améliorations Win32 implémentées mais non validées graphiquement"
+      "reason": "Environnement Windows désormais disponible ; premier parcours natif réussi, mais Alt+Tab, DPI, restauration et multi-écrans restent à exécuter"
     },
     {
       "id": "UE2-05",
@@ -731,13 +727,35 @@
       ],
       "remaining": "",
       "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE5-01",
+      "title": "Jouer une mission réelle et vérifier le retour complet sous Windows",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/tests/unified_real_mission_flow.gd",
+        "tools/check_unified_return.py",
+        "tests/test_unified_mission_resolution.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "25 tests ciblés PASS dans tests/test_unified_mission_resolution.py",
+        "Parcours natif Windows : objectif réel accompli en 27 actions et 10 tours ennemis ; HQ → carte → briefing → Godot → débriefing → promotions → HQ ; sauvegarde/rechargement et application unique"
+      ],
+      "evidence": [
+        "docs/reports/unified_windows_real_mission_tests.xml",
+        "docs/images/unified-experience/windows-real-mission/native-report.json",
+        "docs/images/unified-experience/windows-real-mission/README.md"
+      ],
+      "remaining": "",
+      "reason": "Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle"
     }
   ],
   "reviews": {},
   "test_run": {
-    "path": "docs/reports/current_combat_visual_tests.xml",
-    "sha256": "0c0752ad5f7d04eeed2ee495642c7f64152748b5bea48041cfa375577ab0c120",
-    "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit",
+    "path": "docs/reports/current_unified_progress_tests.xml",
+    "sha256": "ebdfc9d0b4eedcd2584b95e1ce6727e6fb98f2929b20b41529b0a8e2095a284b",
+    "scope": "54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit",
     "not_executed": [
       "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
@@ -748,35 +766,35 @@
     "sources": [
       {
         "path": "tools/check_combat_visual_acceptance.py",
-        "sha256": "654c19f33875dcb93de3a26cb794130858719c767cf14a380ca8de47c2d09b8c"
+          "sha256": "7d115d819ee2ec24fcfa68dca72ad56c720e2e4bcc9bb5079c2febbb205aae47"
       },
       {
         "path": "tools/art/update_environment_progress.py",
-        "sha256": "45ecf860231be5d6ac6277728c32bdb6fb60b81a0235dbc7563239c4d68e3b5c"
+          "sha256": "ba7724516bc4ed8bedc798dfde24311a7d48bb7576171a5a7911c13944414676"
       },
       {
         "path": "tools/audit_entity_scale.py",
-        "sha256": "23c5e2dff15219da852feecf1a997a5831d02571faba694ff35b3738db910e06"
+          "sha256": "721341c12d6dda01828fb08cbff345be15fa5efb961e5521ae21cfda3d60d6cf"
       },
       {
         "path": "tests/test_combat_visual_acceptance.py",
-        "sha256": "3005543e277c490074f332546b8af663c196c9c6b75b440187c43c71dcd73d37"
+          "sha256": "c3c1bf12b4a006825bee21e8c11f23523eee39dd410dfca1ad69f15d9aecf3bd"
       },
       {
         "path": "tests/test_environment_progress.py",
-        "sha256": "20e27489b74616cf023c23aeebc0d0b1dbb2fb08c382a00217359968db6c3b8c"
+          "sha256": "0ca59fe3c99184f432e0676a4ebad5e961bb6a274b97bd7ffa114b19c6bd6712"
       },
       {
         "path": "tests/test_entity_scale_inventory.py",
-        "sha256": "789c103e6689ce4c2881f029ee2feb11e299f14399f9b4cf7c7d54d85c31a98d"
+          "sha256": "ef6c9d8061df21d9cccad263b2f3bccefa774c33211f7fa189479a9af4066df1"
       },
       {
         "path": "tests/test_directional_animation.py",
-        "sha256": "376a2e465ce4650accea538e6178f192d753e9bc41d84d7be97999227fa6bc01"
+          "sha256": "b88e66a7db14e45001374d798e3c8b181551e6d4f2d49bd74d59d105cd3b7ad5"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "cbb8cbb3efa64ea5acdb09d491cbd40496deb1428a8b3a1ad0ba41da8cbf3e99"
+          "sha256": "feb5c3bfb6f194e369667f5aae131eb833510712320c17307519de797b9d8a36"
       }
     ]
   },
@@ -799,7 +817,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.",
+  "next_action": "UNIFIED : isoler les temps lancement → readiness et readiness → première frame, puis valider focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans sous Windows. Produire ensuite une défaite réelle et implémenter une commande de retraite réelle avant de vérifier la troisième issue. Validation auditive toujours NOT VERIFIED.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

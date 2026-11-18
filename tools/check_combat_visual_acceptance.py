@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from tools.audit_combat_visuals import audit
@@ -14,7 +15,7 @@ EXPECTED_MAPS = 122
 
 
 def read_json(path, default=None):
-    return json.loads(path.read_text()) if path.exists() else default
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else default
 
 
 def evidence_file(root, relative):
@@ -120,7 +121,7 @@ def build_report(root=ROOT):
     add('MAP-LOAD', 'Chargement natif et projection',
         'PASS' if loaded == expected and len(expected_names) == expected else ('NOT VERIFIED' if not current or not native or not native_proofs else 'FAIL'),
         f'{loaded} / {expected} cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.',
-        [str((capture_dir/'native-report.json').relative_to(root.resolve())) if safe_capture_dir else 'INVALID_CAPTURE_PATH', 'docs/combat_visual_25_status.json'])
+        [(capture_dir/'native-report.json').relative_to(root.resolve()).as_posix() if safe_capture_dir else 'INVALID_CAPTURE_PATH', 'docs/combat_visual_25_status.json'])
     reviewed = registry.get('reviews', {})
     status, detail = manual_review(root, reviewed.get('MAP-ART'), signature)
     if declared_art != expected:
@@ -139,7 +140,7 @@ def build_report(root=ROOT):
         ('UNIT-ART', 'Identité et qualité de toutes les unités', f"{summary['unit_art']} références source auditées, dont {counts['animation_eligible']} entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle."),
         ('FUNCTIONAL', 'Déplacement, ciblage, LOS, IA, PA, tours et fallback', 'Preuves historiques partielles disponibles ; aucune exécution exhaustive ni revue de toutes les interactions déduite des seuls tests de chargement.'),
         ('RESOLUTIONS', 'Lisibilité et interactions à 720p, 1080p et 1440p', 'Captures de cinq familles à trois résolutions disponibles ; revue exhaustive de contraste, occultation et ergonomie non enregistrée.'),
-        ('PERFORMANCE', 'Performances et mémoire sur matériel joueur', 'Rendu logiciel llvmpipe disponible ; benchmark représentatif sur GPU joueur absent.')]:
+        ('PERFORMANCE', 'Performances et mémoire sur matériel joueur', 'Un parcours natif NVIDIA RTX 5070 Ti est archivé ; benchmark FPS/CPU/GPU/mémoire reproductible encore absent.')]:
         status, detail = manual_review(root, reviewed.get(key), signature)
         if key=='UNIT-SCALE' and status=='PASS' and scale_verified!=expected:
             status, detail='FAIL', 'La revue ne couvre pas les repères des 122 cartes attendues.'
@@ -202,6 +203,8 @@ def render_register(registry):
 
 
 def main():
+    if hasattr(sys.stdout, 'reconfigure'):
+        sys.stdout.reconfigure(encoding='utf-8')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=ROOT)
     parser.add_argument('--write', action='store_true', help='Update only generated docs; never game resources')
@@ -216,16 +219,16 @@ def main():
             failure = dict(global_status='CHANTIER GLOBAL INCOMPLET', error=str(exc),
                            criteria=[dict(id='AUDIT-EXECUTION', mandatory=True, status='NOT VERIFIED', detail=str(exc))],
                            next_action='Réparer la donnée manquante ou corrompue puis relancer la vérification. Le registre existant est conservé.')
-            (directory/'combat_visual_acceptance.json').write_text(json.dumps(failure, ensure_ascii=False, indent=2)+'\n')
-            (directory/'combat_visual_acceptance.md').write_text('# Combat Visual — contrôle non exécuté\n\n'+message+'\n')
+            (directory/'combat_visual_acceptance.json').write_text(json.dumps(failure, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+            (directory/'combat_visual_acceptance.md').write_text('# Combat Visual — contrôle non exécuté\n\n'+message+'\n', encoding='utf-8')
         print(message)
         return 2
     if args.write:
         directory = args.root/'docs/reports';directory.mkdir(parents=True, exist_ok=True)
-        (directory/'combat_visual_acceptance.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
-        (directory/'combat_visual_acceptance.md').write_text(render_report(report))
+        (directory/'combat_visual_acceptance.json').write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+        (directory/'combat_visual_acceptance.md').write_text(render_report(report), encoding='utf-8')
         registry = read_json(args.root/'docs/CODEX_PROGRESS.json')
-        (args.root/'docs/CODEX_PROGRESS.md').write_text(render_register(registry))
+        (args.root/'docs/CODEX_PROGRESS.md').write_text(render_register(registry), encoding='utf-8')
     print(render_report(report))
     return int(bool(report['open_criteria']))
 

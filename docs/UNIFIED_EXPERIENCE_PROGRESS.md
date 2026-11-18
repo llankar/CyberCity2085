@@ -21,7 +21,7 @@ Cartes artistiquement finalisées / animations complètes : aucune validation su
 | Session UUID et protocole versionné ; readiness, début, résultat et ACK | PASS sur le flux normal de campagne ; l’ancienne API bloquante reste à harmoniser |
 | Crash avant confirmation | PASS récupération explicite du résultat préparé ; aucun résultat préparé appliqué automatiquement |
 | Crash pendant un tour sans résultat préparé | PASS dans la portée testée : reprise au dernier état logique écrit, PA/PV/objectifs/postures/caméra/projection préservés ; aucune promesse sur les jets futurs ni les effets en cours |
-| Fenêtre Windows : focus, Alt+Tab, restauration, DPI et moniteurs | BLOCKED / NOT VERIFIED : Linux uniquement ; code d’ownership, géométrie client et lancement sans bordures ajouté |
+| Fenêtre Windows : focus, Alt+Tab, restauration, DPI et moniteurs | IN PROGRESS : premier parcours natif Windows réussi en 1920×1080 ; Alt+Tab, restauration, redimensionnement, DPI et moniteurs restent NOT VERIFIED |
 | Audio sans doublons et transition sans bureau visible | NOT VERIFIED auditivement et sous Windows ; lecture des bookmarks et reprise existantes conservées, audio Dummy dans les preuves |
 | Préparation Godot en amont et performances de transition | TODO : pas de processus préchauffé |
 
@@ -40,7 +40,7 @@ Points Git : lot 1 `a1fa0d9` ; lot 2 `5bb5632`.
 - DONE UE2-01 : `checkpoints.py` écrit avant lancement et avant validation finale de la transaction. Échec d’écriture après résolution : campagne en mémoire inchangée. La sauvegarde manuelle n’est pas écrasée.
 - DONE UE2-02 : `return_snapshot.py` sépare présentation et résolution. CONTINUE charge le checkpoint récent ; débriefing et promotions reprennent sans attribuer de récompenses. La fermeture du dernier écran enregistre le marqueur de présentation terminée.
 - DONE UE2-03 : `session_mailbox.gd` centralise les écritures atomiques ; démarrage prêt après une frame, résultat préparé/confirmé, identités contrôlées. Délai d’initialisation de 90 secondes, aucune limite de durée du combat. Résultat corrompu signalé sans mutation.
-- BLOCKED UE2-04 : `win32_embed.py` utilise des handles de taille correcte, une fenêtre possédée plutôt que SetParent, suivi du rectangle client et réduction/restauration. Lancement avec position/résolution et sans bordures avant apparition de la fenêtre. **Implémenté, pas validé sous Windows.**
+- IN PROGRESS UE2-04 : `win32_embed.py` utilise des handles de taille correcte, une fenêtre possédée plutôt que SetParent, suivi du rectangle client et réduction/restauration. Un premier parcours natif Windows est réussi ; Alt+Tab, DPI, restauration et multi-écrans restent à vérifier.
 - DONE UE2-05 : tests de récupération et vrais processus Godot tués avant confirmation ; reprise depuis checkpoint après résolution ; captures vérifiées aux trois résolutions. Correction révélée par les tests : mémoriser les PV maximum à l’extraction avant une promotion.
 
 Fichiers et tests détaillés : [registre](CODEX_PROGRESS.md). Captures : [lot 2](images/unified-experience/batch2/README.md).
@@ -85,8 +85,10 @@ Sous Linux de validation : `DISPLAY=:107 ALSOFT_DRIVERS=null`. Commandes et dime
 
 ## Prochaine action précise
 
-Vérifier une mission de campagne jusqu’à sa véritable condition de fin, sans issue forcée, puis mesurer le chargement avant de décider d’un préchauffage. La reprise tactique est implémentée et vérifiée dans la portée ci-dessus. La validation graphique Windows et l’écoute audio réelle restent indisponibles dans cet environnement.
+La première mission native non forcée est vérifiée sous Windows : objectif accompli par les actions normales, parcours HQ → carte → briefing → Godot → débriefing → promotions → HQ, sauvegarde/rechargement et application unique. [Preuves et limites](images/unified-experience/windows-real-mission/README.md). Le résultat prêt est observé après 5,828 s, mais cette durée inclut dix tours de combat et ne constitue pas une mesure isolée du chargement.
+
+Prochaine action : instrumenter séparément lancement → readiness et readiness → première frame, puis valider visuellement focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans. L’écoute audio réelle reste ouverte.
 
 ## Points encore ouverts
 
-Mission de campagne entièrement jouée plutôt qu’une fixture conclue par une issue forcée ; focus, Alt+Tab, DPI et moniteurs Windows ; écoute/fondus audio ; mesures et préchauffage ; ancienne API bloquante hors parcours campagne ; commande de retraite réelle (seule la fixture produit ce résultat) ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.
+Deux autres issues réelles (défaite et retraite), focus, Alt+Tab, DPI et moniteurs Windows ; écoute/fondus audio ; mesure isolée du chargement et décision de préchauffage ; ancienne API bloquante hors parcours campagne ; commande de retraite réelle (absente) ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.
