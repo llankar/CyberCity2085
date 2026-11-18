@@ -753,3 +753,13 @@ La tâche artistique globale reste ouverte : **4 références sur 231 partiellem
 [Avancement complet](combat_visual_25_progress.md) · [Détails des animations](combat_directional_animation.md).
 
 Le prototype de rig procédural rejeté reste isolé dans `work/`, hors production. Il n’est pas utilisé dans cette livraison.
+
+### Continuité des chantiers — registre et acceptation globale
+
+- [x] GOV-01 Préciser cinq tâches par lot, préserver les règles qualité et permettre les lots successifs.
+- [x] GOV-02 Structurer le registre persistant avec états, fichiers, tests, preuves et reste à faire.
+- [x] GOV-03 Documenter les critères réels et distinguer chargement, présence de ressources et finition artistique.
+- [x] GOV-04 Exécuter et examiner le vérificateur reproductible sur le dépôt réel.
+- [ ] GOV-05 Vérifier le bilan et le périmètre sans gameplay, puis sauvegarder localement la passe.
+
+Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODEX_PROGRESS.md). Le ratio des tâches DONE du registre n’est pas un pourcentage de finition artistique.
