@@ -1,5 +1,6 @@
 shader_type canvas_item;
 render_mode unshaded;
+uniform float shadow_opacity : hint_range(0.0,0.5) = 0.23;
 uniform vec4 frame_uv = vec4(0.0,0.0,1.0,1.0);
 
 float silhouette(sampler2D source_texture,vec2 uv) {
@@ -14,5 +15,5 @@ void fragment() {
             opacity+=silhouette(TEXTURE,UV+vec2(float(x),float(y))*TEXTURE_PIXEL_SIZE*1.4);
         }
     }
-    COLOR=vec4(0.008,0.012,0.018,opacity/9.0*0.23);
+    COLOR=vec4(0.008,0.012,0.018,opacity/9.0*shadow_opacity);
 }

@@ -729,3 +729,12 @@ Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_p
 - [x] ART25D-03 Intégrer uniquement les correspondances validées ; conserver les variantes incertaines et les géométries tactiques.
 - [x] ART25D-04 Vérifier le catalogue natif, les interactions et les entités ; comparer les détails à trois résolutions.
 - [x] ART25D-05 Actualiser inventaire, preuves et suivi ; pousser et fusionner cette passe. La finition artistique globale reste ouverte.
+
+
+### Combat Visual 2.5 — priorité aux entités
+
+- [x] ART25E-01 Auditer le rendu des agents, ennemis, robots, power armors et véhicules.
+- [x] ART25E-02 Corriger les profils de présentation sans modifier les caractéristiques ni les unités géantes déclarées.
+- [x] ART25E-03 Améliorer contours et détails métalliques en préservant l’opacité et la lecture des équipes.
+- [x] ART25E-04 Vérifier les interactions, le catalogue et les comparaisons réelles aux trois résolutions.
+- [ ] ART25E-05 Actualiser les preuves et l’avancement global, puis push et merge.

@@ -1,6 +1,7 @@
 extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
 const HUMAN_HEIGHT_PER_TILE := 0.70
+const PRESENTATION = preload("res://scripts/unit_presentation.gd")
 const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
 const GROUND_SHADOW_SHADER = preload("res://shaders/unit_ground_shadow.gdshader")
 var _art_sprite: Sprite2D
@@ -186,7 +187,9 @@ func _draw() -> void:
 	_cast_shadow.texture=tex
 	_cast_shadow.region_rect=source
 	var art_scale:=_art_rect.size/source.size
-	_cast_shadow.transform=Transform2D(Vector2(art_scale.x,0),Vector2(-.40*art_scale.y,-.18*art_scale.y),Vector2(_art_rect.position.x-.40*_art_rect.position.y,-.18*_art_rect.position.y))
+	var projection: Vector2=PRESENTATION.shadow_projection(unit_data,visual_key)
+	_cast_shadow.transform=Transform2D(Vector2(art_scale.x,0),projection*art_scale.y,Vector2(_art_rect.position.x+projection.x*_art_rect.position.y,projection.y*_art_rect.position.y))
+	_shadow_material.set_shader_parameter("shadow_opacity",PRESENTATION.shadow_opacity(unit_data,visual_key))
 	_cast_shadow.visible=visual_quality>0 and not dead
 	_shadow_material.set_shader_parameter("frame_uv",Vector4(source.position.x/tex.get_width(),source.position.y/tex.get_height(),source.end.x/tex.get_width(),source.end.y/tex.get_height()))
 	var pixel := _screen_pixel()
@@ -252,10 +255,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		CombatSignals.unit_hovered.emit(unit_id,is_enemy)
 
 func _visual_size_scale() -> float:
-	var role := str(unit_data.get("role",""))
-	var theme := str(unit_data.get("enemy_theme",""))
-	if role in ["power_armor","heavy_armor"] or "power_armor" in theme: return 1.15
-	return clampf(float(unit_data.get("size_scale",1)),0.5,3.5)
+	return PRESENTATION.body_scale(unit_data,visual_key)
 
 func _spawn_float_text(text: String, color: Color) -> void:
 	var zoom := maxf(0.05,get_global_transform_with_canvas().get_scale().x)
@@ -358,13 +358,17 @@ func _atlas_idle_height() -> float:
 	return maxf(.05,bounds.size.y)
 
 func _draw_grounding(footprint: float, color: Color) -> void:
+	if PRESENTATION.is_aircraft(unit_data,visual_key):return
 	var pixel := _screen_pixel().x
-	# Broad penumbra and small contact core anchor the feet without flat discs.
-	draw_set_transform(Vector2(footprint*.13,footprint*.10),0,Vector2(1,.34))
+	# Broad penumbra follows a chassis; humanoids keep their small foot contact.
+	var contact: float=PRESENTATION.contact_half_width(unit_data,visual_key,_visible_body_rect().size.x,footprint)
+	var chassis: bool=PRESENTATION.is_vehicle(unit_data,visual_key)
+	var contact_origin:=Vector2(0,-_body_height()*.035) if chassis else Vector2(footprint*.13,footprint*.10)
+	draw_set_transform(contact_origin,0,Vector2(1,.22 if chassis else .34))
 	if visual_quality > 0:
 		for layer in range(2,0,-1):
-			draw_circle(Vector2.ZERO,footprint*(.62+layer*.18),Color(0,.005,.012,.055))
-	draw_circle(Vector2.ZERO,footprint*.68,Color(0,0,0,.38))
+			draw_circle(Vector2.ZERO,contact*(.62+layer*.18),Color(0,.005,.012,.055))
+	draw_circle(Vector2.ZERO,contact*.68,Color(0,0,0,.38))
 	draw_set_transform(Vector2.ZERO,0,Vector2.ONE)
 	if not is_enemy or unit_id >= 1000 or int(unit_data.get("hp",0))<=0: return
 	draw_set_transform(Vector2.ZERO,0,Vector2(1,.48))

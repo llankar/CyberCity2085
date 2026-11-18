@@ -87,5 +87,16 @@ func run() -> void:
 	await RenderingServer.frame_post_draw
 	assert(not unit._art_sprite.visible,"dead unit without death clip stays hidden")
 	assert(not unit._cast_shadow.visible,"dead art cannot leave a detached ghost shadow")
+	# Distinct light armour panels must not both clip to flat white.
+	var metal:=Image.create(64,64,false,Image.FORMAT_RGBA8)
+	metal.fill(Color(.9,.9,.9,1));metal.fill_rect(Rect2i(32,0,32,64),Color.WHITE)
+	unit.atlas=null;unit.manifest={};unit.unit_data["hp"]=24
+	unit.setup({"hp":24,"max_hp":24},0,false,ImageTexture.create_from_image(metal),Vector2(150,150))
+	unit.queue_redraw()
+	await process_frame
+	await RenderingServer.frame_post_draw
+	var panels:=root.get_texture().get_image()
+	var lower:=panels.get_pixel(255,117);var upper:=panels.get_pixel(305,117)
+	assert(upper.r-lower.r>.02 and upper.r<.99,"highlight compression keeps light metal panel detail")
 	print("UNIT_READABILITY_CHECKS_PASSED")
 	quit()

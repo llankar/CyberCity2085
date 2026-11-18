@@ -28,26 +28,28 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 - PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.
 - Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.
 - Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.
+- Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
 
 ## Passe en cours
 
 | Travail | État | Résultat / reste à faire |
 |---|---|---|
-| Revue des couchages et bancs | Terminé | 26 découpes de couchages et 17 détails de mobilier examinés ; lits simples distingués des lits doubles, bancs comparés aux silhouettes source. |
-| Production de mobilier adapté | Terminé | Quatre familles / 16 vues, modèles Blender et deux planches artistiques. Profondeur des sièges reprise après comparaison. |
-| Intégration et contrôle des silhouettes | Terminé | 20 substitutions actives avec ces ressources, dont correction d’un lit tourné de 90° ; deux lits de camp incompatibles et la table d’examen conservent l’art source. |
-| Contrôles Godot et comparaisons | Terminé | 122 cartes contrôlées, six comparaisons à trois résolutions, entités et interactions vérifiées ; 25 tests ciblés réussis et 12 tests de ressources réexécutés après correction des cadres. |
-| Inventaire et publication | Terminé | Inventaire et captures exportés ; push et merge vérifiés sur main. La tâche artistique globale reste ouverte. |
+| Audit visuel des entités | Terminé | 251 références de sprites inventoriées, dont 231 entités et 20 objets de mission ; versions haute résolution présentes. 46 alphas atteignent un bord de frame, à revoir ; aucun manifeste d’animation livré. |
+| Profils de présentation | Terminé | Profils visuels séparés : soutien robot non géant plafonné à 1,65× ; agents, power armors, véritables géants et véhicules préservés. Ombres aériennes et contact des châssis distincts. |
+| Lisibilité et matériaux | Terminé | Compression des hautes lumières avant écrêtage ; contours cyan/rouge conservés. Vérifications pixel de l’opacité, des panneaux clairs et des frames réussies. |
+| Validation native | Terminé | 26 tests réussis ; 122 cartes contrôlées, comparaisons avant/après et scènes militaires aux trois résolutions. Sélection, ciblage, déplacements, ombres et exclusion des véhicules en intérieur vérifiés. |
+| Suivi et publication | En cours | Captures et audit des 251 références exportés ; préparation de l’inventaire global et de la publication. |
 
 ## Validation
 
-- Dernière livraison de référence : `73c4ca1dbb2b33f7f8fb62fda8eb060217bc5e7c`.
-- Preuves : [captures et inventaire](images/combat-25-furniture/README.md).
+- Dernière livraison de référence : `entités — 18/11/2026 (publication en cours)`.
+- Preuves : [captures et inventaire](images/combat-25-entities/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
-- 122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.
+- 26 tests ciblés réussis ; 122 rendus natifs et nombres de ressources vérifiés. Avant réels capturés avec 7ea8323 ; cinq environnements aux trois résolutions et scènes militaires supplémentaires avec véhicules terrestres/aériens. Les deux intérieurs testés restent sans véhicules. Audit source de 251 références, distinct de la finition artistique.
 
 ## Reste sur l’objectif complet
 
+- Poursuivre les ressources des entités : revoir visuellement les 46 silhouettes qui touchent un bord de frame et produire de véritables animations ; l’audit de 251 références de sprites ne constitue pas une validation artistique individuelle.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
