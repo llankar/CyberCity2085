@@ -70,6 +70,7 @@ func run() -> void:
 		if not selected_map.is_empty() and name!=selected_map: continue
 		if not selected_prefix.is_empty() and not name.begins_with(selected_prefix):continue
 		var payload := {"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":name.replace("_"," "),"objective_text":"Atteindre et sécuriser le terminal","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%name,"environment":"wasteland" if "wasteland" in name else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_01.png"},{"name":"Longshot","role":"sniper","hp":18,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_02.png"},{"name":"Oracle","role":"psi","hp":16,"max_hp":20,"portrait_path":"assets/ui/portraits/agent_male_03.png"}]}
+		if "--entity-showcase" in args:payload.mission["enemy_theme"]="corp_samurai"
 		var file := FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE)
 		if "--entities" in args:
 			payload["support_assets"]=[{"name":"Mantis","asset_type":"power_armor","hp":40},{"name":"Combat Robot","asset_type":"combat_robot","hp":36}]
@@ -120,13 +121,15 @@ func run() -> void:
 			if "--entities" in args and not scene.vehicle_units.is_empty():
 				var original_position: Vector2=scene._camera.position
 				var original_zoom: Vector2=scene._camera.zoom
-				var vehicle=scene._unit_tokens["v0"]
-				scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),dimensions.y*.38/vehicle._body_height())
-				scene._camera.position=vehicle.position-Vector2(0,vehicle._body_height()*.4)
-				scene._camera.force_update_scroll()
-				await process_frame
-				await RenderingServer.frame_post_draw
-				assert(root.get_texture().get_image().save_png(output.path_join("%s-%dx%d-vehicle.png"%[name,dimensions.x,dimensions.y]))==OK)
+				for vehicle_index in range(scene.vehicle_units.size()):
+					var vehicle=scene._unit_tokens["v%d"%vehicle_index]
+					scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),dimensions.y*.38/vehicle._body_height())
+					scene._camera.position=vehicle.position-Vector2(0,vehicle._body_height()*.4)
+					scene._camera.force_update_scroll()
+					await process_frame
+					await RenderingServer.frame_post_draw
+					var suffix: String="vehicle" if vehicle_index==0 else "vehicle-%d"%vehicle_index
+					assert(root.get_texture().get_image().save_png(output.path_join("%s-%dx%d-%s.png"%[name,dimensions.x,dimensions.y,suffix]))==OK)
 				scene._camera.position=original_position;scene._camera.zoom=original_zoom
 				scene._camera.force_update_scroll()
 			if "--wall-overlay" in args:

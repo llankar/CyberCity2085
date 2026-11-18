@@ -5,42 +5,44 @@
     "Portées et dégâts Godot rééquilibrés dans les livraisons précédentes ; aucune nouvelle modification des règles dans cette passe.",
     "PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.",
     "Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.",
-    "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions."
+    "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.",
+    "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées."
   ],
   "tasks": [
     {
-      "name": "Revue des couchages et bancs",
+      "name": "Audit visuel des entités",
       "status": "Terminé",
-      "detail": "26 découpes de couchages et 17 détails de mobilier examinés ; lits simples distingués des lits doubles, bancs comparés aux silhouettes source."
+      "detail": "251 références de sprites inventoriées, dont 231 entités et 20 objets de mission ; versions haute résolution présentes. 46 alphas atteignent un bord de frame, à revoir ; aucun manifeste d’animation livré."
     },
     {
-      "name": "Production de mobilier adapté",
+      "name": "Profils de présentation",
       "status": "Terminé",
-      "detail": "Quatre familles / 16 vues, modèles Blender et deux planches artistiques. Profondeur des sièges reprise après comparaison."
+      "detail": "Profils visuels séparés : soutien robot non géant plafonné à 1,65× ; agents, power armors, véritables géants et véhicules préservés. Ombres aériennes et contact des châssis distincts."
     },
     {
-      "name": "Intégration et contrôle des silhouettes",
+      "name": "Lisibilité et matériaux",
       "status": "Terminé",
-      "detail": "20 substitutions actives avec ces ressources, dont correction d’un lit tourné de 90° ; deux lits de camp incompatibles et la table d’examen conservent l’art source."
+      "detail": "Compression des hautes lumières avant écrêtage ; contours cyan/rouge conservés. Vérifications pixel de l’opacité, des panneaux clairs et des frames réussies."
     },
     {
-      "name": "Contrôles Godot et comparaisons",
+      "name": "Validation native",
       "status": "Terminé",
-      "detail": "122 cartes contrôlées, six comparaisons à trois résolutions, entités et interactions vérifiées ; 25 tests ciblés réussis et 12 tests de ressources réexécutés après correction des cadres."
+      "detail": "26 tests réussis ; 122 cartes contrôlées, comparaisons avant/après et scènes militaires aux trois résolutions. Sélection, ciblage, déplacements, ombres et exclusion des véhicules en intérieur vérifiés."
     },
     {
-      "name": "Inventaire et publication",
-      "status": "Terminé",
-      "detail": "Inventaire et captures exportés ; push et merge vérifiés sur main. La tâche artistique globale reste ouverte."
+      "name": "Suivi et publication",
+      "status": "En cours",
+      "detail": "Captures et audit des 251 références exportés ; préparation de l’inventaire global et de la publication."
     }
   ],
   "validation": {
-    "reference": "73c4ca1dbb2b33f7f8fb62fda8eb060217bc5e7c",
-    "evidence": "images/combat-25-furniture/README.md",
-    "summary": "122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.",
-    "signature": "394652d11656c2297f6ed61888ccf62bdec1ab8d71fde8a58a53de0784c12fa2"
+    "reference": "entités — 18/11/2026 (publication en cours)",
+    "evidence": "images/combat-25-entities/README.md",
+    "summary": "26 tests ciblés réussis ; 122 rendus natifs et nombres de ressources vérifiés. Avant réels capturés avec 7ea8323 ; cinq environnements aux trois résolutions et scènes militaires supplémentaires avec véhicules terrestres/aériens. Les deux intérieurs testés restent sans véhicules. Audit source de 251 références, distinct de la finition artistique.",
+    "signature": "6b937f76e7b9b877db0bb225294dac1c9771abf9f04fde9e115efa3dea6691a3"
   },
   "remaining": [
+    "Poursuivre les ressources des entités : revoir visuellement les 46 silhouettes qui touchent un bord de frame et produire de véritables animations ; l’audit de 251 références de sprites ne constitue pas une validation artistique individuelle.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",
