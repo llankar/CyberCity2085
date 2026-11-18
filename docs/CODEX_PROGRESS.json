@@ -3,13 +3,13 @@
   "global_status": "IN_PROGRESS",
   "expected_maps": 122,
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
-  "working_branch": "codex/agent-roster-batch2",
+  "working_branch": "codex/unified-experience",
   "active_batch": [
-    "SCALE-01",
-    "SCALE-02",
-    "SCALE-03",
-    "SCALE-04",
-    "SCALE-05"
+    "UE2-01",
+    "UE2-02",
+    "UE2-03",
+    "UE2-04",
+    "UE2-05"
   ],
   "tasks": [
     {
@@ -219,6 +219,161 @@
         "docs/reports/scale_inventory_tests.xml"
       ],
       "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "UE1-01",
+      "title": "Isoler les sessions et contrats",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-02",
+      "title": "Différer la publication jusqu’à confirmation et ACK",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-03",
+      "title": "Extraire et réutiliser la résolution de campagne",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-04",
+      "title": "Router débriefing, promotions et HQ",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-05",
+      "title": "Vérifier le lot fonctionnel et ses limites",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE2-01",
+      "title": "Journal Python durable avant/après résolution",
+      "status": "TODO",
+      "files": [
+        "game/combat/session_protocol.py",
+        "game/combat/godot_resolution.py"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Journal Python durable avant/après résolution",
+      "reason": ""
+    },
+    {
+      "id": "UE2-02",
+      "title": "Reprendre le débriefing après crash sans rejouer les récompenses",
+      "status": "TODO",
+      "files": [
+        "game/ui/screens/mission_return.py",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Reprendre le débriefing après crash sans rejouer les récompenses",
+      "reason": ""
+    },
+    {
+      "id": "UE2-03",
+      "title": "Readiness, statuts et délais de communication",
+      "status": "TODO",
+      "files": [
+        "game/combat/godot_ipc.py",
+        "godot/combat_missions_ui/scripts/combat_signals.gd"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Readiness, statuts et délais de communication",
+      "reason": ""
+    },
+    {
+      "id": "UE2-04",
+      "title": "Cycle de vie Win32 et continuité de fenêtre",
+      "status": "TODO",
+      "files": [
+        "game/combat/win32_embed.py",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Cycle de vie Win32 et continuité de fenêtre",
+      "reason": ""
+    },
+    {
+      "id": "UE2-05",
+      "title": "Scénarios de crash, récupération et bilan du lot",
+      "status": "TODO",
+      "files": [
+        "tests/test_unified_mission_resolution.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Scénarios de crash, récupération et bilan du lot",
       "reason": ""
     },
     {
@@ -446,7 +601,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.",
+  "next_action": "UNIFIED UE2-01 : écrire des checkpoints atomiques avant/après la résolution ; conserver les informations de débriefing dans le journal et tester la reprise après crash. Windows graphique reste non disponible sur cet environnement Linux.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
@@ -489,5 +644,9 @@
         "Archiver les comparatifs et marquer uniquement les échelles effectivement revues"
       ]
     }
+  ],
+  "current_project": "UNIFIED_EXPERIENCE",
+  "paused_projects": [
+    "Combat Visual / SCALE : état et preuves conservés, nouvelle priorité d’intégration demandée par l’utilisateur"
   ]
 }

@@ -98,6 +98,7 @@ var map_texture     : Texture2D = null
 var status_line   := "Waiting for CyberCity handoff."
 var battle_started: bool  = false
 var battle_ended  : bool  = false
+var initial_enemy_count: int=0
 var elapsed_time  : float = 0.0
 var selected_action: String = "MOVE"
 var pending_end_turn_confirmation: bool = false
@@ -746,6 +747,7 @@ func _draw_actions_preview(origin: Vector2) -> void:
 # ─── Input ────────────────────────────────────────────────────────────────────
 
 func _gui_input(event: InputEvent) -> void:
+	if battle_ended:return
 	if event is InputEventKey and event.pressed and not event.echo:
 		var ke := event as InputEventKey
 		match ke.keycode:
@@ -1025,6 +1027,7 @@ func _seed_combat_state() -> void:
 	var enc             := _ENCScript.new()
 	var enc_result      := enc.generate(handoff, GRID_COLS, GRID_ROWS)
 	enemy_units         = enc_result["enemy_units"] as Array[Dictionary]
+	initial_enemy_count=enemy_units.size()
 	objective           = enc_result["objective"]   as Dictionary
 	# Extract decorative vehicle tokens (giant vehicles are already in enemy_units).
 	vehicle_units = _decorative_vehicles(enc_result.get("vehicles", {}) as Dictionary)
@@ -1687,7 +1690,21 @@ func _end_combat(outcome: String) -> void:
 		if int(u.get("hp", 0)) <= 0:
 			casualties.append(str(u.get("name", "Agent")))
 	var enemies_killed := enemy_units.size() - _enemy_alive_count()
+	var agents: Array=[]
+	var support: Array=[]
+	for unit: Dictionary in player_units:
+		var snapshot: Dictionary={"name":unit.name,"hp":int(unit.hp),"max_hp":int(unit.max_hp),"stress":int(unit.get("stress",0))}
+		if not str(unit.get("asset_id","")).is_empty():
+			snapshot["id"]=unit.asset_id
+			support.append(snapshot)
+		else:agents.append(snapshot)
 	var result := {
+		"session":handoff.get("session",{}),
+		"agents":agents,"support":support,
+		"initial_enemy_count":initial_enemy_count,
+		"enemies_spawned_total":enemy_units.size(),
+		"objective_completed":objective_completed,
+		"objective_progress":objective_progress,
 		"turn_number":    turn_number,
 		"casualties":     casualties,
 		"enemies_killed": enemies_killed,

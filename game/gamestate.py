@@ -111,6 +111,7 @@ class GameState:
     )
     latest_agent_aftermath: list[str] = field(default_factory=list)
     latest_mission_debrief: dict = field(default_factory=dict)
+    combat_sessions: dict = field(default_factory=dict)
     latest_recovery_dialogues: list[dict] = field(default_factory=list)
     recovery_narrative_memory: dict = field(default_factory=dict)
     faction_reward_journal: list[dict[str, str]] = field(default_factory=list)
@@ -596,6 +597,7 @@ class GameState:
             ],
             "latest_agent_aftermath": list(self.latest_agent_aftermath),
             "latest_mission_debrief": dict(self.latest_mission_debrief),
+            "combat_sessions": self.combat_sessions,
             "latest_recovery_dialogues": [
                 dict(item) for item in self.latest_recovery_dialogues
             ],
@@ -687,6 +689,7 @@ class GameState:
         ] or [create_opening_consequence(gs.district.name)]
         gs.latest_agent_aftermath = list(data.get("latest_agent_aftermath", []))
         gs.latest_mission_debrief = dict(data.get("latest_mission_debrief", {}))
+        gs.combat_sessions = dict(data.get("combat_sessions", {}))
         gs.latest_recovery_dialogues = [
             dict(item) for item in data.get("latest_recovery_dialogues", [])
         ]

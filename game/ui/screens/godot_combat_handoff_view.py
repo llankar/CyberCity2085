@@ -4,10 +4,10 @@ How it works (Windows):
   1. Godot is launched as a normal subprocess.
   2. Once Godot's HWND appears, its title bar and border are stripped and it is
      moved to the exact same screen rectangle as Arcade's window.
-  3. Arcade's window is hidden — only Godot is visible from that point.
-  4. When Godot writes its result JSON the combat outcome is applied to GameState,
-     Godot is terminated, Arcade's window is shown again, and the view navigates
-     to ManagementView.
+  3. Arcade retains the transition surface behind Godot.
+  4. Only a player-confirmed, validated session result is resolved by the common
+     campaign service. An acknowledgement releases Godot, then Arcade shows
+     Debrief → optional Promotions → Headquarters.
 
 Non-Windows: embedding/hiding is skipped; Godot opens in its own window as
 before and the result JSON is still polled and applied.
@@ -94,23 +94,42 @@ class GodotCombatHandoffView(arcade.View):
         self._elapsed = getattr(self, "_elapsed", 0.0) + delta_time
         if hasattr(self, "_visual_deck"):
             self._visual_deck.update(delta_time)
-        if self._result_applied or self._launch_failed:
+        if self._result_applied:
+            pending = getattr(self, "_pending_return", None)
+            if pending is not None:
+                self._write_pending_ack()
+                self._return_wait = getattr(self,"_return_wait",0.0)+delta_time
+                process = getattr(self.launch_result,"process",None)
+                if process is None or process.poll() is not None or self._return_wait>=2.0:
+                    self._pending_return=None
+                    self._cleanup_godot()
+                    from game.ui.screens.mission_return import show_mission_debrief
+                    context,survivors,units=pending
+                    context.window=self.window
+                    show_mission_debrief(context, context._victory, survivors, units)
+            return
+        if self._launch_failed:
             return
 
         # Poll results even before a native window is found (and on Linux).
         from game.combat.godot_bridge import read_godot_combat_result
 
-        result = read_godot_combat_result()
+        result_path = getattr(self.launch_result,"result_path",None)
+        result = read_godot_combat_result(result_path) if result_path else None
         if result is not None:
-            self._result_applied = True
-            self._cleanup_godot()
-            self._apply_combat_result(result)
+            try:
+                self._apply_combat_result(result)
+            except (ValueError, KeyError, TypeError, OSError) as exc:
+                self._cleanup_godot()
+                self._launch_failed=True
+                self._status=f"Résultat refusé ; campagne inchangée : {exc}"
+                self.game_state.add_event(self._status)
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = f"Godot s'est fermé sans résultat (code {process.returncode}). Réessayez ou choisissez son exécutable."
+            self._status = f"Godot s'est fermé sans résultat (code {process.returncode}). C : confirmer un résultat préparé récupérable ; R : réessayer ; G : choisir l’exécutable."
             self.game_state.add_event(self._status)
             return
 
@@ -153,8 +172,7 @@ class GodotCombatHandoffView(arcade.View):
         )
 
         make_borderless_at(hwnd, x, y, w, h)
-        if self._arcade_hwnd:
-            hide_window(self._arcade_hwnd)
+        # Keep the campaign surface behind Godot so exit cannot reveal the desktop.
 
         self._godot_hwnd = hwnd
         self._overlaid = True
@@ -184,9 +202,9 @@ class GodotCombatHandoffView(arcade.View):
     # ── Drawing ───────────────────────────────────────────────────────────────
 
     def on_draw(self) -> None:
-        self.clear()
         if self._overlaid and _WIN:
-            return  # Godot is visible; Arcade's window is hidden.
+            return  # Preserve the last transition frame behind Godot.
+        self.clear()
         self._draw_splash()
 
     def _draw_splash(self):
@@ -222,7 +240,9 @@ class GodotCombatHandoffView(arcade.View):
                 if not self._visual_deck.activate(result):
                     self.on_key_press(result.data, 0)
             return
-        if key == arcade.key.R and self._launch_failed:
+        if key == getattr(arcade.key,"C",67) and self._launch_failed:
+            self._recover_prepared_result()
+        elif key == arcade.key.R and self._launch_failed:
             self._retry_godot()
         elif key == arcade.key.G and self._launch_failed:
             from game.ui.screens.settings_screen import (
@@ -236,6 +256,7 @@ class GodotCombatHandoffView(arcade.View):
                 _persist_godot_bin_path(selected)
                 self._retry_godot()
         elif key == arcade.key.F:
+            self._abandon_session()
             self._result_applied = True
             self._cleanup_godot()
             self.game_state.add_event(
@@ -243,8 +264,30 @@ class GodotCombatHandoffView(arcade.View):
             )
             self._fallback_to_arcade_battle()
         elif key == arcade.key.ESCAPE:
+            self._abandon_session()
             self._cleanup_godot()
             self._return_to_management()
+
+    def _abandon_session(self) -> None:
+        sessions=getattr(self.game_state,"combat_sessions",{})
+        record=sessions.get(getattr(self.launch_result,"session_id",""))
+        if record is not None and record.get("status")=="pending":
+            record["status"]="abandoned"
+
+    def _recover_prepared_result(self) -> None:
+        from game.combat.godot_bridge import read_godot_combat_result
+        session=self.game_state.combat_sessions.get(getattr(self.launch_result,"session_id",""),{})
+        path=session.get("session",{}).get("prepared_path")
+        result=read_godot_combat_result(path) if path else None
+        if result is None:
+            self._status="Aucun résultat préparé récupérable ; choisissez explicitement une nouvelle tentative."
+            return
+        result["phase"]="confirmed"
+        try:
+            self._apply_combat_result(result)
+            self._launch_failed=False
+        except (ValueError,KeyError,TypeError,OSError) as exc:
+            self._status=f"Récupération refusée : {exc}"
 
     def _retry_godot(self) -> None:
         from game.combat.godot_bridge import launch_godot_combat_ui
@@ -259,40 +302,35 @@ class GodotCombatHandoffView(arcade.View):
     # ── Result application ────────────────────────────────────────────────────
 
     def _apply_combat_result(self, result: dict[str, Any]) -> None:
-        outcome = str(result.get("outcome", "unknown"))
-        funds_earned = int(result.get("funds_earned", 0))
-        xp_per_agent = int(result.get("xp_per_agent", 0))
-        enemies_killed = int(result.get("enemies_killed", 0))
-        casualties: list[str] = [str(c) for c in result.get("casualties", [])]
+        from game.combat.godot_resolution import resolve_godot_result
 
-        if funds_earned > 0:
-            self.game_state.add_funds(
-                funds_earned, "mission_reward", f"Combat: {self.mission.title}"
-            )
+        session_id=getattr(self.launch_result,"session_id","")
+        resolved=resolve_godot_result(self.game_state,self.mission,result,session_id)
+        record=self.game_state.combat_sessions[session_id]
+        self._pending_ack=(record["session"]["ack_path"],{
+            "protocol_version":2,"session_id":session_id,"status":"accepted",
+            "result_digest":record["result_digest"],
+        })
+        self._write_pending_ack()
+        self._result_applied=True
+        if resolved is None:
+            self._cleanup_godot()
+            self._return_to_management()
+            return
+        context,survivors,units=resolved
+        context._victory=result["outcome"]=="victory"
+        self._pending_return=(context,survivors,units)
+        self._return_wait=0.0
 
-        deployed_names: set[str] = set(
-            getattr(self.game_state, "selected_agent_names", [])
-        )
-        casualty_names = {c.strip().upper() for c in casualties}
-
-        for character in self.game_state.characters:
-            name_upper = character.name.strip().upper()
-            if name_upper in deployed_names or character.name in deployed_names:
-                if xp_per_agent > 0:
-                    character.gain_xp(xp_per_agent)
-            if name_upper in casualty_names or character.name in casualty_names:
-                character.stats.hp = 0
-                if "KIA" not in character.injuries:
-                    character.injuries.append("KIA")
-
-        summary = (
-            f"Mission {outcome.upper()}: {self.mission.title} — "
-            f"{enemies_killed} enemies down, {len(casualties)} casualties"
-            + (f", ${funds_earned:,} earned" if funds_earned else "")
-            + "."
-        )
-        self.game_state.add_event(summary)
-        self._return_to_management()
+    def _write_pending_ack(self) -> None:
+        from game.combat.session_protocol import atomic_json
+        pending=getattr(self,"_pending_ack",None)
+        if pending is None:return
+        try:
+            atomic_json(*pending)
+            self._pending_ack=None
+        except OSError:
+            self._status="Résultat appliqué ; acquittement différé. Aucun second paiement ne sera appliqué."
 
     def _fallback_to_arcade_battle(self) -> None:
         from game.views import BattleView

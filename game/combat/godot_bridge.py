@@ -40,6 +40,8 @@ class GodotCombatLaunchResult:
     launched: bool
     message: str
     combat_result: dict[str, Any] | None = None
+    session_id: str = ""
+    result_path: Path | None = None
     process_pid: int | None = None
     process: Any = field(default=None, repr=False, compare=False)
 
@@ -425,6 +427,8 @@ def launch_godot_combat_ui(
     copy_audio_assets()
 
     path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
+    from .session_protocol import create_session
+    path, session = create_session(game_state, mission, path)
     command = build_godot_combat_command(path, executable=executable)
     if not command:
         return GodotCombatLaunchResult(
@@ -432,21 +436,22 @@ def launch_godot_combat_ui(
             [],
             False,
             "Godot handoff created; install Godot or set CYBERCITY_GODOT_BIN to launch the combat UI.",
+            session_id=session["session_id"], result_path=Path(session["result_path"]),
         )
     if not start_process:
         return GodotCombatLaunchResult(
-            path, command, False, "Godot combat UI command prepared."
+            path, command, False, "Godot combat UI command prepared.", session_id=session["session_id"], result_path=Path(session["result_path"])
         )
     try:
         proc = subprocess.Popen(command)
     except OSError as exc:
         return GodotCombatLaunchResult(
-            path, command, False, f"Godot launch failed: {exc}"
+            path, command, False, f"Godot launch failed: {exc}", session_id=session["session_id"], result_path=Path(session["result_path"])
         )
     from game.audio import SoundManager
     SoundManager.get().pause_music(external=True)
     return GodotCombatLaunchResult(
-        path, command, True, "Godot combat UI launched.", process_pid=proc.pid, process=proc
+        path, command, True, "Godot combat UI launched.", session_id=session["session_id"], result_path=Path(session["result_path"]), process_pid=proc.pid, process=proc
     )
 
 

@@ -30,6 +30,8 @@ class AgentDebriefStat:
     stress_delta: int = 0
     xp_gained: int = 0
     injuries: list[str] = field(default_factory=list)
+    hp_remaining: int | None = None
+    max_hp_at_extraction: int | None = None
 
 
 def _consequence_text(consequence: "Consequence") -> str:
@@ -125,16 +127,25 @@ def build_battle_debrief_summary(
                 "stress_delta": stat.stress_delta,
                 "injuries": list(stat.injuries),
                 "xp_gained": stat.xp_gained,
-                "status": "KIA" if stat.kia else "ACTIVE",
+                "status": "KIA" if stat.kia else ("RECOVERY" if character and character.recovery_turns>0 else "ACTIVE"),
+                "hp_remaining":stat.hp_remaining,
+                "max_hp_at_extraction":stat.max_hp_at_extraction,
             }
         )
 
+    external=debrief_raw.get("external_combat",{}) if isinstance(debrief_raw,dict) else {}
+    rewards=debrief_raw.get("campaign_rewards") if isinstance(debrief_raw,dict) else None
+    reward_lines=([f"{key.title()}: {value:+}" for key,value in rewards["resources"].items()]+
+                  [f"Net funds: {rewards['net_funds_change']:+}",f"Duration: {getattr(mission,'duration_days',0)}d"]
+                  if isinstance(rewards,dict) else None)
+    objective_text=("Objective completed" if external.get("objective_completed") is True else
+                    "Objective not completed" if external.get("objective_completed") is False else "Objective completion not reported")
     return {
-        "objective_result": (
+        "objective_result": objective_text if external else (
             "All objectives completed" if victory else "Mission objectives failed"
         ),
-        "outcome": "victory" if victory else "defeat",
-        "rewards": [
+        "outcome": external.get("outcome", "victory" if victory else "defeat"),
+        "rewards": reward_lines if reward_lines is not None else [
             f"Credits: +{getattr(mission, 'fund_reward', 0) if victory and mission else 0}",
             f"Duration: {getattr(mission, 'duration_days', 0) if mission else 0}d",
         ],
@@ -351,6 +362,11 @@ class BattleDebriefView(arcade.View):
                 return
 
     def _go_to_management(self) -> None:
+        callback = getattr(self, "after_debrief", None)
+        if callback is not None:
+            self.after_debrief = None
+            callback()
+            return
         if self.game_state.campaign.ending is not None:
             from game.ui.screens.campaign_ending_view import CampaignEndingView
 
