@@ -1,0 +1,1705 @@
+{
+  "turn": 2,
+  "calendar": {
+    "current_day": 2,
+    "days_per_week": 7,
+    "days_per_month": 30,
+    "era_label": "2085"
+  },
+  "budget_pool": 200,
+  "funds": {
+    "current_funds": 200,
+    "income": 200,
+    "expenses": 0,
+    "transaction_history": [
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "opening_budget",
+        "note": "Initial corporate operating funds.",
+        "balance_after": 100
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "daily_income",
+        "note": "2085.M01.D02 passive income for Aegis Forward Base Kilo.",
+        "balance_after": 200
+      }
+    ]
+  },
+  "corporation_finance": {
+    "weekly_stipend": 75,
+    "city_support_modifier": 0.1,
+    "political_pressure_modifier": -0.05,
+    "debt_upkeep": 15
+  },
+  "corp_budget": {
+    "research": 0,
+    "security": 0,
+    "politics": 0,
+    "black_ops": 0
+  },
+  "city_budget": {
+    "armaments": 0,
+    "garrisons": 0,
+    "defense_zones": 0
+  },
+  "strategic_resources": {
+    "credits": 26,
+    "intel": 1,
+    "salvage": 2,
+    "influence": 0
+  },
+  "mission_fund_allocations": {
+    "agent_pay_morale": 0,
+    "research": 0,
+    "equipment": 0,
+    "robot_power_armor_maintenance": 0,
+    "corporate_reserves": 0
+  },
+  "characters": [
+    {
+      "name": "Vera",
+      "role": "samurai",
+      "stats": {
+        "level": 1,
+        "defense": 1,
+        "psi": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "hp": 2,
+        "max_hp": 11,
+        "xp": 0
+      },
+      "pending_points": 0,
+      "talent_points": 0,
+      "specializations": [],
+      "traits": [],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 0,
+      "stress": 7,
+      "trauma": [],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {},
+      "history": [
+        "Captured by hostile forces after being downed in battle. Recovery required: 4 turns."
+      ],
+      "savage_tags": [],
+      "temporary_scars": [],
+      "recovery_turns": 3,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": null,
+        "sidearm": null,
+        "armor": null,
+        "utility_item": null,
+        "psi_focus": null,
+        "special_gear": null
+      },
+      "personality_primary_trait": "",
+      "personality_secondary_trait": "",
+      "sex": "",
+      "attributes": {
+        "level": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "psi": 1,
+        "defense": 1
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 11,
+        "aim": 2,
+        "defense": 1,
+        "crit": 0,
+        "initiative": 2,
+        "stress_cap": 12,
+        "recovery_rate": 1,
+        "resolve": 2
+      }
+    },
+    {
+      "name": "Rook",
+      "role": "samurai",
+      "stats": {
+        "level": 1,
+        "defense": 1,
+        "psi": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "hp": 2,
+        "max_hp": 11,
+        "xp": 0
+      },
+      "pending_points": 0,
+      "talent_points": 0,
+      "specializations": [],
+      "traits": [],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 0,
+      "stress": 12,
+      "trauma": [],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {},
+      "history": [
+        "Captured by hostile forces after being downed in battle. Recovery required: 4 turns."
+      ],
+      "savage_tags": [],
+      "temporary_scars": [],
+      "recovery_turns": 3,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": null,
+        "sidearm": null,
+        "armor": null,
+        "utility_item": null,
+        "psi_focus": null,
+        "special_gear": null
+      },
+      "personality_primary_trait": "",
+      "personality_secondary_trait": "",
+      "sex": "",
+      "attributes": {
+        "level": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "psi": 1,
+        "defense": 1
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 11,
+        "aim": 2,
+        "defense": 1,
+        "crit": 0,
+        "initiative": 2,
+        "stress_cap": 12,
+        "recovery_rate": 1,
+        "resolve": 2
+      }
+    },
+    {
+      "name": "Mantis",
+      "role": "samurai",
+      "stats": {
+        "level": 2,
+        "defense": 1,
+        "psi": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "hp": 12,
+        "max_hp": 21,
+        "xp": 50
+      },
+      "pending_points": 5,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 1,
+      "stress": 10,
+      "trauma": [],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {},
+      "history": [
+        "Unified victory: victory, stress +6"
+      ],
+      "savage_tags": [],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": null,
+        "sidearm": null,
+        "armor": null,
+        "utility_item": null,
+        "psi_focus": null,
+        "special_gear": null
+      },
+      "personality_primary_trait": "",
+      "personality_secondary_trait": "",
+      "sex": "",
+      "attributes": {
+        "level": 1,
+        "str": 5,
+        "agi": 1,
+        "con": 1,
+        "cha": 1,
+        "psi": 1,
+        "defense": 1
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 11,
+        "aim": 2,
+        "defense": 1,
+        "crit": 0,
+        "initiative": 2,
+        "stress_cap": 12,
+        "recovery_rate": 1,
+        "resolve": 2
+      }
+    }
+  ],
+  "x": 150,
+  "corp_name": "AEGIS Corporation",
+  "city_name": "Neo-Chrome City",
+  "base_name": "Aegis Forward Base Kilo",
+  "district": {
+    "name": "Chrome Warrens",
+    "stability": 45,
+    "control_faction": "Aegis Dynamics",
+    "unrest": 38,
+    "media_heat": 24,
+    "tags": [
+      {
+        "name": "neon_blackout",
+        "description": "Rolling power outages make every alley a blind spot.",
+        "intensity": 2,
+        "source": "district",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "gang_pressure",
+        "description": "Street crews are testing who really owns the district.",
+        "intensity": 1,
+        "source": "faction",
+        "expires_after_turns": null,
+        "metadata": {}
+      }
+    ]
+  },
+  "factions": [
+    {
+      "name": "Aegis Dynamics",
+      "influence": 72,
+      "hostility_to_player": 18,
+      "public_legitimacy": 54,
+      "active_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "category": "corporate",
+      "revealed": true
+    },
+    {
+      "name": "Warrens Free Clinic",
+      "influence": 34,
+      "hostility_to_player": 8,
+      "public_legitimacy": 81,
+      "active_tags": [],
+      "category": "local_city",
+      "revealed": true
+    },
+    {
+      "name": "Chrome Jackals",
+      "influence": 49,
+      "hostility_to_player": 62,
+      "public_legitimacy": 19,
+      "active_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "category": "raider",
+      "revealed": true
+    }
+  ],
+  "active_operations": [
+    {
+      "type": "hearts_and_minds",
+      "target_faction": "Warrens Free Clinic",
+      "district": "Chrome Warrens",
+      "risk": 2,
+      "objective": "Escort medtechs through blackout alleys and win visible trust.",
+      "complications": [
+        "Power failures hide ambush routes",
+        "Cameras may frame the team as occupiers"
+      ],
+      "outcome_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "counter_gang_raid",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "risk": 4,
+      "objective": "Break a Jackal weapons handoff before it floods the Warrens.",
+      "complications": [
+        "Civilian lookouts protect the drop",
+        "The Jackals wired the crates to burn evidence"
+      ],
+      "outcome_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "signal_trace",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "risk": 3,
+      "objective": "Trace a spoofed corporate order without triggering Aegis auditors.",
+      "complications": [
+        "Ghost packets mimic friendly command",
+        "A media drone is already on scene"
+      ],
+      "outcome_tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "mission_templates": [
+    {
+      "id": "extraction_d2_s2",
+      "title": "Extraction: Neon Witness [Day 2]",
+      "objective_text": "Extract a clinic witness from the east-rail blackout before gangs sell them to Aegis auditors.",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 2
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "raider",
+      "objective_type": "safe_extraction",
+      "battle_environment": "city",
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "civilian_panic",
+          "name": "Civilian Panic",
+          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
+          "risk_threshold": 3,
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+            "mechanical_effects": {
+              "unrest": 7,
+              "stability": -4
+            },
+            "tags": [
+              {
+                "name": "civilian_panic",
+                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Warrens Free Clinic",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Extraction success: the witness reaches the clinic and locals share safehouse routes.",
+          "mechanical_effects": {
+            "stability": 5,
+            "unrest": -4,
+            "faction_hostility": -3
+          },
+          "tags": [
+            {
+              "name": "civilian_panic",
+              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Chrome Jackals",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Extraction failure: the witness disappears and Jackal recruiters own the rumor mill.",
+          "mechanical_effects": {
+            "unrest": 8,
+            "media_heat": 4,
+            "faction_hostility": 6
+          },
+          "tags": [
+            {
+              "name": "gang_pressure",
+              "description": "Street crews are testing who really owns the district.",
+              "intensity": 1,
+              "source": "faction",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 3,
+      "fund_reward": 55,
+      "duration_days": 1,
+      "tags": [
+        {
+          "name": "neon_blackout",
+          "description": "Rolling power outages make every alley a blind spot.",
+          "intensity": 2,
+          "source": "district",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "relation_impact": "medium",
+      "emotional_impact_hint": {
+        "level": "high",
+        "text": "Mission likely to carry a heavy emotional burden.",
+        "short_text": "Mission likely to carry a heavy emotional burden.",
+        "emotional_impact_summary": "Mission likely to carry a heavy emotional burden.",
+        "risk_explanation": "Risk 3/5, duration 1d, 2 likely complication(s).",
+        "expected_stress_band": "high",
+        "normalized_tags": [
+          "neon_blackout"
+        ]
+      }
+    },
+    {
+      "id": "mutant_overpass_d2_s3",
+      "title": "Nettoyage : passage effondr\u00e9 [Day 2]",
+      "objective_text": "\u00c9liminer la meute mutante qui bloque le passage effondr\u00e9 et rouvrir la route des r\u00e9fugi\u00e9s.",
+      "target_faction": "Mutant Clans",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 4,
+      "enemy_theme": "mutant",
+      "objective_type": "eliminate",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_watcher_drone",
+          "name": "Watcher Drone",
+          "trigger_text": "A low-orbit drone tracks heat signatures near the objective.",
+          "risk_threshold": 2,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Nettoyage : passage effondr\u00e9 : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Nettoyage : passage effondr\u00e9 : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 4,
+      "fund_reward": 145,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "high",
+        "text": "Mission likely to carry a heavy emotional burden.",
+        "short_text": "Mission likely to carry a heavy emotional burden.",
+        "emotional_impact_summary": "Mission likely to carry a heavy emotional burden.",
+        "risk_explanation": "Risk 4/5, duration 2d, 1 likely complication(s).",
+        "expected_stress_band": "high",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "data_theft_d2_s0",
+      "title": "Data Theft: Ghost Order Cache [Day 2]",
+      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "media_heat": 4,
+        "stability": -1
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "corp_37",
+      "objective_type": "data_with_detour",
+      "battle_environment": "city",
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
+          "mechanical_effects": {
+            "media_heat": -3,
+            "stability": 4,
+            "faction_influence": -4
+          },
+          "tags": [
+            {
+              "name": "ghost_signal",
+              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+              "intensity": 3,
+              "source": "operation",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
+          "mechanical_effects": {
+            "media_heat": 9,
+            "faction_hostility": 7,
+            "stability": -4
+          },
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 4,
+      "fund_reward": 80,
+      "duration_days": 1,
+      "tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 4/5, duration 1d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": [
+          "ghost_signal",
+          "media_swarm"
+        ]
+      }
+    },
+    {
+      "id": "starver_depot_d2_s1",
+      "title": "R\u00e9cup\u00e9ration : m\u00e9dicaments perdus [Day 2]",
+      "objective_text": "R\u00e9cup\u00e9rer les donn\u00e9es du d\u00e9p\u00f4t m\u00e9dical abandonn\u00e9 avant que les affam\u00e9s ne ferment les acc\u00e8s.",
+      "target_faction": "Starver Swarm",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "starver",
+      "objective_type": "data_theft",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_crowd_choke",
+          "name": "Crowd Choke",
+          "trigger_text": "Night-market foot traffic compresses movement lanes.",
+          "risk_threshold": 2,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Starver Swarm",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "R\u00e9cup\u00e9ration : m\u00e9dicaments perdus : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Starver Swarm",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "R\u00e9cup\u00e9ration : m\u00e9dicaments perdus : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 2,
+      "fund_reward": 115,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "medium",
+        "text": "Notable human tension, plan post-mission support.",
+        "short_text": "Notable human tension, plan post-mission support (notable emotional burden).",
+        "emotional_impact_summary": "Notable human tension, plan post-mission support (notable emotional burden).",
+        "risk_explanation": "Risk 2/5, duration 2d, 1 likely complication(s).",
+        "expected_stress_band": "medium",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "sm_act1_espionage",
+      "title": "[STORY] Operation: Ivory Static",
+      "objective_text": "Extract data from Warsaw relay station",
+      "target_faction": "Three Sevens Corp",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 38
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "corp_37",
+      "objective_type": "data_theft",
+      "battle_environment": "",
+      "possible_complications": [],
+      "success_consequences": [],
+      "failure_consequences": [],
+      "risk_level": 4,
+      "fund_reward": 2500,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Corporate signals intelligence has intercepted an unusual encrypted broadcast originating from the Warsaw grid. The tran",
+        "short_text": "Corporate signals intelligence has intercepted an unusual en",
+        "normalized_tags": [
+          "espionage",
+          "three_sevens",
+          "story"
+        ]
+      }
+    }
+  ],
+  "active_mission": null,
+  "selected_mission_index": 0,
+  "mission_board_generated_day": 2,
+  "mission_board_version": 2,
+  "selected_agent_names": [
+    "Mantis"
+  ],
+  "spec_ops_assets": [],
+  "selected_asset_ids": [],
+  "latest_spec_ops_outcomes": [],
+  "recent_consequences": [
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": null,
+      "affected_agent": null,
+      "severity": 1,
+      "narrative_text": "Blackout rumors spike after an Aegis patrol vanishes under the east rail.",
+      "mechanical_effects": {
+        "unrest": 3,
+        "media_heat": 2
+      },
+      "tags": []
+    }
+  ],
+  "latest_agent_aftermath": [
+    "Aftermath: Mantis carries Unified victory (victory, stress 10/100, loyalty +1)."
+  ],
+  "latest_mission_debrief": {
+    "mission_title": "Unified victory",
+    "mission_outcome": "victory",
+    "lines": [
+      {
+        "agent_name": "Mantis",
+        "emotional_tone": "steady",
+        "consequence_type": "operational",
+        "text": "Mantis keeps course after Unified victory."
+      }
+    ],
+    "decision_key": "Hold formation until full extraction on Unified victory.",
+    "risk_taken": "Measured risk: progress with no critical complication detected.",
+    "heroic_action": "Mantis held the line in the worst conditions.",
+    "rpg_links": [
+      "Stress: Mantis at 10/100, recovery priority.",
+      "Relations: Mantis reinforces the squad bond (max 0).",
+      "Progression: Mantis level 2, capitalize on the role.",
+      "Reputation: no standout tags yet."
+    ],
+    "skill_check_outcomes": [],
+    "reputation_awards": [],
+    "tactical_moments": [],
+    "campaign_rewards": {
+      "resources": {
+        "credits": 26,
+        "intel": 1,
+        "salvage": 2
+      },
+      "net_funds_change": 100
+    },
+    "external_combat": {
+      "outcome": "victory",
+      "turn_reached": 11,
+      "enemies_killed": 0,
+      "objective_completed": true,
+      "objective_progress": 1
+    }
+  },
+  "combat_sessions": {
+    "cf1ad062ef574f36b06de58636c88f2e": {
+      "mission_id": "unified_victory",
+      "status": "applied",
+      "session": {
+        "protocol_version": 2,
+        "session_id": "cf1ad062ef574f36b06de58636c88f2e",
+        "mission_id": "unified_victory",
+        "result_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\result.json",
+        "prepared_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\prepared_result.json",
+        "ack_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\ack.json",
+        "status_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\status.json",
+        "audio_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\audio_release.json",
+        "snapshot_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\tactical_snapshot.json",
+        "control_path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\control.json",
+        "handoff_fingerprint": "8b1bf58ace742e6efee4294eb4a0f7b1d1fff91dfaa2b084c0efdf9aa8ea98e9"
+      },
+      "superseded_sessions": [],
+      "expected_agents": [
+        {
+          "name": "Vera",
+          "role": "samurai",
+          "level": 1,
+          "hp": 11,
+          "max_hp": 11,
+          "stress": 0,
+          "portrait_path": "assets/ui/portraits/agent_male_46.png",
+          "emotional_hook": "",
+          "available_actions": [
+            "Move",
+            "Defend"
+          ],
+          "aim": 1,
+          "defense": 1,
+          "initiative": 2,
+          "melee_power": 5,
+          "size_scale": 1.0
+        },
+        {
+          "name": "Rook",
+          "role": "samurai",
+          "level": 1,
+          "hp": 11,
+          "max_hp": 11,
+          "stress": 0,
+          "portrait_path": "assets/ui/portraits/agent_male_14.png",
+          "emotional_hook": "",
+          "available_actions": [
+            "Move",
+            "Defend"
+          ],
+          "aim": 1,
+          "defense": 1,
+          "initiative": 2,
+          "melee_power": 5,
+          "size_scale": 1.0
+        },
+        {
+          "name": "Oracle",
+          "role": "samurai",
+          "level": 1,
+          "hp": 11,
+          "max_hp": 11,
+          "stress": 0,
+          "portrait_path": "assets/ui/portraits/agent_male_46.png",
+          "emotional_hook": "",
+          "available_actions": [
+            "Move",
+            "Defend"
+          ],
+          "aim": 1,
+          "defense": 1,
+          "initiative": 2,
+          "melee_power": 5,
+          "size_scale": 1.0
+        },
+        {
+          "name": "Mantis",
+          "role": "samurai",
+          "level": 1,
+          "hp": 11,
+          "max_hp": 11,
+          "stress": 0,
+          "portrait_path": "assets/ui/portraits/agent_female_26.png",
+          "emotional_hook": "",
+          "available_actions": [
+            "Move",
+            "Defend"
+          ],
+          "aim": 1,
+          "defense": 1,
+          "initiative": 2,
+          "melee_power": 5,
+          "size_scale": 1.0
+        }
+      ],
+      "expected_support": [],
+      "mission": {
+        "id": "unified_victory",
+        "title": "Unified victory",
+        "objective_text": "Protocol validation",
+        "target_faction": "Corp 37",
+        "district": "Chrome",
+        "district_pressure": {},
+        "starting_enemy_count": 3,
+        "enemy_theme": "corp_37",
+        "objective_type": "eliminate",
+        "battle_environment": "",
+        "possible_complications": [],
+        "success_consequences": [],
+        "failure_consequences": [],
+        "risk_level": 2,
+        "fund_reward": 0,
+        "duration_days": 1,
+        "tags": [],
+        "relation_impact": "low",
+        "emotional_impact_hint": {}
+      },
+      "checkpoints": {
+        "before": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\campaign_before.json",
+        "after": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq\\runtime\\godot_combat\\sessions\\cf1ad062ef574f36b06de58636c88f2e\\campaign_after.json"
+      },
+      "result_digest": "a4b817f780267c54df32193225458f9f7ec8ae17f95a25cbcf13dc86fabb4774",
+      "confirmed_result": {
+        "agents": [
+          {
+            "hp": 0,
+            "max_hp": 11,
+            "name": "Vera",
+            "stress": 10
+          },
+          {
+            "hp": 0,
+            "max_hp": 11,
+            "name": "Rook",
+            "stress": 15
+          },
+          {
+            "hp": 0,
+            "max_hp": 11,
+            "name": "Oracle",
+            "stress": 10
+          },
+          {
+            "hp": 2,
+            "max_hp": 11,
+            "name": "Mantis",
+            "stress": 5
+          }
+        ],
+        "enemies_killed": 0,
+        "enemies_spawned_total": 3,
+        "initial_enemy_count": 3,
+        "mission_id": "unified_victory",
+        "music_playback": {
+          "captured_at": 1795039117.841,
+          "path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-e2v9rrxq/assets/audio/music/music_debrief.wav",
+          "position": 2.04625844955444
+        },
+        "objective_completed": true,
+        "objective_progress": 1,
+        "outcome": "victory",
+        "phase": "confirmed",
+        "protocol_version": 2,
+        "session_id": "cf1ad062ef574f36b06de58636c88f2e",
+        "support": [],
+        "turn_reached": 11
+      },
+      "ui_status": "complete",
+      "return_snapshot": {
+        "victory": true,
+        "units": [
+          {
+            "character": {
+              "name": "Vera",
+              "role": "samurai",
+              "stats": {
+                "level": 1,
+                "defense": 1,
+                "psi": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "hp": 2,
+                "max_hp": 11,
+                "xp": 0
+              },
+              "pending_points": 0,
+              "talent_points": 0,
+              "specializations": [],
+              "traits": [],
+              "addictions": [],
+              "fears": [],
+              "ambition": "",
+              "loyalty": 0,
+              "stress": 7,
+              "trauma": [],
+              "injuries": [],
+              "nickname": "",
+              "reputation": [],
+              "relationships": {},
+              "mentor_links": {},
+              "history": [
+                "Captured by hostile forces after being downed in battle. Recovery required: 4 turns."
+              ],
+              "savage_tags": [],
+              "temporary_scars": [],
+              "recovery_turns": 3,
+              "starver_infection_days": null,
+              "starver_transformed": false,
+              "loadout": {
+                "primary_weapon": null,
+                "sidearm": null,
+                "armor": null,
+                "utility_item": null,
+                "psi_focus": null,
+                "special_gear": null
+              },
+              "personality_primary_trait": "",
+              "personality_secondary_trait": "",
+              "sex": "",
+              "attributes": {
+                "level": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "psi": 1,
+                "defense": 1
+              },
+              "skills": {
+                "firearms": 0,
+                "close_combat": 0,
+                "tactics": 0,
+                "tech": 0,
+                "medicine": 0,
+                "influence": 0,
+                "stealth": 0,
+                "composure": 0,
+                "psychokinesis": 0,
+                "pyrokinesis": 0,
+                "cryokinesis": 0,
+                "telepathy": 0
+              },
+              "derived_stats": {
+                "hp": 11,
+                "aim": 2,
+                "defense": 1,
+                "crit": 0,
+                "initiative": 2,
+                "stress_cap": 12,
+                "recovery_rate": 1,
+                "resolve": 2
+              }
+            },
+            "health": 0,
+            "extraction_max_hp": 11,
+            "pre_level": 1,
+            "pre_stress": 0,
+            "xp": 0,
+            "metrics": {
+              "kills": null,
+              "damage_dealt": null,
+              "damage_taken": null,
+              "actions_used": null
+            }
+          },
+          {
+            "character": {
+              "name": "Rook",
+              "role": "samurai",
+              "stats": {
+                "level": 1,
+                "defense": 1,
+                "psi": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "hp": 2,
+                "max_hp": 11,
+                "xp": 0
+              },
+              "pending_points": 0,
+              "talent_points": 0,
+              "specializations": [],
+              "traits": [],
+              "addictions": [],
+              "fears": [],
+              "ambition": "",
+              "loyalty": 0,
+              "stress": 12,
+              "trauma": [],
+              "injuries": [],
+              "nickname": "",
+              "reputation": [],
+              "relationships": {},
+              "mentor_links": {},
+              "history": [
+                "Captured by hostile forces after being downed in battle. Recovery required: 4 turns."
+              ],
+              "savage_tags": [],
+              "temporary_scars": [],
+              "recovery_turns": 3,
+              "starver_infection_days": null,
+              "starver_transformed": false,
+              "loadout": {
+                "primary_weapon": null,
+                "sidearm": null,
+                "armor": null,
+                "utility_item": null,
+                "psi_focus": null,
+                "special_gear": null
+              },
+              "personality_primary_trait": "",
+              "personality_secondary_trait": "",
+              "sex": "",
+              "attributes": {
+                "level": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "psi": 1,
+                "defense": 1
+              },
+              "skills": {
+                "firearms": 0,
+                "close_combat": 0,
+                "tactics": 0,
+                "tech": 0,
+                "medicine": 0,
+                "influence": 0,
+                "stealth": 0,
+                "composure": 0,
+                "psychokinesis": 0,
+                "pyrokinesis": 0,
+                "cryokinesis": 0,
+                "telepathy": 0
+              },
+              "derived_stats": {
+                "hp": 11,
+                "aim": 2,
+                "defense": 1,
+                "crit": 0,
+                "initiative": 2,
+                "stress_cap": 12,
+                "recovery_rate": 1,
+                "resolve": 2
+              }
+            },
+            "health": 0,
+            "extraction_max_hp": 11,
+            "pre_level": 1,
+            "pre_stress": 0,
+            "xp": 0,
+            "metrics": {
+              "kills": null,
+              "damage_dealt": null,
+              "damage_taken": null,
+              "actions_used": null
+            }
+          },
+          {
+            "character": {
+              "name": "Oracle",
+              "role": "samurai",
+              "stats": {
+                "level": 1,
+                "defense": 1,
+                "psi": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "hp": 11,
+                "max_hp": 11,
+                "xp": 0
+              },
+              "pending_points": 0,
+              "talent_points": 0,
+              "specializations": [],
+              "traits": [],
+              "addictions": [],
+              "fears": [],
+              "ambition": "",
+              "loyalty": 0,
+              "stress": 10,
+              "trauma": [],
+              "injuries": [],
+              "nickname": "",
+              "reputation": [],
+              "relationships": {},
+              "mentor_links": {},
+              "history": [
+                "Killed in action during a failed tactical engagement."
+              ],
+              "savage_tags": [],
+              "temporary_scars": [],
+              "recovery_turns": 0,
+              "starver_infection_days": null,
+              "starver_transformed": false,
+              "loadout": {
+                "primary_weapon": null,
+                "sidearm": null,
+                "armor": null,
+                "utility_item": null,
+                "psi_focus": null,
+                "special_gear": null
+              },
+              "personality_primary_trait": "",
+              "personality_secondary_trait": "",
+              "sex": "",
+              "attributes": {
+                "level": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "psi": 1,
+                "defense": 1
+              },
+              "skills": {
+                "firearms": 0,
+                "close_combat": 0,
+                "tactics": 0,
+                "tech": 0,
+                "medicine": 0,
+                "influence": 0,
+                "stealth": 0,
+                "composure": 0,
+                "psychokinesis": 0,
+                "pyrokinesis": 0,
+                "cryokinesis": 0,
+                "telepathy": 0
+              },
+              "derived_stats": {
+                "hp": 11,
+                "aim": 2,
+                "defense": 1,
+                "crit": 0,
+                "initiative": 2,
+                "stress_cap": 12,
+                "recovery_rate": 1,
+                "resolve": 2
+              }
+            },
+            "health": 0,
+            "extraction_max_hp": 11,
+            "pre_level": 1,
+            "pre_stress": 0,
+            "xp": 0,
+            "metrics": {
+              "kills": null,
+              "damage_dealt": null,
+              "damage_taken": null,
+              "actions_used": null
+            }
+          },
+          {
+            "character": {
+              "name": "Mantis",
+              "role": "samurai",
+              "stats": {
+                "level": 2,
+                "defense": 1,
+                "psi": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "hp": 12,
+                "max_hp": 21,
+                "xp": 50
+              },
+              "pending_points": 5,
+              "talent_points": 1,
+              "specializations": [],
+              "traits": [],
+              "addictions": [],
+              "fears": [],
+              "ambition": "",
+              "loyalty": 1,
+              "stress": 10,
+              "trauma": [],
+              "injuries": [],
+              "nickname": "",
+              "reputation": [],
+              "relationships": {},
+              "mentor_links": {},
+              "history": [
+                "Unified victory: victory, stress +6"
+              ],
+              "savage_tags": [],
+              "temporary_scars": [],
+              "recovery_turns": 0,
+              "starver_infection_days": null,
+              "starver_transformed": false,
+              "loadout": {
+                "primary_weapon": null,
+                "sidearm": null,
+                "armor": null,
+                "utility_item": null,
+                "psi_focus": null,
+                "special_gear": null
+              },
+              "personality_primary_trait": "",
+              "personality_secondary_trait": "",
+              "sex": "",
+              "attributes": {
+                "level": 1,
+                "str": 5,
+                "agi": 1,
+                "con": 1,
+                "cha": 1,
+                "psi": 1,
+                "defense": 1
+              },
+              "skills": {
+                "firearms": 0,
+                "close_combat": 0,
+                "tactics": 0,
+                "tech": 0,
+                "medicine": 0,
+                "influence": 0,
+                "stealth": 0,
+                "composure": 0,
+                "psychokinesis": 0,
+                "pyrokinesis": 0,
+                "cryokinesis": 0,
+                "telepathy": 0
+              },
+              "derived_stats": {
+                "hp": 11,
+                "aim": 2,
+                "defense": 1,
+                "crit": 0,
+                "initiative": 2,
+                "stress_cap": 12,
+                "recovery_rate": 1,
+                "resolve": 2
+              }
+            },
+            "health": 2,
+            "extraction_max_hp": 11,
+            "pre_level": 1,
+            "pre_stress": 0,
+            "xp": 150,
+            "metrics": {
+              "kills": null,
+              "damage_dealt": null,
+              "damage_taken": null,
+              "actions_used": null
+            }
+          }
+        ],
+        "surviving_names": [
+          "Mantis"
+        ],
+        "complication": null
+      }
+    }
+  },
+  "latest_recovery_dialogues": [
+    {
+      "line": "Vera stays with Rook until the breathing steadies.",
+      "pair": [
+        "Vera",
+        "Rook"
+      ],
+      "stress_snapshot": {
+        "Vera": 8,
+        "Rook": 13
+      },
+      "affinity_reason": "baseline"
+    }
+  ],
+  "recovery_narrative_memory": {
+    "last_day": 2,
+    "last_pairs": [
+      [
+        "Vera",
+        "Rook"
+      ]
+    ],
+    "last_lines": [
+      "Vera stays with Rook until the breathing steadies."
+    ]
+  },
+  "faction_reward_journal": [
+    {
+      "faction": "Corp 37",
+      "mission_id": "unified_victory",
+      "mission_title": "Unified victory",
+      "kind": "neutral_echo",
+      "text": "The district keeps a cautious echo of the operation, with no direct new support."
+    }
+  ],
+  "event_log": [
+    "Narrative reward (neutral_echo) after 'Unified victory': The district keeps a cautious echo of the operation, with no direct new support.",
+    "2085.M01.D02: Day advanced (mission success); passive income +100.",
+    "2085.M01.D02: Pending fallout reviewed (1 active beats).",
+    "[INTEL] Warsaw: State of Emergency: Three Sevens security forces sealed the city perimeter at 0400. The Emergency Co\u2026",
+    "[CAMPAIGN] Warsaw Falls to the Three Sevens: Warsaw has been seized by the Three Sevens Corporation in a coordinated overnigh\u2026",
+    "[ACT 1] Warsaw Falls to the Three Sevens",
+    "2085.M01.D02: Recovery room: Vera stays with Rook until the breathing steadies.",
+    "2085.M01.D02: Recovery bond: Vera and Rook steady each other (baseline, -1 stress).",
+    "2085.M01.D02: Vera decompresses (2 stress relief, 8/100).",
+    "2085.M01.D02: Rook decompresses (2 stress relief, 13/100).",
+    "2085.M01.D02: Mantis decompresses (1 stress relief, 4/100).",
+    "Aftermath: Mantis carries Unified victory (victory, stress 10/100, loyalty +1)."
+  ],
+  "active_events": [],
+  "next_event_id": 1,
+  "unavailable_mission_ids": [],
+  "weekly_directive_week": 0,
+  "weekly_directive_id": "",
+  "ui_high_contrast": false,
+  "ui_audio_feedback_enabled": false,
+  "combat_mission_ui_engine": "godot",
+  "combat_visual_version": 2,
+  "tutorial_progress": {
+    "tutorial_step_index": 0,
+    "tutorial_completed": false,
+    "tutorial_skipped": false,
+    "tutorial_replay_requested": false
+  },
+  "active_research": [],
+  "completed_research": [],
+  "research_unlock_flags": [],
+  "research_stat_modifiers": {},
+  "campaign": {
+    "current_act": 1,
+    "act_progress": 0,
+    "act_triggers_seen": [
+      "campaign_warsaw_coup"
+    ],
+    "discovered_intel": [
+      "act1_warsaw_coup"
+    ],
+    "completed_story_missions": [],
+    "ending": null,
+    "world": {
+      "warsaw_status": "coup_underway",
+      "hungry_tide_progress": 0,
+      "new_york_status": "normal",
+      "pharmacorp_secret": "hidden",
+      "ai_factions_status": "unknown",
+      "perfs_status": "unknown",
+      "new_delhi_status": "forbidden"
+    },
+    "hidden_faction_hostility": {
+      "Three Sevens Corp": 75,
+      "Pharmacorp": 20,
+      "Preservationist AIs": 0,
+      "Exterminator AIs": 80
+    }
+  }
+}

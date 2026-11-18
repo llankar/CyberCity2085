@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-18",
+  "platform": "Windows",
+  "engine": "Godot 4.6.3",
+  "viewport_observed": [1920, 1080],
+  "method": "native visible windows inspected with Windows UI automation during a held real mission",
+  "checks": {
+    "alt_tab_away": "PASS",
+    "alt_tab_restore": "PASS",
+    "minimize": "PASS",
+    "restore_after_minimize": "PASS",
+    "godot_content_intact_after_restore": "PASS",
+    "desktop_flash_observed": "NO",
+    "resize": "NOT VERIFIED",
+    "dpi_multi_monitor": "NOT VERIFIED"
+  },
+  "notes": "The owned Godot region remained attached to the Arcade window after focus and minimize/restore cycles. Border drag could not be targeted because the Godot owned window correctly intercepted the owner surface; no resize PASS is inferred."
+}
+

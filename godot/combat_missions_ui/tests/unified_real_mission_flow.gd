@@ -42,17 +42,22 @@ func _advance_objective(scene) -> bool:
 func run() -> void:
 	seed(2085)
 	var args := OS.get_cmdline_user_args()
+	var expected_outcome := _arg_value(args, "--qa-real-outcome")
+	if expected_outcome.is_empty():
+		expected_outcome = "victory"
 	var confirm_path := _arg_value(args, "--qa-confirm")
 	var capture_dir := _arg_value(args, "--qa-captures")
 	var scene = load("res://scenes/combat_mission_ui.tscn").instantiate()
 	scene.handoff_path = _arg_value(args, "--handoff")
 	root.add_child(scene)
+	await RenderingServer.frame_post_draw
+	print("UNIFIED_FIRST_FRAME monotonic_ms=", Time.get_ticks_msec())
 	for attempt in range(30):
 		if scene.battle_started:
 			break
 		await process_frame
 	assert(scene.battle_started, "combat did not deploy")
-	print("UNIFIED_REAL_MISSION_READY")
+	print("UNIFIED_REAL_MISSION_READY monotonic_ms=", Time.get_ticks_msec())
 	if scene.handoff.get("session", {}).has("audio_path"):
 		assert(not scene._audio._music_owned)
 		for attempt in range(100):
@@ -62,10 +67,18 @@ func run() -> void:
 			await create_timer(0.1).timeout
 		assert(scene._audio_released and scene._audio._music_owned)
 		print("UNIFIED_AUDIO_OWNERSHIP_READY")
+	var hold_seconds := float(_arg_value(args, "--qa-window-hold-seconds"))
+	if hold_seconds > 0.0:
+		print("UNIFIED_WINDOW_LIFECYCLE_WAITING")
+		await create_timer(hold_seconds).timeout
 
 	var actions := 0
 	var turns := 0
-	while not scene.battle_ended and turns < 40:
+	if expected_outcome == "retreat":
+		scene._execute_action("RETREAT")
+		assert(not scene.battle_ended, "retreat must require confirmation")
+		scene._execute_action("RETREAT")
+	while not scene.battle_ended and turns < 80:
 		if scene.turn_side == "enemy":
 			scene._resolve_enemy_turn()
 			turns += 1
@@ -74,7 +87,9 @@ func run() -> void:
 		if scene.turn_side != "player":
 			await process_frame
 			continue
-		var progressed := _advance_objective(scene)
+		var progressed := false
+		if expected_outcome == "victory":
+			progressed = _advance_objective(scene)
 		if progressed:
 			actions += 1
 		else:
@@ -82,9 +97,12 @@ func run() -> void:
 		await process_frame
 
 	assert(scene.battle_ended, "real objective loop did not reach a terminal outcome")
-	assert(scene.objective_completed, "mission ended without completing its authored objective")
-	assert(scene._results._outcome == "victory", "objective completion did not produce victory")
-	assert(actions >= int(scene.objective.get("progress_needed", 1)), "objective was not completed through actions")
+	assert(scene._results._outcome == expected_outcome, "mission produced the wrong terminal outcome")
+	if expected_outcome == "victory":
+		assert(scene.objective_completed, "mission ended without completing its authored objective")
+		assert(actions >= int(scene.objective.get("progress_needed", 1)), "objective was not completed through actions")
+	elif expected_outcome == "defeat":
+		assert(scene._player_alive_count() == 0, "defeat was not caused by squad elimination")
 	print("UNIFIED_REAL_MISSION_COMPLETED actions=", actions, " turns=", turns)
 	await create_timer(0.75).timeout
 

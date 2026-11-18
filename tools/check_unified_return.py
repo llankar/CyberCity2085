@@ -45,9 +45,10 @@ def main():
     parser.add_argument("--crash-recovery", action="store_true")
     parser.add_argument("--resume-debrief", action="store_true")
     parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
+    parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
     args=parser.parse_args();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
-    if args.real_mission and args.outcomes != ["victory"]:
-        parser.error("--real-mission currently validates the authored victory condition; use --outcomes victory")
+    if args.real_mission and any(outcome not in {"victory", "defeat", "retreat"} for outcome in args.outcomes):
+        parser.error("--real-mission supports victory, defeat, and retreat")
     root=Path(__file__).resolve().parents[1];previous=Path.cwd();real_popen=subprocess.Popen
     class Window(MusicTransitionMixin,arcade.Window):pass
     window=Window(args.width,args.height,'CyberCity unified experience — Linux validation',visible=True)
@@ -80,8 +81,11 @@ def main():
                         command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',driver]
                         command+=['--qa-confirm',str(confirm),'--qa-captures',str(case)]
                         if not args.real_mission: command += ['--qa-outcome',outcome]
+                        else: command += ['--qa-real-outcome',outcome]
+                        if args.window_hold_seconds > 0: command += ['--qa-window-hold-seconds',str(args.window_hold_seconds)]
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
+                    launch_started=time.monotonic()
                     with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=launch):
                         window.current_view.on_key_press(arcade.key.ENTER,0)
                     bridge=window.current_view;assert isinstance(bridge,GodotCombatHandoffView) and bridge.launch_result.launched
@@ -115,12 +119,20 @@ def main():
                                 frame();assert time.monotonic()<deadline,'old Godot did not accept supersession'
                                 time.sleep(.03)
                             if args.keep_source_alive: assert source_process.returncode==0
-                        launch_started=time.monotonic();deadline=launch_started+50
+                        deadline=launch_started+50+args.window_hold_seconds;first_frame_at=None;ready_at=None
+                        ready_marker='UNIFIED_REAL_MISSION_READY' if args.real_mission else 'TACTICAL COMBAT UI READY'
                         while 'UNIFIED_NATIVE_RESULTS_WAITING' not in log.read_text():
                             frame();assert not bridge._launch_failed,bridge._status
                             assert process.poll() is None,log.read_text()
+                            log_text=log.read_text()
+                            if first_frame_at is None and 'UNIFIED_FIRST_FRAME' in log_text:first_frame_at=time.monotonic()
+                            if ready_at is None and ready_marker in log_text:ready_at=time.monotonic()
                             assert time.monotonic()<deadline,log.read_text()
                             time.sleep(.03)
+                        result_ready_at=time.monotonic()
+                        log_text=log.read_text()
+                        if first_frame_at is None and 'UNIFIED_FIRST_FRAME' in log_text:first_frame_at=result_ready_at
+                        if ready_at is None and ready_marker in log_text:ready_at=result_ready_at
                         from PIL import Image
                         result_capture = case / ('godot-real-results.png' if args.real_mission else 'godot-results.png')
                         actual_viewport = Image.open(result_capture).size
@@ -130,7 +142,9 @@ def main():
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
                         assert 'UNIFIED_AUDIO_OWNERSHIP_READY' in log.read_text()
-                        readiness_seconds=time.monotonic()-launch_started
+                        first_frame_seconds=(first_frame_at-launch_started) if first_frame_at is not None else None
+                        readiness_seconds=(ready_at-launch_started) if ready_at is not None else None
+                        mission_play_seconds=(result_ready_at-ready_at) if ready_at is not None else None
                         if args.real_mission: assert 'UNIFIED_REAL_MISSION_COMPLETED' in log.read_text()
                         if args.interrupt_phase: assert 'UNIFIED_TACTICAL_STATE_RESUMED' in log.read_text()
                         before=state.available_funds
@@ -190,7 +204,7 @@ def main():
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None
                         assert loaded.available_funds==after
                         assert state.latest_mission_debrief and state.latest_agent_aftermath is not None
-                        results.append(dict(outcome=outcome,native_godot=True,real_mission=args.real_mission,readiness_seconds=round(readiness_seconds,3),results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,return_ack_recovered=args.interrupt_after_resolution,tactical_resume_phase=args.interrupt_phase,source_process_superseded=args.keep_source_alive,requested_viewport=[args.width,args.height],actual_viewport=list(actual_viewport),readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,native_windows_run=sys.platform=='win32',windows_graphics_verified=False))
+                        results.append(dict(outcome=outcome,native_godot=True,real_mission=args.real_mission,first_frame_seconds=round(first_frame_seconds,3) if first_frame_seconds is not None else None,readiness_seconds=round(readiness_seconds,3) if readiness_seconds is not None else None,mission_play_seconds=round(mission_play_seconds,3) if mission_play_seconds is not None else None,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,return_ack_recovered=args.interrupt_after_resolution,tactical_resume_phase=args.interrupt_phase,source_process_superseded=args.keep_source_alive,requested_viewport=[args.width,args.height],actual_viewport=list(actual_viewport),readiness_verified=ready_at is not None,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,native_windows_run=sys.platform=='win32',windows_graphics_verified=False))
                     finally:
                         if process.poll() is None:process.terminate();process.wait(timeout=5)
                         os.chdir(root)

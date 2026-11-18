@@ -26,6 +26,17 @@ def test_real_mission_driver_cannot_force_terminal_state():
     assert "scene._resolve_enemy_turn()" in source
 
 
+def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
+    scene = Path("godot/combat_missions_ui/scripts/combat_mission_ui.gd").read_text(encoding="utf-8")
+    hud = Path("godot/combat_missions_ui/scripts/hud_controller.gd").read_text(encoding="utf-8")
+    visual = Path("godot/combat_missions_ui/scripts/visual_hud.gd").read_text(encoding="utf-8")
+    assert '["RETREAT", "NEXT", "END TURN"]' in hud
+    assert "RETRAITE [R]" in visual
+    assert 'if action_name == "RETREAT":' in scene
+    assert "if pending_retreat_confirmation:" in scene
+    assert '_end_combat("retreat")' in scene
+
+
 def scenario(tmp_path):
     agent=Character('Vera',role='sniper')
     state=GameState(characters=[agent],selected_agent_names=['Vera'])

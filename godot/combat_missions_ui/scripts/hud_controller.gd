@@ -25,7 +25,7 @@ const CARD_W       : float = 80.0
 const CARD_GAP     : float = 4.0
 
 # System actions always shown; agent combat actions come from active unit's available_actions.
-const _SYSTEM_ACTIONS: Array[String] = ["NEXT", "END TURN"]
+const _SYSTEM_ACTIONS: Array[String] = ["RETREAT", "NEXT", "END TURN"]
 
 # ── State ─────────────────────────────────────────────────────────────────────
 var player_units      : Array[Dictionary] = []

@@ -806,7 +806,7 @@ Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFI
 - [ ] UE2-04 Intégration Win32 améliorée, validation graphique Windows bloquée.
 - [x] UE2-05 Crash avant confirmation, reprise du débriefing, captures réelles et régressions ciblées.
 
-Toujours ouverts : deux issues réelles supplémentaires, préchauffage/continuité audio, validation Windows Alt+Tab/DPI/multi-écrans. Une victoire non forcée et le parcours HQ → Godot → débriefing → promotions → HQ sont maintenant vérifiés nativement sous Windows.
+Les trois issues réelles et le parcours HQ → Godot → débriefing → HQ sont vérifiés nativement sous Windows. Alt+Tab et réduction/restauration sont PASS ; redimensionnement, DPI multi-écrans et écoute audio restent ouverts. Le préchauffage est écarté après mesure froide à 2,109–3,625 s avec musique Arcade continue.
 
 ### Unified Experience — lot 3 continuité musicale
 

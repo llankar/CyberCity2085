@@ -5,7 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "UE5-01"
+    "UE5-02"
   ],
   "tasks": [
     {
@@ -389,8 +389,8 @@
         "docs/reports/unified_window_regression_tests.xml",
         "docs/images/unified-experience/batch2/README.md"
       ],
-      "remaining": "Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre",
-      "reason": "Environnement Windows désormais disponible ; premier parcours natif réussi, mais Alt+Tab, DPI, restauration et multi-écrans restent à exécuter"
+      "remaining": "Validation graphique Windows restante : redimensionnement et DPI multi-écrans",
+      "reason": "Alt+Tab, réduction et restauration visuellement vérifiés ; bord de redimensionnement intercepté par la fenêtre Godot possédée"
     },
     {
       "id": "UE2-05",
@@ -749,6 +749,30 @@
       ],
       "remaining": "",
       "reason": "Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle"
+    },
+    {
+      "id": "UE5-02",
+      "title": "Vérifier trois issues réelles, fenêtres Windows et décision de préchauffage",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/hud_controller.gd",
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "godot/combat_missions_ui/tests/unified_real_mission_flow.gd",
+        "tools/check_unified_return.py"
+      ],
+      "tests": [
+        "Trois parcours natifs Windows PASS : victoire par objectif, défaite par élimination IA, retraite par commande doublement confirmée",
+        "Inspection Windows visible : Alt+Tab, réduction et restauration PASS ; redimensionnement et DPI NOT VERIFIED",
+        "Première frame/readiness froide mesurée entre 2,109 s et 3,625 s ; aucun préchauffage ajouté"
+      ],
+      "evidence": [
+        "docs/images/unified-experience/windows-three-real-outcomes/native-report.json",
+        "docs/images/unified-experience/windows-three-real-outcomes/README.md",
+        "docs/reports/windows_lifecycle_visual.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy ; redimensionnement et DPI multi-écrans hors portée validée"
     }
   ],
   "reviews": {},
@@ -817,7 +841,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIFIED : isoler les temps lancement → readiness et readiness → première frame, puis valider focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans sous Windows. Produire ensuite une défaite réelle et implémenter une commande de retraite réelle avant de vérifier la troisième issue. Validation auditive toujours NOT VERIFIED.",
+  "next_action": "UNIFIED : valider redimensionnement et DPI multi-écrans ainsi que l’écoute audio réelle si les surfaces restent accessibles. Puis reprendre le premier chantier global non vérifié : SCALE-02 et finition artistique individuelle des cartes, sans assimiler chargement natif et revue artistique.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
