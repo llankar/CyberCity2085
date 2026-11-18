@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 5,
-    "total": 15
+    "done": 10,
+    "total": 16
   },
   "maps": {
     "native_verified": 122,
@@ -19,23 +19,23 @@
   },
   "animations": {
     "complete": 0,
-    "partial": 4,
+    "partial": 6,
     "expected": 231
   },
   "tests": {
-    "passed": 26,
+    "passed": 56,
     "failed": 0,
     "skipped": 0,
     "not_executed": [
-      "Nouvelle exécution native Godot dans cette intervention",
+      "Calibration d’échelle des 122 cartes",
       "Revue artistique complète des 122 cartes",
-      "Animations des deux nouvelles agentes",
+      "Actions de combat manquantes et autres unités",
       "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
-    "scope": "Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot"
+    "scope": "56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive"
   },
-  "render_signature": "ce323c69113f2b0a454e06914583c151fe9ee20c4c20571cb7112517c0da01d3",
+  "render_signature": "3df0dee20dd8385962ed504dfbd889e38529af5ace3cc26d34caa00fe80b5c8e",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -54,7 +54,7 @@
       "status": "PASS",
       "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
-        "docs/images/combat-directional-animation/native-report.json",
+        "docs/images/roster-batch2/native-report.json",
         "docs/combat_visual_25_status.json"
       ]
     },
@@ -84,6 +84,14 @@
       "mandatory": true,
       "status": "NOT VERIFIED",
       "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue explicite et preuves non enregistrées.",
+      "evidence": []
+    },
+    {
+      "id": "UNIT-SCALE",
+      "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "0 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue explicite et preuves non enregistrées.",
       "evidence": []
     },
     {
@@ -123,7 +131,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 4 partiels. Applicabilité par famille à documenter avant toute exemption.",
+      "detail": "0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -143,9 +151,9 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 26, 'failed': 0, 'skipped': 0, 'not_executed': ['Nouvelle exécution native Godot dans cette intervention', 'Revue artistique complète des 122 cartes', 'Animations des deux nouvelles agentes', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': 'Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot'}",
+      "detail": "{'passed': 56, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration d’échelle des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive'}",
       "evidence": [
-        "docs/reports/work_governance_tests.xml"
+        "docs/reports/roster_batch2_tests.xml"
       ]
     },
     {
@@ -153,7 +161,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "5 / 15 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "10 / 16 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -162,6 +170,7 @@
   "open_criteria": [
     "MAP-ART",
     "ART-OBJECTS",
+    "UNIT-SCALE",
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",
@@ -169,5 +178,5 @@
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],
-  "next_action": "Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi."
+  "next_action": "SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé."
 }
