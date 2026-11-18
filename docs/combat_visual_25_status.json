@@ -29,12 +29,12 @@
     },
     {
       "name": "Inventaire et publication",
-      "status": "En cours",
-      "detail": "Preuves exportées ; contrôles finaux des fichiers et publication."
+      "status": "Terminé",
+      "detail": "Preuves exportées, fichier d’avancement actualisé ; push et merge vérifiés sur main."
     }
   ],
   "validation": {
-    "reference": "assemblages — 18/11/2026 (prêt à publier)",
+    "reference": "3e06080ce73b4f0063eb62b0c605bee47aa1deea",
     "evidence": "images/combat-25-assemblies/README.md",
     "summary": "122 rendus natifs vérifiés, 23 tests ciblés réussis et cinq tests du suivi ; comparaisons à trois résolutions et contrôles des entités. Le catalogue 7244e46 est rejoué en mémoire pour la comparaison avant/après. Les captures dépendant de préférences partagées ont été refaites et leurs nombres de sprites vérifiés.",
     "signature": "e44a645510b3086b7bdc2ea0c7e16786f6a8f07f1246895f572531c1d30f82da"
@@ -55,6 +55,10 @@
     {
       "reference": "7244e46",
       "summary": "187 placements sur 108 cartes ; 26 familles / 104 vues ; ombres des entités et correction du chargement des soutiens."
+    },
+    {
+      "reference": "3e06080",
+      "summary": "213 placements sur 109 cartes ; 32 familles / 128 vues ; assemblages adaptés, masques visuels séparés et suivi de la tâche complète."
     }
   ],
   "target_maps": 122
