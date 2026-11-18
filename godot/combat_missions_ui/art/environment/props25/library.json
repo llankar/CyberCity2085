@@ -559,6 +559,94 @@
       },
       "art_finish": "generated_artist_variant",
       "atlas_source": "artist_array4.png"
+    },
+    "single_bed": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "bedding_olive",
+        "cot_canvas",
+        "pillow_linen",
+        "wood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1,
+        "base": "individual bed legs"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_narrow_furniture.png"
+    },
+    "field_cot": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cot_canvas",
+        "fabric",
+        "pillow_linen",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1,
+        "base": "open tubular frame"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_narrow_furniture.png"
+    },
+    "transit_bench2": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "rubber",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "seats": 2,
+        "material": "formed metal",
+        "base": "two legs"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_transit_seats.png"
+    },
+    "transit_bench4": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "paint",
+        "rubber",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "seats": 4,
+        "material": "formed metal",
+        "base": "two legs"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_transit_seats.png"
     }
   },
   "postproduction": "3x3 median on opaque material interiors only; original alpha retained",
@@ -649,6 +737,28 @@
       "source_sha256": "f0fe0dd6dab2ab34a65a93aefd0b7972d72a950ac3c8ce13a271510e0be935ce",
       "families": [
         "insulator_array4"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_narrow_furniture.png": {
+      "source": "artist_narrow_furniture.png",
+      "source_sha256": "452b9f3a58bd4380acbe5cb1db48070cc2dc8bbf980deff753cc35027d37b5ad",
+      "families": [
+        "single_bed",
+        "field_cot",
+        "transit_bench2",
+        "transit_bench4"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_transit_seats.png": {
+      "source": "artist_transit_seats.png",
+      "source_sha256": "3f779582ca5d3ee6572bd6e4081c130266607ffdb2a11d5f55c18218f88d1fca",
+      "families": [
+        "transit_bench2",
+        "transit_bench4"
       ],
       "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
       "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
@@ -2317,6 +2427,214 @@
         223,
         438,
         561
+      ]
+    },
+    "single_bed-0.png": {
+      "sha256": "a4f6593d61b3e572ca7a6d52dd58a2894fcb3c38e7c9b0394635749e3851a6db",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        105,
+        54,
+        208,
+        270
+      ]
+    },
+    "single_bed-90.png": {
+      "sha256": "737fb1638701b682350633dbd766f238ea4843762f01f617cf7e8901a0deca4c",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        45,
+        113,
+        247,
+        227
+      ]
+    },
+    "single_bed-180.png": {
+      "sha256": "a8ef4855bf537eaf91a909f90d209959527e3ae9772c674add8351c1034cf570",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        103,
+        68,
+        209,
+        286
+      ]
+    },
+    "single_bed-270.png": {
+      "sha256": "d423b9f9e54f3267ff17d9badc785d537633d78a606c36993ad4338de493a831",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        66,
+        114,
+        269,
+        227
+      ]
+    },
+    "field_cot-0.png": {
+      "sha256": "1b400c5c71f79f879689392419045a128c5ef4959c4f7bd44371e7979f8bd83d",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        107,
+        57,
+        207,
+        266
+      ]
+    },
+    "field_cot-90.png": {
+      "sha256": "0013f3492835739f6c5bf9844dd146005e65001dc434da5291debad2d254e02e",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        42,
+        119,
+        258,
+        227
+      ]
+    },
+    "field_cot-180.png": {
+      "sha256": "c9dc4470af25d5bc541e106dda7a1df46ef6203b70be8a83b40f409e4bc3c51c",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        103,
+        68,
+        210,
+        276
+      ]
+    },
+    "field_cot-270.png": {
+      "sha256": "0e5a5dc2c7760528a6b7783aa3332a69f5a140783206a86fefef07b3beb84b60",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        53,
+        119,
+        270,
+        226
+      ]
+    },
+    "transit_bench2-0.png": {
+      "sha256": "4ca452c1d9d3d67c904686489cf5416a320fe7d095b3af0666271337653b93cb",
+      "size": [
+        443,
+        443
+      ],
+      "alpha_bounds": [
+        121,
+        186,
+        323,
+        311
+      ]
+    },
+    "transit_bench2-90.png": {
+      "sha256": "94b5560b018b4c99af9acd3deaf130008b1da00f37e255cdafb95279a0b17425",
+      "size": [
+        444,
+        443
+      ],
+      "alpha_bounds": [
+        186,
+        131,
+        288,
+        329
+      ]
+    },
+    "transit_bench2-180.png": {
+      "sha256": "a334f645f62c7678842316bc3881c857851b452ed6c11c6cd33dafeae23ccfe2",
+      "size": [
+        443,
+        443
+      ],
+      "alpha_bounds": [
+        122,
+        166,
+        324,
+        288
+      ]
+    },
+    "transit_bench2-270.png": {
+      "sha256": "4464a17cec02e46920e5b97a07bfd3b47cd70462b8de0bb6a51601994e01c6e1",
+      "size": [
+        444,
+        443
+      ],
+      "alpha_bounds": [
+        159,
+        131,
+        261,
+        329
+      ]
+    },
+    "transit_bench4-0.png": {
+      "sha256": "f596441f06ec5f806b09226a2130b4918fc1b7cb7fae05da6ae53b868a9c2555",
+      "size": [
+        443,
+        444
+      ],
+      "alpha_bounds": [
+        33,
+        193,
+        411,
+        315
+      ]
+    },
+    "transit_bench4-90.png": {
+      "sha256": "9eb37dbaf79a06e850702fad4a1f44f7d1361b7e6a4febe5d0fa650b03c52f06",
+      "size": [
+        444,
+        444
+      ],
+      "alpha_bounds": [
+        190,
+        50,
+        291,
+        409
+      ]
+    },
+    "transit_bench4-180.png": {
+      "sha256": "0851d80c36f6ac606271a8f9423f86c57e62c18e0a3f4221687f30685524463d",
+      "size": [
+        443,
+        444
+      ],
+      "alpha_bounds": [
+        36,
+        159,
+        409,
+        284
+      ]
+    },
+    "transit_bench4-270.png": {
+      "sha256": "a062ab7c85b0a28dab2d543c1eaabd66f1f27bf7860ab3f71e882ad465714f17",
+      "size": [
+        444,
+        444
+      ],
+      "alpha_bounds": [
+        153,
+        51,
+        253,
+        409
       ]
     }
   }

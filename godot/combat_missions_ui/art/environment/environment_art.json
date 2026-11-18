@@ -327,27 +327,29 @@
         {
           "id": "art25_detail_bench_nw",
           "source_object_id": "bench_nw",
-          "asset": "metal_bench2",
-          "yaw": 270,
+          "asset": "transit_bench2",
+          "yaw": 90,
           "bounds_uv": [
             0.40208333333333335,
             0.14629629629629629,
             0.425,
             0.21574074074074073
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 236,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 90,
           "assembly": {
-            "seats": 2
+            "seats": 2,
+            "material": "formed metal"
           },
-          "frame_coverage": 0.6146
+          "frame_coverage": 0.8781
         },
         {
           "id": "art25_detail_bench_ne",
           "source_object_id": "bench_ne",
-          "asset": "metal_bench2",
+          "asset": "transit_bench2",
           "yaw": 270,
           "bounds_uv": [
             0.571875,
@@ -355,14 +357,16 @@
             0.5947916666666667,
             0.21666666666666667
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 237,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 270,
           "assembly": {
-            "seats": 2
+            "seats": 2,
+            "material": "formed metal"
           },
-          "frame_coverage": 0.631
+          "frame_coverage": 0.9015
         },
         {
           "id": "art25_detail_bench_west_upper",
@@ -527,22 +531,24 @@
         {
           "id": "art25_detail_bench_sw",
           "source_object_id": "bench_sw",
-          "asset": "metal_bench2",
-          "yaw": 270,
+          "asset": "transit_bench2",
+          "yaw": 90,
           "bounds_uv": [
             0.4010416666666667,
             0.7916666666666666,
             0.4244791666666667,
             0.8657407407407407
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 246,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 90,
           "assembly": {
-            "seats": 2
+            "seats": 2,
+            "material": "formed metal"
           },
-          "frame_coverage": 0.641
+          "frame_coverage": 0.9158
         },
         {
           "id": "art25_detail_bench_south",
@@ -567,7 +573,7 @@
         {
           "id": "art25_detail_bench_se",
           "source_object_id": "bench_se",
-          "asset": "metal_bench2",
+          "asset": "transit_bench2",
           "yaw": 270,
           "bounds_uv": [
             0.571875,
@@ -575,14 +581,16 @@
             0.5963541666666666,
             0.8657407407407407
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 248,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 270,
           "assembly": {
-            "seats": 2
+            "seats": 2,
+            "material": "formed metal"
           },
-          "frame_coverage": 0.6137
+          "frame_coverage": 0.8769
         }
       ],
       "art_status": "partial",
@@ -611,16 +619,11 @@
         "sign_nw_base",
         "sign_ne_base",
         "sign_sw_base",
-        "sign_se_base",
-        "bench_nw",
-        "bench_ne",
-        "bench_sw",
-        "bench_se"
+        "sign_se_base"
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -652,11 +655,7 @@
         "sign_nw_base",
         "sign_ne_base",
         "sign_sw_base",
-        "sign_se_base",
-        "bench_nw",
-        "bench_ne",
-        "bench_sw",
-        "bench_se"
+        "sign_se_base"
       ]
     },
     "city_district_riot_square.png": {
@@ -3688,24 +3687,6 @@
           "frame_coverage": 0.5383
         },
         {
-          "id": "art25_detail_bed_north",
-          "source_object_id": "bed_north",
-          "asset": "medical_bed",
-          "yaw": 0,
-          "bounds_uv": [
-            0.2833333333333333,
-            0.3925925925925926,
-            0.31145833333333334,
-            0.4648148148148148
-          ],
-          "enabled": true,
-          "source_review": "detail_crop_sheet",
-          "review_index": 60,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "author_yaw": 0,
-          "frame_coverage": 0.8908
-        },
-        {
           "id": "art25_detail_bed_nw1",
           "source_object_id": "bed_nw1",
           "asset": "medical_bed",
@@ -3752,6 +3733,7 @@
         "south_wall",
         "bed_nw2",
         "bed_w2",
+        "bed_north",
         "north_lab_table",
         "northwest_monitor",
         "northeast_scanner",
@@ -3799,6 +3781,7 @@
         "south_wall",
         "bed_nw2",
         "bed_w2",
+        "bed_north",
         "north_lab_table",
         "northwest_monitor",
         "northeast_scanner",
@@ -4259,7 +4242,7 @@
         {
           "id": "art25_detail_bed_n1",
           "source_object_id": "bed_n1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.6677083333333333,
@@ -4267,12 +4250,16 @@
             0.709375,
             0.2740740740740741
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 72,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.6311
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.8066
         },
         {
           "id": "art25_detail_coffee_table",
@@ -4309,7 +4296,6 @@
         "west_toolrack",
         "sofa_e",
         "kitchen_n",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "computer_ne",
@@ -4343,8 +4329,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -4367,7 +4352,6 @@
         "west_toolrack",
         "sofa_e",
         "kitchen_n",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "computer_ne",
@@ -4718,7 +4702,7 @@
         {
           "id": "art25_detail_bench_s",
           "source_object_id": "bench_s",
-          "asset": "metal_bench_pair",
+          "asset": "transit_bench4",
           "yaw": 0,
           "bounds_uv": [
             0.4666666666666667,
@@ -4726,16 +4710,16 @@
             0.540625,
             0.6666666666666666
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 81,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
-            "modules": 2,
-            "seats": 4
+            "seats": 4,
+            "material": "formed metal"
           },
-          "frame_coverage": 0.5729
+          "frame_coverage": 0.8184
         },
         {
           "id": "art25_detail_east_bench_n2",
@@ -4913,7 +4897,6 @@
         "south_stairs_w",
         "south_stairs_e",
         "center_kiosk",
-        "bench_s",
         "column_nw",
         "column_nmw",
         "column_nme",
@@ -4933,8 +4916,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -4955,7 +4937,6 @@
         "south_stairs_w",
         "south_stairs_e",
         "center_kiosk",
-        "bench_s",
         "column_nw",
         "column_nmw",
         "column_nme",
@@ -5384,7 +5365,7 @@
         {
           "id": "art25_detail_bed_ne",
           "source_object_id": "bed_ne",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.8333333333333334,
@@ -5397,7 +5378,11 @@
           "review_index": 91,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.7015
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.8965
         },
         {
           "id": "art25_detail_south_desk",
@@ -6336,7 +6321,7 @@
         {
           "id": "art25_detail_bed_n2",
           "source_object_id": "bed_n2",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.3260416666666667,
@@ -6349,12 +6334,16 @@
           "review_index": 112,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.82
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.9541
         },
         {
           "id": "art25_detail_bed_s2",
           "source_object_id": "bed_s2",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.20625,
@@ -6367,7 +6356,11 @@
           "review_index": 113,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.7332
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.9371
         },
         {
           "id": "art25_detail_desk_n3",
@@ -6954,7 +6947,7 @@
         {
           "id": "art25_detail_bed_n1",
           "source_object_id": "bed_n1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.17916666666666667,
@@ -6962,17 +6955,21 @@
             0.20208333333333334,
             0.20555555555555555
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 127,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.5638
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.7205
         },
         {
           "id": "art25_detail_bed_s1",
           "source_object_id": "bed_s1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.178125,
@@ -6985,7 +6982,11 @@
           "review_index": 128,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.6722
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.8591
         },
         {
           "id": "art25_detail_west_desk",
@@ -7014,7 +7015,6 @@
         "north_wall",
         "south_wall_w",
         "south_wall_e",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",
@@ -7066,7 +7066,6 @@
         "north_wall",
         "south_wall_w",
         "south_wall_e",
-        "bed_n1",
         "bed_n2",
         "bed_n3",
         "bed_n4",
@@ -11090,20 +11089,30 @@
         {
           "id": "art25_detail_bed_e",
           "source_object_id": "bed_e",
-          "asset": "medical_bed",
+          "asset": "field_cot",
           "yaw": 0,
           "bounds_uv": [
-            0.8364583333333333,
-            0.7055555555555556,
-            0.86875,
-            0.8074074074074075
+            0.8355,
+            0.68,
+            0.8692,
+            0.825
           ],
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 172,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.9135
+          "assembly": {
+            "sleepers": 1,
+            "base": "open tubular frame"
+          },
+          "frame_coverage": 0.8631,
+          "erase_bounds_uv": [
+            0.8315,
+            0.676,
+            0.8732,
+            0.829
+          ]
         }
       ],
       "art_status": "partial",
@@ -11236,7 +11245,7 @@
         {
           "id": "art25_detail_sw_bed",
           "source_object_id": "sw_bed",
-          "asset": "bed",
+          "asset": "field_cot",
           "yaw": 0,
           "bounds_uv": [
             0.042708333333333334,
@@ -11244,12 +11253,16 @@
             0.08125,
             0.7611111111111111
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 176,
-          "detail_status": "native_render_verified_art_completion_pending",
+          "detail_status": "original_retained_frame_mismatch",
           "author_yaw": 0,
-          "frame_coverage": 0.8084
+          "assembly": {
+            "sleepers": 1,
+            "base": "open tubular frame"
+          },
+          "frame_coverage": 0.6347
         }
       ],
       "art_status": "partial",
@@ -11269,6 +11282,7 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
+        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -11312,6 +11326,7 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
+        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -11747,20 +11762,24 @@
         {
           "id": "art25_detail_bed_nw",
           "source_object_id": "bed_nw",
-          "asset": "bed",
-          "yaw": 0,
+          "asset": "single_bed",
+          "yaw": 90,
           "bounds_uv": [
             0.09479166666666666,
             0.15185185185185185,
             0.15729166666666666,
             0.22592592592592592
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 185,
-          "detail_status": "original_retained_frame_mismatch",
-          "author_yaw": 0,
-          "frame_coverage": 0.4065
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 90,
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.8461
         }
       ],
       "art_status": "partial",
@@ -11773,7 +11792,6 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
-        "bed_nw",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -11805,8 +11823,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -11822,7 +11839,6 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
-        "bed_nw",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -12110,20 +12126,30 @@
         {
           "id": "art25_detail_bed_e",
           "source_object_id": "bed_e",
-          "asset": "medical_bed",
+          "asset": "field_cot",
           "yaw": 0,
           "bounds_uv": [
-            0.8364583333333333,
-            0.7055555555555556,
-            0.86875,
-            0.8074074074074075
+            0.8355,
+            0.68,
+            0.8692,
+            0.825
           ],
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 172,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.9135
+          "assembly": {
+            "sleepers": 1,
+            "base": "open tubular frame"
+          },
+          "frame_coverage": 0.8631,
+          "erase_bounds_uv": [
+            0.8315,
+            0.676,
+            0.8732,
+            0.829
+          ]
         }
       ],
       "art_status": "partial",
@@ -12256,7 +12282,7 @@
         {
           "id": "art25_detail_sw_bed",
           "source_object_id": "sw_bed",
-          "asset": "bed",
+          "asset": "field_cot",
           "yaw": 0,
           "bounds_uv": [
             0.042708333333333334,
@@ -12264,12 +12290,16 @@
             0.08125,
             0.7611111111111111
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 176,
-          "detail_status": "native_render_verified_art_completion_pending",
+          "detail_status": "original_retained_frame_mismatch",
           "author_yaw": 0,
-          "frame_coverage": 0.8084
+          "assembly": {
+            "sleepers": 1,
+            "base": "open tubular frame"
+          },
+          "frame_coverage": 0.6347
         }
       ],
       "art_status": "partial",
@@ -12289,6 +12319,7 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
+        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -12332,6 +12363,7 @@
         "north_servers_w",
         "north_servers_e",
         "west_desk",
+        "sw_bed",
         "sw_table",
         "se_table",
         "west_control",
@@ -12479,7 +12511,7 @@
         {
           "id": "art25_detail_bed_n1",
           "source_object_id": "bed_n1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.24479166666666666,
@@ -12492,12 +12524,16 @@
           "review_index": 193,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.834
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.9382
         },
         {
           "id": "art25_detail_bed_s1",
           "source_object_id": "bed_s1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.22916666666666666,
@@ -12505,12 +12541,16 @@
             0.25416666666666665,
             0.8777777777777778
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 194,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.6241
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.7976
         },
         {
           "id": "art25_detail_desk_ne",
@@ -12551,7 +12591,6 @@
         "bed_n4",
         "bed_n5",
         "bed_n6",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
@@ -12582,8 +12621,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -12610,7 +12648,6 @@
         "bed_n4",
         "bed_n5",
         "bed_n6",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
@@ -12813,7 +12850,7 @@
         {
           "id": "art25_detail_bed_ne",
           "source_object_id": "bed_ne",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.6572916666666667,
@@ -12826,7 +12863,11 @@
           "review_index": 197,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.852
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.9184
         },
         {
           "id": "art25_detail_bed_ww",
@@ -13072,20 +13113,24 @@
         {
           "id": "art25_detail_bed_nw",
           "source_object_id": "bed_nw",
-          "asset": "bed",
-          "yaw": 0,
+          "asset": "single_bed",
+          "yaw": 90,
           "bounds_uv": [
             0.09479166666666666,
             0.15185185185185185,
             0.15729166666666666,
             0.22592592592592592
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 185,
-          "detail_status": "original_retained_frame_mismatch",
-          "author_yaw": 0,
-          "frame_coverage": 0.4065
+          "detail_status": "native_render_verified_art_completion_pending",
+          "author_yaw": 90,
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.8461
         }
       ],
       "art_status": "partial",
@@ -13098,7 +13143,6 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
-        "bed_nw",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -13130,8 +13174,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -13147,7 +13190,6 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
-        "bed_nw",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -13445,7 +13487,7 @@
         {
           "id": "art25_detail_bed_n1",
           "source_object_id": "bed_n1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.24479166666666666,
@@ -13458,12 +13500,16 @@
           "review_index": 193,
           "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.834
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.9382
         },
         {
           "id": "art25_detail_bed_s1",
           "source_object_id": "bed_s1",
-          "asset": "bed",
+          "asset": "single_bed",
           "yaw": 0,
           "bounds_uv": [
             0.22916666666666666,
@@ -13471,12 +13517,16 @@
             0.25416666666666665,
             0.8777777777777778
           ],
-          "enabled": false,
+          "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 194,
-          "detail_status": "original_retained_frame_mismatch",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
-          "frame_coverage": 0.6241
+          "assembly": {
+            "sleepers": 1,
+            "pillows": 1
+          },
+          "frame_coverage": 0.7976
         },
         {
           "id": "art25_detail_desk_ne",
@@ -13517,7 +13567,6 @@
         "bed_n4",
         "bed_n5",
         "bed_n6",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
@@ -13548,8 +13597,7 @@
       ],
       "issues": [
         "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Whole-map artistic completion is not claimed."
       ],
       "validation": {
         "native_render": "passed",
@@ -13576,7 +13624,6 @@
         "bed_n4",
         "bed_n5",
         "bed_n6",
-        "bed_s1",
         "bed_s2",
         "bed_s3",
         "bed_s4",
