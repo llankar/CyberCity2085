@@ -787,3 +787,13 @@ Total partiel : 288 frames, six références marche/attente ; zéro ensemble com
 - [ ] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
 
 Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; aucun facteur de taille n’a été appliqué aux profils de production.
+
+### Unified Experience — lot 1 retour de combat
+
+- [x] UE1-01 Auditer et isoler les sessions/résultats versionnés.
+- [x] UE1-02 Séparer préparation, consultation et confirmation dans Godot ; ACK et panneau visible.
+- [x] UE1-03 Réutiliser la résolution de campagne, valider avant mutation et retirer le raccourci simplifié.
+- [x] UE1-04 Débriefing → promotions → HQ, sans statistiques individuelles inventées.
+- [x] UE1-05 Vérifier 67 tests distincts et trois parcours natifs Linux ; conserver les limites Windows/crash.
+
+Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFIED_EXPERIENCE_PROGRESS.md).

@@ -1,0 +1,27 @@
+{
+  "agents": [
+    {
+      "hp": 11,
+      "max_hp": 11,
+      "name": "Vera",
+      "stress": 0
+    }
+  ],
+  "enemies_killed": 0,
+  "enemies_spawned_total": 3,
+  "initial_enemy_count": 3,
+  "mission_id": "unified_retreat",
+  "music_playback": {
+    "captured_at": 1795033044.34411,
+    "path": "/tmp/cybercity-unified-5lmavigb/assets/audio/music/music_debrief.wav",
+    "position": 2.41777777671814
+  },
+  "objective_completed": false,
+  "objective_progress": 0,
+  "outcome": "retreat",
+  "phase": "confirmed",
+  "protocol_version": 2,
+  "session_id": "111dd6664b4b4d5fbba9ba3800add1a1",
+  "support": [],
+  "turn_reached": 1
+}

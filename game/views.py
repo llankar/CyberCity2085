@@ -2181,103 +2181,8 @@ class BattleView(GameView):
 
     def end_battle(self, victory: bool) -> None:
         """Finish the battle, apply mission fallout, and return to the RPG view."""
-        remaining_enemies = len(getattr(self, "enemy_units", []))
-        defeated = max(0, self.initial_enemy_count - remaining_enemies)
-        if victory:
-            defeated = self.initial_enemy_count
-            self.game_state.x += 50 * defeated
-        processed_character_ids = set()
-        surviving_participants = []
-        all_player_units = list(self.player_units) + list(self.defeated_player_units)
-        for unit in all_player_units:
-            if not unit.character or id(unit.character) in processed_character_ids:
-                continue
-            processed_character_ids.add(id(unit.character))
-            unit.character._pre_battle_stress = getattr(unit.character, "stress", 0)
-            unit.character._pre_battle_level = getattr(unit.character.stats, "level", 1)
-            unit.character._mission_xp_gained = 0
-            if unit.health <= 0:
-                self.resolve_defeated_player_unit(unit)
-                continue
-            if unit.spec_ops_asset is None:
-                unit.character.stats.hp = unit.health
-            surviving_participants.append(unit.character)
-            if victory:
-                xp_award = 50 * defeated
-                unit.character._mission_xp_gained = xp_award
-                unit.character.gain_xp(xp_award)
-        self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
-        )
-        self.game_state.award_mission_resources(self.mission, victory, defeated)
-        self.resolve_mission_outcome(victory)
-        aftermath_lines = apply_mission_aftermath(
-            surviving_participants,
-            self.mission,
-            victory,
-            self.triggered_complication,
-        )
-        self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
-        performance_by_agent = {}
-        combat_state = getattr(self, "combat_state", None)
-        objective_contributions = (
-            combat_state.tactical_flags.get("objective_contributions", {})
-            if combat_state is not None
-            else {}
-        )
-        for unit in all_player_units:
-            if not unit.character:
-                continue
-            performance_by_agent[unit.character.name] = {
-                "kills": getattr(unit, "_kills", 0),
-                "damage_dealt": getattr(unit, "_damage_dealt", 0),
-                "damage_taken": getattr(unit, "_damage_taken", 0),
-                "kia": unit.health <= 0,
-                "xp_gained": getattr(unit.character, "_mission_xp_gained", 0),
-                "objective_type": getattr(self.mission, "objective_type", ""),
-                "saved_civilian": bool(getattr(unit, "_saved_civilian", False)),
-                "objective_contribution": int(
-                    objective_contributions.get(unit.character.name, 0)
-                ),
-            }
-        debrief_report = build_mission_debrief_report(
-            surviving_participants,
-            self.mission,
-            victory,
-            self.triggered_complication,
-            performance_by_agent=performance_by_agent,
-            tactical_moments=combat_state.tactical_flags.get("agent_moments", []) if combat_state is not None else [],
-        )
-        from game.narrative.agent_reputation import apply_agent_reputation_awards
-
-        reputation_lines = apply_agent_reputation_awards(
-            surviving_participants,
-            debrief_report.reputation_awards,
-        )
-        self.game_state.latest_mission_debrief = debrief_report.to_dict()
-        outcomes = []
-        for unit in all_player_units:
-            if not unit.spec_ops_asset or not unit.stats:
-                continue
-            asset = unit.spec_ops_asset
-            max_hp = max(1, unit.stats.max_hp)
-            damage_pct = int(max(0, min(100, (max_hp - max(0, unit.health)) * 100 / max_hp)))
-            asset.maintenance.integrity = max(0, asset.maintenance.integrity - damage_pct)
-            asset.maintenance.cooldown_days = 1 if damage_pct >= 30 else 0
-            outcomes.append(
-                {
-                    "id": asset.id,
-                    "name": asset.name,
-                    "damage": damage_pct,
-                    "repair_cost": asset.maintenance.repair_cost,
-                    "cooldown_days": asset.maintenance.cooldown_days,
-                }
-            )
-        self.game_state.latest_spec_ops_outcomes = outcomes
-        for line in aftermath_lines:
-            self.game_state.add_event(line)
-        for line in reputation_lines:
-            self.game_state.add_event(line)
+        from game.combat.mission_resolution import resolve_campaign_battle
+        surviving_participants, all_player_units = resolve_campaign_battle(self, victory)
 
         # Sound: victory fanfare or defeat tone; stop battle music
         self._snd().stop_music()
@@ -2288,62 +2193,8 @@ class BattleView(GameView):
             self._spawn_death_ring(_wc, _hc, color=(60, 220, 120))
             self._add_screen_shake(6)
 
-        # Collect promotion records (agents who levelled up)
-        from game.ui.screens.agent_promotion_view import AgentPromotionView, PromotionRecord
-        from game.ui.portraits import portrait_path_for_character as _ppfc
-        promotions: list[PromotionRecord] = []
-        for char in surviving_participants:
-            old_lvl = getattr(char, "_pre_battle_level", char.stats.level)
-            new_lvl = char.stats.level
-            if new_lvl > old_lvl:
-                try:
-                    _ppath = _ppfc(char)
-                except Exception:
-                    _ppath = None
-                promotions.append(PromotionRecord(
-                    character=char,
-                    old_level=old_lvl,
-                    new_level=new_lvl,
-                    portrait_path=_ppath,
-                ))
-
-        # Build per-agent debrief stats from tracked data
-        from game.ui.screens.battle_debrief_view import AgentDebriefStat, BattleDebriefView
-        from game.ui.portraits import portrait_path_for_character
-        agent_stats: list[AgentDebriefStat] = []
-        for unit in all_player_units:
-            if not unit.character:
-                continue
-            try:
-                portrait = portrait_path_for_character(unit.character)
-            except Exception:
-                portrait = None
-            old_stress = getattr(unit.character, "_pre_battle_stress", unit.character.stress)
-            agent_stats.append(AgentDebriefStat(
-                name=unit.character.name,
-                role=unit.character.role,
-                portrait_path=portrait,
-                damage_dealt=getattr(unit, "_damage_dealt", 0),
-                damage_taken=getattr(unit, "_damage_taken", 0),
-                actions_used=getattr(unit, "_actions_used", 0),
-                kills=getattr(unit, "_kills", 0),
-                kia=(unit.health <= 0),
-                stress_delta=unit.character.stress - old_stress,
-                xp_gained=getattr(unit.character, "_mission_xp_gained", 0),
-                injuries=list(getattr(unit.character, "injuries", [])),
-            ))
-
-        debrief_view = BattleDebriefView(
-            self.game_state,
-            victory,
-            self.mission,
-            agent_stats,
-            self.triggered_complication,
-        )
-        if promotions:
-            self.window.show_view(AgentPromotionView(self.game_state, promotions, debrief_view))
-        else:
-            self.window.show_view(debrief_view)
+        from game.ui.screens.mission_return import show_mission_debrief
+        show_mission_debrief(self, victory, surviving_participants, all_player_units)
 
     def resolve_defeated_player_unit(self, unit: Unit) -> None:
         """Resolve a downed agent's vertical-slice post-battle outcome."""

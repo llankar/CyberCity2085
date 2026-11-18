@@ -1,0 +1,32 @@
+[
+  {
+    "outcome": "victory",
+    "native_godot": true,
+    "results_waited_for_confirmation": true,
+    "debrief_before_promotions": true,
+    "promotions": true,
+    "reward_replay_blocked": true,
+    "save_reload_verified": true,
+    "windows_graphics_verified": false
+  },
+  {
+    "outcome": "defeat",
+    "native_godot": true,
+    "results_waited_for_confirmation": true,
+    "debrief_before_promotions": true,
+    "promotions": false,
+    "reward_replay_blocked": true,
+    "save_reload_verified": true,
+    "windows_graphics_verified": false
+  },
+  {
+    "outcome": "retreat",
+    "native_godot": true,
+    "results_waited_for_confirmation": true,
+    "debrief_before_promotions": true,
+    "promotions": false,
+    "reward_replay_blocked": true,
+    "save_reload_verified": true,
+    "windows_graphics_verified": false
+  }
+]

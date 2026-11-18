@@ -182,6 +182,7 @@ class ReportDeck(UtilityDeck):
             if v.victory
             else self.word("ÉCHEC DE LA MISSION", "MISSION FAILED")
         )
+        if summary.get("outcome")=="retreat":title=self.word("RETRAIT TACTIQUE", "TACTICAL RETREAT")
         self.start(
             v, title, getattr(v.mission, "title", ""), fractions=(0.37, 0.30, 0.33)
         )
@@ -213,7 +214,7 @@ class ReportDeck(UtilityDeck):
                 width=card.right - x - 12 * u,
             )
             self.label(
-                stat.role.upper() + (" / KIA" if stat.kia else ""),
+                stat.role.upper() + (" / KIA" if stat.kia else "") + (f" / HP {stat.hp_remaining}/{stat.max_hp_at_extraction}" if stat.hp_remaining is not None else ""),
                 x,
                 card.top - 50 * u,
                 15,
@@ -221,7 +222,7 @@ class ReportDeck(UtilityDeck):
                 width=card.right - x - 12 * u,
             )
             self.label(
-                f"DMG {stat.damage_dealt} / −{stat.damage_taken} · KILLS {stat.kills}",
+                f"DMG {stat.damage_dealt if stat.damage_dealt is not None else '—'} / −{stat.damage_taken if stat.damage_taken is not None else '—'} · KILLS {stat.kills if stat.kills is not None else '—'}",
                 x,
                 card.top - 77 * u,
                 16,
@@ -229,7 +230,7 @@ class ReportDeck(UtilityDeck):
                 width=card.right - x - 12 * u,
             )
             self.label(
-                f"AP {stat.actions_used} · XP +{stat.xp_gained} · STRESS {stat.stress_delta:+}",
+                f"AP {stat.actions_used if stat.actions_used is not None else '—'} · XP +{stat.xp_gained} · STRESS {stat.stress_delta:+}",
                 x,
                 card.top - 105 * u,
                 15,

@@ -85,6 +85,81 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/reports/entity_scale_baseline.json`, `docs/reports/entity_scale_baseline.md`, `docs/reports/scale_inventory_tests.xml`.
 - Travail restant dans cette portée : Aucun.
 
+### UE1-01 — DONE — Isoler les sessions et contrats
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 67 tests distincts réussis ; trois parcours natifs Linux contrôlés.
+- Preuves : `docs/reports/unified_batch1_tests.xml`, `docs/images/unified-experience/batch1/native-report.json`, `docs/images/unified-experience/batch1/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
+
+### UE1-02 — DONE — Différer la publication jusqu’à confirmation et ACK
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 67 tests distincts réussis ; trois parcours natifs Linux contrôlés.
+- Preuves : `docs/reports/unified_batch1_tests.xml`, `docs/images/unified-experience/batch1/native-report.json`, `docs/images/unified-experience/batch1/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
+
+### UE1-03 — DONE — Extraire et réutiliser la résolution de campagne
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 67 tests distincts réussis ; trois parcours natifs Linux contrôlés.
+- Preuves : `docs/reports/unified_batch1_tests.xml`, `docs/images/unified-experience/batch1/native-report.json`, `docs/images/unified-experience/batch1/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
+
+### UE1-04 — DONE — Router débriefing, promotions et HQ
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 67 tests distincts réussis ; trois parcours natifs Linux contrôlés.
+- Preuves : `docs/reports/unified_batch1_tests.xml`, `docs/images/unified-experience/batch1/native-report.json`, `docs/images/unified-experience/batch1/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
+
+### UE1-05 — DONE — Vérifier le lot fonctionnel et ses limites
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 67 tests distincts réussis ; trois parcours natifs Linux contrôlés.
+- Preuves : `docs/reports/unified_batch1_tests.xml`, `docs/images/unified-experience/batch1/native-report.json`, `docs/images/unified-experience/batch1/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows.
+
+### UE2-01 — TODO — Journal Python durable avant/après résolution
+
+- Fichiers : `game/combat/session_protocol.py`, `game/combat/godot_resolution.py`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Journal Python durable avant/après résolution.
+
+### UE2-02 — TODO — Reprendre le débriefing après crash sans rejouer les récompenses
+
+- Fichiers : `game/ui/screens/mission_return.py`, `game/ui/screens/godot_combat_handoff_view.py`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Reprendre le débriefing après crash sans rejouer les récompenses.
+
+### UE2-03 — TODO — Readiness, statuts et délais de communication
+
+- Fichiers : `game/combat/godot_ipc.py`, `godot/combat_missions_ui/scripts/combat_signals.gd`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Readiness, statuts et délais de communication.
+
+### UE2-04 — TODO — Cycle de vie Win32 et continuité de fenêtre
+
+- Fichiers : `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Cycle de vie Win32 et continuité de fenêtre.
+
+### UE2-05 — TODO — Scénarios de crash, récupération et bilan du lot
+
+- Fichiers : `tests/test_unified_mission_resolution.py`, `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Scénarios de crash, récupération et bilan du lot.
+
 ### SCALE-02 — IN_PROGRESS — Mesurer les repères visuels par illustration et vérifier les variantes
 
 - Fichiers : `docs/reports/entity_scale_baseline.json`.
@@ -167,6 +242,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-SCALE-02 : compléter les deux références automobiles avec un second repère par illustration, examiner les portes et lits de l’appartement, puis les autres familles. Documenter la projection et la lisibilité au zoom utile ; les profils candidats ne doivent être appliqués ni cochés comme validés sur la seule base des quatre rendus de diagnostic.
+UNIFIED UE2-01 : écrire des checkpoints atomiques avant/après la résolution ; conserver les informations de débriefing dans le journal et tester la reprise après crash. Windows graphique reste non disponible sur cet environnement Linux.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

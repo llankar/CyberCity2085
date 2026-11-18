@@ -24,6 +24,7 @@ def main():
     from game.ui.screens.mission_briefing_view import MissionBriefingView
     from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
     from game.ui.screens.management_screen import ManagementView
+    from game.ui.screens.battle_debrief_view import BattleDebriefView
     from game.views import RPGView, BattleView
     root = Path(__file__).resolve().parents[1]
     original_cwd = Path.cwd()
@@ -66,7 +67,8 @@ def main():
                         command = list(command)
                         command[1:1] = ['--audio-driver','Dummy']
                         if automated:
-                            command[1:1] = ['--script','res://tests/visual_regression.gd']
+                            command[1:1] = ['--script','res://tests/unified_return_flow.gd']
+                            command += ['--qa-confirm',str(session/'confirm.request'),'--qa-outcome','victory']
                         return real_popen(command,*args,stdout=stream,stderr=subprocess.STDOUT,**kwargs)
                     with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=start):
                         if entry == 'briefing':
@@ -83,17 +85,28 @@ def main():
                     assert bridge.launch_result.launched and not bridge._launch_failed
                     child = bridge.launch_result.process
                     if automated:
-                        assert child.wait(timeout=45) == 0, log.read_text()
-                        output = log.read_text()
-                        assert 'VISUAL_REGRESSION:' in output and 'failures=0' in output, output
-                        actual_result = json.loads((session/'runtime/godot_combat/mission_result.json').read_text())
-                        bridge.on_update(0.3)
-                        assert isinstance(window.current_view,ManagementView)
-                        assert state.available_funds == before+actual_result['funds_earned']
-                        funds = state.available_funds
-                        bridge.on_update(0.3)
-                        assert state.available_funds == funds
-                        checks.append('real_godot_actions_result_rewards_and_management_return_once')
+                        deadline=time.monotonic()+45
+                        while 'UNIFIED_NATIVE_RESULTS_WAITING' not in log.read_text():
+                            window.dispatch_events();bridge.on_update(.05)
+                            assert child.poll() is None,log.read_text()
+                            assert time.monotonic()<deadline,log.read_text()
+                            time.sleep(.03)
+                        assert not bridge.launch_result.result_path.exists()
+                        assert window.current_view is bridge
+                        (session/'confirm.request').write_text('confirm')
+                        while window.current_view is bridge:
+                            window.dispatch_events();bridge.on_update(.05)
+                            assert not bridge._launch_failed,bridge._status
+                            assert time.monotonic()<deadline,log.read_text()
+                            time.sleep(.03)
+                        assert child.wait(timeout=5)==0,log.read_text()
+                        assert isinstance(window.current_view,BattleDebriefView)
+                        assert state.latest_mission_debrief and state.latest_agent_aftermath
+                        assert any(r.get('status')=='applied' for r in state.combat_sessions.values())
+                        funds=state.available_funds
+                        bridge.on_update(.3)
+                        assert state.available_funds==funds
+                        checks.append('real_godot_confirmed_result_campaign_debrief_return_once')
                     else:
                         deadline = time.monotonic()+25
                         while time.monotonic() < deadline:
