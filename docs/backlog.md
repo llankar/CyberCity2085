@@ -746,7 +746,7 @@ Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_p
 - [x] ART25F-02 Livrer 192 frames : marche et attente dans huit directions pour un agent, un ennemi, une power armor et un robot.
 - [x] ART25F-03 Intégrer ancrage, ombres, phase continue entre cases et chargement avec fallback, sans changer les mécaniques.
 - [x] ART25F-04 Vérifier les 128 sélections de frames, le clic réel et les PA ; capturer trois résolutions et cinq environnements.
-- [ ] ART25F-05 Publier cette passe partielle avec preuves animées et couverture explicite, puis push et merge.
+- [x] ART25F-05 Publier cette passe partielle avec preuves animées et couverture explicite, puis push et merge.
 
 La tâche artistique globale reste ouverte : **4 références sur 231 partiellement animées, zéro ensemble de neuf actions complet**. Les autres agents/ennemis, les autres robots/armures et les véhicules gardent leurs ressources précédentes. Tir, mêlée, couverture, impact, mort, PSI et soin restent à produire.
 

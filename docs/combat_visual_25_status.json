@@ -32,12 +32,12 @@
     },
     {
       "name": "Couverture et publication",
-      "status": "En cours",
-      "detail": "Couverture documentée à 4 / 231 références partiellement animées et 0 ensemble de neuf actions complet. Publication en cours."
+      "status": "Terminé",
+      "detail": "Couverture, sources et preuves animées publiées ; passe fusionnée sur main. 4 / 231 références partiellement animées, zéro ensemble complet de neuf actions."
     }
   ],
   "validation": {
-    "reference": "passe directionnelle en cours de publication",
+    "reference": "d7ef8f7b3163d81fabaf58f19dfc373db16daa22",
     "evidence": "images/combat-directional-animation/README.md",
     "summary": "34 tests ciblés réussis ; 128 sélections de frames dans Godot. Clic natif : destination atteinte, 4 PA consommés, retour à l’attente ; captures aux trois résolutions et cinq environnements. Le contrôle des 122 cartes porte sur le rendu, la projection et le picking, pas sur une finition artistique complète.",
     "signature": "ce323c69113f2b0a454e06914583c151fe9ee20c4c20571cb7112517c0da01d3"
@@ -71,6 +71,10 @@
     {
       "reference": "6820eed",
       "summary": "Priorité aux entités : robots de soutien calibrés, détails des armures claires et ombres de véhicules différenciées. 26 tests, 122 cartes et comparaisons à trois résolutions ; audit de 251 références."
+    },
+    {
+      "reference": "d7ef8f7",
+      "summary": "192 frames dessinées pour un agent, un ennemi, une power armor et un robot : marche/attente × 8 directions. 34 tests, 128 sélections de frames natives, clic réel et PA vérifiés, 122 cartes contrôlées. Couverture partielle : 4 / 231 références, aucune unité complète pour les neuf actions."
     }
   ],
   "target_maps": 122

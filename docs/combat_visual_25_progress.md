@@ -50,11 +50,11 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 | Marche et attente dans huit directions | Terminé | 192 frames : 2 poses d’attente et 4 phases de marche × 8 directions pour chacune des quatre références. Les autres actions restent absentes. |
 | Lecture et intégration | Terminé | Chargement contrôlé, ancrage aux pieds, ombre liée à la frame, orientation selon projection et phase de marche continue entre cases ; fallback statique préservé. |
 | Validation native et artistique | Terminé | 34 tests réussis ; 128 sélections de frames natives. Clic réel avec 4 PA consommés, trois résolutions, cinq familles de cartes et contrôle du catalogue complet. |
-| Couverture et publication | En cours | Couverture documentée à 4 / 231 références partiellement animées et 0 ensemble de neuf actions complet. Publication en cours. |
+| Couverture et publication | Terminé | Couverture, sources et preuves animées publiées ; passe fusionnée sur main. 4 / 231 références partiellement animées, zéro ensemble complet de neuf actions. |
 
 ## Validation
 
-- Dernière livraison de référence : `passe directionnelle en cours de publication`.
+- Dernière livraison de référence : `d7ef8f7b3163d81fabaf58f19dfc373db16daa22`.
 - Preuves : [captures et inventaire](images/combat-directional-animation/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
 - 34 tests ciblés réussis ; 128 sélections de frames dans Godot. Clic natif : destination atteinte, 4 PA consommés, retour à l’attente ; captures aux trois résolutions et cinq environnements. Le contrôle des 122 cartes porte sur le rendu, la projection et le picking, pas sur une finition artistique complète.
@@ -78,5 +78,6 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 | `3e06080` | 213 placements sur 109 cartes ; 32 familles / 128 vues ; assemblages adaptés, masques visuels séparés et suivi de la tâche complète. |
 | `73c4ca1` | 221 placements sur 109 cartes ; 36 familles / 144 vues. Lits simples, lits de camp et bancs adaptés ; orientation et cadres débordants corrigés. |
 | `6820eed` | Priorité aux entités : robots de soutien calibrés, détails des armures claires et ombres de véhicules différenciées. 26 tests, 122 cartes et comparaisons à trois résolutions ; audit de 251 références. |
+| `d7ef8f7` | 192 frames dessinées pour un agent, un ennemi, une power armor et un robot : marche/attente × 8 directions. 34 tests, 128 sélections de frames natives, clic réel et PA vérifiés, 122 cartes contrôlées. Couverture partielle : 4 / 231 références, aucune unité complète pour les neuf actions. |
 
 Ce fichier est régénéré par `python tools/art/update_environment_progress.py` à partir des catalogues, de la signature de validation et de `combat_visual_25_status.json`. Aucun indicateur de rendu ne coche automatiquement la finition artistique.
