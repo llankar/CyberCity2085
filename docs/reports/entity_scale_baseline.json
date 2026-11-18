@@ -14,7 +14,7 @@
         "cybercity_street_07_downtown_intersection.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -25,7 +25,7 @@
         "cybercity_street_08_neon_market_alley.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -36,7 +36,7 @@
         "cybercity_street_09_elevated_freeway.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -47,7 +47,7 @@
         "cybercity_street_10_waterfront_docks.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -58,7 +58,7 @@
         "cybercity_street_11_civic_plaza.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -69,7 +69,7 @@
         "cybercity_street_12_transit_interchange.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -80,7 +80,7 @@
         "cybercity_street_13_industrial_district.png"
       ],
       "current_ratios": [
-        0.034
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -91,7 +91,7 @@
         "cybercity_street_14_flood_prone_avenue.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -102,7 +102,7 @@
         "cybercity_street_15_bridge_access.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -113,7 +113,7 @@
         "cybercity_street_16_billboard_avenue.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -124,7 +124,7 @@
         "wasteland_city_06_ruined_downtown.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -135,7 +135,7 @@
         "wasteland_city_07_burned_market_block.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -146,7 +146,7 @@
         "wasteland_city_08_collapsed_overpass.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -157,7 +157,7 @@
         "wasteland_city_09_flooded_civic_square.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -168,7 +168,7 @@
         "wasteland_city_10_scavenger_plaza.png"
       ],
       "current_ratios": [
-        0.03
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -179,7 +179,7 @@
         "wasteland_inner_06_abandoned_safehouse.png"
       ],
       "current_ratios": [
-        0.055
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -190,7 +190,7 @@
         "wasteland_inner_07_collapsed_tunnel.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -201,7 +201,7 @@
         "wasteland_inner_08_ruined_clinic.png"
       ],
       "current_ratios": [
-        0.055
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -212,7 +212,7 @@
         "wasteland_inner_09_bunker_command_post.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -223,7 +223,7 @@
         "wasteland_inner_10_looted_vault.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -234,7 +234,7 @@
         "wasteland_inner_11_maintenance_depot.png"
       ],
       "current_ratios": [
-        0.034
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -245,7 +245,7 @@
         "wasteland_inner_12_apartment_shelter.png"
       ],
       "current_ratios": [
-        0.055
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -256,7 +256,7 @@
         "wasteland_inner_13_data_relay_room.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -267,7 +267,7 @@
         "wasteland_inner_14_underground_market.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -278,7 +278,7 @@
         "wasteland_inner_15_detention_block.png"
       ],
       "current_ratios": [
-        0.043
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -289,7 +289,7 @@
         "wasteland_outdoor_06_dust_road_ambush.png"
       ],
       "current_ratios": [
-        0.026
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -300,7 +300,7 @@
         "wasteland_outdoor_07_ashfield_ruins.png"
       ],
       "current_ratios": [
-        0.026
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -311,7 +311,7 @@
         "wasteland_outdoor_08_wrecked_highway.png"
       ],
       "current_ratios": [
-        0.026
+        0.015
       ],
       "conflicting_estimates": false
     },
@@ -322,7 +322,7 @@
         "wasteland_outdoor_09_rusted_trainyard.png"
       ],
       "current_ratios": [
-        0.034
+        0.02
       ],
       "conflicting_estimates": false
     },
@@ -333,7 +333,7 @@
         "wasteland_outdoor_10_irradiated_basin.png"
       ],
       "current_ratios": [
-        0.026
+        0.015
       ],
       "conflicting_estimates": false
     }
@@ -351,9 +351,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -369,9 +369,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -387,9 +387,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -405,9 +405,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -423,9 +423,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -441,9 +441,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -459,9 +459,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -477,9 +477,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -495,9 +495,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -513,9 +513,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -531,9 +531,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -549,9 +549,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -567,9 +567,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -585,9 +585,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -603,9 +603,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -621,9 +621,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -639,9 +639,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -657,9 +657,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -675,9 +675,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -693,9 +693,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -711,9 +711,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -729,9 +729,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -747,9 +747,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -765,9 +765,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -783,9 +783,9 @@
         4320
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -801,9 +801,9 @@
         4320
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -819,9 +819,9 @@
         4320
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -837,9 +837,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -855,9 +855,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -873,9 +873,9 @@
         4320
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -891,9 +891,9 @@
         4320
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -909,9 +909,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -927,9 +927,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -945,9 +945,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -963,9 +963,9 @@
         4320
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -981,9 +981,9 @@
         4320
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -999,9 +999,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1017,9 +1017,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1035,9 +1035,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1053,9 +1053,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1071,9 +1071,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1089,9 +1089,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1107,9 +1107,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1125,9 +1125,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1143,9 +1143,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1161,9 +1161,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1179,9 +1179,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1197,9 +1197,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1215,9 +1215,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1233,9 +1233,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1251,9 +1251,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1269,9 +1269,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1287,9 +1287,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1305,9 +1305,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1323,9 +1323,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1341,9 +1341,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1359,9 +1359,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1377,9 +1377,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1395,9 +1395,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1413,9 +1413,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1431,9 +1431,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1449,9 +1449,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1467,9 +1467,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1485,9 +1485,9 @@
         4575
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1503,9 +1503,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1521,9 +1521,9 @@
         4575
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1539,9 +1539,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1557,9 +1557,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1575,9 +1575,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1593,9 +1593,9 @@
         5120
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1611,9 +1611,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1629,9 +1629,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1647,9 +1647,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1665,9 +1665,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1683,9 +1683,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1701,9 +1701,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1719,9 +1719,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1737,9 +1737,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1755,9 +1755,9 @@
         4325
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1773,9 +1773,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1791,9 +1791,9 @@
         4325
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1809,9 +1809,9 @@
         4327
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1827,9 +1827,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1845,9 +1845,9 @@
         4325
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1863,9 +1863,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1881,9 +1881,9 @@
         4325
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1899,9 +1899,9 @@
         4327
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1917,9 +1917,9 @@
         4335
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1935,9 +1935,9 @@
         4322
       ],
       "profile": "urban",
-      "configured_human_ratio": 0.03,
-      "current_human_ratio": 0.03,
-      "standing_human_source_pixel_equivalent": 230.4,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1953,9 +1953,9 @@
         4325
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1971,9 +1971,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -1989,9 +1989,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2007,9 +2007,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2025,9 +2025,9 @@
         4315
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2043,9 +2043,9 @@
         4325
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2061,9 +2061,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2079,9 +2079,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2097,9 +2097,9 @@
         4322
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2115,9 +2115,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2133,9 +2133,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2151,9 +2151,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2169,9 +2169,9 @@
         4318
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2187,9 +2187,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2205,9 +2205,9 @@
         4315
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2223,9 +2223,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2241,9 +2241,9 @@
         4322
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2259,9 +2259,9 @@
         4322
       ],
       "profile": "small_interior",
-      "configured_human_ratio": 0.055,
-      "current_human_ratio": 0.055,
-      "standing_human_source_pixel_equivalent": 422.4,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2277,9 +2277,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2295,9 +2295,9 @@
         4318
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2313,9 +2313,9 @@
         4327
       ],
       "profile": "interior",
-      "configured_human_ratio": 0.043,
-      "current_human_ratio": 0.043,
-      "standing_human_source_pixel_equivalent": 330.24,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2331,9 +2331,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2349,9 +2349,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2367,9 +2367,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2385,9 +2385,9 @@
         4318
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2403,9 +2403,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2421,9 +2421,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2439,9 +2439,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2457,9 +2457,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2475,9 +2475,9 @@
         4318
       ],
       "profile": "industrial",
-      "configured_human_ratio": 0.034,
-      "current_human_ratio": 0.034,
-      "standing_human_source_pixel_equivalent": 261.12,
+      "configured_human_ratio": 0.02,
+      "current_human_ratio": 0.02,
+      "standing_human_source_pixel_equivalent": 153.6,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2493,9 +2493,9 @@
         4322
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2511,9 +2511,9 @@
         4325
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     },
@@ -2529,17 +2529,17 @@
         4325
       ],
       "profile": "open_wasteland",
-      "configured_human_ratio": 0.026,
-      "current_human_ratio": 0.026,
-      "standing_human_source_pixel_equivalent": 199.68,
+      "configured_human_ratio": 0.015,
+      "current_human_ratio": 0.015,
+      "standing_human_source_pixel_equivalent": 115.2,
       "explicit_profile": true,
       "measurement_status": "ESTIMATE_ONLY"
     }
   ],
   "input_sha256": {
-    "godot/combat_missions_ui/art/environment/map_presentation.json": "178b71b2142cc8029a2c7b6d16f07ba7bc59f3fead4bd6a09acb1c53227e0eb5",
-    "godot/combat_missions_ui/scripts/map_presentation.gd": "f2af9db3cd95bb4f2c334d40a38aca4a940ea490e5eaf1b95beed56481bf46e2",
-    "godot/combat_missions_ui/scripts/unit_presentation.gd": "4c632a4a8e64d19237337a1a7a97eb2855715542b3009d02858e4da7e6c7306a"
+    "godot/combat_missions_ui/art/environment/map_presentation.json": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e",
+    "godot/combat_missions_ui/scripts/map_presentation.gd": "3c53223a3ac06404fb20bae6152c6e6ecb38ee47af92ca8709d870c3ef5ac7f8",
+    "godot/combat_missions_ui/scripts/unit_presentation.gd": "d969cdc7c31ec6edc8276c2fb6cd3040fe86e24ad7a9878b3280d1ac82a818d0"
   },
   "next_action": "Measure visible reference objects per source image: doors, embedded cars, furniture and streets. Record measured pixel bounds and justified relative dimensions; review aliases separately. Do not derive object identity or physical size from collisions."
 }
