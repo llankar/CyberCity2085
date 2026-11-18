@@ -496,19 +496,23 @@
     {
       "id": "ENV-FINAL",
       "title": "Finition artistique individuelle des 122 cartes",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/art/environment/environment_art.json",
         "docs/combat_visual_25_inventory.md"
       ],
       "tests": [
-        "Historique : captures natives des 122 cartes ; ne valide pas la finition"
+        "Historique : captures natives des 122 cartes ; ne valide pas la finition",
+        "Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus",
+        "Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés"
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
-        "docs/images/combat-directional-animation/validation-results.txt"
+        "docs/images/combat-directional-animation/validation-results.txt",
+        "docs/images/environment-art-review-windows/README.md",
+        "docs/images/environment-art-review-windows/manifest.json"
       ],
-      "remaining": "0 / 122 finalisées artistiquement ; poursuivre murs, objets, raccords et revues détaillées",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -813,21 +817,47 @@
     }
   ],
   "reviews": {
+    "MAP-ART": {
+      "status": "PASS",
+      "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
+      "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
+      "evidence": [
+        {
+          "path": "docs/images/environment-art-review-windows/manifest.json",
+          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+        },
+        {
+          "path": "docs/images/environment-art-review-windows/native-report.json",
+          "sha256": "f632fae1ce140e17f4f450de34aae52ca34a96b8f9deb2886f597d1e369e29a4"
+        }
+      ]
+    },
+    "ART-OBJECTS": {
+      "status": "PASS",
+      "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
+      "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
+      "evidence": [
+        {
+          "path": "docs/images/environment-art-review-windows/manifest.json",
+          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+        }
+      ]
+    },
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
+      "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
-          "sha256": "89c3b10c1cc3de390afaf829ae073e6fbd734888563ed650681f08f8be1bc927"
+          "sha256": "bc648e6d899e814305fbeef62914b15f01bd3b83b30b6c2d2d223bbf21055b76"
         }
       ]
     },
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
+      "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
@@ -845,7 +875,6 @@
     "sha256": "57d38ee442b3a913accbb6aaf845d45df7b1f85590e2d552b820260512c9accd",
     "scope": "67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus",
     "not_executed": [
-      "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
       "Suite intégrale du jeu"
     ],
@@ -939,7 +968,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : reprendre la finition artistique individuelle, actuellement 0/122, puis UNIT-COVERAGE/ANIM-COMPLETE. Garder ouverts redimensionnement/DPI/audio Windows et la revue fonctionnelle globale.",
+  "next_action": "UNIT-COVERAGE/ANIM-COMPLETE : documenter l’applicabilité des neuf actions et produire les atlas authentiques manquants. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

@@ -38,10 +38,10 @@
     }
   ],
   "validation": {
-    "reference": "native Windows entity-scale production review",
-    "evidence": "images/entity-scale-production-windows/README.md",
-    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle 122/122, finition artistique 0/122.",
-    "signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
+    "reference": "native Windows final environment-art review",
+    "evidence": "images/environment-art-review-windows/README.md",
+    "summary": "122 cartes examinées sur 21 planches détaillées ; trois aplats corrigés ; catalogue natif final 122/122.",
+    "signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
     "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
