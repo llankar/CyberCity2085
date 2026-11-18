@@ -30,12 +30,12 @@
     },
     {
       "name": "Inventaire et publication",
-      "status": "En cours",
-      "detail": "Préparation des captures, annotations de revue et inventaire global."
+      "status": "Terminé",
+      "detail": "Inventaire et captures exportés ; push et merge vérifiés sur main. La tâche artistique globale reste ouverte."
     }
   ],
   "validation": {
-    "reference": "mobilier — 18/11/2026 (publication en cours)",
+    "reference": "73c4ca1dbb2b33f7f8fb62fda8eb060217bc5e7c",
     "evidence": "images/combat-25-furniture/README.md",
     "summary": "122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.",
     "signature": "394652d11656c2297f6ed61888ccf62bdec1ab8d71fde8a58a53de0784c12fa2"
@@ -60,6 +60,10 @@
     {
       "reference": "3e06080",
       "summary": "213 placements sur 109 cartes ; 32 familles / 128 vues ; assemblages adaptés, masques visuels séparés et suivi de la tâche complète."
+    },
+    {
+      "reference": "73c4ca1",
+      "summary": "221 placements sur 109 cartes ; 36 familles / 144 vues. Lits simples, lits de camp et bancs adaptés ; orientation et cadres débordants corrigés."
     }
   ],
   "target_maps": 122
