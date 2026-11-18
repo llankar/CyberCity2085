@@ -13,20 +13,24 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
         assert validate_atlas(path,ROOT,{'idle','move'})==[]
         data=json.loads(path.read_text())
         expected_missing={'fire','melee','cover','hit','death','psi','heal'}
-        if key=='agent_diverse_01_neon_blade':
+        if key in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol'}:
             expected_missing=set()
             assert data['coverage']=='complete'
-            assert set(data['required_clips'])=={'idle','move','melee','cover','hit','death'}
-            assert set(data['non_applicable_clips'])=={'fire','psi','heal'}
+            expected_required={'idle','move','melee','cover','hit','death'}
+            expected_exempt={'fire','psi','heal'}
+            if key=='agent_diverse_03_magenta_pistol':
+                expected_required.add('fire');expected_exempt={'psi','heal'}
+            assert set(data['required_clips'])==expected_required
+            assert set(data['non_applicable_clips'])==expected_exempt
         else:
             assert data['coverage']=='partial'
-            if key=='agent_diverse_03_magenta_pistol':expected_missing-={'fire','psi','heal'}
         assert set(data['missing_clips'])==expected_missing
         if key not in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol'}:
             assert any('missing clip: fire' in e for e in validate_atlas(path,ROOT))
         if key=='agent_diverse_03_magenta_pistol':
-            assert validate_atlas(path,ROOT,{'idle','move','fire'})==[]
-            assert all(len(row)==2 for row in data['animations']['fire']['rows'])
+            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
+            for action in ['fire','melee','cover','hit','death']:
+                assert all(len(row)==2 for row in data['animations'][action]['rows'])
         if key=='agent_diverse_01_neon_blade':
             assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
             for action in ['melee','cover','hit','death']:

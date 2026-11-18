@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/agent_diverse_03_magenta_pistol.png",
-  "texture_sha256": "c87bd6520d1fa53d366cf16dca3cbb6fd1496a499cd25820bb195dc946c0448c",
+  "texture_sha256": "9197f8ac3d35035b9671aafbac6f3646b936851d09c9f6269e0d242241ba4a76",
   "frame_size": [
     256,
     256
@@ -141,6 +141,158 @@
           63
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/agent_diverse_03_magenta_pistol_512.png",
@@ -173,6 +325,34 @@
       "clip": "fire",
       "layout": "action_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/melee-action_pairs-4.png",
+      "sha256": "9670afcf57c149b3a59fdd15388139e2933c5a085ff7eb1a6438d9347025bf36",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/cover-action_pairs-5.png",
+      "sha256": "5f4b7cbd70a472a922b3bbd9f8da5dbc7d445fc94234cbd1721ad6c31e74b07b",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/hit-action_pairs-6.png",
+      "sha256": "0684cfb7929c313e4279977c51fe79af0ad1ab605331e0e94afb74607fc4051b",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/death-action_pairs-7.png",
+      "sha256": "53161a15ccfc59630d4c71c7940511fa988963a7e22a3f615ad21100e98ed6fe",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -188,12 +368,7 @@
     "psi": "Character has no PSI ability or PSI role.",
     "heal": "Character has no medical action or medic role."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_render_verified_partial"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
