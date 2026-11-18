@@ -36,7 +36,9 @@ void fragment() {
         // Restore solid interiors while preserving antialiased silhouette edges.
         float body = smoothstep(0.02, 0.48, art.a);
         float edge = smoothstep(0.05, 0.50, neighbor) * (1.0 - body);
-        vec3 lit = clamp((art.rgb - vec3(0.5)) * 1.12 + vec3(0.62), 0.0, 1.0);
+        // Compress highlights before clipping so white metal keeps its panel detail.
+        vec3 lifted = (art.rgb - vec3(0.5)) * 1.12 + vec3(0.62);
+        vec3 lit = clamp(mix(lifted, vec3(0.72) + (lifted - vec3(0.72)) * 0.45, step(vec3(0.72), lifted)), 0.0, 1.0);
         // A directional rim avoids the flat sticker look; every living unit stays outlined.
         vec2 frame_position = (UV - frame_uv.xy) / max(frame_uv.zw - frame_uv.xy, vec2(0.001));
         float rim_light = clamp(0.90 - frame_position.x * 0.12 - frame_position.y * 0.08, 0.68, 0.90);
