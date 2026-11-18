@@ -976,7 +976,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIT-COVERAGE/ANIM-COMPLETE : produire et vérifier les actions applicables des 230 autres entités. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows.",
+  "next_action": "ANIM-COMPLETE : produire mêlée, couvert, impact et mort de l'agente magenta ; valider nativement, puis régénérer catalogue 122 cartes et benchmark pour la nouvelle signature.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

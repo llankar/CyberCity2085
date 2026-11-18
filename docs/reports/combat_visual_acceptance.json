@@ -5,10 +5,10 @@
     "total": 41
   },
   "maps": {
-    "native_verified": 122,
+    "native_verified": 0,
     "native_expected": 122,
     "artistically_declared": 122,
-    "artistic_verified": 122
+    "artistic_verified": 0
   },
   "resources": {
     "declared_families": 36,
@@ -23,16 +23,13 @@
     "expected": 231
   },
   "tests": {
-    "passed": 37,
-    "failed": 0,
-    "skipped": 1,
-    "not_executed": [
-      "Actions de combat manquantes et autres unités",
-      "Suite intégrale du jeu"
-    ],
-    "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "not_executed": "UNKNOWN",
+    "scope": "Aucun résultat JUnit enregistré."
   },
-  "render_signature": "8c64722612c85f4837e618db887b1d6aa5deedb2afabf103ffc0c2743dab9a2b",
+  "render_signature": "f76118e20084b2b02383e3503394c06dc9e1d224ac1695c0c09b2d9c5279afa2",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -48,8 +45,8 @@
       "id": "MAP-LOAD",
       "title": "Chargement natif et projection",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
+      "status": "NOT VERIFIED",
+      "detail": "0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
         "docs/images/environment-art-review-windows/native-report.json",
         "docs/combat_visual_25_status.json"
@@ -59,8 +56,8 @@
       "id": "MAP-ART",
       "title": "Finition artistique de chaque carte",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
+      "status": "NOT VERIFIED",
+      "detail": "Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "godot/combat_missions_ui/art/environment/environment_art.json"
       ]
@@ -79,8 +76,8 @@
       "id": "ART-OBJECTS",
       "title": "Silhouettes, matériaux et intégration des objets",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
+      "status": "NOT VERIFIED",
+      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/images/environment-art-review-windows/manifest.json"
       ]
@@ -89,8 +86,8 @@
       "id": "UNIT-SCALE",
       "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. 122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
+      "status": "NOT VERIFIED",
+      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/reports/entity_scale_review_windows.json",
         "docs/images/entity-scale-production-windows/native-report.json"
@@ -124,8 +121,8 @@
       "id": "PERFORMANCE",
       "title": "Performances et mémoire sur matériel joueur",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
+      "status": "NOT VERIFIED",
+      "detail": "Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/reports/windows_gpu_benchmark_system.json"
       ]
@@ -155,7 +152,7 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "{'passed': 37, 'failed': 0, 'skipped': 1, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément'}",
+      "detail": "{'passed': None, 'failed': None, 'skipped': None, 'not_executed': 'UNKNOWN', 'scope': 'Aucun résultat JUnit enregistré.'}",
       "evidence": [
         "docs/reports/current_unified_progress_tests.xml"
       ]
@@ -172,9 +169,14 @@
     }
   ],
   "open_criteria": [
+    "MAP-LOAD",
+    "MAP-ART",
+    "ART-OBJECTS",
+    "UNIT-SCALE",
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",
+    "PERFORMANCE",
     "ANIMATIONS",
     "TARGETED-TESTS",
     "TASK-COMPLETION"
