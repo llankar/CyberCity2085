@@ -38,11 +38,11 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | Profils de présentation | Terminé | Profils visuels séparés : soutien robot non géant plafonné à 1,65× ; agents, power armors, véritables géants et véhicules préservés. Ombres aériennes et contact des châssis distincts. |
 | Lisibilité et matériaux | Terminé | Compression des hautes lumières avant écrêtage ; contours cyan/rouge conservés. Vérifications pixel de l’opacité, des panneaux clairs et des frames réussies. |
 | Validation native | Terminé | 26 tests réussis ; 122 cartes contrôlées, comparaisons avant/après et scènes militaires aux trois résolutions. Sélection, ciblage, déplacements, ombres et exclusion des véhicules en intérieur vérifiés. |
-| Suivi et publication | En cours | Captures et audit des 251 références exportés ; préparation de l’inventaire global et de la publication. |
+| Suivi et publication | Terminé | Comparaisons, audit et inventaire exportés ; push et merge vérifiés sur main. Animations et retouches de ressources restent dans le chantier global. |
 
 ## Validation
 
-- Dernière livraison de référence : `entités — 18/11/2026 (publication en cours)`.
+- Dernière livraison de référence : `6820eed6d3596424b9e8a1849d30af4f463d3974`.
 - Preuves : [captures et inventaire](images/combat-25-entities/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
 - 26 tests ciblés réussis ; 122 rendus natifs et nombres de ressources vérifiés. Avant réels capturés avec 7ea8323 ; cinq environnements aux trois résolutions et scènes militaires supplémentaires avec véhicules terrestres/aériens. Les deux intérieurs testés restent sans véhicules. Audit source de 251 références, distinct de la finition artistique.
@@ -65,5 +65,6 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | `7244e46` | 187 placements sur 108 cartes ; 26 familles / 104 vues ; ombres des entités et correction du chargement des soutiens. |
 | `3e06080` | 213 placements sur 109 cartes ; 32 familles / 128 vues ; assemblages adaptés, masques visuels séparés et suivi de la tâche complète. |
 | `73c4ca1` | 221 placements sur 109 cartes ; 36 familles / 144 vues. Lits simples, lits de camp et bancs adaptés ; orientation et cadres débordants corrigés. |
+| `6820eed` | Priorité aux entités : robots de soutien calibrés, détails des armures claires et ombres de véhicules différenciées. 26 tests, 122 cartes et comparaisons à trois résolutions ; audit de 251 références. |
 
 Ce fichier est régénéré par `python tools/art/update_environment_progress.py` à partir des catalogues, de la signature de validation et de `combat_visual_25_status.json`. Aucun indicateur de rendu ne coche automatiquement la finition artistique.

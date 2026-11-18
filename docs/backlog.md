@@ -737,4 +737,4 @@ Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_p
 - [x] ART25E-02 Corriger les profils de présentation sans modifier les caractéristiques ni les unités géantes déclarées.
 - [x] ART25E-03 Améliorer contours et détails métalliques en préservant l’opacité et la lecture des équipes.
 - [x] ART25E-04 Vérifier les interactions, le catalogue et les comparaisons réelles aux trois résolutions.
-- [ ] ART25E-05 Actualiser les preuves et l’avancement global, puis push et merge.
+- [x] ART25E-05 Actualiser les preuves et l’avancement global, puis push et merge.
