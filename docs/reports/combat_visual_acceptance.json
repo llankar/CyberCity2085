@@ -1,14 +1,14 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 36,
+    "done": 37,
     "total": 41
   },
   "maps": {
     "native_verified": 122,
     "native_expected": 122,
-    "artistically_declared": 0,
-    "artistic_verified": 0
+    "artistically_declared": 122,
+    "artistic_verified": 122
   },
   "resources": {
     "declared_families": 36,
@@ -27,13 +27,12 @@
     "failed": 0,
     "skipped": 0,
     "not_executed": [
-      "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
       "Suite intégrale du jeu"
     ],
     "scope": "67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus"
   },
-  "render_signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
+  "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -52,7 +51,7 @@
       "status": "PASS",
       "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
-        "docs/images/entity-scale-production-windows/native-report.json",
+        "docs/images/environment-art-review-windows/native-report.json",
         "docs/combat_visual_25_status.json"
       ]
     },
@@ -60,8 +59,8 @@
       "id": "MAP-ART",
       "title": "Finition artistique de chaque carte",
       "mandatory": true,
-      "status": "FAIL",
-      "detail": "0 / 122 cartes déclarées finalisées ; revue artistique complète absente.",
+      "status": "PASS",
+      "detail": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
       "evidence": [
         "godot/combat_missions_ui/art/environment/environment_art.json"
       ]
@@ -80,9 +79,11 @@
       "id": "ART-OBJECTS",
       "title": "Silhouettes, matériaux et intégration des objets",
       "mandatory": true,
-      "status": "NOT VERIFIED",
-      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue explicite et preuves non enregistrées.",
-      "evidence": []
+      "status": "PASS",
+      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
+      "evidence": [
+        "docs/images/environment-art-review-windows/manifest.json"
+      ]
     },
     {
       "id": "UNIT-SCALE",
@@ -154,7 +155,7 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 67, 'failed': 0, 'skipped': 0, 'not_executed': ['Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus'}",
+      "detail": "{'passed': 67, 'failed': 0, 'skipped': 0, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus'}",
       "evidence": [
         "docs/reports/current_unified_progress_tests.xml"
       ]
@@ -164,15 +165,13 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "36 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "37 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
     }
   ],
   "open_criteria": [
-    "MAP-ART",
-    "ART-OBJECTS",
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",

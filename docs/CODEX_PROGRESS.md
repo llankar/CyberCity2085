@@ -193,12 +193,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/reports/combat_visual_acceptance.json`, `docs/reports/entity_scale_review_windows.json`.
 - Travail restant dans cette portée : Aucun.
 
-### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
+### ENV-FINAL — DONE — Finition artistique individuelle des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`.
-- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition.
-- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : 0 / 122 finalisées artistiquement ; poursuivre murs, objets, raccords et revues détaillées.
+- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition; Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus; Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés.
+- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/environment-art-review-windows/README.md`, `docs/images/environment-art-review-windows/manifest.json`.
+- Travail restant dans cette portée : Aucun.
 
 ### UNIT-COVERAGE — IN_PROGRESS — Identités de toutes les familles d’unités
 
@@ -326,6 +326,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : reprendre la finition artistique individuelle, actuellement 0/122, puis UNIT-COVERAGE/ANIM-COMPLETE. Garder ouverts redimensionnement/DPI/audio Windows et la revue fonctionnelle globale.
+UNIT-COVERAGE/ANIM-COMPLETE : documenter l’applicabilité des neuf actions et produire les atlas authentiques manquants. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

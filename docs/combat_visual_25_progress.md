@@ -14,7 +14,7 @@ Mis à jour : 18/11/2026.
 | Placements actifs | 221 sur 109 cartes |
 | Dont groupes partiellement remplacés | 5 |
 | Entrées de relevé conservées en 2D | 3381 |
-| Cartes déclarées artistiquement terminées | 0 / 122 |
+| Cartes déclarées artistiquement terminées | 122 / 122 |
 
 Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honnêtement un pourcentage de finition artistique.
 
@@ -57,7 +57,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 - Dernière livraison de référence : `native Windows entity-scale production review`.
 - Preuves : [captures et inventaire](images/entity-scale-production-windows/README.md).
-- Concordance du code, des annotations et des sprites de décor : **oui**.
+- Concordance du code, des annotations et des sprites de décor : **non — nouvelle validation requise pour les modifications en cours**.
 - 122 rendus natifs Ã  trois rÃ©solutions ; 11 planches 720p inspectÃ©es ; Ã©chelle 122/122, finition artistique 0/122.
 
 ## Reste sur l’objectif complet
