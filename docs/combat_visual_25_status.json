@@ -6,43 +6,44 @@
     "PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.",
     "Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.",
     "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.",
-    "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées."
+    "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.",
+    "192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire."
   ],
   "tasks": [
     {
-      "name": "Audit visuel des entités",
+      "name": "Frames au style des sprites existants",
       "status": "Terminé",
-      "detail": "251 références de sprites inventoriées, dont 231 entités et 20 objets de mission ; versions haute résolution présentes. 46 alphas atteignent un bord de frame, à revoir ; aucun manifeste d’animation livré."
+      "detail": "Quatre identités détaillées conservées ; planches sources et empreintes archivées. Le prototype procédural rejeté reste hors production."
     },
     {
-      "name": "Profils de présentation",
+      "name": "Marche et attente dans huit directions",
       "status": "Terminé",
-      "detail": "Profils visuels séparés : soutien robot non géant plafonné à 1,65× ; agents, power armors, véritables géants et véhicules préservés. Ombres aériennes et contact des châssis distincts."
+      "detail": "192 frames : 2 poses d’attente et 4 phases de marche × 8 directions pour chacune des quatre références. Les autres actions restent absentes."
     },
     {
-      "name": "Lisibilité et matériaux",
+      "name": "Lecture et intégration",
       "status": "Terminé",
-      "detail": "Compression des hautes lumières avant écrêtage ; contours cyan/rouge conservés. Vérifications pixel de l’opacité, des panneaux clairs et des frames réussies."
+      "detail": "Chargement contrôlé, ancrage aux pieds, ombre liée à la frame, orientation selon projection et phase de marche continue entre cases ; fallback statique préservé."
     },
     {
-      "name": "Validation native",
+      "name": "Validation native et artistique",
       "status": "Terminé",
-      "detail": "26 tests réussis ; 122 cartes contrôlées, comparaisons avant/après et scènes militaires aux trois résolutions. Sélection, ciblage, déplacements, ombres et exclusion des véhicules en intérieur vérifiés."
+      "detail": "34 tests réussis ; 128 sélections de frames natives. Clic réel avec 4 PA consommés, trois résolutions, cinq familles de cartes et contrôle du catalogue complet."
     },
     {
-      "name": "Suivi et publication",
-      "status": "Terminé",
-      "detail": "Comparaisons, audit et inventaire exportés ; push et merge vérifiés sur main. Animations et retouches de ressources restent dans le chantier global."
+      "name": "Couverture et publication",
+      "status": "En cours",
+      "detail": "Couverture documentée à 4 / 231 références partiellement animées et 0 ensemble de neuf actions complet. Publication en cours."
     }
   ],
   "validation": {
-    "reference": "6820eed6d3596424b9e8a1849d30af4f463d3974",
-    "evidence": "images/combat-25-entities/README.md",
-    "summary": "26 tests ciblés réussis ; 122 rendus natifs et nombres de ressources vérifiés. Avant réels capturés avec 7ea8323 ; cinq environnements aux trois résolutions et scènes militaires supplémentaires avec véhicules terrestres/aériens. Les deux intérieurs testés restent sans véhicules. Audit source de 251 références, distinct de la finition artistique.",
-    "signature": "6b937f76e7b9b877db0bb225294dac1c9771abf9f04fde9e115efa3dea6691a3"
+    "reference": "passe directionnelle en cours de publication",
+    "evidence": "images/combat-directional-animation/README.md",
+    "summary": "34 tests ciblés réussis ; 128 sélections de frames dans Godot. Clic natif : destination atteinte, 4 PA consommés, retour à l’attente ; captures aux trois résolutions et cinq environnements. Le contrôle des 122 cartes porte sur le rendu, la projection et le picking, pas sur une finition artistique complète.",
+    "signature": "ce323c69113f2b0a454e06914583c151fe9ee20c4c20571cb7112517c0da01d3"
   },
   "remaining": [
-    "Poursuivre les ressources des entités : revoir visuellement les 46 silhouettes qui touchent un bord de frame et produire de véritables animations ; l’audit de 251 références de sprites ne constitue pas une validation artistique individuelle.",
+    "Étendre les animations aux 227 autres références éligibles et produire les sept actions manquantes sur les quatre premières ; revoir aussi les 46 silhouettes historiques qui touchent un bord de frame. Les véhicules ne disposent pas encore de nouveaux cycles.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",

@@ -1,0 +1,144 @@
+{
+  "texture": "assets/combat_visual/animations/robot_combat.png",
+  "texture_sha256": "975e8a4d920d97e0c30715a8aab546540fac7f4cf1bb9fdb28fda46cb0ff5fd6",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/robot_combat_512.png",
+  "source_sha256": "807328e31bec966b88d136db69d557282ca3323b05608649ac62dc62cd3010f9",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/move-front-0.png",
+      "sha256": "d8cd753bf9f4e2b77be1859494ee18cd6b1c8374b006d1c1491c6d475b24ef8e",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/move-rear-1.png",
+      "sha256": "38e9463a093f025e4c45a276064b275bef3a6307c624359ef518655c1d727905",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/idle-idle_pairs-2.png",
+      "sha256": "02f817f2775e3512df60e50a340c9429e2298081f5f2e863c84c889053631b4c",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "coverage": "partial",
+  "missing_clips": [
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi",
+    "heal"
+  ],
+  "review_status": "native_render_verified_partial"
+}

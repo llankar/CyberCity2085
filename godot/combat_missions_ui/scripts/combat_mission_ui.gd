@@ -367,7 +367,9 @@ func _resize_tokens() -> void:
 			_unit_tokens.erase(key)
 			continue
 		tok.cell_size = cs
-		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
+		if visual_mode:
+			tok.terrain_scale=_battlefield.token_terrain_scale()
+			tok.facing_y_scale=_battlefield.iso_tw/maxf(.001,_battlefield.iso_th) if _battlefield.top_down else 2.0
 		tok._recalc_dims()
 		tok.queue_redraw()
 	for i in range(player_units.size()):
@@ -405,7 +407,9 @@ func _spawn_all_tokens() -> void:
 		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Player%d" % i
 		_units_layer.add_child(tok)
-		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
+		if visual_mode:
+			tok.terrain_scale=_battlefield.token_terrain_scale()
+			tok.facing_y_scale=_battlefield.iso_tw/maxf(.001,_battlefield.iso_th) if _battlefield.top_down else 2.0
 		tok.setup(u, i, false, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp0 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
@@ -419,7 +423,9 @@ func _spawn_all_tokens() -> void:
 		var tok  = preload("res://scripts/unit_visual.gd").new() if visual_mode else _TOKScript.new()
 		tok.name = "Enemy%d" % j
 		_units_layer.add_child(tok)
-		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
+		if visual_mode:
+			tok.terrain_scale=_battlefield.token_terrain_scale()
+			tok.facing_y_scale=_battlefield.iso_tw/maxf(.001,_battlefield.iso_th) if _battlefield.top_down else 2.0
 		tok.setup(u, j, true, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(tkey,tkey)), project_root)
 		var wp1 : Vector2 = _battlefield.cell_to_world(_cell_position(u))
@@ -436,7 +442,9 @@ func _spawn_all_tokens() -> void:
 		tok.name = "Vehicle%d" % vi
 		_units_layer.add_child(tok)
 		# id ≥ 1000 signals "vehicle" to _on_unit_clicked so it is silently ignored.
-		if visual_mode:tok.terrain_scale=_battlefield.token_terrain_scale()
+		if visual_mode:
+			tok.terrain_scale=_battlefield.token_terrain_scale()
+			tok.facing_y_scale=_battlefield.iso_tw/maxf(.001,_battlefield.iso_th) if _battlefield.top_down else 2.0
 		tok.setup(v, 1000 + vi, is_ev, tex, cell_size)
 		if visual_mode: tok.configure_animation(str(_visual_asset_keys.get(vkey,vkey)), project_root)
 		tok.position = _battlefield.cell_to_world(_cell_position(v))
