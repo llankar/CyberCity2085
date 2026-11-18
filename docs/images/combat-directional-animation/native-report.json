@@ -1,7 +1,7 @@
 [
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5508.375,
+    "elapsed_ms": 5659.731,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -14,12 +14,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265336819,
+    "static_memory_bytes": 265336851,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4979.975,
+    "elapsed_ms": 5760.126,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -32,12 +32,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265272635,
+    "static_memory_bytes": 265272739,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5399.024,
+    "elapsed_ms": 5550.129,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -50,12 +50,12 @@
     "rendered_sprites": 16,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265666299,
+    "static_memory_bytes": 265666403,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5097.554,
+    "elapsed_ms": 5132.105,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -68,12 +68,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265432131,
+    "static_memory_bytes": 265432235,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4952.666,
+    "elapsed_ms": 4965.699,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -86,12 +86,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266123123,
+    "static_memory_bytes": 266123339,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4952.681,
+    "elapsed_ms": 4988.39,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -104,12 +104,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265991447,
+    "static_memory_bytes": 265991663,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5094.686,
+    "elapsed_ms": 5073.795,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -122,12 +122,12 @@
     "rendered_sprites": 5,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266035911,
+    "static_memory_bytes": 266036127,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4923.956,
+    "elapsed_ms": 4915.487,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -140,12 +140,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266023155,
+    "static_memory_bytes": 266023371,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4813.478,
+    "elapsed_ms": 4846.453,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -158,12 +158,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265825379,
+    "static_memory_bytes": 265825595,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5015.217,
+    "elapsed_ms": 4998.157,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -176,12 +176,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266672969,
+    "static_memory_bytes": 266673185,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4988.94,
+    "elapsed_ms": 4974.42,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -194,12 +194,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266560109,
+    "static_memory_bytes": 266560325,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4821.938,
+    "elapsed_ms": 4811.451,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -212,12 +212,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266611929,
+    "static_memory_bytes": 266612145,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5112.858,
+    "elapsed_ms": 5054.771,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -230,12 +230,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266764705,
+    "static_memory_bytes": 266761617,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4744.523,
+    "elapsed_ms": 4781.928,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -248,12 +248,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267117865,
+    "static_memory_bytes": 267118081,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4916.953,
+    "elapsed_ms": 4888.04,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -266,12 +266,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267771953,
+    "static_memory_bytes": 267772169,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4908.371,
+    "elapsed_ms": 4881.208,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -284,12 +284,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267655057,
+    "static_memory_bytes": 267655273,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5005.468,
+    "elapsed_ms": 5012.36,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -302,12 +302,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267709611,
+    "static_memory_bytes": 267709827,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4842.593,
+    "elapsed_ms": 4835.737,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -320,12 +320,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267605893,
+    "static_memory_bytes": 267606109,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3365.245,
+    "elapsed_ms": 3356.911,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -338,12 +338,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265818051,
+    "static_memory_bytes": 265818267,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5041.16,
+    "elapsed_ms": 5037.271,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -356,12 +356,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267648147,
+    "static_memory_bytes": 267648363,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3348.674,
+    "elapsed_ms": 3359.523,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -374,12 +374,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265569059,
+    "static_memory_bytes": 265569275,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3423.955,
+    "elapsed_ms": 3387.019,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -392,12 +392,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 269775273,
+    "static_memory_bytes": 269775489,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3513.893,
+    "elapsed_ms": 3469.011,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -410,12 +410,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265535283,
+    "static_memory_bytes": 265535499,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3418.211,
+    "elapsed_ms": 3404.785,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -428,12 +428,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265562541,
+    "static_memory_bytes": 265562757,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3468.409,
+    "elapsed_ms": 3452.976,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -446,12 +446,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266109415,
+    "static_memory_bytes": 266109631,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3463.087,
+    "elapsed_ms": 3440.329,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -464,12 +464,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266064953,
+    "static_memory_bytes": 266065169,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3449.055,
+    "elapsed_ms": 3461.803,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -482,12 +482,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266035593,
+    "static_memory_bytes": 266035809,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3368.889,
+    "elapsed_ms": 3355.438,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -500,12 +500,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265992653,
+    "static_memory_bytes": 265992869,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3406.954,
+    "elapsed_ms": 3424.37,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -518,12 +518,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266074901,
+    "static_memory_bytes": 266075117,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3494.813,
+    "elapsed_ms": 3521.261,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -536,12 +536,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 332622371,
+    "static_memory_bytes": 332622587,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3397.653,
+    "elapsed_ms": 3409.787,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -554,12 +554,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266132113,
+    "static_memory_bytes": 266132329,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4932.047,
+    "elapsed_ms": 4868.675,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -572,12 +572,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268219421,
+    "static_memory_bytes": 268219637,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4911.325,
+    "elapsed_ms": 4911.87,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -590,12 +590,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268177553,
+    "static_memory_bytes": 268177769,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5176.801,
+    "elapsed_ms": 5130.907,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -608,12 +608,12 @@
     "rendered_sprites": 10,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268258219,
+    "static_memory_bytes": 268259629,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4745.347,
+    "elapsed_ms": 4743.513,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -626,12 +626,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268139045,
+    "static_memory_bytes": 268139261,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3207.678,
+    "elapsed_ms": 3213.09,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -644,12 +644,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266006451,
+    "static_memory_bytes": 266006667,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3410.462,
+    "elapsed_ms": 3363.695,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -662,12 +662,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266204131,
+    "static_memory_bytes": 266204347,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3439.682,
+    "elapsed_ms": 3443.384,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -680,12 +680,12 @@
     "rendered_sprites": 5,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266219907,
+    "static_memory_bytes": 266220123,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3311.63,
+    "elapsed_ms": 3311.212,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -698,12 +698,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266321129,
+    "static_memory_bytes": 266321345,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3449.613,
+    "elapsed_ms": 3486.311,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -716,12 +716,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266287433,
+    "static_memory_bytes": 266287649,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3293.953,
+    "elapsed_ms": 3284.613,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -734,12 +734,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266224571,
+    "static_memory_bytes": 266224787,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3315.296,
+    "elapsed_ms": 3355.645,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -752,12 +752,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266728147,
+    "static_memory_bytes": 266728363,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3414.333,
+    "elapsed_ms": 3394.345,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -770,12 +770,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266768763,
+    "static_memory_bytes": 266768979,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3349.018,
+    "elapsed_ms": 3366.495,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -788,12 +788,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 266766129,
+    "static_memory_bytes": 266766345,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3414.743,
+    "elapsed_ms": 3436.999,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -806,12 +806,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 267378257,
+    "static_memory_bytes": 267378473,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3356.908,
+    "elapsed_ms": 3336.495,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -824,12 +824,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268229173,
+    "static_memory_bytes": 268229389,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3348.923,
+    "elapsed_ms": 3368.997,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -842,12 +842,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268374255,
+    "static_memory_bytes": 268376439,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3246.382,
+    "elapsed_ms": 3192.081,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -860,12 +860,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268223567,
+    "static_memory_bytes": 268223783,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3496.628,
+    "elapsed_ms": 3489.515,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -878,12 +878,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268358757,
+    "static_memory_bytes": 268358973,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3352.24,
+    "elapsed_ms": 3334.91,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -896,12 +896,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 268937857,
+    "static_memory_bytes": 268938073,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3369.539,
+    "elapsed_ms": 3340.763,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -914,12 +914,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 269359143,
+    "static_memory_bytes": 269359359,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4949.071,
+    "elapsed_ms": 4960.285,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -932,12 +932,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271489909,
+    "static_memory_bytes": 271490125,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5031.938,
+    "elapsed_ms": 4972.51,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -950,12 +950,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308442771,
+    "static_memory_bytes": 308442987,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4892.813,
+    "elapsed_ms": 4854.275,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -968,12 +968,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271496335,
+    "static_memory_bytes": 271496551,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5034.863,
+    "elapsed_ms": 5013.008,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -986,12 +986,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271569625,
+    "static_memory_bytes": 271571965,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4977.909,
+    "elapsed_ms": 4971.088,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1004,12 +1004,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271572415,
+    "static_memory_bytes": 271572631,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5007.203,
+    "elapsed_ms": 4978.716,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1022,12 +1022,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308249519,
+    "static_memory_bytes": 308249735,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5020.084,
+    "elapsed_ms": 5049.576,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1040,12 +1040,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308292457,
+    "static_memory_bytes": 308292673,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4997.653,
+    "elapsed_ms": 4987.85,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1058,12 +1058,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308275381,
+    "static_memory_bytes": 308275597,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4900.328,
+    "elapsed_ms": 4926.817,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1076,12 +1076,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308960887,
+    "static_memory_bytes": 308961103,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4962.451,
+    "elapsed_ms": 4982.56,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1094,12 +1094,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308792339,
+    "static_memory_bytes": 308792555,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4950.965,
+    "elapsed_ms": 4912.593,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1112,12 +1112,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308986319,
+    "static_memory_bytes": 308986535,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5015.685,
+    "elapsed_ms": 5018.237,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1130,12 +1130,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308764735,
+    "static_memory_bytes": 308764951,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4985.717,
+    "elapsed_ms": 5020.076,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1148,12 +1148,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 283752295,
+    "static_memory_bytes": 283752511,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4996.782,
+    "elapsed_ms": 4984.619,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1166,12 +1166,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308726871,
+    "static_memory_bytes": 308727087,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4968.349,
+    "elapsed_ms": 5012.599,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1184,12 +1184,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 283716533,
+    "static_memory_bytes": 283716749,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4988.151,
+    "elapsed_ms": 5001.96,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1202,12 +1202,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308747515,
+    "static_memory_bytes": 308747731,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5019.754,
+    "elapsed_ms": 5024.821,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1220,12 +1220,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308831267,
+    "static_memory_bytes": 308831483,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4975.147,
+    "elapsed_ms": 4963.681,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1238,12 +1238,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272038919,
+    "static_memory_bytes": 272039135,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5024.324,
+    "elapsed_ms": 5032.893,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1256,12 +1256,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 308845543,
+    "static_memory_bytes": 308845759,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4972.299,
+    "elapsed_ms": 4973.27,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1274,12 +1274,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272024481,
+    "static_memory_bytes": 272024697,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4947.001,
+    "elapsed_ms": 4959.957,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1292,12 +1292,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272076853,
+    "static_memory_bytes": 272077069,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4956.445,
+    "elapsed_ms": 4962.938,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1310,12 +1310,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272124089,
+    "static_memory_bytes": 272124305,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4978.597,
+    "elapsed_ms": 4926.247,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1328,12 +1328,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272014427,
+    "static_memory_bytes": 272014643,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4870.266,
+    "elapsed_ms": 4878.889,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1346,12 +1346,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272077903,
+    "static_memory_bytes": 272078119,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4979.841,
+    "elapsed_ms": 4959.378,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1364,12 +1364,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272165743,
+    "static_memory_bytes": 272165959,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4864.949,
+    "elapsed_ms": 4865.115,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1382,12 +1382,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272098677,
+    "static_memory_bytes": 272098893,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5053.235,
+    "elapsed_ms": 5038.835,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1400,12 +1400,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272105055,
+    "static_memory_bytes": 272105271,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5021.409,
+    "elapsed_ms": 5023.37,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1418,12 +1418,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272298889,
+    "static_memory_bytes": 272299105,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4813.672,
+    "elapsed_ms": 4781.454,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1436,12 +1436,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272006285,
+    "static_memory_bytes": 272006501,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4976.315,
+    "elapsed_ms": 5029.289,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1454,12 +1454,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272152507,
+    "static_memory_bytes": 272152723,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5029.305,
+    "elapsed_ms": 5003.566,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1472,12 +1472,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272320193,
+    "static_memory_bytes": 272320409,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5025.902,
+    "elapsed_ms": 5033.728,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1490,12 +1490,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272097939,
+    "static_memory_bytes": 272098155,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5034.575,
+    "elapsed_ms": 5009.051,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1508,12 +1508,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272289583,
+    "static_memory_bytes": 272289799,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4752.259,
+    "elapsed_ms": 4794.637,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1526,12 +1526,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272003157,
+    "static_memory_bytes": 272003373,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4980.393,
+    "elapsed_ms": 4998.903,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1544,12 +1544,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272210237,
+    "static_memory_bytes": 272210453,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5058.017,
+    "elapsed_ms": 5021.795,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1562,12 +1562,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272373523,
+    "static_memory_bytes": 272373739,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4941.76,
+    "elapsed_ms": 5027.123,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1580,12 +1580,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272745175,
+    "static_memory_bytes": 272745391,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4959.309,
+    "elapsed_ms": 4946.47,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1598,12 +1598,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272110911,
+    "static_memory_bytes": 272111127,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3549.844,
+    "elapsed_ms": 3555.176,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1616,12 +1616,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270160649,
+    "static_memory_bytes": 270160865,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3371.502,
+    "elapsed_ms": 3380.951,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1634,12 +1634,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270113503,
+    "static_memory_bytes": 270113719,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3536.028,
+    "elapsed_ms": 3555.774,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1652,12 +1652,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270146675,
+    "static_memory_bytes": 270146891,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3383.019,
+    "elapsed_ms": 3375.337,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1670,12 +1670,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 275116817,
+    "static_memory_bytes": 275117033,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3339.837,
+    "elapsed_ms": 3367.573,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1688,12 +1688,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270305267,
+    "static_memory_bytes": 270305483,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3529.672,
+    "elapsed_ms": 3558.29,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1706,12 +1706,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270704701,
+    "static_memory_bytes": 270704917,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3437.627,
+    "elapsed_ms": 3479.194,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1724,12 +1724,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270614313,
+    "static_memory_bytes": 270614529,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3490.47,
+    "elapsed_ms": 3473.664,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1742,12 +1742,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270533987,
+    "static_memory_bytes": 270534203,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3383.925,
+    "elapsed_ms": 3385.951,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1760,12 +1760,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270632391,
+    "static_memory_bytes": 270632607,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3398.431,
+    "elapsed_ms": 3334.324,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1778,12 +1778,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270796591,
+    "static_memory_bytes": 270796807,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3517.217,
+    "elapsed_ms": 3522.241,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1796,12 +1796,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270681419,
+    "static_memory_bytes": 270681635,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3348.544,
+    "elapsed_ms": 3370.68,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1814,12 +1814,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 275122705,
+    "static_memory_bytes": 275122921,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3440.858,
+    "elapsed_ms": 3436.516,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1832,12 +1832,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270481183,
+    "static_memory_bytes": 270481399,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3413.807,
+    "elapsed_ms": 3410.969,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1850,12 +1850,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271079253,
+    "static_memory_bytes": 271079469,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3378.73,
+    "elapsed_ms": 3346.581,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1868,12 +1868,12 @@
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270330755,
+    "static_memory_bytes": 270330971,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3531.483,
+    "elapsed_ms": 3502.64,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1886,12 +1886,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270725217,
+    "static_memory_bytes": 270725433,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3449.292,
+    "elapsed_ms": 3434.845,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1904,12 +1904,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270641179,
+    "static_memory_bytes": 270641395,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3468.97,
+    "elapsed_ms": 3468.746,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1922,12 +1922,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270603995,
+    "static_memory_bytes": 270604211,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3369.19,
+    "elapsed_ms": 3357.563,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1940,12 +1940,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270863313,
+    "static_memory_bytes": 270863529,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3429.987,
+    "elapsed_ms": 3407.356,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1958,12 +1958,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 270475559,
+    "static_memory_bytes": 270475775,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 3404.028,
+    "elapsed_ms": 3362.398,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1976,12 +1976,12 @@
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 271071673,
+    "static_memory_bytes": 271071889,
     "vehicle_count": 0
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5009.441,
+    "elapsed_ms": 5017.257,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1994,12 +1994,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272496901,
+    "static_memory_bytes": 272497117,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4958.946,
+    "elapsed_ms": 4982.174,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2012,12 +2012,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272493183,
+    "static_memory_bytes": 272493399,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5094.896,
+    "elapsed_ms": 5006.519,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2030,12 +2030,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272527735,
+    "static_memory_bytes": 272527951,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4954.154,
+    "elapsed_ms": 4940.038,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -2048,12 +2048,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272475893,
+    "static_memory_bytes": 272476109,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5139.426,
+    "elapsed_ms": 5119.835,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2066,12 +2066,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272581733,
+    "static_memory_bytes": 272581949,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5015.75,
+    "elapsed_ms": 5011.517,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2084,12 +2084,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272546571,
+    "static_memory_bytes": 272546787,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4932.923,
+    "elapsed_ms": 4938.81,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2102,12 +2102,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272540879,
+    "static_memory_bytes": 272541095,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5062.694,
+    "elapsed_ms": 5016.052,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2120,12 +2120,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272632907,
+    "static_memory_bytes": 272633123,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4954.647,
+    "elapsed_ms": 4940.763,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -2138,12 +2138,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272581029,
+    "static_memory_bytes": 272581245,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5095.311,
+    "elapsed_ms": 5097.384,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2156,12 +2156,12 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272640953,
+    "static_memory_bytes": 272641169,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 5028.063,
+    "elapsed_ms": 5005.473,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2174,12 +2174,12 @@
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272752603,
+    "static_memory_bytes": 272752819,
     "vehicle_count": 1
   },
   {
     "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-    "elapsed_ms": 4856.582,
+    "elapsed_ms": 4827.662,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2192,7 +2192,7 @@
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 272694973,
+    "static_memory_bytes": 272695189,
     "vehicle_count": 1
   }
 ]

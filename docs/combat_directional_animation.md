@@ -7,15 +7,15 @@ Cette passe introduit des poses réellement dessinées dans huit directions. Ell
 | Ressource réelle | Attente | Marche | Autres actions |
 |---|---|---|---|
 | `agent_diverse_01_neon_blade` | 2 poses × 8 directions | 4 poses × 8 directions | Mêlée, couvert, impact et mort : 2 poses × 8 directions |
-| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | Tir : 2 poses × 8 directions ; autres actions à produire |
+| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | Tir, mêlée, couvert, impact et mort : 2 poses × 8 directions |
 | `agent_diverse_04_trench_sniper` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `enemy_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `enemy_corp_37_power_armor_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `robot_combat` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 
-Total : **368 frames**, dont une référence complète et cinq partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
+Total : **432 frames**, dont deux références complètes et quatre partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
 
-L’agente aux lames possède maintenant toutes ses actions applicables : attente, marche, mêlée, couvert, impact et mort. Tir, PSI et soin sont explicitement non applicables à son équipement et à son rôle ; ils ne sont ni simulés ni comptés comme absents. Les cinq autres atlas restent partiels. Le canon d’épaule du robot reste dans une pose de transport ; les véhicules conservent leurs ressources et ombres existantes. **Une unité sur 231 possède toutes ses actions applicables complètes et validées.**
+Les agentes aux lames et au pistolet magenta possèdent maintenant toutes leurs actions applicables. Les exemptions tir/PSI/soin pour la première et PSI/soin pour la seconde sont justifiées par leur équipement et leur rôle ; elles ne sont ni simulées ni comptées comme absentes. Les quatre autres atlas restent partiels. Le canon d’épaule du robot reste dans une pose de transport ; les véhicules conservent leurs ressources et ombres existantes. **Deux unités sur 231 possèdent toutes leurs actions applicables complètes et validées.**
 
 ## Production et intégration
 
@@ -47,7 +47,7 @@ python tools/art/build_directional_evidence.py
 python tools/audit_combat_visuals.py --output work/directional-animation/audit.json
 ```
 
-L’option `--require-complete` de l’audit doit encore échouer : 1 / 231 ensembles est complet ; la livraison des 230 autres entités reste ouverte.
+L’option `--require-complete` de l’audit doit encore échouer : 2 / 231 ensembles sont complets ; la livraison des 229 autres entités reste ouverte.
 
 ## Échelles relatives aux décors
 

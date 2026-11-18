@@ -50,6 +50,11 @@ func run() -> void:
 					unit.frame_time=0.2
 					unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
+		if key=="agent_diverse_03_magenta_pistol":
+			for action in ["melee","cover","hit","death"]:
+				for direction in range(8):
+					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
+					assert(unit.frame_index==1,action+" follow-through frame must be selected")
 	# A missing asset must restore source art, not leave the previous atlas attached.
 	unit.configure_animation("missing_animation_fixture",base)
 	assert(unit.atlas==null and unit.manifest.is_empty())

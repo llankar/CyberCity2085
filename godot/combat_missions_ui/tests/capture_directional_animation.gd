@@ -56,6 +56,15 @@ func run() -> void:
 			await process_frame;await RenderingServer.frame_post_draw
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
+	var magenta_actions: Array[Dictionary]=[]
+	if roster:
+		var magenta=scene._unit_tokens["p1"]
+		for action in ["fire","melee","cover","hit","death"]:
+			for direction in range(8):
+				assert(magenta.play_action(action));magenta.facing=direction;magenta.frame_time=0.2;magenta._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var action_file="magenta-%s-%02d"%[action,direction]
+				save_frame(action_file);magenta_actions.append({"action":action,"direction":direction,"file":action_file+".png"})
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key];unit.play_action("idle");unit.set_process(true)
 	for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(2560,1440)]:
@@ -65,7 +74,7 @@ func run() -> void:
 	scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	var report: Dictionary=await capture_movement(0,"movement")
 	if roster:report["secondary_movement"]=await capture_movement(1,"movement-secondary")
-	report.merge({"directions":frames,"melee":melee_frames,"projection":"top_down","coverage":"idle_move_and_neon_blade_melee","campaign_written":false})
+	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"projection":"top_down","coverage":"two_complete_agents","campaign_written":false})
 	var captured_assets: Dictionary={}
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key]
