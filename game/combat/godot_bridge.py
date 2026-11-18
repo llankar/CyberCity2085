@@ -460,8 +460,7 @@ def launch_godot_combat_ui(
         return GodotCombatLaunchResult(
             path, command, False, f"Godot launch failed: {exc}", session_id=session["session_id"], result_path=Path(session["result_path"])
         )
-    from game.audio import SoundManager
-    SoundManager.get().pause_music(external=True)
+    # The campaign retains music until Godot confirms readiness.
     return GodotCombatLaunchResult(
         path, command, True, "Godot combat UI launched.", session_id=session["session_id"], result_path=Path(session["result_path"]), process_pid=proc.pid, process=proc
     )

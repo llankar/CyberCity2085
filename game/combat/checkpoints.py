@@ -57,7 +57,9 @@ def load_combat_checkpoint(path):
     # Relocate only this explicit checkpoint's channels when its directory moves.
     session_id=marker['session_id'];record=state.combat_sessions[session_id]
     directory=Path(path).resolve().parent
-    for key,name in [('result_path','result.json'),('prepared_path','prepared_result.json'),('ack_path','ack.json'),('status_path','status.json')]:
+    for key,name in [('result_path','result.json'),('prepared_path','prepared_result.json'),('ack_path','ack.json'),('status_path','status.json'),('audio_path','audio_release.json')]:
+        if key == 'audio_path' and key not in record['session']:
+            continue
         record['session'][key]=str(directory/name)
     record['checkpoints']={phase:str(directory/('campaign_'+phase+'.json')) for phase in ['before','after']}
     return state,session_id

@@ -69,6 +69,7 @@ def main():
                         from game.combat.session_protocol import read_session_status
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
+                        assert 'UNIFIED_AUDIO_OWNERSHIP_READY' in log.read_text()
                         before=state.available_funds
                         for _ in range(12):frame();time.sleep(.08)
                         assert window.current_view is bridge and process.poll() is None
@@ -113,7 +114,7 @@ def main():
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None
                         assert loaded.available_funds==after
                         assert state.latest_mission_debrief and state.latest_agent_aftermath is not None
-                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,viewport=[args.width,args.height],readiness_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
+                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,viewport=[args.width,args.height],readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
                     finally:
                         if process.poll() is None:process.terminate();process.wait(timeout=5)
     finally:

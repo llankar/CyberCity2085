@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 20,
-    "total": 31
+    "done": 23,
+    "total": 34
   },
   "maps": {
     "native_verified": 0,
@@ -35,7 +35,7 @@
     ],
     "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"
   },
-  "render_signature": "954aa202a4b46bfd651dc89f2d2d7a403d999fb58e73b4e56ef276e235e36123",
+  "render_signature": "301d2cd857d3afe8aaf26717c13890fffb1a81c52bc20f47b02fb6e7925770d2",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -161,7 +161,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "20 / 31 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "23 / 34 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]

@@ -126,6 +126,16 @@ class GodotCombatHandoffView(arcade.View):
         status = read_session_status(status_path, session_id, self.mission.id) if status_path else None
         if status and status["ready"]:
             self._session_ready = True
+            if not getattr(self, "_audio_transferred", False):
+                try:
+                    from game.combat.audio_transfer import release_music_to_godot
+                    release_music_to_godot(record)
+                    self._audio_transferred = True
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    self._cleanup_godot()
+                    self._launch_failed = True
+                    self._status = f"Liaison audio interrompue ; campagne inchangée : {exc}"
+                    return
         # This deadline applies only to initialization, never to a long battle.
         if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
             self._cleanup_godot()
@@ -220,6 +230,8 @@ class GodotCombatHandoffView(arcade.View):
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is None:
             process.terminate()
+        from game.audio import SoundManager
+        SoundManager.get().release_external_music()
         if not _WIN:
             return
         from game.combat.win32_embed import hide_window, show_window, terminate_pid
@@ -344,6 +356,7 @@ class GodotCombatHandoffView(arcade.View):
         self._overlaid = False
         self._elapsed = 0.0
         self._session_ready = False
+        self._audio_transferred = False
         self._status = self.launch_result.message
         self.game_state.add_event(self._status)
 

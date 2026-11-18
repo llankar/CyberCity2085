@@ -3,7 +3,7 @@ import copy
 import json
 import shutil
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 import pytest
 from test_unified_mission_resolution import scenario
 from game.combat.checkpoints import checkpoint_info, latest_combat_checkpoint, load_combat_checkpoint
@@ -122,7 +122,7 @@ def test_corrupt_result_is_reported_without_campaign_mutation(tmp_path):
     state, mission, session, _ = scenario(tmp_path)
     path = Path(session['result_path']); path.write_text('{broken')
     launch = GodotCombatLaunchResult(path.parent/'handoff.json', [], True, '', session_id=session['session_id'],result_path=path)
-    view = GodotCombatHandoffView(state, mission, launch)
+    view = GodotCombatHandoffView(state, mission, launch, window=Mock())
     before = state.available_funds
     view.on_update(.1)
     assert view._launch_failed and 'illisible' in view._status

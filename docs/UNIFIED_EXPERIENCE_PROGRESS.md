@@ -4,9 +4,9 @@
 
 ## Bilan vérifié
 
-9 tâches DONE / 10 tâches enregistrées pour les deux premiers lots ; UE2-04 reste BLOCKED faute de Windows graphique. Ces dix tâches ne constituent pas tout le périmètre d’acceptation. **85 tests ciblés distincts PASS, 0 FAIL, 0 skipped** dans [le rapport agrégé](reports/unified_targeted_tests.xml). Les exécutions du lot 2 couvrent 65 cas, plus 19 régressions de lancement partiellement communes ; le rapport déduplique aussi le lot 1.
+12 tâches DONE / 13 tâches enregistrées pour les trois premiers lots ; UE2-04 reste BLOCKED faute de Windows graphique. Ces treize tâches ne constituent pas tout le périmètre d’acceptation. **92 tests ciblés distincts PASS, 0 FAIL, 0 skipped** dans [le rapport agrégé](reports/unified_targeted_tests.xml). Les exécutions du lot 2 couvrent 65 cas, plus 19 régressions de lancement partiellement communes ; le rapport déduplique aussi le lot 1 et les 57 cas du lot audio.
 
-Cinq scénarios graphiques du lot 2 : trois issues avec interruption et récupération en 1280×720 ; victoire et reprise du débriefing en 1920×1080 et 2560×1440. Les issues sont forcées par la fixture : cela vérifie les transitions et conséquences, pas une partie complète avec IA. Trois autres parcours natifs normaux ont aussi été rejoués en 720p.
+Un parcours natif supplémentaire valide la propriété musicale dans le lot 3 (audio muet, aucune validation auditive). Cinq scénarios graphiques du lot 2 : trois issues avec interruption et récupération en 1280×720 ; victoire et reprise du débriefing en 1920×1080 et 2560×1440. Les issues sont forcées par la fixture : cela vérifie les transitions et conséquences, pas une partie complète avec IA. Trois autres parcours natifs normaux ont aussi été rejoués en 720p.
 
 Cartes artistiquement finalisées / animations complètes : aucune validation supplémentaire dans ce chantier. Les anciens décomptes restent dans CODEX_PROGRESS et COMBAT_VISUAL_ACCEPTANCE ; charger la scène de test ne finalise aucune carte.
 
@@ -33,7 +33,7 @@ Cartes artistiquement finalisées / animations complètes : aucune validation su
 - DONE UE1-04 : débriefing puis promotions puis HQ ; statistiques individuelles manquantes indiquées indisponibles.
 - DONE UE1-05 : 67 tests distincts et trois parcours natifs Linux ; [preuves et limites](images/unified-experience/batch1/README.md).
 
-Point Git : `a1fa0d9`.
+Points Git : lot 1 `a1fa0d9` ; lot 2 `5bb5632`.
 
 ## Lot 2 — récupération durable et cycle de vie
 
@@ -44,6 +44,14 @@ Point Git : `a1fa0d9`.
 - DONE UE2-05 : tests de récupération et vrais processus Godot tués avant confirmation ; reprise depuis checkpoint après résolution ; captures vérifiées aux trois résolutions. Correction révélée par les tests : mémoriser les PV maximum à l’extraction avant une promotion.
 
 Fichiers et tests détaillés : [registre](CODEX_PROGRESS.md). Captures : [lot 2](images/unified-experience/batch2/README.md).
+
+## Lot 3 — continuité musicale pendant le chargement
+
+- DONE UE3-01 : Arcade conserve sa musique jusqu’à readiness ; un message de transfert versionné porte le bookmark actualisé. Godot ne lance pas de musique avant de recevoir cette autorisation.
+- DONE UE3-02 : erreur d’écriture ou fermeture restitue la propriété à Arcade ; les transitions d’interface gardent leur pause/reprise.
+- DONE UE3-03 : 57 tests ciblés dont quatre nouveaux cas de propriété musicale ; parcours natif vérifiant l’absence de propriété avant transfert et sa réception, puis débriefing/promotions/HQ. [Preuves et limites](images/unified-experience/batch3/README.md).
+
+Le préchauffage et les fondus audibles restent ouverts. Un avertissement ObjectDB persiste à la fermeture de la fixture Godot ; aucune absence générale de fuite n’est affirmée.
 
 ## Reproduire les validations
 

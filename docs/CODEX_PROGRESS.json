@@ -5,11 +5,9 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "UE2-01",
-    "UE2-02",
-    "UE2-03",
-    "UE2-04",
-    "UE2-05"
+    "UE3-01",
+    "UE3-02",
+    "UE3-03"
   ],
   "tasks": [
     {
@@ -573,6 +571,67 @@
       "evidence": [],
       "remaining": "Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant.",
       "reason": "La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique."
+    },
+    {
+      "id": "UE3-01",
+      "title": "Transférer la musique après readiness sans silence de chargement",
+      "status": "DONE",
+      "files": [
+        "game/combat/audio_transfer.py",
+        "game/combat/session_protocol.py",
+        "godot/combat_missions_ui/scripts/audio_manager.gd"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE3-02",
+      "title": "Restituer la lecture après erreur ou retour de Godot",
+      "status": "DONE",
+      "files": [
+        "game/audio/sound_manager.py",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE3-03",
+      "title": "Vérifier propriété audio et parcours natif sans prétendre valider le son",
+      "status": "DONE",
+      "files": [
+        "tests/test_unified_audio_transfer.py",
+        "godot/combat_missions_ui/tests/unified_return_flow.gd"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
     }
   ],
   "reviews": {},

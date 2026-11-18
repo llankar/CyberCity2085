@@ -86,6 +86,8 @@ var _unit_tokens   : Dictionary  = {}    # "p0" / "e1" → UnitToken instance
 
 # ─── Handoff + assets ─────────────────────────────────────────────────────────
 var handoff         : Dictionary = {}
+var _audio_released := false
+var _audio_release_clock := 0.0
 var handoff_path    := "runtime/godot_combat/mission_handoff.json"
 var project_root    : String = ""
 var unit_textures   : Dictionary = {}
@@ -158,7 +160,7 @@ func _ready() -> void:
 	_load_unit_textures()
 	_load_map_and_portraits()
 	_build_children()
-	_audio.configure_soundtrack(handoff.get("audio", {}),project_root)
+	_audio.configure_soundtrack(handoff.get("audio", {}),project_root,not handoff.get("session",{}).has("audio_path"))
 	_connect_signals()
 	_seed_combat_state()
 	call_deferred("_start_combat", "AUTO-DEPLOY")
@@ -169,7 +171,23 @@ func _announce_session_ready() -> void:
 	await get_tree().process_frame
 	preload("res://scripts/session_mailbox.gd").status(handoff.get("session", {}), "combat_started")
 
+func _poll_audio_release(delta: float) -> void:
+	if _audio_released: return
+	_audio_release_clock += delta
+	if _audio_release_clock < 0.1: return
+	_audio_release_clock = 0.0
+	var session: Dictionary = handoff.get("session", {})
+	var path := str(session.get("audio_path", ""))
+	if path.is_empty() or not FileAccess.file_exists(path): return
+	var message: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not message is Dictionary: return
+	if message.get("protocol_version") != 2 or message.get("session_id") != session.get("session_id") or message.get("mission_id") != session.get("mission_id"): return
+	if message.get("event") != "audio_released" or not message.get("audio") is Dictionary: return
+	_audio.configure_soundtrack(message.audio, project_root)
+	_audio_released = true
+
 func _process(delta: float) -> void:
+	_poll_audio_release(delta)
 	if not battle_started:
 		elapsed_time += delta
 		queue_redraw()
