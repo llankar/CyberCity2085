@@ -16,6 +16,8 @@ def main():
     parser.add_argument('--families',type=Path,default=ROOT/'work/art25-release-families')
     parser.add_argument('--before',type=Path,default=ROOT/'work/art25-before-clear')
     parser.add_argument('--output',type=Path,default=ROOT/'docs/images/combat-25')
+    parser.add_argument('--before-catalog',type=Path)
+    parser.add_argument('--detail-maps',default='cybercity_inner_02_safehouse,city_industrial_factory_floor,city_exterior_neon_market_alley,city_interior_blacksite_lab,wasteland_outdoor_01_dust_road_ambush')
     args=parser.parse_args();out=args.output.resolve();out.mkdir(parents=True,exist_ok=True)
     image_links=out.relative_to(ROOT/'docs').as_posix()
     report=json.loads((args.captures/'native-report.json').read_text());assert len(report)==122
@@ -25,6 +27,14 @@ def main():
     review_path=ART/'expansion_reviews.json'
     reviews=json.loads(review_path.read_text()).get('candidates',[]) if review_path.exists() else []
     source=ART/'environment_art.json';data=json.loads(source.read_text());inventory=[]
+    family_report=args.families/'native-report.json'
+    if family_report.exists():
+        for result in json.loads(family_report.read_text()):
+            assert result['rendered_sprites']==sum(p['enabled'] for p in data['maps'][result['map']]['props']),('detail capture mode mismatch',result['map'])
+    if args.before_catalog:
+        reference=json.loads(args.before_catalog.read_text())['maps']
+        for result in json.loads((args.before/'native-report.json').read_text()):
+            assert result['rendered_sprites']==sum(p['enabled'] for p in reference[result['map']]['props']),('reference capture mode mismatch',result['map'])
     for name,entry in sorted(data['maps'].items()):
         result=records[name];props=[p for p in entry['props'] if p['enabled']]
         assert result['rendered_sprites']==len(props),(name,result['rendered_sprites'],len(props))
@@ -33,7 +43,7 @@ def main():
         with Image.open(frame) as image:
             assert image.size==(1280,720)
             screenshot_hash=hashlib.sha256(image.convert('RGB').tobytes()).hexdigest()
-        entry['validation'].update(native_render='passed',picking_zoom='passed',tactical_catalogue='passed',artistically_complete=False)
+        entry['validation'].update(native_render='passed',picking_zoom='passed',tactical_catalogue='passed')
         for prop in entry['props']:
             prop['detail_status']='native_render_verified_art_completion_pending' if prop['enabled'] else 'original_retained_frame_mismatch'
         decisions=[dict(object=r['source_object_id'],decision=r['decision'],reason=r['reason'],sheet='reviews/'+r['review_sheet'],cell=r['review_cell']) for r in reviews if name in r['aliases']]
@@ -49,7 +59,7 @@ def main():
             draw.text((x+5,y+4),entry['map'],fill=(150,240,245))
             entry['contact_sheet']=f'catalogue-{page+1:02}.jpg';entry['contact_cell']=i+1
         sheet.save(out/f'catalogue-{page+1:02}.jpg',quality=92)
-    names=['cybercity_inner_02_safehouse','city_industrial_factory_floor','city_exterior_neon_market_alley','city_interior_blacksite_lab','wasteland_outdoor_01_dust_road_ambush']
+    names=args.detail_maps.split(',')
     for name in names:
         webp(args.before/f'{name}-1920x1080.png',out/f'before-{name}-1920x1080.webp')
         for size in ['1280x720','1920x1080','2560x1440']:

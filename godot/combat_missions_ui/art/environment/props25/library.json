@@ -434,6 +434,131 @@
       "status": "rendered_pending_in_game_art_review",
       "art_finish": "generated_artist_variant",
       "atlas_source": "artist_facilities_expansion.png"
+    },
+    "insulator_array6": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "ceramic",
+        "metal",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "columns": 3,
+        "rows": 2,
+        "count": 6,
+        "base": "open metal grating"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_assemblies.png"
+    },
+    "metal_bench2": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "seat_blue",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "seats": 2,
+        "material": "blue metal"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_assemblies.png"
+    },
+    "metal_bench_pair": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "metal",
+        "seat_blue",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "modules": 2,
+        "seats": 4,
+        "material": "blue metal"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_bench_pair.png"
+    },
+    "dry_planter": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "concrete",
+        "deadwood"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "vegetation": "dead branches",
+        "base": "hollow concrete frame"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_assemblies.png"
+    },
+    "server_bank6": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "cyan",
+        "metal",
+        "rubber",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "racks": 6,
+        "continuous_roof": false
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_assemblies.png"
+    },
+    "insulator_array4": {
+      "yaw": [
+        0,
+        90,
+        180,
+        270
+      ],
+      "materials": [
+        "ceramic",
+        "metal",
+        "steel"
+      ],
+      "status": "rendered_pending_in_game_art_review",
+      "assembly": {
+        "columns": 2,
+        "rows": 2,
+        "count": 4,
+        "base": "open metal grating"
+      },
+      "art_finish": "generated_artist_variant",
+      "atlas_source": "artist_array4.png"
     }
   },
   "postproduction": "3x3 median on opaque material interiors only; original alpha retained",
@@ -494,6 +619,36 @@
         "server",
         "hvac",
         "barrier"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_bench_pair.png": {
+      "source": "artist_bench_pair.png",
+      "source_sha256": "6a1c43d94d14174b3187a3356a65e936cf8391d2f07baa563a52e41136d1de36",
+      "families": [
+        "metal_bench_pair"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_assemblies.png": {
+      "source": "artist_assemblies.png",
+      "source_sha256": "fac825a8dd71c636113fe9a37ba6951759fbfca94fa126b6f68a2ff43cc56258",
+      "families": [
+        "insulator_array6",
+        "metal_bench2",
+        "dry_planter",
+        "server_bank6"
+      ],
+      "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
+      "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
+    },
+    "artist_array4.png": {
+      "source": "artist_array4.png",
+      "source_sha256": "f0fe0dd6dab2ab34a65a93aefd0b7972d72a950ac3c8ce13a271510e0be935ce",
+      "families": [
+        "insulator_array4"
       ],
       "method": "Image-generation artwork finish from authored Blender atlas; separate transparent sprites",
       "blender_sources": "Editable geometric blocking models, not an exact reconstruction of the finished artwork"
@@ -1850,6 +2005,318 @@
         91,
         261,
         234
+      ]
+    },
+    "insulator_array6-0.png": {
+      "sha256": "c6cba5de0edd310cc6732d7a137fa82add19c6f237018a94b05eefd2cf7377d5",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        57,
+        76,
+        258,
+        266
+      ]
+    },
+    "insulator_array6-90.png": {
+      "sha256": "29519bb6199926910e5aa4d6b9af688da81a42e9f5071f729579a414c386ded4",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        57,
+        68,
+        258,
+        269
+      ]
+    },
+    "insulator_array6-180.png": {
+      "sha256": "ee14b89cfd263597c1929242bf2173ed31adc0c39c247dc5bccf29fca921c5a6",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        56,
+        77,
+        258,
+        266
+      ]
+    },
+    "insulator_array6-270.png": {
+      "sha256": "72ab1f273069277974ee469a580a05898ebb6b076dcf3915cb737013195b87d4",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        57,
+        68,
+        258,
+        269
+      ]
+    },
+    "metal_bench2-0.png": {
+      "sha256": "9ad1562c9fa5bf41b1d26ac7bd6ff54c34b2ba3071439cc8c2320f6ec8c03724",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        60,
+        127,
+        256,
+        224
+      ]
+    },
+    "metal_bench2-90.png": {
+      "sha256": "be487bf65c6d61d763d77dfde2a0f024f4b47caa8a3650a7584f0dc6da3f39ca",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        123,
+        64,
+        197,
+        272
+      ]
+    },
+    "metal_bench2-180.png": {
+      "sha256": "50a2e0c1398af6dcb918092b803ae7d172e7dc3e072ee454badbeaeea4e77ae1",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        58,
+        128,
+        256,
+        213
+      ]
+    },
+    "metal_bench2-270.png": {
+      "sha256": "4c6296037b8fde0db8260ad1c559b70b9ddc77b1fc2908b2fafd16ccdd853c7e",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        118,
+        64,
+        193,
+        272
+      ]
+    },
+    "metal_bench_pair-0.png": {
+      "sha256": "49c599301e3514d1aa0b1d319b0d12c35c0a1804550eac8efee32487fffdcdde",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        32,
+        325,
+        510,
+        433
+      ]
+    },
+    "metal_bench_pair-90.png": {
+      "sha256": "150aa3d2790e9c059fa0cd86bcde110f101e23ff14792bddb3eff2fc37d50726",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        238,
+        140,
+        317,
+        602
+      ]
+    },
+    "metal_bench_pair-180.png": {
+      "sha256": "0ecb3dfec3c1fe0b9e2366b4f348f085102b489f0d7582631ac80e89c1d5d63b",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        34,
+        327,
+        510,
+        421
+      ]
+    },
+    "metal_bench_pair-270.png": {
+      "sha256": "4049073704d9d42d0af27312d5cea050781e565bfd9268136c5b9231404c199b",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        227,
+        139,
+        308,
+        602
+      ]
+    },
+    "dry_planter-0.png": {
+      "sha256": "dce07c782d3d17620673ac60630ca8ad4ce71be664dd952acbf6c4cef87e761f",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        61,
+        55,
+        233,
+        264
+      ]
+    },
+    "dry_planter-90.png": {
+      "sha256": "3299c7872a8b3b2391d05f67660458ec85ebbf2c43eef8a5700a50a04577d7b0",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        70,
+        74,
+        246,
+        269
+      ]
+    },
+    "dry_planter-180.png": {
+      "sha256": "1aa89420057e9a574f7556aaa9152d6a31142e3d915258ed78213f5d841924a0",
+      "size": [
+        313,
+        313
+      ],
+      "alpha_bounds": [
+        68,
+        75,
+        244,
+        256
+      ]
+    },
+    "dry_planter-270.png": {
+      "sha256": "28a078d1718319b75ec4ed8ba215e475af43992972b714dbe6c3abd7813cc157",
+      "size": [
+        314,
+        313
+      ],
+      "alpha_bounds": [
+        67,
+        75,
+        242,
+        250
+      ]
+    },
+    "server_bank6-0.png": {
+      "sha256": "da89e5984d5ba29d34e6cd982de08ae56ec4cdcfccbfe0d6195e26694deb5d45",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        45,
+        72,
+        270,
+        200
+      ]
+    },
+    "server_bank6-90.png": {
+      "sha256": "6bbc0f3f89ab33d6e0fa0b44c2a92a320fdc19af33480f66056c518e1acd12c7",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        105,
+        23,
+        176,
+        282
+      ]
+    },
+    "server_bank6-180.png": {
+      "sha256": "5e28115ebb79aaefbf0c4f043423ca597d7ea3f569e81ca8f2eacfa40ecc1430",
+      "size": [
+        313,
+        314
+      ],
+      "alpha_bounds": [
+        39,
+        105,
+        273,
+        233
+      ]
+    },
+    "server_bank6-270.png": {
+      "sha256": "26cd510cbaf57684f75eba3dd3586af36131d93330768cb72c0fa494fce0af90",
+      "size": [
+        314,
+        314
+      ],
+      "alpha_bounds": [
+        138,
+        22,
+        209,
+        282
+      ]
+    },
+    "insulator_array4-0.png": {
+      "sha256": "f6faa3a0c2176648dae9209394fda553130127b4bc6d8a763f5f86de752cc53c",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        106,
+        223,
+        437,
+        561
+      ]
+    },
+    "insulator_array4-90.png": {
+      "sha256": "2e7146e1e29691ddc1bd36c4aa8fbe167f94731b1e41865cf2adbf03c32a77ed",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        106,
+        222,
+        437,
+        561
+      ]
+    },
+    "insulator_array4-180.png": {
+      "sha256": "8df66b753e252cfdff3cc6718de35288c20f72e2c05389ce1e05309b781d5b0c",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        106,
+        223,
+        437,
+        561
+      ]
+    },
+    "insulator_array4-270.png": {
+      "sha256": "24a5e7abeae6bf4a3e75b9c60a5f26feb017c07b986895d7b37a618a2e25e445",
+      "size": [
+        543,
+        724
+      ],
+      "alpha_bounds": [
+        107,
+        223,
+        438,
+        561
       ]
     }
   }

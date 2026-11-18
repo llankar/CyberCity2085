@@ -1,0 +1,61 @@
+{
+  "delivered": [
+    "Placements et sprites séparés du sol ; pas d’extrusion du tapis ou des meubles à partir des seules collisions.",
+    "Ombres de silhouettes pour agents, ennemis, power armors, robots et véhicules ; proportions, sélection et restrictions des véhicules en intérieur conservées.",
+    "Portées et dégâts Godot rééquilibrés dans les livraisons précédentes ; aucune nouvelle modification des règles dans cette passe.",
+    "PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.",
+    "Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions."
+  ],
+  "tasks": [
+    {
+      "name": "Suivi global et examen des groupes restants",
+      "status": "Terminé",
+      "detail": "Suivi généré depuis les catalogues ; 145 découpes supplémentaires examinées, soit 363 au total."
+    },
+    {
+      "name": "Ressources correspondant aux assemblages",
+      "status": "Terminé",
+      "detail": "Six familles / 24 vues supplémentaires, dont variantes électriques à quatre et six isolateurs ; modèles Blender et trois planches finales."
+    },
+    {
+      "name": "Annotations et intégration",
+      "status": "Terminé",
+      "detail": "Revue rapprochée des groupes, masques de débordement distincts des collisions et conservation des variantes incompatibles."
+    },
+    {
+      "name": "Validation native et comparaison",
+      "status": "Terminé",
+      "detail": "122 cartes contrôlées, 23 tests ciblés réussis, comparaisons à trois résolutions et contrôles des entités ; captures isolées des préférences partagées."
+    },
+    {
+      "name": "Inventaire et publication",
+      "status": "En cours",
+      "detail": "Preuves exportées ; contrôles finaux des fichiers et publication."
+    }
+  ],
+  "validation": {
+    "reference": "assemblages — 18/11/2026 (prêt à publier)",
+    "evidence": "images/combat-25-assemblies/README.md",
+    "summary": "122 rendus natifs vérifiés, 23 tests ciblés réussis et cinq tests du suivi ; comparaisons à trois résolutions et contrôles des entités. Le catalogue 7244e46 est rejoué en mémoire pour la comparaison avant/après. Les captures dépendant de préférences partagées ont été refaites et leurs nombres de sprites vérifiés.",
+    "signature": "e44a645510b3086b7bdc2ea0c7e16786f6a8f07f1246895f572531c1d30f82da"
+  },
+  "remaining": [
+    "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
+    "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
+    "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",
+    "Poursuivre la finition et les animations des entités par rapport à la maquette, en préservant les proportions et les données du jeu.",
+    "Effectuer la revue artistique détaillée carte par carte ; aucune carte n’est cochée comme terminée par un simple test de chargement.",
+    "Compléter les mesures de performances sur GPU joueur ; les contrôles disponibles utilisent le rendu logiciel llvmpipe."
+  ],
+  "history": [
+    {
+      "reference": "35f7b80",
+      "summary": "99 placements actifs sur 97 cartes ; bibliothèque de 16 familles / 64 vues ; validation native du catalogue."
+    },
+    {
+      "reference": "7244e46",
+      "summary": "187 placements sur 108 cartes ; 26 familles / 104 vues ; ombres des entités et correction du chargement des soutiens."
+    }
+  ],
+  "target_maps": 122
+}

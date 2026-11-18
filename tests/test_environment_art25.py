@@ -45,7 +45,7 @@ def test_native_contract(script,sentinel):
 def test_production_frames_have_real_transparency_and_complete_silhouettes():
     from PIL import Image
     library=json.loads((ART/'props25/library.json').read_text())
-    assert len(library['assets'])==26
+    assert len(library['assets'])==32
     for family in library['assets']:
         for yaw in [0,90,180,270]:
             with Image.open(ART/'props25'/f'{family}-{yaw}.png') as image:
@@ -60,7 +60,7 @@ def test_production_frames_have_real_transparency_and_complete_silhouettes():
 def test_expansion_decisions_are_visually_reviewed_and_bound_to_exact_art():
     reviews=json.loads((ART/'expansion_reviews.json').read_text())['candidates']
     catalog=json.loads((ART/'environment_art.json').read_text())['maps']
-    assert len(reviews)==218
+    assert len(reviews)==363
     for name,entry in catalog.items():
         for prop in entry['props']:
             if prop['source_review']!='detail_crop_sheet':continue
@@ -70,6 +70,13 @@ def test_expansion_decisions_are_visually_reviewed_and_bound_to_exact_art():
             assert name in review['aliases'] and entry['image_sha256']==review['source_sha256']
             assert (prop['asset'],prop['source_object_id'],prop['bounds_uv'])==(review['asset'],review['source_object_id'],review['bounds_uv'])
             if prop['enabled'] and 'author_yaw' in prop:assert prop['yaw']==prop['author_yaw']
+            if 'assembly' in prop:
+                library=json.loads((ART/'props25/library.json').read_text())
+                for key,value in prop['assembly'].items():assert library['assets'][prop['asset']]['assembly'][key]==value
+            for polygon in prop.get('erase_overhang_uv',[]):
+                assert len(polygon)>=3
+                assert all(len(point)==2 and all(0<=v<=1 for v in point) for point in polygon)
+            assert prop.get('erase_overhang_uv',[])==review.get('erase_overhang_uv',[])
 
 
 def test_published_sprite_checksums_match_production_manifest():

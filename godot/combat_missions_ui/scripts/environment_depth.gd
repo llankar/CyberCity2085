@@ -198,6 +198,18 @@ func _sprite_volume(wall: Dictionary, anchor: Vector2) -> Dictionary:
 	var erase_bounds: Array=entry.get("erase_bounds_uv",[maxf(0,float(b[0])-pad.x),maxf(0,float(b[1])-pad.y),minf(1,float(b[2])+pad.x),minf(1,float(b[3])+pad.y)])
 	var erase:=PackedVector2Array([Vector2(erase_bounds[0],erase_bounds[1]),Vector2(erase_bounds[2],erase_bounds[1]),Vector2(erase_bounds[2],erase_bounds[3]),Vector2(erase_bounds[0],erase_bounds[3])])
 	var patch: Dictionary=Materials.soft_floor_completion(_surfaces.floor_patch(erase),erase_bounds,_surfaces.source,board).duplicate();patch["uvs"]=erase
+	var patches: Array[Dictionary]=[patch]
+	# Authored visible overhangs can extend beyond a tactical footprint. Erase
+	# only those reviewed silhouettes, never infer them from collision cells.
+	for raw_polygon: Array in entry.get("erase_overhang_uv",[]):
+		var polygon:=PackedVector2Array()
+		for pair: Array in raw_polygon:polygon.append(Vector2(pair[0],pair[1]))
+		if polygon.size()<3:continue
+		var bounds:=Rect2(polygon[0],Vector2.ZERO)
+		for point: Vector2 in polygon:bounds=bounds.expand(point)
+		var extra: Dictionary=Materials.soft_floor_completion(_surfaces.floor_patch(polygon),[bounds.position.x,bounds.position.y,bounds.end.x,bounds.end.y],_surfaces.source,board).duplicate()
+		extra["uvs"]=polygon
+		patches.append(extra)
 	var polygons: Array[PackedVector2Array]=[]
 	var shadows: Array[PackedVector2Array]=[]
 	for raw_shape: PackedVector2Array in _sprite_cache[path].shapes:
@@ -210,4 +222,4 @@ func _sprite_volume(wall: Dictionary, anchor: Vector2) -> Dictionary:
 	var source_tint: Color=Materials.body_tint(_surfaces.source,silhouette)
 	var exposure:=clampf(source_tint.v/maxf(.01,float(_sprite_cache[path].luminance)),.35,1.0)
 	var material_color:=Color(exposure,exposure,exposure)
-	return {"height":board.iso_th*.18,"parts":[],"floor":{"patches":[patch]},"ground_shapes":[],"shadow_shapes":shadows,"baked_only":false,"fade_alpha":.35,"sprite":{"texture":texture,"rect":rect,"silhouettes":polygons,"color":material_color}}
+	return {"height":board.iso_th*.18,"parts":[],"floor":{"patches":patches},"ground_shapes":[],"shadow_shapes":shadows,"baked_only":false,"fade_alpha":.35,"sprite":{"texture":texture,"rect":rect,"silhouettes":polygons,"color":material_color}}
