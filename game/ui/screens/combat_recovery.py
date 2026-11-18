@@ -9,8 +9,13 @@ def show_combat_recovery(window,state):
         if 'mission' not in record:continue
         mission=MissionTemplate.from_dict(record['mission'])
         if record.get('status')=='applied':
+            from game.combat.session_protocol import acknowledge_applied_session
+            try:
+                acknowledge_applied_session(record,session_id)
+            except OSError:
+                state.add_event('Combat already resolved; acknowledgement could not be refreshed. The old Godot window may need closing manually.')
             resolved=resume_return(state,mission,session_id)
-            if resolved is None:continue
+            if resolved is None:return False
             context,survivors,units=resolved;context.window=window
             context.on_return_complete=lambda:complete_return(state,session_id)
             from .mission_return import show_mission_debrief
@@ -20,7 +25,7 @@ def show_combat_recovery(window,state):
         from game.combat.godot_bridge import GodotCombatLaunchResult
         from .godot_combat_handoff_view import GodotCombatHandoffView
         launch=GodotCombatLaunchResult(Path(record['session']['result_path']).parent/'handoff.json',[],False,
-            'Combat interrompu. C : confirmer le résultat récupérable ; R : relancer Godot ; F : choisir Arcade explicitement.',
+            'Combat interrompu. S : reprendre le dernier instantané ; C : récupérer un résultat ; R : recommencer ; F : choisir Arcade explicitement.',
             session_id=session_id,result_path=Path(record['session']['result_path']))
         window.show_view(GodotCombatHandoffView(state,mission,launch,window=window))
         return True

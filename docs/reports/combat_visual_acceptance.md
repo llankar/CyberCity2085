@@ -2,7 +2,7 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
-Tâches DONE : 23 / 34. Ce ratio porte sur le registre, pas sur la finition artistique.
+Tâches DONE : 28 / 39. Ce ratio porte sur le registre, pas sur la finition artistique.
 Cartes : 0 / 122 chargées ; 0 artistiquement vérifiées.
 Animations complètes : 0 / 231 ; 6 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
@@ -22,7 +22,7 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
 | TARGETED-TESTS — Tests exécutés dans la portée du lot | PASS | {'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'} |
-| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 23 / 34 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
+| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 28 / 39 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
 
 ## Tests réellement enregistrés
 
@@ -34,4 +34,4 @@ MAP-LOAD, MAP-ART, ART-OBJECTS, UNIT-SCALE, UNIT-ART, FUNCTIONAL, RESOLUTIONS, P
 
 ## Prochaine action précise
 
-UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.
+UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.

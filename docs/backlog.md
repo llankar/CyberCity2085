@@ -815,3 +815,13 @@ Toujours ouverts : reprise du tour en cours avant résultat, préchauffage/conti
 - [x] UE3-03 Vérifier l’ordre de transfert dans les tests et un vrai processus Godot.
 
 Audio Dummy : pas de validation auditive ni de fondu certifié.
+
+### Unified Experience — lot 4 reprise tactique
+
+- [x] UE4-01 Contrat versionné et frontières de l’état logique documentés.
+- [x] UE4-02 Instantanés atomiques différés après les actions.
+- [x] UE4-03 Validation double, restauration des unités/PA/objectifs/postures/caméra et modes graphiques.
+- [x] UE4-04 Reprise explicite dans un nouvel UUID, annulation des instances précédentes et renvoi d’ACK après crash.
+- [x] UE4-05 Tests ciblés et captures natives sur trois résolutions.
+
+Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/préchauffage, validation Windows et écoute audio réelle. Les jets futurs et les animations en cours ne sont pas repris à l’identique.

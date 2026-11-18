@@ -5,9 +5,11 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "UE3-01",
-    "UE3-02",
-    "UE3-03"
+    "UE4-01",
+    "UE4-02",
+    "UE4-03",
+    "UE4-04",
+    "UE4-05"
   ],
   "tasks": [
     {
@@ -632,6 +634,103 @@
       ],
       "remaining": "",
       "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE4-01",
+      "title": "Inventorier les états tactiques et définir le contrat de reprise",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/tactical_checkpoint.gd",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-02",
+      "title": "Écrire un instantané atomique après les actions résolues",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-03",
+      "title": "Valider et restaurer sans modifier les règles ni la campagne",
+      "status": "DONE",
+      "files": [
+        "game/combat/tactical_recovery.py"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-04",
+      "title": "Proposer une reprise explicite et isoler les anciennes sessions",
+      "status": "DONE",
+      "files": [
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-05",
+      "title": "Tester interruption, reprise et conséquences avec preuves natives",
+      "status": "DONE",
+      "files": [
+        "tests/test_unified_tactical_recovery.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
     }
   ],
   "reviews": {},
@@ -700,7 +799,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.",
+  "next_action": "UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
