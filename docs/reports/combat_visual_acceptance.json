@@ -18,21 +18,21 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 0,
-    "partial": 6,
+    "complete": 1,
+    "partial": 5,
     "expected": 231
   },
   "tests": {
-    "passed": 67,
+    "passed": 37,
     "failed": 0,
-    "skipped": 0,
+    "skipped": 1,
     "not_executed": [
       "Actions de combat manquantes et autres unités",
       "Suite intégrale du jeu"
     ],
-    "scope": "67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus"
+    "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "bf69d3cd26e784e61ed0c26e7c3bc553c4defbe46afa0fa06b3e4a1e98b1b165",
+  "render_signature": "8c64722612c85f4837e618db887b1d6aa5deedb2afabf103ffc0c2743dab9a2b",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption.",
+      "detail": "1 / 231 ensembles complets pour toutes leurs actions applicables ; 5 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -154,8 +154,8 @@
       "id": "TARGETED-TESTS",
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "{'passed': 67, 'failed': 0, 'skipped': 0, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus'}",
+      "status": "NOT VERIFIED",
+      "detail": "{'passed': 37, 'failed': 0, 'skipped': 1, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément'}",
       "evidence": [
         "docs/reports/current_unified_progress_tests.xml"
       ]
@@ -176,7 +176,8 @@
     "FUNCTIONAL",
     "RESOLUTIONS",
     "ANIMATIONS",
+    "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : reprendre la finition artistique individuelle, actuellement 0/122, puis UNIT-COVERAGE/ANIM-COMPLETE. Garder ouverts redimensionnement/DPI/audio Windows et la revue fonctionnelle globale."
+  "next_action": "UNIT-COVERAGE/ANIM-COMPLETE : produire et vérifier les actions applicables des 230 autres entités. Puis FUNCTIONAL/RESOLUTIONS et campagne/release ; garder ouverts redimensionnement/DPI/audio Windows."
 }

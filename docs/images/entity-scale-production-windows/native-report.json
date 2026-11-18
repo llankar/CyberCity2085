@@ -1,9 +1,11 @@
 [
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5612.78,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5508.375,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_district_apartment_block.png",
@@ -13,15 +15,17 @@
     "props": 34,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266975199,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265336819,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5916.436,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4979.975,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_district_civic_center.png",
@@ -31,15 +35,17 @@
     "props": 33,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266882527,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265272635,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5348.822,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5399.024,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_district_holo_square.png",
@@ -49,15 +55,17 @@
     "props": 39,
     "rendered_sprites": 16,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267276303,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265666299,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5054.876,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5097.554,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_district_riot_square.png",
@@ -67,15 +75,17 @@
     "props": 28,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267042247,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265432131,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4809.78,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4952.666,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_district_tech_market.png",
@@ -85,15 +95,17 @@
     "props": 30,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267733007,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266123123,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4921.557,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4952.681,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_billboard_avenue.png",
@@ -103,15 +115,17 @@
     "props": 26,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267597227,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265991447,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4979.353,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5094.686,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_corporate_plaza.png",
@@ -121,15 +135,17 @@
     "props": 23,
     "rendered_sprites": 5,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267634173,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266035911,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4820.229,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4923.956,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_downtown_intersection.png",
@@ -139,15 +155,17 @@
     "props": 22,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267622803,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266023155,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4795.274,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4813.478,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_elevated_freeway.png",
@@ -157,15 +175,17 @@
     "props": 19,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267426499,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265825379,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4884.102,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5015.217,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_neon_market_alley.png",
@@ -175,15 +195,17 @@
     "props": 23,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267748827,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266672969,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4924.298,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4988.94,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_parking_garage.png",
@@ -193,15 +215,17 @@
     "props": 30,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267633861,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266560109,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4816.727,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4821.938,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_rooftop_access.png",
@@ -211,15 +235,17 @@
     "props": 22,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267685047,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266611929,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4941.467,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5112.858,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_exterior_waterfront_docks.png",
@@ -229,15 +255,17 @@
     "props": 25,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267837751,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266764705,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4664.457,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4744.523,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_data_vault.png",
@@ -247,15 +275,17 @@
     "props": 23,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267668215,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267117865,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4765.098,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4916.953,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_dockside_terminal.png",
@@ -265,15 +295,17 @@
     "props": 62,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268320383,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267771953,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4861.548,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4908.371,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_factory_floor.png",
@@ -283,15 +315,17 @@
     "props": 32,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268205525,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267655057,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4864.79,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5005.468,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_power_substation.png",
@@ -301,15 +335,17 @@
     "props": 28,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268257973,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267709611,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4815.071,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4842.593,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_security_checkpoint.png",
@@ -319,15 +355,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268154255,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267605893,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3279.81,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3365.245,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_service_tunnel.png",
@@ -337,15 +375,17 @@
     "props": 68,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266892655,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265818051,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4850.766,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5041.16,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_industrial_warehouse_floor.png",
@@ -355,15 +395,17 @@
     "props": 35,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268722751,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267648147,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3732.432,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3348.674,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_blacksite_lab.png",
@@ -373,15 +415,17 @@
     "props": 39,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266643687,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265569059,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4131.8,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3423.955,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_command_deck.png",
@@ -391,15 +435,17 @@
     "props": 30,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 270849883,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 269775273,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3541.894,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3513.893,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_control_center.png",
@@ -409,15 +455,17 @@
     "props": 29,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266609931,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265535283,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3477.392,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3418.211,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_corporate_lobby.png",
@@ -427,15 +475,17 @@
     "props": 44,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266637219,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265562541,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3477.205,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3468.409,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_cyber_cafe.png",
@@ -445,15 +495,17 @@
     "props": 37,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266659533,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266109415,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3505.397,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3463.087,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_medical_clinic.png",
@@ -463,15 +515,17 @@
     "props": 36,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266658447,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266064953,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3468.291,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3449.055,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_penthouse_atrium.png",
@@ -481,15 +535,17 @@
     "props": 35,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266630205,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266035593,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3369.617,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3368.889,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_police_records.png",
@@ -499,15 +555,17 @@
     "props": 25,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266588005,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 265992653,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3440.084,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3406.954,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_research_lab.png",
@@ -517,15 +575,17 @@
     "props": 34,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266672359,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266074901,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3635.062,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3494.813,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_safehouse.png",
@@ -535,15 +595,17 @@
     "props": 44,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 333217139,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 332622371,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3450.225,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3397.653,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_interior_server_room.png",
@@ -553,15 +615,17 @@
     "props": 34,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266729671,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266132113,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4794.742,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4932.047,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_rooftop_skybridge_spine.png",
@@ -571,15 +635,17 @@
     "props": 20,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268813139,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268219421,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4822.516,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4911.325,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_transit_freight_yard.png",
@@ -589,15 +655,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268771271,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268177553,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5185.504,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5176.801,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_transit_metro_interchange.png",
@@ -607,15 +675,17 @@
     "props": 37,
     "rendered_sprites": 10,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268850763,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268258219,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4769.458,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4745.347,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "city_transit_subway_platform.png",
@@ -625,15 +695,17 @@
     "props": 24,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268733223,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268139045,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3200.923,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3207.678,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "city_transit_train_tunnel.png",
@@ -643,15 +715,17 @@
     "props": 30,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 266598417,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266006451,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3395.946,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3410.462,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_01_control_center.png",
@@ -661,15 +735,17 @@
     "props": 29,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267323303,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266204131,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3458.789,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3439.682,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_02_safehouse.png",
@@ -679,15 +755,17 @@
     "props": 29,
     "rendered_sprites": 5,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267338321,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266219907,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3345.018,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3311.63,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_03_research_lab.png",
@@ -697,15 +775,17 @@
     "props": 37,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267437449,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266321129,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3484.893,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3449.613,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_04_medical_clinic.png",
@@ -715,15 +795,17 @@
     "props": 34,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267407907,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266287433,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3324.097,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3293.953,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_05_server_room.png",
@@ -733,15 +815,17 @@
     "props": 35,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267345045,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266224571,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3281.396,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3315.296,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_06_blacksite_lab.png",
@@ -751,15 +835,17 @@
     "props": 28,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267848447,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266728147,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3340.865,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3414.333,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_07_corporate_lobby.png",
@@ -769,15 +855,17 @@
     "props": 39,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267889063,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266768763,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3391.769,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3349.018,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_08_police_records.png",
@@ -787,15 +875,17 @@
     "props": 31,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 267886199,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 266766129,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3457.791,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3414.743,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_09_apartment_block.png",
@@ -805,15 +895,17 @@
     "props": 45,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268500457,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 267378257,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3343.85,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3356.908,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_10_penthouse_atrium.png",
@@ -823,15 +915,17 @@
     "props": 25,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268296029,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268229173,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3343.443,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3348.923,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_11_cyber_cafe.png",
@@ -841,15 +935,17 @@
     "props": 27,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268443253,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268374255,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3102.691,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3246.382,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_12_maintenance_tunnel.png",
@@ -859,15 +955,17 @@
     "props": 22,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268292751,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268223567,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3364.899,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3496.628,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_13_warehouse_floor.png",
@@ -877,15 +975,17 @@
     "props": 34,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268429747,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268358757,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3349.167,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3352.24,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_14_detention_block.png",
@@ -895,15 +995,17 @@
     "props": 40,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268482305,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 268937857,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3288.918,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3369.539,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_inner_15_data_vault.png",
@@ -913,15 +1015,17 @@
     "props": 31,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 268903735,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 269359143,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4932.173,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4949.071,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_01_downtown_intersection.png",
@@ -931,15 +1035,17 @@
     "props": 28,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 271028585,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271489909,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4678.837,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5031.938,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_02_neon_market_alley.png",
@@ -949,15 +1055,17 @@
     "props": 24,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314282631,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308442771,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4842.556,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4892.813,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_03_elevated_freeway.png",
@@ -967,15 +1075,17 @@
     "props": 21,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277334327,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271496335,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 5031.614,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5034.863,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_04_waterfront_docks.png",
@@ -985,15 +1095,17 @@
     "props": 30,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277405667,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271569625,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4918.65,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4977.909,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_05_civic_plaza.png",
@@ -1003,15 +1115,17 @@
     "props": 30,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277406435,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271572415,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4861.828,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5007.203,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_06_downtown_intersection.png",
@@ -1021,15 +1135,17 @@
     "props": 22,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314078727,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308249519,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4994.477,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5020.084,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_06_transit_interchange.png",
@@ -1039,15 +1155,17 @@
     "props": 25,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314130071,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308292457,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4826.607,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4997.653,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_07_downtown_intersection.png",
@@ -1057,15 +1175,17 @@
     "props": 22,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314119319,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308275381,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4727.058,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4900.328,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_07_neon_market_alley.png",
@@ -1075,15 +1195,17 @@
     "props": 36,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314276247,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308960887,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4895.953,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4962.451,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_08_elevated_freeway.png",
@@ -1093,15 +1215,17 @@
     "props": 25,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314107499,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308792339,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4774.381,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4950.965,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_08_neon_market_alley.png",
@@ -1111,15 +1235,17 @@
     "props": 36,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314303487,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308986319,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4915.024,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5015.685,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_09_elevated_freeway.png",
@@ -1129,15 +1255,17 @@
     "props": 25,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 314079911,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308764735,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4950.163,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4985.717,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_09_waterfront_docks.png",
@@ -1147,15 +1275,17 @@
     "props": 24,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 291167835,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 283752295,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4727.537,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4996.782,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_10_civic_plaza.png",
@@ -1165,15 +1295,17 @@
     "props": 28,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 316144607,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308726871,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4908.06,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4968.349,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_10_waterfront_docks.png",
@@ -1183,15 +1315,17 @@
     "props": 24,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 291134269,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 283716533,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4734.662,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4988.151,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_11_civic_plaza.png",
@@ -1201,15 +1335,17 @@
     "props": 28,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 316165281,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308747515,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4804.27,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5019.754,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_11_transit_interchange.png",
@@ -1219,15 +1355,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 316242943,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308831267,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4835.741,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4975.147,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_12_industrial_district.png",
@@ -1237,15 +1375,17 @@
     "props": 24,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279454591,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272038919,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4841.713,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5024.324,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_12_transit_interchange.png",
@@ -1255,15 +1395,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 316261323,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 308845543,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4902.885,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4972.299,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_13_flood_prone_avenue.png",
@@ -1273,15 +1415,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279444389,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272024481,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4904.176,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4947.001,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_13_industrial_district.png",
@@ -1291,15 +1435,17 @@
     "props": 24,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279500781,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272076853,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4954.939,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4956.445,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_14_bridge_access.png",
@@ -1309,15 +1455,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279550083,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272124089,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4907.011,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4978.597,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_14_flood_prone_avenue.png",
@@ -1327,15 +1475,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279436419,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272014427,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4745.919,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4870.266,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_15_billboard_avenue.png",
@@ -1345,15 +1495,17 @@
     "props": 26,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279499855,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272077903,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4911.187,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4979.841,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_15_bridge_access.png",
@@ -1363,15 +1515,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279587525,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272165743,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4756.047,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4864.949,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "cybercity_street_16_billboard_avenue.png",
@@ -1381,15 +1535,17 @@
     "props": 26,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279524845,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272098677,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4768.551,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5053.235,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_01_ruined_downtown.png",
@@ -1399,15 +1555,17 @@
     "props": 26,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279527121,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272105055,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4757.36,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5021.409,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_02_burned_market_block.png",
@@ -1417,15 +1575,17 @@
     "props": 25,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279717005,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272298889,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4547.514,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4813.672,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_03_collapsed_overpass.png",
@@ -1435,15 +1595,17 @@
     "props": 24,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279426259,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272006285,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4834.148,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4976.315,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_04_flooded_civic_square.png",
@@ -1453,15 +1615,17 @@
     "props": 25,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279572481,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272152507,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4620.451,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5029.305,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_05_scavenger_plaza.png",
@@ -1471,15 +1635,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279740129,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272320193,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4769.996,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5025.902,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_06_ruined_downtown.png",
@@ -1489,15 +1655,17 @@
     "props": 26,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279517981,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272097939,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4764.471,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5034.575,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_07_burned_market_block.png",
@@ -1507,15 +1675,17 @@
     "props": 25,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279711619,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272289583,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4532.103,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4752.259,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_08_collapsed_overpass.png",
@@ -1525,15 +1695,17 @@
     "props": 24,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279423173,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272003157,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4834.241,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4980.393,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_09_flooded_civic_square.png",
@@ -1543,15 +1715,17 @@
     "props": 25,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279630137,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272210237,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4613.284,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5058.017,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_10_scavenger_plaza.png",
@@ -1561,15 +1735,17 @@
     "props": 23,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279793477,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272373523,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4672.037,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4941.76,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_11_ruined_transit_plaza.png",
@@ -1579,15 +1755,17 @@
     "props": 27,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 280165217,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272745175,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4749.64,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4959.309,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_city_12_cratered_waterfront.png",
@@ -1597,15 +1775,17 @@
     "props": 20,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279532947,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272110911,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3341.791,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3549.844,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_01_abandoned_safehouse.png",
@@ -1615,15 +1795,17 @@
     "props": 35,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277582579,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270160649,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3308.346,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3371.502,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_02_collapsed_tunnel.png",
@@ -1633,15 +1815,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277535433,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270113503,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3362.667,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3536.028,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_03_ruined_clinic.png",
@@ -1651,15 +1835,17 @@
     "props": 38,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277570839,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270146675,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3378.733,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3383.019,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_04_bunker_command_post.png",
@@ -1669,15 +1855,17 @@
     "props": 31,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 282540991,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 275116817,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3266.878,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3339.837,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_05_looted_vault.png",
@@ -1687,15 +1875,17 @@
     "props": 29,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277729439,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270305267,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3330.756,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3529.672,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_06_abandoned_safehouse.png",
@@ -1705,15 +1895,17 @@
     "props": 35,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278128703,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270704701,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3307.462,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3437.627,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_06_maintenance_depot.png",
@@ -1723,15 +1915,17 @@
     "props": 30,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278038333,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270614313,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3413.513,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3490.47,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_07_apartment_shelter.png",
@@ -1741,15 +1935,17 @@
     "props": 36,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277958191,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270533987,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3261.405,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3383.925,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_07_collapsed_tunnel.png",
@@ -1759,15 +1955,17 @@
     "props": 29,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278056473,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270632391,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3242.47,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3398.431,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_08_data_relay_room.png",
@@ -1777,15 +1975,17 @@
     "props": 26,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278220673,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270796591,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3349.201,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3517.217,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_08_ruined_clinic.png",
@@ -1795,15 +1995,17 @@
     "props": 38,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278105647,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270681419,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3396.169,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3348.544,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_09_bunker_command_post.png",
@@ -1813,15 +2015,17 @@
     "props": 31,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 282546757,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 275122705,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3219.305,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3440.858,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_09_underground_market.png",
@@ -1831,15 +2035,17 @@
     "props": 31,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277903255,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270481183,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3311.481,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3413.807,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_10_detention_block.png",
@@ -1849,15 +2055,17 @@
     "props": 48,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278505297,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271079253,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3288.719,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3378.73,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_10_looted_vault.png",
@@ -1867,15 +2075,17 @@
     "props": 29,
     "rendered_sprites": 3,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277756625,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270330755,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3369.122,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3531.483,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_11_emergency_medbay.png",
@@ -1885,15 +2095,17 @@
     "props": 42,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278151031,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270725217,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3287.69,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3449.292,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_11_maintenance_depot.png",
@@ -1903,15 +2115,17 @@
     "props": 30,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278066993,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270641179,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3420.843,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3468.97,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_12_apartment_shelter.png",
@@ -1921,15 +2135,17 @@
     "props": 36,
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278029983,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270603995,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3275.612,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3369.19,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_13_data_relay_room.png",
@@ -1939,15 +2155,17 @@
     "props": 26,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278291455,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270863313,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3218.133,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3429.987,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_14_underground_market.png",
@@ -1957,15 +2175,17 @@
     "props": 31,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 277899585,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 270475559,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 3274.93,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 3404.028,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_inner_15_detention_block.png",
@@ -1975,15 +2195,17 @@
     "props": 48,
     "rendered_sprites": 4,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 278499653,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 271071673,
     "vehicle_count": 0
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4533.23,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5009.441,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_01_dust_road_ambush.png",
@@ -1993,15 +2215,17 @@
     "props": 18,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279921059,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272496901,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4545.296,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4958.946,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_02_ashfield_ruins.png",
@@ -2011,15 +2235,17 @@
     "props": 15,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279917347,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272493183,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4652.824,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5094.896,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_03_wrecked_highway.png",
@@ -2029,15 +2255,17 @@
     "props": 20,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279950325,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272527735,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4546.541,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4954.154,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_04_rusted_trainyard.png",
@@ -2047,15 +2275,17 @@
     "props": 27,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279898077,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272475893,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4818.528,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5139.426,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_05_irradiated_basin.png",
@@ -2065,15 +2295,17 @@
     "props": 24,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279960505,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272581733,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4577.247,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5015.75,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_06_dust_road_ambush.png",
@@ -2083,15 +2315,17 @@
     "props": 18,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279925547,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272546571,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4582.346,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4932.923,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_07_ashfield_ruins.png",
@@ -2101,15 +2335,17 @@
     "props": 15,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279921835,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272540879,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4668.555,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5062.694,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_08_wrecked_highway.png",
@@ -2119,15 +2355,17 @@
     "props": 20,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 280012049,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272632907,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4536.266,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4954.647,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.02,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_09_rusted_trainyard.png",
@@ -2137,15 +2375,17 @@
     "props": 27,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 279959949,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272581029,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4794.609,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5095.311,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_10_irradiated_basin.png",
@@ -2155,15 +2395,17 @@
     "props": 24,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 280019725,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272640953,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4708.226,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 5028.063,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_11_convoy_crossing.png",
@@ -2173,15 +2415,17 @@
     "props": 23,
     "rendered_sprites": 0,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 280131579,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272752603,
     "vehicle_count": 1
   },
   {
-    "capture_signature": "466fb4b0f1a99f9d80e22cff3f7510395a05cf4582868530ef0678827f65a378",
-    "elapsed_ms": 4443.338,
+    "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
+    "elapsed_ms": 4856.582,
     "entity_families_checked": true,
-    "gpu_benchmark": {},
+    "gpu_benchmark": {
+
+    },
     "human_ratio_applied": 0.015,
     "human_ratio_requested": -1.0,
     "map": "wasteland_outdoor_12_salt_flat_ambush.png",
@@ -2191,8 +2435,8 @@
     "props": 20,
     "rendered_sprites": 1,
     "scale_calibration_status": "NOT VERIFIED",
-    "scale_comparison_only": true,
-    "static_memory_bytes": 280075929,
+    "scale_comparison_only": false,
+    "static_memory_bytes": 272694973,
     "vehicle_count": 1
   }
 ]

@@ -767,7 +767,7 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 ### Échelle des entités — passe complète du catalogue
 
 - [x] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Profils 0,015 urbain/wasteland et 0,020 intérieur/industrie ; 122 cartes à trois résolutions, clics et zoom vérifiés, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct de la finition artistique.
-- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 185,15 FPS moyens, p95 7,876 ms. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
+- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 180,27 FPS moyens, p95 8,127 ms après l’atlas complet. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
 
 ### Lot suivant d’animations — deux agentes distinctes
 
@@ -777,7 +777,16 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 - [x] ART-NEXT-04 Capturer les deux déplacements réels, 4 PA chacun, et les trois résolutions.
 - [x] ART-NEXT-05 Archiver le catalogue natif, régénérer les bilans et sauvegarder la passe.
 
-Total partiel : 288 frames, six références marche/attente ; zéro ensemble complet d’actions. Les autres unités, les actions et la calibration d’échelle des 122 cartes restent à produire ou vérifier.
+Total actuel : 352 frames, six références avec marche/attente ; une agente possède toutes ses actions applicables complètes. Les 230 autres entités restent à compléter.
+
+### Animations applicables — agente aux lames
+
+- [x] ANIM-BLADE-01 Produire des poses authentiques de mêlée, couvert, impact et mort, deux phases × huit orientations.
+- [x] ANIM-BLADE-02 Déclarer et justifier l’applicabilité : tir, PSI et soin non applicables à cet équipement et ce rôle.
+- [x] ANIM-BLADE-03 Vérifier l’atlas anti-doublons, les ancrages, marges, huit directions et transitions non bouclées.
+- [x] ANIM-BLADE-04 Exécuter Godot 4.6.3 natif Windows sur RTX 5070 Ti et capturer la mêlée dans la scène tactique réelle.
+
+Résultat : **1 / 231 ensembles complets**, 5 partiels. Preuves dans [neon-blade-actions](images/neon-blade-actions/README.md). Le chantier animations reste ouvert.
 
 ### SCALE — profils et repères du catalogue
 

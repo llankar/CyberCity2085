@@ -12,8 +12,21 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
         path=ROOT/'assets/combat_visual/animations'/f'{key}.json'
         assert validate_atlas(path,ROOT,{'idle','move'})==[]
         data=json.loads(path.read_text())
-        assert data['coverage']=='partial' and set(data['missing_clips'])=={'fire','melee','cover','hit','death','psi','heal'}
-        assert any('missing clip: fire' in e for e in validate_atlas(path,ROOT))
+        expected_missing={'fire','melee','cover','hit','death','psi','heal'}
+        if key=='agent_diverse_01_neon_blade':
+            expected_missing=set()
+            assert data['coverage']=='complete'
+            assert set(data['required_clips'])=={'idle','move','melee','cover','hit','death'}
+            assert set(data['non_applicable_clips'])=={'fire','psi','heal'}
+        else:assert data['coverage']=='partial'
+        assert set(data['missing_clips'])==expected_missing
+        if key!='agent_diverse_01_neon_blade':
+            assert any('missing clip: fire' in e for e in validate_atlas(path,ROOT))
+        if key=='agent_diverse_01_neon_blade':
+            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
+            for action in ['melee','cover','hit','death']:
+                assert len(data['animations'][action]['rows'])==8
+                assert all(len(row)==2 for row in data['animations'][action]['rows'])
         assert data['anchor_uv']==[.5,244/256]
         assert hashlib.sha256((ROOT/data['texture']).read_bytes()).hexdigest()==data['texture_sha256']
         with Image.open(ROOT/data['texture']) as image:

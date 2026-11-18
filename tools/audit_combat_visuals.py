@@ -84,7 +84,9 @@ def audit(root: Path = ROOT) -> dict:
     units = []
     for sprite in sprites:
         manifest = root/'assets/combat_visual/animations'/f'{sprite.stem}.json'
-        errors = validate_atlas(manifest, root) if manifest.exists() else ['missing genuine multidirectional animations']
+        manifest_data=json.loads(manifest.read_text()) if manifest.exists() else {}
+        required=set(manifest_data.get('required_clips',REQUIRED))
+        errors = validate_atlas(manifest, root, required) if manifest.exists() else ['missing genuine multidirectional animations']
         highres = sprite.with_name(sprite.stem+'_512.png')
         with Image.open(highres if highres.exists() else sprite) as image:
             transparent = image.mode == 'RGBA' and image.getchannel('A').getextrema()[0] < 255

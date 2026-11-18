@@ -36,6 +36,14 @@ func run() -> void:
 		unit.play_action("idle");assert(not unit.play_action("fire"))
 		assert(unit.clip=="idle","missing fire is not disguised as an animated shot")
 		assert(JSON.stringify(unit.unit_data)==before,"animation cannot spend AP or move logical cells")
+		if key=="agent_diverse_01_neon_blade":
+			for action in ["melee","cover","hit","death"]:
+				for direction in range(8):
+					unit.facing=direction
+					assert(unit.play_action(action),"authored "+action+" clip must play")
+					unit.frame_time=0.2
+					unit._process(0.0)
+					assert(unit.frame_index==1,action+" follow-through frame must be selected")
 	# A missing asset must restore source art, not leave the previous atlas attached.
 	unit.configure_animation("missing_animation_fixture",base)
 	assert(unit.atlas==null and unit.manifest.is_empty())

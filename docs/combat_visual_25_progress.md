@@ -1,6 +1,6 @@
 # Combat Visual 2.5 — avancement de la tâche complète
 
-Mis à jour : 18/11/2026.
+Mis à jour : 19/11/2026.
 
 **Tâche globale : EN COURS.** Le chargement réussi d’une carte ne signifie pas que sa refonte artistique est terminée.
 
@@ -25,7 +25,7 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur
 | Références d’entités à couvrir (hors objets de mission) | 231 |
 | Atlas produits | 6 |
 | Marche et attente à huit directions vérifiées dans Godot | 6 |
-| Unités avec les neuf actions animées complètes et validées | 0 |
+| Unités avec toutes les actions applicables animées et validées | 1 |
 
 Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
 
@@ -41,7 +41,8 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Couchages simples Ã  un oreiller, lits de camp sur cadre ouvert et bancs mÃ©talliques Ã  deux ou quatre places ; orientation du refuge corrigÃ©e et limites visuelles des cadres sÃ©parÃ©es des collisions.
 - Profils de prÃ©sentation des entitÃ©s sÃ©parÃ©s des donnÃ©es tactiques ; robots de soutien Ã  une Ã©chelle cohÃ©rente, dÃ©tails des armures claires et ombres de vÃ©hicules diffÃ©renciÃ©es.
 - 192 frames dessinÃ©es pour quatre rÃ©fÃ©rences : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unitÃ©s encore Ã  produire.
-- Lot 2 : deux agentes distinctes animÃ©es (lames et pistolet magenta), +96 frames. Total 288 frames, six rÃ©fÃ©rences marche/attente Ã— huit directions ; zÃ©ro ensemble complet de neuf actions.
+- Lot 2 : deux agentes distinctes animÃ©es (lames et pistolet magenta), +96 frames.
+- Agente aux lames : 112 frames, toutes les actions applicables complÃ¨tes et validÃ©es ; total 352 frames, 1 ensemble complet et 5 partiels.
 
 ## Passe en cours
 
@@ -55,14 +56,14 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Validation
 
-- Dernière livraison de référence : `native Windows entity-scale production review`.
-- Preuves : [captures et inventaire](images/entity-scale-production-windows/README.md).
-- Concordance du code, des annotations et des sprites de décor : **non — nouvelle validation requise pour les modifications en cours**.
-- 122 rendus natifs Ã  trois rÃ©solutions ; 11 planches 720p inspectÃ©es ; Ã©chelle 122/122, finition artistique 0/122.
+- Dernière livraison de référence : `native Windows final environment-art review`.
+- Preuves : [captures et inventaire](images/environment-art-review-windows/README.md).
+- Concordance du code, des annotations et des sprites de décor : **oui**.
+- 122 cartes examinÃ©es sur 21 planches dÃ©taillÃ©es ; trois aplats corrigÃ©s ; catalogue natif final 122/122.
 
 ## Reste sur l’objectif complet
 
-- Ã‰tendre les animations aux 225 autres rÃ©fÃ©rences Ã©ligibles et produire les actions manquantes sur les six premiÃ¨res. Revoir les 46 silhouettes historiques au bord de leur frame ; les vÃ©hicules nâ€™ont pas encore de nouveaux cycles.
+- Produire et vÃ©rifier les actions applicables des 230 autres rÃ©fÃ©rences Ã©ligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les vÃ©hicules nâ€™ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matÃ©riaux adaptÃ©s ; conserver leur organisation tactique.
 - Traiter les ensembles composÃ©s et les objets obliques sans les remplacer par un bloc unique ou un modÃ¨le gÃ©nÃ©rique agrandi.
 - ComplÃ©ter les accessoires, les variantes usÃ©es et les raccords au sol sur les familles encore en rendu source.
