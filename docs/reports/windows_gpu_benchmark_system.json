@@ -1,0 +1,36 @@
+﻿{
+    "status":  "PASS",
+    "measured_at":  "2026-11-18T23:11:20.1781228+01:00",
+    "godot":  "E:\\Godot\\Godot_v4.6.3\\Godot_v4.6.3-stable_win64_console.exe",
+    "map":  "wasteland_outdoor_01_dust_road_ambush.png",
+    "resolution":  "2560x1440",
+    "native":  {
+                   "adapter":  "NVIDIA GeForce RTX 5070 Ti",
+                   "average_fps":  185.151726439559,
+                   "average_frame_ms":  5.3886425,
+                   "elapsed_ms":  12962.342,
+                   "frames":  2400,
+                   "minimum_fps":  126.968004062976,
+                   "p95_frame_ms":  7.876,
+                   "peak_static_memory_bytes":  462383025,
+                   "renderer":  "gl_compatibility",
+                   "static_memory_bytes":  289029391,
+                   "vendor":  "NVIDIA"
+               },
+    "system":  {
+                   "logical_processors":  16,
+                   "elapsed_seconds":  19.836,
+                   "process_cpu_seconds":  17.484,
+                   "average_total_cpu_percent":  5.51,
+                   "gpu_samples":  35,
+                   "average_gpu_percent":  16.31,
+                   "peak_gpu_percent":  20,
+                   "average_gpu_memory_mib":  2649.14,
+                   "peak_gpu_memory_mib":  2721
+               },
+    "wrapper_exit_code":  null,
+    "completion_marker":  true,
+    "stdout":  "D:\\SynologyDrive\\rpg\\Python\\Cybercity-2085\\CyberCity2085\\work\\gpu-benchmark\\system-sampled\\godot.stdout.log",
+    "stderr":  "D:\\SynologyDrive\\rpg\\Python\\Cybercity-2085\\CyberCity2085\\work\\gpu-benchmark\\system-sampled\\godot.stderr.log",
+    "limits":  "Single Windows machine and representative animated 1440p combat; this does not establish minimum-spec performance."
+}

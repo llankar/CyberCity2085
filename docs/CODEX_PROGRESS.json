@@ -545,14 +545,22 @@
     {
       "id": "GPU-BENCH",
       "title": "Performance et mémoire sur matériel joueur",
-      "status": "BLOCKED",
+      "status": "DONE",
       "files": [
-        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
+        "godot/combat_missions_ui/tests/capture_combat_21.gd",
+        "tools/run_windows_gpu_benchmark.ps1",
+        "tests/test_windows_gpu_benchmark.py"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Mesurer sur un GPU représentatif et conserver les preuves",
-      "reason": "L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible"
+      "tests": [
+        "Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti",
+        "185,15 FPS moyens ; p95 7,876 ms / 126,97 FPS ; pic mémoire statique Godot 441 MiB",
+        "35 échantillons système : CPU total moyen 5,51 %, GPU moyen 16,31 %, pic GPU 20 %, pic VRAM processus observé 2721 MiB"
+      ],
+      "evidence": [
+        "docs/reports/windows_gpu_benchmark_system.json"
+      ],
+      "remaining": "",
+      "reason": "Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale"
     },
     {
       "id": "SCALE-CATALOGUE",
@@ -775,22 +783,33 @@
       "reason": "Audio Dummy ; redimensionnement et DPI multi-écrans hors portée validée"
     }
   ],
-  "reviews": {},
+  "reviews": {
+    "PERFORMANCE": {
+      "status": "PASS",
+      "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
+      "render_signature": "6f3ea8b78d1c19f22ef2fff4066f550c164bbd9d26b5f666134fbf2fe9aa7a56",
+      "evidence": [
+        {
+          "path": "docs/reports/windows_gpu_benchmark_system.json",
+          "sha256": "d1ba0a8b982011acb98d2afa5c29244b560fd3e007a43e1a93db2af58ed29c3e"
+        }
+      ]
+    }
+  },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "ebdfc9d0b4eedcd2584b95e1ce6727e6fb98f2929b20b41529b0a8e2095a284b",
-    "scope": "54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit",
+    "sha256": "463b8bd106c3c466db56319f0ca4118fa90654e616f03a44c06e7cc8cc6b2fa0",
+    "scope": "57 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée et benchmark GPU Windows ; parcours natifs hors JUnit",
     "not_executed": [
       "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
-      "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
     "sources": [
       {
         "path": "tools/check_combat_visual_acceptance.py",
-          "sha256": "7d115d819ee2ec24fcfa68dca72ad56c720e2e4bcc9bb5079c2febbb205aae47"
+          "sha256": "e175015956fc28671bf575a5313822a56f8e21d3551b84a8360b804735d60e08"
       },
       {
         "path": "tools/art/update_environment_progress.py",
@@ -819,6 +838,10 @@
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
           "sha256": "feb5c3bfb6f194e369667f5aae131eb833510712320c17307519de797b9d8a36"
+      },
+      {
+        "path": "tests/test_windows_gpu_benchmark.py",
+        "sha256": "7077090ea39b145ea755d29b7676b6734909ac842797b1ae97ca0f9ab8f4fb21"
       }
     ]
   },

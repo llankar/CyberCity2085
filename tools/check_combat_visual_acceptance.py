@@ -140,7 +140,7 @@ def build_report(root=ROOT):
         ('UNIT-ART', 'Identité et qualité de toutes les unités', f"{summary['unit_art']} références source auditées, dont {counts['animation_eligible']} entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle."),
         ('FUNCTIONAL', 'Déplacement, ciblage, LOS, IA, PA, tours et fallback', 'Preuves historiques partielles disponibles ; aucune exécution exhaustive ni revue de toutes les interactions déduite des seuls tests de chargement.'),
         ('RESOLUTIONS', 'Lisibilité et interactions à 720p, 1080p et 1440p', 'Captures de cinq familles à trois résolutions disponibles ; revue exhaustive de contraste, occultation et ergonomie non enregistrée.'),
-        ('PERFORMANCE', 'Performances et mémoire sur matériel joueur', 'Un parcours natif NVIDIA RTX 5070 Ti est archivé ; benchmark FPS/CPU/GPU/mémoire reproductible encore absent.')]:
+        ('PERFORMANCE', 'Performances et mémoire sur matériel joueur', 'Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée.')]:
         status, detail = manual_review(root, reviewed.get(key), signature)
         if key=='UNIT-SCALE' and status=='PASS' and scale_verified!=expected:
             status, detail='FAIL', 'La revue ne couvre pas les repères des 122 cartes attendues.'

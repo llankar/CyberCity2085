@@ -221,13 +221,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
 - Travail restant dans cette portée : Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles.
 
-### GPU-BENCH — BLOCKED — Performance et mémoire sur matériel joueur
+### GPU-BENCH — DONE — Performance et mémoire sur matériel joueur
 
-- Fichiers : `docs/COMBAT_VISUAL_ACCEPTANCE.md`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Mesurer sur un GPU représentatif et conserver les preuves.
-- Problème / raison : L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible.
+- Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `tools/run_windows_gpu_benchmark.ps1`, `tests/test_windows_gpu_benchmark.py`.
+- Tests / contrôles réellement exécutés : Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti; 185,15 FPS moyens ; p95 7,876 ms / 126,97 FPS ; pic mémoire statique Godot 441 MiB; 35 échantillons système : CPU total moyen 5,51 %, GPU moyen 16,31 %, pic GPU 20 %, pic VRAM processus observé 2721 MiB.
+- Preuves : `docs/reports/windows_gpu_benchmark_system.json`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale.
 
 ### SCALE-CATALOGUE — IN_PROGRESS — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
 
