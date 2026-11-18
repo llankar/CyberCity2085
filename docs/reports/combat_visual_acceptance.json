@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 23,
-    "total": 34
+    "done": 28,
+    "total": 39
   },
   "maps": {
     "native_verified": 0,
@@ -35,7 +35,7 @@
     ],
     "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"
   },
-  "render_signature": "301d2cd857d3afe8aaf26717c13890fffb1a81c52bc20f47b02fb6e7925770d2",
+  "render_signature": "9e8415f6fc8e5b2b293245f48d261354bb8fdfa7d62e87f98edcd4f604e996d4",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -161,7 +161,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "23 / 34 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "28 / 39 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -179,5 +179,5 @@
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],
-  "next_action": "UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées."
+  "next_action": "UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés."
 }

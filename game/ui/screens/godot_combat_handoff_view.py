@@ -124,6 +124,11 @@ class GodotCombatHandoffView(arcade.View):
         record = self.game_state.combat_sessions.get(session_id, {})
         status_path = record.get("session", {}).get("status_path")
         status = read_session_status(status_path, session_id, self.mission.id) if status_path else None
+        if status and status['event'] == 'error':
+            self._cleanup_godot()
+            self._launch_failed = True
+            self._status = "Godot refuse la reprise : " + str(status.get('message', 'résultat invalide'))
+            return
         if status and status["ready"]:
             self._session_ready = True
             if not getattr(self, "_audio_transferred", False):
@@ -291,6 +296,8 @@ class GodotCombatHandoffView(arcade.View):
             return
         if key == getattr(arcade.key,"C",67) and self._launch_failed:
             self._recover_prepared_result()
+        elif key == arcade.key.S and self._launch_failed:
+            self._resume_godot()
         elif key == arcade.key.R and self._launch_failed:
             self._retry_godot()
         elif key == arcade.key.G and self._launch_failed:
@@ -322,6 +329,8 @@ class GodotCombatHandoffView(arcade.View):
         record=sessions.get(getattr(self.launch_result,"session_id",""))
         if record is not None and record.get("status")=="pending":
             record["status"]="abandoned"
+            from game.combat.tactical_recovery import cancel_session_process
+            cancel_session_process(self.game_state, self.launch_result.session_id)
             if record.get("checkpoints"):
                 try:
                     from game.combat.checkpoints import write_campaign_checkpoint
@@ -346,6 +355,21 @@ class GodotCombatHandoffView(arcade.View):
             self._launch_failed=False
         except (ValueError,KeyError,TypeError,OSError) as exc:
             self._status=f"Récupération refusée : {exc}"
+
+    def _resume_godot(self) -> None:
+        from game.combat.godot_bridge import launch_godot_combat_ui
+        previous = self.launch_result
+        self._cleanup_godot()
+        result = launch_godot_combat_ui(self.game_state, self.mission,
+            resume_session_id=previous.session_id, **_native_launch_options())
+        self._launch_failed = not result.launched
+        self.launch_result = result if result.launched else previous
+        self._overlaid = False
+        self._elapsed = 0.0
+        self._session_ready = False
+        self._audio_transferred = False
+        self._status = result.message
+        self.game_state.add_event(self._status)
 
     def _retry_godot(self) -> None:
         from game.combat.godot_bridge import launch_godot_combat_ui

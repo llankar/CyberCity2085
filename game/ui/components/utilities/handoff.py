@@ -42,6 +42,8 @@ class HandoffDeck(UtilityDeck):
         from pathlib import Path
         channels=record.get("session",{})
         recoverable=any(Path(channels[key]).is_file() for key in ["result_path","prepared_path"] if channels.get(key))
+        if v._launch_failed and not recoverable and channels.get("snapshot_path") and Path(channels["snapshot_path"]).is_file():
+            items.insert(0,(self.word("REPRENDRE LE COMBAT [S]", "RESUME COMBAT [S]"),arcade.key.S))
         if v._launch_failed and recoverable:
             items.insert(0,(self.word("RÉCUPÉRER LE RÉSULTAT [C]", "RECOVER RESULT [C]"),arcade.key.C))
         self.document(

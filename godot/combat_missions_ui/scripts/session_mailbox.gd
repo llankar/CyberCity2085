@@ -10,9 +10,9 @@ static func publish(path: String, payload: Dictionary) -> bool:
 	file.close()
 	return DirAccess.rename_absolute(temporary, path) == OK
 
-static func status(session: Dictionary, event: String, ready: bool = true) -> bool:
+static func status(session: Dictionary, event: String, ready: bool = true, message: String = "") -> bool:
 	if session.is_empty(): return false
 	return publish(str(session.get("status_path", "")), {
 		"protocol_version": 2, "session_id": session.get("session_id", ""),
 		"mission_id": session.get("mission_id", ""), "event": event,
-		"ready": ready, "monotonic_ms": Time.get_ticks_msec()})
+		"ready": ready, "message": message, "monotonic_ms": Time.get_ticks_msec()})

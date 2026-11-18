@@ -261,6 +261,46 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Audio Dummy : validation auditive non disponible.
 
+### UE4-01 — DONE — Inventorier les états tactiques et définir le contrat de reprise
+
+- Fichiers : `godot/combat_missions_ui/scripts/tactical_checkpoint.gd`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Tests / contrôles réellement exécutés : 104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage; Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée.
+- Preuves : `docs/reports/unified_batch4_tests.xml`, `docs/images/unified-experience/batch4/README.md`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
+
+### UE4-02 — DONE — Écrire un instantané atomique après les actions résolues
+
+- Fichiers : `godot/combat_missions_ui/scripts/combat_mission_ui.gd`.
+- Tests / contrôles réellement exécutés : 104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage; Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée.
+- Preuves : `docs/reports/unified_batch4_tests.xml`, `docs/images/unified-experience/batch4/README.md`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
+
+### UE4-03 — DONE — Valider et restaurer sans modifier les règles ni la campagne
+
+- Fichiers : `game/combat/tactical_recovery.py`.
+- Tests / contrôles réellement exécutés : 104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage; Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée.
+- Preuves : `docs/reports/unified_batch4_tests.xml`, `docs/images/unified-experience/batch4/README.md`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
+
+### UE4-04 — DONE — Proposer une reprise explicite et isoler les anciennes sessions
+
+- Fichiers : `game/ui/screens/godot_combat_handoff_view.py`.
+- Tests / contrôles réellement exécutés : 104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage; Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée.
+- Preuves : `docs/reports/unified_batch4_tests.xml`, `docs/images/unified-experience/batch4/README.md`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
+
+### UE4-05 — DONE — Tester interruption, reprise et conséquences avec preuves natives
+
+- Fichiers : `tests/test_unified_tactical_recovery.py`, `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage; Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée.
+- Preuves : `docs/reports/unified_batch4_tests.xml`, `docs/images/unified-experience/batch4/README.md`, `docs/UNIFIED_TACTICAL_SNAPSHOT.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
@@ -271,6 +311,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIFIED : préparer la reprise du combat avant résultat (instantané tactique versionné sans mutation de campagne), vérifier la continuité audio ; validation graphique Win32 bloquée par cet environnement Linux. Ne pas assimiler les issues forcées à des missions entièrement jouées.
+UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

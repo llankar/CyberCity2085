@@ -86,6 +86,11 @@ var _unit_tokens   : Dictionary  = {}    # "p0" / "e1" → UnitToken instance
 
 # ─── Handoff + assets ─────────────────────────────────────────────────────────
 var handoff         : Dictionary = {}
+var _checkpoint_queued := false
+var _checkpoint_signature := ""
+var _checkpoint_warning := false
+var _recovery_error := ""
+var _session_control_clock := 0.0
 var _audio_released := false
 var _audio_release_clock := 0.0
 var handoff_path    := "runtime/godot_combat/mission_handoff.json"
@@ -157,6 +162,9 @@ func _ready() -> void:
 		environment_depth_enabled = bool(graphics_config.get_value("graphics","environment_depth",true))
 	_read_args()
 	_load_handoff()
+	var saved: Variant = handoff.get("resume_snapshot")
+	if saved is Dictionary and saved.get("camera") is Dictionary and saved.camera.get("visual_mode") is bool:
+		visual_mode = saved.camera.visual_mode
 	_load_unit_textures()
 	_load_map_and_portraits()
 	_build_children()
@@ -169,7 +177,33 @@ func _ready() -> void:
 
 func _announce_session_ready() -> void:
 	await get_tree().process_frame
-	preload("res://scripts/session_mailbox.gd").status(handoff.get("session", {}), "combat_started")
+	if _recovery_error.is_empty():
+		preload("res://scripts/session_mailbox.gd").status(handoff.get("session", {}), "combat_started")
+
+func _session_superseded() -> bool:
+	var session: Dictionary = handoff.get("session", {})
+	var path := str(session.get("control_path", ""))
+	if path.is_empty() or not FileAccess.file_exists(path): return false
+	var command: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
+	return command is Dictionary and command.get("protocol_version") == 2 and command.get("session_id") == session.get("session_id") and command.get("event") == "superseded"
+
+func _queue_tactical_checkpoint() -> void:
+	if _checkpoint_queued or not battle_started or battle_ended or not _recovery_error.is_empty(): return
+	if not handoff.get("session", {}).has("snapshot_path"): return
+	_checkpoint_queued = true
+	call_deferred("_write_tactical_checkpoint")
+
+func _write_tactical_checkpoint() -> void:
+	_checkpoint_queued = false
+	if not battle_started or battle_ended or _session_superseded(): return
+	var snapshot := preload("res://scripts/tactical_checkpoint.gd").capture(self)
+	var signature := JSON.stringify(snapshot)
+	if signature == _checkpoint_signature: return
+	if preload("res://scripts/session_mailbox.gd").publish(str(handoff.session.snapshot_path), snapshot):
+		_checkpoint_signature = signature
+	elif not _checkpoint_warning:
+		_checkpoint_warning = true
+		_log_event("Tactical checkpoint unavailable; current combat continues, recovery is not guaranteed.")
 
 func _poll_audio_release(delta: float) -> void:
 	if _audio_released: return
@@ -187,6 +221,12 @@ func _poll_audio_release(delta: float) -> void:
 	_audio_released = true
 
 func _process(delta: float) -> void:
+	_session_control_clock += delta
+	if _session_control_clock >= 0.2:
+		_session_control_clock = 0.0
+		if _session_superseded():
+			get_tree().quit()
+			return
 	_poll_audio_release(delta)
 	if not battle_started:
 		elapsed_time += delta
@@ -309,6 +349,7 @@ func _connect_signals() -> void:
 
 func _sync_display() -> void:
 	if battle_ended: return
+	_queue_tactical_checkpoint()
 	_refresh_initiative()
 
 	# Objective proximity hint — overrides status line when actionable.
@@ -1107,7 +1148,19 @@ func _frame_squad() -> void:
 	_camera.position=bounds.get_center()+Vector2(0,size.y*.07/_camera.zoom.y)
 
 func _start_combat(source: String) -> void:
-	if battle_started: return
+	if battle_started or not _recovery_error.is_empty(): return
+	var resume: Dictionary = {}
+	if handoff.has("resume_snapshot"):
+		if handoff.resume_snapshot is Dictionary:
+			resume = handoff.resume_snapshot
+			_recovery_error = preload("res://scripts/tactical_checkpoint.gd").validate(resume, self)
+		else: _recovery_error = "Invalid tactical snapshot"
+		if not _recovery_error.is_empty():
+			status_line = _recovery_error
+			preload("res://scripts/session_mailbox.gd").status(handoff.get("session", {}), "error", false, _recovery_error)
+			queue_redraw()
+			return
+		preload("res://scripts/tactical_checkpoint.gd").restore(resume, self)
 	battle_started = true
 
 	# Configure child components
@@ -1116,7 +1169,8 @@ func _start_combat(source: String) -> void:
 	# Camera2D starts at zoom=0.5 (fit-to-screen) and can zoom in/out.
 	var obj_cell := objective.get("cell", Vector2i(GRID_COLS / 2, GRID_ROWS / 2)) as Vector2i
 	_battlefield.configure(size * 4.0, map_texture, cover_nodes, obj_cell)
-	preload("res://scripts/map_wall_layout.gd").place_encounter(player_units, enemy_units, objective, _battlefield)
+	if resume.is_empty():
+		preload("res://scripts/map_wall_layout.gd").place_encounter(player_units, enemy_units, objective, _battlefield)
 
 	_hud_layer.visible = true
 	# Force HUD to fill the viewport — Controls inside a CanvasLayer don't
@@ -1132,6 +1186,13 @@ func _start_combat(source: String) -> void:
 	_sync_display()
 
 	_frame_squad()
+	if not resume.is_empty():
+		preload("res://scripts/tactical_checkpoint.gd").restore_camera(resume, self)
+		status_line = "Combat repris — tour %d" % turn_number
+		_sync_display()
+		_banner.show_banner(turn_side, turn_number)
+		print("TACTICAL COMBAT UI RESUMED")
+		return
 
 	_banner.show_banner("player", turn_number)
 	CombatSignals.turn_changed.emit("player", turn_number)

@@ -1,0 +1,23 @@
+[
+  {
+    "outcome": "victory",
+    "native_godot": true,
+    "results_waited_for_confirmation": true,
+    "debrief_before_promotions": true,
+    "promotions": true,
+    "reward_replay_blocked": true,
+    "save_reload_verified": true,
+    "return_ack_recovered": true,
+    "tactical_resume_phase": null,
+    "source_process_superseded": false,
+    "viewport": [
+      1280,
+      720
+    ],
+    "readiness_verified": true,
+    "audio_ownership_verified": true,
+    "crash_recovery": false,
+    "debrief_recovery": true,
+    "windows_graphics_verified": false
+  }
+]

@@ -6,32 +6,64 @@ func run() -> void:
 	var confirm_path:=""
 	var capture_dir:=""
 	var outcome:="victory"
+	var interrupt_phase := ""
 	var scene=load("res://scenes/combat_mission_ui.tscn").instantiate()
 	for i in range(args.size()-1):
 		if args[i]=="--handoff":scene.handoff_path=args[i+1]
 		elif args[i]=="--qa-confirm":confirm_path=args[i+1]
 		elif args[i]=="--qa-captures":capture_dir=args[i+1]
 		elif args[i]=="--qa-outcome":outcome=args[i+1]
+		elif args[i]=="--qa-interrupt-phase":interrupt_phase=args[i+1]
 	root.add_child(scene)
+	var is_resume: bool = scene.handoff.has("resume_snapshot")
+	if is_resume:
+		scene.set_process(false)
+		for attempt in range(10):
+			if scene.battle_started or not scene._recovery_error.is_empty(): break
+			await process_frame
+		assert(scene._recovery_error.is_empty(), scene._recovery_error)
+		assert(scene.battle_started)
+		var checkpoint: Dictionary = JSON.parse_string(JSON.stringify(preload("res://scripts/tactical_checkpoint.gd").capture(scene)))
+		assert(checkpoint.state == scene.handoff.resume_snapshot.state)
+		assert(checkpoint.camera == scene.handoff.resume_snapshot.camera)
+		print("UNIFIED_TACTICAL_STATE_RESUMED")
 	if scene.handoff.get("session", {}).has("audio_path"):
 		assert(not scene._audio._music_owned)
 		for attempt in range(100):
+			if is_resume: scene._poll_audio_release(0.1)
 			if scene._audio_released: break
 			await create_timer(0.1).timeout
 		assert(scene._audio_released and scene._audio._music_owned)
 		print("UNIFIED_AUDIO_OWNERSHIP_READY")
 	await create_timer(2.2).timeout
 	assert(scene.battle_started)
-	var original: Vector2i=scene._cell_position(scene.player_units[0])
-	var moved:=false
-	for cell: Vector2i in scene._battlefield.reachable_cells(original,1):
-		if cell==original or scene._is_cell_occupied(cell,0,-1):continue
-		var ap: int=scene.player_units[0].ap
-		scene._move_active_unit_to(cell)
-		assert(scene._cell_position(scene.player_units[0])==cell and scene.player_units[0].ap==ap-1)
-		moved=true;break
-	assert(moved)
-	await create_timer(.6).timeout
+	if not is_resume:
+		var original: Vector2i=scene._cell_position(scene.player_units[0])
+		var moved:=false
+		for cell: Vector2i in scene._battlefield.reachable_cells(original,1):
+			if cell==original or scene._is_cell_occupied(cell,0,-1):continue
+			var ap: int=scene.player_units[0].ap
+			scene._move_active_unit_to(cell)
+			assert(scene._cell_position(scene.player_units[0])==cell and scene.player_units[0].ap==ap-1)
+			moved=true;break
+		assert(moved)
+		await create_timer(.6).timeout
+	if not interrupt_phase.is_empty() and not is_resume:
+		if interrupt_phase == "enemy": scene._end_player_turn()
+		scene.set_process(false)
+		scene._sync_display()
+		await process_frame
+		assert(FileAccess.file_exists(str(scene.handoff.session.snapshot_path)))
+		if not capture_dir.is_empty():
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png(capture_dir.path_join("godot-before-interruption.png"))
+		print("UNIFIED_TACTICAL_SNAPSHOT_WAITING")
+		while not scene._session_superseded(): await create_timer(0.05).timeout
+		quit()
+		return
+	if is_resume and not capture_dir.is_empty():
+		await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(capture_dir.path_join("godot-after-resume.png"))
 	if outcome=="defeat":
 		for unit: Dictionary in scene.player_units:unit.hp=0
 	scene.objective_completed=outcome=="victory"

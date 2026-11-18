@@ -42,3 +42,16 @@ def test_release_respects_view_transition_before_resuming():
     music._music_player.play.assert_not_called()
     music.end_view_transition()
     music._music_player.play.assert_called_once()
+
+
+def test_tactical_recovery_uses_recorded_position_without_advancing_offline_time(tmp_path):
+    state, _, session, _ = scenario(tmp_path)
+    from pathlib import Path
+    path=Path(session['audio_path']).with_name('handoff.json')
+    payload=json.loads(path.read_text())
+    payload['resume_snapshot']={'music_playback':{'path':payload['audio']['battle_music_path'],'position':31.5,'captured_at':1}}
+    path.write_text(json.dumps(payload))
+    music=Mock();music.music_position_for.return_value=0
+    with patch('game.combat.audio_transfer.SoundManager.get',return_value=music):
+        release_music_to_godot(state.combat_sessions[session['session_id']])
+    assert json.loads(Path(session['audio_path']).read_text())['audio']['start_position']==31.5

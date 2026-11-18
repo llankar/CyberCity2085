@@ -4,9 +4,9 @@
 
 ## Bilan vérifié
 
-12 tâches DONE / 13 tâches enregistrées pour les trois premiers lots ; UE2-04 reste BLOCKED faute de Windows graphique. Ces treize tâches ne constituent pas tout le périmètre d’acceptation. **92 tests ciblés distincts PASS, 0 FAIL, 0 skipped** dans [le rapport agrégé](reports/unified_targeted_tests.xml). Les exécutions du lot 2 couvrent 65 cas, plus 19 régressions de lancement partiellement communes ; le rapport déduplique aussi le lot 1 et les 57 cas du lot audio.
+17 tâches DONE / 18 tâches enregistrées pour les quatre premiers lots ; UE2-04 reste BLOCKED faute de Windows graphique. Ces dix-huit tâches ne constituent pas tout le périmètre d’acceptation. **127 tests ciblés distincts PASS, 0 FAIL, 0 skipped** dans [le rapport agrégé](reports/unified_targeted_tests.xml). Les exécutions du lot 2 couvrent 65 cas, plus 19 régressions de lancement partiellement communes ; le rapport déduplique aussi le lot 1, les 57 cas du lot audio et les 104 cas du lot 4.
 
-Un parcours natif supplémentaire valide la propriété musicale dans le lot 3 (audio muet, aucune validation auditive). Cinq scénarios graphiques du lot 2 : trois issues avec interruption et récupération en 1280×720 ; victoire et reprise du débriefing en 1920×1080 et 2560×1440. Les issues sont forcées par la fixture : cela vérifie les transitions et conséquences, pas une partie complète avec IA. Trois autres parcours natifs normaux ont aussi été rejoués en 720p.
+Un parcours natif supplémentaire valide la propriété musicale dans le lot 3 (audio muet, aucune validation auditive). Le lot 4 ajoute la reprise tactique en 720p/1080p/1440p et le renvoi d’ACK après résolution sauvegardée. Cinq scénarios graphiques du lot 2 : trois issues avec interruption et récupération en 1280×720 ; victoire et reprise du débriefing en 1920×1080 et 2560×1440. Les issues sont forcées par la fixture : cela vérifie les transitions et conséquences, pas une partie complète avec IA. Trois autres parcours natifs normaux ont aussi été rejoués en 720p.
 
 Cartes artistiquement finalisées / animations complètes : aucune validation supplémentaire dans ce chantier. Les anciens décomptes restent dans CODEX_PROGRESS et COMBAT_VISUAL_ACCEPTANCE ; charger la scène de test ne finalise aucune carte.
 
@@ -20,7 +20,7 @@ Cartes artistiquement finalisées / animations complètes : aucune validation su
 | Checkpoint avant/après et reprise du débriefing sans réapplication | PASS tests disque plein, rechargement, corruption, doublons et captures réelles |
 | Session UUID et protocole versionné ; readiness, début, résultat et ACK | PASS sur le flux normal de campagne ; l’ancienne API bloquante reste à harmoniser |
 | Crash avant confirmation | PASS récupération explicite du résultat préparé ; aucun résultat préparé appliqué automatiquement |
-| Crash pendant un tour sans résultat préparé | INCOMPLET : checkpoint avant combat disponible, relance explicite ; le tour courant n’est pas sauvegardé |
+| Crash pendant un tour sans résultat préparé | PASS dans la portée testée : reprise au dernier état logique écrit, PA/PV/objectifs/postures/caméra/projection préservés ; aucune promesse sur les jets futurs ni les effets en cours |
 | Fenêtre Windows : focus, Alt+Tab, restauration, DPI et moniteurs | BLOCKED / NOT VERIFIED : Linux uniquement ; code d’ownership, géométrie client et lancement sans bordures ajouté |
 | Audio sans doublons et transition sans bureau visible | NOT VERIFIED auditivement et sous Windows ; lecture des bookmarks et reprise existantes conservées, audio Dummy dans les preuves |
 | Préparation Godot en amont et performances de transition | TODO : pas de processus préchauffé |
@@ -53,6 +53,16 @@ Fichiers et tests détaillés : [registre](CODEX_PROGRESS.md). Captures : [lot 2
 
 Le préchauffage et les fondus audibles restent ouverts. Un avertissement ObjectDB persiste à la fermeture de la fixture Godot ; aucune absence générale de fuite n’est affirmée.
 
+## Lot 4 — reprise tactique et instances interrompues
+
+- DONE UE4-01 : contrat d’instantané runtime distinct des sauvegardes de campagne. [Format et limites](UNIFIED_TACTICAL_SNAPSHOT.md).
+- DONE UE4-02 : écriture atomique différée, après retour de la logique d’action ; les écritures identiques sont évitées.
+- DONE UE4-03 : validation Python et Godot avant restauration ; carte/déploiement liés par empreinte, positions/PV/PA/tours/postures/objectifs/caméra/projection/mode graphique et orientations enregistrées conservés. Les cartes, collisions et règles ne sont pas importées depuis l’instantané.
+- DONE UE4-04 : bouton REPRENDRE [S], nouvel UUID, annulation identifiée de l’ancienne instance sans PID arbitraire. Une copie de l’instantané existe avant le lancement de remplacement ; échec de lancement = source toujours récupérable. Un résultat disponible exige sa confirmation et ne peut pas être contourné par S. Le nouvel hôte renvoie aussi un ACK pour un résultat déjà appliqué.
+- DONE UE4-05 : **104 cas ciblés PASS**, dont 34 tests de récupération ; vrais roundtrips Godot phase joueur/ennemi, agents/robot/armure, clic viewport → grille y compris après changement de résolution, projection isométrique et mode legacy, corruption refusée sans combat neuf silencieux. Quatre scénarios de reprise tactique natifs (joueur 720p/1080p, phase ennemie avec ancien processus vivant 720p/1440p), plus interruption avant ACK en 720p. [Captures et rapports](images/unified-experience/batch4/README.md).
+
+Problèmes rencontrés et corrigés dans la validation : les entiers du JSON Godot sont relus comme flottants, ce qui rendait une comparaison stricte de tableaux fausse ; l’oracle compare maintenant les états normalisés. Le test de phase ennemie contrôle aussi un vrai tour IA après restauration : l’instantané final est donc logiquement passé au tour joueur. Le premier rapport d’échecs est conservé (`reports/unified_tactical_roundtrip_initial_failures.xml`) ; il n’est pas compté dans les validations finales PASS. La persistance de la projection, du mode legacy et des orientations a été ajoutée après examen de l’état visuel.
+
 ## Reproduire les validations
 
 Créer une vraie fenêtre Arcade invisible avant pytest pour les anciens tests d’aftermath qui dépendent d’un contexte graphique :
@@ -62,6 +72,7 @@ import arcade, pytest
 window = arcade.Window(640, 480, visible=False)
 try:
     code = pytest.main(['-q', 'tests/test_unified_checkpoints.py',
+        'tests/test_unified_tactical_recovery.py', 'tests/test_unified_audio_transfer.py',
         'tests/test_unified_mission_resolution.py', 'tests/test_unified_result_lifecycle.py',
         'tests/test_godot_combat_bridge.py', 'tests/test_battle_debrief_view.py',
         'tests/test_title_screen_ui.py', 'tests/test_agent_aftermath.py'])
@@ -74,8 +85,8 @@ Sous Linux de validation : `DISPLAY=:107 ALSOFT_DRIVERS=null`. Commandes et dime
 
 ## Prochaine action précise
 
-Préparer un instantané tactique versionné du combat en cours, lié à la session, permettant de reprendre avant l’existence d’un résultat préparé. Examiner les états réellement nécessaires (unités, tours/PA, objectifs, IA et événements) avant toute sérialisation, sans changer les règles. Ensuite vérifier la continuité audio et harmoniser l’ancienne API bloquante. Le contrôle graphique Windows reste bloqué par l’environnement disponible.
+Vérifier une mission de campagne jusqu’à sa véritable condition de fin, sans issue forcée, puis mesurer le chargement avant de décider d’un préchauffage. La reprise tactique est implémentée et vérifiée dans la portée ci-dessus. La validation graphique Windows et l’écoute audio réelle restent indisponibles dans cet environnement.
 
 ## Points encore ouverts
 
-Reprise exacte d’un tour interrompu, sessions récupérées alors qu’un ancien processus Godot vit encore, audio réellement écouté, préchauffage, parcours d’une mission jouée jusqu’à sa vraie condition de fin, commande de retraite réelle (la fixture seule produit ce résultat), tests Windows complets. Ne pas transformer ces absences de preuves en PASS.
+Mission de campagne entièrement jouée plutôt qu’une fixture conclue par une issue forcée ; focus, Alt+Tab, DPI et moniteurs Windows ; écoute/fondus audio ; mesures et préchauffage ; ancienne API bloquante hors parcours campagne ; commande de retraite réelle (seule la fixture produit ce résultat) ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.

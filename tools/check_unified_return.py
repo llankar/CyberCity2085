@@ -22,6 +22,9 @@ def main():
     parser.add_argument("--outcomes", nargs="+", choices=["victory","defeat","retreat"], default=["victory","defeat","retreat"])
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
+    parser.add_argument("--interrupt-after-resolution", action="store_true")
+    parser.add_argument("--interrupt-phase", choices=["player","enemy"])
+    parser.add_argument("--keep-source-alive", action="store_true")
     parser.add_argument("--crash-recovery", action="store_true")
     parser.add_argument("--resume-debrief", action="store_true")
     args=parser.parse_args();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
@@ -52,12 +55,41 @@ def main():
                 with log.open('w') as stream:
                     def launch(command,*a,**kw):
                         command=list(command);command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script','res://tests/unified_return_flow.gd'];command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
+                        if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=launch):
                         window.current_view.on_key_press(arcade.key.ENTER,0)
                     bridge=window.current_view;assert isinstance(bridge,GodotCombatHandoffView) and bridge.launch_result.launched
                     process=bridge.launch_result.process
                     try:
+                        if args.interrupt_phase:
+                            deadline=time.monotonic()+50
+                            while 'UNIFIED_TACTICAL_SNAPSHOT_WAITING' not in log.read_text():
+                                frame(); assert process.poll() is None,log.read_text()
+                                assert time.monotonic()<deadline,log.read_text()
+                                time.sleep(.03)
+                            source_process=process;source_session=bridge.launch_result.session_id
+                            from game.combat.checkpoints import load_combat_checkpoint
+                            checkpoint=state.combat_sessions[source_session]['checkpoints']['before']
+                            state,_=load_combat_checkpoint(checkpoint)
+                            if not args.keep_source_alive: source_process.kill();source_process.wait(timeout=5)
+                            # Emulate a new Python host: it has no child handle to clean up.
+                            from dataclasses import replace
+                            bridge.launch_result=replace(bridge.launch_result,process=None,process_pid=None)
+                            from game.ui.screens.combat_recovery import show_combat_recovery
+                            assert show_combat_recovery(window,state)
+                            bridge=window.current_view
+                            frame(case/'04-resume-offered.png')
+                            with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=launch):
+                                bridge.on_key_press(arcade.key.S,0)
+                            assert bridge.launch_result.launched,bridge._status
+                            assert bridge.launch_result.session_id!=source_session
+                            process=bridge.launch_result.process
+                            deadline=time.monotonic()+10
+                            while source_process.poll() is None:
+                                frame();assert time.monotonic()<deadline,'old Godot did not accept supersession'
+                                time.sleep(.03)
+                            if args.keep_source_alive: assert source_process.returncode==0
                         deadline=time.monotonic()+50
                         while 'UNIFIED_NATIVE_RESULTS_WAITING' not in log.read_text():
                             frame();assert not bridge._launch_failed,bridge._status
@@ -70,10 +102,12 @@ def main():
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
                         assert 'UNIFIED_AUDIO_OWNERSHIP_READY' in log.read_text()
+                        if args.interrupt_phase: assert 'UNIFIED_TACTICAL_STATE_RESUMED' in log.read_text()
                         before=state.available_funds
                         for _ in range(12):frame();time.sleep(.08)
                         assert window.current_view is bridge and process.poll() is None
                         assert state.available_funds==before and not Path(bridge.launch_result.result_path).exists()
+                        if args.interrupt_after_resolution: bridge._write_pending_ack=lambda:None
                         if args.crash_recovery:
                             process.kill(); process.wait(timeout=5)
                             frame()
@@ -85,6 +119,18 @@ def main():
                         deadline=time.monotonic()+30
                         while isinstance(window.current_view,GodotCombatHandoffView):
                             frame();assert not bridge._launch_failed,bridge._status
+                            if args.interrupt_after_resolution and bridge._result_applied:
+                                from game.combat.checkpoints import load_combat_checkpoint
+                                from game.ui.screens.combat_recovery import show_combat_recovery
+                                from dataclasses import replace
+                                checkpoint=state.combat_sessions[bridge.launch_result.session_id]['checkpoints']['after']
+                                assert process.poll() is None and not Path(state.combat_sessions[bridge.launch_result.session_id]['session']['ack_path']).exists()
+                                bridge.launch_result=replace(bridge.launch_result,process=None,process_pid=None)
+                                bridge._pending_return=None
+                                state,_=load_combat_checkpoint(checkpoint)
+                                assert show_combat_recovery(window,state)
+                                assert state.combat_sessions[bridge.launch_result.session_id]['status']=='applied'
+
                             assert time.monotonic()<deadline,log.read_text()
                             time.sleep(.02)
                         assert isinstance(window.current_view,BattleDebriefView)
@@ -114,7 +160,7 @@ def main():
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None
                         assert loaded.available_funds==after
                         assert state.latest_mission_debrief and state.latest_agent_aftermath is not None
-                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,viewport=[args.width,args.height],readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
+                        results.append(dict(outcome=outcome,native_godot=True,results_waited_for_confirmation=True,debrief_before_promotions=True,promotions=promoted,reward_replay_blocked=True,save_reload_verified=True,return_ack_recovered=args.interrupt_after_resolution,tactical_resume_phase=args.interrupt_phase,source_process_superseded=args.keep_source_alive,viewport=[args.width,args.height],readiness_verified=True,audio_ownership_verified=True,crash_recovery=args.crash_recovery,debrief_recovery=args.resume_debrief,windows_graphics_verified=False))
                     finally:
                         if process.poll() is None:process.terminate();process.wait(timeout=5)
     finally:

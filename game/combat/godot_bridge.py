@@ -415,6 +415,7 @@ def launch_godot_combat_ui(
     wait: bool = False,
     executable: str | None = None,
     window_rect: tuple[int, int, int, int] | None = None,
+    resume_session_id: str | None = None,
 ) -> GodotCombatLaunchResult:
     """Prepare the Godot handoff and optionally start Godot in a separate process.
 
@@ -423,6 +424,8 @@ def launch_godot_combat_ui(
               Arcade's event loop will be frozen for the duration — this is
               intentional since the player is inside the Godot combat window.
     """
+    if resume_session_id and wait:
+        raise ValueError("Tactical recovery requires the nonblocking campaign route")
     if wait and start_process:
         return launch_godot_combat_ui_blocking(
             game_state, mission, handoff_path=handoff_path, executable=executable
@@ -436,13 +439,22 @@ def launch_godot_combat_ui(
 
     try:
         copy_audio_assets()
-        path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
+        if resume_session_id:
+            from .tactical_recovery import prepare_resume_payload
+            from .session_protocol import atomic_json
+            payload = prepare_resume_payload(game_state, mission, resume_session_id)
+            path = Path(handoff_path)
+            atomic_json(path, payload)
+        else:
+            path = write_godot_combat_handoff(game_state, mission, handoff_path=handoff_path)
         from .session_protocol import create_session
         path, session = create_session(game_state, mission, path)
     except (OSError,ValueError,TypeError) as exc:
         return GodotCombatLaunchResult(Path(handoff_path),[],False,f"Godot session preparation failed: {exc}")
     command = build_godot_combat_command(path, executable=executable, window_rect=window_rect)
     if not command:
+        from .tactical_recovery import resume_launch_failed
+        resume_launch_failed(game_state, session["session_id"])
         return GodotCombatLaunchResult(
             path,
             [],
@@ -451,15 +463,21 @@ def launch_godot_combat_ui(
             session_id=session["session_id"], result_path=Path(session["result_path"]),
         )
     if not start_process:
+        from .tactical_recovery import resume_launch_failed
+        resume_launch_failed(game_state, session["session_id"])
         return GodotCombatLaunchResult(
             path, command, False, "Godot combat UI command prepared.", session_id=session["session_id"], result_path=Path(session["result_path"])
         )
     try:
         proc = subprocess.Popen(command)
     except OSError as exc:
+        from .tactical_recovery import resume_launch_failed
+        resume_launch_failed(game_state, session["session_id"])
         return GodotCombatLaunchResult(
             path, command, False, f"Godot launch failed: {exc}", session_id=session["session_id"], result_path=Path(session["result_path"])
         )
+    from .tactical_recovery import cancel_superseded_processes
+    cancel_superseded_processes(game_state, session['session_id'])
     # The campaign retains music until Godot confirms readiness.
     return GodotCombatLaunchResult(
         path, command, True, "Godot combat UI launched.", session_id=session["session_id"], result_path=Path(session["result_path"]), process_pid=proc.pid, process=proc
