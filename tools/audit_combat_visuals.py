@@ -15,8 +15,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = {'idle', 'move', 'fire', 'melee', 'cover', 'hit', 'death', 'psi', 'heal'}
 
 
-def validate_atlas(path: Path, root: Path = ROOT) -> list[str]:
+def validate_atlas(path: Path, root: Path = ROOT, required: set[str] | None = None) -> list[str]:
     errors: list[str] = []
+    required = REQUIRED if required is None else required
     try:
         data = json.loads(path.read_text())
         texture = (root / data['texture']).resolve()
@@ -29,8 +30,12 @@ def validate_atlas(path: Path, root: Path = ROOT) -> list[str]:
         columns = image.width // width
         total = columns * (image.height // height)
         animations = data['animations']
-        for name in sorted(REQUIRED - animations.keys()):
+        for name in sorted(required - animations.keys()):
             errors.append(f'missing clip: {name}')
+        if 'source_image' in data:
+            source=(root/data['source_image']).resolve()
+            if not source.is_relative_to(root.resolve()) or not source.exists() or hashlib.sha256(source.read_bytes()).hexdigest()!=data.get('source_sha256'):
+                errors.append('source identity/hash mismatch')
         for name, clip in animations.items():
             rows = clip['rows']
             if len(rows) != 8:
@@ -43,6 +48,7 @@ def validate_atlas(path: Path, root: Path = ROOT) -> list[str]:
                 if len(frames) < 2:
                     errors.append(f'{name}/{direction}: fewer than two real frames')
                 hashes = []
+                canonical = []
                 for index in frames:
                     if not isinstance(index, int) or not 0 <= index < total:
                         errors.append(f'{name}/{direction}: out of bounds frame {index}')
@@ -52,8 +58,12 @@ def validate_atlas(path: Path, root: Path = ROOT) -> list[str]:
                     if frame.getchannel('A').getbbox() is None:
                         errors.append(f'{name}/{direction}: empty frame {index}')
                     hashes.append(hashlib.sha256(frame.tobytes()).hexdigest())
+                    box=frame.getchannel('A').getbbox()
+                    if box:canonical.append(hashlib.sha256(frame.crop(box).resize((96,96),Image.Resampling.NEAREST).tobytes()).hexdigest())
                 if len(set(hashes)) < 2:
                     errors.append(f'{name}/{direction}: static/duplicate frames')
+                if canonical and len(set(canonical))<2:
+                    errors.append(f"{name}/{direction}: same pose after translation/scale")
                 direction_hashes.append(tuple(hashes))
             if len(set(direction_hashes)) < 8:
                 errors.append(f'{name}: duplicated directions')
@@ -78,10 +88,14 @@ def audit(root: Path = ROOT) -> dict:
         highres = sprite.with_name(sprite.stem+'_512.png')
         with Image.open(highres if highres.exists() else sprite) as image:
             transparent = image.mode == 'RGBA' and image.getchannel('A').getextrema()[0] < 255
-        units.append({'key': sprite.stem, 'highres': highres.exists(), 'transparent': transparent, 'animation_errors': errors})
+        partial=manifest.exists() and not validate_atlas(manifest,root,{'idle','move'})
+        eligible=not sprite.stem.startswith('mission_objective_')
+        units.append({'animation_eligible':eligible,'usable_directional_walk':partial,'key': sprite.stem, 'highres': highres.exists(), 'transparent': transparent, 'animation_errors': errors})
     return {'maps': maps, 'units': units,
             'summary': {'surveyed_maps': len(maps), 'invalid_map_hashes': sum(not m['sha256_valid'] for m in maps),
-                        'unit_art': len(units), 'animated_units_complete': sum(not u['animation_errors'] for u in units)}}
+                        'unit_art': len(units), 'animation_eligible_units':sum(u['animation_eligible'] for u in units),
+                        'animated_units_partial':sum(u['animation_eligible'] and u['usable_directional_walk'] and bool(u['animation_errors']) for u in units),
+                        'animated_units_complete': sum(u['animation_eligible'] and not u['animation_errors'] for u in units)}}
 
 
 def main() -> int:
@@ -94,7 +108,7 @@ def main() -> int:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         args.output.write_text(json.dumps(result, indent=2)+'\n')
     print(json.dumps(result['summary'], indent=2))
-    missing = result['summary']['animated_units_complete'] != result['summary']['unit_art']
+    missing = result['summary']['animated_units_complete'] != result['summary']['animation_eligible_units']
     return int(bool(result['summary']['invalid_map_hashes']) or (args.require_complete and missing))
 
 if __name__ == '__main__':
