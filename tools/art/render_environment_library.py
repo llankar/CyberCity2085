@@ -256,6 +256,9 @@ def medical_bed():
  box('vital display',(.70,.66,1.06),(.25,.012,.29),'cyan',.012)
 
 BUILD={'sofa':sofa,'armchair':lambda:sofa(True),'table':table,'console':console,'crate':crate,'barrier':barrier,'wall':lambda:barrier(True),'reactor':machine,'server':server,'hvac':hvac,'bench':bench,'wreck':vehicle,'container':container,'market_stall':market_stall,'barrels':barrels,'rust_wreck':rust_wreck,'bed':bed,'desk':desk,'locker':locker,'planter':planter,'transformer':transformer,'bin':bin,'workbench':workbench,'vending':vending,'planter_square':planter_square,'medical_bed':medical_bed}
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from environment_assemblies import families,CAMERA_ELEVATION,ASSEMBLY_METADATA
+BUILD.update(families(box,cylinder,parts,M,material))
 bpy.ops.object.camera_add(location=(0,-4,10));camera=bpy.context.object;scene.camera=camera;camera.data.type='ORTHO'
 for loc,power,size,color in [((-3,-4,7),1100,5,(.65,.82,1)),((4,2,6),1300,4,(1,.64,.32)),((0,4,5),700,3,(.12,.62,1))]:
  bpy.ops.object.light_add(type='AREA',location=loc);light=bpy.context.object;light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.data.color=color;light.rotation_euler=(Vector((0,0,.5))-light.location).to_track_quat('-Z','Y').to_euler()
@@ -274,9 +277,11 @@ for key,build in BUILD.items():
   bpy.context.view_layer.update()
   corners=[o.matrix_world@Vector(v) for o in parts for v in o.bound_box]
   center=sum(corners,Vector())/len(corners);center.z=.65
-  camera.location=center+Vector((0,-4,10));camera.rotation_euler=(center-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.ortho_scale=max(3.5,max((v-center).length for v in corners)*2.3)
+  elevation=math.radians(CAMERA_ELEVATION.get(key,68.2))
+  camera.location=center+Vector((0,-10*math.cos(elevation),10*math.sin(elevation)));camera.rotation_euler=(center-camera.location).to_track_quat('-Z','Y').to_euler();camera.data.ortho_scale=max(3.5,max((v-center).length for v in corners)*2.3)
   scene.render.filepath=str(OUT/f'{key}-{yaw}.png');bpy.ops.render.render(write_still=True)
  manifest['assets'][key]={'yaw':[0,90,180,270],'materials':sorted({slot.material.name for o in parts for slot in o.material_slots if slot.material}),'status':'rendered_pending_in_game_art_review'}
+ if key in ASSEMBLY_METADATA:manifest['assets'][key]['assembly']=ASSEMBLY_METADATA[key]
  parent.rotation_euler.z=0;bpy.ops.wm.save_as_mainfile(filepath=str(OUT/f'{key}.blend'),compress=True)
  bpy.data.objects.remove(parent,do_unlink=True)
 if (OUT/'library.json').is_file():
