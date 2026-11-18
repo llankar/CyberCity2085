@@ -66,5 +66,39 @@
       "clip": "idle",
       "layout": "idle_pairs"
     }
+  ],
+  "agent_diverse_01_neon_blade": [
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
+  ],
+  "agent_diverse_03_magenta_pistol": [
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
   ]
 }

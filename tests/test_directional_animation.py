@@ -5,7 +5,7 @@ import pytest
 from PIL import Image
 from tools.audit_combat_visuals import validate_atlas
 ROOT=Path(__file__).resolve().parents[1]
-KEYS=['agent_diverse_04_trench_sniper','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
+KEYS=['agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
 
 def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
     for key in KEYS:
@@ -46,4 +46,4 @@ def test_native_playback_facings_and_continuous_gait():
     result=subprocess.run([exe,'--audio-driver','Dummy','--path',str(ROOT/'godot/combat_missions_ui'),'--script','tests/directional_animation_regression.gd','--quit-after','1200'],capture_output=True,text=True,timeout=90)
     output=result.stdout+result.stderr
     assert result.returncode==0 and 'SCRIPT ERROR' not in output and 'SHADER ERROR' not in output,output
-    assert 'DIRECTIONAL_ANIMATION_CHECKS_PASSED 128 actual frame selections' in output,output
+    assert f'DIRECTIONAL_ANIMATION_CHECKS_PASSED {32*len(KEYS)} actual frame selections' in output,output
