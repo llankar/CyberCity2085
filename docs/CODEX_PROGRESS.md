@@ -154,8 +154,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Fichiers : `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`.
 - Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
 - Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
-- Travail restant dans cette portée : Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre.
-- Problème / raison : Environnement Windows désormais disponible ; premier parcours natif réussi, mais Alt+Tab, DPI, restauration et multi-écrans restent à exécuter.
+- Travail restant dans cette portée : Validation graphique Windows restante : redimensionnement et DPI multi-écrans.
+- Problème / raison : Alt+Tab, réduction et restauration visuellement vérifiés ; bord de redimensionnement intercepté par la fenêtre Godot possédée.
 
 ### UE2-05 — DONE — Scénarios de crash, récupération et bilan du lot
 
@@ -309,6 +309,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle.
 
+### UE5-02 — DONE — Vérifier trois issues réelles, fenêtres Windows et décision de préchauffage
+
+- Fichiers : `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/hud_controller.gd`, `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/tests/unified_real_mission_flow.gd`, `tools/check_unified_return.py`.
+- Tests / contrôles réellement exécutés : Trois parcours natifs Windows PASS : victoire par objectif, défaite par élimination IA, retraite par commande doublement confirmée; Inspection Windows visible : Alt+Tab, réduction et restauration PASS ; redimensionnement et DPI NOT VERIFIED; Première frame/readiness froide mesurée entre 2,109 s et 3,625 s ; aucun préchauffage ajouté.
+- Preuves : `docs/images/unified-experience/windows-three-real-outcomes/native-report.json`, `docs/images/unified-experience/windows-three-real-outcomes/README.md`, `docs/reports/windows_lifecycle_visual.json`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Audio Dummy ; redimensionnement et DPI multi-écrans hors portée validée.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
@@ -319,6 +327,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIFIED : isoler les temps lancement → readiness et readiness → première frame, puis valider focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans sous Windows. Produire ensuite une défaite réelle et implémenter une commande de retraite réelle avant de vérifier la troisième issue. Validation auditive toujours NOT VERIFIED.
+UNIFIED : valider redimensionnement et DPI multi-écrans ainsi que l’écoute audio réelle si les surfaces restent accessibles. Puis reprendre le premier chantier global non vérifié : SCALE-02 et finition artistique individuelle des cartes, sans assimiler chargement natif et revue artistique.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

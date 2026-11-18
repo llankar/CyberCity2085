@@ -21,9 +21,9 @@ Cartes artistiquement finalisées / animations complètes : aucune validation su
 | Session UUID et protocole versionné ; readiness, début, résultat et ACK | PASS sur le flux normal de campagne ; l’ancienne API bloquante reste à harmoniser |
 | Crash avant confirmation | PASS récupération explicite du résultat préparé ; aucun résultat préparé appliqué automatiquement |
 | Crash pendant un tour sans résultat préparé | PASS dans la portée testée : reprise au dernier état logique écrit, PA/PV/objectifs/postures/caméra/projection préservés ; aucune promesse sur les jets futurs ni les effets en cours |
-| Fenêtre Windows : focus, Alt+Tab, restauration, DPI et moniteurs | IN PROGRESS : premier parcours natif Windows réussi en 1920×1080 ; Alt+Tab, restauration, redimensionnement, DPI et moniteurs restent NOT VERIFIED |
+| Fenêtre Windows : focus, Alt+Tab, restauration, DPI et moniteurs | IN PROGRESS : Alt+Tab, réduction et restauration visuellement PASS ; redimensionnement et DPI multi-écrans restent NOT VERIFIED |
 | Audio sans doublons et transition sans bureau visible | NOT VERIFIED auditivement et sous Windows ; lecture des bookmarks et reprise existantes conservées, audio Dummy dans les preuves |
-| Préparation Godot en amont et performances de transition | TODO : pas de processus préchauffé |
+| Préparation Godot en amont et performances de transition | DONE dans la portée mesurée : première frame/readiness froide 2,109–3,625 s ; préchauffage rejeté pour l’instant, musique Arcade continue |
 
 ## Lot 1 — retour de combat
 
@@ -87,8 +87,10 @@ Sous Linux de validation : `DISPLAY=:107 ALSOFT_DRIVERS=null`. Commandes et dime
 
 La première mission native non forcée est vérifiée sous Windows : objectif accompli par les actions normales, parcours HQ → carte → briefing → Godot → débriefing → promotions → HQ, sauvegarde/rechargement et application unique. [Preuves et limites](images/unified-experience/windows-real-mission/README.md). Le résultat prêt est observé après 5,828 s, mais cette durée inclut dix tours de combat et ne constitue pas une mesure isolée du chargement.
 
-Prochaine action : instrumenter séparément lancement → readiness et readiness → première frame, puis valider visuellement focus, Alt+Tab, réduction/restauration, redimensionnement et DPI multi-écrans. L’écoute audio réelle reste ouverte.
+Les trois issues réelles sont maintenant vérifiées sous Windows avec [captures et rapports](images/unified-experience/windows-three-real-outcomes/README.md). Alt+Tab, réduction et restauration sont visuellement vérifiés ; redimensionnement et DPI multi-écrans restent ouverts. Le chargement froid mesuré ne justifie pas un préchauffage tant que la musique Arcade assure la continuité.
+
+Prochaine action : valider redimensionnement/DPI multi-écrans et écoute audio réelle, puis fermer les autres chantiers globaux sans extrapoler depuis cette intégration.
 
 ## Points encore ouverts
 
-Deux autres issues réelles (défaite et retraite), focus, Alt+Tab, DPI et moniteurs Windows ; écoute/fondus audio ; mesure isolée du chargement et décision de préchauffage ; ancienne API bloquante hors parcours campagne ; commande de retraite réelle (absente) ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.
+Redimensionnement, DPI et moniteurs Windows ; écoute/fondus audio ; ancienne API bloquante hors parcours campagne ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.
