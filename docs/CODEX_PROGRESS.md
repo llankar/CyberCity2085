@@ -165,33 +165,33 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### SCALE-02 — IN_PROGRESS — Mesurer les repères visuels par illustration et vérifier les variantes
+### SCALE-02 — DONE — Mesurer les repères visuels par illustration et vérifier les variantes
 
 - Fichiers : `docs/reports/entity_scale_baseline.json`.
-- Tests / contrôles réellement exécutés : Deux voitures identifiées visuellement et axes source annotés avec incertitude; Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié ; tous marqués NOT VERIFIED.
-- Preuves : `docs/reports/entity_scale_anchor_samples.json`, `docs/images/entity-scale-diagnostics/README.md`, `docs/images/entity-scale-diagnostics/native-diagnostics.json`.
-- Travail restant dans cette portée : Deux illustrations urbaines ont un repère automobile proposé, mais aucune carte n’est approuvée. Ajouter plusieurs repères, examiner appartement/industrie/laboratoire/wasteland, puis toutes les illustrations et variantes. Comparer toutes les catégories et la lisibilité avant application..
+- Tests / contrôles réellement exécutés : Deux voitures identifiées visuellement et axes source annotés avec incertitude; Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié; Onze planches couvrant 122 cartes inspectées : voitures, routes, épaves, portes, lits, bureaux, sièges, machines et structures.
+- Preuves : `docs/reports/entity_scale_anchor_samples.json`, `docs/images/entity-scale-diagnostics/README.md`, `docs/images/entity-scale-diagnostics/native-diagnostics.json`, `docs/reports/entity_scale_review_windows.json`, `docs/images/entity-scale-production-windows/README.md`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-03 — TODO — Appliquer les profils visuels par carte et catégorie
+### SCALE-03 — DONE — Appliquer les profils visuels par carte et catégorie
 
 - Fichiers : `godot/combat_missions_ui/scripts/map_presentation.gd`, `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/art/environment/map_presentation.json`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Après mesures : adapter les PJ/PNJ/robots/armures/véhicules, préserver proportions, ancrage et données tactiques ; conserver fallback lorsque l’échelle est incertaine.
+- Tests / contrôles réellement exécutés : 122 profils appliqués : urbain/wasteland 0,015 ; intérieur/petit intérieur/industrie 0,020; 6 tests de profils/inventaire réussis ; 0 empreinte source incohérente.
+- Preuves : `docs/reports/entity_scale_profile_tests.xml`, `docs/reports/entity_scale_baseline.json`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-04 — TODO — Vérifier les 122 cartes et les interactions aux trois résolutions
+### SCALE-04 — DONE — Vérifier les 122 cartes et les interactions aux trois résolutions
 
 - Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Comparer les tailles au décor, contrôler occultation, zoom, clics et déplacements ; ne pas confondre chargement et échelle visuellement validée.
+- Tests / contrôles réellement exécutés : 122 cartes rendues nativement à 720p, 1080p et 1440p sur RTX 5070 Ti; Projection, zoom, picking, aspect, ancrage, ombres et absence de mutation tactique vérifiés; 11 planches 720p inspectées ; lisibilité limitante et proportions approuvées.
+- Preuves : `docs/images/entity-scale-production-windows/native-report.json`, `docs/images/entity-scale-production-windows/README.md`, `docs/reports/entity_scale_review_windows.json`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-05 — TODO — Archiver les comparatifs et le résultat réel de la passe d’échelle
+### SCALE-05 — DONE — Archiver les comparatifs et le résultat réel de la passe d’échelle
 
 - Fichiers : `docs/CODEX_PROGRESS.json`, `docs/COMBAT_VISUAL_ACCEPTANCE.md`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Renseigner uniquement les cartes effectivement calibrées et revues ; conserver NOT VERIFIED pour les autres, sauvegarder puis identifier le lot suivant.
+- Tests / contrôles réellement exécutés : Acceptation reproductible : MAP-LOAD 122/122 et UNIT-SCALE PASS ; MAP-ART reste 0/122.
+- Preuves : `docs/reports/combat_visual_acceptance.json`, `docs/reports/entity_scale_review_windows.json`.
+- Travail restant dans cette portée : Aucun.
 
 ### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
 
@@ -229,13 +229,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale.
 
-### SCALE-CATALOGUE — IN_PROGRESS — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
+### SCALE-CATALOGUE — DONE — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/unit_visual.gd`, `assets/maps/*.walls.json`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant..
-- Problème / raison : La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique..
+- Tests / contrôles réellement exécutés : Revue visuelle des 122 cartes et cinq profils d’environnement; Trois résolutions natives avec agents, ennemis, robots, power armors et véhicules ; clics et zoom vérifiés.
+- Preuves : `docs/images/entity-scale-production-windows/README.md`, `docs/reports/entity_scale_review_windows.json`, `docs/reports/entity_scale_windows_tests.xml`.
+- Travail restant dans cette portée : Aucun.
 
 ### UE3-01 — DONE — Transférer la musique après readiness sans silence de chargement
 
@@ -320,13 +319,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
-- Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
+- Résolu : SCALE-CATALOGUE validé sur 122 cartes, trois résolutions et cinq catégories d’environnement ; cette validation ne vaut pas finition artistique des décors.
 - Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.
 - Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).
-- Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée.
+- Résolu : profils d’échelle de production appliqués à 122 cartes — 0,015 urbain/wasteland, 0,020 intérieur/industrie — sources, collisions et règles inchangées.
 
 ## Prochaine action précise
 
-UNIFIED : valider redimensionnement et DPI multi-écrans ainsi que l’écoute audio réelle si les surfaces restent accessibles. Puis reprendre le premier chantier global non vérifié : SCALE-02 et finition artistique individuelle des cartes, sans assimiler chargement natif et revue artistique.
+ENV-FINAL : reprendre la finition artistique individuelle, actuellement 0/122, puis UNIT-COVERAGE/ANIM-COMPLETE. Garder ouverts redimensionnement/DPI/audio Windows et la revue fonctionnelle globale.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

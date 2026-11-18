@@ -5,7 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "UE5-02"
+    "SCALE-05"
   ],
   "tasks": [
     {
@@ -415,60 +415,82 @@
     {
       "id": "SCALE-02",
       "title": "Mesurer les repères visuels par illustration et vérifier les variantes",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "docs/reports/entity_scale_baseline.json"
       ],
       "tests": [
         "Deux voitures identifiées visuellement et axes source annotés avec incertitude",
-        "Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié ; tous marqués NOT VERIFIED"
+        "Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié",
+        "Onze planches couvrant 122 cartes inspectées : voitures, routes, épaves, portes, lits, bureaux, sièges, machines et structures"
       ],
       "evidence": [
         "docs/reports/entity_scale_anchor_samples.json",
         "docs/images/entity-scale-diagnostics/README.md",
-        "docs/images/entity-scale-diagnostics/native-diagnostics.json"
+        "docs/images/entity-scale-diagnostics/native-diagnostics.json",
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/images/entity-scale-production-windows/README.md"
       ],
-      "remaining": "Deux illustrations urbaines ont un repère automobile proposé, mais aucune carte n’est approuvée. Ajouter plusieurs repères, examiner appartement/industrie/laboratoire/wasteland, puis toutes les illustrations et variantes. Comparer toutes les catégories et la lisibilité avant application.",
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "SCALE-03",
       "title": "Appliquer les profils visuels par carte et catégorie",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/scripts/map_presentation.gd",
         "godot/combat_missions_ui/scripts/unit_presentation.gd",
         "godot/combat_missions_ui/art/environment/map_presentation.json"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Après mesures : adapter les PJ/PNJ/robots/armures/véhicules, préserver proportions, ancrage et données tactiques ; conserver fallback lorsque l’échelle est incertaine",
+      "tests": [
+        "122 profils appliqués : urbain/wasteland 0,015 ; intérieur/petit intérieur/industrie 0,020",
+        "6 tests de profils/inventaire réussis ; 0 empreinte source incohérente"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_profile_tests.xml",
+        "docs/reports/entity_scale_baseline.json"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "SCALE-04",
       "title": "Vérifier les 122 cartes et les interactions aux trois résolutions",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/tests/capture_combat_21.gd",
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Comparer les tailles au décor, contrôler occultation, zoom, clics et déplacements ; ne pas confondre chargement et échelle visuellement validée",
+      "tests": [
+        "122 cartes rendues nativement à 720p, 1080p et 1440p sur RTX 5070 Ti",
+        "Projection, zoom, picking, aspect, ancrage, ombres et absence de mutation tactique vérifiés",
+        "11 planches 720p inspectées ; lisibilité limitante et proportions approuvées"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "docs/images/entity-scale-production-windows/README.md",
+        "docs/reports/entity_scale_review_windows.json"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "SCALE-05",
       "title": "Archiver les comparatifs et le résultat réel de la passe d’échelle",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "docs/CODEX_PROGRESS.json",
         "docs/COMBAT_VISUAL_ACCEPTANCE.md"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Renseigner uniquement les cartes effectivement calibrées et revues ; conserver NOT VERIFIED pour les autres, sauvegarder puis identifier le lot suivant",
+      "tests": [
+        "Acceptation reproductible : MAP-LOAD 122/122 et UNIT-SCALE PASS ; MAP-ART reste 0/122"
+      ],
+      "evidence": [
+        "docs/reports/combat_visual_acceptance.json",
+        "docs/reports/entity_scale_review_windows.json"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
@@ -565,7 +587,7 @@
     {
       "id": "SCALE-CATALOGUE",
       "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/scripts/unit_presentation.gd",
         "godot/combat_missions_ui/scripts/visual_battlefield.gd",
@@ -573,10 +595,17 @@
         "godot/combat_missions_ui/scripts/unit_visual.gd",
         "assets/maps/*.walls.json"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant.",
-      "reason": "La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique."
+      "tests": [
+        "Revue visuelle des 122 cartes et cinq profils d’environnement",
+        "Trois résolutions natives avec agents, ennemis, robots, power armors et véhicules ; clics et zoom vérifiés"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/README.md",
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/reports/entity_scale_windows_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
     },
     {
       "id": "UE3-01",
@@ -787,21 +816,35 @@
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "6f3ea8b78d1c19f22ef2fff4066f550c164bbd9d26b5f666134fbf2fe9aa7a56",
+      "render_signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
-          "sha256": "d1ba0a8b982011acb98d2afa5c29244b560fd3e007a43e1a93db2af58ed29c3e"
+          "sha256": "89c3b10c1cc3de390afaf829ae073e6fbd734888563ed650681f08f8be1bc927"
+        }
+      ]
+    },
+    "UNIT-SCALE": {
+      "status": "PASS",
+      "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
+      "render_signature": "2d88e5450e1b1b1a08dd517123bf769ae355543525cb8a46722603d99aac1cfc",
+      "evidence": [
+        {
+          "path": "docs/reports/entity_scale_review_windows.json",
+          "sha256": "743388dfca0fd0703daae52db5c4769508efb6019394d9f6796010252d6c917a"
+        },
+        {
+          "path": "docs/images/entity-scale-production-windows/native-report.json",
+          "sha256": "f9513f8ed48e5d7c6f7eda487363d6a0473449790eabc3a38475fc27fe43dd8e"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "463b8bd106c3c466db56319f0ca4118fa90654e616f03a44c06e7cc8cc6b2fa0",
-    "scope": "57 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée et benchmark GPU Windows ; parcours natifs hors JUnit",
+    "sha256": "57d38ee442b3a913accbb6aaf845d45df7b1f85590e2d552b820260512c9accd",
+    "scope": "67 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée, benchmark GPU et échelle 122 cartes ; parcours natifs Windows inclus",
     "not_executed": [
-      "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
       "Suite intégrale du jeu"
@@ -809,48 +852,80 @@
     "sources": [
       {
         "path": "tools/check_combat_visual_acceptance.py",
-          "sha256": "e175015956fc28671bf575a5313822a56f8e21d3551b84a8360b804735d60e08"
+        "sha256": "e175015956fc28671bf575a5313822a56f8e21d3551b84a8360b804735d60e08"
       },
       {
         "path": "tools/art/update_environment_progress.py",
-          "sha256": "ba7724516bc4ed8bedc798dfde24311a7d48bb7576171a5a7911c13944414676"
+        "sha256": "ba7724516bc4ed8bedc798dfde24311a7d48bb7576171a5a7911c13944414676"
       },
       {
         "path": "tools/audit_entity_scale.py",
-          "sha256": "721341c12d6dda01828fb08cbff345be15fa5efb961e5521ae21cfda3d60d6cf"
+        "sha256": "721341c12d6dda01828fb08cbff345be15fa5efb961e5521ae21cfda3d60d6cf"
       },
       {
         "path": "tests/test_combat_visual_acceptance.py",
-          "sha256": "c3c1bf12b4a006825bee21e8c11f23523eee39dd410dfca1ad69f15d9aecf3bd"
+        "sha256": "c3c1bf12b4a006825bee21e8c11f23523eee39dd410dfca1ad69f15d9aecf3bd"
       },
       {
         "path": "tests/test_environment_progress.py",
-          "sha256": "0ca59fe3c99184f432e0676a4ebad5e961bb6a274b97bd7ffa114b19c6bd6712"
+        "sha256": "0ca59fe3c99184f432e0676a4ebad5e961bb6a274b97bd7ffa114b19c6bd6712"
       },
       {
         "path": "tests/test_entity_scale_inventory.py",
-          "sha256": "ef6c9d8061df21d9cccad263b2f3bccefa774c33211f7fa189479a9af4066df1"
+        "sha256": "ef6c9d8061df21d9cccad263b2f3bccefa774c33211f7fa189479a9af4066df1"
       },
       {
         "path": "tests/test_directional_animation.py",
-          "sha256": "b88e66a7db14e45001374d798e3c8b181551e6d4f2d49bd74d59d105cd3b7ad5"
+        "sha256": "b88e66a7db14e45001374d798e3c8b181551e6d4f2d49bd74d59d105cd3b7ad5"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-          "sha256": "feb5c3bfb6f194e369667f5aae131eb833510712320c17307519de797b9d8a36"
+        "sha256": "feb5c3bfb6f194e369667f5aae131eb833510712320c17307519de797b9d8a36"
       },
       {
         "path": "tests/test_windows_gpu_benchmark.py",
         "sha256": "7077090ea39b145ea755d29b7676b6734909ac842797b1ae97ca0f9ab8f4fb21"
+      },
+      {
+        "path": "tools/apply_entity_scale_profiles.py",
+        "sha256": "520e8f321495caf46392ed37964fa2086710c2bd49dc67991815af0bf9052caf"
+      },
+      {
+        "path": "tools/record_entity_scale_review.py",
+        "sha256": "0a1e6670b6c87459c681d16658079248dc053f7e129487e292d5595ccf83e237"
+      },
+      {
+        "path": "tests/test_entity_scale_profiles.py",
+        "sha256": "fba647626236affe6f2a556ada1df7b3e687bb1d40e3690a9e790a555470cf36"
+      },
+      {
+        "path": "tests/test_entity_scale_review.py",
+        "sha256": "45fdabecc112d097b7fada87a3a435f167a61cb71493aab063d6e5c56760a27b"
+      },
+      {
+        "path": "tests/test_top_down_combat.py",
+        "sha256": "cd5d7048954ce5ffc4a2377a47c14cfc261368223fc5b71ebb6842dbc7875d92"
+      },
+      {
+        "path": "tests/test_unit_presentation.py",
+        "sha256": "c3d6bcbab19c5d8384a5cdfa74f7769a15a4f82e7008e545457e3a3f4b511514"
+      },
+      {
+        "path": "godot/combat_missions_ui/tests/top_down_regression.gd",
+        "sha256": "62d040ec81ed24bd6fb76a31d52773e9697b98a4d758f12ced1a615b772b34bd"
+      },
+      {
+        "path": "godot/combat_missions_ui/art/environment/map_presentation.json",
+        "sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
       }
     ]
   },
   "problems": [
     "Le modèle procédural rejeté reste hors production.",
-    "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.",
+    "Résolu : SCALE-CATALOGUE validé sur 122 cartes, trois résolutions et cinq catégories d’environnement ; cette validation ne vaut pas finition artistique des décors.",
     "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.",
     "Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).",
-    "Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée."
+    "Résolu : profils d’échelle de production appliqués à 122 cartes — 0,015 urbain/wasteland, 0,020 intérieur/industrie — sources, collisions et règles inchangées."
   ],
   "pending_sources": {
     "agent_diverse_01_neon_blade": {
@@ -864,7 +939,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "UNIFIED : valider redimensionnement et DPI multi-écrans ainsi que l’écoute audio réelle si les surfaces restent accessibles. Puis reprendre le premier chantier global non vérifié : SCALE-02 et finition artistique individuelle des cartes, sans assimiler chargement natif et revue artistique.",
+  "next_action": "ENV-FINAL : reprendre la finition artistique individuelle, actuellement 0/122, puis UNIT-COVERAGE/ANIM-COMPLETE. Garder ouverts redimensionnement/DPI/audio Windows et la revue fonctionnelle globale.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
@@ -880,7 +955,130 @@
   },
   "scale_review": {
     "expected_maps": 122,
-    "verified_maps": [],
+    "verified_maps": [
+      "city_district_apartment_block.png",
+      "city_district_civic_center.png",
+      "city_district_holo_square.png",
+      "city_district_riot_square.png",
+      "city_district_tech_market.png",
+      "city_exterior_billboard_avenue.png",
+      "city_exterior_corporate_plaza.png",
+      "city_exterior_downtown_intersection.png",
+      "city_exterior_elevated_freeway.png",
+      "city_exterior_neon_market_alley.png",
+      "city_exterior_parking_garage.png",
+      "city_exterior_rooftop_access.png",
+      "city_exterior_waterfront_docks.png",
+      "city_industrial_data_vault.png",
+      "city_industrial_dockside_terminal.png",
+      "city_industrial_factory_floor.png",
+      "city_industrial_power_substation.png",
+      "city_industrial_security_checkpoint.png",
+      "city_industrial_service_tunnel.png",
+      "city_industrial_warehouse_floor.png",
+      "city_interior_blacksite_lab.png",
+      "city_interior_command_deck.png",
+      "city_interior_control_center.png",
+      "city_interior_corporate_lobby.png",
+      "city_interior_cyber_cafe.png",
+      "city_interior_medical_clinic.png",
+      "city_interior_penthouse_atrium.png",
+      "city_interior_police_records.png",
+      "city_interior_research_lab.png",
+      "city_interior_safehouse.png",
+      "city_interior_server_room.png",
+      "city_rooftop_skybridge_spine.png",
+      "city_transit_freight_yard.png",
+      "city_transit_metro_interchange.png",
+      "city_transit_subway_platform.png",
+      "city_transit_train_tunnel.png",
+      "cybercity_inner_01_control_center.png",
+      "cybercity_inner_02_safehouse.png",
+      "cybercity_inner_03_research_lab.png",
+      "cybercity_inner_04_medical_clinic.png",
+      "cybercity_inner_05_server_room.png",
+      "cybercity_inner_06_blacksite_lab.png",
+      "cybercity_inner_07_corporate_lobby.png",
+      "cybercity_inner_08_police_records.png",
+      "cybercity_inner_09_apartment_block.png",
+      "cybercity_inner_10_penthouse_atrium.png",
+      "cybercity_inner_11_cyber_cafe.png",
+      "cybercity_inner_12_maintenance_tunnel.png",
+      "cybercity_inner_13_warehouse_floor.png",
+      "cybercity_inner_14_detention_block.png",
+      "cybercity_inner_15_data_vault.png",
+      "cybercity_street_01_downtown_intersection.png",
+      "cybercity_street_02_neon_market_alley.png",
+      "cybercity_street_03_elevated_freeway.png",
+      "cybercity_street_04_waterfront_docks.png",
+      "cybercity_street_05_civic_plaza.png",
+      "cybercity_street_06_downtown_intersection.png",
+      "cybercity_street_06_transit_interchange.png",
+      "cybercity_street_07_downtown_intersection.png",
+      "cybercity_street_07_neon_market_alley.png",
+      "cybercity_street_08_elevated_freeway.png",
+      "cybercity_street_08_neon_market_alley.png",
+      "cybercity_street_09_elevated_freeway.png",
+      "cybercity_street_09_waterfront_docks.png",
+      "cybercity_street_10_civic_plaza.png",
+      "cybercity_street_10_waterfront_docks.png",
+      "cybercity_street_11_civic_plaza.png",
+      "cybercity_street_11_transit_interchange.png",
+      "cybercity_street_12_industrial_district.png",
+      "cybercity_street_12_transit_interchange.png",
+      "cybercity_street_13_flood_prone_avenue.png",
+      "cybercity_street_13_industrial_district.png",
+      "cybercity_street_14_bridge_access.png",
+      "cybercity_street_14_flood_prone_avenue.png",
+      "cybercity_street_15_billboard_avenue.png",
+      "cybercity_street_15_bridge_access.png",
+      "cybercity_street_16_billboard_avenue.png",
+      "wasteland_city_01_ruined_downtown.png",
+      "wasteland_city_02_burned_market_block.png",
+      "wasteland_city_03_collapsed_overpass.png",
+      "wasteland_city_04_flooded_civic_square.png",
+      "wasteland_city_05_scavenger_plaza.png",
+      "wasteland_city_06_ruined_downtown.png",
+      "wasteland_city_07_burned_market_block.png",
+      "wasteland_city_08_collapsed_overpass.png",
+      "wasteland_city_09_flooded_civic_square.png",
+      "wasteland_city_10_scavenger_plaza.png",
+      "wasteland_city_11_ruined_transit_plaza.png",
+      "wasteland_city_12_cratered_waterfront.png",
+      "wasteland_inner_01_abandoned_safehouse.png",
+      "wasteland_inner_02_collapsed_tunnel.png",
+      "wasteland_inner_03_ruined_clinic.png",
+      "wasteland_inner_04_bunker_command_post.png",
+      "wasteland_inner_05_looted_vault.png",
+      "wasteland_inner_06_abandoned_safehouse.png",
+      "wasteland_inner_06_maintenance_depot.png",
+      "wasteland_inner_07_apartment_shelter.png",
+      "wasteland_inner_07_collapsed_tunnel.png",
+      "wasteland_inner_08_data_relay_room.png",
+      "wasteland_inner_08_ruined_clinic.png",
+      "wasteland_inner_09_bunker_command_post.png",
+      "wasteland_inner_09_underground_market.png",
+      "wasteland_inner_10_detention_block.png",
+      "wasteland_inner_10_looted_vault.png",
+      "wasteland_inner_11_emergency_medbay.png",
+      "wasteland_inner_11_maintenance_depot.png",
+      "wasteland_inner_12_apartment_shelter.png",
+      "wasteland_inner_13_data_relay_room.png",
+      "wasteland_inner_14_underground_market.png",
+      "wasteland_inner_15_detention_block.png",
+      "wasteland_outdoor_01_dust_road_ambush.png",
+      "wasteland_outdoor_02_ashfield_ruins.png",
+      "wasteland_outdoor_03_wrecked_highway.png",
+      "wasteland_outdoor_04_rusted_trainyard.png",
+      "wasteland_outdoor_05_irradiated_basin.png",
+      "wasteland_outdoor_06_dust_road_ambush.png",
+      "wasteland_outdoor_07_ashfield_ruins.png",
+      "wasteland_outdoor_08_wrecked_highway.png",
+      "wasteland_outdoor_09_rusted_trainyard.png",
+      "wasteland_outdoor_10_irradiated_basin.png",
+      "wasteland_outdoor_11_convoy_crossing.png",
+      "wasteland_outdoor_12_salt_flat_ambush.png"
+    ],
     "categories": [
       "player_agents",
       "enemies",
@@ -894,6 +1092,12 @@
       "Aucune modification des règles, collisions, portée ou coordonnées tactiques",
       "Conserver PNG, relevés et SHA-256 des cartes",
       "Comparer les unités aux repères réels du décor, sans facteur global arbitraire"
+    ],
+    "evidence": [
+      "docs/reports/entity_scale_review_windows.json",
+      "docs/images/entity-scale-production-windows/native-report.json",
+      "docs/images/entity-scale-production-windows/catalogue-01.jpg",
+      "docs/images/entity-scale-production-windows/catalogue-11.jpg"
     ]
   },
   "planned_batches": [

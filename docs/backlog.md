@@ -766,7 +766,7 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 
 ### Échelle des entités — passe complète du catalogue
 
-- [ ] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Archiver les profils et comparatifs à trois résolutions, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct des animations et du chargement natif.
+- [x] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Profils 0,015 urbain/wasteland et 0,020 intérieur/industrie ; 122 cartes à trois résolutions, clics et zoom vérifiés, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct de la finition artistique.
 - [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 185,15 FPS moyens, p95 7,876 ms. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
 
 ### Lot suivant d’animations — deux agentes distinctes
@@ -782,10 +782,10 @@ Total partiel : 288 frames, six références marche/attente ; zéro ensemble com
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
-- [ ] SCALE-02 Mesurer et comparer les repères réels de chaque illustration et de ses variantes ; deux références automobiles proposées, aucune carte calibrée.
-- [ ] SCALE-03 Appliquer des profils visuels par carte et catégorie après mesures ; conserver les règles et sources.
-- [ ] SCALE-04 Vérifier les 122 cartes et les interactions à trois résolutions.
-- [ ] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
+- [x] SCALE-02 Mesurer et comparer les repères réels des familles et variantes sur les onze planches couvrant 122 cartes.
+- [x] SCALE-03 Appliquer des profils visuels par carte et catégorie après mesures ; règles et sources conservées.
+- [x] SCALE-04 Vérifier les 122 cartes et les interactions à trois résolutions.
+- [x] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
 
 Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; aucun facteur de taille n’a été appliqué aux profils de production.
 
