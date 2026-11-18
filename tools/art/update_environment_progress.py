@@ -17,6 +17,8 @@ def render_signature(root):
     paths = sorted((project / 'scripts').glob('*.gd')) + sorted((project / 'shaders').glob('*.gdshader'))
     paths += [root / ART_REL / 'environment_art.json', root / ART_REL / 'props25/library.json']
     paths += sorted((root / ART_REL / 'props25').glob('*-*.png'))
+    animation_dir=root/'assets/combat_visual/animations'
+    paths += sorted(animation_dir.glob('*.json')) + sorted(animation_dir.glob('*.png'))
     digest = hashlib.sha256()
     for path in paths:
         digest.update(str(path.relative_to(root)).encode())
@@ -29,7 +31,11 @@ def metrics(root):
     maps = json.loads((art / 'environment_art.json').read_text())['maps']
     library = json.loads((art / 'props25/library.json').read_text())
     active = [p for m in maps.values() for p in m['props'] if p['enabled']]
-    return dict(maps=len(maps), source_images=len({m['image_sha256'] for m in maps.values()}),
+    animation_data=[json.loads(p.read_text()) for p in (root/'assets/combat_visual/animations').glob('*.json')]
+    eligible=[p for p in (root/'assets/units').glob('*.png') if not p.stem.endswith('_512') and not p.stem.startswith('mission_objective_')]
+    walk_verified=sum(a.get('review_status')=='native_render_verified_partial' and {'idle','move'}<=a.get('animations',{}).keys() for a in animation_data)
+    complete_animations=sum(a.get('review_status')=='native_render_verified_complete' and {'idle','move','fire','melee','cover','hit','death','psi','heal'}<=a.get('animations',{}).keys() for a in animation_data)
+    return dict(animation_eligible=len(eligible), animation_atlases=len(animation_data), directional_walk_verified=walk_verified, full_animation_sets=complete_animations, maps=len(maps), source_images=len({m['image_sha256'] for m in maps.values()}),
                 families=len(library['assets']), frames=sum(len(a['yaw']) for a in library['assets'].values()),
                 active=len(active), improved_maps=sum(any(p['enabled'] for p in m['props']) for m in maps.values()),
                 used_families=len({p['asset'] for p in active}),
@@ -58,6 +64,15 @@ def write_progress(root=ROOT):
              f'| Cartes déclarées artistiquement terminées | {counts["artistically_complete"]} / {counts["maps"]} |', '',
              'Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honnêtement un pourcentage de finition artistique.', '',
              '## Ce qui est livré', '']
+    if counts['animation_eligible']:
+        position=lines.index('## Ce qui est livré')
+        lines[position:position]=['## Animations des unités','',
+            '| Indicateur | État |','|---|---|',
+            f'| Références d’entités à couvrir (hors objets de mission) | {counts["animation_eligible"]} |',
+            f'| Atlas produits | {counts["animation_atlases"]} |',
+            f'| Marche et attente à huit directions vérifiées dans Godot | {counts["directional_walk_verified"]} |',
+            f'| Unités avec les neuf actions animées complètes et validées | {counts["full_animation_sets"]} |','',
+            'Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.','']
     lines += ['- ' + item for item in state['delivered']]
     lines += ['', '## Passe en cours', '', '| Travail | État | Résultat / reste à faire |', '|---|---|---|']
     lines += [f'| {t["name"]} | {t["status"]} | {t["detail"]} |' for t in state['tasks']]

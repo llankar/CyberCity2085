@@ -1,0 +1,70 @@
+{
+  "agent_diverse_04_trench_sniper": [
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
+  ],
+  "enemy_corp_37_power_armor_grunt": [
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
+  ],
+  "enemy_grunt": [
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_grunt/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_grunt/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/enemy_grunt/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
+  ],
+  "robot_combat": [
+    {
+      "path": "assets/combat_visual/source_sheets/robot_combat/move-front-0.png",
+      "clip": "move",
+      "layout": "front"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/robot_combat/move-rear-1.png",
+      "clip": "move",
+      "layout": "rear"
+    },
+    {
+      "path": "assets/combat_visual/source_sheets/robot_combat/idle-idle_pairs-2.png",
+      "clip": "idle",
+      "layout": "idle_pairs"
+    }
+  ]
+}

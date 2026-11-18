@@ -63,3 +63,11 @@ def test_changed_sprite_invalidates_validation_even_without_manifest_update(tmp_
     sprite.write_bytes(b'changed production texture')
     _,current=write_progress(tmp_path)
     assert not current
+
+
+def test_animation_files_are_part_of_the_render_validation_signature(tmp_path):
+    fixture(tmp_path)
+    directory=tmp_path/'assets/combat_visual/animations';directory.mkdir(parents=True)
+    (directory/'new_walk.png').write_bytes(b'changed animation frame data')
+    _,current=write_progress(tmp_path)
+    assert not current

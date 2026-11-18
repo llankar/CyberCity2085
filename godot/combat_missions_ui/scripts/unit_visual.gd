@@ -1,5 +1,6 @@
 extends "res://scripts/unit_token.gd"
 ## Grounded art; genuine atlas frames only. Missing clips keep static source art.
+const ANIMATION_CONTRACT = preload("res://scripts/unit_animation_contract.gd")
 const HUMAN_HEIGHT_PER_TILE := 0.70
 const PRESENTATION = preload("res://scripts/unit_presentation.gd")
 const READABILITY_SHADER = preload("res://shaders/unit_readability.gdshader")
@@ -16,6 +17,7 @@ var animation_root := ""
 var atlas: Texture2D
 var manifest: Dictionary = {}
 var facing := 0
+var facing_y_scale := 2.0
 var clip := "idle"
 var frame_time := 0.0
 var frame_index := 0
@@ -52,8 +54,11 @@ func _ready() -> void:
 	add_child(_art_sprite)
 
 func configure_animation(key: String, root: String) -> void:
+	root=root.simplify_path().trim_suffix("/")
 	visual_key = key
 	animation_root = root
+	facing = 4 if is_enemy else 0
+	manifest={};atlas=null;_frame_bounds={}
 	var path := root.path_join("assets/combat_visual/animations/%s.json" % key)
 	if _atlas_cache.has(path):
 		var cached: Dictionary = _atlas_cache[path]
@@ -64,9 +69,11 @@ func configure_animation(key: String, root: String) -> void:
 	if FileAccess.file_exists(path):
 		var raw: Variant = JSON.parse_string(FileAccess.get_file_as_string(path))
 		if raw is Dictionary:
-			manifest = raw
-			var image := Image.load_from_file(root.path_join(str(manifest.get("texture", ""))))
-			if image != null:
+			var texture_path:=root.path_join(str(raw.get("texture", ""))).simplify_path()
+			var image: Image=null
+			if texture_path.begins_with(root.simplify_path()+"/assets/combat_visual/animations/") and FileAccess.file_exists(texture_path):image=Image.load_from_file(texture_path)
+			if ANIMATION_CONTRACT.valid(raw,image,root):
+				manifest=raw
 				atlas = ImageTexture.create_from_image(image)
 				var frame_size: Array = manifest.get("frame_size",[256,256])
 				_frame_bounds = _measure_atlas_bounds(image,Vector2i(int(frame_size[0]),int(frame_size[1])))
@@ -75,8 +82,10 @@ func configure_animation(key: String, root: String) -> void:
 func play_action(action: String, toward: Vector2 = Vector2.ZERO) -> bool:
 	if toward != Vector2.ZERO:
 		var delta := toward - position
-		facing = posmod(int(round(atan2(delta.y * 2.0, delta.x) / (TAU / 8.0))), 8)
+		facing = posmod(int(round(atan2(delta.y * facing_y_scale, delta.x) / (TAU / 8.0))), 8)
 	if not (manifest.get("animations", {}) as Dictionary).has(action): return false
+	# Consecutive route cells keep the gait phase; only a new clip restarts it.
+	if action==clip and bool(manifest.animations[action].get("loop",false)):return true
 	clip = action
 	frame_time = 0
 	frame_index = 0
@@ -170,10 +179,14 @@ func _draw() -> void:
 			_active_bounds_uv = _frame_bounds.get(idx,Rect2(0,0,1,1))
 	var reference_height := _portrait_bounds_uv.size.y
 	if atlas != null:
-		reference_height = _atlas_idle_height()
+		reference_height = float(manifest.get("reference_height_uv",_atlas_idle_height()))
 	var height := visible_height/maxf(.05,reference_height)
 	var width := height * source.size.x / maxf(1, source.size.y)
-	_art_rect = Rect2(-_active_bounds_uv.get_center().x*width,-_active_bounds_uv.end.y*height,width,height)
+	var anchor:=Vector2(_active_bounds_uv.get_center().x,_active_bounds_uv.end.y)
+	if atlas!=null and manifest.has("anchor_uv"):
+		var authored: Array=manifest.anchor_uv
+		anchor=Vector2(float(authored[0]),float(authored[1]))
+	_art_rect = Rect2(-anchor.x*width,-anchor.y*height,width,height)
 	# Keep the source texture data-only; a separate sprite isolates the material
 	# from HP bars, selection diamonds and floating combat text.
 	_art_sprite.texture = tex

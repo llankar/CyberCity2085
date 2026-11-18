@@ -18,6 +18,17 @@ Mis à jour : 18/11/2026.
 
 Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honnêtement un pourcentage de finition artistique.
 
+## Animations des unités
+
+| Indicateur | État |
+|---|---|
+| Références d’entités à couvrir (hors objets de mission) | 231 |
+| Atlas produits | 4 |
+| Marche et attente à huit directions vérifiées dans Godot | 4 |
+| Unités avec les neuf actions animées complètes et validées | 0 |
+
+Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
+
 [Inventaire détaillé par carte](combat_visual_25_inventory.md).
 
 ## Ce qui est livré
@@ -29,27 +40,28 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 - Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.
 - Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.
 - Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
+- 192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.
 
 ## Passe en cours
 
 | Travail | État | Résultat / reste à faire |
 |---|---|---|
-| Audit visuel des entités | Terminé | 251 références de sprites inventoriées, dont 231 entités et 20 objets de mission ; versions haute résolution présentes. 46 alphas atteignent un bord de frame, à revoir ; aucun manifeste d’animation livré. |
-| Profils de présentation | Terminé | Profils visuels séparés : soutien robot non géant plafonné à 1,65× ; agents, power armors, véritables géants et véhicules préservés. Ombres aériennes et contact des châssis distincts. |
-| Lisibilité et matériaux | Terminé | Compression des hautes lumières avant écrêtage ; contours cyan/rouge conservés. Vérifications pixel de l’opacité, des panneaux clairs et des frames réussies. |
-| Validation native | Terminé | 26 tests réussis ; 122 cartes contrôlées, comparaisons avant/après et scènes militaires aux trois résolutions. Sélection, ciblage, déplacements, ombres et exclusion des véhicules en intérieur vérifiés. |
-| Suivi et publication | Terminé | Comparaisons, audit et inventaire exportés ; push et merge vérifiés sur main. Animations et retouches de ressources restent dans le chantier global. |
+| Frames au style des sprites existants | Terminé | Quatre identités détaillées conservées ; planches sources et empreintes archivées. Le prototype procédural rejeté reste hors production. |
+| Marche et attente dans huit directions | Terminé | 192 frames : 2 poses d’attente et 4 phases de marche × 8 directions pour chacune des quatre références. Les autres actions restent absentes. |
+| Lecture et intégration | Terminé | Chargement contrôlé, ancrage aux pieds, ombre liée à la frame, orientation selon projection et phase de marche continue entre cases ; fallback statique préservé. |
+| Validation native et artistique | Terminé | 34 tests réussis ; 128 sélections de frames natives. Clic réel avec 4 PA consommés, trois résolutions, cinq familles de cartes et contrôle du catalogue complet. |
+| Couverture et publication | En cours | Couverture documentée à 4 / 231 références partiellement animées et 0 ensemble de neuf actions complet. Publication en cours. |
 
 ## Validation
 
-- Dernière livraison de référence : `6820eed6d3596424b9e8a1849d30af4f463d3974`.
-- Preuves : [captures et inventaire](images/combat-25-entities/README.md).
+- Dernière livraison de référence : `passe directionnelle en cours de publication`.
+- Preuves : [captures et inventaire](images/combat-directional-animation/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
-- 26 tests ciblés réussis ; 122 rendus natifs et nombres de ressources vérifiés. Avant réels capturés avec 7ea8323 ; cinq environnements aux trois résolutions et scènes militaires supplémentaires avec véhicules terrestres/aériens. Les deux intérieurs testés restent sans véhicules. Audit source de 251 références, distinct de la finition artistique.
+- 34 tests ciblés réussis ; 128 sélections de frames dans Godot. Clic natif : destination atteinte, 4 PA consommés, retour à l’attente ; captures aux trois résolutions et cinq environnements. Le contrôle des 122 cartes porte sur le rendu, la projection et le picking, pas sur une finition artistique complète.
 
 ## Reste sur l’objectif complet
 
-- Poursuivre les ressources des entités : revoir visuellement les 46 silhouettes qui touchent un bord de frame et produire de véritables animations ; l’audit de 251 références de sprites ne constitue pas une validation artistique individuelle.
+- Étendre les animations aux 227 autres références éligibles et produire les sept actions manquantes sur les quatre premières ; revoir aussi les 46 silhouettes historiques qui touchent un bord de frame. Les véhicules ne disposent pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
