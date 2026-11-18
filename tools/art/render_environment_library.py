@@ -259,6 +259,9 @@ BUILD={'sofa':sofa,'armchair':lambda:sofa(True),'table':table,'console':console,
 sys.path.insert(0,str(Path(__file__).resolve().parent))
 from environment_assemblies import families,CAMERA_ELEVATION,ASSEMBLY_METADATA
 BUILD.update(families(box,cylinder,parts,M,material))
+from environment_furniture import families as furniture_families,FURNITURE_METADATA
+BUILD.update(furniture_families(box,cylinder,parts,M,material))
+ASSEMBLY_METADATA.update(FURNITURE_METADATA)
 bpy.ops.object.camera_add(location=(0,-4,10));camera=bpy.context.object;scene.camera=camera;camera.data.type='ORTHO'
 for loc,power,size,color in [((-3,-4,7),1100,5,(.65,.82,1)),((4,2,6),1300,4,(1,.64,.32)),((0,4,5),700,3,(.12,.62,1))]:
  bpy.ops.object.light_add(type='AREA',location=loc);light=bpy.context.object;light.data.energy=power;light.data.shape='DISK';light.data.size=size;light.data.color=color;light.rotation_euler=(Vector((0,0,.5))-light.location).to_track_quat('-Z','Y').to_euler()

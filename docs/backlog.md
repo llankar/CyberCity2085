@@ -711,3 +711,21 @@ Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par c
 - [x] ART25C-05 Exporter les preuves, actualiser le fichier d’avancement, push et merge. La reconstruction artistique complète reste ouverte sous ART25-05.
 
 Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_progress.md).
+
+
+### Combat Visual 2.5 — proportions du mobilier, 18 novembre 2026
+
+- [x] ART25D-01 Examiner les variantes de lits et de mobilier encore incompatibles.
+- [x] ART25D-02 Produire des ressources dédiées aux proportions observées.
+- [x] ART25D-03 Intégrer les annotations et contrôler les silhouettes sans modifier la géométrie tactique.
+- [x] ART25D-04 Vérifier les rendus natifs, les interactions et les entités aux résolutions cibles.
+- [ ] ART25D-05 Exporter les comparaisons, mettre à jour le suivi et publier la passe.
+
+
+### Combat Visual 2.5 — mobilier aux proportions naturelles
+
+- [x] ART25D-01 Revoir visuellement les couchages et bancs, sans déduire leur nature des collisions.
+- [x] ART25D-02 Produire quatre variantes adaptées et leurs vues : lit simple, lit de camp, bancs métalliques deux et quatre places.
+- [x] ART25D-03 Intégrer uniquement les correspondances validées ; conserver les variantes incertaines et les géométries tactiques.
+- [x] ART25D-04 Vérifier le catalogue natif, les interactions et les entités ; comparer les détails à trois résolutions.
+- [ ] ART25D-05 Actualiser inventaire, preuves et suivi ; pousser et fusionner cette passe. La finition artistique globale reste ouverte.
