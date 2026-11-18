@@ -58,7 +58,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Dernière livraison de référence : `lot 2 local, captures et tests vérifiés`.
 - Preuves : [captures et inventaire](images/roster-batch2/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
-- 55 tests ciblés du rendu et 28 tests de suivi, soit 56 cas distincts ; 192 sélections de frames natives. Deux déplacements déclenchés par clic, 4 PA chacun. 122 cartes chargées, aucune nouvelle validation de finition artistique ni d’échelle.
+- 122 rendus natifs et six références marche/attente vérifiés ; 61 cas automatisés distincts. Inventaire de 122 cartes / 92 illustrations et quatre diagnostics comparatifs à trois résolutions. Zéro carte approuvée artistiquement ou calibrée pour la nouvelle passe d’échelle.
 
 ## Reste sur l’objectif complet
 

@@ -777,3 +777,13 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 - [x] ART-NEXT-05 Archiver le catalogue natif, régénérer les bilans et sauvegarder la passe.
 
 Total partiel : 288 frames, six références marche/attente ; zéro ensemble complet d’actions. Les autres unités, les actions et la calibration d’échelle des 122 cartes restent à produire ou vérifier.
+
+### SCALE — profils et repères du catalogue
+
+- [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
+- [ ] SCALE-02 Mesurer et comparer les repères réels de chaque illustration et de ses variantes ; deux références automobiles proposées, aucune carte calibrée.
+- [ ] SCALE-03 Appliquer des profils visuels par carte et catégorie après mesures ; conserver les règles et sources.
+- [ ] SCALE-04 Vérifier les 122 cartes et les interactions à trois résolutions.
+- [ ] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
+
+Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; aucun facteur de taille n’a été appliqué aux profils de production.

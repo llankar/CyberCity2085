@@ -17,6 +17,8 @@ def render_signature(root):
     paths = sorted((project / 'scripts').glob('*.gd')) + sorted((project / 'shaders').glob('*.gdshader'))
     paths += [root / ART_REL / 'environment_art.json', root / ART_REL / 'props25/library.json']
     paths += sorted((root / ART_REL / 'props25').glob('*-*.png'))
+    scale_data=project/'art/environment/map_presentation.json'
+    if scale_data.exists():paths.append(scale_data)
     animation_dir=root/'assets/combat_visual/animations'
     paths += sorted(animation_dir.glob('*.json')) + sorted(animation_dir.glob('*.png'))
     digest = hashlib.sha256()

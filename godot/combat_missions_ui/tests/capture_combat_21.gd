@@ -13,6 +13,8 @@ func run() -> void:
 	var selected_prefix := ""
 	var selected_size := Vector2i.ZERO
 	var capture_quality := 2
+	var candidate_ratio := -1.0
+	var scale_comparison := "--scale-comparison" in args
 	var intended_depth := "--flat-environment" not in args
 	var reference_catalog := ""
 	var focus_object := ""
@@ -24,6 +26,7 @@ func run() -> void:
 			var pair := args[i+1].split("x")
 			selected_size=Vector2i(int(pair[0]),int(pair[1]))
 		elif args[i]=="--quality": capture_quality=int(args[i+1])
+		elif args[i]=="--human-ratio":candidate_ratio=float(args[i+1])
 		elif args[i]=="--reference-catalog":reference_catalog=args[i+1]
 		elif args[i]=="--focus-object":focus_object=args[i+1]
 	DirAccess.make_dir_recursive_absolute(output)
@@ -35,7 +38,7 @@ func run() -> void:
 			if filename.get_extension() in ["gd","gdshader","json"]:fingerprint_parts.append(filename+FileAccess.get_sha256(directory.path_join(filename)))
 	fingerprint_parts.append(FileAccess.get_sha256("res://art/environment/props25/library.json"))
 	if not reference_catalog.is_empty():fingerprint_parts.append(FileAccess.get_sha256(reference_catalog))
-	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review]))
+	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review,candidate_ratio,scale_comparison]))
 	var fingerprint:=str(fingerprint_parts).sha256_text()
 	var focus_art: Dictionary=preload("res://scripts/environment_catalog.gd").art_maps().duplicate(true)
 	if not reference_catalog.is_empty():
@@ -70,6 +73,7 @@ func run() -> void:
 		if not selected_map.is_empty() and name!=selected_map: continue
 		if not selected_prefix.is_empty() and not name.begins_with(selected_prefix):continue
 		var payload := {"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":name.replace("_"," "),"objective_text":"Atteindre et sécuriser le terminal","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%name,"environment":"wasteland" if "wasteland" in name else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_01.png"},{"name":"Longshot","role":"sniper","hp":18,"max_hp":24,"portrait_path":"assets/ui/portraits/agent_male_02.png"},{"name":"Oracle","role":"psi","hp":16,"max_hp":20,"portrait_path":"assets/ui/portraits/agent_male_03.png"}]}
+		if candidate_ratio>0:payload.map["presentation"]={"human_height_ratio":candidate_ratio}
 		if "--entity-showcase" in args:payload.mission["enemy_theme"]="corp_samurai"
 		var file := FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE)
 		if "--entities" in args:
@@ -99,6 +103,10 @@ func run() -> void:
 			await process_frame
 			await process_frame
 			if scene.has_method("_frame_squad"):scene._frame_squad()
+			if scale_comparison:
+				scene._camera.zoom=Vector2.ONE*scene._overview_zoom()*1.65
+				scene._camera.position=scene._battlefield.uv_to_world(Vector2(.5,.5))
+				scene._camera.force_update_scroll()
 			scene.selected_action="MOVE";scene._sync_display()
 			if polish or art_review: preview_polish_route()
 			if "--prop-focus" in args or "--new-prop-focus" in args or "--assembly-focus" in args or "--furniture-focus" in args:
@@ -175,7 +183,7 @@ func run() -> void:
 			for annotation: Dictionary in preload("res://scripts/environment_catalog.gd").art_maps().get(name+".png",{}).get("props",[]):
 				if bool(annotation.enabled):expected_patches+=1+annotation.get("erase_overhang_uv",[]).size()
 			assert(completion_patches==expected_patches,"authored overhang masks must be rendered with their object")
-		catalogue_report.append({"map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size()})
+		catalogue_report.append({"human_ratio_requested":candidate_ratio,"human_ratio_applied":scene._battlefield.human_height_ratio,"scale_comparison_only":scale_comparison,"scale_calibration_status":"NOT VERIFIED","map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size()})
 		var report:=FileAccess.open(output.path_join("native-report.json"),FileAccess.WRITE)
 		report.store_string(JSON.stringify(catalogue_report,"  "));report.close()
 		scene.queue_free();await process_frame

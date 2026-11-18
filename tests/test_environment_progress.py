@@ -71,3 +71,11 @@ def test_animation_files_are_part_of_the_render_validation_signature(tmp_path):
     (directory/'new_walk.png').write_bytes(b'changed animation frame data')
     _,current=write_progress(tmp_path)
     assert not current
+
+
+def test_map_scale_data_invalidates_previous_render_evidence(tmp_path):
+    fixture(tmp_path)
+    path=tmp_path/'godot/combat_missions_ui/art/environment/map_presentation.json'
+    path.write_text('{"maps":{"a.png":{"human_height_ratio":0.03}}}')
+    _,current=write_progress(tmp_path)
+    assert not current
