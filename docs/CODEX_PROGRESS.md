@@ -79,20 +79,19 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Mesurer sur un GPU représentatif et conserver les preuves.
 - Problème / raison : L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible.
 
-### ART-NEXT-01 — IN_PROGRESS — Deux nouvelles agentes : sources dessinées et identité
+### ART-NEXT-01 — DONE — Deux nouvelles agentes : sources dessinées et identité
 
 - Fichiers : `assets/units/agent_diverse_01_neon_blade_512.png`, `assets/units/agent_diverse_03_magenta_pistol_512.png`.
-- Tests / contrôles réellement exécutés : Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Six planches générées, non intégrées : contrôler détails, équipement, directions et cadrage avant import.
-- Problème / raison : Lot artistique mis de côté pour l’intervention demandée sur le suivi uniquement.
+- Tests / contrôles réellement exécutés : Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins; Six planches comparées aux PNG originaux ; empreintes vérifiées avant import.
+- Preuves : `assets/combat_visual/source_sheets/import-plan.json`.
+- Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-02 — TODO — Importer les deux atlas et contrôler les silhouettes
+### ART-NEXT-02 — IN_PROGRESS — Importer les deux atlas et contrôler les silhouettes
 
 - Fichiers : `tools/art/import_directional_clips.py`, `assets/combat_visual/animations`.
 - Tests / contrôles réellement exécutés : Aucun — non exécutés.
 - Preuves : Aucune.
-- Travail restant dans cette portée : Importer front/rear/idle ; contrôler marges, transparence, silhouettes et ancrage.
+- Travail restant dans cette portée : Examiner les atlas nettoyés et les phases avant validation native.
 
 ### ART-NEXT-03 — TODO — Étendre les tests aux six références sans perdre les quatre précédentes
 
@@ -115,15 +114,23 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : Aucune.
 - Travail restant dans cette portée : Ne compter les nouveaux atlas qu’après validation ; sauvegarder le lot et identifier les ressources suivantes.
 
+### SCALE-CATALOGUE — TODO — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
+
+- Fichiers : `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/unit_visual.gd`, `assets/maps/*.walls.json`.
+- Tests / contrôles réellement exécutés : Aucun — non exécutés.
+- Preuves : Aucune.
+- Travail restant dans cette portée : Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant..
+- Problème / raison : La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique..
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
 - Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.
 - Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.
-- L’intervention en cours porte uniquement sur instructions, suivi et vérification ; aucun changement de gameplay ni nouvelle intégration artistique.
+- Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
 
 ## Prochaine action précise
 
-Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi.
+ART-NEXT-02 : examiner les deux atlas nettoyés, puis étendre les vérifications natives aux six références.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

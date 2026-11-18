@@ -132,6 +132,7 @@ def build_report(root=ROOT):
         ['godot/combat_missions_ui/art/environment/props25/library.json'])
     for key, title, note in [
         ('ART-OBJECTS', 'Silhouettes, matériaux et intégration des objets', f"{counts['active']} placements sur {counts['improved_maps']} cartes ; {counts['retained']} entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets."),
+        ('UNIT-SCALE', 'Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes', '0 / 122 cartes documentées pour cette nouvelle passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation.'),
         ('UNIT-ART', 'Identité et qualité de toutes les unités', f"{summary['unit_art']} références source auditées, dont {counts['animation_eligible']} entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle."),
         ('FUNCTIONAL', 'Déplacement, ciblage, LOS, IA, PA, tours et fallback', 'Preuves historiques partielles disponibles ; aucune exécution exhaustive ni revue de toutes les interactions déduite des seuls tests de chargement.'),
         ('RESOLUTIONS', 'Lisibilité et interactions à 720p, 1080p et 1440p', 'Captures de cinq familles à trois résolutions disponibles ; revue exhaustive de contraste, occultation et ergonomie non enregistrée.'),

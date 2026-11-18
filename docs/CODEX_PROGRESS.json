@@ -3,8 +3,14 @@
   "global_status": "IN_PROGRESS",
   "expected_maps": 122,
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
-  "working_branch": "codex/combat-visual-work-governance",
-  "active_batch": [],
+  "working_branch": "codex/agent-roster-batch2",
+  "active_batch": [
+    "ART-NEXT-01",
+    "ART-NEXT-02",
+    "ART-NEXT-03",
+    "ART-NEXT-04",
+    "ART-NEXT-05"
+  ],
   "tasks": [
     {
       "id": "GOV-01",
@@ -188,29 +194,32 @@
     {
       "id": "ART-NEXT-01",
       "title": "Deux nouvelles agentes : sources dessinées et identité",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "assets/units/agent_diverse_01_neon_blade_512.png",
         "assets/units/agent_diverse_03_magenta_pistol_512.png"
       ],
       "tests": [
-        "Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins"
+        "Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins",
+        "Six planches comparées aux PNG originaux ; empreintes vérifiées avant import"
       ],
-      "evidence": [],
-      "remaining": "Six planches générées, non intégrées : contrôler détails, équipement, directions et cadrage avant import",
-      "reason": "Lot artistique mis de côté pour l’intervention demandée sur le suivi uniquement"
+      "evidence": [
+        "assets/combat_visual/source_sheets/import-plan.json"
+      ],
+      "remaining": "",
+      "reason": ""
     },
     {
       "id": "ART-NEXT-02",
       "title": "Importer les deux atlas et contrôler les silhouettes",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "files": [
         "tools/art/import_directional_clips.py",
         "assets/combat_visual/animations"
       ],
       "tests": [],
       "evidence": [],
-      "remaining": "Importer front/rear/idle ; contrôler marges, transparence, silhouettes et ancrage",
+      "remaining": "Examiner les atlas nettoyés et les phases avant validation native",
       "reason": ""
     },
     {
@@ -250,6 +259,22 @@
       "evidence": [],
       "remaining": "Ne compter les nouveaux atlas qu’après validation ; sauvegarder le lot et identifier les ressources suivantes",
       "reason": ""
+    },
+    {
+      "id": "SCALE-CATALOGUE",
+      "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
+      "status": "TODO",
+      "files": [
+        "godot/combat_missions_ui/scripts/unit_presentation.gd",
+        "godot/combat_missions_ui/scripts/visual_battlefield.gd",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/unit_visual.gd",
+        "assets/maps/*.walls.json"
+      ],
+      "tests": [],
+      "evidence": [],
+      "remaining": "Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant.",
+      "reason": "La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique."
     }
   ],
   "reviews": {},
@@ -287,7 +312,7 @@
     "Le modèle procédural rejeté reste hors production.",
     "Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.",
     "Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.",
-    "L’intervention en cours porte uniquement sur instructions, suivi et vérification ; aucun changement de gameplay ni nouvelle intégration artistique."
+    "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère."
   ],
   "pending_sources": {
     "agent_diverse_01_neon_blade": {
@@ -301,15 +326,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "Première tâche incomplète à la reprise artistique : ART-NEXT-01. Examiner les six planches déjà disponibles (pending_sources et leurs SHA-256 dans ce registre), contrôler identité, directions, équipement et cadrage, puis importer les poses valides. Aucune nouvelle ressource n’a été intégrée pendant le lot GOV limité au suivi.",
+  "next_action": "ART-NEXT-02 : examiner les deux atlas nettoyés, puis étendre les vérifications natives aux six références.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
-  "next_batch": [
-    "ART-NEXT-01",
-    "ART-NEXT-02",
-    "ART-NEXT-03",
-    "ART-NEXT-04",
-    "ART-NEXT-05"
-  ],
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
       "front": "53f496a57b73443bef5bd3498dfff4e459c218a50d11187f6efe2dda25fbab68",
@@ -321,5 +339,35 @@
       "rear": "5482058c1a604be12d69fa51ad1653f7a85ae366c0eb56e7529861596db37cac",
       "idle_pairs": "75c0acf10b1d119430d651767e3f0fd155fb93168a6869248300c408d8464d5c"
     }
-  }
+  },
+  "scale_review": {
+    "expected_maps": 122,
+    "verified_maps": [],
+    "categories": [
+      "player_agents",
+      "enemies",
+      "robots",
+      "power_armor",
+      "ground_vehicles",
+      "aircraft"
+    ],
+    "constraints": [
+      "Préserver sprites et proportions naturelles",
+      "Aucune modification des règles, collisions, portée ou coordonnées tactiques",
+      "Conserver PNG, relevés et SHA-256 des cartes",
+      "Comparer les unités aux repères réels du décor, sans facteur global arbitraire"
+    ]
+  },
+  "planned_batches": [
+    {
+      "id": "SCALE",
+      "tasks": [
+        "Relever et documenter les repères des 122 cartes",
+        "Définir et appliquer les profils visuels par catégorie",
+        "Vérifier ancrage, proportions et différences d’échelle",
+        "Tester les 122 cartes, clics et trois résolutions",
+        "Archiver les comparatifs et marquer uniquement les échelles effectivement revues"
+      ]
+    }
+  ]
 }

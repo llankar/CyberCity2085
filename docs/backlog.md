@@ -763,3 +763,7 @@ Le prototype de rig procédural rejeté reste isolé dans `work/`, hors producti
 - [x] GOV-05 Vérifier le bilan et le périmètre sans gameplay, puis sauvegarder localement la passe.
 
 Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODEX_PROGRESS.md). Le ratio des tâches DONE du registre n’est pas un pourcentage de finition artistique.
+
+### Échelle des entités — passe complète du catalogue
+
+- [ ] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Archiver les profils et comparatifs à trois résolutions, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct des animations et du chargement natif.
