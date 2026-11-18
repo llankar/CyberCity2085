@@ -179,3 +179,13 @@ def test_scale_review_is_separate_from_successful_loading(project):
     assert criterion(report,'MAP-LOAD')['status']=='PASS'
     assert criterion(report,'UNIT-SCALE')['status']=='NOT VERIFIED'
     assert '0 / 2' in criterion(report,'UNIT-SCALE')['detail']
+
+
+def test_native_checks_follow_the_current_validation_evidence(project):
+    old=project/'docs/images/combat-directional-animation'
+    new=project/'docs/images/current-batch';old.rename(new)
+    state_path=project/'docs/combat_visual_25_status.json'
+    state=json.loads(state_path.read_text());state['validation']['evidence']='images/current-batch/README.md';state_path.write_text(json.dumps(state))
+    report=check.build_report(project)
+    assert criterion(report,'MAP-LOAD')['status']=='PASS'
+    assert criterion(report,'MAP-LOAD')['evidence'][0]=='docs/images/current-batch/native-report.json'

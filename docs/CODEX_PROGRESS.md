@@ -53,9 +53,9 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### UNIT-COVERAGE — IN_PROGRESS — Identités de toutes les familles d’unités
 
 - Fichiers : `assets/units`, `assets/combat_visual/animations`.
-- Tests / contrôles réellement exécutés : Historique : audit de 251 références ; 4 atlas partiels vérifiés.
+- Tests / contrôles réellement exécutés : Historique : audit de 251 références ; 4 atlas partiels vérifiés; Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : Couvrir les 227 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules.
+- Travail restant dans cette portée : Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules.
 
 ### ANIM-COMPLETE — TODO — Actions multidirectionnelles complètes et applicabilité documentée
 
@@ -96,25 +96,25 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### ART-NEXT-03 — DONE — Étendre les tests aux six références sans perdre les quatre précédentes
 
 - Fichiers : `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : 55 tests ciblés réussis après rétablissement X11 ; 192 sélections natives de frames sur six références.
-- Preuves : `docs/reports/roster_batch2_tests.xml`.
+- Tests / contrôles réellement exécutés : 55 tests ciblés réussis ; 192 sélections de frames natives sur six références.
+- Preuves : `docs/reports/roster_batch2_runtime_tests.xml`.
 - Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-04 — IN_PROGRESS — Captures et interactions natives du nouveau lot
+### ART-NEXT-04 — DONE — Captures et interactions natives du nouveau lot
 
 - Fichiers : `godot/combat_missions_ui/tests/capture_directional_animation.gd`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Examiner les deux déplacements par clic, les trois résolutions et les orientations ; exporter les preuves.
+- Tests / contrôles réellement exécutés : Deux clics de déplacement : 4 PA dépensés par agente, destinations atteintes et retour idle; Captures réelles aux trois résolutions, orientations et mouvements inspectés.
+- Preuves : `docs/images/roster-batch2/animation-report.json`, `docs/images/roster-batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-05 — TODO — Actualiser couverture, preuves et prochain lot artistique
+### ART-NEXT-05 — DONE — Actualiser couverture, preuves et prochain lot artistique
 
 - Fichiers : `docs/combat_visual_25_status.json`, `docs/CODEX_PROGRESS.json`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Ne compter les nouveaux atlas qu’après validation ; sauvegarder le lot et identifier les ressources suivantes.
+- Tests / contrôles réellement exécutés : 122 captures natives terminées, 221 placements de décor inchangés; Galeries de six références et déplacements archivés ; bilans actualisés.
+- Preuves : `docs/images/roster-batch2/native-report.json`, `docs/images/roster-batch2/README.md`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-CATALOGUE — TODO — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
+### SCALE-CATALOGUE — IN_PROGRESS — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/unit_visual.gd`, `assets/maps/*.walls.json`.
 - Tests / contrôles réellement exécutés : Aucun — non exécutés.
@@ -125,13 +125,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
-- Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.
-- Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.
 - Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
 - Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.
+- Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).
 
 ## Prochaine action précise
 
-ART-NEXT-04 : terminer et examiner les captures réelles des deux agentes ; puis actualiser la couverture. La passe SCALE-CATALOGUE reste explicitement TODO (0 / 122), après ce lot.
+SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

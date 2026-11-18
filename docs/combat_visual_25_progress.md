@@ -23,8 +23,8 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | Indicateur | État |
 |---|---|
 | Références d’entités à couvrir (hors objets de mission) | 231 |
-| Atlas produits | 4 |
-| Marche et attente à huit directions vérifiées dans Godot | 4 |
+| Atlas produits | 6 |
+| Marche et attente à huit directions vérifiées dans Godot | 6 |
 | Unités avec les neuf actions animées complètes et validées | 0 |
 
 Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
@@ -41,27 +41,29 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.
 - Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
 - 192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.
+- Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames. Total 288 frames, six références marche/attente × huit directions ; zéro ensemble complet de neuf actions.
 
 ## Passe en cours
 
 | Travail | État | Résultat / reste à faire |
 |---|---|---|
-| Frames au style des sprites existants | Terminé | Quatre identités détaillées conservées ; planches sources et empreintes archivées. Le prototype procédural rejeté reste hors production. |
-| Marche et attente dans huit directions | Terminé | 192 frames : 2 poses d’attente et 4 phases de marche × 8 directions pour chacune des quatre références. Les autres actions restent absentes. |
-| Lecture et intégration | Terminé | Chargement contrôlé, ancrage aux pieds, ombre liée à la frame, orientation selon projection et phase de marche continue entre cases ; fallback statique préservé. |
-| Validation native et artistique | Terminé | 34 tests réussis ; 128 sélections de frames natives. Clic réel avec 4 PA consommés, trois résolutions, cinq familles de cartes et contrôle du catalogue complet. |
-| Couverture et publication | Terminé | Couverture, sources et preuves animées publiées ; passe fusionnée sur main. 4 / 231 références partiellement animées, zéro ensemble complet de neuf actions. |
+| Lot 2 — sources et atlas | Terminé | Deux identités supplémentaires, 96 frames ; six références partiellement animées au total. |
+| Lot 2 — lecture et interactions | Terminé | 192 sélections de frames, deux déplacements à 4 PA ; captures aux trois résolutions. |
+| SCALE — inventaire | En cours | Relever les profils estimés, ratios, illustrations partagées et repères à mesurer sur les 122 cartes. |
+| SCALE — calibration par décor | À faire | Mesurer des repères visibles et appliquer des profils distincts sans modifier la tactique. |
+| SCALE — revue et preuves | À faire | Comparaisons réelles des 122 cartes et trois résolutions ; aucune taille validée par un simple chargement. |
 
 ## Validation
 
-- Dernière livraison de référence : `d7ef8f7b3163d81fabaf58f19dfc373db16daa22`.
-- Preuves : [captures et inventaire](images/combat-directional-animation/README.md).
+- Dernière livraison de référence : `lot 2 local, captures et tests vérifiés`.
+- Preuves : [captures et inventaire](images/roster-batch2/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
-- 34 tests ciblés réussis ; 128 sélections de frames dans Godot. Clic natif : destination atteinte, 4 PA consommés, retour à l’attente ; captures aux trois résolutions et cinq environnements. Le contrôle des 122 cartes porte sur le rendu, la projection et le picking, pas sur une finition artistique complète.
+- 55 tests ciblés du rendu et 28 tests de suivi, soit 56 cas distincts ; 192 sélections de frames natives. Deux déplacements déclenchés par clic, 4 PA chacun. 122 cartes chargées, aucune nouvelle validation de finition artistique ni d’échelle.
 
 ## Reste sur l’objectif complet
 
-- Étendre les animations aux 227 autres références éligibles et produire les sept actions manquantes sur les quatre premières ; revoir aussi les 46 silhouettes historiques qui touchent un bord de frame. Les véhicules ne disposent pas encore de nouveaux cycles.
+- Étendre les animations aux 225 autres références éligibles et produire les actions manquantes sur les six premières. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
+- SCALE-CATALOGUE : recalibrer PJ, PNJ, robots, armures et véhicules par rapport aux décors des 122 cartes. Zéro carte vérifiée pour cette nouvelle passe ; les ratios actuels restent des estimations.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.

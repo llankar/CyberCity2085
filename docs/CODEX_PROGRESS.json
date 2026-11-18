@@ -136,13 +136,14 @@
         "assets/combat_visual/animations"
       ],
       "tests": [
-        "Historique : audit de 251 références ; 4 atlas partiels vérifiés"
+        "Historique : audit de 251 références ; 4 atlas partiels vérifiés",
+        "Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement"
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 227 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -237,10 +238,10 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
       "tests": [
-        "55 tests ciblés réussis après rétablissement X11 ; 192 sélections natives de frames sur six références"
+        "55 tests ciblés réussis ; 192 sélections de frames natives sur six références"
       ],
       "evidence": [
-        "docs/reports/roster_batch2_tests.xml"
+        "docs/reports/roster_batch2_runtime_tests.xml"
       ],
       "remaining": "",
       "reason": ""
@@ -248,32 +249,44 @@
     {
       "id": "ART-NEXT-04",
       "title": "Captures et interactions natives du nouveau lot",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/tests/capture_directional_animation.gd"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Examiner les deux déplacements par clic, les trois résolutions et les orientations ; exporter les preuves",
+      "tests": [
+        "Deux clics de déplacement : 4 PA dépensés par agente, destinations atteintes et retour idle",
+        "Captures réelles aux trois résolutions, orientations et mouvements inspectés"
+      ],
+      "evidence": [
+        "docs/images/roster-batch2/animation-report.json",
+        "docs/images/roster-batch2/README.md"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "ART-NEXT-05",
       "title": "Actualiser couverture, preuves et prochain lot artistique",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "docs/combat_visual_25_status.json",
         "docs/CODEX_PROGRESS.json"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Ne compter les nouveaux atlas qu’après validation ; sauvegarder le lot et identifier les ressources suivantes",
+      "tests": [
+        "122 captures natives terminées, 221 placements de décor inchangés",
+        "Galeries de six références et déplacements archivés ; bilans actualisés"
+      ],
+      "evidence": [
+        "docs/images/roster-batch2/native-report.json",
+        "docs/images/roster-batch2/README.md"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "SCALE-CATALOGUE",
       "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/scripts/unit_presentation.gd",
         "godot/combat_missions_ui/scripts/visual_battlefield.gd",
@@ -289,41 +302,40 @@
   ],
   "reviews": {},
   "test_run": {
-    "path": "docs/reports/work_governance_tests.xml",
-    "sha256": "bbc5dbec0e3d213c4c184494202fe7862970f9fb1d7db3ee6ec9f95f5826f828",
-    "scope": "Tests des outils de suivi/acceptation et du générateur de progression ; pas une nouvelle exécution du gameplay Godot",
+    "path": "docs/reports/roster_batch2_tests.xml",
+    "sha256": "feec6f7b34411e55d86292a3f33debaa0aa7a5e9a7d0d8505cc633715c79670f",
+    "scope": "56 tests distincts réellement exécutés : rendu natif, entités, géométrie, vue de haut, interactions ciblées et suivi ; pas une finition artistique exhaustive",
     "not_executed": [
-      "Nouvelle exécution native Godot dans cette intervention",
+      "Calibration d’échelle des 122 cartes",
       "Revue artistique complète des 122 cartes",
-      "Animations des deux nouvelles agentes",
+      "Actions de combat manquantes et autres unités",
       "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
     "sources": [
       {
         "path": "tools/check_combat_visual_acceptance.py",
-        "sha256": "ee2329a78d9746aca569c0e2aced1134eccfe45a0582b3d29363cbc84faf5ef4"
-      },
-      {
-        "path": "tools/art/update_environment_progress.py",
-        "sha256": "d1c6cb39081d81639811ef450eb80955306402950b993d73fd5ab5ae10274fbb"
+        "sha256": "654c19f33875dcb93de3a26cb794130858719c767cf14a380ca8de47c2d09b8c"
       },
       {
         "path": "tests/test_combat_visual_acceptance.py",
-        "sha256": "92ee25cbca084e0723022d0bbc83c833a6f4c264c092b76d2a8ddd70dd544488"
+        "sha256": "3005543e277c490074f332546b8af663c196c9c6b75b440187c43c71dcd73d37"
       },
       {
-        "path": "tests/test_environment_progress.py",
-        "sha256": "fc04648702c168611906be0d80d30a6b83ccaa4f4723ebcf650a467a1d581097"
+        "path": "tests/test_directional_animation.py",
+        "sha256": "376a2e465ce4650accea538e6178f192d753e9bc41d84d7be97999227fa6bc01"
+      },
+      {
+        "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
+        "sha256": "cbb8cbb3efa64ea5acdb09d491cbd40496deb1428a8b3a1ad0ba41da8cbf3e99"
       }
     ]
   },
   "problems": [
     "Le modèle procédural rejeté reste hors production.",
-    "Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.",
-    "Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.",
     "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.",
-    "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log."
+    "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.",
+    "Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis)."
   ],
   "pending_sources": {
     "agent_diverse_01_neon_blade": {
@@ -337,7 +349,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ART-NEXT-04 : terminer et examiner les captures réelles des deux agentes ; puis actualiser la couverture. La passe SCALE-CATALOGUE reste explicitement TODO (0 / 122), après ce lot.",
+  "next_action": "SCALE-01 : construire l’inventaire des ratios estimés existants pour les 122 cartes, signaler les illustrations partagées et leurs éventuels profils contradictoires ; aucune taille mesurée ou finalisée ne doit être déduite de ce relevé.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

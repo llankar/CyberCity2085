@@ -767,3 +767,13 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 ### Échelle des entités — passe complète du catalogue
 
 - [ ] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Archiver les profils et comparatifs à trois résolutions, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct des animations et du chargement natif.
+
+### Lot suivant d’animations — deux agentes distinctes
+
+- [x] ART-NEXT-01 Contrôler les six planches depuis les deux identités originales.
+- [x] ART-NEXT-02 Importer et examiner les deux atlas, huit orientations et marges.
+- [x] ART-NEXT-03 Vérifier les six références (192 sélections natives) et 55 tests ciblés du rendu.
+- [x] ART-NEXT-04 Capturer les deux déplacements réels, 4 PA chacun, et les trois résolutions.
+- [x] ART-NEXT-05 Archiver le catalogue natif, régénérer les bilans et sauvegarder la passe.
+
+Total partiel : 288 frames, six références marche/attente ; zéro ensemble complet d’actions. Les autres unités, les actions et la calibration d’échelle des 122 cartes restent à produire ou vérifier.

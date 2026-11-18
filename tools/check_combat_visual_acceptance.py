@@ -99,11 +99,13 @@ def build_report(root=ROOT):
     current = state.get('validation', {}).get('signature') == signature
     art = read_json(root/'godot/combat_missions_ui/art/environment/environment_art.json', {'maps': {}})['maps']
     expected = EXPECTED_MAPS
-    native = read_json(root/'docs/images/combat-directional-animation/native-report.json', [])
+    reference = state.get('validation', {}).get('evidence', 'images/combat-directional-animation/README.md')
+    capture_dir = (root/'docs'/reference).resolve().parent
+    safe_capture_dir = capture_dir.is_relative_to(root.resolve())
+    native = read_json(capture_dir/'native-report.json', []) if safe_capture_dir else []
     native_names = {row.get('map') for row in native if row.get('native_render') and row.get('projection_and_zoom_checked')}
     expected_names = {row['image'] for row in resource_audit['maps']}
-    capture_dir = root/'docs/images/combat-directional-animation'
-    native_proofs = all((capture_dir/f'catalogue-{page:02d}.jpg').is_file() for page in range(1, (expected+11)//12+1))
+    native_proofs = safe_capture_dir and all((capture_dir/f'catalogue-{page:02d}.jpg').is_file() for page in range(1, (expected+11)//12+1))
     loaded = len(native_names & expected_names) if current and native_proofs else 0
     declared_art = sum(bool(m.get('validation', {}).get('artistically_complete')) for m in art.values())
     rows = []
@@ -118,7 +120,7 @@ def build_report(root=ROOT):
     add('MAP-LOAD', 'Chargement natif et projection',
         'PASS' if loaded == expected and len(expected_names) == expected else ('NOT VERIFIED' if not current or not native or not native_proofs else 'FAIL'),
         f'{loaded} / {expected} cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.',
-        ['docs/images/combat-directional-animation/native-report.json', 'docs/combat_visual_25_status.json'])
+        [str((capture_dir/'native-report.json').relative_to(root.resolve())) if safe_capture_dir else 'INVALID_CAPTURE_PATH', 'docs/combat_visual_25_status.json'])
     reviewed = registry.get('reviews', {})
     status, detail = manual_review(root, reviewed.get('MAP-ART'), signature)
     if declared_art != expected:
