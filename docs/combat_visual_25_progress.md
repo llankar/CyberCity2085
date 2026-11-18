@@ -9,11 +9,11 @@ Mis à jour : 18/11/2026.
 | Indicateur | État |
 |---|---|
 | Catalogue | 122 cartes / 92 illustrations distinctes |
-| Bibliothèque | 32 familles / 128 vues |
-| Familles réellement placées | 24 / 32 |
-| Placements actifs | 213 sur 109 cartes |
+| Bibliothèque | 36 familles / 144 vues |
+| Familles réellement placées | 28 / 36 |
+| Placements actifs | 221 sur 109 cartes |
 | Dont groupes partiellement remplacés | 5 |
-| Entrées de relevé conservées en 2D | 3389 |
+| Entrées de relevé conservées en 2D | 3381 |
 | Cartes déclarées artistiquement terminées | 0 / 122 |
 
 Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honnêtement un pourcentage de finition artistique.
@@ -27,23 +27,24 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 - Portées et dégâts Godot rééquilibrés dans les livraisons précédentes ; aucune nouvelle modification des règles dans cette passe.
 - PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.
 - Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.
+- Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.
 
 ## Passe en cours
 
 | Travail | État | Résultat / reste à faire |
 |---|---|---|
-| Suivi global et examen des groupes restants | Terminé | Suivi généré depuis les catalogues ; 145 découpes supplémentaires examinées, soit 363 au total. |
-| Ressources correspondant aux assemblages | Terminé | Six familles / 24 vues supplémentaires, dont variantes électriques à quatre et six isolateurs ; modèles Blender et trois planches finales. |
-| Annotations et intégration | Terminé | Revue rapprochée des groupes, masques de débordement distincts des collisions et conservation des variantes incompatibles. |
-| Validation native et comparaison | Terminé | 122 cartes contrôlées, 23 tests ciblés réussis, comparaisons à trois résolutions et contrôles des entités ; captures isolées des préférences partagées. |
-| Inventaire et publication | Terminé | Preuves exportées, fichier d’avancement actualisé ; push et merge vérifiés sur main. |
+| Revue des couchages et bancs | Terminé | 26 découpes de couchages et 17 détails de mobilier examinés ; lits simples distingués des lits doubles, bancs comparés aux silhouettes source. |
+| Production de mobilier adapté | Terminé | Quatre familles / 16 vues, modèles Blender et deux planches artistiques. Profondeur des sièges reprise après comparaison. |
+| Intégration et contrôle des silhouettes | Terminé | 20 substitutions actives avec ces ressources, dont correction d’un lit tourné de 90° ; deux lits de camp incompatibles et la table d’examen conservent l’art source. |
+| Contrôles Godot et comparaisons | Terminé | 122 cartes contrôlées, six comparaisons à trois résolutions, entités et interactions vérifiées ; 25 tests ciblés réussis et 12 tests de ressources réexécutés après correction des cadres. |
+| Inventaire et publication | En cours | Préparation des captures, annotations de revue et inventaire global. |
 
 ## Validation
 
-- Dernière livraison de référence : `3e06080ce73b4f0063eb62b0c605bee47aa1deea`.
-- Preuves : [captures et inventaire](images/combat-25-assemblies/README.md).
+- Dernière livraison de référence : `mobilier — 18/11/2026 (publication en cours)`.
+- Preuves : [captures et inventaire](images/combat-25-furniture/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
-- 122 rendus natifs vérifiés, 23 tests ciblés réussis et cinq tests du suivi ; comparaisons à trois résolutions et contrôles des entités. Le catalogue 7244e46 est rejoué en mémoire pour la comparaison avant/après. Les captures dépendant de préférences partagées ont été refaites et leurs nombres de sprites vérifiés.
+- 122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.
 
 ## Reste sur l’objectif complet
 

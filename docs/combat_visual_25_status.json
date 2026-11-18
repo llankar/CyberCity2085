@@ -4,40 +4,41 @@
     "Ombres de silhouettes pour agents, ennemis, power armors, robots et véhicules ; proportions, sélection et restrictions des véhicules en intérieur conservées.",
     "Portées et dégâts Godot rééquilibrés dans les livraisons précédentes ; aucune nouvelle modification des règles dans cette passe.",
     "PNG source, SHA-256, collisions, relevés de murs et lignes de vue préservés.",
-    "Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions."
+    "Assemblages à quatre et six isolateurs, rangées de serveurs, bancs métalliques et végétation sèche ; masques de débordement visuel distincts des collisions.",
+    "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions."
   ],
   "tasks": [
     {
-      "name": "Suivi global et examen des groupes restants",
+      "name": "Revue des couchages et bancs",
       "status": "Terminé",
-      "detail": "Suivi généré depuis les catalogues ; 145 découpes supplémentaires examinées, soit 363 au total."
+      "detail": "26 découpes de couchages et 17 détails de mobilier examinés ; lits simples distingués des lits doubles, bancs comparés aux silhouettes source."
     },
     {
-      "name": "Ressources correspondant aux assemblages",
+      "name": "Production de mobilier adapté",
       "status": "Terminé",
-      "detail": "Six familles / 24 vues supplémentaires, dont variantes électriques à quatre et six isolateurs ; modèles Blender et trois planches finales."
+      "detail": "Quatre familles / 16 vues, modèles Blender et deux planches artistiques. Profondeur des sièges reprise après comparaison."
     },
     {
-      "name": "Annotations et intégration",
+      "name": "Intégration et contrôle des silhouettes",
       "status": "Terminé",
-      "detail": "Revue rapprochée des groupes, masques de débordement distincts des collisions et conservation des variantes incompatibles."
+      "detail": "20 substitutions actives avec ces ressources, dont correction d’un lit tourné de 90° ; deux lits de camp incompatibles et la table d’examen conservent l’art source."
     },
     {
-      "name": "Validation native et comparaison",
+      "name": "Contrôles Godot et comparaisons",
       "status": "Terminé",
-      "detail": "122 cartes contrôlées, 23 tests ciblés réussis, comparaisons à trois résolutions et contrôles des entités ; captures isolées des préférences partagées."
+      "detail": "122 cartes contrôlées, six comparaisons à trois résolutions, entités et interactions vérifiées ; 25 tests ciblés réussis et 12 tests de ressources réexécutés après correction des cadres."
     },
     {
       "name": "Inventaire et publication",
-      "status": "Terminé",
-      "detail": "Preuves exportées, fichier d’avancement actualisé ; push et merge vérifiés sur main."
+      "status": "En cours",
+      "detail": "Préparation des captures, annotations de revue et inventaire global."
     }
   ],
   "validation": {
-    "reference": "3e06080ce73b4f0063eb62b0c605bee47aa1deea",
-    "evidence": "images/combat-25-assemblies/README.md",
-    "summary": "122 rendus natifs vérifiés, 23 tests ciblés réussis et cinq tests du suivi ; comparaisons à trois résolutions et contrôles des entités. Le catalogue 7244e46 est rejoué en mémoire pour la comparaison avant/après. Les captures dépendant de préférences partagées ont été refaites et leurs nombres de sprites vérifiés.",
-    "signature": "e44a645510b3086b7bdc2ea0c7e16786f6a8f07f1246895f572531c1d30f82da"
+    "reference": "mobilier — 18/11/2026 (publication en cours)",
+    "evidence": "images/combat-25-furniture/README.md",
+    "summary": "122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.",
+    "signature": "394652d11656c2297f6ed61888ccf62bdec1ab8d71fde8a58a53de0784c12fa2"
   },
   "remaining": [
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",

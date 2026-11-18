@@ -1,0 +1,80 @@
+[
+  {
+    "capture_signature": "5fd46ba06ce9a9ddcf30c2cf264a02d76397f3af7e6e0a67350cd73c9663fd1a",
+    "elapsed_ms": 34006.92,
+    "entity_families_checked": false,
+    "map": "city_interior_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 44,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 326576942,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "5fd46ba06ce9a9ddcf30c2cf264a02d76397f3af7e6e0a67350cd73c9663fd1a",
+    "elapsed_ms": 19487.91,
+    "entity_families_checked": false,
+    "map": "cybercity_inner_14_detention_block.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 40,
+    "rendered_sprites": 3,
+    "static_memory_bytes": 261819562,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "4f5e286973fc446d31ee2d489af16172272adcba7b8e39fc81852e4c818a0a85",
+    "elapsed_ms": 11372.72,
+    "entity_families_checked": false,
+    "map": "wasteland_inner_03_ruined_clinic.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 38,
+    "rendered_sprites": 2,
+    "static_memory_bytes": 260198282,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "5fd46ba06ce9a9ddcf30c2cf264a02d76397f3af7e6e0a67350cd73c9663fd1a",
+    "elapsed_ms": 16725.703,
+    "entity_families_checked": false,
+    "map": "city_transit_metro_interchange.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 37,
+    "rendered_sprites": 10,
+    "static_memory_bytes": 264995106,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "5fd46ba06ce9a9ddcf30c2cf264a02d76397f3af7e6e0a67350cd73c9663fd1a",
+    "elapsed_ms": 12538.212,
+    "entity_families_checked": false,
+    "map": "city_district_holo_square.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 16,
+    "static_memory_bytes": 265176794,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "5fd46ba06ce9a9ddcf30c2cf264a02d76397f3af7e6e0a67350cd73c9663fd1a",
+    "elapsed_ms": 9413.999,
+    "entity_families_checked": false,
+    "map": "wasteland_inner_07_apartment_shelter.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 36,
+    "rendered_sprites": 2,
+    "static_memory_bytes": 262884142,
+    "vehicle_count": 0
+  }
+]

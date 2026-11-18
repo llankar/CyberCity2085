@@ -45,7 +45,7 @@ def test_native_contract(script,sentinel):
 def test_production_frames_have_real_transparency_and_complete_silhouettes():
     from PIL import Image
     library=json.loads((ART/'props25/library.json').read_text())
-    assert len(library['assets'])==32
+    assert len(library['assets'])==36
     for family in library['assets']:
         for yaw in [0,90,180,270]:
             with Image.open(ART/'props25'/f'{family}-{yaw}.png') as image:
@@ -83,3 +83,28 @@ def test_published_sprite_checksums_match_production_manifest():
     library=json.loads((ART/'props25/library.json').read_text())
     for key,record in library['files'].items():
         assert hashlib.sha256((ART/'props25'/key).read_bytes()).hexdigest()==record['sha256']
+
+
+def test_reviewed_narrow_furniture_has_matching_capacity_and_facing():
+    catalog=json.loads((ART/'environment_art.json').read_text())['maps']
+    library=json.loads((ART/'props25/library.json').read_text())
+    seen=set()
+    for record in catalog.values():
+        for prop in record['props']:
+            family=prop['asset']
+            if family not in {'single_bed','field_cot','transit_bench2','transit_bench4'}:continue
+            if not prop['enabled']:continue
+            seen.add(family)
+            metadata=library['assets'][family]['assembly']
+            if family in {'single_bed','field_cot'}:
+                assert metadata['sleepers']==1 and metadata['pillows']==1
+                assert prop['assembly']['sleepers']==1
+            else:
+                assert prop['assembly']['seats']==metadata['seats']
+                assert 'metal' in metadata['material']
+            assert prop['yaw']==prop['author_yaw']
+    assert seen=={'single_bed','field_cot','transit_bench2','transit_bench4'}
+    # This source bed faces left; the previous generic annotation faced upwards.
+    shelter=catalog['wasteland_inner_07_apartment_shelter.png']
+    left=next(p for p in shelter['props'] if p['source_object_id']=='bed_nw')
+    assert left['asset']=='single_bed' and left['yaw']==90

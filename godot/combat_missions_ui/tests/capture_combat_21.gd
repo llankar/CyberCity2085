@@ -59,6 +59,8 @@ func run() -> void:
 		maps=["city_district_civic_center","cybercity_inner_02_safehouse","city_interior_medical_clinic","city_industrial_power_substation","city_interior_police_records"]
 	if "--assembly-details" in args:
 		maps=["city_industrial_power_substation","city_industrial_data_vault","city_transit_metro_interchange","city_district_holo_square","wasteland_city_11_ruined_transit_plaza"]
+	if "--furniture-details" in args:
+		maps=["city_interior_safehouse","cybercity_inner_14_detention_block","wasteland_inner_03_ruined_clinic","city_transit_metro_interchange","city_district_holo_square","wasteland_inner_07_apartment_shelter"]
 	if "--all-maps" in args:
 		maps=[]
 		for filename: String in DirAccess.get_files_at(base.path_join("assets/maps")):
@@ -98,13 +100,14 @@ func run() -> void:
 			if scene.has_method("_frame_squad"):scene._frame_squad()
 			scene.selected_action="MOVE";scene._sync_display()
 			if polish or art_review: preview_polish_route()
-			if "--prop-focus" in args or "--new-prop-focus" in args or "--assembly-focus" in args:
+			if "--prop-focus" in args or "--new-prop-focus" in args or "--assembly-focus" in args or "--furniture-focus" in args:
 				var annotations: Array=focus_art.get(name+".png",{}).get("props",[])
 				for annotation: Dictionary in annotations:
 					if not bool(annotation.enabled):continue
 					if not focus_object.is_empty() and annotation.source_object_id!=focus_object:continue
 					if "--new-prop-focus" in args and annotation.get("source_review","")!="detail_crop_sheet":continue
 					if "--assembly-focus" in args and not annotation.has("assembly"):continue
+					if "--furniture-focus" in args and annotation.asset not in ["single_bed","field_cot","transit_bench2","transit_bench4"]:continue
 					var b: Array=annotation.bounds_uv
 					scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*2.2)
 					scene._camera.position=scene._battlefield.uv_to_world(Vector2((b[0]+b[2])*.5,(b[1]+b[3])*.5))+Vector2(0,scene.size.y*.06/scene._camera.zoom.y)

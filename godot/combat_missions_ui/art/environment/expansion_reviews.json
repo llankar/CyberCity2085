@@ -1425,13 +1425,11 @@
         0.4648148148148148
       ],
       "source_sha256": "8703ad9dae4435a4eb9e70ca48d620e3896110d7336dd2c3246fbbde7c83691e",
-      "decision": "replace",
+      "decision": "retain_original",
       "review_sheet": "review-02.jpg",
       "review_cell": 13,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "medical_bed",
-      "author_yaw": 0
+      "reason": "Close source review: segmented grey examination couch, not the blue medical bed asset; retain original until a matched couch exists."
     },
     {
       "index": 61,
@@ -1682,9 +1680,13 @@
       "review_sheet": "review-03.jpg",
       "review_cell": 1,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 73,
@@ -1866,11 +1868,11 @@
       "review_sheet": "review-03.jpg",
       "review_cell": 10,
       "visual_review": "detail_crop_inspected",
-      "reason": "Matched authored assembly after detail review: original component count, open supports and materials are preserved.",
-      "asset": "metal_bench_pair",
+      "reason": "Close source review: four shallow metal seats in two paired modules. Dedicated four-place bench, source retained if frame fit fails.",
+      "asset": "transit_bench4",
       "assembly": {
-        "modules": 2,
-        "seats": 4
+        "seats": 4,
+        "material": "formed metal"
       },
       "author_yaw": 0
     },
@@ -2084,9 +2086,13 @@
       "review_sheet": "review-03.jpg",
       "review_cell": 20,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 92,
@@ -2520,9 +2526,13 @@
       "review_sheet": "review-04.jpg",
       "review_cell": 17,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 113,
@@ -2542,9 +2552,13 @@
       "review_sheet": "review-04.jpg",
       "review_cell": 18,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 114,
@@ -2830,9 +2844,13 @@
       "review_sheet": "review-05.jpg",
       "review_cell": 8,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 128,
@@ -2852,9 +2870,13 @@
       "review_sheet": "review-05.jpg",
       "review_cell": 9,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 129,
@@ -3768,19 +3790,29 @@
       ],
       "source_object_id": "bed_e",
       "bounds_uv": [
-        0.8364583333333333,
-        0.7055555555555556,
-        0.86875,
-        0.8074074074074075
+        0.8355,
+        0.68,
+        0.8692,
+        0.825
       ],
       "source_sha256": "f342ba8d078bec60193c437d02ec9585a711655f800359113f2bb4b364d81de6",
       "decision": "replace",
       "review_sheet": "review-07.jpg",
       "review_cell": 5,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "medical_bed",
-      "author_yaw": 0
+      "reason": "Close source review: narrow worn bedding on an open metal frame. Dedicated cot, not an upholstered double bed. Native close review: visual bounds include the original head tube and projecting foot frame, separately from the smaller tactical footprint.",
+      "asset": "field_cot",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "base": "open tubular frame"
+      },
+      "erase_bounds_uv": [
+        0.8315,
+        0.676,
+        0.8732,
+        0.829
+      ]
     },
     {
       "index": 173,
@@ -3865,9 +3897,13 @@
       "review_sheet": "review-07.jpg",
       "review_cell": 9,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: narrow worn bedding on an open metal frame. Dedicated cot, not an upholstered double bed.",
+      "asset": "field_cot",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "base": "open tubular frame"
+      }
     },
     {
       "index": 177,
@@ -4058,9 +4094,13 @@
       "review_sheet": "review-07.jpg",
       "review_cell": 18,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 90,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 186,
@@ -4231,9 +4271,13 @@
       "review_sheet": "review-08.jpg",
       "review_cell": 2,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 194,
@@ -4254,9 +4298,13 @@
       "review_sheet": "review-08.jpg",
       "review_cell": 3,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 195,
@@ -4320,9 +4368,13 @@
       "review_sheet": "review-08.jpg",
       "review_cell": 6,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
-      "asset": "bed",
-      "author_yaw": 0
+      "reason": "Close source review: one narrow mattress and one pillow, not a double bed. Dedicated single-bed sprite; source geometry remains unchanged.",
+      "asset": "single_bed",
+      "author_yaw": 0,
+      "assembly": {
+        "sleepers": 1,
+        "pillows": 1
+      }
     },
     {
       "index": 198,
@@ -5115,13 +5167,15 @@
       "source_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
       "decision": "replace",
       "visual_review": "detail_crop_inspected",
-      "reason": "Matched authored assembly after detail review: original component count, open supports and materials are preserved.",
+      "reason": "Close source review: two shallow formed-metal seats and thin supports. Dedicated narrow transit bench; no padding or solid plinth.",
       "review_sheet": "assemblies-review-00.jpg",
       "review_cell": 19,
-      "asset": "metal_bench2",
+      "asset": "transit_bench2",
       "assembly": {
-        "seats": 2
-      }
+        "seats": 2,
+        "material": "formed metal"
+      },
+      "author_yaw": 90
     },
     {
       "index": 237,
@@ -5139,13 +5193,15 @@
       "source_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
       "decision": "replace",
       "visual_review": "detail_crop_inspected",
-      "reason": "Matched authored assembly after detail review: original component count, open supports and materials are preserved.",
+      "reason": "Close source review: two shallow formed-metal seats and thin supports. Dedicated narrow transit bench; no padding or solid plinth.",
       "review_sheet": "assemblies-review-00.jpg",
       "review_cell": 20,
-      "asset": "metal_bench2",
+      "asset": "transit_bench2",
       "assembly": {
-        "seats": 2
-      }
+        "seats": 2,
+        "material": "formed metal"
+      },
+      "author_yaw": 270
     },
     {
       "index": 238,
@@ -5355,13 +5411,15 @@
       "source_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
       "decision": "replace",
       "visual_review": "detail_crop_inspected",
-      "reason": "Matched authored assembly after detail review: original component count, open supports and materials are preserved.",
+      "reason": "Close source review: two shallow formed-metal seats and thin supports. Dedicated narrow transit bench; no padding or solid plinth.",
       "review_sheet": "assemblies-review-01.jpg",
       "review_cell": 5,
-      "asset": "metal_bench2",
+      "asset": "transit_bench2",
       "assembly": {
-        "seats": 2
-      }
+        "seats": 2,
+        "material": "formed metal"
+      },
+      "author_yaw": 90
     },
     {
       "index": 247,
@@ -5403,13 +5461,15 @@
       "source_sha256": "4e8f0d89cab80db1f40cf421f183e216c4d8337d81f9a98079a34e4a697b4cad",
       "decision": "replace",
       "visual_review": "detail_crop_inspected",
-      "reason": "Matched authored assembly after detail review: original component count, open supports and materials are preserved.",
+      "reason": "Close source review: two shallow formed-metal seats and thin supports. Dedicated narrow transit bench; no padding or solid plinth.",
       "review_sheet": "assemblies-review-01.jpg",
       "review_cell": 7,
-      "asset": "metal_bench2",
+      "asset": "transit_bench2",
       "assembly": {
-        "seats": 2
-      }
+        "seats": 2,
+        "material": "formed metal"
+      },
+      "author_yaw": 270
     },
     {
       "index": 249,

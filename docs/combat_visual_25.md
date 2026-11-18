@@ -98,3 +98,12 @@ Les 145 nouvelles découpes portent la revue à 363 cas. Le contrôle de proport
 Les isolateurs peints dépassent leur empreinte tactique. Des petits polygones d’effacement visuel sont tracés séparément pour retirer les anciens sommets, tout en conservant les équipements voisins. Aucune cellule, collision, ligne de vue ou texture source n’est modifiée. Les ensembles électriques sont signalés comme partiellement remplacés lorsque des éléments de contrôle restent issus du dessin source.
 
 Le [suivi global](combat_visual_25_progress.md) est généré depuis les catalogues et le statut de la passe. Il compte séparément les ressources disponibles, familles réellement placées, placements actifs, groupes partiels, entrées conservées et cartes artistiquement terminées. Une signature du code, des shaders, des annotations et des sprites empêche d’afficher une ancienne validation comme actuelle après modification. La tâche reste explicitement en cours, sans pourcentage de finition inventé.
+
+
+### 18 novembre 2026 — couchages et sièges aux proportions adaptées
+
+Cette passe corrige des correspondances artistiques trop génériques, sans changer la vue de haut, le HUD ni les dimensions des unités. Les couchages étroits identifiés sur les sources utilisent désormais une variante à une place et un seul oreiller, distincte du lit double. Les lits de camp disposent d’un cadre tubulaire ouvert ; les bancs de transport ont deux ou quatre assises métalliques selon la source.
+
+Quatre familles et seize vues ont été produites dans `environment_furniture.py`, avec des modèles Blender éditables et des finitions artistiques séparées. Une première comparaison a montré des sièges trop peu profonds : leur géométrie et leurs sprites ont été repris, sans abaisser le seuil de validation ni déformer les images. Le lit transversal du refuge wasteland reçoit une orientation explicite à 90°. La table d’examen segmentée n’est plus remplacée par un lit avec oreiller ; les variantes de lits de camp dont les proportions restent incompatibles conservent leur rendu source. La capture rapprochée de la clinique ruinée a également révélé des tubes de l’ancien cadre hors de l’empreinte tactique : les limites d’effacement et de placement ont été corrigées dans l’annotation visuelle uniquement.
+
+Les PNG des cartes, leurs SHA-256, les relevés de murs et toutes les règles tactiques restent inchangés. Le suivi global distingue les remplacements de ressources existantes des nouveaux placements : la finition artistique des 122 cartes reste ouverte.
