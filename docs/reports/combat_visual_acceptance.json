@@ -1,7 +1,7 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 30,
+    "done": 31,
     "total": 41
   },
   "maps": {
@@ -23,17 +23,16 @@
     "expected": 231
   },
   "tests": {
-    "passed": 54,
+    "passed": 57,
     "failed": 0,
     "skipped": 0,
     "not_executed": [
       "Calibration approuvée des 122 cartes",
       "Revue artistique complète des 122 cartes",
       "Actions de combat manquantes et autres unités",
-      "Benchmark GPU joueur",
       "Suite intégrale du jeu"
     ],
-    "scope": "54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit"
+    "scope": "57 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée et benchmark GPU Windows ; parcours natifs hors JUnit"
   },
   "render_signature": "6f3ea8b78d1c19f22ef2fff4066f550c164bbd9d26b5f666134fbf2fe9aa7a56",
   "criteria": [
@@ -122,9 +121,11 @@
       "id": "PERFORMANCE",
       "title": "Performances et mémoire sur matériel joueur",
       "mandatory": true,
-      "status": "NOT VERIFIED",
-      "detail": "Un parcours natif NVIDIA RTX 5070 Ti est archivé ; benchmark FPS/CPU/GPU/mémoire reproductible encore absent. Revue explicite et preuves non enregistrées.",
-      "evidence": []
+      "status": "PASS",
+      "detail": "Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
+      "evidence": [
+        "docs/reports/windows_gpu_benchmark_system.json"
+      ]
     },
     {
       "id": "ANIMATIONS",
@@ -151,7 +152,7 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "PASS",
-      "detail": "{'passed': 54, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '54 cas ciblés réellement exécutés : acceptation globale, suivi artistique et résolution unifiée ; parcours natif Windows réel hors JUnit'}",
+      "detail": "{'passed': 57, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '57 cas ciblés réellement exécutés : acceptation globale, suivi artistique, résolution unifiée et benchmark GPU Windows ; parcours natifs hors JUnit'}",
       "evidence": [
         "docs/reports/current_unified_progress_tests.xml"
       ]
@@ -161,7 +162,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "30 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "31 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -175,7 +176,6 @@
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",
-    "PERFORMANCE",
     "ANIMATIONS",
     "TASK-COMPLETION"
   ],

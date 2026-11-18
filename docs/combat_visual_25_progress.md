@@ -69,7 +69,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
 - Poursuivre la finition et les animations des entités par rapport à la maquette, en préservant les proportions et les données du jeu.
 - Effectuer la revue artistique détaillée carte par carte ; aucune carte n’est cochée comme terminée par un simple test de chargement.
-- Compléter les mesures de performances sur GPU joueur ; les contrôles disponibles utilisent le rendu logiciel llvmpipe.
+- Benchmark joueur Windows archivé : RTX 5070 Ti, combat animé 1440p, 2 400 frames à 185,15 FPS moyens, p95 7,876 ms, CPU/GPU/mémoire échantillonnés. Cette preuve ne définit pas une configuration minimale.
 
 ## Historique des livraisons
 

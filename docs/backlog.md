@@ -767,6 +767,7 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 ### Échelle des entités — passe complète du catalogue
 
 - [ ] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Archiver les profils et comparatifs à trois résolutions, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct des animations et du chargement natif.
+- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 185,15 FPS moyens, p95 7,876 ms. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
 
 ### Lot suivant d’animations — deux agentes distinctes
 
