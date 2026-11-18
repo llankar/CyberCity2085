@@ -719,7 +719,7 @@ Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_p
 - [x] ART25D-02 Produire des ressources dédiées aux proportions observées.
 - [x] ART25D-03 Intégrer les annotations et contrôler les silhouettes sans modifier la géométrie tactique.
 - [x] ART25D-04 Vérifier les rendus natifs, les interactions et les entités aux résolutions cibles.
-- [ ] ART25D-05 Exporter les comparaisons, mettre à jour le suivi et publier la passe.
+- [x] ART25D-05 Exporter les comparaisons, mettre à jour le suivi et publier la passe.
 
 
 ### Combat Visual 2.5 — mobilier aux proportions naturelles
@@ -728,4 +728,4 @@ Suivi de la tâche complète : [combat_visual_25_progress.md](combat_visual_25_p
 - [x] ART25D-02 Produire quatre variantes adaptées et leurs vues : lit simple, lit de camp, bancs métalliques deux et quatre places.
 - [x] ART25D-03 Intégrer uniquement les correspondances validées ; conserver les variantes incertaines et les géométries tactiques.
 - [x] ART25D-04 Vérifier le catalogue natif, les interactions et les entités ; comparer les détails à trois résolutions.
-- [ ] ART25D-05 Actualiser inventaire, preuves et suivi ; pousser et fusionner cette passe. La finition artistique globale reste ouverte.
+- [x] ART25D-05 Actualiser inventaire, preuves et suivi ; pousser et fusionner cette passe. La finition artistique globale reste ouverte.

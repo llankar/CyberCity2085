@@ -37,11 +37,11 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | Production de mobilier adapté | Terminé | Quatre familles / 16 vues, modèles Blender et deux planches artistiques. Profondeur des sièges reprise après comparaison. |
 | Intégration et contrôle des silhouettes | Terminé | 20 substitutions actives avec ces ressources, dont correction d’un lit tourné de 90° ; deux lits de camp incompatibles et la table d’examen conservent l’art source. |
 | Contrôles Godot et comparaisons | Terminé | 122 cartes contrôlées, six comparaisons à trois résolutions, entités et interactions vérifiées ; 25 tests ciblés réussis et 12 tests de ressources réexécutés après correction des cadres. |
-| Inventaire et publication | En cours | Préparation des captures, annotations de revue et inventaire global. |
+| Inventaire et publication | Terminé | Inventaire et captures exportés ; push et merge vérifiés sur main. La tâche artistique globale reste ouverte. |
 
 ## Validation
 
-- Dernière livraison de référence : `mobilier — 18/11/2026 (publication en cours)`.
+- Dernière livraison de référence : `73c4ca1dbb2b33f7f8fb62fda8eb060217bc5e7c`.
 - Preuves : [captures et inventaire](images/combat-25-furniture/README.md).
 - Concordance du code, des annotations et des sprites de décor : **oui**.
 - 122 rendus natifs et leurs nombres de sprites vérifiés ; six cartes comparées à trois résolutions. 25 tests ciblés réussis, puis 12 tests des ressources et du suivi réexécutés après la correction des limites visuelles des lits de camp. Cinq familles d’environnements contrôlées avec agents, ennemis, power armors, robots et véhicules. Catalogue 13a4a1b rejoué en mémoire pour les avant ; captures concernées refaites après correction.
@@ -62,5 +62,6 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | `35f7b80` | 99 placements actifs sur 97 cartes ; bibliothèque de 16 familles / 64 vues ; validation native du catalogue. |
 | `7244e46` | 187 placements sur 108 cartes ; 26 familles / 104 vues ; ombres des entités et correction du chargement des soutiens. |
 | `3e06080` | 213 placements sur 109 cartes ; 32 familles / 128 vues ; assemblages adaptés, masques visuels séparés et suivi de la tâche complète. |
+| `73c4ca1` | 221 placements sur 109 cartes ; 36 familles / 144 vues. Lits simples, lits de camp et bancs adaptés ; orientation et cadres débordants corrigés. |
 
 Ce fichier est régénéré par `python tools/art/update_environment_progress.py` à partir des catalogues, de la signature de validation et de `combat_visual_25_status.json`. Aucun indicateur de rendu ne coche automatiquement la finition artistique.
