@@ -23,7 +23,7 @@ var project_root  : String = ""
 var ipc_pipe_path : String = ""  # Unix pipe path for IPC signal to Python
 
 func _ready() -> void:
-	set_anchors_preset(Control.PRESET_FULL_RECT)
+	set_anchors_preset(Control.PRESET_TOP_LEFT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	set_process(true)
 	_build_extract_button()
@@ -64,6 +64,7 @@ func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_
 	CombatSignals.audio_event.emit("victory" if outcome == "victory" else "defeat")
 	if audio != null: _result["music_playback"] = audio.playback_bookmark()
 	_publish(_prepared_path(),_payload("prepared"))
+	preload("res://scripts/session_mailbox.gd").status(_session, "result_prepared")
 
 	# Fade in
 	modulate.a = 0.0
@@ -137,6 +138,7 @@ func _on_extract() -> void:
 	if not _publish(_result_path(),_payload("confirmed")):
 		_extract_btn.text="RETURN FAILED — RETRY"
 		return
+	preload("res://scripts/session_mailbox.gd").status(_session, "result_confirmed")
 	_confirmed=true
 	_confirmation_elapsed=0.0
 	_extract_btn.text="RETURNING…"
@@ -161,12 +163,7 @@ func _payload(phase: String) -> Dictionary:
 		"music_playback":_result.get("music_playback",{})}
 
 func _publish(path: String,payload: Dictionary) -> bool:
-	DirAccess.make_dir_recursive_absolute(path.get_base_dir())
-	var temporary:=path+".tmp"
-	var file:=FileAccess.open(temporary,FileAccess.WRITE)
-	if file==null:return false
-	file.store_string(JSON.stringify(payload,"  "));file.close()
-	return DirAccess.rename_absolute(temporary,path)==OK
+	return preload("res://scripts/session_mailbox.gd").publish(path, payload)
 
 # ── Drawing ───────────────────────────────────────────────────────────────────
 

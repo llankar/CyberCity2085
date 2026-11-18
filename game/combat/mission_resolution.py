@@ -22,6 +22,8 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
     surviving_participants = []
     all_player_units = list(self.player_units) + list(self.defeated_player_units)
     for unit in all_player_units:
+        if unit.stats is not None:
+            unit.extraction_max_hp = unit.stats.max_hp
         if not unit.character or id(unit.character) in processed_character_ids:
             continue
         processed_character_ids.add(id(unit.character))
@@ -60,7 +62,6 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         else {}
     )
     for unit in all_player_units:
-        if unit.stats is not None:unit.extraction_max_hp=unit.stats.max_hp
         if not unit.character:
             continue
         performance_by_agent[unit.character.name] = {
