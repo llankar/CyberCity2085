@@ -1,0 +1,144 @@
+{
+  "texture": "assets/combat_visual/animations/agent_diverse_03_magenta_pistol.png",
+  "texture_sha256": "ff17013598ef32345f5f5307d1a53cbbf6ef5c8a67454a1fcd3d65de763cab35",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/agent_diverse_03_magenta_pistol_512.png",
+  "source_sha256": "288b6c19e52cb6a7aaada1c47e22a9d2642468a0fd2966206d63597020b554e0",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/move-front-0.png",
+      "sha256": "814538ba22cbace7f645f9e45bb125531d31c9bc630205946c8b7cb109117b26",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/move-rear-1.png",
+      "sha256": "5482058c1a604be12d69fa51ad1653f7a85ae366c0eb56e7529861596db37cac",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_03_magenta_pistol/idle-idle_pairs-2.png",
+      "sha256": "75c0acf10b1d119430d651767e3f0fd155fb93168a6869248300c408d8464d5c",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "coverage": "partial",
+  "missing_clips": [
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi",
+    "heal"
+  ],
+  "review_status": "native_review_pending"
+}

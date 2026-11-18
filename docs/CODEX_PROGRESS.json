@@ -212,39 +212,49 @@
     {
       "id": "ART-NEXT-02",
       "title": "Importer les deux atlas et contrôler les silhouettes",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "tools/art/import_directional_clips.py",
         "assets/combat_visual/animations"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Examiner les atlas nettoyés et les phases avant validation native",
+      "tests": [
+        "Import existant utilisé ; huit directions et poses uniques contrôlées par validate_atlas",
+        "Inspection des deux atlas nettoyés, marges, lames, pistolet et identités"
+      ],
+      "evidence": [
+        "assets/combat_visual/animations/agent_diverse_01_neon_blade.json",
+        "assets/combat_visual/animations/agent_diverse_03_magenta_pistol.json"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "ART-NEXT-03",
       "title": "Étendre les tests aux six références sans perdre les quatre précédentes",
-      "status": "TODO",
+      "status": "DONE",
       "files": [
         "tests/test_directional_animation.py",
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
-      "tests": [],
-      "evidence": [],
-      "remaining": "Ajouter les nouvelles clés, conserver robots/armures/ennemis et vérifier les frames réelles",
+      "tests": [
+        "55 tests ciblés réussis après rétablissement X11 ; 192 sélections natives de frames sur six références"
+      ],
+      "evidence": [
+        "docs/reports/roster_batch2_tests.xml"
+      ],
+      "remaining": "",
       "reason": ""
     },
     {
       "id": "ART-NEXT-04",
       "title": "Captures et interactions natives du nouveau lot",
-      "status": "TODO",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/tests/capture_directional_animation.gd"
       ],
       "tests": [],
       "evidence": [],
-      "remaining": "Capturer les deux agentes aux trois résolutions, contrôler déplacement, coût PA, orientations et ombres",
+      "remaining": "Examiner les deux déplacements par clic, les trois résolutions et les orientations ; exporter les preuves",
       "reason": ""
     },
     {
@@ -312,7 +322,8 @@
     "Le modèle procédural rejeté reste hors production.",
     "Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.",
     "Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.",
-    "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère."
+    "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.",
+    "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log."
   ],
   "pending_sources": {
     "agent_diverse_01_neon_blade": {
@@ -326,7 +337,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ART-NEXT-02 : examiner les deux atlas nettoyés, puis étendre les vérifications natives aux six références.",
+  "next_action": "ART-NEXT-04 : terminer et examiner les captures réelles des deux agentes ; puis actualiser la couverture. La passe SCALE-CATALOGUE reste explicitement TODO (0 / 122), après ce lot.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

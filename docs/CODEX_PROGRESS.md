@@ -86,26 +86,26 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `assets/combat_visual/source_sheets/import-plan.json`.
 - Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-02 — IN_PROGRESS — Importer les deux atlas et contrôler les silhouettes
+### ART-NEXT-02 — DONE — Importer les deux atlas et contrôler les silhouettes
 
 - Fichiers : `tools/art/import_directional_clips.py`, `assets/combat_visual/animations`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Examiner les atlas nettoyés et les phases avant validation native.
+- Tests / contrôles réellement exécutés : Import existant utilisé ; huit directions et poses uniques contrôlées par validate_atlas; Inspection des deux atlas nettoyés, marges, lames, pistolet et identités.
+- Preuves : `assets/combat_visual/animations/agent_diverse_01_neon_blade.json`, `assets/combat_visual/animations/agent_diverse_03_magenta_pistol.json`.
+- Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-03 — TODO — Étendre les tests aux six références sans perdre les quatre précédentes
+### ART-NEXT-03 — DONE — Étendre les tests aux six références sans perdre les quatre précédentes
 
 - Fichiers : `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Ajouter les nouvelles clés, conserver robots/armures/ennemis et vérifier les frames réelles.
+- Tests / contrôles réellement exécutés : 55 tests ciblés réussis après rétablissement X11 ; 192 sélections natives de frames sur six références.
+- Preuves : `docs/reports/roster_batch2_tests.xml`.
+- Travail restant dans cette portée : Aucun.
 
-### ART-NEXT-04 — TODO — Captures et interactions natives du nouveau lot
+### ART-NEXT-04 — IN_PROGRESS — Captures et interactions natives du nouveau lot
 
 - Fichiers : `godot/combat_missions_ui/tests/capture_directional_animation.gd`.
 - Tests / contrôles réellement exécutés : Aucun — non exécutés.
 - Preuves : Aucune.
-- Travail restant dans cette portée : Capturer les deux agentes aux trois résolutions, contrôler déplacement, coût PA, orientations et ombres.
+- Travail restant dans cette portée : Examiner les deux déplacements par clic, les trois résolutions et les orientations ; exporter les preuves.
 
 ### ART-NEXT-05 — TODO — Actualiser couverture, preuves et prochain lot artistique
 
@@ -128,9 +128,10 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Les 34 tests du rendu et 122 captures sont des preuves historiques, distinctes du JUnit de ce lot.
 - Les six nouvelles planches ne sont pas des atlas intégrés ; leur présence ne change pas la couverture 4 / 231.
 - Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
+- Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.
 
 ## Prochaine action précise
 
-ART-NEXT-02 : examiner les deux atlas nettoyés, puis étendre les vérifications natives aux six références.
+ART-NEXT-04 : terminer et examiner les captures réelles des deux agentes ; puis actualiser la couverture. La passe SCALE-CATALOGUE reste explicitement TODO (0 / 122), après ce lot.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

@@ -172,3 +172,10 @@ def test_failed_refresh_invalidates_an_older_positive_report(tmp_path):
     current=json.loads(path.read_text())
     assert current['global_status']=='CHANTIER GLOBAL INCOMPLET'
     assert current['criteria'][0]['status']=='NOT VERIFIED'
+
+
+def test_scale_review_is_separate_from_successful_loading(project):
+    report=check.build_report(project)
+    assert criterion(report,'MAP-LOAD')['status']=='PASS'
+    assert criterion(report,'UNIT-SCALE')['status']=='NOT VERIFIED'
+    assert '0 / 2' in criterion(report,'UNIT-SCALE')['detail']

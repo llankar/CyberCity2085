@@ -1,0 +1,144 @@
+{
+  "texture": "assets/combat_visual/animations/agent_diverse_01_neon_blade.png",
+  "texture_sha256": "839fb5096756311c84b2d39d80d7f9501edc20a58d63701cb875c29ebfaea152",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/agent_diverse_01_neon_blade_512.png",
+  "source_sha256": "c50ac0202af13a8deaeac63084485509301224013f1f6a9d36c6003ca664718c",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/move-front-0.png",
+      "sha256": "53f496a57b73443bef5bd3498dfff4e459c218a50d11187f6efe2dda25fbab68",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/move-rear-1.png",
+      "sha256": "056328d19cb014063e15122017280e86a863a807d7308f7611f8104e5388e61d",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_01_neon_blade/idle-idle_pairs-2.png",
+      "sha256": "b2e1824a7699d51542cc9c2ae20d8d4974d7edccdb365c17ee8b047e278c4563",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "coverage": "partial",
+  "missing_clips": [
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi",
+    "heal"
+  ],
+  "review_status": "native_review_pending"
+}
