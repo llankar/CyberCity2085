@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-COMBAT-REGRESSION — DONE. Les tests utilisent un fichier de résultat présent, vérifient les familles de cartes et le rapport d’échelle, et construisent le tableau avant de bloquer une mission. 47 réussis. Relancer la suite de release pour identifier les écarts d’intégration restants.
+
 - RELEASE-CONTRACT — DONE. Plafond historique retiré du plan. Le test de release vérifie la checklist sans exiger la fermeture des travaux encore ouverts. Les tests de choix narratifs vérifient les libellés anglais et les marqueurs.
 
 - MAP-ART-INVENTORY — DONE. Le test compare désormais les déclarations du catalogue au manifeste de la revue Windows déjà archivée (122 cartes, 21 planches). Cinq tests réussis, deux contrôles natifs ignorés. Aucun nouveau rendu effectué. Poursuivre le tri des régressions de release.
