@@ -824,6 +824,14 @@ Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuve
 
 Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-enforcer-actions](images/red-enforcer-actions/README.md) et [drone-handler-actions](images/drone-handler-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `7dd8b0f7b836ec214748eaef76bd6d5ca57708cb1e32417f813ff0dff5be9557`.
 
+### Animations applicables — cyber doc et twin-blade adept
+
+- [x] Produire et auditer les actions applicables, dont le soin cybernétique, sans inventer de tir ou PSI.
+- [x] Rejeter et régénérer une mort opaque et une marche arrière à volutes parasites.
+- [x] Vérifier 768 sélections natives et les poses de soin, mêlée et mort dans Godot Windows.
+
+Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber-doc-actions](images/cyber-doc-actions/README.md) et [twin-blade-actions](images/twin-blade-actions/README.md). Catalogue et benchmark à régénérer pour cette signature.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.

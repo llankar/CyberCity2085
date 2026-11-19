@@ -27,6 +27,8 @@ func run() -> void:
 	var yellow_strike:= "--yellow-strike" in args
 	var red_enforcer:= "--red-enforcer" in args
 	var drone_handler:= "--drone-handler" in args
+	var cyber_doc:= "--cyber-doc" in args
+	var twin_blade:= "--twin-blade" in args
 	if roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
@@ -43,6 +45,8 @@ func run() -> void:
 		elif yellow_strike:scene.player_units[1]["visual_asset"]="agent_diverse_17_yellow_strike"
 		elif red_enforcer:scene.player_units[1]["visual_asset"]="agent_diverse_18_red_enforcer"
 		elif drone_handler:scene.player_units[1]["visual_asset"]="agent_diverse_19_drone_handler"
+		elif cyber_doc:scene.player_units[1]["visual_asset"]="agent_diverse_20_cyber_doc"
+		elif twin_blade:scene.player_units[1]["visual_asset"]="agent_diverse_21_twin_blade_adept"
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -78,7 +82,7 @@ func run() -> void:
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
-	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol and not armored_vanguard and not chrome_medic and not heavy_breacher and not yellow_strike and not red_enforcer and not drone_handler:
+	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol and not armored_vanguard and not chrome_medic and not heavy_breacher and not yellow_strike and not red_enforcer and not drone_handler and not cyber_doc and not twin_blade:
 		var magenta=scene._unit_tokens["p1"]
 		for action in ["fire","melee","cover","hit","death"]:
 			for direction in range(8):
@@ -105,14 +109,16 @@ func run() -> void:
 				var medic_file="street-medic-%s-%02d"%[action,direction]
 				save_frame(medic_file);medic_actions.append({"action":action,"direction":direction,"file":medic_file+".png"})
 	var new_agent_actions: Array[Dictionary]=[]
-	if longcoat_gunner or hooded_infiltrator or holo_hacker or blue_mohawk_scout or ronin_duelist or rail_sniper or violet_fixer or silver_pistol or armored_vanguard or chrome_medic or heavy_breacher or yellow_strike or red_enforcer or drone_handler:
+	if longcoat_gunner or hooded_infiltrator or holo_hacker or blue_mohawk_scout or ronin_duelist or rail_sniper or violet_fixer or silver_pistol or armored_vanguard or chrome_medic or heavy_breacher or yellow_strike or red_enforcer or drone_handler or cyber_doc or twin_blade:
 		var new_agent=scene._unit_tokens["p1"]
 		var new_prefix="armored-vanguard" if armored_vanguard else ("chrome-medic" if chrome_medic else ("violet-fixer" if violet_fixer else ("silver-pistol" if silver_pistol else ("ronin-duelist" if ronin_duelist else ("rail-sniper" if rail_sniper else ("longcoat-gunner" if longcoat_gunner else ("hooded-infiltrator" if hooded_infiltrator else ("holo-hacker" if holo_hacker else "blue-mohawk-scout"))))))))
 		if heavy_breacher:new_prefix="heavy-breacher"
 		elif yellow_strike:new_prefix="yellow-strike"
 		elif red_enforcer:new_prefix="red-enforcer"
 		elif drone_handler:new_prefix="drone-handler"
-		var actions=["melee","cover","hit","death","heal"] if chrome_medic else (["melee","cover","hit","death","psi"] if drone_handler else (["fire","melee","cover","hit","death"] if longcoat_gunner or blue_mohawk_scout or rail_sniper or violet_fixer or silver_pistol or armored_vanguard or heavy_breacher or yellow_strike or red_enforcer else ["melee","cover","hit","death"]))
+		elif cyber_doc:new_prefix="cyber-doc"
+		elif twin_blade:new_prefix="twin-blade"
+		var actions=["melee","cover","hit","death","heal"] if chrome_medic or cyber_doc else (["melee","cover","hit","death","psi"] if drone_handler else (["fire","melee","cover","hit","death"] if longcoat_gunner or blue_mohawk_scout or rail_sniper or violet_fixer or silver_pistol or armored_vanguard or heavy_breacher or yellow_strike or red_enforcer else ["melee","cover","hit","death"]))
 		for action in actions:
 			for direction in range(8):
 				assert(new_agent.play_action(action));new_agent.facing=direction;new_agent.frame_time=0.2;new_agent._process(0)
