@@ -49,6 +49,7 @@ def main():
     parser.add_argument("--therapy-days", type=int, default=0, help="Run group therapy before deployment")
     parser.add_argument("--shore-leave-days", type=int, default=0, help="Run paid shore leave before deployment")
     parser.add_argument("--recruit", action="store_true", help="Hire one affordable candidate at HQ before deployment")
+    parser.add_argument("--support-asset", action="append", default=[], help="Buy and deploy a catalog asset by template ID")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--interrupt-after-resolution", action="store_true")
@@ -61,7 +62,7 @@ def main():
         parser.error("--campaign-save requires --campaign-play")
     if min(args.therapy_days, args.shore_leave_days) < 0:
         parser.error("Downtime days must be nonnegative")
-    if (args.hospital or args.therapy_days or args.shore_leave_days or args.recruit) and not args.campaign_save:
+    if (args.hospital or args.therapy_days or args.shore_leave_days or args.recruit or args.support_asset) and not args.campaign_save:
         parser.error("Downtime requires --campaign-save")
     campaign_save = args.campaign_save.resolve(strict=True) if args.campaign_save else None
     args.outcomes=args.outcomes or (['victory'] if args.campaign_play else ['victory','defeat','retreat'])
@@ -117,6 +118,13 @@ def main():
                     state.mission_board_generated_day=state.calendar.current_day;state.mission_board_version=2
                 starting_levels = {agent.name: agent.stats.level for agent in state.characters}
                 hq=ManagementView(state);hq.setup();window.show_view(hq);frame(case/'01-headquarters.png')
+                for template_id in args.support_asset:
+                    asset_index = len(state.spec_ops_assets)
+                    hq._do_catalog_acquire(0, template_id=template_id)
+                    if len(state.spec_ops_assets) != asset_index + 1:
+                        raise ValueError(f"Could not purchase catalog asset {template_id}")
+                    hq._do_asset_deploy_toggle(asset_index)
+                    assert state.spec_ops_assets[asset_index].id in state.selected_asset_ids
                 if args.recruit:
                     hq._do_recruit_prompt()
                     before = len(state.characters)
