@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- IVORY-STATIC — DONE. Depuis le checkpoint du jour 7, l’hôpital de campagne a soigné quatre agents pour huit crédits et un jour. Le déploiement a ensuite utilisé les agents éligibles et remporté Ivory Static sous Windows à 720p. Promotions, retour au QG et rechargement vérifiés. Reprendre `work/campaign-story-ivory-hospital/victory/campaign.json` et sélectionner la prochaine mission d’histoire.
+
 - IVORY-STATIC — IN_PROGRESS. L’essai qui privilégie le déplacement vers l’objectif a perdu au tour 10 sans interaction. Le banc permet de comparer cette stratégie avec `--objective-first`. Reprendre le checkpoint du jour 7 et vérifier la composition du déploiement, les achats disponibles et l’accès à l’objectif. Trois tests du pilote passent.
 
 - CAMPAIGN-STORY — IN_PROGRESS. Deux victoires supplémentaires dans la même sauvegarde : Starver Depot puis Irradiated Signal. Depuis le checkpoint `work/campaign-day4-native/victory/campaign.json` (jour 7), Ivory Static a éliminé l’escouade au tour 15 après quatre ennemis abattus et sans progrès d’objectif. Repartir de ce checkpoint, revoir le déploiement et la priorité d’objectif du pilote, puis rejouer la mission d’histoire.
