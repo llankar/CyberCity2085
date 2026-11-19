@@ -1047,6 +1047,32 @@
       ],
       "remaining": "",
       "reason": "Contrat natif Godot non exécuté car l'exécutable est indisponible"
+    },
+    {
+      "id": "ENGLISH-UI-01",
+      "title": "Uniformiser toute la copie joueur en anglais",
+      "status": "DONE",
+      "files": [
+        "game/i18n/__init__.py",
+        "game/gamestate.py",
+        "game/mission_generation.py",
+        "game/missions/objective_branches.py",
+        "game/ui",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "tests/test_english_player_ui.py"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_english_player_ui.py tests/test_management_hub_ui.py tests/test_godot_launch_routing.py tests/test_godot_move_highlights.py tests/test_psi_combat_routing.py tests/test_mission_generation.py tests/test_objective_branches.py : 44 passed, 1 skipped, 5 subtests passed",
+        "Contrat : les anciennes sauvegardes fr sont normalisées en anglais",
+        "Contrat : les copies Arcade et Godot inspectées ne contiennent plus les fuites françaises connues",
+        "Contrat : les réglages joueur ne montrent plus le nom ou le chemin du moteur tactique"
+      ],
+      "evidence": [
+        "tests/test_english_player_ui.py"
+      ],
+      "remaining": "Validation visuelle humaine de tous les écrans non exécutée.",
+      "reason": "Un test natif nécessitant un environnement graphique a été ignoré."
     }
   ],
   "reviews": {

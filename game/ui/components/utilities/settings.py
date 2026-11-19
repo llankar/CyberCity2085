@@ -116,7 +116,7 @@ class SettingsDeck(UtilityDeck):
         )
         r = self.body(right)
         self.label(
-            self.word("EXÉCUTABLE GODOT", "GODOT EXECUTABLE"),
+            "TACTICAL CONTROLS",
             r.left,
             r.top - 15 * u,
             18,
@@ -124,33 +124,12 @@ class SettingsDeck(UtilityDeck):
             bold=True,
             width=r.width,
         )
-        self.paragraph(
-            s.godot_bin_path
-            or self.word(
-                "Détection automatique : environnement / PATH",
-                "Auto-detect: environment / PATH",
-            ),
-            Rect(r.left, r.top - 113 * u, r.right, r.top - 41 * u),
-            15,
-        )
-        mid = r.left + r.width * 0.5
-        self.action(
-            Rect(r.left, r.top - 166 * u, mid - 5 * u, r.top - 123 * u),
-            self.word("PARCOURIR", "BROWSE"),
-            "godot_bin_browse",
-        )
-        self.action(
-            Rect(mid + 5 * u, r.top - 166 * u, r.right, r.top - 123 * u),
-            self.word("EFFACER", "CLEAR"),
-            "godot_bin_clear",
-            danger=True,
-        )
         shortcuts = self.word(
             "F1–F6   Départements\nD   Jour suivant\nS / L   Sauvegarder / charger\nB   Mission / N   Recrutement\nFLÈCHES   Navigation\nENTRÉE   Confirmer\nÉCHAP   Retour",
             "F1–F6   Departments\nD   Advance day\nS / L   Save / load\nB   Mission / N   Recruitment\nARROWS   Navigation\nENTER   Confirm\nESC   Back",
         )
         self.document(
-            "shortcuts", shortcuts, Rect(r.left, r.bottom, r.right, r.top - 197 * u), 18
+            "shortcuts", shortcuts, Rect(r.left, r.bottom, r.right, r.top - 41 * u), 18
         )
         self.footer(
             self.word("APPLIQUER ET SAUVEGARDER", "SAVE & APPLY"),

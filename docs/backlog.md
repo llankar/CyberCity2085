@@ -905,3 +905,4 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Combat : ne plus afficher de cases de déplacement ou d'attaque lorsqu'un agent sélectionné n'a plus aucun AP. (19 novembre 2026)
 - [x] Interface joueur : retirer entièrement le mode de secours de la page de déploiement, y compris son bouton, son raccourci clavier et son ancien chemin de lancement. (19 novembre 2026)
 - [x] Combat psi : restaurer `Mind Spike` comme attaque psi ciblée distincte de `Psi Focus`, qui reste le pouvoir de réduction du stress de l'équipe. (19 novembre 2026)
+- [x] Interface : imposer l'anglais sur toute la copie joueur Arcade/Godot, migrer implicitement les anciennes sauvegardes françaises, traduire les missions régionales et retirer les réglages techniques du moteur. (19 novembre 2026)

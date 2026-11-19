@@ -1008,7 +1008,7 @@ func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 	if battle_started and not battle_ended and turn_side == "enemy" and not is_enemy:
 		if unit_id >= 0 and unit_id < player_units.size() and int(player_units[unit_id].get("hp",0)) > 0:
 			_queued_player_index = unit_id
-			status_line = "%s jouera au retour du tour joueur." % str(player_units[unit_id].get("name","Agent"))
+			status_line = "%s will act when the player turn resumes." % str(player_units[unit_id].get("name","Agent"))
 			_sync_display()
 		return
 	if not battle_started or battle_ended or turn_side != "player":
@@ -1196,7 +1196,7 @@ func _start_combat(source: String) -> void:
 	_frame_squad()
 	if not resume.is_empty():
 		preload("res://scripts/tactical_checkpoint.gd").restore_camera(resume, self)
-		status_line = "Combat repris — tour %d" % turn_number
+		status_line = "Combat resumed — turn %d" % turn_number
 		_sync_display()
 		_banner.show_banner(turn_side, turn_number)
 		print("TACTICAL COMBAT UI RESUMED")
@@ -1211,7 +1211,7 @@ func _start_combat(source: String) -> void:
 	for node: Dictionary in cover_nodes:
 		if bool(node.get("solid", false)):
 			solid_count += 1
-	if visual_mode: status_line = "Escouade déployée — choisissez une action."
+	if visual_mode: status_line = "Squad deployed — choose an action."
 	else: status_line += " | WALL TEST: %d blocked cells (F8)" % solid_count
 	_log_event("WALL TEST: %d loaded obstruction cells. Magenta = blocked; F8 hides/shows the overlay." % solid_count)
 	_log_event("%s: tactical insertion live." % source)
@@ -1283,7 +1283,7 @@ func _execute_action(action_name: String) -> void:
 	selected_action = action_name
 	pending_end_turn_confirmation = false
 	pending_retreat_confirmation = false
-	status_line = "%s : cliquez une cible à portée." % action_name if atype in ["FIRE","MELEE","PSI","FIRE_AOE"] else "%s sélectionné." % action_name
+	status_line = "%s: select a target in range." % action_name if atype in ["FIRE","MELEE","PSI","FIRE_AOE"] else "%s selected." % action_name
 	_sync_display()
 
 func _apply_psi_pulse() -> void:
@@ -1360,7 +1360,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	var distance := absi(origin.x-center_cell.x)+absi(origin.y-center_cell.y)
 	var reach := _action_range(action)
 	if distance>reach:
-		status_line="Cible hors de portée (distance %d / portée %d cases)."%[distance,reach]
+		status_line="Target out of range (distance %d / range %d tiles)."%[distance,reach]
 		_sync_display()
 		return
 	var ap_cost: int = _action_ap_cost(action)
@@ -1470,11 +1470,11 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var tpos := _cell_position(target)
 	var distance := absi(apos.x - tpos.x) + absi(apos.y - tpos.y)
 	if distance > rng:
-		status_line = "Cible hors de portée (distance %d / portée %d cases)." % [distance, rng]
+		status_line = "Target out of range (distance %d / range %d tiles)." % [distance, rng]
 		_sync_display()
 		return
 	if not _battlefield.has_los(apos, tpos, []):
-		status_line = "Tir bloqué par un obstacle : ligne de vue obstruée."
+		status_line = "Shot blocked: line of sight obstructed."
 		_sync_display()
 		return
 	var ap: int      = int(attacker.get("ap", 0))
@@ -2091,7 +2091,7 @@ func _configure_visual_hud() -> void:
 	_hud.mission_title = str(_mission_data().get("title", "TACTICAL INSERTION"))
 	_hud.objective_text = str(_mission_data().get("objective_text", "Complete the objective"))
 	_hud.quality = visual_quality
-	_hud._quality_button.text = "QUALITÉ : " + ["BASSE", "MOYENNE", "ÉLEVÉE"][visual_quality]
+	_hud._quality_button.text = "QUALITY: " + ["LOW", "MEDIUM", "HIGH"][visual_quality]
 	_hud.quality_changed.connect(_set_visual_quality)
 
 func _set_visual_quality(level: int) -> void:
@@ -2196,8 +2196,8 @@ func _update_visual_context() -> void:
 		if portrait == null: portrait = _load_tex("assets/ui/portraits/enemy_%s.png" % str(target.get("enemy_subtype","grunt")))
 		_visual_enemy_portraits[portrait_key] = portrait
 	_hud.target_info["portrait"] = _visual_enemy_portraits[portrait_key]
-	_hud.target_info["detail"] = "DISTANCE %d  //  PORTÉE %d  //  %d PA" % [distance,rng,_action_ap_cost(selected_action)]
-	_hud.target_info["chance_label"] = "HORS DE PORTÉE" if distance > rng else ("OBSTACLE : VUE BLOQUÉE" if not los else "TIR : %d %%" % int(chance))
+	_hud.target_info["detail"] = "DISTANCE %d  //  RANGE %d  //  %d AP" % [distance,rng,_action_ap_cost(selected_action)]
+	_hud.target_info["chance_label"] = "OUT OF RANGE" if distance > rng else ("OBSTACLE: SIGHT BLOCKED" if not los else "SHOT: %d %%" % int(chance))
 
 func _visual_cell_hovered(cell: Vector2i) -> void:
 	if cell.x < 0 or cell.y < 0 or cell.x >= GRID_COLS or cell.y >= GRID_ROWS:
@@ -2287,7 +2287,7 @@ func _activate_player_from_portrait(index: int) -> void:
 	var unit := player_units[index] as Dictionary
 	selected_action = "Move" if "Move" in unit.get("available_actions",[]) else "MOVE"
 	var ap := int(unit.get("ap",0))
-	status_line = "%s — à vous de jouer (%d PA)." % [unit.get("name","Agent"),ap] if ap > 0 else "%s : aucun PA restant pour ce tour." % unit.get("name","Agent")
+	status_line = "%s — your move (%d AP)." % [unit.get("name","Agent"),ap] if ap > 0 else "%s: no AP remaining this turn." % unit.get("name","Agent")
 	if _camera != null: _camera.position = _battlefield.cell_to_world(_cell_position(unit))
 	_refresh_initiative()
 	_sync_display()

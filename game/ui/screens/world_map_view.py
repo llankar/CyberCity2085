@@ -287,7 +287,7 @@ class MissionWorldMapView(GameView):
                     index,
                     category_for(mission, True),
                     mission.title,
-                    ("MÉGAPOLE" if district == "city" else "BADLANDS"),
+                    ("MEGACITY" if district == "city" else "BADLANDS"),
                     anchor,
                     self._selection_type == "text"
                     and index == self._selected_text_index,
@@ -321,7 +321,7 @@ class MissionWorldMapView(GameView):
             anchor_y="center",
         )
         painter.text(
-            "INSPECTER  /  PRÉPARER  /  DÉPLOYER",
+            "INSPECT  /  PREPARE  /  DEPLOY",
             w - 20,
             h - 24,
             11 * ui,
@@ -454,7 +454,7 @@ class MissionWorldMapView(GameView):
         else:
             painter.panel(briefing, PALETTE["operation"])
             painter.text(
-                "AUCUNE MISSION DISPONIBLE",
+                "NO MISSIONS AVAILABLE",
                 briefing.left + 18,
                 briefing.top - 36,
                 15 * ui,
@@ -511,7 +511,7 @@ class MissionWorldMapView(GameView):
             "back",
         )
         painter.text(
-            "ENTRÉE : LANCER   //   ÉCHAP : RETOUR",
+            "ENTER: LAUNCH   //   ESC: BACK",
             w / 2,
             14,
             10 * ui,
@@ -608,7 +608,7 @@ class MissionWorldMapView(GameView):
                 paragraph(mission.description, 13)
                 if mission.required_skills:
                     paragraph(
-                        "COMPÉTENCES // " + ", ".join(mission.required_skills),
+                        "SKILLS // " + ", ".join(mission.required_skills),
                         12,
                         PALETTE["narrative"],
                     )
@@ -616,7 +616,7 @@ class MissionWorldMapView(GameView):
                     self.game_state.characters, self.game_state.selected_agent_names
                 )
                 paragraph(
-                    f"ÉQUIPE // {len(selected)} AGENT(S) AFFECTÉ(S)",
+                    f"TEAM // {len(selected)} AGENT(S) ASSIGNED",
                     12,
                     (205, 229, 238),
                 )
@@ -629,22 +629,22 @@ class MissionWorldMapView(GameView):
                 paragraph("ENNEMI // " + tactical.enemy_label, 13, color, 10, True)
                 paragraph("DOCTRINE // " + tactical.doctrine, 12)
                 paragraph(
-                    f"ESCOUADE // {tactical.squad_count} affectés · {tactical.armed_count} armés",
+                    f"SQUAD // {tactical.squad_count} assigned · {tactical.armed_count} armed",
                     12,
                     (112, 237, 214),
                     10,
                     True,
                 )
-                paragraph("ÉQUIPEMENT // " + tactical.loadout_summary, 12)
+                paragraph("LOADOUT // " + tactical.loadout_summary, 12)
                 paragraph(
-                    "RÔLES // "
+                    "ROLES // "
                     + tactical.capability_summary
                     + " · "
                     + tactical.tactical_gap,
                     12,
                 )
                 paragraph(
-                    "RÉCUPÉRATION // " + tactical.recovery_load, 12, color, 12, True
+                    "RECOVERY // " + tactical.recovery_load, 12, color, 12, True
                 )
             self._briefing_content_height = body_top + self._briefing_scroll - y
         finally:
@@ -671,7 +671,7 @@ class MissionWorldMapView(GameView):
                 right - 7, thumb_y, right - 7, thumb_y + thumb, rgba(color, 200), 2
             )
         painter.text(
-            "MOLETTE : DÉTAILS" if maximum else "RENSEIGNEMENTS EN TEMPS RÉEL",
+            "WHEEL: DETAILS" if maximum else "LIVE INTELLIGENCE",
             left + 15,
             bottom + 12,
             9 * ui,

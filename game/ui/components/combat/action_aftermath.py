@@ -19,7 +19,7 @@ def build_action_aftermath_line(
     if status_applied:
         segments.append(f"STATUT {status_applied}")
     if suppression_created:
-        segments.append("SUPPRESSION créée")
+        segments.append("SUPPRESSION created")
     if defeated_target:
         segments.append("HOSTILE DOWN")
     if skill_check_outcome:

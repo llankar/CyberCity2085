@@ -64,7 +64,7 @@ _FRAGMENTS: list[IntelFragment] = [
     IntelFragment(
         id="act1_corporate_admiration",
         act=1,
-        title="Private Communiqués",
+        title="Private Communications",
         text=(
             "Intercepted executive communication, recipient unknown: "
             "'The Warsaw operation was clean. Faster than anything we modeled. "

@@ -4,12 +4,13 @@ from .en import STRINGS as EN_STRINGS
 from .fr import STRINGS as FR_STRINGS
 
 _DICTIONARIES = {"fr": FR_STRINGS, "en": EN_STRINGS}
-DEFAULT_LANGUAGE = "fr"
+DEFAULT_LANGUAGE = "en"
 
 
 def normalize_language(language: str | None) -> str:
-    if language in _DICTIONARIES:
-        return str(language)
+    # CyberCity 2085 currently ships with one player-facing language.  Always
+    # normalize old saves as well, so a legacy ``fr`` value cannot leak French
+    # copy back into the interface.
     return DEFAULT_LANGUAGE
 
 

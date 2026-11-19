@@ -369,6 +369,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Contrat natif Godot non exécuté car l'exécutable est indisponible.
 
+### ENGLISH-UI-01 — DONE — Uniformiser toute la copie joueur en anglais
+
+- Fichiers : `game/i18n/__init__.py`, `game/gamestate.py`, `game/mission_generation.py`, `game/missions/objective_branches.py`, `game/ui`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/visual_hud.gd`, `tests/test_english_player_ui.py`.
+- Tests / contrôles réellement exécutés : suite ciblée Arcade/Godot, langue, missions, objectifs, lancement et psi : 44 réussis, 1 ignoré, 5 sous-tests réussis.
+- Preuves : `tests/test_english_player_ui.py` ; anglais forcé pour les nouvelles campagnes et les anciennes sauvegardes ; contrats régionaux, objectifs, carte du monde, récupération, liaison tactique et HUD Godot traduits ; détails de moteur retirés des réglages joueur.
+- Travail restant dans cette portée : validation visuelle humaine de tous les écrans non exécutée.
+- Problème / raison : un test natif nécessitant un environnement graphique a été ignoré.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

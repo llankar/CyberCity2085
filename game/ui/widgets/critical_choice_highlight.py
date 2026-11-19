@@ -14,8 +14,8 @@ class CriticalChoiceHighlight:
 
 _IMPACT_COPY = {
     "low": CriticalChoiceHighlight("", "", "muted"),
-    "medium": CriticalChoiceHighlight("◦", "Lien: impact modéré", "normal"),
-    "high": CriticalChoiceHighlight("◆", "Lien: impact élevé", "accent"),
+    "medium": CriticalChoiceHighlight("◦", "Bond: moderate impact", "normal"),
+    "high": CriticalChoiceHighlight("◆", "Bond: high impact", "accent"),
 }
 
 
