@@ -5,7 +5,7 @@ import pytest
 from PIL import Image
 from tools.audit_combat_visuals import validate_atlas
 ROOT=Path(__file__).resolve().parents[1]
-KEYS=['agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','agent_diverse_16_heavy_breacher','agent_diverse_17_yellow_strike','agent_diverse_18_red_enforcer','agent_diverse_19_drone_handler','agent_diverse_20_cyber_doc','agent_diverse_21_twin_blade_adept','agent_diverse_22_veteran_inquisitor','agent_diverse_23_dreadlock_rifle','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
+KEYS=['agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','agent_diverse_16_heavy_breacher','agent_diverse_17_yellow_strike','agent_diverse_18_red_enforcer','agent_diverse_19_drone_handler','agent_diverse_20_cyber_doc','agent_diverse_21_twin_blade_adept','agent_diverse_22_veteran_inquisitor','agent_diverse_23_dreadlock_rifle','agent_diverse_24_hooded_psion','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
 TARGET=os.environ.get('CYBERCITY_ANIMATION_ASSET')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
@@ -31,6 +31,8 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
                 expected_required.add('psi');expected_exempt={'fire','heal'}
             elif key=='agent_diverse_20_cyber_doc':
                 expected_required.add('heal');expected_exempt={'fire','psi'}
+            elif key=='agent_diverse_24_hooded_psion':
+                expected_required.update({'fire','psi'});expected_exempt={'heal'}
             elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept'}:
                 expected_required.add('fire');expected_exempt={'psi','heal'}
             assert set(data['required_clips'])==expected_required
