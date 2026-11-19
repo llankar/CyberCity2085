@@ -47,6 +47,7 @@ def main():
     parser.add_argument("--campaign-save", type=Path, help="Resume a campaign saved by a previous run")
     parser.add_argument("--hospital", action="store_true", help="Treat injured agents using campaign downtime before deployment")
     parser.add_argument("--therapy-days", type=int, default=0, help="Run group therapy before deployment")
+    parser.add_argument("--shore-leave-days", type=int, default=0, help="Run paid shore leave before deployment")
     parser.add_argument("--recruit", action="store_true", help="Hire one affordable candidate at HQ before deployment")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
@@ -58,9 +59,9 @@ def main():
     args=parser.parse_args()
     if args.campaign_save and not args.campaign_play:
         parser.error("--campaign-save requires --campaign-play")
-    if args.therapy_days < 0:
-        parser.error("--therapy-days must be nonnegative")
-    if (args.hospital or args.therapy_days or args.recruit) and not args.campaign_save:
+    if min(args.therapy_days, args.shore_leave_days) < 0:
+        parser.error("Downtime days must be nonnegative")
+    if (args.hospital or args.therapy_days or args.shore_leave_days or args.recruit) and not args.campaign_save:
         parser.error("Downtime requires --campaign-save")
     campaign_save = args.campaign_save.resolve(strict=True) if args.campaign_save else None
     args.outcomes=args.outcomes or (['victory'] if args.campaign_play else ['victory','defeat','retreat'])
@@ -87,12 +88,16 @@ def main():
                 _link_directory(sandbox/'godot', root/'godot')
                 if args.campaign_play:
                     loaded_state = GameState.load(str(campaign_save)) if campaign_save else None
-                    if args.hospital or args.therapy_days:
+                    if args.hospital or args.therapy_days or args.shore_leave_days:
                         from game.character import is_deployable
                         from game.management.downtime import DOWNTIME_ACTIVITIES, apply_activity, can_run_activity
 
                         activities = {item.key: item for item in DOWNTIME_ACTIVITIES}
-                        plan = ["group_therapy"] * args.therapy_days + (["hospital"] if args.hospital else [])
+                        plan = (
+                            ["group_therapy"] * args.therapy_days
+                            + ["shore_leave"] * args.shore_leave_days
+                            + (["hospital"] if args.hospital else [])
+                        )
                         for key in plan:
                             activity = activities[key]
                             if not can_run_activity(loaded_state, activity):
