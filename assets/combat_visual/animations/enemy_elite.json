@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_elite.png",
-  "texture_sha256": "d832aba98c81263ecc224a217c75ecdd4bc6247ad2d81fdf1f288be7f5cd41a1",
+  "texture_sha256": "c0811f3e6685d02d57af64870400913a5808af8c2e85db603a4c97479f71fe81",
   "frame_size": [
     256,
     256
@@ -49,6 +49,98 @@
           15
         ]
       ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_elite_512.png",
@@ -60,6 +152,58 @@
       "clip": "idle",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/move-front-1.png",
+      "sha256": "e3691953260d6830918e99d7a9cd457e84695d3ae54c2e736bc2940b48a5d9d7",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/move-rear-2.png",
+      "sha256": "cc1eedc9209293e52ce6b6ab3eb2f866b58b699b1924c3921f87a37e60126102",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/fire-action_rows-3.png",
+      "sha256": "e55621f4c3293a76a55eba896d1d7d118f8affaa8cd5bd1bde05e32e83457d9a",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/fire-action_rows-4.png",
+      "sha256": "2a6b1a368664cded9875140ba397c344e833a6b88a89fec091303f5c24fe9f26",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        3,
+        7
+      ]
     }
   ],
   "required_clips": [
@@ -77,8 +221,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
-    "fire",
     "melee",
     "cover",
     "hit",
