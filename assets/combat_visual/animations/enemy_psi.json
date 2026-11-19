@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_psi.png",
-  "texture_sha256": "b0aefafe11050238b46230f1b6fcb615299ad60834879d064d77ef0358ab3825",
+  "texture_sha256": "38498bf48517f19d5fc951217ccb822b9bdabd4d2971dffbf6dfb9a87cca2ca9",
   "frame_size": [
     256,
     256
@@ -49,6 +49,60 @@
           15
         ]
       ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_psi_512.png",
@@ -60,6 +114,21 @@
       "clip": "idle",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/move-front-1.png",
+      "sha256": "2fb4314c3a01ce3cc699b01db5a4ec5ebf97b03a733528f6607b5a7a7b509ee8",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/move-rear-2.png",
+      "sha256": "49a33b0e19fa9dff5fd0f5efc51623b2d05803867d2b7da8c3dbd6d6baf7e4b8",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "transpose": true
     }
   ],
   "required_clips": [
@@ -77,7 +146,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
     "fire",
     "melee",
     "cover",

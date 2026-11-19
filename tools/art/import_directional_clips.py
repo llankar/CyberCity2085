@@ -64,7 +64,10 @@ def build(key,config):
             order=sheet_directions(item,4,4 if layout=='rear' else 0)
             for row,direction in enumerate(order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
-                directions[direction]=normalise([extract(image,row,col) for col in range(4)])
+                if item.get('transpose', False):
+                    directions[direction]=normalise([extract(image,col,row) for col in range(4)])
+                else:
+                    directions[direction]=normalise([extract(image,row,col) for col in range(4)])
         elif layout in ['idle_pairs','action_pairs']:
             order=sheet_directions(item,8)
             for pair,direction in enumerate(order):
@@ -91,6 +94,8 @@ def build(key,config):
             provenance[-1]['direction_indices']=order
         if layout == 'action_rows' and 'pose_indices' in item:
             provenance[-1]['pose_indices']=poses
+        if layout in ('front', 'rear') and item.get('transpose', False):
+            provenance[-1]['transpose']=True
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
