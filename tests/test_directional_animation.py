@@ -13,21 +13,25 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
         assert validate_atlas(path,ROOT,{'idle','move'})==[]
         data=json.loads(path.read_text())
         expected_missing={'fire','melee','cover','hit','death','psi','heal'}
-        if key in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol'}:
+        if key in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper'}:
             expected_missing=set()
             assert data['coverage']=='complete'
             expected_required={'idle','move','melee','cover','hit','death'}
             expected_exempt={'fire','psi','heal'}
-            if key=='agent_diverse_03_magenta_pistol':
+            if key in {'agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper'}:
                 expected_required.add('fire');expected_exempt={'psi','heal'}
             assert set(data['required_clips'])==expected_required
             assert set(data['non_applicable_clips'])==expected_exempt
         else:
             assert data['coverage']=='partial'
         assert set(data['missing_clips'])==expected_missing
-        if key not in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol'}:
+        if key not in {'agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper'}:
             assert any('missing clip: fire' in e for e in validate_atlas(path,ROOT))
         if key=='agent_diverse_03_magenta_pistol':
+            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
+            for action in ['fire','melee','cover','hit','death']:
+                assert all(len(row)==2 for row in data['animations'][action]['rows'])
+        if key=='agent_diverse_04_trench_sniper':
             assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
             for action in ['fire','melee','cover','hit','death']:
                 assert all(len(row)==2 for row in data['animations'][action]['rows'])

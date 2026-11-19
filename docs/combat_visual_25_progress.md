@@ -25,7 +25,7 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur
 | Références d’entités à couvrir (hors objets de mission) | 231 |
 | Atlas produits | 6 |
 | Marche et attente à huit directions vérifiées dans Godot | 6 |
-| Unités avec toutes les actions applicables animées et validées | 2 |
+| Unités avec toutes les actions applicables animées et validées | 3 |
 
 Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
 
@@ -42,7 +42,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Profils de prÃ©sentation des entitÃ©s sÃ©parÃ©s des donnÃ©es tactiques ; robots de soutien Ã  une Ã©chelle cohÃ©rente, dÃ©tails des armures claires et ombres de vÃ©hicules diffÃ©renciÃ©es.
 - 192 frames dessinÃ©es pour quatre rÃ©fÃ©rences : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unitÃ©s encore Ã  produire.
 - Lot 2 : deux agentes distinctes animÃ©es (lames et pistolet magenta), +96 frames.
-- Agentes aux lames et au pistolet magenta : toutes les actions applicables complÃ¨tes et validÃ©es ; total 432 frames, 2 ensembles complets et 4 partiels.
+- Trois agents complets (lames, pistolet magenta, tireur au manteau) : toutes les actions applicables validÃ©es ; total 512 frames, 3 ensembles complets et 3 partiels.
 
 ## Passe en cours
 
@@ -63,7 +63,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Reste sur l’objectif complet
 
-- Produire et vÃ©rifier les actions applicables des 229 autres rÃ©fÃ©rences Ã©ligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les vÃ©hicules nâ€™ont pas encore de nouveaux cycles.
+- Produire et vÃ©rifier les actions applicables des 228 autres rÃ©fÃ©rences Ã©ligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les vÃ©hicules nâ€™ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matÃ©riaux adaptÃ©s ; conserver leur organisation tactique.
 - Traiter les ensembles composÃ©s et les objets obliques sans les remplacer par un bloc unique ou un modÃ¨le gÃ©nÃ©rique agrandi.
 - ComplÃ©ter les accessoires, les variantes usÃ©es et les raccords au sol sur les familles encore en rendu source.

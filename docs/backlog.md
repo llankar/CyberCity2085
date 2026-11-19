@@ -767,7 +767,7 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 ### Échelle des entités — passe complète du catalogue
 
 - [x] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Profils 0,015 urbain/wasteland et 0,020 intérieur/industrie ; 122 cartes à trois résolutions, clics et zoom vérifiés, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct de la finition artistique.
-- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 182,83 FPS moyens, p95 7,939 ms après deux atlas complets. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
+- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 180,53 FPS moyens, p95 8,064 ms après trois atlas complets. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
 
 ### Lot suivant d’animations — deux agentes distinctes
 
@@ -796,6 +796,15 @@ Résultat : **1 / 231 ensembles complets**, 5 partiels. Preuves dans [neon-blade
 - [x] ANIM-MAGENTA-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
 
 Résultat cumulé : **2 / 231 ensembles complets**, 4 partiels. Preuves dans [magenta-pistol-actions](images/magenta-pistol-actions/README.md).
+
+### Animations applicables — tireur au manteau
+
+- [x] ANIM-SNIPER-01 Produire tir, mêlée, couvert, impact et mort, deux phases × huit orientations.
+- [x] ANIM-SNIPER-02 Justifier PSI et soin non applicables et préserver le fusil unique.
+- [x] ANIM-SNIPER-03 Vérifier atlas, doublons, marges, ancrages et transitions.
+- [x] ANIM-SNIPER-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
+
+Résultat cumulé : **3 / 231 ensembles complets**, 3 partiels. Preuves dans [trench-sniper-actions](images/trench-sniper-actions/README.md).
 
 ### SCALE — profils et repères du catalogue
 
