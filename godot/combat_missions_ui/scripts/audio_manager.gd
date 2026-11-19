@@ -25,8 +25,22 @@ const SFX_MAP: Dictionary = {
 	"bleed"       : "sfx_bleed.wav",
 }
 
+# Optional WAVs from assets/audio/overhaul, copied by godot_bridge.py.
+# All are still unreviewed; the original event WAV remains the fallback.
+const PREVIEW_SFX_MAP: Dictionary = {
+    "fire": ["fire_assault_01.wav"],
+    "fire_pistol": ["fire_pistol_01.wav"],
+    "hit": ["impact_metal_01.wav"],
+    "move": ["step_concrete_01.wav"],
+    "ui_click": ["ui_click_01.wav"],
+}
+const CITY_AMBIENCE_WAV := "ambience_city_loop_candidate_01.wav"
+const CITY_INTRO_WAV := "ambience_city_short_candidate_02.wav"
+
 var _sfx_players : Array[AudioStreamPlayer] = []
 var _music_player: AudioStreamPlayer = null
+var _ambience_player: AudioStreamPlayer = null
+var _sfx_volume_linear: float = 0.8
 var _streams     : Dictionary         = {}   # filename → AudioStream
 var _pool_idx    : int                = 0
 var _battle_music: String = "music_battle.wav"
@@ -44,6 +58,12 @@ func _ready() -> void:
 		add_child(p)
 		_sfx_players.append(p)
 
+	# Ambience owns a separate player; do not route long loops through the SFX pool.
+	_ambience_player = AudioStreamPlayer.new()
+	_ambience_player.bus = "SFX"
+	_ambience_player.volume_linear = 0.08
+	add_child(_ambience_player)
+
 	# Music player
 	_music_player = AudioStreamPlayer.new()
 	_music_player.bus = "Music"
@@ -57,6 +77,11 @@ func _ready() -> void:
 func _preload_streams() -> void:
 	for _fname: String in SFX_MAP.values():
 		_load_stream(_fname)
+	for preview_options in PREVIEW_SFX_MAP.values():
+		for preview_file in preview_options:
+			_load_stream(str(preview_file))
+	_load_stream(CITY_AMBIENCE_WAV)
+	_load_stream(CITY_INTRO_WAV)
 	for mfile in ["music_battle.wav", "music_debrief.wav", "music_briefing.wav"]:
 		_load_stream(mfile)
 
@@ -79,15 +104,51 @@ func _load_stream(filename: String) -> void:
 		var wav := AudioStreamWAV.load_from_file(path)
 		if wav != null: _streams[filename] = wav
 
-func _play_sfx(filename: String) -> void:
-	if not _enabled:
+func _play_sfx(filename: String, volume_scale: float = 1.0) -> void:
+	if not _enabled or not _streams.has(filename):
 		return
-	if not _streams.has(filename):
-		return
-	var player := _sfx_players[_pool_idx % POOL_SIZE] as AudioStreamPlayer
-	_pool_idx += 1
+	# Use an idle channel before stealing the oldest active channel.
+	var player: AudioStreamPlayer = null
+	for candidate in _sfx_players:
+		if not candidate.playing:
+			player = candidate
+			break
+	if player == null:
+		player = _sfx_players[_pool_idx % POOL_SIZE]
+		_pool_idx += 1
+	player.volume_linear = clampf(_sfx_volume_linear * volume_scale, 0.0, 1.0)
 	player.stream = _streams[filename] as AudioStream
 	player.play()
+
+
+func _play_event_sfx(event_name: String, fallback_filename: String) -> void:
+	var files: Array = PREVIEW_SFX_MAP.get(event_name, [])
+	for item in files:
+		var filename := str(item)
+		if _streams.has(filename):
+			_play_sfx(filename)
+			return
+	_play_sfx(fallback_filename)
+
+
+func _set_city_ambience(active: bool) -> void:
+	if _ambience_player == null:
+		return
+	if not active or not _enabled or not _streams.has(CITY_AMBIENCE_WAV):
+		_ambience_player.stop()
+		return
+	if _ambience_player.playing:
+		return
+	var stream := _streams[CITY_AMBIENCE_WAV] as AudioStream
+	if stream is AudioStreamWAV:
+		stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+		stream.loop_begin = 0
+		stream.loop_end = maxi(1, int(stream.get_length() * float(stream.mix_rate)))
+	_ambience_player.stream = stream
+	_ambience_player.volume_linear = clampf(_sfx_volume_linear * 0.09, 0.0, 1.0)
+	_ambience_player.play()
+	if _streams.has(CITY_INTRO_WAV):
+		_play_sfx(CITY_INTRO_WAV, 0.15)
 
 func _play_music(filename: String, start_position: float = 0.0) -> void:
 	if not _enabled or not _music_owned:
@@ -113,10 +174,13 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 	_asset_root = asset_root
 	_enabled = bool(settings.get("enabled", true))
 	_music_player.volume_linear = clampf(float(settings.get("music_volume", 0.7)), 0.0, 1.0)
+	_sfx_volume_linear = clampf(float(settings.get("sfx_volume", 0.8)), 0.0, 1.0)
 	for player in _sfx_players:
-		player.volume_linear = clampf(float(settings.get("sfx_volume", 0.8)), 0.0, 1.0)
+		player.volume_linear = _sfx_volume_linear
+	_set_city_ambience(str(settings.get("ambience_profile", "")) == "city")
 	if not _enabled:
 		_music_player.stop()
+		_set_city_ambience(false)
 		return
 	var path := str(settings.get("battle_music_path", ""))
 	if not path.is_empty():
@@ -128,15 +192,16 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
-		"move":                   _play_sfx("sfx_move.wav")
-		"fire":                   _play_sfx("sfx_fire.wav")
+		"move":                   _play_event_sfx("move", "sfx_move.wav")
+		"fire":                   _play_event_sfx("fire", "sfx_fire.wav")
+		"fire_pistol":            _play_event_sfx("fire_pistol", "sfx_fire.wav")
 		"melee":                  _play_sfx("sfx_melee.wav")
 		"psi":                    _play_sfx("sfx_psi.wav")
-		"hit":                    _play_sfx("sfx_hit.wav")
+		"hit":                    _play_event_sfx("hit", "sfx_hit.wav")
 		"miss":                   _play_sfx("sfx_miss.wav")
 		"death":                  _play_sfx("sfx_death.wav")
 		"overwatch":              _play_sfx("sfx_overwatch.wav")
-		"ui_click":               _play_sfx("sfx_ui_click.wav")
+		"ui_click":               _play_event_sfx("ui_click", "sfx_ui_click.wav")
 		"turn_player":            _play_sfx("sfx_turn_player.wav"); _play_music(_battle_music)
 		"turn_enemy":             _play_sfx("sfx_turn_enemy.wav")
 		"victory":                _play_sfx("sfx_victory.wav");    _play_music("music_debrief.wav")
