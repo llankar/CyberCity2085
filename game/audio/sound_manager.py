@@ -16,6 +16,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 from .music_catalog import MUSIC_TRACKS, music_path
+from .overhaul_assets import preview_sfx_path, preview_city_ambience_path
 
 _SFX_DIR   = Path("assets/audio/sfx")
 _MUSIC_DIR = Path("assets/audio/music")
@@ -25,7 +26,7 @@ _SFX_NAMES = [
     "sfx_death", "sfx_overwatch", "sfx_move", "sfx_turn_player",
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
-    "sfx_intel_reveal", "sfx_act_advance",
+    "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_city_short",
 ]
 
 _MUSIC_NAMES = list(MUSIC_TRACKS)
@@ -47,6 +48,8 @@ class SoundManager:
         self._music:  dict[str, Any] = {}
         self._music_paths: dict[str, Path] = {}
         self._music_player: Any = None
+        self._ambience_player: Any = None
+        self._ambience_source: Any = None
         self._current_music: str | None = None
         self._current_path: str | None = None
         self._music_positions: dict[str, float] = {}
@@ -83,6 +86,8 @@ class SoundManager:
             self._music_vol = max(0.0, min(1.0, music_volume))
         if camera_shake is not None:
             self.camera_shake = camera_shake
+        if not self._enabled:
+            self.stop_ambience()
         # Update live music volume if playing
         if self._music_player is not None:
             try:
@@ -112,6 +117,38 @@ class SoundManager:
             arcade.play_sound(sound, volume=self._sfx_vol * volume_scale)
         except Exception:
             pass
+
+    def play_city_ambience(self, volume_scale: float = 0.10) -> None:
+        """Low-volume urban environmental bed; no music track is changed."""
+        if not self._enabled or self._ambience_player is not None:
+            return
+        path = preview_city_ambience_path()
+        if path is None:
+            return
+        try:
+            import arcade
+            source = arcade.load_sound(str(path), streaming=False)
+            player = arcade.play_sound(
+                source, volume=max(0.0, min(1.0, self._sfx_vol * volume_scale)),
+                loop=True,
+            )
+            if player is not None:
+                self._ambience_source = source
+                self._ambience_player = player
+        except Exception:
+            pass
+
+    def stop_ambience(self) -> None:
+        """Stop a dedicated ambience player without touching the soundtrack."""
+        player = self._ambience_player
+        self._ambience_player = None
+        self._ambience_source = None
+        if player is not None:
+            try:
+                import arcade
+                arcade.stop_sound(player)
+            except Exception:
+                pass
 
     @staticmethod
     def _track_id(path: str | Path) -> str:
@@ -186,6 +223,10 @@ class SoundManager:
         if self._music_player is not None and (name == self._current_music or same_file):
             self._current_music = name
             self.resume_music()
+            if name == "music_management":
+                self.play_city_ambience()
+            else:
+                self.stop_ambience()
             return
         self.stop_music()
         selected_path = None
@@ -212,6 +253,9 @@ class SoundManager:
                 return
             self._music_player = player
             self._current_music = name
+            if name == "music_management":
+                self.play_city_ambience()
+                self.play("sfx_city_short", volume_scale=0.18)
             self._current_path = self._track_id(selected_path) if selected_path else None
             position = self._music_positions.get(self._current_path, 0.0)
             if position > 0:
@@ -224,6 +268,7 @@ class SoundManager:
 
     def stop_music(self) -> None:
         """Release playback while retaining the track bookmark for later UI visits."""
+        self.stop_ambience()
         if self._music_player is not None:
             self.pause_music()
             try:
@@ -243,7 +288,7 @@ class SoundManager:
         except ImportError:
             return
         for name in _SFX_NAMES:
-            path = _SFX_DIR / f"{name}.wav"
+            path = preview_sfx_path(name) or _SFX_DIR / f"{name}.wav"
             if path.exists():
                 try:
                     self._sfx[name] = arcade.load_sound(str(path))
