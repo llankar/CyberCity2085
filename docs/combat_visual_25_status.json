@@ -9,7 +9,7 @@
     "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.",
     "192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.",
     "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.",
-    "Huit ensembles complets, dont docteure PSI et street medic : toutes les actions applicables validées ; total 1056 frames, 8 ensembles complets et 0 partiel."
+    "Quatorze ensembles complets : toutes les actions applicables validées nativement, dont ronin duelliste et rail sniper ; 14 ensembles complets et 0 partiel."
   ],
   "tasks": [
     {
@@ -41,12 +41,12 @@
   "validation": {
     "reference": "native Windows entity-scale production review",
     "evidence": "images/entity-scale-production-windows/README.md",
-    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle 122/122, finition artistique 0/122.",
-    "signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
+    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle et finition artistique 122/122.",
+    "signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
     "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
-    "Produire et vérifier les actions applicables des 223 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
+    "Produire et vérifier les actions applicables des 217 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",
