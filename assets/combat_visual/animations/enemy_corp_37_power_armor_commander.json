@@ -1,0 +1,163 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_37_power_armor_commander.png",
+  "texture_sha256": "fdab57b3a6ba5013fb9d12654d25307d41970073a70e89d2b2471b6feb5e56de",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_37_power_armor_commander_512.png",
+  "source_sha256": "fdb4a3abf73a0a13d5f0a73f085a991129283cc70037722a2e607712a4a070f9",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/idle-action_rows-0.png",
+      "sha256": "64917a645f3e19fc8832f3f24169a779c56f501dec05355777f17a5c1a23513e",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/fire-action_rows-1.png",
+      "sha256": "ecff85ab238b5b4e8910798693464cb1f4703aca90cadb0b6248b3406cb529e3",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/fire-action_rows-2.png",
+      "sha256": "725096f450ee53ed437cbdee312a7cf692045af95367c909ac8af9b4019df305",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2
+      ],
+      "pose_indices": [
+        1,
+        5
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this commander.",
+    "heal": "No healing action for this commander."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
