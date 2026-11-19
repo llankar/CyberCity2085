@@ -9,6 +9,20 @@ from game import runtime
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def test_frozen_game_resolves_its_bundled_godot(tmp_path, monkeypatch):
+    from game.combat import godot_bridge
+    from tools.packaging_helpers import godot_executable_data
+
+    executable = tmp_path / "bin" / "godot" / "Godot.exe"
+    executable.parent.mkdir(parents=True)
+    executable.touch()
+    monkeypatch.setenv("CYBERCITY_PACKAGE_GODOT", str(executable))
+    assert godot_executable_data() == [(str(executable), "bin/godot")]
+    monkeypatch.setattr(godot_bridge.sys, "frozen", True, raising=False)
+    monkeypatch.setattr(godot_bridge.sys, "executable", str(tmp_path / "CyberCity2085.exe"))
+    assert godot_bridge.find_godot_executable() == str(executable)
+
+
 def test_release_spec_bundles_required_runtime_directories():
     spec = (ROOT / "CyberCity2085.spec").read_text(encoding="utf-8")
     for required in ('root / "assets"', 'root / "scenes"', 'root / "godot"'):

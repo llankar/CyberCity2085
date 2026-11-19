@@ -1,5 +1,5 @@
 from pathlib import Path
-from tools.packaging_helpers import godot_runtime_data, build_identity_data
+from tools.packaging_helpers import godot_runtime_data, godot_executable_data, build_identity_data
 
 root = Path(SPECPATH)
 
@@ -11,6 +11,7 @@ a = Analysis(
         (str(root / "assets"), "assets"),
         (str(root / "scenes"), "scenes"),
         *godot_runtime_data(root / "godot"),
+        *godot_executable_data(),
         *build_identity_data(root),
     ],
     hiddenimports=[],

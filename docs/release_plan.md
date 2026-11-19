@@ -2,6 +2,8 @@
 
 ## Release target
 
+Build the Windows distribution with `tools/build_windows.ps1 -GodotExecutable <path-to-Godot.exe>`. The bundle contains the standalone Godot executable under `bin/godot` and the tactical project under `godot`.
+
 Ship a small, complete single-player campaign that can be launched from a clean
 checkout, played through five acts, concluded with an explicit ending, saved and
 loaded reliably, and distributed with clear setup instructions.
