@@ -64,8 +64,8 @@ def main():
     parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
     parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
     args=parser.parse_args();output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
-    if args.real_mission and args.interrupt_phase:
-        parser.error("--interrupt-phase requires the tactical snapshot fixture")
+    if args.real_mission and args.interrupt_phase and args.outcomes != ["victory"]:
+        parser.error("real mission interruption requires --outcomes victory")
     if args.real_mission and any(outcome not in {"victory", "defeat", "retreat"} for outcome in args.outcomes):
         parser.error("--real-mission supports victory, defeat, and retreat")
     root=Path(__file__).resolve().parents[1];previous=Path.cwd();real_popen=subprocess.Popen
