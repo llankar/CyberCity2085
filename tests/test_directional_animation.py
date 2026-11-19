@@ -5,7 +5,7 @@ import pytest
 from PIL import Image
 from tools.audit_combat_visuals import validate_atlas
 ROOT=Path(__file__).resolve().parents[1]
-KEYS=['agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
+KEYS=['agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','agent_diverse_16_heavy_breacher','agent_diverse_17_yellow_strike','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
 
 def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
     for key in KEYS:
