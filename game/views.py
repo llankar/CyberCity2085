@@ -263,6 +263,7 @@ _ENEMY_SUBTYPE_SPRITES: dict[str, str] = {
     "elite":     "enemy_elite.png",
     "commander": "enemy_commander.png",
     "sniper":    "enemy_sniper.png",
+    "psi":       "enemy_psi.png",
 }
 
 
