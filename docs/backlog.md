@@ -766,7 +766,8 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 
 ### Échelle des entités — passe complète du catalogue
 
-- [ ] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Archiver les profils et comparatifs à trois résolutions, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct des animations et du chargement natif.
+- [x] SCALE-CATALOGUE Revoir les 122 cartes et adapter la taille visuelle des PJ, PNJ, robots, power armors et véhicules aux repères propres à chaque décor (portes, mobilier, voitures intégrées, rues). Profils 0,015 urbain/wasteland et 0,020 intérieur/industrie ; 122 cartes à trois résolutions, clics et zoom vérifiés, sans toucher aux règles, collisions ou sources. Ce contrôle reste distinct de la finition artistique.
+- [x] GPU-BENCH Mesurer un combat animé natif Windows à 1440p sur GPU joueur avec FPS/p95, CPU, GPU et mémoire : RTX 5070 Ti, 2 400 frames, 180,53 FPS moyens, p95 8,064 ms après trois atlas complets. Portée limitée à cette machine, sans extrapolation aux exigences minimales.
 
 ### Lot suivant d’animations — deux agentes distinctes
 
@@ -776,15 +777,76 @@ Les états détaillés et la prochaine action sont dans [CODEX_PROGRESS.md](CODE
 - [x] ART-NEXT-04 Capturer les deux déplacements réels, 4 PA chacun, et les trois résolutions.
 - [x] ART-NEXT-05 Archiver le catalogue natif, régénérer les bilans et sauvegarder la passe.
 
-Total partiel : 288 frames, six références marche/attente ; zéro ensemble complet d’actions. Les autres unités, les actions et la calibration d’échelle des 122 cartes restent à produire ou vérifier.
+Total actuel : 352 frames, six références avec marche/attente ; une agente possède toutes ses actions applicables complètes. Les 230 autres entités restent à compléter.
+
+### Animations applicables — agente aux lames
+
+- [x] ANIM-BLADE-01 Produire des poses authentiques de mêlée, couvert, impact et mort, deux phases × huit orientations.
+- [x] ANIM-BLADE-02 Déclarer et justifier l’applicabilité : tir, PSI et soin non applicables à cet équipement et ce rôle.
+- [x] ANIM-BLADE-03 Vérifier l’atlas anti-doublons, les ancrages, marges, huit directions et transitions non bouclées.
+- [x] ANIM-BLADE-04 Exécuter Godot 4.6.3 natif Windows sur RTX 5070 Ti et capturer la mêlée dans la scène tactique réelle.
+
+Résultat : **1 / 231 ensembles complets**, 5 partiels. Preuves dans [neon-blade-actions](images/neon-blade-actions/README.md). Le chantier animations reste ouvert.
+
+### Animations applicables — agente au pistolet magenta
+
+- [x] ANIM-MAGENTA-01 Produire tir, mêlée, couvert, impact et mort, deux phases × huit orientations.
+- [x] ANIM-MAGENTA-02 Justifier PSI et soin non applicables ; conserver toutes les actions tactiques réellement disponibles.
+- [x] ANIM-MAGENTA-03 Vérifier atlas, doublons, marges, ancrages et transitions non bouclées.
+- [x] ANIM-MAGENTA-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
+
+Résultat cumulé : **2 / 231 ensembles complets**, 4 partiels. Preuves dans [magenta-pistol-actions](images/magenta-pistol-actions/README.md).
+
+### Animations applicables — tireur au manteau
+
+- [x] ANIM-SNIPER-01 Produire tir, mêlée, couvert, impact et mort, deux phases × huit orientations.
+- [x] ANIM-SNIPER-02 Justifier PSI et soin non applicables et préserver le fusil unique.
+- [x] ANIM-SNIPER-03 Vérifier atlas, doublons, marges, ancrages et transitions.
+- [x] ANIM-SNIPER-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
+
+Résultat cumulé à ce checkpoint : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [armored-vanguard-actions](images/armored-vanguard-actions/README.md) et [chrome-medic-actions](images/chrome-medic-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif, soin technologique compris.
+
+### Animations applicables — briseur lourd et frappe jaune
+
+- [x] ANIM-BREACHER-01 Produire attente, marche, tir, mêlée, couvert, impact et mort, avec huit orientations et phases distinctes.
+- [x] ANIM-YELLOW-01 Produire attente, marche, tir, mêlée, couvert, impact et mort, avec huit orientations et phases distinctes.
+- [x] ANIM-BREACHER-YELLOW-02 Justifier PSI et soin non applicables et préserver les identités/équipements des références.
+- [x] ANIM-BREACHER-YELLOW-03 Vérifier les atlas, l’audit anti-doublons et 640 sélections natives Godot.
+- [x] ANIM-BREACHER-YELLOW-04 Capturer et inspecter tir, couvert, impact et mort dans Godot Windows natif à 1920×1080.
+
+Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [heavy-breacher-actions](images/heavy-breacher-actions/README.md) et [yellow-strike-actions](images/yellow-strike-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `5ea21be0c3ad851669acc5878fcb3f022ea97042a02da7f968f43cf323f292b5`.
+
+### Animations applicables — red enforcer et drone handler
+
+- [x] Produire et auditer 128 frames authentiques par unité, huit orientations et toutes actions applicables.
+- [x] Refuser puis régénérer la planche arrière opaque et la fausse mort debout du drone handler.
+- [x] Vérifier 704 sélections de frames et capturer les deux unités dans Godot Windows natif.
+
+Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-enforcer-actions](images/red-enforcer-actions/README.md) et [drone-handler-actions](images/drone-handler-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `7dd8b0f7b836ec214748eaef76bd6d5ca57708cb1e32417f813ff0dff5be9557`.
+
+### Animations applicables — cyber doc et twin-blade adept
+
+- [x] Produire et auditer les actions applicables, dont le soin cybernétique, sans inventer de tir ou PSI.
+- [x] Rejeter et régénérer une mort opaque et une marche arrière à volutes parasites.
+- [x] Vérifier 768 sélections natives et les poses de soin, mêlée et mort dans Godot Windows.
+
+Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber-doc-actions](images/cyber-doc-actions/README.md) et [twin-blade-actions](images/twin-blade-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `74b28af121f2f3fea725c972b7ed6c28b107d93047041b6c8b9f5eb5fbe7e729`.
+
+- [x] ANIM-25 Produire et valider nativement l’inquisiteur vétéran : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Preuves : [veteran-inquisitor-actions](images/veteran-inquisitor-actions/README.md).
+
+Résultat cumulé : **25 / 231 ensembles complets**, 0 partiel. Reste 206 références éligibles ; prochaine référence : `agent_diverse_23_dreadlock_rifle`.
+
+- [x] ANIM-26 Produire et valider nativement la tireuse à dreadlocks : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Une première planche arrière contaminée a été rejetée puis remplacée. Preuves : [dreadlock-rifle-actions](images/dreadlock-rifle-actions/README.md).
+
+Résultat cumulé : **26 / 231 ensembles complets**, 0 partiel. Reste 205 références éligibles ; prochaine référence déterminée par l’audit ordonné.
 
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
-- [ ] SCALE-02 Mesurer et comparer les repères réels de chaque illustration et de ses variantes ; deux références automobiles proposées, aucune carte calibrée.
-- [ ] SCALE-03 Appliquer des profils visuels par carte et catégorie après mesures ; conserver les règles et sources.
-- [ ] SCALE-04 Vérifier les 122 cartes et les interactions à trois résolutions.
-- [ ] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
+- [x] SCALE-02 Mesurer et comparer les repères réels des familles et variantes sur les onze planches couvrant 122 cartes.
+- [x] SCALE-03 Appliquer des profils visuels par carte et catégorie après mesures ; règles et sources conservées.
+- [x] SCALE-04 Vérifier les 122 cartes et les interactions à trois résolutions.
+- [x] SCALE-05 Archiver les preuves et ne cocher que les cartes réellement revues.
 
 Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; aucun facteur de taille n’a été appliqué aux profils de production.
 
@@ -806,7 +868,7 @@ Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFI
 - [ ] UE2-04 Intégration Win32 améliorée, validation graphique Windows bloquée.
 - [x] UE2-05 Crash avant confirmation, reprise du débriefing, captures réelles et régressions ciblées.
 
-Toujours ouverts : reprise du tour en cours avant résultat, préchauffage/continuité audio, véritable parcours de missions non forcées et validation Windows.
+Les trois issues réelles et le parcours HQ → Godot → débriefing → HQ sont vérifiés nativement sous Windows. Alt+Tab et réduction/restauration sont PASS ; redimensionnement, DPI multi-écrans et écoute audio restent ouverts. Le préchauffage est écarté après mesure froide à 2,109–3,625 s avec musique Arcade continue.
 
 ### Unified Experience — lot 3 continuité musicale
 

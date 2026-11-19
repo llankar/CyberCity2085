@@ -1,0 +1,875 @@
+{
+  "actual_movement": [
+    {
+      "clip": "move",
+      "elapsed_ms": 44,
+      "file": "movement-00.png",
+      "frame": 0,
+      "world_position": [
+        2525.48120117188,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 94,
+      "file": "movement-01.png",
+      "frame": 0,
+      "world_position": [
+        2452.98120117188,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 144,
+      "file": "movement-02.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2589.26049804688
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 194,
+      "file": "movement-03.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2645.92724609375
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 244,
+      "file": "movement-04.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2703.59057617188
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 294,
+      "file": "movement-05.png",
+      "frame": 2,
+      "world_position": [
+        2354.27197265625,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 344,
+      "file": "movement-06.png",
+      "frame": 2,
+      "world_position": [
+        2281.77197265625,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 394,
+      "file": "movement-07.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2726.90307617188
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 444,
+      "file": "movement-08.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2785.18872070313
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 494,
+      "file": "movement-09.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2843.474609375
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 544,
+      "file": "movement-10.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 594,
+      "file": "movement-11.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 644,
+      "file": "movement-12.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 694,
+      "file": "movement-13.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 744,
+      "file": "movement-14.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 794,
+      "file": "movement-15.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 844,
+      "file": "movement-16.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 894,
+      "file": "movement-17.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 945,
+      "file": "movement-18.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 995,
+      "file": "movement-19.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1044,
+      "file": "movement-20.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1094,
+      "file": "movement-21.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1144,
+      "file": "movement-22.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1194,
+      "file": "movement-23.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1244,
+      "file": "movement-24.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1295,
+      "file": "movement-25.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1344,
+      "file": "movement-26.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1394,
+      "file": "movement-27.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1444,
+      "file": "movement-28.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1495,
+      "file": "movement-29.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1544,
+      "file": "movement-30.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1595,
+      "file": "movement-31.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1645,
+      "file": "movement-32.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1695,
+      "file": "movement-33.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1745,
+      "file": "movement-34.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1795,
+      "file": "movement-35.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1845,
+      "file": "movement-36.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1895,
+      "file": "movement-37.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1945,
+      "file": "movement-38.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1995,
+      "file": "movement-39.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    }
+  ],
+  "ap_after": 0,
+  "ap_before": 4,
+  "campaign_written": false,
+  "captured_assets": {
+    "e0": {
+      "key": "enemy_grunt",
+      "texture_sha256": "38da22f3249d5ab2231b409c6708f63e66f5e7cab0e9ccdc2516911f790e82f8"
+    },
+    "p0": {
+      "key": "agent_diverse_04_trench_sniper",
+      "texture_sha256": "35585a3579a060c7bf0ce9851d1b8fc0d89d400a13a384b3c938287f3deb83d0"
+    },
+    "p2": {
+      "key": "enemy_corp_37_power_armor_grunt",
+      "texture_sha256": "2523b12176c899f381f433b56e1a4c18bef49d6675986d26eb528b8f70b4b328"
+    },
+    "p3": {
+      "key": "robot_combat",
+      "texture_sha256": "975e8a4d920d97e0c30715a8aab546540fac7f4cf1bb9fdb28fda46cb0ff5fd6"
+    }
+  },
+  "coverage": "complete_authored_agents",
+  "directions": [
+    {
+      "direction": 0,
+      "file": "directions-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-03.png",
+      "phase": 3
+    }
+  ],
+  "magenta_actions": [],
+  "melee": [
+    {
+      "direction": 0,
+      "file": "melee-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "melee-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-01.png",
+      "phase": 1
+    }
+  ],
+  "projection": "top_down",
+  "route_cost": 4,
+  "sniper_actions": [
+    {
+      "action": "fire",
+      "direction": 0,
+      "file": "sniper-fire-00.png"
+    },
+    {
+      "action": "fire",
+      "direction": 1,
+      "file": "sniper-fire-01.png"
+    },
+    {
+      "action": "fire",
+      "direction": 2,
+      "file": "sniper-fire-02.png"
+    },
+    {
+      "action": "fire",
+      "direction": 3,
+      "file": "sniper-fire-03.png"
+    },
+    {
+      "action": "fire",
+      "direction": 4,
+      "file": "sniper-fire-04.png"
+    },
+    {
+      "action": "fire",
+      "direction": 5,
+      "file": "sniper-fire-05.png"
+    },
+    {
+      "action": "fire",
+      "direction": 6,
+      "file": "sniper-fire-06.png"
+    },
+    {
+      "action": "fire",
+      "direction": 7,
+      "file": "sniper-fire-07.png"
+    },
+    {
+      "action": "melee",
+      "direction": 0,
+      "file": "sniper-melee-00.png"
+    },
+    {
+      "action": "melee",
+      "direction": 1,
+      "file": "sniper-melee-01.png"
+    },
+    {
+      "action": "melee",
+      "direction": 2,
+      "file": "sniper-melee-02.png"
+    },
+    {
+      "action": "melee",
+      "direction": 3,
+      "file": "sniper-melee-03.png"
+    },
+    {
+      "action": "melee",
+      "direction": 4,
+      "file": "sniper-melee-04.png"
+    },
+    {
+      "action": "melee",
+      "direction": 5,
+      "file": "sniper-melee-05.png"
+    },
+    {
+      "action": "melee",
+      "direction": 6,
+      "file": "sniper-melee-06.png"
+    },
+    {
+      "action": "melee",
+      "direction": 7,
+      "file": "sniper-melee-07.png"
+    },
+    {
+      "action": "cover",
+      "direction": 0,
+      "file": "sniper-cover-00.png"
+    },
+    {
+      "action": "cover",
+      "direction": 1,
+      "file": "sniper-cover-01.png"
+    },
+    {
+      "action": "cover",
+      "direction": 2,
+      "file": "sniper-cover-02.png"
+    },
+    {
+      "action": "cover",
+      "direction": 3,
+      "file": "sniper-cover-03.png"
+    },
+    {
+      "action": "cover",
+      "direction": 4,
+      "file": "sniper-cover-04.png"
+    },
+    {
+      "action": "cover",
+      "direction": 5,
+      "file": "sniper-cover-05.png"
+    },
+    {
+      "action": "cover",
+      "direction": 6,
+      "file": "sniper-cover-06.png"
+    },
+    {
+      "action": "cover",
+      "direction": 7,
+      "file": "sniper-cover-07.png"
+    },
+    {
+      "action": "hit",
+      "direction": 0,
+      "file": "sniper-hit-00.png"
+    },
+    {
+      "action": "hit",
+      "direction": 1,
+      "file": "sniper-hit-01.png"
+    },
+    {
+      "action": "hit",
+      "direction": 2,
+      "file": "sniper-hit-02.png"
+    },
+    {
+      "action": "hit",
+      "direction": 3,
+      "file": "sniper-hit-03.png"
+    },
+    {
+      "action": "hit",
+      "direction": 4,
+      "file": "sniper-hit-04.png"
+    },
+    {
+      "action": "hit",
+      "direction": 5,
+      "file": "sniper-hit-05.png"
+    },
+    {
+      "action": "hit",
+      "direction": 6,
+      "file": "sniper-hit-06.png"
+    },
+    {
+      "action": "hit",
+      "direction": 7,
+      "file": "sniper-hit-07.png"
+    },
+    {
+      "action": "death",
+      "direction": 0,
+      "file": "sniper-death-00.png"
+    },
+    {
+      "action": "death",
+      "direction": 1,
+      "file": "sniper-death-01.png"
+    },
+    {
+      "action": "death",
+      "direction": 2,
+      "file": "sniper-death-02.png"
+    },
+    {
+      "action": "death",
+      "direction": 3,
+      "file": "sniper-death-03.png"
+    },
+    {
+      "action": "death",
+      "direction": 4,
+      "file": "sniper-death-04.png"
+    },
+    {
+      "action": "death",
+      "direction": 5,
+      "file": "sniper-death-05.png"
+    },
+    {
+      "action": "death",
+      "direction": 6,
+      "file": "sniper-death-06.png"
+    },
+    {
+      "action": "death",
+      "direction": 7,
+      "file": "sniper-death-07.png"
+    }
+  ]
+}

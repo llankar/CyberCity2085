@@ -36,15 +36,40 @@ def movement_gif(report, filename):
     return len(moves)
 
 
+def catalogue_evidence(catalogue):
+    native = json.loads((catalogue / 'native-report.json').read_text())
+    assert len(native) == 122 and all(row['native_render'] and row['projection_and_zoom_checked'] for row in native)
+    for page in range(11):
+        sheet = Image.new('RGB', (960, 800), (12, 20, 28))
+        draw = ImageDraw.Draw(sheet)
+        for cell, row in enumerate(native[page*12:(page+1)*12]):
+            name = Path(row['map']).stem
+            image = Image.open(catalogue / (name + '-1280x720.png')).convert('RGB')
+            image.thumbnail((320, 180))
+            x, y = cell % 3 * 320, cell // 3 * 200
+            sheet.paste(image, (x, y+20))
+            draw.text((x+3, y+3), name, fill=(160, 232, 236))
+        sheet.save(OUTPUT / ('catalogue-%02d.jpg' % (page+1)), quality=88)
+    (OUTPUT / 'native-report.json').write_text(json.dumps(native, indent=2) + '\n')
+    return native
+
+
 def main():
     global SOURCE, OUTPUT
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,default=SOURCE)
     parser.add_argument('--output',type=Path,default=OUTPUT)
+    parser.add_argument('--catalogue',type=Path,default=None,help='Native 122-map capture directory; defaults to SOURCE.parent/catalogue')
+    parser.add_argument('--catalogue-only',action='store_true',help='Build only the 122-map native evidence; no animation source is required')
     parser.add_argument('--skip-catalogue',action='store_true',help='Export only native unit sequence; no catalogue coverage is claimed')
     args=parser.parse_args()
     SOURCE=args.source;OUTPUT=args.output
     OUTPUT.mkdir(parents=True, exist_ok=True)
+    catalogue = args.catalogue or SOURCE.parent / 'catalogue'
+    if args.catalogue_only:
+        native=catalogue_evidence(catalogue)
+        print('DIRECTIONAL_CATALOGUE_EVIDENCE_BUILT',len(native),'native maps')
+        return
     report = json.loads((SOURCE / 'animation-report.json').read_text())
     assert len(report['actual_movement']) == 40
     assert report['ap_before'] - report['ap_after'] == report['route_cost']
@@ -79,21 +104,7 @@ def main():
     if args.skip_catalogue:
         print('DIRECTIONAL_UNIT_EVIDENCE_BUILT',len(report['directions']),'native poses;',movement_count,'retained movement frames')
         return
-    catalogue = SOURCE.parent / 'catalogue'
-    native = json.loads((catalogue / 'native-report.json').read_text())
-    assert len(native) == 122 and all(row['native_render'] and row['projection_and_zoom_checked'] for row in native)
-    for page in range(11):
-        sheet = Image.new('RGB', (960, 800), (12, 20, 28))
-        draw = ImageDraw.Draw(sheet)
-        for cell, row in enumerate(native[page*12:(page+1)*12]):
-            name = Path(row['map']).stem
-            image = Image.open(catalogue / (name + '-1280x720.png')).convert('RGB')
-            image.thumbnail((320, 180))
-            x, y = cell % 3 * 320, cell // 3 * 200
-            sheet.paste(image, (x, y+20))
-            draw.text((x+3, y+3), name, fill=(160, 232, 236))
-        sheet.save(OUTPUT / ('catalogue-%02d.jpg' % (page+1)), quality=88)
-    (OUTPUT / 'native-report.json').write_text(json.dumps(native, indent=2) + '\n')
+    native=catalogue_evidence(catalogue)
     print('DIRECTIONAL_EVIDENCE_BUILT', len(report['directions']), 'native poses;', movement_count, 'retained movement frames')
 
 

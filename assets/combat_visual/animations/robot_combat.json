@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/robot_combat.png",
-  "texture_sha256": "975e8a4d920d97e0c30715a8aab546540fac7f4cf1bb9fdb28fda46cb0ff5fd6",
+  "texture_sha256": "667a99c20a5f61ab31ce532d90833107388a2439500d9f82ff7494ae1a7b448e",
   "frame_size": [
     256,
     256
@@ -103,6 +103,196 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/robot_combat_512.png",
@@ -128,17 +318,57 @@
       "clip": "idle",
       "layout": "idle_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/fire-action_pairs-3.png",
+      "sha256": "3822fb97af9b40540fc65ad60d1bdd75288e41845e19169414689d56618d67a0",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/melee-action_pairs-4.png",
+      "sha256": "3f7e4d015210ae6f7f68ef0d62fbf7831bae2584451340cd357699e5c3dc63d0",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/cover-action_pairs-5.png",
+      "sha256": "a338f8c06615fed000a030866dda54b42d4e1ab0bd49305127f72431692da521",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/hit-action_pairs-6.png",
+      "sha256": "2bfedac77e71cfd36bde60ec97838e83fe05b44de5f0ea1619f2e85f9b5ba808",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_combat/death-action_pairs-7.png",
+      "sha256": "6d2ade2964d5a638dd60688ba22b994954f9e5d64acb59ed1f1d1a6b67a3db9d",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
-  "coverage": "partial",
-  "missing_clips": [
+  "required_clips": [
+    "idle",
+    "move",
     "fire",
     "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "review_status": "native_render_verified_partial"
+  "non_applicable_clips": {
+    "psi": "Combat robot has no PSI ability or biological PSI role.",
+    "heal": "Combat chassis has no medical action or medic role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

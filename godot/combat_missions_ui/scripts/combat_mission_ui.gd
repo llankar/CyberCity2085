@@ -109,6 +109,7 @@ var initial_enemy_count: int=0
 var elapsed_time  : float = 0.0
 var selected_action: String = "MOVE"
 var pending_end_turn_confirmation: bool = false
+var pending_retreat_confirmation: bool = false
 var show_combat_log: bool = false
 var turn_side     : String = "player"
 var turn_number   : int    = 1
@@ -857,6 +858,10 @@ func _gui_input(event: InputEvent) -> void:
 				if battle_started and turn_side == "player":
 					_execute_action("END TURN")
 				accept_event()
+			KEY_R:
+				if battle_started and turn_side == "player":
+					_execute_action("RETREAT")
+				accept_event()
 			KEY_ENTER, KEY_KP_ENTER:
 				if not battle_started:
 					_start_combat("ENTER")
@@ -1099,6 +1104,7 @@ func _seed_combat_state() -> void:
 	combat_log          = []
 	selected_action     = "MOVE"
 	pending_end_turn_confirmation = false
+	pending_retreat_confirmation = false
 	show_combat_log     = false
 	turn_side           = "player"
 	turn_number         = 1
@@ -1213,6 +1219,18 @@ func _start_combat(source: String) -> void:
 
 func _execute_action(action_name: String) -> void:
 	if not battle_started or turn_side != "player": return
+	if action_name == "RETREAT":
+		if pending_retreat_confirmation:
+			pending_retreat_confirmation = false
+			_log_event("Command orders a tactical retreat.")
+			_end_combat("retreat")
+			return
+		pending_retreat_confirmation = true
+		pending_end_turn_confirmation = false
+		status_line = "Confirm retreat — press R again or click RETREAT."
+		_log_event("Retreat: confirmation required.")
+		_sync_display()
+		return
 	if action_name == "END TURN":
 		if pending_end_turn_confirmation:
 			_end_player_turn()
@@ -1261,6 +1279,7 @@ func _execute_action(action_name: String) -> void:
 		return
 	selected_action = action_name
 	pending_end_turn_confirmation = false
+	pending_retreat_confirmation = false
 	status_line = "%s : cliquez une cible à portée." % action_name if atype in ["FIRE","MELEE","FIRE_AOE"] else "%s sélectionné." % action_name
 	_sync_display()
 
