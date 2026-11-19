@@ -7,7 +7,6 @@ param(
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
 $out = Join-Path $root 'work\gpu-benchmark\system-sampled'
-$report = Join-Path $root 'docs\reports\windows_gpu_benchmark_system.json'
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 $stdout = Join-Path $out 'godot.stdout.log'
 $stderr = Join-Path $out 'godot.stderr.log'
@@ -60,8 +59,7 @@ $result = [ordered]@{
     completion_marker = $completed
     stdout = (Resolve-Path $stdout).Path
     stderr = (Resolve-Path $stderr).Path
-    limits = 'Single Windows machine and representative animated 1440p combat; this does not establish minimum-spec performance.'
+    limits = "Single Windows machine and representative animated combat at $Size; this does not establish minimum-spec performance."
 }
-$result | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 $report
 $result | ConvertTo-Json -Depth 8
 if ($result.status -ne 'PASS') { exit 1 }

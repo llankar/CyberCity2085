@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- WINDOWS-PERFORMANCE — DONE pour les deux mesures ciblées. RTX 5070 Ti, 600 images par scène : Dust Road à 1440p, 185,5 FPS moyens (125,5 min), CPU global 5,14 %, GPU global 6,5 % et VRAM globale 2 925 Mio en pointe. Safehouse à 1080p, 252,3 FPS moyens. Le script affiche le résultat et conserve ses sorties temporaires dans work. Configuration minimale non mesurée.
+
 - UNIFIED-NATIVE-AUDIO — IN_PROGRESS. Une victoire a été rejouée avec `--native-audio --godot-verbose`. Godot a ouvert la sortie WASAPI stéréo à 48 kHz (tampon annoncé de 10 ms). Le transfert Arcade → Godot, le débriefing et la fermeture ont réussi. Qualité audible et fondus encore à écouter.
 
 - PERSISTENT-AUDIO-DISPOSAL — DONE. Godot arrête les flux lorsqu’une mission persistante est mise en veille ou remplacée, puis attend sa libération avant de publier le nouvel état. Seize tests audio et runtime passent. Écoute sur périphérique réel encore ouverte.
