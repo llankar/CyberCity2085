@@ -377,13 +377,20 @@ def _find_portable_godot() -> str | None:
     return str(max(candidates, key=priority).resolve())
 
 
-def find_godot_executable() -> str | None:
-    """Return the configured Godot executable, if available on this machine."""
+def bundled_godot_executable() -> str | None:
     if getattr(sys, "frozen", False):
         bundled = Path(sys.executable).resolve().parent / "bin" / "godot"
-        candidates = sorted(bundled.glob("*.exe"))
+        candidates = sorted(path for path in bundled.glob("*.exe") if path.is_file())
         if candidates:
             return str(candidates[0])
+    return None
+
+
+def find_godot_executable() -> str | None:
+    """Return the configured Godot executable, if available on this machine."""
+    bundled = bundled_godot_executable()
+    if bundled:
+        return bundled
     try:
         from game.ui.screens.settings_screen import load_settings
 
