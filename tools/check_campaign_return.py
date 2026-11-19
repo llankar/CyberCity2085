@@ -104,7 +104,13 @@ def main():
                 starting_levels = {agent.name: agent.stats.level for agent in state.characters}
                 hq=ManagementView(state);hq.setup();window.show_view(hq);frame(case/'01-headquarters.png')
                 hq._open_mission_map();assert isinstance(window.current_view,MissionWorldMapView);frame(case/'02-world-map.png')
-                window.current_view._launch_selected_mission();assert isinstance(window.current_view,MissionBriefingView);frame(case/'03-briefing.png')
+                mission_map = window.current_view
+                mission_map._launch_selected_mission()
+                if window.current_view is mission_map and mission_map._pending_launch_confirm:
+                    assert mission_map._pending_launch_mission_id == mission.id
+                    mission_map._launch_selected_mission()
+                assert isinstance(window.current_view, MissionBriefingView), mission_map._message
+                frame(case/'03-briefing.png')
                 confirm=case/'confirm.request';confirm.unlink(missing_ok=True)
                 log=case/'godot.log'
                 with log.open('w') as stream:

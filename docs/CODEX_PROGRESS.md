@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- GRID-7 — DONE. Le pilote confirme l’alerte de stress par l’action normale de la carte pour la mission sélectionnée. Badlands Survey gagnée sur la même campagne, à 720p sous Windows. Reprendre `work/campaign-story-grid7/victory/campaign.json` pour The Vistula Witnesses.
+
 - IVORY-STATIC — DONE. Depuis le checkpoint du jour 7, l’hôpital de campagne a soigné quatre agents pour huit crédits et un jour. Le déploiement a ensuite utilisé les agents éligibles et remporté Ivory Static sous Windows à 720p. Promotions, retour au QG et rechargement vérifiés. Reprendre `work/campaign-story-ivory-hospital/victory/campaign.json` et sélectionner la prochaine mission d’histoire.
 
 - IVORY-STATIC — IN_PROGRESS. L’essai qui privilégie le déplacement vers l’objectif a perdu au tour 10 sans interaction. Le banc permet de comparer cette stratégie avec `--objective-first`. Reprendre le checkpoint du jour 7 et vérifier la composition du déploiement, les achats disponibles et l’accès à l’objectif. Trois tests du pilote passent.
