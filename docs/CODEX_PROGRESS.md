@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-UI-REGRESSION — IN_PROGRESS. Fixtures Arcade du QG isolées pendant les tests. Le test Continue exclut les checkpoints externes et utilise des dates distinctes sous Windows. Les paramètres vérifient l’absence des réglages moteur. Lot ciblé : 35 tests réussis, 1 ignoré, 5 sous-tests réussis. Revoir ensuite les échecs de lancement de mission et l’inventaire des cartes.
+
 - RELEASE-REGRESSION — IN_PROGRESS. Suite complète Windows : 1117 réussis, 32 échecs, 35 ignorés. Corrigé les attentes périmées sur l’anglais et les séparateurs de chemins dans trois suites (28 réussis, 1 ignoré). Prochain lot : fixtures Arcade du QG, puis tri des écarts de carte et de lancement avant de reconstruire le package.
 
 - CAMPAIGN-FINALE — DONE. Seven Minutes to Dawn gagnée sous Windows à 720p avec le Titan et le K-9 achetés puis affectés via l’Asset Bay. L’écran de fin s’est ouvert et le rechargement confirme 15 missions d’histoire sur cinq actes, fin Dawn Without Masters (jour 80). Sauvegarde : `work/campaign-story-finale-dual-support/victory/campaign.json`. Le parcours depuis l’exécutable packagé reste à vérifier.

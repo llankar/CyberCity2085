@@ -3,6 +3,7 @@
 import sys
 import types
 import unittest
+import pytest
 
 
 class _FakeView:
@@ -81,6 +82,7 @@ fake_arcade = types.SimpleNamespace(
     load_texture=lambda *args, **kwargs: None,
     color=types.SimpleNamespace(),
 )
+_previous_arcade = sys.modules.get("arcade")
 sys.modules["arcade"] = fake_arcade
 
 from game.gamestate import GameState
@@ -93,6 +95,19 @@ from game.ui.screens.facility import build_facility_rooms
 from game.ui.screens.management_screen import ManagementView
 from game.ui.room_interaction import open_room
 from game.ui.widgets.notification_center import NotificationCenter
+
+if _previous_arcade is None:
+    sys.modules.pop("arcade", None)
+else:
+    sys.modules["arcade"] = _previous_arcade
+
+
+@pytest.fixture(autouse=True)
+def management_arcade_stub(monkeypatch):
+    monkeypatch.setitem(sys.modules, "arcade", fake_arcade)
+    for name, module in tuple(sys.modules.items()):
+        if name.startswith("game.ui.") and hasattr(module, "arcade"):
+            monkeypatch.setattr(module, "arcade", fake_arcade)
 
 
 class _FakeWindow:
