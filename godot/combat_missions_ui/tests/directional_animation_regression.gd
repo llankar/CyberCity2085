@@ -4,10 +4,16 @@ func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(640,480)
 	var base:=ProjectSettings.globalize_path("res://../..")
+	var keys: Array=KEYS
+	var args:=OS.get_cmdline_user_args()
+	for i in range(args.size()-1):
+		if args[i]=="--asset":
+			assert(args[i+1] in KEYS,"unknown animation asset")
+			keys=[args[i+1]]
 	var unit=load("res://scripts/unit_visual.gd").new();root.add_child(unit)
 	unit.position=Vector2(320,350);unit.facing_y_scale=1.0;unit.set_process(false)
 	var observed:=0
-	for key: String in KEYS:
+	for key: String in keys:
 		var image:=Image.load_from_file(base.path_join("assets/units/"+key+"_512.png"))
 		var role: String="robot" if key=="robot_combat" else ("power_armor" if "power_armor" in key else ("psi" if "psi_doctor" in key else "samurai"))
 		unit.setup({"hp":24,"max_hp":24,"role":role,"position":Vector2i(4,4)},0,false,ImageTexture.create_from_image(image),Vector2(150,150))
