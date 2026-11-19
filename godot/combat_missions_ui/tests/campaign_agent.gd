@@ -20,6 +20,7 @@ func act(scene) -> bool:
 				return true
 		return false
 	var origin: Vector2i = scene._cell_position(unit)
+	var priority_target: int = scene._assassination_target_index()
 	var seeks_objective: bool = policy in ["objective", "objective_first"] and scene.objective.get("needs_marker", false) and not scene.objective_completed
 	if seeks_objective:
 		var target: Vector2i = scene.objective.cell
@@ -45,6 +46,8 @@ func act(scene) -> bool:
 				var cell: Vector2i = scene._cell_position(enemy)
 				if distance(origin,cell) > scene._action_range(action) or not scene._battlefield.has_los(origin,cell,[]): continue
 				var value := float(scene._action_damage(action))/float(maxi(1,cost))
+				if i == priority_target:
+					value += 1000.0
 				if value > score: score=value; best=action; enemy_index=i
 		if enemy_index >= 0:
 			var before_ap: int=int(unit.ap)
@@ -57,6 +60,11 @@ func act(scene) -> bool:
 			return false
 	# Find a legal, unoccupied destination along the shortest reachable route.
 	var targets: Array[Vector2i] = []
+	if priority_target >= 0:
+		var target_cell: Vector2i = scene._cell_position(scene.enemy_units[priority_target])
+		var target_route: Array[Vector2i] = scene._battlefield.find_path(origin, target_cell)
+		if not target_route.is_empty() and _move_toward(scene, active, origin, [target_cell], target_route.size()):
+			return true
 	if seeks_objective: targets.append(scene.objective.cell)
 	for enemy: Dictionary in scene.enemy_units:
 		if int(enemy.hp)>0: targets.append(scene._cell_position(enemy))

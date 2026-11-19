@@ -1122,6 +1122,9 @@ func _seed_combat_state() -> void:
 	_refresh_initiative()
 	if enemy_units.size() > 0:
 		combat_log.append("Enemy contacts detected: %d." % enemy_units.size())
+	var assassination_target := _assassination_target_index()
+	if assassination_target >= 0:
+		combat_log.append("Priority target: %s." % enemy_units[assassination_target].get("name", "Unknown"))
 	combat_log.append("Press Enter or click DEPLOY to begin.")
 
 func _overview_zoom() -> float:
@@ -1395,7 +1398,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	CombatSignals.audio_event.emit("fire")
 	_selected_target_validity()
 	_refresh_initiative()
-	if _enemy_alive_count() == 0:
+	if _elimination_objective_met():
 		_complete_mission()
 		return
 	_sync_display()
@@ -1536,7 +1539,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	_selected_target_validity()
 	_refresh_initiative()
 
-	if _enemy_alive_count() == 0:
+	if _elimination_objective_met():
 		_complete_mission()
 		return
 	_sync_display()
@@ -2024,6 +2027,27 @@ func _enemy_at_cell(cell: Vector2i) -> int:
 				and _cell_position(enemy_units[i]) == cell:
 			return i
 	return -1
+
+func _assassination_target_index() -> int:
+	if objective.get("type") != "assassination":
+		return -1
+	var priority := {"commander": 4, "elite": 3, "heavy": 2, "grunt": 1}
+	var target := -1
+	var best_priority := -1
+	for index in range(mini(initial_enemy_count, enemy_units.size())):
+		var rank := int(priority.get(enemy_units[index].get("enemy_subtype", ""), 0))
+		if rank > best_priority:
+			target = index
+			best_priority = rank
+	return target
+
+func _elimination_objective_met() -> bool:
+	var target := _assassination_target_index()
+	if target >= 0 and int(enemy_units[target].get("hp", 0)) <= 0:
+		objective_completed = true
+		objective_progress = int(objective.get("progress_needed", 1))
+		return true
+	return _enemy_alive_count() == 0
 
 func _enemy_alive_count() -> int:
 	var c: int = 0
