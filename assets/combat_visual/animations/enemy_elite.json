@@ -1,0 +1,88 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_elite.png",
+  "texture_sha256": "d832aba98c81263ecc224a217c75ecdd4bc6247ad2d81fdf1f288be7f5cd41a1",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_elite_512.png",
+  "source_sha256": "0d5d556165e7cd43944d15bfe3398dbf6e941dfbd85b25e4b5fe9d763e10e3e7",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/idle-action_rows-0.png",
+      "sha256": "7ee90480b796828f361bd72b1a7dc7456e565710703fb9028fa93742cd0f6d68",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for the elite role.",
+    "heal": "No healing action for the elite role."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
