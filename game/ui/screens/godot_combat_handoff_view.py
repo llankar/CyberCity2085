@@ -176,8 +176,10 @@ class GodotCombatHandoffView(arcade.View):
         # Poll results even before a native window is found (and on Linux).
         from game.combat.godot_bridge import read_godot_combat_result
 
+        from pathlib import Path
         result_path = getattr(self.launch_result,"result_path",None)
-        result = read_godot_combat_result(result_path) if result_path else None
+        result_present = bool(result_path and Path(result_path).is_file())
+        result = read_godot_combat_result(result_path) if result_present else None
         if result is not None:
             try:
                 self._apply_combat_result(result)
@@ -187,8 +189,7 @@ class GodotCombatHandoffView(arcade.View):
                 self._status="Combat report rejected; campaign unchanged."
                 self.game_state.add_event(self._status)
             return
-        from pathlib import Path
-        if result_path and Path(result_path).is_file():
+        if result_present:
             self._cleanup_godot()
             self._launch_failed = True
             self._status = "Combat report unreadable; campaign unchanged."
@@ -196,6 +197,8 @@ class GodotCombatHandoffView(arcade.View):
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
+            if result_path and Path(result_path).is_file():
+                return  # A result published during this poll is read on the next tick.
             self._cleanup_godot()
             self._launch_failed = True
             self._status = "The tactical link ended without a combat report."

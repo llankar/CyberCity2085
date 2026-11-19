@@ -47,9 +47,13 @@ func run() -> void:
 		expected_outcome = "victory"
 	var confirm_path := _arg_value(args, "--qa-confirm")
 	var capture_dir := _arg_value(args, "--qa-captures")
+	var interrupt_phase := _arg_value(args, "--qa-interrupt-phase")
 	var scene = load("res://scenes/combat_mission_ui.tscn").instantiate()
 	scene.handoff_path = _arg_value(args, "--handoff")
 	root.add_child(scene)
+	var resumed: bool = scene.handoff.has("resume_snapshot")
+	if resumed:
+		scene.set_process(false)
 	await RenderingServer.frame_post_draw
 	print("UNIFIED_FIRST_FRAME monotonic_ms=", Time.get_ticks_msec())
 	for attempt in range(30):
@@ -57,6 +61,12 @@ func run() -> void:
 			break
 		await process_frame
 	assert(scene.battle_started, "combat did not deploy")
+	if resumed:
+		var checkpoint: Dictionary = JSON.parse_string(JSON.stringify(preload("res://scripts/tactical_checkpoint.gd").capture(scene)))
+		assert(checkpoint.state == scene.handoff.resume_snapshot.state)
+		assert(checkpoint.camera == scene.handoff.resume_snapshot.camera)
+		print("UNIFIED_TACTICAL_STATE_RESUMED")
+		scene.set_process(true)
 	print("UNIFIED_REAL_MISSION_READY monotonic_ms=", Time.get_ticks_msec())
 	if scene.handoff.get("session", {}).has("audio_path"):
 		assert(not scene._audio._music_owned)
@@ -79,6 +89,17 @@ func run() -> void:
 		assert(not scene.battle_ended, "retreat must require confirmation")
 		scene._execute_action("RETREAT")
 	while not scene.battle_ended and turns < 80:
+		if not resumed and actions > 0 and scene.turn_side == interrupt_phase:
+			scene.set_process(false)
+			await process_frame
+			assert(FileAccess.file_exists(str(scene.handoff.session.snapshot_path)))
+			await RenderingServer.frame_post_draw
+			assert(root.get_texture().get_image().save_png(capture_dir.path_join("godot-before-interruption.png")) == OK)
+			print("UNIFIED_TACTICAL_SNAPSHOT_WAITING")
+			while not scene._session_superseded():
+				await create_timer(0.05).timeout
+			quit()
+			return
 		if scene.turn_side == "enemy":
 			scene._resolve_enemy_turn()
 			turns += 1

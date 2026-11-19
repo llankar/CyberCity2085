@@ -170,7 +170,7 @@ def test_host_exposes_rejected_snapshot_without_campaign_mutation(tmp_path):
         session_id=session['session_id'],result_path=Path(session['result_path'])),window=Mock())
     view._cleanup_godot=Mock();before=copy.deepcopy(state.__dict__)
     view.on_update(.1)
-    assert view._launch_failed and 'reprise du combat a été refusée' in view._status
+    assert view._launch_failed and 'Combat recovery was rejected' in view._status
     assert 'Invalid tactical unit' not in view._status
     assert state.__dict__==before
 

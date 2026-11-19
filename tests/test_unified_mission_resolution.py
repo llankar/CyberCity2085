@@ -31,7 +31,7 @@ def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
     hud = Path("godot/combat_missions_ui/scripts/hud_controller.gd").read_text(encoding="utf-8")
     visual = Path("godot/combat_missions_ui/scripts/visual_hud.gd").read_text(encoding="utf-8")
     assert '["RETREAT", "NEXT", "END TURN"]' in hud
-    assert "RETRAITE [R]" in visual
+    assert "RETREAT [R]" in visual
     assert 'if action_name == "RETREAT":' in scene
     assert "if pending_retreat_confirmation:" in scene
     assert '_end_combat("retreat")' in scene
@@ -165,7 +165,7 @@ def test_ack_io_failure_does_not_claim_campaign_rollback_or_apply_twice(tmp_path
     with patch('game.combat.session_protocol.atomic_json',side_effect=OSError('disk unavailable')):
         bridge._apply_combat_result(result)
         before=copy.deepcopy(state.__dict__)
-        assert 'appliqué' in bridge._status and bridge._result_applied
+        assert 'Result applied' in bridge._status and bridge._result_applied
         bridge._cleanup_godot.assert_not_called()
         bridge._apply_combat_result(result)
     assert state.__dict__==before
