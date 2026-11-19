@@ -10,5 +10,6 @@
   "display_index": 1,
   "text_size": "large",
   "godot_bin_path": "",
-  "extra_flags": {}
+  "extra_flags": {},
+  "reduced_motion": false
 }

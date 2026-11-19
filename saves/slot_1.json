@@ -1,16 +1,16 @@
 {
-  "turn": 66,
+  "turn": 78,
   "calendar": {
-    "current_day": 66,
+    "current_day": 78,
     "days_per_week": 7,
     "days_per_month": 30,
     "era_label": "2085"
   },
-  "budget_pool": 6894,
+  "budget_pool": 10378,
   "funds": {
-    "current_funds": 6894,
-    "income": 9044,
-    "expenses": 2150,
+    "current_funds": 10378,
+    "income": 12588,
+    "expenses": 2210,
     "transaction_history": [
       {
         "kind": "income",
@@ -1397,6 +1397,139 @@
         "source": "daily_income",
         "note": "2085.M03.D06 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
         "balance_after": 6894
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6879
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6864
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D07 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6982
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D08 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7100
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D09 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7218
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D10 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7336
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "event_choice",
+        "note": "Strategic event response.",
+        "balance_after": 7321
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D11 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7439
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 11 corporate funding cycle.",
+        "balance_after": 7503
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D12 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7621
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D13 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7739
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D14 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7857
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D15 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7975
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D16 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 8093
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D17 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 8211
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 8196
+      },
+      {
+        "kind": "income",
+        "amount": 2000,
+        "source": "mission_reward",
+        "note": "Combat: Infiltration : archives du clan [Day 77]",
+        "balance_after": 10196
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D18 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 10314
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 12 corporate funding cycle.",
+        "balance_after": 10378
       }
     ]
   },
@@ -1418,10 +1551,10 @@
     "defense_zones": 20
   },
   "strategic_resources": {
-    "credits": 585,
-    "intel": 4,
+    "credits": 545,
+    "intel": 0,
     "salvage": 4,
-    "influence": 1
+    "influence": 0
   },
   "mission_fund_allocations": {
     "agent_pay_morale": 352,
@@ -1442,25 +1575,30 @@
         "agi": 10,
         "con": 6,
         "cha": 1,
-        "hp": 34,
+        "hp": 56,
         "max_hp": 56,
-        "xp": 750
+        "xp": 870
       },
       "pending_points": 0,
       "talent_points": 1,
       "specializations": [],
-      "traits": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
       "addictions": [],
       "fears": [],
       "ambition": "",
-      "loyalty": 2,
-      "stress": 100,
+      "loyalty": 56,
+      "stress": 0,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
         "Haunted by Civilian Panic"
       ],
       "injuries": [],
+      "nickname": "",
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -1532,6 +1670,8 @@
       ],
       "temporary_scars": [],
       "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -1673,25 +1813,30 @@
         "agi": 14,
         "con": 5,
         "cha": 1,
-        "hp": 29,
+        "hp": 55,
         "max_hp": 55,
         "xp": 750
       },
       "pending_points": 0,
       "talent_points": 1,
       "specializations": [],
-      "traits": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
       "addictions": [],
       "fears": [],
       "ambition": "",
-      "loyalty": 2,
-      "stress": 100,
+      "loyalty": 36,
+      "stress": 16,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
         "Haunted by Civilian Panic"
       ],
       "injuries": [],
+      "nickname": "",
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -1763,6 +1908,8 @@
       ],
       "temporary_scars": [],
       "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -1903,19 +2050,23 @@
         "agi": 2,
         "con": 3,
         "cha": 1,
-        "hp": 11,
+        "hp": 53,
         "max_hp": 53,
         "xp": 400
       },
       "pending_points": 0,
       "talent_points": 1,
       "specializations": [],
-      "traits": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
       "addictions": [],
       "fears": [],
       "ambition": "",
-      "loyalty": 2,
-      "stress": 100,
+      "loyalty": 46,
+      "stress": 16,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
@@ -1924,6 +2075,7 @@
       "injuries": [
         "Critical battle trauma"
       ],
+      "nickname": "",
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -1997,6 +2149,8 @@
       ],
       "temporary_scars": [],
       "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -2155,23 +2309,28 @@
         "cha": 1,
         "hp": 37,
         "max_hp": 43,
-        "xp": 450
+        "xp": 570
       },
       "pending_points": 0,
       "talent_points": 1,
       "specializations": [],
-      "traits": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
       "addictions": [],
       "fears": [],
       "ambition": "",
-      "loyalty": 2,
-      "stress": 59,
+      "loyalty": 56,
+      "stress": 0,
       "trauma": [
         "Haunted by Faction Retaliation",
         "Haunted by Media Leak",
         "Haunted by Civilian Panic"
       ],
       "injuries": [],
+      "nickname": "",
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -2236,6 +2395,8 @@
       ],
       "temporary_scars": [],
       "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -2379,21 +2540,26 @@
         "cha": 3,
         "hp": 36,
         "max_hp": 36,
-        "xp": 300
+        "xp": 420
       },
       "pending_points": 0,
       "talent_points": 1,
       "specializations": [],
-      "traits": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
       "addictions": [],
       "fears": [],
       "ambition": "",
-      "loyalty": 0,
-      "stress": 30,
+      "loyalty": 54,
+      "stress": 0,
       "trauma": [
         "Haunted by Media Leak"
       ],
       "injuries": [],
+      "nickname": "",
       "reputation": [],
       "relationships": {},
       "mentor_links": {
@@ -2426,6 +2592,8 @@
       ],
       "temporary_scars": [],
       "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
       "loadout": {
         "primary_weapon": {
           "type": "Weapon",
@@ -2565,10 +2733,10 @@
   "base_name": "Pharmacorp \u00b7 Forward Base Kilo",
   "district": {
     "name": "Chrome Warrens",
-    "stability": 64,
+    "stability": 56,
     "control_faction": "Aegis Dynamics",
     "unrest": 100,
-    "media_heat": 85,
+    "media_heat": 86,
     "tags": [
       {
         "name": "neon_blackout",
@@ -2659,7 +2827,9 @@
           "expires_after_turns": null,
           "metadata": {}
         }
-      ]
+      ],
+      "category": "local",
+      "revealed": true
     },
     {
       "name": "Warrens Free Clinic",
@@ -2675,12 +2845,14 @@
           "expires_after_turns": null,
           "metadata": {}
         }
-      ]
+      ],
+      "category": "local",
+      "revealed": true
     },
     {
       "name": "Chrome Jackals",
       "influence": 19,
-      "hostility_to_player": 98,
+      "hostility_to_player": 100,
       "public_legitimacy": 19,
       "active_tags": [
         {
@@ -2715,7 +2887,9 @@
           "expires_after_turns": null,
           "metadata": {}
         }
-      ]
+      ],
+      "category": "local",
+      "revealed": true
     }
   ],
   "active_operations": [
@@ -2785,8 +2959,194 @@
   ],
   "mission_templates": [
     {
-      "id": "data_theft_d66_s2",
-      "title": "Data Theft: Ghost Order Cache [Day 66]",
+      "id": "samurai_archive_d78_s0",
+      "title": "Infiltration : archives du clan [Day 78]",
+      "objective_text": "Pirater le terminal d'archives du clan samoura\u00ef et r\u00e9cup\u00e9rer les ordres de surveillance.",
+      "target_faction": "Samurai Consortium",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 11,
+      "enemy_theme": "corp_samurai",
+      "objective_type": "data_theft",
+      "battle_environment": "city",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Samurai Consortium",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Infiltration : archives du clan : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Samurai Consortium",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Infiltration : archives du clan : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 11,
+      "fund_reward": 200,
+      "duration_days": 1,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 11/5, duration 1d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "mutant_signal_d78_s3",
+      "title": "Reconnaissance : signal irradi\u00e9 [Day 78]",
+      "objective_text": "Relever les donn\u00e9es de la balise perdue dans le bassin irradi\u00e9 occup\u00e9 par les mutants.",
+      "target_faction": "Mutant Clans",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 10,
+      "enemy_theme": "mutant",
+      "objective_type": "recon_scan",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Reconnaissance : signal irradi\u00e9 : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Reconnaissance : signal irradi\u00e9 : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 10,
+      "fund_reward": 175,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 10/5, duration 2d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "data_theft_d78_s2",
+      "title": "Data Theft: Ghost Order Cache [Day 78]",
       "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
       "target_faction": "Aegis Dynamics",
       "district": "Chrome Warrens",
@@ -2795,8 +3155,9 @@
         "stability": -1
       },
       "starting_enemy_count": 8,
-      "enemy_theme": "corp_samurai_power_armor",
+      "enemy_theme": "corp_37",
       "objective_type": "data_with_detour",
+      "battle_environment": "city",
       "possible_complications": [
         {
           "key": "media_leak",
@@ -2959,6 +3320,99 @@
       }
     },
     {
+      "id": "shelter_hostages_d78_s1",
+      "title": "Sauvetage : abri assi\u00e9g\u00e9 [Day 78]",
+      "objective_text": "Lib\u00e9rer les survivants enferm\u00e9s dans un abri des terres d\u00e9sol\u00e9es et s\u00e9curiser leur sortie.",
+      "target_faction": "Wasteland Raiders",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 8,
+      "enemy_theme": "raider",
+      "objective_type": "civilian_rescue",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Wasteland Raiders",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Sauvetage : abri assi\u00e9g\u00e9 : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Wasteland Raiders",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Sauvetage : abri assi\u00e9g\u00e9 : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 7,
+      "fund_reward": 140,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 7/5, duration 2d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
       "id": "sm_act1_espionage",
       "title": "[STORY] Operation: Ivory Static",
       "objective_text": "Extract data from Warsaw relay station",
@@ -2970,6 +3424,7 @@
       "starting_enemy_count": 3,
       "enemy_theme": "corp_37",
       "objective_type": "data_theft",
+      "battle_environment": "",
       "possible_complications": [],
       "success_consequences": [],
       "failure_consequences": [],
@@ -2988,347 +3443,108 @@
           "story"
         ]
       }
-    },
-    {
-      "id": "extraction_d66_s0",
-      "title": "Extraction: Neon Witness [Day 66]",
-      "objective_text": "Extract a clinic witness from the east-rail blackout before gangs sell them to Aegis auditors.",
-      "target_faction": "Chrome Jackals",
-      "district": "Chrome Warrens",
-      "district_pressure": {
-        "unrest": 3,
-        "media_heat": 2
-      },
-      "starting_enemy_count": 7,
-      "enemy_theme": "generic",
-      "objective_type": "safe_extraction",
-      "possible_complications": [
-        {
-          "key": "media_leak",
-          "name": "Media Leak",
-          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
-          "risk_threshold": 2,
-          "tags": [
-            {
-              "name": "media_leak",
-              "description": "Leaked footage turns tactical choices into public evidence.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
-            "mechanical_effects": {
-              "media_heat": 8,
-              "stability": -2
-            },
-            "tags": [
-              {
-                "name": "media_leak",
-                "description": "Leaked footage turns tactical choices into public evidence.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        },
-        {
-          "key": "civilian_panic",
-          "name": "Civilian Panic",
-          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
-          "risk_threshold": 3,
-          "tags": [
-            {
-              "name": "civilian_panic",
-              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
-            "mechanical_effects": {
-              "unrest": 7,
-              "stability": -4
-            },
-            "tags": [
-              {
-                "name": "civilian_panic",
-                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        }
-      ],
-      "success_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Warrens Free Clinic",
-          "affected_agent": null,
-          "severity": 1,
-          "narrative_text": "Extraction success: the witness reaches the clinic and locals share safehouse routes.",
-          "mechanical_effects": {
-            "stability": 5,
-            "unrest": -4,
-            "faction_hostility": -3
-          },
-          "tags": [
-            {
-              "name": "civilian_panic",
-              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "failure_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Chrome Jackals",
-          "affected_agent": null,
-          "severity": 3,
-          "narrative_text": "Extraction failure: the witness disappears and Jackal recruiters own the rumor mill.",
-          "mechanical_effects": {
-            "unrest": 8,
-            "media_heat": 4,
-            "faction_hostility": 6
-          },
-          "tags": [
-            {
-              "name": "gang_pressure",
-              "description": "Street crews are testing who really owns the district.",
-              "intensity": 1,
-              "source": "faction",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "risk_level": 7,
-      "fund_reward": 75,
-      "duration_days": 1,
-      "tags": [
-        {
-          "name": "neon_blackout",
-          "description": "Rolling power outages make every alley a blind spot.",
-          "intensity": 2,
-          "source": "district",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ],
-      "relation_impact": "medium",
-      "emotional_impact_hint": {
-        "level": "critical",
-        "text": "Risk of lasting emotional scars for the squad.",
-        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
-        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
-        "risk_explanation": "Risk 7/5, duration 1d, 2 likely complication(s).",
-        "expected_stress_band": "critical",
-        "normalized_tags": [
-          "neon_blackout"
-        ]
-      }
-    },
-    {
-      "id": "sabotage_d66_s1",
-      "title": "Sabotage: Jackal Relay Burn [Day 66]",
-      "objective_text": "Destroy the Chrome Jackals' relay van before it coordinates raids on the defense zones.",
-      "target_faction": "Chrome Jackals",
-      "district": "Chrome Warrens",
-      "district_pressure": {
-        "unrest": 5,
-        "media_heat": 1
-      },
-      "starting_enemy_count": 9,
-      "enemy_theme": "generic",
-      "objective_type": "sabotage_window",
-      "possible_complications": [
-        {
-          "key": "civilian_panic",
-          "name": "Civilian Panic",
-          "trigger_text": "Crowds panic as muzzle flashes bounce across the stacked market decks.",
-          "risk_threshold": 3,
-          "tags": [
-            {
-              "name": "civilian_panic",
-              "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-              "intensity": 2,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 2,
-            "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
-            "mechanical_effects": {
-              "unrest": 7,
-              "stability": -4
-            },
-            "tags": [
-              {
-                "name": "civilian_panic",
-                "description": "Noncombatants scatter, block exits, and amplify district unrest.",
-                "intensity": 2,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        },
-        {
-          "key": "faction_retaliation",
-          "name": "Faction Retaliation",
-          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
-          "risk_threshold": 4,
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ],
-          "relation_impact": "low",
-          "consequence": {
-            "affected_district": "Chrome Warrens",
-            "affected_faction": null,
-            "affected_agent": null,
-            "severity": 3,
-            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
-            "mechanical_effects": {
-              "faction_hostility": 9,
-              "unrest": 4
-            },
-            "tags": [
-              {
-                "name": "faction_retaliation",
-                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-                "intensity": 3,
-                "source": "complication",
-                "expires_after_turns": null,
-                "metadata": {}
-              }
-            ]
-          }
-        }
-      ],
-      "success_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Chrome Jackals",
-          "affected_agent": null,
-          "severity": 2,
-          "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
-          "mechanical_effects": {
-            "unrest": -6,
-            "stability": 3,
-            "faction_influence": -5
-          },
-          "tags": [
-            {
-              "name": "gang_pressure",
-              "description": "Street crews are testing who really owns the district.",
-              "intensity": 1,
-              "source": "faction",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "failure_consequences": [
-        {
-          "affected_district": "Chrome Warrens",
-          "affected_faction": "Chrome Jackals",
-          "affected_agent": null,
-          "severity": 3,
-          "narrative_text": "Sabotage failure: the relay survives and Jackal retaliation teams flood the alleys.",
-          "mechanical_effects": {
-            "unrest": 9,
-            "faction_hostility": 8,
-            "stability": -5
-          },
-          "tags": [
-            {
-              "name": "faction_retaliation",
-              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
-              "intensity": 3,
-              "source": "complication",
-              "expires_after_turns": null,
-              "metadata": {}
-            }
-          ]
-        }
-      ],
-      "risk_level": 10,
-      "fund_reward": 120,
-      "duration_days": 1,
-      "tags": [
-        {
-          "name": "gang_pressure",
-          "description": "Street crews are testing who really owns the district.",
-          "intensity": 1,
-          "source": "faction",
-          "expires_after_turns": null,
-          "metadata": {}
-        }
-      ],
-      "relation_impact": "low",
-      "emotional_impact_hint": {
-        "level": "critical",
-        "text": "Risk of lasting emotional scars for the squad.",
-        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
-        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
-        "risk_explanation": "Risk 10/5, duration 1d, 2 likely complication(s).",
-        "expected_stress_band": "critical",
-        "normalized_tags": [
-          "gang_pressure"
-        ]
-      }
     }
   ],
-  "active_mission": null,
+  "active_mission": {
+    "id": "samurai_archive_d77_s2",
+    "title": "Infiltration : archives du clan [Day 77]",
+    "objective_text": "Pirater le terminal d'archives du clan samoura\u00ef et r\u00e9cup\u00e9rer les ordres de surveillance.",
+    "target_faction": "Samurai Consortium",
+    "district": "Chrome Warrens",
+    "district_pressure": {
+      "unrest": 3,
+      "media_heat": 1
+    },
+    "starting_enemy_count": 11,
+    "enemy_theme": "corp_samurai",
+    "objective_type": "data_theft",
+    "battle_environment": "city",
+    "possible_complications": [
+      {
+        "key": "mod_rapid_response",
+        "name": "Rapid Response",
+        "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+        "risk_threshold": 3,
+        "tags": [],
+        "relation_impact": "low",
+        "consequence": {
+          "affected_district": null,
+          "affected_faction": null,
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "",
+          "mechanical_effects": {},
+          "tags": []
+        }
+      },
+      {
+        "key": "mod_counterintel_ping",
+        "name": "Counterintel Ping",
+        "trigger_text": "Corporate counterintel flags the operation in real time.",
+        "risk_threshold": 3,
+        "tags": [],
+        "relation_impact": "low",
+        "consequence": {
+          "affected_district": null,
+          "affected_faction": null,
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "",
+          "mechanical_effects": {},
+          "tags": []
+        }
+      }
+    ],
+    "success_consequences": [
+      {
+        "affected_district": "Chrome Warrens",
+        "affected_faction": "Samurai Consortium",
+        "affected_agent": null,
+        "severity": 1,
+        "narrative_text": "Infiltration : archives du clan : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+        "mechanical_effects": {
+          "stability": 3,
+          "unrest": -3
+        },
+        "tags": []
+      }
+    ],
+    "failure_consequences": [
+      {
+        "affected_district": "Chrome Warrens",
+        "affected_faction": "Samurai Consortium",
+        "affected_agent": null,
+        "severity": 2,
+        "narrative_text": "Infiltration : archives du clan : l'\u00e9chec renforce la pression sur les habitants.",
+        "mechanical_effects": {
+          "unrest": 4,
+          "media_heat": 2
+        },
+        "tags": []
+      }
+    ],
+    "risk_level": 11,
+    "fund_reward": 200,
+    "duration_days": 1,
+    "tags": [],
+    "relation_impact": "low",
+    "emotional_impact_hint": {
+      "level": "critical",
+      "text": "Risk of lasting emotional scars for the squad.",
+      "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+      "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+      "risk_explanation": "Risk 11/5, duration 1d, 2 likely complication(s).",
+      "expected_stress_band": "critical",
+      "normalized_tags": []
+    }
+  },
   "selected_mission_index": 0,
-  "mission_board_generated_day": 66,
+  "mission_board_generated_day": 78,
+  "mission_board_version": 2,
   "selected_agent_names": [
     "Katana",
     "Rook",
-    "Longshot",
-    "Null",
-    "Oracle"
+    "Null"
   ],
   "spec_ops_assets": [
     {
@@ -3581,7 +3797,66 @@
     ],
     "skill_check_outcomes": []
   },
-  "recovery_narrative_memory": {},
+  "latest_recovery_dialogues": [
+    {
+      "line": "Longshot stays with Katana until the breathing steadies.",
+      "pair": [
+        "Longshot",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Longshot": 17,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    },
+    {
+      "line": "Oracle reminds Katana that the squad holds together.",
+      "pair": [
+        "Oracle",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Oracle": 17,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    },
+    {
+      "line": "Rook shares a calm silence with Katana in the recovery room.",
+      "pair": [
+        "Rook",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Rook": 5,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    }
+  ],
+  "recovery_narrative_memory": {
+    "last_day": 78,
+    "last_pairs": [
+      [
+        "Longshot",
+        "Katana"
+      ],
+      [
+        "Oracle",
+        "Katana"
+      ],
+      [
+        "Rook",
+        "Katana"
+      ]
+    ],
+    "last_lines": [
+      "Longshot stays with Katana until the breathing steadies.",
+      "Oracle reminds Katana that the squad holds together.",
+      "Rook shares a calm silence with Katana in the recovery room."
+    ]
+  },
   "faction_reward_journal": [
     {
       "faction": "Chrome Jackals",
@@ -3711,22 +3986,22 @@
     }
   ],
   "event_log": [
-    "Human-focused brief: Complication triggered: A pirate news relay leaks the team's route before extraction. Keeps civilians and squad morale in sight. Pushes ahead before the smoke clears.",
-    "2085.M03.D06: Day advanced (mission success); passive income +118.",
-    "2085.M03.D06: Pending fallout reviewed (6 active beats).",
-    "Strategic event: Board Knife Vote (corporate politics, severity 3).",
-    "2085.M03.D06: Rook decompresses (3 stress relief, 88/100).",
-    "2085.M03.D06: Longshot decompresses (3 stress relief, 88/100).",
-    "2085.M03.D06: Oracle decompresses (2 stress relief, 91/100).",
-    "2085.M03.D06: Katana decompresses (2 stress relief, 59/100).",
-    "Aftermath: Rook carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
-    "Aftermath: Longshot carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
-    "Aftermath: Oracle carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
-    "Aftermath: Null carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 30/100, Media Leak +4, trauma: Haunted by Media Leak)."
+    "2085.M03.D18: Recovery room: Longshot stays with Katana until the breathing steadies.",
+    "2085.M03.D18: Recovery room: Oracle reminds Katana that the squad holds together.",
+    "2085.M03.D18: Recovery room: Rook shares a calm silence with Katana in the recovery room.",
+    "2085.M03.D18: Recovery bond: Longshot and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Recovery bond: Oracle and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Recovery bond: Rook and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Rook decompresses (3 stress relief, 5/100).",
+    "2085.M03.D18: Longshot decompresses (3 stress relief, 17/100).",
+    "2085.M03.D18: Oracle decompresses (2 stress relief, 17/100).",
+    "Downtime: Shore Leave (-8 credits, 1 day)",
+    "Not enough intel for Sim Drills.",
+    "Not enough influence for Group Therapy."
   ],
   "active_events": [
     {
-      "id": "event-9",
+      "id": "event-13",
       "template": {
         "title": "Board Knife Vote",
         "category": "corporate politics",
@@ -3763,34 +4038,68 @@
         "expiration_days": 4,
         "weight": 3
       },
-      "created_day": 66,
-      "expires_day": 69
+      "created_day": 77,
+      "expires_day": 80
+    },
+    {
+      "id": "event-14",
+      "template": {
+        "title": "Aegis Shadow Buyout",
+        "category": "enemy corporation attack",
+        "description": "A rival board cell starts buying informants around Forward Base Kilo.",
+        "severity": 3,
+        "choices": [
+          {
+            "key": "pay",
+            "label": "Pay counter-intel",
+            "effects": {
+              "funds": -30,
+              "faction_pressure": -8
+            },
+            "summary": "Spend funds to cool the hostile corporate net.",
+            "relation_impact": "low"
+          },
+          {
+            "key": "burn",
+            "label": "Burn their cutouts",
+            "effects": {
+              "agent_stress": 5,
+              "faction_pressure": 6,
+              "mission_availability": -1
+            },
+            "summary": "Agents move fast, but one operation route goes dark.",
+            "relation_impact": "low"
+          }
+        ],
+        "consequences": {
+          "faction_pressure": 5,
+          "city_stability": -2
+        },
+        "relation_impact": "low",
+        "expiration_days": 3,
+        "weight": 3
+      },
+      "created_day": 78,
+      "expires_day": 80
     }
   ],
-  "next_event_id": 10,
+  "next_event_id": 15,
   "unavailable_mission_ids": [
     "sabotage_d62_s1"
   ],
+  "weekly_directive_week": 0,
+  "weekly_directive_id": "",
   "ui_high_contrast": false,
   "ui_audio_feedback_enabled": false,
+  "combat_mission_ui_engine": "godot",
+  "combat_visual_version": 2,
   "tutorial_progress": {
     "tutorial_step_index": 1,
     "tutorial_completed": false,
     "tutorial_skipped": false,
     "tutorial_replay_requested": false
   },
-  "active_research": [
-    {
-      "project_id": "psy_choir_firebreak",
-      "days_remaining": 3,
-      "days_elapsed": 1
-    },
-    {
-      "project_id": "weapon_corporate_rail_lattice",
-      "days_remaining": 3,
-      "days_elapsed": 1
-    }
-  ],
+  "active_research": [],
   "completed_research": [
     "equipment_field_mender",
     "armor_reactive_lining",
@@ -3803,7 +4112,9 @@
     "armor_aegis_weave",
     "power_armor_praetorian_frame",
     "vehicle_ghost_convoy_doctrine",
-    "armor_memorial_plating"
+    "armor_memorial_plating",
+    "psy_choir_firebreak",
+    "weapon_corporate_rail_lattice"
   ],
   "research_unlock_flags": [
     "equipment.field_mender",
@@ -3818,7 +4129,9 @@
     "power_armor.praetorian_frame",
     "corp.contract.praetorian",
     "vehicles.ghost_convoy_doctrine",
-    "armor.memorial_plating"
+    "armor.memorial_plating",
+    "psy.choir_firebreak",
+    "weapons.corporate_rail_lattice"
   ],
   "research_stat_modifiers": {
     "medkit_quality": 1,
@@ -3833,7 +4146,9 @@
     "power_armor_durability": 1,
     "corp_budget_bonus": 1,
     "vehicle_survivability": 1,
-    "armor_breach_guard": 1
+    "armor_breach_guard": 1,
+    "stress_resistance": 1,
+    "weapon_damage": 1
   },
   "campaign": {
     "current_act": 1,
@@ -3845,6 +4160,8 @@
       "act1_warsaw_coup",
       "act1_badlands_silence"
     ],
+    "completed_story_missions": [],
+    "ending": null,
     "world": {
       "warsaw_status": "coup_underway",
       "hungry_tide_progress": 0,
