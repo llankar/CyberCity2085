@@ -995,7 +995,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : sélectionner le prochain atlas éligible sans ensemble complet, documenter ses actions applicables et produire ses clips authentiques ; regrouper plusieurs atlas avant la prochaine régénération du catalogue et du benchmark.",
+  "next_action": "ANIM-COMPLETE : poursuivre le lot agent_diverse_08_holo_hacker + agent_diverse_09_blue_mohawk_scout ; régénérer la planche move-front du hacker rejetée pour fond blanc, puis produire les actions applicables authentiques avant import et validation native.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
