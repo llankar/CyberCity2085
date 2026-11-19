@@ -39,7 +39,7 @@ def sha256(path: Path) -> str:
 
 
 def git_blob_sha(data: bytes) -> str:
-    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\\0" + data).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + b"\0" + data).hexdigest()
 
 
 def safe_relative(name: str) -> Path:
@@ -166,7 +166,7 @@ def load_receipts() -> dict:
 
 def save_receipts(receipts: dict) -> None:
     RECEIPTS.parent.mkdir(parents=True, exist_ok=True)
-    RECEIPTS.write_text(json.dumps(receipts, indent=2, ensure_ascii=False) + "\\n", encoding="utf-8")
+    RECEIPTS.write_text(json.dumps(receipts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     lines = [
         "# CyberCity 2085 — Additional audio licenses and credits",
         "",
@@ -188,7 +188,7 @@ def save_receipts(receipts: dict) -> None:
             "",
         ]
     CREDITS.parent.mkdir(parents=True, exist_ok=True)
-    CREDITS.write_text("\\n".join(lines), encoding="utf-8")
+    CREDITS.write_text("\n".join(lines), encoding="utf-8")
 
 
 def install_asset(source: Path, relative_target: str, source_record: dict,
