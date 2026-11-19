@@ -95,6 +95,13 @@ def test_system_turn_commands_do_not_emit_click_audio():
     assert 'CombatSignals.audio_event.emit("ui_click")' in handler
 
 
+def test_zero_ap_auto_advance_is_silent():
+    root = Path(__file__).resolve().parents[1]
+    combat = (root / "godot/combat_missions_ui/scripts/combat_mission_ui.gd").read_text()
+    handler = combat.split("func _auto_advance_unit() -> void:", 1)[1].split("func ", 1)[0]
+    assert 'audio_event.emit("ui_click")' not in handler
+
+
 def test_no_audio_catalog_claims_unmaterialized_candidates_are_installed():
     root = Path(__file__).resolve().parents[1]
     import json

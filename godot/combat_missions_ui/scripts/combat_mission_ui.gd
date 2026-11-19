@@ -1082,7 +1082,6 @@ func _auto_advance_unit() -> void:
 			status_line = "%s — ready." % str(player_units[next].get("name", "Agent")).split(" ")[0]
 			_refresh_initiative()
 			_sync_display()
-			CombatSignals.audio_event.emit("ui_click")
 			return
 	# All living units have spent their AP — end the player turn automatically.
 	_end_player_turn()
