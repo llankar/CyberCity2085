@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-FINALE — DONE. Seven Minutes to Dawn gagnée sous Windows à 720p avec le Titan et le K-9 achetés puis affectés via l’Asset Bay. L’écran de fin s’est ouvert et le rechargement confirme 15 missions d’histoire sur cinq actes, fin Dawn Without Masters (jour 80). Sauvegarde : `work/campaign-story-finale-dual-support/victory/campaign.json`. Le parcours depuis l’exécutable packagé reste à vérifier.
+
 - FINALE-PREPARATION — IN_PROGRESS. Deux essais de Seven Minutes to Dawn avec la priorité cible se terminent au tour 25, même après cinq jours de permission payée et soins. Le stress baisse mais six ennemis seulement sont neutralisés et aucun soutien n’est déployé. Reprendre la sauvegarde Pharmacorp et préparer un soutien via l’Asset Bay avant le prochain essai.
 
 - ASSASSINATION — IN_PROGRESS. Godot choisit désormais la cible par priorité de rôle comme Arcade et valide l’objectif à sa neutralisation. Le test Godot headless vérifie qu’un garde peut survivre, contrairement à kill_all. La finale avec priorité de tir seule est restée une défaite. Rejouer avec le pilote qui se rapproche aussi de la cible et vérifier l’épilogue.
