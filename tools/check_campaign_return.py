@@ -1,8 +1,10 @@
 """Native Linux integration evidence; forced outcomes test plumbing, not Windows embedding."""
 from __future__ import annotations
-import argparse,json,os,subprocess,tempfile,time
+import argparse,json,os,subprocess,sys,tempfile,time
+from contextlib import chdir
 from pathlib import Path
 from unittest.mock import patch
+from tools.check_unified_return import _link_directory
 
 
 def campaign_scenario(mission_id=None):
@@ -65,8 +67,10 @@ def main():
     try:
         for outcome in args.outcomes:
             case=output/outcome;case.mkdir(exist_ok=True)
-            with tempfile.TemporaryDirectory(prefix='cybercity-unified-') as tmp:
-                sandbox=Path(tmp);(sandbox/'assets').symlink_to(root/'assets',target_is_directory=True);(sandbox/'godot').symlink_to(root/'godot',target_is_directory=True);os.chdir(sandbox)
+            with tempfile.TemporaryDirectory(prefix='cybercity-unified-') as tmp, chdir(tmp):
+                sandbox=Path(tmp)
+                _link_directory(sandbox/'assets', root/'assets')
+                _link_directory(sandbox/'godot', root/'godot')
                 if args.campaign_play:
                     state,mission=campaign_scenario(args.mission_id)
                     (case/'mission-input.json').write_text(json.dumps(mission.to_dict(),indent=2))
@@ -82,7 +86,12 @@ def main():
                 log=case/'godot.log'
                 with log.open('w') as stream:
                     def launch(command,*a,**kw):
-                        command=list(command);command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',('res://tests/campaign_playthrough.gd' if args.campaign_play else 'res://tests/unified_return_flow.gd')];command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
+                        command=list(command)
+                        if "--resolution" in command:
+                            index = command.index("--resolution")
+                            del command[index:index + 2]
+                        command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',('res://tests/campaign_playthrough.gd' if args.campaign_play else 'res://tests/unified_return_flow.gd')]
+                        command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     launch_started=time.monotonic()
@@ -201,7 +210,7 @@ def main():
     finally:
         os.chdir(previous);window.close()
     (output/'native-report.json').write_text(json.dumps(results,indent=2)+'\n')
-    print(json.dumps({'status':'PASS','platform':'Linux native OpenGL','windows_verified':False,'cases':results}))
+    print(json.dumps({'status':'PASS','platform':sys.platform,'windows_graphics_verified':False,'cases':results}))
 
 
 if __name__=='__main__':main()

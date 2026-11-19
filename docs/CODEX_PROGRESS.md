@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-NATIVE — IN_PROGRESS. Banc de campagne corrigé pour Windows (liens de répertoire, nettoyage et taille de fenêtre). Première mission du tableau réel `data_theft_d1_s2` jouée jusqu’à la victoire, avec parcours QG → carte → briefing → Godot → débriefing → QG et rechargement à 720p. 19 tests ciblés réussis. Reste à enchaîner les actes jusqu’à la finale avec le même état de campagne.
+
 - UNIFIED-RESULT-POLL — DONE. Régression déterministe : un résultat publié pendant le contrôle de fin de processus est lu au cycle suivant. Suite ciblée : 29 réussis.
 
 - UNIFIED-REAL-RECOVERY — DONE. Victoire jouée après reprise en phase joueur puis en phase ennemie sous Windows à 720p. Le second scénario a révélé une course entre la publication du résultat et sa lecture. Le correctif a passé le scénario et les tests ciblés (54 réussis, 8 ignorés). Suite : vérifier le parcours depuis le package Arcade et les transitions de fenêtre sans contrôle du bureau.
