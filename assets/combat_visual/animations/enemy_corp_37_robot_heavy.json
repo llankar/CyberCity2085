@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_robot_heavy.png",
-  "texture_sha256": "df5936c0d08561475784ca7174b16c376ee0de083b6a666ac30e3eb955a90ba7",
+  "texture_sha256": "ce1856427e4ccb5fff842c7f82dddf5e4adcc52c2b04fe30a6e6739cc6a43471",
   "frame_size": [
     256,
     256
@@ -141,6 +141,158 @@
           63
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_corp_37_robot_heavy_512.png",
@@ -173,6 +325,34 @@
       "clip": "fire",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_heavy/cover-action_rows-4.png",
+      "sha256": "fc963a0e45d547d613ff553828ed166ccccc7343230c3f205c40f7558b17ad70",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_heavy/death-action_rows-5.png",
+      "sha256": "11bfec7e4d1c99a0a57542e68d179d12b281e7c4662ed472ec88b0e6d35a1d60",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_heavy/hit-action_rows-6.png",
+      "sha256": "56e33b19320d452f23ed726652ccbbbfbbb94901b92c015a053f273ba514a6f4",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_heavy/melee-action_rows-7.png",
+      "sha256": "447f9f5ace30991797f49eb1b1ad082564d73762013d219ab14b332c9417ead6",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -188,12 +368,7 @@
     "psi": "No psionic action for this robot.",
     "heal": "No healing action for this robot."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
