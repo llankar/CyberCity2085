@@ -414,7 +414,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-- UNIFIED-RECOVERY — IN_PROGRESS. À 720p sous Windows, une victoire réelle a repris après perte de l’accusé de réception sans doubler la récompense. Le scénario de reprise en phase joueur a restauré l’instantané et supplanté l’ancien processus. Le banc refuse désormais la combinaison sans pilote de reprise. Rejouer côté ennemi et vérifier la reprise lors d’une mission réelle.
+- UNIFIED-RECOVERY — IN_PROGRESS. Sous Windows, à 1280 × 720, les scénarios de reprise tactique restaurent les phases joueur et ennemi et remplacent l’ancien processus. Sur une victoire jouée, l’arrêt de Godot au retour puis la reprise du débriefing ont préservé la promotion et bloqué la double attribution. La perte d’accusé de réception a également été testée séparément. Reste à interrompre une mission réelle pendant un tour.
 
 - UNIFIED-RESOLUTION — DONE. Le banc écrasait son propre 720p avec une seconde option héritée d’Arcade. Une seule option est désormais transmise et la taille de capture est vérifiée sur Windows. Victoire réelle rejouée : 1280 × 720 demandé et observé. DPI, focus et redimensionnement restent ouverts.
 
