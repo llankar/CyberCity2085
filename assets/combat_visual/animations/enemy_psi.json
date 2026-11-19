@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_psi.png",
-  "texture_sha256": "38498bf48517f19d5fc951217ccb822b9bdabd4d2971dffbf6dfb9a87cca2ca9",
+  "texture_sha256": "c5d0617dbef2d2dc8082c7bf636f60a2ff783767babb94331de90e2756cb22c7",
   "frame_size": [
     256,
     256
@@ -103,6 +103,234 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    },
+    "psi": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          128,
+          129
+        ],
+        [
+          130,
+          131
+        ],
+        [
+          132,
+          133
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          136,
+          137
+        ],
+        [
+          138,
+          139
+        ],
+        [
+          140,
+          141
+        ],
+        [
+          142,
+          143
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_psi_512.png",
@@ -129,6 +357,48 @@
       "layout": "rear",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "transpose": true
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/psi-action_rows-3.png",
+      "sha256": "118a88e401cb5bf357f2fc41ab940a634553f1ca74c425926b267b2465209f13",
+      "clip": "psi",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/fire-action_rows-4.png",
+      "sha256": "239b8562f9e6d1db902934d4d6dcf66b740eef5e129838f03c5e47e325fc2302",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/cover-action_rows-5.png",
+      "sha256": "e9afc38e8cc32f5c8a3b0d89cda3ba6c345785f7481d405755f03b0c899070b3",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/melee-action_rows-6.png",
+      "sha256": "0226cd7128eed7b7d9b90ba12f63cd6e22d6a5fcea97595630b4f9065d3c82cb",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/hit-action_rows-7.png",
+      "sha256": "28cb982e452a8f5a42f02432247755b42057c7dd3219f8d92c66a173aabfe677",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/death-action_rows-8.png",
+      "sha256": "3c434632fead51b0400b9d330a23d1090c0bc72151bf7515abc14dcaf375d094",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -144,14 +414,7 @@
   "non_applicable_clips": {
     "heal": "No healing action for generic enemy psi."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "fire",
-    "melee",
-    "cover",
-    "hit",
-    "death",
-    "psi"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
