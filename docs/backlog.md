@@ -834,12 +834,16 @@ Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber
 
 - [x] ANIM-25 Produire et valider nativement l’inquisiteur vétéran : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Preuves : [veteran-inquisitor-actions](images/veteran-inquisitor-actions/README.md).
 
-Résultat cumulé : **27 / 231 ensembles complets**, 0 partiel. Reste 204 références éligibles ; prochaine référence : `agent_diverse_25_redline_runner`.
+Résultat cumulé : **28 / 231 ensembles complets**, 0 partiel. Reste 203 références éligibles ; prochaine référence : `agent_psi`.
 
 - [x] ANIM-26 Produire et valider nativement la tireuse à dreadlocks : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Une première planche arrière contaminée a été rejetée puis remplacée. Preuves : [dreadlock-rifle-actions](images/dreadlock-rifle-actions/README.md).
 - [x] ANIM-27 Produire et valider nativement le psion encapuchonné : 8 orientations, 144 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`, `psi`; `heal` explicitement non applicable. Validation ciblée uniquement : 32 sélections natives, 2 tests Python réussis et inspection sur Safehouse.
 
-Résultat cumulé : **27 / 231 ensembles complets**, 0 partiel. Reste 204 références éligibles ; prochaine référence déterminée par l’audit ordonné.
+Résultat cumulé : **28 / 231 ensembles complets**, 0 partiel. Reste 203 références éligibles ; prochaine référence déterminée par l’audit ordonné.
+
+- [x] ANIM-28 Produire et valider nativement la redline runner : 8 orientations, 128 frames authentiques couvrant idle, move, fire, melee, cover, hit et death ; psi et heal non applicables. Validation ciblee sur Safehouse uniquement.
+
+Resultat courant : **28 / 231 ensembles complets**, 0 partiel. Reste 203 references eligibles ; prochaine reference : agent_psi.
 
 ### SCALE — profils et repères du catalogue
 

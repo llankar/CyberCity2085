@@ -42,7 +42,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
 - 192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.
 - Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.
-- Vingt-sept ensembles complets : toutes les actions applicables validées nativement, dont la tireuse à dreadlocks ; 27 ensembles complets et 0 partiel.
+- Vingt-huit ensembles complets : toutes les actions applicables validées nativement, dont la tireuse à dreadlocks ; 28 ensembles complets et 0 partiel.
 
 ## Passe en cours
 
@@ -63,7 +63,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Reste sur l�objectif complet
 
-- Produire et vérifier les actions applicables des 204 autres références éligibles, à commencer par la prochaine référence ordonnée. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
+- Produire et vérifier les actions applicables des 203 autres références éligibles, à commencer par la prochaine référence ordonnée. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
