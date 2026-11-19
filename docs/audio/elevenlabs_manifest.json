@@ -1,9 +1,22 @@
 {
   "schema_version": 1,
-  "generation_status": "blocked_no_provider_access",
-  "credits_estimate": null,
+  "generation_status": "not_started_provider_busy",
+  "credits_estimate": {
+    "kind": "pilot_provider_estimate_and_full_extrapolation",
+    "provider": "ElevenLabs Creative Studio / Sound Effects v2",
+    "pilot_generation_count": 12,
+    "pilot_total_requested_seconds": 11.7,
+    "pilot_credits": 234,
+    "pilot_cost_usd": 0.0234,
+    "observed_credits_per_generated_second": 20,
+    "full_requested_seconds_original": 579.75,
+    "full_requested_seconds_normalized": 580.9,
+    "full_credits_extrapolated": 11618,
+    "full_cost_usd_extrapolated": 1.1618,
+    "caveat": "The full-library estimate is extrapolated from a pilot estimate, NOT a confirmed batch quote; charges, credit eligibility and concurrency may vary."
+  },
   "requested_candidates": 167,
-  "requested_seconds": 579.75,
+  "requested_seconds": 580.9,
   "families": [
     {
       "id": "fire_pistol",
@@ -16,12 +29,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Single close duty-pistol shot, dry muzzle crack, small slide clack, short concrete reflection; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.9
+        "requested_duration_seconds": 0.9,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -30,7 +45,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -39,7 +54,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -59,12 +74,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Single modern assault rifle shot, tight sharp crack, firm low-mid punch and bolt movement; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.1
+        "requested_duration_seconds": 1.1,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -73,7 +90,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -82,7 +99,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -91,7 +108,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -111,12 +128,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Three evenly spaced automatic rifle shots with distinct transients, brief urban reflection; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.5
+        "requested_duration_seconds": 1.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_burst_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -125,7 +144,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_burst_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -134,7 +153,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_burst_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -143,7 +162,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_burst_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -163,12 +182,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "One precision rifle shot, piercing initial crack, controlled low-end body, distant decay; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 2.0
+        "requested_duration_seconds": 2,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_sniper_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -177,7 +198,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_sniper_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -186,7 +207,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_sniper_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -206,12 +227,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Heavy cannon discharge, mechanical recoil, dense but restrained pressure wave; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 2.0
+        "requested_duration_seconds": 2,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_heavy_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -220,7 +243,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_heavy_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -229,7 +252,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_heavy_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -249,12 +272,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Short industrial energy pulse with ionized air snap and compact capacitor discharge; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.0
+        "requested_duration_seconds": 1,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_laser_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -263,7 +288,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_laser_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -272,7 +297,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_laser_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -292,12 +317,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Pressurized plasma discharge, brief magnetic thump, incandescent fizz and fast decay; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_plasma_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -306,7 +333,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_plasma_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -315,7 +342,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_plasma_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -335,12 +362,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Launcher ignition, solid tube impulse, short rocket departure, no explosion; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 2.4
+        "requested_duration_seconds": 2.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_missile_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -349,7 +378,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_missile_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -358,7 +387,7 @@
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_missile_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -378,12 +407,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Fast projectile strikes a steel panel, hard ping then muted sheet resonance; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.8
+        "requested_duration_seconds": 0.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_metal_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -392,7 +423,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -401,7 +432,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -410,7 +441,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -430,12 +461,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Projectile strikes concrete, dry mineral crack and small falling grit; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.8
+        "requested_duration_seconds": 0.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_concrete_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -444,7 +477,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_concrete_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -453,7 +486,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_concrete_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -462,7 +495,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_concrete_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -482,12 +515,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Projectile hits layered armor, hard ceramic crack and damped metallic body; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.8
+        "requested_duration_seconds": 0.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_armor_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -496,7 +531,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_armor_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -505,7 +540,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_armor_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -514,7 +549,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_armor_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -534,12 +569,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Dull impact on padded clothing and body mass, no gore or voice; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.7
+        "requested_duration_seconds": 0.7,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_organic_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -548,7 +585,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_organic_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -557,7 +594,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/impact_organic_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -577,12 +614,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Compact charge, sharp pressure pop and short scattering debris; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 2.0
+        "requested_duration_seconds": 2,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/explosion_small_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -591,7 +630,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/explosion_small_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -600,7 +639,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/explosion_small_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -620,12 +659,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Focused blast, broad air displacement and rolling concrete debris; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 3.0
+        "requested_duration_seconds": 3,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/explosion_medium_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -634,7 +675,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/explosion_medium_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -643,7 +684,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/explosion_medium_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -663,12 +704,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Large distant industrial blast, controlled bass and long natural decay; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 5.0
+        "requested_duration_seconds": 5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/explosion_massive_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -677,7 +720,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/explosion_massive_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -697,12 +740,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Fast metal deflection with short directional snap; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.7
+        "requested_duration_seconds": 0.7,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/ricochet_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -711,7 +756,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/ricochet_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -720,7 +765,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/ricochet_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -740,12 +785,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Short cloth movement followed by a solid close-range impact; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.9
+        "requested_duration_seconds": 0.9,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/melee_strike_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -754,7 +801,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/melee_strike_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -763,7 +810,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/melee_strike_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -772,7 +819,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/melee_strike_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -792,12 +839,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Abrupt fabric pull and armor jolt, no vocalization; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.9
+        "requested_duration_seconds": 0.9,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/injury_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -806,7 +855,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/injury_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -815,7 +864,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/injury_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -835,12 +884,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Clothed body drops to hard floor, damped weight, loose equipment settles; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/body_fall_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -849,7 +900,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/body_fall_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -858,7 +909,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/body_fall_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -878,12 +929,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Heavy gear and body drop, brief equipment scrape, no voice or gore; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/fatal_impact_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -892,7 +945,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/fatal_impact_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -901,7 +954,7 @@
         },
         {
           "path": "assets/audio/overhaul/combat/fatal_impact_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -921,12 +974,15 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "One tactical boot footfall on dry concrete, isolated heel and toe; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.45
+        "requested_duration_seconds": 0.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false,
+        "original_requested_duration_seconds": 0.45
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/step_concrete_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -935,7 +991,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -944,7 +1000,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -953,7 +1009,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -962,7 +1018,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_05.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -982,12 +1038,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "One tactical boot footfall on thick industrial steel grating; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.55
+        "requested_duration_seconds": 0.55,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/step_metal_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -996,7 +1054,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_metal_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1005,7 +1063,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_metal_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1014,7 +1072,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_metal_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1023,7 +1081,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_metal_05.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1043,12 +1101,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "One boot compresses dry loose gravel with a crisp crunch; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.55
+        "requested_duration_seconds": 0.55,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/step_gravel_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1057,7 +1117,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_gravel_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1066,7 +1126,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_gravel_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1075,7 +1135,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_gravel_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1084,7 +1144,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/step_gravel_05.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1104,12 +1164,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Compact servo motion and weighted mechanical foot plant; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.2
+        "requested_duration_seconds": 1.2,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/move_robot_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1118,7 +1180,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_robot_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1127,7 +1189,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_robot_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1136,7 +1198,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_robot_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1156,12 +1218,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Heavy armored step with hydraulic assist and restrained steel contact; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.2
+        "requested_duration_seconds": 1.2,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/move_power_armor_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1170,7 +1234,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_power_armor_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1179,7 +1243,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_power_armor_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1188,7 +1252,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_power_armor_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1208,12 +1272,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Low industrial electric drive accelerates past at close range, traction and chassis vibration; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 3.0
+        "requested_duration_seconds": 3,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/move_vehicle_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1222,7 +1288,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_vehicle_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1231,7 +1297,7 @@
         },
         {
           "path": "assets/audio/overhaul/movement/move_vehicle_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1251,12 +1317,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Subtle air pressure shift, granular static and a brief low resonance; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.5
+        "requested_duration_seconds": 1.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/psi_activate_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1265,7 +1333,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/psi_activate_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1274,7 +1342,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/psi_activate_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1294,12 +1362,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Snap of high voltage and fast dispersing textured crackle; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/energy_discharge_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1308,7 +1378,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/energy_discharge_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1317,7 +1387,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/energy_discharge_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1337,12 +1407,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Brief electromagnetic field engages, layered coil thrum and gentle mechanical lock; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.1
+        "requested_duration_seconds": 1.1,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/shield_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1351,7 +1423,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/shield_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1360,7 +1432,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/shield_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1380,12 +1452,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Soft relay chatter and a controlled electronic handshake, no melody; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.5
+        "requested_duration_seconds": 1.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/hack_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1394,7 +1468,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/hack_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1403,7 +1477,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/hack_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1423,12 +1497,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet capacitive contact and an optical mechanism settling; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.8
+        "requested_duration_seconds": 0.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/terminal_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1437,7 +1513,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/terminal_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1446,7 +1522,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/terminal_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1466,12 +1542,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Small directional scanner pulse, dry comms texture; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.8
+        "requested_duration_seconds": 0.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/enemy_detect_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1480,7 +1558,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/enemy_detect_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1489,7 +1567,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/enemy_detect_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1509,12 +1587,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Restrained industrial warning relay and pulsing speaker, contained loudness; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 3.0
+        "requested_duration_seconds": 3,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/alarm_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1523,7 +1603,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/alarm_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1543,12 +1623,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Electrical relay overload, controlled sparking and abrupt power loss; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 2.4
+        "requested_duration_seconds": 2.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/electrical_overload_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1557,7 +1639,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/electrical_overload_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1566,7 +1648,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/electrical_overload_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1586,12 +1668,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Muted fabric tension and low non-gory status cue; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.75
+        "requested_duration_seconds": 0.75,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/status_bleed_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1600,7 +1684,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/status_bleed_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1620,12 +1704,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet weapon bracing and a padded gear latch; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.7
+        "requested_duration_seconds": 0.7,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/overwatch_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1634,7 +1720,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/overwatch_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1654,12 +1740,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Distant approaching boots and brief encrypted radio texture without voices; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.8
+        "requested_duration_seconds": 1.8,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/technology/reinforcement_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1668,7 +1756,7 @@
         },
         {
           "path": "assets/audio/overhaul/technology/reinforcement_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1688,12 +1776,15 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Soft close tactile switch with a rounded electronic tail; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.35
+        "requested_duration_seconds": 0.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false,
+        "original_requested_duration_seconds": 0.35
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_click_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1702,7 +1793,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_click_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1711,7 +1802,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_click_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1720,7 +1811,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_click_04.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1740,12 +1831,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Small positive relay closure, soft and understated; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.5
+        "requested_duration_seconds": 0.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_confirm_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1754,7 +1847,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_confirm_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1763,7 +1856,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_confirm_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1783,12 +1876,15 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Muted switch rejection and brief descending mechanical impulse; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.45
+        "requested_duration_seconds": 0.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false,
+        "original_requested_duration_seconds": 0.45
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_refuse_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1797,7 +1893,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_refuse_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1806,7 +1902,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_refuse_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1826,12 +1922,15 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Soft dossier selection, compact tactile contact and gentle relay; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.45
+        "requested_duration_seconds": 0.5,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false,
+        "original_requested_duration_seconds": 0.45
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_agent_select_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1840,7 +1939,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_agent_select_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1849,7 +1948,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_agent_select_03.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1869,12 +1968,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Secure hatch release and polished mechanical mission cue; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_deploy_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1883,7 +1984,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_deploy_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1903,12 +2004,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Subtle affirmative console latch, compact and warm; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.65
+        "requested_duration_seconds": 0.65,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_turn_player_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1917,7 +2020,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_turn_player_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1937,12 +2040,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet tense relay switching, lower and drier than the player cue; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.75
+        "requested_duration_seconds": 0.75,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_turn_enemy_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1951,7 +2056,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_turn_enemy_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1971,12 +2076,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Precise lock release and soft sweeping console acknowledgment; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.1
+        "requested_duration_seconds": 1.1,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_objective_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -1985,7 +2092,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_objective_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2005,12 +2112,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Restrained positive mechanical release and roomy decay; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_victory_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2019,7 +2128,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_victory_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2039,12 +2148,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Muted shutdown relay, short falling pressure and dead silence; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.4
+        "requested_duration_seconds": 1.4,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_defeat_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2053,7 +2164,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_defeat_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2073,12 +2184,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Soft data archive unlock, dry relay texture and short airy tail; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 0.9
+        "requested_duration_seconds": 0.9,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_intel_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2087,7 +2200,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_intel_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2107,12 +2220,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet secure archive opening followed by a decisive latch; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Single isolated close effect, no unrelated background, natural decay and no clipping.",
-        "requested_duration_seconds": 1.3
+        "requested_duration_seconds": 1.3,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_act_advance_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2121,7 +2236,7 @@
         },
         {
           "path": "assets/audio/overhaul/ui/ui_act_advance_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2141,12 +2256,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Steady futuristic night street ventilation and remote tire wash; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_cybercity_night_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2155,7 +2272,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_cybercity_night_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2175,12 +2292,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Steady rain on pavement and metal awnings with distant runoff; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_urban_rain_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2189,7 +2308,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_urban_rain_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2209,12 +2328,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Steady industrial ventilation, motors and distant compressor room; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_industrial_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2223,7 +2344,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_industrial_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2243,12 +2364,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet air filtration, soft refrigeration and restrained equipment texture; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_laboratory_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2257,7 +2380,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_laboratory_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2277,12 +2400,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Spacious warehouse air, remote ventilation and low structural resonance; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_warehouse_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2291,7 +2416,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_warehouse_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2311,12 +2436,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Quiet corporate operations room ventilation and subdued electronics; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_headquarters_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2325,7 +2452,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_headquarters_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2345,12 +2472,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Underground tunnel ventilation and distant steady rail vibration; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_subway_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2359,7 +2488,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_subway_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2379,12 +2508,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Dry wind across a desolate plain, fine sand and distant metal resonance; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_wasteland_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2393,7 +2524,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_wasteland_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2413,12 +2544,14 @@
         "model": null,
         "license_status": "verify_before_publication",
         "prompt": "Distant air leakage in empty concrete rooms, subdued structural resonance; mature semi-realistic cyberpunk game. No music, speech or cartoon tones. Seamless stationary stereo loop, no foreground events or sudden transitions.",
-        "requested_duration_seconds": 22.0
+        "requested_duration_seconds": 22,
+        "planned_model": "eleven_text_to_sound_v2",
+        "provider_model_verified": false
       },
       "variants": [
         {
           "path": "assets/audio/overhaul/ambience/ambience_abandoned_01.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2427,7 +2560,7 @@
         },
         {
           "path": "assets/audio/overhaul/ambience/ambience_abandoned_02.wav",
-          "status": "blocked",
+          "status": "pending_generation",
           "source_url": null,
           "provider_asset_id": null,
           "requested_format": "WAV PCM 48 kHz",
@@ -2435,6 +2568,101 @@
           "audition_status": "not_verified"
         }
       ]
+    }
+  ],
+  "elevenlabs_provider_attempt": {
+    "date": "2026-11-19",
+    "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+    "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+    "model_id": "eleven_text_to_sound_v2",
+    "model_schema_checked": true,
+    "estimated_pilot_credits": 234,
+    "estimated_pilot_cost_usd": 0.0234,
+    "generation_attempted": true,
+    "generation_started": false,
+    "provider_response": "Free generations are busy right now: this take did not start. Nothing was charged.",
+    "charged_credits": 0,
+    "auditory_validation_performed": false,
+    "pilot_candidates": [
+      {
+        "id": "fire_assault",
+        "node_id": "yIB05bU7mMvQLVJxugaq",
+        "requested_duration_seconds": 1.5,
+        "model_id": "eleven_text_to_sound_v2",
+        "candidates": 3,
+        "prompt": "A close, dry military assault rifle single shot, sharp mechanical crack, firm low pressure body, short natural decay. No voices or music.",
+        "status": "configured_not_generated"
+      },
+      {
+        "id": "impact_metal",
+        "node_id": "nwpHVmOcCmBSuo1SQtNM",
+        "requested_duration_seconds": 1,
+        "model_id": "eleven_text_to_sound_v2",
+        "candidates": 3,
+        "prompt": "A single high-velocity bullet striking a thick steel wall, sharp metallic impact and brief rattling resonance. No voices or music.",
+        "status": "configured_not_generated"
+      },
+      {
+        "id": "step_concrete",
+        "node_id": "3C1M2qm4iXEk422bKryu",
+        "requested_duration_seconds": 0.8,
+        "model_id": "eleven_text_to_sound_v2",
+        "candidates": 3,
+        "prompt": "One heavy tactical boot step on rough indoor concrete, close and dry, subtle gear movement, no voices or music.",
+        "status": "configured_not_generated"
+      },
+      {
+        "id": "ui_click",
+        "node_id": "dCdjcMGrxfVwFatpyjui",
+        "requested_duration_seconds": 0.6,
+        "model_id": "eleven_text_to_sound_v2",
+        "candidates": 3,
+        "prompt": "A very soft premium futuristic control press, muted tactile microclick with a warm short confirmation texture, no beep, voice or music.",
+        "status": "configured_not_generated"
+      }
+    ],
+    "note": "Node IDs prove configured SFX nodes, not successful audio generations. All asset URLs remain null."
+  },
+  "notes": [
+    "Preserve existing MP3 music. No SFX outputs or WAV files have been downloaded, listened to or approved.",
+    "Variant paths are targets, not created files. Do not copy placeholders as audio.",
+    "Generate stems using Sound Effects v2 then verify audible quality, format, duration, loop seams and license before marking ready.",
+    "Retain compatibility fallback for current 19 WAV effects in Arcade and Godot.",
+    "Arcade dynamic cues recruitment, selection and toggle currently point at absent SFX names.",
+    "Godot routes currently map one WAV per event and uses six rotating effects players.",
+    "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum."
+  ],
+  "quality_gate": {
+    "audio_generated": false,
+    "downloaded": false,
+    "verified_encoding": false,
+    "peaks_checked": false,
+    "listened": false,
+    "loop_seams_checked": false,
+    "license_verified": false,
+    "arcade_integration_tested": false,
+    "godot_integration_tested": false
+  },
+  "duration_adjustments": [
+    {
+      "id": "step_concrete",
+      "from": 0.45,
+      "to": 0.5
+    },
+    {
+      "id": "ui_click",
+      "from": 0.35,
+      "to": 0.5
+    },
+    {
+      "id": "ui_refuse",
+      "from": 0.45,
+      "to": 0.5
+    },
+    {
+      "id": "ui_agent_select",
+      "from": 0.45,
+      "to": 0.5
     }
   ]
 }
