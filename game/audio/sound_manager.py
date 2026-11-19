@@ -16,6 +16,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 from .music_catalog import MUSIC_TRACKS, music_path
+from .overhaul_assets import preview_sfx_paths, preview_city_ambience_path
 
 _SFX_DIR   = Path("assets/audio/sfx")
 _MUSIC_DIR = Path("assets/audio/music")
@@ -25,7 +26,11 @@ _SFX_NAMES = [
     "sfx_death", "sfx_overwatch", "sfx_move", "sfx_turn_player",
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
-    "sfx_intel_reveal", "sfx_act_advance",
+    "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_city_short",
+    "sfx_fire_laser", "sfx_hit_metal", "sfx_hit_glass", "sfx_hit_organic",
+    "sfx_move_concrete", "sfx_move_metal", "sfx_move_robot",
+    "sfx_shield", "sfx_terminal", "sfx_door_open", "sfx_explosion_small",
+    "sfx_ui_confirm", "sfx_ui_refuse",
 ]
 
 _MUSIC_NAMES = list(MUSIC_TRACKS)
@@ -44,9 +49,13 @@ class SoundManager:
 
     def __init__(self) -> None:
         self._sfx:    dict[str, Any] = {}
+        self._sfx_variants: dict[str, list[Any]] = {}
+        self._sfx_next_variant: dict[str, int] = {}
         self._music:  dict[str, Any] = {}
         self._music_paths: dict[str, Path] = {}
         self._music_player: Any = None
+        self._ambience_player: Any = None
+        self._ambience_source: Any = None
         self._current_music: str | None = None
         self._current_path: str | None = None
         self._music_positions: dict[str, float] = {}
@@ -83,6 +92,8 @@ class SoundManager:
             self._music_vol = max(0.0, min(1.0, music_volume))
         if camera_shake is not None:
             self.camera_shake = camera_shake
+        if not self._enabled:
+            self.stop_ambience()
         # Update live music volume if playing
         if self._music_player is not None:
             try:
@@ -104,7 +115,13 @@ class SoundManager:
         if not self._enabled:
             return
         self.ensure_loaded()
-        sound = self._sfx.get(name)
+        variants = self._sfx_variants.get(name)
+        if variants:
+            idx = self._sfx_next_variant.get(name, 0) % len(variants)
+            self._sfx_next_variant[name] = idx + 1
+            sound = variants[idx]
+        else:
+            sound = self._sfx.get(name)
         if sound is None:
             return
         try:
@@ -112,6 +129,38 @@ class SoundManager:
             arcade.play_sound(sound, volume=self._sfx_vol * volume_scale)
         except Exception:
             pass
+
+    def play_city_ambience(self, volume_scale: float = 0.10) -> None:
+        """Low-volume urban environmental bed; no music track is changed."""
+        if not self._enabled or self._ambience_player is not None:
+            return
+        path = preview_city_ambience_path()
+        if path is None:
+            return
+        try:
+            import arcade
+            source = arcade.load_sound(str(path), streaming=False)
+            player = arcade.play_sound(
+                source, volume=max(0.0, min(1.0, self._sfx_vol * volume_scale)),
+                loop=True,
+            )
+            if player is not None:
+                self._ambience_source = source
+                self._ambience_player = player
+        except Exception:
+            pass
+
+    def stop_ambience(self) -> None:
+        """Stop a dedicated ambience player without touching the soundtrack."""
+        player = self._ambience_player
+        self._ambience_player = None
+        self._ambience_source = None
+        if player is not None:
+            try:
+                import arcade
+                arcade.stop_sound(player)
+            except Exception:
+                pass
 
     @staticmethod
     def _track_id(path: str | Path) -> str:
@@ -186,6 +235,10 @@ class SoundManager:
         if self._music_player is not None and (name == self._current_music or same_file):
             self._current_music = name
             self.resume_music()
+            if name == "music_management":
+                self.play_city_ambience()
+            else:
+                self.stop_ambience()
             return
         self.stop_music()
         selected_path = None
@@ -212,6 +265,9 @@ class SoundManager:
                 return
             self._music_player = player
             self._current_music = name
+            if name == "music_management":
+                self.play_city_ambience()
+                self.play("sfx_city_short", volume_scale=0.18)
             self._current_path = self._track_id(selected_path) if selected_path else None
             position = self._music_positions.get(self._current_path, 0.0)
             if position > 0:
@@ -224,6 +280,7 @@ class SoundManager:
 
     def stop_music(self) -> None:
         """Release playback while retaining the track bookmark for later UI visits."""
+        self.stop_ambience()
         if self._music_player is not None:
             self.pause_music()
             try:
@@ -243,12 +300,25 @@ class SoundManager:
         except ImportError:
             return
         for name in _SFX_NAMES:
-            path = _SFX_DIR / f"{name}.wav"
-            if path.exists():
+            # Decode only actual locally installed WAVs; never attempt manifest placeholders.
+            paths = list(preview_sfx_paths(name))
+            loaded = []
+            for path in paths:
                 try:
-                    self._sfx[name] = arcade.load_sound(str(path))
+                    loaded.append(arcade.load_sound(str(path)))
                 except Exception:
-                    pass
+                    continue
+            # Keep legacy WAV as an actual fallback, not a mixed-in arcade variant.
+            if not loaded:
+                legacy = _SFX_DIR / f"{name}.wav"
+                if legacy.is_file():
+                    try:
+                        loaded.append(arcade.load_sound(str(legacy)))
+                    except Exception:
+                        pass
+            if loaded:
+                self._sfx[name] = loaded[0]
+                self._sfx_variants[name] = loaded
         for name in _MUSIC_NAMES:
             path = music_path(name)
             if path is not None:
