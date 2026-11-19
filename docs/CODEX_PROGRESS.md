@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-SUITE — DONE. Suite Windows en ordre normal : 1 144 réussis, 35 ignorés, 12 sous-tests réussis. Package reconstruit dans `work/windows-release-regression/CyberCity2085`. Le smoke de l’exécutable confirme Godot 4.6.3 embarqué et l’aller-retour de sauvegarde. Le parcours graphique depuis ce package reste à vérifier via un pilote du jeu.
+
 - RELEASE-SUITE — IN_PROGRESS. La relance normale s’est arrêtée au premier échec après 830 réussites : les paramètres récupéraient une fixture Arcade d’un autre module. Fixture isolée pendant le test. Lot menu, paramètres et QG : 35 réussis, 1 ignoré, 5 sous-tests réussis dans l’ordre inversé. Relancer la suite normale.
 
 - RELEASE-COMBAT-REGRESSION — DONE. Les tests utilisent un fichier de résultat présent, vérifient les familles de cartes et le rapport d’échelle, et construisent le tableau avant de bloquer une mission. 47 réussis. Relancer la suite de release pour identifier les écarts d’intégration restants.
