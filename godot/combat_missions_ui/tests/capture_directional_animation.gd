@@ -81,7 +81,7 @@ func run() -> void:
 		var enemy=scene._unit_tokens["e0"]
 		assert(enemy.visual_key==enemy_target,"capture must exercise the requested enemy atlas")
 		enemy.set_process(false)
-		for action in ["idle","move","fire","melee","cover","hit","death"]:
+		for action in ["idle","move","fire","melee","cover","hit","death","psi"]:
 			if not enemy.manifest.animations.has(action):continue
 			assert(enemy.play_action(action))
 			enemy.facing=1
