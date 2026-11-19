@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 223 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 221 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,7 +543,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 8 ensembles complets, 0 partiel",
+        "Audit anti-doublons : 10 ensembles complets, 0 partiel",
         "Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows",
         "2 tests Python rÃ©ussis, 1 test X11 ignorÃ©",
         "Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions",
@@ -567,8 +567,14 @@
         ,"docs/images/street-medic-actions/README.md"
         ,"docs/images/street-medic-actions/audit.json"
         ,"docs/images/street-medic-actions/animation-report.json"
+        ,"docs/images/longcoat-gunner-actions/README.md"
+        ,"docs/images/longcoat-gunner-actions/audit.json"
+        ,"docs/images/longcoat-gunner-actions/animation-report.json"
+        ,"docs/images/hooded-infiltrator-actions/README.md"
+        ,"docs/images/hooded-infiltrator-actions/audit.json"
+        ,"docs/images/hooded-infiltrator-actions/animation-report.json"
       ],
-      "remaining": "8 / 231 ensembles complets ; produire et vérifier les actions applicables des 223 autres entités ; catalogue 122 cartes et benchmark à jour pour la signature e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
+      "remaining": "10 / 231 ensembles complets ; produire et vérifier les actions applicables des 221 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
       "reason": ""
     },
     {
@@ -841,7 +847,7 @@
     "MAP-ART": {
       "status": "PASS",
       "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
-      "render_signature": "e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
+      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -849,14 +855,14 @@
         },
         {
           "path": "docs/images/environment-art-review-windows/native-report.json",
-          "sha256": "f7649ecea106793354c70df0ef081144c10223d246453e41cbb9d3759bbe19ad"
+          "sha256": "a1f4284fc178631d5700d5ef4d0c72cae7daa368ec2b10d6605e1ea72b37bc3d"
         }
       ]
     },
     "ART-OBJECTS": {
       "status": "PASS",
       "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
-      "render_signature": "e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
+      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -867,18 +873,18 @@
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
+      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
-          "sha256": "eccef2fc1e159383c6fe90f97758db92a098de289b060437831292dae91b61c8"
+          "sha256": "f92b394404075bda3a701b989cc805a8a1adf4d048c9f88e3817da1977993d3d"
         }
       ]
     },
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
+      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
@@ -886,14 +892,14 @@
         },
         {
           "path": "docs/images/entity-scale-production-windows/native-report.json",
-          "sha256": "92fa0b03d5c40e18826f65e7c4166e855ebada199161767f0a2fc2db9c8d09d7"
+          "sha256": "a1f4284fc178631d5700d5ef4d0c72cae7daa368ec2b10d6605e1ea72b37bc3d"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "56482a5455558f98508fa685760d41509e32c11b8db40a51ce3ddcf9ba4f1b14",
+    "sha256": "920e78af648ff95eeff665350b26a712ed7c4f63988d8f2d9a1dc2ea9e144602",
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément",
     "not_executed": [
       "Actions de combat manquantes et autres unités",
@@ -926,11 +932,11 @@
       },
       {
         "path": "tests/test_directional_animation.py",
-        "sha256": "9064e11e9b263967435aedddbeba3d28ee056768a8af897e33d0ccefc7041c5a"
+        "sha256": "cf0117c804c45390cfe110fc7cd63dfb4e0bc3ed1cd1be35e4b585bb21de25e2"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "26cac7da58788eb358c5ad4f9516ae6e091fdbb9e843fc836c8ff28e9af320cc"
+        "sha256": "7ba90a1412071c6b244e4e68d87086dff0543bc6f89e39e274dfcb94c0f04806"
       },
       {
         "path": "tests/test_windows_gpu_benchmark.py",

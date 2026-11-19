@@ -63,7 +63,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Reste sur l’objectif complet
 
-- Produire et vérifier les actions applicables des 223 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
+- Produire et vérifier les actions applicables des 221 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
