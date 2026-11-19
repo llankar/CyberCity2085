@@ -222,3 +222,16 @@ func playback_bookmark() -> Dictionary:
 	if _current_track.is_empty() or _music_player == null: return {}
 	var path := _current_track if _current_track.is_absolute_path() else _asset_root.path_join("assets/audio/music").path_join(_current_track)
 	return {"path":path,"position":_music_player.get_playback_position(),"captured_at":Time.get_unix_time_from_system()}
+
+
+func stop_playback() -> void:
+	_enabled = false
+	_music_owned = false
+	var players: Array[AudioStreamPlayer] = _sfx_players.duplicate()
+	players.append(_music_player)
+	players.append(_ambience_player)
+	for player in players:
+		if is_instance_valid(player):
+			player.stop()
+			player.stream = null
+	_streams.clear()

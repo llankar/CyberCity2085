@@ -38,6 +38,11 @@ func _process(delta: float) -> void:
 		if FileAccess.file_exists(str(_session.get("ack_path",""))):
 			ack=JSON.parse_string(FileAccess.get_file_as_string(str(_session.ack_path)))
 		if ack is Dictionary and ack.get("protocol_version")==2 and ack.get("session_id")==_session.get("session_id") and ack.get("status")=="accepted":
+			set_process(false)
+			if is_instance_valid(_audio_node):
+				_audio_node.stop_playback()
+				# Keep the tree alive while the audio server releases queued playbacks.
+				await get_tree().create_timer(0.1).timeout
 			var runtime=get_node_or_null("/root/PersistentCombatRuntime")
 			if runtime!=null: runtime.finish_mission(get_parent().get_parent())
 			else: get_tree().quit()

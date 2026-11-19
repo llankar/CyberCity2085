@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- UNIFIED-AUDIO-LIFETIME — DONE. Le journal détaillé du retour de victoire identifiait quatre objets de lecture WAV/MP3 encore actifs. Godot libère les flux après l’ACK avant de quitter ou de rendre la main au runtime. La victoire rejouée à 720p n’affiche plus la fuite. Seize tests audio et runtime passent. L’écoute réelle reste ouverte.
+
 - UNIFIED-INTERNAL-RESIZE — DONE. Le pilote interne a réduit la fenêtre Godot de 1280 × 720 à 1120 × 630 puis rétabli sa taille. Surface rendue, dimensions de scène et état tactique préservé vérifiés, puis victoire et retour au QG. Alt+Tab, changement de DPI et focus système restent ouverts. Avertissement ObjectDB à la fermeture toujours présent.
 
 - PACKAGE-UNIFIED-QA — DONE. L’exécutable Windows QA a joué les trois issues avec Godot embarqué à 1280 × 720 : victoire, défaite et retraite. Chaque parcours revient au QG après le débriefing, recharge sa sauvegarde et rejette une seconde application du résultat. Le pilote est réservé au build QA. DPI, focus, redimensionnement et écoute audio restent à valider.
