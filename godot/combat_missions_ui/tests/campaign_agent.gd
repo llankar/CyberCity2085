@@ -81,4 +81,3 @@ func act(scene) -> bool:
 	return false
 
 func distance(a: Vector2i,b: Vector2i) -> int: return absi(a.x-b.x)+absi(a.y-b.y)
-
