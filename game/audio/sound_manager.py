@@ -16,7 +16,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 from .music_catalog import MUSIC_TRACKS, music_path
-from .overhaul_assets import preview_sfx_path, preview_city_ambience_path
+from .overhaul_assets import preview_sfx_paths, preview_city_ambience_path
 
 _SFX_DIR   = Path("assets/audio/sfx")
 _MUSIC_DIR = Path("assets/audio/music")
@@ -27,6 +27,10 @@ _SFX_NAMES = [
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
     "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_city_short",
+    "sfx_fire_laser", "sfx_hit_metal", "sfx_hit_glass", "sfx_hit_organic",
+    "sfx_move_concrete", "sfx_move_metal", "sfx_move_robot",
+    "sfx_shield", "sfx_terminal", "sfx_door_open", "sfx_explosion_small",
+    "sfx_ui_confirm", "sfx_ui_refuse",
 ]
 
 _MUSIC_NAMES = list(MUSIC_TRACKS)
@@ -45,6 +49,8 @@ class SoundManager:
 
     def __init__(self) -> None:
         self._sfx:    dict[str, Any] = {}
+        self._sfx_variants: dict[str, list[Any]] = {}
+        self._sfx_next_variant: dict[str, int] = {}
         self._music:  dict[str, Any] = {}
         self._music_paths: dict[str, Path] = {}
         self._music_player: Any = None
@@ -109,7 +115,13 @@ class SoundManager:
         if not self._enabled:
             return
         self.ensure_loaded()
-        sound = self._sfx.get(name)
+        variants = self._sfx_variants.get(name)
+        if variants:
+            idx = self._sfx_next_variant.get(name, 0) % len(variants)
+            self._sfx_next_variant[name] = idx + 1
+            sound = variants[idx]
+        else:
+            sound = self._sfx.get(name)
         if sound is None:
             return
         try:
@@ -288,12 +300,20 @@ class SoundManager:
         except ImportError:
             return
         for name in _SFX_NAMES:
-            path = preview_sfx_path(name) or _SFX_DIR / f"{name}.wav"
-            if path.exists():
+            # Decode only actual locally installed WAVs; never attempt manifest placeholders.
+            paths = list(preview_sfx_paths(name))
+            legacy = _SFX_DIR / f"{name}.wav"
+            if legacy.is_file():
+                paths.append(legacy)  # Fallback for unavailable / undecodable previews.
+            loaded = []
+            for path in paths:
                 try:
-                    self._sfx[name] = arcade.load_sound(str(path))
+                    loaded.append(arcade.load_sound(str(path)))
                 except Exception:
-                    pass
+                    continue
+            if loaded:
+                self._sfx[name] = loaded[0]
+                self._sfx_variants[name] = loaded
         for name in _MUSIC_NAMES:
             path = music_path(name)
             if path is not None:
