@@ -1,0 +1,56 @@
+name: Build pinned CC0 sound previews
+on:
+  push:
+    branches: [audio-overhaul-1-0-elevenlabs-20261119]
+    paths:
+      - 'tools/import_cc0_audio.py'
+      - 'docs/audio/cc0_ccby_sources.json'
+      - 'tests/test_cc0_audio_import.py'
+      - '.github/workflows/build-cc0-audio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-licensed-audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify tools
+        run: |
+          python --version
+          ffmpeg -version | head -1
+      - name: Run offline importer tests
+        run: python -m unittest discover -s tests -p 'test_cc0_audio_import.py' -v
+      - name: Fetch pinned Kenney CC0 originals and convert to WAV
+        run: python tools/import_cc0_audio.py --kenney
+      - name: Verify output WAV and provenance receipts
+        run: |
+          python - <<'PY'
+          import json, pathlib, wave
+          root=pathlib.Path(".")
+          data=json.loads((root/"docs/audio/cc_import_receipts.json").read_text())
+          kenney=[x for x in data["assets"] if x["author"]=="Kenney"]
+          assert len(kenney)==18, f"Expected 18 Kenney WAVs, got {len(kenney)}"
+          for entry in kenney:
+              path=root/entry["path"]
+              assert path.is_file(), path
+              with wave.open(str(path)) as wf:
+                  assert wf.getframerate()==48000
+                  assert wf.getsampwidth()==2
+                  assert wf.getnchannels()==2
+          print(f"{len(kenney)} real WAVs checked, all pending audition")
+          PY
+      - name: Commit only actual licensed WAV outputs and provenance files
+        run: |
+          git add assets/audio/overhaul docs/audio/cc_import_receipts.json assets/audio/CREDITS_CC_AUDIO.md
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit"
+          else
+            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "assets(audio): install 18 verified Kenney CC0 WAV previews"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
