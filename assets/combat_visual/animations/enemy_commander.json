@@ -1,0 +1,339 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_commander.png",
+  "texture_sha256": "891d2a5f7f66fb909994af9f7b0f262ce4f7f7efacf7eea2e5db2d92576289a8",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_commander_512.png",
+  "source_sha256": "27a6165f277fc92df9fb97df17597e84c508bf741d9f5fef54a261698a2d31c1",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/idle-idle_pairs-0.png",
+      "sha256": "08078808734d9c797e78e4dc6c76e4a88dc4b989a8081195ef3e2e23ae74aff3",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/move-front-1.png",
+      "sha256": "333d5849d8a728ea76fda26dfdfa36fc86d11c515fea2d96103956790aabeb72",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/move-rear-2.png",
+      "sha256": "ebfc628f89fa2e8ae2f9af4774ea66c9f5f0a312def10e30965db2e0f30675ff",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/fire-action_rows-3.png",
+      "sha256": "acd2dace6ac7e02b1251e2d7da1dc5f51e7d1636b32b867952ed60f981acc239",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/melee-action_pairs-4.png",
+      "sha256": "2d48f3e35a7d33d2195f725fb1bb34c299c47bb739e172aeaa32a429af200ba6",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/cover-action_pairs-5.png",
+      "sha256": "b695fa3d8a33d43ea3054babbf453c9db33da33f8c9d1106783301ee9dfb9c2e",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for the commander role.",
+    "heal": "No healing action for the commander role."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
