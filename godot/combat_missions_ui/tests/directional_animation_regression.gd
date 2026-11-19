@@ -34,7 +34,7 @@ func run() -> void:
 				assert(is_equal_approx(unit._art_rect.position.x,-unit._art_rect.size.x*.5),"authored foot anchor remains registered")
 				observed+=1
 		unit.play_action("idle")
-		if key=="agent_diverse_03_magenta_pistol":
+		if key in ["agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper"]:
 			for direction in range(8):
 				unit.facing=direction;assert(unit.play_action("fire"));unit.frame_time=0.2;unit._process(0.0)
 				assert(unit.frame_index==1,"pistol recoil frame must be selected")
@@ -51,6 +51,11 @@ func run() -> void:
 					unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
 		if key=="agent_diverse_03_magenta_pistol":
+			for action in ["melee","cover","hit","death"]:
+				for direction in range(8):
+					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
+					assert(unit.frame_index==1,action+" follow-through frame must be selected")
+		if key=="agent_diverse_04_trench_sniper":
 			for action in ["melee","cover","hit","death"]:
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)

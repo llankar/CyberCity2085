@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/agent_diverse_04_trench_sniper.png",
-  "texture_sha256": "f3e3c001604c522e2f34bdb54a9f7944d3d79b9367e41338488a75f15fcf394f",
+  "texture_sha256": "35585a3579a060c7bf0ce9851d1b8fc0d89d400a13a384b3c938287f3deb83d0",
   "frame_size": [
     256,
     256
@@ -103,6 +103,196 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/agent_diverse_04_trench_sniper_512.png",
@@ -128,17 +318,57 @@
       "clip": "idle",
       "layout": "idle_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/fire-action_pairs-3.png",
+      "sha256": "0d8c49105bf8d4d04903b047204c952c2980d51c54106df9a51bd3b3b6f31df2",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/melee-action_pairs-4.png",
+      "sha256": "5c38a97ad1e7c6c7387ef60fac6d54297887839dbb9a2b8386627fe3fcaaea20",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/cover-action_pairs-5.png",
+      "sha256": "031734a4b67d6b570315257137708cd0cde3ab5642639110a87cd6ebd60b49f0",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/hit-action_pairs-6.png",
+      "sha256": "731f49a95b991274d140c06cabbf815239b9fcee215c03e761a21f4a39966df2",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_04_trench_sniper/death-action_pairs-7.png",
+      "sha256": "478b4ec2cf5119f7410145351fbb92b3354f8f12e3e74488f4a49ec753078ca7",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
-  "coverage": "partial",
-  "missing_clips": [
+  "required_clips": [
+    "idle",
+    "move",
     "fire",
     "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "review_status": "native_render_verified_partial"
+  "non_applicable_clips": {
+    "psi": "Character has no PSI ability or PSI role.",
+    "heal": "Character has no medical action or medic role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

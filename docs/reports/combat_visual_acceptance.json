@@ -18,8 +18,8 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 2,
-    "partial": 4,
+    "complete": 3,
+    "partial": 3,
     "expected": 231
   },
   "tests": {
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "4b63dd60bf7d61f6460e12c586be8d7c96fd5362e7cd885cb327bcde86a338c2",
+  "render_signature": "da33020a079e1aa803365a16883d3b49745f46921e65d666a0d2a66e47e180e1",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "2 / 231 ensembles complets pour toutes leurs actions applicables ; 4 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "3 / 231 ensembles complets pour toutes leurs actions applicables ; 3 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]

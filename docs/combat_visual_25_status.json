@@ -9,7 +9,7 @@
     "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.",
     "192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.",
     "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.",
-    "Agentes aux lames et au pistolet magenta : toutes les actions applicables complètes et validées ; total 432 frames, 2 ensembles complets et 4 partiels."
+    "Trois agents complets (lames, pistolet magenta, tireur au manteau) : toutes les actions applicables validées ; total 512 frames, 3 ensembles complets et 3 partiels."
   ],
   "tasks": [
     {
@@ -42,11 +42,11 @@
     "reference": "native Windows final environment-art review",
     "evidence": "images/environment-art-review-windows/README.md",
     "summary": "122 cartes examinées sur 21 planches détaillées ; trois aplats corrigés ; catalogue natif final 122/122.",
-    "signature": "4b63dd60bf7d61f6460e12c586be8d7c96fd5362e7cd885cb327bcde86a338c2",
+    "signature": "da33020a079e1aa803365a16883d3b49745f46921e65d666a0d2a66e47e180e1",
     "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
-    "Produire et vérifier les actions applicables des 229 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
+    "Produire et vérifier les actions applicables des 228 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",
