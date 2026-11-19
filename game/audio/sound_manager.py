@@ -302,15 +302,20 @@ class SoundManager:
         for name in _SFX_NAMES:
             # Decode only actual locally installed WAVs; never attempt manifest placeholders.
             paths = list(preview_sfx_paths(name))
-            legacy = _SFX_DIR / f"{name}.wav"
-            if legacy.is_file():
-                paths.append(legacy)  # Fallback for unavailable / undecodable previews.
             loaded = []
             for path in paths:
                 try:
                     loaded.append(arcade.load_sound(str(path)))
                 except Exception:
                     continue
+            # Keep legacy WAV as an actual fallback, not a mixed-in arcade variant.
+            if not loaded:
+                legacy = _SFX_DIR / f"{name}.wav"
+                if legacy.is_file():
+                    try:
+                        loaded.append(arcade.load_sound(str(legacy)))
+                    except Exception:
+                        pass
             if loaded:
                 self._sfx[name] = loaded[0]
                 self._sfx_variants[name] = loaded
