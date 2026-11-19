@@ -21,7 +21,7 @@
             0.6222222222222222
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8135
         },
@@ -39,7 +39,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 1,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9815
         },
         {
@@ -56,7 +56,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 2,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9933
         }
       ],
@@ -180,7 +180,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 3,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9806
         }
       ],
@@ -284,7 +284,7 @@
             0.21296296296296297
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9516
         },
@@ -302,7 +302,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 6,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.939
         },
         {
@@ -319,7 +319,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 8,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7726
         },
         {
@@ -336,7 +336,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 236,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 90,
           "assembly": {
             "seats": 2,
@@ -358,7 +358,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 237,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 270,
           "assembly": {
             "seats": 2,
@@ -380,7 +380,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 238,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -400,7 +400,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 239,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -420,7 +420,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 240,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -440,7 +440,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 241,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -460,7 +460,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 242,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -480,7 +480,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 243,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -500,7 +500,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 244,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -520,7 +520,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 245,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -540,7 +540,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 246,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 90,
           "assembly": {
             "seats": 2,
@@ -562,7 +562,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 247,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -582,7 +582,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 248,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 270,
           "assembly": {
             "seats": 2,
@@ -674,7 +674,7 @@
             0.3101851851851852
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9015
         },
@@ -692,7 +692,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 9,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7769
         },
         {
@@ -709,7 +709,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 10,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9397
         },
         {
@@ -726,7 +726,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 11,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9782
         }
       ],
@@ -815,7 +815,7 @@
             0.31203703703703706
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9377
         }
@@ -915,7 +915,7 @@
             0.3425925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9874
         },
@@ -1025,7 +1025,7 @@
             0.37777777777777777
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8013
         },
@@ -1061,7 +1061,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 18,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7113
         },
         {
@@ -1078,7 +1078,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 19,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7877
         },
         {
@@ -1095,7 +1095,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 272,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -1115,7 +1115,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 273,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -1195,7 +1195,7 @@
             0.28888888888888886
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8967
         }
@@ -1279,7 +1279,7 @@
             0.4648148148148148
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9559
         }
@@ -1357,7 +1357,7 @@
             0.37592592592592594
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9332
         },
@@ -1375,7 +1375,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 21,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6701
         }
       ],
@@ -1460,7 +1460,7 @@
             0.812962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9175
         }
@@ -1560,7 +1560,7 @@
             0.1425925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7514
         }
@@ -1638,7 +1638,7 @@
             0.3907407407407407
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "frame_coverage": 0.9741
@@ -1658,7 +1658,7 @@
           "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "source_review": "detail_crop_sheet",
           "review_index": 24,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9741
         },
         {
@@ -1676,7 +1676,7 @@
           "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "source_review": "detail_crop_sheet",
           "review_index": 25,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9909
         }
       ],
@@ -1758,7 +1758,7 @@
             0.5297619047619048
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8328
         },
@@ -1776,7 +1776,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 28,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "racks": 6
@@ -1797,7 +1797,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 280,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "racks": 6
@@ -1882,7 +1882,7 @@
             0.8203703703703704
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8605
         },
@@ -2090,7 +2090,7 @@
             0.865
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.797,
           "partial_source_object": true
@@ -2215,7 +2215,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 35,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "count": 6,
@@ -2325,7 +2325,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 37,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "count": 6,
@@ -2423,7 +2423,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 285,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "count": 4,
@@ -2447,7 +2447,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 286,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "count": 4,
@@ -2547,7 +2547,7 @@
             0.3685185185185185
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7402
         }
@@ -2664,7 +2664,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 40,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7931
         }
       ],
@@ -2837,7 +2837,7 @@
             0.14629629629629629
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.967
         },
@@ -2855,7 +2855,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 44,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.896
         }
       ],
@@ -2962,7 +2962,7 @@
             0.662962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8152
         }
@@ -3080,7 +3080,7 @@
             0.5444444444444444
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7846
         },
@@ -3098,7 +3098,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 48,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6931
         },
         {
@@ -3213,7 +3213,7 @@
             0.7537037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8164
         },
@@ -3231,7 +3231,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 51,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.812
         },
         {
@@ -3248,7 +3248,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 52,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.903
         }
       ],
@@ -3341,7 +3341,7 @@
             0.40370370370370373
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9561
         },
@@ -3359,7 +3359,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 54,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9005
         },
         {
@@ -3376,7 +3376,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 56,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9233
         }
       ],
@@ -3499,7 +3499,7 @@
             0.45740740740740743
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8848
         },
@@ -3535,7 +3535,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 58,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6955
         },
         {
@@ -3552,7 +3552,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 59,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9235
         }
       ],
@@ -3680,7 +3680,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 61,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 180,
           "frame_coverage": 0.7966
         },
@@ -3698,7 +3698,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 62,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 270,
           "frame_coverage": 0.9045
         }
@@ -3808,7 +3808,7 @@
             0.17407407407407408
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8506
         },
@@ -3826,7 +3826,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 63,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 270,
           "frame_coverage": 0.8443
         },
@@ -3844,7 +3844,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 64,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8043
         }
       ],
@@ -3949,7 +3949,7 @@
             0.45555555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8066
         },
@@ -3967,7 +3967,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 67,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8261
         },
         {
@@ -3984,7 +3984,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 68,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9173
         }
       ],
@@ -4069,7 +4069,7 @@
             0.6055555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.73
         },
@@ -4105,7 +4105,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 70,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7558
         }
       ],
@@ -4210,7 +4210,7 @@
             0.24259259259259258
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8833
         },
@@ -4228,7 +4228,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 72,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -4250,7 +4250,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 73,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7168
         }
       ],
@@ -4372,7 +4372,7 @@
             0.7388888888888889
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8292
         }
@@ -4480,7 +4480,7 @@
             0.4648148148148148
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9513
         }
@@ -4569,7 +4569,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 78,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9556
         }
       ],
@@ -4666,7 +4666,7 @@
             0.2777777777777778
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8757
         },
@@ -4684,7 +4684,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 81,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "seats": 4,
@@ -4706,7 +4706,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 82,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4726,7 +4726,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 83,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4746,7 +4746,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 314,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4766,7 +4766,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 315,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4786,7 +4786,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 316,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4806,7 +4806,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 317,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4826,7 +4826,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 318,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4846,7 +4846,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 319,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "seats": 2
           },
@@ -4944,7 +4944,7 @@
             0.2851851851851852
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9269
         },
@@ -4962,7 +4962,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 84,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9717
         },
         {
@@ -4979,7 +4979,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 85,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9938
         }
       ],
@@ -5062,7 +5062,7 @@
             0.23333333333333334
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6807
         }
@@ -5181,7 +5181,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 88,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9411
         },
         {
@@ -5198,7 +5198,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 89,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9176
         }
       ],
@@ -5293,7 +5293,7 @@
             0.47962962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9543
         },
@@ -5309,7 +5309,7 @@
             0.5796296296296296
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8202
         },
@@ -5325,7 +5325,7 @@
             0.6407407407407407
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7934
         },
@@ -5343,7 +5343,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 91,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -5365,7 +5365,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 92,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6895
         },
         {
@@ -5491,7 +5491,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 94,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9327
         },
         {
@@ -5508,7 +5508,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 95,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7195
         },
         {
@@ -5525,7 +5525,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 96,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8274
         }
       ],
@@ -5630,7 +5630,7 @@
             0.3351851851851852
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8124
         },
@@ -5648,7 +5648,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 97,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.8798
         },
@@ -5666,7 +5666,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 98,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8981
         },
         {
@@ -5683,7 +5683,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 99,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 270,
           "frame_coverage": 0.8025
         }
@@ -5785,7 +5785,7 @@
             0.6537037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.937
         }
@@ -5914,7 +5914,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 104,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8944
         }
       ],
@@ -6009,7 +6009,7 @@
             0.35555555555555557
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8321
         }
@@ -6127,7 +6127,7 @@
             0.7592592592592593
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7687
         },
@@ -6145,7 +6145,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 109,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8379
         },
         {
@@ -6162,7 +6162,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 110,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.8594
         },
         {
@@ -6179,7 +6179,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 111,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9331
         }
       ],
@@ -6274,7 +6274,7 @@
             0.8518518518518519
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7667
         },
@@ -6292,7 +6292,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 112,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -6314,7 +6314,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 113,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -6336,7 +6336,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 114,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9963
         }
       ],
@@ -6459,7 +6459,7 @@
             0.3611111111111111
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9711
         },
@@ -6477,7 +6477,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 115,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9281
         }
       ],
@@ -6564,7 +6564,7 @@
             0.9018518518518519
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8688
         },
@@ -6582,7 +6582,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 118,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7477
         }
       ],
@@ -6673,7 +6673,7 @@
             0.20925925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6751
         },
@@ -6691,7 +6691,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 123,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7769
         }
       ],
@@ -6772,7 +6772,7 @@
             0.18333333333333332
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8789
         },
@@ -6790,7 +6790,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 124,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9701
         }
       ],
@@ -6895,7 +6895,7 @@
             0.5574074074074075
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7344
         },
@@ -6913,7 +6913,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 127,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -6935,7 +6935,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 128,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -7073,7 +7073,7 @@
             0.6592592592592592
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7197
         },
@@ -7091,7 +7091,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 130,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9928
         }
       ],
@@ -7190,7 +7190,7 @@
             0.7222222222222222
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9742
         },
@@ -7304,7 +7304,7 @@
             0.8611111111111112
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9154
         }
@@ -7396,7 +7396,7 @@
             0.4074074074074074
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7029
         }
@@ -7478,7 +7478,7 @@
             0.45
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8589
         }
@@ -7575,7 +7575,7 @@
             1.0
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9403
         }
@@ -7675,7 +7675,7 @@
             0.6925925925925925
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6875
         }
@@ -7759,7 +7759,7 @@
             0.6722222222222223
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7754
         }
@@ -7849,7 +7849,7 @@
             0.6925925925925925
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6875
         }
@@ -7933,7 +7933,7 @@
             0.4962962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "disabled_reason": "flat light canopy reads as an artificial grey slab at gameplay scale; preserve richer source market art",
           "frame_coverage": 0.8523
@@ -8046,7 +8046,7 @@
             0.8111111111111111
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8577
         }
@@ -8136,7 +8136,7 @@
             0.4962962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "disabled_reason": "flat light canopy reads as an artificial grey slab at gameplay scale; preserve richer source market art",
           "frame_coverage": 0.8523
@@ -8249,7 +8249,7 @@
             0.8111111111111111
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8577
         }
@@ -8447,7 +8447,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 140,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.686
         }
       ],
@@ -8650,7 +8650,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 140,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.686
         }
       ],
@@ -8745,7 +8745,7 @@
             0.7037037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6616
         }
@@ -8847,7 +8847,7 @@
             0.8
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7732
         }
@@ -8935,7 +8935,7 @@
             0.7037037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.6616
         }
@@ -9037,7 +9037,7 @@
             0.4888888888888889
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7605
         }
@@ -9123,7 +9123,7 @@
             0.8
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7732
         }
@@ -9211,7 +9211,7 @@
             0.15185185185185185
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.859
         }
@@ -9295,7 +9295,7 @@
             0.4888888888888889
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7605
         }
@@ -9476,7 +9476,7 @@
             0.15185185185185185
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.859
         }
@@ -9655,7 +9655,7 @@
             0.5666666666666667
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.944
         }
@@ -9747,7 +9747,7 @@
             0.12407407407407407
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.702
         }
@@ -10021,7 +10021,7 @@
             0.512962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9026
         }
@@ -10107,7 +10107,7 @@
             0.5666666666666667
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.944
         }
@@ -10199,7 +10199,7 @@
             0.12407407407407407
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.702
         }
@@ -10473,7 +10473,7 @@
             0.512962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9026
         }
@@ -10559,7 +10559,7 @@
             0.3314814814814815
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8514
         },
@@ -10577,7 +10577,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 161,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "assembly": {
             "vegetation": "dead branches"
           },
@@ -10671,7 +10671,7 @@
             0.21296296296296297
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9075
         }
@@ -10748,7 +10748,7 @@
             0.24074074074074073
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7961
         },
@@ -10766,7 +10766,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 166,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.781
         },
@@ -10784,7 +10784,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 167,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.8716
         },
@@ -10802,7 +10802,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 168,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9778
         }
       ],
@@ -10905,7 +10905,7 @@
             0.6018518518518519
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9813
         }
@@ -10997,7 +10997,7 @@
             0.2537037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7227
         },
@@ -11015,7 +11015,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 172,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -11154,7 +11154,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 175,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9966
         },
         {
@@ -11278,7 +11278,7 @@
             0.3388888888888889
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8462
         },
@@ -11296,7 +11296,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 178,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6647
         },
         {
@@ -11313,7 +11313,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 180,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7372
         }
       ],
@@ -11406,7 +11406,7 @@
             0.24074074074074073
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7961
         },
@@ -11424,7 +11424,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 166,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.781
         },
@@ -11442,7 +11442,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 167,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.8716
         },
@@ -11460,7 +11460,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 168,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9778
         }
       ],
@@ -11666,7 +11666,7 @@
             0.6055555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9976
         },
@@ -11684,7 +11684,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 185,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 90,
           "assembly": {
             "sleepers": 1,
@@ -11798,7 +11798,7 @@
             0.6018518518518519
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9813
         }
@@ -11890,7 +11890,7 @@
             0.8981481481481481
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9546
         },
@@ -11908,7 +11908,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 187,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7332
         },
         {
@@ -11925,7 +11925,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 188,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9983
         },
         {
@@ -11942,7 +11942,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 189,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9321
         }
       ],
@@ -12027,7 +12027,7 @@
             0.2537037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7227
         },
@@ -12045,7 +12045,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 172,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -12184,7 +12184,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 175,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9966
         },
         {
@@ -12308,7 +12308,7 @@
             0.2462962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7232
         }
@@ -12410,7 +12410,7 @@
             0.587037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.688
         },
@@ -12428,7 +12428,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 193,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -12450,7 +12450,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 194,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -12472,7 +12472,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 195,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.719
         }
       ],
@@ -12601,7 +12601,7 @@
             0.3388888888888889
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8462
         },
@@ -12619,7 +12619,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 178,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.6647
         },
         {
@@ -12636,7 +12636,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 180,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7372
         }
       ],
@@ -12729,7 +12729,7 @@
             0.25925925925925924
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9727
         },
@@ -12747,7 +12747,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 196,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.7003
         },
@@ -12765,7 +12765,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 197,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -12787,7 +12787,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 198,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "frame_coverage": 0.7177
         }
@@ -13008,7 +13008,7 @@
             0.6055555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9976
         },
@@ -13026,7 +13026,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 185,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 90,
           "assembly": {
             "sleepers": 1,
@@ -13140,7 +13140,7 @@
             0.8981481481481481
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9546
         },
@@ -13158,7 +13158,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 187,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.7332
         },
         {
@@ -13175,7 +13175,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 188,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9983
         },
         {
@@ -13192,7 +13192,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 189,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9321
         }
       ],
@@ -13277,7 +13277,7 @@
             0.2462962962962963
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7232
         }
@@ -13379,7 +13379,7 @@
             0.587037037037037
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.688
         },
@@ -13397,7 +13397,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 193,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -13419,7 +13419,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 194,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "author_yaw": 0,
           "assembly": {
             "sleepers": 1,
@@ -13441,7 +13441,7 @@
           "enabled": true,
           "source_review": "detail_crop_sheet",
           "review_index": 195,
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.719
         }
       ],
@@ -13570,7 +13570,7 @@
             0.3925925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7742
         }
@@ -13719,7 +13719,7 @@
             0.39444444444444443
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7756
         }
@@ -13799,7 +13799,7 @@
             0.8851851851851852
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9093
         }
@@ -13893,7 +13893,7 @@
             0.575925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8102
         }
@@ -13981,7 +13981,7 @@
             0.3925925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7742
         }
@@ -14130,7 +14130,7 @@
             0.39444444444444443
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.7756
         }
@@ -14210,7 +14210,7 @@
             0.8851851851851852
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.9093
         }
@@ -14304,7 +14304,7 @@
             0.575925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.8102
         }
@@ -14483,7 +14483,7 @@
             0.28888888888888886
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified",
+          "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
           "frame_coverage": 0.767
         }

@@ -1,9 +1,29 @@
-# Revue artistique détaillée Windows — en cours
+# Captures réelles Combat Visual 2.5
 
-**REVUE DÉCOR : 122/122 cartes examinées en détail. CHANTIER GLOBAL INCOMPLET.**
+Les 11 planches sont des réductions des 122 captures natives en 1280×720. Les vues détaillées conservent exactement les pixels des captures PNG grâce à WebP sans perte. Les empreintes RGB originales et résultats natifs sont dans le manifeste.
 
-Les pages `art-review-01.jpg` à `art-review-21.jpg` ont été examinées à six cartes par page. Elles couvrent les 122 cartes du manifeste, avec une taille suffisante pour contrôler murs, mobilier, machines, matériaux, lumières, ombres, raccords et occultations.
+| Environnement | Avant 1080p | Après 720p | Après 1080p | Après 1440p |
+|---|---|---|---|---|
+| cybercity_inner_02_safehouse | [Voir](before-cybercity_inner_02_safehouse-1920x1080.webp) | [Voir](after-cybercity_inner_02_safehouse-1280x720.webp) | [Voir](after-cybercity_inner_02_safehouse-1920x1080.webp) | [Voir](after-cybercity_inner_02_safehouse-2560x1440.webp) |
+| city_industrial_factory_floor | [Voir](before-city_industrial_factory_floor-1920x1080.webp) | [Voir](after-city_industrial_factory_floor-1280x720.webp) | [Voir](after-city_industrial_factory_floor-1920x1080.webp) | [Voir](after-city_industrial_factory_floor-2560x1440.webp) |
+| city_exterior_neon_market_alley | [Voir](before-city_exterior_neon_market_alley-1920x1080.webp) | [Voir](after-city_exterior_neon_market_alley-1280x720.webp) | [Voir](after-city_exterior_neon_market_alley-1920x1080.webp) | [Voir](after-city_exterior_neon_market_alley-2560x1440.webp) |
+| city_interior_blacksite_lab | [Voir](before-city_interior_blacksite_lab-1920x1080.webp) | [Voir](after-city_interior_blacksite_lab-1280x720.webp) | [Voir](after-city_interior_blacksite_lab-1920x1080.webp) | [Voir](after-city_interior_blacksite_lab-2560x1440.webp) |
+| wasteland_outdoor_01_dust_road_ambush | [Voir](before-wasteland_outdoor_01_dust_road_ambush-1920x1080.webp) | [Voir](after-wasteland_outdoor_01_dust_road_ambush-1280x720.webp) | [Voir](after-wasteland_outdoor_01_dust_road_ambush-1920x1080.webp) | [Voir](after-wasteland_outdoor_01_dust_road_ambush-2560x1440.webp) |
 
-Trois défauts ont été détectés puis corrigés : les faces supérieures trop claires des surcouches `container` et `market_stall` formaient de grands aplats gris sur `city_exterior_waterfront_docks`, `cybercity_street_07_neon_market_alley` et `cybercity_street_08_neon_market_alley`. Ces placements sont désormais désactivés avec une raison explicite ; le dessin PNG source, plus riche et cohérent, reste visible. Les trois cartes ont été rerendues et inspectées après correction.
+## Catalogue complet
 
-Les fallbacks de premier plan issus des PNG source ont été conservés lorsqu’aucune surcouche ne les améliorait. La validation `artistically_complete` est enregistrée par carte ; le catalogue natif global est régénéré après les corrections afin de lier cette revue à la signature finale. Les animations, unités, campagne et autres critères globaux restent ouverts.
+- [Planche 1](catalogue-01.jpg)
+- [Planche 2](catalogue-02.jpg)
+- [Planche 3](catalogue-03.jpg)
+- [Planche 4](catalogue-04.jpg)
+- [Planche 5](catalogue-05.jpg)
+- [Planche 6](catalogue-06.jpg)
+- [Planche 7](catalogue-07.jpg)
+- [Planche 8](catalogue-08.jpg)
+- [Planche 9](catalogue-09.jpg)
+- [Planche 10](catalogue-10.jpg)
+- [Planche 11](catalogue-11.jpg)
+
+[Inventaire détaillé](../../combat_visual_25_inventory.md) · [Données et empreintes des captures](inventory.json) · [Mesures natives](native-report.json)
+
+Le matériel de validation utilise OpenGL llvmpipe. Les mesures incluent les fixtures et captures et ne constituent pas un benchmark GPU joueur.

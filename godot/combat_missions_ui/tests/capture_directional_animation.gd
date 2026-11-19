@@ -74,6 +74,23 @@ func run() -> void:
 				await process_frame;await RenderingServer.frame_post_draw
 				var sniper_file="sniper-%s-%02d"%[action,direction]
 				save_frame(sniper_file);sniper_actions.append({"action":action,"direction":direction,"file":sniper_file+".png"})
+	var grunt_actions: Array[Dictionary]=[]
+	var grunt=scene._unit_tokens["e0"]
+	for action in ["fire","melee","cover","hit","death"]:
+		for direction in range(8):
+			assert(grunt.play_action(action));grunt.facing=direction;grunt.frame_time=0.2;grunt._process(0)
+			await process_frame;await RenderingServer.frame_post_draw
+			var grunt_file="grunt-%s-%02d"%[action,direction]
+			save_frame(grunt_file);grunt_actions.append({"action":action,"direction":direction,"file":grunt_file+".png"})
+	var heavy_actions: Array[Dictionary]=[]
+	for heavy_key: String in ["p2","p3"]:
+		var heavy=scene._unit_tokens[heavy_key]
+		for action in ["fire","melee","cover","hit","death"]:
+			for direction in range(8):
+				assert(heavy.play_action(action));heavy.facing=direction;heavy.frame_time=0.2;heavy._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var heavy_file="%s-%s-%02d"%[heavy.visual_key,action,direction]
+				save_frame(heavy_file);heavy_actions.append({"unit":heavy.visual_key,"action":action,"direction":direction,"file":heavy_file+".png"})
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key];unit.play_action("idle");unit.set_process(true)
 	for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(2560,1440)]:
@@ -83,7 +100,7 @@ func run() -> void:
 	scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	var report: Dictionary=await capture_movement(0,"movement")
 	if roster:report["secondary_movement"]=await capture_movement(1,"movement-secondary")
-	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"sniper_actions":sniper_actions,"projection":"top_down","coverage":"complete_authored_agents","campaign_written":false})
+	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"sniper_actions":sniper_actions,"grunt_actions":grunt_actions,"heavy_actions":heavy_actions,"projection":"top_down","coverage":"complete_authored_fixture_roster","campaign_written":false})
 	var captured_assets: Dictionary={}
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key]

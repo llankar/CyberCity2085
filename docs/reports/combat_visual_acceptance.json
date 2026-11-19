@@ -18,8 +18,8 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 3,
-    "partial": 3,
+    "complete": 6,
+    "partial": 0,
     "expected": 231
   },
   "tests": {
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "da33020a079e1aa803365a16883d3b49745f46921e65d666a0d2a66e47e180e1",
+  "render_signature": "3a075d018540c844cbb9babfa81f705f7fe51c8ef392c85fa0ca72275f3db37d",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -51,7 +51,7 @@
       "status": "PASS",
       "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
-        "docs/images/environment-art-review-windows/native-report.json",
+        "docs/images/entity-scale-production-windows/native-report.json",
         "docs/combat_visual_25_status.json"
       ]
     },
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "3 / 231 ensembles complets pour toutes leurs actions applicables ; 3 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "6 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
