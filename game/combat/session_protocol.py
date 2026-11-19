@@ -69,6 +69,22 @@ def integer(value,field,minimum=0,maximum=1000000):
     return value
 
 
+def agent_result_identities(expected):
+    """Accept older Godot display labels only when they identify one deployed agent."""
+    identities = {entry['name']: entry['name'] for entry in expected}
+    aliases = {}
+    for index, entry in enumerate(expected, 1):
+        name = entry['name']
+        label = name.strip()
+        if not label or label.lower() == 'null':
+            label = str(entry['role']).upper()[:6] + f'-{index}'
+        aliases.setdefault(label, set()).add(name)
+    for label, names in aliases.items():
+        if label not in identities and len(names) == 1:
+            identities[label] = next(iter(names))
+    return identities
+
+
 def validate_result(result, record, session_id):
     try:json.dumps(result,allow_nan=False)
     except (ValueError,TypeError) as exc:raise ValueError('Combat result is not finite JSON') from exc
@@ -88,10 +104,13 @@ def validate_result(result, record, session_id):
         reference={entry[identity]:entry for entry in expected}
         if len(reference)!=len(expected):raise ValueError('Ambiguous deployment identities')
         if len(rows)!=len(reference):raise ValueError(f'Incomplete {group} state')
+        aliases = agent_result_identities(expected) if group == 'agents' else reference
         seen=set()
         for row in rows:
             if not isinstance(row,dict):raise ValueError(f'Invalid {group} row')
             key=row.get(identity)
+            if group == 'agents' and isinstance(key, str):
+                key = aliases.get(key)
             if not isinstance(key,str) or key not in reference or key in seen:raise ValueError(f'Unknown/duplicate {group} identity')
             seen.add(key)
             expected_hp=reference[key]['max_hp']

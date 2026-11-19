@@ -6,7 +6,7 @@ from game.battle_outcomes import resolve_defeated_agent_outcome
 from game.mission_system import resolve_mission_outcome
 from game.unit import Unit
 from .mission_resolution import resolve_campaign_battle
-from .session_protocol import validate_result
+from .session_protocol import agent_result_identities, validate_result
 from .checkpoints import write_campaign_checkpoint
 
 
@@ -22,9 +22,13 @@ def resolve_godot_result(game_state,mission,result,session_id):
     characters={c.name:c for c in shadow.characters}
     assets={a.id:a for a in shadow.spec_ops_assets}
     units=[]
+    identities = agent_result_identities(record['expected_agents'])
     for row in result['agents']:
-        if row['name'] not in characters:raise ValueError('Deployed agent no longer exists')
-        character=characters[row['name']]
+        name = identities[row['name']]
+        name = getattr(shadow, '_loaded_agent_renames', {}).get(name, name)
+        if name not in characters:
+            raise ValueError('Deployed agent no longer exists')
+        character = characters[name]
         unit=Unit((0,0),stats=character.stats,character=character,health=row['hp'])
         unit.external_metrics=True
         if 'stress' in row:unit.reported_stress=row['stress']

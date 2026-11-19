@@ -104,3 +104,5 @@ Preuve Linux native : `docs/images/unified-experience/batch5/report.json`, un se
 84 tests ciblés réussis, un test de routage graphique désélectionné après timeout sous charge ; 6 tests supplémentaires réussis. Le refactoring final vers la véritable classe `GameWindow` a une nouvelle preuve native en cours (`/tmp/persistent-app-window.log`). Ne pas déclarer le lot terminé avant examen de cette preuve et régression isolée du routage. Windows/Alt+Tab/DPI et écoute audio restent NON VÉRIFIÉS. Les mesures Linux sous rendu logiciel et forte charge ne constituent pas une promesse de temps de chargement.
 
 Prochaine action : examiner `work/persistent-runtime-app-window/report.json`, tester la fermeture réelle de `GameWindow`, puis finaliser les tests et le bilan. CHANTIER GLOBAL INCOMPLET.
+
+Le retour de retraite conserve le nom de campagne transmis au déploiement. La récupération accepte également les anciens noms d’affichage non ambigus, y compris après normalisation du nom au rechargement du checkpoint. La validation du déploiement et la protection contre les doublons restent actives. Suites de résolution et de checkpoints : 40 tests réussis.
