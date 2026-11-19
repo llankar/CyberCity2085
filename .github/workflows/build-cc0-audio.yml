@@ -20,6 +20,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/build-cc0-audio.yml
+            docs/audio/
+            tools/
+            tests/test_cc0_audio_import.py
+            assets/audio/overhaul/
+
       - name: Verify tools
         run: |
           python --version
