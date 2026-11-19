@@ -1,7 +1,7 @@
 [
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 2383.293,
+    "elapsed_ms": 2448.54,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -19,7 +19,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1477.372,
+    "elapsed_ms": 1509.093,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -37,7 +37,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 2079.595,
+    "elapsed_ms": 1910.691,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -55,7 +55,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1532.595,
+    "elapsed_ms": 1612.521,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -73,7 +73,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1630.177,
+    "elapsed_ms": 1552.979,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -91,7 +91,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1498.633,
+    "elapsed_ms": 1437.594,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -109,7 +109,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1622.682,
+    "elapsed_ms": 1617.982,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -127,7 +127,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1631.858,
+    "elapsed_ms": 1613.004,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -145,7 +145,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1432.015,
+    "elapsed_ms": 1414.111,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -163,7 +163,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1501.297,
+    "elapsed_ms": 1434.566,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -181,7 +181,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1520.339,
+    "elapsed_ms": 1578.5,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -199,7 +199,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1485.684,
+    "elapsed_ms": 1539.987,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -217,7 +217,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1507.207,
+    "elapsed_ms": 1507.106,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -235,7 +235,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1588.556,
+    "elapsed_ms": 1525.519,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -253,7 +253,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1588.58,
+    "elapsed_ms": 1501.535,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -271,7 +271,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1421.116,
+    "elapsed_ms": 1520.043,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -289,7 +289,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1783.709,
+    "elapsed_ms": 1692.451,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -307,7 +307,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1544.07,
+    "elapsed_ms": 1509.545,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -325,7 +325,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1247.349,
+    "elapsed_ms": 1284.151,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -343,7 +343,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1428.192,
+    "elapsed_ms": 1548.241,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -361,7 +361,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1298.012,
+    "elapsed_ms": 1260.239,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -379,7 +379,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1420.405,
+    "elapsed_ms": 1433.582,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -397,7 +397,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1244.096,
+    "elapsed_ms": 1254.984,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -415,7 +415,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1207.311,
+    "elapsed_ms": 1262.588,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -433,7 +433,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1315.018,
+    "elapsed_ms": 1287.946,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -451,7 +451,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1388.408,
+    "elapsed_ms": 1366.559,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -469,7 +469,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1276.498,
+    "elapsed_ms": 1294.771,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -487,7 +487,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1227.433,
+    "elapsed_ms": 1244.121,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -505,7 +505,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1216.795,
+    "elapsed_ms": 1410.386,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -523,7 +523,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1437.027,
+    "elapsed_ms": 1343.072,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -541,7 +541,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1257.282,
+    "elapsed_ms": 1213.462,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -559,7 +559,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1463.951,
+    "elapsed_ms": 1485.325,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -577,7 +577,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1449.766,
+    "elapsed_ms": 1478.452,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -595,7 +595,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1871.051,
+    "elapsed_ms": 1822.937,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -613,7 +613,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1566.513,
+    "elapsed_ms": 1425.908,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -631,7 +631,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1230.76,
+    "elapsed_ms": 1200.492,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -649,7 +649,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1306.101,
+    "elapsed_ms": 1388.413,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -662,12 +662,12 @@
     "rendered_sprites": 2,
     "scale_calibration_status": "NOT VERIFIED",
     "scale_comparison_only": false,
-    "static_memory_bytes": 265066613,
+    "static_memory_bytes": 265067843,
     "vehicle_count": 0
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1370.585,
+    "elapsed_ms": 1351.259,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -685,7 +685,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1262.831,
+    "elapsed_ms": 1253.606,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -703,7 +703,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1364.791,
+    "elapsed_ms": 1281.931,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -721,7 +721,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1333.084,
+    "elapsed_ms": 1175.921,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -739,7 +739,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1234.794,
+    "elapsed_ms": 1369.1,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -757,7 +757,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1191.29,
+    "elapsed_ms": 1193.105,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -775,7 +775,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1386.656,
+    "elapsed_ms": 1252.793,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -793,7 +793,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1497.802,
+    "elapsed_ms": 1471.259,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -811,7 +811,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1241.498,
+    "elapsed_ms": 1249.429,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -829,7 +829,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1209.156,
+    "elapsed_ms": 1231.783,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -847,7 +847,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1240.33,
+    "elapsed_ms": 1186.804,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -865,7 +865,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1424.881,
+    "elapsed_ms": 1346.543,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -883,7 +883,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1258.136,
+    "elapsed_ms": 1322.52,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -901,7 +901,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1237.067,
+    "elapsed_ms": 1325.591,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -919,7 +919,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1484.487,
+    "elapsed_ms": 1457.793,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -937,7 +937,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1689.735,
+    "elapsed_ms": 1709.186,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -955,7 +955,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1442.096,
+    "elapsed_ms": 1433.78,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -973,7 +973,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1464.368,
+    "elapsed_ms": 1490.832,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -991,7 +991,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1647.868,
+    "elapsed_ms": 1632.346,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1009,7 +1009,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1565.087,
+    "elapsed_ms": 1594.199,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1027,7 +1027,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1598.577,
+    "elapsed_ms": 1578.931,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1045,7 +1045,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1571.96,
+    "elapsed_ms": 1659.852,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1063,7 +1063,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1743.355,
+    "elapsed_ms": 1639.134,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1081,7 +1081,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1587.51,
+    "elapsed_ms": 1559.355,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1099,7 +1099,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1679.93,
+    "elapsed_ms": 1681.059,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1117,7 +1117,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1655.474,
+    "elapsed_ms": 1692.251,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1135,7 +1135,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1573.429,
+    "elapsed_ms": 1528.683,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1153,7 +1153,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1549.597,
+    "elapsed_ms": 1598.794,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1171,7 +1171,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1563.354,
+    "elapsed_ms": 1560.282,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1189,7 +1189,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1564.004,
+    "elapsed_ms": 1586.219,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1207,7 +1207,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1632.045,
+    "elapsed_ms": 1591.022,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1225,7 +1225,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1620.546,
+    "elapsed_ms": 1541.299,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1243,7 +1243,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1544.933,
+    "elapsed_ms": 1649.318,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1261,7 +1261,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1540.852,
+    "elapsed_ms": 1506.307,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1279,7 +1279,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1537.639,
+    "elapsed_ms": 1467.134,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1297,7 +1297,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1617.475,
+    "elapsed_ms": 1525.186,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1315,7 +1315,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1466.46,
+    "elapsed_ms": 1587.722,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1333,7 +1333,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1512.738,
+    "elapsed_ms": 1443.436,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1351,7 +1351,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1652.793,
+    "elapsed_ms": 1661.275,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1369,7 +1369,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1478.239,
+    "elapsed_ms": 1489.734,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1387,7 +1387,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1454.756,
+    "elapsed_ms": 1490.974,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1405,7 +1405,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1469.802,
+    "elapsed_ms": 1648.411,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1423,7 +1423,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1561.468,
+    "elapsed_ms": 1415.713,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1441,7 +1441,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1456.031,
+    "elapsed_ms": 1443.414,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1459,7 +1459,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1596.28,
+    "elapsed_ms": 1497.422,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1477,7 +1477,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1554.841,
+    "elapsed_ms": 1610.987,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1495,7 +1495,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1466.727,
+    "elapsed_ms": 1476.916,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1513,7 +1513,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1361.51,
+    "elapsed_ms": 1408.18,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1531,7 +1531,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1561.177,
+    "elapsed_ms": 1530.541,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1549,7 +1549,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1568.762,
+    "elapsed_ms": 1514.826,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1567,7 +1567,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1493.013,
+    "elapsed_ms": 1507.125,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1585,7 +1585,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1495.556,
+    "elapsed_ms": 1474.839,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1603,7 +1603,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1501.399,
+    "elapsed_ms": 1549.663,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1621,7 +1621,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1250.725,
+    "elapsed_ms": 1214.276,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1639,7 +1639,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1266.331,
+    "elapsed_ms": 1282.536,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1657,7 +1657,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1323.948,
+    "elapsed_ms": 1292.577,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1675,7 +1675,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1422.823,
+    "elapsed_ms": 1447.258,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1693,7 +1693,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1335.807,
+    "elapsed_ms": 1348.3,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1711,7 +1711,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1274.243,
+    "elapsed_ms": 1201.362,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1729,7 +1729,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1419.148,
+    "elapsed_ms": 1354.15,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1747,7 +1747,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1277.77,
+    "elapsed_ms": 1348.139,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1765,7 +1765,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1303.112,
+    "elapsed_ms": 1343.767,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1783,7 +1783,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1289.611,
+    "elapsed_ms": 1268.219,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1801,7 +1801,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1278.608,
+    "elapsed_ms": 1256.859,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1819,7 +1819,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1383.012,
+    "elapsed_ms": 1350.504,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1837,7 +1837,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1292.576,
+    "elapsed_ms": 1380.684,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1855,7 +1855,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1299.761,
+    "elapsed_ms": 1318.186,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1873,7 +1873,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1481.109,
+    "elapsed_ms": 1383.886,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1891,7 +1891,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1268.367,
+    "elapsed_ms": 1342.993,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1909,7 +1909,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1232.348,
+    "elapsed_ms": 1268.768,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1927,7 +1927,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1342.5,
+    "elapsed_ms": 1344.422,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1945,7 +1945,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1338.288,
+    "elapsed_ms": 1277.473,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1963,7 +1963,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1373.741,
+    "elapsed_ms": 1448.334,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -1981,7 +1981,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1424.97,
+    "elapsed_ms": 1458.714,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -1999,7 +1999,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1410.801,
+    "elapsed_ms": 1464.869,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2017,7 +2017,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1689.626,
+    "elapsed_ms": 1636.082,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2035,7 +2035,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1409.475,
+    "elapsed_ms": 1475.01,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -2053,7 +2053,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1496.651,
+    "elapsed_ms": 1578.962,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2071,7 +2071,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1712.002,
+    "elapsed_ms": 1509.835,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2089,7 +2089,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1815.91,
+    "elapsed_ms": 1585.927,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2107,7 +2107,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1785.568,
+    "elapsed_ms": 1508.234,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2125,7 +2125,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1722.939,
+    "elapsed_ms": 1463.416,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.02,
@@ -2143,7 +2143,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1771.964,
+    "elapsed_ms": 1682.279,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2161,7 +2161,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1706.761,
+    "elapsed_ms": 1435.574,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,
@@ -2179,7 +2179,7 @@
   },
   {
     "capture_signature": "75421ea2718bc15108b44d4a1265875dbe4d6c856578a848faa586cdf6309f67",
-    "elapsed_ms": 1731.371,
+    "elapsed_ms": 1462.147,
     "entity_families_checked": true,
     "gpu_benchmark": {},
     "human_ratio_applied": 0.015,

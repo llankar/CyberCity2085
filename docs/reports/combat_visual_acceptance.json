@@ -18,7 +18,7 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 12,
+    "complete": 14,
     "partial": 0,
     "expected": 231
   },
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
+  "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "12 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "14 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -179,5 +179,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : poursuivre avec agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper ; inspecter leurs équipements, documenter les actions applicables et produire les clips authentiques avant import."
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_12_violet_fixer et agent_diverse_13_silver_pistol, puis produire le prochain lot artistique authentique avec huit orientations et toutes les actions applicables."
 }
