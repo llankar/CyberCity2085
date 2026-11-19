@@ -95,7 +95,9 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nothing new to commit"
           else
-            git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "assets(audio): install 18 verified Kenney CC0 WAV previews"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "assets(audio): install verified CC0 WAV previews from Kenney and OpenGameArt"
             git fetch origin "${GITHUB_REF_NAME}"
             git rebase "origin/${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
