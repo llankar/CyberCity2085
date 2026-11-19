@@ -1,5 +1,5 @@
 extends SceneTree
-const KEYS=["agent_diverse_01_neon_blade","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
+const KEYS=["agent_diverse_01_neon_blade","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","agent_diverse_05_psi_doctor","agent_diverse_06_street_medic","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
 func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(640,480)
@@ -9,7 +9,7 @@ func run() -> void:
 	var observed:=0
 	for key: String in KEYS:
 		var image:=Image.load_from_file(base.path_join("assets/units/"+key+"_512.png"))
-		var role: String="robot" if key=="robot_combat" else ("power_armor" if "power_armor" in key else "samurai")
+		var role: String="robot" if key=="robot_combat" else ("power_armor" if "power_armor" in key else ("psi" if "psi_doctor" in key else "samurai"))
 		unit.setup({"hp":24,"max_hp":24,"role":role,"position":Vector2i(4,4)},0,false,ImageTexture.create_from_image(image),Vector2(150,150))
 		unit.configure_animation(key,base)
 		assert(unit.atlas!=null and unit.manifest.animations.has("move"),key+" real atlas loaded")
@@ -34,7 +34,7 @@ func run() -> void:
 				assert(is_equal_approx(unit._art_rect.position.x,-unit._art_rect.size.x*.5),"authored foot anchor remains registered")
 				observed+=1
 		unit.play_action("idle")
-		if key != "agent_diverse_01_neon_blade":
+		if unit.manifest.animations.has("fire"):
 			for direction in range(8):
 				unit.facing=direction;assert(unit.play_action("fire"));unit.frame_time=0.2;unit._process(0.0)
 				assert(unit.frame_index==1,"pistol recoil frame must be selected")
@@ -42,31 +42,8 @@ func run() -> void:
 			assert(not unit.play_action("fire"))
 			assert(unit.clip=="idle","missing fire is not disguised as an animated shot")
 		assert(JSON.stringify(unit.unit_data)==before,"animation cannot spend AP or move logical cells")
-		if key=="agent_diverse_01_neon_blade":
-			for action in ["melee","cover","hit","death"]:
-				for direction in range(8):
-					unit.facing=direction
-					assert(unit.play_action(action),"authored "+action+" clip must play")
-					unit.frame_time=0.2
-					unit._process(0.0)
-					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key=="agent_diverse_03_magenta_pistol":
-			for action in ["melee","cover","hit","death"]:
-				for direction in range(8):
-					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
-					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key=="agent_diverse_04_trench_sniper":
-			for action in ["melee","cover","hit","death"]:
-				for direction in range(8):
-					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
-					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key=="enemy_grunt":
-			for action in ["melee","cover","hit","death"]:
-				for direction in range(8):
-					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
-					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key in ["enemy_corp_37_power_armor_grunt","robot_combat"]:
-			for action in ["melee","cover","hit","death"]:
+		for action in ["melee","cover","hit","death","psi","heal"]:
+			if unit.manifest.animations.has(action):
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")

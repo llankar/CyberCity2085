@@ -23,9 +23,9 @@ Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Le
 | Indicateur | État |
 |---|---|
 | Références d’entités à couvrir (hors objets de mission) | 231 |
-| Atlas produits | 6 |
-| Marche et attente à huit directions vérifiées dans Godot | 6 |
-| Unités avec toutes les actions applicables animées et validées | 6 |
+| Atlas produits | 8 |
+| Marche et attente à huit directions vérifiées dans Godot | 8 |
+| Unités avec toutes les actions applicables animées et validées | 8 |
 
 Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
 
@@ -42,7 +42,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
 - 192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.
 - Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.
-- Six ensembles complets (lames, pistolet magenta, tireur au manteau, fantassin, armure lourde et robot) : toutes les actions applicables validées ; total 768 frames, 6 ensembles complets et 0 partiel.
+- Huit ensembles complets, dont docteure PSI et street medic : toutes les actions applicables validées ; total 1056 frames, 8 ensembles complets et 0 partiel.
 
 ## Passe en cours
 
@@ -63,7 +63,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Reste sur l’objectif complet
 
-- Produire et vérifier les actions applicables des 225 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
+- Produire et vérifier les actions applicables des 223 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
