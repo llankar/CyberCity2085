@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "31 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Next: enemy_sniper.",
+      "remaining": "31 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Enemy sniper IN_PROGRESS: distinct 256 and 512 source sprites wired into Arcade and Godot. Arcade generic routing and native Godot launch checked. Next: author the eight-direction sniper poses from enemy_sniper_512.png.",
       "reason": ""
     },
     {
