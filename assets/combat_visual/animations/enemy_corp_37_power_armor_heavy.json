@@ -1,0 +1,163 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_37_power_armor_heavy.png",
+  "texture_sha256": "c41dd5da87dd9929ef94a1d402fb53ac2798e40b901da7ae3096e96ecb54768a",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_37_power_armor_heavy_512.png",
+  "source_sha256": "d18412aeaa1f5d9185a59cd68aff0a9980e092ee8df6b51bf91915ee3701a0c3",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_heavy/idle-action_rows-0.png",
+      "sha256": "d7c047d48e2626471ebfc2f6809c56f21e98db4feb5f2582dd19427a5084855b",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_heavy/fire-action_rows-1.png",
+      "sha256": "cc6fcfaf7f1f79a092c4d0f80258cd6b8060ae4e6d016b29288b8ed901aeff37",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_heavy/fire-action_rows-2.png",
+      "sha256": "e73507c396ab77f2749b0560707ba30a9ae0d01cdcc14fe94854263ee80066f1",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        0,
+        5
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this heavy infantry.",
+    "heal": "No healing action for this heavy infantry."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
