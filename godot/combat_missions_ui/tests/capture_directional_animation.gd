@@ -76,6 +76,10 @@ func run() -> void:
 		elif samurai:scene.player_units[1]["visual_asset"]="agent_samurai"
 	if enemy_theme.is_empty():
 		scene.enemy_units[0]["visual_asset"]=enemy_target if not enemy_target.is_empty() else "enemy_grunt"
+	elif not enemy_target.is_empty():
+		var theme_prefix := "enemy_%s_" % enemy_theme
+		assert(enemy_target.begins_with(theme_prefix))
+		scene.enemy_units[0]["enemy_subtype"]=enemy_target.trim_prefix(theme_prefix)
 	if not enemy_target.is_empty():token_keys=["e0"]
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
