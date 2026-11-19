@@ -11,6 +11,8 @@ func run() -> void:
 	output=base.path_join("work/directional-animation/native")
 	var args:=OS.get_cmdline_user_args()
 	var roster:= "--roster" in args
+	var psi_doctor:= "--psi-doctor" in args
+	var street_medic:= "--street-medic" in args
 	if roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
@@ -21,7 +23,7 @@ func run() -> void:
 	scene.environment_depth_enabled=true;scene._set_visual_quality(2)
 	await create_timer(2.2).timeout;scene._banner.hide()
 	scene.player_units[0]["visual_asset"]="agent_diverse_01_neon_blade" if roster else "agent_diverse_04_trench_sniper"
-	if roster:scene.player_units[1]["visual_asset"]="agent_diverse_03_magenta_pistol"
+	if roster:scene.player_units[1]["visual_asset"]="agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -57,7 +59,7 @@ func run() -> void:
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
-	if roster:
+	if roster and not psi_doctor and not street_medic:
 		var magenta=scene._unit_tokens["p1"]
 		for action in ["fire","melee","cover","hit","death"]:
 			for direction in range(8):
@@ -65,6 +67,24 @@ func run() -> void:
 				await process_frame;await RenderingServer.frame_post_draw
 				var action_file="magenta-%s-%02d"%[action,direction]
 				save_frame(action_file);magenta_actions.append({"action":action,"direction":direction,"file":action_file+".png"})
+	var psi_actions: Array[Dictionary]=[]
+	if psi_doctor:
+		var psi_unit=scene._unit_tokens["p1"]
+		for action in ["melee","cover","hit","death","psi","heal"]:
+			for direction in range(8):
+				assert(psi_unit.play_action(action));psi_unit.facing=direction;psi_unit.frame_time=0.2;psi_unit._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var psi_file="psi-doctor-%s-%02d"%[action,direction]
+				save_frame(psi_file);psi_actions.append({"action":action,"direction":direction,"file":psi_file+".png"})
+	var medic_actions: Array[Dictionary]=[]
+	if street_medic:
+		var medic=scene._unit_tokens["p1"]
+		for action in ["fire","melee","cover","hit","death","heal"]:
+			for direction in range(8):
+				assert(medic.play_action(action));medic.facing=direction;medic.frame_time=0.2;medic._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var medic_file="street-medic-%s-%02d"%[action,direction]
+				save_frame(medic_file);medic_actions.append({"action":action,"direction":direction,"file":medic_file+".png"})
 	var sniper_actions: Array[Dictionary]=[]
 	if not roster:
 		var sniper=scene._unit_tokens["p0"]
@@ -100,7 +120,7 @@ func run() -> void:
 	scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	var report: Dictionary=await capture_movement(0,"movement")
 	if roster:report["secondary_movement"]=await capture_movement(1,"movement-secondary")
-	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"sniper_actions":sniper_actions,"grunt_actions":grunt_actions,"heavy_actions":heavy_actions,"projection":"top_down","coverage":"complete_authored_fixture_roster","campaign_written":false})
+	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"psi_actions":psi_actions,"medic_actions":medic_actions,"sniper_actions":sniper_actions,"grunt_actions":grunt_actions,"heavy_actions":heavy_actions,"projection":"top_down","coverage":"complete_authored_fixture_roster","campaign_written":false})
 	var captured_assets: Dictionary={}
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key]

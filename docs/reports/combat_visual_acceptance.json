@@ -18,7 +18,7 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 6,
+    "complete": 8,
     "partial": 0,
     "expected": 231
   },
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "3a075d018540c844cbb9babfa81f705f7fe51c8ef392c85fa0ca72275f3db37d",
+  "render_signature": "e2f66cd3584dde2a0a68599a5d19ea8314c4cbc3d48172ecb78318add2e3a417",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "6 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "8 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -179,5 +179,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : choisir le prochain atlas partiel, documenter ses actions applicables et produire les clips authentiques ; puis régénérer catalogue 122 cartes et benchmark pour la signature courante."
+  "next_action": "ANIM-COMPLETE : sélectionner le prochain atlas éligible sans ensemble complet, documenter ses actions applicables et produire ses clips authentiques ; regrouper plusieurs atlas avant la prochaine régénération du catalogue et du benchmark."
 }

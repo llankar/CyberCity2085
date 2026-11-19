@@ -5,7 +5,7 @@ import pytest
 from PIL import Image
 from tools.audit_combat_visuals import validate_atlas
 ROOT=Path(__file__).resolve().parents[1]
-KEYS=['agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
+KEYS=['agent_diverse_01_neon_blade','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat']
 
 def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
     for key in KEYS:
@@ -18,24 +18,19 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
             assert data['coverage']=='complete'
             expected_required={'idle','move','melee','cover','hit','death'}
             expected_exempt={'fire','psi','heal'}
-            if key != 'agent_diverse_01_neon_blade':
+            if key=='agent_diverse_05_psi_doctor':
+                expected_required.update({'psi','heal'});expected_exempt={'fire'}
+            elif key=='agent_diverse_06_street_medic':
+                expected_required.update({'fire','heal'});expected_exempt={'psi'}
+            elif key != 'agent_diverse_01_neon_blade':
                 expected_required.add('fire');expected_exempt={'psi','heal'}
             assert set(data['required_clips'])==expected_required
             assert set(data['non_applicable_clips'])==expected_exempt
         assert set(data['missing_clips'])==expected_missing
-        if key=='agent_diverse_03_magenta_pistol':
-            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
-            for action in ['fire','melee','cover','hit','death']:
-                assert all(len(row)==2 for row in data['animations'][action]['rows'])
-        if key in {'agent_diverse_04_trench_sniper','enemy_grunt','enemy_corp_37_power_armor_grunt','robot_combat'}:
-            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
-            for action in ['fire','melee','cover','hit','death']:
-                assert all(len(row)==2 for row in data['animations'][action]['rows'])
-        if key=='agent_diverse_01_neon_blade':
-            assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
-            for action in ['melee','cover','hit','death']:
-                assert len(data['animations'][action]['rows'])==8
-                assert all(len(row)==2 for row in data['animations'][action]['rows'])
+        assert validate_atlas(path,ROOT,set(data['required_clips']))==[]
+        for action in set(data['required_clips'])-{'idle','move'}:
+            assert len(data['animations'][action]['rows'])==8
+            assert all(len(row)==2 for row in data['animations'][action]['rows'])
         assert data['anchor_uv']==[.5,244/256]
         assert hashlib.sha256((ROOT/data['texture']).read_bytes()).hexdigest()==data['texture_sha256']
         with Image.open(ROOT/data['texture']) as image:

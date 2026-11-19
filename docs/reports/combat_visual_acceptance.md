@@ -4,7 +4,7 @@
 
 Tâches DONE : 37 / 41. Ce ratio porte sur le registre, pas sur la finition artistique.
 Cartes : 122 / 122 chargées ; 122 artistiquement vérifiées.
-Animations complètes : 6 / 231 ; 0 partielles.
+Animations complètes : 8 / 231 ; 0 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
 
 | Critère obligatoire | Résultat | Preuve / limite |
@@ -19,7 +19,7 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | FUNCTIONAL — Déplacement, ciblage, LOS, IA, PA, tours et fallback | NOT VERIFIED | Preuves historiques partielles disponibles ; aucune exécution exhaustive ni revue de toutes les interactions déduite des seuls tests de chargement. Revue explicite et preuves non enregistrées. |
 | RESOLUTIONS — Lisibilité et interactions à 720p, 1080p et 1440p | NOT VERIFIED | Captures de cinq familles à trois résolutions disponibles ; revue exhaustive de contraste, occultation et ergonomie non enregistrée. Revue explicite et preuves non enregistrées. |
 | PERFORMANCE — Performances et mémoire sur matériel joueur | PASS | Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale. |
-| ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 6 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle. |
+| ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 8 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
 | TARGETED-TESTS — Tests exécutés dans la portée du lot | NOT VERIFIED | {'passed': 37, 'failed': 0, 'skipped': 1, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément'} |
 | TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 37 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
@@ -34,4 +34,4 @@ UNIT-ART, FUNCTIONAL, RESOLUTIONS, ANIMATIONS, TARGETED-TESTS, TASK-COMPLETION
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : choisir le prochain atlas partiel, documenter ses actions applicables et produire les clips authentiques ; puis régénérer catalogue 122 cartes et benchmark pour la signature courante.
+ANIM-COMPLETE : sélectionner le prochain atlas éligible sans ensemble complet, documenter ses actions applicables et produire ses clips authentiques ; regrouper plusieurs atlas avant la prochaine régénération du catalogue et du benchmark.

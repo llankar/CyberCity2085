@@ -131,8 +131,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5805.023,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 6140.732,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -145,10 +145,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265434511,
+      "static_memory_bytes": 265462491,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "97de107ea58c750b88059b56d31f2d801e327778e39e2b7b43ed4b39d9e584bf",
+    "screenshot_rgb_sha256": "47e874704a69b1d68c499cfec710e2719fa1e2a665bde6c912f8d51706231a3b",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 1
   },
@@ -334,8 +334,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5070.028,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5273.814,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -348,10 +348,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265370527,
+      "static_memory_bytes": 265401831,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "8288d5edf97ac87858e2f48154ac6f3b6093be61d744d5cdf7b594d40430ec87",
+    "screenshot_rgb_sha256": "83e422c621f3784532f5ca1bba5781f22299c99da8ab82f4a7bfe42bfe5e5d35",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 2
   },
@@ -680,8 +680,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5427.358,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5784.06,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -694,10 +694,10 @@
       "rendered_sprites": 16,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265764383,
+      "static_memory_bytes": 265795495,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "702a959814e6c787b2efae7561b677f5fd2781a0c396fbaaab3da334e51dd1d8",
+    "screenshot_rgb_sha256": "7a9a257d554b334ec187fb5c61e91b02d5b75e57cc0990e1b1bcde97ac8887e3",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 3
   },
@@ -893,8 +893,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5082.944,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5484.557,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -907,10 +907,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265530215,
+      "static_memory_bytes": 265558023,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "9f278977b0593837bfa81cade04d9d9be9865a19de2a8f24426134ef82363a4d",
+    "screenshot_rgb_sha256": "8d88412e37a2d5a86e79b75f8f84ca6bf309a865bd74345bce2205e41791a745",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 4
   },
@@ -1021,8 +1021,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4982.754,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5308.374,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1035,10 +1035,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266221319,
+      "static_memory_bytes": 266249015,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "de9e9332a5eb06dfeb296d651542fb03e331bff8e970563e5afdb750429bb0f5",
+    "screenshot_rgb_sha256": "a8c0d1b980e01ee5502f87a66f8bb7ac25856780cad17fd8306df50faf567bcf",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 5
   },
@@ -1183,8 +1183,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4945.277,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5253.697,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1197,7 +1197,7 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266089643,
+      "static_memory_bytes": 266117339,
       "vehicle_count": 1
     },
     "screenshot_rgb_sha256": "c78e576b854f7edbdccb0d68344affe9ef05a9a933ceb9f67322dfdfbb4baa96",
@@ -1397,8 +1397,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5048.423,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5284.854,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1411,10 +1411,10 @@
       "rendered_sprites": 5,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266134107,
+      "static_memory_bytes": 266161803,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "86c38cd7ce9d77bc333925077d1abe7ae4dfe33acb7f2923f627bde259dd8f52",
+    "screenshot_rgb_sha256": "ef8023f9525c87ef86586e8e8602c5df2f0e6e8ebaf3329f628289219c20cdb6",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 7
   },
@@ -1502,8 +1502,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4923.966,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5139.574,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1516,10 +1516,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266121351,
+      "static_memory_bytes": 266149047,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "2c582869d86260895485c51a2f51fb1d70a8999583ac51eab5744ac2ff6837c4",
+    "screenshot_rgb_sha256": "0b9af4f21061b96b42ef2f625083228cd1d6ab093a26654776286df4ae7aec92",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 8
   },
@@ -1586,8 +1586,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4828.333,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5023.235,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1600,10 +1600,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265923575,
+      "static_memory_bytes": 265951271,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "21c36b28eb0a02ef1f19fecfe9aa28a4f8a87295a60a639cffef4f9fa9608684",
+    "screenshot_rgb_sha256": "6f3022e40a263a86628c89a56ff92208caa199c86b459c90dbffdd2ab3528c1b",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 9
   },
@@ -1706,8 +1706,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5014.253,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5299.178,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1720,10 +1720,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266771165,
+      "static_memory_bytes": 266798861,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "871a5daaae0fba7a043d14ebf0b483ede2fff5c26988d1aeb45f80b739592402",
+    "screenshot_rgb_sha256": "8a4657d99de1991d4272243098f5cabeb4ff9dd6a63dc9b50fe3c1e6ae52faa0",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 10
   },
@@ -1812,8 +1812,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4966.143,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5269.226,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1826,10 +1826,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266658305,
+      "static_memory_bytes": 266689305,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "0a6a234a9339c28d3df793112a234e3332f076261ffd510db196b40ff723118e",
+    "screenshot_rgb_sha256": "b92e42b4759f9c12d14bb96d0b296798af4045f99abfd809108792aa39c96dcd",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 11
   },
@@ -1896,8 +1896,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4819.724,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5068.135,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -1910,10 +1910,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266710125,
+      "static_memory_bytes": 266737821,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "e122f79803233a7349ed41485958000ea05142bbd441ae85c645dfd5fb809677",
+    "screenshot_rgb_sha256": "eb31a6ac17e058f4b390379b9224db0eede67f375b60fdecbf65aa9a8d7dfd9f",
     "contact_sheet": "catalogue-01.jpg",
     "contact_cell": 12
   },
@@ -2012,8 +2012,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5034.97,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5392.781,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -2026,10 +2026,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266862901,
+      "static_memory_bytes": 266890597,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "bdb1a4b83ffa46eae11ca0feae3b3827e1fc12f1bacb0f72ccd2b4a8472fa76b",
+    "screenshot_rgb_sha256": "e79bbb7fe0231fa503bc23285ed96d150ab4485955f43e025c11a96226fcd495",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 1
   },
@@ -2162,8 +2162,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4742.809,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5104.585,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2176,10 +2176,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267216061,
+      "static_memory_bytes": 267243757,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "4405645e9a29d5d2204a7241356b4e6291167337111f67bccc0c4c5db1b1f4e8",
+    "screenshot_rgb_sha256": "60b2f160586e60f45b5aa1c1da9556e571b4c1870c91dc652042309073f2e980",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 2
   },
@@ -2369,8 +2369,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4878.068,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5230.491,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2383,10 +2383,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267870149,
+      "static_memory_bytes": 267901333,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "740c1d7202d3bfa4be449c482da99d4b97e99cd3eae46989d749fc4bd6ce8b52",
+    "screenshot_rgb_sha256": "fcd002230d29e8f07198a03dde60e1058d8213620138d46336351000f9f819d7",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 3
   },
@@ -2502,8 +2502,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4877.679,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5064.226,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2516,10 +2516,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267753253,
+      "static_memory_bytes": 267780949,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "c4f612b2bd06d45237368816cadddbcbb8e8b2531089f7ba1656f68b4b529884",
+    "screenshot_rgb_sha256": "8e149820e6e781b9cee7386c79cac78000a63e2707cf085b68695ac397fe9357",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 4
   },
@@ -2670,8 +2670,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4996.158,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5378.119,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2684,10 +2684,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267807807,
+      "static_memory_bytes": 267838807,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "62814e72b43ff6497546c158cb8b47a39050f43a64cd5fedd6f71ea77030882b",
+    "screenshot_rgb_sha256": "0956e6840b538ed081a975a67197ea804c09cac158bdc8a4655c7e27ea495fd9",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 5
   },
@@ -2782,8 +2782,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4828.039,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5049.207,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2796,10 +2796,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267704089,
+      "static_memory_bytes": 267731785,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "6f371705c1c4c76994b48a75458b72f8d1eb4be559e49594cb3dc26bda6382f3",
+    "screenshot_rgb_sha256": "7c77638e1c85716e6895efb59a91dd2ab6b4fada9b1ba642d2bc6954ba5f9adf",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 6
   },
@@ -2984,8 +2984,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3379.494,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3526.733,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -2998,10 +2998,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265916247,
+      "static_memory_bytes": 265947247,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "e69f14ff76b68c2ed563ae54215c97d40db844003d1bc0963380b3571da0f7b2",
+    "screenshot_rgb_sha256": "798efea22474213875b23471af51ec6db013b67a623e30ca7f1ce21285b7be99",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 7
   },
@@ -3126,8 +3126,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4990.95,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5295.863,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3140,10 +3140,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267746343,
+      "static_memory_bytes": 267774039,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "76cec08604a78891b065caa16b7c83f1dfc109e1e545f716c095dc8bfba7dbf9",
+    "screenshot_rgb_sha256": "a7fb3b8c9480b2b18db18200f81d66fd427e6f3c3d5d94844288b254f690544a",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 8
   },
@@ -3279,8 +3279,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3388.538,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3572.092,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3293,10 +3293,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265667255,
+      "static_memory_bytes": 265698255,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "a95adccf3c2cda615ffa2972e6c49da9f122a86ab6b489dc521c3cd10ce37cd5",
+    "screenshot_rgb_sha256": "60b5dac43da4a3d350691ef1c698e310f4edc12da247b50738a78308ce8a63f8",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 9
   },
@@ -3411,8 +3411,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3383.575,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3694.492,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3425,10 +3425,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 269873469,
+      "static_memory_bytes": 269904469,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "9c7806cbcee07f6a42562220b11656169533050708a7b294fcbecbf4bae15219",
+    "screenshot_rgb_sha256": "732095b898e1a452e9aa053e61930d9029b653b85124c464d58e1ba4fec91390",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 10
   },
@@ -3545,8 +3545,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3474.84,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3643.422,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3559,10 +3559,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265633479,
+      "static_memory_bytes": 265664479,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "ef6ac8bdf08923d02fd52b81da952d96560378fbd07e07928a84bef16f7ae7da",
+    "screenshot_rgb_sha256": "11744acdbc2d7dad9e48c03d42c8dddf71ab906b2698032f3b4f3ab775f65e7e",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 11
   },
@@ -3737,8 +3737,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3410.362,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3597.448,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3751,10 +3751,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 265660737,
+      "static_memory_bytes": 265695631,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "9cce863d2756313903291422facd6a9a4a6593ce6a43bac9918cec8d5d88a902",
+    "screenshot_rgb_sha256": "cb5d91a6d414a7a99f0e58daa5414c6b4e4d1b4f4885d9e67091b67e28d9c755",
     "contact_sheet": "catalogue-02.jpg",
     "contact_cell": 12
   },
@@ -3915,8 +3915,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3501.724,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3731.975,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -3929,10 +3929,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266207611,
+      "static_memory_bytes": 266238437,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "e7e796d16a83705a148ef6ecd873ebd44eae9dcfcc851395ea4116c9d5fdb207",
+    "screenshot_rgb_sha256": "d30fe0f24182a4327499e474b8e2e6c35f79a8e158d12aec24b189fb66400eec",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 1
   },
@@ -4059,8 +4059,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3408.687,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3602.284,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4073,10 +4073,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266163149,
+      "static_memory_bytes": 266192037,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "251d54c2404879bb814870f422c94e8d054a4e90d13ed075f24c8d69642e822c",
+    "screenshot_rgb_sha256": "b3858f5fc0b95eb3497a48871d7d8ced63fed81526d52cf36c5cbae5575222ab",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 2
   },
@@ -4233,8 +4233,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3444.344,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3676.488,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4247,10 +4247,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266133789,
+      "static_memory_bytes": 266164789,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "5a5b529f974f9c0140ed9faefe0dfa6a9d43a19dbcb2d28711efb1541159f241",
+    "screenshot_rgb_sha256": "f6188b6f1ba0d33b19ef6d7378f00737772fc14db84eb0cf63136ce228164338",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 3
   },
@@ -4366,8 +4366,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3354.843,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3663.63,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4380,10 +4380,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266090849,
+      "static_memory_bytes": 266118809,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "1d00fbda4722af416caaac77defdff6e84e035a22ac71b5fcbba762d860dcd1b",
+    "screenshot_rgb_sha256": "6bb4332e1f7b2f0992e34e74d43346c6b767ca063d9c637e9fb2b6f373a8aa72",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 4
   },
@@ -4506,8 +4506,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3402.024,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3580.385,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4520,10 +4520,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266173097,
+      "static_memory_bytes": 266204097,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "6f4e7b870a06ce62469457a490a773eb9f12e446077ee18dd76bf6fc8f7d4eff",
+    "screenshot_rgb_sha256": "a8f112b74f1268f5f694994c3d6beee4cba224ec80fa168628a68f2c45c120c8",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 5
   },
@@ -4690,8 +4690,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3524.853,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3733.614,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4704,10 +4704,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 332720567,
+      "static_memory_bytes": 332751567,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "dd016d459f35d1866420ad5f7c34ee8fc4ee06d42eba0767dcca200026c75062",
+    "screenshot_rgb_sha256": "aae2349d461f0bfbb77e3509e41ebcaeff33ae507e7d7f38ab7ee75ed96f79c0",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 6
   },
@@ -4882,8 +4882,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3399.033,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3697.359,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -4896,10 +4896,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266230309,
+      "static_memory_bytes": 266261309,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "75cbf21a16a3d9552932a971556108a8769eebe128ffcb18ffc9941ddcf475ca",
+    "screenshot_rgb_sha256": "fbc2b6f80d3c46b26d72f6b19ef284c9de46eecff99fae6526c6edc6e486fd2b",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 7
   },
@@ -4958,8 +4958,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4862.196,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5145.758,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -4972,10 +4972,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268317617,
+      "static_memory_bytes": 268348537,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "6a193454d58957f60e977cbb2228c68c5f855630e3facf87d15f571abf65d46f",
+    "screenshot_rgb_sha256": "fcc820451ba453a619028fe1ba308366ff7d22f28659c58c5fd2fe0505c0444f",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 8
   },
@@ -5084,8 +5084,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4927.338,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5300.443,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -5098,10 +5098,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268275749,
+      "static_memory_bytes": 268303445,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "8b78a72b914f6473087f7e26581164795429ef8456f018cfac3d3687174d88ef",
+    "screenshot_rgb_sha256": "dd319cb6069e9bfdd9ea3961c0d84bee547a3b432c086e4205c1db3ab408eca9",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 9
   },
@@ -5304,8 +5304,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5148.075,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5464.908,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -5318,7 +5318,7 @@
       "rendered_sprites": 10,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268356415,
+      "static_memory_bytes": 268385305,
       "vehicle_count": 1
     },
     "screenshot_rgb_sha256": "3def0a018ba26d3712d79d3a944a38fdd0e272aa88c4b7696dd9e732b802f657",
@@ -5428,8 +5428,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4737.796,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5043.457,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -5442,10 +5442,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268237241,
+      "static_memory_bytes": 268264937,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "fce22af13b1449ab538f90fca9195935dc7fcec37fe336dfb36ebbc1d4f9d892",
+    "screenshot_rgb_sha256": "3f5cf3d0d081f36ffed83a9ce91852bc97e309cce9488a4b7cc0d431c9197c64",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 11
   },
@@ -5542,8 +5542,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3208.243,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3351.138,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -5556,10 +5556,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266104647,
+      "static_memory_bytes": 266135647,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "2d5bff78f3fe2fb39a2f38065a139e8385519641944519f894c0dc82e53bdee5",
+    "screenshot_rgb_sha256": "a9e8f0731b4b90ceed143f8d1880f9814d2627438db58a012ad7ff02dc870fdf",
     "contact_sheet": "catalogue-03.jpg",
     "contact_cell": 12
   },
@@ -5672,8 +5672,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3387.487,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3423.306,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -5686,10 +5686,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266302327,
+      "static_memory_bytes": 266333327,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "1083bd84f909edd3dd322de5898496da12e86d89f0702ba42d3a4fca218c6048",
+    "screenshot_rgb_sha256": "f6732487a035caea0f30b7bd1e5a6fa3be9da00e2b2daa3f6a6dede039c70b00",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 1
   },
@@ -5835,8 +5835,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3448.994,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3773.915,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -5849,10 +5849,10 @@
       "rendered_sprites": 5,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266318103,
+      "static_memory_bytes": 266349103,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "1642eed449960516a37b7aaafd416ba6021cc06f7b9718c578daf60df536b89b",
+    "screenshot_rgb_sha256": "c2ce7522262d90ba9a19bd257259c358017c928e6203528b8d2edec86e1de3ad",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 2
   },
@@ -5995,8 +5995,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3298.529,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3497.948,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6009,10 +6009,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266419325,
+      "static_memory_bytes": 266450325,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "99cc270827d40d6af742e8f0d0ef57c8c18263a5899f79cd439c850101e714ad",
+    "screenshot_rgb_sha256": "1ee948fda491916b8168b43545cf9f00df9c429959cfe34732bb3212e6eb24e8",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 3
   },
@@ -6150,8 +6150,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3457.051,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3631.875,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6164,10 +6164,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266385629,
+      "static_memory_bytes": 266416629,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "4a78b4f6f5c7b000d84e8d5cb1beb85dcfc520430302342f05a218dcaf668d73",
+    "screenshot_rgb_sha256": "e8410ca99f0617ea086c8988bc930c89a303c5f937e0321d043a9e5951264c43",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 4
   },
@@ -6295,8 +6295,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3315.325,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3589.854,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6309,10 +6309,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266322767,
+      "static_memory_bytes": 266353767,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "c41fba0fb9cda103b3c4a60b2ac851db5ffc90caa3e898231098f237d240d87a",
+    "screenshot_rgb_sha256": "df9bed98671f0c89ae2f93fc4d16c5dcc4a160fa7871b0b9cdd796bae4d769e6",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 5
   },
@@ -6419,8 +6419,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3294.033,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3537.92,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6433,10 +6433,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266826343,
+      "static_memory_bytes": 266857343,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "c2355195acaf3adc9c8418c40bd0c7cdddd94997f9bce0c5df5bd7a5a65e54a7",
+    "screenshot_rgb_sha256": "2a54bb1663a6a9695091d9d023885f373181e11c5835930c7498fbe610521bdf",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 6
   },
@@ -6593,8 +6593,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3411.205,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3583.333,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6607,10 +6607,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266866959,
+      "static_memory_bytes": 266897959,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "01a5fed86b59b26caeb5520bea986b0718d065cbfb39cc0ba1a9786375afd9d6",
+    "screenshot_rgb_sha256": "df1b5a51478ae328d4597379106b110a4b179513b56899e28145a6d50f03bade",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 7
   },
@@ -6742,8 +6742,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3342.875,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3525.954,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6756,10 +6756,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 266864325,
+      "static_memory_bytes": 266895325,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "b92b25c3bda53238e23bcfd9b16a656ee473367905f974dedd897373eec12adb",
+    "screenshot_rgb_sha256": "c668a5d182d62e537326afc92b3af729174fb8456c2c08407821b5814efc5802",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 8
   },
@@ -6912,8 +6912,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3422.304,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3718.327,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -6926,7 +6926,7 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 267476453,
+      "static_memory_bytes": 267507453,
       "vehicle_count": 0
     },
     "screenshot_rgb_sha256": "9dea39e084c528a812f02f2618446f37a262153fb3569dc7867c18c6b75d4462",
@@ -7034,8 +7034,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3339.19,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3504.116,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7048,10 +7048,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268327369,
+      "static_memory_bytes": 268358369,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "d0e034c7d9fbc4b4370f1317e2d6ce3170085f61594bc40c6bbde571874fc271",
+    "screenshot_rgb_sha256": "f931d8211de46fee43e22f8aa797ab9d344ff0351a9a4942ac46c39a33c0d2e7",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 10
   },
@@ -7167,8 +7167,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3384.508,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3543.371,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7181,10 +7181,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268474419,
+      "static_memory_bytes": 268503277,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "9bc38fa3f27b5a67426ace1a79f052c35e1ad849931e17b2361ab214902753c8",
+    "screenshot_rgb_sha256": "e17968b55cd334ab6165980f2768c72374f099300cf3b489110f42807f29d9bd",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 11
   },
@@ -7283,8 +7283,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3208.747,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3393.114,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7297,10 +7297,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268321763,
+      "static_memory_bytes": 268347569,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "a92c361379eace2e4552a418484826047f9753a01d2b209127861a0a1562eca0",
+    "screenshot_rgb_sha256": "6c219f16f36dd4b1c257605fa427a1e98a36747e38d7a337430681f9026d9b24",
     "contact_sheet": "catalogue-04.jpg",
     "contact_cell": 12
   },
@@ -7444,8 +7444,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3481.976,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3590.03,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7458,10 +7458,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 268456953,
+      "static_memory_bytes": 268487953,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "433491ced3ee7269d43955c833ac409ae5392b76738720aca1bb8e836293dd51",
+    "screenshot_rgb_sha256": "5ab148bee079ccb2d152a5d61451157b247391998da5b4ef44a04dae77b37631",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 1
   },
@@ -7600,8 +7600,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3315.265,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3518.516,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7614,10 +7614,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 269033893,
+      "static_memory_bytes": 269064893,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "874bae0a011a70f91385c10fed4dcd217c6c5cdb4d9c09d728b8b574223a2916",
+    "screenshot_rgb_sha256": "42263e17401d5c70300d4a34b4c9f39896fa14ab6fbd4c3b0e832dae543a5a67",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 2
   },
@@ -7720,8 +7720,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3337.32,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3649.165,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -7734,10 +7734,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 269457339,
+      "static_memory_bytes": 269488339,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "66f35a633af6ba9c8c4d3b7424ee99ca28e39aa74b2d9b4ed83abddc61015326",
+    "screenshot_rgb_sha256": "e8d7077f90fb89ad44e019d8b42e0eb7fcdbfe90b5ab7d2e39fe43bbcbccff49",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 3
   },
@@ -7844,8 +7844,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4969.469,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5225.677,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -7858,10 +7858,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271588105,
+      "static_memory_bytes": 271615801,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "d6b4b9d3a5f351e6818e2013adc84fc1e629557a216f3392404306ead9626597",
+    "screenshot_rgb_sha256": "57b119d3645b724a7752bd9961d0575524753abf9bc8be8688974bce44adb373",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 4
   },
@@ -7942,8 +7942,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4986.611,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5252.906,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -7956,7 +7956,7 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308540967,
+      "static_memory_bytes": 308568663,
       "vehicle_count": 1
     },
     "screenshot_rgb_sha256": "5eefa8d54ecb120f3b729a18b430ac2ea04461123c6fb8f9a7c60c0f7fc59c1b",
@@ -8030,8 +8030,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4925.253,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5195.027,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8044,10 +8044,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271594531,
+      "static_memory_bytes": 271622227,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "5f1764cda9a3d10bc26ecc36a46737ecab77e57b510e590e688c369e33fe533c",
+    "screenshot_rgb_sha256": "56bfaaf4ced8367c3ce7b3b53b8841fd6987b450092c489f92c52d34c4569e4a",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 6
   },
@@ -8133,8 +8133,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4996.844,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5314.331,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8147,10 +8147,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271667821,
+      "static_memory_bytes": 271697641,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "bae69bb20bd39965c6277ebec51ef84ce6bf4b0dc0a7f9cae0b5b1a55a70602b",
+    "screenshot_rgb_sha256": "0fe9667646bfb9d3fd5a2bf83f4f816c447ca6d9a64acbd2cb182ea9913c4bb5",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 7
   },
@@ -8317,8 +8317,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5008.51,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5424.079,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8331,10 +8331,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271670611,
+      "static_memory_bytes": 271698307,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "5c520ae1c36eef564d21d316547202b0713c03b8a980ea0bb35fcf068952c730",
+    "screenshot_rgb_sha256": "c2b5f97e5b46105a764ddbf3842a97abe57b75db29ffb750df85cf148b6d1152",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 8
   },
@@ -8407,8 +8407,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5018.231,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5290.404,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8421,10 +8421,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308347715,
+      "static_memory_bytes": 308375411,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3dd14a1777b7178d08cf5fde38a3c233041b9c828ea219a2e38fffc5956a8140",
+    "screenshot_rgb_sha256": "cac6e9fdd7eb7965adf4c7dde91732d38dae494b76ba73d3183115c56f0edabb",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 9
   },
@@ -8503,8 +8503,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4981.089,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5396.736,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8517,10 +8517,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308390653,
+      "static_memory_bytes": 308418613,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "5a09024de05afe11bd86fc5510b5fd5d33225f5568d460b3921161ba90002468",
+    "screenshot_rgb_sha256": "e87fc05a20250bbc33be33c56ba76e52fb4414d8421c3e2db18541369bbb773f",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 10
   },
@@ -8593,8 +8593,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4998.113,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5293.242,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8607,10 +8607,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308373577,
+      "static_memory_bytes": 308401273,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "90ef862309186991b05a079c6ba692ab4cd23431db80f588097fa64251d52d83",
+    "screenshot_rgb_sha256": "b7a7d7c917c752df90279300b68c3d5aad45cfcbf6c9fcda4849ee1695f738ff",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 11
   },
@@ -8726,8 +8726,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4920.706,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5299.574,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8740,10 +8740,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 309059083,
+      "static_memory_bytes": 309087043,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "543fc7078d3016e9d6cf52903d0d403e6a897eb4f4decbaab976061ff24fa882",
+    "screenshot_rgb_sha256": "421975aeaf2dfac37ecbe881334535b9d1b0651f1d46e0dbe3a681f8e9177a54",
     "contact_sheet": "catalogue-05.jpg",
     "contact_cell": 12
   },
@@ -8822,8 +8822,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5035.619,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5221.954,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8836,10 +8836,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308890535,
+      "static_memory_bytes": 308918231,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "65137e2232f76079720e1f39da62f16a546ca1d62fb72865738fe8df37869685",
+    "screenshot_rgb_sha256": "2bc1d03006bfaaba250afacc15a1ed64cfdb1d2068c520beabec911758dfef5d",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 1
   },
@@ -8955,8 +8955,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4911.774,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5251.17,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -8969,10 +8969,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 309084515,
+      "static_memory_bytes": 309112211,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "c71a053402516432a218a7850b9aa596616fe4c23d08e4b223ee1c81443a00c3",
+    "screenshot_rgb_sha256": "afea094172bce86d105840411a0807892331457212262c881b3c2103a94c94ec",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 2
   },
@@ -9051,8 +9051,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5011.745,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5306.309,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9065,10 +9065,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308862931,
+      "static_memory_bytes": 308890627,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "7ae8cef682e6ec7c317b074ccf530daf65112fd65caa334512fc728007d80ee1",
+    "screenshot_rgb_sha256": "9a74accbd9f44d6eb63d4ff4a7d4f67f8b25ec33cec355830e3aa0e53e0d0511",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 3
   },
@@ -9146,8 +9146,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4969.932,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5240.836,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9160,10 +9160,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 283850491,
+      "static_memory_bytes": 283878187,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "9e9c8bf10a64aacd52174e511b9314c08cc7a4c2a9527fbc43c6a9a337241139",
+    "screenshot_rgb_sha256": "7e2e61815fb6d9982d9ab1a65eb29cddf654455b5e2890a24b20dc35711b8f40",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 4
   },
@@ -9347,8 +9347,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5010.387,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5265.871,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9361,10 +9361,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308825067,
+      "static_memory_bytes": 308852763,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "674e764952fef1e9214ca4acb0d0115561fb1a046dae0a521fb568c79cbf5b73",
+    "screenshot_rgb_sha256": "2e0e202273412d98b99205486659b976aa514f7def4601f20797e8d2ba0d0eae",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 5
   },
@@ -9442,8 +9442,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5011.723,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5242.769,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9456,10 +9456,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 283814729,
+      "static_memory_bytes": 283845729,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "2e9ef3d4932715963eac2aa185f636192987725e9be54488edbba15c580204b2",
+    "screenshot_rgb_sha256": "c638593bf80c3e3dd1f36b75003bdea65df462b19add30c169fd8305b8274417",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 6
   },
@@ -9643,8 +9643,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5033.644,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5271.526,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9657,10 +9657,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308845711,
+      "static_memory_bytes": 308873407,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "11ac6e66cc3c220621f6d41b91380271a2e79510d2907d01a2a43b8149fe9ac0",
+    "screenshot_rgb_sha256": "8197da6ec96ce3d58b2e539832c4d3eabbdab6602de1d8881f8c6a670c15d56f",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 7
   },
@@ -9751,8 +9751,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5030.981,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5317.054,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9765,10 +9765,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308929463,
+      "static_memory_bytes": 308960463,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "1291a6da1cad8546567a516255ebbb67a36540c7903b95f044bbc59ce578aa55",
+    "screenshot_rgb_sha256": "1096ea0160969bf534776e9ef3b180c30be6e62ed80cde3bf6e07301f5ba0650",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 8
   },
@@ -9860,8 +9860,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4948.221,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5209.721,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -9874,10 +9874,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272137115,
+      "static_memory_bytes": 272170077,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "9a09097748122e66d0232693ee466b240a11600451d85b74191c0eda3bde8beb",
+    "screenshot_rgb_sha256": "5ce8f1305b919cf7277e632e963f404cc3d7767c8742d2e9803134993b510eae",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 9
   },
@@ -9968,8 +9968,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5016.036,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5335.177,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -9982,10 +9982,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 308943739,
+      "static_memory_bytes": 308973397,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "15feb938a55a2550592a10ba942f35ce2cbcdd0184fd73879eb7e60d38c02daf",
+    "screenshot_rgb_sha256": "5c4c4f178a89d982e521560eb98b21dc2d94bcdfba00df7a6fc8e6e145ad4c02",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 10
   },
@@ -10060,8 +10060,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4941.87,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5245.52,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10074,10 +10074,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272122677,
+      "static_memory_bytes": 272150637,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "5e3a84129029ea29cae408541d92f6d2a573fcf40db8befb08031355a6a59e54",
+    "screenshot_rgb_sha256": "a364625a9536605ec13ebd08201c8b6cd30b8ea5d1ca62dffb80e5da619e2340",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 11
   },
@@ -10169,8 +10169,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4934.19,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5270.287,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -10183,10 +10183,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272175049,
+      "static_memory_bytes": 272202745,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3e884e667036b19682841bd0c53e9c7bc5aba7431f03f62c601a85da81587490",
+    "screenshot_rgb_sha256": "3fd03bc3cb5857dac681b1b64d886203639bbd656b847d2cab2692b9558ce831",
     "contact_sheet": "catalogue-06.jpg",
     "contact_cell": 12
   },
@@ -10274,8 +10274,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4958.467,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5237.726,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10288,10 +10288,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272222285,
+      "static_memory_bytes": 272249981,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3e5464aa534747f79636d340eb066605321835c3d6e0fa903401aebb3797fe5a",
+    "screenshot_rgb_sha256": "c49a731661c08f78df4c7f687c4503fb183d76b3a8f2055a060166049aeeed88",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 1
   },
@@ -10366,8 +10366,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4950.573,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5213.284,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10380,10 +10380,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272112623,
+      "static_memory_bytes": 272140319,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "32b7b527001a282816ad5c8747d095832f338aec9cf3003145b0c4dbff04c604",
+    "screenshot_rgb_sha256": "31433bcf07f05fcd84dbc3854a9dfe5da49c7a9768ea4d3226e8d78214e24dd9",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 2
   },
@@ -10459,8 +10459,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4884.055,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5159.763,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10473,10 +10473,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272176099,
+      "static_memory_bytes": 272207099,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "40e467f91d440f1eac39606e2b234f50c2c63837a138998e777029550df3d107",
+    "screenshot_rgb_sha256": "abac371ab4a43d78c9f82ea14db26940fdcaf2f2dc3ea12102be45a3f2800f55",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 3
   },
@@ -10564,8 +10564,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4969.457,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5318.557,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10578,10 +10578,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272263939,
+      "static_memory_bytes": 272291635,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "0bc78447a190035c06dec6da89916a82fe5126d17e1dd5fa7747698420132b5a",
+    "screenshot_rgb_sha256": "584edfc89e9d41a442d5906ea83340f8058c7b6ed4341968f9217ccc29972ca2",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 4
   },
@@ -10657,8 +10657,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4867.654,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5161.199,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10671,10 +10671,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272196873,
+      "static_memory_bytes": 272224569,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "da0005e8d9c0930a8cc9f3ccd12c3f89ebb8023425f4fe21d08a2d319a16f9ca",
+    "screenshot_rgb_sha256": "6dd0e90e93be4e380de7a54932418f3ace1e04608c63d845254d88f69b66916d",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 5
   },
@@ -10777,8 +10777,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5015.484,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5874.134,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10791,10 +10791,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272203251,
+      "static_memory_bytes": 272230947,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "b85f77712570a85ae0da89e4754a2326b93adf5906145671703cc47e41f73574",
+    "screenshot_rgb_sha256": "c9ee730b97c45933da9c4adde34f19e09281a56f99d85f75eb02132e92d1fde5",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 6
   },
@@ -10895,8 +10895,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5000.166,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 6211.78,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -10909,10 +10909,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272397085,
+      "static_memory_bytes": 272424781,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "e1861170d7712a205e35d82cf64b94d8204f2316a8e3b10d0f2b65f4662558d4",
+    "screenshot_rgb_sha256": "c59ef37dd1b979921d55f4d6ed7c0fb8a7ef9ba7814f5ad3bb9ff46a7dba6e53",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 7
   },
@@ -11006,8 +11006,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4757.078,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5963.246,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11020,10 +11020,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272104481,
+      "static_memory_bytes": 272132177,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "8b56429fdbc5b0687b833df2e05987b4c30fdb94305cc30970123230b0b42cb5",
+    "screenshot_rgb_sha256": "163280aec9505b06e7e14778d401d3232ddac0da5484bae980f2c1b494b694cf",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 8
   },
@@ -11140,8 +11140,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4950.317,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5742.59,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11154,10 +11154,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272250703,
+      "static_memory_bytes": 272278399,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "805a7bf18783839a1d2cece1ef93d0809b789be05788be54a070cb8d1fda3a7f",
+    "screenshot_rgb_sha256": "679088b6f7e1e12c9cbbc24f7c439f38fd67b59025930ca8baafc334500961f6",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 9
   },
@@ -11247,8 +11247,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5020.299,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5340.624,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11261,10 +11261,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272418389,
+      "static_memory_bytes": 272446085,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "d7d30328c41130b8c853d89f3bfc295c6cfbc26c71a446e74b63353263385353",
+    "screenshot_rgb_sha256": "4b94ae5a02ca87af5aad053db91ac1f44b45ec3048e3e6bf8c35b8507d1389f2",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 10
   },
@@ -11367,8 +11367,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5030.319,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5331.834,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11381,10 +11381,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272196135,
+      "static_memory_bytes": 272223831,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "641bb68a847d567c9a78eb13db3ab4f7c41bd3cabef0b847ebd7724bf11c1f85",
+    "screenshot_rgb_sha256": "2d5460eeeab956dd82144084da3b433a1dda8ce0babaeb53e8f2687e186942ed",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 11
   },
@@ -11485,8 +11485,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5047.722,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5558.458,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11499,10 +11499,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272387779,
+      "static_memory_bytes": 272415475,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3f275a275831ec1e17d5d1af69f75c13e945fe9d09e84ac0a67e54ae2b550b27",
+    "screenshot_rgb_sha256": "9faab5cef910a39171404f5f9339aefe1e9968ee86ecf90734559122fb335f22",
     "contact_sheet": "catalogue-07.jpg",
     "contact_cell": 12
   },
@@ -11596,8 +11596,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4777.225,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5215.82,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11610,10 +11610,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272101353,
+      "static_memory_bytes": 272129889,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "6d4f4cd8b53235f9ba50529f2b7e56151e47fec71b721d0e1639f66aadb21435",
+    "screenshot_rgb_sha256": "759e57cb80770795f7ca3d9d7a44b462cb3c2d84481e24f47f7dec56ec2d896f",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 1
   },
@@ -11730,8 +11730,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4975.606,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5325.139,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11744,10 +11744,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272308433,
+      "static_memory_bytes": 272336969,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "fe876501a914b0446c35ce16741c09d7a2883d5dedd99a581a9bec7a2423c88e",
+    "screenshot_rgb_sha256": "ae4dae05a6e8e34f31c5c717d71d4ba86428ac65488b6404968515486c58c791",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 2
   },
@@ -11837,8 +11837,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5042.731,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5383.476,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11851,10 +11851,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272471719,
+      "static_memory_bytes": 272500519,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3820b9c78299fc4617eca2a9bdcd0ce6b0febb42e14c9e13bd2d38ad43af0d81",
+    "screenshot_rgb_sha256": "a01125ba3bd8b9cc18ec18160307ae621a1e922b7ab0cc02c87af335cd75a8a2",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 3
   },
@@ -11956,8 +11956,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4935.222,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5233.678,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -11970,10 +11970,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272843371,
+      "static_memory_bytes": 272871907,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "e298d3bd3cd731d2e8b6d1f065758522cec41c2b8213699ee2bc599ccf0c2b64",
+    "screenshot_rgb_sha256": "26c30c0492cefbae61f62d054b1381a74c21a0a2f9923ada5dfd145388b5cab5",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 4
   },
@@ -12061,8 +12061,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4990.727,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5340.193,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -12075,10 +12075,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272209107,
+      "static_memory_bytes": 272240947,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "c11c8e25111a9324d05beffbabd7c6a044a7bdda836e64e941aed10a65f2d9cd",
+    "screenshot_rgb_sha256": "c43dd583fbb8e05be04055adbee3ce0efbe36ab968d3f473fc7642d6f3e90467",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 5
   },
@@ -12211,8 +12211,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3542.035,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3668.966,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12225,10 +12225,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270258845,
+      "static_memory_bytes": 270290685,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "bf182d082825727776dfeb6e215088f2424502b647912b70f89a6d718dc08afe",
+    "screenshot_rgb_sha256": "9b56c93d88c50f6db535f59f06dd4bc5a12300f76e2ad4cefbd8affbe4ca147b",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 6
   },
@@ -12331,8 +12331,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3366.282,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3586.566,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12345,10 +12345,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270211699,
+      "static_memory_bytes": 270243539,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "5c5327b38ba1565800fd33b311c0049935617f7ac073a1360201d381782a717d",
+    "screenshot_rgb_sha256": "6a9b60dbf916ef29fb044b8ceddb84afed3017b782e578259f649c19713e4546",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 7
   },
@@ -12475,8 +12475,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3513.743,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3749.049,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12489,10 +12489,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270244871,
+      "static_memory_bytes": 270276711,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "0448cd7d58d1874d0ca0f5e067e97b52bfd24c0be0fad89249c626c1695a4c92",
+    "screenshot_rgb_sha256": "b807bd2273b4c71d8425cd58c3fb061533705d197a0c130e7a256f6ba8e84f6d",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 8
   },
@@ -12619,8 +12619,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3367.635,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3494.152,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12633,10 +12633,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 275215013,
+      "static_memory_bytes": 275246679,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "961f24ae53c0d996bc73c4872c2da792d313c2766f50fae9e7bb748f55cbaee4",
+    "screenshot_rgb_sha256": "6373cc137a370032311c69626294ee16d3529c2a7408fa7630ed4e43dba60e60",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 9
   },
@@ -12753,8 +12753,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3374.386,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3717.06,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12767,10 +12767,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270403463,
+      "static_memory_bytes": 270433313,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "3df1bfa118dee74ecce5e3fecb84646805364c8284f6ad205a52c4982e332f38",
+    "screenshot_rgb_sha256": "22663748728dbeb46d1f67b1349908a3da3feef6bb39d41836ea97bb2215ceac",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 10
   },
@@ -12903,8 +12903,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3583.967,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3862.721,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -12917,10 +12917,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270802897,
+      "static_memory_bytes": 270829537,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "0ea0567add8373459154f55311198035a9a075ee68449ee9d646dbc35206f193",
+    "screenshot_rgb_sha256": "ca464b32404adadcf7ec4091d332dbf4a5a8e7663e976463c3862930e0569413",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 11
   },
@@ -13033,8 +13033,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3496.308,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3662.482,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13047,10 +13047,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270712509,
+      "static_memory_bytes": 270742207,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "f930b85b7f0f1107201dc3988a50421b9d9acf88508a48f4fb3c668552155fbf",
+    "screenshot_rgb_sha256": "2408ad02ac1d0452a1a5b75efbfc79d8d9dbdd06e3655e1a5002c4e8bb9f7ba8",
     "contact_sheet": "catalogue-08.jpg",
     "contact_cell": 12
   },
@@ -13177,8 +13177,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3473.627,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3582.496,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13191,10 +13191,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270632183,
+      "static_memory_bytes": 270662009,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "e80ebff9e3acbbda3e534d06cc06f3af8adb17156dc45f5811460b1823c1cabe",
+    "screenshot_rgb_sha256": "cd6e444218149f7992f3f68fa78e8d77da0ba2ece35390b57ff314dc06964ecc",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 1
   },
@@ -13297,8 +13297,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3358.544,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3713.066,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13311,10 +13311,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270730587,
+      "static_memory_bytes": 270760291,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "58b2adea3b059bb8e3cff4e732896a63e3e94b529e3e15cf8b4a353ddef6c345",
+    "screenshot_rgb_sha256": "f74698822e08ecd1465c69c3e433e10a5d5ec57e7b35cfc233b196c6ce1d3315",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 2
   },
@@ -13429,8 +13429,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3368.623,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3629.61,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13443,10 +13443,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270894787,
+      "static_memory_bytes": 270924491,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "c8f9d92506faae14ac5740873a8b80dd95fe4997f89e7c93760e93d0fefbd6c7",
+    "screenshot_rgb_sha256": "ba54cbdd8f094a547838ae7b25199cb5ee738c2511741761be06cd8913536503",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 3
   },
@@ -13573,8 +13573,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3532.6,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3635.553,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13587,10 +13587,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270779615,
+      "static_memory_bytes": 270809465,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "15f11374f8c6cbd8418ffee6b99f6f55f6fd6ebff7f569e30b6d27939ac847e2",
+    "screenshot_rgb_sha256": "d3b11cdbcc30e0cebb23ffd70dc711aa9a39cc935ffab4cf73bf15b5784c1f40",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 4
   },
@@ -13717,8 +13717,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3384.96,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3601.436,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13731,10 +13731,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 275220901,
+      "static_memory_bytes": 275247535,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "e29633236139ed36e47a465dc0dbafdafa8a863557e3e723cb1fc7a570f85b88",
+    "screenshot_rgb_sha256": "f8b7d1fa602d4aee2c336c16ddcac9cfed61413c5042a79fab64721aa34ccc8b",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 5
   },
@@ -13847,8 +13847,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3452.574,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3741.995,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -13861,10 +13861,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270579379,
+      "static_memory_bytes": 270609059,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "512baaabc12aa608a370df6cb93b449917fdec3f75a9e8899851359f51bc22c4",
+    "screenshot_rgb_sha256": "079dac0f335b986ff5b2b98076659a34de4824792dd0bc55dee6b66ab921a0af",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 6
   },
@@ -14037,8 +14037,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3378.736,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3510.877,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14051,10 +14051,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271177449,
+      "static_memory_bytes": 271209289,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "6bb3e02c342f9462e29c4ffa426c20dde76d9b77d19665e252e06cd8a1efe002",
+    "screenshot_rgb_sha256": "64330bb67fb90533eb17d572fe856d83083d7678df8d503b8a36a6e679fd40d6",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 7
   },
@@ -14171,8 +14171,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3358.286,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3663.781,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14185,10 +14185,10 @@
       "rendered_sprites": 3,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270428951,
+      "static_memory_bytes": 270460791,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "2520483aea192e2a4718ecca533fa69bf2d17e4f6bfe8a5790ec9b6d88fce9f7",
+    "screenshot_rgb_sha256": "b3b8272e7261e41fd6e18e0ca19b89916f074602fa95e5bb63c960057896ac18",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 8
   },
@@ -14335,8 +14335,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3536.831,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3742.728,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14349,10 +14349,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270823413,
+      "static_memory_bytes": 270855253,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "3324d4e8a712854b3295f614f35da16a5f435c1433c310a5afd5a4420c21144d",
+    "screenshot_rgb_sha256": "e482178b72e02c95b4b0661b3b44cea7ab2f11e5054bb543ee28a6b3706a27dc",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 9
   },
@@ -14465,8 +14465,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3482.468,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3710.083,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14479,10 +14479,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270739375,
+      "static_memory_bytes": 270771215,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "63d04d3d938de6adbcea7e9386f7cff51d31f4e8dd176731a43c7831373d362b",
+    "screenshot_rgb_sha256": "64af168161e0cf19de446a2f7905609c7b0d2c2ca8f36e7f64442270c96b85ec",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 10
   },
@@ -14609,8 +14609,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3489.278,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3669.171,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14623,10 +14623,10 @@
       "rendered_sprites": 2,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270702191,
+      "static_memory_bytes": 270734031,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "aae459e5b3b954f6356a291291ec048b963ea2a0741626ece3f4e049b545fd78",
+    "screenshot_rgb_sha256": "95cc95591ea5407562809ea1ed3c8663cb6559fd51fc6cf626c92d0beafedd12",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 11
   },
@@ -14741,8 +14741,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3390.754,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3619.393,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14755,10 +14755,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270961509,
+      "static_memory_bytes": 270993349,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "c2dfeb212d27d16d4ecb712097eb8fb54d86a0271f58be9af34742898b2dae7e",
+    "screenshot_rgb_sha256": "7a392b246516ea398bb552bfe4950e342f0896530c54ddc9600712a92b87607a",
     "contact_sheet": "catalogue-09.jpg",
     "contact_cell": 12
   },
@@ -14871,8 +14871,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3416.038,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3676.974,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -14885,10 +14885,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 270573755,
+      "static_memory_bytes": 270603459,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "c3935c38847d31f909b6768b87bf34326553dfc80ac31f091e7e86a2cb64fdc6",
+    "screenshot_rgb_sha256": "da84e9eff7e6df20ea40d379d8368ee873f753f161449311704a64c058c7a5e3",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 1
   },
@@ -15061,8 +15061,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 3387.907,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 3564.415,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -15075,10 +15075,10 @@
       "rendered_sprites": 4,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 271169869,
+      "static_memory_bytes": 271201709,
       "vehicle_count": 0
     },
-    "screenshot_rgb_sha256": "cc8798d7afdf647b40fee7c25d71342fc259f4a13bad63e9cc60096924354f47",
+    "screenshot_rgb_sha256": "30c4f16e67e69983a516b4e9f5b988b85620f5e71064ff5748c81dd43804d9b7",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 2
   },
@@ -15165,8 +15165,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5025.879,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5354.727,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15179,10 +15179,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272595097,
+      "static_memory_bytes": 272626937,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "3baf0dc4ff36232134ec83f4badad4c6e341409c21b64a30949afdef6480c7a1",
+    "screenshot_rgb_sha256": "708ac077d797f921ee3f61514cb6f7d2afb6c8de0554488990c249dd18c859d9",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 3
   },
@@ -15251,8 +15251,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4980.075,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5244.684,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15265,10 +15265,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272591379,
+      "static_memory_bytes": 272619915,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "705d5d86c25f4737e39d1aaf9d9abb74b2499302c77991ebac991bf399a1e00a",
+    "screenshot_rgb_sha256": "6fca38156698ac4b2823d03cb4d6d8c2e5c3af15dfe915fc9f3cb7d3126044a0",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 4
   },
@@ -15359,8 +15359,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5007.516,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5381.319,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15373,10 +15373,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272625931,
+      "static_memory_bytes": 272654467,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "6f6a28db645078ed7e16289c70883f9a49dc8ac985627a7991a7f496ab3f80be",
+    "screenshot_rgb_sha256": "c4b10cd25ac0422a8525146047090cca6bea452270b9735b02bc81560938f7a1",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 5
   },
@@ -15474,8 +15474,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4949.358,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5421.794,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -15488,10 +15488,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272574089,
+      "static_memory_bytes": 272602889,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "2ffa6a9b70994f50c1692d0c636e1873f55b8c1ce9d127a0589d20f704f9f65d",
+    "screenshot_rgb_sha256": "1f3eacc9ffce3b4d464cf2bc092d5304ed44702f395f7dc671e59e2f7823085c",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 6
   },
@@ -15590,8 +15590,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5104.86,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5478.912,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15604,10 +15604,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272679929,
+      "static_memory_bytes": 272708729,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "7b5e0252d5bcb95d0911e98bde97005618a9e166f463ea2444cfc15b3f0ace0b",
+    "screenshot_rgb_sha256": "fde54e5b571e543149b4a2b17510b0753423669684cb0d8261beaca23dabbc1e",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 7
   },
@@ -15694,8 +15694,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4982.46,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5369.491,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15708,10 +15708,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272644767,
+      "static_memory_bytes": 272673303,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "891619e24587f72bfca01aaa38df7b31421b13846d0902c62ebbdeb55960bda3",
+    "screenshot_rgb_sha256": "bbfe8cfc11dd65dc1ab0f38988de27863af23a83655bc98014e580d8292a043e",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 8
   },
@@ -15780,8 +15780,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4950.644,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5299.674,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15794,10 +15794,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272639075,
+      "static_memory_bytes": 272667611,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "0041d835422bf02cbe6dd07745605376ccb47127d221f7437282db25a750da83",
+    "screenshot_rgb_sha256": "ece5d83cfdfb3ab36fb5f6f8b28d42a2e87ce5e9abbbb5def77474ffa9396516",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 9
   },
@@ -15888,8 +15888,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4987.044,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5401.907,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -15902,10 +15902,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272731103,
+      "static_memory_bytes": 272762943,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "dd38dc571a7601584b83899e98f32d6cbc9ab1e143f75f5020ba7faf74a86064",
+    "screenshot_rgb_sha256": "2bf50c639a13b303a1ac5e8b60d1f50c263320deb40c8bacdba2906e50d5cf7b",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 10
   },
@@ -16003,8 +16003,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4898.95,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5229.994,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.02,
@@ -16017,10 +16017,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272679225,
+      "static_memory_bytes": 272707761,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "34ac2355b9079acfa321c5d9d0de5cb3a31a40121acaf7e7fff463fcf010ee1b",
+    "screenshot_rgb_sha256": "35aca8467be1f1e7018cfb2910ef6d2af83e4ddd6ce983a26a6711cb38a9466b",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 11
   },
@@ -16119,8 +16119,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5117.355,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5432.761,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -16133,10 +16133,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272739149,
+      "static_memory_bytes": 272767685,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "ad9f0da5dded17009f88ce90836f0d381dd086e6ea315c1bb7d108debff6c72e",
+    "screenshot_rgb_sha256": "b5845fc2c9a721b0aa407d315b6f8820ea36d5da6be90e0792745cf61b7e9048",
     "contact_sheet": "catalogue-10.jpg",
     "contact_cell": 12
   },
@@ -16230,8 +16230,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 5038.511,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5359.088,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -16244,10 +16244,10 @@
       "rendered_sprites": 0,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272850799,
+      "static_memory_bytes": 272882639,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "ee976a15b998e835fe0dc7e9b195ff30b6438a9b93327f9e010cd9bd1410cbbb",
+    "screenshot_rgb_sha256": "c1e371d0c90088dba47283313051aa77dad116f31c9b6e175aa14b11800557c9",
     "contact_sheet": "catalogue-11.jpg",
     "contact_cell": 1
   },
@@ -16338,8 +16338,8 @@
       "tactical_catalogue": "passed"
     },
     "native": {
-      "capture_signature": "0a712aead04e8d43b794ced6ea2076c1e9bbc42b7bf763d294602bf2207e6bfd",
-      "elapsed_ms": 4849.553,
+      "capture_signature": "9f3c641aac5bbab0d0ab208cd9d45307861756e318e888af7e859eb931e12337",
+      "elapsed_ms": 5182.895,
       "entity_families_checked": true,
       "gpu_benchmark": {},
       "human_ratio_applied": 0.015,
@@ -16352,10 +16352,10 @@
       "rendered_sprites": 1,
       "scale_calibration_status": "NOT VERIFIED",
       "scale_comparison_only": false,
-      "static_memory_bytes": 272793169,
+      "static_memory_bytes": 272821705,
       "vehicle_count": 1
     },
-    "screenshot_rgb_sha256": "bd7619cd9286571b189a96615c2676daeb798bf540788df6d395010314d56e6c",
+    "screenshot_rgb_sha256": "038de8d6dd2b0aa757c9111bc95540451788348040e542e632ee4a0e8b94422a",
     "contact_sheet": "catalogue-11.jpg",
     "contact_cell": 2
   }
