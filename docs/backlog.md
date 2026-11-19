@@ -804,7 +804,7 @@ Résultat cumulé : **2 / 231 ensembles complets**, 4 partiels. Preuves dans [ma
 - [x] ANIM-SNIPER-03 Vérifier atlas, doublons, marges, ancrages et transitions.
 - [x] ANIM-SNIPER-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
 
-Résultat cumulé : **16 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [violet-fixer-actions](images/violet-fixer-actions/README.md) et [silver-pistol-actions](images/silver-pistol-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif ; le catalogue 122/122 et le benchmark doivent être régénérés pour leur nouvelle signature.
+Résultat cumulé : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [armored-vanguard-actions](images/armored-vanguard-actions/README.md) et [chrome-medic-actions](images/chrome-medic-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif, soin technologique compris ; le catalogue 122/122 et le benchmark doivent être régénérés pour leur nouvelle signature.
 
 ### SCALE — profils et repères du catalogue
 

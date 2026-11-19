@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 215 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 213 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,7 +543,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 16 ensembles complets, 0 partiel",
+        "Audit anti-doublons : 18 ensembles complets, 0 partiel",
         "Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows",
         "2 tests Python rÃ©ussis, 1 test X11 ignorÃ©",
         "Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions",
@@ -591,8 +591,14 @@
         ,"docs/images/silver-pistol-actions/README.md"
         ,"docs/images/silver-pistol-actions/audit.json"
         ,"docs/images/silver-pistol-actions/animation-report.json"
+        ,"docs/images/armored-vanguard-actions/README.md"
+        ,"docs/images/armored-vanguard-actions/audit.json"
+        ,"docs/images/armored-vanguard-actions/animation-report.json"
+        ,"docs/images/chrome-medic-actions/README.md"
+        ,"docs/images/chrome-medic-actions/audit.json"
+        ,"docs/images/chrome-medic-actions/animation-report.json"
       ],
-      "remaining": "16 / 231 ensembles complets ; produire et vérifier les actions applicables des 215 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
+      "remaining": "18 / 231 ensembles complets ; produire et vérifier les actions applicables des 213 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
       "reason": ""
     },
     {
@@ -1017,7 +1023,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_14_armored_vanguard et agent_diverse_15_chrome_medic, puis produire le prochain lot artistique authentique.",
+  "next_action": "ANIM-COMPLETE : régénérer le catalogue natif 122 cartes et le benchmark pour la signature à 18 ensembles, actualiser les empreintes et l’acceptation, puis inspecter agent_diverse_16_heavy_breacher et agent_diverse_17_yellow_strike.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
