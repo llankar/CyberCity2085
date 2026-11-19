@@ -225,7 +225,9 @@ func _process(delta: float) -> void:
 	if _session_control_clock >= 0.2:
 		_session_control_clock = 0.0
 		if _session_superseded():
-			get_tree().quit()
+			var runtime=get_node_or_null("/root/PersistentCombatRuntime")
+			if runtime!=null:runtime.finish_mission(self)
+			else:get_tree().quit()
 			return
 	_poll_audio_release(delta)
 	if not battle_started:
@@ -657,10 +659,7 @@ func _load_tex(path: String) -> Texture2D:
 	var full := _asset_path(path)
 	if not FileAccess.file_exists(full):
 		return null
-	var img := Image.load_from_file(full)
-	if img == null:
-		return null
-	return ImageTexture.create_from_image(img)
+	return preload("res://scripts/runtime_texture_cache.gd").load_texture(full)
 
 func _try_load_tex(key: String, path: String) -> void:
 	var highres := path.get_basename() + "_512.png"

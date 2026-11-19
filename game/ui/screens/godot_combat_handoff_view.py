@@ -31,12 +31,19 @@ _WIN = sys.platform == "win32"
 _HWND_POLL_INTERVAL = 0.15  # seconds between HWND-search attempts
 
 
-def _native_launch_options():
-    if not _WIN:
-        return {}
-    from game.combat.win32_embed import get_current_process_hwnd, get_window_screen_rect
-    hwnd = get_current_process_hwnd()
-    return {"window_rect": get_window_screen_rect(hwnd)} if hwnd else {}
+def _native_launch_options(window=None):
+    from game.combat.persistent_runtime import runtime_for_window
+    runtime=runtime_for_window(window)
+    options={}
+    if runtime is not None:
+        options=dict(runtime=runtime,viewport=(window.width,window.height))
+        try:options['position']=window.get_location()
+        except (AttributeError,NotImplementedError):pass
+    if _WIN:
+        from game.combat.win32_embed import get_current_process_hwnd,get_window_screen_rect
+        hwnd=get_current_process_hwnd()
+        if hwnd:options['window_rect']=get_window_screen_rect(hwnd)
+    return options
 
 
 def open_mission_combat(window, game_state, mission) -> None:
@@ -50,7 +57,7 @@ def open_mission_combat(window, game_state, mission) -> None:
         return
     from game.combat.godot_bridge import launch_godot_combat_ui
 
-    result = launch_godot_combat_ui(game_state, mission, **_native_launch_options())
+    result = launch_godot_combat_ui(game_state, mission, **_native_launch_options(window))
     game_state.add_event(result.message)
     window.show_view(GodotCombatHandoffView(game_state, mission, result, window=window))
 
@@ -82,7 +89,7 @@ class GodotCombatHandoffView(arcade.View):
         self._status: str = (
             str(launch_result.message)
             if self._launch_failed
-            else "LANCEMENT DU COMBAT GODOT…"
+            else "DÉPLOIEMENT TACTIQUE…"
         )
 
     # ── Lifecycle ─────────────────────────────────────────────────────────────
@@ -108,7 +115,14 @@ class GodotCombatHandoffView(arcade.View):
                 self._write_pending_ack()
                 self._return_wait = getattr(self,"_return_wait",0.0)+delta_time
                 process = getattr(self.launch_result,"process",None)
-                if process is None or process.poll() is not None or self._return_wait>=2.0:
+                runtime=getattr(self.launch_result,'runtime',None)
+                ready=(runtime.is_idle(self.launch_result.session_id) if runtime is not None else self._return_wait>=2.0)
+                if runtime is not None and self._return_wait>5 and not ready:
+                    runtime.park(self.launch_result.session_id)
+                if runtime is not None and self._return_wait>15 and not ready:
+                    self.game_state.add_event('Combat resolved; unresponsive Godot runtime closed. Explicit repair is required.')
+                    runtime.close();ready=True
+                if process is None or process.poll() is not None or ready:
                     self._pending_return=None
                     self._cleanup_godot()
                     from game.ui.screens.mission_return import show_mission_debrief
@@ -195,12 +209,12 @@ class GodotCombatHandoffView(arcade.View):
         if not pid:
             # No PID means Godot wasn't launched (or non-Windows); jump to polling.
             self._overlaid = True
-            self._status = "COMBAT GODOT EN COURS"
+            self._status = "SECTEUR TACTIQUE PRÊT"
             return
 
         if not _WIN:
             self._overlaid = True
-            self._status = "COMBAT GODOT EN COURS"
+            self._status = "SECTEUR TACTIQUE PRÊT"
             return
 
         from game.combat.win32_embed import (
@@ -208,11 +222,24 @@ class GodotCombatHandoffView(arcade.View):
             get_window_screen_rect,
             make_borderless_at,
             attach_owned_window,
+            hide_window,
+            show_window,
+            is_foreground_window,
         )
 
-        hwnd = get_process_hwnd(pid)
+        runtime=getattr(self.launch_result,"runtime",None)
+        hwnd = (getattr(runtime,"hwnd",None) or get_process_hwnd(pid,include_hidden=True)) if runtime is not None else get_process_hwnd(pid)
         if not hwnd:
             return  # Godot not ready yet — try again next tick
+        self._godot_hwnd=hwnd
+        if runtime is not None:runtime.hwnd=hwnd
+        if self._arcade_hwnd:attach_owned_window(hwnd,self._arcade_hwnd)
+        if not getattr(self,'_session_ready',False):
+            hide_window(hwnd)
+            return
+        if self._arcade_hwnd and not is_foreground_window(self._arcade_hwnd):
+            hide_window(hwnd)
+            return  # Do not steal focus if the player switched apps during loading.
 
         x, y, w, h = (
             get_window_screen_rect(self._arcade_hwnd)
@@ -224,16 +251,22 @@ class GodotCombatHandoffView(arcade.View):
             attach_owned_window(hwnd, self._arcade_hwnd)
         make_borderless_at(hwnd, x, y, w, h)
         self._overlay_rect = (x, y, w, h)
+        show_window(hwnd)
         # Keep the campaign surface behind Godot so exit cannot reveal the desktop.
 
         self._godot_hwnd = hwnd
+        if runtime is not None:runtime.hwnd=hwnd
         self._overlaid = True
-        self._status = "COMBAT GODOT EN COURS"
+        self._status = "SECTEUR TACTIQUE PRÊT"
 
     def _cleanup_godot(self) -> None:
         """Terminate Godot and restore Arcade's window."""
         process = getattr(self.launch_result, "process", None)
-        if process is not None and process.poll() is None:
+        runtime=getattr(self.launch_result,'runtime',None)
+        if runtime is not None:
+            try:runtime.park(self.launch_result.session_id)
+            except (OSError,ValueError):pass
+        elif process is not None and process.poll() is None:
             process.terminate()
         from game.audio import SoundManager
         SoundManager.get().release_external_music()
@@ -248,7 +281,7 @@ class GodotCombatHandoffView(arcade.View):
         if self._arcade_hwnd:
             show_window(self._arcade_hwnd)
 
-        if process is None and self.launch_result.process_pid:
+        if runtime is None and process is None and self.launch_result.process_pid:
             terminate_pid(self.launch_result.process_pid)
 
         self._overlaid = False
@@ -360,8 +393,12 @@ class GodotCombatHandoffView(arcade.View):
         from game.combat.godot_bridge import launch_godot_combat_ui
         previous = self.launch_result
         self._cleanup_godot()
+        from game.combat.persistent_runtime import runtime_for_window
+        runtime=runtime_for_window(self.window)
+        if runtime is not None and runtime.status().get('state')=='stopped':
+            runtime.start((self.window.width,self.window.height))  # Explicit S repairs then resumes the checkpoint.
         result = launch_godot_combat_ui(self.game_state, self.mission,
-            resume_session_id=previous.session_id, **_native_launch_options())
+            resume_session_id=previous.session_id, **_native_launch_options(self.window))
         self._launch_failed = not result.launched
         self.launch_result = result if result.launched else previous
         self._overlaid = False
@@ -375,7 +412,11 @@ class GodotCombatHandoffView(arcade.View):
         from game.combat.godot_bridge import launch_godot_combat_ui
 
         self._cleanup_godot()
-        self.launch_result = launch_godot_combat_ui(self.game_state, self.mission, **_native_launch_options())
+        from game.combat.persistent_runtime import runtime_for_window
+        runtime=runtime_for_window(self.window)
+        if runtime is not None and runtime.status().get('state')=='stopped':
+            runtime.start((self.window.width,self.window.height))  # Explicit R repairs a failed startup, never automatic mission launch.
+        self.launch_result = launch_godot_combat_ui(self.game_state, self.mission, **_native_launch_options(self.window))
         self._launch_failed = not self.launch_result.launched
         self._overlaid = False
         self._elapsed = 0.0

@@ -301,6 +301,41 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
 
+### UE5-01 — IN_PROGRESS — Construire un scénario de campagne réel et un pilote de test sans issue forcée
+
+- Fichiers : `tools/check_unified_return.py`, `godot/combat_missions_ui/tests/campaign_playthrough.gd`.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
+- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+
+### UE5-02 — IN_PROGRESS — Vérifier les conséquences après victoire et défaite obtenues par les règles réelles
+
+- Fichiers : `tests/test_unified_campaign_playthrough.py`.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
+- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+
+### UE5-03 — IN_PROGRESS — Démarrer Godot avec le jeu et réutiliser le même processus dès la première mission
+
+- Fichiers : `game/combat/persistent_runtime.py`, `game/ui/application_window.py`, `main.py`, `godot/combat_missions_ui/scripts/persistent_runtime.gd`.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
+- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+
+### UE5-04 — IN_PROGRESS — Conserver la transition visible jusqu’à la readiness native Windows
+
+- Fichiers : `game/ui/screens/godot_combat_handoff_view.py`, `game/combat/win32_embed.py`.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
+- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+
+### UE5-05 — IN_PROGRESS — Archiver les preuves natives, régressions et critères encore ouverts
+
+- Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
+- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
@@ -311,6 +346,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés.
+UNIFIED UE5 : examiner /tmp/persistent-app-window.log et work/persistent-runtime-app-window/report.json (preuve avec la véritable GameWindow), finaliser les régressions de routage et la validation Windows. Aucun lancement de moteur ne doit être déclenché par submit(), même pour la première mission.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

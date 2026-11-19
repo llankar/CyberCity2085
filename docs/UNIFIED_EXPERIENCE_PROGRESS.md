@@ -90,3 +90,13 @@ Vérifier une mission de campagne jusqu’à sa véritable condition de fin, san
 ## Points encore ouverts
 
 Mission de campagne entièrement jouée plutôt qu’une fixture conclue par une issue forcée ; focus, Alt+Tab, DPI et moniteurs Windows ; écoute/fondus audio ; mesures et préchauffage ; ancienne API bloquante hors parcours campagne ; commande de retraite réelle (seule la fixture produit ce résultat) ; avertissement ObjectDB à la fermeture. Les futurs jets du RNG global et les effets en cours ne sont pas sérialisés. Une interruption revient au dernier état logique complet, pas à une instruction arbitraire de la boucle IA. Ne pas transformer ces limites en PASS.
+
+## Lot 5 en cours — moteur résident dès l’ouverture du jeu
+
+Instruction utilisateur prioritaire : aucun lancement de Godot à l’entrée en mission, même la première. `GameWindow` initialise le runtime avant le menu titre ; les missions sont des scènes chargées dans ce processus déjà vivant. Le résultat confirmé parque la scène au lieu de quitter le moteur. Fermeture de l’application : arrêt du processus possédé. Une panne nécessite une réparation explicite, pas un lancement tardif silencieux.
+
+Preuve Linux native : `docs/images/unified-experience/batch5/report.json`, un seul lancement, PID identique pour deux missions naturelles (`data_theft_d1_s2`, puis `road_relay_d2_s0`), débriefing/QG entre les deux. Préchargement de la scène et des sprites communs, cache de textures borné à 128 Mio ; les données propres aux cartes continuent de charger. Une victoire et une défaite naturelles ont aussi été vérifiées séparément. La victoire Godot par élimination peut survenir sans terminal piraté : cette règle existante est conservée, aucun objectif accompli n’est inventé.
+
+84 tests ciblés réussis, un test de routage graphique désélectionné après timeout sous charge ; 6 tests supplémentaires réussis. Le refactoring final vers la véritable classe `GameWindow` a une nouvelle preuve native en cours (`/tmp/persistent-app-window.log`). Ne pas déclarer le lot terminé avant examen de cette preuve et régression isolée du routage. Windows/Alt+Tab/DPI et écoute audio restent NON VÉRIFIÉS. Les mesures Linux sous rendu logiciel et forte charge ne constituent pas une promesse de temps de chargement.
+
+Prochaine action : examiner `work/persistent-runtime-app-window/report.json`, tester la fermeture réelle de `GameWindow`, puis finaliser les tests et le bilan. CHANTIER GLOBAL INCOMPLET.

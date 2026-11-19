@@ -39,6 +39,7 @@ if _WIN:
     _u32.IsWindowVisible.argtypes = [ctypes.wintypes.HWND]
     _u32.GetWindowThreadProcessId.argtypes = [ctypes.wintypes.HWND, ctypes.POINTER(ctypes.wintypes.DWORD)]
     _u32.SetForegroundWindow.argtypes = [ctypes.wintypes.HWND]
+    _u32.GetForegroundWindow.restype = ctypes.wintypes.HWND
     _u32.GetWindowLongW.argtypes = [ctypes.wintypes.HWND, ctypes.c_int]
     _u32.GetWindowLongW.restype = ctypes.c_long
     _u32.SetWindowLongW.argtypes = [ctypes.wintypes.HWND, ctypes.c_int, ctypes.c_long]
@@ -66,7 +67,7 @@ if _WIN:
 
 # ── HWND discovery ────────────────────────────────────────────────────────────
 
-def get_process_hwnd(pid: int) -> Optional[int]:
+def get_process_hwnd(pid: int, *, include_hidden: bool = False) -> Optional[int]:
     """Return the first visible top-level HWND owned by *pid*, or None."""
     if not _WIN:
         return None
@@ -76,7 +77,7 @@ def get_process_hwnd(pid: int) -> Optional[int]:
     def _cb(hwnd: int, _lparam: int) -> bool:
         w_pid = ctypes.wintypes.DWORD(0)
         _u32.GetWindowThreadProcessId(hwnd, ctypes.byref(w_pid))
-        if w_pid.value == pid and _u32.IsWindowVisible(hwnd):
+        if w_pid.value == pid and (_u32.IsWindowVisible(hwnd) or include_hidden):
             found.append(hwnd)
             return False
         return True
@@ -170,4 +171,10 @@ def sync_owned_window(child: int, owner: int, previous=None):
     rect = get_window_screen_rect(owner)
     if rect != previous and rect[2] > 0 and rect[3] > 0:
         _u32.SetWindowPos(child, 0, *rect, _SWP_NOACTIVATE | _SWP_NOZORDER | _SWP_SHOWWINDOW)
+    if previous is None and is_foreground_window(owner):
+        _u32.SetForegroundWindow(child)
     return rect
+
+
+def is_foreground_window(hwnd: int) -> bool:
+    return bool(_WIN and _u32.GetForegroundWindow() == hwnd)
