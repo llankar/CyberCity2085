@@ -187,78 +187,61 @@ def build_consequence_summary_lines(
     triggered_complication: "MissionComplication | None" = None,
 ) -> list[str]:
     """Build compact post-resolution state changes for the debrief panel."""
-    consequences = _applied_consequences(mission, victory, triggered_complication)
+    import re
+    from game.campaign.intel_fragments import get_fragment
+
+    def display_name(identifier):
+        return re.sub(r"_d\d+_s\d+$", "", str(identifier)).replace("_", " ").title()
+
+    def section(title, items):
+        if items:
+            if lines:
+                lines.append("")
+            lines.extend([title, *items])
+
+    lines = []
+    summary = build_battle_debrief_summary(game_state, victory, mission, agent_stats, triggered_complication)
+    section("MISSION PAYOUT", summary["rewards"])
     district = getattr(game_state, "district", None)
-    lines: list[str] = []
     if district is not None:
-        lines.append(
-            "City pressure: "
-            f"stability {getattr(district, 'stability', '?')}, "
-            f"unrest {getattr(district, 'unrest', '?')}, "
-            f"media heat {getattr(district, 'media_heat', '?')}"
-        )
-
-    faction = None
-    if mission is not None and hasattr(game_state, "get_faction"):
-        faction = game_state.get_faction(mission.target_faction)
+        section("DISTRICT STATUS", [
+            f"Stability {district.stability}  ·  Unrest {district.unrest}",
+            f"Media attention {district.media_heat}",
+        ])
+    faction = game_state.get_faction(mission.target_faction) if mission is not None else None
     if faction is not None:
-        lines.append(
-            f"Faction {faction.name}: hostility {faction.hostility_to_player}, "
-            f"influence {faction.influence}, legitimacy {faction.public_legitimacy}"
-        )
+        section(faction.name.upper(), [
+            f"Hostility {faction.hostility_to_player}  ·  Influence {faction.influence}",
+            f"Public legitimacy {faction.public_legitimacy}",
+        ])
 
-    gained_tags: list[str] = []
-    for consequence in consequences:
-        gained_tags.extend(_tag_names(getattr(consequence, "tags", [])))
-    if not gained_tags and district is not None:
-        gained_tags = _tag_names(getattr(district, "tags", []))[-3:]
-    lines.append(f"Tags gained: {', '.join(gained_tags) if gained_tags else 'none'}")
-
-    scars: list[str] = []
-    for character in getattr(game_state, "characters", []) or []:
-        for scar in getattr(character, "temporary_scars", []) or []:
-            label = (
-                scar.get("title")
-                or scar.get("name")
-                or scar.get("label")
-                or scar.get("type")
-                or "scar"
-            )
-            scars.append(f"{character.name}: {label}")
-    lines.append(f"Agent scars: {', '.join(scars[:3]) if scars else 'none'}")
-
-    summary = build_battle_debrief_summary(
-        game_state,
-        victory,
-        mission,
-        agent_stats,
-        triggered_complication,
-    )
-    rewards = ", ".join(str(line) for line in summary["rewards"])
-    lines.append(f"Rewards: {rewards}")
-
-    unavailable = list(getattr(game_state, "unavailable_mission_ids", []) or [])
-    lines.append(
-        "Unavailable missions: "
-        + (", ".join(str(mid) for mid in unavailable[:3]) if unavailable else "none")
-    )
-
+    consequences = _applied_consequences(mission, victory, triggered_complication)
+    effects = dict.fromkeys(display_name(tag) for consequence in consequences
+                            for tag in _tag_names(consequence.tags))
+    section("NEW DEVELOPMENTS", list(effects))
+    section("COMPLICATIONS", summary["triggered_complications"])
+    deployed = {stat.name for stat in agent_stats}
+    scars = []
+    for character in game_state.characters:
+        if character.name in deployed:
+            for scar in character.temporary_scars:
+                label = scar.get("title") or scar.get("name") or scar.get("label")
+                scars.append(f"{character.name} — {label or display_name(scar.get('type', 'scar'))}")
+    section("OPERATIVE SCARS", scars)
+    titles = {entry.id: entry.title for entry in game_state.mission_templates}
+    section("UNAVAILABLE MISSIONS", [
+        titles.get(mid, display_name(mid)) for mid in sorted(game_state.unavailable_mission_ids)
+    ])
     campaign = getattr(game_state, "campaign", None)
-    discovered = (
-        list(getattr(campaign, "discovered_intel", []) or []) if campaign else []
-    )
-    lines.append(
-        "Intel unlocks: "
-        + (", ".join(str(fid) for fid in discovered[-3:]) if discovered else "none")
-    )
     if campaign is not None:
-        world = getattr(campaign, "world", None)
-        lines.append(
-            f"Campaign: act {campaign.current_act} progress {campaign.act_progress}/{campaign.missions_required}; "
-            f"Hungry Tide {getattr(world, 'hungry_tide_progress', 0)}%; "
-            f"New York {getattr(world, 'new_york_status', 'unknown')}"
-        )
-
+        intel = [get_fragment(fid) for fid in campaign.discovered_intel[-3:]]
+        section("RECENT INTELLIGENCE", [fragment.title for fragment in intel if fragment])
+        world = campaign.world
+        section("CAMPAIGN PROGRESS", [
+            f"Act {campaign.current_act}  ·  {campaign.act_progress}/{campaign.missions_required} missions",
+            f"Hungry Tide {world.hungry_tide_progress}%",
+            f"New York — {display_name(world.new_york_status)}",
+        ])
     return lines
 
 

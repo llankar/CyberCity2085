@@ -46,8 +46,11 @@ class CombatRuntime:
         except OSError as exc:
             self.error=f"Godot startup preparation failed: {exc}"
             return False
+        # Windows may briefly show the root window before the host can park it.
+        # Allocate the actual combat viewport only when a mission is submitted.
+        startup_size = (1, 1) if sys.platform == 'win32' else viewport
         command=[executable,'--path',str(self.project_dir),'--position','-32000,-32000','--borderless',
-            '--resolution',f'{viewport[0]}x{viewport[1]}','res://scenes/runtime_host.tscn']
+            '--resolution',f'{startup_size[0]}x{startup_size[1]}','res://scenes/runtime_host.tscn']
         if self.headless:command+=['--headless','--audio-driver','Dummy']
         command+=['--','--runtime-dir',str(self.directory),'--runtime-id',self.runtime_id,'--owner-pid',str(os.getpid()),'--asset-root',str(Path.cwd().resolve())]
         kwargs={}

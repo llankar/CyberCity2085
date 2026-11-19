@@ -891,3 +891,6 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Récupérer les résultats de retraite Godot dont le nom affiché diffère du nom de campagne. Vérifier le rechargement et la réapplication.
 
 - [x] Ouvrir automatiquement le débriefing après récupération d’un résultat Godot et réserver les choix de secours aux interruptions.
+
+- [x] Structurer le débriefing et afficher les libellés des pages de rapport en anglais.
+- [ ] Vérifier sur Windows l’absence de flash au démarrage après réduction de la fenêtre initiale et désactivation du logo Godot.
