@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-STORY — IN_PROGRESS. Deux victoires supplémentaires dans la même sauvegarde : Starver Depot puis Irradiated Signal. Depuis le checkpoint `work/campaign-day4-native/victory/campaign.json` (jour 7), Ivory Static a éliminé l’escouade au tour 15 après quatre ennemis abattus et sans progrès d’objectif. Repartir de ce checkpoint, revoir le déploiement et la priorité d’objectif du pilote, puis rejouer la mission d’histoire.
+
 - CAMPAIGN-CONTINUATION — IN_PROGRESS. `--campaign-save` recharge la campagne précédente. `samurai_archive_d2_s3` gagnée sous Windows à 720p depuis la sauvegarde du jour 1, avec retour au QG et rechargement. Le banc vérifie les promotions d’après les niveaux réellement gagnés et accepte l’écran de finale. Reprendre `work/campaign-continuation-native-720/victory/campaign.json` pour le prochain acte.
 
 - CAMPAIGN-NATIVE — IN_PROGRESS. Banc de campagne corrigé pour Windows (liens de répertoire, nettoyage et taille de fenêtre). Première mission du tableau réel `data_theft_d1_s2` jouée jusqu’à la victoire, avec parcours QG → carte → briefing → Godot → débriefing → QG et rechargement à 720p. 19 tests ciblés réussis. Reste à enchaîner les actes jusqu’à la finale avec le même état de campagne.
