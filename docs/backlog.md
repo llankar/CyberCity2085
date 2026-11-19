@@ -804,7 +804,7 @@ Résultat cumulé : **2 / 231 ensembles complets**, 4 partiels. Preuves dans [ma
 - [x] ANIM-SNIPER-03 Vérifier atlas, doublons, marges, ancrages et transitions.
 - [x] ANIM-SNIPER-04 Capturer cinq actions × huit orientations dans Godot Windows natif.
 
-Résultat cumulé : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [armored-vanguard-actions](images/armored-vanguard-actions/README.md) et [chrome-medic-actions](images/chrome-medic-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif, soin technologique compris ; le catalogue 122/122 et le benchmark doivent être régénérés pour leur nouvelle signature.
+Résultat cumulé à ce checkpoint : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [armored-vanguard-actions](images/armored-vanguard-actions/README.md) et [chrome-medic-actions](images/chrome-medic-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif, soin technologique compris.
 
 ### Animations applicables — briseur lourd et frappe jaune
 
@@ -814,7 +814,7 @@ Résultat cumulé : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuve
 - [x] ANIM-BREACHER-YELLOW-03 Vérifier les atlas, l’audit anti-doublons et 640 sélections natives Godot.
 - [x] ANIM-BREACHER-YELLOW-04 Capturer et inspecter tir, couvert, impact et mort dans Godot Windows natif à 1920×1080.
 
-Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [heavy-breacher-actions](images/heavy-breacher-actions/README.md) et [yellow-strike-actions](images/yellow-strike-actions/README.md). Le catalogue 122/122 et le benchmark restent à régénérer pour la nouvelle signature.
+Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [heavy-breacher-actions](images/heavy-breacher-actions/README.md) et [yellow-strike-actions](images/yellow-strike-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `5ea21be0c3ad851669acc5878fcb3f022ea97042a02da7f968f43cf323f292b5`.
 
 ### SCALE — profils et repères du catalogue
 

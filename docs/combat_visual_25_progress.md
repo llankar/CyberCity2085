@@ -1,37 +1,37 @@
-# Combat Visual 2.5 — avancement de la tâche complète
+# Combat Visual 2.5 � avancement de la t�che compl�te
 
-Mis à jour : 19/11/2026.
+Mis � jour : 19/11/2026.
 
-**Tâche globale : TERMINÉE.** Le chargement réussi d’une carte ne signifie pas que sa refonte artistique est terminée.
+**T�che globale : EN COURS.** Le chargement r�ussi d�une carte ne signifie pas que sa refonte artistique est termin�e.
 
-## État mesuré dans le projet
+## �tat mesur� dans le projet
 
-| Indicateur | État |
+| Indicateur | �tat |
 |---|---|
 | Catalogue | 122 cartes / 92 illustrations distinctes |
-| Bibliothèque | 36 familles / 144 vues |
-| Familles réellement placées | 28 / 36 |
+| Biblioth�que | 36 familles / 144 vues |
+| Familles r�ellement plac�es | 28 / 36 |
 | Placements actifs | 221 sur 109 cartes |
-| Dont groupes partiellement remplacés | 5 |
-| Entrées de relevé conservées en 2D | 3381 |
-| Cartes déclarées artistiquement terminées | 122 / 122 |
+| Dont groupes partiellement remplac�s | 5 |
+| Entr�es de relev� conserv�es en 2D | 3381 |
+| Cartes d�clar�es artistiquement termin�es | 122 / 122 |
 
-Les entrées de relevé peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honnêtement un pourcentage de finition artistique.
+Les entr�es de relev� peuvent regrouper plusieurs objets ou des structures. Leur nombre ne permet pas de calculer honn�tement un pourcentage de finition artistique.
 
-## Animations des unités
+## Animations des unit�s
 
-| Indicateur | État |
+| Indicateur | �tat |
 |---|---|
-| Références d’entités à couvrir (hors objets de mission) | 231 |
-| Atlas produits | 8 |
-| Marche et attente à huit directions vérifiées dans Godot | 8 |
-| Unités avec toutes les actions applicables animées et validées | 8 |
+| R�f�rences d�entit�s � couvrir (hors objets de mission) | 231 |
+| Atlas produits | 20 |
+| Marche et attente � huit directions v�rifi�es dans Godot | 20 |
+| Unit�s avec toutes les actions applicables anim�es et valid�es | 20 |
 
-Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.
+Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d�origine ; aucune famille n�est remplac�e par un clone g�n�rique.
 
-[Inventaire détaillé par carte](combat_visual_25_inventory.md).
+[Inventaire d�taill� par carte](combat_visual_25_inventory.md).
 
-## Ce qui est livré
+## Ce qui est livr�
 
 - Placements et sprites séparés du sol ; pas d’extrusion du tapis ou des meubles à partir des seules collisions.
 - Ombres de silhouettes pour agents, ennemis, power armors, robots et véhicules ; proportions, sélection et restrictions des véhicules en intérieur conservées.
@@ -42,11 +42,11 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 - Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.
 - 192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.
 - Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.
-- Huit ensembles complets, dont docteure PSI et street medic : toutes les actions applicables validées ; total 1056 frames, 8 ensembles complets et 0 partiel.
+- Vingt ensembles complets : toutes les actions applicables validées nativement, dont heavy breacher et yellow strike ; 20 ensembles complets et 0 partiel.
 
 ## Passe en cours
 
-| Travail | État | Résultat / reste à faire |
+| Travail | �tat | R�sultat / reste � faire |
 |---|---|---|
 | Lot 2 — sources et atlas | Terminé | Deux identités supplémentaires, 96 frames ; six références partiellement animées au total. |
 | Lot 2 — lecture et interactions | Terminé | 192 sélections de frames, deux déplacements à 4 PA ; captures aux trois résolutions. |
@@ -56,14 +56,14 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Validation
 
-- Dernière livraison de référence : `native Windows entity-scale production review`.
+- Derni�re livraison de r�f�rence : `native Windows entity-scale production review`.
 - Preuves : [captures et inventaire](images/entity-scale-production-windows/README.md).
-- Concordance du code, des annotations et des sprites de décor : **oui**.
-- 122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle 122/122, finition artistique 0/122.
+- Concordance du code, des annotations et des sprites de d�cor : **oui**.
+- 122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle et finition artistique 122/122.
 
-## Reste sur l’objectif complet
+## Reste sur l�objectif complet
 
-- Produire et vérifier les actions applicables des 219 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
+- Produire et vérifier les actions applicables des 211 autres références éligibles. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.
 - Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.
 - Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.
 - Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.
@@ -73,7 +73,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 ## Historique des livraisons
 
-| Référence | Avancée |
+| R�f�rence | Avanc�e |
 |---|---|
 | `35f7b80` | 99 placements actifs sur 97 cartes ; bibliothèque de 16 familles / 64 vues ; validation native du catalogue. |
 | `7244e46` | 187 placements sur 108 cartes ; 26 familles / 104 vues ; ombres des entités et correction du chargement des soutiens. |
@@ -82,4 +82,4 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 | `6820eed` | Priorité aux entités : robots de soutien calibrés, détails des armures claires et ombres de véhicules différenciées. 26 tests, 122 cartes et comparaisons à trois résolutions ; audit de 251 références. |
 | `d7ef8f7` | 192 frames dessinées pour un agent, un ennemi, une power armor et un robot : marche/attente × 8 directions. 34 tests, 128 sélections de frames natives, clic réel et PA vérifiés, 122 cartes contrôlées. Couverture partielle : 4 / 231 références, aucune unité complète pour les neuf actions. |
 
-Ce fichier est régénéré par `python tools/art/update_environment_progress.py` à partir des catalogues, de la signature de validation et de `combat_visual_25_status.json`. Aucun indicateur de rendu ne coche automatiquement la finition artistique.
+Ce fichier est r�g�n�r� par `python tools/art/update_environment_progress.py` � partir des catalogues, de la signature de validation et de `combat_visual_25_status.json`. Aucun indicateur de rendu ne coche automatiquement la finition artistique.

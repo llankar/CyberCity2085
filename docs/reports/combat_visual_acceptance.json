@@ -18,7 +18,7 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 18,
+    "complete": 20,
     "partial": 0,
     "expected": 231
   },
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "a1fb101fbabaeede1ef6d93eafc093d6b3e44c988f399594a1e75bf0786249c6",
+  "render_signature": "5ea21be0c3ad851669acc5878fcb3f022ea97042a02da7f968f43cf323f292b5",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "18 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "20 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -179,5 +179,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_16_heavy_breacher et agent_diverse_17_yellow_strike, puis produire le prochain lot artistique authentique."
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_18 et agent_diverse_19, puis produire le prochain lot artistique authentique."
 }
