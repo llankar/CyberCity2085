@@ -1,6 +1,7 @@
 """Window-free packaged-runtime checks. Never reads or changes a player save."""
 
 from pathlib import Path
+import sys
 from tempfile import TemporaryDirectory
 
 from game.battle_maps import build_battle_map_catalog
@@ -34,6 +35,10 @@ def run_smoke():
         raise RuntimeError("Incomplete bundled MP3 soundtrack")
     if not Path("godot/combat_missions_ui/project.godot").is_file():
         raise RuntimeError("Missing optional Godot project")
+    from game.combat.godot_bridge import bundled_godot_executable
+    bundled_godot = bundled_godot_executable()
+    if sys.platform == "win32" and getattr(sys, "frozen", False) and not bundled_godot:
+        raise RuntimeError("Missing bundled Windows Godot executable")
     character = Character("Smoke Agent", starver_infection_days=2)
     state = GameState(characters=[character], selected_agent_names=[character.name])
     with TemporaryDirectory(prefix="cybercity-smoke-") as temporary:
@@ -51,4 +56,5 @@ def run_smoke():
         raise RuntimeError("Packaged reference battle did not reach a legal terminal outcome")
     return {"status": "ok", "manual_maps": len(entries), "mp3_tracks": len(music),
             "story_objectives_preserved": len(STORY_MISSIONS),
-            "save_roundtrip": True, "battle": battle, "game_window_opened": False}
+            "save_roundtrip": True, "battle": battle, "game_window_opened": False,
+            "bundled_godot": Path(bundled_godot).name if bundled_godot else None}

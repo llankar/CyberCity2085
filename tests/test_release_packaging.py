@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import subprocess
 import sys
+import pytest
 
 from game import runtime
 
@@ -21,6 +22,17 @@ def test_frozen_game_resolves_its_bundled_godot(tmp_path, monkeypatch):
     monkeypatch.setattr(godot_bridge.sys, "frozen", True, raising=False)
     monkeypatch.setattr(godot_bridge.sys, "executable", str(tmp_path / "CyberCity2085.exe"))
     assert godot_bridge.find_godot_executable() == str(executable)
+
+
+def test_frozen_windows_smoke_rejects_missing_bundled_godot(tmp_path, monkeypatch):
+    from game import release_smoke
+
+    monkeypatch.chdir(ROOT)
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setattr(sys, "frozen", True, raising=False)
+    monkeypatch.setattr(sys, "executable", str(tmp_path / "CyberCity2085.exe"))
+    with pytest.raises(RuntimeError, match="Missing bundled Windows Godot executable"):
+        release_smoke.run_smoke()
 
 
 def test_release_spec_bundles_required_runtime_directories():

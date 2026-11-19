@@ -414,7 +414,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-- PACKAGE-WINDOWS — IN_PROGRESS. Le build local inclut Godot 4.6.3. Sept tests ciblés, smoke de l’exécutable packagé et démarrage headless du projet embarqué réussis. Reste à jouer le parcours Arcade → Godot → débriefing avec ce package.
+- PACKAGE-WINDOWS — IN_PROGRESS. Le build local inclut Godot 4.6.3 et son démarrage headless a réussi. Le smoke Windows exige maintenant l’exécutable embarqué. Huit tests de packaging réussis. Reconstruire le package puis jouer le parcours Arcade → Godot → débriefing sur la campagne isolée du package.
 
 ANIM-COMPLETE — IN_PROGRESS. Samurai livré : 112 images, 32 sélections natives et capture Windows ciblée sur Safehouse. 30 / 231 ensembles complets. Prochaine unité : enemy_commander.
 
