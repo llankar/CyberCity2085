@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 205 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 204 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,7 +543,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 26 ensembles complets, 0 partiel",
+        "Audit anti-doublons : 27 ensembles complets, 0 partiel",
         "Tireuse à dreadlocks seule : 128 frames et actions applicables capturées sur refuge, usine et wasteland aux trois résolutions",
         "2 tests Python réussis, 1 test X11 ignoré",
         "Godot Windows natif ciblé : 32 sélections de frames ; aucune autre unité retestée",
@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "26 / 231 ensembles complets ; produire et vérifier les actions applicables des 205 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné",
+      "remaining": "27 / 231 ensembles complets ; produire et vérifier les actions applicables des 204 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné",
       "reason": ""
     },
     {
