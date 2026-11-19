@@ -141,14 +141,15 @@ class BattleDebriefSummaryTest(unittest.TestCase):
             _complication(),
         )
 
-        self.assertTrue(any(line.startswith("City pressure:") for line in consequence_lines))
-        self.assertTrue(any("Faction Chrome Jackals:" in line for line in consequence_lines))
-        self.assertTrue(any("civilian_panic" in line for line in consequence_lines))
-        self.assertTrue(any("Agent scars: Vera: Nights of Sirens" in line for line in consequence_lines))
-        self.assertTrue(any("Rewards: Credits: +120" in line for line in consequence_lines))
-        self.assertTrue(any("jackal_relay_lockdown" in line for line in consequence_lines))
-        self.assertTrue(any("act1_three_sevens_banner" in line for line in consequence_lines))
-        self.assertTrue(any("Hungry Tide 17%" in line for line in consequence_lines))
+        self.assertIn("DISTRICT STATUS", consequence_lines)
+        self.assertIn("CHROME JACKALS", consequence_lines)
+        self.assertIn("Civilian Panic", consequence_lines)
+        self.assertIn("Vera — Nights of Sirens", consequence_lines)
+        self.assertIn("Credits: +120", consequence_lines)
+        self.assertIn("Jackal Relay Lockdown", consequence_lines)
+        self.assertIn("The Three Sevens Banner", consequence_lines)
+        self.assertIn("Hungry Tide 17%", consequence_lines)
+        self.assertFalse(any("_" in line for line in consequence_lines))
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ class ReportDeck(UtilityDeck):
         c = rec.character
         self.start(
             v,
-            self.word("PROMOTION / DOSSIER OPÉRATIF", "PROMOTION / OPERATIVE DOSSIER"),
+            "PROMOTION / OPERATIVE DOSSIER",
             f"{v._index+1} / {len(v.promotions)}",
             fractions=(0.42, 0.58),
         )
@@ -66,7 +66,7 @@ class ReportDeck(UtilityDeck):
             GOLD,
         )
         self.panel(
-            right, self.word("PROGRESSION DE L’AGENT", "AGENT PROGRESSION"), "squad"
+            right, "AGENT PROGRESSION", "squad"
         )
         r = self.body(right)
         self.label(
@@ -110,14 +110,14 @@ class ReportDeck(UtilityDeck):
         talent = getattr(c, "talent_points", 0)
         self.document(
             "promotion",
-            self.word("POINTS DISPONIBLES", "AVAILABLE POINTS")
+            "AVAILABLE POINTS"
             + f"\n{points}\n\n"
-            + self.word("POINTS DE TALENT", "TALENT POINTS")
+            + "TALENT POINTS"
             + f"\n{talent}",
             Rect(r.left, r.bottom, r.right, r.top - 340 * u),
             22,
         )
-        self.footer(self.word("CONTINUER [ENTRÉE]", "CONTINUE [ENTER]"))
+        self.footer("CONTINUE [ENTER]", hint="TAB / ARROWS · SPACE TO SELECT")
         self.end()
         last = v._hits[-1]
         v._continue_rect = (last.left, last.bottom, last.right, last.top)
@@ -126,14 +126,14 @@ class ReportDeck(UtilityDeck):
         self.gs = v.game_state
         self.start(
             v,
-            self.word("CAMPAGNE TERMINÉE", "CAMPAIGN COMPLETE"),
+            "CAMPAIGN COMPLETE",
             str(v.summary.get("resolved_day", "")),
             fractions=(0.34, 0.33, 0.33),
         )
         left, center, right = self.layout.columns
         u = self.u
         self.panel(
-            left, self.word("LA VILLE SE SOUVIENT", "THE CITY REMEMBERS"), "target"
+            left, "THE CITY REMEMBERS", "target"
         )
         r = self.body(left)
         self.image(
@@ -151,20 +151,20 @@ class ReportDeck(UtilityDeck):
         for name, title, rect, lines in [
             (
                 "world",
-                self.word("LE MONDE", "THE WORLD"),
+                "THE WORLD",
                 center,
                 v.summary.get("world_lines", []),
             ),
             (
                 "agents",
-                self.word("LES AGENTS", "THE AGENTS"),
+                "THE AGENTS",
                 right,
                 v.summary.get("agent_epilogues", []),
             ),
         ]:
             self.panel(rect, title, "journal" if name == "world" else "squad")
             self.document(name, "\n\n".join(map(str, lines)), self.body(rect), 19)
-        self.footer(self.word("RETOUR AU MENU [ENTRÉE]", "RETURN TO TITLE [ENTER]"))
+        self.footer("RETURN TO TITLE [ENTER]", hint="TAB / ARROWS · SPACE TO SELECT")
         self.end()
 
     def debrief(self, v):
@@ -178,18 +178,18 @@ class ReportDeck(UtilityDeck):
             v.game_state, v.victory, v.mission, v.agent_stats, v.triggered_complication
         )
         title = (
-            self.word("MISSION ACCOMPLIE", "MISSION COMPLETE")
+            "MISSION COMPLETE"
             if v.victory
-            else self.word("ÉCHEC DE LA MISSION", "MISSION FAILED")
+            else "MISSION FAILED"
         )
-        if summary.get("outcome")=="retreat":title=self.word("RETRAIT TACTIQUE", "TACTICAL RETREAT")
+        if summary.get("outcome")=="retreat":title="TACTICAL RETREAT"
         self.start(
             v, title, getattr(v.mission, "title", ""), fractions=(0.37, 0.30, 0.33)
         )
         left, center, right = self.layout.columns
         u = self.u
         self.panel(
-            left, self.word("ESCOUADE / PERFORMANCE", "SQUAD / PERFORMANCE"), "squad"
+            left, "SQUAD / PERFORMANCE", "squad"
         )
         r = self.body(left)
         for i, stat, card in self.page("debrief_agents", v.agent_stats, r, 151):
@@ -240,43 +240,50 @@ class ReportDeck(UtilityDeck):
             self.hit(card, "report_agent", i, " / ".join(stat.injuries))
         self.panel(
             center,
-            self.word("OBJECTIFS / CONSÉQUENCES", "OBJECTIVES / CONSEQUENCES"),
+            "OBJECTIVES / CONSEQUENCES",
             "target",
         )
-        document = {
-            k: summary[k]
-            for k in [
-                "objective_result",
-                "rewards",
-                "triggered_complications",
-                "faction_changes",
-                "district_changes",
-            ]
-        }
-        document["consequences"] = build_consequence_summary_lines(
+        body = self.body(center)
+        status = Rect(body.left, body.top - 42 * u, body.right, body.top)
+        accent = MINT if v.victory else GOLD
+        self.paint.panel(status, accent)
+        self.label(summary["objective_result"], status.left + 12 * u,
+                   status.center[1], 17, accent, bold=True, width=status.width - 24 * u)
+        lines = build_consequence_summary_lines(
             v.game_state, v.victory, v.mission, v.agent_stats, v.triggered_complication
         )
-        self.document(
-            "outcome", "\n".join(report_lines(document)), self.body(center), 18
-        )
+        self.document("outcome", "\n".join(lines),
+                      Rect(body.left, body.bottom, body.right, status.bottom - 12 * u), 17,
+                      headings={line for line in lines if line.isupper()})
         self.panel(
             right,
-            self.word("RAPPORT / ÉTAT DES AGENTS", "REPORT / AGENT STATUS"),
+            "REPORT / AGENT STATUS",
             "journal",
         )
         r = self.body(right)
-        raw = getattr(v.game_state, "latest_mission_debrief", {}) or {}
         selected = self.selection.get("report_agent")
         if selected is not None and 0 <= selected < len(summary["agent_rows"]):
+            agent = summary["agent_rows"][selected]
+            details = [agent["name"], f'{agent["role"].title()} · {agent["status"].title()}']
+            for field, label in (("hp_remaining", "Health"), ("kills", "Kills"),
+                                 ("damage_dealt", "Damage dealt"), ("damage_taken", "Damage taken"),
+                                 ("xp_gained", "XP gained"), ("stress_delta", "Stress change")):
+                if agent[field] is not None:
+                    value = agent[field]
+                    if field == "hp_remaining" and agent["max_hp_at_extraction"] is not None:
+                        value = f'{value}/{agent["max_hp_at_extraction"]}'
+                    details.append(f"{label}  {value}")
+            details.extend(agent["injuries"])
+            details.extend(tag.replace("_", " ").title() for tag in agent["reputation"])
             self.document(
                 "agent_report",
-                "\n".join(report_lines(summary["agent_rows"][selected])),
+                "\n".join(details),
                 Rect(r.left, r.bottom + 65 * u, r.right, r.top),
                 18,
             )
             self.action(
                 Rect(r.left, r.bottom, r.right, r.bottom + 44 * u),
-                self.word("RAPPORT DE MISSION", "MISSION REPORT"),
+                "MISSION REPORT",
                 "report_mission",
             )
         else:
@@ -286,22 +293,18 @@ class ReportDeck(UtilityDeck):
                 mission_art_path(v.mission),
                 Rect(r.left, r.top - 185 * u, r.right, r.top),
             )
-            report = report_lines(raw) + report_lines(
-                getattr(v.game_state, "latest_agent_aftermath", [])
-            )
-            if not report:
-                report = report_lines(summary["narrative_consequences"])
+            report = list(dict.fromkeys([
+                *summary["narrative_consequences"],
+                *getattr(v.game_state, "latest_agent_aftermath", []),
+            ]))
             self.document(
                 "after_report",
                 "\n\n".join(report)
-                or self.word(
-                    "Aucun rapport complémentaire. Sélectionnez un agent pour consulter son bilan.",
-                    "No additional report. Select an operative to inspect their performance.",
-                ),
+                or "No additional report. Select an operative to inspect their performance.",
                 Rect(r.left, r.bottom, r.right, r.top - 205 * u),
                 18,
             )
-        self.footer(self.word("RETOUR À LA BASE [ENTRÉE]", "RETURN TO BASE [ENTER]"))
+        self.footer("RETURN TO BASE [ENTER]", hint="TAB / ARROWS · SPACE TO SELECT")
         self.end()
         last = v._hits[-1]
         v._continue_rect = (last.left, last.bottom, last.right, last.top)

@@ -2,7 +2,7 @@
 
 from game.ui.components.visual_kit import VisualKit
 from game.ui.layouts.world_map_beacons import Rect
-from game.ui.theme.visual import TEXT, MUTED
+from game.ui.theme.visual import CYAN, TEXT, MUTED
 from game.ui.theme.typography import scale_font_size
 
 
@@ -53,7 +53,7 @@ class DocumentKit(VisualKit):
                 (name, 1),
             )
 
-    def document(self, name, text, rect, size=16, color=TEXT):
+    def document(self, name, text, rect, size=16, color=TEXT, *, headings=()):
         font = scale_font_size(max(13, size * self.u))
         # Preserve paragraphs and all data through explicit reader pages.
         key = (str(text), rect.width, font)
@@ -100,7 +100,8 @@ class DocumentKit(VisualKit):
                 rect.left,
                 rect.top - leading * (i + 0.5),
                 size,
-                color,
+                CYAN if line in headings else color,
+                bold=line in headings,
                 width=rect.width,
             )
         if pages > 1:
