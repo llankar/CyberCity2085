@@ -13,6 +13,9 @@ func run() -> void:
 	var enemy_target: String = "enemy_commander" if "--enemy-commander" in args else ""
 	if "--enemy-sniper" in args:
 		enemy_target = "enemy_sniper"
+	for i in range(args.size()-1):
+		if args[i]=="--enemy-asset":
+			enemy_target=args[i+1]
 	var map_name:="cybercity_inner_02_safehouse"
 	var target_only:= "--target-only" in args
 	var roster:= "--roster" in args
@@ -76,8 +79,10 @@ func run() -> void:
 	await process_frame;await RenderingServer.frame_post_draw
 	if not enemy_target.is_empty():
 		var enemy=scene._unit_tokens["e0"]
+		assert(enemy.visual_key==enemy_target,"capture must exercise the requested enemy atlas")
 		enemy.set_process(false)
 		for action in ["idle","move","fire","melee","cover","hit","death"]:
+			if not enemy.manifest.animations.has(action):continue
 			assert(enemy.play_action(action))
 			enemy.facing=1
 			enemy.frame_time=0.6 if action=="idle" else 0.2
