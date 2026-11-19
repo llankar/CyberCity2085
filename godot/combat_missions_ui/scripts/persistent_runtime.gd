@@ -63,8 +63,7 @@ func _process(delta: float) -> void:
 func _load_mission(command: Dictionary) -> void:
 	_busy=true
 	if _mission!=null:
-		_mission.queue_free();_mission=null
-		await get_tree().process_frame
+		await _dispose_mission()
 	_session_id=str(command.get("session_id",""))
 	_publish("loading")
 	var viewport: Variant=command.get("viewport")
@@ -95,11 +94,21 @@ func finish_mission(scene: Node) -> void:
 
 func _park() -> void:
 	_busy=true
-	if _mission!=null:_mission.queue_free();_mission=null
 	_park_window()
-	await get_tree().process_frame
+	await _dispose_mission()
 	_publish("idle")
 	_busy=false;_parking=false
+
+func _dispose_mission() -> void:
+	if _mission == null:
+		return
+	var scene := _mission
+	_mission = null
+	scene.set_process(false)
+	if is_instance_valid(scene._audio):
+		scene._audio.stop_playback()
+	scene.queue_free()
+	await get_tree().process_frame
 
 func _read(file: String) -> Variant:
 	var path:=directory.path_join(file)
