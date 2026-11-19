@@ -120,7 +120,12 @@ func move_to(target_pos: Vector2, updated_data: Dictionary) -> void:
 	unit_data = updated_data.duplicate()
 	var tw := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 	tw.tween_property(self, "position", target_pos, 0.18)
-	CombatSignals.audio_event.emit("move")
+	var moving_role := str(unit_data.get("role", "")).to_lower()
+	var moving_asset_type := str(unit_data.get("asset_type", "")).to_lower()
+	if moving_role == "robot" or moving_asset_type.ends_with("_robot"):
+		CombatSignals.audio_event.emit("move_robot")
+	else:
+		CombatSignals.audio_event.emit("move")
 
 func attack_lunge(target_pos: Vector2) -> void:
 	var orig  := position
