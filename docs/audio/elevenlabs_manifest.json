@@ -68,7 +68,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "8i21wnJAtN5fDyjSlGvc",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "generated_at_least_once"
+      }
     },
     {
       "id": "fire_assault",
@@ -134,7 +142,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "yIB05bU7mMvQLVJxugaq",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "generated_at_least_once"
+      }
     },
     {
       "id": "fire_burst",
@@ -188,7 +204,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "ihepFTJq6ZK6BCagnxuu",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fire_sniper",
@@ -233,7 +257,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "4HOf1lq4l2kkiZ49AySj",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fire_heavy",
@@ -278,7 +310,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "vj5p3VgAMplpSMS6QnwY",
+        "flow_url": "https://elevenlabs.io/app/flows/vj5p3VgAMplpSMS6QnwY",
+        "node_id": "BfMXntaJ8Ofu6L3db8EG",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fire_laser",
@@ -323,7 +363,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "1tFSHoy4lfONWQ4lMtBp",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fire_plasma",
@@ -368,7 +416,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "tEVf9JQVimXy96YIVJNk",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fire_missile",
@@ -413,7 +469,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "MCZBOsFHwyWo9R2wq7Ax",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "impact_metal",
@@ -479,7 +543,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "nwpHVmOcCmBSuo1SQtNM",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "generated_at_least_once"
+      }
     },
     {
       "id": "impact_concrete",
@@ -533,7 +605,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "oldZnBJ7z4lHQx2zlTuE",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "impact_armor",
@@ -587,7 +667,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "BUTJq4vpkzYD9ci2u6JC",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "impact_organic",
@@ -632,7 +720,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "VdgdT7WYsZobEmrNKLiu",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "explosion_small",
@@ -677,7 +773,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "Muf9aBEFHo0gblNE7VDv",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "explosion_medium",
@@ -722,7 +826,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "108d8cL549xGe4ogFs1m",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "explosion_massive",
@@ -758,7 +870,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "0YZs0ulhDmmbvUJFzwNu",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ricochet",
@@ -803,7 +923,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "UE9llzVNwONeTd7R0Yud",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "melee_strike",
@@ -857,7 +985,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "fvBgWZBiV0NzeNGqYawU",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "injury",
@@ -902,7 +1038,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "PnNhGa5jcVCUHEwVRaY4",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "body_fall",
@@ -947,7 +1091,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "lCjReetBErxbVnh4Zgrm",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "fatal_impact",
@@ -992,7 +1144,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "hqjK65yzArYgCCR3Ylun",
+        "flow_url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun",
+        "node_id": "GEDC8vpuuc0igN9RnjBd",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "step_concrete",
@@ -1062,7 +1222,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "3C1M2qm4iXEk422bKryu",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "generated_at_least_once"
+      }
     },
     {
       "id": "step_metal",
@@ -1125,7 +1293,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "27dDy47MQWAv7W3YJjkC",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "step_gravel",
@@ -1188,7 +1364,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "kDhE2kIk7F7y8aeom152",
+        "flow_url": "https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152",
+        "node_id": "nlczjoIVFfu5ssEUwRWk",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "move_robot",
@@ -1242,7 +1426,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "kDhE2kIk7F7y8aeom152",
+        "flow_url": "https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152",
+        "node_id": "G2f9hPaBojVsrI7b8gpw",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "move_power_armor",
@@ -1296,7 +1488,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "kDhE2kIk7F7y8aeom152",
+        "flow_url": "https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152",
+        "node_id": "0D1djsok2WZws4XsMYJv",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "move_vehicle",
@@ -1341,7 +1541,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "kDhE2kIk7F7y8aeom152",
+        "flow_url": "https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152",
+        "node_id": "YZnHD9qRVGCemuRd2LpY",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "psi_activate",
@@ -1386,7 +1594,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "ETvSnz4ndce23h6V6eBL",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "energy_discharge",
@@ -1431,7 +1647,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "rpywVqWJtIDXQN5ZA0Z4",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "shield",
@@ -1476,7 +1700,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "68mi0QeAXw7lCZBPfq31",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "hack",
@@ -1521,7 +1753,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "deHbJqmBA5uLN3W5mjBy",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "terminal",
@@ -1566,7 +1806,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "TfrVmGsIYTe5Sp2Ml3T7",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "enemy_detect",
@@ -1611,7 +1859,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "yodLfrVlIimTg0gSIsQk",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "alarm",
@@ -1647,7 +1903,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "QyjYbwycO3jHNkGsxCBr",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "electrical_overload",
@@ -1692,7 +1956,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "aTZqbwPvT7lZjp3Gla6e",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "status_bleed",
@@ -1728,7 +2000,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "XCBWo3gNxncDZ4GgAiZH",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "overwatch",
@@ -1764,7 +2044,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "wEXFtIBk1LCGVfriGIGy",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "reinforcement",
@@ -1800,7 +2088,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "o5PkZJ45bYbSXzI2qpzY",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_click",
@@ -1861,7 +2157,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "dCdjcMGrxfVwFatpyjui",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "generated_at_least_once"
+      }
     },
     {
       "id": "ui_confirm",
@@ -1906,7 +2210,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "IHdlZ6XLoyUvc23VS7dA",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_refuse",
@@ -1952,7 +2264,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "jRGNPLigqL5eqfAUlRoX",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_agent_select",
@@ -1998,7 +2318,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "KdOC5MYhHxdK5limTulH",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_deploy",
@@ -2034,7 +2362,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "7ui7HzlMcHm0FgpBngPi",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_turn_player",
@@ -2070,7 +2406,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "Uevyreq1Yb83Cbg98KT5",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_turn_enemy",
@@ -2106,7 +2450,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "09HFIasKQK752G7Fi7RW",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_objective",
@@ -2142,7 +2494,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "UmJHHmyWktzcS8TXHUbB",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_victory",
@@ -2178,7 +2538,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "cNZf6mxO4QyzTvw9QmCs",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_defeat",
@@ -2214,7 +2582,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "2m27bIvs6TvfeEuVmYST",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_intel",
@@ -2250,7 +2626,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "qPjeWkzux4jTPEML0Tvu",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ui_act_advance",
@@ -2286,7 +2670,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "0E4I8C4wncp5b2HFGs0s",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_cybercity_night",
@@ -2322,7 +2714,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+        "flow_url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+        "node_id": "E1G2Ybqg6UJ1Sf7Y6RDs",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_urban_rain",
@@ -2358,7 +2758,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "WkRspqMRnH3s0d2Ozlc5",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_industrial",
@@ -2394,7 +2802,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "SzttigZWz6F9RfvqSynf",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_laboratory",
@@ -2430,7 +2846,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "c3jbGFU6SYmODA3uwXme",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_warehouse",
@@ -2466,7 +2890,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "pyW5uGmf2Ua5s80wGYKe",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_headquarters",
@@ -2502,7 +2934,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "WWfxpsnN0AUWw3cieID4",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_subway",
@@ -2538,7 +2978,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "NRxdy3WOEnWVxRSkmkJv",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_wasteland",
@@ -2574,7 +3022,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "szp3xwvNqf4s7jtD2Gi4",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     },
     {
       "id": "ambience_abandoned",
@@ -2610,7 +3066,15 @@
           "duration_seconds": null,
           "audition_status": "not_verified"
         }
-      ]
+      ],
+      "elevenlabs_node": {
+        "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+        "flow_url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT",
+        "node_id": "0eJbwE6No8vMO57K2vQM",
+        "provider": "ElevenLabs Sound Effects v2",
+        "created": "2026-11-19",
+        "status": "configured_not_generated"
+      }
     }
   ],
   "elevenlabs_provider_attempt": {
@@ -2798,7 +3262,8 @@
     "Godot routes currently map one WAV per event and uses six rotating effects players.",
     "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum.",
     "Six actual provider generation IDs now recorded with duration and source flow. No signed media could be downloaded from the sandbox; use ElevenLabs flow to download the real MP3s, then convert and QC before integration.",
-    "Nov 19 additional attempt: 15 new SFX nodes configured; free-generation capacity allowed only one completed pistol sound; other 14 requests did not start. No retries attempted."
+    "Nov 19 additional attempt: 15 new SFX nodes configured; free-generation capacity allowed only one completed pistol sound; other 14 requests did not start. No retries attempted.",
+    "All 58 SFX families have a configured node with a verified flow ID. This is NOT a generated sound library. 7 recorded provider outputs exist; remaining 160 variants still ungenerated."
   ],
   "quality_gate": {
     "audio_generated": true,
@@ -2832,5 +3297,32 @@
       "from": 0.45,
       "to": 0.5
     }
-  ]
+  ],
+  "elevenlabs_flow_index": {
+    "main": {
+      "flow_id": "3m8GvCVzF9JhOgZl3kbb",
+      "url": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb"
+    },
+    "weapons": {
+      "flow_id": "vj5p3VgAMplpSMS6QnwY",
+      "url": "https://elevenlabs.io/app/flows/vj5p3VgAMplpSMS6QnwY"
+    },
+    "combat": {
+      "flow_id": "hqjK65yzArYgCCR3Ylun",
+      "url": "https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun"
+    },
+    "movement": {
+      "flow_id": "kDhE2kIk7F7y8aeom152",
+      "url": "https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152"
+    },
+    "ambience": {
+      "flow_id": "OEDA8eQA1fnUUe1mqrlT",
+      "url": "https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT"
+    }
+  },
+  "configured_families": 58,
+  "verified_completed_generations": 7,
+  "audio_families_with_completed_generations": 5,
+  "audio_files_downloaded": 0,
+  "audio_files_converted": 0
 }
