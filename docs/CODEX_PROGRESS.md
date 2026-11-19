@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-ACT2 — DONE. Tide Estimates et Breakwater Nine gagnées à 720p sous Windows avec la sauvegarde de Drone 7-Whiskey et le système de soins. Six missions d’histoire terminées, acte 3 débloqué. Reprendre `work/campaign-story-act2-breakwater/victory/campaign.json` pour `sm_act3_perf` (Memory Subject Alpha).
+
 - CAMPAIGN-ACT2 — IN_PROGRESS. The Vistula Witnesses a débloqué l’acte 2. Recover Drone 7-Whiskey a d’abord éliminé l’escouade sous stress, puis a été gagnée après trois séances de thérapie de groupe et un passage à l’hôpital via le système de campagne. Reprendre `work/campaign-story-act2-drone-recovered/victory/campaign.json`.
 
 - GRID-7 — DONE. Le pilote confirme l’alerte de stress par l’action normale de la carte pour la mission sélectionnée. Badlands Survey gagnée sur la même campagne, à 720p sous Windows. Reprendre `work/campaign-story-grid7/victory/campaign.json` pour The Vistula Witnesses.
