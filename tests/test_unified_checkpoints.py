@@ -125,7 +125,7 @@ def test_corrupt_result_is_reported_without_campaign_mutation(tmp_path):
     view = GodotCombatHandoffView(state, mission, launch, window=Mock())
     before = state.available_funds
     view.on_update(.1)
-    assert view._launch_failed and 'illisible' in view._status
+    assert view._launch_failed and 'Combat report unreadable' in view._status
     assert state.available_funds == before
     assert state.combat_sessions[session['session_id']]['status'] == 'pending'
 
