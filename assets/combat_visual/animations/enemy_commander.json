@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_commander.png",
-  "texture_sha256": "891d2a5f7f66fb909994af9f7b0f262ce4f7f7efacf7eea2e5db2d92576289a8",
+  "texture_sha256": "e48c528de5f0d1290f1f8b34cfc1cdbf0971db33f85cca6f95c88215666222d4",
   "frame_size": [
     256,
     256
@@ -217,6 +217,82 @@
           95
         ]
       ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_commander_512.png",
@@ -315,6 +391,40 @@
         4,
         3
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/hit-action_pairs-6.png",
+      "sha256": "76a203348fd824ff74ad7b0eb59a66882f798b6c677de4c3d27112440f3c225f",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_commander/death-action_rows-7.png",
+      "sha256": "e9f17dfef58091ccfd08800d32b9c51f432eb79a1a7238816b39798d60d6fda1",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
     }
   ],
   "required_clips": [
@@ -330,10 +440,7 @@
     "psi": "No psionic action for the commander role.",
     "heal": "No healing action for the commander role."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

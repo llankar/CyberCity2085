@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander IN_PROGRESS. Enemy Commander atlas integrated with 96 frames across idle, move, fire, melee and cover. Godot Windows OpenGL passed 32 movement frame selections and all implemented action checks for this asset. Target audit reports only hit and death missing. Next: draw and import those clips, then inspect the Commander on one tactical map.",
+      "remaining": "31 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Next: enemy_sniper.",
       "reason": ""
     },
     {
