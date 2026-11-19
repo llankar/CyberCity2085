@@ -65,6 +65,7 @@ def main(argv=None):
     parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
     parser.add_argument("--resize-check", action="store_true", help="Resize the tactical window from inside Godot")
     parser.add_argument("--godot-verbose", action="store_true", help="Log Godot lifetime diagnostics")
+    parser.add_argument("--native-audio", action="store_true", help="Use the host audio driver instead of Dummy")
     args=parser.parse_args(argv);output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
     if args.resize_check and not args.real_mission:
         parser.error("--resize-check requires --real-mission")
@@ -109,7 +110,9 @@ def main(argv=None):
                             command[index + 1] = f'{args.width}x{args.height}'
                         else:
                             command[1:1] = ['--resolution', f'{args.width}x{args.height}']
-                        command[1:1] = ['--audio-driver', 'Dummy', '--script', driver]
+                        command[1:1] = ['--script', driver]
+                        if not args.native_audio:
+                            command[1:1] = ['--audio-driver', 'Dummy']
                         command+=['--qa-confirm',str(confirm),'--qa-captures',str(case)]
                         if not args.real_mission: command += ['--qa-outcome',outcome]
                         else: command += ['--qa-real-outcome',outcome]

@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- UNIFIED-NATIVE-AUDIO — IN_PROGRESS. Une victoire a été rejouée avec `--native-audio --godot-verbose`. Godot a ouvert la sortie WASAPI stéréo à 48 kHz (tampon annoncé de 10 ms). Le transfert Arcade → Godot, le débriefing et la fermeture ont réussi. Qualité audible et fondus encore à écouter.
+
 - PERSISTENT-AUDIO-DISPOSAL — DONE. Godot arrête les flux lorsqu’une mission persistante est mise en veille ou remplacée, puis attend sa libération avant de publier le nouvel état. Seize tests audio et runtime passent. Écoute sur périphérique réel encore ouverte.
 
 - UNIFIED-AUDIO-LIFETIME — DONE. Le journal détaillé du retour de victoire identifiait quatre objets de lecture WAV/MP3 encore actifs. Godot libère les flux après l’ACK avant de quitter ou de rendre la main au runtime. La victoire rejouée à 720p n’affiche plus la fuite. Seize tests audio et runtime passent. L’écoute réelle reste ouverte.
