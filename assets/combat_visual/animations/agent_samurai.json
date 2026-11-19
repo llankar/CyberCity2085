@@ -1,0 +1,391 @@
+{
+  "texture": "assets/combat_visual/animations/agent_samurai.png",
+  "texture_sha256": "3df26b79b23c416a8cbe88c235960416e3452ac1044c6bd3b7086bc1fe0c890b",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/agent_samurai_512.png",
+  "source_sha256": "6f29ee43e197bedc9eabb1eb040bb092a427efa829718cdff0e6f24bad1ff496",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/move-front-0.png",
+      "sha256": "be0573067040665876e72cfa7e19e31929f92fddd59e158fe0219e92e9ee0e4c",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        5
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/move-rear-1.png",
+      "sha256": "28889a60e655520a7091ac024ad7fb2d7fe3799bafc72782a5e9122e9f3235e0",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        6,
+        7,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/idle-idle_pairs-2.png",
+      "sha256": "e53ffb1a8c17c947381aaa20a13193b5e576053056e8a3fe3bb112574a174391",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/melee-action_pairs-3.png",
+      "sha256": "cb33122267d5a0ef57b2399e7ff4454f46e916cbfbb4b3331410d7279b5ffd8c",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/cover-action_pairs-4.png",
+      "sha256": "0d8636d39e00704dcd6cf721125cb7abe4230ae64520b273348a41df7bcdbb2d",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/hit-action_pairs-5.png",
+      "sha256": "31feec2bc48bf30b474c74e21de9258d2ef104a92ba7f906cb7ab0125735cde4",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_samurai/death-action_pairs-6.png",
+      "sha256": "acb64879eaa86723c3d4b98392e3db97dc9b1ee2eef6d3d1b0f15352dfbd815b",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        2,
+        1,
+        0,
+        7,
+        6,
+        5,
+        4,
+        3
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "Sword-only reference.",
+    "psi": "No psi role.",
+    "heal": "No healer role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
