@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_elite.png",
-  "texture_sha256": "619692b88af6117d6f55c19a2c111732087c7c38661f57d591f25fe48050a191",
+  "texture_sha256": "d7faa127057cb96a9d7786af1ed81a21a2f0a08008b6c2ee2fef084e014a1e73",
   "frame_size": [
     256,
     256
@@ -50,41 +50,247 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -105,6 +311,48 @@
       "clip": "fire",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/move-front-2.png",
+      "sha256": "e82078ee937d2af70d1179b282558bf73f357d079b6f3a8b57d55cbe743d2f6a",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/move-rear-3.png",
+      "sha256": "68184acf559d4527a1b56f1c23aba96db6c06df015bc34cc6d27ebd47bae7cfc",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/cover-action_rows-4.png",
+      "sha256": "0c3cd8171a9432b5c5636d5169dfe0d3714d9e050978f06444e661de30de35aa",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/melee-action_rows-5.png",
+      "sha256": "dd02485cf9dfe942bbd6df6a9146245e4bf92bb31de0a5c82f699f30d7fefb2e",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/hit-action_rows-6.png",
+      "sha256": "cb04e4112f2f1a54ac921715bf22173a2c436dd631c66467f6407e217bdde23f",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_elite/death-action_rows-7.png",
+      "sha256": "3bfe7937069b8e986b796fd534ec4bed668ff2c16c2e2a485252570505c77456",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -120,13 +368,7 @@
     "psi": "No psionic action for this elite.",
     "heal": "No healing action for this elite."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move",
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
