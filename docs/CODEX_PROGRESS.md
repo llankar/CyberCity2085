@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-ACT2 — IN_PROGRESS. The Vistula Witnesses a débloqué l’acte 2. Recover Drone 7-Whiskey a d’abord éliminé l’escouade sous stress, puis a été gagnée après trois séances de thérapie de groupe et un passage à l’hôpital via le système de campagne. Reprendre `work/campaign-story-act2-drone-recovered/victory/campaign.json`.
+
 - GRID-7 — DONE. Le pilote confirme l’alerte de stress par l’action normale de la carte pour la mission sélectionnée. Badlands Survey gagnée sur la même campagne, à 720p sous Windows. Reprendre `work/campaign-story-grid7/victory/campaign.json` pour The Vistula Witnesses.
 
 - IVORY-STATIC — DONE. Depuis le checkpoint du jour 7, l’hôpital de campagne a soigné quatre agents pour huit crédits et un jour. Le déploiement a ensuite utilisé les agents éligibles et remporté Ivory Static sous Windows à 720p. Promotions, retour au QG et rechargement vérifiés. Reprendre `work/campaign-story-ivory-hospital/victory/campaign.json` et sélectionner la prochaine mission d’histoire.

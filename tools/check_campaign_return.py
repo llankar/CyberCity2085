@@ -46,6 +46,7 @@ def main():
     parser.add_argument("--mission-id")
     parser.add_argument("--campaign-save", type=Path, help="Resume a campaign saved by a previous run")
     parser.add_argument("--hospital", action="store_true", help="Treat injured agents using campaign downtime before deployment")
+    parser.add_argument("--therapy-days", type=int, default=0, help="Run group therapy before deployment")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--interrupt-after-resolution", action="store_true")
@@ -56,8 +57,10 @@ def main():
     args=parser.parse_args()
     if args.campaign_save and not args.campaign_play:
         parser.error("--campaign-save requires --campaign-play")
-    if args.hospital and not args.campaign_save:
-        parser.error("--hospital requires --campaign-save")
+    if args.therapy_days < 0:
+        parser.error("--therapy-days must be nonnegative")
+    if (args.hospital or args.therapy_days) and not args.campaign_save:
+        parser.error("Downtime requires --campaign-save")
     campaign_save = args.campaign_save.resolve(strict=True) if args.campaign_save else None
     args.outcomes=args.outcomes or (['victory'] if args.campaign_play else ['victory','defeat','retreat'])
     if args.campaign_play and ('retreat' in args.outcomes or args.interrupt_phase):
@@ -83,12 +86,17 @@ def main():
                 _link_directory(sandbox/'godot', root/'godot')
                 if args.campaign_play:
                     loaded_state = GameState.load(str(campaign_save)) if campaign_save else None
-                    if args.hospital:
+                    if args.hospital or args.therapy_days:
                         from game.character import is_deployable
-                        from game.management.downtime import DOWNTIME_ACTIVITIES, apply_activity
+                        from game.management.downtime import DOWNTIME_ACTIVITIES, apply_activity, can_run_activity
 
-                        activity = next(item for item in DOWNTIME_ACTIVITIES if item.key == "hospital")
-                        print(apply_activity(loaded_state, activity, loaded_state.characters), flush=True)
+                        activities = {item.key: item for item in DOWNTIME_ACTIVITIES}
+                        plan = ["group_therapy"] * args.therapy_days + (["hospital"] if args.hospital else [])
+                        for key in plan:
+                            activity = activities[key]
+                            if not can_run_activity(loaded_state, activity):
+                                raise ValueError(f"Cannot afford campaign downtime: {activity.label}")
+                            print(apply_activity(loaded_state, activity, loaded_state.characters), flush=True)
                         loaded_state.selected_agent_names = [
                             agent.name for agent in loaded_state.characters if is_deployable(agent)
                         ]
