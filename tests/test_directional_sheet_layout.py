@@ -35,7 +35,8 @@ def test_action_rows_pair_poses_by_direction(tmp_path, monkeypatch):
     importer.build("commander", {
         "applicable_clips": ["fire"],
         "clips": [{"path": original, "clip": "fire", "layout": "action_rows",
-                   "direction_indices": list(reversed(range(8)))}],
+                   "pose_indices": poses, "direction_indices": [7 - index for index in poses]}
+                  for poses in ([0, 2, 4, 6], [1, 3, 5, 7])],
     })
     with Image.open(tmp_path / "assets/combat_visual/animations/commander.png") as atlas:
         colors = [atlas.getpixel((index % 8 * 256 + 128, index // 8 * 256 + 220))[0]

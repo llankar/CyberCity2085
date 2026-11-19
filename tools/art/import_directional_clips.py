@@ -72,8 +72,12 @@ def build(key,config):
                 row=pair//2;col=(pair%2)*2
                 directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)])
         elif layout == 'action_rows':
-            order = sheet_directions(item, 8)
-            for pose, direction in enumerate(order):
+            poses = item.get('pose_indices', list(range(8)))
+            if not isinstance(poses, list) or not poses:
+                raise ValueError('pose_indices must be a nonempty list')
+            sheet_directions({'direction_indices': poses}, len(poses))
+            order = sheet_directions(item, len(poses))
+            for pose, direction in zip(poses, order):
                 if direction in directions:
                     raise ValueError(f'{clip}: repeated facing {direction}')
                 row, col = divmod(pose, 4)
@@ -85,6 +89,8 @@ def build(key,config):
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
             provenance[-1]['direction_indices']=order
+        if layout == 'action_rows' and 'pose_indices' in item:
+            provenance[-1]['pose_indices']=poses
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
