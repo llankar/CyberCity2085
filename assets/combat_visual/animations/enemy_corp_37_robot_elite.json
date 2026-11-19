@@ -1,0 +1,88 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_37_robot_elite.png",
+  "texture_sha256": "2f8f12b988bb91b136d944b5d839fab22e194dc00108d554786a985accf8329d",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_37_robot_elite_512.png",
+  "source_sha256": "36cb58dc184cd5acb36b17666b2650692938879d30c2ca6d18f11f83c4ad8cdb",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_elite/idle-action_rows-0.png",
+      "sha256": "9da212cfd0bdcd3cb6b907aa90b30d483549c653aead2db58598984db2e4460a",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this robot.",
+    "heal": "No healing action for this robot."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
