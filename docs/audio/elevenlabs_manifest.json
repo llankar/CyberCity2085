@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generation_status": "partial_6_provider_generations_download_blocked",
+  "generation_status": "partial_7_provider_generations_download_blocked",
   "credits_estimate": {
     "kind": "pilot_provider_estimate_and_full_extrapolation",
     "provider": "ElevenLabs Creative Studio / Sound Effects v2",
@@ -36,12 +36,19 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_01.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "jdR1F6M3jhcA99nWzR91",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 0.88,
+          "audition_status": "not_verified",
+          "session_id": "RSL46sjU92W1h4muQoYl",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified",
+          "actual_credits": 3
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_02.wav",
@@ -2673,8 +2680,114 @@
         "sgt4Y34DKih4bezlRCe4"
       ]
     },
-    "verified_provider_generations_count": 6,
-    "downloaded_count": 0
+    "verified_provider_generations_count": 7,
+    "downloaded_count": 0,
+    "further_batch": {
+      "date": "2026-11-19",
+      "configured_nodes": [
+        {
+          "family_id": "fire_pistol",
+          "node_id": "8i21wnJAtN5fDyjSlGvc",
+          "duration_seconds": 0.9,
+          "status": "generated_completed"
+        },
+        {
+          "family_id": "fire_burst",
+          "node_id": "ihepFTJq6ZK6BCagnxuu",
+          "duration_seconds": 1.5,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "fire_sniper",
+          "node_id": "4HOf1lq4l2kkiZ49AySj",
+          "duration_seconds": 2,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "fire_laser",
+          "node_id": "1tFSHoy4lfONWQ4lMtBp",
+          "duration_seconds": 1,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "fire_plasma",
+          "node_id": "tEVf9JQVimXy96YIVJNk",
+          "duration_seconds": 1.4,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "fire_missile",
+          "node_id": "MCZBOsFHwyWo9R2wq7Ax",
+          "duration_seconds": 2.4,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "impact_concrete",
+          "node_id": "oldZnBJ7z4lHQx2zlTuE",
+          "duration_seconds": 0.8,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "impact_armor",
+          "node_id": "BUTJq4vpkzYD9ci2u6JC",
+          "duration_seconds": 0.8,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "explosion_small",
+          "node_id": "Muf9aBEFHo0gblNE7VDv",
+          "duration_seconds": 2,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "ricochet",
+          "node_id": "UE9llzVNwONeTd7R0Yud",
+          "duration_seconds": 0.7,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "step_metal",
+          "node_id": "27dDy47MQWAv7W3YJjkC",
+          "duration_seconds": 0.55,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "psi_activate",
+          "node_id": "ETvSnz4ndce23h6V6eBL",
+          "duration_seconds": 1.5,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "ui_confirm",
+          "node_id": "IHdlZ6XLoyUvc23VS7dA",
+          "duration_seconds": 0.5,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "ui_refuse",
+          "node_id": "jRGNPLigqL5eqfAUlRoX",
+          "duration_seconds": 0.5,
+          "status": "not_started_provider_busy"
+        },
+        {
+          "family_id": "ambience_cybercity_night",
+          "node_id": "E1G2Ybqg6UJ1Sf7Y6RDs",
+          "duration_seconds": 22,
+          "status": "not_started_provider_busy"
+        }
+      ],
+      "estimated_credits_for_15_generations": 771,
+      "estimate_currency": "USD",
+      "estimated_cost_usd": 0.0771,
+      "requested": 15,
+      "started": 1,
+      "failed_before_start": 14,
+      "new_generation_ids": [
+        "jdR1F6M3jhcA99nWzR91"
+      ],
+      "new_generated_duration_seconds": 0.88,
+      "provider_diagnostic": "Free generations are busy right now: this take did not start. Failed jobs not charged."
+    }
   },
   "notes": [
     "Preserve existing MP3 music. No SFX outputs or WAV files have been downloaded, listened to or approved.",
@@ -2684,7 +2797,8 @@
     "Arcade dynamic cues recruitment, selection and toggle currently point at absent SFX names.",
     "Godot routes currently map one WAV per event and uses six rotating effects players.",
     "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum.",
-    "Six actual provider generation IDs now recorded with duration and source flow. No signed media could be downloaded from the sandbox; use ElevenLabs flow to download the real MP3s, then convert and QC before integration."
+    "Six actual provider generation IDs now recorded with duration and source flow. No signed media could be downloaded from the sandbox; use ElevenLabs flow to download the real MP3s, then convert and QC before integration.",
+    "Nov 19 additional attempt: 15 new SFX nodes configured; free-generation capacity allowed only one completed pistol sound; other 14 requests did not start. No retries attempted."
   ],
   "quality_gate": {
     "audio_generated": true,
