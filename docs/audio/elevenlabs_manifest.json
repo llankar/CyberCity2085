@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generation_status": "partial_7_provider_generations_download_blocked",
+  "generation_status": "partial_7_provider_generations_5_user_supplied_wav_unreviewed",
   "credits_estimate": {
     "kind": "pilot_provider_estimate_and_full_extrapolation",
     "provider": "ElevenLabs Creative Studio / Sound Effects v2",
@@ -36,7 +36,7 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_01.wav",
-          "status": "generated_provider_only",
+          "status": "converted_unreviewed_external",
           "source_url": null,
           "provider_asset_id": "jdR1F6M3jhcA99nWzR91",
           "requested_format": "WAV PCM 48 kHz (not yet converted)",
@@ -46,9 +46,22 @@
           "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
           "model_id": "eleven_text_to_sound_v2",
           "generated_format": "MP3",
-          "download_status": "blocked_in_runtime",
+          "download_status": "wav_user_supplied_in_conversation_only",
           "provider_license_status": "not_verified",
-          "actual_credits": 3
+          "actual_credits": 3,
+          "wav_provenance": "User-supplied staging ZIP import_report.json associates this WAV with this provider generation ID; mapping not independently verified",
+          "user_supplied_wav": {
+            "archive": "cybercity_sfx_staging_unreviewed.zip",
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "bits_per_sample": 16,
+            "duration_seconds": 1.48,
+            "peak_dbfs": -10.54,
+            "sha256": "73e0aaff0ee684ebb8d6a3d930e17643e9ea13c88f11138f92bfafd82873749b",
+            "provider_duration_mismatch": true,
+            "full_scale_samples": 0
+          },
+          "quality_status": "technical_QA_only_human_audition_pending"
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_pistol_02.wav",
@@ -96,7 +109,7 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_01.wav",
-          "status": "generated_provider_only",
+          "status": "converted_unreviewed_external",
           "source_url": null,
           "provider_asset_id": "twpyh7j3WUO2P5BLTZPl",
           "requested_format": "WAV PCM 48 kHz (not yet converted)",
@@ -106,8 +119,21 @@
           "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
           "model_id": "eleven_text_to_sound_v2",
           "generated_format": "MP3",
-          "download_status": "blocked_in_runtime",
-          "provider_license_status": "not_verified"
+          "download_status": "wav_user_supplied_in_conversation_only",
+          "provider_license_status": "not_verified",
+          "wav_provenance": "User-supplied staging ZIP import_report.json associates this WAV with this provider generation ID; mapping not independently verified",
+          "user_supplied_wav": {
+            "archive": "cybercity_sfx_staging_unreviewed.zip",
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "bits_per_sample": 16,
+            "duration_seconds": 3,
+            "peak_dbfs": -0.16,
+            "sha256": "9e229f069075527a10d35cf4dd200e0b679c5b6993704118793b4ee1561b6d3b",
+            "provider_duration_mismatch": true,
+            "full_scale_samples": 0
+          },
+          "quality_status": "technical_QA_only_human_audition_pending"
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_02.wav",
@@ -497,7 +523,7 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_metal_01.wav",
-          "status": "generated_provider_only",
+          "status": "converted_unreviewed_external",
           "source_url": null,
           "provider_asset_id": "uIWJSwImLE4BwuQveBpG",
           "requested_format": "WAV PCM 48 kHz (not yet converted)",
@@ -507,8 +533,21 @@
           "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
           "model_id": "eleven_text_to_sound_v2",
           "generated_format": "MP3",
-          "download_status": "blocked_in_runtime",
-          "provider_license_status": "not_verified"
+          "download_status": "wav_user_supplied_in_conversation_only",
+          "provider_license_status": "not_verified",
+          "wav_provenance": "User-supplied staging ZIP import_report.json associates this WAV with this provider generation ID; mapping not independently verified",
+          "user_supplied_wav": {
+            "archive": "cybercity_sfx_staging_unreviewed.zip",
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "bits_per_sample": 16,
+            "duration_seconds": 0.88,
+            "peak_dbfs": 0,
+            "sha256": "347e72ab1ebf375f1f4db15767c78eebf99c42e5fbbfbb812a170c9fa74787e3",
+            "provider_duration_mismatch": true,
+            "full_scale_samples": 3
+          },
+          "quality_status": "technical_QA_only_human_audition_pending"
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_02.wav",
@@ -1173,7 +1212,7 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/step_concrete_01.wav",
-          "status": "generated_provider_only",
+          "status": "converted_unreviewed_external",
           "source_url": null,
           "provider_asset_id": "CQ5GGEPbslSM6WRxquhW",
           "requested_format": "WAV PCM 48 kHz (not yet converted)",
@@ -1183,8 +1222,21 @@
           "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
           "model_id": "eleven_text_to_sound_v2",
           "generated_format": "MP3",
-          "download_status": "blocked_in_runtime",
-          "provider_license_status": "not_verified"
+          "download_status": "wav_user_supplied_in_conversation_only",
+          "provider_license_status": "not_verified",
+          "wav_provenance": "User-supplied staging ZIP import_report.json associates this WAV with this provider generation ID; mapping not independently verified",
+          "user_supplied_wav": {
+            "archive": "cybercity_sfx_staging_unreviewed.zip",
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "bits_per_sample": 16,
+            "duration_seconds": 0.8,
+            "peak_dbfs": -11.51,
+            "sha256": "264ba916bf3aea0c269e09ea9a7b69f26b1995879f527efa834950d91aacaeed",
+            "provider_duration_mismatch": false,
+            "full_scale_samples": 0
+          },
+          "quality_status": "technical_QA_only_human_audition_pending"
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_02.wav",
@@ -2117,7 +2169,7 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_click_01.wav",
-          "status": "generated_provider_only",
+          "status": "converted_unreviewed_external",
           "source_url": null,
           "provider_asset_id": "zEC2L8Pp1VRMz4wUlIA4",
           "requested_format": "WAV PCM 48 kHz (not yet converted)",
@@ -2127,8 +2179,21 @@
           "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
           "model_id": "eleven_text_to_sound_v2",
           "generated_format": "MP3",
-          "download_status": "blocked_in_runtime",
-          "provider_license_status": "not_verified"
+          "download_status": "wav_user_supplied_in_conversation_only",
+          "provider_license_status": "not_verified",
+          "wav_provenance": "User-supplied staging ZIP import_report.json associates this WAV with this provider generation ID; mapping not independently verified",
+          "user_supplied_wav": {
+            "archive": "cybercity_sfx_staging_unreviewed.zip",
+            "sample_rate_hz": 48000,
+            "channels": 2,
+            "bits_per_sample": 16,
+            "duration_seconds": 0.6,
+            "peak_dbfs": -9.95,
+            "sha256": "433d068475bc26b039393e3544ff7f8ccd9b6082c5999d1f2471ba864950f3b8",
+            "provider_duration_mismatch": false,
+            "full_scale_samples": 0
+          },
+          "quality_status": "technical_QA_only_human_audition_pending"
         },
         {
           "path": "assets/audio/overhaul/ui/ui_click_02.wav",
@@ -3263,13 +3328,16 @@
     "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum.",
     "Six actual provider generation IDs now recorded with duration and source flow. No signed media could be downloaded from the sandbox; use ElevenLabs flow to download the real MP3s, then convert and QC before integration.",
     "Nov 19 additional attempt: 15 new SFX nodes configured; free-generation capacity allowed only one completed pistol sound; other 14 requests did not start. No retries attempted.",
-    "All 58 SFX families have a configured node with a verified flow ID. This is NOT a generated sound library. 7 recorded provider outputs exist; remaining 160 variants still ungenerated."
+    "All 58 SFX families have a configured node with a verified flow ID. This is NOT a generated sound library. 7 recorded provider outputs exist; remaining 160 variants still ungenerated.",
+    "2026-11-19: user supplied 5 PCM 48k stereo 16-bit WAV files via conversation staging ZIP. These are NOT committed to git, nor downloaded by assistant; no human listening review performed.",
+    "Provider durations disagree with user WAV durations for pistol, rifle and metal impact; generation IDs from user import report need to be verified before integration.",
+    "Metal impact user WAV has 3 full-scale samples; technical headroom staging attenuates 3dB but cannot reverse clipped source samples."
   ],
   "quality_gate": {
     "audio_generated": true,
     "downloaded": false,
-    "verified_encoding": false,
-    "peaks_checked": false,
+    "verified_encoding": true,
+    "peaks_checked": true,
     "listened": false,
     "loop_seams_checked": false,
     "license_verified": false,
@@ -3324,5 +3392,7 @@
   "verified_completed_generations": 7,
   "audio_families_with_completed_generations": 5,
   "audio_files_downloaded": 0,
-  "audio_files_converted": 0
+  "audio_files_converted": 5,
+  "audio_files_user_supplied_wav": 5,
+  "audio_files_converted_by_assistant": 0
 }
