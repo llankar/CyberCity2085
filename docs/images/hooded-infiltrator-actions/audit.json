@@ -1,0 +1,3236 @@
+{
+  "maps": [
+    {
+      "image": "city_district_apartment_block.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "cb161035da750523f0a4839c41a1ea7cd60a791edbae7496515e48c05449b3a1"
+    },
+    {
+      "image": "city_district_civic_center.png",
+      "sha256_valid": true,
+      "walls": 33,
+      "survey_sha256": "e040748ce189e9b4972ec078034c06fd05093d0e00b1172f1ee80481bb4cfdbf"
+    },
+    {
+      "image": "city_district_holo_square.png",
+      "sha256_valid": true,
+      "walls": 39,
+      "survey_sha256": "a979fa483c7c9d9eccf79b3d1226086916e9fd981b15dd13f996d5e50ab4fbd3"
+    },
+    {
+      "image": "city_district_riot_square.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "9794bad954fc0c63f03299af9b13c7f57a55ac0d038dbdf098a709e8ca161126"
+    },
+    {
+      "image": "city_district_tech_market.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "dd05de47fa776de8bf907759d49deff0ca77b87cd704671351aeaa5de7858e91"
+    },
+    {
+      "image": "city_exterior_billboard_avenue.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "43d046f5c34bae4887cb81953ca1230e4cd623ec03b004716964847b4174d9a8"
+    },
+    {
+      "image": "city_exterior_corporate_plaza.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "c382537af08f824ba8e89c753d34e29189bfc58dc2b45917f6473683c712265b"
+    },
+    {
+      "image": "city_exterior_downtown_intersection.png",
+      "sha256_valid": true,
+      "walls": 22,
+      "survey_sha256": "6c3d22f5576a6842ead78197996efbbf9171993cfcdd0a766ce844f58bb9e15c"
+    },
+    {
+      "image": "city_exterior_elevated_freeway.png",
+      "sha256_valid": true,
+      "walls": 19,
+      "survey_sha256": "ce836adc52b417896c550c6f634c155e7011c7fc8879d0cd69b67c8fd2675a72"
+    },
+    {
+      "image": "city_exterior_neon_market_alley.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "75bfdf85db78854fba5843f65d70b31d906dff96a6e53eb2ebffe22e337ed68a"
+    },
+    {
+      "image": "city_exterior_parking_garage.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "8f0055e0bae84a61dcafe5140e2074e1ce307ea52f5d0b37ffc8e0d7110f1ef7"
+    },
+    {
+      "image": "city_exterior_rooftop_access.png",
+      "sha256_valid": true,
+      "walls": 22,
+      "survey_sha256": "f25ad23533787fa31095fcf78fcc8652088d18fb5379faaf8633c273ba1bd6cd"
+    },
+    {
+      "image": "city_exterior_waterfront_docks.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "f2d0e434a23092ee243015769e1d4f81242c7126fa73493e4ac4ab1939a60da1"
+    },
+    {
+      "image": "city_industrial_data_vault.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "24cfbe6bec4d48afb0a444bc1ebc02891419d8c37ef19b7c8c2abc6b663dd219"
+    },
+    {
+      "image": "city_industrial_dockside_terminal.png",
+      "sha256_valid": true,
+      "walls": 67,
+      "survey_sha256": "2c69b0411b5791dab545827900673b188b2302b88b23e3cf754e25806f414875"
+    },
+    {
+      "image": "city_industrial_factory_floor.png",
+      "sha256_valid": true,
+      "walls": 32,
+      "survey_sha256": "b66decf1757a25a5e47bb9575697700df0a7b227466de0c1af4a689e9cfe6986"
+    },
+    {
+      "image": "city_industrial_power_substation.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "cbc04595c6e32bbe091a48f34bd12db88976300df8892485b1dbbccb7c08db42"
+    },
+    {
+      "image": "city_industrial_security_checkpoint.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "be6a804353525a6cd4c67a56083ba420ee147b0eaa294e050339eb40f7750af4"
+    },
+    {
+      "image": "city_industrial_service_tunnel.png",
+      "sha256_valid": true,
+      "walls": 74,
+      "survey_sha256": "e326f4da91aae3217526f074f6a503c431ac076c08bdd820dae93c43c0a5ec24"
+    },
+    {
+      "image": "city_industrial_warehouse_floor.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "f2db695cda06767b1f03dac0c9ebf7651ff09e92203569796f4690e6842f7ea7"
+    },
+    {
+      "image": "city_interior_blacksite_lab.png",
+      "sha256_valid": true,
+      "walls": 39,
+      "survey_sha256": "bf798bf5485a6ab6ccdc528ccab0627e85bd33ad5377e5d8ffe44f1c94aaad71"
+    },
+    {
+      "image": "city_interior_command_deck.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "355d7481abaef32b9344d2c4e8f90202a558a1db1aa4fdad9abe95afa550e8e8"
+    },
+    {
+      "image": "city_interior_control_center.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "6d80501729e334feccfd4a2da9b01b4614c9e7bf38d42268f9b90cbcda61f17e"
+    },
+    {
+      "image": "city_interior_corporate_lobby.png",
+      "sha256_valid": true,
+      "walls": 44,
+      "survey_sha256": "55ed95c3c1c8dc6bb7a1ba89b6b5ca82d4c6674167d1a0e4edf853d9b2dc040b"
+    },
+    {
+      "image": "city_interior_cyber_cafe.png",
+      "sha256_valid": true,
+      "walls": 37,
+      "survey_sha256": "249a5d34dde2edfa2ae4ee7ee0d4810bc14932242fb4d7a34212df87026074a8"
+    },
+    {
+      "image": "city_interior_medical_clinic.png",
+      "sha256_valid": true,
+      "walls": 36,
+      "survey_sha256": "c0231ebc6ac15f4de5383353c1e180cfe4b5186c713a192614a637133c093299"
+    },
+    {
+      "image": "city_interior_penthouse_atrium.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "95e698e72dfd5fd17d9ff9d763516cad0a6912b3065e86928d7167ba459d8e08"
+    },
+    {
+      "image": "city_interior_police_records.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "9aa57d151b26160fda069ae6ea62a172636561ab6226444bb52388832601cf4d"
+    },
+    {
+      "image": "city_interior_research_lab.png",
+      "sha256_valid": true,
+      "walls": 34,
+      "survey_sha256": "f1fde2959b76558e24a29b4795ae961b2d863e9a91c7cb5b6a0449e0f0afb265"
+    },
+    {
+      "image": "city_interior_safehouse.png",
+      "sha256_valid": true,
+      "walls": 46,
+      "survey_sha256": "4b27626fce44c476bb9509125cb06c877add4cc163a0bac3ab209ee982770b1e"
+    },
+    {
+      "image": "city_interior_server_room.png",
+      "sha256_valid": true,
+      "walls": 34,
+      "survey_sha256": "480cf82dd7417987b58eaabd8bb953859256931c8a2c090ed5e4a6a4c5542eb6"
+    },
+    {
+      "image": "city_rooftop_skybridge_spine.png",
+      "sha256_valid": true,
+      "walls": 20,
+      "survey_sha256": "0965a4fee4c0b995bc197b11c5b93e0dc6bd6317fbaf4d856be01eff2a2de5ae"
+    },
+    {
+      "image": "city_transit_freight_yard.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "4e05329326b50d7d8090e828320c179768877c7b8cc75a1e1e3ab3c945ffc5ca"
+    },
+    {
+      "image": "city_transit_metro_interchange.png",
+      "sha256_valid": true,
+      "walls": 37,
+      "survey_sha256": "f375820a1fb397618126772ede14c382e15f221e565dadcef9d6fc43319df312"
+    },
+    {
+      "image": "city_transit_subway_platform.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "0d411784f431663b3dbbc828465cb4edbbef29e50ab574f1263c66c0cb1672d5"
+    },
+    {
+      "image": "city_transit_train_tunnel.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "85dd1bb0d90ea10c5a943d3b09ca2a652dce594471cbb6aed19df65a7b0fa307"
+    },
+    {
+      "image": "cybercity_inner_01_control_center.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "1cf336f8db37ce4f45088a9cac19f6280204fdf0e1ed348d6bb242a9fc2aa2a7"
+    },
+    {
+      "image": "cybercity_inner_02_safehouse.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "db08ce4b5bac35ff7ab5a4ec66543c6aa7e908fef8aca6e838cac86efd11b439"
+    },
+    {
+      "image": "cybercity_inner_03_research_lab.png",
+      "sha256_valid": true,
+      "walls": 38,
+      "survey_sha256": "98af4025efcf073dce747b78519a239570f9e684ccb7fb618db2b9899e853616"
+    },
+    {
+      "image": "cybercity_inner_04_medical_clinic.png",
+      "sha256_valid": true,
+      "walls": 34,
+      "survey_sha256": "7c3de68e5c2dee048092f59cd11bafcfd77ed069425eb47bc99aa114ee33776d"
+    },
+    {
+      "image": "cybercity_inner_05_server_room.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "978956a020dde942be9c0a1c5d0056b412fbe7a829785c5ddfdc54334efe225e"
+    },
+    {
+      "image": "cybercity_inner_06_blacksite_lab.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "2769365a3797ab273d77520e7ef75ae6789c40512d95422b01aecf064076931f"
+    },
+    {
+      "image": "cybercity_inner_07_corporate_lobby.png",
+      "sha256_valid": true,
+      "walls": 39,
+      "survey_sha256": "daad37484f5280901010cab2c94f0cb58279e93621ad461a909e6635756f5bb4"
+    },
+    {
+      "image": "cybercity_inner_08_police_records.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "e20ad1a76383f381f29b30b4f7ddd2dbdaa70e33569d6cb83cc3c72e1d54b432"
+    },
+    {
+      "image": "cybercity_inner_09_apartment_block.png",
+      "sha256_valid": true,
+      "walls": 45,
+      "survey_sha256": "2d5ded3e3920d3cb49cc6532ce8def62f8847dfad435973fc22627183b0cf841"
+    },
+    {
+      "image": "cybercity_inner_10_penthouse_atrium.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "c9339c328aa8dce85cca9eee35398c79f5b1e4ea75724f3a909721b90751fbfa"
+    },
+    {
+      "image": "cybercity_inner_11_cyber_cafe.png",
+      "sha256_valid": true,
+      "walls": 27,
+      "survey_sha256": "cec57bc4ca69c390eff7fa7c352a7f97b9df6fa8ed105e2a6e8246c07fdbd2cf"
+    },
+    {
+      "image": "cybercity_inner_12_maintenance_tunnel.png",
+      "sha256_valid": true,
+      "walls": 22,
+      "survey_sha256": "de114159a67390cf8afabf951b3a390c8afb3f6ec57b22566490a3553dfb4d7c"
+    },
+    {
+      "image": "cybercity_inner_13_warehouse_floor.png",
+      "sha256_valid": true,
+      "walls": 34,
+      "survey_sha256": "258a07d00a47fbbd98065c404f3a2139a4c81001fe4fbdeabfa3f765e32e04be"
+    },
+    {
+      "image": "cybercity_inner_14_detention_block.png",
+      "sha256_valid": true,
+      "walls": 40,
+      "survey_sha256": "ab2911c1fcfe59302b0ebd62e07ac6bf8c43b867f33276b8401db932af81954b"
+    },
+    {
+      "image": "cybercity_inner_15_data_vault.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "06c5549b6bafab477db542890785cea7e83e7184738d85a03bc48a714b78ef28"
+    },
+    {
+      "image": "cybercity_street_01_downtown_intersection.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "5973a3dac9e83765d28274a8d3cacc254389299eb96308bec034ac54b62bb905"
+    },
+    {
+      "image": "cybercity_street_02_neon_market_alley.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "729aa194ea751d355064196b86654d30a4468c6d4e0158806bc5961b69c4b87a"
+    },
+    {
+      "image": "cybercity_street_03_elevated_freeway.png",
+      "sha256_valid": true,
+      "walls": 21,
+      "survey_sha256": "9279f246f794d543c8a30b8095aede55adcb3aa619a02b68ac1666e8c55813a4"
+    },
+    {
+      "image": "cybercity_street_04_waterfront_docks.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "356d460a85dd897c829d2954b3748d68053402967c5f642c66a77df474a44274"
+    },
+    {
+      "image": "cybercity_street_05_civic_plaza.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "e933d22f65854df29e428399888e1f5206b48aabde8a3a9ea57821bb59908e9c"
+    },
+    {
+      "image": "cybercity_street_06_downtown_intersection.png",
+      "sha256_valid": true,
+      "walls": 22,
+      "survey_sha256": "900ecaa92bbaa6e225619fc45e29d0aaa27f510e62b387bef5b33e34594057d3"
+    },
+    {
+      "image": "cybercity_street_06_transit_interchange.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "ad479eb849de57ef7e16bb987aed74641bd3b0af61d8758d3f3a7c74dc7fe279"
+    },
+    {
+      "image": "cybercity_street_07_downtown_intersection.png",
+      "sha256_valid": true,
+      "walls": 22,
+      "survey_sha256": "fba4b83ac22d7cd0ad34a070fa3503a4d9e02b2b53e365db80c2aee71230f9ef"
+    },
+    {
+      "image": "cybercity_street_07_neon_market_alley.png",
+      "sha256_valid": true,
+      "walls": 36,
+      "survey_sha256": "ccb00d16041655a108282dbad2fb1eccef2e566463552a0bee2d84c0b1e21298"
+    },
+    {
+      "image": "cybercity_street_08_elevated_freeway.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "315c73bacbc0c4afea2d6453558c479d4c24d6d05fd0deab73ac03db127fee1e"
+    },
+    {
+      "image": "cybercity_street_08_neon_market_alley.png",
+      "sha256_valid": true,
+      "walls": 36,
+      "survey_sha256": "0c4bb6cbbcb5a28e06762a854a1ca9ef6ffc5fcffe7bb4be7198e912cd3a68c4"
+    },
+    {
+      "image": "cybercity_street_09_elevated_freeway.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "26d099861a1370cac617e6b6cbb4b38298f91e5e7a66e695cef839536dac43e0"
+    },
+    {
+      "image": "cybercity_street_09_waterfront_docks.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "540e184fab344a7788ebb529108cd6e01fca8d5528d2de6ab7eabbd3986277a0"
+    },
+    {
+      "image": "cybercity_street_10_civic_plaza.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "111614893da4a4438331860993387c831d0442f3820a11a462261352326c2c91"
+    },
+    {
+      "image": "cybercity_street_10_waterfront_docks.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "1319dbf9774fe8781dbc982da98d8e1b872f42be6b584c79bca31cc3790daec4"
+    },
+    {
+      "image": "cybercity_street_11_civic_plaza.png",
+      "sha256_valid": true,
+      "walls": 28,
+      "survey_sha256": "ee20d33d2907aa279d909f648106ef05d43ff5e7460f55601dc12ce926e4c53d"
+    },
+    {
+      "image": "cybercity_street_11_transit_interchange.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "fc57a28387c6e11d225a8876c177174cc8e52daf9056c27d3b9e0e08679cbe88"
+    },
+    {
+      "image": "cybercity_street_12_industrial_district.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "8b079544a58c4294b277b1dca2e8652c8b9b1dc19eea6f8f68e512dbe49e2b6f"
+    },
+    {
+      "image": "cybercity_street_12_transit_interchange.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "6c8b203512f97fda3b7c30f8d374b2cb97905a3cbe8d314f8d8279a5f457d362"
+    },
+    {
+      "image": "cybercity_street_13_flood_prone_avenue.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "e8f1df4a7ec87d7e093e49a35a309533d0daa6f35fa35d6be8dde01160f09919"
+    },
+    {
+      "image": "cybercity_street_13_industrial_district.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "c9ec74f877beb35fe3ea47af1cbf022c0c293c26c233f4a5f71bd49ca22e4896"
+    },
+    {
+      "image": "cybercity_street_14_bridge_access.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "b66dd5fea8f5ee1f3c2a0ee986dfa309a6893001b28435518d70b867f26d4be2"
+    },
+    {
+      "image": "cybercity_street_14_flood_prone_avenue.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "51f1e435ef57262a638bcfd603fe83a1d7b97b9458215db6c0174fa3671c8dcb"
+    },
+    {
+      "image": "cybercity_street_15_billboard_avenue.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "bae7a38c9aa4f906754d81adb2a37801947193e097b40e14c72acf2153d2caed"
+    },
+    {
+      "image": "cybercity_street_15_bridge_access.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "74b1a64fe758cbd8c5690c20ef640d9d1e7206e5b25189a7b0a455b6bac9a7cb"
+    },
+    {
+      "image": "cybercity_street_16_billboard_avenue.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "99e67bc6dd3fa8481cea446ed38350b277c22f7c5d272a6a9a77f70277f07e24"
+    },
+    {
+      "image": "wasteland_city_01_ruined_downtown.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "d8ac1f2d9c5a50f5a5a64976b54b09e8fcdd5251b9de27288b436a42e66bf1cf"
+    },
+    {
+      "image": "wasteland_city_02_burned_market_block.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "a8989d5404cfd7bf4be7eb84f615f34231fbfe136b88dae51ab46b2caabe0d94"
+    },
+    {
+      "image": "wasteland_city_03_collapsed_overpass.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "8e2c8948721fafcbeef6f5cc29464ea227d322319755b9a2fcdf54e08af512c1"
+    },
+    {
+      "image": "wasteland_city_04_flooded_civic_square.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "5f7b9ab007ebf44401ffe195582803c73bedff8e1e768cebedfe801c85c761b3"
+    },
+    {
+      "image": "wasteland_city_05_scavenger_plaza.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "7bca15a2607d6951f5700465d2a8e1034ef29955d8b429cc32eda3f4ecf1602b"
+    },
+    {
+      "image": "wasteland_city_06_ruined_downtown.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "9ff021f32ab3540f4d5e7c72a800de892b7364ac15bc40fc28859ab6e0965b0f"
+    },
+    {
+      "image": "wasteland_city_07_burned_market_block.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "abf88b1a6945722a207f6525b431464b9b2e6a0c0314a44ac7c73787c336804e"
+    },
+    {
+      "image": "wasteland_city_08_collapsed_overpass.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "12dde8d0734d7319658a97b2249697f9ee9632ff37f3ce4180ad03260c07d858"
+    },
+    {
+      "image": "wasteland_city_09_flooded_civic_square.png",
+      "sha256_valid": true,
+      "walls": 25,
+      "survey_sha256": "8126e571180aa2ed0d02d856c6aec8725b3066bef2db67b4497cb49b4ac72fc8"
+    },
+    {
+      "image": "wasteland_city_10_scavenger_plaza.png",
+      "sha256_valid": true,
+      "walls": 23,
+      "survey_sha256": "9257d472d62a55daf9e1ce8573399a96f6b221d56103d4a5132c0a4d05e2f678"
+    },
+    {
+      "image": "wasteland_city_11_ruined_transit_plaza.png",
+      "sha256_valid": true,
+      "walls": 27,
+      "survey_sha256": "4715e01d46ccc5aa99b579cb38f92f4eb151725df6d8257b30a5dd651d3e19ef"
+    },
+    {
+      "image": "wasteland_city_12_cratered_waterfront.png",
+      "sha256_valid": true,
+      "walls": 20,
+      "survey_sha256": "f9fcc8408563a7f56d3334ee9859a9e236503c40eac4d8b38a243bf4bc79fd7e"
+    },
+    {
+      "image": "wasteland_inner_01_abandoned_safehouse.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "cdb563d86c1d297bc8216aa9e772129837afa210debc04023eca94971be38750"
+    },
+    {
+      "image": "wasteland_inner_02_collapsed_tunnel.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "90fe37849aacac6f36b34c07eda11c9c7d7d6b3a1bdb8cee43b7f86e40df2fba"
+    },
+    {
+      "image": "wasteland_inner_03_ruined_clinic.png",
+      "sha256_valid": true,
+      "walls": 38,
+      "survey_sha256": "c6d8577422182f76dbd2411e2e6a7894e40bba57aad16052e7ac9488211fbde1"
+    },
+    {
+      "image": "wasteland_inner_04_bunker_command_post.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "0fdc119a9aa57113dc092f5f0fbec12c3e4050df34d177f472b1e751c420074c"
+    },
+    {
+      "image": "wasteland_inner_05_looted_vault.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "13cecdeae520f17206aff7d1ade4d13273eda10ce4fa99ab3ff0e341fb10ef46"
+    },
+    {
+      "image": "wasteland_inner_06_abandoned_safehouse.png",
+      "sha256_valid": true,
+      "walls": 35,
+      "survey_sha256": "95f7be8e7a3fa8bd3ac5ff78de09f7b0d7e841738cb0c2bfd7fe41277d9182a5"
+    },
+    {
+      "image": "wasteland_inner_06_maintenance_depot.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "fadc1beacbab431c469dd570efbc940cd94b32597e4902edf25af6b7785b83e7"
+    },
+    {
+      "image": "wasteland_inner_07_apartment_shelter.png",
+      "sha256_valid": true,
+      "walls": 36,
+      "survey_sha256": "214c25ed7c4740ba375ed94d4b5e8b785574d3a120092869a68ffc7180e5ab64"
+    },
+    {
+      "image": "wasteland_inner_07_collapsed_tunnel.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "ce0eca96536594f783dde2a03bcc4c38c9bda0cb9b90dee807c2ef45ab06f315"
+    },
+    {
+      "image": "wasteland_inner_08_data_relay_room.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "5a60b69b4326e0d90300677ba5c43238cfe670ff976187a434b5b29f97a3b964"
+    },
+    {
+      "image": "wasteland_inner_08_ruined_clinic.png",
+      "sha256_valid": true,
+      "walls": 38,
+      "survey_sha256": "03bab7d25a7e83a5ab643ecd0c37ee84291aec8f3a6514917f52f65b4e8fdfb4"
+    },
+    {
+      "image": "wasteland_inner_09_bunker_command_post.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "cb35cf1a78864c3035bd2f543f31d8fc3313fe7fafced9dfb64d61f0a59de100"
+    },
+    {
+      "image": "wasteland_inner_09_underground_market.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "6759728d7941e9dd4421513f6c47304726525c422d5ab2402cfc1cb66da46c71"
+    },
+    {
+      "image": "wasteland_inner_10_detention_block.png",
+      "sha256_valid": true,
+      "walls": 48,
+      "survey_sha256": "6bb8f57b0306832aa21f04dce632dfb532a240c0fd8d98044ed965613516f745"
+    },
+    {
+      "image": "wasteland_inner_10_looted_vault.png",
+      "sha256_valid": true,
+      "walls": 29,
+      "survey_sha256": "33a1b6fa0adafa525ae58eccbc094ea637e22732ae0c9d0b36762486dc038c13"
+    },
+    {
+      "image": "wasteland_inner_11_emergency_medbay.png",
+      "sha256_valid": true,
+      "walls": 42,
+      "survey_sha256": "3469bdd6e7824b047c2f5c501cca8dc9a44c932b0333a2da6c9d66164474d92c"
+    },
+    {
+      "image": "wasteland_inner_11_maintenance_depot.png",
+      "sha256_valid": true,
+      "walls": 30,
+      "survey_sha256": "66dc780746db0f6fc5948505e218399204e6372321812c37a24ae0299ba88f8d"
+    },
+    {
+      "image": "wasteland_inner_12_apartment_shelter.png",
+      "sha256_valid": true,
+      "walls": 36,
+      "survey_sha256": "3090f6f04a0d7c11a36dee19da772ca87313163a358d604741329ea9000daf60"
+    },
+    {
+      "image": "wasteland_inner_13_data_relay_room.png",
+      "sha256_valid": true,
+      "walls": 26,
+      "survey_sha256": "22adb863640f09eee1ec072eec6ceaabf8ddfbf9f2dc8855dd94a6f1fa94175d"
+    },
+    {
+      "image": "wasteland_inner_14_underground_market.png",
+      "sha256_valid": true,
+      "walls": 31,
+      "survey_sha256": "e81754c27903ba70e7129db9c0d705b1166929f9a4dfe768d575141544ff73db"
+    },
+    {
+      "image": "wasteland_inner_15_detention_block.png",
+      "sha256_valid": true,
+      "walls": 48,
+      "survey_sha256": "765b1a3f7f23018e71f0b950f77f539746d6757b6aa5d926b2102bc0dbd6a83f"
+    },
+    {
+      "image": "wasteland_outdoor_01_dust_road_ambush.png",
+      "sha256_valid": true,
+      "walls": 18,
+      "survey_sha256": "1c323ac6dab0a9a0ed8ac4d1c08ee65a83c02087411dc0c3a2038c1a3b4b3e4f"
+    },
+    {
+      "image": "wasteland_outdoor_02_ashfield_ruins.png",
+      "sha256_valid": true,
+      "walls": 15,
+      "survey_sha256": "470bfc282b5bb020346ecd40e19b2918eae12c081bdda90d825598c89a51ce1f"
+    },
+    {
+      "image": "wasteland_outdoor_03_wrecked_highway.png",
+      "sha256_valid": true,
+      "walls": 20,
+      "survey_sha256": "23c2c39b476fce03557cc07ef2934dc3eeebc1cb4bc33c2dcdc6e0cd0ea9e793"
+    },
+    {
+      "image": "wasteland_outdoor_04_rusted_trainyard.png",
+      "sha256_valid": true,
+      "walls": 27,
+      "survey_sha256": "d6746d06d4573cfe65ebdf4adb5ce9bd9d075c311e15b2a8a7b62081fbc96d14"
+    },
+    {
+      "image": "wasteland_outdoor_05_irradiated_basin.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "aa657dbc5f985340b61a0f823e940281efa9739df216b40ab096e33712b1873e"
+    },
+    {
+      "image": "wasteland_outdoor_06_dust_road_ambush.png",
+      "sha256_valid": true,
+      "walls": 18,
+      "survey_sha256": "bf078c4f15b4be4b5b05918fda46037a94173ddeac6f695a8957ce087e943e8c"
+    },
+    {
+      "image": "wasteland_outdoor_07_ashfield_ruins.png",
+      "sha256_valid": true,
+      "walls": 15,
+      "survey_sha256": "08dc1820b7a57515a63baed46ef298e8681481b032cda69a8a3270a0184d99a3"
+    },
+    {
+      "image": "wasteland_outdoor_08_wrecked_highway.png",
+      "sha256_valid": true,
+      "walls": 20,
+      "survey_sha256": "6d880bbdd86a9300dd3b2f21c5915b22b12106306b2e6f835f1cc8fd4a50a795"
+    },
+    {
+      "image": "wasteland_outdoor_09_rusted_trainyard.png",
+      "sha256_valid": true,
+      "walls": 27,
+      "survey_sha256": "10c1e7bedff160f4f79ff1b98d7cb179b98b72d66a0cbcf563f311d7fe0c9082"
+    },
+    {
+      "image": "wasteland_outdoor_10_irradiated_basin.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "91ea31e1405e75fe71aca789db7aa04b55070120af6821bbec3441d64c89a927"
+    },
+    {
+      "image": "wasteland_outdoor_11_convoy_crossing.png",
+      "sha256_valid": true,
+      "walls": 24,
+      "survey_sha256": "f4b70ccc785c729df4726ff23501849d8ce0edb84630feeb3f6cb384640d6d23"
+    },
+    {
+      "image": "wasteland_outdoor_12_salt_flat_ambush.png",
+      "sha256_valid": true,
+      "walls": 20,
+      "survey_sha256": "06cfaf65d46102d6e58edb775fc57a62cb5c1def7a46f3dfb37bf57e4c2ddab5"
+    }
+  ],
+  "units": [
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_01_neon_blade",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_02_longcoat_gunner",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_03_magenta_pistol",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_04_trench_sniper",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_05_psi_doctor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_06_street_medic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "agent_diverse_07_hooded_infiltrator",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_08_holo_hacker",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_09_blue_mohawk_scout",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_10_ronin_duelist",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_11_rail_sniper",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_12_violet_fixer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_13_silver_pistol",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_14_armored_vanguard",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_15_chrome_medic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_16_heavy_breacher",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_17_yellow_strike",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_18_red_enforcer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_19_drone_handler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_20_cyber_doc",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_21_twin_blade_adept",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_22_veteran_inquisitor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_23_dreadlock_rifle",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_24_hooded_psion",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_diverse_25_redline_runner",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_psi",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "agent_samurai",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_power_armor_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_power_armor_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "enemy_corp_37_power_armor_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_power_armor_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_robot_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_robot_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_robot_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_37_robot_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_power_armor_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_power_armor_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_power_armor_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_power_armor_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_robot_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_robot_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_robot_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_corp_samurai_robot_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_01_assault_mech",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_02_quadruped_siege",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_03_missile_artillery",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_04_riot_walker",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_05_railgun_sniper",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_06_flame_unit",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_07_drone_carrier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_08_claw_demolisher",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_09_spider_tank",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_10_pacification_titan",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_11_samurai_warbot",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_12_corp_security",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_13_salvage_warbot",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_14_killer_medic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_15_stealth_mech",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_16_twin_cannon",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_17_blade_hunter",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_18_anti_air",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_19_mining_combat",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_giant_robot_20_command_titan",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "enemy_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_01_hulk",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_02_spine_stalker",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_03_acid_psychic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_04_four_arm_brawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_05_irradiated_medic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_06_pit_fighter",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_07_sewer_veil",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_08_crystal_growth",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_09_toxin_carrier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_10_bone_blade",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_11_cyber_graft",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_12_plague_monk",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_13_scrap_shield",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_14_crawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_15_horned_warlord",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_16_gasmask_scavenger",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_17_glowing_vein",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_18_blind_sonar",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_19_hive_scarred",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_20_rust_mangler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_01_sewer_boar",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_02_two_head_hound",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_03_rat_king",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_04_rad_stag",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_05_six_leg_wolf",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_06_plated_crocodile",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_07_vulture_raptor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_08_mole_brute",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_09_horned_bear",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_10_acid_lizard",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_11_cyber_hyena",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_12_bone_panther",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_13_mutant_elk",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_14_scarab_dog",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_15_cave_gorilla",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_16_quillback_beast",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_17_scrap_turtle",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_18_irradiated_cougar",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_19_mandible_horse",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_animal_20_bat_wing_dog",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_mutant_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_01_sawblade_marauder",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_02_tire_armor_brute",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_03_flame_lancer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_04_scrap_sniper",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_05_bike_scout",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_06_chain_hook",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_07_wasteland_medic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_08_shield_brawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_09_mohawk_duelist",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_10_dust_preacher",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_11_drone_scavenger",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_12_explosive_thrower",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_13_nailgunner",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_14_armored_queen",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_15_skull_helm_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_16_harpoon_gunner",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_17_cyber_jaw",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_18_banner_carrier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_19_oil_mechanic",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_20_twin_axe",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_raider_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_01_crawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_02_hooded_knife",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_03_hospital_gown",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_04_ash_burned",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_05_riot_armor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_06_pack_leader",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_07_gasmask",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_08_famine_bloater",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_09_bone_sprinter",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_10_chained",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_11_sewer_wretch",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_12_pale_blind",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_13_burned_welder",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_14_tech_worker",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_15_ruined_priest",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_16_frostbitten",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_17_split_jaw",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_18_cyber_junk",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_19_corpse_soldier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_20_long_claw",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_commander",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_elite",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_grunt",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "enemy_starver_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_01_data_terminal",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_02_power_relay",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_03_evidence_case",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_04_medical_cache",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_05_server_tower",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_06_camera_hub",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_07_reactor_core",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_08_drone_black_box",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_09_safe_deposit_crate",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_city_10_comms_beacon",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_01_water_purifier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_02_fuel_cache",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_03_bunker_hatch",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_04_scrap_generator",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_05_crashed_supply_pod",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_06_solar_radio_mast",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_07_armored_food_crate",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_08_prewar_relic_shrine",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_09_flare_beacon",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": false,
+      "usable_directional_walk": false,
+      "key": "mission_objective_wasteland_10_seed_vault",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "power_armor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "power_armor_heavy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": true,
+      "key": "robot_combat",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": []
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "robot_support",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_01_vtol_air_taxi",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_01_vtol_air_taxi_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_02_vtol_medevac",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_02_vtol_medevac_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_03_vtol_cargo_lifter",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_03_vtol_cargo_lifter_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_04_vtol_news_drone_van",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_04_vtol_news_drone_van_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_05_commuter_skimmer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_05_commuter_skimmer_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_06_aero_limo",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_06_aero_limo_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_07_courier_quadcopter",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_07_courier_quadcopter_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_08_maintenance_hover_crane",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_08_maintenance_hover_crane_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_09_passenger_shuttle",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_09_passenger_shuttle_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_10_delivery_blimp_drone",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_civil_10_delivery_blimp_drone_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_01_vtol_gunship",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_01_vtol_gunship_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_02_vtol_troop_carrier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_02_vtol_troop_carrier_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_03_vtol_missile_interceptor",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_03_vtol_missile_interceptor_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_04_vtol_stealth_dropship",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_04_vtol_stealth_dropship_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_05_attack_hover_drone",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_05_attack_hover_drone_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_06_railgun_strike_craft",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_06_railgun_strike_craft_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_07_armored_recon_flyer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_07_armored_recon_flyer_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_08_heavy_bomber_skimmer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_08_heavy_bomber_skimmer_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_09_electronic_warfare_drone",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_09_electronic_warfare_drone_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_10_command_airship_platform",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_aerial_military_10_command_airship_platform_crashed",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_01_neon_taxi",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_02_courier_van",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_03_street_food_truck",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_04_armored_ambulance",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_05_executive_sedan",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_06_utility_crawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_07_cargo_hauler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_08_family_transport",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_09_delivery_rover",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_civil_10_bus_shuttle",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_01_battle_tank",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_02_missile_truck",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_03_apc",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_04_riot_crawler",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_05_railgun_destroyer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_06_recon_buggy",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_07_drone_command_halftrack",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_08_mine_clearer",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_09_anti_air_truck",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    },
+    {
+      "animation_eligible": true,
+      "usable_directional_walk": false,
+      "key": "vehicle_terrestrial_military_10_shield_generator_carrier",
+      "highres": true,
+      "transparent": true,
+      "animation_errors": [
+        "missing genuine multidirectional animations"
+      ]
+    }
+  ],
+  "summary": {
+    "surveyed_maps": 122,
+    "invalid_map_hashes": 0,
+    "unit_art": 251,
+    "animation_eligible_units": 231,
+    "animated_units_partial": 0,
+    "animated_units_complete": 10
+  }
+}

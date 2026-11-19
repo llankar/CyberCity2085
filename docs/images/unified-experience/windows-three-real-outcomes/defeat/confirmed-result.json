@@ -1,0 +1,45 @@
+{
+  "agents": [
+    {
+      "hp": 0,
+      "max_hp": 11,
+      "name": "Vera",
+      "stress": 15
+    },
+    {
+      "hp": 0,
+      "max_hp": 11,
+      "name": "Rook",
+      "stress": 15
+    },
+    {
+      "hp": 0,
+      "max_hp": 11,
+      "name": "Oracle",
+      "stress": 10
+    },
+    {
+      "hp": 0,
+      "max_hp": 11,
+      "name": "Mantis",
+      "stress": 10
+    }
+  ],
+  "enemies_killed": 0,
+  "enemies_spawned_total": 3,
+  "initial_enemy_count": 3,
+  "mission_id": "unified_defeat",
+  "music_playback": {
+    "captured_at": 1795039467.279,
+    "path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-m9p7z6jc/assets/audio/music/music_debrief.wav",
+    "position": 1.95337867736816
+  },
+  "objective_completed": false,
+  "objective_progress": 0,
+  "outcome": "defeat",
+  "phase": "confirmed",
+  "protocol_version": 2,
+  "session_id": "dc480f9239c24fd8bbb7a9c05a0133f6",
+  "support": [],
+  "turn_reached": 27
+}

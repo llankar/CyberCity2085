@@ -1,0 +1,420 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        12,
+        13,
+        34,
+        509
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        925,
+        13,
+        948,
+        509
+      ]
+    },
+    {
+      "id": "north_wall",
+      "rect": [
+        16,
+        12,
+        944,
+        31
+      ]
+    },
+    {
+      "id": "south_wall",
+      "rect": [
+        20,
+        506,
+        941,
+        530
+      ]
+    },
+    {
+      "id": "bed_nw1",
+      "rect": [
+        89,
+        77,
+        125,
+        149
+      ]
+    },
+    {
+      "id": "bed_nw2",
+      "rect": [
+        220,
+        47,
+        253,
+        125
+      ]
+    },
+    {
+      "id": "bed_w1",
+      "rect": [
+        34,
+        216,
+        120,
+        265
+      ]
+    },
+    {
+      "id": "bed_w2",
+      "rect": [
+        31,
+        296,
+        104,
+        337
+      ]
+    },
+    {
+      "id": "bed_north",
+      "rect": [
+        272,
+        212,
+        299,
+        251
+      ]
+    },
+    {
+      "id": "north_lab_table",
+      "rect": [
+        435,
+        37,
+        524,
+        74
+      ]
+    },
+    {
+      "id": "northwest_monitor",
+      "rect": [
+        94,
+        31,
+        180,
+        70
+      ]
+    },
+    {
+      "id": "northeast_scanner",
+      "rect": [
+        830,
+        60,
+        881,
+        183
+      ]
+    },
+    {
+      "id": "northeast_console",
+      "rect": [
+        807,
+        34,
+        894,
+        87
+      ]
+    },
+    {
+      "id": "central_sofa_n",
+      "rect": [
+        561,
+        238,
+        618,
+        313
+      ]
+    },
+    {
+      "id": "central_sofa_s",
+      "rect": [
+        561,
+        348,
+        619,
+        411
+      ]
+    },
+    {
+      "id": "central_north_desk",
+      "rect": [
+        529,
+        170,
+        579,
+        211
+      ]
+    },
+    {
+      "id": "east_operating_table",
+      "rect": [
+        818,
+        264,
+        856,
+        361
+      ]
+    },
+    {
+      "id": "east_cabinet",
+      "rect": [
+        894,
+        252,
+        921,
+        336
+      ]
+    },
+    {
+      "id": "sw_desk",
+      "rect": [
+        58,
+        437,
+        110,
+        479
+      ]
+    },
+    {
+      "id": "se_desk",
+      "rect": [
+        871,
+        432,
+        923,
+        468
+      ]
+    },
+    {
+      "id": "west_reception_console",
+      "rect": [
+        227,
+        275,
+        249,
+        352
+      ]
+    },
+    {
+      "id": "west_reception_console2",
+      "rect": [
+        193,
+        418,
+        217,
+        471
+      ]
+    },
+    {
+      "id": "northwest_cabinet",
+      "rect": [
+        341,
+        96,
+        369,
+        167
+      ]
+    },
+    {
+      "id": "north_cabinet",
+      "rect": [
+        393,
+        50,
+        414,
+        153
+      ]
+    },
+    {
+      "id": "north_east_cabinet",
+      "rect": [
+        545,
+        45,
+        573,
+        153
+      ]
+    },
+    {
+      "id": "reception_counter",
+      "width": 20,
+      "points": [
+        [
+          239,
+          320
+        ],
+        [
+          239,
+          357
+        ],
+        [
+          256,
+          374
+        ],
+        [
+          333,
+          374
+        ],
+        [
+          353,
+          355
+        ],
+        [
+          353,
+          318
+        ]
+      ]
+    },
+    {
+      "id": "west_partition_n",
+      "width": 13,
+      "points": [
+        [
+          183,
+          31
+        ],
+        [
+          183,
+          179
+        ]
+      ]
+    },
+    {
+      "id": "north_partition",
+      "width": 13,
+      "points": [
+        [
+          376,
+          29
+        ],
+        [
+          376,
+          155
+        ]
+      ]
+    },
+    {
+      "id": "north_partition_return",
+      "width": 13,
+      "points": [
+        [
+          381,
+          162
+        ],
+        [
+          449,
+          162
+        ]
+      ]
+    },
+    {
+      "id": "north_partition_e",
+      "width": 13,
+      "points": [
+        [
+          503,
+          162
+        ],
+        [
+          581,
+          162
+        ],
+        [
+          581,
+          30
+        ]
+      ]
+    },
+    {
+      "id": "east_partition",
+      "width": 13,
+      "points": [
+        [
+          737,
+          31
+        ],
+        [
+          737,
+          509
+        ]
+      ]
+    },
+    {
+      "id": "east_crosswall_n",
+      "width": 13,
+      "points": [
+        [
+          743,
+          200
+        ],
+        [
+          930,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "east_crosswall_s",
+      "width": 13,
+      "points": [
+        [
+          743,
+          389
+        ],
+        [
+          930,
+          389
+        ]
+      ]
+    },
+    {
+      "id": "west_reception_wall",
+      "width": 13,
+      "points": [
+        [
+          185,
+          509
+        ],
+        [
+          185,
+          258
+        ],
+        [
+          358,
+          258
+        ]
+      ]
+    },
+    {
+      "id": "west_room_wall",
+      "width": 13,
+      "points": [
+        [
+          29,
+          380
+        ],
+        [
+          180,
+          380
+        ]
+      ]
+    },
+    {
+      "id": "south_room_w",
+      "width": 13,
+      "points": [
+        [
+          412,
+          510
+        ],
+        [
+          412,
+          430
+        ],
+        [
+          504,
+          430
+        ],
+        [
+          504,
+          510
+        ]
+      ]
+    }
+  ]
+}

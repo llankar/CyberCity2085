@@ -1,0 +1,4181 @@
+{
+  "turn": 78,
+  "calendar": {
+    "current_day": 78,
+    "days_per_week": 7,
+    "days_per_month": 30,
+    "era_label": "2085"
+  },
+  "budget_pool": 10378,
+  "funds": {
+    "current_funds": 10378,
+    "income": 12588,
+    "expenses": 2210,
+    "transaction_history": [
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "opening_budget",
+        "note": "Initial corporate operating funds.",
+        "balance_after": 100
+      },
+      {
+        "kind": "expense",
+        "amount": 5,
+        "source": "recruitment",
+        "note": "Recruited agent.",
+        "balance_after": 95
+      },
+      {
+        "kind": "expense",
+        "amount": 5,
+        "source": "recruitment",
+        "note": "Recruited agent.",
+        "balance_after": 90
+      },
+      {
+        "kind": "expense",
+        "amount": 50,
+        "source": "asset_acquire",
+        "note": "Acquired new spec-ops asset.",
+        "balance_after": 40
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "research",
+        "note": "Started Field Mender Kit (2d).",
+        "balance_after": 20
+      },
+      {
+        "kind": "expense",
+        "amount": 5,
+        "source": "recruitment",
+        "note": "Recruited agent.",
+        "balance_after": 15
+      },
+      {
+        "kind": "expense",
+        "amount": 5,
+        "source": "recruitment",
+        "note": "Recruited agent.",
+        "balance_after": 10
+      },
+      {
+        "kind": "income",
+        "amount": 40,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness success payout.",
+        "balance_after": 50
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 40
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 30
+      },
+      {
+        "kind": "expense",
+        "amount": 8,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 22
+      },
+      {
+        "kind": "expense",
+        "amount": 6,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 16
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "daily_income",
+        "note": "2085.M01.D02 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 116
+      },
+      {
+        "kind": "income",
+        "amount": 40,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness success payout.",
+        "balance_after": 156
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 146
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 136
+      },
+      {
+        "kind": "expense",
+        "amount": 8,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 128
+      },
+      {
+        "kind": "expense",
+        "amount": 6,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness.",
+        "balance_after": 122
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "daily_income",
+        "note": "2085.M01.D03 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 222
+      },
+      {
+        "kind": "income",
+        "amount": 85,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Day 3] success payout.",
+        "balance_after": 307
+      },
+      {
+        "kind": "expense",
+        "amount": 21,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 3].",
+        "balance_after": 286
+      },
+      {
+        "kind": "expense",
+        "amount": 21,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 3].",
+        "balance_after": 265
+      },
+      {
+        "kind": "expense",
+        "amount": 17,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 3].",
+        "balance_after": 248
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 3].",
+        "balance_after": 236
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "daily_income",
+        "note": "2085.M01.D04 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 336
+      },
+      {
+        "kind": "income",
+        "amount": 80,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Day 4] success payout.",
+        "balance_after": 416
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 4].",
+        "balance_after": 396
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 4].",
+        "balance_after": 376
+      },
+      {
+        "kind": "expense",
+        "amount": 16,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 4].",
+        "balance_after": 360
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 4].",
+        "balance_after": 348
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "daily_income",
+        "note": "2085.M01.D05 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 448
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D06 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 549
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D07 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 650
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D08 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 751
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 2 corporate funding cycle.",
+        "balance_after": 815
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D09 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 916
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D10 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1017
+      },
+      {
+        "kind": "expense",
+        "amount": 35,
+        "source": "research",
+        "note": "Started Reactive Armor Lining (3d).",
+        "balance_after": 982
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D11 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1083
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D12 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1184
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D13 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1285
+      },
+      {
+        "kind": "expense",
+        "amount": 25,
+        "source": "research",
+        "note": "Started Silent Wheels Retrofit (2d).",
+        "balance_after": 1260
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D14 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1361
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D15 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1462
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 3 corporate funding cycle.",
+        "balance_after": 1526
+      },
+      {
+        "kind": "expense",
+        "amount": 35,
+        "source": "research",
+        "note": "Started Loyalty Kernel Patch (3d).",
+        "balance_after": 1491
+      },
+      {
+        "kind": "income",
+        "amount": 50,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness [Day 15] success payout.",
+        "balance_after": 1541
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1529
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1517
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1507
+      },
+      {
+        "kind": "expense",
+        "amount": 7,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1500
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D16 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1601
+      },
+      {
+        "kind": "income",
+        "amount": 50,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness [Day 15] success payout.",
+        "balance_after": 1651
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1639
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1627
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1617
+      },
+      {
+        "kind": "expense",
+        "amount": 7,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 15].",
+        "balance_after": 1610
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D17 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1711
+      },
+      {
+        "kind": "income",
+        "amount": 80,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Day 17] success payout.",
+        "balance_after": 1791
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 17].",
+        "balance_after": 1771
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 17].",
+        "balance_after": 1751
+      },
+      {
+        "kind": "expense",
+        "amount": 16,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 17].",
+        "balance_after": 1735
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 17].",
+        "balance_after": 1723
+      },
+      {
+        "kind": "income",
+        "amount": 101,
+        "source": "daily_income",
+        "note": "2085.M01.D18 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1824
+      },
+      {
+        "kind": "expense",
+        "amount": 30,
+        "source": "research",
+        "note": "Started Smartlink Mk I (2d).",
+        "balance_after": 1794
+      },
+      {
+        "kind": "income",
+        "amount": 80,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Day 18] success payout.",
+        "balance_after": 1874
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 18].",
+        "balance_after": 1854
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 18].",
+        "balance_after": 1834
+      },
+      {
+        "kind": "expense",
+        "amount": 16,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 18].",
+        "balance_after": 1818
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 18].",
+        "balance_after": 1806
+      },
+      {
+        "kind": "income",
+        "amount": 103,
+        "source": "daily_income",
+        "note": "2085.M01.D19 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 1909
+      },
+      {
+        "kind": "income",
+        "amount": 103,
+        "source": "daily_income",
+        "note": "2085.M01.D20 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2012
+      },
+      {
+        "kind": "income",
+        "amount": 103,
+        "source": "daily_income",
+        "note": "2085.M01.D21 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2115
+      },
+      {
+        "kind": "income",
+        "amount": 60,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness [Day 21] success payout.",
+        "balance_after": 2175
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 21].",
+        "balance_after": 2160
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 21].",
+        "balance_after": 2145
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 21].",
+        "balance_after": 2133
+      },
+      {
+        "kind": "expense",
+        "amount": 9,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Day 21].",
+        "balance_after": 2124
+      },
+      {
+        "kind": "income",
+        "amount": 103,
+        "source": "daily_income",
+        "note": "2085.M01.D22 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2227
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 4 corporate funding cycle.",
+        "balance_after": 2291
+      },
+      {
+        "kind": "expense",
+        "amount": 30,
+        "source": "research",
+        "note": "Started Echo Discipline (3d).",
+        "balance_after": 2261
+      },
+      {
+        "kind": "expense",
+        "amount": 55,
+        "source": "asset_acquire",
+        "note": "Purchased Mantis Light Armor",
+        "balance_after": 2206
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 2191
+      },
+      {
+        "kind": "income",
+        "amount": 100,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Day 22] success payout.",
+        "balance_after": 2291
+      },
+      {
+        "kind": "expense",
+        "amount": 25,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 22].",
+        "balance_after": 2266
+      },
+      {
+        "kind": "expense",
+        "amount": 25,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 22].",
+        "balance_after": 2241
+      },
+      {
+        "kind": "expense",
+        "amount": 20,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 22].",
+        "balance_after": 2221
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Day 22].",
+        "balance_after": 2206
+      },
+      {
+        "kind": "income",
+        "amount": 105,
+        "source": "daily_income",
+        "note": "2085.M01.D23 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2311
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D24 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2417
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D25 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2523
+      },
+      {
+        "kind": "expense",
+        "amount": 40,
+        "source": "research",
+        "note": "Started Servo Prayer Loop (4d).",
+        "balance_after": 2483
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D26 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2589
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D27 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2695
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D28 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2801
+      },
+      {
+        "kind": "income",
+        "amount": 106,
+        "source": "daily_income",
+        "note": "2085.M01.D29 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 2907
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 5 corporate funding cycle.",
+        "balance_after": 2971
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "event_choice",
+        "note": "Strategic event response.",
+        "balance_after": 2956
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M01.D30 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3063
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D01 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3170
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D02 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3277
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D03 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3384
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D04 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3491
+      },
+      {
+        "kind": "expense",
+        "amount": 45,
+        "source": "research",
+        "note": "Started Black Channel Logistics (4d).",
+        "balance_after": 3446
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 3431
+      },
+      {
+        "kind": "income",
+        "amount": 85,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Jour 34] success payout.",
+        "balance_after": 3516
+      },
+      {
+        "kind": "expense",
+        "amount": 21,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 34].",
+        "balance_after": 3495
+      },
+      {
+        "kind": "expense",
+        "amount": 21,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 34].",
+        "balance_after": 3474
+      },
+      {
+        "kind": "expense",
+        "amount": 17,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 34].",
+        "balance_after": 3457
+      },
+      {
+        "kind": "expense",
+        "amount": 12,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 34].",
+        "balance_after": 3445
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D05 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3552
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 3537
+      },
+      {
+        "kind": "income",
+        "amount": 95,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Jour 35] success payout.",
+        "balance_after": 3632
+      },
+      {
+        "kind": "expense",
+        "amount": 23,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 35].",
+        "balance_after": 3609
+      },
+      {
+        "kind": "expense",
+        "amount": 23,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 35].",
+        "balance_after": 3586
+      },
+      {
+        "kind": "expense",
+        "amount": 19,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 35].",
+        "balance_after": 3567
+      },
+      {
+        "kind": "expense",
+        "amount": 14,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 35].",
+        "balance_after": 3553
+      },
+      {
+        "kind": "income",
+        "amount": 107,
+        "source": "daily_income",
+        "note": "2085.M02.D06 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3660
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 6 corporate funding cycle.",
+        "balance_after": 3724
+      },
+      {
+        "kind": "expense",
+        "amount": 5,
+        "source": "recruitment",
+        "note": "Recruited agent.",
+        "balance_after": 3719
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 3704
+      },
+      {
+        "kind": "income",
+        "amount": 105,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Jour 36] success payout.",
+        "balance_after": 3809
+      },
+      {
+        "kind": "expense",
+        "amount": 26,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 36].",
+        "balance_after": 3783
+      },
+      {
+        "kind": "expense",
+        "amount": 26,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 36].",
+        "balance_after": 3757
+      },
+      {
+        "kind": "expense",
+        "amount": 21,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 36].",
+        "balance_after": 3736
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 36].",
+        "balance_after": 3721
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D07 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3829
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 3814
+      },
+      {
+        "kind": "income",
+        "amount": 90,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Jour 37] success payout.",
+        "balance_after": 3904
+      },
+      {
+        "kind": "expense",
+        "amount": 22,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 37].",
+        "balance_after": 3882
+      },
+      {
+        "kind": "expense",
+        "amount": 22,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 37].",
+        "balance_after": 3860
+      },
+      {
+        "kind": "expense",
+        "amount": 18,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 37].",
+        "balance_after": 3842
+      },
+      {
+        "kind": "expense",
+        "amount": 13,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Jour 37].",
+        "balance_after": 3829
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D08 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3937
+      },
+      {
+        "kind": "expense",
+        "amount": 55,
+        "source": "research",
+        "note": "Started Aegis Weave Shell (5d).",
+        "balance_after": 3882
+      },
+      {
+        "kind": "expense",
+        "amount": 65,
+        "source": "research",
+        "note": "Started Praetorian Frame Contract (6d).",
+        "balance_after": 3817
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D09 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 3925
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D10 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4033
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D11 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4141
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D12 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4249
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D13 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4357
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 7 corporate funding cycle.",
+        "balance_after": 4421
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D14 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4529
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D15 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4637
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D16 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4745
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D17 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4853
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D18 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 4961
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 4946
+      },
+      {
+        "kind": "income",
+        "amount": 70,
+        "source": "mission_reward",
+        "note": "Extraction: Neon Witness [Jour 48] success payout.",
+        "balance_after": 5016
+      },
+      {
+        "kind": "expense",
+        "amount": 17,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Jour 48].",
+        "balance_after": 4999
+      },
+      {
+        "kind": "expense",
+        "amount": 17,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Jour 48].",
+        "balance_after": 4982
+      },
+      {
+        "kind": "expense",
+        "amount": 14,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Jour 48].",
+        "balance_after": 4968
+      },
+      {
+        "kind": "expense",
+        "amount": 10,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Extraction: Neon Witness [Jour 48].",
+        "balance_after": 4958
+      },
+      {
+        "kind": "income",
+        "amount": 108,
+        "source": "daily_income",
+        "note": "2085.M02.D19 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5066
+      },
+      {
+        "kind": "expense",
+        "amount": 70,
+        "source": "research",
+        "note": "Started Ghost Convoy Doctrine (6d).",
+        "balance_after": 4996
+      },
+      {
+        "kind": "expense",
+        "amount": 80,
+        "source": "research",
+        "note": "Started Memorial Plating Grid (7d).",
+        "balance_after": 4916
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D20 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5027
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 8 corporate funding cycle.",
+        "balance_after": 5091
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D21 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5202
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D22 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5313
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D23 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5424
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D24 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5535
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D25 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5646
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D26 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5757
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D27 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 5868
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 9 corporate funding cycle.",
+        "balance_after": 5932
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D28 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6043
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D29 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6154
+      },
+      {
+        "kind": "income",
+        "amount": 111,
+        "source": "daily_income",
+        "note": "2085.M02.D30 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6265
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6250
+      },
+      {
+        "kind": "income",
+        "amount": 115,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Jour 60] success payout.",
+        "balance_after": 6365
+      },
+      {
+        "kind": "expense",
+        "amount": 28,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 60].",
+        "balance_after": 6337
+      },
+      {
+        "kind": "expense",
+        "amount": 28,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 60].",
+        "balance_after": 6309
+      },
+      {
+        "kind": "expense",
+        "amount": 23,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 60].",
+        "balance_after": 6286
+      },
+      {
+        "kind": "expense",
+        "amount": 17,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 60].",
+        "balance_after": 6269
+      },
+      {
+        "kind": "income",
+        "amount": 112,
+        "source": "daily_income",
+        "note": "2085.M03.D01 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6381
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6366
+      },
+      {
+        "kind": "income",
+        "amount": 110,
+        "source": "mission_reward",
+        "note": "Sabotage: Jackal Relay Burn [Jour 61] success payout.",
+        "balance_after": 6476
+      },
+      {
+        "kind": "expense",
+        "amount": 27,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6449
+      },
+      {
+        "kind": "expense",
+        "amount": 27,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6422
+      },
+      {
+        "kind": "expense",
+        "amount": 22,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6400
+      },
+      {
+        "kind": "expense",
+        "amount": 16,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Sabotage: Jackal Relay Burn [Jour 61].",
+        "balance_after": 6384
+      },
+      {
+        "kind": "income",
+        "amount": 114,
+        "source": "daily_income",
+        "note": "2085.M03.D02 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6498
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6483
+      },
+      {
+        "kind": "expense",
+        "amount": 31,
+        "source": "recruitment",
+        "note": "Recruited Null.",
+        "balance_after": 6452
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D03 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6570
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D04 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6688
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 10 corporate funding cycle.",
+        "balance_after": 6752
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D05 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6870
+      },
+      {
+        "kind": "expense",
+        "amount": 45,
+        "source": "research",
+        "note": "Started Choir Firebreak (4d).",
+        "balance_after": 6825
+      },
+      {
+        "kind": "expense",
+        "amount": 50,
+        "source": "research",
+        "note": "Started Corporate Rail Lattice (4d).",
+        "balance_after": 6775
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6760
+      },
+      {
+        "kind": "income",
+        "amount": 95,
+        "source": "mission_reward",
+        "note": "Data Theft: Ghost Order Cache [Day 65] success payout.",
+        "balance_after": 6855
+      },
+      {
+        "kind": "expense",
+        "amount": 23,
+        "source": "mission_agent_pay_morale",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 65].",
+        "balance_after": 6832
+      },
+      {
+        "kind": "expense",
+        "amount": 23,
+        "source": "mission_research",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 65].",
+        "balance_after": 6809
+      },
+      {
+        "kind": "expense",
+        "amount": 19,
+        "source": "mission_equipment",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 65].",
+        "balance_after": 6790
+      },
+      {
+        "kind": "expense",
+        "amount": 14,
+        "source": "mission_robot_power_armor_maintenance",
+        "note": "Post-mission allocation from Data Theft: Ghost Order Cache [Day 65].",
+        "balance_after": 6776
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D06 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6894
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6879
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 6864
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D07 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 6982
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D08 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7100
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D09 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7218
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D10 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7336
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "event_choice",
+        "note": "Strategic event response.",
+        "balance_after": 7321
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D11 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7439
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 11 corporate funding cycle.",
+        "balance_after": 7503
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D12 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7621
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D13 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7739
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D14 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7857
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D15 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 7975
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D16 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 8093
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D17 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 8211
+      },
+      {
+        "kind": "expense",
+        "amount": 15,
+        "source": "asset_deploy",
+        "note": "Asset deployment costs: \u00a515",
+        "balance_after": 8196
+      },
+      {
+        "kind": "income",
+        "amount": 2000,
+        "source": "mission_reward",
+        "note": "Combat: Infiltration : archives du clan [Day 77]",
+        "balance_after": 10196
+      },
+      {
+        "kind": "income",
+        "amount": 118,
+        "source": "daily_income",
+        "note": "2085.M03.D18 passive income for Pharmacorp \u00b7 Forward Base Kilo.",
+        "balance_after": 10314
+      },
+      {
+        "kind": "income",
+        "amount": 64,
+        "source": "weekly_corporate_funding",
+        "note": "Week 12 corporate funding cycle.",
+        "balance_after": 10378
+      }
+    ]
+  },
+  "corporation_finance": {
+    "weekly_stipend": 75,
+    "city_support_modifier": 0.1,
+    "political_pressure_modifier": -0.05,
+    "debt_upkeep": 15
+  },
+  "corp_budget": {
+    "research": 30,
+    "security": 70,
+    "politics": 10,
+    "black_ops": 70
+  },
+  "city_budget": {
+    "armaments": 20,
+    "garrisons": 50,
+    "defense_zones": 20
+  },
+  "strategic_resources": {
+    "credits": 545,
+    "intel": 0,
+    "salvage": 4,
+    "influence": 0
+  },
+  "mission_fund_allocations": {
+    "agent_pay_morale": 352,
+    "research": 352,
+    "equipment": 286,
+    "robot_power_armor_maintenance": 209,
+    "corporate_reserves": 231
+  },
+  "characters": [
+    {
+      "name": "Rook",
+      "role": "samurai",
+      "stats": {
+        "level": 5,
+        "defense": 6,
+        "psi": 1,
+        "str": 11,
+        "agi": 10,
+        "con": 6,
+        "cha": 1,
+        "hp": 56,
+        "max_hp": 56,
+        "xp": 870
+      },
+      "pending_points": 0,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 56,
+      "stress": 0,
+      "trauma": [
+        "Haunted by Faction Retaliation",
+        "Haunted by Media Leak",
+        "Haunted by Civilian Panic"
+      ],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {
+        "Agent 2": {
+          "agent_id": "Agent 2",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 3": {
+          "agent_id": "Agent 3",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 4": {
+          "agent_id": "Agent 4",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Mantis": {
+          "agent_id": "Mantis",
+          "bond_level": 1,
+          "strategic_day": 0
+        },
+        "Longshot": {
+          "agent_id": "Longshot",
+          "bond_level": 12,
+          "strategic_day": 1
+        },
+        "Oracle": {
+          "agent_id": "Oracle",
+          "bond_level": 10,
+          "strategic_day": 1
+        },
+        "Katana": {
+          "agent_id": "Katana",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Null": {
+          "agent_id": "Null",
+          "bond_level": 3,
+          "strategic_day": 1
+        }
+      },
+      "history": [
+        "Extraction: Neon Witness: victory, stress +10",
+        "Extraction: Neon Witness: victory, stress +6",
+        "Sabotage: Jackal Relay Burn [Day 3]: victory, stress +16",
+        "Data Theft: Ghost Order Cache [Day 4]: victory, stress +20",
+        "Extraction: Neon Witness [Day 15]: victory, stress +10",
+        "Extraction: Neon Witness [Day 15]: victory, stress +6",
+        "Data Theft: Ghost Order Cache [Day 17]: victory, stress +20",
+        "Data Theft: Ghost Order Cache [Day 18]: victory, stress +18",
+        "Extraction: Neon Witness [Day 21]: victory, stress +14",
+        "Sabotage: Jackal Relay Burn [Day 22]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 34]: victory, stress +12",
+        "Sabotage: Jackal Relay Burn [Jour 35]: victory, stress +1",
+        "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
+        "Extraction: Neon Witness [Jour 48]: victory, stress +13",
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36",
+        "Sabotage: Jackal Relay Burn [Jour 61]: victory, stress +3",
+        "Data Theft: Ghost Order Cache [Day 65]: victory, stress +12"
+      ],
+      "savage_tags": [
+        "media_leak",
+        "faction_retaliation",
+        "civilian_panic"
+      ],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": {
+          "type": "Weapon",
+          "id": "plasma_carbine",
+          "name": "Plasma Carbine",
+          "slot": "primary_weapon",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "plasma",
+            "rifle"
+          ],
+          "description": "Superheated plasma bolts \u2014 high penetration.",
+          "allowed_slots": [
+            "primary_weapon"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 2,
+          "range_cells": 6,
+          "action_name": "Plasma Burst"
+        },
+        "sidearm": {
+          "type": "Weapon",
+          "id": "shock_pistol",
+          "name": "Shock Pistol",
+          "slot": "sidearm",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "pistol"
+          ],
+          "description": "Compact backup weapon.",
+          "allowed_slots": [
+            "sidearm"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 0,
+          "range_cells": 5,
+          "action_name": "Pistol Shot"
+        },
+        "armor": {
+          "type": "Armor",
+          "id": "kevlar_longcoat",
+          "name": "Kevlar Longcoat",
+          "slot": "armor",
+          "stat_bonuses": {
+            "max_hp": 2
+          },
+          "tags": [
+            "coat"
+          ],
+          "description": "Armored street coat with hidden plates.",
+          "allowed_slots": [
+            "armor"
+          ],
+          "mitigation": 1
+        },
+        "utility_item": {
+          "type": "EquipmentItem",
+          "id": "trauma_patch",
+          "name": "Trauma Patch",
+          "slot": "utility_item",
+          "stat_bonuses": {
+            "hp": 1
+          },
+          "tags": [
+            "medical"
+          ],
+          "description": "Emergency stabilizer carried into the zone.",
+          "allowed_slots": [
+            "utility_item"
+          ]
+        },
+        "psi_focus": null,
+        "special_gear": {
+          "type": "EquipmentItem",
+          "id": "ghost_cloak",
+          "name": "Ghost Cloak",
+          "slot": "special_gear",
+          "stat_bonuses": {
+            "defense": 1
+          },
+          "tags": [
+            "stealth"
+          ],
+          "description": "Corporate prototype optical smear.",
+          "allowed_slots": [
+            "special_gear"
+          ]
+        }
+      },
+      "personality_primary_trait": "steadfast",
+      "personality_secondary_trait": "",
+      "sex": "",
+      "attributes": {
+        "level": 4,
+        "str": 10,
+        "agi": 7,
+        "con": 5,
+        "cha": 1,
+        "psi": 1,
+        "defense": 6
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 11,
+        "defense": 6,
+        "crit": 3,
+        "initiative": 8,
+        "stress_cap": 16,
+        "recovery_rate": 3,
+        "resolve": 2
+      }
+    },
+    {
+      "name": "Longshot",
+      "role": "sniper",
+      "stats": {
+        "level": 5,
+        "defense": 5,
+        "psi": 5,
+        "str": 5,
+        "agi": 14,
+        "con": 5,
+        "cha": 1,
+        "hp": 55,
+        "max_hp": 55,
+        "xp": 750
+      },
+      "pending_points": 0,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 36,
+      "stress": 16,
+      "trauma": [
+        "Haunted by Faction Retaliation",
+        "Haunted by Media Leak",
+        "Haunted by Civilian Panic"
+      ],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {
+        "Agent 1": {
+          "agent_id": "Agent 1",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 3": {
+          "agent_id": "Agent 3",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 4": {
+          "agent_id": "Agent 4",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Mantis": {
+          "agent_id": "Mantis",
+          "bond_level": 1,
+          "strategic_day": 0
+        },
+        "Rook": {
+          "agent_id": "Rook",
+          "bond_level": 12,
+          "strategic_day": 1
+        },
+        "Oracle": {
+          "agent_id": "Oracle",
+          "bond_level": 10,
+          "strategic_day": 1
+        },
+        "Katana": {
+          "agent_id": "Katana",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Null": {
+          "agent_id": "Null",
+          "bond_level": 3,
+          "strategic_day": 1
+        }
+      },
+      "history": [
+        "Extraction: Neon Witness: victory, stress +10",
+        "Extraction: Neon Witness: victory, stress +6",
+        "Sabotage: Jackal Relay Burn [Day 3]: victory, stress +16",
+        "Data Theft: Ghost Order Cache [Day 4]: victory, stress +20",
+        "Extraction: Neon Witness [Day 15]: victory, stress +10",
+        "Extraction: Neon Witness [Day 15]: victory, stress +6",
+        "Data Theft: Ghost Order Cache [Day 17]: victory, stress +20",
+        "Data Theft: Ghost Order Cache [Day 18]: victory, stress +18",
+        "Extraction: Neon Witness [Day 21]: victory, stress +14",
+        "Sabotage: Jackal Relay Burn [Day 22]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 34]: victory, stress +12",
+        "Sabotage: Jackal Relay Burn [Jour 35]: victory, stress +1",
+        "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
+        "Extraction: Neon Witness [Jour 48]: victory, stress +13",
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +36",
+        "Sabotage: Jackal Relay Burn [Jour 61]: victory, stress +3",
+        "Data Theft: Ghost Order Cache [Day 65]: victory, stress +12"
+      ],
+      "savage_tags": [
+        "media_leak",
+        "faction_retaliation",
+        "civilian_panic"
+      ],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": {
+          "type": "Weapon",
+          "id": "pulse_rifle",
+          "name": "Pulse Rifle",
+          "slot": "primary_weapon",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "rifle"
+          ],
+          "description": "Reliable mid-range corp rifle.",
+          "allowed_slots": [
+            "primary_weapon"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 1,
+          "range_cells": 8,
+          "action_name": "Rifle Burst"
+        },
+        "sidearm": {
+          "type": "Weapon",
+          "id": "shock_pistol",
+          "name": "Shock Pistol",
+          "slot": "sidearm",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "pistol"
+          ],
+          "description": "Compact backup weapon.",
+          "allowed_slots": [
+            "sidearm"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 0,
+          "range_cells": 5,
+          "action_name": "Pistol Shot"
+        },
+        "armor": {
+          "type": "Armor",
+          "id": "kevlar_longcoat",
+          "name": "Kevlar Longcoat",
+          "slot": "armor",
+          "stat_bonuses": {
+            "max_hp": 2
+          },
+          "tags": [
+            "coat"
+          ],
+          "description": "Armored street coat with hidden plates.",
+          "allowed_slots": [
+            "armor"
+          ],
+          "mitigation": 1
+        },
+        "utility_item": {
+          "type": "EquipmentItem",
+          "id": "trauma_patch",
+          "name": "Trauma Patch",
+          "slot": "utility_item",
+          "stat_bonuses": {
+            "hp": 1
+          },
+          "tags": [
+            "medical"
+          ],
+          "description": "Emergency stabilizer carried into the zone.",
+          "allowed_slots": [
+            "utility_item"
+          ]
+        },
+        "psi_focus": null,
+        "special_gear": {
+          "type": "EquipmentItem",
+          "id": "ghost_cloak",
+          "name": "Ghost Cloak",
+          "slot": "special_gear",
+          "stat_bonuses": {
+            "defense": 1
+          },
+          "tags": [
+            "stealth"
+          ],
+          "description": "Corporate prototype optical smear.",
+          "allowed_slots": [
+            "special_gear"
+          ]
+        }
+      },
+      "personality_primary_trait": "cunning",
+      "personality_secondary_trait": "empathetic",
+      "sex": "",
+      "attributes": {
+        "level": 4,
+        "str": 5,
+        "agi": 12,
+        "con": 4,
+        "cha": 1,
+        "psi": 4,
+        "defense": 4
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 16,
+        "defense": 4,
+        "crit": 6,
+        "initiative": 13,
+        "stress_cap": 15,
+        "recovery_rate": 3,
+        "resolve": 5
+      }
+    },
+    {
+      "name": "Oracle",
+      "role": "psi",
+      "stats": {
+        "level": 5,
+        "defense": 1,
+        "psi": 22,
+        "str": 5,
+        "agi": 2,
+        "con": 3,
+        "cha": 1,
+        "hp": 53,
+        "max_hp": 53,
+        "xp": 400
+      },
+      "pending_points": 0,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 46,
+      "stress": 16,
+      "trauma": [
+        "Haunted by Faction Retaliation",
+        "Haunted by Media Leak",
+        "Haunted by Civilian Panic"
+      ],
+      "injuries": [
+        "Critical battle trauma"
+      ],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {
+        "Agent 1": {
+          "agent_id": "Agent 1",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 2": {
+          "agent_id": "Agent 2",
+          "bond_level": 25,
+          "strategic_day": 1
+        },
+        "Agent 4": {
+          "agent_id": "Agent 4",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Mantis": {
+          "agent_id": "Mantis",
+          "bond_level": 1,
+          "strategic_day": 0
+        },
+        "Rook": {
+          "agent_id": "Rook",
+          "bond_level": 10,
+          "strategic_day": 1
+        },
+        "Longshot": {
+          "agent_id": "Longshot",
+          "bond_level": 10,
+          "strategic_day": 1
+        },
+        "Katana": {
+          "agent_id": "Katana",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Null": {
+          "agent_id": "Null",
+          "bond_level": 3,
+          "strategic_day": 1
+        }
+      },
+      "history": [
+        "Extraction: Neon Witness: victory, stress +10",
+        "Extraction: Neon Witness: victory, stress +6",
+        "Sabotage: Jackal Relay Burn [Day 3]: victory, stress +16",
+        "Data Theft: Ghost Order Cache [Day 4]: victory, stress +20",
+        "Extraction: Neon Witness [Day 15]: victory, stress +10",
+        "Extraction: Neon Witness [Day 15]: victory, stress +6",
+        "Data Theft: Ghost Order Cache [Day 17]: victory, stress +20",
+        "Data Theft: Ghost Order Cache [Day 18]: victory, stress +18",
+        "Extraction: Neon Witness [Day 21]: victory, stress +14",
+        "Sabotage: Jackal Relay Burn [Day 22]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 34]: victory, stress +12",
+        "Sabotage: Jackal Relay Burn [Jour 35]: victory, stress +1",
+        "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +1",
+        "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1",
+        "Extraction: Neon Witness [Jour 48]: victory, stress +12",
+        "Sabotage: Jackal Relay Burn [Jour 60]: victory, stress +24",
+        "Evacuated with critical injuries after being downed in battle. Recovery required: 2 turns.",
+        "Narrative scar gained: Nights of Sirens.",
+        "Narrative scar faded: Nights of Sirens.",
+        "Data Theft: Ghost Order Cache [Day 65]: victory, stress +9"
+      ],
+      "savage_tags": [
+        "media_leak",
+        "faction_retaliation",
+        "civilian_panic"
+      ],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": {
+          "type": "Weapon",
+          "id": "pulse_rifle",
+          "name": "Pulse Rifle",
+          "slot": "primary_weapon",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "rifle"
+          ],
+          "description": "Reliable mid-range corp rifle.",
+          "allowed_slots": [
+            "primary_weapon"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 1,
+          "range_cells": 8,
+          "action_name": "Rifle Burst"
+        },
+        "sidearm": {
+          "type": "Weapon",
+          "id": "shock_pistol",
+          "name": "Shock Pistol",
+          "slot": "sidearm",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "pistol"
+          ],
+          "description": "Compact backup weapon.",
+          "allowed_slots": [
+            "sidearm"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 0,
+          "range_cells": 5,
+          "action_name": "Pistol Shot"
+        },
+        "armor": {
+          "type": "Armor",
+          "id": "kevlar_longcoat",
+          "name": "Kevlar Longcoat",
+          "slot": "armor",
+          "stat_bonuses": {
+            "max_hp": 2
+          },
+          "tags": [
+            "coat"
+          ],
+          "description": "Armored street coat with hidden plates.",
+          "allowed_slots": [
+            "armor"
+          ],
+          "mitigation": 1
+        },
+        "utility_item": {
+          "type": "EquipmentItem",
+          "id": "trauma_patch",
+          "name": "Trauma Patch",
+          "slot": "utility_item",
+          "stat_bonuses": {
+            "hp": 1
+          },
+          "tags": [
+            "medical"
+          ],
+          "description": "Emergency stabilizer carried into the zone.",
+          "allowed_slots": [
+            "utility_item"
+          ]
+        },
+        "psi_focus": {
+          "type": "EquipmentItem",
+          "id": "echo_implant",
+          "name": "Echo Implant",
+          "slot": "psi_focus",
+          "stat_bonuses": {
+            "psi": 2
+          },
+          "tags": [
+            "implant",
+            "psi"
+          ],
+          "description": "Whispering wetware focus for psi agents.",
+          "allowed_slots": [
+            "psi_focus"
+          ]
+        },
+        "special_gear": {
+          "type": "EquipmentItem",
+          "id": "ghost_cloak",
+          "name": "Ghost Cloak",
+          "slot": "special_gear",
+          "stat_bonuses": {
+            "defense": 1
+          },
+          "tags": [
+            "stealth"
+          ],
+          "description": "Corporate prototype optical smear.",
+          "allowed_slots": [
+            "special_gear"
+          ]
+        }
+      },
+      "personality_primary_trait": "cunning",
+      "personality_secondary_trait": "steadfast",
+      "sex": "",
+      "attributes": {
+        "level": 4,
+        "str": 5,
+        "agi": 1,
+        "con": 2,
+        "cha": 1,
+        "psi": 20,
+        "defense": 1
+      },
+      "skills": {
+        "firearms": 2,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 41,
+        "aim": 5,
+        "defense": 1,
+        "crit": 0,
+        "initiative": 2,
+        "stress_cap": 13,
+        "recovery_rate": 2,
+        "resolve": 21
+      }
+    },
+    {
+      "name": "Katana",
+      "role": "samurai",
+      "stats": {
+        "level": 4,
+        "defense": 2,
+        "psi": 1,
+        "str": 14,
+        "agi": 4,
+        "con": 3,
+        "cha": 1,
+        "hp": 37,
+        "max_hp": 43,
+        "xp": 570
+      },
+      "pending_points": 0,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 56,
+      "stress": 0,
+      "trauma": [
+        "Haunted by Faction Retaliation",
+        "Haunted by Media Leak",
+        "Haunted by Civilian Panic"
+      ],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {
+        "Agent 1": {
+          "agent_id": "Agent 1",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Agent 2": {
+          "agent_id": "Agent 2",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Agent 3": {
+          "agent_id": "Agent 3",
+          "bond_level": 19,
+          "strategic_day": 1
+        },
+        "Mantis": {
+          "agent_id": "Mantis",
+          "bond_level": 1,
+          "strategic_day": 0
+        },
+        "Rook": {
+          "agent_id": "Rook",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Longshot": {
+          "agent_id": "Longshot",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Oracle": {
+          "agent_id": "Oracle",
+          "bond_level": 4,
+          "strategic_day": 1
+        },
+        "Null": {
+          "agent_id": "Null",
+          "bond_level": 1,
+          "strategic_day": 0
+        }
+      },
+      "history": [
+        "Extraction: Neon Witness: victory, stress +10",
+        "Extraction: Neon Witness: victory, stress +6",
+        "Sabotage: Jackal Relay Burn [Day 3]: victory, stress +16",
+        "Extraction: Neon Witness [Day 15]: victory, stress +10",
+        "Extraction: Neon Witness [Day 15]: victory, stress +6",
+        "Data Theft: Ghost Order Cache [Day 17]: victory, stress +20",
+        "Data Theft: Ghost Order Cache [Day 18]: victory, stress +18",
+        "Extraction: Neon Witness [Day 21]: victory, stress +18",
+        "Sabotage: Jackal Relay Burn [Day 22]: victory, stress +17",
+        "Sabotage: Jackal Relay Burn [Jour 36]: victory, stress +14",
+        "Data Theft: Ghost Order Cache [Jour 37]: victory, stress +1"
+      ],
+      "savage_tags": [
+        "media_leak",
+        "faction_retaliation",
+        "civilian_panic"
+      ],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": {
+          "type": "Weapon",
+          "id": "katana",
+          "name": "Katana",
+          "slot": "primary_weapon",
+          "stat_bonuses": {
+            "str": 2
+          },
+          "tags": [
+            "blade",
+            "melee"
+          ],
+          "description": "Traditional blade reforged with nano-edge tech.",
+          "allowed_slots": [
+            "primary_weapon"
+          ],
+          "attack_stat": "str",
+          "damage_bonus": 2,
+          "range_cells": 1,
+          "action_name": "Katana Slash"
+        },
+        "sidearm": {
+          "type": "Weapon",
+          "id": "shock_pistol",
+          "name": "Shock Pistol",
+          "slot": "sidearm",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "pistol"
+          ],
+          "description": "Compact backup weapon.",
+          "allowed_slots": [
+            "sidearm"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 0,
+          "range_cells": 5,
+          "action_name": "Pistol Shot"
+        },
+        "armor": {
+          "type": "Armor",
+          "id": "kevlar_longcoat",
+          "name": "Kevlar Longcoat",
+          "slot": "armor",
+          "stat_bonuses": {
+            "max_hp": 2
+          },
+          "tags": [
+            "coat"
+          ],
+          "description": "Armored street coat with hidden plates.",
+          "allowed_slots": [
+            "armor"
+          ],
+          "mitigation": 1
+        },
+        "utility_item": {
+          "type": "EquipmentItem",
+          "id": "trauma_patch",
+          "name": "Trauma Patch",
+          "slot": "utility_item",
+          "stat_bonuses": {
+            "hp": 1
+          },
+          "tags": [
+            "medical"
+          ],
+          "description": "Emergency stabilizer carried into the zone.",
+          "allowed_slots": [
+            "utility_item"
+          ]
+        },
+        "psi_focus": null,
+        "special_gear": {
+          "type": "EquipmentItem",
+          "id": "ghost_cloak",
+          "name": "Ghost Cloak",
+          "slot": "special_gear",
+          "stat_bonuses": {
+            "defense": 1
+          },
+          "tags": [
+            "stealth"
+          ],
+          "description": "Corporate prototype optical smear.",
+          "allowed_slots": [
+            "special_gear"
+          ]
+        }
+      },
+      "personality_primary_trait": "empathetic",
+      "personality_secondary_trait": "reckless",
+      "sex": "",
+      "attributes": {
+        "level": 4,
+        "str": 14,
+        "agi": 4,
+        "con": 3,
+        "cha": 1,
+        "psi": 1,
+        "defense": 2
+      },
+      "skills": {
+        "firearms": 10,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 0,
+        "influence": 0,
+        "stealth": 0,
+        "composure": 0,
+        "psychokinesis": 0,
+        "pyrokinesis": 0,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 37,
+        "aim": 8,
+        "defense": 2,
+        "crit": 2,
+        "initiative": 5,
+        "stress_cap": 14,
+        "recovery_rate": 2,
+        "resolve": 2
+      }
+    },
+    {
+      "name": "Null",
+      "role": "psi",
+      "stats": {
+        "level": 3,
+        "defense": 4,
+        "psi": 4,
+        "str": 5,
+        "agi": 4,
+        "con": 6,
+        "cha": 3,
+        "hp": 36,
+        "max_hp": 36,
+        "xp": 420
+      },
+      "pending_points": 0,
+      "talent_points": 1,
+      "specializations": [],
+      "traits": [
+        "grounded",
+        "disciplined",
+        "vulnerable"
+      ],
+      "addictions": [],
+      "fears": [],
+      "ambition": "",
+      "loyalty": 54,
+      "stress": 0,
+      "trauma": [
+        "Haunted by Media Leak"
+      ],
+      "injuries": [],
+      "nickname": "",
+      "reputation": [],
+      "relationships": {},
+      "mentor_links": {
+        "Rook": {
+          "agent_id": "Rook",
+          "bond_level": 3,
+          "strategic_day": 1
+        },
+        "Longshot": {
+          "agent_id": "Longshot",
+          "bond_level": 3,
+          "strategic_day": 1
+        },
+        "Oracle": {
+          "agent_id": "Oracle",
+          "bond_level": 3,
+          "strategic_day": 1
+        },
+        "Katana": {
+          "agent_id": "Katana",
+          "bond_level": 1,
+          "strategic_day": 0
+        }
+      },
+      "history": [
+        "Data Theft: Ghost Order Cache [Day 65]: victory, stress +30"
+      ],
+      "savage_tags": [
+        "media_leak"
+      ],
+      "temporary_scars": [],
+      "recovery_turns": 0,
+      "starver_infection_days": null,
+      "starver_transformed": false,
+      "loadout": {
+        "primary_weapon": {
+          "type": "Weapon",
+          "id": "monoblade",
+          "name": "Monoblade",
+          "slot": "primary_weapon",
+          "stat_bonuses": {
+            "str": 1
+          },
+          "tags": [
+            "blade"
+          ],
+          "description": "Memory-edge blade that never dulls.",
+          "allowed_slots": [
+            "primary_weapon"
+          ],
+          "attack_stat": "str",
+          "damage_bonus": 1,
+          "range_cells": 1,
+          "action_name": "Blade Strike"
+        },
+        "sidearm": {
+          "type": "Weapon",
+          "id": "shock_pistol",
+          "name": "Shock Pistol",
+          "slot": "sidearm",
+          "stat_bonuses": {
+            "agi": 1
+          },
+          "tags": [
+            "pistol"
+          ],
+          "description": "Compact backup weapon with stun charge.",
+          "allowed_slots": [
+            "sidearm"
+          ],
+          "attack_stat": "agi",
+          "damage_bonus": 0,
+          "range_cells": 5,
+          "action_name": "Pistol Shot"
+        },
+        "armor": {
+          "type": "Armor",
+          "id": "combat_vest",
+          "name": "Combat Vest",
+          "slot": "armor",
+          "stat_bonuses": {
+            "max_hp": 1,
+            "defense": 1
+          },
+          "tags": [
+            "vest"
+          ],
+          "description": "Tactical vest with ceramic trauma plates.",
+          "allowed_slots": [
+            "armor"
+          ],
+          "mitigation": 2
+        },
+        "utility_item": {
+          "type": "EquipmentItem",
+          "id": "trauma_patch",
+          "name": "Trauma Patch",
+          "slot": "utility_item",
+          "stat_bonuses": {
+            "hp": 1
+          },
+          "tags": [
+            "medical"
+          ],
+          "description": "Emergency stabilizer \u2014 staunches wounds in the field.",
+          "allowed_slots": [
+            "utility_item"
+          ]
+        },
+        "psi_focus": {
+          "type": "EquipmentItem",
+          "id": "psi_amplifier",
+          "name": "Psi Amplifier Crown",
+          "slot": "psi_focus",
+          "stat_bonuses": {
+            "psi": 3,
+            "str": 1
+          },
+          "tags": [
+            "crown",
+            "psi"
+          ],
+          "description": "Titanium crown array \u2014 dramatically boosts psi power.",
+          "allowed_slots": [
+            "psi_focus"
+          ]
+        },
+        "special_gear": null
+      },
+      "personality_primary_trait": "cunning",
+      "personality_secondary_trait": "",
+      "sex": "female",
+      "attributes": {
+        "level": 3,
+        "str": 5,
+        "agi": 4,
+        "con": 6,
+        "cha": 3,
+        "psi": 4,
+        "defense": 4
+      },
+      "skills": {
+        "firearms": 0,
+        "close_combat": 0,
+        "tactics": 0,
+        "tech": 0,
+        "medicine": 1,
+        "influence": 4,
+        "stealth": 1,
+        "composure": 4,
+        "psychokinesis": 2,
+        "pyrokinesis": 1,
+        "cryokinesis": 0,
+        "telepathy": 0
+      },
+      "derived_stats": {
+        "hp": 36,
+        "aim": 7,
+        "defense": 4,
+        "crit": 2,
+        "initiative": 7,
+        "stress_cap": 19,
+        "recovery_rate": 4,
+        "resolve": 7
+      }
+    }
+  ],
+  "x": 3750,
+  "corp_name": "Pharmacorp",
+  "city_name": "Neo-Chrome City",
+  "base_name": "Pharmacorp \u00b7 Forward Base Kilo",
+  "district": {
+    "name": "Chrome Warrens",
+    "stability": 56,
+    "control_faction": "Aegis Dynamics",
+    "unrest": 100,
+    "media_heat": 86,
+    "tags": [
+      {
+        "name": "neon_blackout",
+        "description": "Rolling power outages make every alley a blind spot.",
+        "intensity": 2,
+        "source": "district",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "gang_pressure",
+        "description": "Street crews are testing who really owns the district.",
+        "intensity": 1,
+        "source": "faction",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "civilian_panic",
+        "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+        "intensity": 2,
+        "source": "complication",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "media_leak",
+        "description": "Leaked footage turns tactical choices into public evidence.",
+        "intensity": 2,
+        "source": "complication",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "faction_retaliation",
+        "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+        "intensity": 3,
+        "source": "complication",
+        "expires_after_turns": null,
+        "metadata": {}
+      },
+      {
+        "name": "ghost_signal",
+        "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+        "intensity": 3,
+        "source": "operation",
+        "expires_after_turns": null,
+        "metadata": {}
+      }
+    ]
+  },
+  "factions": [
+    {
+      "name": "Aegis Dynamics",
+      "influence": 48,
+      "hostility_to_player": 54,
+      "public_legitimacy": 54,
+      "active_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "faction_retaliation",
+          "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+          "intensity": 3,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_leak",
+          "description": "Leaked footage turns tactical choices into public evidence.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "category": "local",
+      "revealed": true
+    },
+    {
+      "name": "Warrens Free Clinic",
+      "influence": 34,
+      "hostility_to_player": 0,
+      "public_legitimacy": 81,
+      "active_tags": [
+        {
+          "name": "civilian_panic",
+          "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "category": "local",
+      "revealed": true
+    },
+    {
+      "name": "Chrome Jackals",
+      "influence": 19,
+      "hostility_to_player": 100,
+      "public_legitimacy": 19,
+      "active_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_leak",
+          "description": "Leaked footage turns tactical choices into public evidence.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "faction_retaliation",
+          "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+          "intensity": 3,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "civilian_panic",
+          "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "category": "local",
+      "revealed": true
+    }
+  ],
+  "active_operations": [
+    {
+      "type": "hearts_and_minds",
+      "target_faction": "Warrens Free Clinic",
+      "district": "Chrome Warrens",
+      "risk": 2,
+      "objective": "Escort medtechs through blackout alleys and win visible trust.",
+      "complications": [
+        "Power failures hide ambush routes",
+        "Cameras may frame the team as occupiers"
+      ],
+      "outcome_tags": [
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "counter_gang_raid",
+      "target_faction": "Chrome Jackals",
+      "district": "Chrome Warrens",
+      "risk": 4,
+      "objective": "Break a Jackal weapons handoff before it floods the Warrens.",
+      "complications": [
+        "Civilian lookouts protect the drop",
+        "The Jackals wired the crates to burn evidence"
+      ],
+      "outcome_tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "type": "signal_trace",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "risk": 3,
+      "objective": "Trace a spoofed corporate order without triggering Aegis auditors.",
+      "complications": [
+        "Ghost packets mimic friendly command",
+        "A media drone is already on scene"
+      ],
+      "outcome_tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "mission_templates": [
+    {
+      "id": "samurai_archive_d78_s0",
+      "title": "Infiltration : archives du clan [Day 78]",
+      "objective_text": "Pirater le terminal d'archives du clan samoura\u00ef et r\u00e9cup\u00e9rer les ordres de surveillance.",
+      "target_faction": "Samurai Consortium",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 11,
+      "enemy_theme": "corp_samurai",
+      "objective_type": "data_theft",
+      "battle_environment": "city",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Samurai Consortium",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Infiltration : archives du clan : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Samurai Consortium",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Infiltration : archives du clan : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 11,
+      "fund_reward": 200,
+      "duration_days": 1,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 11/5, duration 1d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "mutant_signal_d78_s3",
+      "title": "Reconnaissance : signal irradi\u00e9 [Day 78]",
+      "objective_text": "Relever les donn\u00e9es de la balise perdue dans le bassin irradi\u00e9 occup\u00e9 par les mutants.",
+      "target_faction": "Mutant Clans",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 10,
+      "enemy_theme": "mutant",
+      "objective_type": "recon_scan",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Reconnaissance : signal irradi\u00e9 : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Mutant Clans",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Reconnaissance : signal irradi\u00e9 : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 10,
+      "fund_reward": 175,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 10/5, duration 2d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "data_theft_d78_s2",
+      "title": "Data Theft: Ghost Order Cache [Day 78]",
+      "objective_text": "Steal the spoofed Aegis order cache without letting corporate counterintel trace the breach.",
+      "target_faction": "Aegis Dynamics",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "media_heat": 4,
+        "stability": -1
+      },
+      "starting_enemy_count": 8,
+      "enemy_theme": "corp_37",
+      "objective_type": "data_with_detour",
+      "battle_environment": "city",
+      "possible_complications": [
+        {
+          "key": "media_leak",
+          "name": "Media Leak",
+          "trigger_text": "A pirate news relay leaks the team's route before extraction.",
+          "risk_threshold": 2,
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 2,
+            "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+            "mechanical_effects": {
+              "media_heat": 8,
+              "stability": -2
+            },
+            "tags": [
+              {
+                "name": "media_leak",
+                "description": "Leaked footage turns tactical choices into public evidence.",
+                "intensity": 2,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        },
+        {
+          "key": "faction_retaliation",
+          "name": "Faction Retaliation",
+          "trigger_text": "The target faction marks the squad and calls in retaliation crews.",
+          "risk_threshold": 4,
+          "tags": [
+            {
+              "name": "faction_retaliation",
+              "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+              "intensity": 3,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": "Chrome Warrens",
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 3,
+            "narrative_text": "Faction retaliation: the target faction answers with reprisals and fresh threats.",
+            "mechanical_effects": {
+              "faction_hostility": 9,
+              "unrest": 4
+            },
+            "tags": [
+              {
+                "name": "faction_retaliation",
+                "description": "A wounded faction answers with reprisal crews and pressure campaigns.",
+                "intensity": 3,
+                "source": "complication",
+                "expires_after_turns": null,
+                "metadata": {}
+              }
+            ]
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
+          "mechanical_effects": {
+            "media_heat": -3,
+            "stability": 4,
+            "faction_influence": -4
+          },
+          "tags": [
+            {
+              "name": "ghost_signal",
+              "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+              "intensity": 3,
+              "source": "operation",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Aegis Dynamics",
+          "affected_agent": null,
+          "severity": 3,
+          "narrative_text": "Data theft failure: Aegis counterintel frames the squad as rogue assets.",
+          "mechanical_effects": {
+            "media_heat": 9,
+            "faction_hostility": 7,
+            "stability": -4
+          },
+          "tags": [
+            {
+              "name": "media_leak",
+              "description": "Leaked footage turns tactical choices into public evidence.",
+              "intensity": 2,
+              "source": "complication",
+              "expires_after_turns": null,
+              "metadata": {}
+            }
+          ]
+        }
+      ],
+      "risk_level": 9,
+      "fund_reward": 105,
+      "duration_days": 1,
+      "tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        },
+        {
+          "name": "media_swarm",
+          "description": "Pirate feeds and corporate journalists are hunting for a scandal.",
+          "intensity": 2,
+          "source": "media",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 9/5, duration 1d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": [
+          "ghost_signal",
+          "media_swarm"
+        ]
+      }
+    },
+    {
+      "id": "shelter_hostages_d78_s1",
+      "title": "Sauvetage : abri assi\u00e9g\u00e9 [Day 78]",
+      "objective_text": "Lib\u00e9rer les survivants enferm\u00e9s dans un abri des terres d\u00e9sol\u00e9es et s\u00e9curiser leur sortie.",
+      "target_faction": "Wasteland Raiders",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 3,
+        "media_heat": 1
+      },
+      "starting_enemy_count": 8,
+      "enemy_theme": "raider",
+      "objective_type": "civilian_rescue",
+      "battle_environment": "wasteland",
+      "possible_complications": [
+        {
+          "key": "mod_rapid_response",
+          "name": "Rapid Response",
+          "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        },
+        {
+          "key": "mod_counterintel_ping",
+          "name": "Counterintel Ping",
+          "trigger_text": "Corporate counterintel flags the operation in real time.",
+          "risk_threshold": 3,
+          "tags": [],
+          "relation_impact": "low",
+          "consequence": {
+            "affected_district": null,
+            "affected_faction": null,
+            "affected_agent": null,
+            "severity": 1,
+            "narrative_text": "",
+            "mechanical_effects": {},
+            "tags": []
+          }
+        }
+      ],
+      "success_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Wasteland Raiders",
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "Sauvetage : abri assi\u00e9g\u00e9 : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+          "mechanical_effects": {
+            "stability": 3,
+            "unrest": -3
+          },
+          "tags": []
+        }
+      ],
+      "failure_consequences": [
+        {
+          "affected_district": "Chrome Warrens",
+          "affected_faction": "Wasteland Raiders",
+          "affected_agent": null,
+          "severity": 2,
+          "narrative_text": "Sauvetage : abri assi\u00e9g\u00e9 : l'\u00e9chec renforce la pression sur les habitants.",
+          "mechanical_effects": {
+            "unrest": 4,
+            "media_heat": 2
+          },
+          "tags": []
+        }
+      ],
+      "risk_level": 7,
+      "fund_reward": 140,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Risk of lasting emotional scars for the squad.",
+        "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+        "risk_explanation": "Risk 7/5, duration 2d, 2 likely complication(s).",
+        "expected_stress_band": "critical",
+        "normalized_tags": []
+      }
+    },
+    {
+      "id": "sm_act1_espionage",
+      "title": "[STORY] Operation: Ivory Static",
+      "objective_text": "Extract data from Warsaw relay station",
+      "target_faction": "Three Sevens Corp",
+      "district": "Chrome Warrens",
+      "district_pressure": {
+        "unrest": 100
+      },
+      "starting_enemy_count": 3,
+      "enemy_theme": "corp_37",
+      "objective_type": "data_theft",
+      "battle_environment": "",
+      "possible_complications": [],
+      "success_consequences": [],
+      "failure_consequences": [],
+      "risk_level": 4,
+      "fund_reward": 2500,
+      "duration_days": 2,
+      "tags": [],
+      "relation_impact": "low",
+      "emotional_impact_hint": {
+        "level": "critical",
+        "text": "Corporate signals intelligence has intercepted an unusual encrypted broadcast originating from the Warsaw grid. The tran",
+        "short_text": "Corporate signals intelligence has intercepted an unusual en",
+        "normalized_tags": [
+          "espionage",
+          "three_sevens",
+          "story"
+        ]
+      }
+    }
+  ],
+  "active_mission": {
+    "id": "samurai_archive_d77_s2",
+    "title": "Infiltration : archives du clan [Day 77]",
+    "objective_text": "Pirater le terminal d'archives du clan samoura\u00ef et r\u00e9cup\u00e9rer les ordres de surveillance.",
+    "target_faction": "Samurai Consortium",
+    "district": "Chrome Warrens",
+    "district_pressure": {
+      "unrest": 3,
+      "media_heat": 1
+    },
+    "starting_enemy_count": 11,
+    "enemy_theme": "corp_samurai",
+    "objective_type": "data_theft",
+    "battle_environment": "city",
+    "possible_complications": [
+      {
+        "key": "mod_rapid_response",
+        "name": "Rapid Response",
+        "trigger_text": "A rapid-response squad is rerouted toward the extraction line.",
+        "risk_threshold": 3,
+        "tags": [],
+        "relation_impact": "low",
+        "consequence": {
+          "affected_district": null,
+          "affected_faction": null,
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "",
+          "mechanical_effects": {},
+          "tags": []
+        }
+      },
+      {
+        "key": "mod_counterintel_ping",
+        "name": "Counterintel Ping",
+        "trigger_text": "Corporate counterintel flags the operation in real time.",
+        "risk_threshold": 3,
+        "tags": [],
+        "relation_impact": "low",
+        "consequence": {
+          "affected_district": null,
+          "affected_faction": null,
+          "affected_agent": null,
+          "severity": 1,
+          "narrative_text": "",
+          "mechanical_effects": {},
+          "tags": []
+        }
+      }
+    ],
+    "success_consequences": [
+      {
+        "affected_district": "Chrome Warrens",
+        "affected_faction": "Samurai Consortium",
+        "affected_agent": null,
+        "severity": 1,
+        "narrative_text": "Infiltration : archives du clan : objectif accompli, les routes et les refuges gagnent en s\u00e9curit\u00e9.",
+        "mechanical_effects": {
+          "stability": 3,
+          "unrest": -3
+        },
+        "tags": []
+      }
+    ],
+    "failure_consequences": [
+      {
+        "affected_district": "Chrome Warrens",
+        "affected_faction": "Samurai Consortium",
+        "affected_agent": null,
+        "severity": 2,
+        "narrative_text": "Infiltration : archives du clan : l'\u00e9chec renforce la pression sur les habitants.",
+        "mechanical_effects": {
+          "unrest": 4,
+          "media_heat": 2
+        },
+        "tags": []
+      }
+    ],
+    "risk_level": 11,
+    "fund_reward": 200,
+    "duration_days": 1,
+    "tags": [],
+    "relation_impact": "low",
+    "emotional_impact_hint": {
+      "level": "critical",
+      "text": "Risk of lasting emotional scars for the squad.",
+      "short_text": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+      "emotional_impact_summary": "Risk of lasting emotional scars for the squad (likely emotional scars).",
+      "risk_explanation": "Risk 11/5, duration 1d, 2 likely complication(s).",
+      "expected_stress_band": "critical",
+      "normalized_tags": []
+    }
+  },
+  "selected_mission_index": 0,
+  "mission_board_generated_day": 78,
+  "mission_board_version": 2,
+  "selected_agent_names": [
+    "Katana",
+    "Rook",
+    "Null"
+  ],
+  "spec_ops_assets": [
+    {
+      "id": "robot_000",
+      "name": "K-9 Combat Drone",
+      "asset_type": "combat_robot",
+      "armor": {
+        "plating": 1,
+        "sealed_systems": 0
+      },
+      "hardpoints": [],
+      "missile_capacity": 0,
+      "maintenance": {
+        "integrity": 100,
+        "repair_cost_per_damage": 1,
+        "base_upkeep": 1,
+        "cooldown_days": 0,
+        "fuel_cost_per_deploy": 0,
+        "ammo_cost_per_deploy": 0
+      },
+      "pilot_required": false,
+      "action_points": 2,
+      "pilot_agent_name": null,
+      "deploy_cost": 0
+    },
+    {
+      "id": "cat_armor_mantis_001",
+      "name": "Mantis Light Armor",
+      "asset_type": "power_armor",
+      "armor": {
+        "plating": 3,
+        "sealed_systems": 1
+      },
+      "hardpoints": [
+        {
+          "name": "Assault Rifle",
+          "attack_stat": "agi",
+          "damage_bonus": 2,
+          "range_cells": 8,
+          "action_name": "Rifle Burst"
+        },
+        {
+          "name": "Servo Fist",
+          "attack_stat": "str",
+          "damage_bonus": 3,
+          "range_cells": 1,
+          "action_name": "Servo Punch"
+        }
+      ],
+      "missile_capacity": 2,
+      "maintenance": {
+        "integrity": 100,
+        "repair_cost_per_damage": 1,
+        "base_upkeep": 3,
+        "cooldown_days": 0,
+        "fuel_cost_per_deploy": 0,
+        "ammo_cost_per_deploy": 0
+      },
+      "pilot_required": true,
+      "action_points": 2,
+      "pilot_agent_name": "Katana",
+      "deploy_cost": 15
+    }
+  ],
+  "selected_asset_ids": [
+    "cat_armor_mantis_001"
+  ],
+  "latest_spec_ops_outcomes": [
+    {
+      "id": "cat_armor_mantis_001",
+      "name": "Mantis Light Armor",
+      "damage": 0,
+      "repair_cost": 0,
+      "cooldown_days": 0
+    }
+  ],
+  "recent_consequences": [
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
+      "mechanical_effects": {
+        "unrest": -6,
+        "stability": 3,
+        "faction_influence": -5
+      },
+      "tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+      "mechanical_effects": {
+        "unrest": 7,
+        "stability": -4
+      },
+      "tags": [
+        {
+          "name": "civilian_panic",
+          "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Sabotage success: the Jackal relay goes dark and their raid clock slips.",
+      "mechanical_effects": {
+        "unrest": -6,
+        "stability": 3,
+        "faction_influence": -5
+      },
+      "tags": [
+        {
+          "name": "gang_pressure",
+          "description": "Street crews are testing who really owns the district.",
+          "intensity": 1,
+          "source": "faction",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Chrome Jackals",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Civilian panic: frightened residents jam streets and blame Aegis patrols.",
+      "mechanical_effects": {
+        "unrest": 7,
+        "stability": -4
+      },
+      "tags": [
+        {
+          "name": "civilian_panic",
+          "description": "Noncombatants scatter, block exits, and amplify district unrest.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Aegis Dynamics",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Data theft success: the ghost order cache exposes a false-flag command chain.",
+      "mechanical_effects": {
+        "media_heat": -3,
+        "stability": 4,
+        "faction_influence": -4
+      },
+      "tags": [
+        {
+          "name": "ghost_signal",
+          "description": "A hostile signal rides the local mesh and spoofs trusted orders.",
+          "intensity": 3,
+          "source": "operation",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "affected_district": "Chrome Warrens",
+      "affected_faction": "Aegis Dynamics",
+      "affected_agent": null,
+      "severity": 2,
+      "narrative_text": "Media leak: pirate feeds turn the firefight into a public scandal.",
+      "mechanical_effects": {
+        "media_heat": 8,
+        "stability": -2
+      },
+      "tags": [
+        {
+          "name": "media_leak",
+          "description": "Leaked footage turns tactical choices into public evidence.",
+          "intensity": 2,
+          "source": "complication",
+          "expires_after_turns": null,
+          "metadata": {}
+        }
+      ]
+    }
+  ],
+  "latest_agent_aftermath": [
+    "Aftermath: Rook carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
+    "Aftermath: Longshot carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
+    "Aftermath: Oracle carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 100/100, Media Leak +4, trauma: Haunted by Media Leak).",
+    "Aftermath: Null carries Data Theft: Ghost Order Cache [Day 65] (victory, stress 30/100, Media Leak +4, trauma: Haunted by Media Leak)."
+  ],
+  "latest_mission_debrief": {
+    "mission_title": "Data Theft: Ghost Order Cache [Day 65]",
+    "mission_outcome": "victory",
+    "lines": [
+      {
+        "agent_name": "Rook",
+        "emotional_tone": "fractured",
+        "consequence_type": "operational",
+        "text": "Rook keeps course after Data Theft: Ghost Order Cache [Day 65]. Complication: media leak."
+      },
+      {
+        "agent_name": "Longshot",
+        "emotional_tone": "fractured",
+        "consequence_type": "operational",
+        "text": "Longshot keeps course after Data Theft: Ghost Order Cache [Day 65]. Complication: media leak."
+      },
+      {
+        "agent_name": "Oracle",
+        "emotional_tone": "fractured",
+        "consequence_type": "injured",
+        "text": "Oracle returns injured from Data Theft: Ghost Order Cache [Day 65], but remains committed. Complication: media leak."
+      },
+      {
+        "agent_name": "Null",
+        "emotional_tone": "steady",
+        "consequence_type": "operational",
+        "text": "Null keeps course after Data Theft: Ghost Order Cache [Day 65]. Complication: media leak."
+      }
+    ],
+    "decision_key": "Continue operation Data Theft: Ghost Order Cache [Day 65] under medical pressure.",
+    "risk_taken": "Major narrative risk accepted: media leak.",
+    "heroic_action": "Oracle held the line in the worst conditions.",
+    "rpg_links": [
+      "Stress: Rook at 100/100, recovery priority.",
+      "Relationships: Rook reinforces the squad bond (max 0).",
+      "Progression: Rook level 5, capitalize on the role."
+    ],
+    "skill_check_outcomes": []
+  },
+  "latest_recovery_dialogues": [
+    {
+      "line": "Longshot stays with Katana until the breathing steadies.",
+      "pair": [
+        "Longshot",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Longshot": 17,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    },
+    {
+      "line": "Oracle reminds Katana that the squad holds together.",
+      "pair": [
+        "Oracle",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Oracle": 17,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    },
+    {
+      "line": "Rook shares a calm silence with Katana in the recovery room.",
+      "pair": [
+        "Rook",
+        "Katana"
+      ],
+      "stress_snapshot": {
+        "Rook": 5,
+        "Katana": 0
+      },
+      "affinity_reason": "mentor_link"
+    }
+  ],
+  "recovery_narrative_memory": {
+    "last_day": 78,
+    "last_pairs": [
+      [
+        "Longshot",
+        "Katana"
+      ],
+      [
+        "Oracle",
+        "Katana"
+      ],
+      [
+        "Rook",
+        "Katana"
+      ]
+    ],
+    "last_lines": [
+      "Longshot stays with Katana until the breathing steadies.",
+      "Oracle reminds Katana that the squad holds together.",
+      "Rook shares a calm silence with Katana in the recovery room."
+    ]
+  },
+  "faction_reward_journal": [
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction",
+      "mission_title": "Extraction: Neon Witness",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction",
+      "mission_title": "Extraction: Neon Witness",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d3_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Day 3]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d4_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Day 4]",
+      "kind": "contact",
+      "text": "Un contact d'entreprise transmet un canal de secours \u00e0 usage unique."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction_d15_s0",
+      "mission_title": "Extraction: Neon Witness [Day 15]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction_d15_s0",
+      "mission_title": "Extraction: Neon Witness [Day 15]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d17_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Day 17]",
+      "kind": "contact",
+      "text": "Un contact d'entreprise transmet un canal de secours \u00e0 usage unique."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d18_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Day 18]",
+      "kind": "contact",
+      "text": "Un contact d'entreprise transmet un canal de secours \u00e0 usage unique."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction_d21_s0",
+      "mission_title": "Extraction: Neon Witness [Day 21]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d22_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Day 22]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d34_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Jour 34]",
+      "kind": "contact",
+      "text": "Un contact d'entreprise transmet un canal de secours \u00e0 usage unique."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d35_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Jour 35]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d36_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Jour 36]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d37_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Jour 37]",
+      "kind": "contact",
+      "text": "Un contact d'entreprise transmet un canal de secours \u00e0 usage unique."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "extraction_d48_s0",
+      "mission_title": "Extraction: Neon Witness [Jour 48]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d60_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Jour 60]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Chrome Jackals",
+      "mission_id": "sabotage_d61_s1",
+      "mission_title": "Sabotage: Jackal Relay Burn [Jour 61]",
+      "kind": "street_rumor",
+      "text": "Une rumeur de rue affirme que vous avez bris\u00e9 une ligne de trafic."
+    },
+    {
+      "faction": "Aegis Dynamics",
+      "mission_id": "data_theft_d65_s2",
+      "mission_title": "Data Theft: Ghost Order Cache [Day 65]",
+      "kind": "contact",
+      "text": "A corporate contact passes along a one-time emergency channel."
+    }
+  ],
+  "event_log": [
+    "2085.M03.D18: Recovery room: Longshot stays with Katana until the breathing steadies.",
+    "2085.M03.D18: Recovery room: Oracle reminds Katana that the squad holds together.",
+    "2085.M03.D18: Recovery room: Rook shares a calm silence with Katana in the recovery room.",
+    "2085.M03.D18: Recovery bond: Longshot and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Recovery bond: Oracle and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Recovery bond: Rook and Katana steady each other (mentor_link, -1 stress).",
+    "2085.M03.D18: Rook decompresses (3 stress relief, 5/100).",
+    "2085.M03.D18: Longshot decompresses (3 stress relief, 17/100).",
+    "2085.M03.D18: Oracle decompresses (2 stress relief, 17/100).",
+    "Downtime: Shore Leave (-8 credits, 1 day)",
+    "Not enough intel for Sim Drills.",
+    "Not enough influence for Group Therapy."
+  ],
+  "active_events": [
+    {
+      "id": "event-13",
+      "template": {
+        "title": "Board Knife Vote",
+        "category": "corporate politics",
+        "description": "Aegis directors demand proof the Warrens project deserves more funding.",
+        "severity": 3,
+        "choices": [
+          {
+            "key": "lobby",
+            "label": "Lobby the board",
+            "effects": {
+              "funds": -20,
+              "faction_pressure": -5
+            },
+            "summary": "Political cover dampens the attack.",
+            "relation_impact": "low"
+          },
+          {
+            "key": "profit",
+            "label": "Promise faster returns",
+            "effects": {
+              "funds": 15,
+              "agent_stress": 4,
+              "city_stability": -2
+            },
+            "summary": "The budget improves and the floor feels colder.",
+            "relation_impact": "low"
+          }
+        ],
+        "consequences": {
+          "funds": -15,
+          "faction_pressure": 5
+        },
+        "relation_impact": "low",
+        "expiration_days": 4,
+        "weight": 3
+      },
+      "created_day": 77,
+      "expires_day": 80
+    },
+    {
+      "id": "event-14",
+      "template": {
+        "title": "Aegis Shadow Buyout",
+        "category": "enemy corporation attack",
+        "description": "A rival board cell starts buying informants around Forward Base Kilo.",
+        "severity": 3,
+        "choices": [
+          {
+            "key": "pay",
+            "label": "Pay counter-intel",
+            "effects": {
+              "funds": -30,
+              "faction_pressure": -8
+            },
+            "summary": "Spend funds to cool the hostile corporate net.",
+            "relation_impact": "low"
+          },
+          {
+            "key": "burn",
+            "label": "Burn their cutouts",
+            "effects": {
+              "agent_stress": 5,
+              "faction_pressure": 6,
+              "mission_availability": -1
+            },
+            "summary": "Agents move fast, but one operation route goes dark.",
+            "relation_impact": "low"
+          }
+        ],
+        "consequences": {
+          "faction_pressure": 5,
+          "city_stability": -2
+        },
+        "relation_impact": "low",
+        "expiration_days": 3,
+        "weight": 3
+      },
+      "created_day": 78,
+      "expires_day": 80
+    }
+  ],
+  "next_event_id": 15,
+  "unavailable_mission_ids": [
+    "sabotage_d62_s1"
+  ],
+  "weekly_directive_week": 0,
+  "weekly_directive_id": "",
+  "ui_high_contrast": false,
+  "ui_audio_feedback_enabled": false,
+  "combat_mission_ui_engine": "godot",
+  "combat_visual_version": 2,
+  "tutorial_progress": {
+    "tutorial_step_index": 1,
+    "tutorial_completed": false,
+    "tutorial_skipped": false,
+    "tutorial_replay_requested": false
+  },
+  "active_research": [],
+  "completed_research": [
+    "equipment_field_mender",
+    "armor_reactive_lining",
+    "vehicle_silent_wheels",
+    "robot_loyalty_kernel",
+    "weapon_smartlink_mk1",
+    "psy_echo_discipline",
+    "power_armor_servo_prayer",
+    "vehicle_black_channel_logistics",
+    "armor_aegis_weave",
+    "power_armor_praetorian_frame",
+    "vehicle_ghost_convoy_doctrine",
+    "armor_memorial_plating",
+    "psy_choir_firebreak",
+    "weapon_corporate_rail_lattice"
+  ],
+  "research_unlock_flags": [
+    "equipment.field_mender",
+    "armor.reactive_lining",
+    "vehicles.silent_wheels",
+    "robots.loyalty_kernel",
+    "weapons.smartlink_mk1",
+    "psy.echo_discipline",
+    "power_armor.servo_prayer",
+    "vehicles.black_channel_logistics",
+    "armor.aegis_weave",
+    "power_armor.praetorian_frame",
+    "corp.contract.praetorian",
+    "vehicles.ghost_convoy_doctrine",
+    "armor.memorial_plating",
+    "psy.choir_firebreak",
+    "weapons.corporate_rail_lattice"
+  ],
+  "research_stat_modifiers": {
+    "medkit_quality": 1,
+    "armor_defense": 1,
+    "vehicle_stealth": 1,
+    "robot_reliability": 1,
+    "weapon_accuracy": 1,
+    "psi_focus": 1,
+    "power_armor_mobility": 1,
+    "mission_budget_efficiency": 1,
+    "armor_resilience": 1,
+    "power_armor_durability": 1,
+    "corp_budget_bonus": 1,
+    "vehicle_survivability": 1,
+    "armor_breach_guard": 1,
+    "stress_resistance": 1,
+    "weapon_damage": 1
+  },
+  "campaign": {
+    "current_act": 1,
+    "act_progress": 0,
+    "act_triggers_seen": [
+      "campaign_warsaw_coup"
+    ],
+    "discovered_intel": [
+      "act1_warsaw_coup",
+      "act1_badlands_silence"
+    ],
+    "completed_story_missions": [],
+    "ending": null,
+    "world": {
+      "warsaw_status": "coup_underway",
+      "hungry_tide_progress": 0,
+      "new_york_status": "normal",
+      "pharmacorp_secret": "hidden",
+      "ai_factions_status": "unknown",
+      "perfs_status": "unknown",
+      "new_delhi_status": "forbidden"
+    },
+    "hidden_faction_hostility": {
+      "Three Sevens Corp": 75,
+      "Pharmacorp": 20,
+      "Preservationist AIs": 0,
+      "Exterminator AIs": 80
+    }
+  }
+}

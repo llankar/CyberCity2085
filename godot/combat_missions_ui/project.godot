@@ -1,0 +1,35 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
+[application]
+
+config/name="CyberCity 2085 Combat UI"
+boot_splash/show_image=false
+boot_splash/bg_color=Color(0, 0, 0, 1)
+run/main_scene="res://scenes/combat_mission_ui.tscn"
+config/features=PackedStringArray("4.6")
+
+[autoload]
+
+CombatSignals="*res://scripts/combat_signals.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=0

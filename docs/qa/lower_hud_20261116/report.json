@@ -1,0 +1,32 @@
+{
+  "scope": "Real Arcade/OpenGL hidden-window defense fixture, four agents, journal open",
+  "frames": [
+    {
+      "logical_size": [
+        960,
+        640
+      ],
+      "framebuffer_size": [
+        1440,
+        960
+      ],
+      "image": "docs\\qa\\lower_hud_20261116\\tactical_lower_hud_960.png",
+      "sha256": "3f782b69cfe25cec61a279e4a3d0e0fc8639c6799c834331fce170abbfd0800f"
+    },
+    {
+      "logical_size": [
+        1280,
+        720
+      ],
+      "framebuffer_size": [
+        1920,
+        1080
+      ],
+      "image": "docs\\qa\\lower_hud_20261116\\tactical_lower_hud_1280.png",
+      "sha256": "aa115cb51e883d58adc776928a2286d780e54b96e324d1dabbf024ceea1d653c"
+    }
+  ],
+  "desktop_control": false,
+  "human_playthrough": false,
+  "remaining": "crowded top header; battlefield units beneath HUD; more team/action/target scenarios"
+}

@@ -1,0 +1,524 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        24,
+        28,
+        45,
+        505
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        924,
+        27,
+        943,
+        505
+      ]
+    },
+    {
+      "id": "north_wall_w",
+      "rect": [
+        29,
+        23,
+        219,
+        43
+      ]
+    },
+    {
+      "id": "north_wall_e",
+      "rect": [
+        284,
+        23,
+        929,
+        43
+      ]
+    },
+    {
+      "id": "south_wall_w",
+      "rect": [
+        27,
+        500,
+        466,
+        522
+      ]
+    },
+    {
+      "id": "south_wall_e",
+      "rect": [
+        525,
+        500,
+        940,
+        522
+      ]
+    },
+    {
+      "id": "kitchen_nw",
+      "rect": [
+        58,
+        44,
+        159,
+        82
+      ]
+    },
+    {
+      "id": "table_nw",
+      "rect": [
+        147,
+        98,
+        202,
+        142
+      ]
+    },
+    {
+      "id": "nw_crates",
+      "rect": [
+        223,
+        79,
+        272,
+        123
+      ]
+    },
+    {
+      "id": "west_workbench",
+      "rect": [
+        68,
+        178,
+        151,
+        262
+      ]
+    },
+    {
+      "id": "west_toolrack",
+      "rect": [
+        168,
+        180,
+        211,
+        241
+      ]
+    },
+    {
+      "id": "sofa_n",
+      "rect": [
+        353,
+        95,
+        445,
+        131
+      ]
+    },
+    {
+      "id": "sofa_e",
+      "rect": [
+        450,
+        130,
+        479,
+        175
+      ]
+    },
+    {
+      "id": "coffee_table",
+      "rect": [
+        383,
+        144,
+        425,
+        184
+      ]
+    },
+    {
+      "id": "kitchen_n",
+      "rect": [
+        470,
+        42,
+        576,
+        79
+      ]
+    },
+    {
+      "id": "bed_n1",
+      "rect": [
+        641,
+        44,
+        681,
+        148
+      ]
+    },
+    {
+      "id": "bed_n2",
+      "rect": [
+        693,
+        45,
+        738,
+        150
+      ]
+    },
+    {
+      "id": "bed_n3",
+      "rect": [
+        772,
+        47,
+        817,
+        150
+      ]
+    },
+    {
+      "id": "computer_ne",
+      "rect": [
+        722,
+        216,
+        836,
+        265
+      ]
+    },
+    {
+      "id": "ne_server",
+      "rect": [
+        872,
+        206,
+        902,
+        308
+      ]
+    },
+    {
+      "id": "west_gym_rack",
+      "rect": [
+        88,
+        391,
+        137,
+        464
+      ]
+    },
+    {
+      "id": "west_gym_weight",
+      "rect": [
+        116,
+        354,
+        193,
+        403
+      ]
+    },
+    {
+      "id": "west_gym_bench",
+      "rect": [
+        172,
+        404,
+        194,
+        462
+      ]
+    },
+    {
+      "id": "south_tools",
+      "rect": [
+        330,
+        431,
+        391,
+        474
+      ]
+    },
+    {
+      "id": "south_generator",
+      "rect": [
+        330,
+        331,
+        365,
+        418
+      ]
+    },
+    {
+      "id": "south_server",
+      "rect": [
+        370,
+        340,
+        397,
+        408
+      ]
+    },
+    {
+      "id": "bath_sinks",
+      "rect": [
+        620,
+        349,
+        647,
+        389
+      ]
+    },
+    {
+      "id": "bath_showers",
+      "rect": [
+        537,
+        349,
+        576,
+        488
+      ]
+    },
+    {
+      "id": "south_kitchen",
+      "rect": [
+        803,
+        355,
+        914,
+        422
+      ]
+    },
+    {
+      "id": "south_table",
+      "rect": [
+        660,
+        463,
+        712,
+        493
+      ]
+    },
+    {
+      "id": "south_storage",
+      "rect": [
+        756,
+        456,
+        917,
+        491
+      ]
+    },
+    {
+      "id": "nw_room",
+      "width": 16,
+      "points": [
+        [
+          219,
+          43
+        ],
+        [
+          219,
+          61
+        ],
+        [
+          284,
+          61
+        ],
+        [
+          284,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "west_room_n",
+      "width": 16,
+      "points": [
+        [
+          42,
+          163
+        ],
+        [
+          219,
+          163
+        ],
+        [
+          219,
+          306
+        ],
+        [
+          42,
+          306
+        ]
+      ]
+    },
+    {
+      "id": "west_room_s",
+      "width": 16,
+      "points": [
+        [
+          42,
+          318
+        ],
+        [
+          305,
+          318
+        ],
+        [
+          305,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "north_lounge_w",
+      "width": 16,
+      "points": [
+        [
+          287,
+          41
+        ],
+        [
+          287,
+          215
+        ],
+        [
+          421,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "north_lounge_e",
+      "width": 16,
+      "points": [
+        [
+          517,
+          215
+        ],
+        [
+          601,
+          215
+        ],
+        [
+          601,
+          40
+        ]
+      ]
+    },
+    {
+      "id": "north_bedroom",
+      "width": 16,
+      "points": [
+        [
+          610,
+          207
+        ],
+        [
+          852,
+          207
+        ],
+        [
+          852,
+          42
+        ]
+      ]
+    },
+    {
+      "id": "south_room_w",
+      "width": 16,
+      "points": [
+        [
+          308,
+          320
+        ],
+        [
+          465,
+          320
+        ],
+        [
+          465,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "bath_room",
+      "width": 16,
+      "points": [
+        [
+          533,
+          505
+        ],
+        [
+          533,
+          348
+        ],
+        [
+          646,
+          348
+        ]
+      ]
+    },
+    {
+      "id": "south_e_room",
+      "width": 16,
+      "points": [
+        [
+          655,
+          348
+        ],
+        [
+          922,
+          348
+        ]
+      ]
+    },
+    {
+      "id": "south_e_return",
+      "width": 16,
+      "points": [
+        [
+          655,
+          404
+        ],
+        [
+          655,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "outside_top_margin",
+      "rect": [
+        0,
+        0,
+        960,
+        23
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_bottom_margin",
+      "rect": [
+        0,
+        522,
+        960,
+        540
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_west_margin",
+      "rect": [
+        0,
+        23,
+        24,
+        522
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_east_margin",
+      "rect": [
+        943,
+        23,
+        960,
+        522
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_north_notch_margin",
+      "rect": [
+        219,
+        0,
+        284,
+        40
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    }
+  ],
+  "boundary_review": "2026-11-15: direct artwork review of exterior padding/notches, original objects preserved."
+}

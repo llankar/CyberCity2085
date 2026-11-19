@@ -1,0 +1,595 @@
+[
+  {
+    "map": "city_district_holo_square.png",
+    "source_object": "bench_ne",
+    "before": {
+      "asset": "metal_bench2",
+      "enabled": false,
+      "yaw": 270,
+      "bounds_uv": [
+        0.571875,
+        0.14537037037037037,
+        0.5947916666666667,
+        0.21666666666666667
+      ]
+    },
+    "after": {
+      "asset": "transit_bench2",
+      "enabled": true,
+      "yaw": 270,
+      "bounds_uv": [
+        0.571875,
+        0.14537037037037037,
+        0.5947916666666667,
+        0.21666666666666667
+      ]
+    }
+  },
+  {
+    "map": "city_district_holo_square.png",
+    "source_object": "bench_nw",
+    "before": {
+      "asset": "metal_bench2",
+      "enabled": false,
+      "yaw": 270,
+      "bounds_uv": [
+        0.40208333333333335,
+        0.14629629629629629,
+        0.425,
+        0.21574074074074073
+      ]
+    },
+    "after": {
+      "asset": "transit_bench2",
+      "enabled": true,
+      "yaw": 90,
+      "bounds_uv": [
+        0.40208333333333335,
+        0.14629629629629629,
+        0.425,
+        0.21574074074074073
+      ]
+    }
+  },
+  {
+    "map": "city_district_holo_square.png",
+    "source_object": "bench_se",
+    "before": {
+      "asset": "metal_bench2",
+      "enabled": false,
+      "yaw": 270,
+      "bounds_uv": [
+        0.571875,
+        0.7916666666666666,
+        0.5963541666666666,
+        0.8657407407407407
+      ]
+    },
+    "after": {
+      "asset": "transit_bench2",
+      "enabled": true,
+      "yaw": 270,
+      "bounds_uv": [
+        0.571875,
+        0.7916666666666666,
+        0.5963541666666666,
+        0.8657407407407407
+      ]
+    }
+  },
+  {
+    "map": "city_district_holo_square.png",
+    "source_object": "bench_sw",
+    "before": {
+      "asset": "metal_bench2",
+      "enabled": false,
+      "yaw": 270,
+      "bounds_uv": [
+        0.4010416666666667,
+        0.7916666666666666,
+        0.4244791666666667,
+        0.8657407407407407
+      ]
+    },
+    "after": {
+      "asset": "transit_bench2",
+      "enabled": true,
+      "yaw": 90,
+      "bounds_uv": [
+        0.4010416666666667,
+        0.7916666666666666,
+        0.4244791666666667,
+        0.8657407407407407
+      ]
+    }
+  },
+  {
+    "map": "city_interior_medical_clinic.png",
+    "source_object": "bed_north",
+    "before": {
+      "asset": "medical_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.2833333333333333,
+        0.3925925925925926,
+        0.31145833333333334,
+        0.4648148148148148
+      ]
+    },
+    "after": {
+      "asset": null,
+      "enabled": null,
+      "yaw": null,
+      "bounds_uv": null
+    }
+  },
+  {
+    "map": "city_interior_safehouse.png",
+    "source_object": "bed_n1",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.6677083333333333,
+        0.08148148148148149,
+        0.709375,
+        0.2740740740740741
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.6677083333333333,
+        0.08148148148148149,
+        0.709375,
+        0.2740740740740741
+      ]
+    }
+  },
+  {
+    "map": "city_transit_metro_interchange.png",
+    "source_object": "bench_s",
+    "before": {
+      "asset": "metal_bench_pair",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.4666666666666667,
+        0.6148148148148148,
+        0.540625,
+        0.6666666666666666
+      ]
+    },
+    "after": {
+      "asset": "transit_bench4",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.4666666666666667,
+        0.6148148148148148,
+        0.540625,
+        0.6666666666666666
+      ]
+    }
+  },
+  {
+    "map": "cybercity_inner_02_safehouse.png",
+    "source_object": "bed_ne",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8333333333333334,
+        0.14629629629629629,
+        0.9072916666666667,
+        0.4537037037037037
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8333333333333334,
+        0.14629629629629629,
+        0.9072916666666667,
+        0.4537037037037037
+      ]
+    }
+  },
+  {
+    "map": "cybercity_inner_09_apartment_block.png",
+    "source_object": "bed_n2",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.3260416666666667,
+        0.15,
+        0.3645833333333333,
+        0.28703703703703703
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.3260416666666667,
+        0.15,
+        0.3645833333333333,
+        0.28703703703703703
+      ]
+    }
+  },
+  {
+    "map": "cybercity_inner_09_apartment_block.png",
+    "source_object": "bed_s2",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.20625,
+        0.6981481481481482,
+        0.24583333333333332,
+        0.8555555555555555
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.20625,
+        0.6981481481481482,
+        0.24583333333333332,
+        0.8555555555555555
+      ]
+    }
+  },
+  {
+    "map": "cybercity_inner_14_detention_block.png",
+    "source_object": "bed_n1",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.17916666666666667,
+        0.08703703703703704,
+        0.20208333333333334,
+        0.20555555555555555
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.17916666666666667,
+        0.08703703703703704,
+        0.20208333333333334,
+        0.20555555555555555
+      ]
+    }
+  },
+  {
+    "map": "cybercity_inner_14_detention_block.png",
+    "source_object": "bed_s1",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.178125,
+        0.7111111111111111,
+        0.20416666666666666,
+        0.8240740740740741
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.178125,
+        0.7111111111111111,
+        0.20416666666666666,
+        0.8240740740740741
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_03_ruined_clinic.png",
+    "source_object": "bed_e",
+    "before": {
+      "asset": "medical_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8364583333333333,
+        0.7055555555555556,
+        0.86875,
+        0.8074074074074075
+      ]
+    },
+    "after": {
+      "asset": "field_cot",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8355,
+        0.68,
+        0.8692,
+        0.825
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_04_bunker_command_post.png",
+    "source_object": "sw_bed",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.042708333333333334,
+        0.6703703703703704,
+        0.08125,
+        0.7611111111111111
+      ]
+    },
+    "after": {
+      "asset": "field_cot",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.042708333333333334,
+        0.6703703703703704,
+        0.08125,
+        0.7611111111111111
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_07_apartment_shelter.png",
+    "source_object": "bed_nw",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.09479166666666666,
+        0.15185185185185185,
+        0.15729166666666666,
+        0.22592592592592592
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 90,
+      "bounds_uv": [
+        0.09479166666666666,
+        0.15185185185185185,
+        0.15729166666666666,
+        0.22592592592592592
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_08_ruined_clinic.png",
+    "source_object": "bed_e",
+    "before": {
+      "asset": "medical_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8364583333333333,
+        0.7055555555555556,
+        0.86875,
+        0.8074074074074075
+      ]
+    },
+    "after": {
+      "asset": "field_cot",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.8355,
+        0.68,
+        0.8692,
+        0.825
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_09_bunker_command_post.png",
+    "source_object": "sw_bed",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.042708333333333334,
+        0.6703703703703704,
+        0.08125,
+        0.7611111111111111
+      ]
+    },
+    "after": {
+      "asset": "field_cot",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.042708333333333334,
+        0.6703703703703704,
+        0.08125,
+        0.7611111111111111
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_10_detention_block.png",
+    "source_object": "bed_n1",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.24479166666666666,
+        0.09444444444444444,
+        0.27395833333333336,
+        0.1962962962962963
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.24479166666666666,
+        0.09444444444444444,
+        0.27395833333333336,
+        0.1962962962962963
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_10_detention_block.png",
+    "source_object": "bed_s1",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.22916666666666666,
+        0.7611111111111111,
+        0.25416666666666665,
+        0.8777777777777778
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.22916666666666666,
+        0.7611111111111111,
+        0.25416666666666665,
+        0.8777777777777778
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_11_emergency_medbay.png",
+    "source_object": "bed_ne",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.6572916666666667,
+        0.0962962962962963,
+        0.6989583333333333,
+        0.2388888888888889
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.6572916666666667,
+        0.0962962962962963,
+        0.6989583333333333,
+        0.2388888888888889
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_12_apartment_shelter.png",
+    "source_object": "bed_nw",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.09479166666666666,
+        0.15185185185185185,
+        0.15729166666666666,
+        0.22592592592592592
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 90,
+      "bounds_uv": [
+        0.09479166666666666,
+        0.15185185185185185,
+        0.15729166666666666,
+        0.22592592592592592
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_15_detention_block.png",
+    "source_object": "bed_n1",
+    "before": {
+      "asset": "bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.24479166666666666,
+        0.09444444444444444,
+        0.27395833333333336,
+        0.1962962962962963
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.24479166666666666,
+        0.09444444444444444,
+        0.27395833333333336,
+        0.1962962962962963
+      ]
+    }
+  },
+  {
+    "map": "wasteland_inner_15_detention_block.png",
+    "source_object": "bed_s1",
+    "before": {
+      "asset": "bed",
+      "enabled": false,
+      "yaw": 0,
+      "bounds_uv": [
+        0.22916666666666666,
+        0.7611111111111111,
+        0.25416666666666665,
+        0.8777777777777778
+      ]
+    },
+    "after": {
+      "asset": "single_bed",
+      "enabled": true,
+      "yaw": 0,
+      "bounds_uv": [
+        0.22916666666666666,
+        0.7611111111111111,
+        0.25416666666666665,
+        0.8777777777777778
+      ]
+    }
+  }
+]

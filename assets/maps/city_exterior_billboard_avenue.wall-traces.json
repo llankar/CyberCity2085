@@ -1,0 +1,243 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "north_billboard_block",
+      "rect": [
+        240,
+        0,
+        451,
+        110
+      ]
+    },
+    {
+      "id": "north_east_block",
+      "rect": [
+        520,
+        0,
+        772,
+        110
+      ]
+    },
+    {
+      "id": "south_west_block",
+      "rect": [
+        222,
+        406,
+        451,
+        540
+      ]
+    },
+    {
+      "id": "south_east_block",
+      "rect": [
+        532,
+        397,
+        758,
+        540
+      ]
+    },
+    {
+      "id": "west_north_block",
+      "rect": [
+        0,
+        0,
+        90,
+        158
+      ]
+    },
+    {
+      "id": "west_south_block",
+      "rect": [
+        0,
+        358,
+        90,
+        540
+      ]
+    },
+    {
+      "id": "east_north_block",
+      "rect": [
+        860,
+        0,
+        960,
+        150
+      ]
+    },
+    {
+      "id": "east_south_block",
+      "rect": [
+        862,
+        363,
+        960,
+        540
+      ]
+    },
+    {
+      "id": "north_planter_1",
+      "rect": [
+        368,
+        139,
+        448,
+        165
+      ]
+    },
+    {
+      "id": "north_planter_2",
+      "rect": [
+        499,
+        142,
+        569,
+        165
+      ]
+    },
+    {
+      "id": "north_bench_1",
+      "rect": [
+        281,
+        162,
+        337,
+        185
+      ]
+    },
+    {
+      "id": "north_bench_2",
+      "rect": [
+        391,
+        163,
+        445,
+        187
+      ]
+    },
+    {
+      "id": "north_bench_3",
+      "rect": [
+        515,
+        163,
+        569,
+        186
+      ]
+    },
+    {
+      "id": "north_bench_4",
+      "rect": [
+        623,
+        163,
+        680,
+        186
+      ]
+    },
+    {
+      "id": "south_bench_1",
+      "rect": [
+        350,
+        327,
+        409,
+        356
+      ]
+    },
+    {
+      "id": "south_bench_2",
+      "rect": [
+        569,
+        328,
+        626,
+        357
+      ]
+    },
+    {
+      "id": "south_planter_1",
+      "rect": [
+        436,
+        326,
+        520,
+        359
+      ]
+    },
+    {
+      "id": "south_planter_2",
+      "rect": [
+        652,
+        315,
+        702,
+        361
+      ]
+    },
+    {
+      "id": "car_west",
+      "rect": [
+        8,
+        201,
+        60,
+        222
+      ]
+    },
+    {
+      "id": "car_northwest",
+      "rect": [
+        136,
+        209,
+        180,
+        230
+      ]
+    },
+    {
+      "id": "car_north",
+      "rect": [
+        342,
+        208,
+        379,
+        239
+      ]
+    },
+    {
+      "id": "car_mid",
+      "rect": [
+        543,
+        198,
+        586,
+        218
+      ]
+    },
+    {
+      "id": "car_east",
+      "rect": [
+        878,
+        201,
+        917,
+        221
+      ]
+    },
+    {
+      "id": "car_southwest",
+      "rect": [
+        51,
+        287,
+        90,
+        307
+      ]
+    },
+    {
+      "id": "car_southeast",
+      "rect": [
+        579,
+        296,
+        620,
+        317
+      ]
+    },
+    {
+      "id": "car_far_east",
+      "rect": [
+        887,
+        299,
+        928,
+        321
+      ]
+    }
+  ]
+}

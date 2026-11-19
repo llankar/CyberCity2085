@@ -1,0 +1,67 @@
+[
+  {
+    "capture_signature": "13abe81757b3177832a87f8910a199301623f5c757cd153c8095c3ee2a9e897a",
+    "elapsed_ms": 23901.86,
+    "entity_families_checked": true,
+    "map": "cybercity_inner_02_safehouse.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 29,
+    "rendered_sprites": 5,
+    "static_memory_bytes": 262925744,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "13abe81757b3177832a87f8910a199301623f5c757cd153c8095c3ee2a9e897a",
+    "elapsed_ms": 41783.563,
+    "entity_families_checked": true,
+    "map": "city_industrial_factory_floor.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 32,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 269037444,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "13abe81757b3177832a87f8910a199301623f5c757cd153c8095c3ee2a9e897a",
+    "elapsed_ms": 38897.373,
+    "entity_families_checked": true,
+    "map": "city_exterior_neon_market_alley.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 23,
+    "rendered_sprites": 2,
+    "static_memory_bytes": 270734710,
+    "vehicle_count": 1
+  },
+  {
+    "capture_signature": "13abe81757b3177832a87f8910a199301623f5c757cd153c8095c3ee2a9e897a",
+    "elapsed_ms": 25183.545,
+    "entity_families_checked": true,
+    "map": "city_interior_blacksite_lab.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 39,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 269759028,
+    "vehicle_count": 0
+  },
+  {
+    "capture_signature": "13abe81757b3177832a87f8910a199301623f5c757cd153c8095c3ee2a9e897a",
+    "elapsed_ms": 32572.508,
+    "entity_families_checked": true,
+    "map": "wasteland_outdoor_01_dust_road_ambush.png",
+    "native_render": true,
+    "projection": "top_down",
+    "projection_and_zoom_checked": true,
+    "props": 18,
+    "rendered_sprites": 1,
+    "static_memory_bytes": 272414774,
+    "vehicle_count": 1
+  }
+]

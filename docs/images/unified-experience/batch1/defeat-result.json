@@ -1,0 +1,27 @@
+{
+  "agents": [
+    {
+      "hp": 0,
+      "max_hp": 11,
+      "name": "Vera",
+      "stress": 0
+    }
+  ],
+  "enemies_killed": 0,
+  "enemies_spawned_total": 3,
+  "initial_enemy_count": 3,
+  "mission_id": "unified_defeat",
+  "music_playback": {
+    "captured_at": 1795033028.11715,
+    "path": "/tmp/cybercity-unified-6des5kgn/assets/audio/music/music_debrief.wav",
+    "position": 2.51065754890442
+  },
+  "objective_completed": false,
+  "objective_progress": 0,
+  "outcome": "defeat",
+  "phase": "confirmed",
+  "protocol_version": 2,
+  "session_id": "bfdb1c1fbf394cc8ab9f9a348c165cdf",
+  "support": [],
+  "turn_reached": 1
+}

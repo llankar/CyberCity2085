@@ -1,0 +1,55 @@
+{
+  "scope": "27 previously limited cases only; full matrix not rerun",
+  "combat_sources_sha256": "f675920c1f0be0c0a775b8c050b290b834f20c46c425b7998dbadc99d254efe7",
+  "baseline_sources_sha256": "447c55bb86311c8b90aee33ecb9e0d19b964fe21fbec7674ccc4fb281454df62",
+  "coverage_exact": true,
+  "summary": {
+    "turn_limit": 27
+  },
+  "unchanged_streak_distribution": {
+    "1": 14,
+    "3": 1,
+    "0": 11,
+    "6": 1
+  },
+  "lab_rescue": [
+    {
+      "theme": "raider",
+      "level": 4,
+      "risk": 5,
+      "count": 6,
+      "seed": 0,
+      "policy": "objective_counterplay",
+      "layout": "open",
+      "objective_kind": "civilian_rescue",
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "terrain_source": "manual_wall_traces_v1",
+      "geometry_checked": true,
+      "unchanged_rounds": 0,
+      "longest_unchanged_rounds": 0,
+      "outcome": "turn_limit",
+      "turns": 60,
+      "roles": {
+        "grunt": 4,
+        "elite": 2
+      },
+      "objective_progress": 1,
+      "objective_reason": "objective_in_progress",
+      "assassination_target_role": null,
+      "contributions": {
+        "Mara": 1
+      },
+      "allied_hp_lost": 133,
+      "allied_losses": 3,
+      "enemy_survivors": 2,
+      "infections": 0,
+      "announced": {
+        "SKIRMISH": 6,
+        "ISOLATE": 229,
+        "FLANK": 12
+      },
+      "dodges": 0,
+      "interruptions": 89
+    }
+  ]
+}

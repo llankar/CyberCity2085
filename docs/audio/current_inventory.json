@@ -1,0 +1,468 @@
+{
+  "assets": {
+    "sfx_act_advance": {
+      "path": "assets/audio/sfx/sfx_act_advance.wav",
+      "duration_seconds": 1.22,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/campaign/engine.py:241",
+        "game/ui/screens/management_screen.py:303"
+      ],
+      "godot_events": [
+        "defend"
+      ]
+    },
+    "sfx_bleed": {
+      "path": "assets/audio/sfx/sfx_bleed.wav",
+      "duration_seconds": 0.09,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2131"
+      ],
+      "godot_events": [
+        "bleed"
+      ]
+    },
+    "sfx_death": {
+      "path": "assets/audio/sfx/sfx_death.wav",
+      "duration_seconds": 0.78,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2247",
+        "game/views.py:2999"
+      ],
+      "godot_events": [
+        "death"
+      ]
+    },
+    "sfx_defeat": {
+      "path": "assets/audio/sfx/sfx_defeat.wav",
+      "duration_seconds": 1.4,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "defeat"
+      ]
+    },
+    "sfx_deploy": {
+      "path": "assets/audio/sfx/sfx_deploy.wav",
+      "duration_seconds": 0.31,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:3412",
+        "game/ui/screens/agent_promotion_view.py:127"
+      ],
+      "godot_events": [
+        "deploy"
+      ]
+    },
+    "sfx_fire": {
+      "path": "assets/audio/sfx/sfx_fire.wav",
+      "duration_seconds": 0.28,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2228",
+        "game/views.py:2269",
+        "game/audio/sound_manager.py:7"
+      ],
+      "godot_events": [
+        "fire"
+      ]
+    },
+    "sfx_hit": {
+      "path": "assets/audio/sfx/sfx_hit.wav",
+      "duration_seconds": 0.15,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2231",
+        "game/views.py:2968",
+        "game/views.py:2982",
+        "game/views.py:2988"
+      ],
+      "godot_events": [
+        "hit"
+      ]
+    },
+    "sfx_intel_reveal": {
+      "path": "assets/audio/sfx/sfx_intel_reveal.wav",
+      "duration_seconds": 0.4,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/campaign/engine.py:104"
+      ],
+      "godot_events": []
+    },
+    "sfx_melee": {
+      "path": "assets/audio/sfx/sfx_melee.wav",
+      "duration_seconds": 0.2,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "melee"
+      ]
+    },
+    "sfx_miss": {
+      "path": "assets/audio/sfx/sfx_miss.wav",
+      "duration_seconds": 0.18,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "miss"
+      ]
+    },
+    "sfx_move": {
+      "path": "assets/audio/sfx/sfx_move.wav",
+      "duration_seconds": 0.09,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "move"
+      ]
+    },
+    "sfx_overwatch": {
+      "path": "assets/audio/sfx/sfx_overwatch.wav",
+      "duration_seconds": 0.42,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:3045"
+      ],
+      "godot_events": [
+        "overwatch"
+      ]
+    },
+    "sfx_psi": {
+      "path": "assets/audio/sfx/sfx_psi.wav",
+      "duration_seconds": 0.55,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "psi"
+      ]
+    },
+    "sfx_reinforce": {
+      "path": "assets/audio/sfx/sfx_reinforce.wav",
+      "duration_seconds": 0.62,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "reinforce"
+      ]
+    },
+    "sfx_stun": {
+      "path": "assets/audio/sfx/sfx_stun.wav",
+      "duration_seconds": 0.28,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2238"
+      ],
+      "godot_events": [
+        "stun"
+      ]
+    },
+    "sfx_turn_enemy": {
+      "path": "assets/audio/sfx/sfx_turn_enemy.wav",
+      "duration_seconds": 0.28,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2165"
+      ],
+      "godot_events": [
+        "turn_enemy"
+      ]
+    },
+    "sfx_turn_player": {
+      "path": "assets/audio/sfx/sfx_turn_player.wav",
+      "duration_seconds": 0.24,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2133"
+      ],
+      "godot_events": [
+        "turn_player"
+      ]
+    },
+    "sfx_ui_click": {
+      "path": "assets/audio/sfx/sfx_ui_click.wav",
+      "duration_seconds": 0.05,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [],
+      "godot_events": [
+        "ui_click"
+      ]
+    },
+    "sfx_victory": {
+      "path": "assets/audio/sfx/sfx_victory.wav",
+      "duration_seconds": 1.26,
+      "sample_rate": 44100,
+      "channels": 2,
+      "bits": 16,
+      "arcade_sites": [
+        "game/views.py:2189",
+        "game/ui/screens/agent_promotion_view.py:53",
+        "game/ui/screens/agent_promotion_view.py:134"
+      ],
+      "godot_events": [
+        "victory"
+      ]
+    }
+  },
+  "godot_routes": {
+    "move": "sfx_move",
+    "fire": "sfx_fire",
+    "melee": "sfx_melee",
+    "psi": "sfx_psi",
+    "hit": "sfx_hit",
+    "miss": "sfx_miss",
+    "death": "sfx_death",
+    "overwatch": "sfx_overwatch",
+    "defend": "sfx_act_advance",
+    "deploy": "sfx_deploy",
+    "ui_click": "sfx_ui_click",
+    "turn_player": "sfx_turn_player",
+    "turn_enemy": "sfx_turn_enemy",
+    "victory": "sfx_victory",
+    "defeat": "sfx_defeat",
+    "reinforce": "sfx_reinforce",
+    "stun": "sfx_stun",
+    "bleed": "sfx_bleed"
+  },
+  "engine_call_sites": [
+    {
+      "engine": "arcade",
+      "event": "sfx_act_advance",
+      "sites": [
+        "game/campaign/engine.py:241",
+        "game/ui/screens/management_screen.py:303"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_bleed",
+      "sites": [
+        "game/views.py:2131"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_death",
+      "sites": [
+        "game/views.py:2247",
+        "game/views.py:2999"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_deploy",
+      "sites": [
+        "game/views.py:3412",
+        "game/ui/screens/agent_promotion_view.py:127"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_fire",
+      "sites": [
+        "game/views.py:2228",
+        "game/views.py:2269",
+        "game/audio/sound_manager.py:7"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_hit",
+      "sites": [
+        "game/views.py:2231",
+        "game/views.py:2968",
+        "game/views.py:2982",
+        "game/views.py:2988"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_intel_reveal",
+      "sites": [
+        "game/campaign/engine.py:104"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_overwatch",
+      "sites": [
+        "game/views.py:3045"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_stun",
+      "sites": [
+        "game/views.py:2238"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_turn_enemy",
+      "sites": [
+        "game/views.py:2165"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_turn_player",
+      "sites": [
+        "game/views.py:2133"
+      ]
+    },
+    {
+      "engine": "arcade",
+      "event": "sfx_victory",
+      "sites": [
+        "game/views.py:2189",
+        "game/ui/screens/agent_promotion_view.py:53",
+        "game/ui/screens/agent_promotion_view.py:134"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "conditional",
+      "sites": [
+        "godot/combat_missions_ui/scripts/mission_results.gd:66 CombatSignals.audio_event.emit(\"victory\" if outcome == \"victory\" else \"defeat\")",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1524 CombatSignals.audio_event.emit(\"fire\" if atype == \"FIRE\" else \"hit\")"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "death",
+      "sites": [
+        "godot/combat_missions_ui/scripts/unit_token.gd:157",
+        "godot/combat_missions_ui/scripts/unit_visual.gd:139"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "fire",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1394",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1524"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "hit",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1744"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "miss",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1503",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1724"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "move",
+      "sites": [
+        "godot/combat_missions_ui/scripts/unit_token.gd:123",
+        "godot/combat_missions_ui/scripts/unit_visual.gd:124"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "psi",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1293",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1315"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "turn_enemy",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1559"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "turn_player",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1204",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1580"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "ui_click",
+      "sites": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1048",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1057",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1085",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd:1346",
+        "godot/combat_missions_ui/scripts/hud_controller.gd:189"
+      ]
+    },
+    {
+      "engine": "godot",
+      "event": "victory",
+      "sites": [
+        "godot/combat_missions_ui/scripts/mission_results.gd:66"
+      ]
+    }
+  ],
+  "dynamic_routes": [
+    {
+      "source": "game/gamestate.py:484",
+      "events": [
+        "recruitment",
+        "selection",
+        "toggle"
+      ],
+      "finding": "Constructs sfx_<cue>. None of these three WAVs is in the Arcade SFX catalog or source assets."
+    },
+    {
+      "source": "game/views.py:2041",
+      "finding": "Action-dependent effect key. This dispatch adds to the direct call sites in the inventory."
+    },
+    {
+      "source": "godot/combat_missions_ui/scripts/audio_manager.gd",
+      "finding": "Six rotating SFX players. Bursts of concurrent events can reuse a player. One WAV is loaded per event and there is no variation selector."
+    }
+  ]
+}

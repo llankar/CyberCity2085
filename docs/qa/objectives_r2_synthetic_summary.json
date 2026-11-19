@@ -1,0 +1,42 @@
+{
+  "scope": "576 synthetic objective battles; fixed four-rifle squad, seed 0; no human or mixed-team balance claim",
+  "combat_sources_sha256": "aa0a267bf0b173577db61feafdf4757e8a7492b754f04a42217b99937490ded7",
+  "coverage_exact": true,
+  "summary": {
+    "victory": 471,
+    "defeat": 105
+  },
+  "by_objective": {
+    "extract": {
+      "victory": 70,
+      "defeat": 2
+    },
+    "data_theft": {
+      "victory": 70,
+      "defeat": 2
+    },
+    "sabotage": {
+      "victory": 70,
+      "defeat": 2
+    },
+    "recon_scan": {
+      "victory": 70,
+      "defeat": 2
+    },
+    "civilian_rescue": {
+      "victory": 65,
+      "defeat": 7
+    },
+    "defend": {
+      "defeat": 32,
+      "victory": 40
+    },
+    "containment": {
+      "defeat": 58,
+      "victory": 14
+    },
+    "assassination": {
+      "victory": 72
+    }
+  }
+}

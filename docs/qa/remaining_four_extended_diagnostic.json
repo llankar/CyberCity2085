@@ -1,0 +1,35 @@
+{
+  "scope": "Diagnostic only: four remaining 60-turn limits observed up to 100 turns; does not replace the 60-turn gate",
+  "combat_sources_sha256": "1d0be7132fab29a83193990d83a505693e466f5b5ee500ca121b4309951a12d7",
+  "note": "Pre-panic-memory observation; all four remain failures of the original 60-turn pacing gate",
+  "cases": [
+    {
+      "map_file": "city_exterior_rooftop_access.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 66,
+      "map_survey_sha256": "153ed1d3d98ac5c2b15e1d2948447144b40414de8e021445fd01eee54f702758"
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 61,
+      "map_survey_sha256": "1ff84a75347b7246425df376f26d4fc7888a849a12ca906011a210aeb746779d"
+    },
+    {
+      "map_file": "city_industrial_power_substation.png",
+      "objective_kind": "containment",
+      "outcome": "victory",
+      "turns": 67,
+      "map_survey_sha256": "1ff84a75347b7246425df376f26d4fc7888a849a12ca906011a210aeb746779d"
+    },
+    {
+      "map_file": "wasteland_city_06_ruined_downtown.png",
+      "objective_kind": "extract",
+      "outcome": "victory",
+      "turns": 61,
+      "map_survey_sha256": "0281076fc71634aa6fdad11471d1f13ab4f69a449b24e7cc1e4f76171c94fc08"
+    }
+  ]
+}

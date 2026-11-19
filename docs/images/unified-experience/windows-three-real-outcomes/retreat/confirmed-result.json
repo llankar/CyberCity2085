@@ -1,0 +1,45 @@
+{
+  "agents": [
+    {
+      "hp": 11,
+      "max_hp": 11,
+      "name": "Vera",
+      "stress": 0
+    },
+    {
+      "hp": 11,
+      "max_hp": 11,
+      "name": "Rook",
+      "stress": 0
+    },
+    {
+      "hp": 11,
+      "max_hp": 11,
+      "name": "Oracle",
+      "stress": 0
+    },
+    {
+      "hp": 11,
+      "max_hp": 11,
+      "name": "Mantis",
+      "stress": 0
+    }
+  ],
+  "enemies_killed": 0,
+  "enemies_spawned_total": 3,
+  "initial_enemy_count": 3,
+  "mission_id": "unified_retreat",
+  "music_playback": {
+    "captured_at": 1795039475.398,
+    "path": "C:\\Users\\llank\\AppData\\Local\\Temp\\cybercity-unified-gf47wgar/assets/audio/music/music_debrief.wav",
+    "position": 1.95337867736816
+  },
+  "objective_completed": false,
+  "objective_progress": 0,
+  "outcome": "retreat",
+  "phase": "confirmed",
+  "protocol_version": 2,
+  "session_id": "80bfd110fbd14724b4052ca80ab1b79e",
+  "support": [],
+  "turn_reached": 1
+}

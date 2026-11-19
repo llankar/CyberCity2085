@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(python -m pytest tests/ -x -q --tb=short)",
+      "Bash(python -m pytest tests/ -q --tb=no)",
+      "Bash(python -m pytest tests/ui/test_no_palette_in_screens.py -v --tb=short)",
+      "Bash(git stash *)",
+      "Bash(python -m pytest tests/test_rpg_view.py tests/test_spec_ops_assets.py tests/test_strategic_events.py -q --tb=no)",
+      "Bash(git checkout *)",
+      "Bash(python -m pytest tests/test_rpg_view.py::RPGViewMissionLaunchTest::test_launch_without_agents_sets_message_and_keeps_rpg_view -v --tb=short)",
+      "Bash(python -m pytest tests/test_rpg_view.py -q --tb=short)",
+      "Bash(python -m pytest tests/test_rpg_view.py -q --tb=line)",
+      "Bash(python -m pytest \"tests/test_rpg_view.py::RPGViewMissionLaunchTest::test_breaking_risk_blocks_first_launch_attempt_with_warning\" \"tests/test_rpg_view.py::RPGViewMissionLaunchTest::test_stable_agent_launches_without_breakdown_confirmation\" -v --tb=long)"
+    ]
+  }
+}

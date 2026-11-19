@@ -1,0 +1,270 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        8,
+        0,
+        31,
+        540
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        931,
+        0,
+        953,
+        540
+      ]
+    },
+    {
+      "id": "northwest_bay",
+      "rect": [
+        50,
+        0,
+        217,
+        76
+      ]
+    },
+    {
+      "id": "north_midwest_bay",
+      "rect": [
+        250,
+        0,
+        369,
+        75
+      ]
+    },
+    {
+      "id": "north_mideast_bay",
+      "rect": [
+        593,
+        0,
+        709,
+        74
+      ]
+    },
+    {
+      "id": "northeast_bay",
+      "rect": [
+        748,
+        0,
+        899,
+        79
+      ]
+    },
+    {
+      "id": "southwest_bay",
+      "rect": [
+        0,
+        335,
+        133,
+        540
+      ]
+    },
+    {
+      "id": "southeast_bay",
+      "rect": [
+        824,
+        338,
+        960,
+        540
+      ]
+    },
+    {
+      "id": "west_middle_bay",
+      "rect": [
+        0,
+        195,
+        134,
+        336
+      ]
+    },
+    {
+      "id": "east_middle_bay",
+      "rect": [
+        823,
+        196,
+        960,
+        337
+      ]
+    },
+    {
+      "id": "guardroom_w",
+      "rect": [
+        220,
+        99,
+        343,
+        196
+      ]
+    },
+    {
+      "id": "guardroom_e",
+      "rect": [
+        622,
+        99,
+        742,
+        195
+      ]
+    },
+    {
+      "id": "scanner_sw",
+      "rect": [
+        309,
+        310,
+        351,
+        390
+      ]
+    },
+    {
+      "id": "scanner_smw",
+      "rect": [
+        399,
+        310,
+        439,
+        390
+      ]
+    },
+    {
+      "id": "scanner_sme",
+      "rect": [
+        521,
+        310,
+        560,
+        390
+      ]
+    },
+    {
+      "id": "scanner_se",
+      "rect": [
+        604,
+        310,
+        646,
+        390
+      ]
+    },
+    {
+      "id": "security_booth_1",
+      "rect": [
+        311,
+        232,
+        329,
+        291
+      ]
+    },
+    {
+      "id": "security_booth_2",
+      "rect": [
+        373,
+        232,
+        389,
+        291
+      ]
+    },
+    {
+      "id": "security_booth_3",
+      "rect": [
+        423,
+        232,
+        437,
+        291
+      ]
+    },
+    {
+      "id": "security_booth_4",
+      "rect": [
+        476,
+        232,
+        490,
+        291
+      ]
+    },
+    {
+      "id": "security_booth_5",
+      "rect": [
+        526,
+        232,
+        539,
+        291
+      ]
+    },
+    {
+      "id": "security_booth_6",
+      "rect": [
+        573,
+        232,
+        590,
+        291
+      ]
+    },
+    {
+      "id": "barrier_n",
+      "rect": [
+        430,
+        103,
+        580,
+        125
+      ]
+    },
+    {
+      "id": "barrier_sw",
+      "rect": [
+        213,
+        399,
+        748,
+        422
+      ]
+    },
+    {
+      "id": "barrier_midw",
+      "rect": [
+        225,
+        246,
+        306,
+        276
+      ]
+    },
+    {
+      "id": "barrier_mide",
+      "rect": [
+        616,
+        246,
+        736,
+        275
+      ]
+    },
+    {
+      "id": "north_crates",
+      "rect": [
+        383,
+        62,
+        421,
+        101
+      ]
+    },
+    {
+      "id": "east_crates",
+      "rect": [
+        750,
+        151,
+        792,
+        199
+      ]
+    },
+    {
+      "id": "west_crates",
+      "rect": [
+        168,
+        151,
+        192,
+        199
+      ]
+    }
+  ]
+}

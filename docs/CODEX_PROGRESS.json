@@ -1,0 +1,1290 @@
+{
+  "schema_version": 1,
+  "global_status": "IN_PROGRESS",
+  "expected_maps": 122,
+  "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
+  "working_branch": "codex/unified-experience",
+  "active_batch": [
+    "SCALE-05"
+  ],
+  "tasks": [
+    {
+      "id": "GOV-01",
+      "title": "Consignes permanentes et lots successifs",
+      "status": "DONE",
+      "files": [
+        "AGENTS.md"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_combat_visual_acceptance.py tests/test_environment_progress.py --junitxml=docs/reports/work_governance_tests.xml",
+        "Contrôle du maintien des règles qualité et absence de la phrase retirée"
+      ],
+      "evidence": [
+        "AGENTS.md",
+        "docs/reports/work_governance_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "GOV-02",
+      "title": "Registre structuré avec portées et preuves",
+      "status": "DONE",
+      "files": [
+        "docs/CODEX_PROGRESS.json",
+        "docs/CODEX_PROGRESS.md"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_combat_visual_acceptance.py tests/test_environment_progress.py --junitxml=docs/reports/work_governance_tests.xml",
+        "Contrôles DONE sans preuve, BLOCKED sans raison et statuts invalides"
+      ],
+      "evidence": [
+        "docs/CODEX_PROGRESS.json",
+        "docs/reports/work_governance_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "GOV-03",
+      "title": "Critères globaux réels et méthode reproductible",
+      "status": "DONE",
+      "files": [
+        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_combat_visual_acceptance.py tests/test_environment_progress.py --junitxml=docs/reports/work_governance_tests.xml",
+        "Contrôles distinguant chargement, art déclaré, art revu et couverture attendue"
+      ],
+      "evidence": [
+        "docs/COMBAT_VISUAL_ACCEPTANCE.md",
+        "docs/reports/work_governance_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "GOV-04",
+      "title": "Outil de vérification et rapport FAIL/NOT VERIFIED honnête",
+      "status": "DONE",
+      "files": [
+        "tools/check_combat_visual_acceptance.py",
+        "tests/test_combat_visual_acceptance.py",
+        "docs/reports/combat_visual_acceptance.json"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_combat_visual_acceptance.py tests/test_environment_progress.py --junitxml=docs/reports/work_governance_tests.xml",
+        "python -m tools.check_combat_visual_acceptance --write : code 1 attendu, CHANTIER GLOBAL INCOMPLET sur les vraies données"
+      ],
+      "evidence": [
+        "docs/reports/work_governance_tests.xml",
+        "docs/reports/combat_visual_acceptance.json",
+        "docs/reports/combat_visual_acceptance.md"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "GOV-05",
+      "title": "Bilan final, contrôle du périmètre et sauvegarde Git locale",
+      "status": "DONE",
+      "files": [
+        "AGENTS.md",
+        "docs/CODEX_PROGRESS.md",
+        "docs/backlog.md",
+        "docs/reports/work_governance_scope.json"
+      ],
+      "tests": [
+        "git diff --name-only 47d593b ; contrôle des chemins autorisés",
+        "git commit 2a73feb : sauvegarde locale créée",
+        "git diff --name-only 47d593b : aucune modification du gameplay"
+      ],
+      "evidence": [
+        "docs/reports/work_governance_scope.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ART-NEXT-01",
+      "title": "Deux nouvelles agentes : sources dessinées et identité",
+      "status": "DONE",
+      "files": [
+        "assets/units/agent_diverse_01_neon_blade_512.png",
+        "assets/units/agent_diverse_03_magenta_pistol_512.png"
+      ],
+      "tests": [
+        "Inspection initiale des PNG de référence ; aucune validation native des nouveaux dessins",
+        "Six planches comparées aux PNG originaux ; empreintes vérifiées avant import"
+      ],
+      "evidence": [
+        "assets/combat_visual/source_sheets/import-plan.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ART-NEXT-02",
+      "title": "Importer les deux atlas et contrôler les silhouettes",
+      "status": "DONE",
+      "files": [
+        "tools/art/import_directional_clips.py",
+        "assets/combat_visual/animations"
+      ],
+      "tests": [
+        "Import existant utilisé ; huit directions et poses uniques contrôlées par validate_atlas",
+        "Inspection des deux atlas nettoyés, marges, lames, pistolet et identités"
+      ],
+      "evidence": [
+        "assets/combat_visual/animations/agent_diverse_01_neon_blade.json",
+        "assets/combat_visual/animations/agent_diverse_03_magenta_pistol.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ART-NEXT-03",
+      "title": "Étendre les tests aux six références sans perdre les quatre précédentes",
+      "status": "DONE",
+      "files": [
+        "tests/test_directional_animation.py",
+        "godot/combat_missions_ui/tests/directional_animation_regression.gd"
+      ],
+      "tests": [
+        "55 tests ciblés réussis ; 192 sélections de frames natives sur six références"
+      ],
+      "evidence": [
+        "docs/reports/roster_batch2_runtime_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ART-NEXT-04",
+      "title": "Captures et interactions natives du nouveau lot",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/tests/capture_directional_animation.gd"
+      ],
+      "tests": [
+        "Deux clics de déplacement : 4 PA dépensés par agente, destinations atteintes et retour idle",
+        "Captures réelles aux trois résolutions, orientations et mouvements inspectés"
+      ],
+      "evidence": [
+        "docs/images/roster-batch2/animation-report.json",
+        "docs/images/roster-batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ART-NEXT-05",
+      "title": "Actualiser couverture, preuves et prochain lot artistique",
+      "status": "DONE",
+      "files": [
+        "docs/combat_visual_25_status.json",
+        "docs/CODEX_PROGRESS.json"
+      ],
+      "tests": [
+        "122 captures natives terminées, 221 placements de décor inchangés",
+        "Galeries de six références et déplacements archivés ; bilans actualisés"
+      ],
+      "evidence": [
+        "docs/images/roster-batch2/native-report.json",
+        "docs/images/roster-batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-01",
+      "title": "Inventorier les profils actuels, sources et variantes du catalogue",
+      "status": "DONE",
+      "files": [
+        "tools/audit_entity_scale.py",
+        "docs/reports/entity_scale_baseline.json",
+        "docs/reports/entity_scale_baseline.md"
+      ],
+      "tests": [
+        "122 cartes / 92 illustrations ; aucune empreinte source incohérente",
+        "33 tests ciblés du suivi et de l’inventaire réussis"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_baseline.json",
+        "docs/reports/entity_scale_baseline.md",
+        "docs/reports/scale_inventory_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "UE1-01",
+      "title": "Isoler les sessions et contrats",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-02",
+      "title": "Différer la publication jusqu’à confirmation et ACK",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-03",
+      "title": "Extraire et réutiliser la résolution de campagne",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-04",
+      "title": "Router débriefing, promotions et HQ",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE1-05",
+      "title": "Vérifier le lot fonctionnel et ses limites",
+      "status": "DONE",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "67 tests distincts réussis ; trois parcours natifs Linux contrôlés"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch1_tests.xml",
+        "docs/images/unified-experience/batch1/native-report.json",
+        "docs/images/unified-experience/batch1/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée limitée au premier lot fonctionnel ; aucune validation graphique Windows"
+    },
+    {
+      "id": "UE2-01",
+      "title": "Journal Python durable avant/après résolution",
+      "status": "DONE",
+      "files": [
+        "game/combat/session_protocol.py",
+        "game/combat/godot_resolution.py",
+        "game/combat/checkpoints.py"
+      ],
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
+    },
+    {
+      "id": "UE2-02",
+      "title": "Reprendre le débriefing après crash sans rejouer les récompenses",
+      "status": "DONE",
+      "files": [
+        "game/ui/screens/mission_return.py",
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "game/combat/return_snapshot.py",
+        "game/ui/screens/combat_recovery.py",
+        "game/ui/screens/title_screen.py"
+      ],
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
+    },
+    {
+      "id": "UE2-03",
+      "title": "Readiness, statuts et délais de communication",
+      "status": "DONE",
+      "files": [
+        "game/combat/session_protocol.py",
+        "godot/combat_missions_ui/scripts/session_mailbox.gd",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
+    },
+    {
+      "id": "UE2-04",
+      "title": "Cycle de vie Win32 et continuité de fenêtre",
+      "status": "IN_PROGRESS",
+      "files": [
+        "game/combat/win32_embed.py",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "Validation graphique Windows restante : redimensionnement et DPI multi-écrans",
+      "reason": "Alt+Tab, réduction et restauration visuellement vérifiés ; bord de redimensionnement intercepté par la fenêtre Godot possédée"
+    },
+    {
+      "id": "UE2-05",
+      "title": "Scénarios de crash, récupération et bilan du lot",
+      "status": "DONE",
+      "files": [
+        "tests/test_unified_mission_resolution.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch2_tests.xml",
+        "docs/reports/unified_window_regression_tests.xml",
+        "docs/images/unified-experience/batch2/README.md"
+      ],
+      "remaining": "",
+      "reason": "Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours"
+    },
+    {
+      "id": "SCALE-02",
+      "title": "Mesurer les repères visuels par illustration et vérifier les variantes",
+      "status": "DONE",
+      "files": [
+        "docs/reports/entity_scale_baseline.json"
+      ],
+      "tests": [
+        "Deux voitures identifiées visuellement et axes source annotés avec incertitude",
+        "Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié",
+        "Onze planches couvrant 122 cartes inspectées : voitures, routes, épaves, portes, lits, bureaux, sièges, machines et structures"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_anchor_samples.json",
+        "docs/images/entity-scale-diagnostics/README.md",
+        "docs/images/entity-scale-diagnostics/native-diagnostics.json",
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/images/entity-scale-production-windows/README.md"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-03",
+      "title": "Appliquer les profils visuels par carte et catégorie",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/map_presentation.gd",
+        "godot/combat_missions_ui/scripts/unit_presentation.gd",
+        "godot/combat_missions_ui/art/environment/map_presentation.json"
+      ],
+      "tests": [
+        "122 profils appliqués : urbain/wasteland 0,015 ; intérieur/petit intérieur/industrie 0,020",
+        "6 tests de profils/inventaire réussis ; 0 empreinte source incohérente"
+      ],
+      "evidence": [
+        "docs/reports/entity_scale_profile_tests.xml",
+        "docs/reports/entity_scale_baseline.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-04",
+      "title": "Vérifier les 122 cartes et les interactions aux trois résolutions",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/tests/capture_combat_21.gd",
+        "godot/combat_missions_ui/tests/directional_animation_regression.gd"
+      ],
+      "tests": [
+        "122 cartes rendues nativement à 720p, 1080p et 1440p sur RTX 5070 Ti",
+        "Projection, zoom, picking, aspect, ancrage, ombres et absence de mutation tactique vérifiés",
+        "11 planches 720p inspectées ; lisibilité limitante et proportions approuvées"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "docs/images/entity-scale-production-windows/README.md",
+        "docs/reports/entity_scale_review_windows.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "SCALE-05",
+      "title": "Archiver les comparatifs et le résultat réel de la passe d’échelle",
+      "status": "DONE",
+      "files": [
+        "docs/CODEX_PROGRESS.json",
+        "docs/COMBAT_VISUAL_ACCEPTANCE.md"
+      ],
+      "tests": [
+        "Acceptation reproductible : MAP-LOAD 122/122 et UNIT-SCALE PASS ; MAP-ART reste 0/122"
+      ],
+      "evidence": [
+        "docs/reports/combat_visual_acceptance.json",
+        "docs/reports/entity_scale_review_windows.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "ENV-FINAL",
+      "title": "Finition artistique individuelle des 122 cartes",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "docs/combat_visual_25_inventory.md"
+      ],
+      "tests": [
+        "Historique : captures natives des 122 cartes ; ne valide pas la finition",
+        "Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus",
+        "Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt",
+        "docs/images/environment-art-review-windows/README.md",
+        "docs/images/environment-art-review-windows/manifest.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "UNIT-COVERAGE",
+      "title": "Identités de toutes les familles d’unités",
+      "status": "IN_PROGRESS",
+      "files": [
+        "assets/units",
+        "assets/combat_visual/animations"
+      ],
+      "tests": [
+        "Historique : audit de 251 références ; 4 atlas partiels vérifiés",
+        "Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "Couvrir les 205 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "reason": ""
+    },
+    {
+      "id": "ANIM-COMPLETE",
+      "title": "Actions multidirectionnelles complètes et applicabilité documentée",
+      "status": "IN_PROGRESS",
+      "files": [
+        "assets/combat_visual/animations",
+        "tools/audit_combat_visuals.py"
+      ],
+      "tests": [
+        "Audit anti-doublons : 26 ensembles complets, 0 partiel",
+        "Tireuse à dreadlocks seule : 128 frames et actions applicables capturées sur refuge, usine et wasteland aux trois résolutions",
+        "2 tests Python réussis, 1 test X11 ignoré",
+        "Godot Windows natif ciblé : 32 sélections de frames ; aucune autre unité retestée",
+        "Captures tir, mêlée et mort inspectées dans la scène tactique réelle"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt",
+        "docs/images/neon-blade-actions/README.md",
+        "docs/images/neon-blade-actions/audit.json",
+        "docs/images/neon-blade-actions/animation-report.json",
+        "docs/images/magenta-pistol-actions/README.md",
+        "docs/images/magenta-pistol-actions/audit.json",
+        "docs/images/magenta-pistol-actions/animation-report.json",
+        "docs/images/trench-sniper-actions/README.md",
+        "docs/images/trench-sniper-actions/audit.json",
+        "docs/images/trench-sniper-actions/animation-report.json",
+        "docs/images/psi-doctor-actions/README.md",
+        "docs/images/psi-doctor-actions/audit.json",
+        "docs/images/psi-doctor-actions/animation-report.json",
+        "docs/images/street-medic-actions/README.md",
+        "docs/images/street-medic-actions/audit.json",
+        "docs/images/street-medic-actions/animation-report.json",
+        "docs/images/longcoat-gunner-actions/README.md",
+        "docs/images/longcoat-gunner-actions/audit.json",
+        "docs/images/longcoat-gunner-actions/animation-report.json",
+        "docs/images/hooded-infiltrator-actions/README.md",
+        "docs/images/hooded-infiltrator-actions/audit.json",
+        "docs/images/hooded-infiltrator-actions/animation-report.json",
+        "docs/images/holo-hacker-actions/README.md",
+        "docs/images/holo-hacker-actions/audit.json",
+        "docs/images/holo-hacker-actions/animation-report.json",
+        "docs/images/blue-mohawk-scout-actions/README.md",
+        "docs/images/blue-mohawk-scout-actions/audit.json",
+        "docs/images/blue-mohawk-scout-actions/animation-report.json",
+        "docs/images/ronin-duelist-actions/README.md",
+        "docs/images/ronin-duelist-actions/audit.json",
+        "docs/images/ronin-duelist-actions/animation-report.json",
+        "docs/images/rail-sniper-actions/README.md",
+        "docs/images/rail-sniper-actions/audit.json",
+        "docs/images/rail-sniper-actions/animation-report.json",
+        "docs/images/violet-fixer-actions/README.md",
+        "docs/images/violet-fixer-actions/audit.json",
+        "docs/images/violet-fixer-actions/animation-report.json",
+        "docs/images/silver-pistol-actions/README.md",
+        "docs/images/silver-pistol-actions/audit.json",
+        "docs/images/silver-pistol-actions/animation-report.json",
+        "docs/images/armored-vanguard-actions/README.md",
+        "docs/images/armored-vanguard-actions/audit.json",
+        "docs/images/armored-vanguard-actions/animation-report.json",
+        "docs/images/chrome-medic-actions/README.md",
+        "docs/images/chrome-medic-actions/audit.json",
+        "docs/images/chrome-medic-actions/animation-report.json",
+        "docs/images/heavy-breacher-actions/README.md",
+        "docs/images/heavy-breacher-actions/audit.json",
+        "docs/images/heavy-breacher-actions/animation-report.json",
+        "docs/images/yellow-strike-actions/README.md",
+        "docs/images/yellow-strike-actions/audit.json",
+        "docs/images/yellow-strike-actions/animation-report.json",
+        "docs/images/red-enforcer-actions/README.md",
+        "docs/images/red-enforcer-actions/audit.json",
+        "docs/images/red-enforcer-actions/animation-report.json",
+        "docs/images/drone-handler-actions/README.md",
+        "docs/images/drone-handler-actions/audit.json",
+        "docs/images/drone-handler-actions/animation-report.json",
+        "docs/images/cyber-doc-actions/README.md",
+        "docs/images/cyber-doc-actions/audit.json",
+        "docs/images/cyber-doc-actions/animation-report.json",
+        "docs/images/twin-blade-actions/README.md",
+        "docs/images/twin-blade-actions/audit.json",
+        "docs/images/twin-blade-actions/animation-report.json",
+        "docs/images/veteran-inquisitor-actions/README.md",
+        "docs/images/veteran-inquisitor-actions/audit.json",
+        "docs/images/veteran-inquisitor-actions/animation-report.json",
+        "docs/images/dreadlock-rifle-actions/README.md",
+        "docs/images/dreadlock-rifle-actions/audit.json",
+        "docs/images/dreadlock-rifle-actions/animation-report.json"
+      ],
+      "remaining": "26 / 231 ensembles complets ; produire et vérifier les actions applicables des 205 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné",
+      "reason": ""
+    },
+    {
+      "id": "TACTICAL-REVIEW",
+      "title": "Validation artistique et fonctionnelle globale aux trois résolutions",
+      "status": "TODO",
+      "files": [
+        "godot/combat_missions_ui/tests",
+        "docs/images/combat-directional-animation"
+      ],
+      "tests": [
+        "Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle"
+      ],
+      "evidence": [
+        "docs/images/combat-directional-animation/README.md",
+        "docs/images/combat-directional-animation/validation-results.txt"
+      ],
+      "remaining": "Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles",
+      "reason": ""
+    },
+    {
+      "id": "GPU-BENCH",
+      "title": "Performance et mémoire sur matériel joueur",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/tests/capture_combat_21.gd",
+        "tools/run_windows_gpu_benchmark.ps1",
+        "tests/test_windows_gpu_benchmark.py"
+      ],
+      "tests": [
+        "Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti",
+        "180,53 FPS moyens ; p95 8,064 ms / 124,01 FPS ; pic mémoire statique Godot 441 MiB",
+        "33 échantillons système : CPU total moyen 5,97 %, GPU moyen 9,82 %, pic GPU 20 %, pic VRAM processus observé 2730 MiB"
+      ],
+      "evidence": [
+        "docs/reports/windows_gpu_benchmark_system.json"
+      ],
+      "remaining": "",
+      "reason": "Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale"
+    },
+    {
+      "id": "SCALE-CATALOGUE",
+      "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/unit_presentation.gd",
+        "godot/combat_missions_ui/scripts/visual_battlefield.gd",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/unit_visual.gd",
+        "assets/maps/*.walls.json"
+      ],
+      "tests": [
+        "Revue visuelle des 122 cartes et cinq profils d’environnement",
+        "Trois résolutions natives avec agents, ennemis, robots, power armors et véhicules ; clics et zoom vérifiés"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/README.md",
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/reports/entity_scale_windows_tests.xml"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
+      "id": "UE3-01",
+      "title": "Transférer la musique après readiness sans silence de chargement",
+      "status": "DONE",
+      "files": [
+        "game/combat/audio_transfer.py",
+        "game/combat/session_protocol.py",
+        "godot/combat_missions_ui/scripts/audio_manager.gd"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE3-02",
+      "title": "Restituer la lecture après erreur ou retour de Godot",
+      "status": "DONE",
+      "files": [
+        "game/audio/sound_manager.py",
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE3-03",
+      "title": "Vérifier propriété audio et parcours natif sans prétendre valider le son",
+      "status": "DONE",
+      "files": [
+        "tests/test_unified_audio_transfer.py",
+        "godot/combat_missions_ui/tests/unified_return_flow.gd"
+      ],
+      "tests": [
+        "57 cas ciblés Python/Godot réussis",
+        "Parcours natif Linux avec propriété Godot absente avant release puis accordée après readiness ; débriefing/promotions/HQ et replay vérifiés"
+      ],
+      "evidence": [
+        "docs/reports/unified_audio_tests.xml",
+        "docs/images/unified-experience/batch3/README.md",
+        "docs/images/unified-experience/batch3/audio-native-report.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy : validation auditive non disponible"
+    },
+    {
+      "id": "UE4-01",
+      "title": "Inventorier les états tactiques et définir le contrat de reprise",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/tactical_checkpoint.gd",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-02",
+      "title": "Écrire un instantané atomique après les actions résolues",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-03",
+      "title": "Valider et restaurer sans modifier les règles ni la campagne",
+      "status": "DONE",
+      "files": [
+        "game/combat/tactical_recovery.py"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-04",
+      "title": "Proposer une reprise explicite et isoler les anciennes sessions",
+      "status": "DONE",
+      "files": [
+        "game/ui/screens/godot_combat_handoff_view.py"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE4-05",
+      "title": "Tester interruption, reprise et conséquences avec preuves natives",
+      "status": "DONE",
+      "files": [
+        "tests/test_unified_tactical_recovery.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "104 tests ciblés Python/Godot PASS ; roundtrips phase joueur/ennemi, agents/robot/armure, projections top-down/isométrique et mode legacy ; changement de résolution et clics après recadrage",
+        "Parcours natifs : reprise joueur 720p/1080p, ancien processus encore vivant en phase ennemie 720p/1440p, ACK après résolution sauvegardée"
+      ],
+      "evidence": [
+        "docs/reports/unified_batch4_tests.xml",
+        "docs/images/unified-experience/batch4/README.md",
+        "docs/UNIFIED_TACTICAL_SNAPSHOT.md"
+      ],
+      "remaining": "",
+      "reason": "Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé"
+    },
+    {
+      "id": "UE5-01",
+      "title": "Jouer une mission réelle et vérifier le retour complet sous Windows",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/tests/unified_real_mission_flow.gd",
+        "tools/check_unified_return.py",
+        "tests/test_unified_mission_resolution.py",
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "25 tests ciblés PASS dans tests/test_unified_mission_resolution.py",
+        "Parcours natif Windows : objectif réel accompli en 27 actions et 10 tours ennemis ; HQ → carte → briefing → Godot → débriefing → promotions → HQ ; sauvegarde/rechargement et application unique"
+      ],
+      "evidence": [
+        "docs/reports/unified_windows_real_mission_tests.xml",
+        "docs/images/unified-experience/windows-real-mission/native-report.json",
+        "docs/images/unified-experience/windows-real-mission/README.md"
+      ],
+      "remaining": "",
+      "reason": "Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle"
+    },
+    {
+      "id": "UE5-02",
+      "title": "Vérifier trois issues réelles, fenêtres Windows et décision de préchauffage",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/hud_controller.gd",
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "godot/combat_missions_ui/tests/unified_real_mission_flow.gd",
+        "tools/check_unified_return.py"
+      ],
+      "tests": [
+        "Trois parcours natifs Windows PASS : victoire par objectif, défaite par élimination IA, retraite par commande doublement confirmée",
+        "Inspection Windows visible : Alt+Tab, réduction et restauration PASS ; redimensionnement et DPI NOT VERIFIED",
+        "Première frame/readiness froide mesurée entre 2,109 s et 3,625 s ; aucun préchauffage ajouté"
+      ],
+      "evidence": [
+        "docs/images/unified-experience/windows-three-real-outcomes/native-report.json",
+        "docs/images/unified-experience/windows-three-real-outcomes/README.md",
+        "docs/reports/windows_lifecycle_visual.json"
+      ],
+      "remaining": "",
+      "reason": "Audio Dummy ; redimensionnement et DPI multi-écrans hors portée validée"
+    },
+    {
+      "id": "UE5-03",
+      "title": "Démarrer Godot avec le jeu et réutiliser le même processus dès la première mission",
+      "status": "IN_PROGRESS",
+      "files": [
+        "game/combat/persistent_runtime.py",
+        "game/ui/application_window.py",
+        "main.py",
+        "godot/combat_missions_ui/scripts/persistent_runtime.gd"
+      ],
+      "tests": [
+        "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+      ],
+      "evidence": [
+        "docs/images/unified-experience/batch5/report.json",
+        "docs/reports/unified_persistent_runtime_tests.xml",
+        "docs/reports/unified_runtime_lifecycle_tests.xml"
+      ],
+      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "reason": ""
+    },
+    {
+      "id": "UE5-04",
+      "title": "Conserver la transition visible jusqu’à la readiness native Windows",
+      "status": "IN_PROGRESS",
+      "files": [
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "game/combat/win32_embed.py"
+      ],
+      "tests": [
+        "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+      ],
+      "evidence": [
+        "docs/images/unified-experience/batch5/report.json",
+        "docs/reports/unified_persistent_runtime_tests.xml",
+        "docs/reports/unified_runtime_lifecycle_tests.xml"
+      ],
+      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "reason": ""
+    },
+    {
+      "id": "UE5-05",
+      "title": "Archiver les preuves natives, régressions et critères encore ouverts",
+      "status": "IN_PROGRESS",
+      "files": [
+        "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
+      ],
+      "tests": [
+        "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+      ],
+      "evidence": [
+        "docs/images/unified-experience/batch5/report.json",
+        "docs/reports/unified_persistent_runtime_tests.xml",
+        "docs/reports/unified_runtime_lifecycle_tests.xml"
+      ],
+      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "reason": ""
+    }
+  ],
+  "reviews": {
+    "MAP-ART": {
+      "status": "PASS",
+      "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "evidence": [
+        {
+          "path": "docs/images/environment-art-review-windows/manifest.json",
+          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+        },
+        {
+          "path": "docs/images/environment-art-review-windows/native-report.json",
+          "sha256": "d53f27f83a0bffcc7748477058f46a710d4823bfb563c08588f834f361c33c5b"
+        }
+      ]
+    },
+    "ART-OBJECTS": {
+      "status": "PASS",
+      "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "evidence": [
+        {
+          "path": "docs/images/environment-art-review-windows/manifest.json",
+          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+        }
+      ]
+    },
+    "PERFORMANCE": {
+      "status": "PASS",
+      "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "evidence": [
+        {
+          "path": "docs/reports/windows_gpu_benchmark_system.json",
+          "sha256": "ef5d5127fd9ee42f62f488959e0c21e54106d6394b4cc48f78b5da38cb62b564"
+        }
+      ]
+    },
+    "UNIT-SCALE": {
+      "status": "PASS",
+      "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "evidence": [
+        {
+          "path": "docs/reports/entity_scale_review_windows.json",
+          "sha256": "743388dfca0fd0703daae52db5c4769508efb6019394d9f6796010252d6c917a"
+        },
+        {
+          "path": "docs/images/entity-scale-production-windows/native-report.json",
+          "sha256": "d53f27f83a0bffcc7748477058f46a710d4823bfb563c08588f834f361c33c5b"
+        }
+      ]
+    }
+  },
+  "test_run": {
+    "path": "docs/reports/current_unified_progress_tests.xml",
+    "sha256": "e624a42141c5d3d5f20ba4352a13c2fa33c1f5905b95acc6766d8c08e5854fea",
+    "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément",
+    "not_executed": [
+      "Actions de combat manquantes et autres unités",
+      "Suite intégrale du jeu"
+    ],
+    "sources": [
+      {
+        "path": "tools/check_combat_visual_acceptance.py",
+        "sha256": "a155e60a8ac9b35e8a5d44a4ab8c6225547c68b9c6a06c6950bb62725114502e"
+      },
+      {
+        "path": "tools/art/update_environment_progress.py",
+        "sha256": "53b11f4b36b3764e68e6bc4e297016ceec2438ab347534baf6e17ad86113a9b3"
+      },
+      {
+        "path": "tools/audit_entity_scale.py",
+        "sha256": "721341c12d6dda01828fb08cbff345be15fa5efb961e5521ae21cfda3d60d6cf"
+      },
+      {
+        "path": "tests/test_combat_visual_acceptance.py",
+        "sha256": "c3c1bf12b4a006825bee21e8c11f23523eee39dd410dfca1ad69f15d9aecf3bd"
+      },
+      {
+        "path": "tests/test_environment_progress.py",
+        "sha256": "0ca59fe3c99184f432e0676a4ebad5e961bb6a274b97bd7ffa114b19c6bd6712"
+      },
+      {
+        "path": "tests/test_entity_scale_inventory.py",
+        "sha256": "ef6c9d8061df21d9cccad263b2f3bccefa774c33211f7fa189479a9af4066df1"
+      },
+      {
+        "path": "tests/test_directional_animation.py",
+        "sha256": "60b10d7676a505f12b42af49029969bf01fcebb77c7993e6984951f6943db74a"
+      },
+      {
+        "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
+        "sha256": "e6beeea68047d2695aad086c5763c18b257092f97d7565fc5c6c752053afb6c6"
+      },
+      {
+        "path": "godot/combat_missions_ui/tests/capture_directional_animation.gd",
+        "sha256": "52081d40686cbd46c70c86503eaef0a8d491c85eb39b0f15f278f29beca862a0"
+      },
+      {
+        "path": "tests/test_windows_gpu_benchmark.py",
+        "sha256": "7077090ea39b145ea755d29b7676b6734909ac842797b1ae97ca0f9ab8f4fb21"
+      },
+      {
+        "path": "tools/apply_entity_scale_profiles.py",
+        "sha256": "520e8f321495caf46392ed37964fa2086710c2bd49dc67991815af0bf9052caf"
+      },
+      {
+        "path": "tools/record_entity_scale_review.py",
+        "sha256": "0a1e6670b6c87459c681d16658079248dc053f7e129487e292d5595ccf83e237"
+      },
+      {
+        "path": "tests/test_entity_scale_profiles.py",
+        "sha256": "fba647626236affe6f2a556ada1df7b3e687bb1d40e3690a9e790a555470cf36"
+      },
+      {
+        "path": "tests/test_entity_scale_review.py",
+        "sha256": "45fdabecc112d097b7fada87a3a435f167a61cb71493aab063d6e5c56760a27b"
+      },
+      {
+        "path": "tests/test_top_down_combat.py",
+        "sha256": "cd5d7048954ce5ffc4a2377a47c14cfc261368223fc5b71ebb6842dbc7875d92"
+      },
+      {
+        "path": "tests/test_unit_presentation.py",
+        "sha256": "c3d6bcbab19c5d8384a5cdfa74f7769a15a4f82e7008e545457e3a3f4b511514"
+      },
+      {
+        "path": "godot/combat_missions_ui/tests/top_down_regression.gd",
+        "sha256": "62d040ec81ed24bd6fb76a31d52773e9697b98a4d758f12ced1a615b772b34bd"
+      },
+      {
+        "path": "godot/combat_missions_ui/art/environment/map_presentation.json",
+        "sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
+      }
+    ]
+  },
+  "problems": [
+    "Le modèle procédural rejeté reste hors production.",
+    "Résolu : SCALE-CATALOGUE validé sur 122 cartes, trois résolutions et cinq catégories d’environnement ; cette validation ne vaut pas finition artistique des décors.",
+    "Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.",
+    "Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).",
+    "Résolu : profils d’échelle de production appliqués à 122 cartes — 0,015 urbain/wasteland, 0,020 intérieur/industrie — sources, collisions et règles inchangées.",
+    "Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.",
+    "Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée."
+  ],
+  "pending_sources": {
+    "agent_diverse_01_neon_blade": {
+      "front": "/workspace/generated_images/exec-d58792d3-a701-458d-b8f5-7ac7395c3c86.png",
+      "rear": "/workspace/generated_images/exec-a6c0a3e6-92eb-4b45-9dbf-3e4120cb7962.png",
+      "idle_pairs": "/workspace/generated_images/exec-a23b4ebd-d5fc-4ff3-a59b-be5d78eefb04.png"
+    },
+    "agent_diverse_03_magenta_pistol": {
+      "front": "/workspace/generated_images/exec-2c75d200-fb8a-4489-b6d1-7bc3709f8f1f.png",
+      "rear": "/workspace/generated_images/exec-61daebe9-a3b7-47d5-a627-3128be609ebe.png",
+      "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
+    }
+  },
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique.",
+  "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
+  "pending_source_sha256": {
+    "agent_diverse_01_neon_blade": {
+      "front": "53f496a57b73443bef5bd3498dfff4e459c218a50d11187f6efe2dda25fbab68",
+      "rear": "056328d19cb014063e15122017280e86a863a807d7308f7611f8104e5388e61d",
+      "idle_pairs": "b2e1824a7699d51542cc9c2ae20d8d4974d7edccdb365c17ee8b047e278c4563"
+    },
+    "agent_diverse_03_magenta_pistol": {
+      "front": "814538ba22cbace7f645f9e45bb125531d31c9bc630205946c8b7cb109117b26",
+      "rear": "5482058c1a604be12d69fa51ad1653f7a85ae366c0eb56e7529861596db37cac",
+      "idle_pairs": "75c0acf10b1d119430d651767e3f0fd155fb93168a6869248300c408d8464d5c"
+    }
+  },
+  "scale_review": {
+    "expected_maps": 122,
+    "verified_maps": [
+      "city_district_apartment_block.png",
+      "city_district_civic_center.png",
+      "city_district_holo_square.png",
+      "city_district_riot_square.png",
+      "city_district_tech_market.png",
+      "city_exterior_billboard_avenue.png",
+      "city_exterior_corporate_plaza.png",
+      "city_exterior_downtown_intersection.png",
+      "city_exterior_elevated_freeway.png",
+      "city_exterior_neon_market_alley.png",
+      "city_exterior_parking_garage.png",
+      "city_exterior_rooftop_access.png",
+      "city_exterior_waterfront_docks.png",
+      "city_industrial_data_vault.png",
+      "city_industrial_dockside_terminal.png",
+      "city_industrial_factory_floor.png",
+      "city_industrial_power_substation.png",
+      "city_industrial_security_checkpoint.png",
+      "city_industrial_service_tunnel.png",
+      "city_industrial_warehouse_floor.png",
+      "city_interior_blacksite_lab.png",
+      "city_interior_command_deck.png",
+      "city_interior_control_center.png",
+      "city_interior_corporate_lobby.png",
+      "city_interior_cyber_cafe.png",
+      "city_interior_medical_clinic.png",
+      "city_interior_penthouse_atrium.png",
+      "city_interior_police_records.png",
+      "city_interior_research_lab.png",
+      "city_interior_safehouse.png",
+      "city_interior_server_room.png",
+      "city_rooftop_skybridge_spine.png",
+      "city_transit_freight_yard.png",
+      "city_transit_metro_interchange.png",
+      "city_transit_subway_platform.png",
+      "city_transit_train_tunnel.png",
+      "cybercity_inner_01_control_center.png",
+      "cybercity_inner_02_safehouse.png",
+      "cybercity_inner_03_research_lab.png",
+      "cybercity_inner_04_medical_clinic.png",
+      "cybercity_inner_05_server_room.png",
+      "cybercity_inner_06_blacksite_lab.png",
+      "cybercity_inner_07_corporate_lobby.png",
+      "cybercity_inner_08_police_records.png",
+      "cybercity_inner_09_apartment_block.png",
+      "cybercity_inner_10_penthouse_atrium.png",
+      "cybercity_inner_11_cyber_cafe.png",
+      "cybercity_inner_12_maintenance_tunnel.png",
+      "cybercity_inner_13_warehouse_floor.png",
+      "cybercity_inner_14_detention_block.png",
+      "cybercity_inner_15_data_vault.png",
+      "cybercity_street_01_downtown_intersection.png",
+      "cybercity_street_02_neon_market_alley.png",
+      "cybercity_street_03_elevated_freeway.png",
+      "cybercity_street_04_waterfront_docks.png",
+      "cybercity_street_05_civic_plaza.png",
+      "cybercity_street_06_downtown_intersection.png",
+      "cybercity_street_06_transit_interchange.png",
+      "cybercity_street_07_downtown_intersection.png",
+      "cybercity_street_07_neon_market_alley.png",
+      "cybercity_street_08_elevated_freeway.png",
+      "cybercity_street_08_neon_market_alley.png",
+      "cybercity_street_09_elevated_freeway.png",
+      "cybercity_street_09_waterfront_docks.png",
+      "cybercity_street_10_civic_plaza.png",
+      "cybercity_street_10_waterfront_docks.png",
+      "cybercity_street_11_civic_plaza.png",
+      "cybercity_street_11_transit_interchange.png",
+      "cybercity_street_12_industrial_district.png",
+      "cybercity_street_12_transit_interchange.png",
+      "cybercity_street_13_flood_prone_avenue.png",
+      "cybercity_street_13_industrial_district.png",
+      "cybercity_street_14_bridge_access.png",
+      "cybercity_street_14_flood_prone_avenue.png",
+      "cybercity_street_15_billboard_avenue.png",
+      "cybercity_street_15_bridge_access.png",
+      "cybercity_street_16_billboard_avenue.png",
+      "wasteland_city_01_ruined_downtown.png",
+      "wasteland_city_02_burned_market_block.png",
+      "wasteland_city_03_collapsed_overpass.png",
+      "wasteland_city_04_flooded_civic_square.png",
+      "wasteland_city_05_scavenger_plaza.png",
+      "wasteland_city_06_ruined_downtown.png",
+      "wasteland_city_07_burned_market_block.png",
+      "wasteland_city_08_collapsed_overpass.png",
+      "wasteland_city_09_flooded_civic_square.png",
+      "wasteland_city_10_scavenger_plaza.png",
+      "wasteland_city_11_ruined_transit_plaza.png",
+      "wasteland_city_12_cratered_waterfront.png",
+      "wasteland_inner_01_abandoned_safehouse.png",
+      "wasteland_inner_02_collapsed_tunnel.png",
+      "wasteland_inner_03_ruined_clinic.png",
+      "wasteland_inner_04_bunker_command_post.png",
+      "wasteland_inner_05_looted_vault.png",
+      "wasteland_inner_06_abandoned_safehouse.png",
+      "wasteland_inner_06_maintenance_depot.png",
+      "wasteland_inner_07_apartment_shelter.png",
+      "wasteland_inner_07_collapsed_tunnel.png",
+      "wasteland_inner_08_data_relay_room.png",
+      "wasteland_inner_08_ruined_clinic.png",
+      "wasteland_inner_09_bunker_command_post.png",
+      "wasteland_inner_09_underground_market.png",
+      "wasteland_inner_10_detention_block.png",
+      "wasteland_inner_10_looted_vault.png",
+      "wasteland_inner_11_emergency_medbay.png",
+      "wasteland_inner_11_maintenance_depot.png",
+      "wasteland_inner_12_apartment_shelter.png",
+      "wasteland_inner_13_data_relay_room.png",
+      "wasteland_inner_14_underground_market.png",
+      "wasteland_inner_15_detention_block.png",
+      "wasteland_outdoor_01_dust_road_ambush.png",
+      "wasteland_outdoor_02_ashfield_ruins.png",
+      "wasteland_outdoor_03_wrecked_highway.png",
+      "wasteland_outdoor_04_rusted_trainyard.png",
+      "wasteland_outdoor_05_irradiated_basin.png",
+      "wasteland_outdoor_06_dust_road_ambush.png",
+      "wasteland_outdoor_07_ashfield_ruins.png",
+      "wasteland_outdoor_08_wrecked_highway.png",
+      "wasteland_outdoor_09_rusted_trainyard.png",
+      "wasteland_outdoor_10_irradiated_basin.png",
+      "wasteland_outdoor_11_convoy_crossing.png",
+      "wasteland_outdoor_12_salt_flat_ambush.png"
+    ],
+    "categories": [
+      "player_agents",
+      "enemies",
+      "robots",
+      "power_armor",
+      "ground_vehicles",
+      "aircraft"
+    ],
+    "constraints": [
+      "Préserver sprites et proportions naturelles",
+      "Aucune modification des règles, collisions, portée ou coordonnées tactiques",
+      "Conserver PNG, relevés et SHA-256 des cartes",
+      "Comparer les unités aux repères réels du décor, sans facteur global arbitraire"
+    ],
+    "evidence": [
+      "docs/reports/entity_scale_review_windows.json",
+      "docs/images/entity-scale-production-windows/native-report.json",
+      "docs/images/entity-scale-production-windows/catalogue-01.jpg",
+      "docs/images/entity-scale-production-windows/catalogue-11.jpg"
+    ]
+  },
+  "planned_batches": [
+    {
+      "id": "SCALE",
+      "tasks": [
+        "Relever et documenter les repères des 122 cartes",
+        "Définir et appliquer les profils visuels par catégorie",
+        "Vérifier ancrage, proportions et différences d’échelle",
+        "Tester les 122 cartes, clics et trois résolutions",
+        "Archiver les comparatifs et marquer uniquement les échelles effectivement revues"
+      ]
+    }
+  ],
+  "current_project": "UNIFIED_EXPERIENCE",
+  "paused_projects": [
+    "Combat Visual / SCALE : état et preuves conservés, nouvelle priorité d’intégration demandée par l’utilisateur"
+  ]
+}

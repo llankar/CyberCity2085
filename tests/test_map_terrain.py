@@ -1,0 +1,94 @@
+import tempfile
+import unittest
+from pathlib import Path
+
+from PIL import Image
+
+from game.map_terrain import build_terrain_profile
+
+
+class MapTerrainTest(unittest.TestCase):
+    def test_walkability_profile_reads_bright_and_dark_regions(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "terrain.png"
+            img = Image.new("RGB", (96, 64), (18, 18, 18))
+            for x in range(48, 96):
+                for y in range(0, 64):
+                    img.putpixel((x, y), (220, 220, 220))
+            img.save(path)
+
+            profile = build_terrain_profile(str(path), 96, 64, cell_size=16, forced_walkable=((0, 0),))
+
+            self.assertFalse(profile.is_walkable(0, 64))
+            self.assertTrue(profile.is_walkable(64, 32))
+            self.assertTrue(profile.is_walkable(0, 0))
+
+    def test_texture_heavy_cells_are_not_treated_as_open_ground(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "terrain_texture.png"
+            img = Image.new("RGB", (96, 64), (120, 120, 120))
+            for x in range(48, 96):
+                for y in range(0, 64):
+                    tone = 80 if (x + y) % 2 == 0 else 160
+                    img.putpixel((x, y), (tone, tone, tone))
+            img.save(path)
+
+            profile = build_terrain_profile(str(path), 96, 64, cell_size=16, forced_walkable=((0, 0),))
+
+            self.assertTrue(profile.is_walkable(16, 32))
+            self.assertFalse(profile.is_walkable(64, 32))
+
+    def test_explicit_walkability_mask_overrides_map_art(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "mask_source.png"
+            mask_path = path.with_suffix(".walkable.png")
+            Image.new("RGB", (64, 64), (18, 18, 18)).save(path)
+            mask = Image.new("L", (64, 64), 0)
+            for x in range(32, 64):
+                for y in range(0, 64):
+                    mask.putpixel((x, y), 255)
+            mask.save(mask_path)
+
+            profile = build_terrain_profile(str(path), 64, 64, cell_size=16, forced_walkable=((0, 0),))
+
+            self.assertTrue(profile.is_walkable(48, 32))
+            self.assertFalse(profile.is_walkable(16, 32))
+
+    def test_forced_walkable_creates_spawn_clearance_on_dark_maps(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "dark_terrain.png"
+            Image.new("RGB", (96, 96), (8, 8, 8)).save(path)
+
+            profile = build_terrain_profile(str(path), 96, 96, forced_walkable=((32, 32),))
+
+            self.assertTrue(profile.is_walkable(32, 32))
+            self.assertTrue(profile.is_walkable(64, 32))
+            self.assertTrue(profile.is_walkable(32, 64))
+            self.assertTrue(profile.is_walkable(0, 32))
+            self.assertTrue(profile.is_walkable(32, 0))
+
+    def test_generated_map_variants_exist(self):
+        self.assertTrue((Path("assets/maps") / "city_district_holo_square.png").exists())
+        self.assertTrue((Path("assets/maps") / "wasteland_outdoor_03_wrecked_highway.png").exists())
+
+    def test_top_of_background_and_mask_corresponds_to_high_world_y(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = Path(tmpdir) / "asymmetric.png"
+            art = Image.new("RGB", (128, 128), (5, 5, 5))
+            for x in range(128):
+                for y in range(48):
+                    art.putpixel((x, y), (240, 240, 240))
+            art.save(path)
+            inferred = build_terrain_profile(str(path), 128, 128, cell_size=16)
+            self.assertTrue(inferred.is_walkable(64, 112))
+            self.assertFalse(inferred.is_walkable(64, 16))
+            mask = art.convert("L")
+            mask.save(path.with_suffix(".walkable.png"))
+            build_terrain_profile.cache_clear()
+            authored = build_terrain_profile(str(path), 128, 128, cell_size=16)
+            self.assertTrue(authored.is_walkable(64, 112))
+            self.assertFalse(authored.is_walkable(64, 16))
+
+
+if __name__ == "__main__":
+    unittest.main()

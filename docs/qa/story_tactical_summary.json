@@ -1,0 +1,222 @@
+{
+  "scope": "15 independent authored story encounters x 3 seeds; fresh four-rifle level-4 squad; not continuous campaign",
+  "combat_sources_sha256": "aa0a267bf0b173577db61feafdf4757e8a7492b754f04a42217b99937490ded7",
+  "coverage_exact": true,
+  "objectives_templates_maps_surveys_verified": true,
+  "summary": {
+    "victory": 45
+  },
+  "supersedes": "Initial 45 victories used corrupted defense/assassination cloning and are not authored-objective evidence",
+  "missions": [
+    {
+      "id": "sm_act1_espionage",
+      "objective": "data_theft",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act1_recon",
+      "objective": "extract",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        13,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "sm_act1_witnesses",
+      "objective": "defend",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act2_drone",
+      "objective": "extract",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act2_data",
+      "objective": "data_theft",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "sm_act2_breakwater",
+      "objective": "sabotage",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act3_perf",
+      "objective": "extract",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "sm_act3_delhi",
+      "objective": "extract",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "sm_act3_names_below",
+      "objective": "extract",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "id": "sm_act4_hungry",
+      "objective": "data_theft",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "id": "sm_act4_archive",
+      "objective": "sabotage",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        7,
+        7,
+        7
+      ]
+    },
+    {
+      "id": "sm_act4_two_voices",
+      "objective": "data_theft",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        8,
+        8,
+        8
+      ]
+    },
+    {
+      "id": "sm_act5_citadel",
+      "objective": "data_theft",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act5_expose",
+      "objective": "defend",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        9,
+        9,
+        9
+      ]
+    },
+    {
+      "id": "sm_act5_seven_minutes",
+      "objective": "assassination",
+      "outcomes": [
+        "victory",
+        "victory",
+        "victory"
+      ],
+      "turns": [
+        14,
+        10,
+        16
+      ]
+    }
+  ]
+}

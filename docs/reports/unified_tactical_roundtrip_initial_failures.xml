@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="10.418" timestamp="2026-11-18T22:00:08.262947+01:00" hostname="5ad6fa8fd177"><testcase classname="tests.test_unified_tactical_recovery" name="test_actual_godot_tactical_checkpoint_roundtrip[player]" time="5.757"><failure message="AssertionError: Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org&#10;  &#10;  TACTICAL COMBAT UI READY&#10;  grid / timeline / action bar / unit panel / log&#10;  TACTICAL COMBAT UI RESUMED&#10;  ERROR: Condition &quot;!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)&quot; is true. Continuing.&#10;     at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)&#10;     GDScript backtrace (most recent call first):&#10;         [0] _ready (res://scripts/unit_visual.gd:37)&#10;[+23 more lines; full report in element text]">tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-116/test_actual_godot_tactical_che0')
+side = 'player'
+
+    @pytest.mark.parametrize('side',['player','enemy'])
+    def test_actual_godot_tactical_checkpoint_roundtrip(tmp_path,side):
+        godot=shutil.which('godot')
+        if not godot:pytest.skip('Godot unavailable')
+        _,_,session,_=scenario(tmp_path)
+        path=Path(session['snapshot_path']).with_name('handoff.json')
+        result=subprocess.run([godot,'--headless','--quit-after','120','--audio-driver','Dummy','--path',str(ROOT/'godot/combat_missions_ui'),
+            '--script','tests/tactical_checkpoint_roundtrip.gd','--','--handoff',str(path),'--phase',side],capture_output=True,text=True,timeout=45)
+        output=result.stdout+result.stderr
+&gt;       assert result.returncode==0 and 'SCRIPT ERROR' not in output,output
+E       AssertionError: Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+E         
+E         TACTICAL COMBAT UI READY
+E         grid / timeline / action bar / unit panel / log
+E         TACTICAL COMBAT UI RESUMED
+E         ERROR: Condition "!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)" is true. Continuing.
+E            at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)
+E            GDScript backtrace (most recent call first):
+E                [0] _ready (res://scripts/unit_visual.gd:37)
+E                [1] _spawn_all_tokens (res://scripts/combat_mission_ui.gd:471)
+E                [2] _start_combat (res://scripts/combat_mission_ui.gd:1181)
+E         ERROR: Condition "!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)" is true. Continuing.
+E            at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)
+E            GDScript backtrace (most recent call first):
+E                [0] _ready (res://scripts/unit_visual.gd:39)
+E                [1] _spawn_all_tokens (res://scripts/combat_mission_ui.gd:471)
+E                [2] _start_combat (res://scripts/combat_mission_ui.gd:1181)
+E         SCRIPT ERROR: Assertion failed: All tactical state including AP/postures/objective must roundtrip
+E                   at: run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E                   GDScript backtrace (most recent call first):
+E                       [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E         
+E       assert (0 == 0 and 'SCRIPT ERROR' not in 'Godot Engin...rip.gd:63)\n'
+E        +  where 0 = CompletedProcess(args=['/usr/local/bin/godot', '--headless', '--quit-after', '120', '--audio-driver', 'Dummy', '--path...Script backtrace (most recent call first):\n              [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63)\n').returncode
+E         
+E         'SCRIPT ERROR' is contained here:
+E           .gd:1181)
+E           SCRIPT ERROR: Assertion failed: All tactical state including AP/postures/objective must roundtrip
+E         ? ++++++++++++
+E                     at: run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E                     GDScript backtrace (most recent call first):
+E                         [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63))
+
+tests/test_unified_tactical_recovery.py:101: AssertionError</failure></testcase><testcase classname="tests.test_unified_tactical_recovery" name="test_actual_godot_tactical_checkpoint_roundtrip[enemy]" time="4.454"><failure message="AssertionError: Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org&#10;  &#10;  TACTICAL COMBAT UI READY&#10;  grid / timeline / action bar / unit panel / log&#10;  TACTICAL COMBAT UI RESUMED&#10;  ERROR: Condition &quot;!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)&quot; is true. Continuing.&#10;     at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)&#10;     GDScript backtrace (most recent call first):&#10;         [0] _ready (res://scripts/unit_visual.gd:37)&#10;[+23 more lines; full report in element text]">tmp_path = PosixPath('/tmp/pytest-of-agent/pytest-116/test_actual_godot_tactical_che1')
+side = 'enemy'
+
+    @pytest.mark.parametrize('side',['player','enemy'])
+    def test_actual_godot_tactical_checkpoint_roundtrip(tmp_path,side):
+        godot=shutil.which('godot')
+        if not godot:pytest.skip('Godot unavailable')
+        _,_,session,_=scenario(tmp_path)
+        path=Path(session['snapshot_path']).with_name('handoff.json')
+        result=subprocess.run([godot,'--headless','--quit-after','120','--audio-driver','Dummy','--path',str(ROOT/'godot/combat_missions_ui'),
+            '--script','tests/tactical_checkpoint_roundtrip.gd','--','--handoff',str(path),'--phase',side],capture_output=True,text=True,timeout=45)
+        output=result.stdout+result.stderr
+&gt;       assert result.returncode==0 and 'SCRIPT ERROR' not in output,output
+E       AssertionError: Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+E         
+E         TACTICAL COMBAT UI READY
+E         grid / timeline / action bar / unit panel / log
+E         TACTICAL COMBAT UI RESUMED
+E         ERROR: Condition "!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)" is true. Continuing.
+E            at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)
+E            GDScript backtrace (most recent call first):
+E                [0] _ready (res://scripts/unit_visual.gd:37)
+E                [1] _spawn_all_tokens (res://scripts/combat_mission_ui.gd:471)
+E                [2] _start_combat (res://scripts/combat_mission_ui.gd:1181)
+E         ERROR: Condition "!actions.custom_samplers.has(function-&gt;arguments[j].tex_builtin)" is true. Continuing.
+E            at: _dump_node_code (servers/rendering/shader_compiler.cpp:1294)
+E            GDScript backtrace (most recent call first):
+E                [0] _ready (res://scripts/unit_visual.gd:39)
+E                [1] _spawn_all_tokens (res://scripts/combat_mission_ui.gd:471)
+E                [2] _start_combat (res://scripts/combat_mission_ui.gd:1181)
+E         SCRIPT ERROR: Assertion failed: All tactical state including AP/postures/objective must roundtrip
+E                   at: run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E                   GDScript backtrace (most recent call first):
+E                       [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E         
+E       assert (0 == 0 and 'SCRIPT ERROR' not in 'Godot Engin...rip.gd:63)\n'
+E        +  where 0 = CompletedProcess(args=['/usr/local/bin/godot', '--headless', '--quit-after', '120', '--audio-driver', 'Dummy', '--path...Script backtrace (most recent call first):\n              [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63)\n').returncode
+E         
+E         'SCRIPT ERROR' is contained here:
+E           .gd:1181)
+E           SCRIPT ERROR: Assertion failed: All tactical state including AP/postures/objective must roundtrip
+E         ? ++++++++++++
+E                     at: run (res://tests/tactical_checkpoint_roundtrip.gd:63)
+E                     GDScript backtrace (most recent call first):
+E                         [0] run (res://tests/tactical_checkpoint_roundtrip.gd:63))
+
+tests/test_unified_tactical_recovery.py:101: AssertionError</failure></testcase></testsuite></testsuites>

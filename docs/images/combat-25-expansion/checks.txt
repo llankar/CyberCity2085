@@ -1,0 +1,64 @@
+art25-expansion-final-tests.log
+....................                                                     [100%]
+=============================== warnings summary ===============================
+../../../../opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.
+  The CallSpec2 alias will be removed in pytest 10.
+  Update imports to use CallSpec instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed
+    from _pytest.python import CallSpec2
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+20 passed, 1 warning in 58.53s
+
+
+art25-expansion-entity-tests.log
+.........                                                                [100%]
+=============================== warnings summary ===============================
+../../../../opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.
+  The CallSpec2 alias will be removed in pytest 10.
+  Update imports to use CallSpec instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed
+    from _pytest.python import CallSpec2
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 1 warning in 39.07s
+
+
+art25-expansion-final-contracts.log
+......                                                                   [100%]
+=============================== warnings summary ===============================
+../../../../opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14
+  /opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/site-packages/anyio/pytest_plugin.py:14: PytestRemovedIn10Warning: _pytest.python.CallSpec2 has been renamed to CallSpec.
+  The CallSpec2 alias will be removed in pytest 10.
+  Update imports to use CallSpec instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#callspec2-renamed
+    from _pytest.python import CallSpec2
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+6 passed, 1 warning in 32.27s
+
+
+art25-expansion-catalogue.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.
+
+
+art25-expansion-entities-final.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.
+
+
+art25-expansion-families.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.
+
+
+art25-expansion-details.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.
+
+
+art25-expansion-corrected-substation.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.
+
+
+art25-expansion-details-corrected.log
+COMBAT_21_CAPTURE_PASSED; no SCRIPT ERROR or SHADER ERROR.

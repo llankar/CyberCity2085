@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "boot_before_first_mission": true,
+  "boot_seconds": 19.359532095000077,
+  "process_launches": 1,
+  "same_pid_all_missions": true,
+  "cases": [
+    {
+      "pid": 3681,
+      "session_id": "c705f34f1230414696b7c252009391d7",
+      "mission_id": "data_theft_d1_s2",
+      "outcome": "victory",
+      "outcome_forced": false,
+      "engine_stayed_alive": true,
+      "promotions": true,
+      "mission_ready_seconds": 5.260822190999988,
+      "elapsed_seconds": 70.66116879799984
+    },
+    {
+      "pid": 3681,
+      "session_id": "5d1b7d60ad244a90a858d5138c939357",
+      "mission_id": "road_relay_d2_s0",
+      "outcome": "victory",
+      "outcome_forced": false,
+      "engine_stayed_alive": true,
+      "promotions": false,
+      "mission_ready_seconds": 17.680484566999894,
+      "elapsed_seconds": 80.07375318000004
+    }
+  ],
+  "windows_graphics_verified": false,
+  "audible_audio_verified": false
+}

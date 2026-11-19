@@ -1,0 +1,52 @@
+{
+  "status": "ok",
+  "manual_maps": 122,
+  "mp3_tracks": 7,
+  "save_roundtrip": true,
+  "battle": {
+    "theme": "corp_37_robot",
+    "level": 2,
+    "risk": 2,
+    "count": 2,
+    "seed": 0,
+    "policy": "objective_counterplay",
+    "layout": "open",
+    "objective_kind": "eliminate",
+    "map_file": "city_industrial_dockside_terminal.png",
+    "terrain_source": "manual_wall_traces_v1",
+    "geometry_checked": true,
+    "map_survey_sha256": "34b9d65ef9d74f4d03effbe4c5246a47424e30f7b879b7c3b38769c70c1e8893",
+    "unchanged_rounds": 0,
+    "longest_unchanged_rounds": 0,
+    "outcome": "victory",
+    "turns": 25,
+    "roles": {
+      "grunt": 2
+    },
+    "objective_progress": 0,
+    "objective_reason": "all_enemies_down",
+    "assassination_target_role": null,
+    "contributions": {},
+    "allied_hp_lost": 33,
+    "allied_losses": 1,
+    "enemy_survivors": 0,
+    "infections": 0,
+    "announced": {
+      "HUNT": 17,
+      "COVER": 9,
+      "FLANK": 17,
+      "STRIKE": 3
+    },
+    "dodges": 0,
+    "interruptions": 0
+  },
+  "game_window_opened": false,
+  "scope": "Source-runtime smoke after agent memories; not a packaged build or human playthrough",
+  "source_files_sha256": {
+    "game\\combat\\engine.py": "499f14391425519221b9604eb631be750667f85e66dfa9895b8d266f35187dbd",
+    "game\\combat\\agent_moments.py": "16e7a1708bb78d22a6c24fbef4599736ce9dabb6b6ad5346dfbe3c50f8e7694d",
+    "game\\narrative\\debrief.py": "8cc1bdbbac4a0ebabb81fb2c886e96e764ab785272e643fcd8a44549a5f7d1fb",
+    "game\\views.py": "e266baec534cffbd4a6f709d32eb4353ff2173f438d1618a526245dc9161166c",
+    "tests\\test_static_game_flow_e2e.py": "7e535940a5152a5527fe979b6526566bee591b3003e984679cf0c8bf7c269dc0"
+  }
+}
