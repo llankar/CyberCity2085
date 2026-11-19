@@ -174,7 +174,6 @@ def main():
                             frame()
                             assert bridge._launch_failed
                             frame(case/'04-crash-recovery.png')
-                            bridge.on_key_press(arcade.key.C, 0)
                         else:
                             confirm.write_text('USER CONFIRMATION IN QA\n')
                         deadline=time.monotonic()+30

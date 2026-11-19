@@ -30,7 +30,7 @@ class HandoffDeck(UtilityDeck):
             ),
         )
         self.panel(
-            right, self.word("CENTRE DE DÉPLOIEMENT", "DEPLOYMENT CONTROL"), "target"
+            right, self.word("ÉTAT DE LA MISSION", "MISSION STATUS"), "target"
         )
         r = self.body(right)
         items = [
@@ -38,14 +38,14 @@ class HandoffDeck(UtilityDeck):
             (self.word("CHOISIR GODOT [G]", "CHOOSE GODOT [G]"), arcade.key.G),
             (self.word("COMBAT ARCADE [F]", "ARCADE COMBAT [F]"), arcade.key.F),
         ]
+        if not v._launch_failed:
+            items.clear()
         record=getattr(v.game_state,"combat_sessions",{}).get(getattr(getattr(v,"launch_result",None),"session_id",""),{})
         from pathlib import Path
         channels=record.get("session",{})
         recoverable=any(Path(channels[key]).is_file() for key in ["result_path","prepared_path"] if channels.get(key))
         if v._launch_failed and not recoverable and channels.get("snapshot_path") and Path(channels["snapshot_path"]).is_file():
             items.insert(0,(self.word("REPRENDRE LE COMBAT [S]", "RESUME COMBAT [S]"),arcade.key.S))
-        if v._launch_failed and recoverable:
-            items.insert(0,(self.word("RÉCUPÉRER LE RÉSULTAT [C]", "RECOVER RESULT [C]"),arcade.key.C))
         self.document(
             "handoff_status",
             v.mission.title + "\n\n" + v._status,
@@ -62,6 +62,7 @@ class HandoffDeck(UtilityDeck):
                 enabled=v._launch_failed,
                 primary=i == 0,
             )
-        self.footer(self.word("RETOUR [ÉCHAP]", "BACK [ESC]"), "handoff_key")
-        v._hits[-1].data = arcade.key.ESCAPE
+        if v._launch_failed:
+            self.footer(self.word("RETOUR [ÉCHAP]", "BACK [ESC]"), "handoff_key")
+            v._hits[-1].data = arcade.key.ESCAPE
         self.end()

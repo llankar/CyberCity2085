@@ -889,3 +889,5 @@ Audio Dummy : pas de validation auditive ni de fondu certifié.
 Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/préchauffage, validation Windows et écoute audio réelle. Les jets futurs et les animations en cours ne sont pas repris à l’identique.
 
 - [x] Récupérer les résultats de retraite Godot dont le nom affiché diffère du nom de campagne. Vérifier le rechargement et la réapplication.
+
+- [x] Ouvrir automatiquement le débriefing après récupération d’un résultat Godot et réserver les choix de secours aux interruptions.

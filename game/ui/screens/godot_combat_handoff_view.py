@@ -131,6 +131,9 @@ class GodotCombatHandoffView(arcade.View):
                     show_mission_debrief(context, context._victory, survivors, units)
             return
         if self._launch_failed:
+            if not getattr(self, "_automatic_recovery_attempted", False):
+                self._automatic_recovery_attempted = True
+                self._recover_prepared_result()
             return
 
         from game.combat.session_protocol import read_session_status
@@ -181,14 +184,14 @@ class GodotCombatHandoffView(arcade.View):
         if result_path and Path(result_path).is_file():
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "Résultat Godot illisible ; campagne inchangée. C : récupérer ; R : réessayer."
+            self._status = "Résultat Godot illisible ; campagne inchangée. Le résultat reste disponible pour diagnostic."
             self.game_state.add_event(self._status)
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = f"Godot s'est fermé sans résultat (code {process.returncode}). C : confirmer un résultat préparé récupérable ; R : réessayer ; G : choisir l’exécutable."
+            self._status = f"Godot s'est fermé sans résultat (code {process.returncode}). Le jeu vérifie si un résultat a été enregistré."
             self.game_state.add_event(self._status)
             return
 
@@ -344,7 +347,7 @@ class GodotCombatHandoffView(arcade.View):
             if selected:
                 _persist_godot_bin_path(selected)
                 self._retry_godot()
-        elif key == arcade.key.F:
+        elif key == arcade.key.F and self._launch_failed:
             self._abandon_session()
             self._result_applied = True
             self._cleanup_godot()
@@ -352,7 +355,7 @@ class GodotCombatHandoffView(arcade.View):
                 "Ancien combat Arcade choisi explicitement pour cette mission."
             )
             self._fallback_to_arcade_battle()
-        elif key == arcade.key.ESCAPE:
+        elif key == arcade.key.ESCAPE and self._launch_failed:
             self._abandon_session()
             self._cleanup_godot()
             self._return_to_management()
@@ -372,22 +375,34 @@ class GodotCombatHandoffView(arcade.View):
                     self.game_state.add_event("Abandon enregistré en mémoire ; checkpoint indisponible.")
 
     def _recover_prepared_result(self) -> None:
-        from game.combat.godot_bridge import read_godot_combat_result
-        session=self.game_state.combat_sessions.get(getattr(self.launch_result,"session_id",""),{})
-        channel=session.get("session",{})
         from pathlib import Path
-        final=channel.get("result_path")
-        path=final if final and Path(final).is_file() else channel.get("prepared_path")
-        result=read_godot_combat_result(path,advance_bookmark=False) if path else None
-        if result is None:
-            self._status="Aucun résultat préparé récupérable ; choisissez explicitement une nouvelle tentative."
+        from game.combat.godot_bridge import read_godot_combat_result
+
+        session_id = getattr(self.launch_result, "session_id", "")
+        record = self.game_state.combat_sessions.get(session_id, {})
+        channels = record.get("session", {})
+        final = channels.get("result_path")
+        prepared = channels.get("prepared_path")
+        use_prepared = not (final and Path(final).is_file())
+        path = prepared if use_prepared else final
+        if not path or not Path(path).is_file():
             return
-        result["phase"]="confirmed"
+        result = read_godot_combat_result(path, advance_bookmark=False)
+        if result is None:
+            self._status = "Le résultat enregistré est illisible. La campagne est intacte."
+            return
+        if use_prepared and result.get("phase") == "prepared":
+            result["phase"] = "confirmed"
         try:
             self._apply_combat_result(result)
-            self._launch_failed=False
-        except (ValueError,KeyError,TypeError,OSError) as exc:
-            self._status=f"Récupération refusée : {exc}"
+        except (ValueError, KeyError, TypeError, OSError) as exc:
+            self._status = f"Résultat indisponible. La campagne est intacte. ({exc})"
+            return
+        self._launch_failed = False
+        self._status = "Ouverture du rapport de mission…"
+        if use_prepared:
+            from game.combat.tactical_recovery import cancel_session_process
+            cancel_session_process(self.game_state, session_id)
 
     def _resume_godot(self) -> None:
         from game.combat.godot_bridge import launch_godot_combat_ui
@@ -403,6 +418,7 @@ class GodotCombatHandoffView(arcade.View):
         self.launch_result = result if result.launched else previous
         self._overlaid = False
         self._elapsed = 0.0
+        self._automatic_recovery_attempted = False
         self._session_ready = False
         self._audio_transferred = False
         self._status = result.message
@@ -420,6 +436,7 @@ class GodotCombatHandoffView(arcade.View):
         self._launch_failed = not self.launch_result.launched
         self._overlaid = False
         self._elapsed = 0.0
+        self._automatic_recovery_attempted = False
         self._session_ready = False
         self._audio_transferred = False
         self._status = self.launch_result.message
