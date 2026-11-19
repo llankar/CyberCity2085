@@ -64,6 +64,7 @@ def main(argv=None):
     parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
     parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
     parser.add_argument("--resize-check", action="store_true", help="Resize the tactical window from inside Godot")
+    parser.add_argument("--godot-verbose", action="store_true", help="Log Godot lifetime diagnostics")
     args=parser.parse_args(argv);output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
     if args.resize_check and not args.real_mission:
         parser.error("--resize-check requires --real-mission")
@@ -114,6 +115,7 @@ def main(argv=None):
                         else: command += ['--qa-real-outcome',outcome]
                         if args.window_hold_seconds > 0: command += ['--qa-window-hold-seconds',str(args.window_hold_seconds)]
                         if args.resize_check: command += ['--qa-resize-check']
+                        if args.godot_verbose: command.insert(1, '--verbose')
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     launch_started=time.monotonic()
