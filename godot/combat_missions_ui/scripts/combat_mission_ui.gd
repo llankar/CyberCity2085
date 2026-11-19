@@ -47,6 +47,7 @@ const _ACTION_DEFS: Dictionary = {
 	"Katana Slash":  {"type": "MELEE",    "range": 1, "damage": 7, "heal": 0, "ap": 1},
 	"Blade Strike":  {"type": "MELEE",    "range": 1, "damage": 5, "heal": 0, "ap": 1},
 	"Servo Punch":   {"type": "MELEE",    "range": 1, "damage": 9, "heal": 0, "ap": 1},
+	"Mind Spike":    {"type": "PSI",      "range": 12,"damage": 7, "heal": 0, "ap": 1},
 	"Psi Focus":     {"type": "PSI_HEAL", "range": 0, "damage": 0, "heal": 0, "ap": 1, "stress_relief": 25},
 	"Trauma Patch":  {"type": "HEAL",     "range": 0, "damage": 0, "heal": 12,"ap": 1},
 	"Missile Salvo": {"type": "FIRE_AOE", "range": 24, "damage": 10, "heal": 0, "ap": 2, "aoe_radius": 2},
@@ -382,7 +383,7 @@ func _sync_display() -> void:
 			elif atype == "MOVE":
 				var budget := available_ap
 				_battlefield.show_move_range(_battlefield.reachable_cells(origin, budget), origin)
-			elif atype in ["FIRE", "MELEE", "FIRE_AOE"]:
+			elif atype in ["FIRE", "MELEE", "PSI", "FIRE_AOE"]:
 				var rng := _action_range(selected_action)
 				if rng == 0:
 					rng = _role_attack_range(str(active.get("role", "")), selected_action)
@@ -416,7 +417,7 @@ func _sync_display() -> void:
 		tok.update_data(u)
 		tok.set_active(false)
 		tok.set_targeted(j == selected_target_index \
-						  and _action_type(selected_action) in ["FIRE", "MELEE", "FIRE_AOE"] \
+						  and _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE"] \
 						  and turn_side == "player")
 		tok.visible = int(u.get("hp", 0)) > 0 or (visual_mode and tok._death)
 
@@ -870,7 +871,7 @@ func _gui_input(event: InputEvent) -> void:
 					_start_combat("ENTER")
 				elif pending_end_turn_confirmation:
 					_end_player_turn()
-				elif _action_type(selected_action) in ["FIRE", "MELEE", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
+				elif _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
 					_resolve_selected_attack()
 				accept_event()
 
@@ -987,7 +988,7 @@ func _on_cell_clicked(cell: Vector2i) -> void:
 	var atype := _action_type(selected_action)
 	if atype == "MOVE":
 		_move_active_unit_to(cell)
-	elif atype in ["FIRE", "MELEE"]:
+	elif atype in ["FIRE", "MELEE", "PSI"]:
 		var ti := _enemy_at_cell(cell)
 		if ti >= 0:
 			selected_target_index = ti
@@ -1016,7 +1017,7 @@ func _on_unit_clicked(unit_id: int, is_enemy: bool) -> void:
 		return   # vehicle token — decorative, not a combat target
 	if is_enemy:
 		var atype := _action_type(selected_action)
-		if atype in ["FIRE", "MELEE"]:
+		if atype in ["FIRE", "MELEE", "PSI"]:
 			selected_target_index = unit_id
 			_attack_enemy(unit_id, selected_action)
 		elif atype == "FIRE_AOE":
@@ -1282,7 +1283,7 @@ func _execute_action(action_name: String) -> void:
 	selected_action = action_name
 	pending_end_turn_confirmation = false
 	pending_retreat_confirmation = false
-	status_line = "%s : cliquez une cible à portée." % action_name if atype in ["FIRE","MELEE","FIRE_AOE"] else "%s sélectionné." % action_name
+	status_line = "%s : cliquez une cible à portée." % action_name if atype in ["FIRE","MELEE","PSI","FIRE_AOE"] else "%s sélectionné." % action_name
 	_sync_display()
 
 func _apply_psi_pulse() -> void:
@@ -1485,7 +1486,8 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	attacker["ap"] = maxi(0, ap - ap_cost)
 	player_units[active_player_index] = attacker
 
-	var aim: int      = int(attacker.get("aim", 5))
+	var atype := _action_type(action_name)
+	var aim: int      = int(attacker.get("psi", 5)) if atype == "PSI" else int(attacker.get("aim", 5))
 	var defense: int  = int(target.get("defense", 6))
 	# aim raises hit chance; enemy defense lowers it.  Base 50 keeps it balanced.
 	var chance: float = clampf(50.0 + aim * 2.0 - defense * 2.0, 20.0, 95.0)
@@ -1522,8 +1524,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		if int(target.get("hp", 0)) <= 0:
 			_unit_tokens[ekey].play_death()
 
-	var atype := _action_type(action_name)
-	CombatSignals.audio_event.emit("fire" if atype == "FIRE" else "hit")
+	CombatSignals.audio_event.emit("psi" if atype == "PSI" else ("fire" if atype == "FIRE" else "hit"))
 	CombatSignals.unit_attacked.emit(
 		active_player_index, false, target_index, true, damage, true)
 	if int(target.get("hp", 0)) <= 0:
@@ -1614,7 +1615,7 @@ func _action_type(action: String) -> String:
 		"MOVE":      return "MOVE"
 		"FIRE":      return "FIRE"
 		"MELEE":     return "MELEE"
-		"PSI":       return "PSI_HEAL"
+		"PSI":       return "PSI"
 		"DEFEND":    return "DEFEND"
 		"OVERWATCH": return "OVERWATCH"
 	var def := _ACTION_DEFS.get(action, {}) as Dictionary
@@ -1860,7 +1861,7 @@ func _build_player_units() -> Array[Dictionary]:
 			# Sensible fallback by role if handoff omits the list.
 			match role:
 				"sniper": agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
-				"psi":    agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Psi Focus"]
+				"psi":    agent_actions = ["Move", "Defend", "Mind Spike", "Psi Focus", "Pistol Shot"]
 				_:        agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
 		units.append({
 			"name":              clean,
@@ -1873,6 +1874,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"defense":           int(agent.get("defense", role_def_base)),
 			"initiative":        int(agent.get("initiative", 20 + int(agent.get("level", 1)) * 2 - i)),
 			"aim":               int(agent.get("aim", 5)),
+			"psi":               int(agent.get("psi", 5)),
 			"melee_power":       int(agent.get("melee_power", 0)),
 			"position":          Vector2i(1, row),
 			"kind":              "player",
@@ -2216,7 +2218,7 @@ func _visual_unit_hovered(id: int, enemy: bool) -> void:
 		selected_target_index = id
 		for key: String in _unit_tokens:
 			if key.begins_with("e") and is_instance_valid(_unit_tokens[key]):
-				_unit_tokens[key].set_targeted(key == "e%d" % id and _action_type(selected_action) in ["FIRE","MELEE","FIRE_AOE"])
+				_unit_tokens[key].set_targeted(key == "e%d" % id and _action_type(selected_action) in ["FIRE","MELEE","PSI","FIRE_AOE"])
 		_update_visual_context()
 		_hud.queue_redraw()
 

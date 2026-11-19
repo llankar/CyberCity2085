@@ -207,6 +207,7 @@ class AgentLoadout:
             if weapon:
                 actions.append(weapon.action_name)
         if self.psi_focus:
+            actions.append("Mind Spike")
             actions.append("Psi Focus")
         if self.utility_item:
             actions.append(self.utility_item.name)

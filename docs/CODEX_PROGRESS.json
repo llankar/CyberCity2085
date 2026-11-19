@@ -1022,6 +1022,31 @@
       ],
       "remaining": "",
       "reason": "Tests natifs nécessitant un environnement graphique ignorés"
+    },
+    {
+      "id": "PSI-OFFENSE-01",
+      "title": "Restaurer les attaques psi offensives",
+      "status": "DONE",
+      "files": [
+        "game/management/equipment.py",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "godot/combat_missions_ui/tests/weapon_balance_regression.gd",
+        "tests/test_agent_equipment.py",
+        "tests/test_psi_combat_routing.py",
+        "docs/backlog.md"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_agent_equipment.py tests/test_combat_actions.py tests/test_godot_combat_bridge.py tests/test_psi_combat_routing.py : 26 passed",
+        "python -m pytest -q tests/test_environment_art25.py -k 'native_contract and weapon_balance' : 1 skipped, Godot indisponible",
+        "Contrat : Mind Spike est une attaque PSI ciblée ; Psi Focus reste un soutien de stress séparé"
+      ],
+      "evidence": [
+        "tests/test_agent_equipment.py",
+        "tests/test_psi_combat_routing.py"
+      ],
+      "remaining": "",
+      "reason": "Contrat natif Godot non exécuté car l'exécutable est indisponible"
     }
   ],
   "reviews": {

@@ -55,6 +55,16 @@ class AgentEquipmentTest(unittest.TestCase):
         self.assertIs(replaced, first)
         self.assertIs(loadout.sidearm, second)
 
+    def test_psi_focus_keeps_offense_and_support_as_separate_actions(self):
+        catalog = default_equipment_catalog()
+        loadout = AgentLoadout()
+        loadout.equip("psi_focus", catalog["psi_focus"][0])
+
+        actions = loadout.combat_actions()
+        self.assertIn("Mind Spike", actions)
+        self.assertIn("Psi Focus", actions)
+        self.assertLess(actions.index("Mind Spike"), actions.index("Psi Focus"))
+
     def test_validating_equipment_rejects_wrong_slot_and_type(self):
         loadout = AgentLoadout()
         armor = Armor("coat", "Coat", "armor", allowed_slots=("armor",))

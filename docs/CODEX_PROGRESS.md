@@ -361,6 +361,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Tests natifs nécessitant un environnement graphique ignorés.
 
+### PSI-OFFENSE-01 — DONE — Restaurer les attaques psi offensives
+
+- Fichiers : `game/management/equipment.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/tests/weapon_balance_regression.gd`, `tests/test_agent_equipment.py`, `tests/test_psi_combat_routing.py`, `docs/backlog.md`.
+- Tests / contrôles réellement exécutés : 26 tests Python ciblés réussis; contrat natif weapon_balance ignoré car Godot indisponible; Mind Spike vérifié comme attaque PSI ciblée et Psi Focus comme soutien distinct.
+- Preuves : `tests/test_agent_equipment.py`, `tests/test_psi_combat_routing.py`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Contrat natif Godot non exécuté car l'exécutable est indisponible.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
