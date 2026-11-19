@@ -31,7 +31,8 @@ def test_submit_never_launches_an_engine_itself(tmp_path):
 
 
 def test_actual_runtime_is_started_before_first_mission_and_reused(tmp_path):
-    godot=shutil.which('godot')
+    from game.combat.godot_bridge import find_godot_executable
+    godot=find_godot_executable()
     if not godot:pytest.skip('Godot unavailable')
     runtime=CombatRuntime(project_dir=ROOT/'godot/combat_missions_ui',directory=tmp_path/'runtime',executable=godot,headless=True)
     try:
@@ -44,8 +45,8 @@ def test_actual_runtime_is_started_before_first_mission_and_reused(tmp_path):
             with patch('game.combat.godot_bridge.subprocess.Popen',side_effect=AssertionError('Mission attempted a new process')):
                 result=launch_godot_combat_ui(state,mission,handoff_path=case/'runtime-handoff.json',runtime=runtime)
             assert result.launched and result.process_pid==pid
-            wait_for(runtime,lambda s:s.get('state')=='busy' and s.get('session_id')==result.session_id)
-            assert Path(state.combat_sessions[result.session_id]['session']['status_path']).is_file()
+            status_path=Path(state.combat_sessions[result.session_id]['session']['status_path'])
+            wait_for(runtime,lambda s:s.get('state')=='busy' and s.get('session_id')==result.session_id and status_path.is_file())
             runtime.park(result.session_id)
             wait_for(runtime,lambda s:s.get('state')=='idle' and s.get('session_id')==result.session_id)
             assert runtime.process.poll() is None and runtime.process.pid==pid
@@ -54,7 +55,7 @@ def test_actual_runtime_is_started_before_first_mission_and_reused(tmp_path):
     assert 'SCRIPT ERROR' not in (runtime.directory/'godot.log').read_text()
 
 
-def test_win32_overlay_stays_hidden_until_ready_and_owner_foreground():
+def test_win32_overlay_stays_hidden_until_ready_then_raises_without_click():
     from types import SimpleNamespace
     from unittest.mock import Mock
     import game.ui.screens.godot_combat_handoff_view as handoff
@@ -63,9 +64,8 @@ def test_win32_overlay_stays_hidden_until_ready_and_owner_foreground():
     view._arcade_hwnd=100;view._godot_hwnd=None;view._overlaid=False;view._session_ready=False
     view.window=SimpleNamespace(width=1280,height=720)
     module='game.combat.win32_embed.'
-    with patch.object(handoff,'_WIN',True),patch(module+'get_process_hwnd',return_value=200),patch(module+'get_window_screen_rect',return_value=(10,20,1280,720)),patch(module+'attach_owned_window'),patch(module+'hide_window') as hide,patch(module+'make_borderless_at') as place,patch(module+'show_window') as show,patch(module+'is_foreground_window',return_value=False) as focused:
+    with patch.object(handoff,'_WIN',True),patch(module+'get_process_hwnd',return_value=200),patch(module+'get_window_screen_rect',return_value=(10,20,1280,720)),patch(module+'attach_owned_window'),patch(module+'hide_window') as hide,patch(module+'make_borderless_at') as place,patch(module+'show_window') as show:
         view._try_overlay();hide.assert_called_once_with(200);place.assert_not_called()
-        view._session_ready=True;view._try_overlay();place.assert_not_called()
-        focused.return_value=True;view._try_overlay()
+        view._session_ready=True;view._try_overlay()
         place.assert_called_once_with(200,10,20,1280,720);show.assert_called_once_with(200)
         assert view._overlaid

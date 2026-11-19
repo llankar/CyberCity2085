@@ -136,8 +136,8 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 	super._style_btn(btn, active, disabled)
 	for state: String in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var box := btn.get_theme_stylebox(state).duplicate() as StyleBoxFlat
-	box.bg_color = Color(0.045, 0.065, 0.07, 0.95) if not (active or btn.text.begins_with("END")) else Color(0.20, 0.14, 0.035, 0.96)
-	box.border_color = WARN if active or btn.text.begins_with("END") else Color(0.12, 0.65, 0.68, 0.7)
+		box.bg_color = Color(0.045, 0.065, 0.07, 0.95) if not (active or btn.text.begins_with("END")) else Color(0.20, 0.14, 0.035, 0.96)
+		box.border_color = WARN if active or btn.text.begins_with("END") else Color(0.12, 0.65, 0.68, 0.7)
 		if state == "hover" and not disabled:
 			box.bg_color = box.bg_color.lightened(.10)
 			box.border_color = WARN if active else Color(.3,1,1)
@@ -146,8 +146,8 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 		box.shadow_color = Color(0, 0, 0, 0.5)
 		box.shadow_size = 5
 		btn.add_theme_stylebox_override(state, box)
-	btn.add_theme_font_size_override("font_size", 22 if btn.text.begins_with("FIN") else 20)
-	if btn.text.begins_with("FIN"): btn.add_theme_color_override("font_color",WARN)
+	btn.add_theme_font_size_override("font_size", 22 if btn.text.begins_with("END") else 20)
+	if btn.text.begins_with("END"): btn.add_theme_color_override("font_color",WARN)
 
 func _draw() -> void:
 	var header_w := minf(465,size.x*0.36)

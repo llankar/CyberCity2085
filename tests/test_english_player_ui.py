@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import subprocess
 
 from game.gamestate import GameState
 from game.i18n import DEFAULT_LANGUAGE, normalize_language, t
@@ -111,4 +112,31 @@ def test_godot_player_copy_does_not_expose_debug_or_engine_labels():
     assert "No agents in handoff" not in visible_handoff
     assert 'status_line += " | WALL TEST' not in source
     assert '_log_event("WALL TEST' not in source
+
+
+def test_godot_project_scripts_parse_when_native_editor_is_available():
+    from game.combat.godot_bridge import find_godot_executable
+
+    executable = find_godot_executable()
+    if not executable:
+        import pytest
+
+        pytest.skip("Godot executable unavailable")
+    result = subprocess.run(
+        [
+            executable,
+            "--headless",
+            "--path",
+            str(ROOT / "godot/combat_missions_ui"),
+            "--editor",
+            "--quit",
+        ],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    output = result.stdout + result.stderr
+    assert result.returncode == 0, output
+    assert "SCRIPT ERROR" not in output, output
+    assert "Parse Error" not in output, output
 
