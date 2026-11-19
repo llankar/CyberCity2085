@@ -7,15 +7,16 @@ from unittest.mock import patch
 from tools.check_unified_return import _link_directory
 
 
-def campaign_scenario(mission_id=None):
+def campaign_scenario(mission_id=None, *, state=None):
     """Use the real daily board and normal equipped recruits, with no stat overrides."""
     from game.gamestate import GameState
     from game.recruitment import recruit_agent
     from game.mission_system import ensure_mission_templates
-    roster=[]
-    for role in ['samurai','sniper','psi','samurai','sniper']:
-        recruit_agent(roster,role)
-    state=GameState(characters=roster,selected_agent_names=[c.name for c in roster])
+    if state is None:
+        roster=[]
+        for role in ['samurai','sniper','psi','samurai','sniper']:
+            recruit_agent(roster,role)
+        state=GameState(characters=roster,selected_agent_names=[c.name for c in roster])
     ensure_mission_templates(state)
     eligible=[(i,m) for i,m in enumerate(state.mission_templates) if mission_id is None or m.id==mission_id]
     if not eligible:raise ValueError('Requested mission is absent from the actual daily board')
@@ -36,11 +37,13 @@ def main():
     from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
     from game.ui.screens.battle_debrief_view import BattleDebriefView
     from game.ui.screens.agent_promotion_view import AgentPromotionView
+    from game.ui.screens.campaign_ending_view import CampaignEndingView
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=Path('work/unified-experience'))
     parser.add_argument("--outcomes", nargs="+", choices=["victory","defeat","retreat"])
     parser.add_argument("--campaign-play", action="store_true")
     parser.add_argument("--mission-id")
+    parser.add_argument("--campaign-save", type=Path, help="Resume a campaign saved by a previous run")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--interrupt-after-resolution", action="store_true")
@@ -49,6 +52,9 @@ def main():
     parser.add_argument("--crash-recovery", action="store_true")
     parser.add_argument("--resume-debrief", action="store_true")
     args=parser.parse_args()
+    if args.campaign_save and not args.campaign_play:
+        parser.error("--campaign-save requires --campaign-play")
+    campaign_save = args.campaign_save.resolve(strict=True) if args.campaign_save else None
     args.outcomes=args.outcomes or (['victory'] if args.campaign_play else ['victory','defeat','retreat'])
     if args.campaign_play and ('retreat' in args.outcomes or args.interrupt_phase):
         parser.error('Natural playthrough has no fabricated retreat or forced interruption fixture')
@@ -72,13 +78,16 @@ def main():
                 _link_directory(sandbox/'assets', root/'assets')
                 _link_directory(sandbox/'godot', root/'godot')
                 if args.campaign_play:
-                    state,mission=campaign_scenario(args.mission_id)
+                    state,mission=campaign_scenario(
+                        args.mission_id, state=GameState.load(str(campaign_save)) if campaign_save else None
+                    )
                     (case/'mission-input.json').write_text(json.dumps(mission.to_dict(),indent=2))
                     (case/'roster-input.json').write_text(json.dumps([c.to_dict() for c in state.characters],indent=2))
                 else:
                     mission=MissionTemplate(id='unified_'+outcome,title='Unified '+outcome,objective_text='Protocol validation',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='hack')
                     state=GameState(characters=[Character('Vera')],selected_agent_names=['Vera'],mission_templates=[mission])
                     state.mission_board_generated_day=state.calendar.current_day;state.mission_board_version=2
+                starting_levels = {agent.name: agent.stats.level for agent in state.characters}
                 hq=ManagementView(state);hq.setup();window.show_view(hq);frame(case/'01-headquarters.png')
                 hq._open_mission_map();assert isinstance(window.current_view,MissionWorldMapView);frame(case/'02-world-map.png')
                 window.current_view._launch_selected_mission();assert isinstance(window.current_view,MissionBriefingView);frame(case/'03-briefing.png')
@@ -196,9 +205,16 @@ def main():
                         if promoted:
                             frame(case/'06-promotions.png')
                             while isinstance(window.current_view,AgentPromotionView):window.current_view._advance()
-                        assert isinstance(window.current_view,ManagementView)
-                        frame(case/'07-headquarters-return.png')
-                        assert promoted==(outcome=='victory')
+                        ending = state.campaign.ending
+                        assert isinstance(window.current_view, CampaignEndingView if ending else ManagementView)
+                        frame(case/('07-ending.png' if ending else '07-headquarters-return.png'))
+                        if args.campaign_play:
+                            assert promoted == any(
+                                agent.stats.level > starting_levels.get(agent.name, agent.stats.level)
+                                for agent in state.characters
+                            )
+                        else:
+                            assert promoted == (outcome == 'victory')
                         save=case/'campaign.json';state.save(str(save));loaded=GameState.load(str(save))
                         from game.combat.godot_resolution import resolve_godot_result
                         assert resolve_godot_result(loaded,mission,actual,bridge.launch_result.session_id) is None

@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- CAMPAIGN-CONTINUATION — IN_PROGRESS. `--campaign-save` recharge la campagne précédente. `samurai_archive_d2_s3` gagnée sous Windows à 720p depuis la sauvegarde du jour 1, avec retour au QG et rechargement. Le banc vérifie les promotions d’après les niveaux réellement gagnés et accepte l’écran de finale. Reprendre `work/campaign-continuation-native-720/victory/campaign.json` pour le prochain acte.
+
 - CAMPAIGN-NATIVE — IN_PROGRESS. Banc de campagne corrigé pour Windows (liens de répertoire, nettoyage et taille de fenêtre). Première mission du tableau réel `data_theft_d1_s2` jouée jusqu’à la victoire, avec parcours QG → carte → briefing → Godot → débriefing → QG et rechargement à 720p. 19 tests ciblés réussis. Reste à enchaîner les actes jusqu’à la finale avec le même état de campagne.
 
 - UNIFIED-RESULT-POLL — DONE. Régression déterministe : un résultat publié pendant le contrôle de fin de processus est lu au cycle suivant. Suite ciblée : 29 réussis.
