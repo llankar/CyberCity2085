@@ -121,7 +121,12 @@ func move_route(points: Array[Vector2], updated_data: Dictionary) -> void:
 		_moving.tween_callback(play_action.bind("move", p))
 		_moving.tween_property(self, "position", p, 0.13)
 	_moving.tween_callback(play_action.bind("idle"))
-	CombatSignals.audio_event.emit("move")
+	var moving_role := str(unit_data.get("role", "")).to_lower()
+	var moving_asset_type := str(unit_data.get("asset_type", "")).to_lower()
+	if moving_role == "robot" or moving_asset_type.ends_with("_robot"):
+		CombatSignals.audio_event.emit("move_robot")
+	else:
+		CombatSignals.audio_event.emit("move")
 
 func attack_lunge(target_pos: Vector2) -> void:
 	# Legacy API: no displacement masquerading as a character animation.
