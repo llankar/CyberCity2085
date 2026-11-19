@@ -18,9 +18,9 @@ class CriticalChoiceHighlightTest(unittest.TestCase):
         high = build_critical_choice_highlight("high")
 
         self.assertEqual(low.marker, "")
-        self.assertIn("modéré", medium.text)
+        self.assertIn("moderate impact", medium.text)
         self.assertEqual(high.marker, "◆")
-        self.assertIn("élevé", format_critical_choice_suffix("high"))
+        self.assertIn("high impact", format_critical_choice_suffix("high"))
 
     def test_marker_presence_for_critical_choices(self):
         event = ActiveEvent(
@@ -42,7 +42,7 @@ class CriticalChoiceHighlightTest(unittest.TestCase):
         lines = build_event_panel_lines([event], current_day=1)
 
         self.assertTrue(any("◆" in line for line in lines))
-        self.assertTrue(any("impact élevé" in line for line in lines))
+        self.assertTrue(any("high impact" in line for line in lines))
 
     def test_neutral_choices_do_not_regress_and_high_impact_is_logged(self):
         game_state = GameState()
@@ -65,7 +65,7 @@ class CriticalChoiceHighlightTest(unittest.TestCase):
         ]
 
         neutral_lines = build_event_panel_lines(game_state.active_events, current_day=1)
-        self.assertFalse(any("impact modéré" in line for line in neutral_lines if "Safe option" in line))
+        self.assertFalse(any("impact" in line for line in neutral_lines if "Safe option" in line))
 
         resolved = apply_event_choice(game_state, "event-2", "bond")
 

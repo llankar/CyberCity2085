@@ -1,5 +1,7 @@
 ## Source-faithful obstacle faces (November 17, 2026)
 
+Windows release checks: [release_checklist.md](release_checklist.md).
+
 - [x] SF-01 Preserve original salvage/rock/debris silhouettes and outdoor wasteland art without rectangular plinths or floor replacement.
 - [x] SF-02 Source-derived cached facade swatches, correct texel density and source-toned edges for retained architectural/furniture volumes.
 - [x] SF-03 Catalogue/source-integrity and native interaction tests, plus corrected real captures at multiple resolutions.
