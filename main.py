@@ -8,6 +8,18 @@ from game.runtime import configure_runtime_directory
 
 
 def main(argv=None) -> int:
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv[:1] == ["--qa-unified"]:
+        from importlib import import_module
+
+        try:
+            driver = import_module("tools.check_unified_return")
+        except ModuleNotFoundError as error:
+            if error.name not in {"tools", "tools.check_unified_return"}:
+                raise
+            return 2
+        driver.main(argv[1:])
+        return 0
     parser = argparse.ArgumentParser(description="CyberCity 2085")
     parser.add_argument("--smoke-test", action="store_true", help="Validate packaged data/combat without a game window")
     parser.add_argument("--smoke-report", type=Path, help="Write smoke results as JSON")

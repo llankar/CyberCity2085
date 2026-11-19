@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- PACKAGE-UNIFIED-QA — DONE. Build local avec `CYBERCITY_PACKAGE_QA=1`, pilote et scripts de test exclus des builds ordinaires. L’exécutable QA a joué une victoire avec son Godot embarqué, du QG au débriefing puis au QG, avec rechargement et résultat unique. Capture du débriefing inspectée. DPI, focus et redimensionnement restent à valider.
+
 - PACKAGE-TACTICAL-SMOKE — DONE. Exécutable reconstruit dans `work/windows-tactical-smoke/CyberCity2085`. Son smoke confirme le démarrage headless de la scène Godot embarquée et le rechargement. Suite : parcours graphique packagé via un pilote interne et validation des fenêtres.
 
 - PACKAGE-TACTICAL-BOOT — DONE. Le smoke du package lance désormais sa scène Godot en headless et exige le marqueur de disponibilité. Huit tests de packaging réussis et démarrage vérifié avec les fichiers et le binaire du package local. Reconstruire pour intégrer ce contrôle à l’exécutable. Le parcours graphique complet reste ouvert.
