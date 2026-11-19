@@ -51,6 +51,8 @@ def test_all_8k_maps_preserve_survey_and_trace_fingerprints():
         walls_hash = hashlib.sha256(json.dumps(geometry['walls'], sort_keys=True).encode()).hexdigest()
         assert walls_hash == record['geometry_sha256'], path.name
         trace = path.with_suffix('.wall-traces.json')
-        assert hashlib.sha256(trace.read_bytes()).hexdigest() == record['trace_sha256'], path.name
+        # The manifest records LF bytes; Git can materialize these JSON files as CRLF.
+        trace_bytes = trace.read_bytes().replace(b'\r\n', b'\n')
+        assert hashlib.sha256(trace_bytes).hexdigest() == record['trace_sha256'], path.name
         source_w, source_h = record['source_size']
         assert abs(record['target_size'][1] - source_h * 7680 / source_w) <= .5
