@@ -21,6 +21,7 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     "sfx_move": ("movement/step_concrete_01.wav",),
     "sfx_move_concrete": ("movement/step_concrete_01.wav",),
     "sfx_ui_click": ("ui/ui_click_01.wav",),
+    "sfx_city_short": ("ambience/ambience_city_short_candidate_02.wav",),
 }
 
 AMBIENCE_CITY = "ambience/ambience_city_loop_candidate_01.wav"
