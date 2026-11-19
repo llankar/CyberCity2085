@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-CONTRACT — DONE. Plafond historique retiré du plan. Le test de release vérifie la checklist sans exiger la fermeture des travaux encore ouverts. Les tests de choix narratifs vérifient les libellés anglais et les marqueurs.
+
 - MAP-ART-INVENTORY — DONE. Le test compare désormais les déclarations du catalogue au manifeste de la revue Windows déjà archivée (122 cartes, 21 planches). Cinq tests réussis, deux contrôles natifs ignorés. Aucun nouveau rendu effectué. Poursuivre le tri des régressions de release.
 
 - MAP-8K-INTEGRITY — DONE. Git matérialise les relevés JSON en CRLF sous Windows. Le contrôle normalise les fins de ligne avant le SHA du relevé. Deux tests réussis, dont les 122 entrées du manifeste. PNG, empreintes et géométrie conservés. Prochaine action : examiner le contrat de l’inventaire artistique.

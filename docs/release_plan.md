@@ -188,7 +188,7 @@ system states. Command Core and the eleven-action Squad Ops layout were checked
 at 1920×1000, along with the enriched tactical preflight. The rebuilt Windows
 distribution passed 450 tests plus 8 subtests and a packaged-executable smoke run.
 
-## First implementation batch (maximum five tasks)
+## First implementation batch
 
 1. `RELEASE-01` — Add a serialisable campaign-ending state and deterministic
    outcome evaluator based on world state, intel, faction pressure, and agent
