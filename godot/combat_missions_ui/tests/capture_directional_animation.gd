@@ -21,6 +21,8 @@ func run() -> void:
 	var rail_sniper:= "--rail-sniper" in args
 	var violet_fixer:= "--violet-fixer" in args
 	var silver_pistol:= "--silver-pistol" in args
+	var armored_vanguard:= "--armored-vanguard" in args
+	var chrome_medic:= "--chrome-medic" in args
 	if roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
@@ -32,7 +34,7 @@ func run() -> void:
 	await create_timer(2.2).timeout;scene._banner.hide()
 	scene.player_units[0]["visual_asset"]="agent_diverse_01_neon_blade" if roster else "agent_diverse_04_trench_sniper"
 	if roster:
-		scene.player_units[1]["visual_asset"]="agent_diverse_12_violet_fixer" if violet_fixer else ("agent_diverse_13_silver_pistol" if silver_pistol else ("agent_diverse_10_ronin_duelist" if ronin_duelist else ("agent_diverse_11_rail_sniper" if rail_sniper else ("agent_diverse_08_holo_hacker" if holo_hacker else ("agent_diverse_09_blue_mohawk_scout" if blue_mohawk_scout else ("agent_diverse_02_longcoat_gunner" if longcoat_gunner else ("agent_diverse_07_hooded_infiltrator" if hooded_infiltrator else ("agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")))))))))
+		scene.player_units[1]["visual_asset"]="agent_diverse_14_armored_vanguard" if armored_vanguard else ("agent_diverse_15_chrome_medic" if chrome_medic else ("agent_diverse_12_violet_fixer" if violet_fixer else ("agent_diverse_13_silver_pistol" if silver_pistol else ("agent_diverse_10_ronin_duelist" if ronin_duelist else ("agent_diverse_11_rail_sniper" if rail_sniper else ("agent_diverse_08_holo_hacker" if holo_hacker else ("agent_diverse_09_blue_mohawk_scout" if blue_mohawk_scout else ("agent_diverse_02_longcoat_gunner" if longcoat_gunner else ("agent_diverse_07_hooded_infiltrator" if hooded_infiltrator else ("agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")))))))))))
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -68,7 +70,7 @@ func run() -> void:
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
-	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol:
+	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol and not armored_vanguard and not chrome_medic:
 		var magenta=scene._unit_tokens["p1"]
 		for action in ["fire","melee","cover","hit","death"]:
 			for direction in range(8):
@@ -95,10 +97,10 @@ func run() -> void:
 				var medic_file="street-medic-%s-%02d"%[action,direction]
 				save_frame(medic_file);medic_actions.append({"action":action,"direction":direction,"file":medic_file+".png"})
 	var new_agent_actions: Array[Dictionary]=[]
-	if longcoat_gunner or hooded_infiltrator or holo_hacker or blue_mohawk_scout or ronin_duelist or rail_sniper or violet_fixer or silver_pistol:
+	if longcoat_gunner or hooded_infiltrator or holo_hacker or blue_mohawk_scout or ronin_duelist or rail_sniper or violet_fixer or silver_pistol or armored_vanguard or chrome_medic:
 		var new_agent=scene._unit_tokens["p1"]
-		var new_prefix="violet-fixer" if violet_fixer else ("silver-pistol" if silver_pistol else ("ronin-duelist" if ronin_duelist else ("rail-sniper" if rail_sniper else ("longcoat-gunner" if longcoat_gunner else ("hooded-infiltrator" if hooded_infiltrator else ("holo-hacker" if holo_hacker else "blue-mohawk-scout"))))))
-		var actions=["fire","melee","cover","hit","death"] if longcoat_gunner or blue_mohawk_scout or rail_sniper or violet_fixer or silver_pistol else ["melee","cover","hit","death"]
+		var new_prefix="armored-vanguard" if armored_vanguard else ("chrome-medic" if chrome_medic else ("violet-fixer" if violet_fixer else ("silver-pistol" if silver_pistol else ("ronin-duelist" if ronin_duelist else ("rail-sniper" if rail_sniper else ("longcoat-gunner" if longcoat_gunner else ("hooded-infiltrator" if hooded_infiltrator else ("holo-hacker" if holo_hacker else "blue-mohawk-scout"))))))))
+		var actions=["melee","cover","hit","death","heal"] if chrome_medic else (["fire","melee","cover","hit","death"] if longcoat_gunner or blue_mohawk_scout or rail_sniper or violet_fixer or silver_pistol or armored_vanguard else ["melee","cover","hit","death"])
 		for action in actions:
 			for direction in range(8):
 				assert(new_agent.play_action(action));new_agent.facing=direction;new_agent.frame_time=0.2;new_agent._process(0)
