@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_robot_elite.png",
-  "texture_sha256": "2f8f12b988bb91b136d944b5d839fab22e194dc00108d554786a985accf8329d",
+  "texture_sha256": "e865d4715179b6e9f0fb2c06009fc29f24e6fb51bea9ed3952349aaa9e2fdd07",
   "frame_size": [
     256,
     256
@@ -49,6 +49,98 @@
           15
         ]
       ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_corp_37_robot_elite_512.png",
@@ -58,6 +150,27 @@
       "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_elite/idle-action_rows-0.png",
       "sha256": "9da212cfd0bdcd3cb6b907aa90b30d483549c653aead2db58598984db2e4460a",
       "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_elite/move-front-1.png",
+      "sha256": "fa7bea7e47c337ba67ba228eefad704bf804115e85f4738fbfdd62a6fcfd7258",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_elite/move-rear-2.png",
+      "sha256": "20eefca0b6d8da98c946ad3b687363f99bc0f0d6f28f7d31ed7bf6e8d05890a1",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_robot_elite/fire-action_rows-3.png",
+      "sha256": "70aa1ab66272812e7daa4abaed2791de764a61b06ae7bdb3455fe918408a795f",
+      "clip": "fire",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
@@ -77,8 +190,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
-    "fire",
     "melee",
     "cover",
     "hit",
