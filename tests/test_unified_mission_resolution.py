@@ -180,3 +180,21 @@ def test_manual_fallback_invalidates_the_pending_session(tmp_path):
     bridge._abandon_session()
     assert state.combat_sessions[session['session_id']]['status']=='abandoned'
     with pytest.raises(ValueError):resolve_godot_result(state,mission,result,session['session_id'])
+
+
+@pytest.mark.parametrize('label', ['Vera', '  Vera  '])
+def test_recover_retreat_with_original_or_legacy_display_name(tmp_path, label):
+    from game.combat.checkpoints import load_combat_checkpoint
+    agent = Character('  Vera  ', role='sniper')
+    state = GameState(characters=[agent], selected_agent_names=[agent.name])
+    _, mission, _, result = scenario(tmp_path)
+    path = write_godot_combat_handoff(state, mission, handoff_path=tmp_path/'legacy.json')
+    _, session = create_session(state, mission, path)
+    sid = session['session_id']
+    saved, _ = load_combat_checkpoint(state.combat_sessions[sid]['checkpoints']['before'])
+    result.update(session_id=sid, outcome='retreat')
+    result['agents'][0]['name'] = label
+    resolve_godot_result(saved, mission, result, sid)
+    assert saved.characters[0].name == 'Vera'
+    assert saved.characters[0].stats.hp == 7
+    assert resolve_godot_result(saved, mission, result, sid) is None

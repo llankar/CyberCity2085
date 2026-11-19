@@ -1799,7 +1799,9 @@ func _end_combat(outcome: String) -> void:
 		if not str(unit.get("asset_id","")).is_empty():
 			snapshot["id"]=unit.asset_id
 			support.append(snapshot)
-		else:agents.append(snapshot)
+		else:
+			snapshot["name"] = unit.get("campaign_name", unit.name)
+			agents.append(snapshot)
 	var result := {
 		"session":handoff.get("session",{}),
 		"agents":agents,"support":support,
@@ -1860,6 +1862,7 @@ func _build_player_units() -> Array[Dictionary]:
 				_:        agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
 		units.append({
 			"name":              clean,
+			"campaign_name":     str(raw_n) if raw_n != null else clean,
 			"role":              role,
 			"hp":                int(agent.get("hp", 30)),
 			"max_hp":            maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),

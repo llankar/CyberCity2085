@@ -741,6 +741,7 @@ class GameState:
         from .deployment import sanitize_selected_agent_names, sanitize_selected_asset_ids
 
         if renamed:
+            gs._loaded_agent_renames = renamed
             gs.selected_agent_names = [
                 renamed.get(name, name)
                 for name in data.get("selected_agent_names", gs.selected_agent_names)
