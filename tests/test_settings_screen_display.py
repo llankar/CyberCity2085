@@ -9,6 +9,7 @@ import tempfile
 import types
 import unittest
 import unittest.mock
+import pytest
 from pathlib import Path
 
 
@@ -117,6 +118,15 @@ sys.modules["arcade"] = fake_arcade
 settings_screen = importlib.import_module("game.ui.screens.settings_screen")
 settings_screen = importlib.reload(settings_screen)
 from game.ui.theme.typography import scale_font_size, set_text_size
+
+
+@pytest.fixture(autouse=True)
+def settings_arcade_stub(monkeypatch):
+    monkeypatch.setitem(sys.modules, "arcade", fake_arcade)
+    for name, module in tuple(sys.modules.items()):
+        if (name.startswith(("game.ui.components.", "game.ui.theme."))
+                or name == settings_screen.__name__) and hasattr(module, "arcade"):
+            monkeypatch.setattr(module, "arcade", fake_arcade)
 
 
 class _FakeWindow:
