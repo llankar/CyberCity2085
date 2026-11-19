@@ -390,8 +390,17 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, contrats Godot natifs et `tests/test_english_player_ui.py`.
 - Tests / contrôles réellement exécutés : 17 réussis, 1 ignoré ; scan des littéraux `.gd`, `.tscn`, `.tres`, `.cfg`, `.json` et `.txt` dans tout `godot`.
 - Preuves : `COMBAT LOG`, `Combat log [L]` et `F9: classic interface` remplacent les dernières chaînes françaises visibles ; le pré-déploiement ne cite plus le moteur ; le diagnostic `WALL TEST` n'est plus affiché au joueur.
-- Travail restant dans cette portée : validation visuelle native non exécutée.
-- Problème / raison : exécutable Godot absent de l'environnement courant.
+- Travail restant dans cette portée : validation visuelle humaine de tous les écrans non exécutée.
+- Problème / raison : le parsing et le runtime natifs ont été validés ensuite dans GODOT-PARSE-01.
+
+### GODOT-PARSE-01 — DONE — Réparer le blocage de chargement après traduction du HUD
+
+- Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `tests/test_english_player_ui.py`, `tests/test_persistent_combat_runtime.py`.
+- Cause vérifiée : deux affectations de style avaient perdu leur indentation dans `_style_btn`, produisant `Parse Error: Could not preload resource script visual_hud.gd`; les sessions restaient en état `loading` sans statut combat.
+- Tests / contrôles réellement exécutés : parseur natif Godot 4.6.3 sans erreur ; 16 tests réussis, 1 ignoré ; vrai runtime persistant démarré et réutilisé sur deux missions successives.
+- Preuves : journal natif `runtime/godot_runtime/b5d660bd3ff2486da0d6b700fd16230e/godot.log`, `tests/test_persistent_combat_runtime.py`, `tests/test_english_player_ui.py`.
+- Travail restant dans cette portée : relancer ou réparer la session déjà interrompue dans l'interface ouverte.
+- Problème / raison : la session déjà en erreur exige une nouvelle tentative car son processus est arrêté.
 
 ## Problèmes et ressources en attente
 
