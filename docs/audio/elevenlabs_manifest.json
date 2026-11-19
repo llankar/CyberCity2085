@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generation_status": "not_started_provider_busy",
+  "generation_status": "partial_6_provider_generations_download_blocked",
   "credits_estimate": {
     "kind": "pilot_provider_estimate_and_full_extrapolation",
     "provider": "ElevenLabs Creative Studio / Sound Effects v2",
@@ -81,21 +81,33 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_01.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "twpyh7j3WUO2P5BLTZPl",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 1.48,
+          "audition_status": "not_verified",
+          "session_id": "aFO2wUK01eLGMmtOI2K0",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_02.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "sgt4Y34DKih4bezlRCe4",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 1.48,
+          "audition_status": "not_verified",
+          "session_id": "PuHiY65B0kDKcRmDPcab",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/weapons/fire_assault_03.wav",
@@ -414,21 +426,33 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/combat/impact_metal_01.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "uIWJSwImLE4BwuQveBpG",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 1,
+          "audition_status": "not_verified",
+          "session_id": "4YhnSP7JZUZ5VqW0OIgp",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_02.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "orQLYi7lTSMTcFY8dlAy",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 1,
+          "audition_status": "not_verified",
+          "session_id": "sAKJCkclLCuy94AdGcKX",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/combat/impact_metal_03.wav",
@@ -982,12 +1006,18 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/movement/step_concrete_01.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "CQ5GGEPbslSM6WRxquhW",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 0.8,
+          "audition_status": "not_verified",
+          "session_id": "shzrHH1U4xJEmWBGclrL",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/movement/step_concrete_02.wav",
@@ -1784,12 +1814,18 @@
       "variants": [
         {
           "path": "assets/audio/overhaul/ui/ui_click_01.wav",
-          "status": "pending_generation",
+          "status": "generated_provider_only",
           "source_url": null,
-          "provider_asset_id": null,
-          "requested_format": "WAV PCM 48 kHz",
-          "duration_seconds": null,
-          "audition_status": "not_verified"
+          "provider_asset_id": "zEC2L8Pp1VRMz4wUlIA4",
+          "requested_format": "WAV PCM 48 kHz (not yet converted)",
+          "duration_seconds": 0.6,
+          "audition_status": "not_verified",
+          "session_id": "OsqpqAgv4zTxEYvWzrgr",
+          "source_reference": "https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb",
+          "model_id": "eleven_text_to_sound_v2",
+          "generated_format": "MP3",
+          "download_status": "blocked_in_runtime",
+          "provider_license_status": "not_verified"
         },
         {
           "path": "assets/audio/overhaul/ui/ui_click_02.wav",
@@ -2579,7 +2615,7 @@
     "estimated_pilot_credits": 234,
     "estimated_pilot_cost_usd": 0.0234,
     "generation_attempted": true,
-    "generation_started": false,
+    "generation_started": true,
     "provider_response": "Free generations are busy right now: this take did not start. Nothing was charged.",
     "charged_credits": 0,
     "auditory_validation_performed": false,
@@ -2591,7 +2627,8 @@
         "model_id": "eleven_text_to_sound_v2",
         "candidates": 3,
         "prompt": "A close, dry military assault rifle single shot, sharp mechanical crack, firm low pressure body, short natural decay. No voices or music.",
-        "status": "configured_not_generated"
+        "status": "partially_generated",
+        "generated_count": 2
       },
       {
         "id": "impact_metal",
@@ -2600,7 +2637,8 @@
         "model_id": "eleven_text_to_sound_v2",
         "candidates": 3,
         "prompt": "A single high-velocity bullet striking a thick steel wall, sharp metallic impact and brief rattling resonance. No voices or music.",
-        "status": "configured_not_generated"
+        "status": "partially_generated",
+        "generated_count": 2
       },
       {
         "id": "step_concrete",
@@ -2609,7 +2647,8 @@
         "model_id": "eleven_text_to_sound_v2",
         "candidates": 3,
         "prompt": "One heavy tactical boot step on rough indoor concrete, close and dry, subtle gear movement, no voices or music.",
-        "status": "configured_not_generated"
+        "status": "partially_generated",
+        "generated_count": 1
       },
       {
         "id": "ui_click",
@@ -2618,10 +2657,24 @@
         "model_id": "eleven_text_to_sound_v2",
         "candidates": 3,
         "prompt": "A very soft premium futuristic control press, muted tactile microclick with a warm short confirmation texture, no beep, voice or music.",
-        "status": "configured_not_generated"
+        "status": "partially_generated",
+        "generated_count": 1
       }
     ],
-    "note": "Node IDs prove configured SFX nodes, not successful audio generations. All asset URLs remain null."
+    "note": "Node IDs prove configured SFX nodes, not successful audio generations. All asset URLs remain null.",
+    "generation_retry": {
+      "date": "2026-11-19",
+      "requested": 3,
+      "started": 2,
+      "failed": 1,
+      "failure": "free generations busy (third request)",
+      "new_generation_ids": [
+        "twpyh7j3WUO2P5BLTZPl",
+        "sgt4Y34DKih4bezlRCe4"
+      ]
+    },
+    "verified_provider_generations_count": 6,
+    "downloaded_count": 0
   },
   "notes": [
     "Preserve existing MP3 music. No SFX outputs or WAV files have been downloaded, listened to or approved.",
@@ -2630,10 +2683,11 @@
     "Retain compatibility fallback for current 19 WAV effects in Arcade and Godot.",
     "Arcade dynamic cues recruitment, selection and toggle currently point at absent SFX names.",
     "Godot routes currently map one WAV per event and uses six rotating effects players.",
-    "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum."
+    "Staged durations less than 0.5s were raised to the documented Sound Effects v2 minimum.",
+    "Six actual provider generation IDs now recorded with duration and source flow. No signed media could be downloaded from the sandbox; use ElevenLabs flow to download the real MP3s, then convert and QC before integration."
   ],
   "quality_gate": {
-    "audio_generated": false,
+    "audio_generated": true,
     "downloaded": false,
     "verified_encoding": false,
     "peaks_checked": false,
