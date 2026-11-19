@@ -39,6 +39,7 @@ const PREVIEW_SFX_MAP: Dictionary = {
     "explosion_small": ["explosion_small_cc0_01.wav"],
     "move": ["step_concrete_01.wav", "step_concrete_cc0_01.wav"],
     "move_concrete": ["step_concrete_01.wav", "step_concrete_cc0_01.wav", "step_concrete_cc0_02.wav", "step_concrete_cc0_03.wav"],
+    "move_metal": ["step_metal_cc0_01.wav", "step_metal_cc0_02.wav", "step_metal_cc0_03.wav", "step_metal_cc0_04.wav", "step_metal_cc0_05.wav"],
     "move_robot": ["move_robot_cc0_01.wav"],
     "shield": ["shield_cc0_01.wav"],
     "terminal": ["terminal_cc0_01.wav"],
@@ -250,6 +251,7 @@ func _on_audio_event(event_name: String) -> void:
 		"hit_glass":              _play_event_sfx("hit_glass", "sfx_hit.wav")
 		"hit_organic":            _play_event_sfx("hit_organic", "sfx_hit.wav")
 		"move_concrete":          _play_event_sfx("move_concrete", "sfx_move.wav")
+		"move_metal":             _play_event_sfx("move_metal", "sfx_move.wav")
 		"move_robot":             _play_event_sfx("move_robot", "sfx_move.wav")
 		"shield":                 _play_event_sfx("shield", "sfx_psi.wav")
 		"terminal":               _play_event_sfx("terminal", "sfx_ui_click.wav")
