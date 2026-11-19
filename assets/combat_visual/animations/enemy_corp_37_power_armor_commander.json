@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_power_armor_commander.png",
-  "texture_sha256": "fdab57b3a6ba5013fb9d12654d25307d41970073a70e89d2b2471b6feb5e56de",
+  "texture_sha256": "ccc3f8d0c6e4889e35521aa974837061c978fa47fd97b131226d8ff3dff17dd6",
   "frame_size": [
     256,
     256
@@ -87,6 +87,120 @@
           31
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          32,
+          33
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          46,
+          47
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_corp_37_power_armor_commander_512.png",
@@ -136,6 +250,27 @@
         1,
         5
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/cover-action_rows-3.png",
+      "sha256": "7a8263f07b2b39b5fa48b257979ed181f0ba8e667586894f936d817ad959c986",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/melee-action_rows-4.png",
+      "sha256": "c6c33d6bfdf45e9b9cb04f0d6ac2f7ad3f2d514d5a51d64582171ae0ab212799",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_commander/hit-action_rows-5.png",
+      "sha256": "46292502b28ba3a0136d77316b077e3ccd3e92e3ecf23bbe21bb717591f07916",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -154,9 +289,6 @@
   "coverage": "partial",
   "missing_clips": [
     "move",
-    "melee",
-    "cover",
-    "hit",
     "death"
   ],
   "review_status": "native_review_pending"
