@@ -326,6 +326,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : poursuivre avec agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper ; inspecter leurs équipements, documenter les actions applicables et produire les clips authentiques avant import.
+ANIM-COMPLETE : inspecter les quinze planches sources archivées de `agent_diverse_10_ronin_duelist` et `agent_diverse_11_rail_sniper`, confirmer `hit/death` et la transparence, puis créer le plan d’import, auditer et valider nativement ; la première marche avant grise du sniper est rejetée.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
