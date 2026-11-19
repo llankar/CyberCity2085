@@ -36,6 +36,7 @@ func run() -> void:
 	var hooded_psion:= "--hooded-psion" in args
 	var redline_runner:= "--redline-runner" in args
 	var agent_psi:= "--agent-psi" in args
+	var samurai:= "--agent-samurai" in args
 	if target_only:
 		assert(roster,"--target-only requires --roster")
 		token_keys=["p1"]
@@ -63,6 +64,7 @@ func run() -> void:
 		elif hooded_psion:scene.player_units[1]["visual_asset"]="agent_diverse_24_hooded_psion"
 		elif redline_runner:scene.player_units[1]["visual_asset"]="agent_diverse_25_redline_runner"
 		elif agent_psi:scene.player_units[1]["visual_asset"]="agent_psi"
+		elif samurai:scene.player_units[1]["visual_asset"]="agent_samurai"
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -101,11 +103,12 @@ func run() -> void:
 	var magenta_actions: Array[Dictionary]=[]
 	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol and not armored_vanguard and not chrome_medic and not heavy_breacher and not yellow_strike and not red_enforcer and not drone_handler and not cyber_doc and not twin_blade and not veteran_inquisitor and not dreadlock_rifle and not hooded_psion and not redline_runner and not agent_psi:
 		var magenta=scene._unit_tokens["p1"]
-		for action in ["fire","melee","cover","hit","death"]:
+		var actions := ["melee","cover","hit","death"] if samurai else ["fire","melee","cover","hit","death"]
+		for action in actions:
 			for direction in range(8):
 				assert(magenta.play_action(action));magenta.facing=direction;magenta.frame_time=0.2;magenta._process(0)
 				await process_frame;await RenderingServer.frame_post_draw
-				var action_file="magenta-%s-%02d"%[action,direction]
+				var action_file="%s-%s-%02d"%["samurai" if samurai else "magenta",action,direction]
 				save_frame(action_file);magenta_actions.append({"action":action,"direction":direction,"file":action_file+".png"})
 	var psi_actions: Array[Dictionary]=[]
 	if psi_doctor:

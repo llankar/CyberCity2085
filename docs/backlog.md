@@ -849,6 +849,8 @@ Resultat courant : **29 / 231 ensembles complets**, 0 partiel. Reste 202 referen
 
 Resultat courant : **29 / 231 ensembles complets**, 0 partiel. Reste 202 references eligibles ; prochaine reference : agent_samurai.
 
+- [x] ANIM-30 Samurai : six actions, huit orientations, 112 images. Contrôle natif ciblé et capture Safehouse réussis.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.

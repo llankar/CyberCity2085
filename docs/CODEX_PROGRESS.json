@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "29 / 231 ensembles complets ; produire et vérifier les actions applicables des 202 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné",
+      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Prochaine unité : enemy_commander.",
       "reason": ""
     },
     {

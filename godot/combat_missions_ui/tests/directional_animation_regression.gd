@@ -4,11 +4,11 @@ func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(640,480)
 	var base:=ProjectSettings.globalize_path("res://../..")
-	var keys: Array=KEYS
+	var keys: Array=KEYS + ["agent_samurai"]
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":
-			assert(args[i+1] in KEYS,"unknown animation asset")
+			assert(args[i+1] in keys,"unknown animation asset")
 			keys=[args[i+1]]
 	var unit=load("res://scripts/unit_visual.gd").new();root.add_child(unit)
 	unit.position=Vector2(320,350);unit.facing_y_scale=1.0;unit.set_process(false)
