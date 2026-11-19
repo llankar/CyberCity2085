@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- ASSASSINATION — IN_PROGRESS. Godot choisit désormais la cible par priorité de rôle comme Arcade et valide l’objectif à sa neutralisation. Le test Godot headless vérifie qu’un garde peut survivre, contrairement à kill_all. La finale avec priorité de tir seule est restée une défaite. Rejouer avec le pilote qui se rapproche aussi de la cible et vérifier l’épilogue.
+
 - CAMPAIGN-FINALE — IN_PROGRESS. Warsaw Citadel Raid et The Pharmacorp File gagnées sous Windows à 720p. Seven Minutes to Dawn a produit deux défaites au tour 25, avec sept ennemis sur onze abattus. Le générateur Godot traite actuellement assassination comme kill_all, alors qu’Arcade désigne une cible. Prochaine action : rétablir la parité sur cet objectif, puis repartir de `work/campaign-story-act5-expose/victory/campaign.json`.
 
 - CAMPAIGN-ACT4 — DONE. The Names Below puis les trois missions de l’acte 4 gagnées sous Windows à 720p sur la même campagne. Douze missions d’histoire terminées, acte 5 débloqué. Reprendre `work/campaign-story-act4-voices/victory/campaign.json` pour Warsaw Citadel Raid (`sm_act5_citadel`).
