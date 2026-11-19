@@ -87,6 +87,14 @@ def test_static_godot_audio_contract_uses_only_new_bank():
     assert '"ambience_profile"' in bridge
 
 
+def test_system_turn_commands_do_not_emit_click_audio():
+    root = Path(__file__).resolve().parents[1]
+    hud = (root / "godot/combat_missions_ui/scripts/hud_controller.gd").read_text()
+    handler = hud.split("func _on_action_pressed(action: String) -> void:", 1)[1].split("func ", 1)[0]
+    assert "if action not in _SYSTEM_ACTIONS:" in handler
+    assert 'CombatSignals.audio_event.emit("ui_click")' in handler
+
+
 def test_no_audio_catalog_claims_unmaterialized_candidates_are_installed():
     root = Path(__file__).resolve().parents[1]
     import json
