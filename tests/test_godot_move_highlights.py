@@ -38,4 +38,7 @@ def test_godot_move_highlights_are_anchored_to_active_unit() -> None:
     assert "func show_move_range(cells: Array[Vector2i], anchor_cell: Vector2i = Vector2i(-1, -1))" in battlefield
     assert "move_range_anchor  = anchor_cell" in battlefield
     assert "move_range_anchor  = Vector2i(-1, -1)" in battlefield
+    assert "var available_ap := maxi(0, int(active.get(\"ap\", 0)))" in combat_ui
+    assert "if available_ap == 0:" in combat_ui
+    assert "var budget := available_ap" in combat_ui
     assert "_battlefield.show_move_range(_battlefield.reachable_cells(origin, budget), origin)" in combat_ui

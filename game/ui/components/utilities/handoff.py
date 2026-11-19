@@ -35,8 +35,8 @@ class HandoffDeck(UtilityDeck):
         r = self.body(right)
         items = [
             (self.word("RÉESSAYER [R]", "RETRY [R]"), arcade.key.R),
-            (self.word("CHOISIR GODOT [G]", "CHOOSE GODOT [G]"), arcade.key.G),
-            (self.word("COMBAT ARCADE [F]", "ARCADE COMBAT [F]"), arcade.key.F),
+            (self.word("RÉPARER LE DÉPLOIEMENT [G]", "REPAIR DEPLOYMENT [G]"), arcade.key.G),
+            (self.word("MODE DE SECOURS [F]", "FALLBACK MODE [F]"), arcade.key.F),
         ]
         if not v._launch_failed:
             items.clear()

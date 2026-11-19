@@ -353,6 +353,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Validation d'écoute en partie à confirmer par l'utilisateur.
 
+### PLAYER-UI-01 — DONE — Masquer les détails internes et les portées impossibles
+
+- Fichiers : `game/ui/screens/godot_combat_handoff_view.py`, `game/ui/components/utilities/handoff.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `tests/test_godot_launch_routing.py`, `tests/test_godot_move_highlights.py`, `docs/backlog.md`.
+- Tests / contrôles réellement exécutés : python -m pytest ciblé sur lancement, surbrillances, checkpoints, reprise et routes RPG : 49 passed, 9 skipped; aucun nom de moteur/runtime dans la copie joueur; AP=0 efface les surbrillances au lieu de forcer un budget minimal de 1.
+- Preuves : `tests/test_godot_launch_routing.py`, `tests/test_godot_move_highlights.py`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Tests natifs nécessitant un environnement graphique ignorés.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

@@ -997,6 +997,30 @@
       ],
       "remaining": "",
       "reason": "Validation d'écoute en partie à confirmer par l'utilisateur"
+    },
+    {
+      "id": "PLAYER-UI-01",
+      "title": "Masquer les détails internes et les portées impossibles",
+      "status": "DONE",
+      "files": [
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "game/ui/components/utilities/handoff.py",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "tests/test_godot_launch_routing.py",
+        "tests/test_godot_move_highlights.py",
+        "docs/backlog.md"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_godot_launch_routing.py tests/test_godot_move_highlights.py tests/test_unified_checkpoints.py tests/test_unified_tactical_recovery.py et deux cas RPG ciblés : 49 passed, 9 skipped",
+        "Contrat joueur : aucun nom de moteur/runtime dans le statut ou les actions de la page de déploiement",
+        "Contrat tactique : AP=0 efface les surbrillances au lieu de forcer un budget minimal de 1"
+      ],
+      "evidence": [
+        "tests/test_godot_launch_routing.py",
+        "tests/test_godot_move_highlights.py"
+      ],
+      "remaining": "",
+      "reason": "Tests natifs nécessitant un environnement graphique ignorés"
     }
   ],
   "reviews": {
