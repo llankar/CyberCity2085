@@ -414,6 +414,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique.
+ANIM-COMPLETE / agent_samurai — IN_PROGRESS. Cinq planches ImageGen récupérées dans `work/directional-animation/samurai-candidates/`. Prochaine action : produire idle et hit, corriger les orientations des planches de couverture et vérifier l’ordre des autres planches avant import. Aucun test Samurai exécuté. Le dernier audit de production reste à 29 / 231.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
