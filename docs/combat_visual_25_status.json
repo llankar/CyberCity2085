@@ -41,8 +41,8 @@
   "validation": {
     "reference": "native Windows entity-scale production review",
     "evidence": "images/entity-scale-production-windows/README.md",
-    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle et finition artistique 122/122.",
-    "signature": "74b28af121f2f3fea725c972b7ed6c28b107d93047041b6c8b9f5eb5fbe7e729",
+    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle 122/122, finition artistique 0/122.",
+    "signature": "91e447af18f697d902b32cfddcdd72a37bb9e8c342c7bb812cd0891f0d06cb1b",
     "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
