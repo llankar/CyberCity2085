@@ -47,6 +47,7 @@ def main():
     parser.add_argument("--campaign-save", type=Path, help="Resume a campaign saved by a previous run")
     parser.add_argument("--hospital", action="store_true", help="Treat injured agents using campaign downtime before deployment")
     parser.add_argument("--therapy-days", type=int, default=0, help="Run group therapy before deployment")
+    parser.add_argument("--recruit", action="store_true", help="Hire one affordable candidate at HQ before deployment")
     parser.add_argument("--width", type=int, default=1280)
     parser.add_argument("--height", type=int, default=720)
     parser.add_argument("--interrupt-after-resolution", action="store_true")
@@ -59,7 +60,7 @@ def main():
         parser.error("--campaign-save requires --campaign-play")
     if args.therapy_days < 0:
         parser.error("--therapy-days must be nonnegative")
-    if (args.hospital or args.therapy_days) and not args.campaign_save:
+    if (args.hospital or args.therapy_days or args.recruit) and not args.campaign_save:
         parser.error("Downtime requires --campaign-save")
     campaign_save = args.campaign_save.resolve(strict=True) if args.campaign_save else None
     args.outcomes=args.outcomes or (['victory'] if args.campaign_play else ['victory','defeat','retreat'])
@@ -111,6 +112,15 @@ def main():
                     state.mission_board_generated_day=state.calendar.current_day;state.mission_board_version=2
                 starting_levels = {agent.name: agent.stats.level for agent in state.characters}
                 hq=ManagementView(state);hq.setup();window.show_view(hq);frame(case/'01-headquarters.png')
+                if args.recruit:
+                    hq._do_recruit_prompt()
+                    before = len(state.characters)
+                    candidate_index = next(
+                        index for index, candidate in enumerate(hq.pending_recruit_candidates)
+                        if candidate.price <= state.available_funds
+                    )
+                    hq._do_recruit_candidate(candidate_index)
+                    assert len(state.characters) == before + 1, hq.message
                 hq._open_mission_map();assert isinstance(window.current_view,MissionWorldMapView);frame(case/'02-world-map.png')
                 mission_map = window.current_view
                 mission_map._launch_selected_mission()
