@@ -836,6 +836,10 @@ Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber
 
 Résultat cumulé : **25 / 231 ensembles complets**, 0 partiel. Reste 206 références éligibles ; prochaine référence : `agent_diverse_23_dreadlock_rifle`.
 
+- [x] ANIM-26 Produire et valider nativement la tireuse à dreadlocks : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Une première planche arrière contaminée a été rejetée puis remplacée. Preuves : [dreadlock-rifle-actions](images/dreadlock-rifle-actions/README.md).
+
+Résultat cumulé : **26 / 231 ensembles complets**, 0 partiel. Reste 205 références éligibles ; prochaine référence déterminée par l’audit ordonné.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.

@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 206 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 205 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,11 +543,11 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 25 ensembles complets, 0 partiel",
-        "Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows",
-        "2 tests Python rÃ©ussis, 1 test X11 ignorÃ©",
-        "Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions",
-        "Capture native de la mÃªlÃ©e dans la scÃ¨ne tactique rÃ©elle"
+        "Audit anti-doublons : 26 ensembles complets, 0 partiel",
+        "Tireuse à dreadlocks : 128 frames et cinq actions x huit orientations capturées dans la scène tactique Windows",
+        "2 tests Python réussis, 1 test X11 ignoré",
+        "Godot Windows natif : 832 sélections de frames",
+        "Captures tir, mêlée et mort inspectées dans la scène tactique réelle"
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -617,9 +617,12 @@
         "docs/images/twin-blade-actions/animation-report.json",
         "docs/images/veteran-inquisitor-actions/README.md",
         "docs/images/veteran-inquisitor-actions/audit.json",
-        "docs/images/veteran-inquisitor-actions/animation-report.json"
+        "docs/images/veteran-inquisitor-actions/animation-report.json",
+        "docs/images/dreadlock-rifle-actions/README.md",
+        "docs/images/dreadlock-rifle-actions/audit.json",
+        "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "25 / 231 ensembles complets ; produire et vérifier les actions applicables des 206 autres entités. Prochaine référence : agent_diverse_23_dreadlock_rifle",
+      "remaining": "26 / 231 ensembles complets ; produire et vérifier les actions applicables des 205 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné",
       "reason": ""
     },
     {
