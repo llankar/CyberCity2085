@@ -68,15 +68,25 @@ def test_settings_do_not_expose_engine_internals_to_players():
     assert "godot_bin_browse" not in source
 
 
-def test_every_godot_script_literal_rejects_french_hud_copy():
-    scripts = ROOT / "godot/combat_missions_ui/scripts"
+def test_every_godot_literal_rejects_french_player_copy():
+    godot_root = ROOT / "godot"
     literals = []
-    for path in scripts.rglob("*.gd"):
+    source_extensions = {".gd", ".tscn", ".tres", ".cfg", ".json", ".txt"}
+    for path in godot_root.rglob("*"):
+        if (
+            not path.is_file()
+            or path.suffix.lower() not in source_extensions
+            or ".godot" in path.parts
+        ):
+            continue
         source = path.read_text(encoding="utf-8")
         literals.extend(re.findall(r'"(?:\\.|[^"\\])*"', source))
     combined = "\n".join(literals).lower()
     forbidden = (
         "fin du tour",
+        "interface classique",
+        "journal de combat",
+        '"journal [l]"',
         "phase ennemie",
         "phase joueur",
         "retraite [r]",
@@ -88,4 +98,17 @@ def test_every_godot_script_literal_rejects_french_hud_copy():
     for phrase in forbidden:
         assert phrase not in combined, phrase
     assert not re.search(r'"(?:pv|pa)(?:\s|%)', combined)
+
+
+def test_godot_player_copy_does_not_expose_debug_or_engine_labels():
+    source = (
+        ROOT / "godot/combat_missions_ui/scripts/combat_mission_ui.gd"
+    ).read_text(encoding="utf-8")
+    visible_handoff = source.split("func _draw_handoff_scene", 1)[1].split(
+        "# ─── Input", 1
+    )[0]
+    assert "GODOT COMBAT UI" not in visible_handoff
+    assert "No agents in handoff" not in visible_handoff
+    assert 'status_line += " | WALL TEST' not in source
+    assert '_log_event("WALL TEST' not in source
 

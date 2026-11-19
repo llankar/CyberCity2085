@@ -1097,6 +1097,29 @@
       ],
       "remaining": "Validation native Windows du focus automatique à exécuter en lançant une mission réelle.",
       "reason": "Le test cross-process natif est ignoré hors environnement graphique compatible."
+    },
+    {
+      "id": "GODOT-ENGLISH-02",
+      "title": "Auditer toutes les chaînes Godot et retirer les dernières fuites françaises",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
+        "godot/combat_missions_ui/tests/combat_feedback_regression.gd",
+        "godot/combat_missions_ui/tests/weapon_balance_regression.gd",
+        "tests/test_english_player_ui.py"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py tests/test_godot_move_highlights.py : 17 passed, 1 skipped",
+        "Scan de tous les littéraux .gd/.tscn/.tres/.cfg/.json/.txt sous godot : aucune phrase française joueur connue restante",
+        "Contrat : COMBAT LOG et F9: classic interface remplacent les libellés visibles français",
+        "Contrat : aucun titre moteur ni diagnostic WALL TEST dans la copie joueur"
+      ],
+      "evidence": [
+        "tests/test_english_player_ui.py"
+      ],
+      "remaining": "Validation visuelle native non exécutée.",
+      "reason": "Exécutable Godot absent de l'environnement courant."
     }
   ],
   "reviews": {

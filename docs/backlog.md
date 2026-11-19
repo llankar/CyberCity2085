@@ -907,3 +907,4 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Combat psi : restaurer `Mind Spike` comme attaque psi ciblée distincte de `Psi Focus`, qui reste le pouvoir de réduction du stress de l'équipe. (19 novembre 2026)
 - [x] Interface : imposer l'anglais sur toute la copie joueur Arcade/Godot, migrer implicitement les anciennes sauvegardes françaises, traduire les missions régionales et retirer les réglages techniques du moteur. (19 novembre 2026)
 - [x] Godot : traduire les derniers libellés du HUD tactique et donner automatiquement le focus à la carte de combat prête, sans clic préalable dans Arcade. (19 novembre 2026)
+- [x] Godot : auditer tous les littéraux du projet, remplacer `JOURNAL DE COMBAT` et `interface classique`, puis retirer le titre moteur et le diagnostic `WALL TEST` de la copie joueur. (19 novembre 2026)

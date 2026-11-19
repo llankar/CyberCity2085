@@ -768,7 +768,7 @@ func _draw_handoff_scene() -> void:
 	var mission  := _mission_data()
 	var campaign := _campaign_data()
 	var map_data := _map_data()
-	_draw_text("CYBERCITY 2085 // GODOT COMBAT UI", Vector2(72, 82), 26, NEON)
+	_draw_text("CYBERCITY 2085 // TACTICAL DEPLOYMENT", Vector2(72, 82), 26, NEON)
 	_draw_text(str(mission.get("title", "TACTICAL INSERTION")).to_upper(), Vector2(72, 126), 34, TEXT)
 	_draw_text("%s • Risk %s • %s" % [
 			mission.get("target_faction", "Unknown"), mission.get("risk_level", "?"),
@@ -794,7 +794,7 @@ func _draw_squad(origin: Vector2) -> void:
 	_draw_text("DEPLOYED AGENTS", origin, 20, NEON)
 	var squad: Array = handoff.get("squad", [])
 	if squad.is_empty():
-		_draw_text("No agents in handoff.", origin + Vector2(0, 38), 16, WARN)
+		_draw_text("No agents assigned.", origin + Vector2(0, 38), 16, WARN)
 		return
 	for index in range(mini(squad.size(), 6)):
 		var agent: Dictionary = squad[index]
@@ -1212,9 +1212,7 @@ func _start_combat(source: String) -> void:
 		if bool(node.get("solid", false)):
 			solid_count += 1
 	if visual_mode: status_line = "Squad deployed — choose an action."
-	else: status_line += " | WALL TEST: %d blocked cells (F8)" % solid_count
-	_log_event("WALL TEST: %d loaded obstruction cells. Magenta = blocked; F8 hides/shows the overlay." % solid_count)
-	_log_event("%s: tactical insertion live." % source)
+	_log_event("Tactical insertion live.")
 	_sync_display()
 	print("TACTICAL COMBAT UI READY")
 	print("grid / timeline / action bar / unit panel / log")
