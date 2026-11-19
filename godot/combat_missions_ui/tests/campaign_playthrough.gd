@@ -20,6 +20,7 @@ func run() -> void:
 		elif args[i] == "--qa-confirm": confirm_path = args[i+1]
 		elif args[i] == "--qa-captures": captures = args[i+1]
 		elif args[i] == "--qa-outcome": policy = "passive" if args[i+1] == "defeat" else "objective"
+		elif args[i] == "--qa-objective-first": policy = "objective_first"
 	seed(41) # Reproducible QA seed; hit rolls and production probabilities are untouched.
 	started_ms = Time.get_ticks_msec()
 	root.add_child(scene)

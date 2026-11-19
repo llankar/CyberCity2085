@@ -42,6 +42,7 @@ def main():
     parser.add_argument('--output',type=Path,default=Path('work/unified-experience'))
     parser.add_argument("--outcomes", nargs="+", choices=["victory","defeat","retreat"])
     parser.add_argument("--campaign-play", action="store_true")
+    parser.add_argument("--objective-first", action="store_true", help="Compare a pilot that advances toward the objective before attacking")
     parser.add_argument("--mission-id")
     parser.add_argument("--campaign-save", type=Path, help="Resume a campaign saved by a previous run")
     parser.add_argument("--width", type=int, default=1280)
@@ -101,6 +102,8 @@ def main():
                             del command[index:index + 2]
                         command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',('res://tests/campaign_playthrough.gd' if args.campaign_play else 'res://tests/unified_return_flow.gd')]
                         command+=['--qa-confirm',str(confirm),'--qa-captures',str(case),'--qa-outcome',outcome]
+                        if args.campaign_play and args.objective_first:
+                            command += ["--qa-objective-first", "1"]
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     launch_started=time.monotonic()

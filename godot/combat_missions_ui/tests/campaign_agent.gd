@@ -20,12 +20,17 @@ func act(scene) -> bool:
 				return true
 		return false
 	var origin: Vector2i = scene._cell_position(unit)
-	if policy == "objective" and scene.objective.get("needs_marker", false):
+	var seeks_objective: bool = policy in ["objective", "objective_first"] and scene.objective.get("needs_marker", false) and not scene.objective_completed
+	if seeks_objective:
 		var target: Vector2i = scene.objective.cell
 		if distance(origin,target) <= int(scene.objective.get("interact_range", 2)):
 			scene._on_cell_clicked(target)
 			interactions += 1
 			return true
+		if policy == "objective_first":
+			var route: Array[Vector2i] = scene._battlefield.find_path(origin, target)
+			if not route.is_empty() and _move_toward(scene, active, origin, [target], route.size()):
+				return true
 	if policy != "passive":
 		var best := ""
 		var enemy_index := -1
@@ -52,12 +57,24 @@ func act(scene) -> bool:
 			return false
 	# Find a legal, unoccupied destination along the shortest reachable route.
 	var targets: Array[Vector2i] = []
-	if policy == "objective" and scene.objective.get("needs_marker", false): targets.append(scene.objective.cell)
+	if seeks_objective: targets.append(scene.objective.cell)
 	for enemy: Dictionary in scene.enemy_units:
 		if int(enemy.hp)>0: targets.append(scene._cell_position(enemy))
+	if _move_toward(scene, active, origin, targets, 100000):
+		return true
+	if policy == "passive": return false
+	_blocked[active]=true
+	# Let the next available agent act through the same portrait-selection handler.
+	for offset in range(1,scene.player_units.size()):
+		var index: int = (active+offset)%scene.player_units.size()
+		if int(scene.player_units[index].hp)>0 and int(scene.player_units[index].ap)>0 and not _blocked.has(index):
+			scene._on_unit_clicked(index,false)
+			return true
+	return false
+
+func _move_toward(scene, active: int, origin: Vector2i, targets: Array[Vector2i], best_remaining: int) -> bool:
 	var best_cell := origin
-	var best_remaining := 100000
-	for destination: Vector2i in scene._battlefield.reachable_cells(origin,int(unit.ap)):
+	for destination: Vector2i in scene._battlefield.reachable_cells(origin, int(scene.player_units[active].ap)):
 		if destination==origin or scene._is_cell_occupied(destination,active,-1):continue
 		for target: Vector2i in targets:
 			var path: Array[Vector2i]=scene._battlefield.find_path(destination,target)
@@ -69,14 +86,6 @@ func act(scene) -> bool:
 		scene._on_cell_clicked(best_cell)
 		if scene._cell_position(scene.player_units[active])!=origin:
 			moves += 1
-			return true
-	if policy == "passive": return false
-	_blocked[active]=true
-	# Let the next available agent act through the same portrait-selection handler.
-	for offset in range(1,scene.player_units.size()):
-		var index: int = (active+offset)%scene.player_units.size()
-		if int(scene.player_units[index].hp)>0 and int(scene.player_units[index].ap)>0 and not _blocked.has(index):
-			scene._on_unit_clicked(index,false)
 			return true
 	return false
 
