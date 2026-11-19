@@ -822,7 +822,7 @@ Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuve
 - [x] Refuser puis régénérer la planche arrière opaque et la fausse mort debout du drone handler.
 - [x] Vérifier 704 sélections de frames et capturer les deux unités dans Godot Windows natif.
 
-Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-enforcer-actions](images/red-enforcer-actions/README.md) et [drone-handler-actions](images/drone-handler-actions/README.md). Le catalogue 122/122 et le benchmark restent à régénérer pour cette signature.
+Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-enforcer-actions](images/red-enforcer-actions/README.md) et [drone-handler-actions](images/drone-handler-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `7dd8b0f7b836ec214748eaef76bd6d5ca57708cb1e32417f813ff0dff5be9557`.
 
 ### SCALE — profils et repères du catalogue
 
