@@ -1,6 +1,8 @@
 """Window-free packaged-runtime checks. Never reads or changes a player save."""
 
 from pathlib import Path
+import json
+import subprocess
 import sys
 from tempfile import TemporaryDirectory
 
@@ -10,6 +12,27 @@ from game.combat.encounter_qa import simulate_encounter
 from game.gamestate import GameState
 from game.map_geometry import load_map_geometry
 from game.persistence import SaveSystem
+
+
+def check_bundled_tactical_startup(executable: str, project: Path) -> None:
+    """Boot the bundled main scene and check its readiness marker."""
+    with TemporaryDirectory(prefix="cybercity-godot-smoke-") as temporary:
+        root = Path(temporary)
+        handoff = root / "handoff.json"
+        handoff.write_text(
+            json.dumps({"asset_base_dir": str(project.resolve().parents[1]), "audio": {"enabled": False}}),
+            encoding="utf-8",
+        )
+        log = root / "godot.log"
+        process = subprocess.run(
+            [executable, "--headless", "--audio-driver", "Dummy", "--path",
+             str(project.resolve()), "--quit-after", "30", "--log-file",
+             str(log), "--", "--handoff", str(handoff)],
+            timeout=30,
+        )
+        output = log.read_text(encoding="utf-8", errors="replace") if log.is_file() else ""
+        if process.returncode or "SCRIPT ERROR" in output or "TACTICAL COMBAT UI READY" not in output:
+            raise RuntimeError(f"Bundled Godot tactical startup failed: {output[-1500:]}")
 
 
 def run_smoke():
@@ -33,12 +56,15 @@ def run_smoke():
                 "Neon Highway Chase.mp3", "Cybernetic Final Battle.mp3", "Cybernetic Final Battle 2.mp3"}
     if not expected <= set(music):
         raise RuntimeError("Incomplete bundled MP3 soundtrack")
-    if not Path("godot/combat_missions_ui/project.godot").is_file():
+    godot_project = Path("godot/combat_missions_ui")
+    if not (godot_project / "project.godot").is_file():
         raise RuntimeError("Missing optional Godot project")
     from game.combat.godot_bridge import bundled_godot_executable
     bundled_godot = bundled_godot_executable()
     if sys.platform == "win32" and getattr(sys, "frozen", False) and not bundled_godot:
         raise RuntimeError("Missing bundled Windows Godot executable")
+    if bundled_godot:
+        check_bundled_tactical_startup(bundled_godot, godot_project)
     character = Character("Smoke Agent", starver_infection_days=2)
     state = GameState(characters=[character], selected_agent_names=[character.name])
     with TemporaryDirectory(prefix="cybercity-smoke-") as temporary:
@@ -57,4 +83,5 @@ def run_smoke():
     return {"status": "ok", "manual_maps": len(entries), "mp3_tracks": len(music),
             "story_objectives_preserved": len(STORY_MISSIONS),
             "save_roundtrip": True, "battle": battle, "game_window_opened": False,
-            "bundled_godot": Path(bundled_godot).name if bundled_godot else None}
+            "bundled_godot": Path(bundled_godot).name if bundled_godot else None,
+            "bundled_tactical_headless_startup": bool(bundled_godot)}
