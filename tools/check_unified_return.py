@@ -95,7 +95,14 @@ def main():
                     def launch(command,*a,**kw):
                         command=list(command)
                         driver='res://tests/unified_real_mission_flow.gd' if args.real_mission else 'res://tests/unified_return_flow.gd'
-                        command[1:1]=['--resolution',f'{args.width}x{args.height}','--audio-driver','Dummy','--script',driver]
+                        # The production command may already carry Arcade's window size.
+                        # Override that option in place so Godot receives exactly one size.
+                        if '--resolution' in command:
+                            index = command.index('--resolution')
+                            command[index + 1] = f'{args.width}x{args.height}'
+                        else:
+                            command[1:1] = ['--resolution', f'{args.width}x{args.height}']
+                        command[1:1] = ['--audio-driver', 'Dummy', '--script', driver]
                         command+=['--qa-confirm',str(confirm),'--qa-captures',str(case)]
                         if not args.real_mission: command += ['--qa-outcome',outcome]
                         else: command += ['--qa-real-outcome',outcome]
@@ -154,7 +161,7 @@ def main():
                         result_capture = case / ('godot-real-results.png' if args.real_mission else 'godot-results.png')
                         actual_viewport = Image.open(result_capture).size
                         assert actual_viewport[0] > 0 and actual_viewport[1] > 0
-                        if sys.platform != 'win32': assert actual_viewport == (args.width,args.height)
+                        assert actual_viewport == (args.width, args.height), actual_viewport
                         from game.combat.session_protocol import read_session_status
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']

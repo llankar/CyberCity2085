@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- UNIFIED-RESOLUTION — DONE. Le banc écrasait son propre 720p avec une seconde option héritée d’Arcade. Une seule option est désormais transmise et la taille de capture est vérifiée sur Windows. Victoire réelle rejouée : 1280 × 720 demandé et observé. DPI, focus et redimensionnement restent ouverts.
+
 - UNIFIED-EXPERIENCE — IN_PROGRESS. Le banc source `python -m tools.check_unified_return --real-mission` a joué victoire, défaite et retraite sous Windows avec le binaire Godot du package. Débriefing, rechargement et protection contre la double attribution vérifiés sur les trois cas. Fenêtre demandée en 720p, observée en 1080p. Parcours depuis l'exécutable Arcade packagé et vérifications DPI/focus encore ouverts. Utiliser les pilotes de test du jeu sans contrôle Windows.
 
 - PACKAGE-WINDOWS — IN_PROGRESS. Package reconstruit dans `work/windows-godot-smoke/CyberCity2085`. Smoke Windows réussi avec Godot 4.6.3 embarqué et aller-retour de sauvegarde. La fenêtre native CyberCity 2085 s’ouvre depuis le package. Jouer ensuite le parcours Arcade → Godot → débriefing sur une campagne isolée.
