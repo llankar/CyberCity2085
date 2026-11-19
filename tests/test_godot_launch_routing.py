@@ -32,6 +32,20 @@ def test_handoff_copy_never_exposes_engine_or_runtime_names():
     assert "def _fallback_to_arcade_battle" not in view
 
 
+def test_ready_tactical_window_is_raised_without_waiting_for_an_arcade_click():
+    view = Path("game/ui/screens/godot_combat_handoff_view.py").read_text(encoding="utf-8")
+    win32 = Path("game/combat/win32_embed.py").read_text(encoding="utf-8")
+    overlay = view.split("    def _try_overlay(self)", 1)[1].split(
+        "    def _cleanup_godot", 1
+    )[0]
+    show = win32.split("def show_window", 1)[1].split("def terminate_pid", 1)[0]
+    assert "not is_foreground_window(self._arcade_hwnd)" not in overlay
+    assert "show_window(hwnd)" in overlay
+    assert "BringWindowToTop(hwnd)" in show
+    assert "SetActiveWindow(hwnd)" in show
+    assert "SetForegroundWindow(hwnd)" in show
+
+
 def test_old_arcade_default_migrates_without_touching_campaign_progress(tmp_path):
     state = GameState(characters=[Character('Rook')],selected_agent_names=['Rook'])
     state.strategic_resources['credits'] = 123

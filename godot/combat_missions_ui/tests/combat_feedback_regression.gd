@@ -25,14 +25,14 @@ func run() -> void:
 	scene._attack_enemy(0,"Pistol Shot")
 	assert(scene.status_line.begins_with("Cible hors de portée"), "range takes priority over blocked LOS")
 	assert("distance 15" in scene.status_line, "actual distance explained")
-	assert(scene._hud.target_info.chance_label=="HORS DE PORTÉE", "target card matches click feedback")
+	assert(scene._hud.target_info.chance_label=="OUT OF RANGE", "target card matches click feedback")
 	assert(JSON.stringify([scene.player_units,scene.enemy_units])==before, "rejected shot spends no AP or HP")
 	scene.enemy_units[0]["position"] = Vector2i(7,5)
 	before = JSON.stringify([scene.player_units,scene.enemy_units])
 	scene._attack_enemy(0,"Pistol Shot")
 	assert(scene.status_line.begins_with("Tir bloqué par un obstacle"), "in-range obstruction uses generic accurate wording")
 	assert(JSON.stringify([scene.player_units,scene.enemy_units])==before)
-	assert(scene._hud.target_info.chance_label=="OBSTACLE : VUE BLOQUÉE")
+	assert(scene._hud.target_info.chance_label=="OBSTACLE: SIGHT BLOCKED")
 	var vehicles := {"agent_vehicle":{"name":"arrival VTOL"},"enemy_vehicle":{"name":"enemy vehicle"}}
 	for path in ["city_interior_blacksite_lab.png", "cybercity_inner_02_safehouse.png", "wasteland_inner_01_bunker.png", "city_maintenance_tunnel.png"]:
 		scene.handoff = {"map":{"path":"assets/maps/"+path}}

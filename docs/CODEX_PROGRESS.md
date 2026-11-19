@@ -377,6 +377,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : validation visuelle humaine de tous les écrans non exécutée.
 - Problème / raison : un test natif nécessitant un environnement graphique a été ignoré.
 
+### GODOT-UI-FOCUS-01 — DONE — Traduire le HUD tactique résiduel et afficher le combat sans clic
+
+- Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
+- Tests / contrôles réellement exécutés : 13 réussis, 1 ignoré ; scan de toutes les chaînes des scripts Godot ; contrat d'activation Windows.
+- Preuves : les libellés visibles sont désormais `TURN`, `PLAYER PHASE`, `RETREAT`, `NEXT`, `END TURN`, `HP` et `AP` ; la fenêtre prête est montrée, remontée, activée et passée au premier plan sans dépendre d'un clic Arcade.
+- Travail restant dans cette portée : validation native Windows du focus automatique en lançant une mission réelle.
+- Problème / raison : le test cross-process natif est ignoré hors environnement graphique compatible.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

@@ -84,7 +84,7 @@ func _draw_path_preview() -> void:
 	dest.append(dest[0])
 	draw_polyline(dest,Color(ROUTE_COLOR,0.10),10*pixel,true)
 	draw_polyline(dest,Color(0.5,1,1),2*pixel,true)
-	var text := "%d PA" % int(preview["cost"])
+	var text := "%d AP" % int(preview["cost"])
 	var font_size := maxi(1,roundi(18*pixel))
 	var width := maxf(62*pixel,ThemeDB.fallback_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x+20*pixel)
 	var top := cell_to_world(path_cells[-1])-Vector2(0,iso_th*DESTINATION_SCALE)

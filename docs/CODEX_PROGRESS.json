@@ -1073,6 +1073,30 @@
       ],
       "remaining": "Validation visuelle humaine de tous les écrans non exécutée.",
       "reason": "Un test natif nécessitant un environnement graphique a été ignoré."
+    },
+    {
+      "id": "GODOT-UI-FOCUS-01",
+      "title": "Traduire le HUD tactique résiduel et afficher le combat sans clic",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/scripts/visual_hud.gd",
+        "godot/combat_missions_ui/scripts/visual_battlefield.gd",
+        "game/combat/win32_embed.py",
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "tests/test_english_player_ui.py",
+        "tests/test_godot_launch_routing.py"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py : 13 passed, 1 skipped",
+        "Contrat : TURN, PLAYER PHASE, RETREAT, NEXT, END TURN, HP et AP remplacent les derniers libellés français du HUD",
+        "Contrat : la fenêtre tactique prête est montrée et activée sans attendre un clic Arcade"
+      ],
+      "evidence": [
+        "tests/test_english_player_ui.py",
+        "tests/test_godot_launch_routing.py"
+      ],
+      "remaining": "Validation native Windows du focus automatique à exécuter en lançant une mission réelle.",
+      "reason": "Le test cross-process natif est ignoré hors environnement graphique compatible."
     }
   ],
   "reviews": {

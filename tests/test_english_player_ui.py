@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 from game.gamestate import GameState
 from game.i18n import DEFAULT_LANGUAGE, normalize_language, t
@@ -65,4 +66,26 @@ def test_settings_do_not_expose_engine_internals_to_players():
     assert "GODOT EXECUTABLE" not in source
     assert "godot_bin_path" not in source
     assert "godot_bin_browse" not in source
+
+
+def test_every_godot_script_literal_rejects_french_hud_copy():
+    scripts = ROOT / "godot/combat_missions_ui/scripts"
+    literals = []
+    for path in scripts.rglob("*.gd"):
+        source = path.read_text(encoding="utf-8")
+        literals.extend(re.findall(r'"(?:\\.|[^"\\])*"', source))
+    combined = "\n".join(literals).lower()
+    forbidden = (
+        "fin du tour",
+        "phase ennemie",
+        "phase joueur",
+        "retraite [r]",
+        "suivant [tab]",
+        "tour %",
+        "hors de portée",
+        "vue bloquée",
+    )
+    for phrase in forbidden:
+        assert phrase not in combined, phrase
+    assert not re.search(r'"(?:pv|pa)(?:\s|%)', combined)
 

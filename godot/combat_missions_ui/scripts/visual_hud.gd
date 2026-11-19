@@ -122,7 +122,7 @@ func _reposition_buttons() -> void:
 		var bottom_offset := 82.0 if action == "END TURN" else (132.0 if action == "NEXT" else 182.0)
 		btn.position = Vector2(size.x-224.0,size.y-bottom_offset)
 		btn.size = Vector2(208,62 if action == "END TURN" else 42)
-		btn.text = "FIN DU TOUR  »" if action == "END TURN" else ("SUIVANT [TAB]" if action == "NEXT" else "RETRAITE [R]")
+		btn.text = "END TURN  »" if action == "END TURN" else ("NEXT [TAB]" if action == "NEXT" else "RETREAT [R]")
 		btn.add_theme_font_size_override("font_size",22 if action == "END TURN" else 16)
 	if is_instance_valid(_log_button):
 		_log_button.position = Vector2(size.x-126,16)
@@ -163,7 +163,7 @@ func _draw() -> void:
 	var phase_y := 16.0 if size.x >= 1400 else 142.0
 	var phase_x := size.x*0.5-197.0 if size.x >= 1400 else 16.0
 	_panel(Rect2(phase_x,phase_y,394,46),NEON if turn_side == "player" else ENEMY_COL)
-	_ds("TOUR %02d  //  %s" % [turn_number,"PHASE JOUEUR" if turn_side == "player" else "PHASE ENNEMIE"],Vector2(phase_x+15,phase_y+31),22,TEXT)
+	_ds("TURN %02d  //  %s" % [turn_number,"PLAYER PHASE" if turn_side == "player" else "ENEMY PHASE"],Vector2(phase_x+15,phase_y+31),22,TEXT)
 	_draw_footer_backplate()
 	_draw_command_hover()
 	_draw_roster()
@@ -215,9 +215,9 @@ func _draw_roster() -> void:
 		_ds(_fit(agent_name,name_width,name_font),Vector2(tx,y+25 if active else y+105),name_font,TEXT)
 		var hp_fraction := float(u.get("hp",0))/maxf(1,float(u.get("max_hp",1)))
 		if active:
-			_ds("PV  %d / %d" % [u.get("hp",0),u.get("max_hp",1)],Vector2(tx,y+52),19,TEXT)
+			_ds("HP  %d / %d" % [u.get("hp",0),u.get("max_hp",1)],Vector2(tx,y+52),19,TEXT)
 			_bar(Rect2(tx,y+60,158,6),hp_fraction,NEON)
-			_ds("PA  %d" % u.get("ap",0),Vector2(tx,y+87),19,NEON)
+			_ds("AP  %d" % u.get("ap",0),Vector2(tx,y+87),19,NEON)
 			_ds("STRESS  %d %%" % u.get("stress",0),Vector2(tx,y+113),17,TEXT)
 		else:
 			_bar(Rect2(x+5,y+112,w-10,5),hp_fraction,NEON)
@@ -306,7 +306,7 @@ func _draw_target() -> void:
 		_portrait(portrait,Rect2(x+12,y+12,74,76))
 		draw_rect(Rect2(x+12,y+12,74,76),Color(ENEMY_COL,0.8),false,1)
 	_ds(_fit(str(target_info.get("name","CONTACT")).to_upper(),rect.size.x-114,22),Vector2(x+98,y+30),22,TEXT)
-	_ds("PV  %d / %d" % [target_info.get("hp",0),target_info.get("max_hp",1)],Vector2(x+98,y+59),20,TEXT)
+	_ds("HP  %d / %d" % [target_info.get("hp",0),target_info.get("max_hp",1)],Vector2(x+98,y+59),20,TEXT)
 	_target_segments(Rect2(x+98,y+70,rect.size.x-114,8),int(target_info.get("hp",0)),int(target_info.get("max_hp",1)))
 	var shield := PackedVector2Array([Vector2(x+19,y+100),Vector2(x+29,y+97),Vector2(x+39,y+100),Vector2(x+38,y+113),Vector2(x+29,y+119),Vector2(x+20,y+113)])
 	draw_colored_polygon(shield,NEON)

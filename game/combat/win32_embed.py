@@ -39,6 +39,8 @@ if _WIN:
     _u32.IsWindowVisible.argtypes = [ctypes.wintypes.HWND]
     _u32.GetWindowThreadProcessId.argtypes = [ctypes.wintypes.HWND, ctypes.POINTER(ctypes.wintypes.DWORD)]
     _u32.SetForegroundWindow.argtypes = [ctypes.wintypes.HWND]
+    _u32.BringWindowToTop.argtypes = [ctypes.wintypes.HWND]
+    _u32.SetActiveWindow.argtypes = [ctypes.wintypes.HWND]
     _u32.GetForegroundWindow.restype = ctypes.wintypes.HWND
     _u32.GetWindowLongW.argtypes = [ctypes.wintypes.HWND, ctypes.c_int]
     _u32.GetWindowLongW.restype = ctypes.c_long
@@ -137,6 +139,8 @@ def show_window(hwnd: int) -> None:
     if not _WIN:
         return
     _u32.ShowWindow(hwnd, _SW_SHOW)
+    _u32.BringWindowToTop(hwnd)
+    _u32.SetActiveWindow(hwnd)
     _u32.SetForegroundWindow(hwnd)
 
 
