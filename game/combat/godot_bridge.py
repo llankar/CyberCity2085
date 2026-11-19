@@ -13,6 +13,7 @@ import shutil
 import subprocess
 import re
 import string
+import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
@@ -378,6 +379,11 @@ def _find_portable_godot() -> str | None:
 
 def find_godot_executable() -> str | None:
     """Return the configured Godot executable, if available on this machine."""
+    if getattr(sys, "frozen", False):
+        bundled = Path(sys.executable).resolve().parent / "bin" / "godot"
+        candidates = sorted(bundled.glob("*.exe"))
+        if candidates:
+            return str(candidates[0])
     try:
         from game.ui.screens.settings_screen import load_settings
 

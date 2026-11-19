@@ -1,5 +1,6 @@
 param(
-    [string]$OutputDirectory = "dist"
+    [string]$OutputDirectory = "dist",
+    [string]$GodotExecutable = $env:CYBERCITY_PACKAGE_GODOT
 )
 
 $ErrorActionPreference = "Stop"
@@ -10,6 +11,10 @@ if (-not $BuildOutput.StartsWith($ProjectRoot + [System.IO.Path]::DirectorySepar
 }
 
 Set-Location -LiteralPath $ProjectRoot
+if (-not $GodotExecutable -or -not (Test-Path -LiteralPath $GodotExecutable -PathType Leaf)) {
+    throw "Pass -GodotExecutable with the standalone Windows Godot executable."
+}
+$env:CYBERCITY_PACKAGE_GODOT = (Resolve-Path -LiteralPath $GodotExecutable).Path
 python -m pytest -q
 if ($LASTEXITCODE -ne 0) { throw "Tests failed; build cancelled." }
 python -m PyInstaller --noconfirm --clean --distpath "$BuildOutput" --workpath "build/windows-candidate" CyberCity2085.spec
