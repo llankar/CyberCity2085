@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- MAP-8K-INTEGRITY — DONE. Git matérialise les relevés JSON en CRLF sous Windows. Le contrôle normalise les fins de ligne avant le SHA du relevé. Deux tests réussis, dont les 122 entrées du manifeste. PNG, empreintes et géométrie conservés. Prochaine action : examiner le contrat de l’inventaire artistique.
+
 - RELEASE-LAUNCH-REGRESSION — DONE. Les tests vérifient le message de déploiement et l’absence du raccourci Arcade hérité. Le test de parcours statique vérifie l’intitulé de la section des gains. Onze tests réussis. Prochain lot : comparer les empreintes de cartes aux sources et au manifeste.
 
 - RELEASE-UI-REGRESSION — IN_PROGRESS. Fixtures Arcade du QG isolées pendant les tests. Le test Continue exclut les checkpoints externes et utilise des dates distinctes sous Windows. Les paramètres vérifient l’absence des réglages moteur. Lot ciblé : 35 tests réussis, 1 ignoré, 5 sous-tests réussis. Revoir ensuite les échecs de lancement de mission et l’inventaire des cartes.
