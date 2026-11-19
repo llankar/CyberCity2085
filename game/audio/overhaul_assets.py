@@ -29,7 +29,11 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
         "movement/step_concrete_01.wav", "movement/step_concrete_cc0_01.wav",
         "movement/step_concrete_cc0_02.wav", "movement/step_concrete_cc0_03.wav",
     ),
-    "sfx_move_metal": ("movement/step_metal_cc0_01.wav",),
+    "sfx_move_metal": (
+        "movement/step_metal_cc0_01.wav", "movement/step_metal_cc0_02.wav",
+        "movement/step_metal_cc0_03.wav", "movement/step_metal_cc0_04.wav",
+        "movement/step_metal_cc0_05.wav",
+    ),
     "sfx_move_robot": ("movement/move_robot_cc0_01.wav",),
     "sfx_shield": ("technology/shield_cc0_01.wav",),
     "sfx_terminal": ("technology/terminal_cc0_01.wav",),
