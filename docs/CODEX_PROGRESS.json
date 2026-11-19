@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Prochaine unité : enemy_commander.",
+      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander IN_PROGRESS. Candidate sheet: work/animation_candidates/enemy_commander/move-front-review.png. Review cell-edge clipping, complete the missing facings and applicable clips (including precision fire), then import and test this unit only.",
       "reason": ""
     },
     {
