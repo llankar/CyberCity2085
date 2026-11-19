@@ -58,7 +58,7 @@ Un cycle de marche ne termine pas les animations de combat. Les autres personnag
 
 - Dernière livraison de référence : `native Windows entity-scale production review`.
 - Preuves : [captures et inventaire](images/entity-scale-production-windows/README.md).
-- Concordance du code, des annotations et des sprites de décor : **non — nouvelle validation requise pour les modifications en cours**.
+- Concordance du code, des annotations et des sprites de décor : **oui**.
 - 122 rendus natifs Ã  trois rÃ©solutions ; 11 planches 720p inspectÃ©es ; Ã©chelle 122/122, finition artistique 0/122.
 
 ## Reste sur l’objectif complet

@@ -10,6 +10,8 @@ func run() -> void:
 	var base:=ProjectSettings.globalize_path("res://../..").trim_suffix("/")
 	output=base.path_join("work/directional-animation/native")
 	var args:=OS.get_cmdline_user_args()
+	var map_name:="cybercity_inner_02_safehouse"
+	var target_only:= "--target-only" in args
 	var roster:= "--roster" in args
 	var psi_doctor:= "--psi-doctor" in args
 	var street_medic:= "--street-medic" in args
@@ -31,11 +33,15 @@ func run() -> void:
 	var twin_blade:= "--twin-blade" in args
 	var veteran_inquisitor:= "--veteran-inquisitor" in args
 	var dreadlock_rifle:= "--dreadlock-rifle" in args
-	if roster:token_keys.insert(1,"p1")
+	if target_only:
+		assert(roster,"--target-only requires --roster")
+		token_keys=["p1"]
+	elif roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
+		elif args[i]=="--map":map_name=args[i+1]
 	DirAccess.make_dir_recursive_absolute(output);root.size=Vector2i(1920,1080)
-	var payload={"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":"Animations directionnelles — vérification native","objective_text":"Contrôle des unités","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/cybercity_inner_02_safehouse.png","environment":"city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24},{"name":"Oracle","role":"psi","hp":20,"max_hp":20}],"support_assets":[{"name":"Mantis","asset_type":"power_armor","hp":40},{"name":"Robot","asset_type":"combat_robot","hp":36}]}
+	var payload={"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":"Animations directionnelles — vérification native","objective_text":"Contrôle des unités","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%map_name,"environment":"wasteland" if map_name.begins_with("wasteland") else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24},{"name":"Oracle","role":"psi","hp":20,"max_hp":20}],"support_assets":[{"name":"Mantis","asset_type":"power_armor","hp":40},{"name":"Robot","asset_type":"combat_robot","hp":36}]}
 	var file:=FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE);file.store_string(JSON.stringify(payload));file.close()
 	seed(2085);scene=load("res://scenes/combat_mission_ui.tscn").instantiate();scene.handoff_path=output.path_join("handoff.json");root.add_child(scene)
 	scene.environment_depth_enabled=true;scene._set_visual_quality(2)
@@ -79,12 +85,13 @@ func run() -> void:
 	var melee_frames: Array[Dictionary]=[]
 	var blade=scene._unit_tokens["p0"]
 	for key: String in token_keys:scene._unit_tokens[key].play_action("idle")
-	for direction in range(8):
-		for phase in range(2):
-			assert(blade.play_action("melee"));blade.facing=direction;blade.frame_time=(phase+.1)/8.0;blade._process(0)
-			await process_frame;await RenderingServer.frame_post_draw
-			var melee_file="melee-%02d-%02d"%[direction,phase]
-			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
+	if not target_only:
+		for direction in range(8):
+			for phase in range(2):
+				assert(blade.play_action("melee"));blade.facing=direction;blade.frame_time=(phase+.1)/8.0;blade._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var melee_file="melee-%02d-%02d"%[direction,phase]
+				save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
 	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout and not ronin_duelist and not rail_sniper and not violet_fixer and not silver_pistol and not armored_vanguard and not chrome_medic and not heavy_breacher and not yellow_strike and not red_enforcer and not drone_handler and not cyber_doc and not twin_blade and not veteran_inquisitor and not dreadlock_rifle:
 		var magenta=scene._unit_tokens["p1"]
@@ -131,6 +138,17 @@ func run() -> void:
 				await process_frame;await RenderingServer.frame_post_draw
 				var action_file="%s-%s-%02d"%[new_prefix,action,direction]
 				save_frame(action_file);new_agent_actions.append({"action":action,"direction":direction,"file":action_file+".png"})
+	if target_only:
+		var target=scene._unit_tokens["p1"];target.play_action("idle");target.set_process(true)
+		for dimensions: Vector2i in [Vector2i(1280,720),Vector2i(1920,1080),Vector2i(2560,1440)]:
+			root.size=dimensions;await process_frame;await process_frame;scene._frame_squad();await RenderingServer.frame_post_draw
+			save_frame("scene-%dx%d"%[dimensions.x,dimensions.y])
+		root.size=Vector2i(1920,1080);await process_frame;scene._frame_squad()
+		var movement: Dictionary=await capture_movement(1,"movement-target")
+		var target_report={"directions":frames,"new_agent_actions":new_agent_actions,"target_movement":movement,"projection":"top_down","coverage":"single_asset_complete","campaign_written":false,"map":map_name,"captured_assets":{"p1":{"key":target.visual_key,"texture_sha256":target.manifest.texture_sha256}}}
+		var target_proof:=FileAccess.open(output.path_join("animation-report.json"),FileAccess.WRITE);target_proof.store_string(JSON.stringify(target_report,"  "));target_proof.close()
+		print("DIRECTIONAL_TARGET_CAPTURE_PASSED ",target.visual_key)
+		quit();return
 	var sniper_actions: Array[Dictionary]=[]
 	if not roster:
 		var sniper=scene._unit_tokens["p0"]

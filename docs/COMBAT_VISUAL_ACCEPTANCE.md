@@ -45,7 +45,7 @@ Les tests réussis prouvent uniquement leurs assertions. Un JUnit absent donne d
 
 ## Enregistrer une revue sans inventer de preuve
 
-Dans `docs/CODEX_PROGRESS.json`, `reviews` peut contenir un enregistrement par identifiant de critère : `status` PASS/FAIL, `scope` décrivant toute la portée effectivement revue, `render_signature` du rapport courant et `evidence` avec des objets `{path, sha256}`. La revue doit être réellement effectuée ; ne pas écrire PASS pour faire passer le contrôle. Chaque fichier doit exister dans le dépôt et correspondre à son empreinte. Une modification du rendu ou des ressources rend la revue périmée.
+Dans `docs/CODEX_PROGRESS.json`, `reviews` peut contenir un enregistrement par identifiant de critère : `status` PASS/FAIL, `scope` décrivant toute la portée effectivement revue, `render_signature` du rapport courant et `evidence` avec des objets `{path, sha256}`. La revue doit être réellement effectuée ; ne pas écrire PASS pour faire passer le contrôle. Chaque fichier doit exister dans le dépôt et correspondre à son empreinte. Une modification du rendu commun, des ressources de décor ou des profils de présentation des cartes rend la revue des cartes périmée. Les atlas d’unités sont suivis séparément par leurs manifestes, SHA-256, audits et captures natives ciblées : leur ajout seul ne déclenche pas une recapture des 122 cartes. Une modification globale d’échelle, caméra, tri, occultation ou rendu commun exige toujours une nouvelle validation complète des 122 cartes.
 
 Le script vérifie la traçabilité des preuves ; **il ne juge pas automatiquement la qualité artistique d’une image**. Une revue d’une seule carte ne peut pas être enregistrée comme une revue des 122 cartes.
 

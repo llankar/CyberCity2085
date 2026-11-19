@@ -544,9 +544,9 @@
       ],
       "tests": [
         "Audit anti-doublons : 26 ensembles complets, 0 partiel",
-        "Tireuse à dreadlocks : 128 frames et cinq actions x huit orientations capturées dans la scène tactique Windows",
+        "Tireuse à dreadlocks seule : 128 frames et actions applicables capturées sur refuge, usine et wasteland aux trois résolutions",
         "2 tests Python réussis, 1 test X11 ignoré",
-        "Godot Windows natif : 832 sélections de frames",
+        "Godot Windows natif ciblé : 32 sélections de frames ; aucune autre unité retestée",
         "Captures tir, mêlée et mort inspectées dans la scène tactique réelle"
       ],
       "evidence": [
@@ -895,7 +895,7 @@
     "MAP-ART": {
       "status": "PASS",
       "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
-      "render_signature": "91e447af18f697d902b32cfddcdd72a37bb9e8c342c7bb812cd0891f0d06cb1b",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -910,7 +910,7 @@
     "ART-OBJECTS": {
       "status": "PASS",
       "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
-      "render_signature": "91e447af18f697d902b32cfddcdd72a37bb9e8c342c7bb812cd0891f0d06cb1b",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -921,7 +921,7 @@
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "91e447af18f697d902b32cfddcdd72a37bb9e8c342c7bb812cd0891f0d06cb1b",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
@@ -932,7 +932,7 @@
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "91e447af18f697d902b32cfddcdd72a37bb9e8c342c7bb812cd0891f0d06cb1b",
+      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
