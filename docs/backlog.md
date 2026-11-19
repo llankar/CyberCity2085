@@ -894,3 +894,6 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 
 - [x] Structurer le débriefing et afficher les libellés des pages de rapport en anglais.
 - [ ] Vérifier sur Windows l’absence de flash au démarrage après réduction de la fenêtre initiale et désactivation du logo Godot.
+
+- [x] Audio Overhaul 1.0 : inventorier les bruitages et préparer le manifeste de production.
+- [ ] Audio Overhaul 1.0 : générer, écouter et intégrer le lot pilote ElevenLabs. Bloqué par l’absence d’accès au fournisseur.
