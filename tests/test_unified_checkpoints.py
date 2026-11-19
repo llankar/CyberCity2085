@@ -128,3 +128,26 @@ def test_corrupt_result_is_reported_without_campaign_mutation(tmp_path):
     assert view._launch_failed and 'illisible' in view._status
     assert state.available_funds == before
     assert state.combat_sessions[session['session_id']]['status'] == 'pending'
+
+
+@pytest.mark.parametrize("phase", ["prepared", "confirmed"])
+def test_interrupted_combat_opens_debrief_automatically(tmp_path, phase):
+    from unittest.mock import Mock, patch
+    from game.combat.godot_bridge import GodotCombatLaunchResult
+    from game.combat.session_protocol import atomic_json
+    from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+
+    state, mission, session, result = scenario(tmp_path)
+    result.update(outcome="retreat", phase=phase)
+    path = Path(session["prepared_path" if phase == "prepared" else "result_path"])
+    atomic_json(path, result)
+    launch = GodotCombatLaunchResult(path.parent/"handoff.json", [], False, "",
+        session_id=session["session_id"], result_path=Path(session["result_path"]))
+    view = GodotCombatHandoffView(state, mission, launch, window=Mock())
+    with patch("game.ui.screens.mission_return.show_mission_debrief") as show:
+        view.on_update(.1)
+        assert state.combat_sessions[session["session_id"]]["status"] == "applied"
+        view.on_update(.1)
+        view.on_update(.1)
+        show.assert_called_once()
+    assert state.latest_mission_debrief["mission_outcome"] == "retreat"

@@ -106,3 +106,5 @@ Preuve Linux native : `docs/images/unified-experience/batch5/report.json`, un se
 Prochaine action : examiner `work/persistent-runtime-app-window/report.json`, tester la fermeture réelle de `GameWindow`, puis finaliser les tests et le bilan. CHANTIER GLOBAL INCOMPLET.
 
 Le retour de retraite conserve le nom de campagne transmis au déploiement. La récupération accepte également les anciens noms d’affichage non ambigus, y compris après normalisation du nom au rechargement du checkpoint. La validation du déploiement et la protection contre les doublons restent actives. Suites de résolution et de checkpoints : 40 tests réussis.
+
+Le débriefing s’ouvre automatiquement dès qu’un résultat valide est disponible. Après une interruption ou un rechargement, le jeu récupère une fois le résultat enregistré. Un combat en cours laisse le joueur consulter ses résultats dans Godot avant de confirmer le retour. Sans résultat exploitable, les commandes de secours restent disponibles. Vérification ciblée : 46 tests réussis, dont reprise automatique d’une retraite préparée et confirmée.
