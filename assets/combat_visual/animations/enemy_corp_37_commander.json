@@ -1,0 +1,163 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_37_commander.png",
+  "texture_sha256": "4e825381584cc912b5e204c0d845dbece04db4ca46a7058fbd7e44a1bfd83268",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_37_commander_512.png",
+  "source_sha256": "1f70c3cc5cea6951aba410ae9a95a9ed8815ffa555789231a27501e92a9e6069",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_commander/idle-action_rows-0.png",
+      "sha256": "014f4553c11b5d539c88c4e1a909a8e6d8fbf71eaddafbea59e4aec6c31ee531",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_commander/fire-action_rows-1.png",
+      "sha256": "1bed28f220aeee25a0baf640be5a5281d6d3e873340bda7e64a551d549584868",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_commander/fire-action_rows-2.png",
+      "sha256": "d4f4ce44a5031862d67ebb2e695f1f65573f9c4c5974fd0b4881747fddb7e027",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        1,
+        5
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this commander.",
+    "heal": "No healing action for this commander."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
