@@ -983,12 +983,14 @@
         "game/audio/overhaul_assets.py",
         "godot/combat_missions_ui/scripts/audio_manager.gd",
         "godot/combat_missions_ui/scripts/hud_controller.gd",
+        "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
         "tests/test_cc0_audio_routing.py",
         "docs/backlog.md"
       ],
       "tests": [
-        "python -m pytest -q tests/test_cc0_audio_routing.py tests/test_music_catalog.py tests/test_music_continuity.py tests/test_unified_audio_transfer.py : 33 passed",
-        "Contrat HUD : NEXT, END TURN et RETREAT ne déclenchent plus ui_click"
+        "python -m pytest -q tests/test_cc0_audio_routing.py tests/test_music_catalog.py tests/test_music_continuity.py tests/test_unified_audio_transfer.py : 35 passed",
+        "Contrat HUD : NEXT, END TURN et RETREAT ne déclenchent plus ui_click",
+        "Contrat combat : l'auto-sélection à 0 AP ne déclenche plus ui_click"
       ],
       "evidence": [
         "tests/test_cc0_audio_routing.py"
