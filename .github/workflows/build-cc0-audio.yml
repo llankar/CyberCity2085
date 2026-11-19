@@ -29,8 +29,10 @@ jobs:
             tests/test_cc0_audio_import.py
             assets/audio/overhaul/
 
-      - name: Verify tools
+      - name: Install required audio decoder
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
           python --version
           ffmpeg -version | head -1
       - name: Run offline importer tests
