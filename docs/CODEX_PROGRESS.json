@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "33 / 232 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Enemy sniper DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy heavy DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Next: enemy_elite.",
+      "remaining": "33 / 232 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Enemy sniper DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy heavy DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy elite IN_PROGRESS: 16 idle frames integrated and exercised in native Safehouse capture. Front walk candidate retained. Rear walk rejected for white edges, fire needs corrected rear-right aiming. Candidates are in work/animation_candidates/enemy_elite. Next: replace rear walk and fire, then author the remaining actions.",
       "reason": ""
     },
     {
