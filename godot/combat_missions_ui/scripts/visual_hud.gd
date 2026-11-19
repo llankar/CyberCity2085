@@ -28,7 +28,7 @@ func _ready() -> void:
 	super._ready()
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_log_button = _utility("JOURNAL [L]", func():
+	_log_button = _utility("COMBAT LOG [L]", func():
 		show_log = not show_log
 		get_parent().get_parent().show_combat_log = show_log
 		queue_redraw())
@@ -36,7 +36,7 @@ func _ready() -> void:
 		settings_open = not settings_open
 		_quality_button.visible = settings_open
 		queue_redraw())
-	_set_utility_icon(_log_button,"journal","Journal de combat [L]")
+	_set_utility_icon(_log_button,"journal","Combat log [L]")
 	_set_utility_icon(_settings_button,"settings","Graphics settings")
 	_quality_button = _utility("QUALITY: HIGH", func():
 		quality = (quality + 1) % 3
@@ -136,8 +136,8 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 	super._style_btn(btn, active, disabled)
 	for state: String in ["normal", "hover", "pressed", "disabled", "focus"]:
 		var box := btn.get_theme_stylebox(state).duplicate() as StyleBoxFlat
-		box.bg_color = Color(0.045, 0.065, 0.07, 0.95) if not (active or btn.text.begins_with("FIN")) else Color(0.20, 0.14, 0.035, 0.96)
-		box.border_color = WARN if active or btn.text.begins_with("FIN") else Color(0.12, 0.65, 0.68, 0.7)
+	box.bg_color = Color(0.045, 0.065, 0.07, 0.95) if not (active or btn.text.begins_with("END")) else Color(0.20, 0.14, 0.035, 0.96)
+	box.border_color = WARN if active or btn.text.begins_with("END") else Color(0.12, 0.65, 0.68, 0.7)
 		if state == "hover" and not disabled:
 			box.bg_color = box.bg_color.lightened(.10)
 			box.border_color = WARN if active else Color(.3,1,1)
@@ -174,7 +174,7 @@ func _draw() -> void:
 	if settings_open:
 		_panel(Rect2(size.x-346,80,330,184),NEON)
 		_ds("GRAPHICS QUALITY",Vector2(size.x-330,104),19,TEXT)
-		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
+		_ds("F9: classic interface",Vector2(size.x-330,184),17,TEXT)
 		_ds("F10: 2.5D scenery " + ("ON" if environment_depth_enabled else "OFF"),Vector2(size.x-330,211),17,NEON)
 		_ds("F11: top-down / isometric view",Vector2(size.x-330,242),17,TEXT)
 
@@ -320,7 +320,7 @@ func _draw_target() -> void:
 func _draw_combat_log() -> void:
 	var rect := Rect2(16,204,minf(690,size.x-32),minf(280,_roster_y-230))
 	_panel(rect,NEON)
-	_ds("JOURNAL DE COMBAT",rect.position+Vector2(14,30),20,NEON)
+	_ds("COMBAT LOG",rect.position+Vector2(14,30),20,NEON)
 	var count := mini(combat_log.size(),7)
 	for i in range(count):
 		_ds(_fit(combat_log[combat_log.size()-count+i],rect.size.x-28,17),rect.position+Vector2(14,59+i*28),17,TEXT)

@@ -385,6 +385,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : validation native Windows du focus automatique en lançant une mission réelle.
 - Problème / raison : le test cross-process natif est ignoré hors environnement graphique compatible.
 
+### GODOT-ENGLISH-02 — DONE — Auditer toutes les chaînes Godot et retirer les dernières fuites françaises
+
+- Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, contrats Godot natifs et `tests/test_english_player_ui.py`.
+- Tests / contrôles réellement exécutés : 17 réussis, 1 ignoré ; scan des littéraux `.gd`, `.tscn`, `.tres`, `.cfg`, `.json` et `.txt` dans tout `godot`.
+- Preuves : `COMBAT LOG`, `Combat log [L]` et `F9: classic interface` remplacent les dernières chaînes françaises visibles ; le pré-déploiement ne cite plus le moteur ; le diagnostic `WALL TEST` n'est plus affiché au joueur.
+- Travail restant dans cette portée : validation visuelle native non exécutée.
+- Problème / raison : exécutable Godot absent de l'environnement courant.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

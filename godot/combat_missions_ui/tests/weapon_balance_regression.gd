@@ -37,7 +37,7 @@ func run() -> void:
 	live.enemy_units[0].position=Vector2i(23,5);live.enemy_units[0].hp=100;live.enemy_units[0].defense=0
 	live._battlefield._opaque_cells.clear()
 	live._attack_enemy(0,"Pistol Shot")
-	assert(live.player_units[0].ap==4 and live.enemy_units[0].hp==100 and live.status_line.begins_with("Cible hors de portée"))
+	assert(live.player_units[0].ap==4 and live.enemy_units[0].hp==100 and live.status_line.begins_with("Target out of range"))
 	var hit_seed:=0
 	seed(hit_seed)
 	while randf()>=.94:
