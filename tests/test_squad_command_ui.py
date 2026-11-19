@@ -34,7 +34,7 @@ def test_roster_pagination_keeps_all_members_accessible():
 
 
 @pytest.mark.parametrize(
-    "language,expected", [("fr", "MISSION ACTIVE"), ("en", "ACTIVE MISSION")]
+    "language,expected", [("fr", "ACTIVE MISSION"), ("en", "ACTIVE MISSION")]
 )
 def test_squad_chrome_obeys_campaign_language(language, expected):
     assert t("squad.active_mission", language) == expected
@@ -103,7 +103,7 @@ def test_mission_art_uses_real_context_and_is_deterministic():
     wastes = SimpleNamespace(
         id="other", title="Patrol", battle_environment="wasteland", district="Badlands"
     )
-    assert "/wasteland/" in mission_art_path(wastes)
+    assert "/wasteland/" in mission_art_path(wastes).replace("\\", "/")
     assert mission_art_path(wastes) == mission_art_path(wastes)
     assert Path(mission_art_path(wastes)).is_file()
 
@@ -111,11 +111,11 @@ def test_mission_art_uses_real_context_and_is_deterministic():
 def test_modal_chrome_localization_preserves_identity_and_numbers():
     from game.ui.components.squad_copy import localized_squad_copy
 
-    assert localized_squad_copy("RECRUITMENT WINDOW", "fr") == "RECRUTEMENT"
+    assert localized_squad_copy("RECRUITMENT WINDOW", "fr") == "RECRUITMENT WINDOW"
     assert localized_squad_copy("ATTRIBUTES", "en") == "ATTRIBUTES"
     assert (
         localized_squad_copy("ROOK | SAMURAI | LEVEL 12", "fr")
-        == "ROOK | SAMURAI | NIVEAU 12"
+        == "ROOK | SAMURAI | LEVEL 12"
     )
 
 

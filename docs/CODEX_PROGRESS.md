@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-REGRESSION — IN_PROGRESS. Suite complète Windows : 1117 réussis, 32 échecs, 35 ignorés. Corrigé les attentes périmées sur l’anglais et les séparateurs de chemins dans trois suites (28 réussis, 1 ignoré). Prochain lot : fixtures Arcade du QG, puis tri des écarts de carte et de lancement avant de reconstruire le package.
+
 - CAMPAIGN-FINALE — DONE. Seven Minutes to Dawn gagnée sous Windows à 720p avec le Titan et le K-9 achetés puis affectés via l’Asset Bay. L’écran de fin s’est ouvert et le rechargement confirme 15 missions d’histoire sur cinq actes, fin Dawn Without Masters (jour 80). Sauvegarde : `work/campaign-story-finale-dual-support/victory/campaign.json`. Le parcours depuis l’exécutable packagé reste à vérifier.
 
 - FINALE-PREPARATION — IN_PROGRESS. Deux essais de Seven Minutes to Dawn avec la priorité cible se terminent au tour 25, même après cinq jours de permission payée et soins. Le stress baisse mais six ennemis seulement sont neutralisés et aucun soutien n’est déployé. Reprendre la sauvegarde Pharmacorp et préparer un soutien via l’Asset Bay avant le prochain essai.
