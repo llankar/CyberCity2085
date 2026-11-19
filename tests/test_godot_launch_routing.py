@@ -26,6 +26,10 @@ def test_handoff_copy_never_exposes_engine_or_runtime_names():
     panel = Path("game/ui/components/utilities/handoff.py").read_text(encoding="utf-8")
     draw = panel.split("    def draw(self, v):", 1)[1]
     assert "CHOISIR GODOT" not in draw and "COMBAT ARCADE" not in draw
+    assert "MODE DE SECOURS" not in draw and "FALLBACK MODE" not in draw
+    view = Path("game/ui/screens/godot_combat_handoff_view.py").read_text(encoding="utf-8")
+    assert "arcade.key.F and self._launch_failed" not in view
+    assert "def _fallback_to_arcade_battle" not in view
 
 
 def test_old_arcade_default_migrates_without_touching_campaign_progress(tmp_path):

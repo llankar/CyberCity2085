@@ -70,7 +70,7 @@ def _player_launch_status(launch_result: GodotCombatLaunchResult) -> str:
     """Return fiction-facing copy; engine and process details never reach the UI."""
     if getattr(launch_result, "launched", True):
         return "Connexion tactique établie. Déploiement de l'escouade…"
-    return "Impossible d'ouvrir la zone tactique. Réessayez ou utilisez le mode de secours."
+    return "Impossible d'ouvrir la zone tactique. Réessayez ou revenez au commandement."
 
 
 class GodotCombatHandoffView(arcade.View):
@@ -169,7 +169,7 @@ class GodotCombatHandoffView(arcade.View):
         if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "La zone tactique ne répond pas. R : réessayer ; F : mode de secours."
+            self._status = "La zone tactique ne répond pas. R : réessayer ; Échap : retour au commandement."
             self.game_state.add_event(self._status)
             return
 
@@ -354,12 +354,6 @@ class GodotCombatHandoffView(arcade.View):
             if selected:
                 _persist_godot_bin_path(selected)
                 self._retry_godot()
-        elif key == arcade.key.F and self._launch_failed:
-            self._abandon_session()
-            self._result_applied = True
-            self._cleanup_godot()
-            self.game_state.add_event("Mode de secours choisi pour cette mission.")
-            self._fallback_to_arcade_battle()
         elif key == arcade.key.ESCAPE and self._launch_failed:
             self._abandon_session()
             self._cleanup_godot()
@@ -484,13 +478,6 @@ class GodotCombatHandoffView(arcade.View):
             self._pending_ack=None
         except OSError:
             self._status="Résultat appliqué ; acquittement différé. Aucun second paiement ne sera appliqué."
-
-    def _fallback_to_arcade_battle(self) -> None:
-        from game.views import BattleView
-
-        battle = BattleView(self.game_state)
-        battle.setup(self.mission)
-        self.window.show_view(battle)
 
     def _return_to_management(self) -> None:
         from game.ui.screens.management_screen import ManagementView
