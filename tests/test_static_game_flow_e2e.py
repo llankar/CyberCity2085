@@ -107,15 +107,10 @@ def test_end_to_end_mission_flow_regression(launch_mock):
     bridge = briefing.window.shown_view
     assert bridge._launch_failed
     from game.ui.screens.godot_combat_handoff_view import arcade
-    with patch.object(arcade, "key", SimpleNamespace(R=82,G=71,F=70,ESCAPE=27)):
+    with patch.object(arcade, "key", SimpleNamespace(R=82,G=71,S=83,F=70,ESCAPE=27)):
         bridge.on_key_press(70, 0)
-    battle = briefing.window.shown_view
-    assert isinstance(battle, _FakeBattleView)
-    assert battle.mission is mission
-    assert (
-        "Ancien combat Arcade choisi explicitement pour cette mission."
-        in state.event_log[-1]
-    )
+    assert briefing.window.shown_view is bridge
+    assert bridge.mission is mission and bridge._launch_failed
 
     triggered = resolve_mission_outcome(state, mission, victory=True)
     assert state.active_mission is None
@@ -140,7 +135,7 @@ def test_end_to_end_mission_flow_regression(launch_mock):
     )
     assert summary["continue_action"] == "ManagementView"
     assert summary["outcome"] == "victory"
-    assert any(line.startswith("Rewards:") for line in consequences)
+    assert "MISSION PAYOUT" in consequences
 
     debrief = BattleDebriefView.__new__(BattleDebriefView)
     debrief.game_state = state

@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-LAUNCH-REGRESSION — DONE. Les tests vérifient le message de déploiement et l’absence du raccourci Arcade hérité. Le test de parcours statique vérifie l’intitulé de la section des gains. Onze tests réussis. Prochain lot : comparer les empreintes de cartes aux sources et au manifeste.
+
 - RELEASE-UI-REGRESSION — IN_PROGRESS. Fixtures Arcade du QG isolées pendant les tests. Le test Continue exclut les checkpoints externes et utilise des dates distinctes sous Windows. Les paramètres vérifient l’absence des réglages moteur. Lot ciblé : 35 tests réussis, 1 ignoré, 5 sous-tests réussis. Revoir ensuite les échecs de lancement de mission et l’inventaire des cartes.
 
 - RELEASE-REGRESSION — IN_PROGRESS. Suite complète Windows : 1117 réussis, 32 échecs, 35 ignorés. Corrigé les attentes périmées sur l’anglais et les séparateurs de chemins dans trois suites (28 réussis, 1 ignoré). Prochain lot : fixtures Arcade du QG, puis tri des écarts de carte et de lancement avant de reconstruire le package.
