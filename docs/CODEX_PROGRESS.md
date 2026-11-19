@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- PACKAGE-TACTICAL-SMOKE — DONE. Exécutable reconstruit dans `work/windows-tactical-smoke/CyberCity2085`. Son smoke confirme le démarrage headless de la scène Godot embarquée et le rechargement. Suite : parcours graphique packagé via un pilote interne et validation des fenêtres.
+
 - PACKAGE-TACTICAL-BOOT — DONE. Le smoke du package lance désormais sa scène Godot en headless et exige le marqueur de disponibilité. Huit tests de packaging réussis et démarrage vérifié avec les fichiers et le binaire du package local. Reconstruire pour intégrer ce contrôle à l’exécutable. Le parcours graphique complet reste ouvert.
 
 - RELEASE-SUITE — DONE. Suite Windows en ordre normal : 1 144 réussis, 35 ignorés, 12 sous-tests réussis. Package reconstruit dans `work/windows-release-regression/CyberCity2085`. Le smoke de l’exécutable confirme Godot 4.6.3 embarqué et l’aller-retour de sauvegarde. Le parcours graphique depuis ce package reste à vérifier via un pilote du jeu.
