@@ -1,6 +1,7 @@
 """RPG view mission launch guards."""
 
 import sys
+import tempfile
 import types
 import unittest
 from pathlib import Path
@@ -294,9 +295,15 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         bridge._apply_combat_result = Mock()
         bridge._fallback_to_arcade_battle = Mock()
         result = {"outcome": "defeat", "funds_earned": 0}
-        with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=result):
-            bridge.on_update(0.3)
-            bridge.on_update(0.3)
+        with tempfile.TemporaryDirectory() as folder:
+            bridge.launch_result.result_path = Path(folder) / "result.json"
+            bridge.launch_result.result_path.write_text("{}", encoding="utf-8")
+            def mark_applied(_result):
+                bridge._result_applied = True
+            bridge._apply_combat_result.side_effect = mark_applied
+            with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=result):
+                bridge.on_update(0.3)
+                bridge.on_update(0.3)
         bridge._apply_combat_result.assert_called_once_with(result)
         bridge._fallback_to_arcade_battle.assert_not_called()
 
@@ -442,8 +449,8 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         wasteland_view.window = _FakeWindow()
         wasteland_view.setup(wasteland_mission)
 
-        self.assertTrue(Path(city_view.map_path).name.startswith("city_"))
-        self.assertFalse(Path(wasteland_view.map_path).name.startswith("city_"))
+        self.assertTrue(Path(city_view.map_path).name.startswith(("city_", "cybercity_")))
+        self.assertTrue(Path(wasteland_view.map_path).name.startswith("wasteland_"))
 
     def test_battle_view_scales_robot_tokens_full_size_and_other_units_half_size(self):
         scales = []
@@ -475,8 +482,10 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
         finally:
             views.arcade.Sprite = original_sprite
 
-        self.assertIn(0.75, scales)
-        self.assertIn(1.5, scales)
+        self.assertEqual(len(scales), 3)
+        infantry, robot, enemy = scales
+        self.assertAlmostEqual(infantry, enemy)
+        self.assertAlmostEqual(robot, 2 * infantry)
 
     def test_battle_view_starts_in_deployment_until_confirmed(self):
         game_state = GameState(

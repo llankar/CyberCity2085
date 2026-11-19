@@ -4,7 +4,7 @@ import unittest
 
 from game.character import Character
 from game.gamestate import GameState
-from game.mission_system import launch_selected_mission
+from game.mission_system import ensure_mission_templates, launch_selected_mission
 from game.management.events import (
     ActiveEvent,
     EventChoice,
@@ -103,6 +103,7 @@ class StrategicEventsTest(unittest.TestCase):
             game_state.factions, key=lambda faction: faction.hostility_to_player
         )
         starting_hostility = hostile_faction.hostility_to_player
+        ensure_mission_templates(game_state)
         first_mission_id = game_state.mission_templates[0].id
         template = EventTemplate(
             title="Council Knife",
