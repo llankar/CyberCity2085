@@ -1001,7 +1001,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : poursuivre avec agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper ; inspecter leurs équipements, documenter les actions applicables et produire les clips authentiques avant import.",
+  "next_action": "ANIM-COMPLETE : inspecter les quinze planches sources archivées de agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper, confirmer hit/death et transparence, puis créer le plan d’import, auditer et valider nativement ; la première marche avant grise du sniper est rejetée.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
