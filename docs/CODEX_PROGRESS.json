@@ -865,7 +865,7 @@
     "MAP-ART": {
       "status": "PASS",
       "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
-      "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
+      "render_signature": "c5cc027c3321fee1ac7304c23c1ebcb704c0025ecd443e6eee2b181c0ed2d841",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -873,14 +873,14 @@
         },
         {
           "path": "docs/images/environment-art-review-windows/native-report.json",
-          "sha256": "5730681c0740f871ddcb0c6eea89185f87df277209a67b7e644f751b77741f97"
+          "sha256": "29958df5c7aed64c90d8e9a56464506456a628a0fd4b3be3d76a5fd92f6976db"
         }
       ]
     },
     "ART-OBJECTS": {
       "status": "PASS",
       "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
-      "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
+      "render_signature": "c5cc027c3321fee1ac7304c23c1ebcb704c0025ecd443e6eee2b181c0ed2d841",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -891,18 +891,18 @@
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
+      "render_signature": "c5cc027c3321fee1ac7304c23c1ebcb704c0025ecd443e6eee2b181c0ed2d841",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
-          "sha256": "16b7fc750b81cac1c47d72d01490593a88d9ed8488f46f2fc6a64e68cbbe06dc"
+          "sha256": "fe81dd16c6107ce11e43389422a9bb620feb12156b6e3793d5c93a46c9651285"
         }
       ]
     },
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
+      "render_signature": "c5cc027c3321fee1ac7304c23c1ebcb704c0025ecd443e6eee2b181c0ed2d841",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
@@ -910,14 +910,14 @@
         },
         {
           "path": "docs/images/entity-scale-production-windows/native-report.json",
-          "sha256": "5730681c0740f871ddcb0c6eea89185f87df277209a67b7e644f751b77741f97"
+          "sha256": "29958df5c7aed64c90d8e9a56464506456a628a0fd4b3be3d76a5fd92f6976db"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "a7cd794aa9046cc05f8d81abde27594a02917a905f47f864171bd69f22920328",
+    "sha256": "47b1205d9a78267373afd30278348afc19b7541d8dc4a80698fb88b0599a47b9",
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément",
     "not_executed": [
       "Actions de combat manquantes et autres unités",
@@ -950,15 +950,15 @@
       },
       {
         "path": "tests/test_directional_animation.py",
-        "sha256": "4cbc014ce330bafdbcccf4cbf039ceda8d671e0317965185e7aa73992f0cfb34"
+        "sha256": "0a5320c13b2510de49c301a307cc76165bbc58dcc6c6d5d44a6fb246e9d28ab4"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "9a270767edac44089edb25d3fb38d4e05dac8be380f51793f1dc461c38c98b28"
+        "sha256": "0ee57ee8012d27bdb2f7cbc8c11794bea8c1d4ae56126716824bfa5d3a108f1f"
       },
       {
         "path": "godot/combat_missions_ui/tests/capture_directional_animation.gd",
-        "sha256": "ea97b38d57b4409e78a85cbb4bd9c06bb726e03c2d3f040662edfbf40771cfe2"
+        "sha256": "8614e5825e09d34dab174c21443f553f10717ae4c9ff3a97b970f9588ae94b24"
       },
       {
         "path": "tests/test_windows_gpu_benchmark.py",
@@ -1017,7 +1017,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : régénérer le catalogue natif 122 cartes et le benchmark pour la signature à 16 ensembles, puis inspecter agent_diverse_14_armored_vanguard et agent_diverse_15_chrome_medic.",
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_14_armored_vanguard et agent_diverse_15_chrome_medic, puis produire le prochain lot artistique authentique.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

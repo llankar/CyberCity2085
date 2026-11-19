@@ -18,7 +18,7 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 14,
+    "complete": 16,
     "partial": 0,
     "expected": 231
   },
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "47c32e7c9ed81ffa4826ba1fbbdaa4b80a1ccf9588416c31fe534bd4f25b6d1c",
+  "render_signature": "c5cc027c3321fee1ac7304c23c1ebcb704c0025ecd443e6eee2b181c0ed2d841",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "14 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "16 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -179,5 +179,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_12_violet_fixer et agent_diverse_13_silver_pistol, puis produire le prochain lot artistique authentique avec huit orientations et toutes les actions applicables."
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_14_armored_vanguard et agent_diverse_15_chrome_medic, puis produire le prochain lot artistique authentique."
 }
