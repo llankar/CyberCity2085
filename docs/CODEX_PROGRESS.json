@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander IN_PROGRESS. Candidate sheet: work/animation_candidates/enemy_commander/move-front-review.png. Review cell-edge clipping, complete the missing facings and applicable clips (including precision fire), then import and test this unit only.",
+      "remaining": "30 / 231 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander IN_PROGRESS. Candidates in work/animation_candidates/enemy_commander include both walk sheets, idle, melee and precision fire. Fire reviewed in eight facings. Its action_rows import mapping passed six focused tests. Next: check cell edges and facings, review remaining action sheets, import and test this unit only.",
       "reason": ""
     },
     {

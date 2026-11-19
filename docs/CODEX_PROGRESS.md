@@ -490,6 +490,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 - PACKAGE-WINDOWS — IN_PROGRESS. Package reconstruit dans `work/windows-godot-smoke/CyberCity2085`. Smoke Windows réussi avec Godot 4.6.3 embarqué et aller-retour de sauvegarde. La fenêtre native CyberCity 2085 s’ouvre depuis le package. Jouer ensuite le parcours Arcade → Godot → débriefing sur une campagne isolée.
 
-ANIM-COMPLETE — IN_PROGRESS. Samurai livré : 112 images, 32 sélections natives et capture Windows ciblée sur Safehouse. 30 / 231 ensembles complets. Enemy Commander IN_PROGRESS. Candidate sheet: work/animation_candidates/enemy_commander/move-front-review.png. Review cell-edge clipping, complete the missing facings and applicable clips (including precision fire), then import and test this unit only.
+ANIM-COMPLETE — IN_PROGRESS. Samurai livré : 112 images, 32 sélections natives et capture Windows ciblée sur Safehouse. 30 / 231 ensembles complets. Enemy Commander IN_PROGRESS. Candidates in work/animation_candidates/enemy_commander include both walk sheets, idle, melee and precision fire. Fire reviewed in eight facings. Its action_rows import mapping passed six focused tests. Next: check cell edges and facings, review remaining action sheets, import and test this unit only.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
