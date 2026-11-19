@@ -10,7 +10,9 @@ func run() -> void:
 	var base:=ProjectSettings.globalize_path("res://../..").trim_suffix("/")
 	output=base.path_join("work/directional-animation/native")
 	var args:=OS.get_cmdline_user_args()
-	var commander_only:= "--enemy-commander" in args
+	var enemy_target: String = "enemy_commander" if "--enemy-commander" in args else ""
+	if "--enemy-sniper" in args:
+		enemy_target = "enemy_sniper"
 	var map_name:="cybercity_inner_02_safehouse"
 	var target_only:= "--target-only" in args
 	var roster:= "--roster" in args
@@ -66,23 +68,23 @@ func run() -> void:
 		elif redline_runner:scene.player_units[1]["visual_asset"]="agent_diverse_25_redline_runner"
 		elif agent_psi:scene.player_units[1]["visual_asset"]="agent_psi"
 		elif samurai:scene.player_units[1]["visual_asset"]="agent_samurai"
-	scene.enemy_units[0]["visual_asset"]="enemy_commander" if commander_only else "enemy_grunt"
-	if commander_only:token_keys=["e0"]
+	scene.enemy_units[0]["visual_asset"]=enemy_target if not enemy_target.is_empty() else "enemy_grunt"
+	if not enemy_target.is_empty():token_keys=["e0"]
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
 	scene._frame_squad();scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	await process_frame;await RenderingServer.frame_post_draw
-	if commander_only:
-		var commander=scene._unit_tokens["e0"]
-		commander.set_process(false)
+	if not enemy_target.is_empty():
+		var enemy=scene._unit_tokens["e0"]
+		enemy.set_process(false)
 		for action in ["idle","move","fire","melee","cover","hit","death"]:
-			assert(commander.play_action(action))
-			commander.facing=1
-			commander.frame_time=0.6 if action=="idle" else 0.2
-			commander._process(0)
+			assert(enemy.play_action(action))
+			enemy.facing=1
+			enemy.frame_time=0.6 if action=="idle" else 0.2
+			enemy._process(0)
 			await process_frame;await RenderingServer.frame_post_draw
-			save_frame("commander-"+action)
-		print("DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_commander")
+			save_frame(enemy_target+"-"+action)
+		print("DIRECTIONAL_TARGET_CAPTURE_PASSED ",enemy_target)
 		quit();return
 	# Matched native before view: only switch these four actors to their existing
 	# static fallback; keep the same camera, source textures, map and game data.

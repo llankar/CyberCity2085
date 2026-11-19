@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_sniper.png",
-  "texture_sha256": "2c20b8ada1ae2b87491f76a8b87c9eb43be1eaa5ef604388010b2f2d7311dc5f",
+  "texture_sha256": "ecd11c91a69d051b060a980271a83ae069c20fb9a3c805bc38f8b20f1cf75ca8",
   "frame_size": [
     256,
     256
@@ -50,41 +50,133 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
         ]
       ]
     },
@@ -93,36 +185,112 @@
       "loop": false,
       "rows": [
         [
-          32,
-          33
+          80,
+          81
         ],
         [
-          34,
-          35
+          82,
+          83
         ],
         [
-          36,
-          37
+          84,
+          85
         ],
         [
-          38,
-          39
+          86,
+          87
         ],
         [
-          40,
-          41
+          88,
+          89
         ],
         [
-          42,
-          43
+          90,
+          91
         ],
         [
-          44,
-          45
+          92,
+          93
         ],
         [
-          46,
-          47
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -150,6 +318,41 @@
       "clip": "cover",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_sniper/move-front-3.png",
+      "sha256": "037183bf2472988a5e751a612c71aed2460e2a4982bada521935692496cbe21f",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_sniper/move-rear-4.png",
+      "sha256": "36f4a6c0ebbc1b48283f3910cc84f67f67ec2b06afa496a6827c5b3a5697ff71",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_sniper/melee-action_rows-5.png",
+      "sha256": "03a3899ac42c81d0caed15dc4546d8c5a5f8921b3a8ef57cd4e3b5b823f5cb4d",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_sniper/hit-action_rows-6.png",
+      "sha256": "cb4eb6262bf1634d5809b01dad071e40559661a4302de6754fadc3a853413fd8",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_sniper/death-action_rows-7.png",
+      "sha256": "fc3b329aa619dc5b35aa02ac753e8ad6d9b2b318e1eac1c4b15c216a5f00c30a",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -165,12 +368,7 @@
     "psi": "No psionic action for the sniper role.",
     "heal": "No healing action for the sniper role."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move",
-    "melee",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
