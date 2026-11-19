@@ -326,6 +326,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : sélectionner le prochain atlas éligible sans ensemble complet, documenter ses actions applicables et produire ses clips authentiques ; regrouper plusieurs atlas avant la prochaine régénération du catalogue et du benchmark.
+ANIM-COMPLETE : poursuivre le lot `agent_diverse_08_holo_hacker` + `agent_diverse_09_blue_mohawk_scout` ; régénérer la planche `move-front` du hacker rejetée pour fond blanc, puis produire les actions applicables authentiques avant import et validation native.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
