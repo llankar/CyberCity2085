@@ -104,7 +104,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--require-complete', action='store_true')
+    parser.add_argument('--asset', help='Validate just this unit atlas, without auditing maps or other units')
     args = parser.parse_args()
+    if args.asset:
+        if not args.asset.isascii() or not args.asset.replace('_', '').isalnum():
+            parser.error('--asset must be a unit key')
+        manifest = ROOT / 'assets/combat_visual/animations' / f'{args.asset}.json'
+        try:
+            data = json.loads(manifest.read_text(encoding='utf-8'))
+            errors = validate_atlas(manifest, ROOT, set(data.get('required_clips', REQUIRED)))
+        except (OSError, ValueError, TypeError, AttributeError) as error:
+            errors = [str(error)]
+        print(json.dumps({'asset': args.asset, 'errors': errors}, indent=2))
+        return int(bool(errors))
     result = audit()
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)
