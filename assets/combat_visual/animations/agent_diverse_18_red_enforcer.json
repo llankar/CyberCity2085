@@ -1,0 +1,374 @@
+{
+  "texture": "assets/combat_visual/animations/agent_diverse_18_red_enforcer.png",
+  "texture_sha256": "b38564290ea12731028fd100e6d6fa44993ce2c06dff4d0db0a50bec15d0ea67",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/agent_diverse_18_red_enforcer_512.png",
+  "source_sha256": "babe2a81acb69fdd04efc80cc1fd74bdc9ce76cdc806bfb23bb7d43b53f8d832",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/move-front-0.png",
+      "sha256": "bd62c246d13b285b4d9fb52643b27731c1b392555322da68f143de10e34ed703",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/move-rear-1.png",
+      "sha256": "66e1036bc806664fbd421798ca7c55e5863e0c7f9d13cb3deffa04e1b00a4f3a",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/idle-idle_pairs-2.png",
+      "sha256": "6b9693caa95c79a7bfbc7679278ee41c222030cc56f41521fb777c39cb3b3ddd",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/fire-action_pairs-3.png",
+      "sha256": "9e67f74a69cc75401d18abbd142f2060ef1c5cbdf4410442c311c3a06ff2587b",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/melee-action_pairs-4.png",
+      "sha256": "096ebb0487bff5cf8bba76ba00856a460850e0c29ad823253f091f34e998a4ff",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/cover-action_pairs-5.png",
+      "sha256": "9e22df330b8ed271962db177e575a4b4b027b830bc8daf5d8a633f3040b19a24",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/hit-action_pairs-6.png",
+      "sha256": "0882a5b6d0d1e826424bdf0277722465444d5391d8c1dce4eeddae0bd6fd8a75",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/agent_diverse_18_red_enforcer/death-action_pairs-7.png",
+      "sha256": "0e5de677afe8a65b48df5aee60699f6e321332ef84a916f4c497c61c204d2d6a",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "Red enforcer has no PSI or drone-control ability.",
+    "heal": "Red enforcer has no medical equipment or healer role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
