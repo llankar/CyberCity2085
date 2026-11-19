@@ -244,13 +244,13 @@ class SettingsScreenDisplayTest(unittest.TestCase):
         self.assertTrue(any(action == "text_next" for *_hit, action in view._hits))
         self.assertTrue(any("Monitor" in text for text in captured_draw_text))
         self.assertTrue(any("Text size" in text for text in captured_draw_text))
-        self.assertTrue(
+        self.assertFalse(
             any(action == "godot_bin_browse" for *_hit, action in view._hits)
         )
-        self.assertTrue(
+        self.assertFalse(
             any(action == "godot_bin_clear" for *_hit, action in view._hits)
         )
-        self.assertTrue(any("GODOT EXECUTABLE" in text for text in captured_draw_text))
+        self.assertFalse(any("GODOT EXECUTABLE" in text for text in captured_draw_text))
 
     def test_godot_executable_path_browse_commits_and_clears(self) -> None:
         view = settings_screen.SettingsView()

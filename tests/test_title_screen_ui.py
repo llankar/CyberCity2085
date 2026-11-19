@@ -77,12 +77,12 @@ class TitleScreenUITest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder, patch(
             "game.persistence.SaveSystem.slot_path",
             side_effect=lambda i: Path(folder) / f"slot_{i}.json",
-        ):
+        ), patch("game.combat.checkpoints.latest_combat_checkpoint", return_value=None):
             p = Path(folder)
             (p / "slot_1.json").write_text("{}")
             (p / "slot_4.json").write_text("{}")
-            os.utime(p / "slot_1.json", ns=(1, 1))
-            os.utime(p / "slot_4.json", ns=(2, 2))
+            os.utime(p / "slot_1.json", (1700000000, 1700000000))
+            os.utime(p / "slot_4.json", (1700000010, 1700000010))
             view._refresh_continue()
             self.assertEqual(view._continue_path, p / "slot_4.json")
             marker = object()
