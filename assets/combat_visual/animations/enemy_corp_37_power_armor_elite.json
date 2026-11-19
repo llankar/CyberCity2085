@@ -1,0 +1,230 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_37_power_armor_elite.png",
+  "texture_sha256": "f84ff3a8cc6a538fcaca40fe1c72ef12a08b6f54b302ee86336393b6e89e5b8e",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_37_power_armor_elite_512.png",
+  "source_sha256": "32782c676e2c7cc9a492403c45969cfb7fde185cc760dace2fa526dfe7e94a61",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_elite/idle-action_rows-0.png",
+      "sha256": "d7b935a679452920a7816ed4b04f4a3bdc4fdc46d266184868ce0760722a6ab8",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_elite/fire-action_rows-1.png",
+      "sha256": "f16324324cefb1e6c165a5af9007998c8af6ad253b3817d6893efc4b1102fdf1",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_elite/fire-action_rows-2.png",
+      "sha256": "1c6bae91327cd652073417eb5d726a6bfa59c03bcbdfc60cf43c9c141c8da366",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        1,
+        5
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_elite/move-front-3.png",
+      "sha256": "79c84a2c53971a0c6a36755281be96ae7f011e8035f188d700fe94693a873a8a",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_elite/move-rear-4.png",
+      "sha256": "d1b02ecce5303299f294fac9f653fe91623b58f524b581228e7896dca61d669b",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this elite infantry.",
+    "heal": "No healing action for this elite infantry."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
