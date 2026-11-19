@@ -816,6 +816,14 @@ Résultat cumulé à ce checkpoint : **18 / 231 ensembles complets**, 0 partiel.
 
 Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [heavy-breacher-actions](images/heavy-breacher-actions/README.md) et [yellow-strike-actions](images/yellow-strike-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `5ea21be0c3ad851669acc5878fcb3f022ea97042a02da7f968f43cf323f292b5`.
 
+### Animations applicables — red enforcer et drone handler
+
+- [x] Produire et auditer 128 frames authentiques par unité, huit orientations et toutes actions applicables.
+- [x] Refuser puis régénérer la planche arrière opaque et la fausse mort debout du drone handler.
+- [x] Vérifier 704 sélections de frames et capturer les deux unités dans Godot Windows natif.
+
+Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-enforcer-actions](images/red-enforcer-actions/README.md) et [drone-handler-actions](images/drone-handler-actions/README.md). Le catalogue 122/122 et le benchmark restent à régénérer pour cette signature.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
