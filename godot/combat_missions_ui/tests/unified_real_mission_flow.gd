@@ -39,6 +39,25 @@ func _advance_objective(scene) -> bool:
 	return false
 
 
+func _check_resize(scene) -> void:
+	var original := root.size
+	var smaller := original - Vector2i(160, 90)
+	assert(smaller.x >= 640 and smaller.y >= 360)
+	var checkpoint = preload("res://scripts/tactical_checkpoint.gd")
+	var before: Dictionary = checkpoint.capture(scene).state
+	for dimensions: Vector2i in [smaller, original]:
+		root.size = dimensions
+		for attempt in range(30):
+			await process_frame
+			await RenderingServer.frame_post_draw
+			if root.get_texture().get_size() == Vector2(dimensions):
+				break
+		assert(root.get_texture().get_size() == Vector2(dimensions))
+		assert(scene.size.is_equal_approx(Vector2(dimensions)))
+		assert(checkpoint.capture(scene).state == before)
+	print("UNIFIED_INTERNAL_RESIZE_PASSED")
+
+
 func run() -> void:
 	seed(2085)
 	var args := OS.get_cmdline_user_args()
@@ -84,6 +103,8 @@ func run() -> void:
 
 	var actions := 0
 	var turns := 0
+	if "--qa-resize-check" in args:
+		await _check_resize(scene)
 	if expected_outcome == "retreat":
 		scene._execute_action("RETREAT")
 		assert(not scene.battle_ended, "retreat must require confirmation")

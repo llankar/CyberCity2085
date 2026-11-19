@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- UNIFIED-INTERNAL-RESIZE — DONE. Le pilote interne a réduit la fenêtre Godot de 1280 × 720 à 1120 × 630 puis rétabli sa taille. Surface rendue, dimensions de scène et état tactique préservé vérifiés, puis victoire et retour au QG. Alt+Tab, changement de DPI et focus système restent ouverts. Avertissement ObjectDB à la fermeture toujours présent.
+
 - PACKAGE-UNIFIED-QA — DONE. L’exécutable Windows QA a joué les trois issues avec Godot embarqué à 1280 × 720 : victoire, défaite et retraite. Chaque parcours revient au QG après le débriefing, recharge sa sauvegarde et rejette une seconde application du résultat. Le pilote est réservé au build QA. DPI, focus, redimensionnement et écoute audio restent à valider.
 
 - PACKAGE-TACTICAL-SMOKE — DONE. Exécutable reconstruit dans `work/windows-tactical-smoke/CyberCity2085`. Son smoke confirme le démarrage headless de la scène Godot embarquée et le rechargement. Suite : parcours graphique packagé via un pilote interne et validation des fenêtres.
