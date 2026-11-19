@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_power_armor_grunt.png",
-  "texture_sha256": "2523b12176c899f381f433b56e1a4c18bef49d6675986d26eb528b8f70b4b328",
+  "texture_sha256": "52e11113d4734d5fe570e84c85f2d5319bfc95816058a15cb763da492ac3ad91",
   "frame_size": [
     256,
     256
@@ -103,6 +103,196 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_corp_37_power_armor_grunt_512.png",
@@ -128,17 +318,57 @@
       "clip": "idle",
       "layout": "idle_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/fire-action_pairs-3.png",
+      "sha256": "7aa252f810d65c6fb0a3c1d7cff9c67dd9cf4fe6d0a56b660c6411d91d801b90",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/melee-action_pairs-4.png",
+      "sha256": "8a3b8c2837129edb2be9209a84a16e0e94da3aff726845c943cafe436426b003",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/cover-action_pairs-5.png",
+      "sha256": "ecfa3ddf7ecbb4fc9f3958d7cb1f00b16339d9c24305213c3245febb4fed3b93",
+      "clip": "cover",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/hit-action_pairs-6.png",
+      "sha256": "634fc9c59b35a5499228e6bd6d91efc8c968f28d75061874ee1801af26876f99",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_power_armor_grunt/death-action_pairs-7.png",
+      "sha256": "968b1c9e401429f27b4f52b282d98c4eb46ef318186e46e99aaa317d96a2b18b",
+      "clip": "death",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
-  "coverage": "partial",
-  "missing_clips": [
+  "required_clips": [
+    "idle",
+    "move",
     "fire",
     "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "review_status": "native_render_verified_partial"
+  "non_applicable_clips": {
+    "psi": "Powered armor has no PSI ability or PSI role.",
+    "heal": "This assault frame has no medical action or medic role."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

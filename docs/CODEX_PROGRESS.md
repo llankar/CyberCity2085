@@ -210,9 +210,9 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
 - Fichiers : `assets/combat_visual/animations`, `tools/audit_combat_visuals.py`.
-- Tests / contrôles réellement exécutés : Audit anti-doublons : 3 ensembles complets, 3 partiels; Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows; 2 tests Python rÃ©ussis, 1 test X11 ignorÃ©; Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions; Capture native de la mÃªlÃ©e dans la scÃ¨ne tactique rÃ©elle.
+- Tests / contrôles réellement exécutés : Audit anti-doublons : 6 ensembles complets, 0 partiel; Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows; 2 tests Python rÃ©ussis, 1 test X11 ignorÃ©; Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions; Capture native de la mÃªlÃ©e dans la scÃ¨ne tactique rÃ©elle.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/neon-blade-actions/README.md`, `docs/images/neon-blade-actions/audit.json`, `docs/images/neon-blade-actions/animation-report.json`, `docs/images/magenta-pistol-actions/README.md`, `docs/images/magenta-pistol-actions/audit.json`, `docs/images/magenta-pistol-actions/animation-report.json`, `docs/images/trench-sniper-actions/README.md`, `docs/images/trench-sniper-actions/audit.json`, `docs/images/trench-sniper-actions/animation-report.json`.
-- Travail restant dans cette portée : 3 / 231 ensembles complets ; produire et vérifier les actions applicables des 228 autres entités ; régénérer catalogue et benchmark pour la signature courante.
+- Travail restant dans cette portée : 6 / 231 ensembles complets ; produire et vérifier les actions applicables des 225 autres entités ; catalogue 122 cartes et benchmark à jour pour la signature 3a075d018540c844cbb9babfa81f705f7fe51c8ef392c85fa0ca72275f3db37d.
 
 ### TACTICAL-REVIEW — TODO — Validation artistique et fonctionnelle globale aux trois résolutions
 
