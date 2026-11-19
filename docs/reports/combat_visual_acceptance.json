@@ -18,7 +18,7 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 10,
+    "complete": 12,
     "partial": 0,
     "expected": 231
   },
@@ -32,7 +32,7 @@
     ],
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément"
   },
-  "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
+  "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -135,7 +135,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "10 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "12 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -179,5 +179,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : sélectionner le prochain atlas éligible sans ensemble complet, documenter ses actions applicables et produire ses clips authentiques ; regrouper plusieurs atlas avant la prochaine régénération du catalogue et du benchmark."
+  "next_action": "ANIM-COMPLETE : poursuivre avec agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper ; inspecter leurs équipements, documenter les actions applicables et produire les clips authentiques avant import."
 }

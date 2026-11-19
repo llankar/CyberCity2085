@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 221 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 219 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,7 +543,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 10 ensembles complets, 0 partiel",
+        "Audit anti-doublons : 12 ensembles complets, 0 partiel",
         "Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows",
         "2 tests Python rÃ©ussis, 1 test X11 ignorÃ©",
         "Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions",
@@ -573,8 +573,14 @@
         ,"docs/images/hooded-infiltrator-actions/README.md"
         ,"docs/images/hooded-infiltrator-actions/audit.json"
         ,"docs/images/hooded-infiltrator-actions/animation-report.json"
+        ,"docs/images/holo-hacker-actions/README.md"
+        ,"docs/images/holo-hacker-actions/audit.json"
+        ,"docs/images/holo-hacker-actions/animation-report.json"
+        ,"docs/images/blue-mohawk-scout-actions/README.md"
+        ,"docs/images/blue-mohawk-scout-actions/audit.json"
+        ,"docs/images/blue-mohawk-scout-actions/animation-report.json"
       ],
-      "remaining": "10 / 231 ensembles complets ; produire et vérifier les actions applicables des 221 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
+      "remaining": "12 / 231 ensembles complets ; produire et vérifier les actions applicables des 219 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
       "reason": ""
     },
     {
@@ -847,7 +853,7 @@
     "MAP-ART": {
       "status": "PASS",
       "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
-      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
+      "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -855,14 +861,14 @@
         },
         {
           "path": "docs/images/environment-art-review-windows/native-report.json",
-          "sha256": "a1f4284fc178631d5700d5ef4d0c72cae7daa368ec2b10d6605e1ea72b37bc3d"
+          "sha256": "d85cbb0303e2159f0fda60821730a4fc329f86958977f75a1ee210936442549f"
         }
       ]
     },
     "ART-OBJECTS": {
       "status": "PASS",
       "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
-      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
+      "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
@@ -873,18 +879,18 @@
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
+      "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
-          "sha256": "f92b394404075bda3a701b989cc805a8a1adf4d048c9f88e3817da1977993d3d"
+          "sha256": "80dc8f32c9ea75fae9e4042d84d3ffdf43b38606004159921775ec1d756663d8"
         }
       ]
     },
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "b29fe91d787c7b88d8c1eed6c69ed36e392f7f31259c2915dd03f8e1c1ac004e",
+      "render_signature": "e49f2f023227a2b2a3b3c0a33a2929e92a3082c6dbb4e6757f4e83da679eec8b",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
@@ -892,14 +898,14 @@
         },
         {
           "path": "docs/images/entity-scale-production-windows/native-report.json",
-          "sha256": "a1f4284fc178631d5700d5ef4d0c72cae7daa368ec2b10d6605e1ea72b37bc3d"
+          "sha256": "d85cbb0303e2159f0fda60821730a4fc329f86958977f75a1ee210936442549f"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "920e78af648ff95eeff665350b26a712ed7c4f63988d8f2d9a1dc2ea9e144602",
+    "sha256": "9abaa92ef05653545b926ccf4b8c102bf9805c694d8f668c0a9aae6d66f4677d",
     "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément",
     "not_executed": [
       "Actions de combat manquantes et autres unités",
@@ -932,11 +938,11 @@
       },
       {
         "path": "tests/test_directional_animation.py",
-        "sha256": "cf0117c804c45390cfe110fc7cd63dfb4e0bc3ed1cd1be35e4b585bb21de25e2"
+        "sha256": "1225d2a77a62fb4f54bbd2c669e6087ccc9d5c549a0c631702db725158ede29a"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "7ba90a1412071c6b244e4e68d87086dff0543bc6f89e39e274dfcb94c0f04806"
+        "sha256": "343cf3c9717ec9105927bc0604941e321185695a78e3da91fbae3ca240b1e660"
       },
       {
         "path": "tests/test_windows_gpu_benchmark.py",
@@ -995,7 +1001,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : poursuivre le lot agent_diverse_08_holo_hacker + agent_diverse_09_blue_mohawk_scout ; régénérer la planche move-front du hacker rejetée pour fond blanc, puis produire les actions applicables authentiques avant import et validation native.",
+  "next_action": "ANIM-COMPLETE : poursuivre avec agent_diverse_10_ronin_duelist et agent_diverse_11_rail_sniper ; inspecter leurs équipements, documenter les actions applicables et produire les clips authentiques avant import.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

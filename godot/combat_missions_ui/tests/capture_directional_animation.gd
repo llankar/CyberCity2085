@@ -15,6 +15,8 @@ func run() -> void:
 	var street_medic:= "--street-medic" in args
 	var longcoat_gunner:= "--longcoat-gunner" in args
 	var hooded_infiltrator:= "--hooded-infiltrator" in args
+	var holo_hacker:= "--holo-hacker" in args
+	var blue_mohawk_scout:= "--blue-mohawk-scout" in args
 	if roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
@@ -26,7 +28,7 @@ func run() -> void:
 	await create_timer(2.2).timeout;scene._banner.hide()
 	scene.player_units[0]["visual_asset"]="agent_diverse_01_neon_blade" if roster else "agent_diverse_04_trench_sniper"
 	if roster:
-		scene.player_units[1]["visual_asset"]="agent_diverse_02_longcoat_gunner" if longcoat_gunner else ("agent_diverse_07_hooded_infiltrator" if hooded_infiltrator else ("agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")))
+		scene.player_units[1]["visual_asset"]="agent_diverse_08_holo_hacker" if holo_hacker else ("agent_diverse_09_blue_mohawk_scout" if blue_mohawk_scout else ("agent_diverse_02_longcoat_gunner" if longcoat_gunner else ("agent_diverse_07_hooded_infiltrator" if hooded_infiltrator else ("agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")))))
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -62,7 +64,7 @@ func run() -> void:
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
-	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator:
+	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator and not holo_hacker and not blue_mohawk_scout:
 		var magenta=scene._unit_tokens["p1"]
 		for action in ["fire","melee","cover","hit","death"]:
 			for direction in range(8):
@@ -89,10 +91,10 @@ func run() -> void:
 				var medic_file="street-medic-%s-%02d"%[action,direction]
 				save_frame(medic_file);medic_actions.append({"action":action,"direction":direction,"file":medic_file+".png"})
 	var new_agent_actions: Array[Dictionary]=[]
-	if longcoat_gunner or hooded_infiltrator:
+	if longcoat_gunner or hooded_infiltrator or holo_hacker or blue_mohawk_scout:
 		var new_agent=scene._unit_tokens["p1"]
-		var new_prefix="longcoat-gunner" if longcoat_gunner else "hooded-infiltrator"
-		var actions=["fire","melee","cover","hit","death"] if longcoat_gunner else ["melee","cover","hit","death"]
+		var new_prefix="longcoat-gunner" if longcoat_gunner else ("hooded-infiltrator" if hooded_infiltrator else ("holo-hacker" if holo_hacker else "blue-mohawk-scout"))
+		var actions=["fire","melee","cover","hit","death"] if longcoat_gunner or blue_mohawk_scout else ["melee","cover","hit","death"]
 		for action in actions:
 			for direction in range(8):
 				assert(new_agent.play_action(action));new_agent.facing=direction;new_agent.frame_time=0.2;new_agent._process(0)

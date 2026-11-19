@@ -1,0 +1,1973 @@
+{
+  "actual_movement": [
+    {
+      "clip": "move",
+      "elapsed_ms": 15,
+      "file": "movement-00.png",
+      "frame": 0,
+      "world_position": [
+        2532.0361328125,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 51,
+      "file": "movement-01.png",
+      "frame": 0,
+      "world_position": [
+        2466.1201171875,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 99,
+      "file": "movement-02.png",
+      "frame": 0,
+      "world_position": [
+        2426.25,
+        2575.77954101563
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 148,
+      "file": "movement-03.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2633.7265625
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 195,
+      "file": "movement-04.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2689.13305664063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 244,
+      "file": "movement-05.png",
+      "frame": 2,
+      "world_position": [
+        2377.91674804688,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 292,
+      "file": "movement-06.png",
+      "frame": 2,
+      "world_position": [
+        2312.66674804688,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 336,
+      "file": "movement-07.png",
+      "frame": 2,
+      "world_position": [
+        2247.27514648438,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 380,
+      "file": "movement-08.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2748.80786132813
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 431,
+      "file": "movement-09.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2803.09423828125
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 480,
+      "file": "movement-10.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 529,
+      "file": "movement-11.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 578,
+      "file": "movement-12.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 626,
+      "file": "movement-13.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 672,
+      "file": "movement-14.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 720,
+      "file": "movement-15.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 773,
+      "file": "movement-16.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 817,
+      "file": "movement-17.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 860,
+      "file": "movement-18.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 909,
+      "file": "movement-19.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 955,
+      "file": "movement-20.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1006,
+      "file": "movement-21.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1060,
+      "file": "movement-22.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1107,
+      "file": "movement-23.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1155,
+      "file": "movement-24.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1200,
+      "file": "movement-25.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1251,
+      "file": "movement-26.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1300,
+      "file": "movement-27.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1351,
+      "file": "movement-28.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1405,
+      "file": "movement-29.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1444,
+      "file": "movement-30.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1489,
+      "file": "movement-31.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1540,
+      "file": "movement-32.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1589,
+      "file": "movement-33.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1638,
+      "file": "movement-34.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1687,
+      "file": "movement-35.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1731,
+      "file": "movement-36.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1777,
+      "file": "movement-37.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1829,
+      "file": "movement-38.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1875,
+      "file": "movement-39.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    }
+  ],
+  "ap_after": 0,
+  "ap_before": 4,
+  "campaign_written": false,
+  "captured_assets": {
+    "e0": {
+      "key": "enemy_grunt",
+      "texture_sha256": "832aa0e3967ee34c133fa336994c4b5d178ab87d60d571dceea345e1378700f1"
+    },
+    "p0": {
+      "key": "agent_diverse_01_neon_blade",
+      "texture_sha256": "eddb4f35f31f884492445ac59093a7147e8996a8bb7dee3be2361dbe88cb2009"
+    },
+    "p1": {
+      "key": "agent_diverse_09_blue_mohawk_scout",
+      "texture_sha256": "981fc9bc53d88ebb880223d919f4c8c8fd1de909eca6e21f0301673aef4e415f"
+    },
+    "p2": {
+      "key": "enemy_corp_37_power_armor_grunt",
+      "texture_sha256": "52e11113d4734d5fe570e84c85f2d5319bfc95816058a15cb763da492ac3ad91"
+    },
+    "p3": {
+      "key": "robot_combat",
+      "texture_sha256": "667a99c20a5f61ab31ce532d90833107388a2439500d9f82ff7494ae1a7b448e"
+    }
+  },
+  "coverage": "complete_authored_fixture_roster",
+  "directions": [
+    {
+      "direction": 0,
+      "file": "directions-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-03.png",
+      "phase": 3
+    }
+  ],
+  "grunt_actions": [
+    {
+      "action": "fire",
+      "direction": 0,
+      "file": "grunt-fire-00.png"
+    },
+    {
+      "action": "fire",
+      "direction": 1,
+      "file": "grunt-fire-01.png"
+    },
+    {
+      "action": "fire",
+      "direction": 2,
+      "file": "grunt-fire-02.png"
+    },
+    {
+      "action": "fire",
+      "direction": 3,
+      "file": "grunt-fire-03.png"
+    },
+    {
+      "action": "fire",
+      "direction": 4,
+      "file": "grunt-fire-04.png"
+    },
+    {
+      "action": "fire",
+      "direction": 5,
+      "file": "grunt-fire-05.png"
+    },
+    {
+      "action": "fire",
+      "direction": 6,
+      "file": "grunt-fire-06.png"
+    },
+    {
+      "action": "fire",
+      "direction": 7,
+      "file": "grunt-fire-07.png"
+    },
+    {
+      "action": "melee",
+      "direction": 0,
+      "file": "grunt-melee-00.png"
+    },
+    {
+      "action": "melee",
+      "direction": 1,
+      "file": "grunt-melee-01.png"
+    },
+    {
+      "action": "melee",
+      "direction": 2,
+      "file": "grunt-melee-02.png"
+    },
+    {
+      "action": "melee",
+      "direction": 3,
+      "file": "grunt-melee-03.png"
+    },
+    {
+      "action": "melee",
+      "direction": 4,
+      "file": "grunt-melee-04.png"
+    },
+    {
+      "action": "melee",
+      "direction": 5,
+      "file": "grunt-melee-05.png"
+    },
+    {
+      "action": "melee",
+      "direction": 6,
+      "file": "grunt-melee-06.png"
+    },
+    {
+      "action": "melee",
+      "direction": 7,
+      "file": "grunt-melee-07.png"
+    },
+    {
+      "action": "cover",
+      "direction": 0,
+      "file": "grunt-cover-00.png"
+    },
+    {
+      "action": "cover",
+      "direction": 1,
+      "file": "grunt-cover-01.png"
+    },
+    {
+      "action": "cover",
+      "direction": 2,
+      "file": "grunt-cover-02.png"
+    },
+    {
+      "action": "cover",
+      "direction": 3,
+      "file": "grunt-cover-03.png"
+    },
+    {
+      "action": "cover",
+      "direction": 4,
+      "file": "grunt-cover-04.png"
+    },
+    {
+      "action": "cover",
+      "direction": 5,
+      "file": "grunt-cover-05.png"
+    },
+    {
+      "action": "cover",
+      "direction": 6,
+      "file": "grunt-cover-06.png"
+    },
+    {
+      "action": "cover",
+      "direction": 7,
+      "file": "grunt-cover-07.png"
+    },
+    {
+      "action": "hit",
+      "direction": 0,
+      "file": "grunt-hit-00.png"
+    },
+    {
+      "action": "hit",
+      "direction": 1,
+      "file": "grunt-hit-01.png"
+    },
+    {
+      "action": "hit",
+      "direction": 2,
+      "file": "grunt-hit-02.png"
+    },
+    {
+      "action": "hit",
+      "direction": 3,
+      "file": "grunt-hit-03.png"
+    },
+    {
+      "action": "hit",
+      "direction": 4,
+      "file": "grunt-hit-04.png"
+    },
+    {
+      "action": "hit",
+      "direction": 5,
+      "file": "grunt-hit-05.png"
+    },
+    {
+      "action": "hit",
+      "direction": 6,
+      "file": "grunt-hit-06.png"
+    },
+    {
+      "action": "hit",
+      "direction": 7,
+      "file": "grunt-hit-07.png"
+    },
+    {
+      "action": "death",
+      "direction": 0,
+      "file": "grunt-death-00.png"
+    },
+    {
+      "action": "death",
+      "direction": 1,
+      "file": "grunt-death-01.png"
+    },
+    {
+      "action": "death",
+      "direction": 2,
+      "file": "grunt-death-02.png"
+    },
+    {
+      "action": "death",
+      "direction": 3,
+      "file": "grunt-death-03.png"
+    },
+    {
+      "action": "death",
+      "direction": 4,
+      "file": "grunt-death-04.png"
+    },
+    {
+      "action": "death",
+      "direction": 5,
+      "file": "grunt-death-05.png"
+    },
+    {
+      "action": "death",
+      "direction": 6,
+      "file": "grunt-death-06.png"
+    },
+    {
+      "action": "death",
+      "direction": 7,
+      "file": "grunt-death-07.png"
+    }
+  ],
+  "heavy_actions": [
+    {
+      "action": "fire",
+      "direction": 0,
+      "file": "enemy_corp_37_power_armor_grunt-fire-00.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 1,
+      "file": "enemy_corp_37_power_armor_grunt-fire-01.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 2,
+      "file": "enemy_corp_37_power_armor_grunt-fire-02.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 3,
+      "file": "enemy_corp_37_power_armor_grunt-fire-03.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 4,
+      "file": "enemy_corp_37_power_armor_grunt-fire-04.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 5,
+      "file": "enemy_corp_37_power_armor_grunt-fire-05.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 6,
+      "file": "enemy_corp_37_power_armor_grunt-fire-06.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 7,
+      "file": "enemy_corp_37_power_armor_grunt-fire-07.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 0,
+      "file": "enemy_corp_37_power_armor_grunt-melee-00.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 1,
+      "file": "enemy_corp_37_power_armor_grunt-melee-01.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 2,
+      "file": "enemy_corp_37_power_armor_grunt-melee-02.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 3,
+      "file": "enemy_corp_37_power_armor_grunt-melee-03.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 4,
+      "file": "enemy_corp_37_power_armor_grunt-melee-04.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 5,
+      "file": "enemy_corp_37_power_armor_grunt-melee-05.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 6,
+      "file": "enemy_corp_37_power_armor_grunt-melee-06.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "melee",
+      "direction": 7,
+      "file": "enemy_corp_37_power_armor_grunt-melee-07.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 0,
+      "file": "enemy_corp_37_power_armor_grunt-cover-00.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 1,
+      "file": "enemy_corp_37_power_armor_grunt-cover-01.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 2,
+      "file": "enemy_corp_37_power_armor_grunt-cover-02.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 3,
+      "file": "enemy_corp_37_power_armor_grunt-cover-03.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 4,
+      "file": "enemy_corp_37_power_armor_grunt-cover-04.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 5,
+      "file": "enemy_corp_37_power_armor_grunt-cover-05.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 6,
+      "file": "enemy_corp_37_power_armor_grunt-cover-06.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "cover",
+      "direction": 7,
+      "file": "enemy_corp_37_power_armor_grunt-cover-07.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 0,
+      "file": "enemy_corp_37_power_armor_grunt-hit-00.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 1,
+      "file": "enemy_corp_37_power_armor_grunt-hit-01.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 2,
+      "file": "enemy_corp_37_power_armor_grunt-hit-02.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 3,
+      "file": "enemy_corp_37_power_armor_grunt-hit-03.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 4,
+      "file": "enemy_corp_37_power_armor_grunt-hit-04.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 5,
+      "file": "enemy_corp_37_power_armor_grunt-hit-05.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 6,
+      "file": "enemy_corp_37_power_armor_grunt-hit-06.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "hit",
+      "direction": 7,
+      "file": "enemy_corp_37_power_armor_grunt-hit-07.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 0,
+      "file": "enemy_corp_37_power_armor_grunt-death-00.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 1,
+      "file": "enemy_corp_37_power_armor_grunt-death-01.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 2,
+      "file": "enemy_corp_37_power_armor_grunt-death-02.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 3,
+      "file": "enemy_corp_37_power_armor_grunt-death-03.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 4,
+      "file": "enemy_corp_37_power_armor_grunt-death-04.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 5,
+      "file": "enemy_corp_37_power_armor_grunt-death-05.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 6,
+      "file": "enemy_corp_37_power_armor_grunt-death-06.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "death",
+      "direction": 7,
+      "file": "enemy_corp_37_power_armor_grunt-death-07.png",
+      "unit": "enemy_corp_37_power_armor_grunt"
+    },
+    {
+      "action": "fire",
+      "direction": 0,
+      "file": "robot_combat-fire-00.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 1,
+      "file": "robot_combat-fire-01.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 2,
+      "file": "robot_combat-fire-02.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 3,
+      "file": "robot_combat-fire-03.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 4,
+      "file": "robot_combat-fire-04.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 5,
+      "file": "robot_combat-fire-05.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 6,
+      "file": "robot_combat-fire-06.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "fire",
+      "direction": 7,
+      "file": "robot_combat-fire-07.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 0,
+      "file": "robot_combat-melee-00.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 1,
+      "file": "robot_combat-melee-01.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 2,
+      "file": "robot_combat-melee-02.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 3,
+      "file": "robot_combat-melee-03.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 4,
+      "file": "robot_combat-melee-04.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 5,
+      "file": "robot_combat-melee-05.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 6,
+      "file": "robot_combat-melee-06.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "melee",
+      "direction": 7,
+      "file": "robot_combat-melee-07.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 0,
+      "file": "robot_combat-cover-00.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 1,
+      "file": "robot_combat-cover-01.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 2,
+      "file": "robot_combat-cover-02.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 3,
+      "file": "robot_combat-cover-03.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 4,
+      "file": "robot_combat-cover-04.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 5,
+      "file": "robot_combat-cover-05.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 6,
+      "file": "robot_combat-cover-06.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "cover",
+      "direction": 7,
+      "file": "robot_combat-cover-07.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 0,
+      "file": "robot_combat-hit-00.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 1,
+      "file": "robot_combat-hit-01.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 2,
+      "file": "robot_combat-hit-02.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 3,
+      "file": "robot_combat-hit-03.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 4,
+      "file": "robot_combat-hit-04.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 5,
+      "file": "robot_combat-hit-05.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 6,
+      "file": "robot_combat-hit-06.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "hit",
+      "direction": 7,
+      "file": "robot_combat-hit-07.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 0,
+      "file": "robot_combat-death-00.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 1,
+      "file": "robot_combat-death-01.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 2,
+      "file": "robot_combat-death-02.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 3,
+      "file": "robot_combat-death-03.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 4,
+      "file": "robot_combat-death-04.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 5,
+      "file": "robot_combat-death-05.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 6,
+      "file": "robot_combat-death-06.png",
+      "unit": "robot_combat"
+    },
+    {
+      "action": "death",
+      "direction": 7,
+      "file": "robot_combat-death-07.png",
+      "unit": "robot_combat"
+    }
+  ],
+  "magenta_actions": [],
+  "medic_actions": [],
+  "melee": [
+    {
+      "direction": 0,
+      "file": "melee-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "melee-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-01.png",
+      "phase": 1
+    }
+  ],
+  "new_agent_actions": [
+    {
+      "action": "fire",
+      "direction": 0,
+      "file": "blue-mohawk-scout-fire-00.png"
+    },
+    {
+      "action": "fire",
+      "direction": 1,
+      "file": "blue-mohawk-scout-fire-01.png"
+    },
+    {
+      "action": "fire",
+      "direction": 2,
+      "file": "blue-mohawk-scout-fire-02.png"
+    },
+    {
+      "action": "fire",
+      "direction": 3,
+      "file": "blue-mohawk-scout-fire-03.png"
+    },
+    {
+      "action": "fire",
+      "direction": 4,
+      "file": "blue-mohawk-scout-fire-04.png"
+    },
+    {
+      "action": "fire",
+      "direction": 5,
+      "file": "blue-mohawk-scout-fire-05.png"
+    },
+    {
+      "action": "fire",
+      "direction": 6,
+      "file": "blue-mohawk-scout-fire-06.png"
+    },
+    {
+      "action": "fire",
+      "direction": 7,
+      "file": "blue-mohawk-scout-fire-07.png"
+    },
+    {
+      "action": "melee",
+      "direction": 0,
+      "file": "blue-mohawk-scout-melee-00.png"
+    },
+    {
+      "action": "melee",
+      "direction": 1,
+      "file": "blue-mohawk-scout-melee-01.png"
+    },
+    {
+      "action": "melee",
+      "direction": 2,
+      "file": "blue-mohawk-scout-melee-02.png"
+    },
+    {
+      "action": "melee",
+      "direction": 3,
+      "file": "blue-mohawk-scout-melee-03.png"
+    },
+    {
+      "action": "melee",
+      "direction": 4,
+      "file": "blue-mohawk-scout-melee-04.png"
+    },
+    {
+      "action": "melee",
+      "direction": 5,
+      "file": "blue-mohawk-scout-melee-05.png"
+    },
+    {
+      "action": "melee",
+      "direction": 6,
+      "file": "blue-mohawk-scout-melee-06.png"
+    },
+    {
+      "action": "melee",
+      "direction": 7,
+      "file": "blue-mohawk-scout-melee-07.png"
+    },
+    {
+      "action": "cover",
+      "direction": 0,
+      "file": "blue-mohawk-scout-cover-00.png"
+    },
+    {
+      "action": "cover",
+      "direction": 1,
+      "file": "blue-mohawk-scout-cover-01.png"
+    },
+    {
+      "action": "cover",
+      "direction": 2,
+      "file": "blue-mohawk-scout-cover-02.png"
+    },
+    {
+      "action": "cover",
+      "direction": 3,
+      "file": "blue-mohawk-scout-cover-03.png"
+    },
+    {
+      "action": "cover",
+      "direction": 4,
+      "file": "blue-mohawk-scout-cover-04.png"
+    },
+    {
+      "action": "cover",
+      "direction": 5,
+      "file": "blue-mohawk-scout-cover-05.png"
+    },
+    {
+      "action": "cover",
+      "direction": 6,
+      "file": "blue-mohawk-scout-cover-06.png"
+    },
+    {
+      "action": "cover",
+      "direction": 7,
+      "file": "blue-mohawk-scout-cover-07.png"
+    },
+    {
+      "action": "hit",
+      "direction": 0,
+      "file": "blue-mohawk-scout-hit-00.png"
+    },
+    {
+      "action": "hit",
+      "direction": 1,
+      "file": "blue-mohawk-scout-hit-01.png"
+    },
+    {
+      "action": "hit",
+      "direction": 2,
+      "file": "blue-mohawk-scout-hit-02.png"
+    },
+    {
+      "action": "hit",
+      "direction": 3,
+      "file": "blue-mohawk-scout-hit-03.png"
+    },
+    {
+      "action": "hit",
+      "direction": 4,
+      "file": "blue-mohawk-scout-hit-04.png"
+    },
+    {
+      "action": "hit",
+      "direction": 5,
+      "file": "blue-mohawk-scout-hit-05.png"
+    },
+    {
+      "action": "hit",
+      "direction": 6,
+      "file": "blue-mohawk-scout-hit-06.png"
+    },
+    {
+      "action": "hit",
+      "direction": 7,
+      "file": "blue-mohawk-scout-hit-07.png"
+    },
+    {
+      "action": "death",
+      "direction": 0,
+      "file": "blue-mohawk-scout-death-00.png"
+    },
+    {
+      "action": "death",
+      "direction": 1,
+      "file": "blue-mohawk-scout-death-01.png"
+    },
+    {
+      "action": "death",
+      "direction": 2,
+      "file": "blue-mohawk-scout-death-02.png"
+    },
+    {
+      "action": "death",
+      "direction": 3,
+      "file": "blue-mohawk-scout-death-03.png"
+    },
+    {
+      "action": "death",
+      "direction": 4,
+      "file": "blue-mohawk-scout-death-04.png"
+    },
+    {
+      "action": "death",
+      "direction": 5,
+      "file": "blue-mohawk-scout-death-05.png"
+    },
+    {
+      "action": "death",
+      "direction": 6,
+      "file": "blue-mohawk-scout-death-06.png"
+    },
+    {
+      "action": "death",
+      "direction": 7,
+      "file": "blue-mohawk-scout-death-07.png"
+    }
+  ],
+  "projection": "top_down",
+  "psi_actions": [],
+  "route_cost": 4,
+  "secondary_movement": {
+    "actual_movement": [
+      {
+        "clip": "move",
+        "elapsed_ms": 14,
+        "file": "movement-secondary-00.png",
+        "frame": 0,
+        "world_position": [
+          2980.22119140625,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 41,
+        "file": "movement-secondary-01.png",
+        "frame": 0,
+        "world_position": [
+          2914.1142578125,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 80,
+        "file": "movement-secondary-02.png",
+        "frame": 0,
+        "world_position": [
+          2843.11303710938,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 131,
+        "file": "movement-secondary-03.png",
+        "frame": 1,
+        "world_position": [
+          2773.0302734375,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 191,
+        "file": "movement-secondary-04.png",
+        "frame": 1,
+        "world_position": [
+          2706.57202148438,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 234,
+        "file": "movement-secondary-05.png",
+        "frame": 1,
+        "world_position": [
+          2639.3818359375,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 283,
+        "file": "movement-secondary-06.png",
+        "frame": 2,
+        "world_position": [
+          2567.56567382813,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 329,
+        "file": "movement-secondary-07.png",
+        "frame": 2,
+        "world_position": [
+          2497.2626953125,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 372,
+        "file": "movement-secondary-08.png",
+        "frame": 3,
+        "world_position": [
+          2429.36352539063,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 422,
+        "file": "movement-secondary-09.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 466,
+        "file": "movement-secondary-10.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 519,
+        "file": "movement-secondary-11.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 567,
+        "file": "movement-secondary-12.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 612,
+        "file": "movement-secondary-13.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 651,
+        "file": "movement-secondary-14.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 702,
+        "file": "movement-secondary-15.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 755,
+        "file": "movement-secondary-16.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 804,
+        "file": "movement-secondary-17.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 845,
+        "file": "movement-secondary-18.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 904,
+        "file": "movement-secondary-19.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 949,
+        "file": "movement-secondary-20.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 991,
+        "file": "movement-secondary-21.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1042,
+        "file": "movement-secondary-22.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1086,
+        "file": "movement-secondary-23.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1132,
+        "file": "movement-secondary-24.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1181,
+        "file": "movement-secondary-25.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1229,
+        "file": "movement-secondary-26.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1274,
+        "file": "movement-secondary-27.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1323,
+        "file": "movement-secondary-28.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1366,
+        "file": "movement-secondary-29.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1419,
+        "file": "movement-secondary-30.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1476,
+        "file": "movement-secondary-31.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1525,
+        "file": "movement-secondary-32.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1566,
+        "file": "movement-secondary-33.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1617,
+        "file": "movement-secondary-34.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1667,
+        "file": "movement-secondary-35.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1706,
+        "file": "movement-secondary-36.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1748,
+        "file": "movement-secondary-37.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1799,
+        "file": "movement-secondary-38.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1844,
+        "file": "movement-secondary-39.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      }
+    ],
+    "ap_after": 0,
+    "ap_before": 4,
+    "route_cost": 4
+  },
+  "sniper_actions": []
+}
