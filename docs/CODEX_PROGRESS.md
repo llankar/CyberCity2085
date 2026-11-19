@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- RELEASE-SUITE — IN_PROGRESS. La relance normale s’est arrêtée au premier échec après 830 réussites : les paramètres récupéraient une fixture Arcade d’un autre module. Fixture isolée pendant le test. Lot menu, paramètres et QG : 35 réussis, 1 ignoré, 5 sous-tests réussis dans l’ordre inversé. Relancer la suite normale.
+
 - RELEASE-COMBAT-REGRESSION — DONE. Les tests utilisent un fichier de résultat présent, vérifient les familles de cartes et le rapport d’échelle, et construisent le tableau avant de bloquer une mission. 47 réussis. Relancer la suite de release pour identifier les écarts d’intégration restants.
 
 - RELEASE-CONTRACT — DONE. Plafond historique retiré du plan. Le test de release vérifie la checklist sans exiger la fermeture des travaux encore ouverts. Les tests de choix narratifs vérifient les libellés anglais et les marqueurs.
