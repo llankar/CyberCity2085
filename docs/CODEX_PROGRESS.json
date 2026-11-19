@@ -531,7 +531,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Couvrir les 213 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
+      "remaining": "Couvrir les 211 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules",
       "reason": ""
     },
     {
@@ -543,7 +543,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
-        "Audit anti-doublons : 18 ensembles complets, 0 partiel",
+        "Audit anti-doublons : 20 ensembles complets, 0 partiel",
         "Agente magenta : cinq actions x huit orientations capturées dans la scène tactique Windows",
         "2 tests Python rÃ©ussis, 1 test X11 ignorÃ©",
         "Godot Windows natif : 192 sÃ©lections de frames, puis quatre actions applicables x huit directions",
@@ -597,8 +597,14 @@
         ,"docs/images/chrome-medic-actions/README.md"
         ,"docs/images/chrome-medic-actions/audit.json"
         ,"docs/images/chrome-medic-actions/animation-report.json"
+        ,"docs/images/heavy-breacher-actions/README.md"
+        ,"docs/images/heavy-breacher-actions/audit.json"
+        ,"docs/images/heavy-breacher-actions/animation-report.json"
+        ,"docs/images/yellow-strike-actions/README.md"
+        ,"docs/images/yellow-strike-actions/audit.json"
+        ,"docs/images/yellow-strike-actions/animation-report.json"
       ],
-      "remaining": "18 / 231 ensembles complets ; produire et vérifier les actions applicables des 213 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
+      "remaining": "20 / 231 ensembles complets ; produire et vérifier les actions applicables des 211 autres entités ; régénérer le catalogue 122 cartes et le benchmark pour la nouvelle signature",
       "reason": ""
     },
     {
@@ -1023,7 +1029,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références de agent_diverse_16_heavy_breacher et agent_diverse_17_yellow_strike, puis produire le prochain lot artistique authentique.",
+  "next_action": "ANIM-COMPLETE : régénérer le catalogue Windows des 122 cartes et le benchmark pour la signature à 20 ensembles, puis inspecter les contrats et références de agent_diverse_18 et agent_diverse_19.",
   "checkpoint": "2a73febe3db5b148a1311487cea3bfe5d1bdf51a",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

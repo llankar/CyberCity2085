@@ -806,6 +806,16 @@ Résultat cumulé : **2 / 231 ensembles complets**, 4 partiels. Preuves dans [ma
 
 Résultat cumulé : **18 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [armored-vanguard-actions](images/armored-vanguard-actions/README.md) et [chrome-medic-actions](images/chrome-medic-actions/README.md). Les deux familles ont été capturées et inspectées dans Godot Windows natif, soin technologique compris ; le catalogue 122/122 et le benchmark doivent être régénérés pour leur nouvelle signature.
 
+### Animations applicables — briseur lourd et frappe jaune
+
+- [x] ANIM-BREACHER-01 Produire attente, marche, tir, mêlée, couvert, impact et mort, avec huit orientations et phases distinctes.
+- [x] ANIM-YELLOW-01 Produire attente, marche, tir, mêlée, couvert, impact et mort, avec huit orientations et phases distinctes.
+- [x] ANIM-BREACHER-YELLOW-02 Justifier PSI et soin non applicables et préserver les identités/équipements des références.
+- [x] ANIM-BREACHER-YELLOW-03 Vérifier les atlas, l’audit anti-doublons et 640 sélections natives Godot.
+- [x] ANIM-BREACHER-YELLOW-04 Capturer et inspecter tir, couvert, impact et mort dans Godot Windows natif à 1920×1080.
+
+Résultat cumulé : **20 / 231 ensembles complets**, 0 partiel. Nouvelles preuves : [heavy-breacher-actions](images/heavy-breacher-actions/README.md) et [yellow-strike-actions](images/yellow-strike-actions/README.md). Le catalogue 122/122 et le benchmark restent à régénérer pour la nouvelle signature.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
