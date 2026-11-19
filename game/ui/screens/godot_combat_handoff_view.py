@@ -234,7 +234,6 @@ class GodotCombatHandoffView(arcade.View):
             attach_owned_window,
             hide_window,
             show_window,
-            is_foreground_window,
         )
 
         runtime=getattr(self.launch_result,"runtime",None)
@@ -247,10 +246,6 @@ class GodotCombatHandoffView(arcade.View):
         if not getattr(self,'_session_ready',False):
             hide_window(hwnd)
             return
-        if self._arcade_hwnd and not is_foreground_window(self._arcade_hwnd):
-            hide_window(hwnd)
-            return  # Do not steal focus if the player switched apps during loading.
-
         x, y, w, h = (
             get_window_screen_rect(self._arcade_hwnd)
             if self._arcade_hwnd
