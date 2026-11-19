@@ -414,6 +414,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE / agent_samurai — IN_PROGRESS. Cinq planches ImageGen récupérées dans `work/directional-animation/samurai-candidates/`. Prochaine action : produire idle et hit, corriger les orientations des planches de couverture et vérifier l’ordre des autres planches avant import. Aucun test Samurai exécuté. Le dernier audit de production reste à 29 / 231.
+ANIM-COMPLETE / agent_samurai — IN_PROGRESS. Six planches candidates, dont idle en huit orientations, sont dans `work/directional-animation/samurai-candidates/`. Les nouvelles planches hit et cover présentent des résidus de fond. Refaire hit avec des poses de déséquilibre sans effet et reprendre la couverture initiale en corrigeant les paires mal orientées. Vérifier les autres orientations avant import puis tester Samurai sur Safehouse. Aucun test Samurai exécuté. Dernier audit de production : 29 / 231.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
