@@ -79,10 +79,14 @@ func run() -> void:
 	elif not enemy_target.is_empty():
 		var theme_prefix := "enemy_%s_" % enemy_theme
 		assert(enemy_target.begins_with(theme_prefix))
+		scene.enemy_units[0].erase("visual_asset")
 		scene.enemy_units[0]["enemy_subtype"]=enemy_target.trim_prefix(theme_prefix)
 	if not enemy_target.is_empty():token_keys=["e0"]
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
-	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
+	for key: String in token_keys:
+		if scene._unit_tokens[key].atlas==null:
+			push_error("%s has no atlas for %s" % [key,scene._unit_tokens[key].visual_key])
+			quit(1);return
 	scene._frame_squad();scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	await process_frame;await RenderingServer.frame_post_draw
 	if not enemy_target.is_empty():
