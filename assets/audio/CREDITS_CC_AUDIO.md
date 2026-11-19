@@ -4,6 +4,51 @@ The source code is under AGPL-3.0. Audio files listed below retain their own lic
 The files below were actually converted and installed; entries not present here
 remain candidates in docs/audio/cc0_ccby_sources.json.
 
+## assets/audio/overhaul/combat/explosion_bang_cc0_01.wav
+- Author: rubberduck
+- License: CC0-1.0
+- Source: https://opengameart.org/content/25-cc0-bang-firework-sfx
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 5f4c32527a74b73c1ba9f5914bb7881f96068f29435be241c4de7c9020e3e638
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/combat/explosion_bang_cc0_02.wav
+- Author: rubberduck
+- License: CC0-1.0
+- Source: https://opengameart.org/content/25-cc0-bang-firework-sfx
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 0f0c960888e6ebcb1bc68fa77fa0e52a26b8693b7a420a95ed0d669c486bc4f5
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/combat/explosion_bang_cc0_03.wav
+- Author: rubberduck
+- License: CC0-1.0
+- Source: https://opengameart.org/content/25-cc0-bang-firework-sfx
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: b823f53557ca9702f57b3f9e997fc92d5b87da99d464309d14199aabf2d620c4
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/combat/explosion_bang_cc0_04.wav
+- Author: rubberduck
+- License: CC0-1.0
+- Source: https://opengameart.org/content/25-cc0-bang-firework-sfx
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: fb3b76187c36e185a331d2250268132dbf2eb490a6c0414d69e3570c72b4f2e6
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/combat/explosion_bang_cc0_05.wav
+- Author: rubberduck
+- License: CC0-1.0
+- Source: https://opengameart.org/content/25-cc0-bang-firework-sfx
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 6881ae4a9ca936916322162cbc13dfcf180a35b99e9b84048988161234bfa83c
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
 ## assets/audio/overhaul/combat/explosion_small_cc0_01.wav
 - Author: Kenney
 - License: CC0-1.0
@@ -82,6 +127,51 @@ remain candidates in docs/audio/cc0_ccby_sources.json.
 - Source: https://kenney.nl/assets/impact-sounds
 - Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
 - Original/source SHA-256: b21fa546d74941196b25da8a20b7010abd8c05c4fcf93545d1f344e66a664e13
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/movement/step_metal_cc0_01.wav
+- Author: Thimras
+- License: CC0-1.0
+- Source: https://opengameart.org/content/metal-footsteps-on-concrete
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 5ff917bbdcb6277aac9639e1692d91002b08c607dfd59973a4f9562294e91336
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/movement/step_metal_cc0_02.wav
+- Author: Thimras
+- License: CC0-1.0
+- Source: https://opengameart.org/content/metal-footsteps-on-concrete
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: cbab43c70af458eb2278fe870d9351bf9fa9d250cfcfd439d430beacaccfb8b8
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/movement/step_metal_cc0_03.wav
+- Author: Thimras
+- License: CC0-1.0
+- Source: https://opengameart.org/content/metal-footsteps-on-concrete
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: b3acc922de124e47e9af039b01af4152c5950d9845b120deabaddab767629114
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/movement/step_metal_cc0_04.wav
+- Author: Thimras
+- License: CC0-1.0
+- Source: https://opengameart.org/content/metal-footsteps-on-concrete
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 2c073ad3c562aeed7d16b604200a2a91b8bcc4eadaf294e9c3e219e0e7a5eb8c
+- Distribution: independent licensed audio asset; not relicensed AGPL.
+- Audio review: pending; integration is a preview until approved.
+
+## assets/audio/overhaul/movement/step_metal_cc0_05.wav
+- Author: Thimras
+- License: CC0-1.0
+- Source: https://opengameart.org/content/metal-footsteps-on-concrete
+- Adaptation: converted to 48 kHz / 16-bit / stereo PCM WAV using ffmpeg.
+- Original/source SHA-256: 735a560e69f50a2f995d3393176d6bccb066f03d90f639899a9fcabc8d7f13c5
 - Distribution: independent licensed audio asset; not relicensed AGPL.
 - Audio review: pending; integration is a preview until approved.
 
