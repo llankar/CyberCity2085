@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_37_heavy.png",
-  "texture_sha256": "18e353f82451baafc08eff28c677d38c383a3df49efd9477a7e20ddd9806f544",
+  "texture_sha256": "b814ff2d47561f901b0558d4d86ba992d06e7e134f73a3d043ad05b13bee5dbb",
   "frame_size": [
     256,
     256
@@ -50,41 +50,247 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -167,6 +373,48 @@
         1,
         5
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/move-front-4.png",
+      "sha256": "66cb0378490acfcbcf641e8c618e5c26fff514d89b52eb10aee978e73a3baeb1",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/move-rear-5.png",
+      "sha256": "c636a97fb31a4a70fccdc3677d8ae29d9629ef92f472ae1664fccb3196038c25",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/cover-action_rows-6.png",
+      "sha256": "790f75fdd9d6a7a663b0a96d13af1c3a85ec4db3f4aff778e73331b6c7f9565e",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/melee-action_rows-7.png",
+      "sha256": "80ac8aada872dc24600fcd55da282f723f8601a13b68ffad0524a67a63397139",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/hit-action_rows-8.png",
+      "sha256": "ae126c6bdaafce625fab084170b718af96aaa1f5ab46e53fc30561b7a313787f",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_37_heavy/death-action_rows-9.png",
+      "sha256": "4c27b5e86e783dcfcbecf721beec901bd4bbca485db5a858a65bad8932708147",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -182,13 +430,7 @@
     "psi": "No psionic action for this heavy infantry.",
     "heal": "No healing action for this heavy infantry."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move",
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
