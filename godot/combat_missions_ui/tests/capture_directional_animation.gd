@@ -17,6 +17,7 @@ func run() -> void:
 		if args[i]=="--enemy-asset":
 			enemy_target=args[i+1]
 	var map_name:="cybercity_inner_02_safehouse"
+	var enemy_theme:=""
 	var target_only:= "--target-only" in args
 	var roster:= "--roster" in args
 	var psi_doctor:= "--psi-doctor" in args
@@ -50,8 +51,10 @@ func run() -> void:
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
 		elif args[i]=="--map":map_name=args[i+1]
+		elif args[i]=="--enemy-theme":enemy_theme=args[i+1]
 	DirAccess.make_dir_recursive_absolute(output);root.size=Vector2i(1920,1080)
 	var payload={"asset_base_dir":base,"audio":{"enabled":false},"campaign":{"corp_name":"CYBERCITY 2085"},"mission":{"title":"Animations directionnelles — vérification native","objective_text":"Contrôle des unités","objective_type":"hack","starting_enemy_count":3,"risk_level":3},"map":{"path":"assets/maps/%s.png"%map_name,"environment":"wasteland" if map_name.begins_with("wasteland") else "city"},"squad":[{"name":"Rook","role":"samurai","hp":24,"max_hp":24},{"name":"Oracle","role":"psi","hp":20,"max_hp":20}],"support_assets":[{"name":"Mantis","asset_type":"power_armor","hp":40},{"name":"Robot","asset_type":"combat_robot","hp":36}]}
+	if not enemy_theme.is_empty():payload["mission"]["enemy_theme"]=enemy_theme
 	var file:=FileAccess.open(output.path_join("handoff.json"),FileAccess.WRITE);file.store_string(JSON.stringify(payload));file.close()
 	seed(2085);scene=load("res://scenes/combat_mission_ui.tscn").instantiate();scene.handoff_path=output.path_join("handoff.json");root.add_child(scene)
 	scene.environment_depth_enabled=true;scene._set_visual_quality(2)
@@ -71,7 +74,8 @@ func run() -> void:
 		elif redline_runner:scene.player_units[1]["visual_asset"]="agent_diverse_25_redline_runner"
 		elif agent_psi:scene.player_units[1]["visual_asset"]="agent_psi"
 		elif samurai:scene.player_units[1]["visual_asset"]="agent_samurai"
-	scene.enemy_units[0]["visual_asset"]=enemy_target if not enemy_target.is_empty() else "enemy_grunt"
+	if enemy_theme.is_empty():
+		scene.enemy_units[0]["visual_asset"]=enemy_target if not enemy_target.is_empty() else "enemy_grunt"
 	if not enemy_target.is_empty():token_keys=["e0"]
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
