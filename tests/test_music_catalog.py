@@ -33,12 +33,10 @@ def test_every_new_mp3_has_a_route_and_exists():
     assert all(music_path(key).is_file() for key in MUSIC_TRACKS)
 
 
-def test_missing_mp3_uses_original_wav(tmp_path):
+def test_missing_mp3_has_no_legacy_wav_fallback(tmp_path):
     from game.audio import music_catalog
-    fallback = tmp_path / "music_battle.wav"
-    fallback.touch()
     with patch.object(music_catalog, "MUSIC_DIR", tmp_path):
-        assert music_catalog.music_path("music_finale") == fallback
+        assert music_catalog.music_path("music_finale") is None
 
 
 def test_same_track_is_not_restarted_and_disabled_audio_stays_silent():

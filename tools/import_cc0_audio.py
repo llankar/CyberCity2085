@@ -5,7 +5,7 @@ Freesound login-only sounds are never downloaded via guessed preview URLs.
 OpenGameArt archives may be passed explicitly after local download.
 
 All installed files are marked *unreviewed*. The importer never touches music
-or the legacy 19 SFX, and never invents missing media.
+and never invents missing media.
 """
 from __future__ import annotations
 

@@ -1,9 +1,4 @@
-"""Optional, provenance-tracked SFX preview routing for CyberCity 2085.
-
-Only WAVs physically present in assets/audio/overhaul are eligible. The legacy
-sounds remain the fallback. Additional CC0/CC-BY files are distinct assets and
-keep separate attribution; their quality is still subject to listening review.
-"""
+"""Production SFX routing for the provenance-tracked CyberCity 2085 bank."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -43,7 +38,22 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     ),
     "sfx_ui_confirm": ("ui/ui_confirm_cc0_01.wav",),
     "sfx_ui_refuse": ("ui/ui_refuse_cc0_01.wav",),
-    "sfx_city_short": ("ambience/ambience_city_short_candidate_02.wav",),
+    # Historical gameplay event names now resolve exclusively to the new bank.
+    "sfx_psi": ("technology/shield_cc0_01.wav",),
+    "sfx_miss": ("weapons/fire_laser_cc0_02.wav",),
+    "sfx_death": ("combat/impact_organic_cc0_01.wav",),
+    "sfx_overwatch": ("technology/terminal_cc0_01.wav",),
+    "sfx_turn_player": ("ui/ui_confirm_cc0_01.wav",),
+    "sfx_turn_enemy": ("ui/ui_refuse_cc0_01.wav",),
+    "sfx_victory": ("ui/ui_confirm_cc0_01.wav", "technology/terminal_cc0_01.wav"),
+    "sfx_defeat": ("ui/ui_refuse_cc0_01.wav", "combat/impact_organic_cc0_01.wav"),
+    "sfx_deploy": ("technology/door_open_cc0_01.wav",),
+    "sfx_reinforce": ("technology/door_open_cc0_01.wav", "ui/ui_confirm_cc0_01.wav"),
+    "sfx_stun": ("technology/shield_cc0_01.wav",),
+    "sfx_bleed": ("combat/impact_organic_cc0_01.wav",),
+    "sfx_intel_reveal": ("technology/terminal_cc0_01.wav",),
+    "sfx_act_advance": ("technology/shield_cc0_01.wav",),
+    "sfx_city_short": ("ui/ui_confirm_cc0_01.wav",),
 }
 
 AMBIENCE_CITY_CANDIDATES = (

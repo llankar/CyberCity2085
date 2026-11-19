@@ -13,7 +13,7 @@ MUSIC_TRACKS = {
     "music_finale": "Cybernetic Final Battle.mp3",
     "music_finale_climax": "Cybernetic Final Battle 2.mp3",
     "music_ending": "Intro 1.mp3",
-    "music_debrief": "music_debrief.wav",
+    "music_debrief": "Intro 2.mp3",
 }
 
 
@@ -39,6 +39,4 @@ def music_path(key: str) -> Path | None:
     preferred = MUSIC_DIR / MUSIC_TRACKS.get(key, f"{key}.wav")
     if preferred.is_file():
         return preferred
-    fallback = "music_briefing" if key in {"music_title", "music_management", "music_ending", "music_briefing"} else "music_battle"
-    path = MUSIC_DIR / f"{fallback}.wav"
-    return path if path.is_file() else None
+    return None

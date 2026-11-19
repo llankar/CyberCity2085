@@ -24,7 +24,7 @@ class ImportSafetyTests(unittest.TestCase):
             with self.subTest(value=value):
                 with self.assertRaises(ValueError):
                     audio.safe_relative(value)
-        self.assertEqual(str(audio.safe_relative("a/b.wav")), "a/b.wav")
+        self.assertEqual(audio.safe_relative("a/b.wav").as_posix(), "a/b.wav")
 
     def test_catalog_has_18_unique_cc0_sources_and_uninstalled_status(self):
         manifest = json.loads((MODULE.parents[1] / "docs/audio/cc0_ccby_sources.json").read_text())

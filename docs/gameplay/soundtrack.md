@@ -13,9 +13,9 @@ preferences, so both clients use the same mission routing.
 | Neon Highway Chase | Missions mentioning chase, pursuit, convoy, or highway |
 | Cybernetic Final Battle | Act 5 and finale-tagged missions |
 | Cybernetic Final Battle 2 | Seven Minutes, the final campaign operation |
-| Original music_debrief.wav | Post-mission debrief |
+| Intro 2 | Post-mission debrief |
 
-Finale routing takes priority over hacking/chase music. Existing WAV music is a
+Finale routing takes priority over hacking/chase music. There is no legacy WAV
 fallback when an MP3 is absent or cannot load. Re-entering the same music context
 does not restart its track. Music loops and follows saved volume/mute settings.
 Arcade decodes only the selected song as a loop-capable static source, releasing
@@ -26,7 +26,7 @@ an editor import or extra copies of the soundtrack. Arcade music stops after a
 successful Godot launch to avoid two simultaneous soundtracks.
 
 Validation: `python -m pytest tests/test_music_catalog.py -q` covers routing,
-asset coverage, missing-file fallback, no-restart/mute behavior, real silent
+asset coverage, missing-file silence, no-restart/mute behavior, real silent
 Arcade decoder checks, and all MP3s loaded/looped in headless Godot with Dummy
 audio. No desktop activation, input injection, or audible playback is used.
 
