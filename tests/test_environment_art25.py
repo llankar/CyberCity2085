@@ -10,6 +10,13 @@ ART=ROOT/'godot/combat_missions_ui/art/environment'
 
 def test_every_map_has_reviewed_separate_art_and_an_honest_inventory():
     catalog=json.loads((ART/'environment_art.json').read_text())['maps']
+    review_dir = ROOT / 'docs/images/environment-art-review-windows'
+    review = json.loads((review_dir / 'manifest.json').read_text(encoding='utf-8'))
+    reviewed_maps = [name for page in review['pages'] for name in page['maps']]
+    assert review['review_status'] == 'PASS'
+    assert len(reviewed_maps) == len(set(reviewed_maps)) == review['maps_reviewed']
+    assert len(review['pages']) == review['pages_inspected']
+    assert all((review_dir / page['file']).is_file() for page in review['pages'])
     surveys=list((ROOT/'assets/maps').glob('*.walls.json'))
     assert len(catalog)==len(surveys)==122
     for p in surveys:
@@ -17,7 +24,8 @@ def test_every_map_has_reviewed_separate_art_and_an_honest_inventory():
         assert entry['image_sha256']==source['image_sha256']
         assert hashlib.sha256((p.parent/source['image']).read_bytes()).hexdigest()==entry['image_sha256']
         ids={x['id'] for x in source['walls']}
-        assert entry['props'] and entry['validation']['artistically_complete'] is False
+        assert entry['props']
+        assert entry['validation']['artistically_complete'] is (source['image'] in reviewed_maps)
         improved=set()
         for prop in entry['props']:
             assert prop['source_object_id'] in ids

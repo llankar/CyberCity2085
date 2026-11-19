@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- MAP-ART-INVENTORY — DONE. Le test compare désormais les déclarations du catalogue au manifeste de la revue Windows déjà archivée (122 cartes, 21 planches). Cinq tests réussis, deux contrôles natifs ignorés. Aucun nouveau rendu effectué. Poursuivre le tri des régressions de release.
+
 - MAP-8K-INTEGRITY — DONE. Git matérialise les relevés JSON en CRLF sous Windows. Le contrôle normalise les fins de ligne avant le SHA du relevé. Deux tests réussis, dont les 122 entrées du manifeste. PNG, empreintes et géométrie conservés. Prochaine action : examiner le contrat de l’inventaire artistique.
 
 - RELEASE-LAUNCH-REGRESSION — DONE. Les tests vérifient le message de déploiement et l’absence du raccourci Arcade hérité. Le test de parcours statique vérifie l’intitulé de la section des gains. Onze tests réussis. Prochain lot : comparer les empreintes de cartes aux sources et au manifeste.
