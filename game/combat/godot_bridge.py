@@ -44,6 +44,7 @@ class GodotCombatLaunchResult:
     result_path: Path | None = None
     process_pid: int | None = None
     process: Any = field(default=None, repr=False, compare=False)
+    runtime: Any = field(default=None, repr=False, compare=False)
 
     @property
     def ready_for_godot(self) -> bool:
@@ -416,6 +417,9 @@ def launch_godot_combat_ui(
     executable: str | None = None,
     window_rect: tuple[int, int, int, int] | None = None,
     resume_session_id: str | None = None,
+    runtime=None,
+    viewport: tuple[int,int] | None = None,
+    position: tuple[int,int] | None = None,
 ) -> GodotCombatLaunchResult:
     """Prepare the Godot handoff and optionally start Godot in a separate process.
 
@@ -451,6 +455,21 @@ def launch_godot_combat_ui(
         path, session = create_session(game_state, mission, path)
     except (OSError,ValueError,TypeError) as exc:
         return GodotCombatLaunchResult(Path(handoff_path),[],False,f"Godot session preparation failed: {exc}")
+    if runtime is not None:
+        try:
+            dimensions=viewport or ((window_rect[2],window_rect[3]) if window_rect else (1280,720))
+            location=position or ((window_rect[0],window_rect[1]) if window_rect else None)
+            runtime.submit(path, session['session_id'], dimensions, location)
+        except (OSError,ValueError) as exc:
+            from .tactical_recovery import resume_launch_failed
+            resume_launch_failed(game_state,session['session_id'])
+            return GodotCombatLaunchResult(path,[],False,str(exc),session_id=session['session_id'],
+                result_path=Path(session['result_path']),runtime=runtime)
+        from .tactical_recovery import cancel_superseded_processes
+        cancel_superseded_processes(game_state,session['session_id'])
+        return GodotCombatLaunchResult(path,list(runtime.process.args),True,'Mission sent to the application Godot runtime.',
+            session_id=session['session_id'],result_path=Path(session['result_path']),
+            process_pid=runtime.process.pid,process=runtime.process,runtime=runtime)
     command = build_godot_combat_command(path, executable=executable, window_rect=window_rect)
     if not command:
         from .tactical_recovery import resume_launch_failed

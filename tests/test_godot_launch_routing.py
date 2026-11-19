@@ -55,19 +55,20 @@ def test_retry_and_choose_executable_never_silently_start_arcade():
     bridge = GodotCombatHandoffView.__new__(GodotCombatHandoffView)
     bridge.game_state = GameState()
     bridge.mission = Mock()
+    bridge.window = Mock()
     bridge._launch_failed = True
     bridge._overlaid = False
     bridge._cleanup_godot = Mock()
     bridge._fallback_to_arcade_battle = Mock()
     result = SimpleNamespace(launched=True,message='Godot started',process=None,process_pid=None)
-    with patch.object(arcade,"key",SimpleNamespace(R=82,G=71,F=70,ESCAPE=27)), \
+    with patch.object(arcade,"key",SimpleNamespace(R=82,S=83,G=71,F=70,ESCAPE=27)), \
          patch('game.combat.godot_bridge.launch_godot_combat_ui',return_value=result) as launch:
         bridge.on_key_press(82,0)
     launch.assert_called_once_with(bridge.game_state,bridge.mission)
     assert not bridge._launch_failed
     bridge._fallback_to_arcade_battle.assert_not_called()
     bridge._launch_failed = True
-    with patch.object(arcade,"key",SimpleNamespace(R=82,G=71,F=70,ESCAPE=27)), \
+    with patch.object(arcade,"key",SimpleNamespace(R=82,S=83,G=71,F=70,ESCAPE=27)), \
          patch('game.ui.screens.settings_screen._browse_for_godot_executable',return_value='D:/Godot/godot.exe'), \
          patch('game.ui.screens.settings_screen._persist_godot_bin_path') as save, \
          patch.object(bridge,'_retry_godot') as retry:

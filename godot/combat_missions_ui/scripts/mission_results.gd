@@ -38,7 +38,9 @@ func _process(delta: float) -> void:
 		if FileAccess.file_exists(str(_session.get("ack_path",""))):
 			ack=JSON.parse_string(FileAccess.get_file_as_string(str(_session.ack_path)))
 		if ack is Dictionary and ack.get("protocol_version")==2 and ack.get("session_id")==_session.get("session_id") and ack.get("status")=="accepted":
-			get_tree().quit()
+			var runtime=get_node_or_null("/root/PersistentCombatRuntime")
+			if runtime!=null: runtime.finish_mission(get_parent().get_parent())
+			else: get_tree().quit()
 		elif _confirmation_elapsed>15.0:
 			_extract_btn.text="RETRY RETURN"
 			_extract_btn.disabled=false
