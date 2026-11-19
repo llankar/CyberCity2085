@@ -63,7 +63,10 @@ def main(argv=None):
     parser.add_argument("--resume-debrief", action="store_true")
     parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
     parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
+    parser.add_argument("--resize-check", action="store_true", help="Resize the tactical window from inside Godot")
     args=parser.parse_args(argv);output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
+    if args.resize_check and not args.real_mission:
+        parser.error("--resize-check requires --real-mission")
     if args.real_mission and args.interrupt_phase and args.outcomes != ["victory"]:
         parser.error("real mission interruption requires --outcomes victory")
     if args.real_mission and any(outcome not in {"victory", "defeat", "retreat"} for outcome in args.outcomes):
@@ -110,6 +113,7 @@ def main(argv=None):
                         if not args.real_mission: command += ['--qa-outcome',outcome]
                         else: command += ['--qa-real-outcome',outcome]
                         if args.window_hold_seconds > 0: command += ['--qa-window-hold-seconds',str(args.window_hold_seconds)]
+                        if args.resize_check: command += ['--qa-resize-check']
                         if args.interrupt_phase: command += ['--qa-interrupt-phase',args.interrupt_phase]
                         return real_popen(command,*a,stdout=stream,stderr=subprocess.STDOUT,**kw)
                     launch_started=time.monotonic()
@@ -165,6 +169,8 @@ def main(argv=None):
                         actual_viewport = Image.open(result_capture).size
                         assert actual_viewport[0] > 0 and actual_viewport[1] > 0
                         assert actual_viewport == (args.width, args.height), actual_viewport
+                        if args.resize_check:
+                            assert "UNIFIED_INTERNAL_RESIZE_PASSED" in log.read_text()
                         from game.combat.session_protocol import read_session_status
                         session=state.combat_sessions[bridge.launch_result.session_id]['session']
                         assert read_session_status(session['status_path'],session['session_id'],mission.id)['ready']
