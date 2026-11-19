@@ -220,7 +220,14 @@ def build_godot_combat_payload(
     track = music_path(battle_music_key(mission))
     map_payload = _map_payload(mission)
     environment = str(map_payload.get("environment", "")).lower()
-    city_ambient = any(marker in environment for marker in ("city", "urban", "street", "downtown", "neon"))
+    if any(marker in environment for marker in ("laboratory", "research", "lab", "science")):
+        ambience_profile = "laboratory"
+    elif any(marker in environment for marker in ("rain", "storm", "wet_city")):
+        ambience_profile = "city_rain"
+    elif any(marker in environment for marker in ("city", "urban", "street", "downtown", "neon")):
+        ambience_profile = "city"
+    else:
+        ambience_profile = ""
     from game.audio import SoundManager
     return {
         "schema_version": GODOT_SCHEMA_VERSION,
@@ -232,7 +239,7 @@ def build_godot_combat_payload(
             "enabled": audio_settings.audio_enabled,
             "music_volume": audio_settings.music_volume / 100.0,
             "sfx_volume": audio_settings.sfx_volume / 100.0,
-            "ambience_profile": "city" if city_ambient else "",
+            "ambience_profile": ambience_profile,
         },
         # Absolute path to the CyberCity2085 project root so Godot can locate
         # assets/units/, assets/maps/, etc. regardless of its working directory.
