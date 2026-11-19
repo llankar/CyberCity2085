@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_elite.png",
-  "texture_sha256": "c0811f3e6685d02d57af64870400913a5808af8c2e85db603a4c97479f71fe81",
+  "texture_sha256": "f427847c8bc9af460e89c514d8379622295ad08e77e46f7729f2c4f0848527a9",
   "frame_size": [
     256,
     256
@@ -141,6 +141,158 @@
           63
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_elite_512.png",
@@ -204,6 +356,34 @@
         3,
         7
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/cover-action_rows-5.png",
+      "sha256": "985177faf6d986b069d612b1a4134934be003a46cb2379ee9b34ead659f99e6c",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/melee-action_rows-6.png",
+      "sha256": "de7c86b8d28cbd0a9c41b59ad5b25ca2fb12fd9342204dcc18096d2c5ac7e218",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/hit-action_rows-7.png",
+      "sha256": "6baeb7a860d19c5e6092f6eae95899531c24a3434b149b516993e21cda0f45dd",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_elite/death-action_rows-8.png",
+      "sha256": "e43f32690a91009afd49c8b78ab5896ab9ad7519447e2cb83a264bca82ef0299",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -219,12 +399,7 @@
     "psi": "No psionic action for the elite role.",
     "heal": "No healing action for the elite role."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

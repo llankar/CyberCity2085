@@ -622,7 +622,7 @@
         "docs/images/dreadlock-rifle-actions/audit.json",
         "docs/images/dreadlock-rifle-actions/animation-report.json"
       ],
-      "remaining": "33 / 232 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Enemy sniper DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy heavy DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy elite IN_PROGRESS: idle, walking and fire integrated (64 frames). Rear walk replaced and fire combines reviewed facings from two sources with explicit provenance. Six import tests and 32 target-only Windows Godot movement selections passed. Next: cover, melee, hit, death and a native Safehouse capture.",
+      "remaining": "34 / 232 ensembles complets. Samurai : 112 images, 32 sélections natives et capture Safehouse réussies. Enemy Commander DONE: 128 frames, seven applicable actions, clean focused audit, 32 native movement frame selections and all seven poses inspected on Safehouse. Enemy sniper DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy heavy DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Enemy elite DONE: 128 frames, clean focused audit, 32 native movement selections and seven actions inspected on Safehouse. Next: enemy_psi static reference and directional atlas.",
       "reason": ""
     },
     {
