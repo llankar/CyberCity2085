@@ -898,3 +898,4 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Audio Overhaul 1.0 : inventorier les bruitages et préparer le manifeste de production.
 - [ ] Audio Overhaul 1.0 : générer, écouter et intégrer le lot pilote ElevenLabs. Bloqué par l’absence d’accès au fournisseur.
 - [x] Audio Overhaul 1.0 : retirer les 19 anciens SFX et les 3 anciennes musiques WAV, router tous les événements vers la nouvelle banque CC0/CC-BY/utilisateur et utiliser exclusivement les 7 MP3 du nouveau soundtrack. Validation technique automatisée ; écoute artistique encore requise. (19 novembre 2026)
+- [x] Audio combat : supprimer les bips de substitution sur fins de mouvement, changements de tour et clics ; conserver uniquement les pas enregistrés et `ui_click_01.wav` pour ces interactions. (19 novembre 2026)

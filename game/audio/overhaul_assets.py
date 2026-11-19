@@ -19,10 +19,9 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     "sfx_hit_organic": ("combat/impact_organic_cc0_01.wav",),
     "sfx_melee": ("combat/melee_cc0_01.wav",),
     "sfx_explosion_small": ("combat/explosion_small_cc0_01.wav",),
-    "sfx_move": ("movement/step_concrete_01.wav", "movement/step_concrete_cc0_01.wav"),
+    "sfx_move": ("movement/step_concrete_01.wav",),
     "sfx_move_concrete": (
-        "movement/step_concrete_01.wav", "movement/step_concrete_cc0_01.wav",
-        "movement/step_concrete_cc0_02.wav", "movement/step_concrete_cc0_03.wav",
+        "movement/step_concrete_01.wav",
     ),
     "sfx_move_metal": (
         "movement/step_metal_cc0_01.wav", "movement/step_metal_cc0_02.wav",
@@ -33,27 +32,15 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     "sfx_shield": ("technology/shield_cc0_01.wav",),
     "sfx_terminal": ("technology/terminal_cc0_01.wav",),
     "sfx_door_open": ("technology/door_open_cc0_01.wav",),
-    "sfx_ui_click": (
-        "ui/ui_click_01.wav", "ui/ui_click_cc0_01.wav", "ui/ui_click_cc0_02.wav",
-    ),
-    "sfx_ui_confirm": ("ui/ui_confirm_cc0_01.wav",),
-    "sfx_ui_refuse": ("ui/ui_refuse_cc0_01.wav",),
-    # Historical gameplay event names now resolve exclusively to the new bank.
-    "sfx_psi": ("technology/shield_cc0_01.wav",),
-    "sfx_miss": ("weapons/fire_laser_cc0_02.wav",),
+    "sfx_ui_click": ("ui/ui_click_01.wav",),
+    "sfx_ui_confirm": ("ui/ui_click_01.wav",),
+    "sfx_ui_refuse": ("ui/ui_click_01.wav",),
+    # Historical gameplay events only resolve when the bank has a physical,
+    # semantically matching recording. Electronic stand-in beeps stay silent.
     "sfx_death": ("combat/impact_organic_cc0_01.wav",),
-    "sfx_overwatch": ("technology/terminal_cc0_01.wav",),
-    "sfx_turn_player": ("ui/ui_confirm_cc0_01.wav",),
-    "sfx_turn_enemy": ("ui/ui_refuse_cc0_01.wav",),
-    "sfx_victory": ("ui/ui_confirm_cc0_01.wav", "technology/terminal_cc0_01.wav"),
-    "sfx_defeat": ("ui/ui_refuse_cc0_01.wav", "combat/impact_organic_cc0_01.wav"),
     "sfx_deploy": ("technology/door_open_cc0_01.wav",),
-    "sfx_reinforce": ("technology/door_open_cc0_01.wav", "ui/ui_confirm_cc0_01.wav"),
-    "sfx_stun": ("technology/shield_cc0_01.wav",),
+    "sfx_reinforce": ("technology/door_open_cc0_01.wav",),
     "sfx_bleed": ("combat/impact_organic_cc0_01.wav",),
-    "sfx_intel_reveal": ("technology/terminal_cc0_01.wav",),
-    "sfx_act_advance": ("technology/shield_cc0_01.wav",),
-    "sfx_city_short": ("ui/ui_confirm_cc0_01.wav",),
 }
 
 AMBIENCE_CITY_CANDIDATES = (
