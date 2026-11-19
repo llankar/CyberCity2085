@@ -414,6 +414,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE / agent_samurai — IN_PROGRESS. Six planches candidates dans `work/directional-animation/samurai-candidates/`. L’importateur accepte désormais l’ordre explicite des poses par planche (5 tests réussis). Pour idle, l’ordre revu est [2, 1, 0, 7, 6, 5, 4, 3]. Refaire hit, vérifier chaque paire de couverture et les autres orientations, puis importer et tester Samurai sur Safehouse. Dernier audit de production : 29 / 231.
+ANIM-COMPLETE / agent_samurai — IN_PROGRESS. Les planches idle, cover-v2 et hit dans `work/directional-animation/samurai-candidates/` suivent l’ordre [2, 1, 0, 7, 6, 5, 4, 3]. Cover-v2 remplace la première planche de couverture. Vérifier les contours de hit après détourage à l’import. Reprendre les diagonales de marche ambiguës et les paires de mêlée avant l’import final et le test ciblé Safehouse. Dernier audit de production : 29 / 231.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
