@@ -6,16 +6,16 @@ Cette passe introduit des poses réellement dessinées dans huit directions. Ell
 
 | Ressource réelle | Attente | Marche | Autres actions |
 |---|---|---|---|
-| `agent_diverse_01_neon_blade` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
-| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
-| `agent_diverse_04_trench_sniper` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
+| `agent_diverse_01_neon_blade` | 2 poses × 8 directions | 4 poses × 8 directions | Mêlée, couvert, impact et mort : 2 poses × 8 directions |
+| `agent_diverse_03_magenta_pistol` | 2 poses × 8 directions | 4 poses × 8 directions | Tir, mêlée, couvert, impact et mort : 2 poses × 8 directions |
+| `agent_diverse_04_trench_sniper` | 2 poses × 8 directions | 4 poses × 8 directions | Tir, mêlée, couvert, impact et mort : 2 poses × 8 directions |
 | `enemy_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `enemy_corp_37_power_armor_grunt` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 | `robot_combat` | 2 poses × 8 directions | 4 poses × 8 directions | À produire |
 
-Total : **288 frames**, six références partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
+Total : **512 frames**, dont trois références complètes et trois partiellement animées parmi **231 références d’entités éligibles**. Les 20 pictogrammes d’objectifs de mission sont exclus de ce dernier nombre. Aucun personnage différent n’est remplacé par une copie de ces six unités.
 
-Les tirs, mêlées, couvertures, impacts, morts, pouvoirs PSI et soins ne disposent pas encore de leurs clips. Le canon d’épaule du robot reste dans une pose de transport ; cette passe ne livre pas son animation de visée. Les véhicules conservent leurs ressources et ombres existantes. **Zéro unité possède encore les neuf actions complètes.**
+Les agentes aux lames et au pistolet magenta ainsi que le tireur au manteau possèdent maintenant toutes leurs actions applicables. Les exemptions sont justifiées par leur équipement et leur rôle ; elles ne sont ni simulées ni comptées comme absentes. Les trois autres atlas restent partiels. Le canon d’épaule du robot reste dans une pose de transport ; les véhicules conservent leurs ressources et ombres existantes. **Trois unités sur 231 possèdent toutes leurs actions applicables complètes et validées.**
 
 ## Production et intégration
 
@@ -25,7 +25,7 @@ Les planches dessinées sont conservées dans `assets/combat_visual/source_sheet
 
 La lecture utilise le véritable `unit_visual.gd` : ancrage aux pieds, ombre suivant la frame, hauteur de référence stable et phase de marche conservée entre deux cases. L’angle tient compte de la projection active. Les proportions générales des unités et les règles tactiques restent inchangées.
 
-`unit_animation_contract.gd` contrôle les dimensions, les huit orientations, les indices des frames et l’identité de la source. Une ressource absente ou invalide conserve le rendu statique existant. Les actions manquantes gardent les effets de combat précédents ; elles ne sont pas comptabilisées comme animées.
+`unit_animation_contract.gd` contrôle les dimensions, les huit orientations, les indices des frames et l’identité de la source. Le manifeste déclare désormais `required_clips` et justifie chaque `non_applicable_clips` par l’équipement ou le rôle. Une ressource absente ou invalide conserve le rendu statique existant. Les actions manquantes gardent les effets de combat précédents ; elles ne sont pas comptabilisées comme animées.
 
 ## Validation
 
@@ -33,7 +33,7 @@ La lecture utilise le véritable `unit_visual.gd` : ancrage aux pieds, ombre sui
 - Captures natives en 1280×720, 1920×1080 et 2560×1440.
 - Déplacement déclenché par le véritable événement de clic : destination atteinte, coût réel de 4 PA par agente et retour à l’attente. La campagne n’est pas enregistrée par la fixture.
 - La démonstration des orientations utilise des phases contrôlées dans la scène réelle ; elle est distincte du déplacement automatique enregistré.
-- Les vérifications sont exécutées avec OpenGL llvmpipe ; elles ne remplacent pas un benchmark sur GPU joueur.
+- Validation native Windows supplémentaire avec Godot 4.6.3 et OpenGL sur NVIDIA RTX 5070 Ti : 192 sélections de marche, plus les quatre actions applicables sur huit directions ; capture de la mêlée dans la scène tactique réelle.
 
 [Captures du lot 2, boucles animées et limites](images/roster-batch2/README.md) · [Avancement de la tâche complète](combat_visual_25_progress.md)
 
@@ -47,7 +47,7 @@ python tools/art/build_directional_evidence.py
 python tools/audit_combat_visuals.py --output work/directional-animation/audit.json
 ```
 
-L’option `--require-complete` de l’audit doit encore échouer : la livraison complète de toutes les entités et actions reste ouverte.
+L’option `--require-complete` de l’audit doit encore échouer : 3 / 231 ensembles sont complets ; la livraison des 228 autres entités reste ouverte.
 
 ## Échelles relatives aux décors
 

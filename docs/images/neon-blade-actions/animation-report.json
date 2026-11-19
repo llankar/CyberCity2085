@@ -1,0 +1,1083 @@
+{
+  "actual_movement": [
+    {
+      "clip": "move",
+      "elapsed_ms": 32,
+      "file": "movement-00.png",
+      "frame": 0,
+      "world_position": [
+        2540.34912109375,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 82,
+      "file": "movement-01.png",
+      "frame": 0,
+      "world_position": [
+        2457.65942382813,
+        2552.46508789063
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 132,
+      "file": "movement-02.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2585.51000976563
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 182,
+      "file": "movement-03.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2643.79125976563
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 232,
+      "file": "movement-04.png",
+      "frame": 1,
+      "world_position": [
+        2426.25,
+        2702.0771484375
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 282,
+      "file": "movement-05.png",
+      "frame": 2,
+      "world_position": [
+        2356.15209960938,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 332,
+      "file": "movement-06.png",
+      "frame": 2,
+      "world_position": [
+        2283.65209960938,
+        2704.00830078125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 382,
+      "file": "movement-07.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2725.3828125
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 432,
+      "file": "movement-08.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2783.66870117188
+      ]
+    },
+    {
+      "clip": "move",
+      "elapsed_ms": 482,
+      "file": "movement-09.png",
+      "frame": 3,
+      "world_position": [
+        2237.75,
+        2841.95458984375
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 532,
+      "file": "movement-10.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 582,
+      "file": "movement-11.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 632,
+      "file": "movement-12.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 682,
+      "file": "movement-13.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 732,
+      "file": "movement-14.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 782,
+      "file": "movement-15.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 832,
+      "file": "movement-16.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 882,
+      "file": "movement-17.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 932,
+      "file": "movement-18.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 982,
+      "file": "movement-19.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1032,
+      "file": "movement-20.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1082,
+      "file": "movement-21.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1132,
+      "file": "movement-22.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1182,
+      "file": "movement-23.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1232,
+      "file": "movement-24.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1282,
+      "file": "movement-25.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1332,
+      "file": "movement-26.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1382,
+      "file": "movement-27.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1432,
+      "file": "movement-28.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1482,
+      "file": "movement-29.png",
+      "frame": 1,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1532,
+      "file": "movement-30.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1582,
+      "file": "movement-31.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1632,
+      "file": "movement-32.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1682,
+      "file": "movement-33.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1733,
+      "file": "movement-34.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1782,
+      "file": "movement-35.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1832,
+      "file": "movement-36.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1882,
+      "file": "movement-37.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1932,
+      "file": "movement-38.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    },
+    {
+      "clip": "idle",
+      "elapsed_ms": 1982,
+      "file": "movement-39.png",
+      "frame": 0,
+      "world_position": [
+        2237.75,
+        2855.55151367188
+      ]
+    }
+  ],
+  "ap_after": 0,
+  "ap_before": 4,
+  "campaign_written": false,
+  "captured_assets": {
+    "e0": {
+      "key": "enemy_grunt",
+      "texture_sha256": "38da22f3249d5ab2231b409c6708f63e66f5e7cab0e9ccdc2516911f790e82f8"
+    },
+    "p0": {
+      "key": "agent_diverse_01_neon_blade",
+      "texture_sha256": "d0434d77061e4e74529641696b7ebb54ad3514c1130a74d86e897c1f301cb9a0"
+    },
+    "p1": {
+      "key": "agent_diverse_03_magenta_pistol",
+      "texture_sha256": "ff17013598ef32345f5f5307d1a53cbbf6ef5c8a67454a1fcd3d65de763cab35"
+    },
+    "p2": {
+      "key": "enemy_corp_37_power_armor_grunt",
+      "texture_sha256": "2523b12176c899f381f433b56e1a4c18bef49d6675986d26eb528b8f70b4b328"
+    },
+    "p3": {
+      "key": "robot_combat",
+      "texture_sha256": "975e8a4d920d97e0c30715a8aab546540fac7f4cf1bb9fdb28fda46cb0ff5fd6"
+    }
+  },
+  "coverage": "idle_move_and_neon_blade_melee",
+  "directions": [
+    {
+      "direction": 0,
+      "file": "directions-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 0,
+      "file": "directions-00-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 1,
+      "file": "directions-01-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 2,
+      "file": "directions-02-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 3,
+      "file": "directions-03-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 4,
+      "file": "directions-04-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 5,
+      "file": "directions-05-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 6,
+      "file": "directions-06-03.png",
+      "phase": 3
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-02.png",
+      "phase": 2
+    },
+    {
+      "direction": 7,
+      "file": "directions-07-03.png",
+      "phase": 3
+    }
+  ],
+  "melee": [
+    {
+      "direction": 0,
+      "file": "melee-00-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 0,
+      "file": "melee-00-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 1,
+      "file": "melee-01-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 2,
+      "file": "melee-02-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 3,
+      "file": "melee-03-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 4,
+      "file": "melee-04-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 5,
+      "file": "melee-05-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 6,
+      "file": "melee-06-01.png",
+      "phase": 1
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-00.png",
+      "phase": 0
+    },
+    {
+      "direction": 7,
+      "file": "melee-07-01.png",
+      "phase": 1
+    }
+  ],
+  "projection": "top_down",
+  "route_cost": 4,
+  "secondary_movement": {
+    "actual_movement": [
+      {
+        "clip": "move",
+        "elapsed_ms": 10,
+        "file": "movement-secondary-00.png",
+        "frame": 0,
+        "world_position": [
+          2982.0595703125,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 49,
+        "file": "movement-secondary-01.png",
+        "frame": 0,
+        "world_position": [
+          2900.34155273438,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 99,
+        "file": "movement-secondary-02.png",
+        "frame": 0,
+        "world_position": [
+          2824.98217773438,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 149,
+        "file": "movement-secondary-03.png",
+        "frame": 1,
+        "world_position": [
+          2752.48510742188,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 199,
+        "file": "movement-secondary-04.png",
+        "frame": 1,
+        "world_position": [
+          2679.98779296875,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 249,
+        "file": "movement-secondary-05.png",
+        "frame": 2,
+        "world_position": [
+          2607.49072265625,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 299,
+        "file": "movement-secondary-06.png",
+        "frame": 2,
+        "world_position": [
+          2534.99365234375,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "move",
+        "elapsed_ms": 349,
+        "file": "movement-secondary-07.png",
+        "frame": 2,
+        "world_position": [
+          2462.49658203125,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 399,
+        "file": "movement-secondary-08.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 449,
+        "file": "movement-secondary-09.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 499,
+        "file": "movement-secondary-10.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 549,
+        "file": "movement-secondary-11.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 599,
+        "file": "movement-secondary-12.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 649,
+        "file": "movement-secondary-13.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 699,
+        "file": "movement-secondary-14.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 749,
+        "file": "movement-secondary-15.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 799,
+        "file": "movement-secondary-16.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 849,
+        "file": "movement-secondary-17.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 899,
+        "file": "movement-secondary-18.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 949,
+        "file": "movement-secondary-19.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 999,
+        "file": "movement-secondary-20.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1049,
+        "file": "movement-secondary-21.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1099,
+        "file": "movement-secondary-22.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1149,
+        "file": "movement-secondary-23.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1199,
+        "file": "movement-secondary-24.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1249,
+        "file": "movement-secondary-25.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1299,
+        "file": "movement-secondary-26.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1349,
+        "file": "movement-secondary-27.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1399,
+        "file": "movement-secondary-28.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1449,
+        "file": "movement-secondary-29.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1499,
+        "file": "movement-secondary-30.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1549,
+        "file": "movement-secondary-31.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1599,
+        "file": "movement-secondary-32.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1649,
+        "file": "movement-secondary-33.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1699,
+        "file": "movement-secondary-34.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1749,
+        "file": "movement-secondary-35.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1799,
+        "file": "movement-secondary-36.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1849,
+        "file": "movement-secondary-37.png",
+        "frame": 0,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1899,
+        "file": "movement-secondary-38.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      },
+      {
+        "clip": "idle",
+        "elapsed_ms": 1949,
+        "file": "movement-secondary-39.png",
+        "frame": 1,
+        "world_position": [
+          2426.25,
+          2249.37841796875
+        ]
+      }
+    ],
+    "ap_after": 0,
+    "ap_before": 4,
+    "route_cost": 4
+  }
+}

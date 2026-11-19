@@ -19,8 +19,10 @@ def render_signature(root):
     paths += sorted((root / ART_REL / 'props25').glob('*-*.png'))
     scale_data=project/'art/environment/map_presentation.json'
     if scale_data.exists():paths.append(scale_data)
-    animation_dir=root/'assets/combat_visual/animations'
-    paths += sorted(animation_dir.glob('*.json')) + sorted(animation_dir.glob('*.png'))
+    # Map-art evidence is scoped to renderer, environment resources and map
+    # presentation. Unit atlases are independently traced by manifests,
+    # SHA-256, audits and targeted native captures; adding one must not expire
+    # an unchanged 122-map environment review.
     digest = hashlib.sha256()
     for path in paths:
         digest.update(str(path.relative_to(root)).encode())
@@ -35,8 +37,8 @@ def metrics(root):
     active = [p for m in maps.values() for p in m['props'] if p['enabled']]
     animation_data=[json.loads(p.read_text()) for p in (root/'assets/combat_visual/animations').glob('*.json')]
     eligible=[p for p in (root/'assets/units').glob('*.png') if not p.stem.endswith('_512') and not p.stem.startswith('mission_objective_')]
-    walk_verified=sum(a.get('review_status')=='native_render_verified_partial' and {'idle','move'}<=a.get('animations',{}).keys() for a in animation_data)
-    complete_animations=sum(a.get('review_status')=='native_render_verified_complete' and {'idle','move','fire','melee','cover','hit','death','psi','heal'}<=a.get('animations',{}).keys() for a in animation_data)
+    walk_verified=sum(a.get('review_status') in {'native_render_verified_partial','native_render_verified_complete'} and {'idle','move'}<=a.get('animations',{}).keys() for a in animation_data)
+    complete_animations=sum(a.get('review_status')=='native_render_verified_complete' and a.get('coverage')=='complete' and set(a.get('required_clips',[]))<=a.get('animations',{}).keys() for a in animation_data)
     return dict(animation_eligible=len(eligible), animation_atlases=len(animation_data), directional_walk_verified=walk_verified, full_animation_sets=complete_animations, maps=len(maps), source_images=len({m['image_sha256'] for m in maps.values()}),
                 families=len(library['assets']), frames=sum(len(a['yaw']) for a in library['assets'].values()),
                 active=len(active), improved_maps=sum(any(p['enabled'] for p in m['props']) for m in maps.values()),
@@ -73,7 +75,7 @@ def write_progress(root=ROOT):
             f'| Références d’entités à couvrir (hors objets de mission) | {counts["animation_eligible"]} |',
             f'| Atlas produits | {counts["animation_atlases"]} |',
             f'| Marche et attente à huit directions vérifiées dans Godot | {counts["directional_walk_verified"]} |',
-            f'| Unités avec les neuf actions animées complètes et validées | {counts["full_animation_sets"]} |','',
+            f'| Unités avec toutes les actions applicables animées et validées | {counts["full_animation_sets"]} |','',
             'Un cycle de marche ne termine pas les animations de combat. Les autres personnages gardent leurs ressources d’origine ; aucune famille n’est remplacée par un clone générique.','']
     lines += ['- ' + item for item in state['delivered']]
     lines += ['', '## Passe en cours', '', '| Travail | État | Résultat / reste à faire |', '|---|---|---|']

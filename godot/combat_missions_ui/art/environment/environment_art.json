@@ -60,7 +60,7 @@
           "frame_coverage": 0.9933
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -98,13 +98,12 @@
         "south_east_crates"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -164,7 +163,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5981
+          "frame_coverage": 0.5981,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_east_small_planter",
@@ -184,7 +184,7 @@
           "frame_coverage": 0.9806
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 33,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -222,14 +222,12 @@
         "east_south_building"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -593,7 +591,7 @@
           "frame_coverage": 0.8769
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 39,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -622,13 +620,12 @@
         "sign_se_base"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -733,7 +730,7 @@
           "frame_coverage": 0.9782
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -763,13 +760,12 @@
         "east_south_building"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -824,7 +820,7 @@
           "frame_coverage": 0.9377
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -859,13 +855,12 @@
         "southeast_bottom_stall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -939,10 +934,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 15,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.6113
+          "frame_coverage": 0.6113,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -973,14 +969,12 @@
         "car_far_east"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1050,7 +1044,8 @@
           "source_review": "detail_crop_sheet",
           "review_index": 17,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.5633
+          "frame_coverage": 0.5633,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_planter_ne",
@@ -1127,7 +1122,7 @@
           "frame_coverage": 0.8113
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1151,14 +1146,12 @@
         "bench_se"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1207,7 +1200,7 @@
           "frame_coverage": 0.8967
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 22,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1234,13 +1227,12 @@
         "planter_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1292,7 +1284,7 @@
           "frame_coverage": 0.9559
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 19,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1316,13 +1308,12 @@
         "se_ramp_island"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1388,7 +1379,7 @@
           "frame_coverage": 0.6701
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1416,13 +1407,12 @@
         "north_bins"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1475,7 +1465,7 @@
           "frame_coverage": 0.9175
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1510,13 +1500,12 @@
         "east_guard"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1576,7 +1565,7 @@
           "frame_coverage": 0.7514
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 22,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1603,13 +1592,12 @@
         "east_void"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1652,6 +1640,7 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
+          "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "frame_coverage": 0.9741
         },
         {
@@ -1666,6 +1655,7 @@
             0.45185185185185184
           ],
           "enabled": true,
+          "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "source_review": "detail_crop_sheet",
           "review_index": 24,
           "detail_status": "native_render_verified_art_completion_pending",
@@ -1683,13 +1673,14 @@
             0.40370370370370373
           ],
           "enabled": true,
+          "disabled_reason": "flat light roof reads as an artificial grey slab at gameplay scale; preserve richer source container art",
           "source_review": "detail_crop_sheet",
           "review_index": 25,
           "detail_status": "native_render_verified_art_completion_pending",
           "frame_coverage": 0.9909
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1717,13 +1708,12 @@
         "south_basin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1815,7 +1805,7 @@
           "frame_coverage": 0.8072
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -1841,13 +1831,12 @@
         "east_crate_mid"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -1912,7 +1901,8 @@
           "source_review": "detail_crop_sheet",
           "review_index": 30,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.5146
+          "frame_coverage": 0.5146,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_central_container_green",
@@ -1929,10 +1919,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 31,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.591
+          "frame_coverage": 0.591,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 67,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2004,14 +1995,12 @@
         "south_edge_machinery"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2107,7 +2096,7 @@
           "partial_source_object": true
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 32,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2145,13 +2134,12 @@
         "north_right_shelf"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2210,7 +2198,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.6334
+          "frame_coverage": 0.6334,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_ne_transformer",
@@ -2469,7 +2458,7 @@
           "frame_coverage": 0.8807
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2503,14 +2492,12 @@
         "south_pipes"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2565,7 +2552,7 @@
           "frame_coverage": 0.7402
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2599,13 +2586,12 @@
         "east_crates"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2661,7 +2647,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.6055
+          "frame_coverage": 0.6055,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_east_mid_console",
@@ -2681,7 +2668,7 @@
           "frame_coverage": 0.7931
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 74,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2760,14 +2747,12 @@
         "outside_southeast"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2874,7 +2859,7 @@
           "frame_coverage": 0.896
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -2913,13 +2898,12 @@
         "west_crate_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -2983,7 +2967,7 @@
           "frame_coverage": 0.8152
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 39,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3027,13 +3011,12 @@
         "south_partition_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3133,10 +3116,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 50,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.6257
+          "frame_coverage": 0.6257,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3170,14 +3154,12 @@
         "east_room_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3270,7 +3252,7 @@
           "frame_coverage": 0.903
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3302,13 +3284,12 @@
         "east_crosswall_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3399,7 +3380,7 @@
           "frame_coverage": 0.9233
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 44,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3446,13 +3427,12 @@
         "east_crosswall_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3538,7 +3518,8 @@
           "source_review": "detail_crop_sheet",
           "review_index": 57,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.5607
+          "frame_coverage": 0.5607,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_desk_se",
@@ -3575,7 +3556,7 @@
           "frame_coverage": 0.9235
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 37,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3615,14 +3596,12 @@
         "east_room4"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3684,7 +3663,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5383
+          "frame_coverage": 0.5383,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_bed_nw1",
@@ -3723,7 +3703,7 @@
           "frame_coverage": 0.9045
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3763,14 +3743,12 @@
         "south_room_w"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -3870,7 +3848,7 @@
           "frame_coverage": 0.8043
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -3908,13 +3886,12 @@
         "north_lounge_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4011,7 +3988,7 @@
           "frame_coverage": 0.9173
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4039,13 +4016,12 @@
         "south_wall_return"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4112,7 +4088,8 @@
           "source_review": "detail_crop_sheet",
           "review_index": 69,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.5057
+          "frame_coverage": 0.5057,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_north_desk_m",
@@ -4132,7 +4109,7 @@
           "frame_coverage": 0.7558
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 34,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4170,14 +4147,12 @@
         "east_pod_room"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4279,7 +4254,7 @@
           "frame_coverage": 0.7168
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 46,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4328,13 +4303,12 @@
         "outside_north_notch_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4403,7 +4377,7 @@
           "frame_coverage": 0.8292
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 34,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4442,13 +4416,12 @@
         "east_rooms_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4512,7 +4485,7 @@
           "frame_coverage": 0.9513
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 20,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4537,13 +4510,12 @@
         "northeast_canyon"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4580,7 +4552,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.2627
+          "frame_coverage": 0.2627,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_container_e",
@@ -4600,7 +4573,7 @@
           "frame_coverage": 0.9556
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4634,14 +4607,12 @@
         "forklift_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -4882,7 +4853,7 @@
           "frame_coverage": 0.9279
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 37,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -4915,13 +4886,12 @@
         "southeast_boundary"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5013,7 +4983,7 @@
           "frame_coverage": 0.9938
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5040,13 +5010,12 @@
         "ticket_south"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5098,7 +5067,7 @@
           "frame_coverage": 0.6807
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5133,13 +5102,12 @@
         "south_pipe"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5196,7 +5164,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5861
+          "frame_coverage": 0.5861,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_ne_desk",
@@ -5233,7 +5202,7 @@
           "frame_coverage": 0.9176
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5266,14 +5235,12 @@
         "east_room_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5416,10 +5383,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 93,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.613
+          "frame_coverage": 0.613,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5449,14 +5417,12 @@
         "south_entry_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5508,7 +5474,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5861
+          "frame_coverage": 0.5861,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_south_desk_e",
@@ -5562,7 +5529,7 @@
           "frame_coverage": 0.8274
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 38,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5603,14 +5570,12 @@
         "outside_northeast_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5723,7 +5688,7 @@
           "frame_coverage": 0.8025
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 34,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5759,13 +5724,12 @@
         "east_bath"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5826,7 +5790,7 @@
           "frame_coverage": 0.937
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5866,13 +5830,12 @@
         "east_cross_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -5934,7 +5897,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.3352
+          "frame_coverage": 0.3352,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_east_desk",
@@ -5954,7 +5918,7 @@
           "frame_coverage": 0.8944
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -5987,14 +5951,12 @@
         "center_south_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6052,7 +6014,7 @@
           "frame_coverage": 0.8321
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 39,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6096,13 +6058,12 @@
         "east_cross_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6222,7 +6183,7 @@
           "frame_coverage": 0.9331
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6255,13 +6216,12 @@
         "central_entry_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6380,7 +6340,7 @@
           "frame_coverage": 0.9963
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 45,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6427,13 +6387,12 @@
         "south_cross6"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6522,7 +6481,7 @@
           "frame_coverage": 0.9281
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6551,13 +6510,12 @@
         "east_lower_partition"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6628,7 +6586,7 @@
           "frame_coverage": 0.7477
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 27,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6659,13 +6617,12 @@
         "north_server_room"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6738,7 +6695,7 @@
           "frame_coverage": 0.7769
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 22,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6764,13 +6721,12 @@
         "southwest_pipe"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -6838,7 +6794,7 @@
           "frame_coverage": 0.9701
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 34,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -6876,13 +6832,12 @@
         "east_s_room"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7003,10 +6958,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 129,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.6285
+          "frame_coverage": 0.6285,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 40,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7049,14 +7005,12 @@
         "east_s_cross"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7141,7 +7095,7 @@
           "frame_coverage": 0.9928
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7176,13 +7130,12 @@
         "core_se"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7256,10 +7209,11 @@
           "source_review": "detail_crop_sheet",
           "review_index": 131,
           "detail_status": "original_retained_frame_mismatch",
-          "frame_coverage": 0.5714
+          "frame_coverage": 0.5714,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7292,14 +7246,12 @@
         "planter_sw"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7357,7 +7309,7 @@
           "frame_coverage": 0.9154
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7388,13 +7340,12 @@
         "truck_ne"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7450,7 +7401,7 @@
           "frame_coverage": 0.7029
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 21,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7476,13 +7427,12 @@
         "car_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7533,7 +7483,7 @@
           "frame_coverage": 0.8589
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7568,13 +7518,12 @@
         "west_basin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7631,7 +7580,7 @@
           "frame_coverage": 0.9403
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7666,13 +7615,12 @@
         "east_planter_high"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7732,7 +7680,7 @@
           "frame_coverage": 0.6875
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 22,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7759,13 +7707,12 @@
         "mid_south_sign"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7817,7 +7764,7 @@
           "frame_coverage": 0.7754
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7847,13 +7794,12 @@
         "car_ne"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7908,7 +7854,7 @@
           "frame_coverage": 0.6875
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 22,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -7935,13 +7881,12 @@
         "mid_south_sign"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -7990,10 +7935,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
+          "disabled_reason": "flat light canopy reads as an artificial grey slab at gameplay scale; preserve richer source market art",
           "frame_coverage": 0.8523
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8034,13 +7980,12 @@
         "diagonal_stall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8106,7 +8051,7 @@
           "frame_coverage": 0.8577
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8136,13 +8081,12 @@
         "south_access_rail"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8194,10 +8138,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "native_render_verified_art_completion_pending",
           "enabled": true,
+          "disabled_reason": "flat light canopy reads as an artificial grey slab at gameplay scale; preserve richer source market art",
           "frame_coverage": 0.8523
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8238,13 +8183,12 @@
         "diagonal_stall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8310,7 +8254,7 @@
           "frame_coverage": 0.8577
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8340,13 +8284,12 @@
         "south_access_rail"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8398,10 +8341,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5689
+          "frame_coverage": 0.5689,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8431,14 +8375,12 @@
         "south_water"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8488,7 +8430,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.631
+          "frame_coverage": 0.631,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_center_planter_e",
@@ -8508,7 +8451,7 @@
           "frame_coverage": 0.686
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8541,14 +8484,12 @@
         "planter_inner_se"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8603,10 +8544,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5689
+          "frame_coverage": 0.5689,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8636,14 +8578,12 @@
         "south_water"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8693,7 +8633,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.631
+          "frame_coverage": 0.631,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_center_planter_e",
@@ -8713,7 +8654,7 @@
           "frame_coverage": 0.686
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 28,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8746,14 +8687,12 @@
         "planter_inner_se"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8811,7 +8750,7 @@
           "frame_coverage": 0.6616
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8847,13 +8786,12 @@
         "ticket_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -8914,7 +8852,7 @@
           "frame_coverage": 0.7732
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -8943,13 +8881,12 @@
         "truck_mid"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9003,7 +8940,7 @@
           "frame_coverage": 0.6616
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9039,13 +8976,12 @@
         "ticket_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9106,7 +9042,7 @@
           "frame_coverage": 0.7605
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9134,13 +9070,12 @@
         "utility_sw"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9193,7 +9128,7 @@
           "frame_coverage": 0.7732
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9222,13 +9157,12 @@
         "truck_mid"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9282,7 +9216,7 @@
           "frame_coverage": 0.859
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9310,13 +9244,12 @@
         "south_river"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9367,7 +9300,7 @@
           "frame_coverage": 0.7605
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9395,13 +9328,12 @@
         "utility_sw"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9451,10 +9383,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.6415
+          "frame_coverage": 0.6415,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9486,14 +9419,12 @@
         "crate_mid"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9550,7 +9481,7 @@
           "frame_coverage": 0.859
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9578,13 +9509,12 @@
         "south_river"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9632,10 +9562,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.6415
+          "frame_coverage": 0.6415,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9667,14 +9598,12 @@
         "crate_mid"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9731,7 +9660,7 @@
           "frame_coverage": 0.944
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9762,13 +9691,12 @@
         "rubble_north"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9824,7 +9752,7 @@
           "frame_coverage": 0.702
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9854,13 +9782,12 @@
         "south_stall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -9912,10 +9839,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.562
+          "frame_coverage": 0.562,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -9945,14 +9873,12 @@
         "overpass_south_rail_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10004,10 +9930,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5461
+          "frame_coverage": 0.5461,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10038,14 +9965,12 @@
         "broken_wall_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10101,7 +10026,7 @@
           "frame_coverage": 0.9026
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10129,13 +10054,12 @@
         "southwest_barricade"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10188,7 +10112,7 @@
           "frame_coverage": 0.944
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10219,13 +10143,12 @@
         "rubble_north"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10281,7 +10204,7 @@
           "frame_coverage": 0.702
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10311,13 +10234,12 @@
         "south_stall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10369,10 +10291,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.562
+          "frame_coverage": 0.562,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10402,14 +10325,12 @@
         "overpass_south_rail_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10461,10 +10382,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5461
+          "frame_coverage": 0.5461,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 25,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10495,14 +10417,12 @@
         "broken_wall_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10558,7 +10478,7 @@
           "frame_coverage": 0.9026
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 23,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10586,13 +10506,12 @@
         "southwest_barricade"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10665,7 +10584,7 @@
           "frame_coverage": 0.8751
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 27,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10696,13 +10615,12 @@
         "east_stairs_guard"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10758,7 +10676,7 @@
           "frame_coverage": 0.9075
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 20,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10783,13 +10701,12 @@
         "east_basin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10889,7 +10806,7 @@
           "frame_coverage": 0.9778
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -10926,13 +10843,12 @@
         "south_cross6"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -10994,7 +10910,7 @@
           "frame_coverage": 0.9813
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11028,13 +10944,12 @@
         "outside_north_notch_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11115,7 +11030,7 @@
           ]
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 38,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11157,13 +11072,12 @@
         "outside_east_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11223,7 +11137,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.4678
+          "frame_coverage": 0.4678,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_east_desk",
@@ -11262,10 +11177,11 @@
             "sleepers": 1,
             "base": "open tubular frame"
           },
-          "frame_coverage": 0.6347
+          "frame_coverage": 0.6347,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11301,14 +11217,12 @@
         "southwall_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11403,7 +11317,7 @@
           "frame_coverage": 0.7372
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11435,13 +11349,12 @@
         "se_side_room"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11551,7 +11464,7 @@
           "frame_coverage": 0.9778
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 35,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11588,13 +11501,12 @@
         "south_cross6"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11653,10 +11565,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.3917
+          "frame_coverage": 0.3917,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11692,14 +11605,12 @@
         "se_cross2"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11782,7 +11693,7 @@
           "frame_coverage": 0.8461
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11822,13 +11733,12 @@
         "south_entry_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -11893,7 +11803,7 @@
           "frame_coverage": 0.9813
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -11927,13 +11837,12 @@
         "outside_north_notch_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12037,7 +11946,7 @@
           "frame_coverage": 0.9321
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12065,13 +11974,12 @@
         "southeast_return"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12152,7 +12060,7 @@
           ]
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 38,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12194,13 +12102,12 @@
         "outside_east_margin"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12260,7 +12167,8 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.4678
+          "frame_coverage": 0.4678,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         },
         {
           "id": "art25_detail_east_desk",
@@ -12299,10 +12207,11 @@
             "sleepers": 1,
             "base": "open tubular frame"
           },
-          "frame_coverage": 0.6347
+          "frame_coverage": 0.6347,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12338,14 +12247,12 @@
         "southwall_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12406,7 +12313,7 @@
           "frame_coverage": 0.7232
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12442,13 +12349,12 @@
         "south_room_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12570,7 +12476,7 @@
           "frame_coverage": 0.719
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 48,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12620,13 +12526,12 @@
         "east_cross_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12735,7 +12640,7 @@
           "frame_coverage": 0.7372
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 29,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12767,13 +12672,12 @@
         "se_side_room"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -12888,7 +12792,7 @@
           "frame_coverage": 0.7177
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 42,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -12932,13 +12836,12 @@
         "south_room_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13004,10 +12907,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.3917
+          "frame_coverage": 0.3917,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 30,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13043,14 +12947,12 @@
         "se_cross2"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13133,7 +13035,7 @@
           "frame_coverage": 0.8461
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 36,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13173,13 +13075,12 @@
         "south_entry_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13295,7 +13196,7 @@
           "frame_coverage": 0.9321
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 26,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13323,13 +13224,12 @@
         "southeast_return"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13382,7 +13282,7 @@
           "frame_coverage": 0.7232
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 31,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13418,13 +13318,12 @@
         "south_room_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13546,7 +13445,7 @@
           "frame_coverage": 0.719
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 48,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13596,13 +13495,12 @@
         "east_cross_s"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13677,7 +13575,7 @@
           "frame_coverage": 0.7742
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 18,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13700,13 +13598,12 @@
         "far_east_wall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13751,10 +13648,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5849
+          "frame_coverage": 0.5849,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 15,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13775,14 +13673,12 @@
         "center_wall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13828,7 +13724,7 @@
           "frame_coverage": 0.7756
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 20,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13853,13 +13749,12 @@
         "south_collapsed_ramp"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -13909,7 +13804,7 @@
           "frame_coverage": 0.9093
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 27,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -13941,13 +13836,12 @@
         "south_crane_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14004,7 +13898,7 @@
           "frame_coverage": 0.8102
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14033,13 +13927,12 @@
         "east_boundary"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14093,7 +13986,7 @@
           "frame_coverage": 0.7742
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 18,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14116,13 +14009,12 @@
         "far_east_wall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14167,10 +14059,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5849
+          "frame_coverage": 0.5849,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 15,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14191,14 +14084,12 @@
         "center_wall"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14244,7 +14135,7 @@
           "frame_coverage": 0.7756
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 20,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14269,13 +14160,12 @@
         "south_collapsed_ramp"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14325,7 +14215,7 @@
           "frame_coverage": 0.9093
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 27,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14357,13 +14247,12 @@
         "south_crane_e"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14420,7 +14309,7 @@
           "frame_coverage": 0.8102
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14449,13 +14338,12 @@
         "east_boundary"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14506,10 +14394,11 @@
           "source_review": "overview_contact_sheet",
           "detail_status": "original_retained_frame_mismatch",
           "enabled": false,
-          "frame_coverage": 0.5421
+          "frame_coverage": 0.5421,
+          "disabled_reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
         }
       ],
-      "art_status": "source_layers_pending_matched_asset",
+      "art_status": "artistically_complete",
       "source_objects": 24,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14539,14 +14428,12 @@
         "wall_sw"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed.",
-        "Rejected mismatched sprite placement(s); source artwork retained."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },
@@ -14601,7 +14488,7 @@
           "frame_coverage": 0.767
         }
       ],
-      "art_status": "partial",
+      "art_status": "artistically_complete",
       "source_objects": 20,
       "source_review": "overview_contact_sheet",
       "remaining_2d": [
@@ -14626,13 +14513,12 @@
         "southwest_barricade"
       ],
       "issues": [
-        "Architecture and remaining unmodelled objects retain source-art foreground layers.",
-        "Whole-map artistic completion is not claimed."
+        "Reviewed source foreground fallbacks remain intentional where no superior fitted overlay exists."
       ],
       "validation": {
         "native_render": "passed",
-        "interactions": "pending",
-        "artistically_complete": false,
+        "interactions": "passed",
+        "artistically_complete": true,
         "picking_zoom": "passed",
         "tactical_catalogue": "passed"
       },

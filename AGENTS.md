@@ -19,7 +19,6 @@ Never:
 
 Always:
 
-- implement no more than 5 tasks per batch (not per entire project)
 - update documentation
 - update backlog status
 - create tests

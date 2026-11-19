@@ -1,5 +1,6 @@
 """Actual campaign consequences, shadow rollback, session validation and replay."""
 import copy,json
+from pathlib import Path
 from unittest.mock import patch
 import pytest
 from game.character import Character
@@ -8,6 +9,32 @@ from game.mission_templates import MissionTemplate
 from game.combat.godot_bridge import write_godot_combat_handoff
 from game.combat.session_protocol import create_session,validate_result
 from game.combat.godot_resolution import resolve_godot_result
+
+
+def test_real_mission_driver_cannot_force_terminal_state():
+    source = Path("godot/combat_missions_ui/tests/unified_real_mission_flow.gd").read_text(encoding="utf-8")
+    forbidden = (
+        "scene._end_combat(",
+        "scene._complete_mission(",
+        "scene.objective_completed =",
+        "scene.objective_completed=",
+        "scene._results.show_results(",
+    )
+    assert not any(token in source for token in forbidden)
+    assert "scene._move_active_unit_to(destination)" in source
+    assert "scene._interact_with_objective()" in source
+    assert "scene._resolve_enemy_turn()" in source
+
+
+def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
+    scene = Path("godot/combat_missions_ui/scripts/combat_mission_ui.gd").read_text(encoding="utf-8")
+    hud = Path("godot/combat_missions_ui/scripts/hud_controller.gd").read_text(encoding="utf-8")
+    visual = Path("godot/combat_missions_ui/scripts/visual_hud.gd").read_text(encoding="utf-8")
+    assert '["RETREAT", "NEXT", "END TURN"]' in hud
+    assert "RETRAITE [R]" in visual
+    assert 'if action_name == "RETREAT":' in scene
+    assert "if pending_retreat_confirmation:" in scene
+    assert '_end_combat("retreat")' in scene
 
 
 def scenario(tmp_path):

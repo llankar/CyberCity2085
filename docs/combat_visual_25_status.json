@@ -8,7 +8,8 @@
     "Couchages simples à un oreiller, lits de camp sur cadre ouvert et bancs métalliques à deux ou quatre places ; orientation du refuge corrigée et limites visuelles des cadres séparées des collisions.",
     "Profils de présentation des entités séparés des données tactiques ; robots de soutien à une échelle cohérente, détails des armures claires et ombres de véhicules différenciées.",
     "192 frames dessinées pour quatre références : agent en manteau, ennemi standard, power armor et robot de combat. Attente et marche en huit directions ; autres actions et unités encore à produire.",
-    "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames. Total 288 frames, six références marche/attente × huit directions ; zéro ensemble complet de neuf actions."
+    "Lot 2 : deux agentes distinctes animées (lames et pistolet magenta), +96 frames.",
+    "Vingt-six ensembles complets : toutes les actions applicables validées nativement, dont la tireuse à dreadlocks ; 26 ensembles complets et 0 partiel."
   ],
   "tasks": [
     {
@@ -23,36 +24,35 @@
     },
     {
       "name": "SCALE — inventaire",
-      "status": "En cours",
-      "detail": "Relever les profils estimés, ratios, illustrations partagées et repères à mesurer sur les 122 cartes."
+      "status": "Terminé",
+      "detail": "122 profils, 92 illustrations, alias, empreintes et repères visuels examinés."
     },
     {
       "name": "SCALE — calibration par décor",
-      "status": "À faire",
-      "detail": "Mesurer des repères visibles et appliquer des profils distincts sans modifier la tactique."
+      "status": "Terminé",
+      "detail": "Profils 0,015 urbain/wasteland et 0,020 intérieur/industrie appliqués sans modifier la tactique."
     },
     {
       "name": "SCALE — revue et preuves",
-      "status": "À faire",
-      "detail": "Comparaisons réelles des 122 cartes et trois résolutions ; aucune taille validée par un simple chargement."
+      "status": "Terminé",
+      "detail": "122 cartes rendues à trois résolutions ; onze planches 720p inspectées ; picking, zoom et ancrage vérifiés."
     }
   ],
   "validation": {
-    "reference": "lot 2 local, captures et tests vérifiés",
-    "evidence": "images/roster-batch2/README.md",
-    "summary": "122 rendus natifs et six références marche/attente vérifiés ; 61 cas automatisés distincts. Inventaire de 122 cartes / 92 illustrations et quatre diagnostics comparatifs à trois résolutions. Zéro carte approuvée artistiquement ou calibrée pour la nouvelle passe d’échelle.",
-    "signature": "8e7b72fcc1b90adbe7ea056c724a04ff26d92aaa379a335b8e4dd2e065f06cb8",
-    "source_scale_sha256": "178b71b2142cc8029a2c7b6d16f07ba7bc59f3fead4bd6a09acb1c53227e0eb5"
+    "reference": "native Windows entity-scale production review",
+    "evidence": "images/entity-scale-production-windows/README.md",
+    "summary": "122 rendus natifs à trois résolutions ; 11 planches 720p inspectées ; échelle 122/122, finition artistique 0/122.",
+    "signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+    "source_scale_sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
   },
   "remaining": [
-    "Étendre les animations aux 225 autres références éligibles et produire les actions manquantes sur les six premières. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
-    "SCALE-CATALOGUE : recalibrer PJ, PNJ, robots, armures et véhicules par rapport aux décors des 122 cartes. Zéro carte vérifiée pour cette nouvelle passe ; les ratios actuels restent des estimations.",
+    "Produire et vérifier les actions applicables des 205 autres références éligibles, à commencer par la prochaine référence ordonnée. Revoir les 46 silhouettes historiques au bord de leur frame ; les véhicules n’ont pas encore de nouveaux cycles.",
     "Reconstruire davantage de murs, cloisons et structures hautes avec des silhouettes et matériaux adaptés ; conserver leur organisation tactique.",
     "Traiter les ensembles composés et les objets obliques sans les remplacer par un bloc unique ou un modèle générique agrandi.",
     "Compléter les accessoires, les variantes usées et les raccords au sol sur les familles encore en rendu source.",
     "Poursuivre la finition et les animations des entités par rapport à la maquette, en préservant les proportions et les données du jeu.",
     "Effectuer la revue artistique détaillée carte par carte ; aucune carte n’est cochée comme terminée par un simple test de chargement.",
-    "Compléter les mesures de performances sur GPU joueur ; les contrôles disponibles utilisent le rendu logiciel llvmpipe."
+    "Conserver le benchmark Windows RTX 5070 Ti à jour après toute modification du rendu ; cette mesure ne définit pas la configuration minimale."
   ],
   "history": [
     {

@@ -15,6 +15,8 @@ func run() -> void:
 	var capture_quality := 2
 	var candidate_ratio := -1.0
 	var scale_comparison := "--scale-comparison" in args
+	var gpu_benchmark := "--gpu-benchmark" in args
+	var benchmark_frames := 360
 	var intended_depth := "--flat-environment" not in args
 	var reference_catalog := ""
 	var focus_object := ""
@@ -29,6 +31,7 @@ func run() -> void:
 		elif args[i]=="--human-ratio":candidate_ratio=float(args[i+1])
 		elif args[i]=="--reference-catalog":reference_catalog=args[i+1]
 		elif args[i]=="--focus-object":focus_object=args[i+1]
+		elif args[i]=="--benchmark-frames":benchmark_frames=maxi(120,int(args[i+1]))
 	DirAccess.make_dir_recursive_absolute(output)
 	# Persist completed maps across an interrupted desktop/environment session.
 	# A changed renderer or resource catalogue invalidates old checkpoints.
@@ -183,12 +186,49 @@ func run() -> void:
 			for annotation: Dictionary in preload("res://scripts/environment_catalog.gd").art_maps().get(name+".png",{}).get("props",[]):
 				if bool(annotation.enabled):expected_patches+=1+annotation.get("erase_overhang_uv",[]).size()
 			assert(completion_patches==expected_patches,"authored overhang masks must be rendered with their object")
-		catalogue_report.append({"human_ratio_requested":candidate_ratio,"human_ratio_applied":scene._battlefield.human_height_ratio,"scale_comparison_only":scale_comparison,"scale_calibration_status":"NOT VERIFIED","map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size()})
+		var benchmark: Dictionary={}
+		if gpu_benchmark:
+			benchmark=await benchmark_rendered_frames(benchmark_frames)
+		catalogue_report.append({"human_ratio_requested":candidate_ratio,"human_ratio_applied":scene._battlefield.human_height_ratio,"scale_comparison_only":scale_comparison,"scale_calibration_status":"NOT VERIFIED","map":name+".png","elapsed_ms":(Time.get_ticks_usec()-started_usec)/1000.0,"static_memory_bytes":OS.get_static_memory_usage(),"props":scene._visual_obstacles.size(),"rendered_sprites":active_sprites,"projection":"top_down" if scene._battlefield.top_down else "isometric","native_render":true,"projection_and_zoom_checked":polish or art_review,"capture_signature":fingerprint,"entity_families_checked":"--entities" in args,"vehicle_count":scene.vehicle_units.size(),"gpu_benchmark":benchmark})
 		var report:=FileAccess.open(output.path_join("native-report.json"),FileAccess.WRITE)
 		report.store_string(JSON.stringify(catalogue_report,"  "));report.close()
 		scene.queue_free();await process_frame
 	print("COMBAT_21_CAPTURE_PASSED")
 	quit()
+
+func benchmark_rendered_frames(frame_count: int) -> Dictionary:
+	# Render-changing workload: camera movement, unit animation, environment depth
+	# and HUD remain active. Tactical state and collision data are untouched.
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	for warmup in range(60):
+		scene._camera.position.x+=sin(float(warmup)*.17)*.08
+		await RenderingServer.frame_post_draw
+	var samples: Array[float]=[]
+	var started:=Time.get_ticks_usec()
+	for frame in range(frame_count):
+		scene._camera.position+=Vector2(sin(float(frame)*.11),cos(float(frame)*.07))*.22
+		scene._camera.zoom=Vector2.ONE*(scene._overview_zoom()*(1.0+sin(float(frame)*.031)*.025))
+		var before:=Time.get_ticks_usec()
+		await RenderingServer.frame_post_draw
+		samples.append((Time.get_ticks_usec()-before)/1000.0)
+	var elapsed_ms:=(Time.get_ticks_usec()-started)/1000.0
+	samples.sort()
+	var total:=0.0
+	for sample in samples:total+=sample
+	var p95_index:=mini(samples.size()-1,int(ceil(samples.size()*.95))-1)
+	return {
+		"adapter":RenderingServer.get_video_adapter_name(),
+		"vendor":RenderingServer.get_video_adapter_vendor(),
+		"renderer":RenderingServer.get_current_rendering_method(),
+		"frames":frame_count,
+		"elapsed_ms":elapsed_ms,
+		"average_frame_ms":total/samples.size(),
+		"p95_frame_ms":samples[p95_index],
+		"minimum_fps":1000.0/maxf(samples[p95_index],.001),
+		"average_fps":float(frame_count)*1000.0/maxf(elapsed_ms,.001),
+		"static_memory_bytes":OS.get_static_memory_usage(),
+		"peak_static_memory_bytes":OS.get_static_memory_peak_usage()
+	}
 func verify_interactions() -> void:
 	var board=scene._battlefield
 	var before := JSON.stringify([scene.player_units,scene.enemy_units,scene.cover_nodes,scene.objective])

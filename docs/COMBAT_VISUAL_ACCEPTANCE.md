@@ -38,14 +38,14 @@ Les tests réussis prouvent uniquement leurs assertions. Un JUnit absent donne d
 | ANIMATIONS | Véritables poses multidirectionnelles et actions complètes | Audit des atlas, huit directions et frames distinctes. Contrat actuel : idle, move, fire, melee, cover, hit, death, psi, heal. Documenter l’applicabilité réelle par famille avant toute exemption ; ne pas supprimer un critère pour gonfler la couverture. |
 | FUNCTIONAL | Sélection, clics, déplacement, ciblage, LOS, IA, PA, tours et fallbacks préservés | Tests et captures des interactions réelles sur plusieurs familles ; pas de déduction depuis un test de chargement. |
 | RESOLUTIONS | Présentation et interactions propres en 1280×720, 1920×1080 et 2560×1440 | Captures et revue de lisibilité, contraste, ancrage, HUD, occultation, zoom et coordonnées. |
-| PERFORMANCE | Performance et mémoire acceptables sur matériel représentatif | Mesures à établir sur GPU joueur ; llvmpipe seul ne valide pas ce critère. |
+| PERFORMANCE | Performance et mémoire acceptables sur matériel représentatif | Benchmark natif Windows reproductible : FPS, p95, CPU, GPU et mémoire sur RTX 5070 Ti ; portée matérielle explicitement limitée. |
 | REGISTER | Suivi avec statuts, fichiers, contrôles, preuves, reste et blocages | DONE sans preuve ou avec travail restant dans sa portée échoue ; BLOCKED nécessite une raison. |
 | TASK-COMPLETION | Toutes les tâches obligatoires du registre DONE | Les tâches des lots suivants restent dans le dénominateur. Un registre vide ne vaut pas terminé. |
 | TARGETED-TESTS | Tests du lot exécutés et résultats traçables | Lecture du JUnit lié par SHA-256. La portée du lot est indépendante des critères artistiques et fonctionnels globaux. |
 
 ## Enregistrer une revue sans inventer de preuve
 
-Dans `docs/CODEX_PROGRESS.json`, `reviews` peut contenir un enregistrement par identifiant de critère : `status` PASS/FAIL, `scope` décrivant toute la portée effectivement revue, `render_signature` du rapport courant et `evidence` avec des objets `{path, sha256}`. La revue doit être réellement effectuée ; ne pas écrire PASS pour faire passer le contrôle. Chaque fichier doit exister dans le dépôt et correspondre à son empreinte. Une modification du rendu ou des ressources rend la revue périmée.
+Dans `docs/CODEX_PROGRESS.json`, `reviews` peut contenir un enregistrement par identifiant de critère : `status` PASS/FAIL, `scope` décrivant toute la portée effectivement revue, `render_signature` du rapport courant et `evidence` avec des objets `{path, sha256}`. La revue doit être réellement effectuée ; ne pas écrire PASS pour faire passer le contrôle. Chaque fichier doit exister dans le dépôt et correspondre à son empreinte. Une modification du rendu commun, des ressources de décor ou des profils de présentation des cartes rend la revue des cartes périmée. Les atlas d’unités sont suivis séparément par leurs manifestes, SHA-256, audits et captures natives ciblées : leur ajout seul ne déclenche pas une recapture des 122 cartes. Une modification globale d’échelle, caméra, tri, occultation ou rendu commun exige toujours une nouvelle validation complète des 122 cartes.
 
 Le script vérifie la traçabilité des preuves ; **il ne juge pas automatiquement la qualité artistique d’une image**. Une revue d’une seule carte ne peut pas être enregistrée comme une revue des 122 cartes.
 

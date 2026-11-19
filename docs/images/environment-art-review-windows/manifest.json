@@ -1,0 +1,423 @@
+{
+  "maps": 122,
+  "pages": [
+    {
+      "file": "art-review-01.jpg",
+      "maps": [
+        "city_district_apartment_block.png",
+        "city_district_civic_center.png",
+        "city_district_holo_square.png",
+        "city_district_riot_square.png",
+        "city_district_tech_market.png",
+        "city_exterior_billboard_avenue.png"
+      ]
+    },
+    {
+      "file": "art-review-02.jpg",
+      "maps": [
+        "city_exterior_corporate_plaza.png",
+        "city_exterior_downtown_intersection.png",
+        "city_exterior_elevated_freeway.png",
+        "city_exterior_neon_market_alley.png",
+        "city_exterior_parking_garage.png",
+        "city_exterior_rooftop_access.png"
+      ]
+    },
+    {
+      "file": "art-review-03.jpg",
+      "maps": [
+        "city_exterior_waterfront_docks.png",
+        "city_industrial_data_vault.png",
+        "city_industrial_dockside_terminal.png",
+        "city_industrial_factory_floor.png",
+        "city_industrial_power_substation.png",
+        "city_industrial_security_checkpoint.png"
+      ]
+    },
+    {
+      "file": "art-review-04.jpg",
+      "maps": [
+        "city_industrial_service_tunnel.png",
+        "city_industrial_warehouse_floor.png",
+        "city_interior_blacksite_lab.png",
+        "city_interior_command_deck.png",
+        "city_interior_control_center.png",
+        "city_interior_corporate_lobby.png"
+      ]
+    },
+    {
+      "file": "art-review-05.jpg",
+      "maps": [
+        "city_interior_cyber_cafe.png",
+        "city_interior_medical_clinic.png",
+        "city_interior_penthouse_atrium.png",
+        "city_interior_police_records.png",
+        "city_interior_research_lab.png",
+        "city_interior_safehouse.png"
+      ]
+    },
+    {
+      "file": "art-review-06.jpg",
+      "maps": [
+        "city_interior_server_room.png",
+        "city_rooftop_skybridge_spine.png",
+        "city_transit_freight_yard.png",
+        "city_transit_metro_interchange.png",
+        "city_transit_subway_platform.png",
+        "city_transit_train_tunnel.png"
+      ]
+    },
+    {
+      "file": "art-review-07.jpg",
+      "maps": [
+        "cybercity_inner_01_control_center.png",
+        "cybercity_inner_02_safehouse.png",
+        "cybercity_inner_03_research_lab.png",
+        "cybercity_inner_04_medical_clinic.png",
+        "cybercity_inner_05_server_room.png",
+        "cybercity_inner_06_blacksite_lab.png"
+      ]
+    },
+    {
+      "file": "art-review-08.jpg",
+      "maps": [
+        "cybercity_inner_07_corporate_lobby.png",
+        "cybercity_inner_08_police_records.png",
+        "cybercity_inner_09_apartment_block.png",
+        "cybercity_inner_10_penthouse_atrium.png",
+        "cybercity_inner_11_cyber_cafe.png",
+        "cybercity_inner_12_maintenance_tunnel.png"
+      ]
+    },
+    {
+      "file": "art-review-09.jpg",
+      "maps": [
+        "cybercity_inner_13_warehouse_floor.png",
+        "cybercity_inner_14_detention_block.png",
+        "cybercity_inner_15_data_vault.png",
+        "cybercity_street_01_downtown_intersection.png",
+        "cybercity_street_02_neon_market_alley.png",
+        "cybercity_street_03_elevated_freeway.png"
+      ]
+    },
+    {
+      "file": "art-review-10.jpg",
+      "maps": [
+        "cybercity_street_04_waterfront_docks.png",
+        "cybercity_street_05_civic_plaza.png",
+        "cybercity_street_06_downtown_intersection.png",
+        "cybercity_street_06_transit_interchange.png",
+        "cybercity_street_07_downtown_intersection.png",
+        "cybercity_street_07_neon_market_alley.png"
+      ]
+    },
+    {
+      "file": "art-review-11.jpg",
+      "maps": [
+        "cybercity_street_08_elevated_freeway.png",
+        "cybercity_street_08_neon_market_alley.png",
+        "cybercity_street_09_elevated_freeway.png",
+        "cybercity_street_09_waterfront_docks.png",
+        "cybercity_street_10_civic_plaza.png",
+        "cybercity_street_10_waterfront_docks.png"
+      ]
+    },
+    {
+      "file": "art-review-12.jpg",
+      "maps": [
+        "cybercity_street_11_civic_plaza.png",
+        "cybercity_street_11_transit_interchange.png",
+        "cybercity_street_12_industrial_district.png",
+        "cybercity_street_12_transit_interchange.png",
+        "cybercity_street_13_flood_prone_avenue.png",
+        "cybercity_street_13_industrial_district.png"
+      ]
+    },
+    {
+      "file": "art-review-13.jpg",
+      "maps": [
+        "cybercity_street_14_bridge_access.png",
+        "cybercity_street_14_flood_prone_avenue.png",
+        "cybercity_street_15_billboard_avenue.png",
+        "cybercity_street_15_bridge_access.png",
+        "cybercity_street_16_billboard_avenue.png",
+        "wasteland_city_01_ruined_downtown.png"
+      ]
+    },
+    {
+      "file": "art-review-14.jpg",
+      "maps": [
+        "wasteland_city_02_burned_market_block.png",
+        "wasteland_city_03_collapsed_overpass.png",
+        "wasteland_city_04_flooded_civic_square.png",
+        "wasteland_city_05_scavenger_plaza.png",
+        "wasteland_city_06_ruined_downtown.png",
+        "wasteland_city_07_burned_market_block.png"
+      ]
+    },
+    {
+      "file": "art-review-15.jpg",
+      "maps": [
+        "wasteland_city_08_collapsed_overpass.png",
+        "wasteland_city_09_flooded_civic_square.png",
+        "wasteland_city_10_scavenger_plaza.png",
+        "wasteland_city_11_ruined_transit_plaza.png",
+        "wasteland_city_12_cratered_waterfront.png",
+        "wasteland_inner_01_abandoned_safehouse.png"
+      ]
+    },
+    {
+      "file": "art-review-16.jpg",
+      "maps": [
+        "wasteland_inner_02_collapsed_tunnel.png",
+        "wasteland_inner_03_ruined_clinic.png",
+        "wasteland_inner_04_bunker_command_post.png",
+        "wasteland_inner_05_looted_vault.png",
+        "wasteland_inner_06_abandoned_safehouse.png",
+        "wasteland_inner_06_maintenance_depot.png"
+      ]
+    },
+    {
+      "file": "art-review-17.jpg",
+      "maps": [
+        "wasteland_inner_07_apartment_shelter.png",
+        "wasteland_inner_07_collapsed_tunnel.png",
+        "wasteland_inner_08_data_relay_room.png",
+        "wasteland_inner_08_ruined_clinic.png",
+        "wasteland_inner_09_bunker_command_post.png",
+        "wasteland_inner_09_underground_market.png"
+      ]
+    },
+    {
+      "file": "art-review-18.jpg",
+      "maps": [
+        "wasteland_inner_10_detention_block.png",
+        "wasteland_inner_10_looted_vault.png",
+        "wasteland_inner_11_emergency_medbay.png",
+        "wasteland_inner_11_maintenance_depot.png",
+        "wasteland_inner_12_apartment_shelter.png",
+        "wasteland_inner_13_data_relay_room.png"
+      ]
+    },
+    {
+      "file": "art-review-19.jpg",
+      "maps": [
+        "wasteland_inner_14_underground_market.png",
+        "wasteland_inner_15_detention_block.png",
+        "wasteland_outdoor_01_dust_road_ambush.png",
+        "wasteland_outdoor_02_ashfield_ruins.png",
+        "wasteland_outdoor_03_wrecked_highway.png",
+        "wasteland_outdoor_04_rusted_trainyard.png"
+      ]
+    },
+    {
+      "file": "art-review-20.jpg",
+      "maps": [
+        "wasteland_outdoor_05_irradiated_basin.png",
+        "wasteland_outdoor_06_dust_road_ambush.png",
+        "wasteland_outdoor_07_ashfield_ruins.png",
+        "wasteland_outdoor_08_wrecked_highway.png",
+        "wasteland_outdoor_09_rusted_trainyard.png",
+        "wasteland_outdoor_10_irradiated_basin.png"
+      ]
+    },
+    {
+      "file": "art-review-21.jpg",
+      "maps": [
+        "wasteland_outdoor_11_convoy_crossing.png",
+        "wasteland_outdoor_12_salt_flat_ambush.png"
+      ]
+    }
+  ],
+  "review_status": "PASS",
+  "maps_reviewed": 122,
+  "pages_inspected": 21,
+  "corrected_flat_overlays": [
+    {
+      "map": "city_district_civic_center.png",
+      "id": "art25_south_bench",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_exterior_billboard_avenue.png",
+      "id": "art25_detail_north_planter_1",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_exterior_corporate_plaza.png",
+      "id": "art25_detail_planter_e1",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_industrial_dockside_terminal.png",
+      "id": "art25_detail_central_container_blue",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_industrial_dockside_terminal.png",
+      "id": "art25_detail_central_container_green",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_industrial_power_substation.png",
+      "id": "art25_west_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_industrial_service_tunnel.png",
+      "id": "art25_nw_room_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_interior_command_deck.png",
+      "id": "art25_detail_east_mid_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_interior_cyber_cafe.png",
+      "id": "art25_detail_desk_s",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_interior_medical_clinic.png",
+      "id": "art25_central_sofa_n",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_interior_research_lab.png",
+      "id": "art25_detail_east_south_desk",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "city_transit_freight_yard.png",
+      "id": "art25_crate_north",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_inner_01_control_center.png",
+      "id": "art25_south_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_inner_02_safehouse.png",
+      "id": "art25_detail_east_crates",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_inner_03_research_lab.png",
+      "id": "art25_north_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_inner_06_blacksite_lab.png",
+      "id": "art25_north_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_inner_14_detention_block.png",
+      "id": "art25_detail_west_desk",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_01_downtown_intersection.png",
+      "id": "art25_detail_bin_mid",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_09_waterfront_docks.png",
+      "id": "art25_south_bins",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_10_civic_plaza.png",
+      "id": "art25_car_e",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_10_waterfront_docks.png",
+      "id": "art25_south_bins",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_11_civic_plaza.png",
+      "id": "art25_car_e",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_15_billboard_avenue.png",
+      "id": "art25_crate_mid",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_16_billboard_avenue.png",
+      "id": "art25_crate_mid",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_city_03_collapsed_overpass.png",
+      "id": "art25_wreck_center",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_city_04_flooded_civic_square.png",
+      "id": "art25_car_e",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_city_08_collapsed_overpass.png",
+      "id": "art25_wreck_center",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_city_09_flooded_civic_square.png",
+      "id": "art25_car_e",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_04_bunker_command_post.png",
+      "id": "art25_command_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_04_bunker_command_post.png",
+      "id": "art25_detail_sw_bed",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_06_maintenance_depot.png",
+      "id": "art25_middle_workbench",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_09_bunker_command_post.png",
+      "id": "art25_command_console",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_09_bunker_command_post.png",
+      "id": "art25_detail_sw_bed",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_11_maintenance_depot.png",
+      "id": "art25_middle_workbench",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_outdoor_02_ashfield_ruins.png",
+      "id": "art25_wreck_w",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_outdoor_07_ashfield_ruins.png",
+      "id": "art25_wreck_w",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_outdoor_11_convoy_crossing.png",
+      "id": "art25_wreck_nmid",
+      "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    }
+  ],
+  "scope": "Manual environment-art review at 720p after native 720p/1080p/1440p rendering; source fallbacks allowed when visually coherent."
+}

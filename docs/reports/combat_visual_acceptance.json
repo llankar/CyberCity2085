@@ -1,13 +1,13 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 28,
-    "total": 39
+    "done": 37,
+    "total": 41
   },
   "maps": {
     "native_verified": 0,
     "native_expected": 122,
-    "artistically_declared": 0,
+    "artistically_declared": 122,
     "artistic_verified": 0
   },
   "resources": {
@@ -18,24 +18,18 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 0,
-    "partial": 6,
+    "complete": 26,
+    "partial": 0,
     "expected": 231
   },
   "tests": {
-    "passed": 61,
-    "failed": 0,
-    "skipped": 0,
-    "not_executed": [
-      "Calibration approuvée des 122 cartes",
-      "Revue artistique complète des 122 cartes",
-      "Actions de combat manquantes et autres unités",
-      "Benchmark GPU joueur",
-      "Suite intégrale du jeu"
-    ],
-    "scope": "61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit"
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "not_executed": "UNKNOWN",
+    "scope": "Aucun résultat JUnit enregistré."
   },
-  "render_signature": "9e8415f6fc8e5b2b293245f48d261354bb8fdfa7d62e87f98edcd4f604e996d4",
+  "render_signature": "a4aa194f88eb9342c7fe4884c0b24ccb16a90dd14dab2bbce734785e6b82a825",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -54,7 +48,7 @@
       "status": "NOT VERIFIED",
       "detail": "0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
-        "docs/images/roster-batch2/native-report.json",
+        "docs/images/entity-scale-production-windows/native-report.json",
         "docs/combat_visual_25_status.json"
       ]
     },
@@ -62,8 +56,8 @@
       "id": "MAP-ART",
       "title": "Finition artistique de chaque carte",
       "mandatory": true,
-      "status": "FAIL",
-      "detail": "0 / 122 cartes déclarées finalisées ; revue artistique complète absente.",
+      "status": "NOT VERIFIED",
+      "detail": "Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "godot/combat_missions_ui/art/environment/environment_art.json"
       ]
@@ -83,16 +77,21 @@
       "title": "Silhouettes, matériaux et intégration des objets",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue explicite et preuves non enregistrées.",
-      "evidence": []
+      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/images/environment-art-review-windows/manifest.json"
+      ]
     },
     {
       "id": "UNIT-SCALE",
       "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "0 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue explicite et preuves non enregistrées.",
-      "evidence": []
+      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/images/entity-scale-production-windows/native-report.json"
+      ]
     },
     {
       "id": "UNIT-ART",
@@ -123,15 +122,17 @@
       "title": "Performances et mémoire sur matériel joueur",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "Rendu logiciel llvmpipe disponible ; benchmark représentatif sur GPU joueur absent. Revue explicite et preuves non enregistrées.",
-      "evidence": []
+      "detail": "Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/reports/windows_gpu_benchmark_system.json"
+      ]
     },
     {
       "id": "ANIMATIONS",
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "0 / 231 ensembles complets selon le contrat actuel de neuf clips ; 6 partiels. Applicabilité par famille à documenter avant toute exemption.",
+      "detail": "26 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -150,10 +151,10 @@
       "id": "TARGETED-TESTS",
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "{'passed': 61, 'failed': 0, 'skipped': 0, 'not_executed': ['Calibration approuvée des 122 cartes', 'Revue artistique complète des 122 cartes', 'Actions de combat manquantes et autres unités', 'Benchmark GPU joueur', 'Suite intégrale du jeu'], 'scope': '61 cas distincts réellement exécutés : suite native ciblée précédente et tests du suivi, inventaire de scale et invalidation des preuves ; quatre captures natives comparatives supplémentaires hors JUnit'}",
+      "status": "NOT VERIFIED",
+      "detail": "{'passed': None, 'failed': None, 'skipped': None, 'not_executed': 'UNKNOWN', 'scope': 'Aucun résultat JUnit enregistré.'}",
       "evidence": [
-        "docs/reports/current_combat_visual_tests.xml"
+        "docs/reports/current_unified_progress_tests.xml"
       ]
     },
     {
@@ -161,7 +162,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "28 / 39 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "37 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -177,7 +178,8 @@
     "RESOLUTIONS",
     "PERFORMANCE",
     "ANIMATIONS",
+    "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "UNIFIED : vérifier une mission de campagne jusqu’à sa condition de fin réelle, sans issue forcée, puis mesurer le chargement avant de décider du préchauffage. Windows (focus, Alt+Tab, DPI, moniteurs) et validation auditive restent bloqués/non vérifiés. L’état tactique est maintenant repris ; RNG futur/animations en cours ne sont pas sérialisés."
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique."
 }

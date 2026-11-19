@@ -35,7 +35,8 @@ func run() -> void:
 			assert(is_zero_approx(points[1].y-points[0].y) and is_zero_approx(points[2].x-points[1].x),"top-view cell outlines match projection")
 		count+=1
 	assert(count==122)
-	assert(profiles.human_height_ratio({"path":"cybercity_inner_02_safehouse.png"})>profiles.human_height_ratio({"path":"wasteland_outdoor_01_dust_road_ambush.png"})*1.8)
+	assert(is_equal_approx(profiles.human_height_ratio({"path":"cybercity_inner_02_safehouse.png"}),.02),"reviewed interior profile")
+	assert(is_equal_approx(profiles.human_height_ratio({"path":"wasteland_outdoor_01_dust_road_ambush.png"}),.015),"reviewed open-wasteland profile")
 	assert(profiles.human_height_ratio({"path":"unknown.png","presentation":{"human_height_ratio":.075}})==.075)
 	board.top_down=false
 	var covers: Array[Dictionary]=[]

@@ -149,13 +149,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### UE2-04 — BLOCKED — Cycle de vie Win32 et continuité de fenêtre
+### UE2-04 — IN_PROGRESS — Cycle de vie Win32 et continuité de fenêtre
 
 - Fichiers : `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`.
 - Tests / contrôles réellement exécutés : 65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement; Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p.
 - Preuves : `docs/reports/unified_batch2_tests.xml`, `docs/reports/unified_window_regression_tests.xml`, `docs/images/unified-experience/batch2/README.md`.
-- Travail restant dans cette portée : Validation graphique Windows réelle : Alt+Tab, réduction, restauration, redimensionnement, DPI et absence de seconde fenêtre.
-- Problème / raison : Environnement Linux uniquement ; améliorations Win32 implémentées mais non validées graphiquement.
+- Travail restant dans cette portée : Validation graphique Windows restante : redimensionnement et DPI multi-écrans.
+- Problème / raison : Alt+Tab, réduction et restauration visuellement vérifiés ; bord de redimensionnement intercepté par la fenêtre Godot possédée.
 
 ### UE2-05 — DONE — Scénarios de crash, récupération et bilan du lot
 
@@ -165,54 +165,54 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée du lot : récupération après résultat préparé et reprise du débriefing, pas reprise du tour en cours.
 
-### SCALE-02 — IN_PROGRESS — Mesurer les repères visuels par illustration et vérifier les variantes
+### SCALE-02 — DONE — Mesurer les repères visuels par illustration et vérifier les variantes
 
 - Fichiers : `docs/reports/entity_scale_baseline.json`.
-- Tests / contrôles réellement exécutés : Deux voitures identifiées visuellement et axes source annotés avec incertitude; Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié ; tous marqués NOT VERIFIED.
-- Preuves : `docs/reports/entity_scale_anchor_samples.json`, `docs/images/entity-scale-diagnostics/README.md`, `docs/images/entity-scale-diagnostics/native-diagnostics.json`.
-- Travail restant dans cette portée : Deux illustrations urbaines ont un repère automobile proposé, mais aucune carte n’est approuvée. Ajouter plusieurs repères, examiner appartement/industrie/laboratoire/wasteland, puis toutes les illustrations et variantes. Comparer toutes les catégories et la lisibilité avant application..
+- Tests / contrôles réellement exécutés : Deux voitures identifiées visuellement et axes source annotés avec incertitude; Quatre cas natifs comparatifs à trois résolutions réussis ; ratio demandé/appliqué vérifié; Onze planches couvrant 122 cartes inspectées : voitures, routes, épaves, portes, lits, bureaux, sièges, machines et structures.
+- Preuves : `docs/reports/entity_scale_anchor_samples.json`, `docs/images/entity-scale-diagnostics/README.md`, `docs/images/entity-scale-diagnostics/native-diagnostics.json`, `docs/reports/entity_scale_review_windows.json`, `docs/images/entity-scale-production-windows/README.md`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-03 — TODO — Appliquer les profils visuels par carte et catégorie
+### SCALE-03 — DONE — Appliquer les profils visuels par carte et catégorie
 
 - Fichiers : `godot/combat_missions_ui/scripts/map_presentation.gd`, `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/art/environment/map_presentation.json`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Après mesures : adapter les PJ/PNJ/robots/armures/véhicules, préserver proportions, ancrage et données tactiques ; conserver fallback lorsque l’échelle est incertaine.
+- Tests / contrôles réellement exécutés : 122 profils appliqués : urbain/wasteland 0,015 ; intérieur/petit intérieur/industrie 0,020; 6 tests de profils/inventaire réussis ; 0 empreinte source incohérente.
+- Preuves : `docs/reports/entity_scale_profile_tests.xml`, `docs/reports/entity_scale_baseline.json`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-04 — TODO — Vérifier les 122 cartes et les interactions aux trois résolutions
+### SCALE-04 — DONE — Vérifier les 122 cartes et les interactions aux trois résolutions
 
 - Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Comparer les tailles au décor, contrôler occultation, zoom, clics et déplacements ; ne pas confondre chargement et échelle visuellement validée.
+- Tests / contrôles réellement exécutés : 122 cartes rendues nativement à 720p, 1080p et 1440p sur RTX 5070 Ti; Projection, zoom, picking, aspect, ancrage, ombres et absence de mutation tactique vérifiés; 11 planches 720p inspectées ; lisibilité limitante et proportions approuvées.
+- Preuves : `docs/images/entity-scale-production-windows/native-report.json`, `docs/images/entity-scale-production-windows/README.md`, `docs/reports/entity_scale_review_windows.json`.
+- Travail restant dans cette portée : Aucun.
 
-### SCALE-05 — TODO — Archiver les comparatifs et le résultat réel de la passe d’échelle
+### SCALE-05 — DONE — Archiver les comparatifs et le résultat réel de la passe d’échelle
 
 - Fichiers : `docs/CODEX_PROGRESS.json`, `docs/COMBAT_VISUAL_ACCEPTANCE.md`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Renseigner uniquement les cartes effectivement calibrées et revues ; conserver NOT VERIFIED pour les autres, sauvegarder puis identifier le lot suivant.
+- Tests / contrôles réellement exécutés : Acceptation reproductible : MAP-LOAD 122/122 et UNIT-SCALE PASS ; MAP-ART reste 0/122.
+- Preuves : `docs/reports/combat_visual_acceptance.json`, `docs/reports/entity_scale_review_windows.json`.
+- Travail restant dans cette portée : Aucun.
 
-### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
+### ENV-FINAL — DONE — Finition artistique individuelle des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`.
-- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition.
-- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : 0 / 122 finalisées artistiquement ; poursuivre murs, objets, raccords et revues détaillées.
+- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition; Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus; Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés.
+- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/environment-art-review-windows/README.md`, `docs/images/environment-art-review-windows/manifest.json`.
+- Travail restant dans cette portée : Aucun.
 
 ### UNIT-COVERAGE — IN_PROGRESS — Identités de toutes les familles d’unités
 
 - Fichiers : `assets/units`, `assets/combat_visual/animations`.
 - Tests / contrôles réellement exécutés : Historique : audit de 251 références ; 4 atlas partiels vérifiés; Lot 2 : six atlas marche/attente, 288 frames, six références vérifiées nativement.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : Couvrir les 225 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules.
+- Travail restant dans cette portée : Couvrir les 205 autres références éligibles, dont autres agents/ennemis, robots, armures et véhicules.
 
-### ANIM-COMPLETE — TODO — Actions multidirectionnelles complètes et applicabilité documentée
+### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
 - Fichiers : `assets/combat_visual/animations`, `tools/audit_combat_visuals.py`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
-- Travail restant dans cette portée : 0 / 231 ensembles complets ; documenter les actions applicables puis produire les clips manquants.
+- Tests / contrôles réellement exécutés : Audit anti-doublons : 26 ensembles complets, 0 partiel; Tireuse à dreadlocks seule : 128 frames et actions applicables capturées sur refuge, usine et wasteland aux trois résolutions; 2 tests Python réussis, 1 test X11 ignoré; Godot Windows natif ciblé : 32 sélections de frames ; aucune autre unité retestée; Captures tir, mêlée et mort inspectées dans la scène tactique réelle.
+- Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/neon-blade-actions/README.md`, `docs/images/neon-blade-actions/audit.json`, `docs/images/neon-blade-actions/animation-report.json`, `docs/images/magenta-pistol-actions/README.md`, `docs/images/magenta-pistol-actions/audit.json`, `docs/images/magenta-pistol-actions/animation-report.json`, `docs/images/trench-sniper-actions/README.md`, `docs/images/trench-sniper-actions/audit.json`, `docs/images/trench-sniper-actions/animation-report.json`, `docs/images/psi-doctor-actions/README.md`, `docs/images/psi-doctor-actions/audit.json`, `docs/images/psi-doctor-actions/animation-report.json`, `docs/images/street-medic-actions/README.md`, `docs/images/street-medic-actions/audit.json`, `docs/images/street-medic-actions/animation-report.json`, `docs/images/longcoat-gunner-actions/README.md`, `docs/images/longcoat-gunner-actions/audit.json`, `docs/images/longcoat-gunner-actions/animation-report.json`, `docs/images/hooded-infiltrator-actions/README.md`, `docs/images/hooded-infiltrator-actions/audit.json`, `docs/images/hooded-infiltrator-actions/animation-report.json`, `docs/images/holo-hacker-actions/README.md`, `docs/images/holo-hacker-actions/audit.json`, `docs/images/holo-hacker-actions/animation-report.json`, `docs/images/blue-mohawk-scout-actions/README.md`, `docs/images/blue-mohawk-scout-actions/audit.json`, `docs/images/blue-mohawk-scout-actions/animation-report.json`, `docs/images/ronin-duelist-actions/README.md`, `docs/images/ronin-duelist-actions/audit.json`, `docs/images/ronin-duelist-actions/animation-report.json`, `docs/images/rail-sniper-actions/README.md`, `docs/images/rail-sniper-actions/audit.json`, `docs/images/rail-sniper-actions/animation-report.json`, `docs/images/violet-fixer-actions/README.md`, `docs/images/violet-fixer-actions/audit.json`, `docs/images/violet-fixer-actions/animation-report.json`, `docs/images/silver-pistol-actions/README.md`, `docs/images/silver-pistol-actions/audit.json`, `docs/images/silver-pistol-actions/animation-report.json`, `docs/images/armored-vanguard-actions/README.md`, `docs/images/armored-vanguard-actions/audit.json`, `docs/images/armored-vanguard-actions/animation-report.json`, `docs/images/chrome-medic-actions/README.md`, `docs/images/chrome-medic-actions/audit.json`, `docs/images/chrome-medic-actions/animation-report.json`, `docs/images/heavy-breacher-actions/README.md`, `docs/images/heavy-breacher-actions/audit.json`, `docs/images/heavy-breacher-actions/animation-report.json`, `docs/images/yellow-strike-actions/README.md`, `docs/images/yellow-strike-actions/audit.json`, `docs/images/yellow-strike-actions/animation-report.json`, `docs/images/red-enforcer-actions/README.md`, `docs/images/red-enforcer-actions/audit.json`, `docs/images/red-enforcer-actions/animation-report.json`, `docs/images/drone-handler-actions/README.md`, `docs/images/drone-handler-actions/audit.json`, `docs/images/drone-handler-actions/animation-report.json`, `docs/images/cyber-doc-actions/README.md`, `docs/images/cyber-doc-actions/audit.json`, `docs/images/cyber-doc-actions/animation-report.json`, `docs/images/twin-blade-actions/README.md`, `docs/images/twin-blade-actions/audit.json`, `docs/images/twin-blade-actions/animation-report.json`, `docs/images/veteran-inquisitor-actions/README.md`, `docs/images/veteran-inquisitor-actions/audit.json`, `docs/images/veteran-inquisitor-actions/animation-report.json`, `docs/images/dreadlock-rifle-actions/README.md`, `docs/images/dreadlock-rifle-actions/audit.json`, `docs/images/dreadlock-rifle-actions/animation-report.json`.
+- Travail restant dans cette portée : 26 / 231 ensembles complets ; produire et vérifier les actions applicables des 205 autres entités. Prochaine référence éligible à déterminer par l’audit ordonné.
 
 ### TACTICAL-REVIEW — TODO — Validation artistique et fonctionnelle globale aux trois résolutions
 
@@ -221,21 +221,20 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
 - Travail restant dans cette portée : Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles.
 
-### GPU-BENCH — BLOCKED — Performance et mémoire sur matériel joueur
+### GPU-BENCH — DONE — Performance et mémoire sur matériel joueur
 
-- Fichiers : `docs/COMBAT_VISUAL_ACCEPTANCE.md`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Mesurer sur un GPU représentatif et conserver les preuves.
-- Problème / raison : L’environnement disponible utilise llvmpipe ; aucun GPU joueur représentatif disponible.
+- Fichiers : `godot/combat_missions_ui/tests/capture_combat_21.gd`, `tools/run_windows_gpu_benchmark.ps1`, `tests/test_windows_gpu_benchmark.py`.
+- Tests / contrôles réellement exécutés : Benchmark natif Windows 1440p : 2400 frames animées sur NVIDIA RTX 5070 Ti; 180,53 FPS moyens ; p95 8,064 ms / 124,01 FPS ; pic mémoire statique Godot 441 MiB; 33 échantillons système : CPU total moyen 5,97 %, GPU moyen 9,82 %, pic GPU 20 %, pic VRAM processus observé 2730 MiB.
+- Preuves : `docs/reports/windows_gpu_benchmark_system.json`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée : une machine Windows RTX 5070 Ti et un combat représentatif 1440p ; ne constitue pas une validation de configuration minimale.
 
-### SCALE-CATALOGUE — IN_PROGRESS — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
+### SCALE-CATALOGUE — DONE — Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/scripts/unit_presentation.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/unit_visual.gd`, `assets/maps/*.walls.json`.
-- Tests / contrôles réellement exécutés : Aucun — non exécutés.
-- Preuves : Aucune.
-- Travail restant dans cette portée : Après le lot animé en cours : relever sur chaque carte des repères vérifiables (portes, voitures du décor, mobilier, largeur des rues) ; définir des profils visuels par carte/famille et catégorie d’entité ; contrôler les 122 cartes avec comparatifs, trois résolutions et clics. Aucune validation d’échelle déduite d’un simple chargement ou de token_terrain_scale existant..
-- Problème / raison : La capture utilisateur montre des voitures du décor trop petites face aux personnages et au véhicule déployé ; les cartes n’ont pas toutes la même échelle artistique..
+- Tests / contrôles réellement exécutés : Revue visuelle des 122 cartes et cinq profils d’environnement; Trois résolutions natives avec agents, ennemis, robots, power armors et véhicules ; clics et zoom vérifiés.
+- Preuves : `docs/images/entity-scale-production-windows/README.md`, `docs/reports/entity_scale_review_windows.json`, `docs/reports/entity_scale_windows_tests.xml`.
+- Travail restant dans cette portée : Aucun.
 
 ### UE3-01 — DONE — Transférer la musique après readiness sans silence de chargement
 
@@ -301,19 +300,21 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Reprise au dernier état logique enregistré ; effets en cours et RNG futur non sérialisés ; Windows toujours non validé.
 
-### UE5-01 — IN_PROGRESS — Construire un scénario de campagne réel et un pilote de test sans issue forcée
+### UE5-01 — DONE — Jouer une mission réelle et vérifier le retour complet sous Windows
 
-- Fichiers : `tools/check_unified_return.py`, `godot/combat_missions_ui/tests/campaign_playthrough.gd`.
-- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
-- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
-- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+- Fichiers : `godot/combat_missions_ui/tests/unified_real_mission_flow.gd`, `tools/check_unified_return.py`, `tests/test_unified_mission_resolution.py`, `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
+- Tests / contrôles réellement exécutés : 25 tests ciblés PASS dans tests/test_unified_mission_resolution.py; Parcours natif Windows : objectif réel accompli en 27 actions et 10 tours ennemis ; HQ → carte → briefing → Godot → débriefing → promotions → HQ ; sauvegarde/rechargement et application unique.
+- Preuves : `docs/reports/unified_windows_real_mission_tests.xml`, `docs/images/unified-experience/windows-real-mission/native-report.json`, `docs/images/unified-experience/windows-real-mission/README.md`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Validation native Windows 1920×1080 ; audio Dummy, aucune écoute réelle.
 
-### UE5-02 — IN_PROGRESS — Vérifier les conséquences après victoire et défaite obtenues par les règles réelles
+### UE5-02 — DONE — Vérifier trois issues réelles, fenêtres Windows et décision de préchauffage
 
-- Fichiers : `tests/test_unified_campaign_playthrough.py`.
-- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
-- Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
-- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+- Fichiers : `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/hud_controller.gd`, `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/tests/unified_real_mission_flow.gd`, `tools/check_unified_return.py`.
+- Tests / contrôles réellement exécutés : Trois parcours natifs Windows PASS : victoire par objectif, défaite par élimination IA, retraite par commande doublement confirmée; Inspection Windows visible : Alt+Tab, réduction et restauration PASS ; redimensionnement et DPI NOT VERIFIED; Première frame/readiness froide mesurée entre 2,109 s et 3,625 s ; aucun préchauffage ajouté.
+- Preuves : `docs/images/unified-experience/windows-three-real-outcomes/native-report.json`, `docs/images/unified-experience/windows-three-real-outcomes/README.md`, `docs/reports/windows_lifecycle_visual.json`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Audio Dummy ; redimensionnement et DPI multi-écrans hors portée validée.
 
 ### UE5-03 — IN_PROGRESS — Démarrer Godot avec le jeu et réutiliser le même processus dès la première mission
 
@@ -339,13 +340,15 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.
-- Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
+- Résolu : SCALE-CATALOGUE validé sur 122 cartes, trois résolutions et cinq catégories d’environnement ; cette validation ne vaut pas finition artistique des décors.
 - Résolu : X11 absent après reprise ; quatre tests natifs ont échoué faute d’affichage. Session Xorg rétablie, puis 55 tests ciblés réussis. Échec initial conservé dans work/roster-batch2/tests-display-failure.log.
 - Après redémarrage X11 absent : quatre échecs initiaux d’environnement ; serveur rétabli et suite complète repassée (55 réussis).
+- Résolu : profils d’échelle de production appliqués à 122 cartes — 0,015 urbain/wasteland, 0,020 intérieur/industrie — sources, collisions et règles inchangées.
+- Passe SCALE-CATALOGUE demandée : proportions des unités et véhicules à revoir sur les 122 cartes ; 0 carte vérifiée pour ce nouveau critère.
 - Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée.
 
 ## Prochaine action précise
 
-UNIFIED UE5 : examiner /tmp/persistent-app-window.log et work/persistent-runtime-app-window/report.json (preuve avec la véritable GameWindow), finaliser les régressions de routage et la validation Windows. Aucun lancement de moteur ne doit être déclenché par submit(), même pour la première mission.
+ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

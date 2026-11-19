@@ -119,9 +119,10 @@ func _reposition_buttons() -> void:
 	for action: String in _SYSTEM_ACTIONS:
 		if not _action_btns.has(action): continue
 		var btn := _action_btns[action] as Button
-		btn.position = Vector2(size.x-224.0,size.y-(82.0 if action == "END TURN" else 132.0))
+		var bottom_offset := 82.0 if action == "END TURN" else (132.0 if action == "NEXT" else 182.0)
+		btn.position = Vector2(size.x-224.0,size.y-bottom_offset)
 		btn.size = Vector2(208,62 if action == "END TURN" else 42)
-		btn.text = "FIN DU TOUR  »" if action == "END TURN" else "SUIVANT [TAB]"
+		btn.text = "FIN DU TOUR  »" if action == "END TURN" else ("SUIVANT [TAB]" if action == "NEXT" else "RETRAITE [R]")
 		btn.add_theme_font_size_override("font_size",22 if action == "END TURN" else 16)
 	if is_instance_valid(_log_button):
 		_log_button.position = Vector2(size.x-126,16)

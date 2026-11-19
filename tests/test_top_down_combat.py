@@ -1,5 +1,6 @@
 """Map art and unit scale share a reversible presentation-only projection."""
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -13,7 +14,7 @@ def test_all_maps_have_explicit_art_scale():
     assert all(.015<=v['human_height_ratio']<=.10 for v in data['maps'].values())
 
 def test_native_projection_wall_alignment_and_token_scale():
-    executable=shutil.which('godot') or shutil.which('godot4')
+    executable=os.environ.get('CYBERCITY_GODOT_BIN') or shutil.which('godot') or shutil.which('godot4')
     if not executable:pytest.skip('Godot unavailable')
     result=subprocess.run([executable,'--headless','--audio-driver','Dummy','--path',str(ROOT/'godot/combat_missions_ui'),'--script','tests/top_down_regression.gd','--quit-after','300'],capture_output=True,text=True,timeout=120)
     output=result.stdout+result.stderr
