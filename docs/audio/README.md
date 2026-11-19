@@ -1,22 +1,42 @@
 # CyberCity 2085 — Audio Overhaul 1.0
 
-**État vérifié au 19 novembre 2026 : génération ElevenLabs non démarrée, accès à l'estimation confirmé, fournisseur temporairement saturé.**
+## État vérifié au 19 novembre 2026
 
-- [Inventaire actuel](current_inventory.json) : 19 bruitages WAV de synthèse, leur durée, événements Godot et sites d'appel Arcade.
-- [Manifeste de production](elevenlabs_manifest.json) : 58 familles, 167 variantes à produire, prompts anglais, déclencheurs, chemins cibles, provenance à compléter, règles de validation et estimation de crédits.
-- [Plan d'intégration Codex](integration_plan.md) : gestion multi-variantes, routage Arcade/Godot, conditions de validation et tests.
+**7 sons originaux générés dans ElevenLabs Sound Effects v2, 58 familles configurées, 0 son téléchargé / converti / validé.**
 
-## ElevenLabs réellement invoqué
-Un flow nommé `CyberCity 2085 — Audio Overhaul 1.0 | SFX` a été créé dans ElevenLabs : https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb
+L'ensemble des **58 familles et 167 variantes cibles** est détaillé dans [elevenlabs_manifest.json](elevenlabs_manifest.json), qui relie maintenant chaque famille à son vrai nœud ElevenLabs (`elevenlabs_node`) et liste les ID des 7 générations achevées. Les variantes non générées portent un statut d'attente et ne sont pas des fichiers disponibles.
 
-Quatre nœuds SFX ont été préparés : `fire_assault`, `impact_metal`, `step_concrete`, `ui_click`, avec 3 candidats prévus chacun.
+### Projets ElevenLabs accessibles
+- [Principal : armes, interfaces, technologies et essais pilotes](https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb)
+- [Armes supplémentaires](https://elevenlabs.io/app/flows/vj5p3VgAMplpSMS6QnwY)
+- [Impacts et combats](https://elevenlabs.io/app/flows/hqjK65yzArYgCCR3Ylun)
+- [Déplacements](https://elevenlabs.io/app/flows/kDhE2kIk7F7y8aeom152)
+- [Ambiances](https://elevenlabs.io/app/flows/OEDA8eQA1fnUUe1mqrlT)
 
-Le fournisseur a estimé le lot de 12 candidats à **234 crédits (0,0234 USD)**. À l'exécution, il a répondu « Free generations are busy right now », avec **aucune génération démarrée et aucun crédit débité**. Aucun WAV nouveau n'a été produit, téléchargé ou écouté.
+Les tentatives automatisées ont été limitées par la saturation du service de génération gratuite. Des nœuds supplémentaires ont été configurés et peuvent être exécutés dans ElevenLabs lorsque la capacité est disponible. Chaque génération nouvelle dépense des crédits ; lancer **un seul candidat par nœud d'abord**, puis réserver les variantes aux sons fréquents.
 
-Les durées cibles inférieures au minimum de 0,5 seconde du modèle SFX v2 ont été corrigées dans le manifeste. Son estimation complète est **extrapolée** du petit lot, pas vérifiée par une estimation globale. Ni le solde de crédits du compte ni la licence applicable à sa formule ne sont confirmés.
+### Générations réellement achevées
+| Famille | Nombre | État local |
+|---|---:|---|
+| `fire_pistol` | 1 | MP3 chez ElevenLabs, WAV absent |
+| `fire_assault` | 2 | MP3 chez ElevenLabs, WAV absents |
+| `impact_metal` | 2 | MP3 chez ElevenLabs, WAV absents |
+| `step_concrete` | 1 | MP3 chez ElevenLabs, WAV absent |
+| `ui_click` | 1 | MP3 chez ElevenLabs, WAV absent |
 
-## Préservation
-Ne pas écraser les 19 WAV anciens tant que les nouveaux ne sont pas validés. Ne pas remplacer les musiques MP3 existantes. Ne pas exécuter `tools/gen_sounds.py` sur les ressources finales : il réécrit les WAV synthétiques.
+Les vrais identifiants de génération et durées sont enregistrés dans le JSON. Aucun son n'a été auditionné ou approuvé par ChatGPT. Aucun nouveau fichier audio n'a été commité dans le dépôt.
 
-## Vérifications obligatoires
-Chaque variante n'est utilisable que lorsque le fichier audio existe réellement et que ses propriétés (format, durée, niveau, absence de saturation et caractère sonore) ont été contrôlées. Les ambiances demandent en plus un test de boucle. Aucune génération n'est déclarée approuvée à ce stade.
+## Prochaines étapes
+1. Télécharger depuis ElevenLabs les MP3 correspondant aux IDs de génération ; le connecteur fournit des médias mais l'environnement ChatGPT ne peut actuellement pas récupérer ces liens signés.
+2. Convertir en WAV PCM 48 kHz, 16 bits, stéréo dans un dossier de staging, sans écraser les 19 effets historiques. Un kit d'import/QA autonome a été fourni dans la conversation.
+3. Vérifier les crêtes, saturation, durée, queue sonore, qualité à l'écoute, raccords des boucles d'ambiances et licences.
+4. Intégrer après validation via le [plan d'intégration Codex](integration_plan.md), avec variantes, non-répétition, anti-spam, routage Arcade/Godot, et fallback.
+5. Tester les deux moteurs, la continuité des musiques et les événements de combat, avant fusion de la PR.
+
+### Sources complémentaires
+- [Inventaire des 19 WAV historiques](current_inventory.json)
+- [Manifeste complet](elevenlabs_manifest.json)
+- [Plan technique d'intégration](integration_plan.md)
+
+**Interdictions :** ne pas confondre un nœud configuré, une génération terminée chez le fournisseur et un fichier réellement installé. Ne pas lancer `tools/gen_sounds.py` sur la nouvelle bibliothèque ; préserver les MP3 musicaux existants et les effets de secours jusqu'à validation.
+
