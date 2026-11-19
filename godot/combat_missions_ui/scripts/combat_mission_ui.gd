@@ -376,8 +376,11 @@ func _sync_display() -> void:
 		if not active.is_empty():
 			var origin := _cell_position(active)
 			var atype  := _action_type(selected_action)
-			if atype == "MOVE":
-				var budget := maxi(1, int(active.get("ap", 2)))
+			var available_ap := maxi(0, int(active.get("ap", 0)))
+			if available_ap == 0:
+				_battlefield.clear_highlights()
+			elif atype == "MOVE":
+				var budget := available_ap
 				_battlefield.show_move_range(_battlefield.reachable_cells(origin, budget), origin)
 			elif atype in ["FIRE", "MELEE", "FIRE_AOE"]:
 				var rng := _action_range(selected_action)

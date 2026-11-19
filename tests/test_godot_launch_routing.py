@@ -13,6 +13,21 @@ from game.character import Character
 from game.gamestate import GameState
 
 
+def test_handoff_copy_never_exposes_engine_or_runtime_names():
+    from game.ui.screens.godot_combat_handoff_view import _player_launch_status
+    for launched in (True, False):
+        status = _player_launch_status(SimpleNamespace(
+            launched=launched,
+            message="Mission sent to the application Godot runtime.",
+        ))
+        assert "godot" not in status.lower()
+        assert "runtime" not in status.lower()
+        assert "arcade" not in status.lower()
+    panel = Path("game/ui/components/utilities/handoff.py").read_text(encoding="utf-8")
+    draw = panel.split("    def draw(self, v):", 1)[1]
+    assert "CHOISIR GODOT" not in draw and "COMBAT ARCADE" not in draw
+
+
 def test_old_arcade_default_migrates_without_touching_campaign_progress(tmp_path):
     state = GameState(characters=[Character('Rook')],selected_agent_names=['Rook'])
     state.strategic_resources['credits'] = 123

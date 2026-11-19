@@ -901,3 +901,5 @@ Ouverts : mission de campagne entièrement jouée sans issue forcée, mesure/pr�
 - [x] Audio combat : supprimer les bips de substitution sur fins de mouvement, changements de tour et clics ; conserver uniquement les pas enregistrés et `ui_click_01.wav` pour ces interactions. (19 novembre 2026)
 - [x] Audio combat : rendre silencieuses les commandes système `NEXT`, `END TURN` et `RETREAT`, dont la double confirmation de fin de tour produisait deux clics successifs. (19 novembre 2026)
 - [x] Audio combat : supprimer le clic ajouté par l'auto-sélection du personnage suivant lorsqu'un agent atteint 0 AP ; le son de l'action reste seul. (19 novembre 2026)
+- [x] Interface joueur : retirer de l'écran de déploiement les noms de moteurs, runtimes, processus et détails d'exception ; conserver uniquement un vocabulaire fictionnel. (19 novembre 2026)
+- [x] Combat : ne plus afficher de cases de déplacement ou d'attaque lorsqu'un agent sélectionné n'a plus aucun AP. (19 novembre 2026)
