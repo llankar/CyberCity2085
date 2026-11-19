@@ -76,7 +76,7 @@ def wav_info(path: Path) -> dict:
         channels, rate, width, frames = (
             wf.getnchannels(), wf.getframerate(), wf.getsampwidth(), wf.getnframes()
         )
-        if (channels, rate, width) != (2, 48000, 2) or frames < 4800:
+        if (channels, rate, width) != (2, 48000, 2) or frames < 480:
             raise ValueError(f"Unexpected WAV format/duration: {channels}, {rate}, {width}, {frames}")
         from array import array
         high = 0
