@@ -832,6 +832,10 @@ Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-e
 
 Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber-doc-actions](images/cyber-doc-actions/README.md) et [twin-blade-actions](images/twin-blade-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `74b28af121f2f3fea725c972b7ed6c28b107d93047041b6c8b9f5eb5fbe7e729`.
 
+- [x] ANIM-25 Produire et valider nativement l’inquisiteur vétéran : 8 orientations, 128 frames authentiques couvrant `idle`, `move`, `fire`, `melee`, `cover`, `hit`, `death`; `psi` et `heal` explicitement non applicables. Preuves : [veteran-inquisitor-actions](images/veteran-inquisitor-actions/README.md).
+
+Résultat cumulé : **25 / 231 ensembles complets**, 0 partiel. Reste 206 références éligibles ; prochaine référence : `agent_diverse_23_dreadlock_rifle`.
+
 ### SCALE — profils et repères du catalogue
 
 - [x] SCALE-01 Inventorier les 122 profils, les 92 illustrations, les empreintes et les alias ; distinguer estimations et mesures.
