@@ -71,6 +71,16 @@ def build(key,config):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 row=pair//2;col=(pair%2)*2
                 directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)])
+        elif layout == 'action_rows':
+            order = sheet_directions(item, 8)
+            for pose, direction in enumerate(order):
+                if direction in directions:
+                    raise ValueError(f'{clip}: repeated facing {direction}')
+                row, col = divmod(pose, 4)
+                directions[direction] = normalise([
+                    extract(image, row, col),
+                    extract(image, row + 2, col),
+                ])
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:

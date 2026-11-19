@@ -2,9 +2,11 @@ import sys
 from pathlib import Path
 
 import pytest
+from PIL import Image
 
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "art"))
+import import_directional_clips as importer
 from import_directional_clips import sheet_directions
 
 
@@ -18,3 +20,24 @@ def test_sheet_order_preserves_default_and_maps_reviewed_pairs():
 def test_sheet_order_rejects_invalid_facings(order):
     with pytest.raises(ValueError, match="distinct engine facings"):
         sheet_directions({"direction_indices": order}, 4)
+
+
+def test_action_rows_pair_poses_by_direction(tmp_path, monkeypatch):
+    monkeypatch.setattr(importer, "ROOT", tmp_path)
+    original = tmp_path / "assets/units/commander_512.png"
+    original.parent.mkdir(parents=True)
+    sheet = Image.new("RGBA", (64, 64))
+    for index in range(16):
+        row, col = divmod(index, 4)
+        sheet.paste((20 + index, 60, 100, 255),
+                    (col * 16 + 4, row * 16 + 3, col * 16 + 12, row * 16 + 13))
+    sheet.save(original)
+    importer.build("commander", {
+        "applicable_clips": ["fire"],
+        "clips": [{"path": original, "clip": "fire", "layout": "action_rows",
+                   "direction_indices": list(reversed(range(8)))}],
+    })
+    with Image.open(tmp_path / "assets/combat_visual/animations/commander.png") as atlas:
+        colors = [atlas.getpixel((index % 8 * 256 + 128, index // 8 * 256 + 220))[0]
+                  for index in range(16)]
+    assert colors == [color for index in reversed(range(8)) for color in (20 + index, 28 + index)]
