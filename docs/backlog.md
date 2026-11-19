@@ -830,7 +830,7 @@ Résultat cumulé : **22 / 231 ensembles complets**, 0 partiel. Preuves : [red-e
 - [x] Rejeter et régénérer une mort opaque et une marche arrière à volutes parasites.
 - [x] Vérifier 768 sélections natives et les poses de soin, mêlée et mort dans Godot Windows.
 
-Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber-doc-actions](images/cyber-doc-actions/README.md) et [twin-blade-actions](images/twin-blade-actions/README.md). Catalogue et benchmark à régénérer pour cette signature.
+Résultat cumulé : **24 / 231 ensembles complets**, 0 partiel. Preuves : [cyber-doc-actions](images/cyber-doc-actions/README.md) et [twin-blade-actions](images/twin-blade-actions/README.md). Catalogue Windows 122/122 inspecté et benchmark 1440p régénérés pour la signature `74b28af121f2f3fea725c972b7ed6c28b107d93047041b6c8b9f5eb5fbe7e729`.
 
 ### SCALE — profils et repères du catalogue
 
