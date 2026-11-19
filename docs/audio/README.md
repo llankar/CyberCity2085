@@ -1,12 +1,22 @@
 # CyberCity 2085 — Audio Overhaul 1.0
 
-**BLOQUÉ — accès ElevenLabs indisponible dans cette session.** Aucun bruitage n’a été généré ni écouté. Les ressources actuelles restent utilisables.
+**État vérifié au 19 novembre 2026 : génération ElevenLabs non démarrée, accès à l'estimation confirmé, fournisseur temporairement saturé.**
 
-- [Inventaire actuel](current_inventory.json) : 19 WAV, formats et durées mesurés, routage Godot, sites d’appel Arcade/Godot et dispatch dynamique.
-- [Manifeste ElevenLabs](elevenlabs_manifest.json) : 58 familles et 167 candidats, avec prompts anglais, durées demandées, déclencheurs envisagés et chemins de livraison. Les champs source, modèle et durée de sortie sont à renseigner à partir des générations réelles. Les durées demandées permettent de calculer le coût dès que le barème du compte est disponible. Aucun montant en crédits n’est vérifié.
+- [Inventaire actuel](current_inventory.json) : 19 bruitages WAV de synthèse, leur durée, événements Godot et sites d'appel Arcade.
+- [Manifeste de production](elevenlabs_manifest.json) : 58 familles, 167 variantes à produire, prompts anglais, déclencheurs, chemins cibles, provenance à compléter, règles de validation et estimation de crédits.
+- [Plan d'intégration Codex](integration_plan.md) : gestion multi-variantes, routage Arcade/Godot, conditions de validation et tests.
 
-Les tirs, impacts et déplacements sont les sons les plus exposés à la répétition. Aujourd’hui les variantes d’armes, de matériaux et de surfaces convergent vers quelques WAV génériques. Les tours et le clic d’interface reviennent régulièrement. Les signaux de déploiement, de fin de mission et de campagne sont ponctuels. Les références de code sont des sites d’appel, pas des mesures de fréquence en partie.
+## ElevenLabs réellement invoqué
+Un flow nommé `CyberCity 2085 — Audio Overhaul 1.0 | SFX` a été créé dans ElevenLabs : https://elevenlabs.io/app/flows/3m8GvCVzF9JhOgZl3kbb
 
-Arcade charge une liste fixe de WAV. Les retours UI `recruitment`, `selection` et `toggle` construisent un nom absent de cette liste. Godot associe un WAV à chaque événement et recycle six lecteurs. Le pont copie les WAV par nom vers le projet Godot. Garder des noms de fichiers uniques et effectuer la sélection de variantes dans les deux lecteurs au moment de l’intégration. L’ajout de nouveaux fichiers ne crée pas de déclencheur par lui-même. Les musiques relèvent du catalogue existant.
+Quatre nœuds SFX ont été préparés : `fire_assault`, `impact_metal`, `step_concrete`, `ui_click`, avec 3 candidats prévus chacun.
 
-Première génération à réaliser dès que l’accès est disponible : un petit lot pilote pour tir de fusil, impact métal, pas béton et clic. Vérifier le coût annoncé par le fournisseur, comparer les candidats à l’écoute, contrôler les crêtes et les queues, puis valider le format PCM. Pour les ambiances, contrôler séparément les raccords de boucle. Consigner provenance, modèle effectivement utilisé et conditions de licence avant intégration et diffusion.
+Le fournisseur a estimé le lot de 12 candidats à **234 crédits (0,0234 USD)**. À l'exécution, il a répondu « Free generations are busy right now », avec **aucune génération démarrée et aucun crédit débité**. Aucun WAV nouveau n'a été produit, téléchargé ou écouté.
+
+Les durées cibles inférieures au minimum de 0,5 seconde du modèle SFX v2 ont été corrigées dans le manifeste. Son estimation complète est **extrapolée** du petit lot, pas vérifiée par une estimation globale. Ni le solde de crédits du compte ni la licence applicable à sa formule ne sont confirmés.
+
+## Préservation
+Ne pas écraser les 19 WAV anciens tant que les nouveaux ne sont pas validés. Ne pas remplacer les musiques MP3 existantes. Ne pas exécuter `tools/gen_sounds.py` sur les ressources finales : il réécrit les WAV synthétiques.
+
+## Vérifications obligatoires
+Chaque variante n'est utilisable que lorsque le fichier audio existe réellement et que ses propriétés (format, durée, niveau, absence de saturation et caractère sonore) ont été contrôlées. Les ambiances demandent en plus un test de boucle. Aucune génération n'est déclarée approuvée à ce stade.
