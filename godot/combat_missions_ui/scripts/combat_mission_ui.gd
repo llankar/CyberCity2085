@@ -591,7 +591,7 @@ func _load_unit_textures() -> void:
 		"enemy_elite":     "assets/units/enemy_elite_512.png",
 		"enemy_commander": "assets/units/enemy_commander_512.png",
 		"enemy_sniper":    "assets/units/enemy_sniper_512.png",
-		"enemy_psi":       "assets/units/enemy_elite_512.png",
+		"enemy_psi":       "assets/units/enemy_psi_512.png",
 	}
 	for key: String in base:
 		_try_load_tex(key, str(base[key]))

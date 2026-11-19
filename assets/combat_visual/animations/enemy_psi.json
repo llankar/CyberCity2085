@@ -1,0 +1,89 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_psi.png",
+  "texture_sha256": "b0aefafe11050238b46230f1b6fcb615299ad60834879d064d77ef0358ab3825",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_psi_512.png",
+  "source_sha256": "4c6332285553976a3d4668496b7bdd48cbce02147b79a51c129d0bea6f415cc2",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_psi/idle-action_rows-0.png",
+      "sha256": "3f81c8350d4e01a29496bda99bb673f824750a76cb678273674bacfd809c7a94",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi"
+  ],
+  "non_applicable_clips": {
+    "heal": "No healing action for generic enemy psi."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi"
+  ],
+  "review_status": "native_review_pending"
+}
