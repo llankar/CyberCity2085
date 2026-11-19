@@ -1,6 +1,6 @@
 # CyberCity 2085 — Audio Overhaul 1.0
 
-**État du 19 novembre 2026 : 28 nouveaux WAV CC0 installés sur la branche de travail ; 5 WAV utilisateur déjà présents ; 4 ressources Freesound CC0/CC BY en attente de fichiers source ; aucun changement de musiques.**
+**État du 19 novembre 2026 : 28 nouveaux WAV CC0 sur la branche ; 5 WAV utilisateur déjà présents ; 4 originaux Freesound reçus et convertis en WAV 48 kHz dans une archive de conversation, mais pas encore envoyés sous Git ; aucun changement de musiques.**
 
 ## Ressources effectivement présentes
 
@@ -12,14 +12,22 @@
 
 Les **28 WAV CC0** sont des fichiers matériels réels dans `assets/audio/overhaul/`, documentés dans [cc_import_receipts.json](cc_import_receipts.json) et [CREDITS_CC_AUDIO.md](../../assets/audio/CREDITS_CC_AUDIO.md). Tous portent le statut `installed_unreviewed` : contrôles techniques et décodage réalisés, mais aucune validation à l'écoute.
 
-## Sources encore manquantes
+## Quatre ressources Freesound reçues et préparées hors dépôt
 
-- Seamless City Loop — qubodup, CC0, Freesound ; original FLAC non obtenu.
-- Raining in the City — RyanKingArt, CC0, Freesound ; original M4A non obtenu.
-- Robot / Mech Movement — Breviceps, CC0, Freesound ; original WAV non obtenu.
-- Dark Sci-Fi Laboratory Atmosphere — TommasoMotteran, CC BY 4.0, Freesound ; original WAV non obtenu.
+Le 19 novembre 2026, l'utilisateur a transmis les quatre **originaux authentiques** déjà sélectionnés. Ils ont été vérifiés et convertis en WAV PCM 16 bits stéréo 48 kHz :
 
-Ces quatre fichiers ne sont **ni dans Git ni déclarés installés**. Les détails, licences, URLs et noms cibles sont enregistrés dans [cc0_ccby_sources.json](cc0_ccby_sources.json).
+| Ressource | Auteur / licence | WAV prêt, non committé | Contrôle technique |
+|---|---|---|---|
+| Seamless City Loop | qubodup / CC0 | `ambience/ambience_city_cc0_01.wav` | 30 s, -6.46 dBFS peak |
+| Raining in the City | RyanKingArt / CC0 | `ambience/ambience_city_rain_cc0_01.wav` | 97.14 s, crossfade de boucle 1.5 s |
+| Robot / Mech Movement | Breviceps / CC0 | `movement/move_robot_cc0_01.wav` | 0.99 s, -3.5 dBFS peak |
+| Dark Sci-Fi Laboratory | TommasoMotteran / CC BY 4.0 | `ambience/ambience_laboratory_ccby_01.wav` | 47.25 s, crossfade de boucle 0.75 s |
+
+Une archive `CyberCity2085_Freesound_4_WAV_ready_to_git.zip` a été remise à l'utilisateur dans cette conversation. **Elle n'est pas automatiquement disponible dans GitHub Actions.** Il faut y copier les quatre WAV aux chemins de la colonne précédente, ainsi que `docs/audio/freesound_received_manifest.json`, et vérifier l'empreinte SHA-256 avant tout commit.
+
+Les fichiers de code sont prêts à les utiliser *lorsqu'ils existent réellement* : Arcade dispose du fond urbain de gestion, Godot des profils `city`, `city_rain`, `laboratory` et du déclencheur `move_robot` pour les unités robotiques. Les quatre WAV ne sont pas encore sur la branche et n'ont pas été écoutés/validés en partie.
+
+Crédits : [Freesound](../../assets/audio/CREDITS_FREESOUND_AUDIO.md). Empreintes de réception : [sources CC0/CC BY](cc0_ccby_sources.json).
 
 ## Tests et reproductibilité
 

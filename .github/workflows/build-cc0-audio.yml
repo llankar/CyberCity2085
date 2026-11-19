@@ -6,6 +6,9 @@ on:
       - 'tools/import_cc0_audio.py'
       - 'docs/audio/cc0_ccby_sources.json'
       - 'tests/test_cc0_audio_import.py'
+      - 'tests/test_cc0_audio_routing.py'
+      - 'godot/combat_missions_ui/scripts/unit_visual.gd'
+      - 'godot/combat_missions_ui/scripts/unit_token.gd'
       - '.github/workflows/build-cc0-audio.yml'
   workflow_dispatch:
 
@@ -33,6 +36,8 @@ jobs:
             game/combat/godot_bridge.py
             godot/combat_missions_ui/scripts/audio_manager.gd
             godot/combat_missions_ui/scripts/combat_signals.gd
+            godot/combat_missions_ui/scripts/unit_visual.gd
+            godot/combat_missions_ui/scripts/unit_token.gd
             assets/audio/overhaul/
             assets/audio/CREDITS_CC_AUDIO.md
 
