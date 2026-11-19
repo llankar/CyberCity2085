@@ -414,6 +414,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
+- UNIFIED-RESULT-POLL — DONE. Régression déterministe : un résultat publié pendant le contrôle de fin de processus est lu au cycle suivant. Suite ciblée : 29 réussis.
+
 - UNIFIED-REAL-RECOVERY — DONE. Victoire jouée après reprise en phase joueur puis en phase ennemie sous Windows à 720p. Le second scénario a révélé une course entre la publication du résultat et sa lecture. Le correctif a passé le scénario et les tests ciblés (54 réussis, 8 ignorés). Suite : vérifier le parcours depuis le package Arcade et les transitions de fenêtre sans contrôle du bureau.
 
 - UNIFIED-RECOVERY — IN_PROGRESS. Sous Windows, à 1280 × 720, les scénarios de reprise tactique restaurent les phases joueur et ennemi et remplacent l’ancien processus. Sur une victoire jouée, l’arrêt de Godot au retour puis la reprise du débriefing ont préservé la promotion et bloqué la double attribution. La perte d’accusé de réception a également été testée séparément. Reste à interrompre une mission réelle pendant un tour.

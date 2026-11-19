@@ -11,6 +11,38 @@ from game.combat.session_protocol import create_session,validate_result
 from game.combat.godot_resolution import resolve_godot_result
 
 
+def test_result_published_during_exit_poll_is_read_next_tick(tmp_path):
+    from types import SimpleNamespace
+    from unittest.mock import Mock
+    from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+
+    result_path = tmp_path / "result.json"
+    payload = {"outcome": "victory"}
+
+    def publish_then_exit():
+        result_path.write_text(json.dumps(payload), encoding="utf-8")
+        return 0
+
+    view = GodotCombatHandoffView.__new__(GodotCombatHandoffView)
+    view._result_applied = False
+    view._launch_failed = False
+    view.game_state = SimpleNamespace(combat_sessions={})
+    view.launch_result = SimpleNamespace(
+        result_path=result_path, process=SimpleNamespace(poll=publish_then_exit)
+    )
+    view._apply_combat_result = Mock()
+    view._cleanup_godot = Mock()
+
+    with patch("game.combat.godot_bridge.read_godot_combat_result", return_value=payload) as read:
+        view.on_update(0.1)
+        read.assert_not_called()
+        assert not view._launch_failed
+        view._cleanup_godot.assert_not_called()
+        view.on_update(0.1)
+        read.assert_called_once_with(result_path)
+        view._apply_combat_result.assert_called_once_with(payload)
+
+
 def test_real_mission_driver_cannot_force_terminal_state():
     source = Path("godot/combat_missions_ui/tests/unified_real_mission_flow.gd").read_text(encoding="utf-8")
     forbidden = (
