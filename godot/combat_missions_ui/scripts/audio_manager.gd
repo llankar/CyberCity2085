@@ -15,28 +15,19 @@ const PREVIEW_SFX_MAP: Dictionary = {
     "hit_organic": ["impact_organic_cc0_01.wav"],
     "melee": ["melee_cc0_01.wav"],
     "explosion_small": ["explosion_small_cc0_01.wav"],
-    "move": ["step_concrete_01.wav", "step_concrete_cc0_01.wav"],
-    "move_concrete": ["step_concrete_01.wav", "step_concrete_cc0_01.wav", "step_concrete_cc0_02.wav", "step_concrete_cc0_03.wav"],
+    "move": ["step_concrete_01.wav"],
+    "move_concrete": ["step_concrete_01.wav"],
     "move_metal": ["step_metal_cc0_01.wav", "step_metal_cc0_02.wav", "step_metal_cc0_03.wav", "step_metal_cc0_04.wav", "step_metal_cc0_05.wav"],
     "move_robot": ["move_robot_cc0_01.wav"],
     "shield": ["shield_cc0_01.wav"],
     "terminal": ["terminal_cc0_01.wav"],
     "door_open": ["door_open_cc0_01.wav"],
-    "ui_click": ["ui_click_01.wav", "ui_click_cc0_01.wav", "ui_click_cc0_02.wav"],
-    "ui_confirm": ["ui_confirm_cc0_01.wav"],
-    "ui_refuse": ["ui_refuse_cc0_01.wav"],
-	"psi": ["shield_cc0_01.wav"],
-	"miss": ["fire_laser_cc0_02.wav"],
+    "ui_click": ["ui_click_01.wav"],
+    "ui_confirm": ["ui_click_01.wav"],
+    "ui_refuse": ["ui_click_01.wav"],
 	"death": ["impact_organic_cc0_01.wav"],
-	"overwatch": ["terminal_cc0_01.wav"],
-	"defend": ["shield_cc0_01.wav"],
 	"deploy": ["door_open_cc0_01.wav"],
-	"turn_player": ["ui_confirm_cc0_01.wav"],
-	"turn_enemy": ["ui_refuse_cc0_01.wav"],
-	"victory": ["ui_confirm_cc0_01.wav", "terminal_cc0_01.wav"],
-	"defeat": ["ui_refuse_cc0_01.wav", "impact_organic_cc0_01.wav"],
-	"reinforce": ["door_open_cc0_01.wav", "ui_confirm_cc0_01.wav"],
-	"stun": ["shield_cc0_01.wav"],
+	"reinforce": ["door_open_cc0_01.wav"],
 	"bleed": ["impact_organic_cc0_01.wav"],
 }
 const CITY_AMBIENCE_WAV := "ambience_city_loop_candidate_01.wav"
@@ -222,12 +213,10 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
-		"move", "fire", "fire_pistol", "melee", "psi", "hit", "miss", "death", "overwatch", "ui_click", "ui_confirm", "ui_refuse", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "stun", "bleed", "reinforce", "defend":
+		"move", "fire", "fire_pistol", "melee", "hit", "death", "ui_click", "ui_confirm", "ui_refuse", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "bleed", "reinforce":
 			_play_event_sfx(event_name)
-		"turn_player":            _play_event_sfx("turn_player"); _play_music(_battle_music)
-		"turn_enemy":             _play_event_sfx("turn_enemy")
-		"victory":                _play_event_sfx("victory"); _play_music("Intro 2.mp3")
-		"defeat":                 _play_event_sfx("defeat"); _play_music("Intro 2.mp3")
+		"turn_player":            _play_music(_battle_music)
+		"victory", "defeat":     _play_music("Intro 2.mp3")
 
 func playback_bookmark() -> Dictionary:
 	if _current_track.is_empty() or _music_player == null: return {}

@@ -345,6 +345,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Portée technique validée ; écoute artistique humaine et partie complète non exécutées.
 
+### AUDIO-NOBEEP-01 — DONE — Retirer les bips de substitution du combat
+
+- Fichiers : `game/audio/overhaul_assets.py`, `godot/combat_missions_ui/scripts/audio_manager.gd`, `tests/test_cc0_audio_routing.py`, `docs/backlog.md`.
+- Tests / contrôles réellement exécutés : python -m pytest -q tests/test_cc0_audio_routing.py tests/test_music_catalog.py tests/test_music_continuity.py tests/test_unified_audio_transfer.py : 33 passed.
+- Preuves : `tests/test_cc0_audio_routing.py`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Validation d'écoute en partie à confirmer par l'utilisateur.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

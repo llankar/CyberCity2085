@@ -54,6 +54,17 @@ def test_arcade_missing_new_file_stays_silent_without_legacy_fallback(tmp_path, 
     play.assert_not_called()
 
 
+def test_combat_clicks_and_generic_movement_only_use_recorded_samples(tmp_path):
+    root = tmp_path / "overhaul"
+    for relative in ("ui/ui_click_01.wav", "movement/step_concrete_01.wav"):
+        make_pcm(root / relative)
+    assert [path.name for path in preview_sfx_paths("sfx_ui_click", root=root)] == ["ui_click_01.wav"]
+    assert [path.name for path in preview_sfx_paths("sfx_ui_confirm", root=root)] == ["ui_click_01.wav"]
+    assert [path.name for path in preview_sfx_paths("sfx_move", root=root)] == ["step_concrete_01.wav"]
+    assert preview_sfx_paths("sfx_turn_player", root=root) == ()
+    assert preview_sfx_paths("sfx_turn_enemy", root=root) == ()
+
+
 def test_ambience_is_optional_separate_from_music(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert preview_city_ambience_path() is None
@@ -70,6 +81,9 @@ def test_static_godot_audio_contract_uses_only_new_bank():
     assert '"laboratory"' in gd and '"city_rain"' in gd
     assert 'Neon Street Warfare.mp3' in gd and "Intro 2.mp3" in gd
     assert "sfx_fire.wav" not in gd and "music_battle.wav" not in gd
+    assert '"move": ["step_concrete_01.wav"]' in gd
+    assert '"ui_click": ["ui_click_01.wav"]' in gd
+    assert '"turn_player":            _play_music(_battle_music)' in gd
     assert '"ambience_profile"' in bridge
 
 
