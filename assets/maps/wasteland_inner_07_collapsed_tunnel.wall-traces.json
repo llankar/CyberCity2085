@@ -1,0 +1,431 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        15,
+        140,
+        37,
+        480
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        917,
+        44,
+        938,
+        481
+      ]
+    },
+    {
+      "id": "north_wall_w",
+      "rect": [
+        115,
+        19,
+        406,
+        38
+      ]
+    },
+    {
+      "id": "north_wall_e",
+      "rect": [
+        507,
+        19,
+        902,
+        38
+      ]
+    },
+    {
+      "id": "south_wall",
+      "rect": [
+        22,
+        479,
+        931,
+        501
+      ]
+    },
+    {
+      "id": "north_pipe",
+      "rect": [
+        641,
+        58,
+        786,
+        100
+      ]
+    },
+    {
+      "id": "north_machine",
+      "rect": [
+        809,
+        54,
+        871,
+        99
+      ]
+    },
+    {
+      "id": "west_pipe",
+      "rect": [
+        73,
+        179,
+        106,
+        303
+      ]
+    },
+    {
+      "id": "west_crates",
+      "rect": [
+        49,
+        271,
+        87,
+        325
+      ]
+    },
+    {
+      "id": "southwest_pipe",
+      "rect": [
+        220,
+        432,
+        424,
+        463
+      ]
+    },
+    {
+      "id": "south_e_machine",
+      "rect": [
+        573,
+        396,
+        647,
+        453
+      ]
+    },
+    {
+      "id": "south_e_crates",
+      "rect": [
+        681,
+        304,
+        747,
+        340
+      ]
+    },
+    {
+      "id": "south_e_valve",
+      "rect": [
+        742,
+        385,
+        776,
+        444
+      ]
+    },
+    {
+      "id": "northwest_pipe",
+      "rect": [
+        144,
+        55,
+        251,
+        95
+      ]
+    },
+    {
+      "id": "collapsed_span_n",
+      "polygon": [
+        [
+          434,
+          180
+        ],
+        [
+          465,
+          161
+        ],
+        [
+          497,
+          173
+        ],
+        [
+          519,
+          202
+        ],
+        [
+          538,
+          200
+        ],
+        [
+          550,
+          225
+        ],
+        [
+          524,
+          256
+        ],
+        [
+          484,
+          257
+        ],
+        [
+          454,
+          224
+        ],
+        [
+          416,
+          215
+        ]
+      ]
+    },
+    {
+      "id": "collapsed_span_s",
+      "polygon": [
+        [
+          431,
+          269
+        ],
+        [
+          459,
+          245
+        ],
+        [
+          484,
+          258
+        ],
+        [
+          516,
+          265
+        ],
+        [
+          529,
+          300
+        ],
+        [
+          503,
+          326
+        ],
+        [
+          462,
+          349
+        ],
+        [
+          436,
+          326
+        ],
+        [
+          410,
+          308
+        ]
+      ]
+    },
+    {
+      "id": "nw_room",
+      "width": 17,
+      "points": [
+        [
+          120,
+          37
+        ],
+        [
+          120,
+          161
+        ],
+        [
+          338,
+          161
+        ],
+        [
+          338,
+          284
+        ],
+        [
+          194,
+          284
+        ],
+        [
+          194,
+          473
+        ]
+      ]
+    },
+    {
+      "id": "northwest_return",
+      "width": 17,
+      "points": [
+        [
+          398,
+          39
+        ],
+        [
+          398,
+          162
+        ],
+        [
+          343,
+          162
+        ]
+      ]
+    },
+    {
+      "id": "ne_room",
+      "width": 17,
+      "points": [
+        [
+          509,
+          38
+        ],
+        [
+          509,
+          143
+        ],
+        [
+          590,
+          143
+        ]
+      ]
+    },
+    {
+      "id": "ne_room_s",
+      "width": 17,
+      "points": [
+        [
+          665,
+          171
+        ],
+        [
+          823,
+          171
+        ],
+        [
+          823,
+          190
+        ],
+        [
+          912,
+          190
+        ]
+      ]
+    },
+    {
+      "id": "center_wall_w",
+      "width": 17,
+      "points": [
+        [
+          195,
+          422
+        ],
+        [
+          481,
+          422
+        ],
+        [
+          481,
+          478
+        ]
+      ]
+    },
+    {
+      "id": "center_wall_e",
+      "width": 17,
+      "points": [
+        [
+          558,
+          474
+        ],
+        [
+          558,
+          390
+        ],
+        [
+          672,
+          390
+        ]
+      ]
+    },
+    {
+      "id": "east_room",
+      "width": 17,
+      "points": [
+        [
+          570,
+          280
+        ],
+        [
+          815,
+          280
+        ],
+        [
+          815,
+          475
+        ]
+      ]
+    },
+    {
+      "id": "outside_top_margin",
+      "rect": [
+        0,
+        0,
+        960,
+        18
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_bottom_margin",
+      "rect": [
+        0,
+        501,
+        960,
+        540
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_west_margin",
+      "rect": [
+        0,
+        18,
+        15,
+        501
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_east_margin",
+      "rect": [
+        938,
+        18,
+        960,
+        501
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_northwest_margin",
+      "rect": [
+        0,
+        18,
+        115,
+        140
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    },
+    {
+      "id": "outside_north_notch_margin",
+      "rect": [
+        406,
+        18,
+        507,
+        50
+      ],
+      "kind": "unplayable_margin",
+      "blocks_sight": false
+    }
+  ],
+  "same_pixels_as": "wasteland_inner_02_collapsed_tunnel.png",
+  "boundary_review": "2026-11-15: manually inspected exterior padding and northwest/north notches; original 23 obstacles preserved."
+}

@@ -1,0 +1,17 @@
+tests-full.log
+34 passed, 1 warning in 67.64s (0:01:07)
+
+runtime-final.log
+DIRECTIONAL_ANIMATION_CHECKS_PASSED 128 actual frame selections
+
+native.log
+DIRECTIONAL_GAME_CAPTURE_PASSED
+
+static.log
+DIRECTIONAL_STATIC_REFERENCE_PASSED
+
+catalogue.log
+COMBAT_21_CAPTURE_PASSED
+
+families.log
+COMBAT_21_CAPTURE_PASSED

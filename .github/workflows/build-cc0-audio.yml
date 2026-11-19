@@ -1,0 +1,109 @@
+name: Build pinned CC0 sound previews
+on:
+  push:
+    branches: [audio-overhaul-1-0-elevenlabs-20261119]
+    paths:
+      - 'tools/import_cc0_audio.py'
+      - 'docs/audio/cc0_ccby_sources.json'
+      - 'tests/test_cc0_audio_import.py'
+      - 'tests/test_cc0_audio_routing.py'
+      - 'godot/combat_missions_ui/scripts/unit_visual.gd'
+      - 'godot/combat_missions_ui/scripts/unit_token.gd'
+      - '.github/workflows/build-cc0-audio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-licensed-audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            .github/workflows/build-cc0-audio.yml
+            docs/audio/
+            tools/
+            tests/test_cc0_audio_import.py
+            tests/test_cc0_audio_routing.py
+            game/__init__.py
+            game/audio/
+            game/combat/godot_bridge.py
+            godot/combat_missions_ui/scripts/audio_manager.gd
+            godot/combat_missions_ui/scripts/combat_signals.gd
+            godot/combat_missions_ui/scripts/unit_visual.gd
+            godot/combat_missions_ui/scripts/unit_token.gd
+            assets/audio/overhaul/
+            assets/audio/CREDITS_CC_AUDIO.md
+
+      - name: Install required audio decoder
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          python --version
+          ffmpeg -version | head -1
+      - name: Run offline importer tests
+        run: python -m unittest discover -s tests -p 'test_cc0_audio_import.py' -v
+      - name: Install focused test runner and check Arcade/Godot routing contracts
+        run: |
+          python -m pip install --quiet pytest
+          python -m pytest -q tests/test_cc0_audio_routing.py
+      - name: Fetch pinned Kenney CC0 originals and convert to WAV
+        run: python tools/import_cc0_audio.py --kenney
+      - name: Try both OpenGameArt CC0 archives without inventing missing files
+        run: |
+          sudo apt-get install -y 7zip
+          python tools/import_cc0_audio.py --fetch-direct metal_footsteps_thimras || echo "Thimras download/extraction unavailable: no files staged for it."
+          python tools/import_cc0_audio.py --fetch-direct oga_25_bang_rubberduck || echo "rubberduck download/extraction unavailable: no files staged for it."
+      - name: Godot 4.6 audio smoke test (informational, does not gate source archives)
+        continue-on-error: true
+        run: |
+          curl --fail --location --retry 2 --max-time 120 \
+            "https://github.com/godotengine/godot/releases/download/4.6-stable/Godot_v4.6-stable_linux.x86_64.zip" \
+            --output /tmp/cc-godot.zip
+          mkdir -p /tmp/cc-godot-bin .tmp_cc_godot/scripts .tmp_cc_godot/audio
+          unzip -q /tmp/cc-godot.zip -d /tmp/cc-godot-bin
+          GODOT_EXE="$(find /tmp/cc-godot-bin -type f -name 'Godot_v*' | head -1)"
+          chmod +x "$GODOT_EXE"
+          cp godot/combat_missions_ui/scripts/audio_manager.gd .tmp_cc_godot/scripts/
+          cp godot/combat_missions_ui/scripts/combat_signals.gd .tmp_cc_godot/scripts/
+          cp assets/audio/overhaul/weapons/fire_laser_cc0_01.wav .tmp_cc_godot/audio/
+          cp assets/audio/overhaul/ui/ui_click_cc0_01.wav .tmp_cc_godot/audio/
+          cp tools/godot_audio_smoke.gd .tmp_cc_godot/
+          printf 'config_version=5\n[application]\nconfig/name="CyberCityAudioSmoke"\n[autoload]\nCombatSignals="*res://scripts/combat_signals.gd"\n' > .tmp_cc_godot/project.godot
+          "$GODOT_EXE" --headless --path .tmp_cc_godot --script res://godot_audio_smoke.gd
+      - name: Verify output WAV and provenance receipts
+        run: |
+          python - <<'PY'
+          import json, pathlib, wave
+          root=pathlib.Path(".")
+          data=json.loads((root/"docs/audio/cc_import_receipts.json").read_text())
+          kenney=[x for x in data["assets"] if x["author"]=="Kenney"]
+          assert len(kenney)==18, f"Expected 18 Kenney WAVs, got {len(kenney)}"
+          for entry in kenney:
+              path=root/entry["path"]
+              assert path.is_file(), path
+              with wave.open(str(path)) as wf:
+                  assert wf.getframerate()==48000
+                  assert wf.getsampwidth()==2
+                  assert wf.getnchannels()==2
+          print(f"{len(kenney)} real WAVs checked, all pending audition")
+          PY
+      - name: Commit only actual licensed WAV outputs and provenance files
+        run: |
+          git add assets/audio/overhaul docs/audio/cc_import_receipts.json assets/audio/CREDITS_CC_AUDIO.md
+          if git diff --cached --quiet; then
+            echo "Nothing new to commit"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "assets(audio): install verified CC0 WAV previews from Kenney and OpenGameArt"
+            git fetch origin "${GITHUB_REF_NAME}"
+            git rebase "origin/${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi

@@ -1,0 +1,57 @@
+{
+  "output": "docs\\qa\\turn_input_20261116\\next_turn_1280.png",
+  "width": 1280,
+  "height": 720,
+  "visible_window": false,
+  "framebuffer_size": [
+    1920,
+    1080
+  ],
+  "background_world_size": [
+    1280,
+    720
+  ],
+  "bounded_caption_count": 8,
+  "omitted_captions": [],
+  "targeting": false,
+  "input_checks": null,
+  "turn_checks": {
+    "checks": [
+      "escape_cancels_end_confirmation_without_pausing_or_spending_ap",
+      "choosing_another_action_clears_stale_confirmation",
+      "second_button_click_ends_each_agent_and_runs_one_real_enemy_phase",
+      "next_player_turn_restores_ap_and_active_selection"
+    ],
+    "agents_ended": [
+      "Rook",
+      "Longshot",
+      "Oracle",
+      "Echo"
+    ],
+    "turn_before": 1,
+    "turn_after": 2,
+    "next_phase": "player",
+    "allied_positions_unchanged": true
+  },
+  "sidebar_draws": {
+    "target_lock": false,
+    "combat_log": true,
+    "initiative": false
+  },
+  "deployment": false,
+  "deployment_pan_before_combat": [
+    64.0,
+    -32.0
+  ],
+  "camera_pan": [
+    64.0,
+    -146.0
+  ],
+  "active_unit_screen": [
+    32.0,
+    242.0
+  ],
+  "renderer": "real Arcade/OpenGL",
+  "fixture_only": true,
+  "map": "assets\\maps\\city_interior_server_room.png"
+}

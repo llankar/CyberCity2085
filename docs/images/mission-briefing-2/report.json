@@ -1,0 +1,26 @@
+{
+  "resolutions": [
+    [
+      1280,
+      720
+    ],
+    [
+      1672,
+      941
+    ],
+    [
+      1920,
+      1080
+    ],
+    [
+      2560,
+      1440
+    ]
+  ],
+  "read_only": true,
+  "controls": true,
+  "map_inspection": true,
+  "overflow": true,
+  "empty": true,
+  "language": true
+}

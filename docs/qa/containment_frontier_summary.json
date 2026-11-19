@@ -1,0 +1,21 @@
+{
+  "scope": "122 authored containment cases, seed 0, four rifle agents, unchanged 60-turn cap; automated policy only",
+  "combat_sources_sha256": "b34390d40f6757e272074972619ea0333f17b174ec2f2b30ec655915ad7b5df1",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "summary": {
+    "defeat": 99,
+    "victory": 21,
+    "turn_limit": 2
+  },
+  "changed_cases": [
+    {
+      "map": "city_exterior_elevated_freeway.png",
+      "before_outcome": "defeat",
+      "before_turns": 1,
+      "after_outcome": "defeat",
+      "after_turns": 2
+    }
+  ],
+  "first_turn_defeats": 0
+}

@@ -1,0 +1,5033 @@
+{
+  "scope": "Resource-file audit only; this is not a claim that every sprite was visually finished or individually rendered.",
+  "assets": [
+    {
+      "asset": "agent_diverse_01_neon_blade",
+      "preferred": "assets/units/agent_diverse_01_neon_blade_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        81,
+        6,
+        430,
+        508
+      ],
+      "sha256": "c50ac0202af13a8deaeac63084485509301224013f1f6a9d36c6003ca664718c",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 1,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_02_longcoat_gunner",
+      "preferred": "assets/units/agent_diverse_02_longcoat_gunner_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        129,
+        6,
+        380,
+        508
+      ],
+      "sha256": "5e60ef65fc313472e3af512739a4075f7ea34e3607f4868db4b8712a696a0151",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 2,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_03_magenta_pistol",
+      "preferred": "assets/units/agent_diverse_03_magenta_pistol_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        146,
+        6,
+        364,
+        508
+      ],
+      "sha256": "288b6c19e52cb6a7aaada1c47e22a9d2642468a0fd2966206d63597020b554e0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 3,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_04_trench_sniper",
+      "preferred": "assets/units/agent_diverse_04_trench_sniper_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        102,
+        6,
+        410,
+        508
+      ],
+      "sha256": "41265932deb6c2554c56f8bd45a876df488a1f04c47e65313b296341f11347da",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 4,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_05_psi_doctor",
+      "preferred": "assets/units/agent_diverse_05_psi_doctor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        128,
+        6,
+        386,
+        508
+      ],
+      "sha256": "e409dc97523b73a8193f455360f6d3ac25d02503f983edbcea5f70855cbcb197",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 5,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_06_street_medic",
+      "preferred": "assets/units/agent_diverse_06_street_medic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        133,
+        4,
+        380,
+        508
+      ],
+      "sha256": "b825e6ddcf94f6eee1836b64c479e5c509550ae6701f08c15c84264bcf5d6589",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 6,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_07_hooded_infiltrator",
+      "preferred": "assets/units/agent_diverse_07_hooded_infiltrator_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        118,
+        4,
+        393,
+        508
+      ],
+      "sha256": "ea6c8081b0b8cc9fafb3211e3ddbe8733380287bb922090e75ca4c5b41ed775f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 7,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_08_holo_hacker",
+      "preferred": "assets/units/agent_diverse_08_holo_hacker_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        88,
+        4,
+        423,
+        508
+      ],
+      "sha256": "05bccbe02fbb4dcbedb8902e52f410d0ba147e4563f778f59d35550b5105a9f1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 8,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_09_blue_mohawk_scout",
+      "preferred": "assets/units/agent_diverse_09_blue_mohawk_scout_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        135,
+        4,
+        378,
+        508
+      ],
+      "sha256": "8cfa2698eb599118333548c3d297da345a33ebdd94e8fba1830126cdd8654a23",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 9,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_10_ronin_duelist",
+      "preferred": "assets/units/agent_diverse_10_ronin_duelist_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        145,
+        4,
+        364,
+        508
+      ],
+      "sha256": "cb40a855b8b1bb0d1f40c74d1f7223984dca4fabcf70075ec4c5c175501f0099",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 10,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_11_rail_sniper",
+      "preferred": "assets/units/agent_diverse_11_rail_sniper_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        99,
+        6,
+        412,
+        508
+      ],
+      "sha256": "f24560f3d04dfe128d4c0e8b7c5406481bc8559ed58298307070e936f0d4dde4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 11,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_12_violet_fixer",
+      "preferred": "assets/units/agent_diverse_12_violet_fixer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        141,
+        6,
+        372,
+        508
+      ],
+      "sha256": "94282a9e17fe930b78455dcb2d0551a9e3b659bdd9284c00d4af21101825c6d7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 12,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_13_silver_pistol",
+      "preferred": "assets/units/agent_diverse_13_silver_pistol_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        149,
+        6,
+        361,
+        508
+      ],
+      "sha256": "192b59378568b09d467482c8cf2cdf1c88801482c3abfa13e5cbd99e34b27b23",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 13,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_14_armored_vanguard",
+      "preferred": "assets/units/agent_diverse_14_armored_vanguard_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        142,
+        6,
+        368,
+        506
+      ],
+      "sha256": "2e93da12d063c026ea157b22290915859cd018cd48b857e7665d50d49f330a77",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 14,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_15_chrome_medic",
+      "preferred": "assets/units/agent_diverse_15_chrome_medic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        153,
+        4,
+        361,
+        508
+      ],
+      "sha256": "bc5981b0ca2269a8cecfee34959924a15340fd5b7723b1b6aa75b642980328e3",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 15,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_16_heavy_breacher",
+      "preferred": "assets/units/agent_diverse_16_heavy_breacher_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        130,
+        4,
+        381,
+        508
+      ],
+      "sha256": "71a180dae3edd81961f8e1ab4a6d7ba3458de73374adfde55d8a9b5e47ef1c8a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 16,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_17_yellow_strike",
+      "preferred": "assets/units/agent_diverse_17_yellow_strike_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        151,
+        4,
+        362,
+        508
+      ],
+      "sha256": "9145e9674528a80c7824e8ba113e34a6552adb2241e0b9349a6862602701ef7a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 17,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_18_red_enforcer",
+      "preferred": "assets/units/agent_diverse_18_red_enforcer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        138,
+        4,
+        375,
+        508
+      ],
+      "sha256": "babe2a81acb69fdd04efc80cc1fd74bdc9ce76cdc806bfb23bb7d43b53f8d832",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 18,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_19_drone_handler",
+      "preferred": "assets/units/agent_diverse_19_drone_handler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        115,
+        4,
+        398,
+        508
+      ],
+      "sha256": "a7af5ff5ea6ee975c9e02ca6e3902c6dd5431e1ae9fc1fad413db48c5f02a7f6",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 19,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_20_cyber_doc",
+      "preferred": "assets/units/agent_diverse_20_cyber_doc_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        137,
+        4,
+        374,
+        508
+      ],
+      "sha256": "1e99e8f7166ec59e34a86f7f54caf0a6f41a6efdcea8f6700e6ffd19d3535bce",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 20,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_21_twin_blade_adept",
+      "preferred": "assets/units/agent_diverse_21_twin_blade_adept_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        115,
+        4,
+        397,
+        506
+      ],
+      "sha256": "27f20de0c986206238179645c9f6635a2b6e138ac70ae36e25014f53a34f56bb",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 21,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_22_veteran_inquisitor",
+      "preferred": "assets/units/agent_diverse_22_veteran_inquisitor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        125,
+        4,
+        388,
+        508
+      ],
+      "sha256": "a23c1b02a077f1d438910a530e2b7998cf69d0af76a94a76897208d941cdc5fa",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 22,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_23_dreadlock_rifle",
+      "preferred": "assets/units/agent_diverse_23_dreadlock_rifle_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        146,
+        4,
+        365,
+        508
+      ],
+      "sha256": "add0fac778cf167e11846b0f2678a6b4cf262b81eca20086932546d67f23f934",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 23,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_24_hooded_psion",
+      "preferred": "assets/units/agent_diverse_24_hooded_psion_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        123,
+        4,
+        390,
+        508
+      ],
+      "sha256": "85fcf95289670b8e8cfbcde8cc222664177ecfcedc7717914b7744489b46cdf0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 24,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_diverse_25_redline_runner",
+      "preferred": "assets/units/agent_diverse_25_redline_runner_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        140,
+        4,
+        369,
+        508
+      ],
+      "sha256": "6713c81f630aa18a9ae30dc551ec6b58ad677e4803853157c8608518d78fcc2d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 25,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_psi",
+      "preferred": "assets/units/agent_psi_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        61,
+        0,
+        483,
+        512
+      ],
+      "sha256": "5fa3536b2be9f7a2ba8fd251926056cddbfdfc8193895e1146282ef1b97eb624",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 26,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "agent_samurai",
+      "preferred": "assets/units/agent_samurai_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        393,
+        512
+      ],
+      "sha256": "6f29ee43e197bedc9eabb1eb040bb092a427efa829718cdff0e6f24bad1ff496",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 27,
+      "resource_group": "agents"
+    },
+    {
+      "asset": "enemy_commander",
+      "preferred": "assets/units/enemy_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        473,
+        512
+      ],
+      "sha256": "27a6165f277fc92df9fb97df17597e84c508bf741d9f5fef54a261698a2d31c1",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 28,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_commander",
+      "preferred": "assets/units/enemy_corp_37_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        133,
+        4,
+        434,
+        512
+      ],
+      "sha256": "1f70c3cc5cea6951aba410ae9a95a9ed8815ffa555789231a27501e92a9e6069",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 29,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_elite",
+      "preferred": "assets/units/enemy_corp_37_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        101,
+        0,
+        512,
+        512
+      ],
+      "sha256": "4e976f8a02d8d6bdb8ff9d942908c057f16188f26d99edfe8612a0ce7fbb03da",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-01.jpg",
+      "contact_cell": 30,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_grunt",
+      "preferred": "assets/units/enemy_corp_37_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        61,
+        0,
+        506,
+        512
+      ],
+      "sha256": "b58ebaa61a4db1a0f8e83cd200eaeb0dcbe6409c8e38aef6d35bcea81ca903f9",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 1,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_heavy",
+      "preferred": "assets/units/enemy_corp_37_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        93,
+        0,
+        467,
+        512
+      ],
+      "sha256": "8ecae3bb405c0a104adf8fb15d67efdb446c1dae90f4678a7328dda6805f04db",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 2,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_power_armor_commander",
+      "preferred": "assets/units/enemy_corp_37_power_armor_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        5,
+        0,
+        507,
+        512
+      ],
+      "sha256": "fdb4a3abf73a0a13d5f0a73f085a991129283cc70037722a2e607712a4a070f9",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 3,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_power_armor_elite",
+      "preferred": "assets/units/enemy_corp_37_power_armor_elite_512.png",
+      "dimensions": [
+        297,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        297,
+        512
+      ],
+      "sha256": "32782c676e2c7cc9a492403c45969cfb7fde185cc760dace2fa526dfe7e94a61",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 4,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_power_armor_grunt",
+      "preferred": "assets/units/enemy_corp_37_power_armor_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        119,
+        0,
+        467,
+        512
+      ],
+      "sha256": "f7486e1221a8cdd053f53b1dca80053b5bf20a40ef41de01b439d11cc40b2e9b",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 5,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_power_armor_heavy",
+      "preferred": "assets/units/enemy_corp_37_power_armor_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        85,
+        0,
+        512,
+        512
+      ],
+      "sha256": "d18412aeaa1f5d9185a59cd68aff0a9980e092ee8df6b51bf91915ee3701a0c3",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 6,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_robot_commander",
+      "preferred": "assets/units/enemy_corp_37_robot_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        63,
+        0,
+        483,
+        512
+      ],
+      "sha256": "adb457d019b101e9a0e549d8133bf13215a9fa62ef77d84771fe4e2fe8d95ad7",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 7,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_robot_elite",
+      "preferred": "assets/units/enemy_corp_37_robot_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        21,
+        0,
+        506,
+        512
+      ],
+      "sha256": "36cb58dc184cd5acb36b17666b2650692938879d30c2ca6d18f11f83c4ad8cdb",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 8,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_robot_grunt",
+      "preferred": "assets/units/enemy_corp_37_robot_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        109,
+        0,
+        512,
+        512
+      ],
+      "sha256": "28c05d7bed2b548bf62a8633c9df6ad5f16c70080c767a8a61b073906d2caf6f",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 9,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_37_robot_heavy",
+      "preferred": "assets/units/enemy_corp_37_robot_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        77,
+        0,
+        482,
+        512
+      ],
+      "sha256": "601a63fb170d2b4b587551ff5d9ff0fb8cb7e7c309c1be660c753dfaa9d37b92",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 10,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_commander",
+      "preferred": "assets/units/enemy_corp_samurai_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        181,
+        0,
+        512,
+        512
+      ],
+      "sha256": "a1ed0ee36ea51b363a8748d033609e04e5dec3b354eaaf7a278648375eeb1c1b",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 11,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_elite",
+      "preferred": "assets/units/enemy_corp_samurai_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        426,
+        512
+      ],
+      "sha256": "e640a4207df409fa6a1da39ca0f79540b95496ea8d064363fcd5f58c1c0ad331",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 12,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_grunt",
+      "preferred": "assets/units/enemy_corp_samurai_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        53,
+        0,
+        504,
+        512
+      ],
+      "sha256": "6a0b037c1213f850091cf69c3cc1eb25fc114eb813b15ea7692f013372e9a6f9",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 13,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_heavy",
+      "preferred": "assets/units/enemy_corp_samurai_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        0,
+        443,
+        512
+      ],
+      "sha256": "7be7cead2b730cfd9ba78a654fd36b6e554bdcfdd7208d10fcba79702bc80669",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 14,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_power_armor_commander",
+      "preferred": "assets/units/enemy_corp_samurai_power_armor_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        499,
+        512
+      ],
+      "sha256": "ff820ed1fbfbdbbd811f781a97cd8ebe01e53d3ceed990b64606bf4be2e7fd6d",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 15,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_power_armor_elite",
+      "preferred": "assets/units/enemy_corp_samurai_power_armor_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "119d42383a454d2dcb9f13a7017b8736f53b8da0acd7648c85fe8c62cc9dd392",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 16,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_power_armor_grunt",
+      "preferred": "assets/units/enemy_corp_samurai_power_armor_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "34190e9a642ae4d7ac4f761a3c2c509ff7aef709659d3353d56cdc47e5c90fa5",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 17,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_power_armor_heavy",
+      "preferred": "assets/units/enemy_corp_samurai_power_armor_heavy_512.png",
+      "dimensions": [
+        316,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        315,
+        512
+      ],
+      "sha256": "1e5dcc49ef210009cb9d94715798bc78a8817054d92096e7686ad8f1f219e63b",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 18,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_robot_commander",
+      "preferred": "assets/units/enemy_corp_samurai_robot_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        457,
+        512
+      ],
+      "sha256": "b3ec9bb162c0c987f0991ace9d37eeb9bd33f5e828774467e3b4997a820ac5a3",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 19,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_robot_elite",
+      "preferred": "assets/units/enemy_corp_samurai_robot_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        111,
+        0,
+        499,
+        512
+      ],
+      "sha256": "a954a8a32d36a3a0bd42bcd6c23d2e0c92a0b50c7e147c104f97fa699bd44e2f",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 20,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_robot_grunt",
+      "preferred": "assets/units/enemy_corp_samurai_robot_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        173,
+        0,
+        512,
+        512
+      ],
+      "sha256": "4d681049d245c27e02395c80e5e102aab7083e92bf55ed61d57d4e3ae5908cd2",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 21,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_corp_samurai_robot_heavy",
+      "preferred": "assets/units/enemy_corp_samurai_robot_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        94,
+        0,
+        512,
+        512
+      ],
+      "sha256": "1548441d14f982e878b0788395c2236a2cb4359800e6af32f7281b3d649106c6",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 22,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_elite",
+      "preferred": "assets/units/enemy_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        190,
+        4,
+        512,
+        512
+      ],
+      "sha256": "0d5d556165e7cd43944d15bfe3398dbf6e941dfbd85b25e4b5fe9d763e10e3e7",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 23,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_01_assault_mech",
+      "preferred": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        58,
+        42,
+        453,
+        470
+      ],
+      "sha256": "a582a98f6fc4a9a71a486d7baf3f0e1eadd74ba9fb1abeb79160db24aae1f5b6",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 24,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_02_quadruped_siege",
+      "preferred": "assets/units/enemy_giant_robot_02_quadruped_siege_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        62,
+        472,
+        450
+      ],
+      "sha256": "4e3d176e5af6c327de4f317d5107e562b2642213f9c9f1390eba7e0787ee57a7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 25,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_03_missile_artillery",
+      "preferred": "assets/units/enemy_giant_robot_03_missile_artillery_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        85,
+        41,
+        427,
+        471
+      ],
+      "sha256": "8121abbb49dfb48faa7477cd1e5b10469a04fbeefb320bbeac5a26c16604d6bd",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 26,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_04_riot_walker",
+      "preferred": "assets/units/enemy_giant_robot_04_riot_walker_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        70,
+        40,
+        442,
+        472
+      ],
+      "sha256": "27a14a64856da4d0a2fc565f8f21d37f2240a465167f9c7355a9f694ec8b0825",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 27,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_05_railgun_sniper",
+      "preferred": "assets/units/enemy_giant_robot_05_railgun_sniper_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        45,
+        472,
+        468
+      ],
+      "sha256": "4c494bf61a256c7c92e452a723b81903c2009fd429d5f00527c26407aaadc796",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 28,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_06_flame_unit",
+      "preferred": "assets/units/enemy_giant_robot_06_flame_unit_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        39,
+        44,
+        471,
+        467
+      ],
+      "sha256": "c732bd7906315495c6f014f1dbabd1beae17327b27b5905d999dfdaa0658ee0e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 29,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_07_drone_carrier",
+      "preferred": "assets/units/enemy_giant_robot_07_drone_carrier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        49,
+        40,
+        463,
+        472
+      ],
+      "sha256": "145e6259b0cecae399a2947b2be30fb43d06dc8e577da4cf0f5d29730672e83a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-02.jpg",
+      "contact_cell": 30,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_08_claw_demolisher",
+      "preferred": "assets/units/enemy_giant_robot_08_claw_demolisher_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        49,
+        472,
+        463
+      ],
+      "sha256": "7d156ba0f702e41ce8e310ef6a75e5f331fd0cc86d9d82f9d3cc7322a88d791d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 1,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_09_spider_tank",
+      "preferred": "assets/units/enemy_giant_robot_09_spider_tank_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        70,
+        472,
+        441
+      ],
+      "sha256": "c03a3fb69ba97a32e584ebbaaa04252ce60acae67408f04536312ac31e295ca6",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 2,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_10_pacification_titan",
+      "preferred": "assets/units/enemy_giant_robot_10_pacification_titan_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        69,
+        42,
+        442,
+        470
+      ],
+      "sha256": "76c1c11dce1d4140411411ef4ec96ca3eab597384c76762479a0b379552060ec",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 3,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_11_samurai_warbot",
+      "preferred": "assets/units/enemy_giant_robot_11_samurai_warbot_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        58,
+        40,
+        454,
+        472
+      ],
+      "sha256": "862ad0a284d8ea2a3c76b6eb6d9d925a0520135668297979aa43ab418fc4fa34",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 4,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_12_corp_security",
+      "preferred": "assets/units/enemy_giant_robot_12_corp_security_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        60,
+        39,
+        453,
+        473
+      ],
+      "sha256": "ab8d31cac5eb11c9ccc70546d4d24fa7e0831b96bf4deeadf53663fca0c895b8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 5,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_13_salvage_warbot",
+      "preferred": "assets/units/enemy_giant_robot_13_salvage_warbot_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        40,
+        470,
+        472
+      ],
+      "sha256": "2193e1a35cb88e0734dcee4ea4b298b19fe015ff1d607faf9958023bd1434bb0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 6,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_14_killer_medic",
+      "preferred": "assets/units/enemy_giant_robot_14_killer_medic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        53,
+        472,
+        458
+      ],
+      "sha256": "73ab1b242566462271bc6dbc76d0fdcd321ebc8eb531270118d7a0fa846b5245",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 7,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_15_stealth_mech",
+      "preferred": "assets/units/enemy_giant_robot_15_stealth_mech_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        48,
+        40,
+        463,
+        472
+      ],
+      "sha256": "95c17c5e8bf179705dd07628ba102bf730f81e2571ab0b10444efdcc71dfffdd",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 8,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_16_twin_cannon",
+      "preferred": "assets/units/enemy_giant_robot_16_twin_cannon_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        42,
+        471,
+        470
+      ],
+      "sha256": "531f3f8e14615138542220b1fec449e938c868860166bbae6493c645b9f0d0b2",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 9,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_17_blade_hunter",
+      "preferred": "assets/units/enemy_giant_robot_17_blade_hunter_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        56,
+        472,
+        457
+      ],
+      "sha256": "4b491b60c51e35d647f31bffbc035862b00fb3847aa47e5697994accecd01a13",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 10,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_18_anti_air",
+      "preferred": "assets/units/enemy_giant_robot_18_anti_air_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        60,
+        472,
+        452
+      ],
+      "sha256": "9c6d49f2e39ea7a0c3330a18a0b28b10a6daa74f1e132f2b6c2ae7949f41503f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 11,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_19_mining_combat",
+      "preferred": "assets/units/enemy_giant_robot_19_mining_combat_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        58,
+        472,
+        453
+      ],
+      "sha256": "5dfb3ea36e2465faedf87f8d2a7a78c94acd30eea7dd5847844f1399cf8a4d00",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 12,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_giant_robot_20_command_titan",
+      "preferred": "assets/units/enemy_giant_robot_20_command_titan_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        86,
+        40,
+        426,
+        471
+      ],
+      "sha256": "4e6eb98154b5e5659f0a502c835d3d48ba0b42881861d2f335c54bc5b327d932",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 13,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_grunt",
+      "preferred": "assets/units/enemy_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        119,
+        0,
+        475,
+        512
+      ],
+      "sha256": "a6d41b3e20c8d0eb180c83b3ee0cdddab28cd3aac6760f2847bc4c32e26aaa19",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 14,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_heavy",
+      "preferred": "assets/units/enemy_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        5,
+        0,
+        499,
+        512
+      ],
+      "sha256": "e8878dc9998578d034090800d8db72b62374d6cc7ff13e77368e3a613c7e126d",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 15,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_01_hulk",
+      "preferred": "assets/units/enemy_mutant_01_hulk_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        75,
+        40,
+        437,
+        472
+      ],
+      "sha256": "9778fd2e9f834a590a83100895be57b3b1d049b5a9bc40ab379eb829c2aeea59",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 16,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_02_spine_stalker",
+      "preferred": "assets/units/enemy_mutant_02_spine_stalker_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        72,
+        41,
+        440,
+        471
+      ],
+      "sha256": "a0b97dedb5c3d6b003e200b0987b75504ebba89360c8572d563331688f075423",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 17,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_03_acid_psychic",
+      "preferred": "assets/units/enemy_mutant_03_acid_psychic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        111,
+        41,
+        401,
+        472
+      ],
+      "sha256": "4274d21a580a6a57b1d2bf613f8fb1a62df99091129373e64925706c7e24cde2",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 18,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_04_four_arm_brawler",
+      "preferred": "assets/units/enemy_mutant_04_four_arm_brawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        81,
+        41,
+        430,
+        472
+      ],
+      "sha256": "e593968a829e581c3e036016dc13f6a09b41f4d04bf75a1544534f265a3034d5",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 19,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_05_irradiated_medic",
+      "preferred": "assets/units/enemy_mutant_05_irradiated_medic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        114,
+        41,
+        397,
+        472
+      ],
+      "sha256": "049d1ef7dc00419d12b3dde6d0db2a50c24cd31b418e3d4db417c34d03172785",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 20,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_06_pit_fighter",
+      "preferred": "assets/units/enemy_mutant_06_pit_fighter_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        98,
+        42,
+        414,
+        470
+      ],
+      "sha256": "6ba44b52ae5be199673a5805c094a82110c0026929cbabd733a82f83f231f07b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 21,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_07_sewer_veil",
+      "preferred": "assets/units/enemy_mutant_07_sewer_veil_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        86,
+        42,
+        425,
+        470
+      ],
+      "sha256": "c07577bb6ed83884c58ee1d2ec98c7cf9e297870f09a39a05dd143098d1f6cfd",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 22,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_08_crystal_growth",
+      "preferred": "assets/units/enemy_mutant_08_crystal_growth_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        56,
+        42,
+        455,
+        470
+      ],
+      "sha256": "6496e215709393ba786d218e8f44f8d8dea4fa468c224b8ad42cdb122d6b76e7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 23,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_09_toxin_carrier",
+      "preferred": "assets/units/enemy_mutant_09_toxin_carrier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        54,
+        472,
+        457
+      ],
+      "sha256": "538fa95310518e2fa8ea983ab825df5ab3b26ba2e1cf11c79450ff645129c697",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 24,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_10_bone_blade",
+      "preferred": "assets/units/enemy_mutant_10_bone_blade_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        96,
+        40,
+        416,
+        472
+      ],
+      "sha256": "6d936e4bae081c8b2848aad1beb105cc5505d67302c85dfe3081dfe14b1ae68f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 25,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_11_cyber_graft",
+      "preferred": "assets/units/enemy_mutant_11_cyber_graft_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        84,
+        40,
+        427,
+        472
+      ],
+      "sha256": "8ef3ba2cbadd6960f3b87af3daf44d9fc8f7480ffba425b6a9e811e563570577",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 26,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_12_plague_monk",
+      "preferred": "assets/units/enemy_mutant_12_plague_monk_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        113,
+        41,
+        400,
+        470
+      ],
+      "sha256": "32a9339c9202371c02c1aeeb6248126a85b1b5f9929a10df352ca2453c317b74",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 27,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_13_scrap_shield",
+      "preferred": "assets/units/enemy_mutant_13_scrap_shield_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        48,
+        472,
+        464
+      ],
+      "sha256": "7c16f9c7e6744b713abb16889fdccad888a9311af87e188bb0fff6d6e27dbf49",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 28,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_14_crawler",
+      "preferred": "assets/units/enemy_mutant_14_crawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        76,
+        472,
+        436
+      ],
+      "sha256": "017a159bea64b742542ac176f0ed470124600b57694f8aa4e85e6c176aef9657",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 29,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_15_horned_warlord",
+      "preferred": "assets/units/enemy_mutant_15_horned_warlord_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        84,
+        40,
+        426,
+        472
+      ],
+      "sha256": "97d87fdf4abd01c91ffe39e55ad33cf556506011a86c119391ff1664fcb1396e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-03.jpg",
+      "contact_cell": 30,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_16_gasmask_scavenger",
+      "preferred": "assets/units/enemy_mutant_16_gasmask_scavenger_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        105,
+        42,
+        406,
+        470
+      ],
+      "sha256": "c2457c9fa91d5197f26342e829b4686a6ba9ba98685249d18440c4e6054dc154",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 1,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_17_glowing_vein",
+      "preferred": "assets/units/enemy_mutant_17_glowing_vein_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        101,
+        40,
+        411,
+        472
+      ],
+      "sha256": "5e4fc42538c6d72ee4bb326caa6b0edde8f81c6b36061d5649ca9b61cd0dc741",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 2,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_18_blind_sonar",
+      "preferred": "assets/units/enemy_mutant_18_blind_sonar_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        57,
+        41,
+        455,
+        470
+      ],
+      "sha256": "55454b311c3d3fab9260960b484af9171ce1e7c9d2d12486f8fe02d65f9a94c9",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 3,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_19_hive_scarred",
+      "preferred": "assets/units/enemy_mutant_19_hive_scarred_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        50,
+        472,
+        461
+      ],
+      "sha256": "8cb58278bfc5f59ee0e4d3d53ac310fd3abe62f1893fb056fd2bcad99ad217af",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 4,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_20_rust_mangler",
+      "preferred": "assets/units/enemy_mutant_20_rust_mangler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        101,
+        42,
+        408,
+        471
+      ],
+      "sha256": "8d6a3df5d4e6f7750bed914bc43aa64036b71b22021655eda449e873478c728e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 5,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_01_sewer_boar",
+      "preferred": "assets/units/enemy_mutant_animal_01_sewer_boar_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        41,
+        48,
+        472,
+        463
+      ],
+      "sha256": "06306b8438abaeb337538bdd270d89f2e7839538357a37b3257c4bbfe4bcc47e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 6,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_02_two_head_hound",
+      "preferred": "assets/units/enemy_mutant_animal_02_two_head_hound_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        70,
+        472,
+        442
+      ],
+      "sha256": "3decbd4f89a90d301ea6f3874bb34deb91bc3f9d1cce94d5df9735631ba93cc9",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 7,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_03_rat_king",
+      "preferred": "assets/units/enemy_mutant_animal_03_rat_king_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        55,
+        472,
+        457
+      ],
+      "sha256": "3d95b5d9a9c9a3f1a99ab52ebbb5810fac7d54303e7f6a5d0449ab90c80bd02a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 8,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_04_rad_stag",
+      "preferred": "assets/units/enemy_mutant_animal_04_rad_stag_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        51,
+        472,
+        460
+      ],
+      "sha256": "3793614646715cd20851e4755deaa0561450f10f39fe66e97e38d872c29583d4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 9,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_05_six_leg_wolf",
+      "preferred": "assets/units/enemy_mutant_animal_05_six_leg_wolf_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        63,
+        470,
+        448
+      ],
+      "sha256": "4743e69a0199c9b243dd4a3991512d20b55aa4e559c30a8bc0ddaecfa97937d7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 10,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_06_plated_crocodile",
+      "preferred": "assets/units/enemy_mutant_animal_06_plated_crocodile_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        41,
+        114,
+        471,
+        397
+      ],
+      "sha256": "8a4f4cf738eacac2155654ef7f84bbc0f60dcbdd5525fa86c17caaf3a37fad50",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 11,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_07_vulture_raptor",
+      "preferred": "assets/units/enemy_mutant_animal_07_vulture_raptor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        77,
+        472,
+        434
+      ],
+      "sha256": "413fc74b1a8cb3f1a091128274a09b15b03a1412b2449ed6dfbd90b92cd8b4d6",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 12,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_08_mole_brute",
+      "preferred": "assets/units/enemy_mutant_animal_08_mole_brute_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        41,
+        45,
+        472,
+        467
+      ],
+      "sha256": "7d8828174d179680687f340241b1dcb913eb725b2cf5f46ca0769265ddb62c9c",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 13,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_09_horned_bear",
+      "preferred": "assets/units/enemy_mutant_animal_09_horned_bear_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        66,
+        470,
+        445
+      ],
+      "sha256": "ecac8a78484d156200ac12260c9cb08472697db3dc1744322668307e27a64f82",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 14,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_10_acid_lizard",
+      "preferred": "assets/units/enemy_mutant_animal_10_acid_lizard_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        77,
+        472,
+        434
+      ],
+      "sha256": "b4517cf6c2590f70b295391a7d8ad4e69b9e10139f26fd4187c6b3951b50dea1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 15,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_11_cyber_hyena",
+      "preferred": "assets/units/enemy_mutant_animal_11_cyber_hyena_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        68,
+        472,
+        443
+      ],
+      "sha256": "0d033248f9a67f37f35c540992d0c8a347a01c3de827655c4878b3bd9ff1b5e7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 16,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_12_bone_panther",
+      "preferred": "assets/units/enemy_mutant_animal_12_bone_panther_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        41,
+        79,
+        470,
+        432
+      ],
+      "sha256": "027e3156597103382cab9da63db7fad3cc6c01f08469f05420123594d1285f21",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 17,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_13_mutant_elk",
+      "preferred": "assets/units/enemy_mutant_animal_13_mutant_elk_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        66,
+        472,
+        446
+      ],
+      "sha256": "5e64d6da7c7e18fb327b6e526557220cef0f3853ff248a3b7a37053886eed180",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 18,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_14_scarab_dog",
+      "preferred": "assets/units/enemy_mutant_animal_14_scarab_dog_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        68,
+        472,
+        444
+      ],
+      "sha256": "19923e9506f2e106ef797a0e1a30a96393213fed9f049f344a1854a7eb8b97d3",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 19,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_15_cave_gorilla",
+      "preferred": "assets/units/enemy_mutant_animal_15_cave_gorilla_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        54,
+        41,
+        459,
+        470
+      ],
+      "sha256": "76534e67678213338c56d388639cc4bbd9feaf7a36abc831edbe626a8f073d23",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 20,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_16_quillback_beast",
+      "preferred": "assets/units/enemy_mutant_animal_16_quillback_beast_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        41,
+        52,
+        470,
+        459
+      ],
+      "sha256": "56ff15c87e0ea4d2e420a120ba0d06dc98dbab70fb5b56bb974bb7b97b549672",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 21,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_17_scrap_turtle",
+      "preferred": "assets/units/enemy_mutant_animal_17_scrap_turtle_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        72,
+        470,
+        440
+      ],
+      "sha256": "9ad91244b4d5ec4f05080d3ef0bed6e54fe0c5a7f3a99602deef683ec1a861aa",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 22,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_18_irradiated_cougar",
+      "preferred": "assets/units/enemy_mutant_animal_18_irradiated_cougar_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        93,
+        470,
+        419
+      ],
+      "sha256": "411864888e98018fc173384d55109299285465091634cf6d00a6ce3c5eefaed0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 23,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_19_mandible_horse",
+      "preferred": "assets/units/enemy_mutant_animal_19_mandible_horse_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        45,
+        470,
+        467
+      ],
+      "sha256": "0851047187e6511a15e0dd68f9043079349e22328126d1a20f1f72b9a5b7637d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 24,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_animal_20_bat_wing_dog",
+      "preferred": "assets/units/enemy_mutant_animal_20_bat_wing_dog_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        51,
+        472,
+        460
+      ],
+      "sha256": "c344c5bcc42843774d700bdcc341efa6ae4d79bf416e93c52d4bce7321e591ce",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 25,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_commander",
+      "preferred": "assets/units/enemy_mutant_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        237,
+        0,
+        483,
+        512
+      ],
+      "sha256": "4fffb038c475514a602092debc4530186807ea85fd8ba561c787b7fb5e7b07d4",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 26,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_elite",
+      "preferred": "assets/units/enemy_mutant_elite_512.png",
+      "dimensions": [
+        306,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        306,
+        512
+      ],
+      "sha256": "a9bc2cc48094cf17c4ebbd6ef62f3630191777001c122bac6957e689f973940f",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 27,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_grunt",
+      "preferred": "assets/units/enemy_mutant_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        55,
+        0,
+        490,
+        512
+      ],
+      "sha256": "39d91e035966f3cf328bfda0bbe86101d2131519d5b9a8f5940ea58d3dc3f029",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 28,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_mutant_heavy",
+      "preferred": "assets/units/enemy_mutant_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        205,
+        0,
+        491,
+        512
+      ],
+      "sha256": "beb0da47af799e9fad4f4c366bd6d7c45c1671b8e3aca995b235c161848d0d01",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 29,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_01_sawblade_marauder",
+      "preferred": "assets/units/enemy_raider_01_sawblade_marauder_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        87,
+        42,
+        424,
+        470
+      ],
+      "sha256": "f086b130e1e4de389079655ee64522f92280359f381a506e0e9ed853a0fd8013",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-04.jpg",
+      "contact_cell": 30,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_02_tire_armor_brute",
+      "preferred": "assets/units/enemy_raider_02_tire_armor_brute_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        75,
+        40,
+        436,
+        472
+      ],
+      "sha256": "1bf6c31ecc69022acd1ee08676be789781445fcc1d1a9482bddad88ee2dc73bd",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 1,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_03_flame_lancer",
+      "preferred": "assets/units/enemy_raider_03_flame_lancer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        50,
+        472,
+        462
+      ],
+      "sha256": "0794ba02ad01928646fa57e594e7829bc951d13a8b3349b369c259f903054e94",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 2,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_04_scrap_sniper",
+      "preferred": "assets/units/enemy_raider_04_scrap_sniper_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        83,
+        40,
+        428,
+        472
+      ],
+      "sha256": "448ba2aaf369ca73f4d631870031b976d05c6d8289432bb7b185fdebdfb4ca18",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 3,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_05_bike_scout",
+      "preferred": "assets/units/enemy_raider_05_bike_scout_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        64,
+        42,
+        447,
+        470
+      ],
+      "sha256": "66ce957ba00e945c005ddffb7a47fc5cae470fac0c4602ac61ac642c6271b943",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 4,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_06_chain_hook",
+      "preferred": "assets/units/enemy_raider_06_chain_hook_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        82,
+        40,
+        429,
+        472
+      ],
+      "sha256": "996e397672d5b39e1db06532a1deca6d3e99b50f0e84d33444a0f0cdba682e92",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 5,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_07_wasteland_medic",
+      "preferred": "assets/units/enemy_raider_07_wasteland_medic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        83,
+        40,
+        428,
+        472
+      ],
+      "sha256": "5bd893d61d963be2a7da6776a5cf660456111a0a0223cad45f0a013134e82e88",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 6,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_08_shield_brawler",
+      "preferred": "assets/units/enemy_raider_08_shield_brawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        50,
+        472,
+        462
+      ],
+      "sha256": "8410a9eb734fe9ccb40827b873b8f05f8a213438a9fcbeee91ce489ccafd0080",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 7,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_09_mohawk_duelist",
+      "preferred": "assets/units/enemy_raider_09_mohawk_duelist_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        97,
+        41,
+        413,
+        472
+      ],
+      "sha256": "8c53c987f206f8082e6621f0c93e311df52be8ddeeffd1b1b4d33b7831cd5883",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 8,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_10_dust_preacher",
+      "preferred": "assets/units/enemy_raider_10_dust_preacher_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        98,
+        40,
+        414,
+        471
+      ],
+      "sha256": "346408cbe8b133304d97651803b769fd671d297121d60d955e6119c37802f0e1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 9,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_11_drone_scavenger",
+      "preferred": "assets/units/enemy_raider_11_drone_scavenger_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        74,
+        40,
+        438,
+        472
+      ],
+      "sha256": "257594128667b789a3532d10b189f275468539c988872d1c7a82a91be0e86f54",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 10,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_12_explosive_thrower",
+      "preferred": "assets/units/enemy_raider_12_explosive_thrower_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        118,
+        40,
+        392,
+        472
+      ],
+      "sha256": "7bdf13a858b159d7ed90ed2bc1b6c7a49cd7cae6291b78a764c34529e1f177d5",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 11,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_13_nailgunner",
+      "preferred": "assets/units/enemy_raider_13_nailgunner_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        103,
+        40,
+        408,
+        472
+      ],
+      "sha256": "0e9b2186e7f1ab38acec698e899b31a4662bab30f5e2511aefccd9526f528784",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 12,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_14_armored_queen",
+      "preferred": "assets/units/enemy_raider_14_armored_queen_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        47,
+        472,
+        464
+      ],
+      "sha256": "8d1336d1a20dd2ea67784ca04dbfb21777fda5a71d4bc61bf1f5af532844bbaf",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 13,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_15_skull_helm_heavy",
+      "preferred": "assets/units/enemy_raider_15_skull_helm_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        104,
+        40,
+        407,
+        472
+      ],
+      "sha256": "9a66b70bea00058f56d8f58e30ab21b308639578c53f02a802a91e7e074eb475",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 14,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_16_harpoon_gunner",
+      "preferred": "assets/units/enemy_raider_16_harpoon_gunner_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        56,
+        42,
+        456,
+        471
+      ],
+      "sha256": "5fc4700e6f88b8bcb31ac9951427d09d1c828e69be24614eb33f3a0abe6888a4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 15,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_17_cyber_jaw",
+      "preferred": "assets/units/enemy_raider_17_cyber_jaw_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        47,
+        472,
+        464
+      ],
+      "sha256": "1824ae4a312742a7b06c42f40639bab37f9f7d4b53fb008dc1105b6c20c24c47",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 16,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_18_banner_carrier",
+      "preferred": "assets/units/enemy_raider_18_banner_carrier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        49,
+        472,
+        463
+      ],
+      "sha256": "3c999ba94c7e1e132dea746924b4de125540b7d47759821306b09df4e8c4fe88",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 17,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_19_oil_mechanic",
+      "preferred": "assets/units/enemy_raider_19_oil_mechanic_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        40,
+        55,
+        472,
+        456
+      ],
+      "sha256": "60ba5d6e53c66b2a4a634741649c6231433025c5935271430758e5342bc575d9",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 18,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_20_twin_axe",
+      "preferred": "assets/units/enemy_raider_20_twin_axe_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        68,
+        40,
+        443,
+        472
+      ],
+      "sha256": "705158dc7dff28acfa866d0cf9d5fd366649c1dc69a95956fd6a88875b3783d7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 19,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_commander",
+      "preferred": "assets/units/enemy_raider_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        506,
+        512
+      ],
+      "sha256": "1b2f53db9676b1e8338e4f1ba4630537a068e2aad9d50e83c97e1b2ed7e27198",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 20,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_elite",
+      "preferred": "assets/units/enemy_raider_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        15,
+        0,
+        499,
+        512
+      ],
+      "sha256": "f32dbddcac0c937d040d31bb15ef74b7eefef3868d47e83b9e32a8ef0db43278",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 21,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_grunt",
+      "preferred": "assets/units/enemy_raider_grunt_512.png",
+      "dimensions": [
+        353,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        24,
+        353,
+        512
+      ],
+      "sha256": "aa9f28161ab1beb3689751d5b921105b0ccd833aadf6afb80e69a491a668876c",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 22,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_raider_heavy",
+      "preferred": "assets/units/enemy_raider_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        69,
+        0,
+        465,
+        512
+      ],
+      "sha256": "6e3fc118994ec30fda4098d83418457c2d98ee8f32a9c043ac989010699aa56f",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 23,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_01_crawler",
+      "preferred": "assets/units/enemy_starver_01_crawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        80,
+        470,
+        431
+      ],
+      "sha256": "0e15ffaec698dc84dda6bb0e2943e3b333cd6427bb6a7a8264dd5bbadfd88e7b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 24,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_02_hooded_knife",
+      "preferred": "assets/units/enemy_starver_02_hooded_knife_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        97,
+        40,
+        415,
+        472
+      ],
+      "sha256": "a26084d7d9633c05fe89564a1eb27eb4cda4e3d736ad90a9da9072cfe7a63208",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 25,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_03_hospital_gown",
+      "preferred": "assets/units/enemy_starver_03_hospital_gown_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        88,
+        40,
+        424,
+        472
+      ],
+      "sha256": "807ed14bc756a83c46320e5cbc41ebc0e631c40051bcb8a1e57a0772eb7f32b4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 26,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_04_ash_burned",
+      "preferred": "assets/units/enemy_starver_04_ash_burned_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        121,
+        40,
+        391,
+        472
+      ],
+      "sha256": "b4726dfa6a30a897611340221162fff710c14c05d2e3780b963525affde7b504",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 27,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_05_riot_armor",
+      "preferred": "assets/units/enemy_starver_05_riot_armor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        117,
+        40,
+        393,
+        471
+      ],
+      "sha256": "ac4144345b6527983be3ddf816e0f71b9aa1877ada3eb265e6ec931cbfb5c1d8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 28,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_06_pack_leader",
+      "preferred": "assets/units/enemy_starver_06_pack_leader_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        101,
+        42,
+        410,
+        470
+      ],
+      "sha256": "b99c4496abd0698828e13ddd3af0ff43fdc98238f008c81372834167a5e11cfb",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 29,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_07_gasmask",
+      "preferred": "assets/units/enemy_starver_07_gasmask_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        83,
+        42,
+        428,
+        471
+      ],
+      "sha256": "047eab3a0e753dee6c0cf0eff7ebf5e239940b7cfb651832f0b47b0c746ebbb1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-05.jpg",
+      "contact_cell": 30,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_08_famine_bloater",
+      "preferred": "assets/units/enemy_starver_08_famine_bloater_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        100,
+        40,
+        413,
+        472
+      ],
+      "sha256": "0b339e8d446b29c9bbd2388b114ca4bede367d6d386bbc93569a450e454a8609",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 1,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_09_bone_sprinter",
+      "preferred": "assets/units/enemy_starver_09_bone_sprinter_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        42,
+        54,
+        471,
+        457
+      ],
+      "sha256": "919c17777cc4dd1be9f3eed4d457209d2dc47e223b2e3f7ca0776140f95ad58b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 2,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_10_chained",
+      "preferred": "assets/units/enemy_starver_10_chained_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        70,
+        41,
+        442,
+        471
+      ],
+      "sha256": "6e732503ca81c32e800e9fc6a88186794110f36e470aa45e66ba7945e69f387e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 3,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_11_sewer_wretch",
+      "preferred": "assets/units/enemy_starver_11_sewer_wretch_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        106,
+        40,
+        405,
+        472
+      ],
+      "sha256": "ca99be3552873f206b92d774a2226e3e4b7d557670324f042aef25c03189aae0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 4,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_12_pale_blind",
+      "preferred": "assets/units/enemy_starver_12_pale_blind_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        110,
+        40,
+        402,
+        472
+      ],
+      "sha256": "52cb51a0f3159c53d50982c4a7922707363c44edc69777d3a6f55881f2aa8b45",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 5,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_13_burned_welder",
+      "preferred": "assets/units/enemy_starver_13_burned_welder_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        120,
+        40,
+        392,
+        472
+      ],
+      "sha256": "a6cac7a595d94784699d26ea1a60b762e0375baf31b66116f81b11a8d0a49c76",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 6,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_14_tech_worker",
+      "preferred": "assets/units/enemy_starver_14_tech_worker_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        127,
+        40,
+        385,
+        472
+      ],
+      "sha256": "8b6bc64be1898915ef0867857d8e01e3d03888e59d0c68664220073e508aca7b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 7,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_15_ruined_priest",
+      "preferred": "assets/units/enemy_starver_15_ruined_priest_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        128,
+        42,
+        383,
+        470
+      ],
+      "sha256": "768f6acff623d37a6e151b3703632770fc542cb0de5d5c4d86cd7e29c3878fba",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 8,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_16_frostbitten",
+      "preferred": "assets/units/enemy_starver_16_frostbitten_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        115,
+        41,
+        395,
+        470
+      ],
+      "sha256": "6e534ccfa05db7cecb704f01b1b058cce843fa4f976e738f5e8df1863727db93",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 9,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_17_split_jaw",
+      "preferred": "assets/units/enemy_starver_17_split_jaw_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        99,
+        42,
+        413,
+        470
+      ],
+      "sha256": "e02ccb4db9a91679e1030b8b46188b933a7c1c4b9fae3823b23a87d2973a5a78",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 10,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_18_cyber_junk",
+      "preferred": "assets/units/enemy_starver_18_cyber_junk_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        114,
+        40,
+        397,
+        472
+      ],
+      "sha256": "b9d3bf4f2d5a162f8db08457dee5e55a234f681a7ce83084c744c34e5124d9eb",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 11,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_19_corpse_soldier",
+      "preferred": "assets/units/enemy_starver_19_corpse_soldier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        69,
+        40,
+        443,
+        472
+      ],
+      "sha256": "65f5e628ca5f6cfbe6cb46ff5e591d3395d68914a2b7ccf9266dd870003bce6d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 12,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_20_long_claw",
+      "preferred": "assets/units/enemy_starver_20_long_claw_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        86,
+        40,
+        426,
+        472
+      ],
+      "sha256": "7e34179807cec0e04d7546b257b1c7cde6c76ef0298ba37f60c773b936997910",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 13,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_commander",
+      "preferred": "assets/units/enemy_starver_commander_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        101,
+        0,
+        473,
+        512
+      ],
+      "sha256": "6ddea720da3f0dc3af15caf33c743ac61a2e1147b2d1b43b3d678b395d4e358d",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 14,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_elite",
+      "preferred": "assets/units/enemy_starver_elite_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        38,
+        0,
+        427,
+        512
+      ],
+      "sha256": "aa0350435c84d04d380ad969e7d84936b40d135a8b18e24b3f10f6a449e43fef",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 15,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_grunt",
+      "preferred": "assets/units/enemy_starver_grunt_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        467,
+        512
+      ],
+      "sha256": "328296cb823e75ab2c1b2cc885efbf42a25cdc9fb109266c4c6ae9f9b26e6ee2",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 16,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "enemy_starver_heavy",
+      "preferred": "assets/units/enemy_starver_heavy_512.png",
+      "dimensions": [
+        282,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        282,
+        512
+      ],
+      "sha256": "ef106790736ec6613ca7b64afeeee4c153837ad53b147992ccb5f61aaef3ab3c",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 17,
+      "resource_group": "enemies"
+    },
+    {
+      "asset": "mission_objective_city_01_data_terminal",
+      "preferred": "assets/units/mission_objective_city_01_data_terminal_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        84,
+        46,
+        427,
+        466
+      ],
+      "sha256": "cc0581100f14bad7e943e77a5f3a4168dbccb76bb4016965226549eef42ec91d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 18,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_02_power_relay",
+      "preferred": "assets/units/mission_objective_city_02_power_relay_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        92,
+        47,
+        420,
+        465
+      ],
+      "sha256": "85936fdc2ca426d705a9daf2634a7728e41a3e4afa9483c9342e7042fc155c9e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 19,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_03_evidence_case",
+      "preferred": "assets/units/mission_objective_city_03_evidence_case_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        86,
+        46,
+        425,
+        466
+      ],
+      "sha256": "88414cf1eda7a9f379a0d2299182c16249547cd3afaacbdf838ef459ff9c6aa1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 20,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_04_medical_cache",
+      "preferred": "assets/units/mission_objective_city_04_medical_cache_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        49,
+        46,
+        462,
+        466
+      ],
+      "sha256": "804f5f715d4b90a0be0d92a331858477cc56563932394ac7039c2d1a3536e19d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 21,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_05_server_tower",
+      "preferred": "assets/units/mission_objective_city_05_server_tower_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        114,
+        46,
+        398,
+        466
+      ],
+      "sha256": "f9e3a709dddbf046ed823c6d6dbc4a63f5c56795660abf101ce1ba729e7c6e7c",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 22,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_06_camera_hub",
+      "preferred": "assets/units/mission_objective_city_06_camera_hub_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        78,
+        47,
+        434,
+        465
+      ],
+      "sha256": "c37277003d713001bd4748a1aecdbd6d23066ae9198c87177f19acaf466581ad",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 23,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_07_reactor_core",
+      "preferred": "assets/units/mission_objective_city_07_reactor_core_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        68,
+        47,
+        444,
+        465
+      ],
+      "sha256": "9661f768f4d8a97e925482a2a08310182aa8e7769beb23fa153fd89df068f783",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 24,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_08_drone_black_box",
+      "preferred": "assets/units/mission_objective_city_08_drone_black_box_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        84,
+        464,
+        429
+      ],
+      "sha256": "167ac05f3689dd3973adf5b1b676d6da5beebc3c204141c154454db4a96c9800",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 25,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_09_safe_deposit_crate",
+      "preferred": "assets/units/mission_objective_city_09_safe_deposit_crate_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        67,
+        466,
+        445
+      ],
+      "sha256": "cb42f0e2ad9f535156c3aa2dfd00728652a0818db786247c821f4ce3bcd443b0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 26,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_city_10_comms_beacon",
+      "preferred": "assets/units/mission_objective_city_10_comms_beacon_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        128,
+        46,
+        385,
+        466
+      ],
+      "sha256": "30e7b7f436e88e937de83d45a1bc72056732847ecd5a1350474bb714c274879f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 27,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_01_water_purifier",
+      "preferred": "assets/units/mission_objective_wasteland_01_water_purifier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        54,
+        48,
+        458,
+        466
+      ],
+      "sha256": "c4de073604ab327d0f37b1fc85a44ed058992f2f50bdddf989084f216e245c35",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 28,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_02_fuel_cache",
+      "preferred": "assets/units/mission_objective_wasteland_02_fuel_cache_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        48,
+        54,
+        466,
+        458
+      ],
+      "sha256": "9c8bb26653bea8832f62684e9caadc9b85b55ab5c70ea7f32b5724d597e7a8c8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 29,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_03_bunker_hatch",
+      "preferred": "assets/units/mission_objective_wasteland_03_bunker_hatch_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        61,
+        466,
+        450
+      ],
+      "sha256": "0ace8913da1f7b3f2416c1e2802674861641c98985b538c01cb456272cc5d354",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-06.jpg",
+      "contact_cell": 30,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_04_scrap_generator",
+      "preferred": "assets/units/mission_objective_wasteland_04_scrap_generator_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        47,
+        72,
+        465,
+        439
+      ],
+      "sha256": "528ca6e3ded7269a386715508047a402aa1bce2bad1861aa10c3bc41892e2b65",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 1,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_05_crashed_supply_pod",
+      "preferred": "assets/units/mission_objective_wasteland_05_crashed_supply_pod_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        84,
+        466,
+        428
+      ],
+      "sha256": "2f3f60b5ca120564451e3ac1acb06e128a9025f2ba7d6848cc070eaac047a439",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 2,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_06_solar_radio_mast",
+      "preferred": "assets/units/mission_objective_wasteland_06_solar_radio_mast_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        120,
+        47,
+        391,
+        465
+      ],
+      "sha256": "de2ec49b732387566bb6c5a4bac5ed0efd454974c517c60896423e944928e9c5",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 3,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_07_armored_food_crate",
+      "preferred": "assets/units/mission_objective_wasteland_07_armored_food_crate_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        88,
+        466,
+        423
+      ],
+      "sha256": "fc6e345019e3f90ea8f98c8f9e963367f6d5ee09d0b88be851b202c4eda56358",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 4,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_08_prewar_relic_shrine",
+      "preferred": "assets/units/mission_objective_wasteland_08_prewar_relic_shrine_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        90,
+        46,
+        422,
+        465
+      ],
+      "sha256": "193e8bf7c746467a201352b255a44dbe7006f635d51aede167b0c3d0239c470a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 5,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_09_flare_beacon",
+      "preferred": "assets/units/mission_objective_wasteland_09_flare_beacon_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        136,
+        46,
+        373,
+        466
+      ],
+      "sha256": "c0c3bb38a5696c0756ea5c5c7f539b535620bbf8702c84b2a2544afe79092725",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 6,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "mission_objective_wasteland_10_seed_vault",
+      "preferred": "assets/units/mission_objective_wasteland_10_seed_vault_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        108,
+        46,
+        403,
+        466
+      ],
+      "sha256": "17b0b8532327ad26bce0af75d7d654401387fcde4086f212911bb9592f6f6ec1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 7,
+      "resource_group": "mission_objects"
+    },
+    {
+      "asset": "power_armor",
+      "preferred": "assets/units/power_armor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        512,
+        512
+      ],
+      "sha256": "1a379e0efa10ad5cd6e1d2b11c87ea8325e0fc7e01fb11ba3194524882ee709d",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 8,
+      "resource_group": "power_armors"
+    },
+    {
+      "asset": "power_armor_heavy",
+      "preferred": "assets/units/power_armor_heavy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        0,
+        499,
+        512
+      ],
+      "sha256": "b60a3614ea7a8630cfb781609b711fe73d473b58ce506efe980e537147ff8f47",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 9,
+      "resource_group": "power_armors"
+    },
+    {
+      "asset": "robot_combat",
+      "preferred": "assets/units/robot_combat_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        45,
+        0,
+        491,
+        512
+      ],
+      "sha256": "807328e31bec966b88d136db69d557282ca3323b05608649ac62dc62cd3010f9",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 10,
+      "resource_group": "robots"
+    },
+    {
+      "asset": "robot_support",
+      "preferred": "assets/units/robot_support_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        0,
+        53,
+        512,
+        491
+      ],
+      "sha256": "d196fef827e577474f97a99f57d7bd9505cd2fa4d97667b583beae94bddd489f",
+      "touches_frame_edge": true,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 11,
+      "resource_group": "robots"
+    },
+    {
+      "asset": "vehicle_aerial_civil_01_vtol_air_taxi",
+      "preferred": "assets/units/vehicle_aerial_civil_01_vtol_air_taxi_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        49,
+        106,
+        466,
+        405
+      ],
+      "sha256": "a02c5615a4106f867552acbd1de38d3728e666b22f3f102b868af2738b2afbe9",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 12,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_01_vtol_air_taxi_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_01_vtol_air_taxi_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        88,
+        48,
+        424,
+        464
+      ],
+      "sha256": "cc00687a9c9b9d7c4420cfdfa64f2303fb68b51536b2a5025fc24c90d0a993e1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 13,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_02_vtol_medevac",
+      "preferred": "assets/units/vehicle_aerial_civil_02_vtol_medevac_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        90,
+        464,
+        422
+      ],
+      "sha256": "269cc8a70f044194365f525aca2da3469ec2bf95846443c58e5ac1922e5ab738",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 14,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_02_vtol_medevac_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_02_vtol_medevac_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        88,
+        48,
+        424,
+        464
+      ],
+      "sha256": "20bce6c57ec1ae47b627aba30b02447b485845d2b02b60ad89cf976f126f00a9",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 15,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_03_vtol_cargo_lifter",
+      "preferred": "assets/units/vehicle_aerial_civil_03_vtol_cargo_lifter_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        103,
+        466,
+        409
+      ],
+      "sha256": "fac3dfaff5f34bbdc2becaba5077fe9009455598b9f5f6c6efc70fe86dbdf6aa",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 16,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_03_vtol_cargo_lifter_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_03_vtol_cargo_lifter_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        89,
+        48,
+        423,
+        465
+      ],
+      "sha256": "38b9aaf23b7e2090af57f8e339a92f85870dbcde2be9da01b24dfd4cf6216516",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 17,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_04_vtol_news_drone_van",
+      "preferred": "assets/units/vehicle_aerial_civil_04_vtol_news_drone_van_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        68,
+        466,
+        443
+      ],
+      "sha256": "7b6d8b0df2aa8e3b6cef5999d2799cfc6ebc56fe11a0ee85ddf22d7415f918dd",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 18,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_04_vtol_news_drone_van_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_04_vtol_news_drone_van_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        88,
+        48,
+        421,
+        465
+      ],
+      "sha256": "d2ebd309eccb63bebaeb045bd61f1556adeb3fece099a34389c159be77b74359",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 19,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_05_commuter_skimmer",
+      "preferred": "assets/units/vehicle_aerial_civil_05_commuter_skimmer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        118,
+        464,
+        394
+      ],
+      "sha256": "d94f372e083967e20bfde8e2fc9fbe92bb3acbddb628eb69957648bc0b3cc72d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 20,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_05_commuter_skimmer_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_05_commuter_skimmer_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        89,
+        49,
+        423,
+        463
+      ],
+      "sha256": "745ac4acbbf6a7a163e1b85d9cf9366fb46045966ea6babf1d74625ccd2139b8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 21,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_06_aero_limo",
+      "preferred": "assets/units/vehicle_aerial_civil_06_aero_limo_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        131,
+        466,
+        380
+      ],
+      "sha256": "6cf56baf83865907f97362a8a5948b4b7a801eeef29e51b58974f1538ed8ea25",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 22,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_06_aero_limo_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_06_aero_limo_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        81,
+        47,
+        432,
+        465
+      ],
+      "sha256": "7b66e69bf9cc9cdbd5e799c654f659d83a6d260c337f71656be6b5b78fd57d9d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 23,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_07_courier_quadcopter",
+      "preferred": "assets/units/vehicle_aerial_civil_07_courier_quadcopter_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        47,
+        131,
+        465,
+        383
+      ],
+      "sha256": "1bc2de6d2ca8c1c58946dedf1994c2bad6989c35ea9ca495d2931d6c8b382657",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 24,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_07_courier_quadcopter_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_07_courier_quadcopter_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        79,
+        49,
+        432,
+        463
+      ],
+      "sha256": "684cd6e1633dabe1a985dd6acca17487ded05367a37440d0d204e72f74bb6699",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 25,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_08_maintenance_hover_crane",
+      "preferred": "assets/units/vehicle_aerial_civil_08_maintenance_hover_crane_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        62,
+        466,
+        450
+      ],
+      "sha256": "14bc69189e97ca2e0ce3587db291269220fa965cb00eb73932cf853e03dfffaf",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 26,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_08_maintenance_hover_crane_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_08_maintenance_hover_crane_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        69,
+        47,
+        443,
+        465
+      ],
+      "sha256": "41af9500dc761e6669c6dab292d9ebbf21e49fff0a0045d15e1f1716ef104e42",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 27,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_09_passenger_shuttle",
+      "preferred": "assets/units/vehicle_aerial_civil_09_passenger_shuttle_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        130,
+        466,
+        381
+      ],
+      "sha256": "d0e571db5790252808e642c5daf591b727d6f6c7a86c19065dc588685e9e94dc",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 28,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_09_passenger_shuttle_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_09_passenger_shuttle_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        76,
+        47,
+        435,
+        465
+      ],
+      "sha256": "b65df68fc25178fa65f8452b98a5e2257cb9418b46bf5fa8861192871f5c7bd8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 29,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_10_delivery_blimp_drone",
+      "preferred": "assets/units/vehicle_aerial_civil_10_delivery_blimp_drone_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        85,
+        466,
+        427
+      ],
+      "sha256": "d88f233f4ba06b3c43a0a97a91983653c9e21a225fe5751553ddea9d08bfc54e",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-07.jpg",
+      "contact_cell": 30,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_civil_10_delivery_blimp_drone_crashed",
+      "preferred": "assets/units/vehicle_aerial_civil_10_delivery_blimp_drone_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        72,
+        49,
+        439,
+        463
+      ],
+      "sha256": "4c61f38aa6528a1ea101357d0322d89182f5703b0fdf1b840f0a34c73c9fe426",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 1,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_01_vtol_gunship",
+      "preferred": "assets/units/vehicle_aerial_military_01_vtol_gunship_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        104,
+        466,
+        410
+      ],
+      "sha256": "d48a4bf1db7c3e8aa0d6e12f338ac6f86a8a074f200ad4e91e86e4394119ae72",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 2,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_01_vtol_gunship_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_01_vtol_gunship_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        56,
+        466,
+        457
+      ],
+      "sha256": "530bfd5890310d6af58ab008df43c400ee2da455381b02c037e5377d9f9d6520",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 3,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_02_vtol_troop_carrier",
+      "preferred": "assets/units/vehicle_aerial_military_02_vtol_troop_carrier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        45,
+        82,
+        467,
+        430
+      ],
+      "sha256": "24af008624f28234e3db57673961f60470fcfe468e894470f88ac0c303e0b614",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 4,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_02_vtol_troop_carrier_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_02_vtol_troop_carrier_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        113,
+        466,
+        399
+      ],
+      "sha256": "e7be91580d7c7539aac018989ad9c8200d393726115b074b4bdcaf5ba293a73c",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 5,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_03_vtol_missile_interceptor",
+      "preferred": "assets/units/vehicle_aerial_military_03_vtol_missile_interceptor_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        110,
+        466,
+        401
+      ],
+      "sha256": "84ce29607f4bb23ee23ea4ba23b505fa5a2b6ca893d1635078eca1ccdc135a65",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 6,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_03_vtol_missile_interceptor_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_03_vtol_missile_interceptor_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        77,
+        465,
+        434
+      ],
+      "sha256": "63d29e9487db2a2d77718a0e17dfcce8f0aad1b9ce2dccec838bd0a1035dc62d",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 7,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_04_vtol_stealth_dropship",
+      "preferred": "assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        122,
+        466,
+        390
+      ],
+      "sha256": "cfe12bdf59a53c53b9ef0cc81e7032b1312942341d699b1aaf965441ead0785b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 8,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_04_vtol_stealth_dropship_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        63,
+        49,
+        448,
+        464
+      ],
+      "sha256": "37f432e5752f3c9335f51251ebe9ada444be6d8b89013a98ff48a45c588fc450",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 9,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_05_attack_hover_drone",
+      "preferred": "assets/units/vehicle_aerial_military_05_attack_hover_drone_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        96,
+        466,
+        415
+      ],
+      "sha256": "105033740f9935ece38d91635bf64eb060dd1cbe61b8e9b3551f2ac47b54eab8",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 10,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_05_attack_hover_drone_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_05_attack_hover_drone_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        71,
+        463,
+        441
+      ],
+      "sha256": "2bb78f77d09f89b93dc4f332b0556126936639d771e56023b8fb4ba61d89e7e6",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 11,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_06_railgun_strike_craft",
+      "preferred": "assets/units/vehicle_aerial_military_06_railgun_strike_craft_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        104,
+        466,
+        408
+      ],
+      "sha256": "6df5eec097b7c8b386ec844573edf72f6b507df5378e1e385650a38dc5122759",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 12,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_06_railgun_strike_craft_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_06_railgun_strike_craft_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        48,
+        100,
+        466,
+        414
+      ],
+      "sha256": "e36e2a61b71417558e09674ee4ffc083493a9df97c27c1f2de117c29fd9e8d29",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 13,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_07_armored_recon_flyer",
+      "preferred": "assets/units/vehicle_aerial_military_07_armored_recon_flyer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        48,
+        123,
+        466,
+        388
+      ],
+      "sha256": "9dd7a8ab1aebf510c14021707131706684ab5a1fe65d4ecd1b3bf895f0558a66",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 14,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_07_armored_recon_flyer_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_07_armored_recon_flyer_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        119,
+        466,
+        394
+      ],
+      "sha256": "9eca0814a046630fce97205550cb0e670f13e09edb11a9eea8833ce4b9a518e0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 15,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_08_heavy_bomber_skimmer",
+      "preferred": "assets/units/vehicle_aerial_military_08_heavy_bomber_skimmer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        47,
+        135,
+        465,
+        377
+      ],
+      "sha256": "a6fd547145652c6f54324ec9ca2e6f59bfe91e52d5ff2df9bb908120ae5b99c4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 16,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_08_heavy_bomber_skimmer_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_08_heavy_bomber_skimmer_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        47,
+        104,
+        465,
+        407
+      ],
+      "sha256": "5c0451b0d7c7e2b04cd855dc4c8bc2c387cbe8cc6d64ecf7edd09f83dc8dcc47",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 17,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_09_electronic_warfare_drone",
+      "preferred": "assets/units/vehicle_aerial_military_09_electronic_warfare_drone_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        158,
+        466,
+        353
+      ],
+      "sha256": "dfc68c33bca42c6ad8146893bd14caf9651e58ef261eb878644d7abeb7826acf",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 18,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_09_electronic_warfare_drone_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_09_electronic_warfare_drone_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        123,
+        466,
+        389
+      ],
+      "sha256": "6edacb8a8b13676f579352f1ccba88a06be425a607b6aabf4bfd5dbb2954cd5a",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 19,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_10_command_airship_platform",
+      "preferred": "assets/units/vehicle_aerial_military_10_command_airship_platform_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        84,
+        464,
+        428
+      ],
+      "sha256": "1821fd2bcba5af565c89ae2bc174ed20eedb95d648c1fc4a333b9cecc4babf78",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 20,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_aerial_military_10_command_airship_platform_crashed",
+      "preferred": "assets/units/vehicle_aerial_military_10_command_airship_platform_crashed_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        83,
+        465,
+        429
+      ],
+      "sha256": "f31166f32bcaf444b167b456c1c7f481d0bd8a9e9dd417e3739ae7dc9f74aff4",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 21,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_01_neon_taxi",
+      "preferred": "assets/units/vehicle_terrestrial_civil_01_neon_taxi_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        93,
+        466,
+        419
+      ],
+      "sha256": "45f57a77b119f9631e4bf5889c2d6f8b535f606334a12d23d3a67706b80ce165",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 22,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_02_courier_van",
+      "preferred": "assets/units/vehicle_terrestrial_civil_02_courier_van_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        87,
+        464,
+        424
+      ],
+      "sha256": "2536de286c279143d0fe8f65b44a6382ded6ff93766dda18553af9618252e48b",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 23,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_03_street_food_truck",
+      "preferred": "assets/units/vehicle_terrestrial_civil_03_street_food_truck_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        90,
+        466,
+        421
+      ],
+      "sha256": "da09c05d44055f64abdc03ce28d98570933802a49859414bbaa605d31ce7db89",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 24,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_04_armored_ambulance",
+      "preferred": "assets/units/vehicle_terrestrial_civil_04_armored_ambulance_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        109,
+        466,
+        403
+      ],
+      "sha256": "2f0442742e107e704934257e1cf3930b3b1f891de6e7725a3d80d0baf1967030",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 25,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_05_executive_sedan",
+      "preferred": "assets/units/vehicle_terrestrial_civil_05_executive_sedan_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        136,
+        466,
+        376
+      ],
+      "sha256": "074c63087aa02136cd820ac225d0ca2a1bf6fb231767ceb0800390ba11d4e6a7",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 26,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_06_utility_crawler",
+      "preferred": "assets/units/vehicle_terrestrial_civil_06_utility_crawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        103,
+        466,
+        409
+      ],
+      "sha256": "13716573024bc40fa12b29e451b066b17bf2c673ad58cef539cb9a6bfe3aec7f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 27,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_07_cargo_hauler",
+      "preferred": "assets/units/vehicle_terrestrial_civil_07_cargo_hauler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        103,
+        466,
+        411
+      ],
+      "sha256": "db5bebd4094658ef39c12568c7c36ea600219e0d9b26bd79b131aa2e112f9214",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 28,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_08_family_transport",
+      "preferred": "assets/units/vehicle_terrestrial_civil_08_family_transport_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        47,
+        91,
+        465,
+        421
+      ],
+      "sha256": "1c3624f327acb02d8c0dff3f881924c45cd2d69d9509c47040f4a46930281cf5",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 29,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_09_delivery_rover",
+      "preferred": "assets/units/vehicle_terrestrial_civil_09_delivery_rover_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        110,
+        466,
+        403
+      ],
+      "sha256": "db6fa67fe3a69c2897a12f4c82f9cf340df273507c78e9d36917208c23138b30",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-08.jpg",
+      "contact_cell": 30,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_civil_10_bus_shuttle",
+      "preferred": "assets/units/vehicle_terrestrial_civil_10_bus_shuttle_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        105,
+        464,
+        407
+      ],
+      "sha256": "bd7c300b17185ba155b5bfe96e5aecae2b8b1b8e2d65e280d789f542f0e699da",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 1,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_01_battle_tank",
+      "preferred": "assets/units/vehicle_terrestrial_military_01_battle_tank_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        77,
+        466,
+        436
+      ],
+      "sha256": "173c80a82105a1eb8edf4a4f6882b25821a40f2d8200b25dd3d2dff9d56c308f",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 2,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_02_missile_truck",
+      "preferred": "assets/units/vehicle_terrestrial_military_02_missile_truck_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        69,
+        466,
+        443
+      ],
+      "sha256": "015f7dc75cb710198b922c4beb6a83213fd01aeaff4e09f5f634e5bbaa06eda0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 3,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_03_apc",
+      "preferred": "assets/units/vehicle_terrestrial_military_03_apc_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        93,
+        466,
+        418
+      ],
+      "sha256": "c0aa3d4fab5d884aec644e4899f83e5b80aa896a68931906e28790d5e491abd0",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 4,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_04_riot_crawler",
+      "preferred": "assets/units/vehicle_terrestrial_military_04_riot_crawler_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        54,
+        48,
+        457,
+        465
+      ],
+      "sha256": "8f4f6af9c3dc42812fc291beaca04d19a9c936b340d4d52f62397e6d96eb2390",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 5,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_05_railgun_destroyer",
+      "preferred": "assets/units/vehicle_terrestrial_military_05_railgun_destroyer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        83,
+        466,
+        428
+      ],
+      "sha256": "46b95f82d5ecee8d88303225ecab6a0088698c40250e32a6133656cb6a1dc442",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 6,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_06_recon_buggy",
+      "preferred": "assets/units/vehicle_terrestrial_military_06_recon_buggy_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        81,
+        466,
+        431
+      ],
+      "sha256": "5985f8533cd9cec41ca0a8b85ccb441c3415837b2d4aa5656602f3bbb36b7c0c",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 7,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_07_drone_command_halftrack",
+      "preferred": "assets/units/vehicle_terrestrial_military_07_drone_command_halftrack_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        56,
+        466,
+        456
+      ],
+      "sha256": "b5323f3071940b163f2552df7e6739c4106bb2f3f0e5f109af8eae238b79e5c1",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 8,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_08_mine_clearer",
+      "preferred": "assets/units/vehicle_terrestrial_military_08_mine_clearer_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        74,
+        464,
+        436
+      ],
+      "sha256": "414844e8f83f3faac35bdd315711588157e4238476a8162dd6feb514074a3e60",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 9,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_09_anti_air_truck",
+      "preferred": "assets/units/vehicle_terrestrial_military_09_anti_air_truck_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        46,
+        62,
+        466,
+        448
+      ],
+      "sha256": "4b119136af570c1f9c1ed8853850de40ff1a2e577f6205669198ab752dfa8c00",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 10,
+      "resource_group": "vehicles"
+    },
+    {
+      "asset": "vehicle_terrestrial_military_10_shield_generator_carrier",
+      "preferred": "assets/units/vehicle_terrestrial_military_10_shield_generator_carrier_512.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha_bounds": [
+        67,
+        46,
+        445,
+        466
+      ],
+      "sha256": "e3fb719837da1cca729d6c08ea2c78136da80ea95de87c6bd827e90767d394db",
+      "touches_frame_edge": false,
+      "animation_manifest": false,
+      "contact_sheet": "reviews/units-09.jpg",
+      "contact_cell": 11,
+      "resource_group": "vehicles"
+    }
+  ],
+  "groups": {
+    "agents": 27,
+    "enemies": 140,
+    "mission_objects": 20,
+    "power_armors": 2,
+    "robots": 2,
+    "vehicles": 60
+  }
+}

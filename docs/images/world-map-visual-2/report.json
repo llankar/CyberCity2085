@@ -1,0 +1,33 @@
+{
+  "checks": [
+    {
+      "size": [
+        1672,
+        941
+      ],
+      "beacons": 12,
+      "selections_checked": 12
+    },
+    {
+      "size": [
+        1280,
+        720
+      ],
+      "beacons": 12,
+      "selections_checked": 12
+    },
+    {
+      "size": [
+        1920,
+        1080
+      ],
+      "beacons": 12,
+      "selections_checked": 12
+    }
+  ],
+  "hover_and_selection": true,
+  "narrative_and_combat": true,
+  "navigation_and_launch": true,
+  "bundled_font_verified": true,
+  "warm_draw_ms": 24.59316320000653
+}

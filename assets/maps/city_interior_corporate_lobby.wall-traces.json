@@ -1,0 +1,479 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        16,
+        56,
+        39,
+        512
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        930,
+        56,
+        951,
+        513
+      ]
+    },
+    {
+      "id": "north_wall_w",
+      "rect": [
+        18,
+        40,
+        208,
+        68
+      ]
+    },
+    {
+      "id": "north_wall_e",
+      "rect": [
+        753,
+        40,
+        948,
+        68
+      ]
+    },
+    {
+      "id": "north_wall_mid",
+      "rect": [
+        209,
+        14,
+        752,
+        37
+      ]
+    },
+    {
+      "id": "south_wall",
+      "rect": [
+        21,
+        508,
+        945,
+        529
+      ]
+    },
+    {
+      "id": "north_planter_w",
+      "rect": [
+        337,
+        40,
+        362,
+        103
+      ]
+    },
+    {
+      "id": "north_planter_e",
+      "rect": [
+        595,
+        40,
+        620,
+        104
+      ]
+    },
+    {
+      "id": "south_planter_w",
+      "rect": [
+        333,
+        419,
+        366,
+        493
+      ]
+    },
+    {
+      "id": "south_planter_e",
+      "rect": [
+        594,
+        419,
+        624,
+        493
+      ]
+    },
+    {
+      "id": "reception",
+      "rect": [
+        413,
+        195,
+        551,
+        240
+      ]
+    },
+    {
+      "id": "reception_plant_w",
+      "rect": [
+        407,
+        174,
+        428,
+        210
+      ]
+    },
+    {
+      "id": "reception_plant_e",
+      "rect": [
+        532,
+        173,
+        550,
+        211
+      ]
+    },
+    {
+      "id": "central_planter",
+      "rect": [
+        430,
+        311,
+        524,
+        356
+      ]
+    },
+    {
+      "id": "sofa_nw",
+      "rect": [
+        319,
+        199,
+        360,
+        218
+      ]
+    },
+    {
+      "id": "sofa_sw",
+      "rect": [
+        319,
+        311,
+        361,
+        336
+      ]
+    },
+    {
+      "id": "sofa_ne",
+      "rect": [
+        601,
+        197,
+        641,
+        218
+      ]
+    },
+    {
+      "id": "sofa_se",
+      "rect": [
+        601,
+        308,
+        641,
+        334
+      ]
+    },
+    {
+      "id": "table_w",
+      "rect": [
+        327,
+        250,
+        347,
+        292
+      ]
+    },
+    {
+      "id": "table_e",
+      "rect": [
+        611,
+        250,
+        629,
+        291
+      ]
+    },
+    {
+      "id": "west_meeting",
+      "rect": [
+        97,
+        240,
+        162,
+        310
+      ]
+    },
+    {
+      "id": "east_meeting",
+      "rect": [
+        803,
+        234,
+        847,
+        314
+      ]
+    },
+    {
+      "id": "north_west_sofas",
+      "rect": [
+        95,
+        111,
+        163,
+        157
+      ]
+    },
+    {
+      "id": "north_east_sofas",
+      "rect": [
+        798,
+        111,
+        871,
+        158
+      ]
+    },
+    {
+      "id": "west_south_utility",
+      "rect": [
+        29,
+        361,
+        82,
+        439
+      ]
+    },
+    {
+      "id": "east_south_utility",
+      "rect": [
+        886,
+        362,
+        933,
+        442
+      ]
+    },
+    {
+      "id": "turnstile_n1",
+      "rect": [
+        414,
+        107,
+        425,
+        151
+      ]
+    },
+    {
+      "id": "turnstile_n2",
+      "rect": [
+        454,
+        108,
+        466,
+        151
+      ]
+    },
+    {
+      "id": "turnstile_n3",
+      "rect": [
+        498,
+        108,
+        511,
+        151
+      ]
+    },
+    {
+      "id": "turnstile_n4",
+      "rect": [
+        538,
+        108,
+        550,
+        151
+      ]
+    },
+    {
+      "id": "turnstile_s1",
+      "rect": [
+        414,
+        404,
+        425,
+        444
+      ]
+    },
+    {
+      "id": "turnstile_s2",
+      "rect": [
+        454,
+        404,
+        466,
+        444
+      ]
+    },
+    {
+      "id": "turnstile_s3",
+      "rect": [
+        498,
+        404,
+        511,
+        444
+      ]
+    },
+    {
+      "id": "turnstile_s4",
+      "rect": [
+        538,
+        404,
+        550,
+        444
+      ]
+    },
+    {
+      "id": "west_upper_partition",
+      "width": 13,
+      "points": [
+        [
+          206,
+          38
+        ],
+        [
+          206,
+          143
+        ],
+        [
+          270,
+          143
+        ],
+        [
+          270,
+          101
+        ]
+      ]
+    },
+    {
+      "id": "west_middle_partition",
+      "width": 13,
+      "points": [
+        [
+          206,
+          220
+        ],
+        [
+          206,
+          326
+        ],
+        [
+          254,
+          376
+        ]
+      ]
+    },
+    {
+      "id": "west_lower_partition",
+      "width": 13,
+      "points": [
+        [
+          206,
+          413
+        ],
+        [
+          206,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "east_upper_partition",
+      "width": 13,
+      "points": [
+        [
+          749,
+          39
+        ],
+        [
+          749,
+          141
+        ],
+        [
+          687,
+          141
+        ],
+        [
+          687,
+          100
+        ]
+      ]
+    },
+    {
+      "id": "east_middle_partition",
+      "width": 13,
+      "points": [
+        [
+          749,
+          219
+        ],
+        [
+          749,
+          328
+        ],
+        [
+          705,
+          376
+        ]
+      ]
+    },
+    {
+      "id": "east_lower_partition",
+      "width": 13,
+      "points": [
+        [
+          749,
+          414
+        ],
+        [
+          749,
+          505
+        ]
+      ]
+    },
+    {
+      "id": "west_crosswall_n",
+      "width": 17,
+      "points": [
+        [
+          31,
+          184
+        ],
+        [
+          199,
+          184
+        ]
+      ]
+    },
+    {
+      "id": "west_crosswall_s",
+      "width": 17,
+      "points": [
+        [
+          31,
+          343
+        ],
+        [
+          199,
+          343
+        ]
+      ]
+    },
+    {
+      "id": "east_crosswall_n",
+      "width": 17,
+      "points": [
+        [
+          758,
+          185
+        ],
+        [
+          938,
+          185
+        ]
+      ]
+    },
+    {
+      "id": "east_crosswall_s",
+      "width": 17,
+      "points": [
+        [
+          758,
+          343
+        ],
+        [
+          938,
+          343
+        ]
+      ]
+    }
+  ]
+}

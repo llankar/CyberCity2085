@@ -1,0 +1,143 @@
+{
+  "scope": "18 complete safehouse/lab cases with original R2 inputs and cap after exterior correction",
+  "combat_sources_sha256": "1d0be7132fab29a83193990d83a505693e466f5b5ee500ca121b4309951a12d7",
+  "coverage_exact": true,
+  "survey_hashes_verified": true,
+  "before": {
+    "turn_limit": 6,
+    "victory": 11,
+    "defeat": 1
+  },
+  "after": {
+    "victory": 17,
+    "defeat": 1
+  },
+  "cases": [
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "eliminate",
+      "outcome": "victory",
+      "turns": 30,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "extract",
+      "outcome": "victory",
+      "turns": 10,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "data_theft",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "sabotage",
+      "outcome": "victory",
+      "turns": 8,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 10,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 11,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "defend",
+      "outcome": "victory",
+      "turns": 5,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "containment",
+      "outcome": "victory",
+      "turns": 24,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "city_interior_safehouse.png",
+      "objective_kind": "assassination",
+      "outcome": "victory",
+      "turns": 15,
+      "map_survey_sha256": "070c382d262fffbc4a5d0825a3fbf819ba4e1d77baae20b97a33b40ace7b37f8"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "eliminate",
+      "outcome": "victory",
+      "turns": 28,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "extract",
+      "outcome": "victory",
+      "turns": 6,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "data_theft",
+      "outcome": "victory",
+      "turns": 6,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "sabotage",
+      "outcome": "victory",
+      "turns": 6,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "recon_scan",
+      "outcome": "victory",
+      "turns": 19,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "civilian_rescue",
+      "outcome": "victory",
+      "turns": 20,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "defend",
+      "outcome": "victory",
+      "turns": 5,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "containment",
+      "outcome": "defeat",
+      "turns": 3,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    },
+    {
+      "map_file": "cybercity_inner_03_research_lab.png",
+      "objective_kind": "assassination",
+      "outcome": "victory",
+      "turns": 19,
+      "map_survey_sha256": "26ec2baf6c31ee2e812d53b82cef04e5bfa84ae5672e369f17f3092008efec4d"
+    }
+  ]
+}

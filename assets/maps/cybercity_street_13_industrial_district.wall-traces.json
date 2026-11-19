@@ -1,0 +1,226 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "nw_factory",
+      "rect": [
+        51,
+        0,
+        308,
+        75
+      ]
+    },
+    {
+      "id": "north_factory",
+      "rect": [
+        316,
+        0,
+        399,
+        92
+      ]
+    },
+    {
+      "id": "ne_factory",
+      "rect": [
+        583,
+        0,
+        838,
+        76
+      ]
+    },
+    {
+      "id": "ne_corner",
+      "rect": [
+        844,
+        0,
+        919,
+        87
+      ]
+    },
+    {
+      "id": "west_middle",
+      "rect": [
+        0,
+        208,
+        124,
+        351
+      ]
+    },
+    {
+      "id": "east_middle",
+      "rect": [
+        866,
+        247,
+        960,
+        410
+      ]
+    },
+    {
+      "id": "sw_factory",
+      "rect": [
+        142,
+        436,
+        362,
+        540
+      ]
+    },
+    {
+      "id": "se_factory",
+      "rect": [
+        675,
+        383,
+        804,
+        515
+      ]
+    },
+    {
+      "id": "central_w_machine",
+      "rect": [
+        335,
+        206,
+        410,
+        273
+      ]
+    },
+    {
+      "id": "central_e_machine",
+      "rect": [
+        651,
+        209,
+        732,
+        284
+      ]
+    },
+    {
+      "id": "west_cargo",
+      "rect": [
+        152,
+        101,
+        196,
+        147
+      ]
+    },
+    {
+      "id": "east_cargo",
+      "rect": [
+        542,
+        375,
+        611,
+        426
+      ]
+    },
+    {
+      "id": "south_cargo",
+      "rect": [
+        211,
+        337,
+        272,
+        376
+      ]
+    },
+    {
+      "id": "south_cargo2",
+      "rect": [
+        272,
+        366,
+        323,
+        400
+      ]
+    },
+    {
+      "id": "car_nw",
+      "rect": [
+        255,
+        91,
+        276,
+        135
+      ]
+    },
+    {
+      "id": "car_n",
+      "rect": [
+        307,
+        115,
+        340,
+        134
+      ]
+    },
+    {
+      "id": "car_ne",
+      "rect": [
+        679,
+        109,
+        719,
+        134
+      ]
+    },
+    {
+      "id": "car_mid_w",
+      "rect": [
+        181,
+        208,
+        212,
+        245
+      ]
+    },
+    {
+      "id": "car_mid_e",
+      "rect": [
+        734,
+        194,
+        770,
+        227
+      ]
+    },
+    {
+      "id": "car_south",
+      "rect": [
+        378,
+        381,
+        401,
+        432
+      ]
+    },
+    {
+      "id": "car_sw",
+      "rect": [
+        158,
+        384,
+        180,
+        413
+      ]
+    },
+    {
+      "id": "car_mid",
+      "rect": [
+        609,
+        235,
+        632,
+        289
+      ]
+    },
+    {
+      "id": "truck_sw",
+      "rect": [
+        320,
+        367,
+        357,
+        400
+      ]
+    },
+    {
+      "id": "truck_mid",
+      "rect": [
+        263,
+        217,
+        301,
+        241
+      ]
+    }
+  ],
+  "same_pixels_as": "cybercity_street_12_industrial_district.png"
+}

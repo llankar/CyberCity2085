@@ -1,0 +1,21 @@
+{
+  "source": "assets/maps/city_exterior_neon_market_alley.png",
+  "source_size": [
+    1920,
+    1080
+  ],
+  "restoration_native_size": [
+    1672,
+    941
+  ],
+  "output_size": [
+    7680,
+    4320
+  ],
+  "method": "Image restoration followed by Lanczos resize; NOT native 8K detail",
+  "wall_count": 24,
+  "geometry_unchanged": true,
+  "original_hash_unchanged": true,
+  "visual_collision_alignment": "Pending manual inspection; generated contours not guaranteed pixel-identical",
+  "production_enabled": false
+}

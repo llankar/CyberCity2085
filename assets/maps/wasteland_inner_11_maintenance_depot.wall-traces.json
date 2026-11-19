@@ -1,0 +1,354 @@
+{
+  "canvas_size": [
+    960,
+    540
+  ],
+  "reviewed": true,
+  "walls": [
+    {
+      "id": "west_wall",
+      "rect": [
+        9,
+        12,
+        30,
+        505
+      ]
+    },
+    {
+      "id": "east_wall",
+      "rect": [
+        931,
+        12,
+        950,
+        505
+      ]
+    },
+    {
+      "id": "north_wall",
+      "rect": [
+        19,
+        9,
+        941,
+        29
+      ]
+    },
+    {
+      "id": "south_wall",
+      "rect": [
+        18,
+        497,
+        943,
+        523
+      ]
+    },
+    {
+      "id": "nw_workbench",
+      "rect": [
+        96,
+        72,
+        184,
+        115
+      ]
+    },
+    {
+      "id": "ne_workbench",
+      "rect": [
+        832,
+        110,
+        869,
+        178
+      ]
+    },
+    {
+      "id": "middle_workbench",
+      "rect": [
+        400,
+        286,
+        520,
+        318
+      ]
+    },
+    {
+      "id": "west_pit_n",
+      "rect": [
+        315,
+        77,
+        402,
+        216
+      ]
+    },
+    {
+      "id": "east_machine_n",
+      "rect": [
+        552,
+        81,
+        647,
+        212
+      ]
+    },
+    {
+      "id": "west_pit_s",
+      "rect": [
+        316,
+        345,
+        403,
+        464
+      ]
+    },
+    {
+      "id": "east_machine_s",
+      "rect": [
+        551,
+        333,
+        640,
+        470
+      ]
+    },
+    {
+      "id": "south_console",
+      "rect": [
+        445,
+        377,
+        482,
+        471
+      ]
+    },
+    {
+      "id": "east_s_workbench",
+      "rect": [
+        713,
+        335,
+        755,
+        407
+      ]
+    },
+    {
+      "id": "west_cargo",
+      "rect": [
+        23,
+        266,
+        53,
+        332
+      ]
+    },
+    {
+      "id": "ne_tires",
+      "rect": [
+        782,
+        33,
+        821,
+        80
+      ]
+    },
+    {
+      "id": "se_crates",
+      "rect": [
+        858,
+        416,
+        934,
+        454
+      ]
+    },
+    {
+      "id": "north_partition1",
+      "width": 16,
+      "points": [
+        [
+          269,
+          30
+        ],
+        [
+          269,
+          221
+        ]
+      ]
+    },
+    {
+      "id": "north_partition2",
+      "width": 16,
+      "points": [
+        [
+          467,
+          30
+        ],
+        [
+          467,
+          221
+        ]
+      ]
+    },
+    {
+      "id": "north_partition3",
+      "width": 16,
+      "points": [
+        [
+          769,
+          30
+        ],
+        [
+          769,
+          221
+        ]
+      ]
+    },
+    {
+      "id": "south_partition1",
+      "width": 16,
+      "points": [
+        [
+          258,
+          324
+        ],
+        [
+          258,
+          496
+        ]
+      ]
+    },
+    {
+      "id": "south_partition2",
+      "width": 16,
+      "points": [
+        [
+          466,
+          324
+        ],
+        [
+          466,
+          496
+        ]
+      ]
+    },
+    {
+      "id": "south_partition3",
+      "width": 16,
+      "points": [
+        [
+          771,
+          324
+        ],
+        [
+          771,
+          496
+        ]
+      ]
+    },
+    {
+      "id": "nw_cross1",
+      "width": 16,
+      "points": [
+        [
+          29,
+          217
+        ],
+        [
+          165,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "nw_cross2",
+      "width": 16,
+      "points": [
+        [
+          225,
+          217
+        ],
+        [
+          266,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "ne_cross1",
+      "width": 16,
+      "points": [
+        [
+          774,
+          217
+        ],
+        [
+          817,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "ne_cross2",
+      "width": 16,
+      "points": [
+        [
+          875,
+          217
+        ],
+        [
+          935,
+          217
+        ]
+      ]
+    },
+    {
+      "id": "sw_cross1",
+      "width": 16,
+      "points": [
+        [
+          90,
+          497
+        ],
+        [
+          90,
+          324
+        ],
+        [
+          143,
+          324
+        ]
+      ]
+    },
+    {
+      "id": "sw_cross2",
+      "width": 16,
+      "points": [
+        [
+          197,
+          324
+        ],
+        [
+          256,
+          324
+        ]
+      ]
+    },
+    {
+      "id": "se_cross1",
+      "width": 16,
+      "points": [
+        [
+          774,
+          324
+        ],
+        [
+          817,
+          324
+        ]
+      ]
+    },
+    {
+      "id": "se_cross2",
+      "width": 16,
+      "points": [
+        [
+          873,
+          324
+        ],
+        [
+          935,
+          324
+        ]
+      ]
+    }
+  ],
+  "same_pixels_as": "wasteland_inner_06_maintenance_depot.png"
+}

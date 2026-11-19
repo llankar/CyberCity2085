@@ -1,0 +1,185 @@
+{
+  "global_status": "CHANTIER GLOBAL INCOMPLET",
+  "tasks": {
+    "done": 37,
+    "total": 41
+  },
+  "maps": {
+    "native_verified": 0,
+    "native_expected": 122,
+    "artistically_declared": 122,
+    "artistic_verified": 0
+  },
+  "resources": {
+    "declared_families": 36,
+    "declared_views": 144,
+    "missing_views": [],
+    "artistic_expected_objects": null,
+    "artistic_complete_objects": null
+  },
+  "animations": {
+    "complete": 26,
+    "partial": 0,
+    "expected": 231
+  },
+  "tests": {
+    "passed": null,
+    "failed": null,
+    "skipped": null,
+    "not_executed": "UNKNOWN",
+    "scope": "Aucun résultat JUnit enregistré."
+  },
+  "render_signature": "a4aa194f88eb9342c7fe4884c0b24ccb16a90dd14dab2bbce734785e6b82a825",
+  "criteria": [
+    {
+      "id": "MAP-SOURCE",
+      "title": "Intégrité des cartes et relevés",
+      "mandatory": true,
+      "status": "PASS",
+      "detail": "122 / 122 cartes relevées ; 0 empreintes invalides.",
+      "evidence": [
+        "assets/maps/*.walls.json"
+      ]
+    },
+    {
+      "id": "MAP-LOAD",
+      "title": "Chargement natif et projection",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
+      "evidence": [
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "docs/combat_visual_25_status.json"
+      ]
+    },
+    {
+      "id": "MAP-ART",
+      "title": "Finition artistique de chaque carte",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "godot/combat_missions_ui/art/environment/environment_art.json"
+      ]
+    },
+    {
+      "id": "ART-FILES",
+      "title": "Présence des ressources de décor déclarées",
+      "mandatory": true,
+      "status": "PASS",
+      "detail": "144 / 144 vues déclarées présentes ; 36 familles. Présence ≠ qualité artistique.",
+      "evidence": [
+        "godot/combat_missions_ui/art/environment/props25/library.json"
+      ]
+    },
+    {
+      "id": "ART-OBJECTS",
+      "title": "Silhouettes, matériaux et intégration des objets",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/images/environment-art-review-windows/manifest.json"
+      ]
+    },
+    {
+      "id": "UNIT-SCALE",
+      "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/reports/entity_scale_review_windows.json",
+        "docs/images/entity-scale-production-windows/native-report.json"
+      ]
+    },
+    {
+      "id": "UNIT-ART",
+      "title": "Identité et qualité de toutes les unités",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "251 références source auditées, dont 231 entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle. Revue explicite et preuves non enregistrées.",
+      "evidence": []
+    },
+    {
+      "id": "FUNCTIONAL",
+      "title": "Déplacement, ciblage, LOS, IA, PA, tours et fallback",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "Preuves historiques partielles disponibles ; aucune exécution exhaustive ni revue de toutes les interactions déduite des seuls tests de chargement. Revue explicite et preuves non enregistrées.",
+      "evidence": []
+    },
+    {
+      "id": "RESOLUTIONS",
+      "title": "Lisibilité et interactions à 720p, 1080p et 1440p",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "Captures de cinq familles à trois résolutions disponibles ; revue exhaustive de contraste, occultation et ergonomie non enregistrée. Revue explicite et preuves non enregistrées.",
+      "evidence": []
+    },
+    {
+      "id": "PERFORMANCE",
+      "title": "Performances et mémoire sur matériel joueur",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "Benchmark natif Windows FPS/CPU/GPU/mémoire archivé ; sa portée matérielle reste celle de la machine mesurée. Revue périmée : le rendu ou les ressources ont changé.",
+      "evidence": [
+        "docs/reports/windows_gpu_benchmark_system.json"
+      ]
+    },
+    {
+      "id": "ANIMATIONS",
+      "title": "Actions multidirectionnelles complètes",
+      "mandatory": true,
+      "status": "FAIL",
+      "detail": "26 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "evidence": [
+        "assets/combat_visual/animations/*.json"
+      ]
+    },
+    {
+      "id": "REGISTER",
+      "title": "Registre complet et preuves des tâches DONE",
+      "mandatory": true,
+      "status": "PASS",
+      "detail": "Statuts, portées, tests/contrôles, preuves et travail restant enregistrés.",
+      "evidence": [
+        "docs/CODEX_PROGRESS.json"
+      ]
+    },
+    {
+      "id": "TARGETED-TESTS",
+      "title": "Tests exécutés dans la portée du lot",
+      "mandatory": true,
+      "status": "NOT VERIFIED",
+      "detail": "{'passed': None, 'failed': None, 'skipped': None, 'not_executed': 'UNKNOWN', 'scope': 'Aucun résultat JUnit enregistré.'}",
+      "evidence": [
+        "docs/reports/current_unified_progress_tests.xml"
+      ]
+    },
+    {
+      "id": "TASK-COMPLETION",
+      "title": "Toutes les tâches obligatoires du registre réalisées",
+      "mandatory": true,
+      "status": "FAIL",
+      "detail": "37 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "evidence": [
+        "docs/CODEX_PROGRESS.json"
+      ]
+    }
+  ],
+  "open_criteria": [
+    "MAP-LOAD",
+    "MAP-ART",
+    "ART-OBJECTS",
+    "UNIT-SCALE",
+    "UNIT-ART",
+    "FUNCTIONAL",
+    "RESOLUTIONS",
+    "PERFORMANCE",
+    "ANIMATIONS",
+    "TARGETED-TESTS",
+    "TASK-COMPLETION"
+  ],
+  "next_action": "ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique."
+}

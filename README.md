@@ -1,6 +1,6 @@
 # CyberCity2085
 
-Prototype project mixing corporation management, RPG progression and tactical battles built with [Arcade](https://api.arcade.academy/).
+Prototype project mixing corporation management, RPG progression and tactical battles built with [Arcade](https://api.arcade.academy/) for the campaign shell and a dedicated [Godot](https://godotengine.org/) project for combat-mission UI handoff.
 
 Run with:
 ```bash
@@ -8,34 +8,188 @@ pip install -r requirements.txt
 python main.py
 ```
 
+### Windows release build
+
+Install the release tooling, then run the guarded build script. It executes the
+canonical tests before creating an onedir distribution with the required art,
+maps, and optional Godot client:
+
+```powershell
+pip install -r requirements-dev.txt
+.\tools\build_windows.ps1
+```
+
+The executable is written to `dist/CyberCity2085/CyberCity2085.exe`. Keep the
+whole `CyberCity2085` directory together; saves and runtime handoff files are
+created beside the executable. Godot remains optional because every required
+mission is playable through the bundled Arcade fallback.
+
 ## Project structure
 - `assets/` – game art and other assets
 - `scenes/` – Tiled TMX maps
 - `game/` – core game modules
+- `godot/combat_missions_ui/` – Godot combat mission UI project launched from mission briefing handoff JSON
 - `main.py` – starts the game window and initial view
+
+## Campaign progression and ending
+
+- The release campaign contains five acts with three authored story missions per
+  act. Story missions appear sequentially on the mission board and victories
+  advance the current act.
+- Completing the third Act V story mission resolves the campaign from the world
+  state, exposed intel, faction pressure, and surviving agents accumulated during
+  play.
+- The ending screen reports world consequences and named agent epilogues, then
+  returns to the title screen. The resolved ending is included in save files;
+  older saves without ending data remain loadable.
+- Strategic management and tactical combat are the two main design pillars. See
+  `docs/gameplay/design_pillars.md` for the product doctrine and reference games.
+- Performed release gates, the supported visual target, and known 1.0 limitations
+  are listed in `docs/release_checklist.md`.
 
 ## Controls
 
 ### Corp View
-- Each turn grants funds to invest in the corporation
+- The collapsed tower now labels every clickable department directly on its
+  room, including the F1-F6 shortcut, so management navigation does not depend
+  on memorising icon positions.
+- The Command room presents a weekly forecast for income, asset upkeep, squad
+  readiness, district pressure, and the closest event deadline. Once per week,
+  choose one visible strategic commitment: fortify the district, recover the
+  crew, or run a black-intelligence operation. Each option spends existing
+  funds and shows both its benefit and its drawback before commitment.
+- XCOM2-inspired corporate tower frames budget, resources, upgrade sinks,
+  district meters and fallout over a generated stacked-base backdrop image
+- Click a highlighted room to expand it into a full-screen room; icon buttons
+  perform that room's action without text panels
+- Room click zones are aligned to the painted rooms in the backdrop image and
+  scale with the game window
+- Expanded rooms show cropped room art from `assets/ui/rooms/` during the grow
+  animation, so the opened room matches the clicked background room
+- Open rooms show the room title at the top, room-specific game info beneath it,
+  and icon actions at the bottom center
+- UI visual rules are tokenized in `game/ui/theme/` (typography hierarchy: title/section/meta; spacing; stroke; opacity; z-order) and reused by expanded-room panels, roster cards, and action buttons to avoid magic numbers
+- Action buttons include short labels for recruit, level-up, navigation, and
+  launch actions
+- Accessibility pass: UI now exposes a dedicated accessibility palette
+  (text/background/alert), explicit clickable states (normal/hover/active/
+  disabled/focus), and non-chromatic indicators (icon + text prefix) in widget
+  lines so meaning is not conveyed by color alone
+- High-contrast mode is centrally toggleable via `GameState.ui_high_contrast`
+- `Esc` closes the open room and returns to the base map
+- Each day grants passive operating funds; crossing into a new strategic week
+  also deposits projected corporate funding based on stipend, city support,
+  political pressure, and upkeep
+- Advancing the calendar can roll unresolved strategic events from city pressure,
+  faction hostility, or weighted threat odds, including enemy corporation
+  attacks, mutant invasions, Starvers outbreaks, social unrest, corporate
+  politics, and city politics
+- Corporate rooms show the next weekly income date and projected payment
+- The Research Lab lists starter vehicle, weapon, armor, psy, equipment, robot,
+  and power-armor projects; each project spends funds, advances with campaign
+  days, and completes into unlock flags or small stat modifiers
 - `1-4` add funds to research, security, politics and black ops
 - Budget is refreshed automatically when all funds are spent
-- `S` save game / `L` load game
+- `S` save game / `L` load game (available from Corp, City, RPG, and Battle views)
+- Save files now support nested slot paths (for example `saves/slot_a/campaign.json`)
 
 ### City View
+- City control tower presents budget networks, district pressure meters, faction
+  pressure, active strategic events, and operations feed over the same
+  image-backed corporate base
+- Click city rooms to expand them and use icon buttons for investment actions
+  or the first active event response choices shown in the records room
 - `7-9` allocate city budget
 
 ### RPG View
+- Squad command tower frames planning with agent barracks, operations table,
+  intel lab and medbay/fallout floors highlighted over the base art
+- Click rooms to recruit agents, cycle agents, select the squad, cycle
+  operations, and launch through icon-only controls
+- The Black Ops Cell can recruit agents, and Armory/Dossier rooms expose level-up
+  stat buttons when the selected agent has pending points
+- Double-clicking an agent card opens a portrait-led modal sheet that stays on
+  top of the hub and lets you spend points into stats or trigger skill training;
+  the readiness strip now splits into two rows, the recovery/status line is
+  spaced clear of the stress meter, and the stress bar itself now sits a bit
+  lower so the sheet reads less crowded
+- The recruit chooser now opens as a modal recruitment window with 6-9 random
+  candidates, each showing portrait-led profiles, a price tag, randomized stat
+  spreads, skill ranks, background, and advantages before you hire
+- Agent portraits now pull from separate 50-face female and male pools, while
+  the legacy agent_01-style headshot pool now extends through 124 portraits,
+  robot portraits use a 75-image pool, and power-armor portraits use a 25-image
+  pool so the hangar and recruit screens keep rotating through the full set
+- Squad rooms show the current roster as graphical agent cards with role color,
+  generated portraits, HP/stress bars, active-agent brackets, squad-selection
+  marks, recovery warnings, and numbered upgrade pips
+- Click an agent card in an expanded squad room to make that agent current; level
+  buttons show the remaining upgrade-point count for that current agent
+- Readiness Brief previews which agents may crack under the selected mission's stress
+- Mission Board shows each operation's objective type, risk, target faction,
+  launch pressure, complications and success/failure stakes
 - `N` recruit new agent
 - `B` start a battle
 
+### Godot Combat Mission UI
+- Mission briefing `DEPLOY` now defaults to `GameState.combat_mission_ui_engine = "godot"`.
+- The Arcade shell writes `runtime/godot_combat/mission_handoff.json` with mission, map, squad, support asset, and tactical action data.
+- The Settings screen lets you browse for a Godot executable in-app; that path is used before `godot4`, `godot`, or `CYBERCITY_GODOT_BIN`.
+- If a Godot executable is available, the shell launches `godot/combat_missions_ui` with that handoff.
+- The Godot combat scene now renders the tactical HUD directly: mission header, battlefield grid, deployed agent list, and right-side tactical deck, keeping the layout closer to the older mission combat screen.
+- Movement inside the Godot combat HUD is intentionally free-form; no movement-blocking or path-blocking layer is included in this migration slice.
+- If no Godot executable is configured, the mission launch now falls back directly to the local Arcade battle view.
+- The handoff screen keeps `F` as a local Arcade battle fallback until Godot result import is implemented.
+
 ### Battle View
+- Visible enemies display their likely next action and target during the player
+  turn. These intent badges use the same faction doctrine as the AI: Hungry
+  rush, mutants breach, raiders flank, corporate teams seek disciplined angles,
+  Three Sevens pressure objectives, and Novatek hybrids hunt wounded agents.
+- Tactical combat HUD uses the corporate tower frame for map selection, mission
+  objective status, active HP and input actions over the graphical base backdrop
+- Drop-zone selection uses the same room expansion and icon-button flow
 - Arrow keys move the unit
+- `E` interact with tactical objective markers
 - `Space` melee attack
 - `F` shoot at range
 - `P` psi attack
 - `V` psi defense
 - `D` defend against physical attacks
-- PC and enemy icons are displayed on the map
+- PC, enemy and objective markers are displayed on the map
+- Complete the battlefield objective or eliminate all enemies to win
 - `Esc` return to management
 - On first entering, choose a background image from `assets/maps`
+
+## Roadmap generation
+- Generate the next prioritized roadmap slice with:
+  - `python tools/docs/generate_docs.py`
+- The script writes the markdown block to:
+  - `docs/roadmap.md`
+
+## UI design system
+- Conventions UI et hiérarchie visuelle: `docs/ui/design-system.md`
+- Refonte des combats : [avancement complet de Combat Visual 2.5](docs/combat_visual_25_progress.md).
+- Generated output format is stable:
+  - `## Next 20 Coding Steps`
+  - numbered list from `1` to `20`
+  - domain tags such as `[agent]`, `[mission]`, `[ui]`, `[tests]`, `[docs]`
+
+## Mission Board UI Refactor (May 22, 2026)
+- Mission details now render in four sections: summary, risk/complications, squad emotional impact, rewards/opportunity cost.
+- Mission generation now provides UI-ready fields: `emotional_impact_summary`, `risk_explanation`, `expected_stress_band`.
+- Mission detail view now exposes explicit launch lock reasons when missions are unavailable.
+
+
+## UI architecture migration (May 22, 2026)
+- Introduced a dedicated screen-layer package: `game/ui/screens/` for view-level builders (`command_center`, `dashboard`, `facility`, `mission_board`, `research_lab`).
+
+- UI cartographie (phase migration incrémentale):
+  - `game/ui/screens/` → `command_center/`, `command_deck/`, `facility/`, `battle_hud/`
+  - `game/ui/components/` → `cards/`, `lists/`, `mission/`, `agent/`, `shared/`
+  - `game/ui/layouts/` → `grid/`, `split/`, `overlays/`
+  - `game/ui/navigation/` → `focus/`, `input/`
+  - `game/ui/feedback/` → `toast/`, `dialog/`, `banner/`
+  - Wrappers de compatibilité conservés temporairement (`game/ui/command_deck.py`, `game/ui/command_center.py`, `game/ui/facility.py`).
+- Existing imports remain stable through temporary compatibility wrappers in `game/ui/*.py` that re-export screen modules.
+- Migration strategy is incremental (no big-bang): new extractions should target `game/ui/screens/` first, then remove wrappers once external imports are updated.

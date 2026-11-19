@@ -1,0 +1,62 @@
+[
+  {
+    "file": "city_exterior_neon_market_alley-1920x1080.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "d3f58bb827beafc9521800135312b53eb263c21a57482483a6a0f7a6e70ec685"
+  },
+  {
+    "file": "city_industrial_factory_floor-1920x1080.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "42050b47961e5d677551ed97ea05dd37fc3ed2ca19688c6dd24b13dcf49fdf87"
+  },
+  {
+    "file": "city_interior_blacksite_lab-1920x1080.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "b6ae757111b7c493018afcb4cca7bb0f29212ec2d0fcc1f45731a4105c6e4b11"
+  },
+  {
+    "file": "cybercity_inner_02_safehouse-1280x720.webp",
+    "width": 1280,
+    "height": 720,
+    "rgb_sha256": "ed96eae2ddea33074134bd55d9ee4d13fda5b65110e615c6123dc04b42250bae"
+  },
+  {
+    "file": "cybercity_inner_02_safehouse-1920x1080-target-fx.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "79e2f6c8fe51e2f14aa6ff40693a6c4fa7a8ad7b400c36c6b21f20bbdbe3c3c3"
+  },
+  {
+    "file": "cybercity_inner_02_safehouse-1920x1080.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "f44c065f4ca908daba80410af286e27ed3ec3a960a448cf94aeac3df21f27140"
+  },
+  {
+    "file": "cybercity_inner_02_safehouse-2560x1440.webp",
+    "width": 2560,
+    "height": 1440,
+    "rgb_sha256": "b009cce37be63059e1617dac8bbc43114305997892f00a3f6c4839393fd85844"
+  },
+  {
+    "file": "wasteland_outdoor_01_dust_road_ambush-1920x1080.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "e3f25bb2f8398ffd3edffe9051da95d1c7e252fe24bb24f1e71251c8f7d64ee8"
+  },
+  {
+    "file": "cybercity_inner_02_safehouse-1920x1080-walls.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "0d3fc898022cad0865e5969bfad68f7f0ea026bceb773e83b84c50ba10675ce0"
+  },
+  {
+    "file": "top-down-close.webp",
+    "width": 1920,
+    "height": 1080,
+    "rgb_sha256": "02c6d026444fc7da16b715467690e4041ba0a46dbb1265d75adf7d2863720054"
+  }
+]

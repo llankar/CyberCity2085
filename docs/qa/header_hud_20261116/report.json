@@ -1,0 +1,44 @@
+{
+  "scope": "Actual hidden-window defense fixtures, two sizes plus long-title variant",
+  "frames": [
+    {
+      "image": "docs\\qa\\header_hud_20261116\\tactical_header_960.png",
+      "logical_size": [
+        960,
+        640
+      ],
+      "framebuffer_size": [
+        1440,
+        960
+      ],
+      "sha256": "c4f4461f497e696091633316a89eeb6707177f39851b13306dee8394292158a1"
+    },
+    {
+      "image": "docs\\qa\\header_hud_20261116\\tactical_header_1280.png",
+      "logical_size": [
+        1280,
+        720
+      ],
+      "framebuffer_size": [
+        1920,
+        1080
+      ],
+      "sha256": "22bd290acc0f5b5ec93ca8be465197bf88afa9224a92f001735c612a3816706f"
+    },
+    {
+      "image": "docs\\qa\\header_hud_20261116\\tactical_header_long_title.png",
+      "logical_size": [
+        960,
+        640
+      ],
+      "framebuffer_size": [
+        1440,
+        960
+      ],
+      "sha256": "c92f20825ecd2b955dfc610ecf53b96b9ea3ae730f0c1ef4980ffb4c8a1bf08a"
+    }
+  ],
+  "desktop_control": false,
+  "human_playthrough": false,
+  "remaining": "battlefield units under HUD and fog; more preview/warning/controller/large-roster combinations"
+}
