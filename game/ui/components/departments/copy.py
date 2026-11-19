@@ -73,4 +73,4 @@ WORDS = {
 
 def word(key, language):
     pair = WORDS.get(key, (key.replace("_", " ").upper(),) * 2)
-    return pair[0 if language == "fr" else 1]
+    return pair[1]

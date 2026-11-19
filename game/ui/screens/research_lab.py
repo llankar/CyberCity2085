@@ -64,7 +64,7 @@ def build_research_lab_lines(
     lines = [
         f"Funds {getattr(game_state, 'available_funds', 0)} | Lab queue {len(active_research)}",
         f"Intel reserve {resources.get('intel', 0)}",
-        "Recommended action: prioriser un projet court si la pression augmente.",
+        "Recommended action: prioritize a short project if pressure increases.",
     ]
     if active_research:
         for active in active_research[:2]:

@@ -32,15 +32,15 @@ func _ready() -> void:
 		show_log = not show_log
 		get_parent().get_parent().show_combat_log = show_log
 		queue_redraw())
-	_settings_button = _utility("RÉGLAGES", func():
+	_settings_button = _utility("SETTINGS", func():
 		settings_open = not settings_open
 		_quality_button.visible = settings_open
 		queue_redraw())
 	_set_utility_icon(_log_button,"journal","Journal de combat [L]")
-	_set_utility_icon(_settings_button,"settings","Réglages graphiques")
-	_quality_button = _utility("QUALITÉ : ÉLEVÉE", func():
+	_set_utility_icon(_settings_button,"settings","Graphics settings")
+	_quality_button = _utility("QUALITY: HIGH", func():
 		quality = (quality + 1) % 3
-		_quality_button.text = "QUALITÉ : " + ["BASSE", "MOYENNE", "ÉLEVÉE"][quality]
+		_quality_button.text = "QUALITY: " + ["LOW", "MEDIUM", "HIGH"][quality]
 		quality_changed.emit(quality))
 	_quality_button.visible = false
 	_reposition_buttons()
@@ -100,7 +100,7 @@ func _reposition_buttons() -> void:
 	_command_rows = maxi(1,int(ceil(float(actions.size())/float(columns))))
 	var width := minf(128.0,(available-float(columns-1)*7.0)/float(columns))
 	if _stacked: _roster_y -= float(_command_rows-1)*104.0
-	var labels := {"Move":"BOUGER","Defend":"COUVERT","Rifle Burst":"TIR RAFALE","Pistol Shot":"PISTOLET","Plasma Burst":"PLASMA","Overwatch":"VIGILANCE","Mind Spike":"POINTE MENTALE","Psi Focus":"FOCUS PSI","Trauma Patch":"SOIGNER","Katana Slash":"KATANA","Blade Strike":"LAME","Servo Punch":"FRAPPE","Missile Salvo":"MISSILES","Precision Shot":"PRÉCISION","Shotgun Blast":"FUSIL À POMPE","SMG Spray":"RAFALE PM","Plasma Shot":"PISTOLET PLASMA","Magnum Shot":"MAGNUM","Gravity Shot":"GRAVITÉ","Arc Discharge":"ARC ÉLECTRIQUE","Fire Spray":"LANCE-FLAMMES","Shock Burst":"RAFALE CHOC","Minigun Spray":"MINIGUN","Rail Shot":"CANON RAIL","Rocket Volley":"ROQUETTES","Grenade":"GRENADE","EMP Pulse":"IMPULSION IEM","Sensor Lock":"VERROUILLAGE","Stun Strike":"MATRAQUE","Silent Kill":"DAGUE","Shield Bash":"BOUCLIER"}
+	var labels := {"Move":"MOVE","Defend":"DEFEND","Rifle Burst":"RIFLE BURST","Pistol Shot":"PISTOL SHOT","Plasma Burst":"PLASMA BURST","Overwatch":"OVERWATCH","Mind Spike":"MIND SPIKE","Psi Focus":"PSI FOCUS","Trauma Patch":"TRAUMA PATCH","Katana Slash":"KATANA SLASH","Blade Strike":"BLADE STRIKE","Servo Punch":"SERVO PUNCH","Missile Salvo":"MISSILE SALVO","Precision Shot":"PRECISION SHOT","Shotgun Blast":"SHOTGUN BLAST","SMG Spray":"SMG SPRAY","Plasma Shot":"PLASMA SHOT","Magnum Shot":"MAGNUM SHOT","Gravity Shot":"GRAVITY SHOT","Arc Discharge":"ARC DISCHARGE","Fire Spray":"FIRE SPRAY","Shock Burst":"SHOCK BURST","Minigun Spray":"MINIGUN SPRAY","Rail Shot":"RAIL SHOT","Rocket Volley":"ROCKET VOLLEY","Grenade":"GRENADE","EMP Pulse":"EMP PULSE","Sensor Lock":"SENSOR LOCK","Stun Strike":"STUN STRIKE","Silent Kill":"SILENT KILL","Shield Bash":"SHIELD BASH"}
 	for i in range(actions.size()):
 		var btn := _action_btns[actions[i]] as Button
 		btn.position = Vector2(left+float(i%columns)*(width+7.0),size.y-116.0-float(i/columns)*104.0)
@@ -173,10 +173,10 @@ func _draw() -> void:
 	if show_log: _draw_combat_log()
 	if settings_open:
 		_panel(Rect2(size.x-346,80,330,184),NEON)
-		_ds("QUALITÉ GRAPHIQUE",Vector2(size.x-330,104),19,TEXT)
+		_ds("GRAPHICS QUALITY",Vector2(size.x-330,104),19,TEXT)
 		_ds("F9 : interface classique",Vector2(size.x-330,184),17,TEXT)
-		_ds("F10 : décors 2.5D " + ("ACTIF" if environment_depth_enabled else "DÉSACTIVÉ"),Vector2(size.x-330,211),17,NEON)
-		_ds("F11 : vue de haut / isométrique",Vector2(size.x-330,242),17,TEXT)
+		_ds("F10: 2.5D scenery " + ("ON" if environment_depth_enabled else "OFF"),Vector2(size.x-330,211),17,NEON)
+		_ds("F11: top-down / isometric view",Vector2(size.x-330,242),17,TEXT)
 
 func _fit(value: String, width: float, font_size: int) -> String:
 	var font := ThemeDB.fallback_font
@@ -310,7 +310,7 @@ func _draw_target() -> void:
 	_target_segments(Rect2(x+98,y+70,rect.size.x-114,8),int(target_info.get("hp",0)),int(target_info.get("max_hp",1)))
 	var shield := PackedVector2Array([Vector2(x+19,y+100),Vector2(x+29,y+97),Vector2(x+39,y+100),Vector2(x+38,y+113),Vector2(x+29,y+119),Vector2(x+20,y+113)])
 	draw_colored_polygon(shield,NEON)
-	_ds("DÉFENSE : %d" % int(target_info.get("defense",0)),Vector2(x+53,y+116),18,TEXT)
+	_ds("DEFENSE: %d" % int(target_info.get("defense",0)),Vector2(x+53,y+116),18,TEXT)
 	draw_arc(Vector2(x+29,y+141),10,0,TAU,24,WARN,1.5,true)
 	draw_line(Vector2(x+15,y+141),Vector2(x+43,y+141),WARN,1.5,true)
 	draw_line(Vector2(x+29,y+127),Vector2(x+29,y+155),WARN,1.5,true)

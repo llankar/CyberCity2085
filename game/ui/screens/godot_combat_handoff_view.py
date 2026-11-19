@@ -59,9 +59,9 @@ def open_mission_combat(window, game_state, mission) -> None:
 
     result = launch_godot_combat_ui(game_state, mission, **_native_launch_options(window))
     game_state.add_event(
-        "Déploiement tactique lancé."
+        "Tactical deployment started."
         if result.launched
-        else "Déploiement tactique indisponible."
+        else "Tactical deployment unavailable."
     )
     window.show_view(GodotCombatHandoffView(game_state, mission, result, window=window))
 
@@ -69,8 +69,8 @@ def open_mission_combat(window, game_state, mission) -> None:
 def _player_launch_status(launch_result: GodotCombatLaunchResult) -> str:
     """Return fiction-facing copy; engine and process details never reach the UI."""
     if getattr(launch_result, "launched", True):
-        return "Connexion tactique établie. Déploiement de l'escouade…"
-    return "Impossible d'ouvrir la zone tactique. Réessayez ou revenez au commandement."
+        return "Tactical link established. Deploying squad…"
+    return "Unable to open the tactical zone. Retry or return to command."
 
 
 class GodotCombatHandoffView(arcade.View):
@@ -127,7 +127,7 @@ class GodotCombatHandoffView(arcade.View):
                 if runtime is not None and self._return_wait>5 and not ready:
                     runtime.park(self.launch_result.session_id)
                 if runtime is not None and self._return_wait>15 and not ready:
-                    self.game_state.add_event('Retour tactique interrompu ; fermeture de la liaison de combat.')
+                    self.game_state.add_event('Tactical return interrupted; closing the combat link.')
                     runtime.close();ready=True
                 if process is None or process.poll() is not None or ready:
                     self._pending_return=None
@@ -151,7 +151,7 @@ class GodotCombatHandoffView(arcade.View):
         if status and status['event'] == 'error':
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "La reprise du combat a été refusée. La campagne reste intacte."
+            self._status = "Combat recovery was rejected. The campaign remains intact."
             return
         if status and status["ready"]:
             self._session_ready = True
@@ -163,13 +163,13 @@ class GodotCombatHandoffView(arcade.View):
                 except (OSError, ValueError, KeyError, TypeError):
                     self._cleanup_godot()
                     self._launch_failed = True
-                    self._status = "Liaison audio interrompue ; campagne inchangée."
+                    self._status = "Audio link interrupted; campaign unchanged."
                     return
         # This deadline applies only to initialization, never to a long battle.
         if status_path and not getattr(self, "_session_ready", False) and self._elapsed > 90:
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "La zone tactique ne répond pas. R : réessayer ; Échap : retour au commandement."
+            self._status = "The tactical zone is not responding. R: retry; Esc: return to command."
             self.game_state.add_event(self._status)
             return
 
@@ -184,21 +184,21 @@ class GodotCombatHandoffView(arcade.View):
             except (ValueError, KeyError, TypeError, OSError):
                 self._cleanup_godot()
                 self._launch_failed=True
-                self._status="Rapport de combat refusé ; campagne inchangée."
+                self._status="Combat report rejected; campaign unchanged."
                 self.game_state.add_event(self._status)
             return
         from pathlib import Path
         if result_path and Path(result_path).is_file():
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "Rapport de combat illisible ; campagne inchangée."
+            self._status = "Combat report unreadable; campaign unchanged."
             self.game_state.add_event(self._status)
             return
         process = getattr(self.launch_result, "process", None)
         if process is not None and process.poll() is not None:
             self._cleanup_godot()
             self._launch_failed = True
-            self._status = "La liaison tactique a été interrompue sans rapport de combat."
+            self._status = "The tactical link ended without a combat report."
             self.game_state.add_event(self._status)
             return
 
@@ -219,12 +219,12 @@ class GodotCombatHandoffView(arcade.View):
         if not pid:
             # No PID means Godot wasn't launched (or non-Windows); jump to polling.
             self._overlaid = True
-            self._status = "SECTEUR TACTIQUE PRÊT"
+            self._status = "TACTICAL SECTOR READY"
             return
 
         if not _WIN:
             self._overlaid = True
-            self._status = "SECTEUR TACTIQUE PRÊT"
+            self._status = "TACTICAL SECTOR READY"
             return
 
         from game.combat.win32_embed import (
@@ -267,7 +267,7 @@ class GodotCombatHandoffView(arcade.View):
         self._godot_hwnd = hwnd
         if runtime is not None:runtime.hwnd=hwnd
         self._overlaid = True
-        self._status = "SECTEUR TACTIQUE PRÊT"
+        self._status = "TACTICAL SECTOR READY"
 
     def _cleanup_godot(self) -> None:
         """Terminate Godot and restore Arcade's window."""
@@ -371,7 +371,7 @@ class GodotCombatHandoffView(arcade.View):
                     from game.combat.checkpoints import write_campaign_checkpoint
                     write_campaign_checkpoint(self.game_state, self.launch_result.session_id, "before")
                 except OSError:
-                    self.game_state.add_event("Abandon enregistré en mémoire ; checkpoint indisponible.")
+                    self.game_state.add_event("Retreat recorded in memory; checkpoint unavailable.")
 
     def _recover_prepared_result(self) -> None:
         from pathlib import Path
@@ -388,17 +388,17 @@ class GodotCombatHandoffView(arcade.View):
             return
         result = read_godot_combat_result(path, advance_bookmark=False)
         if result is None:
-            self._status = "Le résultat enregistré est illisible. La campagne est intacte."
+            self._status = "The recorded result is unreadable. The campaign remains intact."
             return
         if use_prepared and result.get("phase") == "prepared":
             result["phase"] = "confirmed"
         try:
             self._apply_combat_result(result)
         except (ValueError, KeyError, TypeError, OSError):
-            self._status = "Rapport indisponible. La campagne est intacte."
+            self._status = "Report unavailable. The campaign remains intact."
             return
         self._launch_failed = False
-        self._status = "Ouverture du rapport de mission…"
+        self._status = "Opening mission report…"
         if use_prepared:
             from game.combat.tactical_recovery import cancel_session_process
             cancel_session_process(self.game_state, session_id)
@@ -421,7 +421,7 @@ class GodotCombatHandoffView(arcade.View):
         self._session_ready = False
         self._audio_transferred = False
         self._status = _player_launch_status(result)
-        self.game_state.add_event("Reprise du déploiement tactique.")
+        self.game_state.add_event("Tactical deployment resumed.")
 
     def _retry_godot(self) -> None:
         from game.combat.godot_bridge import launch_godot_combat_ui
@@ -439,7 +439,7 @@ class GodotCombatHandoffView(arcade.View):
         self._session_ready = False
         self._audio_transferred = False
         self._status = _player_launch_status(self.launch_result)
-        self.game_state.add_event("Nouvelle tentative de déploiement tactique.")
+        self.game_state.add_event("Retrying tactical deployment.")
 
     # ── Result application ────────────────────────────────────────────────────
 
@@ -477,7 +477,7 @@ class GodotCombatHandoffView(arcade.View):
             atomic_json(*pending)
             self._pending_ack=None
         except OSError:
-            self._status="Résultat appliqué ; acquittement différé. Aucun second paiement ne sera appliqué."
+            self._status="Result applied; acknowledgement delayed. No duplicate payout will be applied."
 
     def _return_to_management(self) -> None:
         from game.ui.screens.management_screen import ManagementView

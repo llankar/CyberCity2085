@@ -47,17 +47,10 @@ _REPLACEMENTS = {
 
 
 def localized_squad_copy(text, language):
-    value = str(text)
-    if language != "fr":
-        return value
-    if value in _LABELS:
-        return _LABELS[value]
-    for source, target in _REPLACEMENTS.items():
-        value = value.replace(source, target)
-    return value
+    return str(text)
 
 
-def draw_localized_squad_text(text, *args, language="fr", **kwargs):
+def draw_localized_squad_text(text, *args, language="en", **kwargs):
     import arcade
 
     return arcade.draw_text(localized_squad_copy(text, language), *args, **kwargs)

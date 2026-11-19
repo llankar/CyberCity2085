@@ -25,7 +25,7 @@ def show_combat_recovery(window,state):
         from game.combat.godot_bridge import GodotCombatLaunchResult
         from .godot_combat_handoff_view import GodotCombatHandoffView
         launch=GodotCombatLaunchResult(Path(record['session']['result_path']).parent/'handoff.json',[],False,
-            'Combat interrompu. Vérification du résultat enregistré…',
+            'Combat interrupted. Checking the recorded result…',
             session_id=session_id,result_path=Path(record['session']['result_path']))
         window.show_view(GodotCombatHandoffView(state,mission,launch,window=window))
         return True

@@ -23,5 +23,5 @@ def test_psi_fallback_roster_exposes_attack_and_support() -> None:
 
 def test_hud_distinguishes_offensive_and_support_psi_actions() -> None:
     source = (ROOT / "godot/combat_missions_ui/scripts/visual_hud.gd").read_text(encoding="utf-8")
-    assert '"Mind Spike":"POINTE MENTALE"' in source
-    assert '"Psi Focus":"FOCUS PSI"' in source
+    assert '"Mind Spike":"MIND SPIKE"' in source
+    assert '"Psi Focus":"PSI FOCUS"' in source

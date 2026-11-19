@@ -169,14 +169,14 @@ def generate_mission_board(game_state: "GameState", board_size: int | None = Non
 def _regional_missions(district_name: str) -> list[MissionTemplate]:
     """Playable contracts with explicit factions, environments and supported objectives."""
     contracts = [
-        ("road_relay", "Sabotage : relais du convoi", "Détruire le relais des pillards sur la route de poussière avant le départ du convoi.", "Wasteland Raiders", "raider", "wasteland", "sabotage", 3),
-        ("shelter_hostages", "Sauvetage : abri assiégé", "Libérer les survivants enfermés dans un abri des terres désolées et sécuriser leur sortie.", "Wasteland Raiders", "raider", "wasteland", "civilian_rescue", 2),
-        ("mutant_signal", "Reconnaissance : signal irradié", "Relever les données de la balise perdue dans le bassin irradié occupé par les mutants.", "Mutant Clans", "mutant", "wasteland", "recon_scan", 3),
-        ("starver_clinic", "Extraction : les derniers patients", "Ouvrir une voie de sortie pour les patients d'une clinique urbaine encerclée par les affamés.", "Starver Swarm", "starver", "city", "safe_extraction", 2),
-        ("samurai_archive", "Infiltration : archives du clan", "Pirater le terminal d'archives du clan samouraï et récupérer les ordres de surveillance.", "Samurai Consortium", "corp_samurai", "city", "data_theft", 4),
-        ("robot_factory", "Sabotage : chaîne autonome", "Arrêter le contrôleur de production d'une usine défendue par des robots de sécurité.", "Three Sevens Corp", "corp_37_robot", "city", "sabotage", 4),
-        ("mutant_overpass", "Nettoyage : passage effondré", "Éliminer la meute mutante qui bloque le passage effondré et rouvrir la route des réfugiés.", "Mutant Clans", "mutant", "wasteland", "eliminate", 3),
-        ("starver_depot", "Récupération : médicaments perdus", "Récupérer les données du dépôt médical abandonné avant que les affamés ne ferment les accès.", "Starver Swarm", "starver", "wasteland", "data_theft", 2),
+        ("road_relay", "Sabotage: Convoy Relay", "Destroy the raider relay on the dust road before the convoy departs.", "Wasteland Raiders", "raider", "wasteland", "sabotage", 3),
+        ("shelter_hostages", "Rescue: Besieged Shelter", "Free the survivors trapped in a wasteland shelter and secure their exit.", "Wasteland Raiders", "raider", "wasteland", "civilian_rescue", 2),
+        ("mutant_signal", "Recon: Irradiated Signal", "Recover the lost beacon data from the mutant-held irradiated basin.", "Mutant Clans", "mutant", "wasteland", "recon_scan", 3),
+        ("starver_clinic", "Extraction: Last Patients", "Open an escape route for patients in a city clinic surrounded by Starvers.", "Starver Swarm", "starver", "city", "safe_extraction", 2),
+        ("samurai_archive", "Infiltration: Clan Archives", "Hack the samurai clan archive terminal and recover its surveillance orders.", "Samurai Consortium", "corp_samurai", "city", "data_theft", 4),
+        ("robot_factory", "Sabotage: Autonomous Line", "Stop the production controller in a factory guarded by security robots.", "Three Sevens Corp", "corp_37_robot", "city", "sabotage", 4),
+        ("mutant_overpass", "Clearance: Collapsed Overpass", "Eliminate the mutant pack blocking the collapsed overpass and reopen the refugee route.", "Mutant Clans", "mutant", "wasteland", "eliminate", 3),
+        ("starver_depot", "Recovery: Lost Medicine", "Recover the abandoned medical depot data before the Starvers seal its access points.", "Starver Swarm", "starver", "wasteland", "data_theft", 2),
     ]
     missions = []
     for key, title, objective, faction, theme, environment, objective_type, risk in contracts:
@@ -189,11 +189,11 @@ def _regional_missions(district_name: str) -> list[MissionTemplate]:
             duration_days=2 if environment == "wasteland" else 1,
             success_consequences=[Consequence(
                 affected_district=district_name, affected_faction=faction, severity=1,
-                narrative_text=f"{title} : objectif accompli, les routes et les refuges gagnent en sécurité.",
+                narrative_text=f"{title}: objective complete; the routes and shelters are safer.",
                 mechanical_effects={"stability": 3, "unrest": -3})],
             failure_consequences=[Consequence(
                 affected_district=district_name, affected_faction=faction, severity=2,
-                narrative_text=f"{title} : l'échec renforce la pression sur les habitants.",
+                narrative_text=f"{title}: failure increases pressure on local residents.",
                 mechanical_effects={"unrest": 4, "media_heat": 2})],
         ))
     return missions

@@ -133,7 +133,7 @@ class GameState:
     ui_audio_feedback_enabled: bool = False
     combat_mission_ui_engine: str = "godot"
     combat_visual_version: int = 2
-    ui_language: str = "fr"
+    ui_language: str = "en"
     tutorial_progress: dict = field(
         default_factory=lambda: {
             "tutorial_step_index": 0,

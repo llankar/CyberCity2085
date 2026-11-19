@@ -13,10 +13,10 @@ PALETTE = {
     "urgent": (255, 67, 83),
 }
 CATEGORY = {
-    "story": "MISSION PRINCIPALE",
-    "operation": "OPÉRATION",
+    "story": "MAIN MISSION",
+    "operation": "OPERATION",
     "narrative": "NARRATIVE",
-    "urgent": "URGENTE",
+    "urgent": "URGENT",
 }
 
 

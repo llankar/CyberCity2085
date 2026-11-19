@@ -2775,7 +2775,7 @@ class BattleView(GameView):
         if action_key == "overwatch":
             self.selecting_overwatch_orientation = True
             self.overwatch_direction_index = 0
-            self.message = "Rotate overwatch cone with ←/→ then confirm (Entrée/O)."
+            self.message = "Rotate overwatch cone with ←/→ then confirm (Enter/O)."
             return True
         if action_key == "defend":
             result = self.combat_engine.perform_action("defend", actor=player)

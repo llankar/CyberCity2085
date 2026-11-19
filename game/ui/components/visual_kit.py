@@ -344,11 +344,7 @@ class VisualKit:
             self._text_batch.draw()
 
     def word(self, fr, en):
-        return (
-            fr
-            if getattr(getattr(self, "gs", None), "ui_language", "en") == "fr"
-            else en
-        )
+        return en
 
     def card(
         self,
