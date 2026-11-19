@@ -43,17 +43,15 @@ def test_arcade_only_loads_existing_cc0_wavs_and_cycles_variants(tmp_path, monke
     assert all("music" not in str(call.args) for call in play.call_args_list)
 
 
-def test_arcade_missing_cc0_file_uses_original_generic_wav(tmp_path, monkeypatch):
+def test_arcade_missing_new_file_stays_silent_without_legacy_fallback(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
-    make_pcm(Path("assets/audio/sfx/sfx_fire.wav"))
     play = Mock()
     monkeypatch.setitem(sys.modules, "arcade", SimpleNamespace(
         play_sound=play, load_sound=lambda path: Path(path).name
     ))
     sound = SoundManager()
     sound.play("sfx_fire")
-    play.assert_called_once()
-    assert play.call_args.args[0] == "sfx_fire.wav"
+    play.assert_not_called()
 
 
 def test_ambience_is_optional_separate_from_music(tmp_path, monkeypatch):
@@ -63,14 +61,15 @@ def test_ambience_is_optional_separate_from_music(tmp_path, monkeypatch):
     assert preview_city_ambience_path() is not None
 
 
-def test_static_godot_audio_contract_preserves_existing_tracks():
+def test_static_godot_audio_contract_uses_only_new_bank():
     root = Path(__file__).resolve().parents[1]
     gd = (root / "godot/combat_missions_ui/scripts/audio_manager.gd").read_text()
     bridge = (root / "game/combat/godot_bridge.py").read_text()
     assert 'AudioStreamWAV.load_from_file(path)' in gd
     assert '"fire_laser"' in gd
     assert '"laboratory"' in gd and '"city_rain"' in gd
-    assert 'music_battle.wav' in gd and "music_debrief.wav" in gd
+    assert 'Neon Street Warfare.mp3' in gd and "Intro 2.mp3" in gd
+    assert "sfx_fire.wav" not in gd and "music_battle.wav" not in gd
     assert '"ambience_profile"' in bridge
 
 

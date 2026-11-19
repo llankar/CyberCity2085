@@ -150,7 +150,7 @@ def _asset_payload(asset) -> dict[str, Any]:
 
 
 def copy_audio_assets() -> None:
-    """Copy WAV files from assets/audio/ into the Godot project's audio/ directory.
+    """Mirror production WAV/MP3 files into the Godot project audio directory.
 
     Godot loads audio as ``res://audio/*.wav``.  This copies both sfx and music
     sub-folders.  Missing source directories are silently skipped.
@@ -159,10 +159,15 @@ def copy_audio_assets() -> None:
     if not src_root.is_dir():
         return
     GODOT_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
-    for wav in src_root.rglob("*.wav"):
-        dest = GODOT_AUDIO_DIR / wav.name
-        if not dest.exists() or dest.stat().st_mtime < wav.stat().st_mtime:
-            shutil.copy2(wav, dest)
+    current = {path.name for pattern in ("*.wav", "*.mp3") for path in src_root.rglob(pattern)}
+    for old in GODOT_AUDIO_DIR.iterdir():
+        if old.is_file() and old.suffix.lower() in {".wav", ".mp3"} and old.name not in current:
+            old.unlink()
+    for pattern in ("*.wav", "*.mp3"):
+        for source in src_root.rglob(pattern):
+            dest = GODOT_AUDIO_DIR / source.name
+            if not dest.exists() or dest.stat().st_mtime < source.stat().st_mtime:
+                shutil.copy2(source, dest)
 
 
 def read_godot_combat_result(

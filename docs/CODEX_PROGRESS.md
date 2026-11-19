@@ -337,6 +337,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
 - Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
 
+### AUDIO-REPLACE-01 — DONE — Remplacer intégralement les anciens sons et musiques
+
+- Fichiers : `assets/audio/sfx`, `assets/audio/music`, `game/audio`, `godot/combat_missions_ui/audio`, `godot/combat_missions_ui/scripts/audio_manager.gd`, `docs/audio/README.md`, `docs/gameplay/soundtrack.md`.
+- Tests / contrôles réellement exécutés : python -m pytest -q tests/test_cc0_audio_routing.py tests/test_cc0_audio_import.py tests/test_music_catalog.py tests/test_music_continuity.py tests/test_unified_audio_transfer.py --junitxml=docs/reports/audio_replacement_tests.xml : 36 passed, 1 skipped, 4 subtests passed; Inventaire : 0 ancien fichier, 37 nouveaux WAV et 7 nouveaux MP3 dans assets/audio et dans le miroir Godot.
+- Preuves : `tests/test_cc0_audio_routing.py`, `tests/test_music_catalog.py`.
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : Portée technique validée ; écoute artistique humaine et partie complète non exécutées.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

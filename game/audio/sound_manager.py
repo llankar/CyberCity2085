@@ -8,7 +8,7 @@ Usage:
     sm.play_music("music_battle", loop=True)
     sm.stop_music()
 
-All methods are no-ops when audio is disabled or the WAV file is absent.
+All methods are no-ops when audio is disabled or the selected file is absent.
 """
 
 from __future__ import annotations
@@ -18,7 +18,6 @@ from typing import Any
 from .music_catalog import MUSIC_TRACKS, music_path
 from .overhaul_assets import preview_sfx_paths, preview_city_ambience_path
 
-_SFX_DIR   = Path("assets/audio/sfx")
 _MUSIC_DIR = Path("assets/audio/music")
 
 _SFX_NAMES = [
@@ -245,8 +244,7 @@ class SoundManager:
         if requested is not None:
             import arcade
             self._music.clear()
-            candidates = [requested, _MUSIC_DIR / ("music_briefing.wav" if name in {"music_title", "music_management", "music_briefing", "music_ending"} else "music_battle.wav")]
-            for path in candidates:
+            for path in [requested]:
                 if not path.is_file():
                     continue
                 try:
@@ -308,14 +306,6 @@ class SoundManager:
                     loaded.append(arcade.load_sound(str(path)))
                 except Exception:
                     continue
-            # Keep legacy WAV as an actual fallback, not a mixed-in arcade variant.
-            if not loaded:
-                legacy = _SFX_DIR / f"{name}.wav"
-                if legacy.is_file():
-                    try:
-                        loaded.append(arcade.load_sound(str(legacy)))
-                    except Exception:
-                        pass
             if loaded:
                 self._sfx[name] = loaded[0]
                 self._sfx_variants[name] = loaded

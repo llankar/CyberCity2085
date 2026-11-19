@@ -4,29 +4,7 @@ class_name AudioManager
 ## res://audio/ (populated by godot_bridge.py on launch).
 ## Silently skips missing files so a fresh checkout still runs.
 
-const SFX_MAP: Dictionary = {
-	"move"        : "sfx_move.wav",
-	"fire"        : "sfx_fire.wav",
-	"melee"       : "sfx_melee.wav",
-	"psi"         : "sfx_psi.wav",
-	"hit"         : "sfx_hit.wav",
-	"miss"        : "sfx_miss.wav",
-	"death"       : "sfx_death.wav",
-	"overwatch"   : "sfx_overwatch.wav",
-	"defend"      : "sfx_act_advance.wav",
-	"deploy"      : "sfx_deploy.wav",
-	"ui_click"    : "sfx_ui_click.wav",
-	"turn_player" : "sfx_turn_player.wav",
-	"turn_enemy"  : "sfx_turn_enemy.wav",
-	"victory"     : "sfx_victory.wav",
-	"defeat"      : "sfx_defeat.wav",
-	"reinforce"   : "sfx_reinforce.wav",
-	"stun"        : "sfx_stun.wav",
-	"bleed"       : "sfx_bleed.wav",
-}
-
-# Optional WAVs from assets/audio/overhaul, copied by godot_bridge.py.
-# All are still unreviewed; the original event WAV remains the fallback.
+# Production WAVs from assets/audio/overhaul, copied by godot_bridge.py.
 const PREVIEW_SFX_MAP: Dictionary = {
     "fire": ["fire_assault_01.wav"],
     "fire_pistol": ["fire_pistol_01.wav"],
@@ -47,6 +25,19 @@ const PREVIEW_SFX_MAP: Dictionary = {
     "ui_click": ["ui_click_01.wav", "ui_click_cc0_01.wav", "ui_click_cc0_02.wav"],
     "ui_confirm": ["ui_confirm_cc0_01.wav"],
     "ui_refuse": ["ui_refuse_cc0_01.wav"],
+	"psi": ["shield_cc0_01.wav"],
+	"miss": ["fire_laser_cc0_02.wav"],
+	"death": ["impact_organic_cc0_01.wav"],
+	"overwatch": ["terminal_cc0_01.wav"],
+	"defend": ["shield_cc0_01.wav"],
+	"deploy": ["door_open_cc0_01.wav"],
+	"turn_player": ["ui_confirm_cc0_01.wav"],
+	"turn_enemy": ["ui_refuse_cc0_01.wav"],
+	"victory": ["ui_confirm_cc0_01.wav", "terminal_cc0_01.wav"],
+	"defeat": ["ui_refuse_cc0_01.wav", "impact_organic_cc0_01.wav"],
+	"reinforce": ["door_open_cc0_01.wav", "ui_confirm_cc0_01.wav"],
+	"stun": ["shield_cc0_01.wav"],
+	"bleed": ["impact_organic_cc0_01.wav"],
 }
 const CITY_AMBIENCE_WAV := "ambience_city_loop_candidate_01.wav"
 const CC0_CITY_AMBIENCE_WAV := "ambience_city_cc0_01.wav"
@@ -67,7 +58,7 @@ var _next_sample_index: Dictionary = {}
 var _active_ambience_filename: String = ""
 var _streams     : Dictionary         = {}   # filename → AudioStream
 var _pool_idx    : int                = 0
-var _battle_music: String = "music_battle.wav"
+var _battle_music: String = "Neon Street Warfare.mp3"
 var _current_track := ""
 var _asset_root := ""
 var _enabled: bool = true
@@ -99,8 +90,6 @@ func _ready() -> void:
 	CombatSignals.audio_event.connect(_on_audio_event)
 
 func _preload_streams() -> void:
-	for _fname: String in SFX_MAP.values():
-		_load_stream(_fname)
 	for preview_options in PREVIEW_SFX_MAP.values():
 		for preview_file in preview_options:
 			_load_stream(str(preview_file))
@@ -108,7 +97,7 @@ func _preload_streams() -> void:
 		for ambience_file in ambience_options:
 			_load_stream(str(ambience_file))
 	_load_stream(CITY_INTRO_WAV)
-	for mfile in ["music_battle.wav", "music_debrief.wav", "music_briefing.wav"]:
+	for mfile in ["Neon Street Warfare.mp3", "Intro 2.mp3"]:
 		_load_stream(mfile)
 
 func _load_stream(filename: String) -> void:
@@ -147,7 +136,7 @@ func _play_sfx(filename: String, volume_scale: float = 1.0) -> void:
 	player.play()
 
 
-func _play_event_sfx(event_name: String, fallback_filename: String) -> void:
+func _play_event_sfx(event_name: String) -> void:
 	var options: Array = PREVIEW_SFX_MAP.get(event_name, [])
 	var available: Array[String] = []
 	for item in options:
@@ -155,7 +144,6 @@ func _play_event_sfx(event_name: String, fallback_filename: String) -> void:
 		if _streams.has(filename):
 			available.append(filename)
 	if available.is_empty():
-		_play_sfx(fallback_filename)
 		return
 	# Cycle through known-real WAVs, no instant repetition when 2+ exist.
 	var next_index: int = int(_next_sample_index.get(event_name, 0)) % available.size()
@@ -229,41 +217,17 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 		_load_stream(path)
 		if _streams.has(path):
 			_battle_music = path
-	if not _streams.has(_battle_music): _battle_music = "music_battle.wav"
+	if not _streams.has(_battle_music): _battle_music = "Neon Street Warfare.mp3"
 	_play_music(_battle_music,float(settings.get("start_position",0.0)))
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
-		"move":                   _play_event_sfx("move", "sfx_move.wav")
-		"fire":                   _play_event_sfx("fire", "sfx_fire.wav")
-		"fire_pistol":            _play_event_sfx("fire_pistol", "sfx_fire.wav")
-		"melee":                  _play_event_sfx("melee", "sfx_melee.wav")
-		"psi":                    _play_sfx("sfx_psi.wav")
-		"hit":                    _play_event_sfx("hit", "sfx_hit.wav")
-		"miss":                   _play_sfx("sfx_miss.wav")
-		"death":                  _play_sfx("sfx_death.wav")
-		"overwatch":              _play_sfx("sfx_overwatch.wav")
-		"ui_click":               _play_event_sfx("ui_click", "sfx_ui_click.wav")
-		"ui_confirm":             _play_event_sfx("ui_confirm", "sfx_ui_click.wav")
-		"ui_refuse":              _play_event_sfx("ui_refuse", "sfx_ui_click.wav")
-		"fire_laser":             _play_event_sfx("fire_laser", "sfx_fire.wav")
-		"hit_metal":              _play_event_sfx("hit_metal", "sfx_hit.wav")
-		"hit_glass":              _play_event_sfx("hit_glass", "sfx_hit.wav")
-		"hit_organic":            _play_event_sfx("hit_organic", "sfx_hit.wav")
-		"move_concrete":          _play_event_sfx("move_concrete", "sfx_move.wav")
-		"move_metal":             _play_event_sfx("move_metal", "sfx_move.wav")
-		"move_robot":             _play_event_sfx("move_robot", "sfx_move.wav")
-		"shield":                 _play_event_sfx("shield", "sfx_psi.wav")
-		"terminal":               _play_event_sfx("terminal", "sfx_ui_click.wav")
-		"door_open":              _play_event_sfx("door_open", "sfx_ui_click.wav")
-		"explosion_small":        _play_event_sfx("explosion_small", "sfx_hit.wav")
-		"turn_player":            _play_sfx("sfx_turn_player.wav"); _play_music(_battle_music)
-		"turn_enemy":             _play_sfx("sfx_turn_enemy.wav")
-		"victory":                _play_sfx("sfx_victory.wav");    _play_music("music_debrief.wav")
-		"defeat":                 _play_sfx("sfx_defeat.wav");     _play_music("music_debrief.wav")
-		"deploy":                 _play_sfx("sfx_deploy.wav")
-		"stun":                   _play_sfx("sfx_stun.wav")
-		"bleed":                  _play_sfx("sfx_bleed.wav")
+		"move", "fire", "fire_pistol", "melee", "psi", "hit", "miss", "death", "overwatch", "ui_click", "ui_confirm", "ui_refuse", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "stun", "bleed", "reinforce", "defend":
+			_play_event_sfx(event_name)
+		"turn_player":            _play_event_sfx("turn_player"); _play_music(_battle_music)
+		"turn_enemy":             _play_event_sfx("turn_enemy")
+		"victory":                _play_event_sfx("victory"); _play_music("Intro 2.mp3")
+		"defeat":                 _play_event_sfx("defeat"); _play_music("Intro 2.mp3")
 
 func playback_bookmark() -> Dictionary:
 	if _current_track.is_empty() or _music_player == null: return {}

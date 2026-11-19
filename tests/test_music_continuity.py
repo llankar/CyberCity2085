@@ -22,6 +22,8 @@ class Player:
 
 @pytest.fixture
 def soundtrack(tmp_path, monkeypatch):
+    # Keep soundtrack transport tests isolated from the production ambience bank.
+    monkeypatch.chdir(tmp_path)
     paths = [tmp_path / 'shared.mp3', tmp_path / 'battle.mp3']
     for path in paths: path.write_bytes(b'fixture')
     players = []

@@ -4,10 +4,10 @@
 Les assets de `docs/audio/elevenlabs_manifest.json` sont tous **pending_generation**. Ne jamais déclarer une variante créée si le WAV final n'existe pas ; pas de génération ElevenLabs audio achevée. Préserver les MP3 du catalogue. Toujours tester sur une branche avant fusion.
 
 ## Source de vérité
-- `docs/audio/current_inventory.json` inventorie les 19 WAV et les événements existants.
+- L'ancien inventaire des 19 WAV a été retiré avec la banque historique.
 - `docs/audio/elevenlabs_manifest.json` fournit les 58 familles, 167 variantes, prompts, déclencheurs cibles et chemins.
 - Garder les clés d'événements compatibles (`sfx_fire` Arcade et `fire` Godot, etc.).
-- Ne pas modifier `tools/gen_sounds.py` pour générer des sons « premium » : il reste uniquement un générateur de secours. Ne jamais le ré-exécuter après l'installation de la nouvelle bibliothèque.
+- Le générateur procédural historique a été retiré afin qu'il ne puisse pas recréer l'ancienne banque.
 
 ## Chaîne de production
 1. Vérifier le solde/crédits de la formule et estimer un lot avant de lancer une grande quantité.
@@ -26,7 +26,7 @@ Les assets de `docs/audio/elevenlabs_manifest.json` sont tous **pending_generati
 - Uniformiser le contexte de source entre le shell Python Arcade et les scènes Godot. Les fonctions music de `game/audio/music_catalog.py` restent inchangées.
 
 ## Correctifs nécessaires
-- `game/audio/sound_manager.py` : retirer la dépendance à une liste fixe en ajoutant résolution par manifeste et variantes avec fallback; conserver `play(name)` historique; `play_music` indépendant.
+- `game/audio/sound_manager.py` : conserver `play(name)` historique et résoudre les variantes exclusivement dans la nouvelle banque ; `play_music` reste indépendant.
 - `game/gamestate.py` : résoudre explicitement `recruitment`, `selection`, `toggle`, qui correspondent à des clés SFX manquantes.
 - `godot/combat_missions_ui/scripts/audio_manager.gd` : charger les nouveaux fichiers disponibles, choisir variantes selon métadonnées des événements, préserver la lecture des 18 événements actuels. Remplacer la logique de 6 lecteurs cycliques par un pool qui cherche un lecteur disponible et dégrade proprement sous forte charge.
 - `game/combat/godot_bridge.py` : transférer les WAV disponibles et un manifeste compatible vers Godot (chemins relatifs, extension WAV, pas de noms en collision). Pas de lecture d'un fichier de manifeste comme s'il était un son.
@@ -37,7 +37,7 @@ Les assets de `docs/audio/elevenlabs_manifest.json` sont tous **pending_generati
 ## Tests et critères d'acceptation
 - Test JSON : exactement une entrée par famille, chemins uniques, variantes sans collision et durée entre 0,5 et 30s.
 - Test SFX : les fichiers `ready` se décodent; les `pending_generation` ne sont jamais chargés.
-- Test routage : `play('sfx_fire')` conserve son fallback, nouveau choix d'arme paramétré quand disponible, impact métal distinct du béton, mouvements distincts, UI non agressive.
+- Test routage : `play('sfx_fire')` utilise la nouvelle banque sans fallback historique, avec impact métal distinct du béton, mouvements distincts et UI non agressive.
 - Test variété : pas de répétition immédiatement consecutive lorsque >=2 variantes validées.
 - Test simultanéité : rafale / impacts / clics joués ensemble n'interrompent pas les événements prioritaires.
 - Test synchronisation Arcade→Godot et retour : musique inchangée et volumes cohérents.
