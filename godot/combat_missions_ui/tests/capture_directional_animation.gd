@@ -13,6 +13,8 @@ func run() -> void:
 	var roster:= "--roster" in args
 	var psi_doctor:= "--psi-doctor" in args
 	var street_medic:= "--street-medic" in args
+	var longcoat_gunner:= "--longcoat-gunner" in args
+	var hooded_infiltrator:= "--hooded-infiltrator" in args
 	if roster:token_keys.insert(1,"p1")
 	for i in range(args.size()-1):
 		if args[i]=="--output":output=args[i+1]
@@ -23,7 +25,8 @@ func run() -> void:
 	scene.environment_depth_enabled=true;scene._set_visual_quality(2)
 	await create_timer(2.2).timeout;scene._banner.hide()
 	scene.player_units[0]["visual_asset"]="agent_diverse_01_neon_blade" if roster else "agent_diverse_04_trench_sniper"
-	if roster:scene.player_units[1]["visual_asset"]="agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")
+	if roster:
+		scene.player_units[1]["visual_asset"]="agent_diverse_02_longcoat_gunner" if longcoat_gunner else ("agent_diverse_07_hooded_infiltrator" if hooded_infiltrator else ("agent_diverse_05_psi_doctor" if psi_doctor else ("agent_diverse_06_street_medic" if street_medic else "agent_diverse_03_magenta_pistol")))
 	scene.enemy_units[0]["visual_asset"]="enemy_grunt"
 	stage_positions();scene._spawn_all_tokens();scene._resize_tokens()
 	for key: String in token_keys:assert(scene._unit_tokens[key].atlas!=null,key+" must use real directional resources")
@@ -59,7 +62,7 @@ func run() -> void:
 			var melee_file="melee-%02d-%02d"%[direction,phase]
 			save_frame(melee_file);melee_frames.append({"direction":direction,"phase":phase,"file":melee_file+".png"})
 	var magenta_actions: Array[Dictionary]=[]
-	if roster and not psi_doctor and not street_medic:
+	if roster and not psi_doctor and not street_medic and not longcoat_gunner and not hooded_infiltrator:
 		var magenta=scene._unit_tokens["p1"]
 		for action in ["fire","melee","cover","hit","death"]:
 			for direction in range(8):
@@ -85,6 +88,17 @@ func run() -> void:
 				await process_frame;await RenderingServer.frame_post_draw
 				var medic_file="street-medic-%s-%02d"%[action,direction]
 				save_frame(medic_file);medic_actions.append({"action":action,"direction":direction,"file":medic_file+".png"})
+	var new_agent_actions: Array[Dictionary]=[]
+	if longcoat_gunner or hooded_infiltrator:
+		var new_agent=scene._unit_tokens["p1"]
+		var new_prefix="longcoat-gunner" if longcoat_gunner else "hooded-infiltrator"
+		var actions=["fire","melee","cover","hit","death"] if longcoat_gunner else ["melee","cover","hit","death"]
+		for action in actions:
+			for direction in range(8):
+				assert(new_agent.play_action(action));new_agent.facing=direction;new_agent.frame_time=0.2;new_agent._process(0)
+				await process_frame;await RenderingServer.frame_post_draw
+				var action_file="%s-%s-%02d"%[new_prefix,action,direction]
+				save_frame(action_file);new_agent_actions.append({"action":action,"direction":direction,"file":action_file+".png"})
 	var sniper_actions: Array[Dictionary]=[]
 	if not roster:
 		var sniper=scene._unit_tokens["p0"]
@@ -120,7 +134,7 @@ func run() -> void:
 	scene._camera.zoom=Vector2.ONE*minf(scene._close_zoom(),scene._overview_zoom()*1.65);scene._camera.force_update_scroll()
 	var report: Dictionary=await capture_movement(0,"movement")
 	if roster:report["secondary_movement"]=await capture_movement(1,"movement-secondary")
-	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"psi_actions":psi_actions,"medic_actions":medic_actions,"sniper_actions":sniper_actions,"grunt_actions":grunt_actions,"heavy_actions":heavy_actions,"projection":"top_down","coverage":"complete_authored_fixture_roster","campaign_written":false})
+	report.merge({"directions":frames,"melee":melee_frames,"magenta_actions":magenta_actions,"psi_actions":psi_actions,"medic_actions":medic_actions,"new_agent_actions":new_agent_actions,"sniper_actions":sniper_actions,"grunt_actions":grunt_actions,"heavy_actions":heavy_actions,"projection":"top_down","coverage":"complete_authored_fixture_roster","campaign_written":false})
 	var captured_assets: Dictionary={}
 	for key: String in token_keys:
 		var unit=scene._unit_tokens[key]

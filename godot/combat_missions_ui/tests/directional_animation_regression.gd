@@ -1,5 +1,5 @@
 extends SceneTree
-const KEYS=["agent_diverse_01_neon_blade","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","agent_diverse_05_psi_doctor","agent_diverse_06_street_medic","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
+const KEYS=["agent_diverse_01_neon_blade","agent_diverse_02_longcoat_gunner","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","agent_diverse_05_psi_doctor","agent_diverse_06_street_medic","agent_diverse_07_hooded_infiltrator","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
 func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(640,480)
