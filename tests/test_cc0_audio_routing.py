@@ -79,3 +79,28 @@ def test_no_audio_catalog_claims_unmaterialized_candidates_are_installed():
     import json
     data = json.loads((root / "docs/audio/cc0_ccby_sources.json").read_text())
     assert all(x["distribution_status"] == "not_yet_converted" for x in data["kenney_curated"])
+
+
+def test_robot_moves_use_robot_specific_cue_in_both_godot_views():
+    root = Path(__file__).resolve().parents[1]
+    for script in ("unit_visual.gd", "unit_token.gd"):
+        text = (root / "godot/combat_missions_ui/scripts" / script).read_text()
+        assert 'unit_data.get("role", "")' in text
+        assert 'CombatSignals.audio_event.emit("move_robot")' in text
+        assert 'CombatSignals.audio_event.emit("move")' in text
+
+
+def test_freesound_staging_is_distinct_from_committed_wavs():
+    root = Path(__file__).resolve().parents[1]
+    import json
+    data = json.loads((root / "docs/audio/cc0_ccby_sources.json").read_text())
+    received = [
+        entry for entry in data["sources"]
+        if entry.get("received_original_sha256")
+    ]
+    assert len(received) == 4
+    for entry in received:
+        assert len(entry["received_original_sha256"]) == 64
+        assert len(entry["prepared_output_sha256"]) == 64
+        assert entry["prepared_output_format"]["sample_rate_hz"] == 48000
+        assert entry["license"] in ("CC0-1.0", "CC-BY-4.0")
