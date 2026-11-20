@@ -674,7 +674,7 @@
       "tests": [
         "Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle",
         "Windows OpenGL: tactical reference, assassination objective and encounter floor regressions passed; 10 Arcade controller/accessibility tests passed",
-        "Windows OpenGL: tactical_gamepad_regression.gd passed injected shoulder/Y/B/A events and D-pad movement with position and AP checks, action bar navigation, hints, confirmation and off-screen cursor camera recovery on one map in both projections (isometric at 720p). Empty-cell gamepad attacks were rejected without spending AP. Native Godot last-stand regression passed direct and area attacks; campaign persistence passed for last-stand memories, including debrief and replay after reload. Physical controller unverified"
+        "Windows OpenGL: tactical_gamepad_regression.gd passed injected shoulder/Y/B/A events and D-pad movement with position and AP checks, action bar navigation, hints, confirmation and off-screen cursor camera recovery on one map in both projections (isometric at 720p). Empty-cell gamepad attacks were rejected without spending AP. Native Godot last-stand regression passed direct and area attacks; campaign persistence passed for last-stand memories, including debrief and replay after reload. An integration regression now publishes the confirmed retreat from an actual headless Godot process and checks its debrief in Python. Physical controller unverified"
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",

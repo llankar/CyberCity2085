@@ -170,6 +170,28 @@ def test_last_stand_memory_is_validated_saved_and_applied_once(tmp_path):
     assert loaded.latest_mission_debrief["tactical_moments"][0]["kind"] == "last_stand"
 
 
+def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
+    import subprocess
+    from game.combat.godot_bridge import find_godot_executable
+
+    godot = find_godot_executable()
+    if not godot:
+        pytest.skip("Godot unavailable")
+    state, mission, session, _ = scenario(tmp_path)
+    result_path = Path(session["result_path"])
+    project = Path(__file__).resolve().parents[1] / "godot/combat_missions_ui"
+    proc = subprocess.run([
+        godot, "--headless", "--audio-driver", "Dummy", "--path", str(project),
+        "--script", "res://tests/last_stand_regression.gd", "--",
+        "--handoff", str(result_path.with_name("handoff.json")),
+    ], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=25)
+    assert proc.returncode == 0 and "GODOT_LAST_STAND_CHECKS_PASSED" in proc.stdout, proc.stdout + proc.stderr
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    assert result["agents"][0]["last_stand_hp"] == 1
+    assert resolve_godot_result(state, mission, result, session["session_id"]) is not None
+    assert state.latest_mission_debrief["tactical_moments"][0]["agent_name"] == "Vera"
+
+
 def test_confirmed_death_uses_the_existing_roster_removal_rule(tmp_path):
     state,mission,session,result=scenario(tmp_path);result['agents'][0]['hp']=0
     with patch('game.battle_outcomes.random.choice',return_value='killed'):

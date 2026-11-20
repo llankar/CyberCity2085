@@ -8,10 +8,13 @@ func run() -> void:
 	root.add_child(mission)
 	await create_timer(2.3).timeout
 	assert(mission.battle_started and mission.enemy_units.size() > 1)
+	var session: Dictionary = mission.handoff.get("session", {})
 	var actor: Dictionary = mission.player_units[mission.active_player_index]
 	actor["hp"] = 1
 	actor["aim"] = 100
-	actor["last_stand_dialogue"] = "I've still got something to finish."
+	if session.is_empty():
+		actor["last_stand_dialogue"] = "I've still got something to finish."
+	assert(not str(actor.last_stand_dialogue).is_empty())
 	for i in range(2):
 		var enemy: Dictionary = mission.enemy_units[i]
 		enemy["hp"] = 1
@@ -45,5 +48,9 @@ func run() -> void:
 		if actor.last_stand_dialogue in entry:
 			count += 1
 	assert(count == 1 and actor.last_stand_spoken)
+	if not session.is_empty():
+		mission._end_combat("retreat")
+		mission._results._extract_btn.pressed.emit()
+		assert(FileAccess.file_exists(session.result_path))
 	print("GODOT_LAST_STAND_CHECKS_PASSED")
 	quit()
