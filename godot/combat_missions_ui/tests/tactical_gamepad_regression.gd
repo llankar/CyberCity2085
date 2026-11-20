@@ -56,6 +56,32 @@ func run() -> void:
 		push_error("Directional pad and A did not preview and execute a legal 1 AP move.")
 		quit(1)
 		return
+	var attack: String = ""
+	for action: String in mission._hud._visible_actions:
+		if mission._action_type(action) in ["FIRE", "MELEE", "PSI"]:
+			attack = action
+			break
+	if attack.is_empty():
+		push_error("The gamepad fixture needs a targeted attack.")
+		quit(1)
+		return
+	mission._execute_action(attack)
+	var movement_cell: Vector2i = agent.position
+	var attack_ap: int = agent.ap
+	for button: JoyButton in directions:
+		var empty_cell: Vector2i = movement_cell + directions[button]
+		if not Rect2i(Vector2i.ZERO, Vector2i(mission.GRID_COLS, mission.GRID_ROWS)).has_point(empty_cell):
+			continue
+		if mission._is_cell_occupied(empty_cell, -1, -1) or empty_cell == mission.objective.get("cell"):
+			continue
+		await press(button)
+		await press(JOY_BUTTON_A)
+		break
+	if agent.ap != attack_ap or mission.status_line != "No live target on this cell." or not mission._hud.target_info.is_empty():
+		push_error("Gamepad confirmation on an empty cell must not attack a fallback enemy.")
+		quit(1)
+		return
+	mission._execute_action("Move")
 	await press(JOY_BUTTON_X)
 	if mission._hud.gamepad_action.to_upper() != "MOVE" or "choose action" not in mission._hud.tactical_status():
 		push_error("X did not open the action bar on Move with controller hints.")
