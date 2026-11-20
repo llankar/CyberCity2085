@@ -216,6 +216,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### TACTICAL-REVIEW — IN_PROGRESS — Validation artistique et fonctionnelle globale aux trois résolutions
 
+Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm end turn through injected joypad events. Board targeting, action selection, hints and a physical controller remain open.
+
 - Fichiers : `godot/combat_missions_ui/tests`, `docs/images/combat-directional-animation`.
 - Tests / contrôles réellement exécutés : Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
