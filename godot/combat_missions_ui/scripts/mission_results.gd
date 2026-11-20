@@ -22,6 +22,8 @@ var _extract_btn  : Button = null
 var project_root  : String = ""
 var ipc_pipe_path : String = ""  # Unix pipe path for IPC signal to Python
 
+var reduced_motion := false
+
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_TOP_LEFT)
 	mouse_filter = Control.MOUSE_FILTER_STOP
@@ -73,10 +75,9 @@ func show_results(outcome: String, result: Dictionary, p_root: String, ipc_pipe_
 	_publish(_prepared_path(),_payload("prepared"))
 	preload("res://scripts/session_mailbox.gd").status(_session, "result_prepared")
 
-	# Fade in
-	modulate.a = 0.0
-	var tw := create_tween()
-	tw.tween_property(self, "modulate:a", 1.0, 0.6)
+	modulate.a = 1.0 if reduced_motion else 0.0
+	if not reduced_motion:
+		create_tween().tween_property(self, "modulate:a", 1.0, 0.6)
 	
 	# Preparation never publishes the final mailbox or the completion signal.
 
@@ -196,7 +197,7 @@ func _draw() -> void:
 	draw_rect(Rect2(px, py, pw, ph), title_col, false, 2.5)
 
 	# Glowing title
-	var pulse := 0.80 + 0.20 * sin(_elapsed * 2.5)
+	var pulse := 1.0 if reduced_motion else 0.80 + 0.20 * sin(_elapsed * 2.5)
 	draw_string(ThemeDB.fallback_font,
 			Vector2(px, py + 44.0*scale_factor),
 			title_text, HORIZONTAL_ALIGNMENT_CENTER, int(pw), roundi(24*scale_factor),

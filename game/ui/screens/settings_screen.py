@@ -40,7 +40,7 @@ class SettingsState:
     text_size: str = "medium"
     godot_bin_path: str = ""
     extra_flags: dict = field(default_factory=dict)
-    reduced_motion: bool = False  # Main-menu atmospheric animation
+    reduced_motion: bool = False  # Decorative menu and tactical UI animation
 
 
 _RESOLUTIONS: list[tuple[int, int]] = [

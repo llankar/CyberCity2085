@@ -14,8 +14,13 @@ const SLIDE_DURATION := 0.28
 var _label_text : String = ""
 var _label_col  : Color  = NEON
 var _bar_col    : Color  = NEON
-var _slide_y    : float  = -80.0   # current Y of the banner rect
+var _slide_y    : float  = -80.0:
+	set(value):
+		_slide_y = value
+		queue_redraw()
 var _active     : bool   = false
+var reduced_motion := false
+var _transition: Tween
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -37,16 +42,19 @@ func show_banner(side: String, turn_num: int) -> void:
 		_bar_col    = WARN
 
 	visible   = true
-	_slide_y  = -80.0
 	var mid_y := size.y * 0.5 - 28.0
-
-	var tw := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
-	tw.tween_property(self, "_slide_y", mid_y, SLIDE_DURATION)
-	tw.tween_interval(HOLD_DURATION)
-	tw.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
-	tw.tween_property(self, "_slide_y", -80.0, SLIDE_DURATION)
-	tw.tween_callback(_on_slide_done)
-	tw.tween_property(self, "modulate:a", 1.0, 0.0)  # ensure visible on next show
+	if _transition:
+		_transition.kill()
+	_transition = create_tween()
+	_slide_y = mid_y if reduced_motion else -80.0
+	if not reduced_motion:
+		_transition.tween_property(self, "_slide_y", mid_y, SLIDE_DURATION) \
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	_transition.tween_interval(HOLD_DURATION)
+	if not reduced_motion:
+		_transition.tween_property(self, "_slide_y", -80.0, SLIDE_DURATION) \
+			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	_transition.tween_callback(_on_slide_done)
 	queue_redraw()
 
 func _on_slide_done() -> void:
