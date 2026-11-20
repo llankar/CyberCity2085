@@ -19,6 +19,7 @@ def render_signature(root):
     paths += sorted((root / ART_REL / 'props25').glob('*-*.png'))
     scale_data=project/'art/environment/map_presentation.json'
     if scale_data.exists():paths.append(scale_data)
+    paths += sorted((root / 'assets/maps/presentation').glob('*.png'))
     # Map-art evidence is scoped to renderer, environment resources and map
     # presentation. Unit atlases are independently traced by manifests,
     # SHA-256, audits and targeted native captures; adding one must not expire

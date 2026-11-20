@@ -281,7 +281,14 @@ func _build_children() -> void:
 	_battlefield = preload("res://scripts/visual_battlefield.gd").new() if visual_mode else _BFScript.new()
 	if visual_mode:
 		_battlefield.top_down = "--isometric" not in OS.get_cmdline_user_args()
-		_battlefield.human_height_ratio = preload("res://scripts/map_presentation.gd").human_height_ratio(_map_data())
+		var presentation := preload("res://scripts/map_presentation.gd")
+		_battlefield.human_height_ratio = presentation.human_height_ratio(_map_data())
+		var surface: Dictionary = presentation.entry_for(_map_data()).get("surface", {})
+		var map_path := str(_map_data().get("path", ""))
+		if not surface.is_empty() and map_texture != null and preload("res://scripts/environment_catalog.gd").matches_source(map_path, _asset_path(map_path), Vector2i(map_texture.get_size())):
+			var rect: Array = surface.uv_rect
+			_battlefield.surface_texture = _load_tex(surface.path)
+			_battlefield.surface_uv = Rect2(rect[0], rect[1], rect[2], rect[3])
 	_battlefield.name = "Battlefield"
 	_map_root.add_child(_battlefield)
 
