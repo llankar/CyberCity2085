@@ -28,5 +28,22 @@ func run() -> void:
 		if actor.last_stand_dialogue in entry:
 			count += 1
 	assert(count == 1 and actor.last_stand_spoken)
+	# Exercise a new presentation state with two hostile casualties in one blast.
+	actor.erase("last_stand_spoken")
+	mission.combat_log.clear()
+	mission.active_player_index = mission.player_units.find(actor)
+	actor["ap"] = 8
+	var center: Vector2i = actor.position + Vector2i.RIGHT
+	for i in range(2):
+		mission.enemy_units[i]["hp"] = 1
+		mission.enemy_units[i]["position"] = center + Vector2i(0, i)
+	mission.selected_action = "Missile Salvo"
+	mission._apply_missile_salvo(center)
+	assert(mission.enemy_units[0].hp == 0 and mission.enemy_units[1].hp == 0)
+	count = 0
+	for entry: String in mission.combat_log:
+		if actor.last_stand_dialogue in entry:
+			count += 1
+	assert(count == 1 and actor.last_stand_spoken)
 	print("GODOT_LAST_STAND_CHECKS_PASSED")
 	quit()

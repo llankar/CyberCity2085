@@ -1396,6 +1396,8 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 			if int(eu.get("hp", 0)) <= 0:
 				_unit_tokens[ekey].play_death()
 				CombatSignals.unit_died.emit(j, true)
+		if int(eu.get("hp", 0)) <= 0:
+			_log_last_stand(active)
 		hits += 1
 	var line := "%s: %s — %d enemies hit." % [_active_unit_name(),action,hits]
 	_log_event(line)
