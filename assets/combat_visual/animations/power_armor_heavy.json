@@ -1,0 +1,156 @@
+{
+  "texture": "assets/combat_visual/animations/power_armor_heavy.png",
+  "texture_sha256": "43f581bc6db92e90c6b5cfa35a6c4837a2e3df562067448167d6d5ca4bf86535",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/power_armor_heavy_512.png",
+  "source_sha256": "b60a3614ea7a8630cfb781609b711fe73d473b58ce506efe980e537147ff8f47",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/idle-idle_pairs-0.png",
+      "sha256": "e793dd87aefd0d67a5035aac97072f2a186fd119406e4bb09c133e21e9d2cd49",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/move-front-1.png",
+      "sha256": "abb95dc87ae2f14e66456c33842f5721b451e5743b5ce0deb8db24b58b592150",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/move-rear-2.png",
+      "sha256": "644ef9a6b164b99780a1bdc6238060da79a063fa6b00d400e1bcf03c4b3fd413",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi",
+    "heal"
+  ],
+  "non_applicable_clips": {},
+  "coverage": "partial",
+  "missing_clips": [
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi",
+    "heal"
+  ],
+  "review_status": "native_render_verified_partial"
+}
