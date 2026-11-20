@@ -14,9 +14,9 @@ const SLIDE_DURATION := 0.28
 var _label_text : String = ""
 var _label_col  : Color  = NEON
 var _bar_col    : Color  = NEON
-var _slide_y    : float  = -80.0:
+var _slide_progress := 0.0:
 	set(value):
-		_slide_y = value
+		_slide_progress = value
 		queue_redraw()
 var _active     : bool   = false
 var reduced_motion := false
@@ -25,6 +25,7 @@ var _transition: Tween
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	get_viewport().size_changed.connect(queue_redraw)
 
 func show_banner(side: String, turn_num: int) -> void:
 	_active = true
@@ -42,17 +43,16 @@ func show_banner(side: String, turn_num: int) -> void:
 		_bar_col    = WARN
 
 	visible   = true
-	var mid_y := size.y * 0.5 - 28.0
 	if _transition:
 		_transition.kill()
 	_transition = create_tween()
-	_slide_y = mid_y if reduced_motion else -80.0
+	_slide_progress = 1.0 if reduced_motion else 0.0
 	if not reduced_motion:
-		_transition.tween_property(self, "_slide_y", mid_y, SLIDE_DURATION) \
+		_transition.tween_property(self, "_slide_progress", 1.0, SLIDE_DURATION) \
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	_transition.tween_interval(HOLD_DURATION)
 	if not reduced_motion:
-		_transition.tween_property(self, "_slide_y", -80.0, SLIDE_DURATION) \
+		_transition.tween_property(self, "_slide_progress", 0.0, SLIDE_DURATION) \
 			.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	_transition.tween_callback(_on_slide_done)
 	queue_redraw()
@@ -64,20 +64,22 @@ func _on_slide_done() -> void:
 func _draw() -> void:
 	if not _active:
 		return
-	var bw := size.x * 0.55
+	var viewport_size := get_viewport_rect().size
+	var bw := viewport_size.x * 0.55
 	var bh := 56.0
-	var bx := (size.x - bw) * 0.5
+	var bx := (viewport_size.x - bw) * 0.5
+	var slide_y := lerpf(-80.0, (viewport_size.y - bh) * 0.5, _slide_progress)
 	# Shadow
-	draw_rect(Rect2(bx + 4, _slide_y + 4, bw, bh), Color(0, 0, 0, 0.55), true)
+	draw_rect(Rect2(bx + 4, slide_y + 4, bw, bh), Color(0, 0, 0, 0.55), true)
 	# Panel
-	draw_rect(Rect2(bx, _slide_y, bw, bh), Color(0.02, 0.05, 0.08, 0.96), true)
-	draw_rect(Rect2(bx, _slide_y, bw, bh), _bar_col, false, 2.5)
+	draw_rect(Rect2(bx, slide_y, bw, bh), Color(0.02, 0.05, 0.08, 0.96), true)
+	draw_rect(Rect2(bx, slide_y, bw, bh), _bar_col, false, 2.5)
 	# Side accent lines
-	draw_line(Vector2(bx - 24, _slide_y + bh * 0.5),
-			  Vector2(bx - 4,  _slide_y + bh * 0.5), _bar_col, 2.0)
-	draw_line(Vector2(bx + bw + 4,  _slide_y + bh * 0.5),
-			  Vector2(bx + bw + 24, _slide_y + bh * 0.5), _bar_col, 2.0)
+	draw_line(Vector2(bx - 24, slide_y + bh * 0.5),
+			  Vector2(bx - 4,  slide_y + bh * 0.5), _bar_col, 2.0)
+	draw_line(Vector2(bx + bw + 4,  slide_y + bh * 0.5),
+			  Vector2(bx + bw + 24, slide_y + bh * 0.5), _bar_col, 2.0)
 	# Text
 	draw_string(ThemeDB.fallback_font,
-			Vector2(size.x * 0.5, _slide_y + bh * 0.5 + 7.0),
-			_label_text, HORIZONTAL_ALIGNMENT_CENTER, -1, 18, _label_col)
+			Vector2(bx, slide_y + bh * 0.5 + 7.0),
+			_label_text, HORIZONTAL_ALIGNMENT_CENTER, bw, 18, _label_col)
