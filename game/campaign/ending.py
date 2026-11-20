@@ -135,6 +135,9 @@ def evaluate_campaign_ending(game_state: "GameState") -> CampaignEnding:
         title=title,
         summary=summary,
         world_lines=world_lines,
-        agent_epilogues=[_agent_epilogue(agent) for agent in game_state.characters],
+        agent_epilogues=[
+            *(_agent_epilogue(agent) for agent in game_state.characters),
+            *(f"{name} lives on in the squad's roll of honour." for name in game_state.fallen_agent_names),
+        ],
         resolved_day=game_state.calendar.current_day,
     )

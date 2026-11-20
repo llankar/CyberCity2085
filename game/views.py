@@ -2211,8 +2211,7 @@ class BattleView(GameView):
 
     def remove_character_from_roster(self, character: Character) -> None:
         """Remove a character only when a battle outcome confirms death."""
-        if character in self.game_state.characters:
-            self.game_state.characters.remove(character)
+        self.game_state.record_agent_death(character)
 
     def resolve_mission_outcome(self, victory: bool) -> None:
         self.triggered_complication = resolve_mission_outcome_system(

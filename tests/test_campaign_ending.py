@@ -102,3 +102,17 @@ def test_resolved_campaign_stops_ticking_and_builds_ui_payload() -> None:
     assert summary["outcome_id"] == state.campaign.ending.outcome_id
     assert summary["continue_action"] == "TitleView"
     assert any("Nyx" in line for line in summary["agent_epilogues"])
+
+
+def test_fallen_agent_is_remembered_after_save_reload(tmp_path) -> None:
+    fallen = Character("Rook", nickname="Ghost")
+    state = GameState(characters=[fallen, Character("Nyx")])
+    state.record_agent_death(fallen)
+    state.record_agent_death(fallen)
+    path = tmp_path / "memorial.json"
+    state.save(str(path))
+
+    loaded = GameState.load(str(path))
+    ending = evaluate_campaign_ending(loaded)
+    assert [agent.name for agent in loaded.characters] == ["Nyx"]
+    assert ending.agent_epilogues.count('Rook "Ghost" lives on in the squad\'s roll of honour.') == 1
