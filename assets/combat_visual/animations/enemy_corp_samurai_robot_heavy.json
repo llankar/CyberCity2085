@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_samurai_robot_heavy.png",
-  "texture_sha256": "eb7863cc5ff199e39e4efcff27dd5732982da5026abf8a3ce37614d890b42820",
+  "texture_sha256": "a0c5002b9132c0fa04d7c9bc419ab9de34c957fd09cf281216bb56486518d44d",
   "frame_size": [
     256,
     256
@@ -50,41 +50,247 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -105,6 +311,48 @@
       "clip": "fire",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/move-front-2.png",
+      "sha256": "02cd5991376e409da2e9ce83b91800c0f2b2c8273450f001e0ccb52f0931ae9a",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/move-rear-3.png",
+      "sha256": "bf0b3c0f7f3676b0482bc5d2be210d8c32dcf86ffec0f262a6beb028cf0bea26",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/cover-action_rows-4.png",
+      "sha256": "27728ba903aa2f636872c5cfa1f69d1c79de51b44f2513dd28b5712ae67fffb2",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/melee-action_rows-5.png",
+      "sha256": "73b992f2f89e08d76eed5f12b6ef8ddb47203153e316436ae8cd6335505ce602",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/hit-action_rows-6.png",
+      "sha256": "1d4c0c220340b895e310557c4bd4e54f0012cda2d23b0ecfa99d103f2b097130",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/death-action_rows-7.png",
+      "sha256": "cecc80cbf2d23d56435d4c4c24e0e7cb70f185a0084585fb019f701a66346cbc",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -120,13 +368,7 @@
     "psi": "No psionic action for this robot.",
     "heal": "No healing action for this robot."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move",
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
