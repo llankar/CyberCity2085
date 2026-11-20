@@ -27,7 +27,7 @@ func run() -> void:
 	for entry: String in mission.combat_log:
 		if actor.last_stand_dialogue in entry:
 			count += 1
-	assert(count == 1 and actor.last_stand_spoken)
+	assert(count == 1 and actor.last_stand_spoken and actor.last_stand_hp == 1)
 	# Exercise a new presentation state with two hostile casualties in one blast.
 	actor.erase("last_stand_spoken")
 	mission.combat_log.clear()

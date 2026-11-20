@@ -1120,7 +1120,7 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 
 ## Slice 6 — Emotional continuity and spectacle
 
-- [ ] TAC-STORY-01 PARTIAL: low-HP kill reactions use traits/personality/fear; significant aid uses existing bonds. Arcade low-HP kill dialogue now reacts to active scars and ambitions. Godot uses the same line for direct kills at critical HP; native test confirmed one line across two kills. Area attacks now share the same once-per-agent rule. Persistent Godot memories remain.
+- [ ] TAC-STORY-01 PARTIAL: low-HP kill reactions use traits/personality/fear; significant aid uses existing bonds. Arcade low-HP kill dialogue now reacts to active scars and ambitions. Godot uses the same line for direct kills at critical HP; native test confirmed one line across two kills. Area attacks now share the same once-per-agent rule. Last-stand memories now persist from validated Godot results and appear in the debrief. Broader reaction and memory parity remains open.
 - [ ] TAC-STORY-02 PARTIAL: clutch-kill, aid, fallen-agent and real panic memories persist; broader action/event coverage and presentation validation remain.
 - [ ] TAC-STORY-03 Debrief causality and relationship/reputation consequences.
 - [ ] TAC-FEEL-01 Camera, animation, audio, hit timing, and phase pacing pass.

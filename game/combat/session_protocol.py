@@ -117,6 +117,10 @@ def validate_result(result, record, session_id):
             if type(row.get('max_hp')) is not int or row.get('max_hp')!=expected_hp:raise ValueError('Unit maximum HP changed')
             integer(row.get('hp'),'hp',0,expected_hp)
             if 'stress' in row:integer(row['stress'],'stress',0,100)
+            if 'last_stand_hp' in row:
+                if group != 'agents' or result['enemies_killed'] == 0:
+                    raise ValueError('Last stand requires a deployed agent and a casualty')
+                integer(row['last_stand_hp'], 'last_stand_hp', 1, max(1, expected_hp // 4))
             for name in ['kills','damage_dealt','damage_taken','actions_used']:
                 if name in row:integer(row[name],name)
     # Do not accept economy commands from the combat engine.

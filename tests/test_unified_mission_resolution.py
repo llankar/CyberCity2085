@@ -154,6 +154,22 @@ def test_downed_outcomes_reuse_campaign_injury_system(tmp_path):
     assert not survivors
 
 
+def test_last_stand_memory_is_validated_saved_and_applied_once(tmp_path):
+    state, mission, session, result = scenario(tmp_path)
+    session_id = session["session_id"]
+    result["agents"][0]["last_stand_hp"] = result["agents"][0]["max_hp"]
+    with pytest.raises(ValueError, match="last_stand_hp"):
+        resolve_godot_result(state, mission, result, session_id)
+    result["agents"][0]["last_stand_hp"] = 1
+    assert resolve_godot_result(state, mission, result, session_id) is not None
+    path = tmp_path / "campaign.json"
+    state.save(str(path))
+    loaded = GameState.load(str(path))
+    assert resolve_godot_result(loaded, mission, result, session_id) is None
+    assert sum("held on at 1 HP" in line for line in loaded.characters[0].history) == 1
+    assert loaded.latest_mission_debrief["tactical_moments"][0]["kind"] == "last_stand"
+
+
 def test_confirmed_death_uses_the_existing_roster_removal_rule(tmp_path):
     state,mission,session,result=scenario(tmp_path);result['agents'][0]['hp']=0
     with patch('game.battle_outcomes.random.choice',return_value='killed'):

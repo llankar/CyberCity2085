@@ -5,6 +5,7 @@ from types import SimpleNamespace
 from game.battle_outcomes import resolve_defeated_agent_outcome
 from game.mission_system import resolve_mission_outcome
 from game.unit import Unit
+from .agent_moments import remember_last_stand
 from .mission_resolution import resolve_campaign_battle
 from .session_protocol import agent_result_identities, validate_result
 from .checkpoints import write_campaign_checkpoint
@@ -22,6 +23,7 @@ def resolve_godot_result(game_state,mission,result,session_id):
     characters={c.name:c for c in shadow.characters}
     assets={a.id:a for a in shadow.spec_ops_assets}
     units=[]
+    moments=[]
     identities = agent_result_identities(record['expected_agents'])
     for row in result['agents']:
         name = identities[row['name']]
@@ -29,6 +31,8 @@ def resolve_godot_result(game_state,mission,result,session_id):
         if name not in characters:
             raise ValueError('Deployed agent no longer exists')
         character = characters[name]
+        if 'last_stand_hp' in row:
+            moments.append(remember_last_stand(character, mission, row['last_stand_hp']))
         unit=Unit((0,0),stats=character.stats,character=character,health=row['hp'])
         unit.external_metrics=True
         if 'stress' in row:unit.reported_stress=row['stress']
@@ -41,7 +45,8 @@ def resolve_godot_result(game_state,mission,result,session_id):
         units.append(Unit((0,0),stats=asset.combat_stats(),spec_ops_asset=asset,health=row['hp']))
     context=SimpleNamespace(game_state=shadow,mission=deepcopy(mission),player_units=units,
         defeated_player_units=[],enemy_units=[],initial_enemy_count=result['initial_enemy_count'],
-        triggered_complication=None,window=None)
+        triggered_complication=None,window=None,
+        combat_state=SimpleNamespace(tactical_flags={'agent_moments': moments}))
     context.resolve_defeated_player_unit=lambda u:resolve_defeated_agent_outcome(u.character,
         remove_character=shadow.record_agent_death,record_event=shadow.add_event)
     def resolve_outcome(victory):
