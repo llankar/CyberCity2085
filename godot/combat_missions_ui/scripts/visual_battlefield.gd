@@ -6,6 +6,7 @@ var quality := 2
 var weather := "rain"
 var surface_texture: Texture2D
 var surface_uv := Rect2()
+var surface_vertical := false
 var _depth_props: Array[Node2D] = []
 var _redraw_clock := 0.0
 
@@ -187,6 +188,8 @@ func _draw_map() -> void:
 			uv_to_world(Vector2(surface_uv.position.x, surface_uv.end.y)),
 		])
 		var uvs := PackedVector2Array([Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN])
+		if surface_vertical:
+			uvs = PackedVector2Array([Vector2.DOWN, Vector2.ZERO, Vector2.RIGHT, Vector2.ONE])
 		draw_polygon(corners, PackedColorArray([Color.WHITE]), uvs, surface_texture)
 	for prop: Node2D in _depth_props:
 		if is_instance_valid(prop) and prop.visible: prop.draw_ground(self,quality)

@@ -289,6 +289,7 @@ func _build_children() -> void:
 			var rect: Array = surface.uv_rect
 			_battlefield.surface_texture = _load_tex(surface.path)
 			_battlefield.surface_uv = Rect2(rect[0], rect[1], rect[2], rect[3])
+			_battlefield.surface_vertical = bool(surface.get("vertical", false))
 	_battlefield.name = "Battlefield"
 	_map_root.add_child(_battlefield)
 

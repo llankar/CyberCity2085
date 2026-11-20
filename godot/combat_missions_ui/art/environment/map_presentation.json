@@ -132,7 +132,12 @@
     },
     "city_rooftop_skybridge_spine.png": {
       "profile": "urban",
-      "human_height_ratio": 0.015
+      "human_height_ratio": 0.015,
+      "surface": {
+        "path": "assets/maps/presentation/rooftop_access_service_catwalk.png",
+        "uv_rect": [0.5185, 0.4358, 0.0861, 0.2778],
+        "vertical": true
+      }
     },
     "city_transit_freight_yard.png": {
       "profile": "urban",
