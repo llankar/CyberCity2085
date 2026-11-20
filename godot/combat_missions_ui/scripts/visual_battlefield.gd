@@ -4,6 +4,8 @@ var top_down := true
 var human_height_ratio := .035
 var quality := 2
 var weather := "rain"
+var surface_texture: Texture2D
+var surface_uv := Rect2()
 var _depth_props: Array[Node2D] = []
 var _redraw_clock := 0.0
 
@@ -177,6 +179,15 @@ func _draw_map() -> void:
 	var quad:=PackedVector2Array([uv_to_world(Vector2.ZERO),uv_to_world(Vector2(1,0)),uv_to_world(Vector2.ONE),uv_to_world(Vector2(0,1))])
 	if map_texture!=null:draw_polygon(quad,PackedColorArray([Color.WHITE]),PackedVector2Array([Vector2.ZERO,Vector2(1,0),Vector2.ONE,Vector2(0,1)]),map_texture)
 	else:draw_colored_polygon(quad,Color(.025,.055,.065))
+	if surface_texture != null:
+		var corners := PackedVector2Array([
+			uv_to_world(surface_uv.position),
+			uv_to_world(Vector2(surface_uv.end.x, surface_uv.position.y)),
+			uv_to_world(surface_uv.end),
+			uv_to_world(Vector2(surface_uv.position.x, surface_uv.end.y)),
+		])
+		var uvs := PackedVector2Array([Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN])
+		draw_polygon(corners, PackedColorArray([Color.WHITE]), uvs, surface_texture)
 	for prop: Node2D in _depth_props:
 		if is_instance_valid(prop) and prop.visible: prop.draw_ground(self,quality)
 

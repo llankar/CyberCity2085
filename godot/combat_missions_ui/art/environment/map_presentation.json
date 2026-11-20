@@ -48,7 +48,11 @@
     },
     "city_exterior_rooftop_access.png": {
       "profile": "urban",
-      "human_height_ratio": 0.015
+      "human_height_ratio": 0.015,
+      "surface": {
+        "path": "assets/maps/presentation/rooftop_access_service_catwalk.png",
+        "uv_rect": [0.2347, 0.5215, 0.4042, 0.1645]
+      }
     },
     "city_exterior_waterfront_docks.png": {
       "profile": "urban",
