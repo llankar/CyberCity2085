@@ -92,10 +92,144 @@
         "clip": "death",
         "layout": "action_rows",
         "body_height": 78
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/fire-action_pairs-7.png",
+        "clip": "fire",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0,
+          4
+        ],
+        "direction_indices": [
+          0,
+          1
+        ],
+        "body_height": 112
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/fire-action_rows-8.png",
+        "clip": "fire",
+        "layout": "action_rows",
+        "pose_indices": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 112
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/cover-action_pairs-9.png",
+        "clip": "cover",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0,
+          4
+        ],
+        "direction_indices": [
+          0,
+          1
+        ],
+        "body_height": 86
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/cover-action_pairs-10.png",
+        "clip": "cover",
+        "layout": "action_pairs",
+        "pose_indices": [
+          4
+        ],
+        "direction_indices": [
+          2
+        ],
+        "body_height": 86
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/cover-action_rows-11.png",
+        "clip": "cover",
+        "layout": "action_rows",
+        "pose_indices": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 86
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/hit-action_pairs-12.png",
+        "clip": "hit",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0,
+          4
+        ],
+        "direction_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/hit-action_pairs-13.png",
+        "clip": "hit",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0
+        ],
+        "direction_indices": [
+          2
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/hit-action_pairs-14.png",
+        "clip": "hit",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0
+        ],
+        "direction_indices": [
+          3
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/hit-action_rows-15.png",
+        "clip": "hit",
+        "layout": "action_rows",
+        "pose_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ]
       }
     ],
     "body_height": 112,
-    "review_status": "native_render_verified_partial",
+    "review_status": "native_render_verified_complete",
     "applicable_clips": [
       "idle",
       "move",
