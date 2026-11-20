@@ -17,6 +17,7 @@ var _last_command := ""
 var _heartbeat: Variant = null
 var _lease_age := 0.0
 var _session_id := ""
+var _pending_status: Dictionary = {}
 
 func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
@@ -46,6 +47,7 @@ func _process(delta: float) -> void:
 	_lease_age+=delta
 	if _clock<0.1:return
 	_clock=0.0
+	_flush_status()
 	var heartbeat: Variant=_read("heartbeat.json")
 	if heartbeat is Dictionary and heartbeat.get("runtime_id")==runtime_id and heartbeat.get("sequence")!=_heartbeat:
 		_heartbeat=heartbeat.get("sequence");_lease_age=0
@@ -117,11 +119,17 @@ func _dispose_mission() -> void:
 
 func _read(file: String) -> Variant:
 	var path:=directory.path_join(file)
-	return JSON.parse_string(FileAccess.get_file_as_string(path)) if FileAccess.file_exists(path) else null
+	var contents := FileAccess.get_file_as_string(path) if FileAccess.file_exists(path) else ""
+	return JSON.parse_string(contents) if not contents.is_empty() else null
 
 func _publish(state: String,message: String="") -> void:
-	Mailbox.publish(directory.path_join("status.json"),{"protocol_version":2,"runtime_id":runtime_id,
-		"state":state,"session_id":_session_id,"message":message,"pid":OS.get_process_id()})
+	_pending_status = {"protocol_version":2,"runtime_id":runtime_id,
+		"state":state,"session_id":_session_id,"message":message,"pid":OS.get_process_id()}
+	_flush_status()
+
+func _flush_status() -> void:
+	if not _pending_status.is_empty() and Mailbox.publish(directory.path_join("status.json"), _pending_status):
+		_pending_status.clear()
 
 func _park_window() -> void:
 	if DisplayServer.get_name()=="headless":return
