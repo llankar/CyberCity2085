@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "d718746d66b68ec6e9f96120bf49cbf44dfd489d6abae8db91fc2dd3e8e9113d",
+  "texture_sha256": "ba2ca9c1197e69b1b63e397f84b40c6b88e723924e8f89f04d9c9323adf6762b",
   "frame_size": [
     256,
     256
@@ -103,6 +103,44 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
@@ -173,6 +211,44 @@
         7
       ],
       "transpose": true
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/fire-action_rows-4.png",
+      "sha256": "e500c785d74d0e202fd0a718f9e0eb9afdd5875e349b361951e1d9e15dedbc3a",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6,
+        7
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/fire-action_rows-5.png",
+      "sha256": "44491dca6dff8ac81902b861910a84afbc9c86e792da364f51dad8dc4bf21ec8",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        5
+      ],
+      "pose_indices": [
+        0
+      ]
     }
   ],
   "required_clips": [
@@ -190,7 +266,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "fire",
     "melee",
     "cover",
     "hit",
