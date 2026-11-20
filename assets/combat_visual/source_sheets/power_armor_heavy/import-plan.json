@@ -15,8 +15,76 @@
         "path": "assets/combat_visual/source_sheets/power_armor_heavy/move-rear-2.png",
         "clip": "move",
         "layout": "rear"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/fire-action_rows-3.png",
+        "clip": "fire",
+        "layout": "action_rows",
+        "body_height": 174
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/cover-action_rows-4.png",
+        "clip": "cover",
+        "layout": "action_rows",
+        "body_height": 170
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/hit-action_rows-5.png",
+        "clip": "hit",
+        "layout": "action_rows",
+        "body_height": 216
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-6.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "body_height": 145,
+        "follow_through_path": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-6-follow-through.png"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-7.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "pose_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 145
       }
     ],
-    "review_status": "native_render_verified_partial"
+    "review_status": "native_render_verified_complete",
+    "applicable_clips": [
+      "idle",
+      "move",
+      "fire",
+      "cover",
+      "hit",
+      "death"
+    ],
+    "non_applicable_clips": {
+      "melee": "The Titan is supplied with the Minigun and Rocket Pod ranged hardpoints.",
+      "psi": "The Titan loadout supplies no PSI action.",
+      "heal": "The Titan loadout supplies no medical action."
+    }
   }
 }

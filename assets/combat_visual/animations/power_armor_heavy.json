@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/power_armor_heavy.png",
-  "texture_sha256": "43f581bc6db92e90c6b5cfa35a6c4837a2e3df562067448167d6d5ca4bf86535",
+  "texture_sha256": "3c8bff69510c23375d970b4bea4288ebc057de5f68dc4986ca27478d80912844",
   "frame_size": [
     256,
     256
@@ -103,6 +103,158 @@
           47
         ]
       ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
     }
   },
   "source_image": "assets/units/power_armor_heavy_512.png",
@@ -128,29 +280,85 @@
       "clip": "move",
       "layout": "rear",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/fire-action_rows-3.png",
+      "sha256": "c4a107c0f1ebc22280030502bf5adf5570c76c5070529ff0aef6cc505f99d8c0",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/cover-action_rows-4.png",
+      "sha256": "364d6ff2c85c2e5f191d58f87bc08bc4ccbc7986ca94d3242daea28519fe4377",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/hit-action_rows-5.png",
+      "sha256": "b41337f3c56c116db21f8eef3f85fa2c069663819367a47ffff0be42dcd69b32",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-6.png",
+      "sha256": "917c13de01952807086f7e43be2275519981aa419620e9c759045d9ae563adbf",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-6-follow-through.png",
+        "sha256": "6bf6a76a70f99c03fd17889d87ab5fbea0708cc8e008ceb4cf623e4af0297f78"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor_heavy/death-action_rows-7.png",
+      "sha256": "917c13de01952807086f7e43be2275519981aa419620e9c759045d9ae563adbf",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        4,
+        5,
+        6,
+        7
+      ]
     }
   ],
   "required_clips": [
     "idle",
     "move",
     "fire",
-    "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "non_applicable_clips": {},
-  "coverage": "partial",
-  "missing_clips": [
-    "fire",
-    "melee",
-    "cover",
-    "hit",
-    "death",
-    "psi",
-    "heal"
-  ],
-  "review_status": "native_render_verified_partial"
+  "non_applicable_clips": {
+    "melee": "The Titan is supplied with the Minigun and Rocket Pod ranged hardpoints.",
+    "psi": "The Titan loadout supplies no PSI action.",
+    "heal": "The Titan loadout supplies no medical action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
