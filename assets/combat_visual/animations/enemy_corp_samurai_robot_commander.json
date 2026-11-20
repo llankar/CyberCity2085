@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_samurai_robot_commander.png",
-  "texture_sha256": "16026a2ad6419f0d5ce450d87fdc923d0af51c1c8ff018f55bf129904890ea40",
+  "texture_sha256": "3eef21b931fdcd422fa63d90671499fca61fe958e01011a3bdac83a2f96eeca7",
   "frame_size": [
     256,
     256
@@ -50,83 +50,61 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
-        ]
-      ]
-    },
-    "melee": {
-      "fps": 8,
-      "loop": false,
-      "rows": [
-        [
-          32,
-          33
         ],
         [
+          32,
+          33,
           34,
           35
         ],
         [
           36,
-          37
-        ],
-        [
+          37,
           38,
           39
         ],
         [
           40,
-          41
-        ],
-        [
+          41,
           42,
           43
         ],
         [
           44,
-          45
-        ],
-        [
+          45,
           46,
           47
         ]
       ]
     },
-    "cover": {
+    "fire": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -164,7 +142,7 @@
         ]
       ]
     },
-    "hit": {
+    "melee": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -202,7 +180,7 @@
         ]
       ]
     },
-    "death": {
+    "cover": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -237,6 +215,82 @@
         [
           94,
           95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -327,6 +381,20 @@
       "pose_indices": [
         5
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/move-front-8.png",
+      "sha256": "e3ee335192e98d2bcf629814449093cd3818ea0965fe7ff6f817890110d4e44f",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/move-rear-9.png",
+      "sha256": "63aa05ffec25d660b7d052c018c97236fb6814cc14b0634a2f9d49f12d5969d8",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -342,9 +410,7 @@
     "psi": "No psionic action for this robot.",
     "heal": "No healing action for this robot."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
