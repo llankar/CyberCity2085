@@ -703,8 +703,12 @@ func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 			if unit_textures.has(explicit_art): return explicit_art
 	if not is_enemy:
 		var role := str(unit.get("role", "samurai")).to_lower()
-		# Robots always use the robot_combat sprite, not a diverse agent sprite.
 		if role == "robot":
+			if str(unit.get("asset_type", "")) == "support_robot":
+				if not unit_textures.has("robot_support"):
+					_try_load_tex("robot_support", "assets/units/robot_support.png")
+				if unit_textures.has("robot_support"):
+					return "robot_support"
 			if unit_textures.has("robot_combat"):
 				return "robot_combat"
 		# Deterministic token: same agent name always maps to the same sprite.
