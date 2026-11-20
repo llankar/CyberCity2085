@@ -9,6 +9,26 @@
   ],
   "tasks": [
     {
+      "id": "WINDOWS-RESULT-READ-RETRY",
+      "title": "Retry transient Windows combat result reads",
+      "status": "DONE",
+      "files": [
+        "game/combat/godot_bridge.py",
+        "game/ui/screens/godot_combat_handoff_view.py",
+        "tests/test_unified_checkpoints.py",
+        "CyberCity2085.spec"
+      ],
+      "tests": [
+        "23 targeted Python tests passed",
+        "Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection"
+      ],
+      "evidence": [
+        "Packaged QA internal driver and focused lock regression"
+      ],
+      "remaining": "Rebuild production package. Desktop interaction and audio listening remain open.",
+      "reason": ""
+    },
+    {
       "id": "WINDOWS-CURRENT-BUILD",
       "title": "Current Windows distribution and headless smoke",
       "status": "DONE",

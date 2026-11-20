@@ -179,7 +179,17 @@ class GodotCombatHandoffView(arcade.View):
         from pathlib import Path
         result_path = getattr(self.launch_result,"result_path",None)
         result_present = bool(result_path and Path(result_path).is_file())
-        result = read_godot_combat_result(result_path) if result_present else None
+        result = None
+        if result_present:
+            try:
+                result = read_godot_combat_result(result_path, raise_io_errors=True)
+            except OSError:
+                # Windows may briefly deny reads immediately after publication.
+                self._result_read_wait = getattr(self, "_result_read_wait", 0.0) + delta_time
+                if self._result_read_wait < 2.0:
+                    return
+        else:
+            self._result_read_wait = 0.0
         if result is not None:
             try:
                 self._apply_combat_result(result)
@@ -415,6 +425,7 @@ class GodotCombatHandoffView(arcade.View):
         self.launch_result = result if result.launched else previous
         self._overlaid = False
         self._elapsed = 0.0
+        self._result_read_wait = 0.0
         self._automatic_recovery_attempted = False
         self._session_ready = False
         self._audio_transferred = False
@@ -433,6 +444,7 @@ class GodotCombatHandoffView(arcade.View):
         self._launch_failed = not self.launch_result.launched
         self._overlaid = False
         self._elapsed = 0.0
+        self._result_read_wait = 0.0
         self._automatic_recovery_attempted = False
         self._session_ready = False
         self._audio_transferred = False

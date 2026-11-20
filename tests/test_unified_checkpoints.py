@@ -130,6 +130,26 @@ def test_corrupt_result_is_reported_without_campaign_mutation(tmp_path):
     assert state.combat_sessions[session['session_id']]['status'] == 'pending'
 
 
+def test_result_read_retries_transient_windows_lock(tmp_path):
+    from game.combat.godot_bridge import GodotCombatLaunchResult
+    from game.ui.screens.godot_combat_handoff_view import GodotCombatHandoffView
+
+    state, mission, session, result = scenario(tmp_path)
+    path = Path(session["result_path"])
+    path.write_text(json.dumps(result), encoding="utf-8")
+    launch = GodotCombatLaunchResult(path.parent / "handoff.json", [], True, "",
+                                    session_id=session["session_id"], result_path=path)
+    view = GodotCombatHandoffView(state, mission, launch, window=Mock())
+    with patch.object(Path, "read_text", side_effect=PermissionError("sharing violation")), \
+            patch.object(view, "_apply_combat_result") as apply:
+        view.on_update(.1)
+        assert not view._launch_failed
+        apply.assert_not_called()
+    with patch.object(view, "_apply_combat_result") as apply:
+        view.on_update(.1)
+        apply.assert_called_once_with(result)
+
+
 @pytest.mark.parametrize("phase", ["prepared", "confirmed"])
 def test_interrupted_combat_opens_debrief_automatically(tmp_path, phase):
     from unittest.mock import Mock, patch

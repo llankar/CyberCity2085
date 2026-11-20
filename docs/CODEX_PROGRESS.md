@@ -428,6 +428,8 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - UNIFIED-INTERNAL-RESIZE — DONE. Le pilote interne a réduit la fenêtre Godot de 1280 × 720 à 1120 × 630 puis rétabli sa taille. Surface rendue, dimensions de scène et état tactique préservé vérifiés, puis victoire et retour au QG. Alt+Tab, changement de DPI et focus système restent ouverts. Avertissement ObjectDB à la fermeture toujours présent.
 
+- WINDOWS-RESULT-READ-RETRY: DONE. Bounded retry on result I/O errors. Windows QA package passed victory, defeat and retreat through debrief and HQ at 1280x720. 23 targeted tests passed. Next: rebuild production.
+
 - WINDOWS-CURRENT-BUILD: DONE. Current local distribution: dist/windows-current/CyberCity2085/CyberCity2085.exe. 1145 passed, 35 skipped, 12 subtests passed. Bundled Godot 4.6.3 starts headless and save reload passes. Arcade and bundled Godot each opened a responsive native window from outside the package directory. The current build?s integrated graphical playthrough remains open.
 
 - PACKAGE-UNIFIED-QA — DONE. L’exécutable Windows QA a joué les trois issues avec Godot embarqué à 1280 × 720 : victoire, défaite et retraite. Chaque parcours revient au QG après le débriefing, recharge sa sauvegarde et rejette une seconde application du résultat. Le pilote est réservé au build QA. DPI, focus, redimensionnement et écoute audio restent à valider.
