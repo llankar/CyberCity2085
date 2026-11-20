@@ -228,7 +228,7 @@ func _draw() -> void:
 	_card_w = width
 	_card_h = height
 	_sh = visible_height
-	if dead: return
+	if dead or unit_id >= 1000: return
 	_draw_segmented_health(rc)
 	if is_targeted:
 		var r := _target_frame_rect().grow((1.0+_pulse)*pixel.x)
