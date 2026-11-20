@@ -40,8 +40,12 @@ func run() -> void:
 		for filename: String in DirAccess.get_files_at(directory):
 			if filename.get_extension() in ["gd","gdshader","json"]:fingerprint_parts.append(filename+FileAccess.get_sha256(directory.path_join(filename)))
 	fingerprint_parts.append(FileAccess.get_sha256("res://art/environment/props25/library.json"))
+	var surface_dir := ProjectSettings.globalize_path("res://../../assets/maps/presentation")
+	for filename: String in DirAccess.get_files_at(surface_dir):
+		if filename.get_extension() == "png":
+			fingerprint_parts.append(filename + FileAccess.get_sha256(surface_dir.path_join(filename)))
 	if not reference_catalog.is_empty():fingerprint_parts.append(FileAccess.get_sha256(reference_catalog))
-	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review,candidate_ratio,scale_comparison]))
+	fingerprint_parts.append(str([selected_size,capture_quality,"--entities" in args,art_review,candidate_ratio,scale_comparison,"--isometric" in args]))
 	var fingerprint:=str(fingerprint_parts).sha256_text()
 	var focus_art: Dictionary=preload("res://scripts/environment_catalog.gd").art_maps().duplicate(true)
 	if not reference_catalog.is_empty():
@@ -167,7 +171,7 @@ func run() -> void:
 					assert(token.modulate.a==1.0,"no ghost opacity")
 					if token._art_sprite.texture != token.atlas:
 						var body: Rect2 = token._visible_body_rect()
-						assert(is_zero_approx(body.end.y), "static portrait feet must meet the token origin")
+						assert(absf(body.end.y) < 0.001, "static portrait feet must meet the token origin: %s" % body.end.y)
 					if token.unit_id<1000:
 						assert(token.hit_test_screen(token.get_global_transform_with_canvas()*token._visible_body_rect().get_center()),"all combat entity families retain picking")
 			if not baseline and not polish and not art_review and scene._battlefield.has_method("uv_to_world"):
