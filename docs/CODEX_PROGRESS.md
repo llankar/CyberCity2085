@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-INNER-04 — DONE — Revue artistique native détaillée du lot intérieur 04
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-04.jpg`.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 inspectées individuellement : control center, safehouse, research lab, medical clinic, server room, blacksite lab, corporate lobby, police records, apartment block, penthouse atrium, cyber cafe et maintenance tunnel; Raccords, lumières, ombres, occultation, perspective, cloisons, mobilier, couchages et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot; Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification des PNG source, SHA ou de la géométrie tactique.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-04.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-INTERIOR-TRANSIT-03 — DONE — Revue artistique native détaillée du lot intérieur et transit 03
 
 - Fichiers : `godot/combat_missions_ui/art/environment/map_presentation.json`, `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-03.jpg`.
@@ -462,6 +469,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 04, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 05, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : préparer l'atlas authentique de enemy_giant_robot_02_quadruped_siege à partir de sources visuellement vérifiées, avec tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

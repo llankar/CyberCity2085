@@ -10,6 +10,8 @@
 
 - ENV-DETAIL-INTERIOR-TRANSIT-03 — DONE (2026-11-20). Douze cartes intérieures et de transit examinées individuellement dans leurs captures natives 2560×1440. La bande de rail du freight yard a été vérifiée par retrait expérimental du patch puis capture Windows Godot ciblée : le retrait augmentait nettement les discontinuités aux quatre bords, donc la configuration originale a été restaurée. Aucun défaut local reproductible n'est conservé pour correction. Portée cumulée des revues détaillées : 36 / 122 cartes ; 86 restent à revoir au même niveau.
 
+- ENV-DETAIL-INNER-04 — DONE (2026-11-20). Douze cartes intérieures `cybercity_inner_01` à `cybercity_inner_12` examinées individuellement dans leurs captures natives 2560×1440. Raccords, éclairage, ombres, occultation, perspective, cloisons, mobilier, couchages et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction. Portée cumulée des revues détaillées : 48 / 122 cartes ; 74 restent à revoir au même niveau.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 
