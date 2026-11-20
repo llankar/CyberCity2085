@@ -118,7 +118,7 @@ func move_route(points: Array[Vector2], updated_data: Dictionary) -> void:
 	if _moving: _moving.kill()
 	_moving = create_tween()
 	for p: Vector2 in points:
-		_moving.tween_callback(play_action.bind("move", p))
+		_moving.tween_callback(_play_route_step.bind(p))
 		_moving.tween_property(self, "position", p, 0.13)
 	_moving.tween_callback(play_action.bind("idle"))
 	var moving_role := str(unit_data.get("role", "")).to_lower()
@@ -127,6 +127,11 @@ func move_route(points: Array[Vector2], updated_data: Dictionary) -> void:
 		CombatSignals.audio_event.emit("move_robot")
 	else:
 		CombatSignals.audio_event.emit("move")
+
+func _play_route_step(target: Vector2) -> void:
+	if not play_action("move", target):
+		# An incomplete atlas uses the static portrait between cells.
+		clip = "move"
 
 func attack_lunge(target_pos: Vector2) -> void:
 	# Legacy API: no displacement masquerading as a character animation.
@@ -166,6 +171,7 @@ func _draw() -> void:
 		return
 	var visible_height := _body_height()
 	var source := Rect2(Vector2.ZERO, tex.get_size())
+	var using_atlas := false
 	_active_bounds_uv = _portrait_bounds_uv
 	if atlas != null and not manifest.is_empty():
 		var anim: Dictionary = (manifest.get("animations", {}) as Dictionary).get(clip, {})
@@ -177,18 +183,19 @@ func _draw() -> void:
 			var columns := maxi(1, int(atlas.get_width() / fsize.x))
 			source = Rect2(Vector2(idx % columns, idx / columns) * fsize, fsize)
 			tex = atlas
+			using_atlas = true
 			if not _frame_bounds.has(idx):
 				var image := tex.get_image().get_region(Rect2i(source))
 				var used := image.get_used_rect()
 				_frame_bounds[idx]=Rect2(Vector2(used.position)/source.size,Vector2(used.size)/source.size)
 			_active_bounds_uv = _frame_bounds.get(idx,Rect2(0,0,1,1))
 	var reference_height := _portrait_bounds_uv.size.y
-	if atlas != null:
+	if using_atlas:
 		reference_height = float(manifest.get("reference_height_uv",_atlas_idle_height()))
 	var height := visible_height/maxf(.05,reference_height)
 	var width := height * source.size.x / maxf(1, source.size.y)
 	var anchor:=Vector2(_active_bounds_uv.get_center().x,_active_bounds_uv.end.y)
-	if atlas!=null and manifest.has("anchor_uv"):
+	if using_atlas and manifest.has("anchor_uv"):
 		var authored: Array=manifest.anchor_uv
 		anchor=Vector2(float(authored[0]),float(authored[1]))
 	_art_rect = Rect2(-anchor.x*width,-anchor.y*height,width,height)
