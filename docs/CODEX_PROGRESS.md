@@ -373,7 +373,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Travail restant dans cette portée : Aucun.
 - Problème / raison : Contrat natif Godot non exécuté car l'exécutable est indisponible.
 
-### ENGLISH-UI-01 — DONE — Uniformiser toute la copie joueur en anglais
+### ENGLISH-UI-01 — IN_PROGRESS — Uniformiser toute la copie joueur en anglais
 
 - Fichiers : `game/i18n/__init__.py`, `game/gamestate.py`, `game/mission_generation.py`, `game/missions/objective_branches.py`, `game/ui`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/scripts/visual_hud.gd`, `tests/test_english_player_ui.py`.
 - Tests / contrôles réellement exécutés : suite ciblée Arcade/Godot, langue, missions, objectifs, lancement et psi : 44 réussis, 1 ignoré, 5 sous-tests réussis.
@@ -381,7 +381,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Travail restant dans cette portée : validation visuelle humaine de tous les écrans non exécutée.
 - Problème / raison : un test natif nécessitant un environnement graphique a été ignoré.
 
-### GODOT-UI-FOCUS-01 — DONE — Traduire le HUD tactique résiduel et afficher le combat sans clic
+### GODOT-UI-FOCUS-01 — IN_PROGRESS — Traduire le HUD tactique résiduel et afficher le combat sans clic
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
 - Tests / contrôles réellement exécutés : 13 réussis, 1 ignoré ; scan de toutes les chaînes des scripts Godot ; contrat d'activation Windows.
@@ -389,7 +389,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Travail restant dans cette portée : validation native Windows du focus automatique en lançant une mission réelle.
 - Problème / raison : le test cross-process natif est ignoré hors environnement graphique compatible.
 
-### GODOT-ENGLISH-02 — DONE — Auditer toutes les chaînes Godot et retirer les dernières fuites françaises
+### GODOT-ENGLISH-02 — IN_PROGRESS — Auditer toutes les chaînes Godot et retirer les dernières fuites françaises
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, contrats Godot natifs et `tests/test_english_player_ui.py`.
 - Tests / contrôles réellement exécutés : 17 réussis, 1 ignoré ; scan des littéraux `.gd`, `.tscn`, `.tres`, `.cfg`, `.json` et `.txt` dans tout `godot`.
@@ -397,7 +397,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Travail restant dans cette portée : validation visuelle humaine de tous les écrans non exécutée.
 - Problème / raison : le parsing et le runtime natifs ont été validés ensuite dans GODOT-PARSE-01.
 
-### GODOT-PARSE-01 — DONE — Réparer le blocage de chargement après traduction du HUD
+### GODOT-PARSE-01 — IN_PROGRESS — Réparer le blocage de chargement après traduction du HUD
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `tests/test_english_player_ui.py`, `tests/test_persistent_combat_runtime.py`.
 - Cause vérifiée : deux affectations de style avaient perdu leur indentation dans `_style_btn`, produisant `Parse Error: Could not preload resource script visual_hud.gd`; les sessions restaient en état `loading` sans statut combat.
@@ -441,7 +441,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - UNIFIED-INTERNAL-RESIZE — DONE. Le pilote interne a réduit la fenêtre Godot de 1280 × 720 à 1120 × 630 puis rétabli sa taille. Surface rendue, dimensions de scène et état tactique préservé vérifiés, puis victoire et retour au QG. Alt+Tab, changement de DPI et focus système restent ouverts. Avertissement ObjectDB à la fermeture toujours présent.
 
-- WINDOWS-RESULT-READ-RETRY: DONE. Bounded retry on result I/O errors. Windows QA package passed victory, defeat and retreat through debrief and HQ at 1280x720. 23 targeted tests passed. Production rebuilt in dist/windows-current; Arcade window startup, bundled headless Godot, save reload and QA entry exclusion passed.
+- WINDOWS-RESULT-READ-RETRY: IN_PROGRESS. Bounded retry on result I/O errors. Windows QA package passed victory, defeat and retreat through debrief and HQ at 1280x720. 23 targeted tests passed. Production rebuilt in dist/windows-current; Arcade window startup, bundled headless Godot, save reload and QA entry exclusion passed.
 
 - GODOT-PERSISTENT-RECOVERY: DONE. A targeted Windows test killed the real headless Godot host after a snapshot, reloaded the Python checkpoint and resumed the same mission on a new Godot process. Units, turn and objective progress matched the original snapshot; the previous session was superseded. The same player-phase regression passed using the bundled Godot executable and project in graphical mode, with the Python controller driven from source.
 
@@ -449,7 +449,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - WINDOWS-ARCADE-VERSION: DONE. Fixed the PyInstaller Arcade VERSION destination; 9 packaging tests passed. Rebuilt production contains the Arcade 3.3.3 version file and passed packaged headless Godot and save reload. A runtime left by a forced startup-test termination locked the first rebuild; the next rebuild completed after that process was stopped.
 
-- WINDOWS-CURRENT-BUILD: DONE. Current local distribution: dist/windows-current/CyberCity2085/CyberCity2085.exe. 1145 passed, 35 skipped, 12 subtests passed. Bundled Godot 4.6.3 starts headless and save reload passes. Arcade and bundled Godot each opened a responsive native window from outside the package directory. The current build?s integrated graphical playthrough remains open.
+- WINDOWS-CURRENT-BUILD: IN_PROGRESS. Current local distribution: dist/windows-current/CyberCity2085/CyberCity2085.exe. 1145 passed, 35 skipped, 12 subtests passed. Bundled Godot 4.6.3 starts headless and save reload passes. Arcade and bundled Godot each opened a responsive native window from outside the package directory. The current build?s integrated graphical playthrough remains open.
 
 - PACKAGE-UNIFIED-QA — DONE. L’exécutable Windows QA a joué les trois issues avec Godot embarqué à 1280 × 720 : victoire, défaite et retraite. Chaque parcours revient au QG après le débriefing, recharge sa sauvegarde et rejette une seconde application du résultat. Le pilote est réservé au build QA. DPI, focus, redimensionnement et écoute audio restent à valider.
 
