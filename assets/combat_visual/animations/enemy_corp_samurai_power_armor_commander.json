@@ -1,0 +1,163 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_samurai_power_armor_commander.png",
+  "texture_sha256": "ee02fed575d1554664298b6bb334884e259280caa91c918803cf852d8ffef5e3",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_samurai_power_armor_commander_512.png",
+  "source_sha256": "ff820ed1fbfbdbbd811f781a97cd8ebe01e53d3ceed990b64606bf4be2e7fd6d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/idle-action_rows-0.png",
+      "sha256": "d14f36a6f34136de6195d3052a0c5318a0daeaa7d341b30300d050a75f571266",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/fire-action_rows-1.png",
+      "sha256": "2c93b93fa8a6f97a640b5a36009f6e24984fa6a0ceccefe6abc3672d0340e108",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/fire-action_rows-2.png",
+      "sha256": "dd7ae976b4f5a330f3a438ef0c9defc288e42571fb432668ef4149ee75bc7fba",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        1,
+        5
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this commander.",
+    "heal": "No healing action for this commander."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
