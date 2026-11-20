@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/robot_support.png",
-  "texture_sha256": "229daedd768ebfd2d87e74e3524ffb1017b82291fe402cfab1e65bc274eb5bd4",
+  "texture_sha256": "cc7009547760e104425905b6deac771a465974a92021a0ba1e06174808822dcf",
   "frame_size": [
     256,
     256
@@ -101,6 +101,44 @@
           45,
           46,
           47
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
         ]
       ]
     }
@@ -205,29 +243,33 @@
       "pose_indices": [
         0
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/robot_support/death-action_rows-6.png",
+      "sha256": "21fa700634a5001f1c8e34636c84b14aea33bf7d1ea595de01d401ea03677384",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
     "idle",
     "move",
     "fire",
-    "melee",
     "cover",
     "hit",
-    "death",
-    "psi",
-    "heal"
+    "death"
   ],
-  "non_applicable_clips": {},
+  "non_applicable_clips": {
+    "melee": "The Phantom support robot has no melee hardpoint.",
+    "psi": "EMP Pulse and Sensor Lock are ranged FIRE actions.",
+    "heal": "The Phantom support robot has no medical action."
+  },
   "coverage": "partial",
   "missing_clips": [
     "fire",
-    "melee",
     "cover",
-    "hit",
-    "death",
-    "psi",
-    "heal"
+    "hit"
   ],
   "review_status": "native_render_verified_partial"
 }

@@ -62,6 +62,9 @@ def build(key,config):
         source=Path(item['path']);name=item['clip']+'-'+item['layout']+'-'+str(len(provenance))+'.png';
         if source.resolve()!=(directory/name).resolve():shutil.copyfile(source,directory/name)
         image=Image.open(source).convert('RGBA');layout=item['layout'];clip=item['clip']
+        pose_height = item.get('body_height', body_height)
+        if type(pose_height) is not int or not 1 <= pose_height <= BODY:
+            raise ValueError(f'{clip}: body_height must be an integer between 1 and the default body height')
         directions=clips.setdefault(clip,{})
         if layout in ['front','rear']:
             poses = item.get('pose_indices', list(range(4)))
@@ -74,9 +77,9 @@ def build(key,config):
             for row,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 if item.get('transpose', False):
-                    directions[direction]=normalise([extract(image,col,row) for col in range(4)], body_height)
+                    directions[direction]=normalise([extract(image,col,row) for col in range(4)], pose_height)
                 else:
-                    directions[direction]=normalise([extract(image,row,col) for col in range(4)], body_height)
+                    directions[direction]=normalise([extract(image,row,col) for col in range(4)], pose_height)
         elif layout in ['idle_pairs','action_pairs']:
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -86,7 +89,7 @@ def build(key,config):
             for pair,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 row=pair//2;col=(pair%2)*2
-                directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)], body_height)
+                directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)], pose_height)
         elif layout == 'action_rows':
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -100,7 +103,7 @@ def build(key,config):
                 directions[direction] = normalise([
                     extract(image, row, col),
                     extract(image, row + 2, col),
-                ], body_height)
+                ], pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
