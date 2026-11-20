@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_samurai_robot_commander.png",
-  "texture_sha256": "a8bca541406fda5e71bad7efa450e2105a8115d96444a0699d0c03e53cbc40af",
+  "texture_sha256": "16026a2ad6419f0d5ce450d87fdc923d0af51c1c8ff018f55bf129904890ea40",
   "frame_size": [
     256,
     256
@@ -87,6 +87,158 @@
           31
         ]
       ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          32,
+          33
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          46,
+          47
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_corp_samurai_robot_commander_512.png",
@@ -110,16 +262,14 @@
         1,
         2,
         4,
-        5,
-        6
+        5
       ],
       "pose_indices": [
         0,
         1,
         2,
         4,
-        5,
-        6
+        5
       ]
     },
     {
@@ -134,6 +284,47 @@
       ],
       "pose_indices": [
         1,
+        5
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/cover-action_rows-3.png",
+      "sha256": "55d6f8e44ba6770af36b06d2864c5d7a3b8468f0e3bb9670cb6476d24f15dd31",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/melee-action_rows-4.png",
+      "sha256": "7718bb63cec8446acf18dcab5b0ed05109c9886e48cc8a5f84abef281ff4b7a8",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/hit-action_rows-5.png",
+      "sha256": "aa5b6b154706838aff71efc2cb446174e3a1987a00cc9526a3a0c905267240a0",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/death-action_rows-6.png",
+      "sha256": "d46e53289861ab4b6f54c4bf69e49e3d2530d59dde0ca6d9930ac64449b8f2f8",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_commander/fire-action_rows-7.png",
+      "sha256": "94471c5068f1afd3edbc257bcd76d22e63819d2481645f978790af24fc963aa8",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        6
+      ],
+      "pose_indices": [
         5
       ]
     }
@@ -153,11 +344,7 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
-    "melee",
-    "cover",
-    "hit",
-    "death"
+    "move"
   ],
   "review_status": "native_review_pending"
 }
