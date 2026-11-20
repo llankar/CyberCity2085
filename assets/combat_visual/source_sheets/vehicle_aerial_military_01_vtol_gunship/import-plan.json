@@ -1,0 +1,26 @@
+{
+  "vehicle_aerial_military_01_vtol_gunship": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/vehicle_aerial_military_01_vtol_gunship/idle-idle_pairs-0.png",
+        "clip": "idle",
+        "layout": "idle_pairs"
+      }
+    ],
+    "body_height": 112,
+    "applicable_clips": [
+      "idle"
+    ],
+    "non_applicable_clips": {
+      "move": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "fire": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "melee": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "cover": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "hit": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "death": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "psi": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions.",
+      "heal": "The allied VTOL is a stationary decorative insertion vehicle with 0 AP and no tactical actions."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
