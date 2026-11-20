@@ -877,6 +877,7 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
       "tests": [
+        "Spider tank IN_PROGRESS: four-phase walk sources accepted on E: with eight true facings, no front sensor in NW/N/NE, exactly six legs and visible alternating tripod contact. No production atlas has been imported yet. Complete coverage remains 71 / 233.",
         "Claw demolisher DONE: 128 distinct frames across seven applicable clips and eight facings. Twin pincers, two legs, armored cockpit and antennae remain consistent; NW/N/NE are true rear views. Primary attack confines a cyan hydraulic arc between the claw tips; double crush, brace, hit and shutdown remain distinct. A white-backed death sheet and a contaminated removal attempt were rejected before import; the final source is transparent and readable. Focused audit returned no errors; Python passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and the targeted Safehouse capture passed, including terminal wreck without a shadow. 71 / 233 complete.",
         "Drone carrier DONE: 128 distinct frames across seven applicable clips and eight facings. Two initial walk sheets were rejected for false rear views; final NW/N/NE sources hide the cockpit and retain four rotors and four legs. Four-phase gait, bay deployment, stomp, brace, hit reaction and terminal shutdown are distinct. The first terminal render was too dark; metallic values were lifted and the corrected native capture inspected without a cast shadow. Focused audit returned no errors; Python passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and the targeted Safehouse capture passed. 70 / 233 complete.",
         "Drone carrier rear walk source accepted: six isolated NW/N/NE poses provide true rear views with no cockpit, exactly four rotors and four legs. Background samples report alpha 0 while mech samples are opaque. This is an intermediate source on E: only; no production atlas changed and coverage remains 69 / 233.",
@@ -1695,7 +1696,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : produire les sources authentiques de enemy_giant_robot_09_spider_tank, vérifier les huit orientations et une marche à quatre poses avec alternance réelle avant import, puis tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-COMPLETE : produire idle, attaque, mêlée, couverture, réaction et shutdown de enemy_giant_robot_09_spider_tank à partir de la marche A/C/B/D acceptée, puis importer et tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
