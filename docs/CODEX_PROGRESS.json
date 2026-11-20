@@ -550,7 +550,8 @@
         "Native anchor assertions passed on Rooftop Access, Skybridge Spine and Freight Yard at 720p with support units. Token origins match the projected tactical cells and static portrait feet meet their origins. The art/survey mismatches still need local art corrections.",
         "Godot 4.6.3 shader sampler diagnostic resolved for unit outlines and contact shadows. Headless startup and native 720p Safehouse and Dust Road entity checks passed. The 1440p catalogue started before the shader change.",
         "Native 1440p baseline completed, 122 unique files at 2560x1440, before the shader and catwalk changes. Rooftop Access now uses a source-hash-guarded presentation-only catwalk, generated with imagegen from the source as style reference. Targeted Godot captures at 720p, 1080p and 1440p passed with picking, zoom and anchoring assertions. Eight focused Python tests passed.",
-        "Rooftop Access at 720p passed native overhead and isometric fixtures, with the isometric image inspected. The anchor assertion tolerates subpixel float rounding. Capture resume fingerprints now account for projection and surface PNGs."
+        "Rooftop Access at 720p passed native overhead and isometric fixtures, with the isometric image inspected. The anchor assertion tolerates subpixel float rounding. Capture resume fingerprints now account for projection and surface PNGs.",
+        "Inspected Rooftop Access at overview zoom: the east end meets the lower landing. Added a north-south service deck on Skybridge Spine using the existing catwalk art. Both Skybridge Spine 720p projections passed and were visually inspected, including actors previously shown above the drop."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -558,7 +559,7 @@
         "docs/images/environment-art-review-windows/README.md",
         "docs/images/environment-art-review-windows/manifest.json"
       ],
-      "remaining": "Review the far Rooftop Access landing seam at overview zoom, then align Skybridge Spine and Freight Yard with their existing surveys. Recheck the affected maps and scope the full revised catalogue run.",
+      "remaining": "Align Freight Yard art with its existing survey, then recheck the affected maps and scope the full revised catalogue run.",
       "reason": ""
     },
     {
