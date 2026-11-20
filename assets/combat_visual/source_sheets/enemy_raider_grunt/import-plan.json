@@ -17,6 +17,11 @@
         "clip": "cover",
         "layout": "action_pairs",
         "body_height": 170
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/fire-action_pairs-3.png",
+        "clip": "fire",
+        "layout": "action_pairs"
       }
     ],
     "applicable_clips": [

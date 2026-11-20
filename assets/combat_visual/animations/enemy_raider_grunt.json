@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_grunt.png",
-  "texture_sha256": "41012ba91428217d5ba94bd70fb231e3a8d334136542fc6e2d66c24f3ec16b75",
+  "texture_sha256": "5298d63f94746b3d90c7b81d067f8a9ed4f5e4bc93c1a514736ba9d1688a7644",
   "frame_size": [
     256,
     256
@@ -50,7 +50,7 @@
         ]
       ]
     },
-    "cover": {
+    "fire": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -88,7 +88,7 @@
         ]
       ]
     },
-    "hit": {
+    "cover": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -125,6 +125,44 @@
           47
         ]
       ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_raider_grunt_512.png",
@@ -150,6 +188,13 @@
       "clip": "cover",
       "layout": "action_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/fire-action_pairs-3.png",
+      "sha256": "5ac7a3e534f21d9ec7fd69fdd5f098aff1e9dcf3d8e87d046f8385c76be0926f",
+      "clip": "fire",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -168,7 +213,6 @@
   "coverage": "partial",
   "missing_clips": [
     "move",
-    "fire",
     "melee",
     "death"
   ],

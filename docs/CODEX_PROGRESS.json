@@ -603,6 +603,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
+        "Raider grunt IN_PROGRESS. Fire adds 16 distinct aiming and recoil poses across eight facings. The native Safehouse test triggered fire through the enemy attack path and selected all 16 regions. The 1080p capture was reviewed. Move, melee and death remain open. 63 / 233 complete.",
         "Raider grunt IN_PROGRESS. Cover adds 16 distinct crouch and kneeling poses across eight facings; Safehouse native test selected all 16 cover regions and the 1080p capture was reviewed. Move, fire, melee and death remain open. 63 / 233 complete.",
         "Raider grunt IN_PROGRESS. Hit now adds 16 distinct stagger and recovery poses across eight facings. Targeted native Safehouse test selected all 16 hit regions and rechecked idle for this unit; the 1080p hit capture was reviewed. Gait candidates failed artistic review because several strides reused the leading leg. Next: produce an alternating four-pose gait; fire, melee, cover and death remain open. 63 / 233 complete.",
         "Raider grunt IN_PROGRESS. Idle atlas uses 16 distinct authored poses across eight facings. The targeted native Safehouse fixture resolved the raider faction key and selected all 16 atlas regions. The 1080p capture was reviewed. Move, fire, melee, cover, hit and death remain open. Complete coverage stays at 63 / 233.",
