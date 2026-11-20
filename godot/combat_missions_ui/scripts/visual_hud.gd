@@ -151,7 +151,12 @@ func _style_btn(btn: Button, active: bool, disabled: bool) -> void:
 
 func _draw() -> void:
 	var header_w := minf(465,size.x*0.36)
-	_panel(Rect2(16,16,header_w,112),NEON)
+	var objective_width := maxf(1.0, header_w - 32)
+	var objective_font := ThemeDB.fallback_font
+	var objective_height := objective_font.get_multiline_string_size(
+		objective_text, HORIZONTAL_ALIGNMENT_LEFT, objective_width, 18).y
+	var header_bottom := maxf(128.0, 105.0 + objective_height)
+	_panel(Rect2(16,16,header_w,header_bottom-16.0),NEON)
 	# Skyline mark echoes the reference without taking space from the mission.
 	for i in range(5):
 		var h: int = [16,31,43,25,12][i]
@@ -159,8 +164,9 @@ func _draw() -> void:
 	_ds("CYBERCITY 2085",Vector2(72,50),29,TEXT)
 	var title_font := _fitted_font(mission_title.to_upper(),header_w-32,20,16)
 	_ds(_fit(mission_title.to_upper(),header_w-32,title_font),Vector2(32,82),title_font,NEON)
-	_ds(_fit(objective_text,header_w-32,18),Vector2(32,112),18,WARN)
-	var phase_y := 16.0 if size.x >= 1400 else 142.0
+	draw_multiline_string(objective_font, Vector2(32,112), objective_text,
+		HORIZONTAL_ALIGNMENT_LEFT, objective_width, 18, -1, WARN)
+	var phase_y := 16.0 if size.x >= 1400 else header_bottom + 14.0
 	var phase_x := size.x*0.5-197.0 if size.x >= 1400 else 16.0
 	_panel(Rect2(phase_x,phase_y,394,46),NEON if turn_side == "player" else ENEMY_COL)
 	_ds("TURN %02d  //  %s" % [turn_number,"PLAYER PHASE" if turn_side == "player" else "ENEMY PHASE"],Vector2(phase_x+15,phase_y+31),22,TEXT)
