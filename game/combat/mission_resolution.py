@@ -9,6 +9,7 @@ from game.narrative.debrief import build_mission_debrief_report
 
 def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
     funds_before=self.game_state.available_funds
+    transaction_start = len(self.game_state.funds.transaction_history)
     remaining_enemies = len(getattr(self, "enemy_units", []))
     defeated = max(0, self.initial_enemy_count - remaining_enemies)
     if defeated_override is not None:
@@ -96,7 +97,16 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         debrief_report.reputation_awards,
     )
     self.game_state.latest_mission_debrief = debrief_report.to_dict()
-    self.game_state.latest_mission_debrief["campaign_rewards"]={"resources":resource_awards,"net_funds_change":self.game_state.available_funds-funds_before}
+    mission_payout = sum(
+        transaction.amount
+        for transaction in self.game_state.funds.transaction_history[transaction_start:]
+        if transaction.kind == "income" and transaction.source == "mission_reward"
+    )
+    self.game_state.latest_mission_debrief["campaign_rewards"] = {
+        "resources": resource_awards,
+        "mission_payout": mission_payout,
+        "net_funds_change": self.game_state.available_funds - funds_before,
+    }
     outcomes = []
     for unit in all_player_units:
         if not unit.spec_ops_asset or not unit.stats:
