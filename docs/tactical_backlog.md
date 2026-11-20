@@ -32,6 +32,8 @@
 
 - ANIM-COMPLETE / riot walker — DONE (2026-11-20). Atlas authentique de 128 frames : huit orientations, marche A/C/B/D avec alternance réelle et sept actions. Le bouclier POLICE reste sur le bras gauche du robot, le dispositif bleu sur le bras droit, avec cockpit et mât préservés. Audit ciblé propre ; tests Python : 2 réussis, 1 ignoré car X11 non applicable ; Godot Windows natif : 32 sélections de marche et capture Safehouse réussie. Les sept actions ont été inspectées : activation bleue contenue, poussée au bouclier, défense abaissée et wreck terminal sans ombre. Couverture complète : 67 / 233. Prochaine unité : `enemy_giant_robot_05_railgun_sniper`.
 
+- ANIM-COMPLETE / railgun sniper — DONE (2026-11-20). Atlas authentique de 128 frames : huit orientations, marche A/C/B/D avec alternance réelle et sept actions. L'optique cyan, l'antenne, le châssis élancé et le canon complet à deux rails sont conservés dans toutes les vues. Une première planche de tir a été rejetée après inspection rapprochée parce que le flash SE était détaché du canon ; la version finale utilise une charge confinée entre les rails et un recul mécanique sans effet externe. Audit ciblé propre ; tests Python : 2 réussis, 1 ignoré car X11 non applicable ; Godot Windows natif : 32 sélections de marche et capture Safehouse corrigée inspectée. Couverture, réaction et wreck terminal sont lisibles sans clipping ni ombre finale. Couverture complète : 68 / 233. Prochaine unité : `enemy_giant_robot_06_flame_unit`.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 
