@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "dd4e2db90309105472ef68a2f9a1b50a98b621a3edf4f63c489e6b80187f1c80",
+  "texture_sha256": "d718746d66b68ec6e9f96120bf49cbf44dfd489d6abae8db91fc2dd3e8e9113d",
   "frame_size": [
     256,
     256
@@ -49,6 +49,60 @@
           15
         ]
       ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
@@ -91,6 +145,34 @@
       "pose_indices": [
         0
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/move-front-2.png",
+      "sha256": "1c7c000386db80c853df3c41309226e77b2b967aa7fb8217bf30add73efa121e",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "transpose": true
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/move-rear-3.png",
+      "sha256": "b50cb736e2e981cec36f099afd5292327d3080c5d05578bd1a536934da272b31",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "transpose": true
     }
   ],
   "required_clips": [
@@ -108,7 +190,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
     "fire",
     "melee",
     "cover",
