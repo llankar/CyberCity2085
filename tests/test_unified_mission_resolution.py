@@ -203,6 +203,7 @@ def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
     assert resolved is not None
     unit = resolved[2][0]
     assert (unit._kills, unit._damage_dealt, unit._damage_taken) == (2, 2, 3)
+    assert unit._actions_used == agent["actions_used"] > 0
     assert state.latest_mission_debrief["tactical_moments"][0]["agent_name"] == "Vera"
 
 
