@@ -22,6 +22,12 @@
         "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/fire-action_pairs-3.png",
         "clip": "fire",
         "layout": "action_pairs"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/death-action_pairs-4.png",
+        "clip": "death",
+        "layout": "action_pairs",
+        "body_height": 160
       }
     ],
     "applicable_clips": [

@@ -533,3 +533,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - Raider grunt IN_PROGRESS. Cover adds 16 distinct crouch and kneeling poses across eight facings; Safehouse native test selected all 16 cover regions and the 1080p capture was reviewed. Move, fire, melee and death remain open. 63 / 233 complete.
 
 - Raider grunt IN_PROGRESS. Fire adds 16 distinct aiming and recoil poses across eight facings. The native Safehouse test triggered fire through the enemy attack path and selected all 16 regions. The 1080p capture was reviewed. Move, melee and death remain open. 63 / 233 complete.
+
+- Raider grunt IN_PROGRESS. Death adds 16 collapse and prone poses over eight facings. Targeted native Safehouse test verified all 16 regions at zero HP without a cast shadow; 1080p capture reviewed. Move and melee remain open. 63 / 233 complete.
