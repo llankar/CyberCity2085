@@ -198,6 +198,27 @@ def test_confirmed_death_uses_the_existing_roster_removal_rule(tmp_path):
         _,survivors,units=resolve_godot_result(state,mission,result,session['session_id'])
     assert state.characters==[] and state.selected_agent_names==[] and survivors==[]
     assert units[0].character.name=='Vera'
+    assert state.latest_mission_debrief["tactical_moments"][0]["kind"] == "downed"
+
+
+def test_godot_downed_agent_and_witness_remember_a_survived_injury(tmp_path):
+    state, mission, _, result = scenario(tmp_path)
+    witness = Character("Rook", relationships={"Vera": 5})
+    state.characters.append(witness)
+    state.selected_agent_names.append(witness.name)
+    path = write_godot_combat_handoff(state, mission, handoff_path=tmp_path / "two-agents.json")
+    _, session = create_session(state, mission, path)
+    result["session_id"] = session["session_id"]
+    result["agents"][0]["hp"] = 0
+    result["agents"].append(dict(name="Rook", hp=witness.stats.hp, max_hp=witness.stats.max_hp))
+    with patch("game.battle_outcomes.random.choice", return_value="critically injured"):
+        resolve_godot_result(state, mission, result, session["session_id"])
+    recovered, observer = state.characters
+    assert recovered.stats.hp > 0
+    assert any("Vera fell during" in line for line in recovered.history)
+    assert any("saw Vera fall under fire" in line for line in observer.history)
+    assert resolve_godot_result(state, mission, result, session["session_id"]) is None
+    assert sum("saw Vera fall under fire" in line for line in observer.history) == 1
 
 
 def test_real_support_damage_updates_maintenance_once(tmp_path):

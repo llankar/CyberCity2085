@@ -89,7 +89,7 @@ def record_losses(state, participants):
             witness = survivor.character
             bond = witness.relationships.get(character.name, 0)
             line = f"{character.name}, stay with me!" if bond > 0 else f"{character.name} is down. We need to finish this."
-            witness.history.append(f"{mission}: lost a teammate when {character.name} fell.")
+            witness.history.append(f"{mission}: saw {character.name} fall under fire.")
             state.logs.append(f'{witness.name}: "{line}"')
         state.tactical_flags.setdefault("agent_moments", []).append(
             {"kind": "downed", "agent_name": character.name, "text": text})
