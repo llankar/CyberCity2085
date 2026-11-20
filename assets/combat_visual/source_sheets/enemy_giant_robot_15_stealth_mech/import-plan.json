@@ -1,0 +1,19 @@
+{
+  "enemy_giant_robot_15_stealth_mech": {
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/idle-direction-columns.png", "clip": "idle", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/fire-direction-columns.png", "clip": "fire", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/melee-direction-columns.png", "clip": "melee", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/hit-direction-columns.png", "clip": "hit", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 216}
+    ],
+    "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "psi": "The stealth mech has no psionic system.",
+      "heal": "The stealth mech has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
