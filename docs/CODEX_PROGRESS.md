@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-INDUSTRIAL-02 — DONE — Revue artistique native détaillée du lot industriel et intérieur 02
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-02.jpg`.
+- Tests / contrôles réellement exécutés : 11 captures Windows Godot 2560x1440 inspectées individuellement : data vault, dockside terminal, factory floor, power substation, security checkpoint, service tunnel, warehouse floor, blacksite lab, command deck, control center et corporate lobby; Raccords, lumières, ombres, occultation, perspective, volumes, mobilier et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot; Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification des PNG source, SHA ou de la géométrie tactique.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-02.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-URBAN-01 — DONE — Revue artistique native détaillée du premier lot urbain
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-01.jpg`.
@@ -448,6 +455,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec le lot industriel et intérieur de la planche 02, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les cartes de la planche 03, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

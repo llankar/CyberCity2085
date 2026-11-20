@@ -6,6 +6,8 @@
 
 - ENV-DETAIL-URBAN-01 — DONE (2026-11-20). Treize cartes du premier lot urbain examinées individuellement dans leurs captures natives 2560×1440. Raccords, éclairage, ombres, occultation, perspective, volumes hauts, véhicules et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction. Portée limitée à ce lot : 109 cartes restent à revoir au même niveau.
 
+- ENV-DETAIL-INDUSTRIAL-02 — DONE (2026-11-20). Onze cartes industrielles et intérieures examinées individuellement dans leurs captures natives 2560×1440 : data vault, dockside terminal, factory floor, power substation, security checkpoint, service tunnel, warehouse floor, blacksite lab, command deck, control center et corporate lobby. Raccords, éclairage, ombres, occultation, perspective, volumes, mobilier et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction. Portée cumulée des revues détaillées : 24 / 122 cartes ; 98 restent à revoir au même niveau.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 
