@@ -28,6 +28,8 @@
 
 - ANIM-COMPLETE / quadrupède de siège — DONE (2026-11-20). La première planche 8×2 a été rejetée avant import pour ordre cardinal erroné et alternance des jambes insuffisante. La source corrigée conserve l'identité du robot, les huit orientations et quatre poses de marche avec alternance diagonale réelle. Atlas final : 128 frames distinctes pour idle, move, fire, melee, cover, hit et death. Audit ciblé propre ; tests Python : 2 réussis, 1 ignoré car X11 non applicable sous Windows ; Godot Windows natif : 32 sélections de marche et capture Safehouse ciblée réussie, actions inspectées sans clipping ni dérive d'ancrage. Couverture complète : 65 / 233. Prochaine unité : `enemy_giant_robot_03_missile_artillery`.
 
+- ANIM-COMPLETE / artillerie lance-missiles — DONE (2026-11-20). Atlas authentique de 128 frames : huit orientations, marche A/C/B/D à alternance visible et sept actions applicables. Les quatre tubes dorsaux, deux bras-canons et l'identité gunmetal sont conservés. Une première attente contaminée par un fond a été rejetée sur E: avant import. Le nouvel import direct des planches 8×2 est couvert par 7 tests. Audit ciblé propre ; tests directionnels Python : 2 réussis, 1 ignoré car X11 non applicable ; Godot Windows natif : 32 sélections de marche et capture Safehouse ciblée réussie. Les sept poses ont été inspectées, dont tir contenu, défense abaissée et wreck terminal sans ombre. Couverture complète : 66 / 233. Prochaine unité : `enemy_giant_robot_04_riot_walker`.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 

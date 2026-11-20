@@ -1,0 +1,371 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_giant_robot_03_missile_artillery.png",
+  "texture_sha256": "5f7ffd81b438852e64ba5a9d3003b487943173884cdf152dc4e7f28c6ba41b57",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_giant_robot_03_missile_artillery_512.png",
+  "source_sha256": "8121abbb49dfb48faa7477cd1e5b10469a04fbeefb320bbeac5a26c16604d6bd",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/idle-action_columns-0.png",
+      "sha256": "a8d55fd0537a9a1c3731ffe010b686bea827fce1bc70c30eb71cbf545dca9126",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/move-walk_columns-1.png",
+      "sha256": "aefc8349d64a682de523f0391ffcc506acfc3e30364019bb6d21324f3eab01e3",
+      "clip": "move",
+      "layout": "walk_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "intermediate": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/move-walk_columns-1-intermediate.png",
+        "sha256": "362ed14140e79ca73e53f30c96c5563f04d022173e7eade279e3feea97208938"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/fire-action_columns-2.png",
+      "sha256": "d4c0470a1ecd584571eba2bcb034d29d9ea633ffec5e7a5915617c0c339e5af4",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/melee-action_columns-3.png",
+      "sha256": "99adf7e2e3650f4cedad6ccb8c6a60d16ffcd0dae56093e5af401bf10ff74e65",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/cover-action_columns-4.png",
+      "sha256": "cdee5f4aa3b6598fd7f53b8be9195456f227983b9c7a37fc289af6c40b6ef33a",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/hit-action_columns-5.png",
+      "sha256": "c9356d2e7d0199e3c15be4389cb15005ac544cb271b9e8bfd5267a3745165912",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/death-action_columns-6.png",
+      "sha256": "1ca78ec7d8602a2ef494949816312a87ce37ddf36f963f6431c5e9be3980aa81",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The missile artillery robot has no psionic system.",
+    "heal": "The missile artillery robot has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}

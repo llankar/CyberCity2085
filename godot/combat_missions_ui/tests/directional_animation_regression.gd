@@ -7,6 +7,7 @@ func run() -> void:
 	var keys: Array=KEYS + ["agent_samurai", "enemy_commander", "enemy_sniper", "enemy_heavy", "enemy_elite", "enemy_psi", "enemy_corp_37_grunt", "enemy_corp_37_robot_grunt", "enemy_corp_37_robot_heavy", "enemy_corp_37_robot_elite", "enemy_corp_37_robot_commander", "enemy_corp_37_power_armor_heavy", "enemy_corp_37_power_armor_elite", "enemy_corp_37_power_armor_commander", "enemy_corp_37_heavy", "enemy_corp_37_elite", "enemy_corp_37_commander", "enemy_corp_samurai_grunt", "enemy_corp_samurai_heavy", "enemy_corp_samurai_elite", "enemy_corp_samurai_commander", "enemy_corp_samurai_robot_grunt", "enemy_corp_samurai_robot_heavy", "enemy_corp_samurai_robot_elite", "enemy_corp_samurai_robot_commander", "enemy_corp_samurai_power_armor_grunt", "enemy_corp_samurai_power_armor_heavy", "enemy_corp_samurai_power_armor_elite", "enemy_corp_samurai_power_armor_commander", "enemy_giant_robot_01_assault_mech"]
 	keys.append("enemy_raider_grunt")
 	keys.append("enemy_giant_robot_02_quadruped_siege")
+	keys.append("enemy_giant_robot_03_missile_artillery")
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":
@@ -55,7 +56,7 @@ func run() -> void:
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege"] and unit.manifest.animations.has("death"):
+		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege", "enemy_giant_robot_03_missile_artillery"] and unit.manifest.animations.has("death"):
 			unit.unit_data["hp"] = 0
 			for direction in range(8):
 				unit.facing = direction

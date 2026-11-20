@@ -26,6 +26,19 @@ def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4):
     if not bounds:raise ValueError('Empty pose')
     return frame.crop(bounds)
 
+def extract_grid(image,row,col,grid_cols,grid_rows,edge_erosion=0):
+    if min(grid_cols,grid_rows) < 1 or not (0 <= col < grid_cols and 0 <= row < grid_rows):
+        raise ValueError('source cell must fit within the declared grid')
+    frame=image.crop((col*image.width//grid_cols,row*image.height//grid_rows,
+                      (col+1)*image.width//grid_cols,(row+1)*image.height//grid_rows)).convert('RGBA')
+    frame.putalpha(frame.getchannel('A').point(lambda a:max(0,min(255,round((a-160)*255/95)))))
+    frame=clean_alpha(frame)
+    if edge_erosion:
+        frame.putalpha(frame.getchannel('A').filter(ImageFilter.MinFilter(2*edge_erosion+1)))
+    bounds=frame.getchannel('A').getbbox()
+    if not bounds:raise ValueError('Empty pose')
+    return frame.crop(bounds)
+
 def feet_x(frame):
     alpha=frame.getchannel('A');top=round(frame.height*.86);weights=[]
     for x in range(frame.width):weights.append(sum(alpha.getpixel((x,y)) for y in range(top,frame.height)))
@@ -129,6 +142,28 @@ def build(key,config):
                     extract(image, row, col, item.get('lead_trim_top', 0), erosion),
                     extract(follow_through, row + 2, col, edge_erosion=erosion),
                 ], pose_height)
+        elif layout == 'action_columns':
+            order=sheet_directions(item,8)
+            erosion=item.get('edge_erosion',0)
+            for source_col,direction in enumerate(order):
+                directions[direction]=normalise([
+                    extract_grid(image,0,source_col,8,2,erosion),
+                    extract_grid(image,1,source_col,8,2,erosion),
+                ],pose_height)
+        elif layout == 'walk_columns':
+            intermediate_source=Path(item['intermediate_path'])
+            intermediate_dest=directory/(Path(name).stem+'-intermediate.png')
+            if intermediate_source.resolve()!=intermediate_dest.resolve():
+                shutil.copyfile(intermediate_source,intermediate_dest)
+            intermediate=Image.open(intermediate_source).convert('RGBA')
+            order=sheet_directions(item,8)
+            for source_col,direction in enumerate(order):
+                directions[direction]=normalise([
+                    extract_grid(image,0,source_col,8,2),
+                    extract_grid(intermediate,0,source_col,8,2),
+                    extract_grid(image,1,source_col,8,2),
+                    extract_grid(intermediate,1,source_col,8,2),
+                ],pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
@@ -148,6 +183,11 @@ def build(key,config):
             provenance[-1]['lead_trim_top'] = item['lead_trim_top']
         if layout == 'action_rows' and item.get('edge_erosion'):
             provenance[-1]['edge_erosion'] = item['edge_erosion']
+        if layout == 'walk_columns':
+            provenance[-1]['intermediate']={
+                'file':intermediate_dest.relative_to(ROOT).as_posix(),
+                'sha256':digest(intermediate_source),
+            }
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
