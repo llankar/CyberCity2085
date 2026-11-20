@@ -81,7 +81,13 @@ def build_battle_debrief_summary(
     consequences = _applied_consequences(mission, victory, triggered_complication)
     debrief_raw = getattr(game_state, "latest_mission_debrief", {}) or {}
     narrative_lines: list[str] = []
+    tactical_moments: list[str] = []
     if isinstance(debrief_raw, dict):
+        tactical_moments = [
+            moment["text"]
+            for moment in debrief_raw.get("tactical_moments", [])
+            if isinstance(moment, dict) and isinstance(moment.get("text"), str) and moment["text"].strip()
+        ]
         for line_dict in debrief_raw.get("lines", []):
             if isinstance(line_dict, dict) and line_dict.get("text"):
                 narrative_lines.append(str(line_dict["text"]))
@@ -166,6 +172,7 @@ def build_battle_debrief_summary(
             if getattr(consequence, "affected_district", None)
         ],
         "narrative_consequences": narrative_lines[:10],
+        "tactical_moments": tactical_moments,
         "continue_action": "ManagementView",
     }
 

@@ -75,6 +75,7 @@ class BattleDebriefSummaryTest(unittest.TestCase):
             ],
             "decision_key": "Hold extraction under pressure.",
             "risk_taken": "Major narrative risk accepted.",
+            "tactical_moments": [{"kind": "downed", "agent_name": "Vera", "text": "Vera fell during the extraction."}],
             "heroic_action": "Vera held the line.",
             "rpg_links": ["Stress: Vera at 62/100, recovery priority."],
             "reputation_awards": [
@@ -110,6 +111,7 @@ class BattleDebriefSummaryTest(unittest.TestCase):
 
         self.assertEqual(summary["objective_result"], "All objectives completed")
         self.assertEqual(summary["outcome"], "victory")
+        self.assertEqual(summary["tactical_moments"], ["Vera fell during the extraction."])
         self.assertIn("Credits: +120", summary["rewards"])
         self.assertEqual(summary["agent_rows"][0]["kills"], 2)
         self.assertEqual(summary["agent_rows"][0]["nickname"], "Breaker")

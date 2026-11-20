@@ -294,6 +294,7 @@ class ReportDeck(UtilityDeck):
                 Rect(r.left, r.top - 185 * u, r.right, r.top),
             )
             report = list(dict.fromkeys([
+                *summary["tactical_moments"],
                 *summary["narrative_consequences"],
                 *getattr(v.game_state, "latest_agent_aftermath", []),
             ]))
