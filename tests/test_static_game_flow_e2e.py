@@ -135,7 +135,7 @@ def test_end_to_end_mission_flow_regression(launch_mock):
     )
     assert summary["continue_action"] == "ManagementView"
     assert summary["outcome"] == "victory"
-    assert "MISSION PAYOUT" in consequences
+    assert "RESOURCES / FUNDS" in consequences
 
     debrief = BattleDebriefView.__new__(BattleDebriefView)
     debrief.game_state = state

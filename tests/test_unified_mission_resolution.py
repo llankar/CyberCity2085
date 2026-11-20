@@ -69,10 +69,10 @@ def test_godot_retreat_is_visible_confirmed_and_uses_normal_result_path():
     assert '_end_combat("retreat")' in scene
 
 
-def scenario(tmp_path):
+def scenario(tmp_path, fund_reward=0):
     agent=Character('Vera',role='sniper')
     state=GameState(characters=[agent],selected_agent_names=['Vera'])
-    mission=MissionTemplate(id='unified_test',title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='extract')
+    mission=MissionTemplate(id='unified_test',title='Unified test',objective_text='Extract',target_faction='Corp 37',district='Chrome',district_pressure={},starting_enemy_count=3,risk_level=2,objective_type='extract',fund_reward=fund_reward)
     state.active_mission=mission
     path=write_godot_combat_handoff(state,mission,handoff_path=tmp_path/'handoff.json')
     path,session=create_session(state,mission,path)
@@ -81,7 +81,7 @@ def scenario(tmp_path):
 
 
 def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tmp_path):
-    state,mission,session,result=scenario(tmp_path)
+    state,mission,session,result=scenario(tmp_path, fund_reward=120)
     before=state.available_funds
     context,survivors,units=resolve_godot_result(state,mission,result,session['session_id'])
     assert state.characters[0].stats.max_hp-state.characters[0].stats.hp==4
@@ -91,6 +91,11 @@ def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tm
     assert state.available_funds>=before
     assert state.active_mission is None
     assert state.latest_mission_debrief['campaign_rewards']['resources']['credits']==26
+    rewards = state.latest_mission_debrief['campaign_rewards']
+    assert rewards['mission_payout'] == 120
+    assert rewards['mission_payout'] == sum(
+        tx.amount for tx in state.funds.transaction_history if tx.source == 'mission_reward'
+    )
     assert state.latest_mission_debrief and state.latest_agent_aftermath
     assert not hasattr(units[0],'_kills') and not hasattr(units[0],'_damage_taken')
     assert state.combat_sessions[session['session_id']]['status']=='applied'
@@ -99,9 +104,13 @@ def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tm
 @pytest.mark.parametrize('outcome',['defeat','retreat'])
 def test_non_victory_keeps_failure_policy_without_synthetic_xp(tmp_path,outcome):
     state,mission,session,result=scenario(tmp_path);result['outcome']=outcome
+    before = state.available_funds
     resolve_godot_result(state,mission,result,session['session_id'])
     assert state.characters[0].stats.xp==0
     assert state.active_mission is None and state.latest_mission_debrief
+    rewards = state.latest_mission_debrief['campaign_rewards']
+    assert rewards['mission_payout'] == 0
+    assert rewards['net_funds_change'] == state.available_funds - before
 
 
 @pytest.mark.parametrize('mutation',[

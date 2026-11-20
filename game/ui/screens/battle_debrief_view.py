@@ -148,9 +148,15 @@ def build_battle_debrief_summary(
 
     external=debrief_raw.get("external_combat",{}) if isinstance(debrief_raw,dict) else {}
     rewards=debrief_raw.get("campaign_rewards") if isinstance(debrief_raw,dict) else None
-    reward_lines=([f"{key.title()}: {value:+}" for key,value in rewards["resources"].items()]+
-                  [f"Net funds: {rewards['net_funds_change']:+}",f"Duration: {getattr(mission,'duration_days',0)}d"]
-                  if isinstance(rewards,dict) else None)
+    reward_lines = None
+    if isinstance(rewards, dict):
+        reward_lines = [f"{key.title()}: {value:+}" for key, value in rewards["resources"].items()]
+        if "mission_payout" in rewards:
+            reward_lines.append(f"Mission funds: {rewards['mission_payout']:+}")
+        reward_lines.extend([
+            f"Corporate balance: {rewards['net_funds_change']:+}",
+            f"Duration: {getattr(mission, 'duration_days', 0)}d",
+        ])
     objective_text=("Objective completed" if external.get("objective_completed") is True else
                     "Objective not completed" if external.get("objective_completed") is False else "Objective completion not reported")
     return {
@@ -215,7 +221,7 @@ def build_consequence_summary_lines(
 
     lines = []
     summary = build_battle_debrief_summary(game_state, victory, mission, agent_stats, triggered_complication)
-    section("MISSION PAYOUT", summary["rewards"])
+    section("RESOURCES / FUNDS", summary["rewards"])
     district = getattr(game_state, "district", None)
     if district is not None:
         section("DISTRICT STATUS", [
