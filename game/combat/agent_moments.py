@@ -20,6 +20,10 @@ def record_last_stand(state, actor, target, *, defeated):
     traits.add(character.personality_secondary_trait.casefold())
     if character.fears:
         line = "I'm scared. I'm still here."
+    elif character.temporary_scars:
+        line = "I remember how this ends. Get me to cover."
+    elif character.ambition:
+        line = "I've still got something to finish."
     elif traits & {"reckless", "bold", "brave"}:
         line = "Still standing. Who's next?"
     elif traits & {"cautious", "careful", "pragmatic"}:

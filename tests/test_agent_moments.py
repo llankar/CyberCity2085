@@ -33,6 +33,20 @@ def test_real_low_health_kill_records_dialogue_and_persistent_memory():
     assert "1 HP" in restored.history[0]
 
 
+def test_last_stand_dialogue_reflects_ambition_and_active_scars():
+    character, actor, enemy, state = fixture()
+    character.ambition = "Find my sister"
+    enemy.health = 0
+    record_last_stand(state, actor, enemy, defeated=True)
+    assert any("something to finish" in line for line in state.logs)
+
+    character.temporary_scars.append({"key": "combat_trauma", "days_remaining": 2})
+    next_battle = CombatState(None, [actor], [enemy])
+    record_last_stand(next_battle, actor, enemy, defeated=True)
+    assert any("I remember how this ends" in line for line in next_battle.logs)
+    assert len(character.history) == 2
+
+
 def test_repeated_kills_do_not_spam_but_a_new_battle_can_be_remembered():
     character, actor, enemy, state = fixture()
     enemy.health=0
