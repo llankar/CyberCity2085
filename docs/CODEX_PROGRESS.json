@@ -547,7 +547,8 @@
         "Examined all 122 current 720p captures across 21 sheets. Rooftop Access and Skybridge Spine show actors or grid marks over apparent drops. Freight Yard shows route marks over car roofs. Salt Flat Ambush makes the cyan status line hard to read. These findings require targeted follow-up; the individual art gate remains open.",
         "Godot tactical status now uses a dark plate. Native 720p pixel checks passed on Salt Flat Ambush and Safehouse. Seven UI/parser tests passed with Godot AppData isolated on D.",
         "Native 1080p pass completed, 122 distinct captures at the real requested dimensions, with picking, projection and zoom checks. Three source overlays confirmed walkable survey cells over painted drops or railcars: Rooftop Access (17,15), Skybridge Spine (22,15), Freight Yard (22,15).",
-        "Native anchor assertions passed on Rooftop Access, Skybridge Spine and Freight Yard at 720p with support units. Token origins match the projected tactical cells and static portrait feet meet their origins. The art/survey mismatches still need local art corrections."
+        "Native anchor assertions passed on Rooftop Access, Skybridge Spine and Freight Yard at 720p with support units. Token origins match the projected tactical cells and static portrait feet meet their origins. The art/survey mismatches still need local art corrections.",
+        "Godot 4.6.3 shader sampler diagnostic resolved for unit outlines and contact shadows. Headless startup and native 720p Safehouse and Dust Road entity checks passed. The 1440p catalogue started before the shader change."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
