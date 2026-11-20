@@ -11,6 +11,12 @@
         "clip": "hit",
         "layout": "action_pairs",
         "body_height": 185
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/cover-action_pairs-2.png",
+        "clip": "cover",
+        "layout": "action_pairs",
+        "body_height": 170
       }
     ],
     "applicable_clips": [
