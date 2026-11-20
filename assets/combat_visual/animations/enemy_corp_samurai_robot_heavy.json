@@ -1,0 +1,132 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_samurai_robot_heavy.png",
+  "texture_sha256": "eb7863cc5ff199e39e4efcff27dd5732982da5026abf8a3ce37614d890b42820",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_samurai_robot_heavy_512.png",
+  "source_sha256": "1548441d14f982e878b0788395c2236a2cb4359800e6af32f7281b3d649106c6",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/idle-action_rows-0.png",
+      "sha256": "a6bdc38d15b6dbc664edd5ef7e478da942c4eba1431134bb18f4717681d19556",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_robot_heavy/fire-action_rows-1.png",
+      "sha256": "2c053685b04d2a6c5234b1beb5a0727b9fd72065edfc65d3a5d1785fd48d4182",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this robot.",
+    "heal": "No healing action for this robot."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
