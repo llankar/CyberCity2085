@@ -344,6 +344,9 @@ func _input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 			return
 
+func board_cursor_bounds() -> Rect2:
+	return Rect2(Vector2(24, 72), Vector2(maxf(1, size.x - 48), maxf(1, _roster_y - 108)))
+
 func blocks_map_input(point: Vector2) -> bool:
 	var local: Vector2 = get_global_transform_with_canvas().affine_inverse()*point
 	if local.y >= _roster_y-4: return true

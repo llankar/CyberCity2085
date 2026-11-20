@@ -41,8 +41,13 @@ func run() -> void:
 			continue
 		if mission._is_cell_occupied(destination, mission.active_player_index, -1):
 			continue
+		mission._camera.position += Vector2(0, -2000)
 		await press(button)
 		if mission._battlefield.hovered_cell != destination:
+			break
+		var screen_point: Vector2 = mission._battlefield.get_global_transform_with_canvas() * mission._battlefield.cell_to_world(destination)
+		if not mission._hud.board_cursor_bounds().grow(1).has_point(screen_point):
+			push_error("The camera left the gamepad cursor outside the visible board.")
 			break
 		await press(JOY_BUTTON_A)
 		moved = agent.position == destination and agent.ap == previous_ap - 1

@@ -2372,6 +2372,13 @@ func _move_gamepad_cursor(step: Vector2i) -> void:
 		return
 	var origin := _cell_position(active) if _gamepad_cell.x < 0 else _gamepad_cell
 	_gamepad_cell = (origin + step).clamp(Vector2i.ZERO, Vector2i(GRID_COLS - 1, GRID_ROWS - 1))
+	_camera.force_update_scroll()
+	var point: Vector2 = _battlefield.get_global_transform_with_canvas() * _battlefield.cell_to_world(_gamepad_cell)
+	var bounds: Rect2 = _hud.board_cursor_bounds()
+	var visible_point := point.clamp(bounds.position, bounds.end)
+	if visible_point != point:
+		_camera.position += (point - visible_point) / _camera.zoom
+		_camera.force_update_scroll()
 	_battlefield.hovered_cell = _gamepad_cell
 	_visual_cell_hovered(_gamepad_cell)
 	_battlefield.queue_redraw()
