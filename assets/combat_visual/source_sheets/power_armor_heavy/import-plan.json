@@ -1,0 +1,22 @@
+{
+  "power_armor_heavy": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/idle-idle_pairs-0.png",
+        "clip": "idle",
+        "layout": "idle_pairs"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/move-front-1.png",
+        "clip": "move",
+        "layout": "front"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor_heavy/move-rear-2.png",
+        "clip": "move",
+        "layout": "rear"
+      }
+    ],
+    "review_status": "native_render_verified_partial"
+  }
+}
