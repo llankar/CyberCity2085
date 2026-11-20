@@ -877,6 +877,7 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
       "tests": [
+        "Drone carrier IN_PROGRESS: two 8x2 walk candidates rejected before import. Both preserved genuine leg variation but repeated front/cockpit views in northwest and north columns instead of true rear views. No production asset changed; rejected candidates remain on E:. Complete coverage remains 69 / 233.",
         "Flame unit final rerun note: the post-documentation native Godot command stalled after engine startup and was stopped without a result; the earlier successful native run on the identical atlas remains the applicable validation (32 movement selections). Python rerun passed (2 passed, 1 Windows-inapplicable X11 skip).",
         "Flame unit DONE: 128 distinct frames across seven applicable clips and eight facings. The two red back tanks, thermal nozzle on robot-right and armored fist on robot-left remain consistent. The thermal plume is attached to the nozzle and contained within the frame. Focused atlas audit returned no errors; Python directional checks passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and all seven targeted Safehouse actions were inspected, including low cover and a terminal wreck without a cast shadow. 69 / 233 complete.",
         "Railgun sniper DONE: 128 distinct frames across seven applicable clips and eight facings. The cyan optic, antenna and complete twin-rail cannon are preserved. An initial fire sheet was rejected after close inspection because its SE flash was detached from the muzzle; the corrected source confines cyan light between the rails and uses mechanical recoil only. Focused atlas audit returned no errors; Python directional checks passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and the corrected targeted Safehouse captures were inspected. 68 / 233 complete.",
@@ -1691,7 +1692,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : produire les sources authentiques de enemy_giant_robot_07_drone_carrier, vérifier les huit orientations et une marche à quatre poses avec alternance réelle avant import, puis tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-COMPLETE : produire séparément les vues arrière NW/N/NE de enemy_giant_robot_07_drone_carrier sans cockpit visible, les valider artistiquement, puis composer la marche à quatre poses et tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
