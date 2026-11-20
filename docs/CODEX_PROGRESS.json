@@ -553,7 +553,8 @@
         "Rooftop Access at 720p passed native overhead and isometric fixtures, with the isometric image inspected. The anchor assertion tolerates subpixel float rounding. Capture resume fingerprints now account for projection and surface PNGs.",
         "Inspected Rooftop Access at overview zoom: the east end meets the lower landing. Added a north-south service deck on Skybridge Spine using the existing catwalk art. Both Skybridge Spine 720p projections passed and were visually inspected, including actors previously shown above the drop.",
         "Freight Yard now samples the adjacent paved siding over the painted wagons in the playable crossing. The presentation patch feathers into the original scene and preserves source PNG and tactical geometry. Native overhead 720p capture inspected. Isometric 1080p entity and interaction fixture passed. Seven environment tests passed.",
-        "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on D:/cybercity-map-final-72bf75f."
+        "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on D:/cybercity-map-final-72bf75f.",
+        "Inspected the revised 1440p captures for Rooftop Access, Skybridge Spine and Freight Yard, including the new walkable surfaces."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -598,7 +599,8 @@
         "Godot Windows natif ciblé : 32 sélections de frames ; aucune autre unité retestée",
         "Captures tir, mêlée et mort inspectées dans la scène tactique réelle",
         "Support robot art now routes to its dedicated source portrait in Godot. Native Safehouse fixture verified both the support and combat robot keys and the screenshot was inspected. The support robot still needs authored directional clips.",
-        "Support robot idle and move atlas integrated: 48 distinct authored frames, eight directions, and normalized height across broad and narrow poses. Focused atlas audit and native Godot check passed, including 32 gait frame selections. Action clips remain open."
+        "Support robot idle and move atlas integrated: 48 distinct authored frames, eight directions, and normalized height across broad and narrow poses. Focused atlas audit and native Godot check passed, including 32 gait frame selections. Action clips remain open.",
+        "Support robot shutdown added: 16 distinct frames, eight facings, atlas audit passed and native zero-HP terminal frames checked in all directions. Fire, cover and hit drafts still require correct facing pairs."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",

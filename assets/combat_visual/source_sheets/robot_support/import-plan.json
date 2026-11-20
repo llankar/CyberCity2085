@@ -86,9 +86,28 @@
         "direction_indices": [
           7
         ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/death-action_rows-6.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "body_height": 78
       }
     ],
     "body_height": 112,
-    "review_status": "native_render_verified_partial"
+    "review_status": "native_render_verified_partial",
+    "applicable_clips": [
+      "idle",
+      "move",
+      "fire",
+      "cover",
+      "hit",
+      "death"
+    ],
+    "non_applicable_clips": {
+      "melee": "The Phantom support robot has no melee hardpoint.",
+      "psi": "EMP Pulse and Sensor Lock are ranged FIRE actions.",
+      "heal": "The Phantom support robot has no medical action."
+    }
   }
 }
