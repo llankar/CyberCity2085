@@ -64,11 +64,14 @@ def main(argv=None):
     parser.add_argument("--real-mission", action="store_true", help="Play the authored objective to victory instead of forcing an outcome")
     parser.add_argument("--window-hold-seconds", type=float, default=0.0, help="Keep the native combat window idle for manual lifecycle QA")
     parser.add_argument("--resize-check", action="store_true", help="Resize the tactical window from inside Godot")
+    parser.add_argument("--overlay-check", action="store_true", help="Check the Win32 client rectangles after handoff")
     parser.add_argument("--godot-verbose", action="store_true", help="Log Godot lifetime diagnostics")
     parser.add_argument("--native-audio", action="store_true", help="Use the host audio driver instead of Dummy")
     args=parser.parse_args(argv);output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
     if args.resize_check and not args.real_mission:
         parser.error("--resize-check requires --real-mission")
+    if args.overlay_check and sys.platform != "win32":
+        parser.error("--overlay-check requires Windows")
     if args.real_mission and args.interrupt_phase and args.outcomes != ["victory"]:
         parser.error("real mission interruption requires --outcomes victory")
     if args.real_mission and any(outcome not in {"victory", "defeat", "retreat"} for outcome in args.outcomes):
@@ -188,6 +191,13 @@ def main(argv=None):
                         before=state.available_funds
                         for _ in range(12):frame();time.sleep(.08)
                         assert window.current_view is bridge and process.poll() is None
+                        if args.overlay_check:
+                            from game.combat.win32_embed import get_window_screen_rect
+                            assert bridge._overlaid and bridge._arcade_hwnd and bridge._godot_hwnd
+                            owner_rect = get_window_screen_rect(bridge._arcade_hwnd)
+                            tactical_rect = get_window_screen_rect(bridge._godot_hwnd)
+                            assert owner_rect == tactical_rect and min(owner_rect[2:]) > 0, (owner_rect, tactical_rect)
+                            print(f"WIN32_OVERLAY_CLIENTS_MATCH {tactical_rect}", flush=True)
                         assert state.available_funds==before and not Path(bridge.launch_result.result_path).exists()
                         if args.interrupt_after_resolution: bridge._write_pending_ack=lambda:None
                         if args.crash_recovery:
