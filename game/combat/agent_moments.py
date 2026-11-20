@@ -16,13 +16,17 @@ def record_last_stand(state, actor, target, *, defeated):
         return
     recorded.add(id(character))
     line = last_stand_dialogue(character)
-    mission = getattr(state.mission, "title", None) or "Tactical engagement"
-    memory = f"{mission}: held on at {actor.health} HP and neutralized a hostile."
-    character.history.append(memory)
-    state.tactical_flags.setdefault("agent_moments", []).append(
-        {"kind": "last_stand", "agent_name": character.name, "text": f"{character.name}: {memory}"})
+    moment = remember_last_stand(character, state.mission, actor.health)
+    state.tactical_flags.setdefault("agent_moments", []).append(moment)
     state.logs.append(f'{character.name}: "{line}"')
-    state.logs.append(f"REMEMBERED — {character.name}: {memory}")
+    state.logs.append(f'REMEMBERED — {moment["text"]}')
+
+
+def remember_last_stand(character: Character, mission, hp: int) -> dict:
+    title = getattr(mission, "title", None) or "Tactical engagement"
+    memory = f"{title}: held on at {hp} HP and neutralized a hostile."
+    character.history.append(memory)
+    return {"kind": "last_stand", "agent_name": character.name, "text": f"{character.name}: {memory}"}
 
 
 def last_stand_dialogue(character: Character) -> str:

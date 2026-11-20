@@ -1473,6 +1473,7 @@ func _log_last_stand(attacker: Dictionary) -> void:
 	if hp <= 0 or hp > maxi(1, int(attacker.get("max_hp", 1)) / 4):
 		return
 	attacker["last_stand_spoken"] = true
+	attacker["last_stand_hp"] = hp
 	_log_event('%s: "%s"' % [str(attacker.get("name", "Agent")), line])
 
 func _attack_enemy(target_index: int, action_name: String) -> void:
@@ -1823,6 +1824,8 @@ func _end_combat(outcome: String) -> void:
 			support.append(snapshot)
 		else:
 			snapshot["name"] = unit.get("campaign_name", unit.name)
+			if unit.has("last_stand_hp"):
+				snapshot["last_stand_hp"] = int(unit.last_stand_hp)
 			agents.append(snapshot)
 	var result := {
 		"session":handoff.get("session",{}),
