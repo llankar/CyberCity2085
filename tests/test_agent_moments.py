@@ -34,11 +34,14 @@ def test_real_low_health_kill_records_dialogue_and_persistent_memory():
 
 
 def test_last_stand_dialogue_reflects_ambition_and_active_scars():
+    from game.combat.godot_bridge import _agent_payload
+
     character, actor, enemy, state = fixture()
     character.ambition = "Find my sister"
     enemy.health = 0
     record_last_stand(state, actor, enemy, defeated=True)
     assert any("something to finish" in line for line in state.logs)
+    assert _agent_payload(character)["last_stand_dialogue"] == "I've still got something to finish."
 
     character.temporary_scars.append({"key": "combat_trauma", "days_remaining": 2})
     next_battle = CombatState(None, [actor], [enemy])

@@ -1463,6 +1463,16 @@ func _move_active_unit_to(cell: Vector2i) -> void:
 	if int(u.get("ap", 0)) == 0:
 		_auto_advance_unit()
 
+func _log_last_stand(attacker: Dictionary) -> void:
+	var line := str(attacker.get("last_stand_dialogue", ""))
+	var hp := int(attacker.get("hp", 0))
+	if line.is_empty() or attacker.get("last_stand_spoken", false):
+		return
+	if hp <= 0 or hp > maxi(1, int(attacker.get("max_hp", 1)) / 4):
+		return
+	attacker["last_stand_spoken"] = true
+	_log_event('%s: "%s"' % [str(attacker.get("name", "Agent")), line])
+
 func _attack_enemy(target_index: int, action_name: String) -> void:
 	if target_index < 0 or target_index >= enemy_units.size(): return
 	var target := enemy_units[target_index] as Dictionary
@@ -1535,6 +1545,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		active_player_index, false, target_index, true, damage, true)
 	if int(target.get("hp", 0)) <= 0:
 		CombatSignals.unit_died.emit(target_index, true)
+		_log_last_stand(attacker)
 
 	var line := "%s: %s → %d dmg." % [_active_unit_name(), action_name, damage]
 	_log_event(line)
@@ -1886,6 +1897,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"kind":              "player",
 			"status_effects":    [],
 			"available_actions": agent_actions,
+			"last_stand_dialogue": str(agent.get("last_stand_dialogue", "")),
 			"size_scale":        clampf(float(agent.get("size_scale", 1.0)), 0.5, 5.0),
 		})
 	for j in range(support_assets.size()):
