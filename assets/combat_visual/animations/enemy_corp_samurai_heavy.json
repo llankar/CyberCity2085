@@ -1,0 +1,163 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_corp_samurai_heavy.png",
+  "texture_sha256": "f70bec55c66cef2c7f378a397b6587499ecc58c5ddfd1e727399c8c91567ab95",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          16,
+          17
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          30,
+          31
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_corp_samurai_heavy_512.png",
+  "source_sha256": "7be7cead2b730cfd9ba78a654fd36b6e554bdcfdd7208d10fcba79702bc80669",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_heavy/idle-action_rows-0.png",
+      "sha256": "c97c8328e5023e9913d964972bc8049a83f1d721416f670dfa2d7f4664804c00",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_heavy/fire-action_rows-1.png",
+      "sha256": "785f69988ef5bec7b5f884509970c350ba1d996a892f9bc5af497a304f560c95",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_heavy/fire-action_rows-2.png",
+      "sha256": "4694a6bfd03bb7d81c28ed9005eedb6e2f2b95a55a8bbd550f00ccddfd6b6185",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3,
+        7
+      ],
+      "pose_indices": [
+        2,
+        6
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "No psionic action for this heavy infantry.",
+    "heal": "No healing action for this heavy infantry."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
