@@ -74,7 +74,12 @@ def test_expansion_decisions_are_visually_reviewed_and_bound_to_exact_art():
             if prop['source_review']!='detail_crop_sheet':continue
             review=reviews[prop['review_index']]
             assert review['visual_review']=='detail_crop_inspected'
-            assert review['decision']=='replace'
+            if prop['enabled'] or prop.get('detail_status')!='original_retained_overlay_art_mismatch':
+                assert review['decision']=='replace'
+            else:
+                assert review['decision']=='retain_original'
+                assert prop.get('disabled_reason')
+                assert prop['source_object_id'] in entry['remaining_2d']
             assert name in review['aliases'] and entry['image_sha256']==review['source_sha256']
             assert (prop['asset'],prop['source_object_id'],prop['bounds_uv'])==(review['asset'],review['source_object_id'],review['bounds_uv'])
             if prop['enabled'] and 'author_yaw' in prop:assert prop['yaw']==prop['author_yaw']

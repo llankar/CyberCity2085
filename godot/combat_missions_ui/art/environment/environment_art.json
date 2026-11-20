@@ -8444,11 +8444,12 @@
             0.6364583333333333,
             0.6148148148148148
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 140,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.686
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.686,
+          "disabled_reason": "native 1440p review: photorealistic planter overlay is oversized and mismatched to the source perspective; retain the coherent source planter"
         }
       ],
       "art_status": "artistically_complete",
@@ -8466,6 +8467,7 @@
         "north_civic",
         "south_civic",
         "center_monument",
+        "center_planter_e",
         "center_planter_w",
         "north_planter_w",
         "north_planter_e",
@@ -8505,6 +8507,7 @@
         "north_civic",
         "south_civic",
         "center_monument",
+        "center_planter_e",
         "center_planter_w",
         "north_planter_w",
         "north_planter_e",
@@ -8647,11 +8650,12 @@
             0.6364583333333333,
             0.6148148148148148
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 140,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.686
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.686,
+          "disabled_reason": "native 1440p review: photorealistic planter overlay is oversized and mismatched to the source perspective; retain the coherent source planter"
         }
       ],
       "art_status": "artistically_complete",
@@ -8669,6 +8673,7 @@
         "north_civic",
         "south_civic",
         "center_monument",
+        "center_planter_e",
         "center_planter_w",
         "north_planter_w",
         "north_planter_e",
@@ -8708,6 +8713,7 @@
         "north_civic",
         "south_civic",
         "center_monument",
+        "center_planter_e",
         "center_planter_w",
         "north_planter_w",
         "north_planter_e",

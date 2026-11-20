@@ -3119,11 +3119,11 @@
         0.6148148148148148
       ],
       "source_sha256": "980b6ad122ca6da026046d4f0e598cc92c7568779f90ecbd849b39864cd07164",
-      "decision": "replace",
+      "decision": "retain_original",
       "review_sheet": "review-05.jpg",
       "review_cell": 21,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
+      "reason": "Native 1440p review rejected the replacement on both aliases: oversized photorealistic overlay and mismatched perspective; coherent source planter retained.",
       "asset": "planter"
     },
     {

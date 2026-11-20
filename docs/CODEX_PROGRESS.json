@@ -9,6 +9,31 @@
   ],
   "tasks": [
     {
+      "id": "ENV-DETAIL-STREET-06",
+      "title": "Revue artistique native detaillee du lot rue 06",
+      "status": "IN_PROGRESS",
+      "files": [
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "godot/combat_missions_ui/art/environment/expansion_reviews.json",
+        "tests/test_environment_art25.py",
+        "docs/images/entity-scale-production-windows/catalogue-06.jpg"
+      ],
+      "tests": [
+        "7 captures Windows Godot 2560x1440 affichees individuellement ; cinq sans defaut reproductible et deux civic plaza avec un overlay de jardiniere surdimensionne et incoherent",
+        "Overlay center_planter_e desactive uniquement sur cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza ; PNG source, SHA et geometrie tactique preserves",
+        "13 tests environnement reussis, 2 ignores faute de X11",
+        "Deux recaptures Windows natives Godot 4.7.2/OpenGL sur RTX 5070 Ti : COMBAT_21_CAPTURE_PASSED ; inspection artistique des recaptures NOT VERIFIED a cause de la limite d'affichage"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/catalogue-06.jpg",
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "godot/combat_missions_ui/art/environment/expansion_reviews.json"
+      ],
+      "remaining": "Inspecter les deux recaptures corrigees sur E:/CyberCity2085-builds/map-planche-06-fix, puis les cinq cartes restantes de la planche 06 a partir de cybercity_street_11_transit_interchange",
+      "reason": "Revue partielle explicite : 5 cartes du lot artistiquement claires, 2 corrections non encore inspectees et 5 cartes non affichees"
+    },
+    {
       "id": "ENV-DETAIL-INNER-STREET-05",
       "title": "Revue artistique native detaillee du lot interieur et rue 05",
       "status": "DONE",
@@ -1546,7 +1571,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 06, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.",
+  "next_action": "ENV-FINAL : inspecter les recaptures 1440p corrigées de cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza dans E:/CyberCity2085-builds/map-planche-06-fix, puis afficher les cinq cartes restantes de la planche 06 à partir de cybercity_street_11_transit_interchange. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

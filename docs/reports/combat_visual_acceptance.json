@@ -2,10 +2,10 @@
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
     "done": 47,
-    "total": 61
+    "total": 62
   },
   "maps": {
-    "native_verified": 122,
+    "native_verified": 0,
     "native_expected": 122,
     "artistically_declared": 122,
     "artistic_verified": 0
@@ -32,7 +32,7 @@
     ],
     "scope": "44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément"
   },
-  "render_signature": "afd0920d7df440ebac1b61c558b5d0c89037812df9b04f4c905783756f067bfc",
+  "render_signature": "1c5ff05883077cc66076f0cf26dad9c57c701217ed9f40235adf15f16daeb8ad",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -48,8 +48,8 @@
       "id": "MAP-LOAD",
       "title": "Chargement natif et projection",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
+      "status": "NOT VERIFIED",
+      "detail": "0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
         "docs/images/entity-scale-production-windows/native-report.json",
         "docs/combat_visual_25_status.json"
@@ -80,7 +80,7 @@
       "title": "Silhouettes, matériaux et intégration des objets",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "221 placements sur 109 cartes ; 3381 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
+      "detail": "219 placements sur 107 cartes ; 3383 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/images/environment-art-review-windows/manifest.json"
       ]
@@ -89,8 +89,8 @@
       "id": "UNIT-SCALE",
       "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
       "mandatory": true,
-      "status": "PASS",
-      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. 122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
+      "status": "NOT VERIFIED",
+      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/reports/entity_scale_review_windows.json",
         "docs/images/entity-scale-production-windows/native-report.json"
@@ -165,15 +165,17 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "47 / 61 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "47 / 62 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
     }
   ],
   "open_criteria": [
+    "MAP-LOAD",
     "MAP-ART",
     "ART-OBJECTS",
+    "UNIT-SCALE",
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",
@@ -182,5 +184,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 06, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
+  "next_action": "ENV-FINAL : inspecter les recaptures 1440p corrigées de cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza dans E:/CyberCity2085-builds/map-planche-06-fix, puis afficher les cinq cartes restantes de la planche 06 à partir de cybercity_street_11_transit_interchange. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
 }

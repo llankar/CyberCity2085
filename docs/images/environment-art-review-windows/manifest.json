@@ -334,6 +334,11 @@
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
     },
     {
+      "map": "cybercity_street_10_civic_plaza.png",
+      "id": "art25_detail_center_planter_e",
+      "reason": "native 1440p review: photorealistic planter overlay is oversized and mismatched to the source perspective; retain the coherent source planter"
+    },
+    {
       "map": "cybercity_street_10_waterfront_docks.png",
       "id": "art25_south_bins",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
@@ -342,6 +347,11 @@
       "map": "cybercity_street_11_civic_plaza.png",
       "id": "art25_car_e",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "cybercity_street_11_civic_plaza.png",
+      "id": "art25_detail_center_planter_e",
+      "reason": "native 1440p review: photorealistic planter overlay is oversized and mismatched to the source perspective; retain the coherent source planter"
     },
     {
       "map": "cybercity_street_15_billboard_avenue.png",
