@@ -197,7 +197,12 @@ def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
     assert proc.returncode == 0 and "GODOT_LAST_STAND_CHECKS_PASSED" in proc.stdout, proc.stdout + proc.stderr
     result = json.loads(result_path.read_text(encoding="utf-8"))
     assert result["agents"][0]["last_stand_hp"] == 1
-    assert resolve_godot_result(state, mission, result, session["session_id"]) is not None
+    agent = result["agents"][0]
+    assert (agent["kills"], agent["damage_dealt"], agent["damage_taken"]) == (2, 2, 3)
+    resolved = resolve_godot_result(state, mission, result, session["session_id"])
+    assert resolved is not None
+    unit = resolved[2][0]
+    assert (unit._kills, unit._damage_dealt, unit._damage_taken) == (2, 2, 3)
     assert state.latest_mission_debrief["tactical_moments"][0]["agent_name"] == "Vera"
 
 

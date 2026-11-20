@@ -57,7 +57,7 @@ def validate_tactical_snapshot(snapshot, record):
                     or not whole(row.get('ap'), 0, 100000)
                     or not isinstance(row.get('status_effects', []), list)):
                 raise ValueError('Invalid tactical unit')
-            for key in ('stress', 'defense', 'initiative', 'aim', 'melee_power'):
+            for key in ('stress', 'defense', 'initiative', 'aim', 'melee_power', 'damage_dealt', 'damage_taken', 'kills'):
                 if key in row and not whole(row[key], 0, 1000000):
                     raise ValueError('Invalid tactical unit statistic')
             if 'size_scale' in row and (type(row['size_scale']) not in (int, float) or not .1 <= row['size_scale'] <= 50):
