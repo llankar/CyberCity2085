@@ -287,9 +287,12 @@ func _build_children() -> void:
 		var map_path := str(_map_data().get("path", ""))
 		if not surface.is_empty() and map_texture != null and preload("res://scripts/environment_catalog.gd").matches_source(map_path, _asset_path(map_path), Vector2i(map_texture.get_size())):
 			var rect: Array = surface.uv_rect
-			_battlefield.surface_texture = _load_tex(surface.path)
+			var sample: Array = surface.get("sample_uv_rect", [0, 0, 1, 1])
+			_battlefield.surface_texture = _load_tex(surface.path) if surface.has("path") else map_texture
 			_battlefield.surface_uv = Rect2(rect[0], rect[1], rect[2], rect[3])
+			_battlefield.surface_sample_uv = Rect2(sample[0], sample[1], sample[2], sample[3])
 			_battlefield.surface_vertical = bool(surface.get("vertical", false))
+			_battlefield.surface_feather = float(surface.get("feather", 0.0))
 	_battlefield.name = "Battlefield"
 	_map_root.add_child(_battlefield)
 

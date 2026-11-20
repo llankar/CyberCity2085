@@ -6,7 +6,9 @@ var quality := 2
 var weather := "rain"
 var surface_texture: Texture2D
 var surface_uv := Rect2()
+var surface_sample_uv := Rect2(0, 0, 1, 1)
 var surface_vertical := false
+var surface_feather := 0.0
 var _depth_props: Array[Node2D] = []
 var _redraw_clock := 0.0
 
@@ -180,7 +182,9 @@ func _draw_map() -> void:
 	var quad:=PackedVector2Array([uv_to_world(Vector2.ZERO),uv_to_world(Vector2(1,0)),uv_to_world(Vector2.ONE),uv_to_world(Vector2(0,1))])
 	if map_texture!=null:draw_polygon(quad,PackedColorArray([Color.WHITE]),PackedVector2Array([Vector2.ZERO,Vector2(1,0),Vector2.ONE,Vector2(0,1)]),map_texture)
 	else:draw_colored_polygon(quad,Color(.025,.055,.065))
-	if surface_texture != null:
+	if surface_texture != null and surface_feather > 0.0:
+		_draw_feathered_surface()
+	elif surface_texture != null:
 		var corners := PackedVector2Array([
 			uv_to_world(surface_uv.position),
 			uv_to_world(Vector2(surface_uv.end.x, surface_uv.position.y)),
@@ -190,9 +194,27 @@ func _draw_map() -> void:
 		var uvs := PackedVector2Array([Vector2.ZERO, Vector2.RIGHT, Vector2.ONE, Vector2.DOWN])
 		if surface_vertical:
 			uvs = PackedVector2Array([Vector2.DOWN, Vector2.ZERO, Vector2.RIGHT, Vector2.ONE])
+		for i in range(uvs.size()):
+			uvs[i] = surface_sample_uv.position + uvs[i] * surface_sample_uv.size
 		draw_polygon(corners, PackedColorArray([Color.WHITE]), uvs, surface_texture)
 	for prop: Node2D in _depth_props:
 		if is_instance_valid(prop) and prop.visible: prop.draw_ground(self,quality)
+
+func _draw_feathered_surface() -> void:
+	var step := [0.0, surface_feather, 1.0 - surface_feather, 1.0]
+	for y in range(3):
+		for x in range(3):
+			var points := PackedVector2Array()
+			var uvs := PackedVector2Array()
+			var colors := PackedColorArray()
+			for offset: Vector2i in [Vector2i.ZERO, Vector2i.RIGHT, Vector2i.ONE, Vector2i.DOWN]:
+				var index := Vector2i(x, y) + offset
+				var fraction := Vector2(step[index.x], step[index.y])
+				points.append(uv_to_world(surface_uv.position + fraction * surface_uv.size))
+				uvs.append(surface_sample_uv.position + fraction * surface_sample_uv.size)
+				var edge := index.x in [0, 3] or index.y in [0, 3]
+				colors.append(Color(1, 1, 1, 0 if edge else 1))
+			draw_polygon(points, colors, uvs, surface_texture)
 
 func _draw_cover_nodes() -> void:
 	var seen: Dictionary={}
