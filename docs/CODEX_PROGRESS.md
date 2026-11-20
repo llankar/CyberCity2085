@@ -8,13 +8,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
-### ENV-DETAIL-INNER-STREET-05 — IN_PROGRESS — Revue artistique native detaillee du lot interieur et rue 05
+### ENV-DETAIL-INNER-STREET-05 — DONE — Revue artistique native detaillee du lot interieur et rue 05
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-05.jpg`.
-- Tests / contrôles réellement exécutés : 1 capture Windows Godot 2560x1440 inspectee individuellement : cybercity_inner_13_warehouse_floor; Raccords, lumieres, ombres, occultation, perspective, mobilier et lisibilite tactique controles ; aucun defaut local reproductible sur cette carte; La limite d'affichage de la passe n'a pas permis de verifier les 11 autres cartes ; elles restent NOT VERIFIED.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 inspectees individuellement : trois cartes inner, six familles street et trois variantes street; Raccords, lumieres, ombres, occultation, perspective, mobilier, voirie, vehicules et lisibilite tactique controles ; aucun defaut local reproductible necessitant une correction dans ce lot; Les deux variantes downtown intersection sont des alias pixel-identiques documentes par same_pixels_as ; l'aeronef partiellement visible au bord gauche appartient au PNG source et non au placement d'objet conserve, donc aucune source, SHA ou geometrie tactique n'a ete modifiee.
 - Preuves : `docs/images/entity-scale-production-windows/catalogue-05.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
-- Travail restant dans cette portée : Inspecter individuellement les 11 captures restantes de la planche 05, en reprenant par cybercity_inner_14_detention_block.
-- Problème / raison : Revue partielle explicite : 49 / 122 cartes detaillees ; 73 restent a revoir au meme niveau.
+- Travail restant dans cette portée : Aucun.
 
 ### ENV-DETAIL-INNER-04 — DONE — Revue artistique native détaillée du lot intérieur 04
 
@@ -477,6 +476,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : reprendre la revue native détaillée à 1440p sur cybercity_inner_14_detention_block, puis inspecter les 10 autres cartes non vues de la planche 05 et corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 06, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

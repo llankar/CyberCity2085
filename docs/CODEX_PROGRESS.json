@@ -11,22 +11,22 @@
     {
       "id": "ENV-DETAIL-INNER-STREET-05",
       "title": "Revue artistique native detaillee du lot interieur et rue 05",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/art/environment/environment_art.json",
         "docs/images/entity-scale-production-windows/catalogue-05.jpg"
       ],
       "tests": [
-        "1 capture Windows Godot 2560x1440 inspectee individuellement : cybercity_inner_13_warehouse_floor",
-        "Raccords, lumieres, ombres, occultation, perspective, mobilier et lisibilite tactique controles ; aucun defaut local reproductible sur cette carte",
-        "La limite d'affichage de la passe n'a pas permis de verifier les 11 autres cartes ; elles restent NOT VERIFIED"
+        "12 captures Windows Godot 2560x1440 inspectees individuellement : trois cartes inner, six familles street et trois variantes street",
+        "Raccords, lumieres, ombres, occultation, perspective, mobilier, voirie, vehicules et lisibilite tactique controles ; aucun defaut local reproductible necessitant une correction dans ce lot",
+        "Les deux variantes downtown intersection sont des alias pixel-identiques documentes par same_pixels_as ; l'aeronef partiellement visible au bord gauche appartient au PNG source et non au placement d'objet conserve, donc aucune source, SHA ou geometrie tactique n'a ete modifiee"
       ],
       "evidence": [
         "docs/images/entity-scale-production-windows/catalogue-05.jpg",
         "docs/images/entity-scale-production-windows/native-report.json"
       ],
-      "remaining": "Inspecter individuellement les 11 captures restantes de la planche 05, en reprenant par cybercity_inner_14_detention_block",
-      "reason": "Revue partielle explicite : 49 / 122 cartes detaillees ; 73 restent a revoir au meme niveau"
+      "remaining": "",
+      "reason": ""
     },
     {
       "id": "ENV-DETAIL-INNER-04",
@@ -1546,7 +1546,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : reprendre la revue native détaillée à 1440p sur cybercity_inner_14_detention_block, puis inspecter les 10 autres cartes non vues de la planche 05 et corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.",
+  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 06, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
