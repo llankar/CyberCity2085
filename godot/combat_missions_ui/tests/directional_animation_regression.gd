@@ -5,6 +5,7 @@ func run() -> void:
 	root.size=Vector2i(640,480)
 	var base:=ProjectSettings.globalize_path("res://../..")
 	var keys: Array=KEYS + ["agent_samurai", "enemy_commander", "enemy_sniper", "enemy_heavy", "enemy_elite", "enemy_psi", "enemy_corp_37_grunt", "enemy_corp_37_robot_grunt", "enemy_corp_37_robot_heavy", "enemy_corp_37_robot_elite", "enemy_corp_37_robot_commander", "enemy_corp_37_power_armor_heavy", "enemy_corp_37_power_armor_elite", "enemy_corp_37_power_armor_commander", "enemy_corp_37_heavy", "enemy_corp_37_elite", "enemy_corp_37_commander", "enemy_corp_samurai_grunt", "enemy_corp_samurai_heavy", "enemy_corp_samurai_elite", "enemy_corp_samurai_commander", "enemy_corp_samurai_robot_grunt", "enemy_corp_samurai_robot_heavy", "enemy_corp_samurai_robot_elite", "enemy_corp_samurai_robot_commander", "enemy_corp_samurai_power_armor_grunt", "enemy_corp_samurai_power_armor_heavy", "enemy_corp_samurai_power_armor_elite", "enemy_corp_samurai_power_armor_commander", "enemy_giant_robot_01_assault_mech"]
+	keys.append("enemy_raider_grunt")
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":

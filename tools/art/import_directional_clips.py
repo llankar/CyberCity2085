@@ -8,8 +8,10 @@ SIZE=256;BASELINE=244;BODY=216
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def extract(image,row,col,trim_top=0,edge_erosion=0):
-    frame=image.crop((col*image.width//4,row*image.height//4,(col+1)*image.width//4,(row+1)*image.height//4)).convert('RGBA')
+def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4):
+    if type(grid_rows) is not int or grid_rows < 1:
+        raise ValueError('grid_rows must be a positive integer')
+    frame=image.crop((col*image.width//4,row*image.height//grid_rows,(col+1)*image.width//4,(row+1)*image.height//grid_rows)).convert('RGBA')
     if type(trim_top) is not int or not 0 <= trim_top < frame.height:
         raise ValueError('trim_top must be a nonnegative number of pixels within the cell')
     if trim_top:
@@ -81,12 +83,19 @@ def build(key,config):
                 raise ValueError('walk pose_indices must be distinct rows or columns from 0 to 3')
             offset = 4 if layout == 'rear' else 0
             order = sheet_directions(item, len(poses), offset) if 'direction_indices' in item else [row + offset for row in poses]
+            source_row_offset = item.get('source_row_offset', 0)
+            grid_rows = item.get('grid_rows', 4)
+            if (type(source_row_offset) is not int or source_row_offset < 0
+                    or type(grid_rows) is not int or grid_rows < 1
+                    or source_row_offset + max(poses) >= grid_rows):
+                raise ValueError('walk source rows must fit within grid_rows')
             for row,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
+                source_row = row + source_row_offset
                 if item.get('transpose', False):
-                    directions[direction]=normalise([extract(image,col,row) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,col,source_row,grid_rows=grid_rows) for col in range(4)], pose_height)
                 else:
-                    directions[direction]=normalise([extract(image,row,col) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,source_row,col,grid_rows=grid_rows) for col in range(4)], pose_height)
         elif layout in ['idle_pairs','action_pairs']:
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -128,6 +137,9 @@ def build(key,config):
             provenance[-1]['pose_indices']=poses
         if layout in ('front', 'rear') and item.get('transpose', False):
             provenance[-1]['transpose']=True
+        if layout in ('front', 'rear') and item.get('grid_rows', 4) != 4:
+            provenance[-1]['grid_rows'] = item['grid_rows']
+            provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
                 'file': follow_dest.relative_to(ROOT).as_posix(), 'sha256': digest(follow_source)

@@ -5,9 +5,19 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "codex/unified-experience",
   "active_batch": [
-    "SCALE-05"
+    "ANIM-COMPLETE"
   ],
   "tasks": [
+    {
+      "id": "RAIDER-WALK-01",
+      "title": "Marche authentique du raider grunt dans huit directions",
+      "status": "DONE",
+      "files": ["assets/combat_visual/animations/enemy_raider_grunt.json", "assets/combat_visual/animations/enemy_raider_grunt.png", "assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json", "tools/art/import_directional_clips.py", "tests/test_directional_animation.py", "godot/combat_missions_ui/tests/directional_animation_regression.gd"],
+      "tests": ["Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets", "2 tests Python réussis, 1 test X11 ignoré sous Windows", "Godot 4.6.3 Windows natif : DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_raider_grunt sur Safehouse"],
+      "evidence": ["E:/CyberCity2085-builds/raider-walk/visual-audit.json", "E:/CyberCity2085-builds/raider-walk/native/enemy_raider_grunt-move.png", "E:/CyberCity2085-builds/raider-walk/capture-out.txt"],
+      "remaining": "",
+      "reason": ""
+    },
     {
       "id": "WINDOWS-RESULT-READ-RETRY",
       "title": "Retry transient Windows combat result reads",
