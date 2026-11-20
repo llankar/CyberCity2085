@@ -888,6 +888,10 @@ func _gui_input(event: InputEvent) -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion or event is InputEventMouseButton:
 		_clear_gamepad_cursor()
+		if _hud != null and _hud.gamepad_hints:
+			_hud.close_gamepad_actions()
+			_hud.gamepad_hints = false
+			_hud.queue_redraw()
 	if not battle_started or battle_ended or _camera == null: return
 	if event is InputEventMouseButton:
 		var mbe := event as InputEventMouseButton
@@ -2302,26 +2306,48 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	match event.button_index:
 		JOY_BUTTON_A:
-			if pending_end_turn_confirmation or _gamepad_cell.x < 0:
+			if not _hud.gamepad_action.is_empty():
+				_hud.close_gamepad_actions(true)
+			elif pending_retreat_confirmation:
+				_execute_action("RETREAT")
+			elif pending_end_turn_confirmation or _gamepad_cell.x < 0:
 				_confirm_tactical_action("GAMEPAD")
 			else:
 				_on_cell_clicked(_gamepad_cell)
+		JOY_BUTTON_X:
+			if _hud.gamepad_action.is_empty() and not pending_end_turn_confirmation and not pending_retreat_confirmation:
+				_clear_gamepad_cursor()
+				_hud.step_gamepad_action(0)
+			else:
+				_hud.close_gamepad_actions()
 		JOY_BUTTON_DPAD_UP:
-			_move_gamepad_cursor(Vector2i.UP)
+			if _hud.gamepad_action.is_empty():
+				_move_gamepad_cursor(Vector2i.UP)
+			else:
+				_hud.step_gamepad_action(-1)
 		JOY_BUTTON_DPAD_DOWN:
-			_move_gamepad_cursor(Vector2i.DOWN)
+			if _hud.gamepad_action.is_empty():
+				_move_gamepad_cursor(Vector2i.DOWN)
+			else:
+				_hud.step_gamepad_action(1)
 		JOY_BUTTON_DPAD_LEFT:
 			_move_gamepad_cursor(Vector2i.LEFT)
 		JOY_BUTTON_DPAD_RIGHT:
 			_move_gamepad_cursor(Vector2i.RIGHT)
 		JOY_BUTTON_RIGHT_SHOULDER:
+			_hud.close_gamepad_actions()
 			_clear_gamepad_cursor()
 			_cycle_active_unit()
 		JOY_BUTTON_LEFT_STICK:
 			_frame_squad()
 		JOY_BUTTON_Y:
+			_hud.close_gamepad_actions()
 			_execute_action("END TURN")
 		JOY_BUTTON_B:
+			if not _hud.gamepad_action.is_empty():
+				_hud.close_gamepad_actions()
+				get_viewport().set_input_as_handled()
+				return
 			if not pending_end_turn_confirmation and not pending_retreat_confirmation:
 				if _gamepad_cell.x < 0:
 					return
@@ -2334,9 +2360,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			_sync_display()
 		_:
 			return
+	_hud.gamepad_hints = true
+	_hud.queue_redraw()
 	get_viewport().set_input_as_handled()
 
 func _move_gamepad_cursor(step: Vector2i) -> void:
+	if not _hud.gamepad_action.is_empty():
+		return
 	var active := _current_active_player()
 	if active.is_empty() or _battlefield == null:
 		return

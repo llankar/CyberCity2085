@@ -39,6 +39,8 @@ var combat_log        : Array[String] = []
 var show_log          : bool   = false
 var portrait_textures : Dictionary = {}
 var status_line       : String = ""
+var gamepad_action := ""
+var gamepad_hints := false
 var _elapsed          : float  = 0.0
 var _hovered_portrait : int    = -1
 
@@ -182,7 +184,31 @@ func _update_button_styles() -> void:
 			continue
 		# System actions (NEXT, END TURN) are never "selected" — keep them neutral.
 		var is_selected := action == selected_action and action not in _SYSTEM_ACTIONS
-		_style_btn(btn, is_selected, not is_player)
+		_style_btn(btn, action == gamepad_action if not gamepad_action.is_empty() else is_selected, not is_player)
+
+func step_gamepad_action(step: int) -> void:
+	if _visible_actions.is_empty():
+		return
+	var index := _visible_actions.find(gamepad_action)
+	if index < 0:
+		for action_index in range(_visible_actions.size()):
+			if _visible_actions[action_index].nocasecmp_to(selected_action) == 0:
+				index = action_index
+				break
+		index = maxi(0, index)
+	gamepad_action = _visible_actions[posmod(index + step, _visible_actions.size())]
+	_update_button_styles()
+	queue_redraw()
+
+func close_gamepad_actions(activate: bool = false) -> void:
+	if gamepad_action.is_empty():
+		return
+	var action := gamepad_action
+	gamepad_action = ""
+	_update_button_styles()
+	queue_redraw()
+	if activate and action in _visible_actions and turn_side == "player":
+		_on_action_pressed(action)
 
 func _on_action_pressed(action: String) -> void:
 	CombatSignals.action_pressed.emit(action)
@@ -363,9 +389,19 @@ func _draw_portrait_strip() -> void:
 					  PLAYER_COL if d < ap else Color(0.08, 0.16, 0.22, 1.0), true)
 
 func _draw_status_line() -> void:
-	if status_line.is_empty():
+	var message := tactical_status()
+	if message.is_empty():
 		return
-	_ds(status_line, Vector2(LEFT_MARGIN, size.y - STRIP_H - 8.0), 12, NEON)
+	_ds(message, Vector2(LEFT_MARGIN, size.y - STRIP_H - 8.0), 12, NEON)
+
+func tactical_status() -> String:
+	if not gamepad_action.is_empty():
+		return "D-pad: choose action   A: select   B: close"
+	if gamepad_hints and status_line.begins_with("Confirm"):
+		return "%s   |   A: confirm   B: cancel" % status_line.get_slice(" — ", 0)
+	if gamepad_hints and turn_side == "player":
+		return "%s   |   X: actions   D-pad: aim   A: confirm   Y: end turn" % status_line
+	return status_line
 
 func _draw_combat_log() -> void:
 	var lw  := 360.0

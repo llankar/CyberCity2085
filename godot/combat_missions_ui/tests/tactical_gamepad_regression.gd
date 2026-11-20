@@ -51,7 +51,17 @@ func run() -> void:
 		push_error("Directional pad and A did not preview and execute a legal 1 AP move.")
 		quit(1)
 		return
-	await press(JOY_BUTTON_Y)
+	await press(JOY_BUTTON_X)
+	if mission._hud.gamepad_action.to_upper() != "MOVE" or "choose action" not in mission._hud.tactical_status():
+		push_error("X did not open the action bar on Move with controller hints.")
+		quit(1)
+		return
+	await press(JOY_BUTTON_DPAD_UP)
+	if mission._hud.gamepad_action != "END TURN" or mission.pending_end_turn_confirmation:
+		push_error("The action bar did not wrap or executed before confirmation.")
+		quit(1)
+		return
+	await press(JOY_BUTTON_A)
 	if not mission.pending_end_turn_confirmation or mission.turn_side != "player":
 		push_error("Y did not open the end-turn confirmation.")
 		quit(1)
