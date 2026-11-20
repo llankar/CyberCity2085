@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_grunt.png",
-  "texture_sha256": "8141e110391a946bf532c4d3851222d81e597467ebc6c0a1fb7f938f2e837117",
+  "texture_sha256": "0a17dfdf68e9d7ef25db43ce03c3e68d4a0f62168902ee19a45550b06f2f51bb",
   "frame_size": [
     256,
     256
@@ -88,7 +88,7 @@
         ]
       ]
     },
-    "cover": {
+    "melee": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -126,7 +126,7 @@
         ]
       ]
     },
-    "hit": {
+    "cover": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -164,7 +164,7 @@
         ]
       ]
     },
-    "death": {
+    "hit": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -199,6 +199,44 @@
         [
           78,
           79
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
         ]
       ]
     }
@@ -240,6 +278,13 @@
       "clip": "death",
       "layout": "action_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/melee-action_pairs-5.png",
+      "sha256": "9a275fca6e3c98cd92aa395714722bfa30b3bb9b84e3c8d45e6453c755536a2f",
+      "clip": "melee",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -257,8 +302,7 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "move",
-    "melee"
+    "move"
   ],
   "review_status": "native_review_pending"
 }

@@ -96,7 +96,7 @@ func run() -> void:
 		if enemy.manifest.animations.has("fire"):
 			scene._enemy_attack(0, 0, "grunt")
 			assert(enemy.clip == "fire", "enemy attack must start the fire clip")
-		for checked_action in ["idle", "hit", "cover", "fire"]:
+		for checked_action in ["idle", "hit", "cover", "fire", "melee"]:
 			if not enemy.manifest.animations.has(checked_action):continue
 			var regions := {}
 			var fps := float(enemy.manifest.animations[checked_action].fps)
