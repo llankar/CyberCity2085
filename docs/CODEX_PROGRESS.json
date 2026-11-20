@@ -12,9 +12,25 @@
       "id": "RAIDER-WALK-01",
       "title": "Marche authentique du raider grunt dans huit directions",
       "status": "DONE",
-      "files": ["assets/combat_visual/animations/enemy_raider_grunt.json", "assets/combat_visual/animations/enemy_raider_grunt.png", "assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json", "tools/art/import_directional_clips.py", "tests/test_directional_animation.py", "godot/combat_missions_ui/tests/directional_animation_regression.gd"],
-      "tests": ["Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets", "2 tests Python réussis, 1 test X11 ignoré sous Windows", "Godot 4.6.3 Windows natif : DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_raider_grunt sur Safehouse"],
-      "evidence": ["assets/combat_visual/animations/enemy_raider_grunt.json", "assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json", "godot/combat_missions_ui/tests/directional_animation_regression.gd", "docs/reports/current_combat_visual_tests.xml"],
+      "files": [
+        "assets/combat_visual/animations/enemy_raider_grunt.json",
+        "assets/combat_visual/animations/enemy_raider_grunt.png",
+        "assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json",
+        "tools/art/import_directional_clips.py",
+        "tests/test_directional_animation.py",
+        "godot/combat_missions_ui/tests/directional_animation_regression.gd"
+      ],
+      "tests": [
+        "Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets",
+        "2 tests Python réussis, 1 test X11 ignoré sous Windows",
+        "Godot 4.6.3 Windows natif : DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_raider_grunt sur Safehouse"
+      ],
+      "evidence": [
+        "assets/combat_visual/animations/enemy_raider_grunt.json",
+        "assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json",
+        "godot/combat_missions_ui/tests/directional_animation_regression.gd",
+        "docs/reports/current_combat_visual_tests.xml"
+      ],
       "remaining": "",
       "reason": ""
     },
@@ -575,15 +591,19 @@
         "Inspected Rooftop Access at overview zoom: the east end meets the lower landing. Added a north-south service deck on Skybridge Spine using the existing catwalk art. Both Skybridge Spine 720p projections passed and were visually inspected, including actors previously shown above the drop.",
         "Freight Yard now samples the adjacent paved siding over the painted wagons in the playable crossing. The presentation patch feathers into the original scene and preserves source PNG and tactical geometry. Native overhead 720p capture inspected. Isometric 1080p entity and interaction fixture passed. Seven environment tests passed.",
         "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on E:/CyberCity2085-cleanup/d-root/cybercity-map-final-72bf75f.",
-        "Inspected the revised 1440p captures for Rooftop Access, Skybridge Spine and Freight Yard, including the new walkable surfaces."
+        "Inspected the revised 1440p captures for Rooftop Access, Skybridge Spine and Freight Yard, including the new walkable surfaces.",
+        "Current commit native Windows catalogue: 122/122 maps passed at 1280x720, 1920x1080 and 2560x1440 (366 principal captures), with exact dimensions, identical map sets, entity families, picking, projection and zoom verified. All 11 current 720p sheets inspected for scale and gross rendering regressions; detailed artistic completion remains separate."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt",
         "docs/images/environment-art-review-windows/README.md",
-        "docs/images/environment-art-review-windows/manifest.json"
+        "docs/images/environment-art-review-windows/manifest.json",
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "docs/images/entity-scale-production-windows/catalogue-01.jpg",
+        "docs/images/entity-scale-production-windows/catalogue-11.jpg"
       ],
-      "remaining": "Inspect the revised catalogue and resolve any artistic or scale issues found. The complete capture run predates the separate support robot art routing and atlas.",
+      "remaining": "Perform the detailed final artistic review per map at native resolution and resolve any remaining lighting, seam, occlusion or perspective issue. Current native loading and entity scale are verified separately for 122/122 maps at all three resolutions.",
       "reason": ""
     },
     {
@@ -1304,7 +1324,7 @@
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "render_signature": "afd0920d7df440ebac1b61c558b5d0c89037812df9b04f4c905783756f067bfc",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",
@@ -1312,15 +1332,15 @@
         },
         {
           "path": "docs/images/entity-scale-production-windows/native-report.json",
-          "sha256": "d53f27f83a0bffcc7748477058f46a710d4823bfb563c08588f834f361c33c5b"
+          "sha256": "094d4caa9bff33fde14cb06ce41500e2ad2ec6f7d52aae1a7df6f9edc2d1adf7"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "e624a42141c5d3d5f20ba4352a13c2fa33c1f5905b95acc6766d8c08e5854fea",
-    "scope": "38 cas ciblés : 37 réussis, 1 test X11 ignoré ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; contrôles natifs Windows exécutés séparément",
+    "sha256": "309ab2038467e8bd2eeb679a5da5e4d71acf24e25c7977788fa12ba1747d51e1",
+    "scope": "44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément",
     "not_executed": [
       "Actions de combat manquantes et autres unités",
       "Suite intégrale du jeu"
@@ -1332,7 +1352,7 @@
       },
       {
         "path": "tools/art/update_environment_progress.py",
-        "sha256": "53b11f4b36b3764e68e6bc4e297016ceec2438ab347534baf6e17ad86113a9b3"
+        "sha256": "1c204d356d8ecb16329e19216e00bd6b0b1992630735d533c1f5ade1631596c7"
       },
       {
         "path": "tools/audit_entity_scale.py",
@@ -1344,7 +1364,7 @@
       },
       {
         "path": "tests/test_environment_progress.py",
-        "sha256": "0ca59fe3c99184f432e0676a4ebad5e961bb6a274b97bd7ffa114b19c6bd6712"
+        "sha256": "f52f2430bed1c8d9d1664cb3978553a5148eebb5787589566231f89aa2d706a5"
       },
       {
         "path": "tests/test_entity_scale_inventory.py",
@@ -1352,15 +1372,15 @@
       },
       {
         "path": "tests/test_directional_animation.py",
-        "sha256": "60b10d7676a505f12b42af49029969bf01fcebb77c7993e6984951f6943db74a"
+        "sha256": "55ab87df0ae0d4a4b1b76e04865cb2ac5fd52fe494653693e2879f075a7dbc87"
       },
       {
         "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "e6beeea68047d2695aad086c5763c18b257092f97d7565fc5c6c752053afb6c6"
+        "sha256": "b17e42695ad6f745d45dc3bfd7d8ec321a535a936a13b0b9ec76d2c80a3865e0"
       },
       {
         "path": "godot/combat_missions_ui/tests/capture_directional_animation.gd",
-        "sha256": "52081d40686cbd46c70c86503eaef0a8d491c85eb39b0f15f278f29beca862a0"
+        "sha256": "0d22c53edb545cdd7561a638c459e626a91a3eace2dc70efa9c45ed945098d2a"
       },
       {
         "path": "tests/test_windows_gpu_benchmark.py",
@@ -1396,7 +1416,7 @@
       },
       {
         "path": "godot/combat_missions_ui/art/environment/map_presentation.json",
-        "sha256": "d2f8fee2c6194072c8af10da8d860a032ff2e877b40a29d019c63b29e845232e"
+        "sha256": "68a438b4831e360a46469ae355e54428a62081283e2e57d016a4978cac9c97c1"
       }
     ]
   },
@@ -1421,7 +1441,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : comparer la signature du dernier rendu Windows aux changements de rendu commun, dont l’ancrage des unités. Relancer la validation des 122 cartes pour les changements globaux. ANIM-COMPLETE : poursuivre les atlas authentiques avec des tests par unité.",
+  "next_action": "ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

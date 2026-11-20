@@ -2,6 +2,8 @@
 
 - RAIDER-WALK-01 — DONE (2026-11-20). Marche du raider grunt importée depuis la planche 8 × 4 révisée après contrôle humain de l'alternance des jambes. Atlas complet 128 frames / sept actions, audit ciblé propre, tests Python 2 réussis et capture Windows Godot native sur Safehouse réussie. Le test X11 reste ignoré car non applicable à cette validation Windows. Couverture animation complète : 64 / 233 ; poursuivre la prochaine unité après la revue artistique des 122 cartes.
 
+- ENV-CURRENT-CATALOGUE — DONE pour la validation native et l'échelle (2026-11-20). 122 cartes × trois résolutions rendues sur Windows au commit `013bae5`; 366 captures principales, dimensions et ensembles de cartes contrôlés, picking/projection/zoom et familles d'entités validés. Onze planches 720p inspectées. La revue artistique détaillée reste ouverte et ne doit pas être déduite de ce succès technique.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 

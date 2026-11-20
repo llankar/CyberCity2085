@@ -5,7 +5,7 @@
     "total": 56
   },
   "maps": {
-    "native_verified": 0,
+    "native_verified": 122,
     "native_expected": 122,
     "artistically_declared": 122,
     "artistic_verified": 0
@@ -23,11 +23,14 @@
     "expected": 233
   },
   "tests": {
-    "passed": null,
-    "failed": null,
-    "skipped": null,
-    "not_executed": "UNKNOWN",
-    "scope": "Aucun résultat JUnit enregistré."
+    "passed": 41,
+    "failed": 0,
+    "skipped": 3,
+    "not_executed": [
+      "Actions de combat manquantes et autres unités",
+      "Suite intégrale du jeu"
+    ],
+    "scope": "44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément"
   },
   "render_signature": "afd0920d7df440ebac1b61c558b5d0c89037812df9b04f4c905783756f067bfc",
   "criteria": [
@@ -45,8 +48,8 @@
       "id": "MAP-LOAD",
       "title": "Chargement natif et projection",
       "mandatory": true,
-      "status": "NOT VERIFIED",
-      "detail": "0 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
+      "status": "PASS",
+      "detail": "122 / 122 cartes dans les preuves natives compatibles avec la signature actuelle. Ne valide pas leur finition.",
       "evidence": [
         "docs/images/entity-scale-production-windows/native-report.json",
         "docs/combat_visual_25_status.json"
@@ -86,8 +89,8 @@
       "id": "UNIT-SCALE",
       "title": "Échelle PJ/PNJ/robots/armures/véhicules sur les 122 cartes",
       "mandatory": true,
-      "status": "NOT VERIFIED",
-      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. Revue périmée : le rendu ou les ressources ont changé.",
+      "status": "PASS",
+      "detail": "122 / 122 cartes documentées pour cette passe. Comparer aux portes, voitures du décor, mobilier et rues ; ne pas assimiler le profil visuel existant à une validation. 122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
       "evidence": [
         "docs/reports/entity_scale_review_windows.json",
         "docs/images/entity-scale-production-windows/native-report.json"
@@ -152,7 +155,7 @@
       "title": "Tests exécutés dans la portée du lot",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "{'passed': None, 'failed': None, 'skipped': None, 'not_executed': 'UNKNOWN', 'scope': 'Aucun résultat JUnit enregistré.'}",
+      "detail": "{'passed': 41, 'failed': 0, 'skipped': 3, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément'}",
       "evidence": [
         "docs/reports/current_unified_progress_tests.xml"
       ]
@@ -169,10 +172,8 @@
     }
   ],
   "open_criteria": [
-    "MAP-LOAD",
     "MAP-ART",
     "ART-OBJECTS",
-    "UNIT-SCALE",
     "UNIT-ART",
     "FUNCTIONAL",
     "RESOLUTIONS",
@@ -181,5 +182,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : comparer la signature du dernier rendu Windows aux changements de rendu commun, dont l’ancrage des unités. Relancer la validation des 122 cartes pour les changements globaux. ANIM-COMPLETE : poursuivre les atlas authentiques avec des tests par unité."
+  "next_action": "ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité."
 }
