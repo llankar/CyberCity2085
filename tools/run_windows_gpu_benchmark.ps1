@@ -2,15 +2,19 @@ param(
     [string]$Godot = 'E:\Godot\Godot_v4.6.3\Godot_v4.6.3-stable_win64_console.exe',
     [string]$Map = 'wasteland_outdoor_01_dust_road_ambush',
     [string]$Size = '2560x1440',
-    [int]$Frames = 2400
+    [int]$Frames = 2400,
+    [string]$ProjectDirectory,
+    [string]$OutputDirectory
 )
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$out = Join-Path $root 'work\gpu-benchmark\system-sampled'
+$project = if ($ProjectDirectory) { (Resolve-Path -LiteralPath $ProjectDirectory).Path } else { Join-Path $root 'godot\combat_missions_ui' }
+$out = if ($OutputDirectory) { [IO.Path]::GetFullPath($OutputDirectory) } else { Join-Path $root 'work\gpu-benchmark\system-sampled' }
 New-Item -ItemType Directory -Force -Path $out | Out-Null
 $stdout = Join-Path $out 'godot.stdout.log'
 $stderr = Join-Path $out 'godot.stderr.log'
-$arguments = @('--path', (Join-Path $root 'godot\combat_missions_ui'), '--audio-driver', 'Dummy', '--script', 'tests/capture_combat_21.gd', '--', '--all-maps', '--map', $Map, '--size', $Size, '--art-review', '--entities', '--gpu-benchmark', '--benchmark-frames', $Frames, '--output', $out)
+$fixture = Join-Path $root 'godot\combat_missions_ui\tests\capture_combat_21.gd'
+$arguments = @('--path', ('"{0}"' -f $project), '--audio-driver', 'Dummy', '--script', ('"{0}"' -f $fixture), '--', '--all-maps', '--map', $Map, '--size', $Size, '--art-review', '--entities', '--gpu-benchmark', '--benchmark-frames', $Frames, '--output', ('"{0}"' -f $out))
 $process = Start-Process -FilePath $Godot -ArgumentList $arguments -PassThru -NoNewWindow -RedirectStandardOutput $stdout -RedirectStandardError $stderr
 $started = Get-Date
 $cpuStart = $null
