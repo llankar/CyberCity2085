@@ -552,7 +552,8 @@
         "Native 1440p baseline completed, 122 unique files at 2560x1440, before the shader and catwalk changes. Rooftop Access now uses a source-hash-guarded presentation-only catwalk, generated with imagegen from the source as style reference. Targeted Godot captures at 720p, 1080p and 1440p passed with picking, zoom and anchoring assertions. Eight focused Python tests passed.",
         "Rooftop Access at 720p passed native overhead and isometric fixtures, with the isometric image inspected. The anchor assertion tolerates subpixel float rounding. Capture resume fingerprints now account for projection and surface PNGs.",
         "Inspected Rooftop Access at overview zoom: the east end meets the lower landing. Added a north-south service deck on Skybridge Spine using the existing catwalk art. Both Skybridge Spine 720p projections passed and were visually inspected, including actors previously shown above the drop.",
-        "Freight Yard now samples the adjacent paved siding over the painted wagons in the playable crossing. The presentation patch feathers into the original scene and preserves source PNG and tactical geometry. Native overhead 720p capture inspected. Isometric 1080p entity and interaction fixture passed. Seven environment tests passed."
+        "Freight Yard now samples the adjacent paved siding over the painted wagons in the playable crossing. The presentation patch feathers into the original scene and preserves source PNG and tactical geometry. Native overhead 720p capture inspected. Isometric 1080p entity and interaction fixture passed. Seven environment tests passed.",
+        "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on D:/cybercity-map-final-72bf75f."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -560,7 +561,7 @@
         "docs/images/environment-art-review-windows/README.md",
         "docs/images/environment-art-review-windows/manifest.json"
       ],
-      "remaining": "Recheck the three revised maps and validate the final catalogue after all shared visual changes.",
+      "remaining": "Inspect the revised catalogue and resolve any artistic or scale issues found. The complete capture run predates the separate support robot art routing and atlas.",
       "reason": ""
     },
     {
