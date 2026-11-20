@@ -1,0 +1,88 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_grunt.png",
+  "texture_sha256": "18f4784aebfed3f800bbcc0861dd5b9bc0eafbe2e3e6060718675e4e91ba3683",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_grunt_512.png",
+  "source_sha256": "aa9f28161ab1beb3689751d5b921105b0ccd833aadf6afb80e69a491a668876c",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/idle-idle_pairs-0.png",
+      "sha256": "bc1a9c072b5855b02fc3349221179ab15aff44b1f62623554c7aa40885169281",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The raider grunt has no psionic actions.",
+    "heal": "The raider grunt has no healing action."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
