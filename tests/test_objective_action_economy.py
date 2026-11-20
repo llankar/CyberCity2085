@@ -22,9 +22,11 @@ def test_two_step_download_costs_one_ap_per_squad_turn_and_rejected_attempts_are
     engine = CombatEngine(CombatState(None, [a, b], [], objective=objective))
     first = engine.interact_with_objective(a)
     assert first.consumed_ap == 1 and a.action_points == 1 and objective.progress == 1
+    assert a._actions_used == 1
     repeated = engine.interact_with_objective(b)
     assert repeated.reason == "interaction_already_used_this_turn"
     assert b.action_points == 2 and objective.progress == 1
+    assert getattr(b, "_actions_used", 0) == 0
     engine.state.turn = "enemy"
     engine.start_player_turn()
     last = engine.interact_with_objective(b)
@@ -32,6 +34,7 @@ def test_two_step_download_costs_one_ap_per_squad_turn_and_rejected_attempts_are
     assert sum(engine.state.tactical_flags["objective_contributions"].values()) == 2
     assert engine.interact_with_objective(b).consumed_ap == 0
     assert b.action_points == 1
+    assert a._actions_used == b._actions_used == 1
 
 
 @pytest.mark.parametrize("kind", ["defend", "containment", "assassination"])

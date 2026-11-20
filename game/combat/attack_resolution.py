@@ -234,7 +234,7 @@ def resolve_attack(
 
     consumed_ap = context.ap_cost if spend_ap else 0
     if spend_ap:
-        attacker.action_points -= consumed_ap
+        attacker.spend_action_points(consumed_ap)
     consumed_resource = 0
     if context.resource_cost:
         attacker.spec_ops_asset.missile_capacity -= context.resource_cost

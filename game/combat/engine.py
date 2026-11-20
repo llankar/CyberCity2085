@@ -311,7 +311,7 @@ class CombatEngine:
             aid_target.stats.hp = aid_target.health
             cleared_bleeding = aid_target.has_status(STATUS_BLEEDING)
             aid_target.clear_status(STATUS_BLEEDING)
-            actor.action_points -= 1
+            actor.spend_action_points(1)
             from .agent_moments import record_rescue
             record_rescue(self.state, actor, aid_target, before_hp=before_hp, cleared_bleeding=cleared_bleeding)
             suffix = " and clears BLEEDING" if cleared_bleeding else ""
