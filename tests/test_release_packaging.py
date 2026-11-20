@@ -43,6 +43,16 @@ def test_release_spec_bundles_required_runtime_directories():
     assert 'contents_directory="."' in spec
 
 
+def test_arcade_version_data_is_a_file_in_the_package():
+    from tools.packaging_helpers import normalize_arcade_data
+
+    shader = ("arcade/resources/system/shader.glsl", "source/shader.glsl", "DATA")
+    for destination in ("arcade/VERSION/VERSION", r"arcade\VERSION\VERSION", "arcade/VERSION"):
+        assert normalize_arcade_data([(destination, "source/VERSION", "DATA"), shader]) == [
+            ("arcade/VERSION", "source/VERSION", "DATA"), shader,
+        ]
+
+
 def test_source_runtime_keeps_current_working_directory(monkeypatch, tmp_path):
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(runtime.sys, "frozen", False, raising=False)

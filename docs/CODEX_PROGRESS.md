@@ -430,6 +430,8 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - WINDOWS-RESULT-READ-RETRY: DONE. Bounded retry on result I/O errors. Windows QA package passed victory, defeat and retreat through debrief and HQ at 1280x720. 23 targeted tests passed. Production rebuilt in dist/windows-current; Arcade window startup, bundled headless Godot, save reload and QA entry exclusion passed.
 
+- WINDOWS-ARCADE-VERSION: DONE. Fixed the PyInstaller Arcade VERSION destination; 9 packaging tests passed. Rebuilt production contains the Arcade 3.3.3 version file and passed packaged headless Godot and save reload. A runtime left by a forced startup-test termination locked the first rebuild; the next rebuild completed after that process was stopped.
+
 - WINDOWS-CURRENT-BUILD: DONE. Current local distribution: dist/windows-current/CyberCity2085/CyberCity2085.exe. 1145 passed, 35 skipped, 12 subtests passed. Bundled Godot 4.6.3 starts headless and save reload passes. Arcade and bundled Godot each opened a responsive native window from outside the package directory. The current build?s integrated graphical playthrough remains open.
 
 - PACKAGE-UNIFIED-QA — DONE. L’exécutable Windows QA a joué les trois issues avec Godot embarqué à 1280 × 720 : victoire, défaite et retraite. Chaque parcours revient au QG après le débriefing, recharge sa sauvegarde et rejette une seconde application du résultat. Le pilote est réservé au build QA. DPI, focus, redimensionnement et écoute audio restent à valider.
