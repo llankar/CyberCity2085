@@ -1295,6 +1295,7 @@ func _execute_action(action_name: String) -> void:
 			u["defense"] = int(u.get("defense", 4)) + 3
 			player_units[active_player_index] = u
 			_log_event("%s braces: DEF +3." % _active_unit_name())
+			_visual_self_effect("cover")
 		status_line = "Defend toggled."
 		_sync_display()
 		return
@@ -2317,7 +2318,8 @@ func _visual_self_effect(kind: String) -> void:
 	if _unit_tokens.has(key):
 		var tok = _unit_tokens[key]
 		tok.play_action(kind)
-		_visual_fx.burst(kind,tok.position,tok.position)
+		if kind != "cover":
+			_visual_fx.burst(kind,tok.position,tok.position)
 
 func _toggle_visual_interface() -> void:
 	if not battle_started or battle_ended: return
