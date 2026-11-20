@@ -1,0 +1,62 @@
+{
+  "enemy_giant_robot_02_quadruped_siege": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/idle-action_rows.png",
+        "clip": "idle",
+        "layout": "action_rows"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-front.png",
+        "clip": "move",
+        "layout": "front"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-rear.png",
+        "clip": "move",
+        "layout": "rear"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/fire-action_rows.png",
+        "clip": "fire",
+        "layout": "action_rows"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/melee-action_rows.png",
+        "clip": "melee",
+        "layout": "action_rows"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/cover-action_rows.png",
+        "clip": "cover",
+        "layout": "action_rows",
+        "body_height": 184
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/hit-action_rows.png",
+        "clip": "hit",
+        "layout": "action_rows"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/death-action_rows.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "body_height": 152
+      }
+    ],
+    "applicable_clips": [
+      "idle",
+      "move",
+      "fire",
+      "melee",
+      "cover",
+      "hit",
+      "death"
+    ],
+    "non_applicable_clips": {
+      "psi": "The quadruped siege robot has no psionic system.",
+      "heal": "The quadruped siege robot has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
