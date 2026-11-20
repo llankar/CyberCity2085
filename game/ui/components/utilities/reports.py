@@ -193,7 +193,9 @@ class ReportDeck(UtilityDeck):
         )
         r = self.body(left)
         for i, stat, card in self.page("debrief_agents", v.agent_stats, r, 151):
-            self.paint.panel(card, RED if stat.kia else CYAN)
+            agent_status = summary["agent_rows"][i]["status"]
+            agent_color = RED if stat.kia else GOLD if agent_status != "ACTIVE" else CYAN
+            self.paint.panel(card, agent_color)
             self.image(
                 stat.portrait_path,
                 Rect(
@@ -214,11 +216,11 @@ class ReportDeck(UtilityDeck):
                 width=card.right - x - 12 * u,
             )
             self.label(
-                stat.role.upper() + (" / KIA" if stat.kia else "") + (f" / HP {stat.hp_remaining}/{stat.max_hp_at_extraction}" if stat.hp_remaining is not None else ""),
+                stat.role.upper() + (f" / {agent_status}" if agent_status != "ACTIVE" else "") + (f" / HP {stat.hp_remaining}/{stat.max_hp_at_extraction}" if stat.hp_remaining is not None else ""),
                 x,
                 card.top - 50 * u,
                 15,
-                RED if stat.kia else CYAN,
+                agent_color,
                 width=card.right - x - 12 * u,
             )
             self.label(
