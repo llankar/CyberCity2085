@@ -693,11 +693,12 @@ func _unit_texture_key(unit: Dictionary, is_enemy: bool) -> String:
 		var vehicle_key := str(unit.get("vehicle_key", ""))
 		if not vehicle_key.is_empty() and unit_textures.has(vehicle_key): return vehicle_key
 		if not is_enemy and str(unit.get("role", "")) in ["power_armor","heavy_armor"]:
-			if str(unit.get("asset_type", "")) == "heavy_armor":
-				if not unit_textures.has("power_armor_heavy"):
-					_try_load_tex("power_armor_heavy", "assets/units/power_armor_heavy.png")
-				if unit_textures.has("power_armor_heavy"):
-					return "power_armor_heavy"
+			var is_heavy := str(unit.get("asset_type", unit.get("role", ""))) == "heavy_armor"
+			var suit_key := "power_armor_heavy" if is_heavy else "power_armor"
+			if not unit_textures.has(suit_key):
+				_try_load_tex(suit_key, "assets/units/%s.png" % suit_key)
+			if unit_textures.has(suit_key):
+				return suit_key
 			var armor_key := "visual_power_armor"
 			if not unit_textures.has(armor_key): _try_load_tex(armor_key,"assets/units/enemy_corp_37_power_armor_grunt.png")
 			if unit_textures.has(armor_key): return armor_key

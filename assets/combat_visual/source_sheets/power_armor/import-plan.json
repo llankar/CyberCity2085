@@ -1,0 +1,119 @@
+{
+  "power_armor": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/idle-idle_pairs-0.png",
+        "clip": "idle",
+        "layout": "idle_pairs",
+        "pose_indices": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "direction_indices": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "body_height": 184
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/idle-idle_pairs-1.png",
+        "clip": "idle",
+        "layout": "idle_pairs",
+        "pose_indices": [
+          0,
+          4
+        ],
+        "direction_indices": [
+          1,
+          7
+        ],
+        "body_height": 184
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/move-front-2.png",
+        "clip": "move",
+        "layout": "front",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "body_height": 184
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/move-rear-3.png",
+        "clip": "move",
+        "layout": "rear",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 184
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/cover-action_rows-4.png",
+        "clip": "cover",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 158
+      }
+    ],
+    "body_height": 184,
+    "review_status": "native_render_verified_partial",
+    "applicable_clips": [
+      "idle",
+      "move",
+      "fire",
+      "melee",
+      "cover",
+      "hit",
+      "death"
+    ],
+    "non_applicable_clips": {
+      "psi": "Mantis and Aegis have no PSI actions.",
+      "heal": "Mantis and Aegis have no medical actions."
+    }
+  }
+}

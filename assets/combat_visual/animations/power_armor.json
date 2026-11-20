@@ -1,0 +1,274 @@
+{
+  "texture": "assets/combat_visual/animations/power_armor.png",
+  "texture_sha256": "3e118be883b2998eb717374eea774696cafba26973d62d5f0c1c584b12fcbdce",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.71875,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/power_armor_512.png",
+  "source_sha256": "1a379e0efa10ad5cd6e1d2b11c87ea8325e0fc7e01fb11ba3194524882ee709d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/idle-idle_pairs-0.png",
+      "sha256": "0736e0bc1d436180bddb13445f2213cd0abed73ace08e8d8b0f748678a6f0d34",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/idle-idle_pairs-1.png",
+      "sha256": "73bc6fef427d06de73b5bab37729e742e6cc8fd06b9074ad2b239634be453af4",
+      "clip": "idle",
+      "layout": "idle_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        7
+      ],
+      "pose_indices": [
+        0,
+        4
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/move-front-2.png",
+      "sha256": "e3ccb564956b2269a0a3747a3ecd5ab6d35d97c68593e77565c5862981efde35",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/move-rear-3.png",
+      "sha256": "d8d96cdedd70baa105a96042f5a1ac8f9e282501f7cbb12bebbe16707b33bc5d",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/cover-action_rows-4.png",
+      "sha256": "7a8f8c63d5337be064f17e123deaa049bd341cfb61c0a3dd6e4250d8ed82b695",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "Mantis and Aegis have no PSI actions.",
+    "heal": "Mantis and Aegis have no medical actions."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "fire",
+    "melee",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_render_verified_partial"
+}
