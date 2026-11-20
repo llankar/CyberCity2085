@@ -176,7 +176,11 @@ func _draw() -> void:
 	_draw_target()
 	var message := tactical_status()
 	if not message.is_empty():
-		_ds(_fit(message,size.x-50,17),Vector2(18,_roster_y-12),17,NEON)
+		var status_text := _fit(message, size.x - 50, 17)
+		var status_width := ThemeDB.fallback_font.get_string_size(
+			status_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 17).x
+		draw_rect(Rect2(12, _roster_y - 31, status_width + 12, 26), Color(0.015, 0.035, 0.043, 0.96))
+		_ds(status_text, Vector2(18, _roster_y - 12), 17, NEON)
 	if show_log: _draw_combat_log()
 	if settings_open:
 		_panel(Rect2(size.x-346,80,330,184),NEON)
