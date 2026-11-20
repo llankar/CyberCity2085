@@ -1,0 +1,94 @@
+{
+  "robot_support": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/idle-idle_pairs-0.png",
+        "clip": "idle",
+        "layout": "idle_pairs",
+        "pose_indices": [
+          0,
+          4
+        ],
+        "direction_indices": [
+          0,
+          1
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/idle-idle_pairs-1.png",
+        "clip": "idle",
+        "layout": "idle_pairs",
+        "pose_indices": [
+          2,
+          3,
+          0,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/move-front-2.png",
+        "clip": "move",
+        "layout": "front",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          0,
+          1,
+          4,
+          5
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/move-front-3.png",
+        "clip": "move",
+        "layout": "front",
+        "pose_indices": [
+          2,
+          3
+        ],
+        "direction_indices": [
+          2,
+          3
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/move-rear-4.png",
+        "clip": "move",
+        "layout": "rear",
+        "pose_indices": [
+          2
+        ],
+        "direction_indices": [
+          6
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/robot_support/move-rear-5.png",
+        "clip": "move",
+        "layout": "rear",
+        "pose_indices": [
+          0
+        ],
+        "direction_indices": [
+          7
+        ]
+      }
+    ],
+    "body_height": 112,
+    "review_status": "native_render_verified_partial"
+  }
+}

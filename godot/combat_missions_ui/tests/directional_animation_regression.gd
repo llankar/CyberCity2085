@@ -1,5 +1,5 @@
 extends SceneTree
-const KEYS=["agent_psi","agent_diverse_01_neon_blade","agent_diverse_02_longcoat_gunner","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","agent_diverse_05_psi_doctor","agent_diverse_06_street_medic","agent_diverse_07_hooded_infiltrator","agent_diverse_08_holo_hacker","agent_diverse_09_blue_mohawk_scout","agent_diverse_10_ronin_duelist","agent_diverse_11_rail_sniper","agent_diverse_12_violet_fixer","agent_diverse_13_silver_pistol","agent_diverse_14_armored_vanguard","agent_diverse_15_chrome_medic","agent_diverse_16_heavy_breacher","agent_diverse_17_yellow_strike","agent_diverse_18_red_enforcer","agent_diverse_19_drone_handler","agent_diverse_20_cyber_doc","agent_diverse_21_twin_blade_adept","agent_diverse_22_veteran_inquisitor","agent_diverse_23_dreadlock_rifle","agent_diverse_24_hooded_psion","agent_diverse_25_redline_runner","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat"]
+const KEYS=["agent_psi","agent_diverse_01_neon_blade","agent_diverse_02_longcoat_gunner","agent_diverse_03_magenta_pistol","agent_diverse_04_trench_sniper","agent_diverse_05_psi_doctor","agent_diverse_06_street_medic","agent_diverse_07_hooded_infiltrator","agent_diverse_08_holo_hacker","agent_diverse_09_blue_mohawk_scout","agent_diverse_10_ronin_duelist","agent_diverse_11_rail_sniper","agent_diverse_12_violet_fixer","agent_diverse_13_silver_pistol","agent_diverse_14_armored_vanguard","agent_diverse_15_chrome_medic","agent_diverse_16_heavy_breacher","agent_diverse_17_yellow_strike","agent_diverse_18_red_enforcer","agent_diverse_19_drone_handler","agent_diverse_20_cyber_doc","agent_diverse_21_twin_blade_adept","agent_diverse_22_veteran_inquisitor","agent_diverse_23_dreadlock_rifle","agent_diverse_24_hooded_psion","agent_diverse_25_redline_runner","enemy_grunt","enemy_corp_37_power_armor_grunt","robot_combat","robot_support"]
 func _initialize() -> void:call_deferred("run")
 func run() -> void:
 	root.size=Vector2i(640,480)
@@ -15,7 +15,7 @@ func run() -> void:
 	var observed:=0
 	for key: String in keys:
 		var image:=Image.load_from_file(base.path_join("assets/units/"+key+"_512.png"))
-		var role: String="robot" if key=="robot_combat" else ("power_armor" if "power_armor" in key else ("psi" if "psi_doctor" in key else "samurai"))
+		var role: String="robot" if key in ["robot_combat","robot_support"] else ("power_armor" if "power_armor" in key else ("psi" if "psi_doctor" in key else "samurai"))
 		unit.setup({"hp":24,"max_hp":24,"role":role,"position":Vector2i(4,4)},0,false,ImageTexture.create_from_image(image),Vector2(150,150))
 		unit.configure_animation(key,base)
 		assert(unit.atlas!=null and unit.manifest.animations.has("move"),key+" real atlas loaded")
