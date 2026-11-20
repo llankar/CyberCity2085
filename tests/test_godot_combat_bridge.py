@@ -41,6 +41,17 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_payload_transmits_reduced_motion_preference(self) -> None:
+        game_state = GameState(
+            characters=[Character("Vera")], selected_agent_names=["Vera"]
+        )
+        for enabled in (False, True):
+            with self.subTest(enabled=enabled):
+                settings = settings_screen.SettingsState(reduced_motion=enabled)
+                with patch.object(settings_screen, "load_settings", return_value=settings):
+                    payload = build_godot_combat_payload(game_state, _mission())
+                self.assertEqual(payload["accessibility"], {"reduced_motion": enabled})
+
     def test_payload_satisfies_versioned_handoff_contract(self) -> None:
         game_state = GameState(
             characters=[Character("Vera", role="sniper")],

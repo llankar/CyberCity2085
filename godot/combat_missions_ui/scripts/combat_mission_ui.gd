@@ -309,6 +309,8 @@ func _build_children() -> void:
 	banner_layer.layer = 2
 	add_child(banner_layer)
 	_banner = _BNRScript.new()
+	var reduced_motion := bool(handoff.get("accessibility", {}).get("reduced_motion", false))
+	_banner.reduced_motion = reduced_motion
 	_banner.name = "PhaseBanner"
 	banner_layer.add_child(_banner)
 
@@ -322,6 +324,7 @@ func _build_children() -> void:
 	results_layer.layer = 3
 	add_child(results_layer)
 	_results = _RESScript.new()
+	_results.reduced_motion = reduced_motion
 	_results.name    = "MissionResults"
 	_results.visible = false
 	results_layer.add_child(_results)

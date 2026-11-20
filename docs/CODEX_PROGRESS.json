@@ -1182,6 +1182,24 @@
       ],
       "remaining": "Relancer ou réparer la session déjà interrompue dans l'interface ouverte.",
       "reason": "La session déjà en erreur ne peut pas se réparer à chaud après l'arrêt de son processus ; une nouvelle tentative est nécessaire."
+    },
+    {
+      "id": "TACTICAL-REDUCED-MOTION",
+      "title": "Réduction des mouvements dans les annonces et résultats Godot",
+      "status": "DONE",
+      "files": [
+        "game/combat/godot_bridge.py",
+        "godot/combat_missions_ui/scripts/phase_banner.gd",
+        "godot/combat_missions_ui/scripts/mission_results.gd"
+      ],
+      "tests": [
+        "Bridge et reprise tactique, 38 réussis, 8 ignorés, 2 sous-tests réussis avec les temporaires sur D",
+        "Démarrage Godot headless sans erreur de parsing"
+      ],
+      "evidence": [
+        "tests/test_godot_combat_bridge.py"
+      ],
+      "remaining": ""
     }
   ],
   "reviews": {

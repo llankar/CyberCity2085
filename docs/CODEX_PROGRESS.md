@@ -406,6 +406,13 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Travail restant dans cette portée : relancer ou réparer la session déjà interrompue dans l'interface ouverte.
 - Problème / raison : la session déjà en erreur exige une nouvelle tentative car son processus est arrêté.
 
+### TACTICAL-REDUCED-MOTION — DONE — Réduction des mouvements dans les annonces et résultats Godot
+
+- Fichiers : `game/combat/godot_bridge.py`, `godot/combat_missions_ui/scripts/phase_banner.gd`, `godot/combat_missions_ui/scripts/mission_results.gd`.
+- Tests / contrôles réellement exécutés : Bridge et reprise tactique, 38 réussis, 8 ignorés, 2 sous-tests réussis avec les temporaires sur D; Démarrage Godot headless sans erreur de parsing.
+- Preuves : `tests/test_godot_combat_bridge.py`.
+- Travail restant dans cette portée : Aucun.
+
 ## Problèmes et ressources en attente
 
 - Le modèle procédural rejeté reste hors production.

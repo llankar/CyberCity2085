@@ -244,6 +244,7 @@ def build_godot_combat_payload(
         "schema_version": GODOT_SCHEMA_VERSION,
         "source": "CyberCity2085",
         "ui_engine": "godot",
+        "accessibility": {"reduced_motion": audio_settings.reduced_motion},
         "audio": {
             "battle_music_path": str(track.resolve()) if track else "",
             "start_position": SoundManager.get().music_position_for(track) if track else 0.0,
