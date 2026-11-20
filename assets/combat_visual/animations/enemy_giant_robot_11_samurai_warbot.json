@@ -1,0 +1,371 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_giant_robot_11_samurai_warbot.png",
+  "texture_sha256": "b4eb93e1e4e58ed31b297c055f365b0c4815628ced125c1343124abfdbd95aef",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_giant_robot_11_samurai_warbot_512.png",
+  "source_sha256": "862ad0a284d8ea2a3c76b6eb6d9d925a0520135668297979aa43ab418fc4fa34",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/idle-action_columns-0.png",
+      "sha256": "c02592416cbc2695c1a393847d4ecf335b67e6f8e2a40c775b8c98684c3ab8ff",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/move-walk_columns-1.png",
+      "sha256": "1b4e24b5746a5f8d74713cb74954efca7587f578174ffe3421517d7403a4523b",
+      "clip": "move",
+      "layout": "walk_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "intermediate": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/move-walk_columns-1-intermediate.png",
+        "sha256": "27b805d8b195b02ef1e046205ced15162de86322a8478fa6e3536397e3937474"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/fire-action_columns-2.png",
+      "sha256": "b7dc65d44b3d81c8dc2d9e74bdf40a64ac07be089d53f82081f8411f4caa2da2",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/melee-action_columns-3.png",
+      "sha256": "cfef0794575045751a0d4874a1cfe59e8dcb62c943ad5dadc94c535ab7bedefd",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/cover-action_columns-4.png",
+      "sha256": "8a26c322a78a1c162e739fd2a3bd6aea684cdce74f7a396ace97f7511048c26a",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/hit-action_columns-5.png",
+      "sha256": "ae5593240bd76a6c0ea3a3740c0cd073aa5b4f9a20f7eaf077295e513d4617d9",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_11_samurai_warbot/death-action_columns-6.png",
+      "sha256": "fa86c5124323357c287f6a201a2390a68529f71beb24c105975191b27675387c",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The samurai warbot has no psionic system.",
+    "heal": "The samurai warbot has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
