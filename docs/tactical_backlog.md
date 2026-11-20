@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- ANIM-COMPLETE / corp security giant robot — IN_PROGRESS (2026-11-20). La planche d'extrêmes A/B est acceptée sur E: : huit orientations réelles, optiques rouges absentes de NW/N/NE, bouclier unique maintenu au bras gauche du robot, arme intégrée au bras droit et inversion nette des appuis. Prochaine action : produire les intermédiaires C/D et vérifier l'alternance A/C/B/D avant tout import. Couverture complète inchangée : 74 / 233.
+
 - RAIDER-WALK-01 — DONE (2026-11-20). Marche du raider grunt importée depuis la planche 8 × 4 révisée après contrôle humain de l'alternance des jambes. Atlas complet 128 frames / sept actions, audit ciblé propre, tests Python 2 réussis et capture Windows Godot native sur Safehouse réussie. Le test X11 reste ignoré car non applicable à cette validation Windows. Couverture animation complète : 64 / 233 ; poursuivre la prochaine unité après la revue artistique des 122 cartes.
 
 - ENV-CURRENT-CATALOGUE — DONE pour la validation native et l'échelle (2026-11-20). 122 cartes × trois résolutions rendues sur Windows au commit `013bae5`; 366 captures principales, dimensions et ensembles de cartes contrôlés, picking/projection/zoom et familles d'entités validés. Onze planches 720p inspectées. La revue artistique détaillée reste ouverte et ne doit pas être déduite de ce succès technique.

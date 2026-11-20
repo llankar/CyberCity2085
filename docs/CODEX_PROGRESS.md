@@ -518,6 +518,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : examiner enemy_giant_robot_12_corp_security, produire d'abord une marche A/C/B/D à huit orientations avec alternance réelle des jambes, puis tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : produire les intermédiaires C/D de enemy_giant_robot_12_corp_security, vérifier l'alternance A/C/B/D et les côtés bouclier/arme, puis seulement importer et tester cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
