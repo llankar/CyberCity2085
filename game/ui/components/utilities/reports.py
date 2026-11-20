@@ -163,7 +163,7 @@ class ReportDeck(UtilityDeck):
             ),
         ]:
             self.panel(rect, title, "journal" if name == "world" else "squad")
-            self.document(name, "\n\n".join(map(str, lines)), self.body(rect), 19)
+            self.document(name, "\n\n".join(map(str, lines)), self.body(rect), 19, keep_paragraphs=True)
         self.footer("RETURN TO TITLE [ENTER]", hint="TAB / ARROWS · SPACE TO SELECT")
         self.end()
 

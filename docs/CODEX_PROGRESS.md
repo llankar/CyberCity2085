@@ -462,7 +462,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - RELEASE-REGRESSION — IN_PROGRESS. Suite complète Windows : 1117 réussis, 32 échecs, 35 ignorés. Corrigé les attentes périmées sur l’anglais et les séparateurs de chemins dans trois suites (28 réussis, 1 ignoré). Prochain lot : fixtures Arcade du QG, puis tri des écarts de carte et de lancement avant de reconstruire le package.
 
-- CAMPAIGN-FALLEN-EPILOGUES: DONE. Confirmed combat deaths are recorded by both clients through Python campaign state and survive save reload. The finale includes fallen agents by name. 53 campaign and unified regressions passed. A production rebuild and visual check of the updated epilogue are pending.
+- CAMPAIGN-FALLEN-EPILOGUES: DONE. Confirmed combat deaths are recorded by both clients through Python campaign state and survive save reload. The finale includes fallen agents by name. 53 campaign and unified regressions passed. The updated Arcade epilogue was visually checked at 720p with a multi-page memorial fixture. Paragraphs now stay together across page breaks when they fit. Nine targeted tests passed. Production rebuild pending.
 
 - CAMPAIGN-PACKAGED-QA: DONE. Fifteen authored missions completed on one campaign lineage across five acts in the Windows QA package at 1280x720. Citadel, Expose and Seven Minutes to Dawn won. Save reload retained Dawn Without Masters (human_coalition), named epilogues and all 15 story completions. Inspected the ending capture. Production manual play and audio listening remain open.
 

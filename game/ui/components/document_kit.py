@@ -53,7 +53,7 @@ class DocumentKit(VisualKit):
                 (name, 1),
             )
 
-    def document(self, name, text, rect, size=16, color=TEXT, *, headings=()):
+    def document(self, name, text, rect, size=16, color=TEXT, *, headings=(), keep_paragraphs=False):
         font = scale_font_size(max(13, size * self.u))
         # Preserve paragraphs and all data through explicit reader pages.
         key = (str(text), rect.width, font)
@@ -90,11 +90,26 @@ class DocumentKit(VisualKit):
             self._documents[key] = lines
         leading = max(21 * self.u, font * 1.5)
         capacity = max(1, int((rect.height - 37 * self.u) / leading))
-        pages = max(1, (len(lines) + capacity - 1) // capacity)
+        page_lines = []
+        start = 0
+        while start < len(lines):
+            end = min(start + capacity, len(lines))
+            if keep_paragraphs and end < len(lines) and lines[end]:
+                boundary = end
+                while boundary > start and lines[boundary - 1]:
+                    boundary -= 1
+                if boundary > start:
+                    end = boundary
+            page_lines.append(lines[start:end])
+            start = end
+            if keep_paragraphs:
+                while start < len(lines) and not lines[start]:
+                    start += 1
+        pages = max(1, len(page_lines))
         self.pages[name] = min(self.pages.get(name, 0), pages - 1)
         page = self.pages[name]
         self.capacities[name] = (pages, capacity, rect)
-        for i, line in enumerate(lines[page * capacity : (page + 1) * capacity]):
+        for i, line in enumerate(page_lines[page] if page_lines else ()):
             self.label(
                 line,
                 rect.left,
