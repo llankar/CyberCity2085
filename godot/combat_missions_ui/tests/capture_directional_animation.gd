@@ -93,18 +93,20 @@ func run() -> void:
 		var enemy=scene._unit_tokens["e0"]
 		assert(enemy.visual_key==enemy_target,"capture must exercise the requested enemy atlas")
 		enemy.set_process(false)
-		var idle_regions := {}
-		var idle_fps := float(enemy.manifest.animations.idle.fps)
-		for direction in range(8):
-			enemy.facing = direction
-			assert(enemy.play_action("idle"))
-			for phase in range(2):
-				enemy.frame_time = (phase + 0.1) / idle_fps
-				enemy._process(0)
-				assert(enemy.frame_index == phase)
-				await process_frame;await RenderingServer.frame_post_draw
-				idle_regions[enemy._art_sprite.region_rect] = true
-		assert(idle_regions.size() == 16, "all idle facings must select two atlas frames")
+		for checked_action in ["idle", "hit"]:
+			if not enemy.manifest.animations.has(checked_action):continue
+			var regions := {}
+			var fps := float(enemy.manifest.animations[checked_action].fps)
+			for direction in range(8):
+				enemy.facing = direction
+				assert(enemy.play_action(checked_action))
+				for phase in range(2):
+					enemy.frame_time = (phase + 0.1) / fps
+					enemy._process(0)
+					assert(enemy.frame_index == phase)
+					await process_frame;await RenderingServer.frame_post_draw
+					regions[enemy._art_sprite.region_rect] = true
+			assert(regions.size() == 16, "%s must select two atlas frames per facing" % checked_action)
 		for action in ["idle","move","fire","melee","cover","hit","death","psi"]:
 			if not enemy.manifest.animations.has(action):continue
 			assert(enemy.play_action(action))
