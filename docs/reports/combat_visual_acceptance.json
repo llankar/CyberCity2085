@@ -2,7 +2,7 @@
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
     "done": 46,
-    "total": 60
+    "total": 61
   },
   "maps": {
     "native_verified": 122,
@@ -165,7 +165,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "46 / 60 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "46 / 61 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -182,5 +182,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 05, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : préparer l'atlas authentique de enemy_giant_robot_02_quadruped_siege à partir de sources visuellement vérifiées, avec tests limités à cette unité."
+  "next_action": "ENV-FINAL : reprendre la revue native détaillée à 1440p sur cybercity_inner_14_detention_block, puis inspecter les 10 autres cartes non vues de la planche 05 et corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
 }

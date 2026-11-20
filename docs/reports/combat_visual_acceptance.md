@@ -2,7 +2,7 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
-Tâches DONE : 46 / 60. Ce ratio porte sur le registre, pas sur la finition artistique.
+Tâches DONE : 46 / 61. Ce ratio porte sur le registre, pas sur la finition artistique.
 Cartes : 122 / 122 chargées ; 0 artistiquement vérifiées.
 Animations complètes : 64 / 233 ; 0 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
@@ -22,7 +22,7 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 64 / 233 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
 | TARGETED-TESTS — Tests exécutés dans la portée du lot | NOT VERIFIED | {'passed': 41, 'failed': 0, 'skipped': 3, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément'} |
-| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 46 / 60 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
+| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 46 / 61 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
 
 ## Tests réellement enregistrés
 
@@ -34,4 +34,4 @@ MAP-ART, ART-OBJECTS, UNIT-ART, FUNCTIONAL, RESOLUTIONS, PERFORMANCE, ANIMATIONS
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 05, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : préparer l'atlas authentique de enemy_giant_robot_02_quadruped_siege à partir de sources visuellement vérifiées, avec tests limités à cette unité.
+ENV-FINAL : reprendre la revue native détaillée à 1440p sur cybercity_inner_14_detention_block, puis inspecter les 10 autres cartes non vues de la planche 05 et corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.

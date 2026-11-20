@@ -9,6 +9,26 @@
   ],
   "tasks": [
     {
+      "id": "ENV-DETAIL-INNER-STREET-05",
+      "title": "Revue artistique native detaillee du lot interieur et rue 05",
+      "status": "IN_PROGRESS",
+      "files": [
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "docs/images/entity-scale-production-windows/catalogue-05.jpg"
+      ],
+      "tests": [
+        "1 capture Windows Godot 2560x1440 inspectee individuellement : cybercity_inner_13_warehouse_floor",
+        "Raccords, lumieres, ombres, occultation, perspective, mobilier et lisibilite tactique controles ; aucun defaut local reproductible sur cette carte",
+        "La limite d'affichage de la passe n'a pas permis de verifier les 11 autres cartes ; elles restent NOT VERIFIED"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/catalogue-05.jpg",
+        "docs/images/entity-scale-production-windows/native-report.json"
+      ],
+      "remaining": "Inspecter individuellement les 11 captures restantes de la planche 05, en reprenant par cybercity_inner_14_detention_block",
+      "reason": "Revue partielle explicite : 49 / 122 cartes detaillees ; 73 restent a revoir au meme niveau"
+    },
+    {
       "id": "ENV-DETAIL-INNER-04",
       "title": "Revue artistique native détaillée du lot intérieur 04",
       "status": "DONE",
@@ -718,6 +738,7 @@
         "tools/audit_combat_visuals.py"
       ],
       "tests": [
+        "Quadruped siege candidate rejected before import: the generated 8x2 sheet did not preserve the requested cardinal order (the north row showed the front) and some gait pairs did not prove clear diagonal leg alternation. Rejected source retained only on E: under CyberCity2085-builds/quadruped-siege/rejected; no production asset changed. 64 / 233 complete.",
         "Raider grunt IN_PROGRESS. Melee adds 16 distinct wind-up and follow-through poses across eight facings. Targeted native Safehouse fixture selected all 16 regions; 1080p capture reviewed. The test drives the clip directly, while the current grunt AI still uses ranged attacks. Only move is missing from this atlas. 63 / 233 complete.",
         "Raider grunt IN_PROGRESS. Death adds 16 collapse and prone poses over eight facings. Targeted native Safehouse test verified all 16 regions at zero HP without a cast shadow; 1080p capture reviewed. Move and melee remain open. 63 / 233 complete.",
         "Raider grunt IN_PROGRESS. Fire adds 16 distinct aiming and recoil poses across eight facings. The native Safehouse test triggered fire through the enemy attack path and selected all 16 regions. The 1080p capture was reviewed. Move, melee and death remain open. 63 / 233 complete.",
@@ -1525,7 +1546,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 05, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : préparer l'atlas authentique de enemy_giant_robot_02_quadruped_siege à partir de sources visuellement vérifiées, avec tests limités à cette unité.",
+  "next_action": "ENV-FINAL : reprendre la revue native détaillée à 1440p sur cybercity_inner_14_detention_block, puis inspecter les 10 autres cartes non vues de la planche 05 et corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
