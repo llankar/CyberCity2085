@@ -238,6 +238,9 @@ func _draw() -> void:
 						  Rect2(-cw * 0.5, -ch, cw, ch),
 						  false, art_col)
 
+	if unit_id >= 1000:
+		return
+
 	# 6 — HP bar: thin coloured strip just below the card bottom, on the base.
 	var hp     := int(unit_data.get("hp",     0))
 	var max_hp := maxi(1, int(unit_data.get("max_hp", 1)))

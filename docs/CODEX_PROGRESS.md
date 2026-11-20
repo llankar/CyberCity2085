@@ -221,7 +221,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm end turn through injected joypad events. D-pad and A select a board cell and execute a legal move. X opens the tactical action bar with D-pad navigation and contextual hints. The camera pans to keep gamepad targeting inside the board viewport in both projections. Targeted attacks require an enemy on the gamepad cursor cell. Physical controller validation remains open.
 
 - Fichiers : `godot/combat_missions_ui/tests`, `docs/images/combat-directional-animation`.
-- Tests / contrôles réellement exécutés : Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle.
+- Tests / contrôles réellement exécutés : Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle. Parked vehicles omit tactical status markings in both Godot interfaces. Native Dust Road VTOL fixture passed and a before/after pixel check confirmed the cyan health bar was removed. Combat vehicles remain on the existing combat token path.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`.
 - Travail restant dans cette portée : Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles.
 
