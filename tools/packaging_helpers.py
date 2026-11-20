@@ -28,6 +28,15 @@ def godot_runtime_data(directory, *, include_qa=False):
     ]
 
 
+def normalize_arcade_data(toc):
+    """Correct the Arcade hook's directory destination for its VERSION file."""
+    return [
+        ("arcade/VERSION" if Path(destination.replace("\\", "/")).parts == ("arcade", "VERSION", "VERSION")
+         else destination, source, kind)
+        for destination, source, kind in toc
+    ]
+
+
 def build_identity_data(project_root, label=None):
     """Stamp the actual build identity into frozen distributions without Git."""
     import json
