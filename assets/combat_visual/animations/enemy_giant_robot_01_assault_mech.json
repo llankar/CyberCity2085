@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "cf5b70de5660edfe35e6620576c991d7a4520c41dcd8194e395437eec7efdafb",
+  "texture_sha256": "93f48f8746faf35df50ab4e5e3451e48de4966928d8a40d6124c3da16c9bf83c",
   "frame_size": [
     256,
     256
@@ -255,6 +255,44 @@
           111
         ]
       ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
@@ -426,6 +464,13 @@
       "pose_indices": [
         0
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/death-action_rows-11.png",
+      "sha256": "4b34f0f133bdb6ea800b629e70e9e217419f145e356c656d76ee275d2d9d8130",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -441,9 +486,7 @@
     "psi": "Combat mech has no psionic loadout.",
     "heal": "Combat mech has no healing loadout."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
