@@ -1,7 +1,7 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 47,
+    "done": 48,
     "total": 62
   },
   "maps": {
@@ -165,7 +165,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "47 / 62 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "48 / 62 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -184,5 +184,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : inspecter les recaptures 1440p corrigées de cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza dans E:/CyberCity2085-builds/map-planche-06-fix, puis afficher les cinq cartes restantes de la planche 06 à partir de cybercity_street_11_transit_interchange. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
+  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 07, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après la correction locale. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
 }

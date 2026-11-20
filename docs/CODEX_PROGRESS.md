@@ -8,13 +8,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
-### ENV-DETAIL-STREET-06 — IN_PROGRESS — Revue artistique native detaillee du lot rue 06
+### ENV-DETAIL-STREET-06 — DONE — Revue artistique native detaillee du lot rue 06
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `godot/combat_missions_ui/art/environment/expansion_reviews.json`, `tests/test_environment_art25.py`, `docs/images/entity-scale-production-windows/catalogue-06.jpg`.
-- Tests / contrôles réellement exécutés : 7 captures Windows Godot 2560x1440 affichees individuellement ; cinq sans defaut reproductible et deux civic plaza avec un overlay de jardiniere surdimensionne et incoherent; Overlay center_planter_e desactive uniquement sur cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza ; PNG source, SHA et geometrie tactique preserves; 13 tests environnement reussis, 2 ignores faute de X11; Deux recaptures Windows natives Godot 4.7.2/OpenGL sur RTX 5070 Ti : COMBAT_21_CAPTURE_PASSED ; inspection artistique des recaptures NOT VERIFIED a cause de la limite d'affichage.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 inspectees individuellement ; dix sans defaut reproductible et deux civic plaza avec un overlay de jardiniere surdimensionne et incoherent; Overlay center_planter_e desactive uniquement sur cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza ; PNG source, SHA et geometrie tactique preserves; 13 tests environnement reussis, 2 ignores faute de X11; Deux recaptures Windows natives Godot 4.7.2/OpenGL sur RTX 5070 Ti : COMBAT_21_CAPTURE_PASSED ; copies de revue 1280x720 inspectees, overlay absent et integration du decor source validee.
 - Preuves : `docs/images/entity-scale-production-windows/catalogue-06.jpg`, `docs/images/entity-scale-production-windows/native-report.json`, `godot/combat_missions_ui/art/environment/environment_art.json`, `godot/combat_missions_ui/art/environment/expansion_reviews.json`.
-- Travail restant dans cette portée : Inspecter les deux recaptures corrigees sur E:/CyberCity2085-builds/map-planche-06-fix, puis les cinq cartes restantes de la planche 06 a partir de cybercity_street_11_transit_interchange.
-- Problème / raison : Revue partielle explicite : 5 cartes du lot artistiquement claires, 2 corrections non encore inspectees et 5 cartes non affichees.
+- Travail restant dans cette portée : Aucun.
 
 ### ENV-DETAIL-INNER-STREET-05 — DONE — Revue artistique native detaillee du lot interieur et rue 05
 
@@ -484,6 +483,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : inspecter les recaptures 1440p corrigées de cybercity_street_10_civic_plaza et cybercity_street_11_civic_plaza dans E:/CyberCity2085-builds/map-planche-06-fix, puis afficher les cinq cartes restantes de la planche 06 à partir de cybercity_street_11_transit_interchange. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 07, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après la correction locale. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
