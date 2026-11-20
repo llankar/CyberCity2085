@@ -9,6 +9,7 @@ KEYS=['agent_psi','agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunne
 TARGET=os.environ.get('CYBERCITY_ANIMATION_ASSET')
 KEYS.insert(-1,'enemy_giant_robot_11_samurai_warbot')
 KEYS.insert(-1,'enemy_giant_robot_12_corp_security')
+KEYS.insert(-1,'enemy_giant_robot_13_salvage_warbot')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
