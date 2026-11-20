@@ -534,7 +534,7 @@
     {
       "id": "ENV-FINAL",
       "title": "Finition artistique individuelle des 122 cartes",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/art/environment/environment_art.json",
         "docs/combat_visual_25_inventory.md"
@@ -550,7 +550,7 @@
         "docs/images/environment-art-review-windows/README.md",
         "docs/images/environment-art-review-windows/manifest.json"
       ],
-      "remaining": "",
+      "remaining": "Revalidate the 122 native map renders after the shared unit anchoring change. Preserve the historical individual art review.",
       "reason": ""
     },
     {

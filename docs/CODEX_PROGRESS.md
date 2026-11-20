@@ -193,12 +193,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/reports/combat_visual_acceptance.json`, `docs/reports/entity_scale_review_windows.json`.
 - Travail restant dans cette portée : Aucun.
 
-### ENV-FINAL — DONE — Finition artistique individuelle des 122 cartes
+### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`.
 - Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition; Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus; Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/environment-art-review-windows/README.md`, `docs/images/environment-art-review-windows/manifest.json`.
-- Travail restant dans cette portée : Aucun.
+- Travail restant dans cette portée : Revalidate the 122 native map renders after the shared unit anchoring change. Preserve the historical individual art review.
 
 ### UNIT-COVERAGE — IN_PROGRESS — Identités de toutes les familles d’unités
 
@@ -424,6 +424,8 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 - Inventaire SCALE : 122 cartes, 92 illustrations, cinq ratios génériques, 30 groupes partageant un PNG et aucune contradiction de ratio entre alias. Les références automobiles de deux intersections suggèrent des réductions, à confirmer ; la borne actuelle .015 limite les essais plus petits. Aucune taille de production modifiée.
 
 ## Prochaine action précise
+
+ENV-FINAL : comparer la signature du dernier rendu Windows aux changements de rendu commun, dont l’ancrage des unités. Relancer la validation des 122 cartes pour les changements globaux. ANIM-COMPLETE : poursuivre les atlas authentiques avec des tests par unité.
 
 - ANIM-TARGET-AUDIT — DONE. Le contrôle d’atlas accepte `--asset` pour vérifier uniquement l’unité en cours sans parcourir les cartes. La commande confirme que `enemy_commander` n’a pas encore de manifeste. Prochaine étape : produire ses planches, les importer et valider cette seule unité sur une carte.
 
