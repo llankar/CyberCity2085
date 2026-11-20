@@ -168,8 +168,9 @@ func _draw() -> void:
 	_draw_command_hover()
 	_draw_roster()
 	_draw_target()
-	if not status_line.is_empty():
-		_ds(_fit(status_line,size.x-50,17),Vector2(18,_roster_y-12),17,NEON)
+	var message := tactical_status()
+	if not message.is_empty():
+		_ds(_fit(message,size.x-50,17),Vector2(18,_roster_y-12),17,NEON)
 	if show_log: _draw_combat_log()
 	if settings_open:
 		_panel(Rect2(size.x-346,80,330,184),NEON)
@@ -392,6 +393,8 @@ func _update_button_styles() -> void:
 		var btn := _action_btns[action] as Button
 		if btn.visible:
 			var active := action.to_upper() == selected_action.to_upper() and action not in _SYSTEM_ACTIONS
+			if not gamepad_action.is_empty():
+				active = action == gamepad_action
 			_style_btn(btn,active,turn_side != "player")
 			if btn.has_node("Glyph"):
 				(btn.get_node("Glyph") as TextureRect).modulate = WARN if active else NEON
