@@ -18,7 +18,7 @@ The earlier candidate is preserved. Current R2 evidence is
 
 The retrofit goal remains active; no desktop control was used for the new checks.
 
-Latest local Windows build: `dist/windows-runtime/CyberCity2085/CyberCity2085.exe`. Windows build 1f457ff passed the bundled Godot headless startup and save reload. The art patch, support atlas and portrait hashes match source. Authoring sheets were omitted, saving 1071509941 bytes. Thirty focused tests and two subtests passed before the exclusion. The final packaging suite passed 11 tests. Native graphical campaign validation remains open.
+Latest local Windows build: `dist/windows-runtime-92a148b/CyberCity2085/CyberCity2085.exe`. Production Windows build 92a148b includes the casualty-aware debrief. The packaged executable opened a responsive Arcade window from D:/; bundled Godot headless startup and campaign save reload passed. Authoring sheets remain excluded. The three integrated outcomes passed on the previous frozen QA build. A graphical campaign run on this production build remains open.
 
 Previous local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.exe. Baseline release gate: 1,145 passed, 35 skipped, 12 subtests passed. The later Windows result-read retry passed 23 targeted tests and was included in the rebuilt production executable. The production executable rejects the QA entry point. Bundled Godot 4.6.3 headless startup and save reload passed. Arcade and bundled Godot each opened a responsive native window from an independent working directory. The integrated graphical playthrough of this build remains open.
 
