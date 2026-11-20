@@ -44,10 +44,11 @@
         "Frozen Windows QA build 6f884c1 passed victory, defeat and retreat at 1280x720 using the bundled Godot and native audio driver. HQ, map, briefing, tactical result confirmation, debrief, applicable promotions, HQ return, save reload and duplicate reward rejection passed. Audio ownership passed. Physical focus, DPI and listening remain open.",
         "Production Windows build 92a148b includes the casualty-aware debrief. The packaged executable opened a responsive Arcade window from D:/; bundled Godot headless startup and campaign save reload passed. Authoring sheets remain excluded.",
         "Production build 2b6c64f bundles the complete Mantis and Titan atlases with matching hashes. The bundled native Godot loaded both during the Safehouse handoff and the capture was inspected. Packaged headless startup and campaign save reload passed.",
-        "Production build 06377fd bundles the allied VTOL atlas and the corrected financial debrief. The bundled Godot passed the native Dust Road VTOL fixture, headless startup and save reload. The source Arcade build with bundled Godot completed an unforced 720p victory on data_theft_d1_s2: mission funds +75, corporate balance +113, promotions, HQ return, save reload and duplicate reward rejection."
+        "Production build 06377fd bundles the allied VTOL atlas and the corrected financial debrief. The bundled Godot passed the native Dust Road VTOL fixture, headless startup and save reload. The source Arcade build with bundled Godot completed an unforced 720p victory on data_theft_d1_s2: mission funds +75, corporate balance +113, promotions, HQ return, save reload and duplicate reward rejection.",
+        "ScratchRoot on E isolates temporary files, cache and AppData. Initial full gate: 1161 passed, 35 skipped, 14 subtests passed, one failure caused by the local Godot editor settings. Standalone parser test now isolates APPDATA and all seven UI tests pass."
       ],
       "evidence": [
-        "dist/windows-current/CyberCity2085/CyberCity2085.exe",
+        "E:/CyberCity2085-cleanup/old-release-builds/windows-current/CyberCity2085/CyberCity2085.exe",
         "dist/windows-runtime/CyberCity2085/CyberCity2085.exe",
         "dist/windows-runtime-92a148b/CyberCity2085/CyberCity2085.exe",
         "dist/windows-runtime-2b6c64f/CyberCity2085/CyberCity2085.exe",
@@ -563,7 +564,7 @@
         "Rooftop Access at 720p passed native overhead and isometric fixtures, with the isometric image inspected. The anchor assertion tolerates subpixel float rounding. Capture resume fingerprints now account for projection and surface PNGs.",
         "Inspected Rooftop Access at overview zoom: the east end meets the lower landing. Added a north-south service deck on Skybridge Spine using the existing catwalk art. Both Skybridge Spine 720p projections passed and were visually inspected, including actors previously shown above the drop.",
         "Freight Yard now samples the adjacent paved siding over the painted wagons in the playable crossing. The presentation patch feathers into the original scene and preserves source PNG and tactical geometry. Native overhead 720p capture inspected. Isometric 1080p entity and interaction fixture passed. Seven environment tests passed.",
-        "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on D:/cybercity-map-final-72bf75f.",
+        "The revised catalogue process at 72bf75f completed on native Windows Godot. 122 unique maps, 366 captures checked at their actual 720p, 1080p and 1440p dimensions. All fixture geometry, picking, projection and zoom assertions passed. Captures are temporary on E:/CyberCity2085-cleanup/d-root/cybercity-map-final-72bf75f.",
         "Inspected the revised 1440p captures for Rooftop Access, Skybridge Spine and Freight Yard, including the new walkable surfaces."
       ],
       "evidence": [
