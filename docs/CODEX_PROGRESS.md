@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-WASTELAND-11 — DONE — Revue artistique native detaillee du dernier lot wasteland
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-11.jpg`.
+- Tests / contrôles réellement exécutés : Deux captures Windows Godot 2560x1440 de la planche 11 inspectees individuellement via des copies de revue 1280x720 : convoy crossing et salt flat ambush; Raccords, lumieres, ombres, occultation, perspective, epaves, barils, palette et lisibilite tactique controles ; aucun defaut local reproductible; Aucune modification des PNG source, SHA, placements ou de la geometrie tactique ; revue detaillee cumulee 122 / 122.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-11.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-WASTELAND-10 — DONE — Revue artistique native detaillee du lot wasteland 10
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`, `docs/images/entity-scale-production-windows/catalogue-10.jpg`.
@@ -511,6 +518,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : terminer la revue native détaillée à 1440p avec les deux cartes de la planche 11, puis corriger localement tout défaut reproductible sur ces seules cartes. Ces deux cartes restent NOT VERIFIED artistiquement. Ensuite, régénérer le catalogue natif 122 cartes aux trois résolutions pour la signature actuelle avant de réévaluer MAP-LOAD, sans confondre ce contrôle avec la revue artistique. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import.
+ENV-FINAL : régénérer sur E: le catalogue natif des 122 cartes aux trois résolutions avec la signature actuelle, contrôler les 366 sorties et enregistrer la preuve compatible avant de réévaluer MAP-LOAD, MAP-ART, ART-OBJECTS, UNIT-SCALE et PERFORMANCE. La revue artistique détaillée est exécutée sur 122 / 122, mais reste NOT VERIFIED par le bilan tant que la preuve globale n'est pas régénérée. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

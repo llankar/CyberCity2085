@@ -24,6 +24,8 @@
 
 - ENV-DETAIL-WASTELAND-10 — DONE (2026-11-20). Douze captures natives 2560×1440 de la planche 10 inspectées individuellement via des copies de revue 1280×720. L'overlay `barrels_center`, sombre, plat, trop propre et détaché de la palette, a été rejeté sur les deux alias irradiated basin ; les objets source sont conservés, sans modifier PNG, SHA ni géométrie tactique. Treize tests environnement réussis, deux ignorés. Les deux recaptures Windows Godot 4.7.2/OpenGL ont produit `COMBAT_21_CAPTURE_PASSED` et ont été inspectées : overlay absent, barils source cohérents. Portée cumulée : 120 / 122 cartes ; 2 restent à revoir au même niveau.
 
+- ENV-DETAIL-WASTELAND-11 — DONE (2026-11-20). Les deux dernières captures natives 2560×1440, convoy crossing et salt flat ambush, ont été inspectées individuellement via des copies de revue 1280×720. Raccords, lumières, ombres, occultation, perspective, épaves, barils, palette et lisibilité tactique contrôlés ; aucun défaut local reproductible. Aucune source, empreinte, configuration de placement ou géométrie tactique modifiée. Portée cumulée : 122 / 122 cartes. Le catalogue natif global reste à régénérer avec la signature actuelle avant que le bilan reproductible puisse vérifier cette revue.
+
 - ANIM-COMPLETE / quadrupède de siège — IN_PROGRESS (2026-11-20). Une planche candidate 8×2 a été rejetée avant import : ordre cardinal non fiable (la ligne nord montrait l'avant) et alternance diagonale des jambes insuffisamment démontrée dans plusieurs paires. Candidate refusée conservée uniquement sous `E:\CyberCity2085-builds\quadruped-siege\rejected`; aucun asset de production modifié.
 
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
