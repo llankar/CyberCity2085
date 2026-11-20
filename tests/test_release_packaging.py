@@ -43,6 +43,24 @@ def test_release_spec_bundles_required_runtime_directories():
     assert 'contents_directory="."' in spec
 
 
+def test_package_includes_atlases_and_map_art_without_authoring_sheets(tmp_path):
+    from tools.packaging_helpers import runtime_asset_data
+
+    assets = tmp_path / "assets"
+    for name in ("combat_visual/animations", "combat_visual/source_sheets", "maps/presentation", "units"):
+        (assets / name).mkdir(parents=True)
+    (assets / "combat_visual/catalog.json").touch()
+    (assets / "README.md").touch()
+
+    assert dict(runtime_asset_data(assets)) == {
+        str(assets / "README.md"): "assets",
+        str(assets / "combat_visual/animations"): "assets/combat_visual/animations",
+        str(assets / "combat_visual/catalog.json"): "assets/combat_visual",
+        str(assets / "maps"): "assets/maps",
+        str(assets / "units"): "assets/units",
+    }
+
+
 def test_arcade_version_data_is_a_file_in_the_package():
     from tools.packaging_helpers import normalize_arcade_data
 

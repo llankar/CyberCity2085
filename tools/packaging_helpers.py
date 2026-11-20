@@ -15,6 +15,20 @@ def godot_executable_data():
     return [(str(executable), "bin/godot")]
 
 
+def runtime_asset_data(directory: Path):
+    entries = []
+    for path in sorted(directory.iterdir()):
+        if path.is_dir() and path.name == "combat_visual":
+            entries.extend(
+                (str(child), f"assets/combat_visual/{child.name}" if child.is_dir() else "assets/combat_visual")
+                for child in sorted(path.iterdir())
+                if child.name != "source_sheets"
+            )
+        else:
+            entries.append((str(path), f"assets/{path.name}" if path.is_dir() else "assets"))
+    return entries
+
+
 def godot_runtime_data(directory, *, include_qa=False):
     excluded = {"runtime", ".godot", "__pycache__", "work"}
     if not include_qa:
