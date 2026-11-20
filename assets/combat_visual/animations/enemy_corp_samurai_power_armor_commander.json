@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_corp_samurai_power_armor_commander.png",
-  "texture_sha256": "ee02fed575d1554664298b6bb334884e259280caa91c918803cf852d8ffef5e3",
+  "texture_sha256": "a86d16a8a85fd0d81eddafc7af33dac466d1dad286ecac68d0f12b9ba5e982ad",
   "frame_size": [
     256,
     256
@@ -50,41 +50,247 @@
         ]
       ]
     },
-    "fire": {
+    "move": {
       "fps": 8,
-      "loop": false,
+      "loop": true,
       "rows": [
         [
           16,
-          17
-        ],
-        [
+          17,
           18,
           19
         ],
         [
           20,
-          21
-        ],
-        [
+          21,
           22,
           23
         ],
         [
           24,
-          25
-        ],
-        [
+          25,
           26,
           27
         ],
         [
           28,
-          29
-        ],
-        [
+          29,
           30,
           31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -136,6 +342,48 @@
         1,
         5
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/move-front-3.png",
+      "sha256": "5af573078dab81a893db0afb37c1f97259f6f3d82f5b17b9c684126658213272",
+      "clip": "move",
+      "layout": "front",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/move-rear-4.png",
+      "sha256": "e15e7d1ca392d30131861c67c7567caedff358e24764dd925defc61c80ddd43e",
+      "clip": "move",
+      "layout": "rear",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/cover-action_rows-5.png",
+      "sha256": "4bd6f9e80a32e2bb6d46427304feae20560f37ae4eabcc3c7ff2f6161a8f9289",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/melee-action_rows-6.png",
+      "sha256": "1bc863b867b8e1366b8ac5f0919cf9de6984084702a1ae917bd037916483c3d2",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/hit-action_rows-7.png",
+      "sha256": "b08b5e2c8dda0fcddd9f727a94e119cea873ad8c1abddfbd0f2532653b95db74",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_corp_samurai_power_armor_commander/death-action_rows-8.png",
+      "sha256": "66b6304f4c33fa083c2aa58a31320ebba7c70e993565ec53c86d0074e899893c",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -151,13 +399,7 @@
     "psi": "No psionic action for this commander.",
     "heal": "No healing action for this commander."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "move",
-    "melee",
-    "cover",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_review_pending"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }
