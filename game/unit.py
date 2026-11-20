@@ -191,6 +191,10 @@ class Unit:
             return True
         return False
 
+    def spend_action_points(self, amount: int) -> None:
+        self.action_points -= amount
+        self._actions_used = getattr(self, "_actions_used", 0) + amount
+
     def move(self, dx: int, dy: int):
         x, y = self.position
         self.position = (x + dx, y + dy)
@@ -200,7 +204,7 @@ class Unit:
         if self.bonus_move_points > 0:
             self.bonus_move_points -= 1
         else:
-            self.action_points -= 1
+            self.spend_action_points(1)
         self.has_moved = True
         self.on_overwatch = False  # moving cancels your overwatch
 
@@ -247,7 +251,7 @@ class Unit:
             damage = max(0, before - other.stats.hp) if hit else 0
             self._last_crit = crit
             other.health = other.stats.hp
-            self.action_points -= 1
+            self.spend_action_points(1)
             other.is_defending = False
             other.is_psi_defending = False
             return damage
@@ -272,14 +276,14 @@ class Unit:
         if self.action_points <= 0:
             return False
         self.is_defending = True
-        self.action_points -= 1
+        self.spend_action_points(1)
         return True
 
     def psi_defend(self) -> bool:
         if self.action_points <= 0:
             return False
         self.is_psi_defending = True
-        self.action_points -= 1
+        self.spend_action_points(1)
         return True
 
     def set_overwatch(self) -> bool:
@@ -287,7 +291,7 @@ class Unit:
         if self.action_points <= 0 or self.has_moved:
             return False
         self.on_overwatch = True
-        self.action_points -= 1
+        self.spend_action_points(1)
         return True
 
     def trigger_overwatch_shot(self, other: "Unit") -> int:

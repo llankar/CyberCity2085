@@ -105,7 +105,7 @@ def interact_objective(
     completed, message = interact_with_objective(actor.position, objective)
     advanced = objective.progress > previous_progress
     if advanced:
-        actor.action_points -= 1
+        actor.spend_action_points(1)
         objective.interaction_turns.append(turn_number)
         message = f"{message} (1 AP)"
     if completed and objective.hold_turns_after_interaction:
