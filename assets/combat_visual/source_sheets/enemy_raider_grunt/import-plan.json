@@ -28,6 +28,11 @@
         "clip": "death",
         "layout": "action_pairs",
         "body_height": 160
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/melee-action_pairs-5.png",
+        "clip": "melee",
+        "layout": "action_pairs"
       }
     ],
     "applicable_clips": [
