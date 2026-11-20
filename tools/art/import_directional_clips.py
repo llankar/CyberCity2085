@@ -24,13 +24,13 @@ def feet_x(frame):
     if not total:return frame.width*.5
     return sum(x*w for x,w in enumerate(weights))/total
 
-def normalise(frames):
+def normalise(frames, body_height=BODY):
     horizontal_limits=[]
     for frame in frames:
         anchor=feet_x(frame)
         if anchor>0:horizontal_limits.append((SIZE/2-2)/anchor)
         if frame.width-anchor>0:horizontal_limits.append((SIZE/2-2)/(frame.width-anchor))
-    scale=min(BODY/statistics.median(f.height for f in frames),228/max(f.width for f in frames),*horizontal_limits)
+    scale=min(body_height/statistics.median(f.height for f in frames),228/max(f.width for f in frames),*horizontal_limits)
     result=[]
     for source in frames:
         frame=source.resize((max(1,round(source.width*scale)),max(1,round(source.height*scale))),Image.Resampling.LANCZOS)
@@ -53,6 +53,9 @@ def build(key,config):
     applicable=config.get('applicable_clips') if isinstance(config,dict) else None
     exemptions=config.get('non_applicable_clips',{}) if isinstance(config,dict) else {}
     review_status=config.get('review_status','native_review_pending') if isinstance(config,dict) else 'native_review_pending'
+    body_height=config.get('body_height', BODY) if isinstance(config,dict) else BODY
+    if type(body_height) is not int or not 1 <= body_height <= BODY:
+        raise ValueError('body_height must be an integer between 1 and the default body height')
     directory=ROOT/'assets/combat_visual/source_sheets'/key;directory.mkdir(parents=True,exist_ok=True)
     clips={};provenance=[]
     for item in specs:
@@ -71,15 +74,19 @@ def build(key,config):
             for row,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 if item.get('transpose', False):
-                    directions[direction]=normalise([extract(image,col,row) for col in range(4)])
+                    directions[direction]=normalise([extract(image,col,row) for col in range(4)], body_height)
                 else:
-                    directions[direction]=normalise([extract(image,row,col) for col in range(4)])
+                    directions[direction]=normalise([extract(image,row,col) for col in range(4)], body_height)
         elif layout in ['idle_pairs','action_pairs']:
-            order=sheet_directions(item,8)
-            for pair,direction in enumerate(order):
+            poses = item.get('pose_indices', list(range(8)))
+            if not isinstance(poses, list) or not poses:
+                raise ValueError('pose_indices must be a nonempty list')
+            sheet_directions({'direction_indices': poses}, len(poses))
+            order=sheet_directions(item,len(poses))
+            for pair,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 row=pair//2;col=(pair%2)*2
-                directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)])
+                directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)], body_height)
         elif layout == 'action_rows':
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -93,12 +100,12 @@ def build(key,config):
                 directions[direction] = normalise([
                     extract(image, row, col),
                     extract(image, row + 2, col),
-                ])
+                ], body_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
             provenance[-1]['direction_indices']=order
-        if layout in ('front', 'rear', 'action_rows') and 'pose_indices' in item:
+        if layout in ('front', 'rear', 'action_rows', 'idle_pairs', 'action_pairs') and 'pose_indices' in item:
             provenance[-1]['pose_indices']=poses
         if layout in ('front', 'rear') and item.get('transpose', False):
             provenance[-1]['transpose']=True
@@ -120,7 +127,7 @@ def build(key,config):
     required=applicable or clip_order
     missing=[clip for clip in required if clip not in animations]
     coverage='complete' if not missing else 'partial'
-    data=dict(texture=path.relative_to(ROOT).as_posix(),texture_sha256=digest(path),frame_size=[SIZE,SIZE],anchor_uv=[.5,BASELINE/SIZE],reference_height_uv=BODY/SIZE,directions='E,SE,S,SW,W,NW,N,NE',animations=animations,source_image=original.relative_to(ROOT).as_posix(),source_sha256=digest(original),provenance=provenance,required_clips=required,non_applicable_clips=exemptions,coverage=coverage,missing_clips=missing,review_status=review_status)
+    data=dict(texture=path.relative_to(ROOT).as_posix(),texture_sha256=digest(path),frame_size=[SIZE,SIZE],anchor_uv=[.5,BASELINE/SIZE],reference_height_uv=body_height/SIZE,directions='E,SE,S,SW,W,NW,N,NE',animations=animations,source_image=original.relative_to(ROOT).as_posix(),source_sha256=digest(original),provenance=provenance,required_clips=required,non_applicable_clips=exemptions,coverage=coverage,missing_clips=missing,review_status=review_status)
     (out/(key+'.json')).write_text(json.dumps(data,indent=2)+'\n')
     print('DRAWN_CLIPS_PACKED',key,len(files),'frames;',coverage,'action coverage')
 
