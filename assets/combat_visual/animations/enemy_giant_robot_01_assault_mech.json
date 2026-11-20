@@ -1,0 +1,119 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
+  "texture_sha256": "dd4e2db90309105472ef68a2f9a1b50a98b621a3edf4f63c489e6b80187f1c80",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
+  "source_sha256": "a582a98f6fc4a9a71a486d7baf3f0e1eadd74ba9fb1abeb79160db24aae1f5b6",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/idle-action_rows-0.png",
+      "sha256": "82e426be23699c17692c5be40574ec4fb112e840f705ba1ee9a30cf68a547c7a",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/idle-action_rows-1.png",
+      "sha256": "0fce6b7a119bd349ec25fb4b2b362043e1909b35352a096160a9d14904a40a3e",
+      "clip": "idle",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1
+      ],
+      "pose_indices": [
+        0
+      ]
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "Combat mech has no psionic loadout.",
+    "heal": "Combat mech has no healing loadout."
+  },
+  "coverage": "partial",
+  "missing_clips": [
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "review_status": "native_review_pending"
+}
