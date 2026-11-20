@@ -877,6 +877,7 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
       "tests": [
+        "Samurai warbot IN_PROGRESS: four-phase walk sources accepted on E: with eight true facings, no face mask in NW/N/NE, genuine two-leg alternation and a single katana consistently held in robot-right. Low-alpha fringe remains subject to importer cleanup and native inspection. No production atlas has been imported yet. Complete coverage remains 73 / 233.",
         "Pacification titan DONE: 128 distinct frames across seven applicable clips and eight facings. Red optic is hidden in NW/N/NE; two-leg gait alternates and robot-left shield/ram versus robot-right manipulator asymmetry is preserved. Fire keeps cyan suppression light attached to the shield; shield ram, brace, hit and shutdown remain distinct. Two hit variants with colored fringe were rejected; the imported alpha-cleaned result has no native halo. Focused audit returned no errors; Python passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and the targeted Safehouse capture passed, including readable terminal wreck without a shadow. 73 / 233 complete.",
         "Pacification titan IN_PROGRESS: four-phase walk sources accepted on E: with eight true facings, no red front optic in NW/N/NE, genuine two-leg alternation and preserved arm asymmetry (long robot-left shield/ram, short robot-right manipulator). No production atlas has been imported yet. Complete coverage remains 72 / 233.",
         "Spider tank DONE: 128 distinct frames across seven applicable clips and eight facings. The front sensor is hidden in NW/N/NE, all six legs remain present and the two tripod groups alternate across A/C/B/D. The first idle was rejected for gray ground shadows; the corrected source is clean. Primary fire keeps red pulses attached to two front ports; leg strike, brace, hit and shutdown are distinct. Focused audit returned no errors; Python passed (2 passed, 1 Windows-inapplicable X11 skip); native Windows Godot selected 32 movement frames and the targeted Safehouse capture passed, including terminal wreck without a shadow. 72 / 233 complete.",
@@ -1699,7 +1700,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : produire les sources authentiques de enemy_giant_robot_11_samurai_warbot, vérifier les huit orientations et une marche à quatre poses avec alternance réelle avant import, puis tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-COMPLETE : produire idle, attaque, mêlée, couverture, réaction et shutdown de enemy_giant_robot_11_samurai_warbot à partir de la marche A/C/B/D acceptée, puis importer et tester uniquement cette unité. La régénération des preuves globales ENV-FINAL est laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
