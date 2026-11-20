@@ -53,7 +53,7 @@ func run() -> void:
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key == "robot_support" and unit.manifest.animations.has("death"):
+		if key in ["robot_support", "power_armor_heavy"] and unit.manifest.animations.has("death"):
 			unit.unit_data["hp"] = 0
 			for direction in range(8):
 				unit.facing = direction
@@ -65,6 +65,7 @@ func run() -> void:
 				await RenderingServer.frame_post_draw
 				assert(unit.clip == "death" and unit.frame_index == 1)
 				assert(unit._art_sprite.texture == unit.atlas and not unit._cast_shadow.visible)
+			unit._death = false
 	# A missing asset must restore source art, not leave the previous atlas attached.
 	unit.configure_animation("missing_animation_fixture",base)
 	assert(unit.atlas==null and unit.manifest.is_empty())

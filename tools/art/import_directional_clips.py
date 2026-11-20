@@ -91,6 +91,14 @@ def build(key,config):
                 row=pair//2;col=(pair%2)*2
                 directions[direction]=normalise([extract(image,row,col),extract(image,row,col+1)], pose_height)
         elif layout == 'action_rows':
+            follow_through = image
+            follow_source = item.get('follow_through_path')
+            if follow_source:
+                follow_source = Path(follow_source)
+                follow_dest = directory / (Path(name).stem + '-follow-through.png')
+                if follow_source.resolve() != follow_dest.resolve():
+                    shutil.copyfile(follow_source, follow_dest)
+                follow_through = Image.open(follow_source).convert('RGBA')
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
                 raise ValueError('pose_indices must be a nonempty list')
@@ -102,7 +110,7 @@ def build(key,config):
                 row, col = divmod(pose, 4)
                 directions[direction] = normalise([
                     extract(image, row, col),
-                    extract(image, row + 2, col),
+                    extract(follow_through, row + 2, col),
                 ], pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
@@ -112,6 +120,10 @@ def build(key,config):
             provenance[-1]['pose_indices']=poses
         if layout in ('front', 'rear') and item.get('transpose', False):
             provenance[-1]['transpose']=True
+        if layout == 'action_rows' and item.get('follow_through_path'):
+            provenance[-1]['follow_through'] = {
+                'file': follow_dest.relative_to(ROOT).as_posix(), 'sha256': digest(follow_source)
+            }
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
