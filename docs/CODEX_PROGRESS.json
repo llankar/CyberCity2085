@@ -9,6 +9,27 @@
   ],
   "tasks": [
     {
+      "id": "ENV-DETAIL-URBAN-01",
+      "title": "Revue artistique native détaillée du premier lot urbain",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "docs/images/entity-scale-production-windows/catalogue-01.jpg"
+      ],
+      "tests": [
+        "13 captures Windows Godot 2560x1440 inspectées individuellement : apartment block, civic center, holo square, riot square, tech market, billboard avenue, corporate plaza, downtown intersection, elevated freeway, neon market alley, parking garage, rooftop access et waterfront docks",
+        "Raccords, lumières, ombres, occultation, perspective, volumes hauts, véhicules et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot",
+        "Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification des PNG source, SHA ou de la géométrie tactique"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/catalogue-01.jpg",
+        "docs/images/entity-scale-production-windows/catalogue-02.jpg",
+        "docs/images/entity-scale-production-windows/native-report.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
       "id": "RAIDER-WALK-01",
       "title": "Marche authentique du raider grunt dans huit directions",
       "status": "DONE",
@@ -1441,7 +1462,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.",
+  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec le lot industriel et intérieur de la planche 02, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

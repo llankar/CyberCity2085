@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 42,
-    "total": 56
+    "done": 43,
+    "total": 57
   },
   "maps": {
     "native_verified": 122,
@@ -165,7 +165,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "42 / 56 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "43 / 57 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -182,5 +182,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité."
+  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec le lot industriel et intérieur de la planche 02, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité."
 }

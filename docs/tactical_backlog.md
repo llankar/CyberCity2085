@@ -4,6 +4,8 @@
 
 - ENV-CURRENT-CATALOGUE — DONE pour la validation native et l'échelle (2026-11-20). 122 cartes × trois résolutions rendues sur Windows au commit `013bae5`; 366 captures principales, dimensions et ensembles de cartes contrôlés, picking/projection/zoom et familles d'entités validés. Onze planches 720p inspectées. La revue artistique détaillée reste ouverte et ne doit pas être déduite de ce succès technique.
 
+- ENV-DETAIL-URBAN-01 — DONE (2026-11-20). Treize cartes du premier lot urbain examinées individuellement dans leurs captures natives 2560×1440. Raccords, éclairage, ombres, occultation, perspective, volumes hauts, véhicules et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction. Portée limitée à ce lot : 109 cartes restent à revoir au même niveau.
+
 Authoritative audit: [`tactical_combat_retrofit.md`](tactical_combat_retrofit.md)
 
 

@@ -2,7 +2,7 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
-Tâches DONE : 42 / 56. Ce ratio porte sur le registre, pas sur la finition artistique.
+Tâches DONE : 43 / 57. Ce ratio porte sur le registre, pas sur la finition artistique.
 Cartes : 122 / 122 chargées ; 0 artistiquement vérifiées.
 Animations complètes : 64 / 233 ; 0 partielles.
 Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pourcentage.
@@ -22,7 +22,7 @@ Objets artistiques complets / attendus : **inconnus**, ne pas calculer de pource
 | ANIMATIONS — Actions multidirectionnelles complètes | FAIL | 64 / 233 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle. |
 | REGISTER — Registre complet et preuves des tâches DONE | PASS | Statuts, portées, tests/contrôles, preuves et travail restant enregistrés. |
 | TARGETED-TESTS — Tests exécutés dans la portée du lot | NOT VERIFIED | {'passed': 41, 'failed': 0, 'skipped': 3, 'not_executed': ['Actions de combat manquantes et autres unités', 'Suite intégrale du jeu'], 'scope': '44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément'} |
-| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 42 / 56 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
+| TASK-COMPLETION — Toutes les tâches obligatoires du registre réalisées | FAIL | 43 / 57 tâches DONE ; les lots suivants ne disparaissent pas du bilan. |
 
 ## Tests réellement enregistrés
 
@@ -34,4 +34,4 @@ MAP-ART, ART-OBJECTS, UNIT-ART, FUNCTIONAL, RESOLUTIONS, PERFORMANCE, ANIMATIONS
 
 ## Prochaine action précise
 
-ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec le lot industriel et intérieur de la planche 02, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.

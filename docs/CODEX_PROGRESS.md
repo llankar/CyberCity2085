@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-URBAN-01 — DONE — Revue artistique native détaillée du premier lot urbain
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-01.jpg`.
+- Tests / contrôles réellement exécutés : 13 captures Windows Godot 2560x1440 inspectées individuellement : apartment block, civic center, holo square, riot square, tech market, billboard avenue, corporate plaza, downtown intersection, elevated freeway, neon market alley, parking garage, rooftop access et waterfront docks; Raccords, lumières, ombres, occultation, perspective, volumes hauts, véhicules et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot; Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification des PNG source, SHA ou de la géométrie tactique.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-01.jpg`, `docs/images/entity-scale-production-windows/catalogue-02.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### RAIDER-WALK-01 — DONE — Marche authentique du raider grunt dans huit directions
 
 - Fichiers : `assets/combat_visual/animations/enemy_raider_grunt.json`, `assets/combat_visual/animations/enemy_raider_grunt.png`, `assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json`, `tools/art/import_directional_clips.py`, `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
@@ -441,6 +448,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : examiner les captures natives actuelles carte par carte à leur résolution réelle, en commençant par le lot urbain, et corriger tout défaut de lumière, raccord, occultation ou perspective. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec le lot industriel et intérieur de la planche 02, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
