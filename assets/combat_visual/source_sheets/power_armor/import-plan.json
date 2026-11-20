@@ -98,10 +98,134 @@
           7
         ],
         "body_height": 158
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/fire-action_rows-5.png",
+        "clip": "fire",
+        "layout": "action_rows",
+        "body_height": 158
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-6.png",
+        "clip": "melee",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2
+        ],
+        "body_height": 168
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-7.png",
+        "clip": "melee",
+        "layout": "action_rows",
+        "pose_indices": [
+          3
+        ],
+        "direction_indices": [
+          3
+        ],
+        "body_height": 168
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-8.png",
+        "clip": "melee",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 168
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/death-action_rows-9.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "body_height": 132
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/death-action_rows-10.png",
+        "clip": "death",
+        "layout": "action_rows",
+        "pose_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "body_height": 132,
+        "lead_trim_top": 34
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/hit-action_pairs-11.png",
+        "clip": "hit",
+        "layout": "action_pairs",
+        "pose_indices": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "direction_indices": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/power_armor/hit-action_rows-12.png",
+        "clip": "hit",
+        "layout": "action_rows",
+        "pose_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "direction_indices": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "edge_erosion": 5
       }
     ],
     "body_height": 184,
-    "review_status": "native_render_verified_partial",
+    "review_status": "native_render_verified_complete",
     "applicable_clips": [
       "idle",
       "move",
