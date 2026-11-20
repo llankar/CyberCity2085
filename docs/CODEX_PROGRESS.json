@@ -25,7 +25,7 @@
       "evidence": [
         "Packaged QA internal driver and focused lock regression"
       ],
-      "remaining": "Rebuild production package. Desktop interaction and audio listening remain open.",
+      "remaining": "Production package rebuilt; native Arcade startup, bundled headless Godot, save reload and QA entry exclusion passed. Desktop interaction and audio listening remain open.",
       "reason": ""
     },
     {
