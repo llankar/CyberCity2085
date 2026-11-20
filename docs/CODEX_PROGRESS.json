@@ -18,7 +18,7 @@
       ],
       "tests": [
         "1145 passed, 35 skipped, 12 subtests passed",
-        "Packaged Godot 4.6.3 headless startup and save reload passed"
+        "Packaged Godot 4.6.3 headless startup and save reload passed; Arcade and bundled Godot opened responsive native windows when launched separately"
       ],
       "evidence": [
         "dist/windows-current/CyberCity2085/CyberCity2085.exe"
