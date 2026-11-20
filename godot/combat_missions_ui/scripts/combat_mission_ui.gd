@@ -867,12 +867,7 @@ func _gui_input(event: InputEvent) -> void:
 					_execute_action("RETREAT")
 				accept_event()
 			KEY_ENTER, KEY_KP_ENTER:
-				if not battle_started:
-					_start_combat("ENTER")
-				elif pending_end_turn_confirmation:
-					_end_player_turn()
-				elif _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
-					_resolve_selected_attack()
+				_confirm_tactical_action("ENTER")
 				accept_event()
 
 	if event is InputEventMouseButton and event.pressed \
@@ -2292,6 +2287,43 @@ func _toggle_visual_interface() -> void:
 func _unhandled_key_input(event: InputEvent) -> void:
 	# The map root does not take GUI focus; route global tactical shortcuts here.
 	_gui_input(event)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if battle_ended or not event is InputEventJoypadButton or not event.pressed:
+		return
+	if event.button_index == JOY_BUTTON_A and not battle_started:
+		_confirm_tactical_action("GAMEPAD")
+		get_viewport().set_input_as_handled()
+		return
+	if not battle_started or turn_side != "player":
+		return
+	match event.button_index:
+		JOY_BUTTON_A:
+			_confirm_tactical_action("GAMEPAD")
+		JOY_BUTTON_RIGHT_SHOULDER:
+			_cycle_active_unit()
+		JOY_BUTTON_LEFT_STICK:
+			_frame_squad()
+		JOY_BUTTON_Y:
+			_execute_action("END TURN")
+		JOY_BUTTON_B:
+			if not pending_end_turn_confirmation and not pending_retreat_confirmation:
+				return
+			pending_end_turn_confirmation = false
+			pending_retreat_confirmation = false
+			status_line = "Confirmation cancelled."
+			_sync_display()
+		_:
+			return
+	get_viewport().set_input_as_handled()
+
+func _confirm_tactical_action(source: String) -> void:
+	if not battle_started:
+		_start_combat(source)
+	elif pending_end_turn_confirmation:
+		_end_player_turn()
+	elif _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
+		_resolve_selected_attack()
 
 func _fit_hud_viewport() -> void:
 	if is_instance_valid(_banner):_banner.size=size
