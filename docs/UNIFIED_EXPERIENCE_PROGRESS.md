@@ -4,6 +4,8 @@
 
 ## Bilan vérifié
 
+Frozen Windows QA build 6f884c1 passed victory, defeat and retreat at 1280x720 using the bundled Godot and native audio driver. HQ, map, briefing, tactical result confirmation, debrief, applicable promotions, HQ return, save reload and duplicate reward rejection passed. Audio ownership passed. Physical focus, DPI and listening remain open.
+
 17 tâches DONE / 18 tâches enregistrées pour les quatre premiers lots ; UE2-04 reste BLOCKED faute de Windows graphique. Ces dix-huit tâches ne constituent pas tout le périmètre d’acceptation. **127 tests ciblés distincts PASS, 0 FAIL, 0 skipped** dans [le rapport agrégé](reports/unified_targeted_tests.xml). Les exécutions du lot 2 couvrent 65 cas, plus 19 régressions de lancement partiellement communes ; le rapport déduplique aussi le lot 1, les 57 cas du lot audio et les 104 cas du lot 4.
 
 Un parcours natif supplémentaire valide la propriété musicale dans le lot 3 (audio muet, aucune validation auditive). Le lot 4 ajoute la reprise tactique en 720p/1080p/1440p et le renvoi d’ACK après résolution sauvegardée. Cinq scénarios graphiques du lot 2 : trois issues avec interruption et récupération en 1280×720 ; victoire et reprise du débriefing en 1920×1080 et 2560×1440. Les issues sont forcées par la fixture : cela vérifie les transitions et conséquences, pas une partie complète avec IA. Trois autres parcours natifs normaux ont aussi été rejoués en 720p.

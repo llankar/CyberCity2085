@@ -89,8 +89,12 @@ class DebriefReport:
         )
 
 
-def _extract_decision_key(lines: list[DebriefLine], mission: MissionTemplate | None) -> str:
+def _extract_decision_key(
+    lines: list[DebriefLine], mission: MissionTemplate | None, victory: bool
+) -> str:
     mission_title = mission.title if mission else "Unknown Operation"
+    if not victory:
+        return f"Review the squad's options after {mission_title} ended without a victory."
     if any(line.consequence_type == "downed" for line in lines):
         return f"Maintain the objective of {mission_title} despite a downed agent."
     if any(line.consequence_type == "injured" for line in lines):
@@ -101,11 +105,19 @@ def _extract_decision_key(lines: list[DebriefLine], mission: MissionTemplate | N
 def _extract_risk_taken(
     lines: list[DebriefLine],
     complication: MissionComplication | None,
+    victory: bool,
 ) -> str:
     if complication is not None:
         return f"Major narrative risk accepted: {complication.name.lower()}."
+    downed = {line.agent_name for line in lines if line.consequence_type == "downed"}
+    if downed:
+        return f"Human risk: agents downed during the operation ({', '.join(sorted(downed))})."
+    if any(line.consequence_type in {"injured", "recovering"} for line in lines):
+        return "Human risk: the squad returned with agents requiring recovery."
     if any(line.emotional_tone in {"fractured", "frayed"} for line in lines):
         return "Human risk: squad engagement under high stress."
+    if not victory:
+        return "Operational risk: the mission ended without a confirmed success."
     return "Measured risk: progress with no critical complication detected."
 
 
@@ -251,8 +263,8 @@ def build_mission_debrief_report(
         mission_title=mission_title,
         mission_outcome=_mission_outcome_label(victory),
         lines=moment_lines+lines,
-        decision_key=_extract_decision_key(lines, mission),
-        risk_taken=_extract_risk_taken(lines, complication),
+        decision_key=_extract_decision_key(lines, mission, victory),
+        risk_taken=_extract_risk_taken(moment_lines + lines, complication, victory),
         heroic_action=next((moment["text"] for moment in moments if moment["kind"] in {"last_stand", "rescue"}),
                            "No clutch action recorded in this engagement." if moments else _extract_heroic_action(lines)),
         rpg_links=_build_rpg_links(characters),
