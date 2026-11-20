@@ -196,9 +196,9 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### ENV-FINAL — IN_PROGRESS — Finition artistique individuelle des 122 cartes
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/combat_visual_25_inventory.md`.
-- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition; Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus; Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés.
+- Tests / contrôles réellement exécutés : Historique : captures natives des 122 cartes ; ne valide pas la finition; Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus; Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés. Current native Windows Godot: 122 unique maps rendered at 1280x720 with projection and zoom checks, and support assets enabled. Examined 18 images on sheets 01-03. The sheet clipping regression test passed.
 - Preuves : `docs/images/combat-directional-animation/README.md`, `docs/images/combat-directional-animation/validation-results.txt`, `docs/images/environment-art-review-windows/README.md`, `docs/images/environment-art-review-windows/manifest.json`.
-- Travail restant dans cette portée : Revalidate the 122 native map renders after the shared unit anchoring change. Preserve the historical individual art review.
+- Travail restant dans cette portée : Inspect 720p sheets 04-21 and verify rooftop placement separately. Continue native capture at 1920x1080 and 2560x1440. Temporary captures on D:/cybercity-map-recheck-a3cb870 and its size-suffixed directories.
 
 ### UNIT-COVERAGE — IN_PROGRESS — Identités de toutes les familles d’unités
 

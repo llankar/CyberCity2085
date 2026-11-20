@@ -15,14 +15,14 @@ def build(captures: Path, output: Path) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     pages = []
     for page_index, start in enumerate(range(0, len(rows), 6), 1):
-        sheet = Image.new("RGB", (1920, 1110), (10, 18, 25))
+        sheet = Image.new("RGB", (1920, 1704), (10, 18, 25))
         draw = ImageDraw.Draw(sheet)
         names = []
         for cell, row in enumerate(rows[start:start + 6]):
             name = Path(row["map"]).stem
             source = Image.open(captures / f"{name}-1280x720.png").convert("RGB")
             source.thumbnail((960, 540))
-            x, y = cell % 2 * 960, cell // 2 * 370
+            x, y = cell % 2 * 960, cell // 2 * 568
             sheet.paste(source, (x, y + 28))
             draw.rectangle((x, y, x + 960, y + 28), fill=(8, 22, 30))
             draw.text((x + 8, y + 7), name, fill=(126, 245, 238))
