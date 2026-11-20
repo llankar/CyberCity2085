@@ -18,7 +18,7 @@ The earlier candidate is preserved. Current R2 evidence is
 
 The retrofit goal remains active; no desktop control was used for the new checks.
 
-Latest local Windows build: `dist/windows-release-acfeb86/CyberCity2085/CyberCity2085.exe`. 1158 tests passed, 35 skipped, 14 subtests passed. Packaged Godot headless startup and campaign save reload passed. Native graphical validation of this build remains open.
+Latest local Windows build: `dist/windows-release-aef9087/CyberCity2085/CyberCity2085.exe`. The updated phase banner matches the source hash. Packaged Godot headless startup and campaign save reload passed. The full source suite on acfeb86 had 1158 passes, 35 skips and 14 subtest passes. Native graphical campaign validation of this build remains open.
 
 Previous local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.exe. Baseline release gate: 1,145 passed, 35 skipped, 12 subtests passed. The later Windows result-read retry passed 23 targeted tests and was included in the rebuilt production executable. The production executable rejects the QA entry point. Bundled Godot 4.6.3 headless startup and save reload passed. Arcade and bundled Godot each opened a responsive native window from an independent working directory. The integrated graphical playthrough of this build remains open.
 
