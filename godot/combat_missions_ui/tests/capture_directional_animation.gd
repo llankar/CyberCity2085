@@ -112,6 +112,25 @@ func run() -> void:
 			assert(regions.size() == 16, "%s must select two atlas frames per facing" % checked_action)
 		for action in ["idle","move","fire","melee","cover","hit","death","psi"]:
 			if not enemy.manifest.animations.has(action):continue
+			if action == "death":
+				var hp: int = enemy.unit_data["hp"]
+				enemy.unit_data["hp"] = 0
+				var death_regions := {}
+				for direction in range(8):
+					enemy.facing = direction
+					enemy.play_death()
+					for phase in range(2):
+						enemy.frame_time = float(phase) / float(enemy.manifest.animations.death.fps) + 0.01
+						enemy._process(0)
+						await process_frame;await RenderingServer.frame_post_draw
+						assert(enemy.clip == "death" and enemy.frame_index == phase)
+						assert(enemy._art_sprite.visible and not enemy._cast_shadow.visible)
+						death_regions[enemy._art_sprite.region_rect] = true
+					if direction == 1:save_frame(enemy_target+"-death")
+				assert(death_regions.size() == 16)
+				enemy.unit_data["hp"] = hp
+				enemy._death = false
+				continue
 			assert(enemy.play_action(action))
 			enemy.facing=1
 			enemy.frame_time=0.6 if action=="idle" else 0.2
