@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 37,
-    "total": 41
+    "done": 42,
+    "total": 56
   },
   "maps": {
     "native_verified": 0,
@@ -18,9 +18,9 @@
     "artistic_complete_objects": null
   },
   "animations": {
-    "complete": 26,
+    "complete": 64,
     "partial": 0,
-    "expected": 231
+    "expected": 233
   },
   "tests": {
     "passed": null,
@@ -29,7 +29,7 @@
     "not_executed": "UNKNOWN",
     "scope": "Aucun résultat JUnit enregistré."
   },
-  "render_signature": "a4aa194f88eb9342c7fe4884c0b24ccb16a90dd14dab2bbce734785e6b82a825",
+  "render_signature": "afd0920d7df440ebac1b61c558b5d0c89037812df9b04f4c905783756f067bfc",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -98,7 +98,7 @@
       "title": "Identité et qualité de toutes les unités",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "251 références source auditées, dont 231 entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle. Revue explicite et preuves non enregistrées.",
+      "detail": "253 références source auditées, dont 233 entités éligibles aux animations ; l’audit technique ne vaut pas revue individuelle. Revue explicite et preuves non enregistrées.",
       "evidence": []
     },
     {
@@ -132,7 +132,7 @@
       "title": "Actions multidirectionnelles complètes",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "26 / 231 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
+      "detail": "64 / 233 ensembles complets pour toutes leurs actions applicables ; 0 partiels. Chaque exemption doit être justifiée par l’équipement ou le rôle.",
       "evidence": [
         "assets/combat_visual/animations/*.json"
       ]
@@ -162,7 +162,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "37 / 41 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "42 / 56 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -181,5 +181,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique."
+  "next_action": "ENV-FINAL : comparer la signature du dernier rendu Windows aux changements de rendu commun, dont l’ancrage des unités. Relancer la validation des 122 cartes pour les changements globaux. ANIM-COMPLETE : poursuivre les atlas authentiques avec des tests par unité."
 }
