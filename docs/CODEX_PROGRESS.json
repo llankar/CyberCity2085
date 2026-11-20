@@ -636,7 +636,7 @@
       "tests": [
         "Historique : 34 tests ciblés, 128 sélections de frames et déplacement à 4 PA ; portée partielle",
         "Windows OpenGL: tactical reference, assassination objective and encounter floor regressions passed; 10 Arcade controller/accessibility tests passed",
-        "Windows OpenGL: tactical_gamepad_regression.gd passed injected shoulder/Y/B/A events through Godot input on one map; physical controller unverified"
+        "Windows OpenGL: tactical_gamepad_regression.gd passed injected shoulder/Y/B/A events and D-pad movement with position and AP checks on one map. Physical controller unverified"
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
