@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 import re
 import subprocess
 
@@ -114,7 +115,7 @@ def test_godot_player_copy_does_not_expose_debug_or_engine_labels():
     assert '_log_event("WALL TEST' not in source
 
 
-def test_godot_project_scripts_parse_when_native_editor_is_available():
+def test_godot_project_scripts_parse_when_native_editor_is_available(tmp_path):
     from game.combat.godot_bridge import find_godot_executable
 
     executable = find_godot_executable()
@@ -122,6 +123,9 @@ def test_godot_project_scripts_parse_when_native_editor_is_available():
         import pytest
 
         pytest.skip("Godot executable unavailable")
+    editor_env = os.environ.copy()
+    if os.name == "nt":
+        editor_env["APPDATA"] = str(tmp_path)
     result = subprocess.run(
         [
             executable,
@@ -132,6 +136,7 @@ def test_godot_project_scripts_parse_when_native_editor_is_available():
             "--quit",
         ],
         capture_output=True,
+        env=editor_env,
         text=True,
         timeout=30,
     )

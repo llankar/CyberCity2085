@@ -66,3 +66,8 @@ Packaging regression: the production executable now includes Arcade 3.3.3 versio
 Run `powershell -ExecutionPolicy Bypass -File tools/build_windows.ps1` from the
 repository root. The playable package is written to
 `dist/CyberCity2085/CyberCity2085.exe`.
+
+Pass `-ScratchRoot E:\CyberCity2085-builds` to keep the package, build
+intermediates, cache, and process temporary files together on `E:`. The
+directory must already exist. Each invocation creates a fresh
+`cybercity-build-<id>` directory and prints the verified executable path.
