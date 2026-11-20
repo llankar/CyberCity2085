@@ -124,3 +124,31 @@ def test_win32_overlay_stays_hidden_until_ready_then_raises_without_click():
         view._session_ready=True;view._try_overlay()
         place.assert_called_once_with(200,10,20,1280,720);show.assert_called_once_with(200)
         assert view._overlaid
+
+
+def test_window_sync_retries_failed_resize_and_handles_minimization():
+    from unittest.mock import Mock
+    from game.combat import win32_embed
+
+    if not win32_embed._WIN:
+        pytest.skip("Win32 window synchronization")
+    api = Mock()
+    api.IsIconic.return_value = False
+    api.SetWindowPos.side_effect = [False, True, True]
+    api.GetForegroundWindow.return_value = 100
+    before = (0, 0, 1280, 720)
+    resized = (-1600, 80, 1120, 630)
+    with patch.object(win32_embed, "_WIN", True), patch.object(win32_embed, "_u32", api, create=True), \
+            patch.object(win32_embed, "get_window_screen_rect", return_value=resized) as get_rect:
+        assert win32_embed.sync_owned_window(200, 100, before) == before
+        assert win32_embed.sync_owned_window(200, 100, before) == resized
+        api.SetForegroundWindow.assert_not_called()
+        get_rect.return_value = (0, 0, 0, 0)
+        assert win32_embed.sync_owned_window(200, 100, resized) == resized
+        api.IsIconic.return_value = True
+        assert win32_embed.sync_owned_window(200, 100, resized) is None
+        api.ShowWindow.assert_called_once_with(200, win32_embed._SW_HIDE)
+        api.IsIconic.return_value = False
+        get_rect.return_value = resized
+        assert win32_embed.sync_owned_window(200, 100) == resized
+        api.SetForegroundWindow.assert_called_once_with(200)

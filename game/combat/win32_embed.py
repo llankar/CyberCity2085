@@ -105,9 +105,11 @@ def get_window_screen_rect(hwnd: int) -> tuple[int, int, int, int]:
     if not _WIN:
         return 0, 0, 1280, 720
     client = ctypes.wintypes.RECT()
-    _u32.GetClientRect(hwnd, ctypes.byref(client))
+    if not _u32.GetClientRect(hwnd, ctypes.byref(client)):
+        return 0, 0, 0, 0
     pt = ctypes.wintypes.POINT(0, 0)
-    _u32.ClientToScreen(hwnd, ctypes.byref(pt))
+    if not _u32.ClientToScreen(hwnd, ctypes.byref(pt)):
+        return 0, 0, 0, 0
     return pt.x, pt.y, client.right - client.left, client.bottom - client.top
 
 
@@ -173,8 +175,11 @@ def sync_owned_window(child: int, owner: int, previous=None):
         hide_window(child)
         return None
     rect = get_window_screen_rect(owner)
-    if rect != previous and rect[2] > 0 and rect[3] > 0:
-        _u32.SetWindowPos(child, 0, *rect, _SWP_NOACTIVATE | _SWP_NOZORDER | _SWP_SHOWWINDOW)
+    if rect[2] <= 0 or rect[3] <= 0:
+        return previous
+    if rect != previous:
+        if not _u32.SetWindowPos(child, 0, *rect, _SWP_NOACTIVATE | _SWP_NOZORDER | _SWP_SHOWWINDOW):
+            return previous
     if previous is None and is_foreground_window(owner):
         _u32.SetForegroundWindow(child)
     return rect

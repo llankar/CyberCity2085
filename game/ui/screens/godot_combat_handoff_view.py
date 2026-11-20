@@ -265,8 +265,8 @@ class GodotCombatHandoffView(arcade.View):
             else (0, 0, self.window.width, self.window.height)
         )
 
-        if self._arcade_hwnd:
-            attach_owned_window(hwnd, self._arcade_hwnd)
+        if w <= 0 or h <= 0:
+            return
         make_borderless_at(hwnd, x, y, w, h)
         self._overlay_rect = (x, y, w, h)
         show_window(hwnd)
