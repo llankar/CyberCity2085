@@ -250,7 +250,9 @@ class GodotCombatHandoffView(arcade.View):
         )
 
         runtime=getattr(self.launch_result,"runtime",None)
-        hwnd = (getattr(runtime,"hwnd",None) or get_process_hwnd(pid,include_hidden=True)) if runtime is not None else get_process_hwnd(pid)
+        hwnd = self._godot_hwnd or getattr(runtime, "hwnd", None)
+        if not hwnd:
+            hwnd = get_process_hwnd(pid, include_hidden=runtime is not None)
         if not hwnd:
             return  # Godot not ready yet — try again next tick
         self._godot_hwnd=hwnd
@@ -265,9 +267,9 @@ class GodotCombatHandoffView(arcade.View):
             else (0, 0, self.window.width, self.window.height)
         )
 
-        if w <= 0 or h <= 0:
+        if w <= 0 or h <= 0 or not make_borderless_at(hwnd, x, y, w, h):
+            hide_window(hwnd)
             return
-        make_borderless_at(hwnd, x, y, w, h)
         self._overlay_rect = (x, y, w, h)
         show_window(hwnd)
         # Keep the campaign surface behind Godot so exit cannot reveal the desktop.

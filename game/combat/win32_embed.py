@@ -115,18 +115,18 @@ def get_window_screen_rect(hwnd: int) -> tuple[int, int, int, int]:
 
 # ── Overlay helpers ───────────────────────────────────────────────────────────
 
-def make_borderless_at(hwnd: int, x: int, y: int, w: int, h: int) -> None:
+def make_borderless_at(hwnd: int, x: int, y: int, w: int, h: int) -> bool:
     """Remove title bar / border from *hwnd* and place it at the given screen rect."""
     if not _WIN:
-        return
+        return False
     style = _u32.GetWindowLongW(hwnd, _GWL_STYLE)
     style &= ~(_WS_CAPTION | _WS_THICKFRAME | _WS_SYSMENU |
                _WS_MINIMIZEBOX | _WS_MAXIMIZEBOX)
     _u32.SetWindowLongW(hwnd, _GWL_STYLE, style)
-    _u32.SetWindowPos(
+    return bool(_u32.SetWindowPos(
         hwnd, 0, x, y, w, h,
-        _SWP_FRAMECHANGED | _SWP_NOACTIVATE | _SWP_NOZORDER | _SWP_SHOWWINDOW,
-    )
+        _SWP_FRAMECHANGED | _SWP_NOACTIVATE | _SWP_NOZORDER,
+    ))
 
 
 def hide_window(hwnd: int) -> None:

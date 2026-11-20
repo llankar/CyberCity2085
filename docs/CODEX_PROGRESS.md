@@ -428,7 +428,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - UNIFIED-AUDIO-LIFETIME — DONE. Le journal détaillé du retour de victoire identifiait quatre objets de lecture WAV/MP3 encore actifs. Godot libère les flux après l’ACK avant de quitter ou de rendre la main au runtime. La victoire rejouée à 720p n’affiche plus la fuite. Seize tests audio et runtime passent. L’écoute réelle reste ouverte.
 
-- UNIFIED-WINDOW-RESIZE-RETRY: DONE. Invalid owner geometry no longer moves the tactical window, and a failed SetWindowPos is retried. Two focused mock tests cover readiness, failed resize, minimize/restore and a negative monitor origin. Physical multi-monitor DPI and desktop focus remain open.
+- UNIFIED-WINDOW-RESIZE-RETRY: DONE. Invalid owner geometry no longer moves the tactical window, and a failed SetWindowPos is retried. Two focused mock tests cover readiness, failed resize, minimize/restore and a negative monitor origin. Initial overlay now retains the hidden window handle and retries invalid or failed placement before showing it. Three focused mocked tests passed. Physical multi-monitor DPI and desktop focus remain open.
 
 - UNIFIED-INTERNAL-RESIZE — DONE. Le pilote interne a réduit la fenêtre Godot de 1280 × 720 à 1120 × 630 puis rétabli sa taille. Surface rendue, dimensions de scène et état tactique préservé vérifiés, puis victoire et retour au QG. Alt+Tab, changement de DPI et focus système restent ouverts. Avertissement ObjectDB à la fermeture toujours présent.
 
