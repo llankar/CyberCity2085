@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-INTERIOR-TRANSIT-03 — DONE — Revue artistique native détaillée du lot intérieur et transit 03
+
+- Fichiers : `godot/combat_missions_ui/art/environment/map_presentation.json`, `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-03.jpg`.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 inspectées individuellement : cyber cafe, medical clinic, penthouse atrium, police records, research lab, safehouse, server room, skybridge spine, freight yard, metro interchange, subway platform et train tunnel; Raccords, lumières, ombres, occultation, perspective, mobilier, voies et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot; Freight yard vérifié par retrait expérimental du patch de rail puis capture native ciblée Godot 4.7.2/OpenGL sur RTX 5070 Ti : COMBAT_21_CAPTURE_PASSED ; le retrait augmentait les discontinuités moyennes aux quatre bords, configuration originale restaurée; Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification conservée des PNG source, SHA ou de la géométrie tactique.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-03.jpg`, `docs/images/entity-scale-production-windows/native-report.json`, `godot/combat_missions_ui/art/environment/map_presentation.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-INDUSTRIAL-02 — DONE — Revue artistique native détaillée du lot industriel et intérieur 02
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-02.jpg`.
@@ -455,6 +462,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les cartes de la planche 03, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 04, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

@@ -9,6 +9,29 @@
   ],
   "tasks": [
     {
+      "id": "ENV-DETAIL-INTERIOR-TRANSIT-03",
+      "title": "Revue artistique native détaillée du lot intérieur et transit 03",
+      "status": "DONE",
+      "files": [
+        "godot/combat_missions_ui/art/environment/map_presentation.json",
+        "godot/combat_missions_ui/art/environment/environment_art.json",
+        "docs/images/entity-scale-production-windows/catalogue-03.jpg"
+      ],
+      "tests": [
+        "12 captures Windows Godot 2560x1440 inspectées individuellement : cyber cafe, medical clinic, penthouse atrium, police records, research lab, safehouse, server room, skybridge spine, freight yard, metro interchange, subway platform et train tunnel",
+        "Raccords, lumières, ombres, occultation, perspective, mobilier, voies et lisibilité tactique contrôlés ; aucun défaut local reproductible nécessitant une correction dans ce lot",
+        "Freight yard vérifié par retrait expérimental du patch de rail puis capture native ciblée Godot 4.7.2/OpenGL sur RTX 5070 Ti : COMBAT_21_CAPTURE_PASSED ; le retrait augmentait les discontinuités moyennes aux quatre bords, configuration originale restaurée",
+        "Les contrôles natifs correspondants de picking, projection et zoom sont PASS ; aucune modification conservée des PNG source, SHA ou de la géométrie tactique"
+      ],
+      "evidence": [
+        "docs/images/entity-scale-production-windows/catalogue-03.jpg",
+        "docs/images/entity-scale-production-windows/native-report.json",
+        "godot/combat_missions_ui/art/environment/map_presentation.json"
+      ],
+      "remaining": "",
+      "reason": ""
+    },
+    {
       "id": "ENV-DETAIL-INDUSTRIAL-02",
       "title": "Revue artistique native détaillée du lot industriel et intérieur 02",
       "status": "DONE",
@@ -1482,7 +1505,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les cartes de la planche 03, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.",
+  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 04, puis corriger localement tout défaut reproductible sur deux ou trois cartes. ANIM-COMPLETE : poursuivre la prochaine unité éligible avec des tests limités à cette unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
