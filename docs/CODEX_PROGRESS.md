@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-STREET-WASTELAND-07 — DONE — Revue artistique native detaillee du lot rue et wasteland 07
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-07.jpg`.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 inspectees individuellement via des copies de revue 1280x720 : cinq cartes street et sept cartes wasteland; Raccords, lumieres, ombres, eau, ruines, occultation, perspective, epaves, mobilier et lisibilite tactique controles ; aucun defaut local reproductible necessitant une correction; Les alias bridge access, billboard avenue, ruined downtown et burned market block restent pixel-identiques et coherents ; aucune modification des PNG source, SHA ou de la geometrie tactique.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-07.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-STREET-06 — DONE — Revue artistique native detaillee du lot rue 06
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `godot/combat_missions_ui/art/environment/expansion_reviews.json`, `tests/test_environment_art25.py`, `docs/images/entity-scale-production-windows/catalogue-06.jpg`.
@@ -483,6 +490,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 07, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après la correction locale. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 08, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après la correction locale. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
