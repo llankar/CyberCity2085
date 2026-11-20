@@ -119,10 +119,19 @@ def test_win32_overlay_stays_hidden_until_ready_then_raises_without_click():
     view._arcade_hwnd=100;view._godot_hwnd=None;view._overlaid=False;view._session_ready=False
     view.window=SimpleNamespace(width=1280,height=720)
     module='game.combat.win32_embed.'
-    with patch.object(handoff,'_WIN',True),patch(module+'get_process_hwnd',return_value=200),patch(module+'get_window_screen_rect',return_value=(10,20,1280,720)),patch(module+'attach_owned_window'),patch(module+'hide_window') as hide,patch(module+'make_borderless_at') as place,patch(module+'show_window') as show:
+    with patch.object(handoff,'_WIN',True),patch(module+'get_process_hwnd',return_value=200) as find,patch(module+'get_window_screen_rect',side_effect=[(0,0,0,0),(10,20,1280,720),(10,20,1280,720)]),patch(module+'attach_owned_window'),patch(module+'hide_window') as hide,patch(module+'make_borderless_at',side_effect=[False,True]) as place,patch(module+'show_window') as show:
         view._try_overlay();hide.assert_called_once_with(200);place.assert_not_called()
-        view._session_ready=True;view._try_overlay()
-        place.assert_called_once_with(200,10,20,1280,720);show.assert_called_once_with(200)
+        view._session_ready=True
+        view._try_overlay()
+        place.assert_not_called()
+        view._try_overlay()
+        place.assert_called_once_with(200,10,20,1280,720)
+        show.assert_not_called()
+        assert not view._overlaid
+        view._try_overlay()
+        assert place.call_count == 2
+        find.assert_called_once_with(42, include_hidden=False)
+        show.assert_called_once_with(200)
         assert view._overlaid
 
 
