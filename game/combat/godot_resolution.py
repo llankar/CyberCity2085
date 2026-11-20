@@ -43,7 +43,7 @@ def resolve_godot_result(game_state,mission,result,session_id):
         defeated_player_units=[],enemy_units=[],initial_enemy_count=result['initial_enemy_count'],
         triggered_complication=None,window=None)
     context.resolve_defeated_player_unit=lambda u:resolve_defeated_agent_outcome(u.character,
-        remove_character=lambda c:shadow.characters.remove(c),record_event=shadow.add_event)
+        remove_character=shadow.record_agent_death,record_event=shadow.add_event)
     def resolve_outcome(victory):
         context.triggered_complication=resolve_mission_outcome(shadow,context.mission,victory,None)
     context.resolve_mission_outcome=resolve_outcome

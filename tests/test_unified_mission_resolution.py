@@ -39,7 +39,7 @@ def test_result_published_during_exit_poll_is_read_next_tick(tmp_path):
         assert not view._launch_failed
         view._cleanup_godot.assert_not_called()
         view.on_update(0.1)
-        read.assert_called_once_with(result_path)
+        read.assert_called_once_with(result_path, raise_io_errors=True)
         view._apply_combat_result.assert_called_once_with(payload)
 
 

@@ -462,6 +462,8 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - RELEASE-REGRESSION — IN_PROGRESS. Suite complète Windows : 1117 réussis, 32 échecs, 35 ignorés. Corrigé les attentes périmées sur l’anglais et les séparateurs de chemins dans trois suites (28 réussis, 1 ignoré). Prochain lot : fixtures Arcade du QG, puis tri des écarts de carte et de lancement avant de reconstruire le package.
 
+- CAMPAIGN-FALLEN-EPILOGUES: DONE. Confirmed combat deaths are recorded by both clients through Python campaign state and survive save reload. The finale includes fallen agents by name. 53 campaign and unified regressions passed. A production rebuild and visual check of the updated epilogue are pending.
+
 - CAMPAIGN-PACKAGED-QA: DONE. Fifteen authored missions completed on one campaign lineage across five acts in the Windows QA package at 1280x720. Citadel, Expose and Seven Minutes to Dawn won. Save reload retained Dawn Without Masters (human_coalition), named epilogues and all 15 story completions. Inspected the ending capture. Production manual play and audio listening remain open.
 
 - CAMPAIGN-FINALE — DONE. Seven Minutes to Dawn gagnée sous Windows à 720p avec le Titan et le K-9 achetés puis affectés via l’Asset Bay. L’écran de fin s’est ouvert et le rechargement confirme 15 missions d’histoire sur cinq actes, fin Dawn Without Masters (jour 80). Sauvegarde : `work/campaign-story-finale-dual-support/victory/campaign.json`. Le parcours depuis l’exécutable packagé reste à vérifier.
