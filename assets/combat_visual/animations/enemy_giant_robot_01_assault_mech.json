@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "bda53bde3a0d73a024dbebbccac8273d74c3a658e5bb9f2d4259eeb2b005b7fc",
+  "texture_sha256": "cf5b70de5660edfe35e6620576c991d7a4520c41dcd8194e395437eec7efdafb",
   "frame_size": [
     256,
     256
@@ -142,7 +142,7 @@
         ]
       ]
     },
-    "cover": {
+    "melee": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -180,7 +180,7 @@
         ]
       ]
     },
-    "hit": {
+    "cover": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -215,6 +215,44 @@
         [
           94,
           95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
         ]
       ]
     }
@@ -339,6 +377,55 @@
       "clip": "hit",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/melee-action_rows-8.png",
+      "sha256": "e77d011838db64091e6c4c7c54147a78e6b4a5ba9414ba71ad71d9284f16308a",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/melee-action_rows-9.png",
+      "sha256": "190e20b994986be809dd739c220d2b8894abc9df61ea8530dd09771d0a8e9e70",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3
+      ],
+      "pose_indices": [
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/melee-action_rows-10.png",
+      "sha256": "2229f735bf59b339698863aef82d9a66eda0d7468f1d06b243248a8742e1cecd",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        7
+      ],
+      "pose_indices": [
+        0
+      ]
     }
   ],
   "required_clips": [
@@ -356,7 +443,6 @@
   },
   "coverage": "partial",
   "missing_clips": [
-    "melee",
     "death"
   ],
   "review_status": "native_review_pending"
