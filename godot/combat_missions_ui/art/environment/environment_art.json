@@ -13917,9 +13917,10 @@
             0.575925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified_art_completion_pending",
-          "enabled": true,
-          "frame_coverage": 0.8102
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "enabled": false,
+          "frame_coverage": 0.8102,
+          "disabled_reason": "native 1440p review: clean dark barrel overlay is flat and detached from the irradiated ruin palette; retain the source barrels"
         }
       ],
       "art_status": "artistically_complete",
@@ -13938,6 +13939,7 @@
         "barrels_n",
         "barrels_ne",
         "barrels_w",
+        "barrels_center",
         "barrels_e",
         "barrels_s",
         "north_wall_w",
@@ -13973,6 +13975,7 @@
         "barrels_n",
         "barrels_ne",
         "barrels_w",
+        "barrels_center",
         "barrels_e",
         "barrels_s",
         "north_wall_w",
@@ -14328,9 +14331,10 @@
             0.575925925925926
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified_art_completion_pending",
-          "enabled": true,
-          "frame_coverage": 0.8102
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "enabled": false,
+          "frame_coverage": 0.8102,
+          "disabled_reason": "native 1440p review: clean dark barrel overlay is flat and detached from the irradiated ruin palette; retain the source barrels"
         }
       ],
       "art_status": "artistically_complete",
@@ -14349,6 +14353,7 @@
         "barrels_n",
         "barrels_ne",
         "barrels_w",
+        "barrels_center",
         "barrels_e",
         "barrels_s",
         "north_wall_w",
@@ -14384,6 +14389,7 @@
         "barrels_n",
         "barrels_ne",
         "barrels_w",
+        "barrels_center",
         "barrels_e",
         "barrels_s",
         "north_wall_w",

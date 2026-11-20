@@ -1,8 +1,8 @@
 {
   "global_status": "CHANTIER GLOBAL INCOMPLET",
   "tasks": {
-    "done": 51,
-    "total": 65
+    "done": 52,
+    "total": 66
   },
   "maps": {
     "native_verified": 0,
@@ -32,7 +32,7 @@
     ],
     "scope": "44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément"
   },
-  "render_signature": "ddec30d40b34bdd9ec680d8245ec80df570b3fe662ae87b932e9f33fd54f2b7d",
+  "render_signature": "ac2e7190b19617ea4536a0abbea991360dc6e08a807aa37457c47d2956af6aa9",
   "criteria": [
     {
       "id": "MAP-SOURCE",
@@ -80,7 +80,7 @@
       "title": "Silhouettes, matériaux et intégration des objets",
       "mandatory": true,
       "status": "NOT VERIFIED",
-      "detail": "213 placements sur 107 cartes ; 3389 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
+      "detail": "211 placements sur 105 cartes ; 3391 entrées source conservées. Nombre total d’objets artistiques attendus inconnu ; une entrée peut regrouper plusieurs objets. Revue périmée : le rendu ou les ressources ont changé.",
       "evidence": [
         "docs/images/environment-art-review-windows/manifest.json"
       ]
@@ -165,7 +165,7 @@
       "title": "Toutes les tâches obligatoires du registre réalisées",
       "mandatory": true,
       "status": "FAIL",
-      "detail": "51 / 65 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
+      "detail": "52 / 66 tâches DONE ; les lots suivants ne disparaissent pas du bilan.",
       "evidence": [
         "docs/CODEX_PROGRESS.json"
       ]
@@ -184,5 +184,5 @@
     "TARGETED-TESTS",
     "TASK-COMPLETION"
   ],
-  "next_action": "ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 10, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Les 14 cartes restantes après le lot 09 restent NOT VERIFIED artistiquement. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après les corrections locales. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité."
+  "next_action": "ENV-FINAL : terminer la revue native détaillée à 1440p avec les deux cartes de la planche 11, puis corriger localement tout défaut reproductible sur ces seules cartes. Ces deux cartes restent NOT VERIFIED artistiquement. Ensuite, régénérer le catalogue natif 122 cartes aux trois résolutions pour la signature actuelle avant de réévaluer MAP-LOAD, sans confondre ce contrôle avec la revue artistique. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import."
 }

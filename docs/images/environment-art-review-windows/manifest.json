@@ -449,9 +449,19 @@
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
     },
     {
+      "map": "wasteland_outdoor_05_irradiated_basin.png",
+      "id": "art25_barrels_center",
+      "reason": "native 1440p review: clean dark barrel overlay is flat and detached from the irradiated ruin palette; retain the source barrels"
+    },
+    {
       "map": "wasteland_outdoor_07_ashfield_ruins.png",
       "id": "art25_wreck_w",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_outdoor_10_irradiated_basin.png",
+      "id": "art25_barrels_center",
+      "reason": "native 1440p review: clean dark barrel overlay is flat and detached from the irradiated ruin palette; retain the source barrels"
     },
     {
       "map": "wasteland_outdoor_11_convoy_crossing.png",

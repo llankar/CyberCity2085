@@ -118,12 +118,12 @@ Statut : travail artistique **partiel**. Les validations natives ne signifient p
 | wasteland_outdoor_02_ashfield_ruins.png | 0 | Source conservée | 15 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 4](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_03_wrecked_highway.png | 1 | wreck_mid_c → rust_wreck@270° | 19 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 5](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_04_rusted_trainyard.png | 1 | container_s1 → container@90° | 26 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 6](images/environment-art-review-windows/catalogue-10.jpg) |
-| wasteland_outdoor_05_irradiated_basin.png | 1 | barrels_center → barrels@0° | 23 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 7](images/environment-art-review-windows/catalogue-10.jpg) |
+| wasteland_outdoor_05_irradiated_basin.png | 0 | Source conservée ; barrels_center overlay rejeté | 24 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 7](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_06_dust_road_ambush.png | 1 | wreck_mid → rust_wreck@90° | 17 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 8](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_07_ashfield_ruins.png | 0 | Source conservée | 15 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 9](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_08_wrecked_highway.png | 1 | wreck_mid_c → rust_wreck@270° | 19 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 10](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_09_rusted_trainyard.png | 1 | container_s1 → container@90° | 26 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 11](images/environment-art-review-windows/catalogue-10.jpg) |
-| wasteland_outdoor_10_irradiated_basin.png | 1 | barrels_center → barrels@0° | 23 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 12](images/environment-art-review-windows/catalogue-10.jpg) |
+| wasteland_outdoor_10_irradiated_basin.png | 0 | Source conservée ; barrels_center overlay rejeté | 24 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 12](images/environment-art-review-windows/catalogue-10.jpg) |
 | wasteland_outdoor_11_convoy_crossing.png | 0 | Source conservée | 24 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 1](images/environment-art-review-windows/catalogue-11.jpg) |
 | wasteland_outdoor_12_salt_flat_ambush.png | 1 | wreck_mid_c → rust_wreck@90° | 19 | Rendu / picking / zoom vérifiés ; art incomplet | [Planche, case 2](images/environment-art-review-windows/catalogue-11.jpg) |
 
