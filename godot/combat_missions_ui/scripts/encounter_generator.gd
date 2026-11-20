@@ -461,6 +461,11 @@ func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary
 	var objective := build_objective(obj_type, grid_cols, grid_rows)
 	var placed    := place_enemies(units, objective["cell"] as Vector2i,
 								  tags, grid_cols, grid_rows)
+	if mission.get("id") == "sm_act5_expose" and theme == "corp_37_robot":
+		for unit: Dictionary in placed:
+			if unit.get("enemy_subtype") == "heavy":
+				unit["visual_asset"] = "enemy_giant_robot_01_assault_mech"
+				break
 
 	# Build vehicles — enemy vehicle may become a Giant combat unit.
 	var vehicles: Dictionary = {} if is_interior_map(map) else build_vehicles(analysis, giant_used, grid_cols, grid_rows)
