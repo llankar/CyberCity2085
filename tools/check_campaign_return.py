@@ -1,4 +1,4 @@
-"""Native Linux integration evidence; forced outcomes test plumbing, not Windows embedding."""
+"""Exercise campaign deployment and return using an internal native Godot driver."""
 from __future__ import annotations
 import argparse,json,os,subprocess,sys,tempfile,time
 from contextlib import chdir
@@ -25,7 +25,7 @@ def campaign_scenario(mission_id=None, *, state=None):
     return state,mission
 
 
-def main():
+def main(argv=None):
     import arcade
     from game.character import Character
     from game.gamestate import GameState
@@ -57,7 +57,7 @@ def main():
     parser.add_argument("--keep-source-alive", action="store_true")
     parser.add_argument("--crash-recovery", action="store_true")
     parser.add_argument("--resume-debrief", action="store_true")
-    args=parser.parse_args()
+    args=parser.parse_args(argv)
     if args.campaign_save and not args.campaign_play:
         parser.error("--campaign-save requires --campaign-play")
     if min(args.therapy_days, args.shore_leave_days) < 0:
@@ -69,9 +69,10 @@ def main():
     if args.campaign_play and ('retreat' in args.outcomes or args.interrupt_phase):
         parser.error('Natural playthrough has no fabricated retreat or forced interruption fixture')
     output=args.output.resolve();output.mkdir(parents=True,exist_ok=True)
-    root=Path(__file__).resolve().parents[1];previous=Path.cwd();real_popen=subprocess.Popen
+    root=Path(sys.executable).resolve().parent if getattr(sys, "frozen", False) else Path(__file__).resolve().parents[1]
+    previous=Path.cwd();real_popen=subprocess.Popen
     class Window(MusicTransitionMixin,arcade.Window):pass
-    window=Window(args.width,args.height,'CyberCity unified experience — Linux validation',visible=True)
+    window=Window(args.width,args.height,'CyberCity 2085 — Campaign QA',visible=True)
     results=[]
     def frame(path=None):
         window.dispatch_events();window.switch_to()

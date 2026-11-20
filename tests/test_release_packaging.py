@@ -53,6 +53,23 @@ def test_arcade_version_data_is_a_file_in_the_package():
         ]
 
 
+def test_campaign_qa_is_dispatched_only_when_driver_is_present(monkeypatch):
+    import importlib
+    from types import SimpleNamespace
+    from unittest.mock import Mock
+    import main
+
+    loader = Mock(side_effect=ModuleNotFoundError(name="tools.check_campaign_return"))
+    monkeypatch.setattr(importlib, "import_module", loader)
+    assert main.main(["--qa-campaign", "--campaign-play"]) == 2
+    loader.assert_called_once_with("tools.check_campaign_return")
+    driver = Mock()
+    loader.side_effect = None
+    loader.return_value = SimpleNamespace(main=driver)
+    assert main.main(["--qa-campaign", "--campaign-play"]) == 0
+    driver.assert_called_once_with(["--campaign-play"])
+
+
 def test_source_runtime_keeps_current_working_directory(monkeypatch, tmp_path):
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr(runtime.sys, "frozen", False, raising=False)

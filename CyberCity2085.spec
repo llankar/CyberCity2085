@@ -21,7 +21,7 @@ a = Analysis(
         *godot_executable_data(),
         *build_identity_data(root),
     ],
-    hiddenimports=["tools.check_unified_return"] if include_qa else [],
+    hiddenimports=["tools.check_unified_return", "tools.check_campaign_return"] if include_qa else [],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

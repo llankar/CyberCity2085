@@ -9,13 +9,18 @@ from game.runtime import configure_runtime_directory
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    if argv[:1] == ["--qa-unified"]:
+    qa_drivers = {
+        "--qa-unified": "tools.check_unified_return",
+        "--qa-campaign": "tools.check_campaign_return",
+    }
+    if argv and argv[0] in qa_drivers:
         from importlib import import_module
 
+        module = qa_drivers[argv[0]]
         try:
-            driver = import_module("tools.check_unified_return")
+            driver = import_module(module)
         except ModuleNotFoundError as error:
-            if error.name not in {"tools", "tools.check_unified_return"}:
+            if error.name not in {"tools", module}:
                 raise
             return 2
         driver.main(argv[1:])
