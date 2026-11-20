@@ -72,6 +72,8 @@ def main(argv=None):
         parser.error("--resize-check requires --real-mission")
     if args.overlay_check and sys.platform != "win32":
         parser.error("--overlay-check requires Windows")
+    if args.overlay_check and (args.width <= 160 or args.height <= 90):
+        parser.error("--overlay-check requires width > 160 and height > 90")
     if args.real_mission and args.interrupt_phase and args.outcomes != ["victory"]:
         parser.error("real mission interruption requires --outcomes victory")
     if args.real_mission and any(outcome not in {"victory", "defeat", "retreat"} for outcome in args.outcomes):
@@ -192,12 +194,32 @@ def main(argv=None):
                         for _ in range(12):frame();time.sleep(.08)
                         assert window.current_view is bridge and process.poll() is None
                         if args.overlay_check:
+                            import ctypes
+                            from ctypes import wintypes
                             from game.combat.win32_embed import get_window_screen_rect
                             assert bridge._overlaid and bridge._arcade_hwnd and bridge._godot_hwnd
                             owner_rect = get_window_screen_rect(bridge._arcade_hwnd)
                             tactical_rect = get_window_screen_rect(bridge._godot_hwnd)
                             assert owner_rect == tactical_rect and min(owner_rect[2:]) > 0, (owner_rect, tactical_rect)
                             print(f"WIN32_OVERLAY_CLIENTS_MATCH {tactical_rect}", flush=True)
+                            get_dpi = ctypes.windll.user32.GetDpiForWindow
+                            get_dpi.argtypes = [wintypes.HWND]
+                            get_dpi.restype = wintypes.UINT
+                            dpi = (get_dpi(bridge._arcade_hwnd), get_dpi(bridge._godot_hwnd))
+                            assert min(dpi) > 0
+                            print(f"WIN32_OVERLAY_DPI arcade={dpi[0]} godot={dpi[1]}", flush=True)
+                            for width, height in ((args.width - 160, args.height - 90), (args.width, args.height)):
+                                window.set_size(width, height)
+                                deadline = time.monotonic() + 5
+                                while True:
+                                    frame()
+                                    owner_rect = get_window_screen_rect(bridge._arcade_hwnd)
+                                    tactical_rect = get_window_screen_rect(bridge._godot_hwnd)
+                                    if owner_rect == tactical_rect and owner_rect[2:] == (width, height):
+                                        break
+                                    assert time.monotonic() < deadline, (owner_rect, tactical_rect, width, height)
+                                    time.sleep(.03)
+                                print(f"WIN32_OVERLAY_FOLLOWS_ARCADE {tactical_rect}", flush=True)
                         assert state.available_funds==before and not Path(bridge.launch_result.result_path).exists()
                         if args.interrupt_after_resolution: bridge._write_pending_ack=lambda:None
                         if args.crash_recovery:
