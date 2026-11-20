@@ -11,7 +11,7 @@
     {
       "id": "WINDOWS-RESULT-READ-RETRY",
       "title": "Retry transient Windows combat result reads",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "game/combat/godot_bridge.py",
         "game/ui/screens/godot_combat_handoff_view.py",
@@ -23,7 +23,7 @@
         "Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection"
       ],
       "evidence": [
-        "Packaged QA internal driver and focused lock regression"
+        "tests/test_unified_checkpoints.py"
       ],
       "remaining": "Production package rebuilt; native Arcade startup, bundled headless Godot, save reload and QA entry exclusion passed. Desktop interaction and audio listening remain open.",
       "reason": ""
@@ -31,7 +31,7 @@
     {
       "id": "WINDOWS-CURRENT-BUILD",
       "title": "Current Windows distribution and headless smoke",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "tools/build_windows.ps1",
         "CyberCity2085.spec"
@@ -1091,7 +1091,7 @@
     {
       "id": "ENGLISH-UI-01",
       "title": "Uniformiser toute la copie joueur en anglais",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "game/i18n/__init__.py",
         "game/gamestate.py",
@@ -1117,7 +1117,7 @@
     {
       "id": "GODOT-UI-FOCUS-01",
       "title": "Traduire le HUD tactique résiduel et afficher le combat sans clic",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/scripts/visual_hud.gd",
         "godot/combat_missions_ui/scripts/visual_battlefield.gd",
@@ -1141,7 +1141,7 @@
     {
       "id": "GODOT-ENGLISH-02",
       "title": "Auditer toutes les chaînes Godot et retirer les dernières fuites françaises",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/scripts/visual_hud.gd",
         "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
@@ -1164,7 +1164,7 @@
     {
       "id": "GODOT-PARSE-01",
       "title": "Réparer le blocage de chargement après traduction du HUD",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/scripts/visual_hud.gd",
         "tests/test_english_player_ui.py",
@@ -1362,7 +1362,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : inspecter les contrats et références des deux entités éligibles suivantes, puis produire le prochain lot artistique authentique.",
+  "next_action": "ENV-FINAL : comparer la signature du dernier rendu Windows aux changements de rendu commun, dont l’ancrage des unités. Relancer la validation des 122 cartes pour les changements globaux. ANIM-COMPLETE : poursuivre les atlas authentiques avec des tests par unité.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
