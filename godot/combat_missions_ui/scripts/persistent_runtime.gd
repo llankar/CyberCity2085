@@ -1,6 +1,8 @@
 extends Node
 ## Application-lifetime host. Missions are scene instances, not new OS processes.
 const Mailbox = preload("res://scripts/session_mailbox.gd")
+const PARKED_LEASE_SECONDS := 10.0
+const ACTIVE_LEASE_SECONDS := 120.0
 var directory := ""
 var runtime_id := ""
 var asset_root := ""
@@ -47,7 +49,10 @@ func _process(delta: float) -> void:
 	var heartbeat: Variant=_read("heartbeat.json")
 	if heartbeat is Dictionary and heartbeat.get("runtime_id")==runtime_id and heartbeat.get("sequence")!=_heartbeat:
 		_heartbeat=heartbeat.get("sequence");_lease_age=0
-	if _lease_age>120:get_tree().quit();return
+	var lease_limit := PARKED_LEASE_SECONDS if _mission == null and not _busy else ACTIVE_LEASE_SECONDS
+	if _lease_age > lease_limit:
+		get_tree().quit()
+		return
 	if _busy or _warming or _packed==null:return
 	var command: Variant=_read("command.json")
 	if not command is Dictionary or command.get("protocol_version")!=2 or command.get("runtime_id")!=runtime_id:return

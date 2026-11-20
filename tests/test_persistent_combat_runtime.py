@@ -55,6 +55,22 @@ def test_actual_runtime_is_started_before_first_mission_and_reused(tmp_path):
     assert 'SCRIPT ERROR' not in (runtime.directory/'godot.log').read_text()
 
 
+def test_parked_runtime_exits_after_heartbeat_lapses(tmp_path):
+    from game.combat.godot_bridge import find_godot_executable
+
+    godot = find_godot_executable()
+    if not godot:
+        pytest.skip("Godot unavailable")
+    runtime = CombatRuntime(project_dir=ROOT / "godot/combat_missions_ui",
+                            directory=tmp_path / "runtime", executable=godot, headless=True)
+    try:
+        assert runtime.start()
+        wait_for(runtime, lambda status: status.get("state") == "idle")
+        assert runtime.process.wait(timeout=18) == 0
+    finally:
+        runtime.close()
+
+
 def test_win32_overlay_stays_hidden_until_ready_then_raises_without_click():
     from types import SimpleNamespace
     from unittest.mock import Mock
