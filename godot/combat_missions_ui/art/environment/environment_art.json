@@ -11681,9 +11681,10 @@
             0.6055555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified_art_completion_pending",
-          "enabled": true,
-          "frame_coverage": 0.9976
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "enabled": false,
+          "frame_coverage": 0.9976,
+          "disabled_reason": "native 1440p review: tall brown sofa overlay is oversized and too clean for the ruined apartment shelter; retain the source sofa"
         },
         {
           "id": "art25_detail_bed_nw",
@@ -11718,6 +11719,7 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
+        "sofa_center",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -11764,6 +11766,7 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
+        "sofa_center",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -13026,9 +13029,10 @@
             0.6055555555555555
           ],
           "source_review": "overview_contact_sheet",
-          "detail_status": "native_render_verified_art_completion_pending",
-          "enabled": true,
-          "frame_coverage": 0.9976
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "enabled": false,
+          "frame_coverage": 0.9976,
+          "disabled_reason": "native 1440p review: tall brown sofa overlay is oversized and too clean for the ruined apartment shelter; retain the source sofa"
         },
         {
           "id": "art25_detail_bed_nw",
@@ -13063,6 +13067,7 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
+        "sofa_center",
         "north_kitchen",
         "north_table",
         "north_e_stove",
@@ -13109,6 +13114,7 @@
         "north_wall_e",
         "south_wall_w",
         "south_wall_e",
+        "sofa_center",
         "north_kitchen",
         "north_table",
         "north_e_stove",

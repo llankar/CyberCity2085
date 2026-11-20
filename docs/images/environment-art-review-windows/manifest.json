@@ -414,6 +414,11 @@
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
     },
     {
+      "map": "wasteland_inner_07_apartment_shelter.png",
+      "id": "art25_sofa_center",
+      "reason": "native 1440p review: tall brown sofa overlay is oversized and too clean for the ruined apartment shelter; retain the source sofa"
+    },
+    {
       "map": "wasteland_inner_09_bunker_command_post.png",
       "id": "art25_command_console",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
@@ -432,6 +437,11 @@
       "map": "wasteland_inner_11_maintenance_depot.png",
       "id": "art25_middle_workbench",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_12_apartment_shelter.png",
+      "id": "art25_sofa_center",
+      "reason": "native 1440p review: tall brown sofa overlay is oversized and too clean for the ruined apartment shelter; retain the source sofa"
     },
     {
       "map": "wasteland_outdoor_02_ashfield_ruins.png",
