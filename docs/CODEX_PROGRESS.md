@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### ENV-DETAIL-WASTELAND-08 — DONE — Revue artistique native detaillee du lot wasteland 08
+
+- Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `godot/combat_missions_ui/art/environment/expansion_reviews.json`, `docs/combat_visual_25_inventory.md`, `docs/images/entity-scale-production-windows/catalogue-08.jpg`.
+- Tests / contrôles réellement exécutés : 12 captures Windows Godot 2560x1440 de la planche 08 inspectees individuellement via des copies de revue 1280x720; Deux familles de defauts reproductibles corrigees : overlay armchair sur les deux alias abandoned safehouse et overlay desk sur les deux alias looted vault ; overlays desactives, objets source conserves, PNG, SHA et geometrie tactique preserves; python -m pytest -q tests/test_environment_art25.py tests/test_environment_art_review.py tests/test_environment_progress.py : 13 passed, 2 skipped; Trois recaptures representatives Windows natives Godot 4.7.2/OpenGL a 2560x1440 : COMBAT_21_CAPTURE_PASSED ; les deux safehouse et un looted vault inspectes, overlays absents et decor source coherent.
+- Preuves : `docs/images/entity-scale-production-windows/catalogue-08.jpg`, `docs/images/entity-scale-production-windows/native-report.json`, `godot/combat_missions_ui/art/environment/environment_art.json`, `godot/combat_missions_ui/art/environment/expansion_reviews.json`.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-STREET-WASTELAND-07 — DONE — Revue artistique native detaillee du lot rue et wasteland 07
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-07.jpg`.
@@ -490,6 +497,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 08, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après la correction locale. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
+ENV-FINAL : poursuivre la revue native détaillée à 1440p avec les 12 cartes de la planche 09, puis corriger localement tout défaut reproductible sur deux ou trois cartes. Les 26 cartes restantes après le lot 08 restent NOT VERIFIED artistiquement. Préserver séparément le constat que la signature globale rend les anciennes preuves MAP-LOAD incompatibles après les corrections locales. ANIM-COMPLETE : produire une nouvelle source de enemy_giant_robot_02_quadruped_siege dont les vues cardinales et l'alternance diagonale des jambes sont vérifiables avant tout import, avec tests limités à cette unité.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

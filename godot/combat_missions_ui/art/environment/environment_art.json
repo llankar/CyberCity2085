@@ -10805,11 +10805,12 @@
             0.5885416666666666,
             0.7037037037037037
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 168,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.9778
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.9778,
+          "disabled_reason": "native 1440p review: brown armchair overlay is oversized and mismatched to the ruined safehouse palette and perspective; retain the source chair"
         }
       ],
       "art_status": "artistically_complete",
@@ -10826,6 +10827,7 @@
         "table_ne",
         "bed_sw",
         "table_s",
+        "chair_s",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -10869,6 +10871,7 @@
         "table_ne",
         "bed_sw",
         "table_s",
+        "chair_s",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -11316,11 +11319,12 @@
             0.17708333333333334,
             0.8074074074074075
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 180,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.7372
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.7372,
+          "disabled_reason": "native 1440p review: brown desk overlay with cyan screen breaks the looted vault palette and perspective; retain the source desk"
         }
       ],
       "art_status": "artistically_complete",
@@ -11341,6 +11345,7 @@
         "table_e",
         "table_sw",
         "table_se",
+        "sw_desk",
         "nw_shelf",
         "nw_rack",
         "se_desk",
@@ -11379,6 +11384,7 @@
         "table_e",
         "table_sw",
         "table_se",
+        "sw_desk",
         "nw_shelf",
         "nw_rack",
         "se_desk",
@@ -11463,11 +11469,12 @@
             0.5885416666666666,
             0.7037037037037037
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 168,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.9778
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.9778,
+          "disabled_reason": "native 1440p review: brown armchair overlay is oversized and mismatched to the ruined safehouse palette and perspective; retain the source chair"
         }
       ],
       "art_status": "artistically_complete",
@@ -11484,6 +11491,7 @@
         "table_ne",
         "bed_sw",
         "table_s",
+        "chair_s",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -11527,6 +11535,7 @@
         "table_ne",
         "bed_sw",
         "table_s",
+        "chair_s",
         "bath_sink_n",
         "bath_sink_s",
         "bath_tub_s",
@@ -12639,11 +12648,12 @@
             0.17708333333333334,
             0.8074074074074075
           ],
-          "enabled": true,
+          "enabled": false,
           "source_review": "detail_crop_sheet",
           "review_index": 180,
-          "detail_status": "native_render_verified_art_completion_pending",
-          "frame_coverage": 0.7372
+          "detail_status": "original_retained_overlay_art_mismatch",
+          "frame_coverage": 0.7372,
+          "disabled_reason": "native 1440p review: brown desk overlay with cyan screen breaks the looted vault palette and perspective; retain the source desk"
         }
       ],
       "art_status": "artistically_complete",
@@ -12664,6 +12674,7 @@
         "table_e",
         "table_sw",
         "table_se",
+        "sw_desk",
         "nw_shelf",
         "nw_rack",
         "se_desk",
@@ -12702,6 +12713,7 @@
         "table_e",
         "table_sw",
         "table_se",
+        "sw_desk",
         "nw_shelf",
         "nw_rack",
         "se_desk",

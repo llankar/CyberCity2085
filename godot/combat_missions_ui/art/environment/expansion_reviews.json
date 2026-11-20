@@ -3711,11 +3711,11 @@
         0.7037037037037037
       ],
       "source_sha256": "ada1902c7c215b95e9415456a1bbcb738d27c8bc71c21012e5d1db64c1b57467",
-      "decision": "replace",
+      "decision": "retain_original",
       "review_sheet": "review-07.jpg",
       "review_cell": 1,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
+      "reason": "Native 1440p review rejected the brown armchair overlay on both aliases: oversized, palette mismatch and inconsistent perspective; source chair retained.",
       "asset": "armchair"
     },
     {
@@ -3984,11 +3984,11 @@
         0.8074074074074075
       ],
       "source_sha256": "45f565f081c0b8a6fb181cb0a9450a3f886f167c01b0c1c95e3aeb645507391e",
-      "decision": "replace",
+      "decision": "retain_original",
       "review_sheet": "review-07.jpg",
       "review_cell": 13,
       "visual_review": "detail_crop_inspected",
-      "reason": "Single visually identified object; frame/occlusion/native validation still required.",
+      "reason": "Native 1440p review rejected the brown desk overlay on both aliases: cyan-screen asset breaks the ruined vault palette and perspective; source desk retained.",
       "asset": "desk"
     },
     {

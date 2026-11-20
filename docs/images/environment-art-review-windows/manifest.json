@@ -384,6 +384,11 @@
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
     },
     {
+      "map": "wasteland_inner_01_abandoned_safehouse.png",
+      "id": "art25_detail_chair_s",
+      "reason": "native 1440p review: brown armchair overlay is oversized and mismatched to the ruined safehouse palette and perspective; retain the source chair"
+    },
+    {
       "map": "wasteland_inner_04_bunker_command_post.png",
       "id": "art25_command_console",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
@@ -392,6 +397,16 @@
       "map": "wasteland_inner_04_bunker_command_post.png",
       "id": "art25_detail_sw_bed",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_05_looted_vault.png",
+      "id": "art25_detail_sw_desk",
+      "reason": "native 1440p review: brown desk overlay with cyan screen breaks the looted vault palette and perspective; retain the source desk"
+    },
+    {
+      "map": "wasteland_inner_06_abandoned_safehouse.png",
+      "id": "art25_detail_chair_s",
+      "reason": "native 1440p review: brown armchair overlay is oversized and mismatched to the ruined safehouse palette and perspective; retain the source chair"
     },
     {
       "map": "wasteland_inner_06_maintenance_depot.png",
@@ -407,6 +422,11 @@
       "map": "wasteland_inner_09_bunker_command_post.png",
       "id": "art25_detail_sw_bed",
       "reason": "reviewed source-art fallback retained; disabled overlay does not improve the fitted object"
+    },
+    {
+      "map": "wasteland_inner_10_looted_vault.png",
+      "id": "art25_detail_sw_desk",
+      "reason": "native 1440p review: brown desk overlay with cyan screen breaks the looted vault palette and perspective; retain the source desk"
     },
     {
       "map": "wasteland_inner_11_maintenance_depot.png",
