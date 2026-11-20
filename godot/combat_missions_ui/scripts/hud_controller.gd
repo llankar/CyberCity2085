@@ -403,6 +403,11 @@ func tactical_status() -> String:
 		return "%s   |   X: actions   D-pad: aim   A: confirm   Y: end turn" % status_line
 	return status_line
 
+func board_cursor_bounds() -> Rect2:
+	return Rect2(Vector2(24, TOP_BAR_H + 24), Vector2(
+		maxf(1, size.x - RIGHT_PANEL_W - 48),
+		maxf(1, size.y - STRIP_H - TOP_BAR_H - 48)))
+
 func _draw_combat_log() -> void:
 	var lw  := 360.0
 	var lh  := 200.0
