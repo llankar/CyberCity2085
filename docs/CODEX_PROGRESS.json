@@ -9,6 +9,24 @@
   ],
   "tasks": [
     {
+      "id": "WINDOWS-CURRENT-BUILD",
+      "title": "Current Windows distribution and headless smoke",
+      "status": "DONE",
+      "files": [
+        "tools/build_windows.ps1",
+        "CyberCity2085.spec"
+      ],
+      "tests": [
+        "1145 passed, 35 skipped, 12 subtests passed",
+        "Packaged Godot 4.6.3 headless startup and save reload passed"
+      ],
+      "evidence": [
+        "dist/windows-current/CyberCity2085/CyberCity2085.exe"
+      ],
+      "remaining": "Native graphical acceptance remains open.",
+      "reason": ""
+    },
+    {
       "id": "GOV-01",
       "title": "Consignes permanentes et lots successifs",
       "status": "DONE",

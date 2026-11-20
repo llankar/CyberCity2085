@@ -18,6 +18,8 @@ The earlier candidate is preserved. Current R2 evidence is
 
 The retrofit goal remains active; no desktop control was used for the new checks.
 
+Current local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.exe. Release gate: 1,145 passed, 35 skipped, 12 subtests passed. Bundled Godot 4.6.3 headless startup and save reload passed. Native graphical acceptance remains open.
+
 ## Automated gates
 
 - [x] New game state can progress through all 15 authored story missions.
