@@ -22,6 +22,8 @@ Current local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.ex
 
 Packaging regression: the production executable now includes Arcade 3.3.3 version metadata as a readable file. Nine packaging tests and the packaged headless smoke passed.
 
+- [x] One native Windows QA package campaign completed all 15 authored missions with Godot, reloaded the final save and displayed Dawn Without Masters with named epilogues.
+
 ## Automated gates
 
 - [x] New game state can progress through all 15 authored story missions.
