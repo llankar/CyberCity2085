@@ -1068,7 +1068,7 @@ func _interact_with_objective() -> void:
 	var action_key := str(objective.get("action_key",      ""))
 
 	# Spend 1 AP per interaction tick.
-	active["ap"] = ap - 1
+	_spend_player_ap(active, 1)
 	player_units[active_player_index] = active
 	objective_progress += 1
 
@@ -1336,7 +1336,7 @@ func _apply_psi_focus() -> void:
 		_sync_display()
 		return
 	var relief: int = int((_ACTION_DEFS.get("Psi Focus", {}) as Dictionary).get("stress_relief", 25))
-	active["ap"] = maxi(0, ap - 1)
+	_spend_player_ap(active, 1)
 	player_units[active_player_index] = active
 	for i in range(player_units.size()):
 		var u := player_units[i] as Dictionary
@@ -1366,7 +1366,7 @@ func _apply_trauma_patch() -> void:
 		status_line = "%s is already at full HP." % _active_unit_name()
 		_sync_display()
 		return
-	active["ap"] = maxi(0, ap - 1)
+	_spend_player_ap(active, 1)
 	active["hp"] = mini(max_hp, old_hp + heal_amt)
 	player_units[active_player_index] = active
 	_visual_self_effect("heal")
@@ -1399,7 +1399,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 		status_line = "Not enough AP (%s costs %d AP)." % [action,ap_cost]
 		_sync_display()
 		return
-	active["ap"] = maxi(0, ap - ap_cost)
+	_spend_player_ap(active, ap_cost)
 	player_units[active_player_index] = active
 	if visual_mode:
 		_visual_fx.burst("explosion", Vector2.ZERO, _battlefield.cell_to_world(center_cell))
@@ -1480,7 +1480,7 @@ func _move_active_unit_to(cell: Vector2i) -> void:
 		_visual_move_token(pkey, _cell_position(u), cell, u)
 
 	u["position"] = cell
-	u["ap"]       = maxi(0, ap - dist)
+	_spend_player_ap(u, dist)
 	player_units[active_player_index] = u
 
 	status_line = "%s → %d,%d  (AP: %d)" % [
@@ -1527,7 +1527,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		status_line = "Not enough AP (%s costs %d AP)." % [action_name, ap_cost]
 		_sync_display()
 		return
-	attacker["ap"] = maxi(0, ap - ap_cost)
+	_spend_player_ap(attacker, ap_cost)
 	player_units[active_player_index] = attacker
 
 	var atype := _action_type(action_name)
@@ -1844,7 +1844,7 @@ func _end_combat(outcome: String) -> void:
 	var support: Array=[]
 	for unit: Dictionary in player_units:
 		var snapshot: Dictionary={"name":unit.name,"hp":int(unit.hp),"max_hp":int(unit.max_hp),"stress":int(unit.get("stress",0))}
-		for metric in ["damage_dealt", "damage_taken", "kills"]:
+		for metric in ["damage_dealt", "damage_taken", "kills", "actions_used"]:
 			if unit.has(metric):
 				snapshot[metric] = int(unit[metric])
 		if not str(unit.get("asset_id","")).is_empty():
@@ -1874,6 +1874,12 @@ func _end_combat(outcome: String) -> void:
 	battle_ended = true   # block all further sync / input processing
 
 # ─── Data builders ────────────────────────────────────────────────────────────
+
+func _spend_player_ap(unit: Dictionary, cost: int) -> void:
+	var before := int(unit.get("ap", 0))
+	unit["ap"] = maxi(0, before - cost)
+	if unit.has("actions_used"):
+		unit["actions_used"] += before - int(unit.ap)
 
 func _apply_hp_damage(target: Dictionary, damage: int, attacker: Dictionary = {}) -> void:
 	var before := int(target.get("hp", 0))
@@ -1987,6 +1993,7 @@ func _build_player_units() -> Array[Dictionary]:
 		unit["damage_dealt"] = 0
 		unit["damage_taken"] = 0
 		unit["kills"] = 0
+		unit["actions_used"] = 0
 	return units
 
 func _build_enemy_units() -> Array[Dictionary]:

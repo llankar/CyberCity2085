@@ -36,6 +36,7 @@ func run() -> void:
 	actor.erase("last_stand_spoken")
 	actor["kills"] = 0
 	actor["damage_dealt"] = 0
+	actor["actions_used"] = 0
 	mission.combat_log.clear()
 	mission.active_player_index = mission.player_units.find(actor)
 	actor["ap"] = 8
@@ -46,6 +47,7 @@ func run() -> void:
 	mission.selected_action = "Missile Salvo"
 	mission._apply_missile_salvo(center)
 	assert(mission.enemy_units[0].hp == 0 and mission.enemy_units[1].hp == 0)
+	assert(actor.actions_used == 8 - actor.ap and actor.actions_used > 0)
 	count = 0
 	for entry: String in mission.combat_log:
 		if actor.last_stand_dialogue in entry:

@@ -714,7 +714,8 @@
         "Defeat and retreat debrief risk text now reflects tactical casualties or an unsuccessful operation. Forty-four focused tests passed. Both native 720p result paths were re-run and their corrected debrief screenshots inspected.",
         "Parked vehicles omit tactical status markings in both Godot interfaces. Native Dust Road VTOL fixture passed and a before/after pixel check confirmed the cyan health bar was removed. Combat vehicles remain on the existing combat token path.",
         "Debrief now distinguishes ledger mission income from the total corporate balance change. Forty targeted tests passed. Native 720p retreat showed zero mission payout, a corporate balance increase of 100, and a successful HQ return.",
-        "Godot now carries actual HP lost and enemy takedowns into the campaign debrief. Direct and area hits count the real HP change, including overkill. Old checkpoints keep unavailable totals unset. 60 focused tests passed, eight skipped. Native 720p defeat showed the received damage beside each agent and returned to HQ."
+        "Godot now carries actual HP lost and enemy takedowns into the campaign debrief. Direct and area hits count the real HP change, including overkill. Old checkpoints keep unavailable totals unset. 60 focused tests passed, eight skipped. Native 720p defeat showed the received damage beside each agent and returned to HQ.",
+        "Godot exports spent AP through the existing actions_used result field. The victory at Ghost Order Cache showed per-agent AP totals at 720p, with promotions and HQ return. 60 focused tests passed, 8 skipped."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",

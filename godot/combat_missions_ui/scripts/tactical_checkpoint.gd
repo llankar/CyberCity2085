@@ -60,7 +60,7 @@ static func validate(snapshot: Dictionary, scene: Node) -> String:
 			if not row is Dictionary or not _cell(row.get("position"), scene.GRID_COLS, scene.GRID_ROWS): return "Invalid unit cell"
 			if not _integer(row.get("max_hp"), 1, 1000000) or not _integer(row.get("hp"), 0, row.max_hp) or not _integer(row.get("ap"), 0, 100000): return "Invalid unit health or actions"
 			if not row.get("status_effects", []) is Array: return "Invalid unit effects"
-			for key in ["stress", "defense", "initiative", "aim", "melee_power", "damage_dealt", "damage_taken", "kills"]:
+			for key in ["stress", "defense", "initiative", "aim", "melee_power", "damage_dealt", "damage_taken", "kills", "actions_used"]:
 				if row.has(key) and not _integer(row[key], 0, 1000000): return "Invalid unit statistic"
 			if row.has("size_scale") and (not (row.size_scale is int or row.size_scale is float) or not is_finite(float(row.size_scale)) or row.size_scale < 0.1 or row.size_scale > 50): return "Invalid unit scale"
 			for key in ["name", "role", "kind"]:
