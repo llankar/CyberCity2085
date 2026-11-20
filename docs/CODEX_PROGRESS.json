@@ -38,7 +38,7 @@
       ],
       "tests": [
         "1145 passed, 35 skipped, 12 subtests passed",
-        "Packaged Godot 4.6.3 headless startup and save reload passed; Arcade and bundled Godot opened responsive native windows when launched separately. Later production rebuild verified Arcade 3.3.3 version metadata, nine packaging tests and the packaged headless smoke. Four runtime tests also verified idle Godot expiry after a lost heartbeat; the production binary predates this lease change"
+        "Packaged Godot 4.6.3 headless startup and save reload passed; Arcade and bundled Godot opened responsive native windows when launched separately. Later production rebuild verified Arcade 3.3.3 version metadata, nine packaging tests and the packaged headless smoke. Four runtime tests also verified idle Godot expiry after a lost heartbeat; the rebuilt production runtime exited normally 10.18 seconds after forced Arcade termination while idle"
       ],
       "evidence": [
         "dist/windows-current/CyberCity2085/CyberCity2085.exe"
