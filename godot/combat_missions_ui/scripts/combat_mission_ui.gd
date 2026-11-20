@@ -1413,7 +1413,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 		var dist := absi(epos.x - center_cell.x) + absi(epos.y - center_cell.y)
 		if dist > aoe_radius: continue
 		var dmg := maxi(1, base_dmg - dist)
-		eu["hp"] = maxi(0, int(eu.get("hp", 0)) - dmg)
+		_apply_hp_damage(eu, dmg, active)
 		enemy_units[j] = eu
 		var ekey := "e%d" % j
 		if _unit_tokens.has(ekey) and is_instance_valid(_unit_tokens[ekey]):
@@ -1560,7 +1560,7 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	# Melee attacks gain a bonus from the attacker's melee_power (str + close_combat).
 	if _action_type(action_name) == "MELEE":
 		damage += int(attacker.get("melee_power", 0)) / 3
-	target["hp"] = maxi(0, int(target.get("hp", 0)) - damage)
+	_apply_hp_damage(target, damage, attacker)
 	enemy_units[target_index] = target
 
 	if _unit_tokens.has(ekey):
@@ -1772,7 +1772,7 @@ func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void
 		CombatSignals.audio_event.emit("miss")
 		return
 
-	target["hp"] = maxi(0, int(target.get("hp", 0)) - damage)
+	_apply_hp_damage(target, damage)
 	if is_psi:
 		var stress_gain := 22
 		target["stress"] = mini(100, int(target.get("stress", 0)) + stress_gain)
@@ -1844,6 +1844,9 @@ func _end_combat(outcome: String) -> void:
 	var support: Array=[]
 	for unit: Dictionary in player_units:
 		var snapshot: Dictionary={"name":unit.name,"hp":int(unit.hp),"max_hp":int(unit.max_hp),"stress":int(unit.get("stress",0))}
+		for metric in ["damage_dealt", "damage_taken", "kills"]:
+			if unit.has(metric):
+				snapshot[metric] = int(unit[metric])
 		if not str(unit.get("asset_id","")).is_empty():
 			snapshot["id"]=unit.asset_id
 			support.append(snapshot)
@@ -1871,6 +1874,17 @@ func _end_combat(outcome: String) -> void:
 	battle_ended = true   # block all further sync / input processing
 
 # ─── Data builders ────────────────────────────────────────────────────────────
+
+func _apply_hp_damage(target: Dictionary, damage: int, attacker: Dictionary = {}) -> void:
+	var before := int(target.get("hp", 0))
+	target["hp"] = maxi(0, before - damage)
+	var lost := before - int(target.hp)
+	if target.has("damage_taken"):
+		target["damage_taken"] += lost
+	if attacker.has("damage_dealt"):
+		attacker["damage_dealt"] += lost
+	if attacker.has("kills") and lost > 0 and int(target.hp) == 0:
+		attacker["kills"] += 1
 
 func _build_player_units() -> Array[Dictionary]:
 	var squad_raw: Variant = handoff.get("squad", [])
@@ -1969,6 +1983,10 @@ func _build_player_units() -> Array[Dictionary]:
 			"available_actions": asset_actions,
 			"size_scale":        (clampf(float(asset.get("size_scale",3.5)),0.5,5.0) if role == "robot" else 1.15),
 		})
+	for unit: Dictionary in units:
+		unit["damage_dealt"] = 0
+		unit["damage_taken"] = 0
+		unit["kills"] = 0
 	return units
 
 func _build_enemy_units() -> Array[Dictionary]:

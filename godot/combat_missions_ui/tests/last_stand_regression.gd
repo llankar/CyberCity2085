@@ -31,8 +31,11 @@ func run() -> void:
 		if actor.last_stand_dialogue in entry:
 			count += 1
 	assert(count == 1 and actor.last_stand_spoken and actor.last_stand_hp == 1)
+	assert(actor.kills == 2 and actor.damage_dealt == 2)
 	# Exercise a new presentation state with two hostile casualties in one blast.
 	actor.erase("last_stand_spoken")
+	actor["kills"] = 0
+	actor["damage_dealt"] = 0
 	mission.combat_log.clear()
 	mission.active_player_index = mission.player_units.find(actor)
 	actor["ap"] = 8
@@ -48,6 +51,10 @@ func run() -> void:
 		if actor.last_stand_dialogue in entry:
 			count += 1
 	assert(count == 1 and actor.last_stand_spoken)
+	assert(actor.kills == 2 and actor.damage_dealt == 2)
+	actor["hp"] = 4
+	mission._apply_hp_damage(actor, 3)
+	assert(actor.hp == 1 and actor.damage_taken == 3)
 	if not session.is_empty():
 		mission._end_combat("retreat")
 		mission._results._extract_btn.pressed.emit()
