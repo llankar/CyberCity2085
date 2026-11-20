@@ -430,7 +430,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - WINDOWS-RESULT-READ-RETRY: DONE. Bounded retry on result I/O errors. Windows QA package passed victory, defeat and retreat through debrief and HQ at 1280x720. 23 targeted tests passed. Production rebuilt in dist/windows-current; Arcade window startup, bundled headless Godot, save reload and QA entry exclusion passed.
 
-- GODOT-PARKED-LEASE: DONE. An idle Godot host exits after 10 seconds without an Arcade heartbeat; active missions retain the 120-second lease. Four focused runtime tests passed on Windows with headless Godot. Production rebuild pending.
+- GODOT-PARKED-LEASE: DONE. An idle Godot host exits after 10 seconds without an Arcade heartbeat; active missions retain the 120-second lease. Four focused runtime tests passed on Windows with headless Godot. Rebuilt production; the bundled idle Godot exited normally 10.18 seconds after the Arcade process was terminated.
 
 - WINDOWS-ARCADE-VERSION: DONE. Fixed the PyInstaller Arcade VERSION destination; 9 packaging tests passed. Rebuilt production contains the Arcade 3.3.3 version file and passed packaged headless Godot and save reload. A runtime left by a forced startup-test termination locked the first rebuild; the next rebuild completed after that process was stopped.
 
