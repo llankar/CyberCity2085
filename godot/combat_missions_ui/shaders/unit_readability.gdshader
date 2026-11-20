@@ -14,13 +14,6 @@ void vertex() {
     item_modulate = COLOR;
 }
 
-float frame_alpha(sampler2D source_texture, vec2 uv) {
-    if (any(lessThan(uv, frame_uv.xy)) || any(greaterThan(uv, frame_uv.zw))) {
-        return 0.0;
-    }
-    return texture(source_texture, uv).a;
-}
-
 void fragment() {
     vec4 modulation = item_modulate;
     vec4 art = texture(TEXTURE, UV);
@@ -30,7 +23,10 @@ void fragment() {
         float neighbor = 0.0;
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
-                neighbor = max(neighbor, frame_alpha(TEXTURE, UV + vec2(float(x), float(y)) * outline_step));
+                vec2 sample_uv = UV + vec2(float(x), float(y)) * outline_step;
+                if (all(greaterThanEqual(sample_uv, frame_uv.xy)) && all(lessThanEqual(sample_uv, frame_uv.zw))) {
+                    neighbor = max(neighbor, texture(TEXTURE, sample_uv).a);
+                }
             }
         }
         // Restore solid interiors while preserving antialiased silhouette edges.
