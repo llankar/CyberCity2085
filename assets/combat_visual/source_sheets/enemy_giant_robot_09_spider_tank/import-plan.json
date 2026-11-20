@@ -1,0 +1,19 @@
+{
+  "enemy_giant_robot_09_spider_tank": {
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/idle-direction-columns.png", "clip": "idle", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/fire-direction-columns.png", "clip": "fire", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/melee-direction-columns.png", "clip": "melee", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/hit-direction-columns.png", "clip": "hit", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 184}
+    ],
+    "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "psi": "The spider tank has no psionic system.",
+      "heal": "The spider tank has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
