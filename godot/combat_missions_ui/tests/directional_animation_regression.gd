@@ -16,6 +16,7 @@ func run() -> void:
 	keys.append("enemy_giant_robot_09_spider_tank")
 	keys.append("enemy_giant_robot_10_pacification_titan")
 	keys.append("enemy_giant_robot_11_samurai_warbot")
+	keys.append("enemy_giant_robot_12_corp_security")
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":
@@ -64,7 +65,7 @@ func run() -> void:
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege", "enemy_giant_robot_03_missile_artillery", "enemy_giant_robot_04_riot_walker", "enemy_giant_robot_05_railgun_sniper", "enemy_giant_robot_06_flame_unit", "enemy_giant_robot_07_drone_carrier", "enemy_giant_robot_08_claw_demolisher", "enemy_giant_robot_09_spider_tank", "enemy_giant_robot_10_pacification_titan", "enemy_giant_robot_11_samurai_warbot"] and unit.manifest.animations.has("death"):
+		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege", "enemy_giant_robot_03_missile_artillery", "enemy_giant_robot_04_riot_walker", "enemy_giant_robot_05_railgun_sniper", "enemy_giant_robot_06_flame_unit", "enemy_giant_robot_07_drone_carrier", "enemy_giant_robot_08_claw_demolisher", "enemy_giant_robot_09_spider_tank", "enemy_giant_robot_10_pacification_titan", "enemy_giant_robot_11_samurai_warbot", "enemy_giant_robot_12_corp_security"] and unit.manifest.animations.has("death"):
 			unit.unit_data["hp"] = 0
 			for direction in range(8):
 				unit.facing = direction
