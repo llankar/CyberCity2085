@@ -16,6 +16,17 @@ from game.ui.screens.battle_debrief_view import (
 )
 
 
+def test_debrief_distinguishes_downed_agents_from_recovery_and_death():
+    state = GameState(characters=[Character("Vera"), Character("Rook", recovery_turns=2)])
+    stats = [
+        AgentDebriefStat("Vera", "samurai", None, hp_remaining=0),
+        AgentDebriefStat("Rook", "samurai", None, hp_remaining=0),
+        AgentDebriefStat("Oracle", "psi", None, kia=True, hp_remaining=0),
+    ]
+    summary = build_battle_debrief_summary(state, False, None, stats)
+    assert [row["status"] for row in summary["agent_rows"]] == ["DOWNED", "RECOVERY", "KIA"]
+
+
 def _mission() -> MissionTemplate:
     return MissionTemplate(
         id="debrief_test",

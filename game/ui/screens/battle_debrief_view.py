@@ -119,6 +119,13 @@ def build_battle_debrief_summary(
             ),
             None,
         )
+        status = "ACTIVE"
+        if stat.kia:
+            status = "KIA"
+        elif character and character.recovery_turns > 0:
+            status = "RECOVERY"
+        elif stat.hp_remaining == 0:
+            status = "DOWNED"
         agent_rows.append(
             {
                 "name": stat.name,
@@ -133,7 +140,7 @@ def build_battle_debrief_summary(
                 "stress_delta": stat.stress_delta,
                 "injuries": list(stat.injuries),
                 "xp_gained": stat.xp_gained,
-                "status": "KIA" if stat.kia else ("RECOVERY" if character and character.recovery_turns>0 else "ACTIVE"),
+                "status": status,
                 "hp_remaining":stat.hp_remaining,
                 "max_hp_at_extraction":stat.max_hp_at_extraction,
             }
