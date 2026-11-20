@@ -173,15 +173,13 @@ def copy_audio_assets() -> None:
 
 def read_godot_combat_result(
     result_path: Path | str = RESULT_JSON_PATH,
-    *, advance_bookmark: bool=True,
+    *, advance_bookmark: bool=True, raise_io_errors: bool=False,
 ) -> dict[str, Any] | None:
     """Read a Godot result and retain its external music playback bookmark.
 
     Returns ``None`` if the file does not exist or is malformed.
     """
     path = Path(result_path)
-    if not path.exists():
-        return None
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
@@ -201,7 +199,11 @@ def read_godot_combat_result(
             except (KeyError, TypeError, ValueError):
                 pass
         return data
-    except (json.JSONDecodeError, OSError):
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        return None
+    except OSError:
+        if raise_io_errors:
+            raise
         return None
 
 

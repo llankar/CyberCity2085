@@ -30,7 +30,7 @@ exe = EXE(
     [],
     exclude_binaries=True,
     name="CyberCity2085",
-    console=False,
+    console=include_qa,
     contents_directory=".",
 )
 coll = COLLECT(
