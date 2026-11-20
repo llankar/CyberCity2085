@@ -61,8 +61,14 @@ def build(key,config):
         image=Image.open(source).convert('RGBA');layout=item['layout'];clip=item['clip']
         directions=clips.setdefault(clip,{})
         if layout in ['front','rear']:
-            order=sheet_directions(item,4,4 if layout=='rear' else 0)
-            for row,direction in enumerate(order):
+            poses = item.get('pose_indices', list(range(4)))
+            if (not isinstance(poses, list) or not poses
+                    or any(type(row) is not int or not 0 <= row < 4 for row in poses)
+                    or len(set(poses)) != len(poses)):
+                raise ValueError('walk pose_indices must be distinct rows or columns from 0 to 3')
+            offset = 4 if layout == 'rear' else 0
+            order = sheet_directions(item, len(poses), offset) if 'direction_indices' in item else [row + offset for row in poses]
+            for row,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 if item.get('transpose', False):
                     directions[direction]=normalise([extract(image,col,row) for col in range(4)])
@@ -92,7 +98,7 @@ def build(key,config):
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
             provenance[-1]['direction_indices']=order
-        if layout == 'action_rows' and 'pose_indices' in item:
+        if layout in ('front', 'rear', 'action_rows') and 'pose_indices' in item:
             provenance[-1]['pose_indices']=poses
         if layout in ('front', 'rear') and item.get('transpose', False):
             provenance[-1]['transpose']=True
