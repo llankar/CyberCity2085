@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/power_armor.png",
-  "texture_sha256": "3e118be883b2998eb717374eea774696cafba26973d62d5f0c1c584b12fcbdce",
+  "texture_sha256": "64dbc577984db29992a04efb3fca53153d90b436205bd3da17dc25d4be2a7e11",
   "frame_size": [
     256,
     256
@@ -104,7 +104,7 @@
         ]
       ]
     },
-    "cover": {
+    "fire": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -139,6 +139,158 @@
         [
           62,
           63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
         ]
       ]
     }
@@ -248,6 +400,140 @@
         6,
         7
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/fire-action_rows-5.png",
+      "sha256": "0b2de2246a5d968b874fe8548018e5101b1e7eea864d57f98a1489a95e3cd8ee",
+      "clip": "fire",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-6.png",
+      "sha256": "f7d92d73a589364231dcd8c0298d48c67484571bf6da217b8ec9fb5eb129e83a",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-7.png",
+      "sha256": "2a99df5cf7a88a91156cbb71da31d44dd94bb27a7acaa4302bb99e27a5c97e90",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        3
+      ],
+      "pose_indices": [
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/melee-action_rows-8.png",
+      "sha256": "919dbe9c62e97cf54a30692a95c87ca87661843ff66aa293970f01c8c22ca9cb",
+      "clip": "melee",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/death-action_rows-9.png",
+      "sha256": "852f46f2655b3d76472db35a0d68f1641a54e439cbda6be6db7c21edf8fabe09",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/death-action_rows-10.png",
+      "sha256": "219986d926ad8e36bb71b1f13eb65935c7c6446b73b51c8e8778d2c26d20887e",
+      "clip": "death",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "lead_trim_top": 34
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/hit-action_pairs-11.png",
+      "sha256": "97a34654de2da078ce79e424299908648a01b5795ac76a4c8a7bbe835951529a",
+      "clip": "hit",
+      "layout": "action_pairs",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "pose_indices": [
+        0,
+        2,
+        4,
+        6
+      ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/power_armor/hit-action_rows-12.png",
+      "sha256": "c91bfe6f2ea19458dc430e2789df8ee445a2217bc22b8fdeeda16d95d0d313a3",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "pose_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "edge_erosion": 5
     }
   ],
   "required_clips": [
@@ -263,12 +549,7 @@
     "psi": "Mantis and Aegis have no PSI actions.",
     "heal": "Mantis and Aegis have no medical actions."
   },
-  "coverage": "partial",
-  "missing_clips": [
-    "fire",
-    "melee",
-    "hit",
-    "death"
-  ],
-  "review_status": "native_render_verified_partial"
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
 }

@@ -1,19 +1,26 @@
 """Pack reviewed drawn poses. No reflected directions or synthetic walk frames."""
 import argparse,hashlib,json,math,shutil,statistics
 from pathlib import Path
-from PIL import Image
+from PIL import Image, ImageFilter
 from import_artist_variants import clean_alpha
 ROOT=Path(__file__).resolve().parents[2]
 SIZE=256;BASELINE=244;BODY=216
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def extract(image,row,col):
+def extract(image,row,col,trim_top=0,edge_erosion=0):
     frame=image.crop((col*image.width//4,row*image.height//4,(col+1)*image.width//4,(row+1)*image.height//4)).convert('RGBA')
+    if type(trim_top) is not int or not 0 <= trim_top < frame.height:
+        raise ValueError('trim_top must be a nonnegative number of pixels within the cell')
+    if trim_top:
+        frame = frame.crop((0, trim_top, frame.width, frame.height))
     # Generated transparent backdrops can contain low-alpha grey haze. Keep
     # opaque anatomy, real antialiasing and connected details, not the backdrop.
     frame.putalpha(frame.getchannel('A').point(lambda a:max(0,min(255,round((a-160)*255/95)))))
-    frame=clean_alpha(frame);bounds=frame.getchannel('A').getbbox()
+    frame=clean_alpha(frame)
+    if edge_erosion:
+        frame.putalpha(frame.getchannel('A').filter(ImageFilter.MinFilter(2 * edge_erosion + 1)))
+    bounds=frame.getchannel('A').getbbox()
     if not bounds:raise ValueError('Empty pose')
     return frame.crop(bounds)
 
@@ -108,9 +115,10 @@ def build(key,config):
                 if direction in directions:
                     raise ValueError(f'{clip}: repeated facing {direction}')
                 row, col = divmod(pose, 4)
+                erosion = item.get('edge_erosion', 0)
                 directions[direction] = normalise([
-                    extract(image, row, col),
-                    extract(follow_through, row + 2, col),
+                    extract(image, row, col, item.get('lead_trim_top', 0), erosion),
+                    extract(follow_through, row + 2, col, edge_erosion=erosion),
                 ], pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
@@ -124,6 +132,10 @@ def build(key,config):
             provenance[-1]['follow_through'] = {
                 'file': follow_dest.relative_to(ROOT).as_posix(), 'sha256': digest(follow_source)
             }
+        if layout == 'action_rows' and item.get('lead_trim_top'):
+            provenance[-1]['lead_trim_top'] = item['lead_trim_top']
+        if layout == 'action_rows' and item.get('edge_erosion'):
+            provenance[-1]['edge_erosion'] = item['edge_erosion']
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
