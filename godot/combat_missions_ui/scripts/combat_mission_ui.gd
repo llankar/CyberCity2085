@@ -964,7 +964,7 @@ func _zoom_at(cursor_screen: Vector2, factor: float) -> void:
 func _on_action_pressed(action: String) -> void:
 	_execute_action(action)
 
-func _on_cell_clicked(cell: Vector2i) -> void:
+func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> void:
 	if not battle_started or turn_side != "player":
 		return
 
@@ -995,8 +995,11 @@ func _on_cell_clicked(cell: Vector2i) -> void:
 		if ti >= 0:
 			selected_target_index = ti
 			_attack_enemy(ti, selected_action)
-		else:
+		elif not require_exact_target:
 			_resolve_selected_attack()
+		else:
+			status_line = "No live target on this cell."
+			_sync_display()
 	elif atype == "FIRE_AOE":
 		_apply_missile_salvo(cell)
 	elif atype == "PSI_HEAL":
@@ -2200,6 +2203,8 @@ func _update_visual_context() -> void:
 	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}
 	_hud.target_anchor_node = null
+	if _gamepad_cell.x >= 0 and _enemy_at_cell(_gamepad_cell) < 0:
+		return
 	var target := _current_target()
 	var atype := _action_type(selected_action)
 	if turn_side != "player" or target.is_empty() or active.is_empty() or atype not in ["FIRE", "MELEE", "FIRE_AOE"]: return
@@ -2310,10 +2315,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				_hud.close_gamepad_actions(true)
 			elif pending_retreat_confirmation:
 				_execute_action("RETREAT")
-			elif pending_end_turn_confirmation or _gamepad_cell.x < 0:
+			elif pending_end_turn_confirmation:
 				_confirm_tactical_action("GAMEPAD")
-			else:
-				_on_cell_clicked(_gamepad_cell)
+			elif _gamepad_cell.x >= 0:
+				_on_cell_clicked(_gamepad_cell, true)
 		JOY_BUTTON_X:
 			if _hud.gamepad_action.is_empty() and not pending_end_turn_confirmation and not pending_retreat_confirmation:
 				_clear_gamepad_cursor()
@@ -2381,7 +2386,21 @@ func _move_gamepad_cursor(step: Vector2i) -> void:
 		_camera.force_update_scroll()
 	_battlefield.hovered_cell = _gamepad_cell
 	_visual_cell_hovered(_gamepad_cell)
+	if _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE"]:
+		_preview_gamepad_target()
 	_battlefield.queue_redraw()
+
+func _preview_gamepad_target() -> void:
+	var target := _enemy_at_cell(_gamepad_cell)
+	if target >= 0:
+		_visual_unit_hovered(target, true)
+		return
+	selected_target_index = -1
+	for key: String in _unit_tokens:
+		if key.begins_with("e") and is_instance_valid(_unit_tokens[key]):
+			_unit_tokens[key].set_targeted(false)
+	_update_visual_context()
+	_hud.queue_redraw()
 
 func _clear_gamepad_cursor() -> void:
 	if _gamepad_cell.x < 0:

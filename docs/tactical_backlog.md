@@ -1124,7 +1124,7 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 - [ ] TAC-STORY-02 PARTIAL: clutch-kill, aid, fallen-agent and real panic memories persist; broader action/event coverage and presentation validation remain.
 - [ ] TAC-STORY-03 Debrief causality and relationship/reputation consequences.
 - [ ] TAC-FEEL-01 Camera, animation, audio, hit timing, and phase pacing pass.
-- [ ] TAC-FEEL-02 Accessibility, controller hints, visual QA, full build gate. Godot D-pad targeting, A movement and X action-bar navigation with hints passed a focused injected-input regression. Camera recovery passed in both Godot projections. Physical controller and full build gates remain open.
+- [ ] TAC-FEEL-02 Accessibility, controller hints, visual QA, full build gate. Godot D-pad targeting, A movement and X action-bar navigation with hints passed a focused injected-input regression. Camera recovery passed in both Godot projections. Empty-cell attack confirmation preserves AP and clears the target preview. Physical controller and full build gates remain open.
 
 ## Final tactical release gate
 
