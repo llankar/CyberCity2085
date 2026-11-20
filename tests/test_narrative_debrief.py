@@ -71,6 +71,21 @@ class NarrativeDebriefTest(unittest.TestCase):
         self.assertIn("risk", report.risk_taken.lower())
         self.assertIn("Frayed", report.heroic_action)
 
+    def test_failure_report_records_tactical_losses_after_resolution(self):
+        downed = {"kind": "downed", "agent_name": "Echo", "text": "Echo fell."}
+        report = build_mission_debrief_report(
+            [Character("Nyx")], _mission(), False, tactical_moments=[downed, downed]
+        )
+
+        self.assertIn("ended without a victory", report.decision_key)
+        self.assertEqual(report.risk_taken.count("Echo"), 1)
+        self.assertIn("agents downed", report.risk_taken)
+
+    def test_failure_without_losses_still_records_the_outcome(self):
+        report = build_mission_debrief_report([Character("Nyx")], _mission(), False)
+
+        self.assertIn("ended without a confirmed success", report.risk_taken)
+
     def test_report_links_to_rpg_layers(self):
         lead = Character("Lead", stress=70)
         lead.relationships["Echo"] = 3
