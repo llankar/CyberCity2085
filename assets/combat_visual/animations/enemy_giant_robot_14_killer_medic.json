@@ -1,0 +1,416 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_giant_robot_14_killer_medic.png",
+  "texture_sha256": "f0b13256066bca9104c737b8791a940d152036a80e29f7f7424d9fb00a7e2ff4",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    },
+    "heal": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          128,
+          129
+        ],
+        [
+          130,
+          131
+        ],
+        [
+          132,
+          133
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          136,
+          137
+        ],
+        [
+          138,
+          139
+        ],
+        [
+          140,
+          141
+        ],
+        [
+          142,
+          143
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_giant_robot_14_killer_medic_512.png",
+  "source_sha256": "73ab1b242566462271bc6dbc76d0fdcd321ebc8eb531270118d7a0fa846b5245",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/idle-action_columns-0.png",
+      "sha256": "60ceb88d9f5c15cd7f3edb6d4cfa172f9eb08a03a5badca880b1fbc882e7acea",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/move-walk_columns-1.png",
+      "sha256": "23f3f6f40967a1782dfe8d2f140d98e56472102351508a67a515cb720f8a8ac2",
+      "clip": "move",
+      "layout": "walk_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "intermediate": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/move-walk_columns-1-intermediate.png",
+        "sha256": "db09f66842f500227f0c43ec7c6d54294028a648976c3cc23ff9d852d6e10440"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/fire-action_columns-2.png",
+      "sha256": "3f563e7dbb31d9ec4c1f89aaf95c87ab16de1b15d0ec0bf3a3f25a4291c89d72",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/melee-action_columns-3.png",
+      "sha256": "347e8d8f65f19d6f377fb461ffa96da9f2db72cdd89a2e10525f52257f4b93e2",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/cover-action_columns-4.png",
+      "sha256": "6faac221879d565f81ea832f1070065503bcc8a354376b71c1a63f39fc17632a",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/hit-action_columns-5.png",
+      "sha256": "29514d5d132de83a2e274499a7eff94bb7f4be3819011de9f65e739598505a36",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/death-action_columns-6.png",
+      "sha256": "8853e85db53666c64f773afc945d9a88873c5a5c262a3a610d9c654d48165cfb",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/heal-action_columns-7.png",
+      "sha256": "ec57b5aada43bfe93f61b3bca89164d94b577b72c43b26584667cd136d8d59fa",
+      "clip": "heal",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "heal"
+  ],
+  "non_applicable_clips": {
+    "psi": "The killer medic has no psionic system."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}

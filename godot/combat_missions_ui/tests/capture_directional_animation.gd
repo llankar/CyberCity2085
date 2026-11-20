@@ -96,7 +96,7 @@ func run() -> void:
 		if enemy.manifest.animations.has("fire"):
 			scene._enemy_attack(0, 0, "grunt")
 			assert(enemy.clip == "fire", "enemy attack must start the fire clip")
-		for checked_action in ["idle", "hit", "cover", "fire", "melee"]:
+		for checked_action in ["idle", "hit", "cover", "fire", "melee", "heal"]:
 			if not enemy.manifest.animations.has(checked_action):continue
 			var regions := {}
 			var fps := float(enemy.manifest.animations[checked_action].fps)
@@ -110,7 +110,7 @@ func run() -> void:
 					await process_frame;await RenderingServer.frame_post_draw
 					regions[enemy._art_sprite.region_rect] = true
 			assert(regions.size() == 16, "%s must select two atlas frames per facing" % checked_action)
-		for action in ["idle","move","fire","melee","cover","hit","death","psi"]:
+		for action in ["idle","move","fire","melee","cover","hit","death","psi","heal"]:
 			if not enemy.manifest.animations.has(action):continue
 			if action == "death":
 				var hp: int = enemy.unit_data["hp"]
