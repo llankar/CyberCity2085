@@ -141,7 +141,12 @@
     },
     "city_transit_freight_yard.png": {
       "profile": "urban",
-      "human_height_ratio": 0.015
+      "human_height_ratio": 0.015,
+      "surface": {
+        "uv_rect": [0.2743, 0.5469, 0.1938, 0.0741],
+        "sample_uv_rect": [0.1611, 0.5469, 0.1132, 0.0741],
+        "feather": 0.08
+      }
     },
     "city_transit_metro_interchange.png": {
       "profile": "urban",
