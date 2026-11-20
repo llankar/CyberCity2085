@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "287b6a766aa8c809bba0b92a9cb6edb702019f535f9dbf089bd7a5d85622b9f3",
+  "texture_sha256": "bda53bde3a0d73a024dbebbccac8273d74c3a658e5bb9f2d4259eeb2b005b7fc",
   "frame_size": [
     256,
     256
@@ -179,6 +179,44 @@
           79
         ]
       ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
@@ -294,6 +332,13 @@
       "clip": "cover",
       "layout": "action_rows",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/hit-action_rows-7.png",
+      "sha256": "c6e0df881f7e57c85c8fe375e9be8c7c8a67a1661c3431ee48849870cd3f2964",
+      "clip": "hit",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -312,7 +357,6 @@
   "coverage": "partial",
   "missing_clips": [
     "melee",
-    "hit",
     "death"
   ],
   "review_status": "native_review_pending"
