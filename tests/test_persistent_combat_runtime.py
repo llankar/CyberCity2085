@@ -71,6 +71,45 @@ def test_parked_runtime_exits_after_heartbeat_lapses(tmp_path):
         runtime.close()
 
 
+def test_persistent_runtime_resumes_a_native_snapshot_after_crash(tmp_path):
+    from game.combat.checkpoints import load_combat_checkpoint
+    from game.combat.godot_bridge import find_godot_executable
+
+    godot = find_godot_executable()
+    if not godot:
+        pytest.skip("Godot unavailable")
+    runtime = CombatRuntime(project_dir=ROOT / "godot/combat_missions_ui",
+                            directory=tmp_path / "runtime", executable=godot, headless=True)
+    state, mission, _, _ = scenario(tmp_path)
+    try:
+        assert runtime.start()
+        original = launch_godot_combat_ui(state, mission, handoff_path=tmp_path / "handoff.json", runtime=runtime)
+        assert original.launched
+        record = state.combat_sessions[original.session_id]
+        snapshot = Path(record["session"]["snapshot_path"])
+        wait_for(runtime, lambda status: status.get("state") == "busy" and snapshot.is_file())
+        runtime.process.kill()
+        runtime.process.wait(timeout=5)
+        original_snapshot = json.loads(snapshot.read_text(encoding="utf-8"))
+
+        restored, session_id = load_combat_checkpoint(record["checkpoints"]["before"])
+        assert session_id == original.session_id
+        assert runtime.start()
+        resumed = launch_godot_combat_ui(restored, restored.active_mission, handoff_path=tmp_path / "handoff.json",
+                                         resume_session_id=session_id, runtime=runtime)
+        assert resumed.launched and resumed.session_id != session_id
+        assert resumed.process_pid != original.process_pid
+        restored_record = restored.combat_sessions[resumed.session_id]
+        restored_snapshot = Path(restored_record["session"]["snapshot_path"])
+        wait_for(runtime, lambda status: status.get("state") == "busy" and restored_snapshot.is_file())
+        restored_state = json.loads(restored_snapshot.read_text(encoding="utf-8"))["state"]
+        for key in ("turn_side", "turn_number", "player_units", "enemy_units", "objective_progress"):
+            assert restored_state[key] == original_snapshot["state"][key]
+        assert restored.combat_sessions[session_id]["status"] == "superseded"
+    finally:
+        runtime.close()
+
+
 def test_win32_overlay_stays_hidden_until_ready_then_raises_without_click():
     from types import SimpleNamespace
     from unittest.mock import Mock
