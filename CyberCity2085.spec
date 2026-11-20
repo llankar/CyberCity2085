@@ -5,6 +5,7 @@ from tools.packaging_helpers import (
     godot_executable_data,
     godot_runtime_data,
     normalize_arcade_data,
+    runtime_asset_data,
 )
 
 root = Path(SPECPATH)
@@ -15,7 +16,7 @@ a = Analysis(
     pathex=[str(root)],
     binaries=[],
     datas=[
-        (str(root / "assets"), "assets"),
+        *runtime_asset_data(root / "assets"),
         (str(root / "scenes"), "scenes"),
         *godot_runtime_data(root / "godot", include_qa=include_qa),
         *godot_executable_data(),
