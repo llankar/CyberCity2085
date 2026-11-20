@@ -157,11 +157,17 @@ func run() -> void:
 				await verify_interactions()
 			if "--entities" in args:
 				for token in scene._unit_tokens.values():
+					var cell: Vector2i = scene._cell_position(token.unit_data)
+					var ground: Vector2 = scene._battlefield.cell_to_world(cell)
+					assert(token.position.is_equal_approx(ground), "token origin must follow its tactical cell")
 					assert(token._art_sprite.visible and token._cast_shadow.visible)
 					assert(token._cast_shadow.texture==token._art_sprite.texture)
 					assert(token._cast_shadow.region_rect==token._art_sprite.region_rect)
 					assert(token._art_sprite.scale.x==token._art_sprite.scale.y,"source aspect is preserved")
 					assert(token.modulate.a==1.0,"no ghost opacity")
+					if token._art_sprite.texture != token.atlas:
+						var body: Rect2 = token._visible_body_rect()
+						assert(is_zero_approx(body.end.y), "static portrait feet must meet the token origin")
 					if token.unit_id<1000:
 						assert(token.hit_test_screen(token.get_global_transform_with_canvas()*token._visible_body_rect().get_center()),"all combat entity families retain picking")
 			if not baseline and not polish and not art_review and scene._battlefield.has_method("uv_to_world"):
