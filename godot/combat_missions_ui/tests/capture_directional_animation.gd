@@ -93,7 +93,10 @@ func run() -> void:
 		var enemy=scene._unit_tokens["e0"]
 		assert(enemy.visual_key==enemy_target,"capture must exercise the requested enemy atlas")
 		enemy.set_process(false)
-		for checked_action in ["idle", "hit", "cover"]:
+		if enemy.manifest.animations.has("fire"):
+			scene._enemy_attack(0, 0, "grunt")
+			assert(enemy.clip == "fire", "enemy attack must start the fire clip")
+		for checked_action in ["idle", "hit", "cover", "fire"]:
 			if not enemy.manifest.animations.has(checked_action):continue
 			var regions := {}
 			var fps := float(enemy.manifest.animations[checked_action].fps)
