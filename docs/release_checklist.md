@@ -18,7 +18,7 @@ The earlier candidate is preserved. Current R2 evidence is
 
 The retrofit goal remains active; no desktop control was used for the new checks.
 
-Latest local Windows build: `dist/windows-runtime-92a148b/CyberCity2085/CyberCity2085.exe`. Production Windows build 92a148b includes the casualty-aware debrief. The packaged executable opened a responsive Arcade window from D:/; bundled Godot headless startup and campaign save reload passed. Authoring sheets remain excluded. The three integrated outcomes passed on the previous frozen QA build. A graphical campaign run on this production build remains open.
+Latest local Windows build: `dist/windows-runtime-2b6c64f/CyberCity2085/CyberCity2085.exe`. Production build 2b6c64f bundles the complete Mantis and Titan atlases with matching hashes. The bundled native Godot loaded both during the Safehouse handoff and the capture was inspected. Packaged headless startup and campaign save reload passed. A graphical campaign run on this production build remains open.
 
 Previous local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.exe. Baseline release gate: 1,145 passed, 35 skipped, 12 subtests passed. The later Windows result-read retry passed 23 targeted tests and was included in the rebuilt production executable. The production executable rejects the QA entry point. Bundled Godot 4.6.3 headless startup and save reload passed. Arcade and bundled Godot each opened a responsive native window from an independent working directory. The integrated graphical playthrough of this build remains open.
 
