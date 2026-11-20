@@ -5,6 +5,12 @@
         "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/idle-idle_pairs-0.png",
         "clip": "idle",
         "layout": "idle_pairs"
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/hit-action_pairs-1.png",
+        "clip": "hit",
+        "layout": "action_pairs",
+        "body_height": 185
       }
     ],
     "applicable_clips": [

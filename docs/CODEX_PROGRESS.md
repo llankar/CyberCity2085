@@ -527,3 +527,5 @@ ANIM-COMPLETE — IN_PROGRESS. Samurai livré : 112 images, 32 sélections nativ
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
 
 - Raider grunt IN_PROGRESS. Idle atlas uses 16 distinct authored poses across eight facings. The targeted native Safehouse fixture resolved the raider faction key and selected all 16 atlas regions. The 1080p capture was reviewed. Move, fire, melee, cover, hit and death remain open. Complete coverage stays at 63 / 233.
+
+- Raider grunt IN_PROGRESS. Hit now adds 16 distinct stagger and recovery poses across eight facings. Targeted native Safehouse test selected all 16 hit regions and rechecked idle for this unit; the 1080p hit capture was reviewed. Gait candidates failed artistic review because several strides reused the leading leg. Next: produce an alternating four-pose gait; fire, melee, cover and death remain open. 63 / 233 complete.
