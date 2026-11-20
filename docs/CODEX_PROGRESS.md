@@ -420,6 +420,8 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 
 - WINDOWS-PERFORMANCE — DONE pour les deux mesures ciblées. RTX 5070 Ti, 600 images par scène : Dust Road à 1440p, 185,5 FPS moyens (125,5 min), CPU global 5,14 %, GPU global 6,5 % et VRAM globale 2 925 Mio en pointe. Safehouse à 1080p, 252,3 FPS moyens. Le script affiche le résultat et conserve ses sorties temporaires dans work. Configuration minimale non mesurée.
 
+- GODOT-AUDIO-BUSES: DONE. Defined Music and SFX buses explicitly. A native Windows WASAPI check measured signal peaks of 0.205 and 0.213 on the respective buses. The current integrated victory also passed with WASAPI stereo at 48 kHz. Playback listening and production rebuild remain open.
+
 - UNIFIED-NATIVE-AUDIO — IN_PROGRESS. Une victoire a été rejouée avec `--native-audio --godot-verbose`. Godot a ouvert la sortie WASAPI stéréo à 48 kHz (tampon annoncé de 10 ms). Le transfert Arcade → Godot, le débriefing et la fermeture ont réussi. Qualité audible et fondus encore à écouter.
 
 - PERSISTENT-AUDIO-DISPOSAL — DONE. Godot arrête les flux lorsqu’une mission persistante est mise en veille ou remplacée, puis attend sa libération avant de publier le nouvel état. Seize tests audio et runtime passent. Écoute sur périphérique réel encore ouverte.
