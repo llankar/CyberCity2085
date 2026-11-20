@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_01_assault_mech.png",
-  "texture_sha256": "ba2ca9c1197e69b1b63e397f84b40c6b88e723924e8f89f04d9c9323adf6762b",
+  "texture_sha256": "287b6a766aa8c809bba0b92a9cb6edb702019f535f9dbf089bd7a5d85622b9f3",
   "frame_size": [
     256,
     256
@@ -141,6 +141,44 @@
           63
         ]
       ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
     }
   },
   "source_image": "assets/units/enemy_giant_robot_01_assault_mech_512.png",
@@ -249,6 +287,13 @@
       "pose_indices": [
         0
       ]
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_01_assault_mech/cover-action_rows-6.png",
+      "sha256": "04a070b00e6f7742d6e6ef0188d845cbb8af5ff4d51bd4edd14b31f17efbac09",
+      "clip": "cover",
+      "layout": "action_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     }
   ],
   "required_clips": [
@@ -267,7 +312,6 @@
   "coverage": "partial",
   "missing_clips": [
     "melee",
-    "cover",
     "hit",
     "death"
   ],
