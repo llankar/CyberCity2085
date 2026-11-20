@@ -27,6 +27,30 @@ func run() -> void:
 		push_error("Right shoulder did not cycle the active unit.")
 		quit(1)
 		return
+	var agent: Dictionary = mission.player_units[mission.active_player_index]
+	var origin: Vector2i = agent.position
+	var previous_ap: int = agent.ap
+	var directions := {
+		JOY_BUTTON_DPAD_UP: Vector2i.UP, JOY_BUTTON_DPAD_DOWN: Vector2i.DOWN,
+		JOY_BUTTON_DPAD_LEFT: Vector2i.LEFT, JOY_BUTTON_DPAD_RIGHT: Vector2i.RIGHT,
+	}
+	var moved := false
+	for button: JoyButton in directions:
+		var destination: Vector2i = origin + directions[button]
+		if not destination in mission._battlefield.move_range_cells or destination == mission.objective.get("cell"):
+			continue
+		if mission._is_cell_occupied(destination, mission.active_player_index, -1):
+			continue
+		await press(button)
+		if mission._battlefield.hovered_cell != destination:
+			break
+		await press(JOY_BUTTON_A)
+		moved = agent.position == destination and agent.ap == previous_ap - 1
+		break
+	if not moved:
+		push_error("Directional pad and A did not preview and execute a legal 1 AP move.")
+		quit(1)
+		return
 	await press(JOY_BUTTON_Y)
 	if not mission.pending_end_turn_confirmation or mission.turn_side != "player":
 		push_error("Y did not open the end-turn confirmation.")

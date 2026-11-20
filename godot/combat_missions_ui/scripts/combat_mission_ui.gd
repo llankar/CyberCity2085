@@ -70,6 +70,7 @@ const _ENCScript = preload("res://scripts/encounter_generator.gd")
 
 # ─── Component refs (untyped to avoid class-name scope errors) ────────────────
 var _battlefield                 = null   # Battlefield
+var _gamepad_cell := Vector2i(-1, -1)
 var _units_layer   : Node2D      = null
 var _hud                         = null   # HudController
 var _hud_layer     : CanvasLayer = null
@@ -885,6 +886,8 @@ func _gui_input(event: InputEvent) -> void:
 # a drag-release as a cell/unit click.
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion or event is InputEventMouseButton:
+		_clear_gamepad_cursor()
 	if not battle_started or battle_ended or _camera == null: return
 	if event is InputEventMouseButton:
 		var mbe := event as InputEventMouseButton
@@ -2299,8 +2302,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	match event.button_index:
 		JOY_BUTTON_A:
-			_confirm_tactical_action("GAMEPAD")
+			if pending_end_turn_confirmation or _gamepad_cell.x < 0:
+				_confirm_tactical_action("GAMEPAD")
+			else:
+				_on_cell_clicked(_gamepad_cell)
+		JOY_BUTTON_DPAD_UP:
+			_move_gamepad_cursor(Vector2i.UP)
+		JOY_BUTTON_DPAD_DOWN:
+			_move_gamepad_cursor(Vector2i.DOWN)
+		JOY_BUTTON_DPAD_LEFT:
+			_move_gamepad_cursor(Vector2i.LEFT)
+		JOY_BUTTON_DPAD_RIGHT:
+			_move_gamepad_cursor(Vector2i.RIGHT)
 		JOY_BUTTON_RIGHT_SHOULDER:
+			_clear_gamepad_cursor()
 			_cycle_active_unit()
 		JOY_BUTTON_LEFT_STICK:
 			_frame_squad()
@@ -2308,6 +2323,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			_execute_action("END TURN")
 		JOY_BUTTON_B:
 			if not pending_end_turn_confirmation and not pending_retreat_confirmation:
+				if _gamepad_cell.x < 0:
+					return
+				_clear_gamepad_cursor()
+				get_viewport().set_input_as_handled()
 				return
 			pending_end_turn_confirmation = false
 			pending_retreat_confirmation = false
@@ -2317,10 +2336,30 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 	get_viewport().set_input_as_handled()
 
+func _move_gamepad_cursor(step: Vector2i) -> void:
+	var active := _current_active_player()
+	if active.is_empty() or _battlefield == null:
+		return
+	var origin := _cell_position(active) if _gamepad_cell.x < 0 else _gamepad_cell
+	_gamepad_cell = (origin + step).clamp(Vector2i.ZERO, Vector2i(GRID_COLS - 1, GRID_ROWS - 1))
+	_battlefield.hovered_cell = _gamepad_cell
+	_visual_cell_hovered(_gamepad_cell)
+	_battlefield.queue_redraw()
+
+func _clear_gamepad_cursor() -> void:
+	if _gamepad_cell.x < 0:
+		return
+	_gamepad_cell = Vector2i(-1, -1)
+	if _battlefield != null:
+		_battlefield.hovered_cell = _gamepad_cell
+		_visual_cell_hovered(_gamepad_cell)
+		_battlefield.queue_redraw()
+
 func _confirm_tactical_action(source: String) -> void:
 	if not battle_started:
 		_start_combat(source)
 	elif pending_end_turn_confirmation:
+		_clear_gamepad_cursor()
 		_end_player_turn()
 	elif _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE", "PSI_HEAL", "HEAL"]:
 		_resolve_selected_attack()
