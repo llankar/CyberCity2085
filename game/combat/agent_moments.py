@@ -15,21 +15,7 @@ def record_last_stand(state, actor, target, *, defeated):
     if id(character) in recorded:
         return
     recorded.add(id(character))
-    traits = {str(trait).casefold() for trait in character.traits}
-    traits.add(character.personality_primary_trait.casefold())
-    traits.add(character.personality_secondary_trait.casefold())
-    if character.fears:
-        line = "I'm scared. I'm still here."
-    elif character.temporary_scars:
-        line = "I remember how this ends. Get me to cover."
-    elif character.ambition:
-        line = "I've still got something to finish."
-    elif traits & {"reckless", "bold", "brave"}:
-        line = "Still standing. Who's next?"
-    elif traits & {"cautious", "careful", "pragmatic"}:
-        line = "One down. I need cover."
-    else:
-        line = "Not my last shot."
+    line = last_stand_dialogue(character)
     mission = getattr(state.mission, "title", None) or "Tactical engagement"
     memory = f"{mission}: held on at {actor.health} HP and neutralized a hostile."
     character.history.append(memory)
@@ -37,6 +23,24 @@ def record_last_stand(state, actor, target, *, defeated):
         {"kind": "last_stand", "agent_name": character.name, "text": f"{character.name}: {memory}"})
     state.logs.append(f'{character.name}: "{line}"')
     state.logs.append(f"REMEMBERED — {character.name}: {memory}")
+
+
+def last_stand_dialogue(character: Character) -> str:
+    """Select the line from campaign state for either tactical client."""
+    traits = {str(trait).casefold() for trait in character.traits}
+    traits.add(character.personality_primary_trait.casefold())
+    traits.add(character.personality_secondary_trait.casefold())
+    if character.fears:
+        return "I'm scared. I'm still here."
+    elif character.temporary_scars:
+        return "I remember how this ends. Get me to cover."
+    elif character.ambition:
+        return "I've still got something to finish."
+    elif traits & {"reckless", "bold", "brave"}:
+        return "Still standing. Who's next?"
+    elif traits & {"cautious", "careful", "pragmatic"}:
+        return "One down. I need cover."
+    return "Not my last shot."
 
 
 def record_rescue(state, actor, target, *, before_hp, cleared_bleeding):

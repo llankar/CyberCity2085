@@ -90,6 +90,8 @@ def _map_payload(mission: MissionTemplate) -> dict[str, Any]:
 
 
 def _agent_payload(character) -> dict[str, Any]:
+    from .agent_moments import last_stand_dialogue
+
     stats = character.stats
     portrait_path = portrait_path_for_character(character)
     sheet_attrs = {
@@ -121,6 +123,7 @@ def _agent_payload(character) -> dict[str, Any]:
         "emotional_hook": getattr(character, "background", "")
         or getattr(character, "personality_primary_trait", ""),
         "available_actions": character.loadout.combat_actions(),
+        "last_stand_dialogue": last_stand_dialogue(character),
         "aim":         derived["aim"],
         "defense":     derived["defense"],
         "initiative":  derived["initiative"],
