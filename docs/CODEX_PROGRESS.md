@@ -409,7 +409,7 @@ Godot Windows: shoulder cycles the squad; Y, B and A request, cancel and confirm
 ### TACTICAL-REDUCED-MOTION — DONE — Réduction des mouvements dans les annonces et résultats Godot
 
 - Fichiers : `game/combat/godot_bridge.py`, `godot/combat_missions_ui/scripts/phase_banner.gd`, `godot/combat_missions_ui/scripts/mission_results.gd`.
-- Tests / contrôles réellement exécutés : Bridge et reprise tactique, 38 réussis, 8 ignorés, 2 sous-tests réussis avec les temporaires sur D; Démarrage Godot headless sans erreur de parsing.
+- Tests / contrôles réellement exécutés : Bridge et reprise tactique, 38 réussis, 8 ignorés, 2 sous-tests réussis avec les temporaires sur D; Démarrage Godot headless sans erreur de parsing. Build Windows acfeb86, 1158 tests passed, 35 skipped, 14 subtests passed. Packaged Godot headless startup and save roundtrip passed. Packaged tactical scripts match the source hashes. Focused headless test covered static, animated and superseded phase banners.
 - Preuves : `tests/test_godot_combat_bridge.py`.
 - Travail restant dans cette portée : Aucun.
 

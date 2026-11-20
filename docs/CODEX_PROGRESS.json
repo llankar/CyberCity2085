@@ -1194,7 +1194,8 @@
       ],
       "tests": [
         "Bridge et reprise tactique, 38 réussis, 8 ignorés, 2 sous-tests réussis avec les temporaires sur D",
-        "Démarrage Godot headless sans erreur de parsing"
+        "Démarrage Godot headless sans erreur de parsing",
+        "Build Windows acfeb86, 1158 tests passed, 35 skipped, 14 subtests passed. Packaged Godot headless startup and save roundtrip passed. Packaged tactical scripts match the source hashes. Focused headless test covered static, animated and superseded phase banners."
       ],
       "evidence": [
         "tests/test_godot_combat_bridge.py"
