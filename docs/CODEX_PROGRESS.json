@@ -543,7 +543,8 @@
         "Historique : captures natives des 122 cartes ; ne valide pas la finition",
         "Revue détaillée pages 1 à 21 : 122 cartes examinées ; trois aplats gris détectés, corrigés et rerendus",
         "Catalogue natif final 122/122 avec ressources actives, interactions, picking et zoom vérifiés",
-        "Current native Windows Godot: 122 unique maps rendered at 1280x720 with projection and zoom checks, and support assets enabled. Examined 18 images on sheets 01-03. The sheet clipping regression test passed."
+        "Current native Windows Godot: 122 unique maps rendered at 1280x720 with projection and zoom checks, and support assets enabled. Examined 18 images on sheets 01-03. The sheet clipping regression test passed.",
+        "Examined all 122 current 720p captures across 21 sheets. Rooftop Access and Skybridge Spine show actors or grid marks over apparent drops. Freight Yard shows route marks over car roofs. Salt Flat Ambush makes the cyan status line hard to read. These findings require targeted follow-up; the individual art gate remains open."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -551,7 +552,7 @@
         "docs/images/environment-art-review-windows/README.md",
         "docs/images/environment-art-review-windows/manifest.json"
       ],
-      "remaining": "Inspect 720p sheets 04-21 and verify rooftop placement separately. Continue native capture at 1920x1080 and 2560x1440. Temporary captures on D:/cybercity-map-recheck-a3cb870 and its size-suffixed directories.",
+      "remaining": "Check rooftop and rail placement against the source art and existing tactical survey, and check status contrast on Salt Flat Ambush. Finish native 1920x1080 and 2560x1440 capture. Temporary files on D:/cybercity-map-recheck-a3cb870 and its size-suffixed directories.",
       "reason": ""
     },
     {
