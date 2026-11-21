@@ -1,13 +1,13 @@
 {
   "enemy_giant_robot_05_railgun_sniper": {
     "clips": [
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-direction-columns.png", "clip": "idle", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-repair-follow.png", "clip": "idle", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-direction-columns.png", "clip": "fire", "layout": "action_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-direction-columns.png", "clip": "melee", "layout": "action_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-direction-columns.png", "clip": "hit", "layout": "action_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 150}
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-repair-follow.png", "clip": "fire", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-repair-follow.png", "clip": "melee", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-repair-follow.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-repair-follow.png", "clip": "hit", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-repair-follow.png", "clip": "death", "layout": "single_row_pair", "body_height": 216}
     ],
     "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
     "non_applicable_clips": {

@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_05_railgun_sniper.png",
-  "texture_sha256": "58ffd0c40215ee9a579610f545d67d44ceef2b631f2eeac36b95409b9b98f972",
+  "texture_sha256": "f89152d768845f54ac9917965e4d2a0d14512ff7b3e0bee9060ce1eadbb4ea56",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "4c494bf61a256c7c92e452a723b81903c2009fd429d5f00527c26407aaadc796",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-action_columns-0.png",
-      "sha256": "7d1fba8ec6b5495f4aa28cd80a2eda07d86b6ab8e9668731245c1bbcc5f72aef",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-single_row_pair-0.png",
+      "sha256": "176d6c71de6cb978704cbd75bb32c5d03aee1fce0a9e3ebfe47008af1c22d4e6",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/idle-single_row_pair-0-follow-through.png",
+        "sha256": "f9a3efef40664537bcfdc29090ff2273e1f262cf6246bbed3b99c903cadd7e91"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/move-walk_columns-1.png",
@@ -317,39 +321,59 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-action_columns-2.png",
-      "sha256": "69d5f4d1fbbeb9bacb49ecea8e4f11f223e96f5387a45aa02d049d8881a6b6ee",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-single_row_pair-2.png",
+      "sha256": "d607ab69e887780173af7f1786a44a1f31950060dc2e2731ab64e33b7493198a",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/fire-single_row_pair-2-follow-through.png",
+        "sha256": "9acbdf521fcb3e29bf1b82b76ada088e7530cd0892e11e359a47f42440560248"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-action_columns-3.png",
-      "sha256": "6cdf918f512f577569657d1fc00a0ee8c89ab8f8d405c62a5b4e04e193b11a45",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-single_row_pair-3.png",
+      "sha256": "cd08be3db768f50894c44a5ee7ce704a2fb83537333880f1585a6de3298b6423",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/melee-single_row_pair-3-follow-through.png",
+        "sha256": "c6e469d5953dc6954dc0379532f9bc2e5e6b9e04508b5034f551e7f7855fbddf"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-action_columns-4.png",
-      "sha256": "b244e202b2dbf3412930818e361d5fd752ae1efdefb94e72964fd2d6c35e2e44",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-single_row_pair-4.png",
+      "sha256": "683ef7f0af3899f91282dd69b3c750649b60cdb76518f0411b7f4505a2b1f89a",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/cover-single_row_pair-4-follow-through.png",
+        "sha256": "14396a348c0dff61f9f67981d529c1dcfa64149c00341b7f1c70cae4f5c9c1b2"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-action_columns-5.png",
-      "sha256": "b2722eaaee0b42206d7438c5d2c1e94958c2fb2dca681c9d79c1e7f3d132ad05",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-single_row_pair-5.png",
+      "sha256": "1103aebd4f365c7bccf97c5e4af5a9abd84cbfe812b4a1a45cb0e107fa0d91c1",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/hit-single_row_pair-5-follow-through.png",
+        "sha256": "ae0da396a45958af80c29db8e1e27c0537445d8dab60c3b96eda99affb5138d3"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-action_columns-6.png",
-      "sha256": "d41fd7ddfebf77b40a705b0aae79158c0055e7d0d70dae1df46924d2ea85e9d9",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-single_row_pair-6.png",
+      "sha256": "ffdbfc2c7388865c71d83c5b3aa283a1220c41e9b778c0ec6ed89755db52c79b",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_05_railgun_sniper/death-single_row_pair-6-follow-through.png",
+        "sha256": "c0b7544188ba27093c003764f78e09003f34aba06c954ded1b46cc210af13e62"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +391,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
