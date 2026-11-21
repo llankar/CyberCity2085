@@ -307,6 +307,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
+- État courant (2026-11-21) : Dust preacher IN_PROGRESS. Identité et applicabilité inventoriées depuis le portrait 512 : masque crâne, capuche, halo dorsal à pointes, manteau poussiéreux, médaillons, unique bâton-totem en main droite et main gauche vide avec étoffe verte ; `psi` est applicable, `fire` et `heal` non. Quatre phases A rejetées avant import : une avec mauvaise jambe avant, trois contaminées par des champs ou fragments rouges. Rejets sur E: uniquement ; aucun atlas partiel importé et couverture complète inchangée à 112 / 233.
+
 - État courant (2026-11-21) : Mohawk duelist DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. La marche A/B/C/D alterne les contacts puis les passages hauts ; attente, frappe à la lame, garde compacte, impact récupérable et mort compacte sont distincts. La haute crête bordeaux, le foulard noir, l'unique lame en main droite et l'armure à pointes gauche restent cohérents, y compris de dos. Cinq brouillons contaminés ou ayant dérivé sur le masque ont été rejetés avant import. `fire`, `psi`, `heal` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 112 / 233.
 
 - État courant (2026-11-21) : Shield brawler DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts en utilisant la genouillère droite comme repère ; attente, balayage de masse, couverture complète derrière le bouclier, impact et mort compacte sont distincts. Six brouillons contaminés, opaques ou directionnellement faux ont été rejetés. `fire`, `psi`, `heal` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 111 / 233.
@@ -534,6 +536,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : inventorier `enemy_raider_10_dust_preacher`, déterminer ses actions applicables et produire uniquement sa première phase de marche à huit orientations, sans importer d'atlas partiel. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : régénérer la phase A de `enemy_raider_10_dust_preacher` depuis une composition neuve sans rouge ; accepter seulement si Sud avance la botte spectateur gauche, Nord la botte spectateur droite, avec bâton en main droite anatomique et alpha neutre. Ne pas importer d'atlas partiel. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
