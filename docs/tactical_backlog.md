@@ -4,6 +4,8 @@
 
 - ANIM-LAYOUT-CORRECTION / armored queen — DONE (2026-11-21). Mêlée et mort remplacées par quatre planches 8×1 contenues : boucle/frappe de fouet distinctes et chute à genoux/terminale, chaîne unique continue. Import 112 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, six captures inspectées et cible passée. Couverture vérifiée : 102 / 233.
 
+- ANIM-LAYOUT-CORRECTION / nailgunner — DONE (2026-11-21). Tir, mêlée et mort remplacés par six planches 8×1 contenues : visée/recul avec flash attaché, armé/balayage latéral hors axe et chute terminale avec unique cloueuse retenue contre le corps. Import 128 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, sept captures produites, feu/mêlée/mort inspectés et cible passée. Couverture vérifiée : 103 / 233. Prochaine unité : `enemy_raider_12_explosive_thrower` (tir, mêlée, impact, mort).
+
 - ANIM-LAYOUT-CORRECTION / skull helm heavy — DONE (2026-11-21). Mêlée et impact remplacés par quatre planches 8×1 contenues : armé/smash bas et recul/récupération distincts, masse droite unique conservée. Import 112 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, six captures inspectées et cible passée. Couverture vérifiée : 101 / 233.
 
 - ANIM-LAYOUT-CORRECTION / harpoon gunner — DONE (2026-11-21). Tir et mêlée remplacés par quatre planches 8×1 contenues. Le tir garde un projectile unique câblé au canon vide ; une mêlée ressemblant à une visée a été rejetée avant un véritable balayage de crosse. Import 128 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, sept captures inspectées et cible passée. Couverture vérifiée : 100 / 233.
