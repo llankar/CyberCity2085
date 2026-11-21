@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_10_bone_blade.png",
+  "texture_sha256": "d41f7e70193eb3c59868118c937e56c3fee003c982ca1fbb0be3507b0bac0a6f",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_10_bone_blade_512.png",
+  "source_sha256": "6d936e4bae081c8b2848aad1beb105cc5505d67302c85dfe3081dfe14b1ae68f",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/idle-single_row_pair-0.png",
+      "sha256": "4e610979bb18c24a9e37658c96f31ea33c9c190348d83b1a3a1ef2a415e0bd2c",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/idle-single_row_pair-0-follow-through.png",
+        "sha256": "cecb57416dfea02951f5369f6279f760d6de25e9ddacc1a35ce65ca66444ecd2"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/move-single_row_walk-1.png",
+      "sha256": "92dd752f06f93fa32850b551dfb3add0feaec8cd231787d29cbdd0ac5698d70f",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/move-single_row_walk-1-phase-1.png",
+          "sha256": "ad0ade0d67559f3dabd2ed998140396b9dfc980bc40b30a624fd9619c6499673"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/move-single_row_walk-1-phase-2.png",
+          "sha256": "345016b0a680ce26f0901c36e84e51e406d7c4956f6d6d006b9b4fddb88221fc"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/move-single_row_walk-1-phase-3.png",
+          "sha256": "e31abca4b4f7bf7eb0bc45b8e77b13030aca7a1e9d73c30a2c7a893613bfadac"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/melee-single_row_pair-2.png",
+      "sha256": "4e610979bb18c24a9e37658c96f31ea33c9c190348d83b1a3a1ef2a415e0bd2c",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/melee-single_row_pair-2-follow-through.png",
+        "sha256": "871e76499356987eacc4e3945bce904632df636f973687589589d94e15797f47"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/cover-single_row_pair-3.png",
+      "sha256": "4e610979bb18c24a9e37658c96f31ea33c9c190348d83b1a3a1ef2a415e0bd2c",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/cover-single_row_pair-3-follow-through.png",
+        "sha256": "31d26dd6e52b385468cf47b782ade14b0592d089cf2f4daba320794e3f0357c0"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/hit-single_row_pair-4.png",
+      "sha256": "4e610979bb18c24a9e37658c96f31ea33c9c190348d83b1a3a1ef2a415e0bd2c",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/hit-single_row_pair-4-follow-through.png",
+        "sha256": "c9fbe0f4ee34ab852834225fb46a03b711e7e472dc61f8be870a6681b092a049"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/death-single_row_pair-5.png",
+      "sha256": "c9fbe0f4ee34ab852834225fb46a03b711e7e472dc61f8be870a6681b092a049",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_10_bone_blade/death-single_row_pair-5-follow-through.png",
+        "sha256": "dc997c8631770adbacaae9288dcafb1d592751bd45bd6abcc98de4847038163a"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The bone blade has no ranged attack.",
+    "psi": "The bone blade has no psionic action.",
+    "heal": "The bone blade has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
