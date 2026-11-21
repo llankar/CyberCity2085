@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_15_horned_warlord.png",
+  "texture_sha256": "25ba8ef469297c4b19fb51e969dc05434c59228710a21efea78d472ef06e3ff6",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_15_horned_warlord_512.png",
+  "source_sha256": "97d87fdf4abd01c91ffe39e55ad33cf556506011a86c119391ff1664fcb1396e",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/idle-single_row_pair-0.png",
+      "sha256": "98b4a13c6ad8dd543025e5fd30ecf4a912e26eee4bbe8301e89c187f1e54290a",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/idle-single_row_pair-0-follow-through.png",
+        "sha256": "839d26acdb03192c81ec6254d4eaaf433bc5c0a869823f01b4064340b33e5a3a"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/move-single_row_walk-1.png",
+      "sha256": "87df4e1a0ab9af62b89a50441ca6a9ff03783cdabe8c07b9eabbdbec2336fd12",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/move-single_row_walk-1-phase-1.png",
+          "sha256": "1e51c4b3579459e45a160fb32418bba0174eb27d5342059e66b1ef928158d68a"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/move-single_row_walk-1-phase-2.png",
+          "sha256": "9a913d4b470a20a78197fa0385037ad66ae2fbe680dc51dbd0452ea7c4114575"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/move-single_row_walk-1-phase-3.png",
+          "sha256": "e56c6158a69c4e93be86ed8ad9ed2ee8709d340816072883cbe5c1a78f98c045"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/melee-single_row_pair-2.png",
+      "sha256": "98b4a13c6ad8dd543025e5fd30ecf4a912e26eee4bbe8301e89c187f1e54290a",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/melee-single_row_pair-2-follow-through.png",
+        "sha256": "936c95861fd73590dfb65854946fba301111f18a9ae077ecfd89820dafb3ca86"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/cover-single_row_pair-3.png",
+      "sha256": "98b4a13c6ad8dd543025e5fd30ecf4a912e26eee4bbe8301e89c187f1e54290a",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/cover-single_row_pair-3-follow-through.png",
+        "sha256": "f7ab4bb6aa7718420cad931151b316fd45c56d509b84000f305ce5975ad12d99"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/hit-single_row_pair-4.png",
+      "sha256": "98b4a13c6ad8dd543025e5fd30ecf4a912e26eee4bbe8301e89c187f1e54290a",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/hit-single_row_pair-4-follow-through.png",
+        "sha256": "1cb6a45d802f2af6c6feccd786f1bf93f7c3c78a44535ea4da09e3588cadbbc1"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/death-single_row_pair-5.png",
+      "sha256": "1cb6a45d802f2af6c6feccd786f1bf93f7c3c78a44535ea4da09e3588cadbbc1",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_15_horned_warlord/death-single_row_pair-5-follow-through.png",
+        "sha256": "af13fd1dfc9002b38c57dd820fbe0954d098265ed7fad5a2b7f013eb3e213e9e"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The horned warlord has no ranged weapon or ranged action.",
+    "psi": "The horned warlord has no psionic action.",
+    "heal": "The horned warlord has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
