@@ -39,6 +39,7 @@ KEYS.insert(-1,'enemy_mutant_19_hive_scarred')
 KEYS.insert(-1,'enemy_mutant_20_rust_mangler')
 KEYS.insert(-1,'enemy_raider_01_sawblade_marauder')
 KEYS.insert(-1,'enemy_raider_02_tire_armor_brute')
+KEYS.insert(-1,'enemy_raider_03_flame_lancer')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
