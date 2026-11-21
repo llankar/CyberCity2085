@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_04_riot_walker.png",
-  "texture_sha256": "07e8310630018e1dac4989dc61f0d76303a1b66fca14f4fa4c29bf113792b09d",
+  "texture_sha256": "5d074ae02d87209bb7de47ed9c615f5f94a285e00434f1d847eae3074e82607f",
   "frame_size": [
     256,
     256
@@ -338,18 +338,26 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/hit-action_columns-5.png",
-      "sha256": "5e488431e8a004cf4335b09c11a602e7157d16579de2cabe7adf49afef11f35c",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/hit-single_row_pair-5.png",
+      "sha256": "d9a56f04324e8380aefd52e7d92a8da10376ccb20ca78d420b810dac7911594d",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/hit-single_row_pair-5-follow-through.png",
+        "sha256": "e76e78439b475da5916c39a5a482268867acfc50b41e4f084e1811d5f1b706a1"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/death-action_columns-6.png",
-      "sha256": "e8e76f3304eb998ab28f04294b61a55208e24f05d0fe77b310cc2edc0bd8b4d2",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/death-single_row_pair-6.png",
+      "sha256": "6b740c3d64a302762e391ba6f0c2b1e8caf916dfbfb8e7935ecd78fda026a06e",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_04_riot_walker/death-single_row_pair-6-follow-through.png",
+        "sha256": "15b70b8bd2d28e15f15dd06ee1308ee89816d1fd8f0be22089475dbdb0f6ff7e"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +375,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
