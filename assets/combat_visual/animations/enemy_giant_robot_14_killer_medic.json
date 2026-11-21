@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_14_killer_medic.png",
-  "texture_sha256": "f0b13256066bca9104c737b8791a940d152036a80e29f7f7424d9fb00a7e2ff4",
+  "texture_sha256": "064e43bedcb1cfafdbadb8f8edf7e92a15e916127bc05166860b0316e6a4afa7",
   "frame_size": [
     256,
     256
@@ -337,11 +337,15 @@
   "source_sha256": "73ab1b242566462271bc6dbc76d0fdcd321ebc8eb531270118d7a0fa846b5245",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/idle-action_columns-0.png",
-      "sha256": "60ceb88d9f5c15cd7f3edb6d4cfa172f9eb08a03a5badca880b1fbc882e7acea",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/idle-single_row_pair-0.png",
+      "sha256": "cdc82b7b2a9bdf59e99a42b9ee099fd01a093707fb5509cc840a6b99a05444f9",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/idle-single_row_pair-0-follow-through.png",
+        "sha256": "70ad348682e3e724883f57aaadd4ab1e1389b3f9cba313e41b5aebab2da5980d"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/move-walk_columns-1.png",
@@ -355,11 +359,15 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/fire-action_columns-2.png",
-      "sha256": "3f563e7dbb31d9ec4c1f89aaf95c87ab16de1b15d0ec0bf3a3f25a4291c89d72",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/fire-single_row_pair-2.png",
+      "sha256": "94205e19c1b401bce701ec61e29262ef76ab0b6f95e408b73b37dc9ba9dc319a",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/fire-single_row_pair-2-follow-through.png",
+        "sha256": "fe653ad7543d30385ca5d9dc7304e9b42ff48be7c084f4f09ba9546eeb33aadc"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/melee-action_columns-3.png",
@@ -369,18 +377,26 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/cover-action_columns-4.png",
-      "sha256": "6faac221879d565f81ea832f1070065503bcc8a354376b71c1a63f39fc17632a",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/cover-single_row_pair-4.png",
+      "sha256": "64697c85edc7dbde49a842cabde52544ed69e8c73e362cbc8919f2593cb2c7cb",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/cover-single_row_pair-4-follow-through.png",
+        "sha256": "72a3ac003025b9e401f291877bfec8e6d660978e237a45bd33b81b88e6b9232a"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/hit-action_columns-5.png",
-      "sha256": "29514d5d132de83a2e274499a7eff94bb7f4be3819011de9f65e739598505a36",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/hit-single_row_pair-5.png",
+      "sha256": "d16ce83199a755411e37a7b4f11141ef27b3ced6a2f892550d37ecc341aca8b6",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/hit-single_row_pair-5-follow-through.png",
+        "sha256": "3c46dd0bfa7a440542b4cb597fb5459f7bc01ce458debd3696b108eec9ae4fb3"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_14_killer_medic/death-action_columns-6.png",
@@ -412,5 +428,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
