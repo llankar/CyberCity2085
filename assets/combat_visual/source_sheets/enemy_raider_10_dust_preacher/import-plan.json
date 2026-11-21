@@ -1,0 +1,108 @@
+{
+  "enemy_raider_10_dust_preacher": {
+    "clips": [
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-action-columns.png",
+        "clip": "idle",
+        "layout": "action_columns",
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/move-true-gait-cyan.png",
+        "clip": "move",
+        "layout": "front",
+        "pose_indices": [0, 1, 2, 3],
+        "direction_indices": [0, 1, 2, 3],
+        "grid_rows": 8,
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/move-true-gait-cyan.png",
+        "clip": "move",
+        "layout": "rear",
+        "pose_indices": [0, 1, 2, 3],
+        "direction_indices": [4, 5, 6, 7],
+        "grid_rows": 8,
+        "source_row_offset": 4,
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-action-columns.png",
+        "clip": "melee",
+        "layout": "action_columns",
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-action-columns.png",
+        "clip": "cover",
+        "layout": "action_columns",
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-action-columns.png",
+        "clip": "hit",
+        "layout": "action_columns",
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-action-columns.png",
+        "clip": "death",
+        "layout": "action_columns",
+        "body_height": 184,
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      },
+      {
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-action-columns.png",
+        "clip": "psi",
+        "layout": "action_columns",
+        "chroma_key": [0, 255, 255],
+        "chroma_inner": 4,
+        "chroma_outer": 128,
+        "edge_erosion": 1,
+        "keep_disconnected_details": true
+      }
+    ],
+    "applicable_clips": [
+      "idle",
+      "move",
+      "melee",
+      "cover",
+      "hit",
+      "death",
+      "psi"
+    ],
+    "non_applicable_clips": {
+      "fire": "The dust preacher carries no ranged firearm.",
+      "heal": "The dust preacher has no healing action."
+    },
+    "review_status": "native_render_verified"
+  }
+}
