@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_07_drone_carrier.png",
-  "texture_sha256": "520c0d71b50408f231357a0b112e532c37f1eb0c854ea9c003a41a206aaa18f8",
+  "texture_sha256": "a20503c7016db0fcffce3ecbaa7bbc13b46e082d84d1f96b42a3dde57d9be178",
   "frame_size": [
     256,
     256
@@ -324,25 +324,37 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/melee-action_columns-3.png",
-      "sha256": "b290c7022185dcd177045a71203052c7e307d27007452f4333ccab2df7c58b5f",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/melee-single_row_pair-3.png",
+      "sha256": "949267aa38c4125b0d27637ca5c3c6d65955a5c372fb0228a92d89f91060c8a0",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/melee-single_row_pair-3-follow-through.png",
+        "sha256": "dd5a3b9c081e1c4f6e86c7bed4182436598e6cf0246a04aba0dd14e3736a5fe7"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/cover-action_columns-4.png",
-      "sha256": "fbd564282d9aaa920d895f65224bed65f5a8161b71377efd92364f7f5de084b4",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/cover-single_row_pair-4.png",
+      "sha256": "65e7ff4f1eddfa46bd2487983d0fcb2b3438bc3ebbbe4bfab687b17b1808a366",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/cover-single_row_pair-4-follow-through.png",
+        "sha256": "7b1c70a0ece24071bbf297197d7afdffe511eb037a6e2b97268a617a96dda2a4"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/hit-action_columns-5.png",
-      "sha256": "6e1359fa03fd2f7e1f26e25bd4fb9b9d96804eb4240ca6a9988b619b3cc92b2f",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/hit-single_row_pair-5.png",
+      "sha256": "68a76956ac2bf99b113796885457921ecc7ec0ca0159f6c856bcc00094ca0b5c",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/hit-single_row_pair-5-follow-through.png",
+        "sha256": "1be4e124f1cac6a2ca85cb18315be8d1cdf8ecaafd003a4e21b1d462b386bb30"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_07_drone_carrier/death-action_columns-6.png",
@@ -367,5 +379,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
