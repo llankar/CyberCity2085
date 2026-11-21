@@ -1,0 +1,438 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_12_explosive_thrower.png",
+  "texture_sha256": "e82324527d29e81d71ade9637c203d0f7168c0d01f3933ea1b18570d6a0c248f",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_12_explosive_thrower_512.png",
+  "source_sha256": "7bdf13a858b159d7ed90ed2bc1b6c7a49cd7cae6291b78a764c34529e1f177d5",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-action_columns-0.png",
+      "sha256": "664ce51260d3b064b9c38214dc808c380053235772b691872cbd5cf1853b4dbb",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/move-single_row_walk-1.png",
+      "sha256": "26fb05e48f325a09ebc771a5da2cf59c45172d94f22b5005447e7405fe38a5b5",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/move-single_row_walk-1-phase-1.png",
+          "sha256": "8445b76e7185a48c7ad5847e49204a6c2d8aa4742ef3f6c9144704058be31477"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/move-single_row_walk-1-phase-2.png",
+          "sha256": "85871086c06ca41d7c3e262298efde5c85defa7da71fa0de8ea7780fb654ad1b"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/move-single_row_walk-1-phase-3.png",
+          "sha256": "6e8c953927e81b18215aaf9db64dd52f7aa87f1e75a4694f0ba1fac7f7f5d99e"
+        }
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/fire-action_columns-2.png",
+      "sha256": "42d2123445a705373bed6c074e83ec3f83a0635153a1f99e8daf07796ec63e38",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/melee-action_columns-3.png",
+      "sha256": "c603269ba6a95c6ec865af6ce04f715285f50fb21453d77ea3c6bc5e4f3d2009",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-action_columns-4.png",
+      "sha256": "a40e6c37ef24ad22eaf5eacbae7ef1d6fbaabf1ccda37b0303f6a4a5fa3371af",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/hit-action_columns-5.png",
+      "sha256": "f6696afbc38478659ac5935385f284b489d026f12dbcab826e7d30aa0cdcb62e",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/death-action_columns-6.png",
+      "sha256": "f20dc315e6c65b15d1a8a29d703fbe83727ff5ad110bfc548b140d12298f0963",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The explosive thrower has no psionic ability.",
+    "heal": "The explosive thrower carries no medical equipment."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified"
+}
