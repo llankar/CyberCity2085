@@ -1570,7 +1570,7 @@
     {
       "id": "GODOT-PARSE-01",
       "title": "Réparer le blocage de chargement après traduction du HUD",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/scripts/visual_hud.gd",
         "tests/test_english_player_ui.py",
@@ -1579,15 +1579,16 @@
       "tests": [
         "Godot 4.6.3 --headless --editor --quit : 0 erreur de script et 0 erreur de parsing",
         "python -m pytest -q tests/test_persistent_combat_runtime.py tests/test_english_player_ui.py tests/test_godot_launch_routing.py : 16 passed, 1 skipped",
-        "Runtime Godot natif persistant démarré puis réutilisé sur deux missions successives"
+        "Runtime Godot natif persistant démarré puis réutilisé sur deux missions successives",
+        "Godot 4.7.2 Windows packagé --headless --editor --quit avec données utilisateur et temporaires sur E: : code 0, aucune erreur de script ou de parsing"
       ],
       "evidence": [
         "runtime/godot_runtime/b5d660bd3ff2486da0d6b700fd16230e/godot.log",
         "tests/test_persistent_combat_runtime.py",
         "tests/test_english_player_ui.py"
       ],
-      "remaining": "Relancer ou réparer la session déjà interrompue dans l'interface ouverte.",
-      "reason": "La session déjà en erreur ne peut pas se réparer à chaud après l'arrêt de son processus ; une nouvelle tentative est nécessaire."
+      "remaining": "",
+      "reason": "L’ancienne session interrompue est obsolète ; les relances natives 4.7.2, le routage persistant et le build Windows actuel sont valides."
     },
     {
       "id": "TACTICAL-REDUCED-MOTION",

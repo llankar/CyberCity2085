@@ -509,13 +509,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Validation visuelle humaine de tous les écrans non exécutée..
 - Problème / raison : Le parsing et le runtime natifs ont été validés ensuite dans GODOT-PARSE-01..
 
-### GODOT-PARSE-01 — IN_PROGRESS — Réparer le blocage de chargement après traduction du HUD
+### GODOT-PARSE-01 — DONE — Réparer le blocage de chargement après traduction du HUD
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `tests/test_english_player_ui.py`, `tests/test_persistent_combat_runtime.py`.
-- Tests / contrôles réellement exécutés : Godot 4.6.3 --headless --editor --quit : 0 erreur de script et 0 erreur de parsing; python -m pytest -q tests/test_persistent_combat_runtime.py tests/test_english_player_ui.py tests/test_godot_launch_routing.py : 16 passed, 1 skipped; Runtime Godot natif persistant démarré puis réutilisé sur deux missions successives.
+- Tests / contrôles réellement exécutés : Godot 4.6.3 --headless --editor --quit : 0 erreur de script et 0 erreur de parsing; python -m pytest -q tests/test_persistent_combat_runtime.py tests/test_english_player_ui.py tests/test_godot_launch_routing.py : 16 passed, 1 skipped; Runtime Godot natif persistant démarré puis réutilisé sur deux missions successives; Godot 4.7.2 Windows packagé --headless --editor --quit avec données utilisateur et temporaires sur E: : code 0, aucune erreur de script ou de parsing.
 - Preuves : `runtime/godot_runtime/b5d660bd3ff2486da0d6b700fd16230e/godot.log`, `tests/test_persistent_combat_runtime.py`, `tests/test_english_player_ui.py`.
-- Travail restant dans cette portée : Relancer ou réparer la session déjà interrompue dans l'interface ouverte..
-- Problème / raison : La session déjà en erreur ne peut pas se réparer à chaud après l'arrêt de son processus ; une nouvelle tentative est nécessaire..
+- Travail restant dans cette portée : Aucun.
+- Problème / raison : L'ancienne session interrompue est obsolète ; les relances natives 4.7.2, le routage persistant et le build Windows actuel sont valides.
 
 ### TACTICAL-REDUCED-MOTION — DONE — Réduction des mouvements dans les annonces et résultats Godot
 
