@@ -307,6 +307,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
+- État courant (2026-11-21) : Sawblade marauder DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. Les phases A/B alternent les bottes ; C/D lèvent les genoux opposés. B a nécessité une correction ciblée du dos pour conserver le pied gauche en avant. Casque noir, yeux ambrés, armure épineuse gauche, bras droit nu et scie circulaire droite restent cohérents ; les vues arrière masquent yeux et harnais frontal. Mêlée, couverture, impact et mort sont distincts. `fire`, `psi` et `heal` sont non applicables. Audit propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 104 / 233.
+
 - État courant (2026-11-21) : Sawblade marauder IN_PROGRESS. La phase A est acceptée sur E: avec huit orientations, botte droite en avant, une seule scie circulaire tenue à droite, armure épineuse gauche et vues arrière sans yeux ambrés. Une A opaque, son extraction rouge, une B quasi dupliquée et une B dont l'appui arrière contredisait la vue frontale ont été rejetées avant import. Aucun atlas de production n'a changé ; couverture complète inchangée à 103 / 233.
 
 - État courant (2026-11-21) : Rust mangler DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. Les quatre phases A/B/C/D alternent les contacts botte/pied nu et les deux passages hauts. La mêlée balaie avec la barre, la couverture protège le masque, l'impact conserve l'équipement et la mort s'effondre compactement. `fire`, `psi` et `heal` sont non applicables. Les variantes contaminées ont été rejetées avant import. La hauteur de base a été réduite de 208 à 200 après détection d'une pointe en bord supérieur. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 103 / 233.
@@ -522,6 +524,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : générer uniquement une phase B pied gauche en avant pour enemy_raider_01_sawblade_marauder, avec le même appui anatomique en vues frontale et arrière ; rejeter toute vue contradictoire ou quasi dupliquée avant de produire C/D. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : examiner enemy_raider_02_tire_armor_brute, verrouiller son identité et ses actions applicables, puis produire sa marche authentique en huit directions avec alternance réelle des appuis. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

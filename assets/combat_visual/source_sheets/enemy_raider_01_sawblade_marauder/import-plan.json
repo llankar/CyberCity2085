@@ -1,0 +1,20 @@
+{
+  "enemy_raider_01_sawblade_marauder": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_01_sawblade_marauder/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 216, "edge_erosion": 3}
+    ],
+    "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "fire": "The sawblade marauder has no ranged weapon or projectile attack.",
+      "psi": "The sawblade marauder has no psychic action.",
+      "heal": "The sawblade marauder has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
