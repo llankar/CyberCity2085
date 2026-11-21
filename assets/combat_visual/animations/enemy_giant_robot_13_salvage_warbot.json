@@ -391,5 +391,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "pending_native_review"
+  "review_status": "native_render_verified_complete"
 }
