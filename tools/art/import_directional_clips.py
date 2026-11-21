@@ -73,6 +73,20 @@ def extract_grid(image,row,col,grid_cols,grid_rows,edge_erosion=0,clean_componen
     if not bounds:raise ValueError('Empty pose')
     return frame.crop(bounds)
 
+def validate_action_columns_rows(image):
+    """Reject single-row art before it is sliced into torso/leg fragments."""
+    for col in range(8):
+        top=image.crop((col*image.width//8,0,(col+1)*image.width//8,image.height//2))
+        bottom=image.crop((col*image.width//8,image.height//2,
+                           (col+1)*image.width//8,image.height))
+        top_bounds=top.getchannel('A').getbbox()
+        bottom_bounds=bottom.getchannel('A').getbbox()
+        if (not top_bounds or not bottom_bounds or
+                top_bounds[3] >= top.height or bottom_bounds[1] <= 0):
+            raise ValueError(
+                'action_columns requires two separated rows of eight poses; '
+                'use single_row_pair with a complete follow-through sheet for 8x1 art')
+
 def feet_x(frame):
     alpha=frame.getchannel('A');top=round(frame.height*.86);weights=[]
     for x in range(frame.width):weights.append(sum(alpha.getpixel((x,y)) for y in range(top,frame.height)))
@@ -179,6 +193,7 @@ def build(key,config):
                     extract(follow_through, row + 2, col, edge_erosion=erosion),
                 ], pose_height)
         elif layout == 'action_columns':
+            validate_action_columns_rows(image)
             order=sheet_directions(item,8)
             erosion=item.get('edge_erosion',0)
             clean_components=not item.get('keep_disconnected_details',False)

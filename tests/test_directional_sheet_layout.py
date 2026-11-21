@@ -118,6 +118,24 @@ def test_direction_columns_preserve_action_pairs_and_four_phase_walk(tmp_path, m
                     for direction in range(8)]
 
 
+def test_action_columns_reject_single_row_silhouette_slicing(tmp_path, monkeypatch):
+    monkeypatch.setattr(importer, "ROOT", tmp_path)
+    original = tmp_path / "assets/units/broken_512.png"
+    original.parent.mkdir(parents=True)
+    original.write_bytes(b"identity")
+    sheet = tmp_path / "single-row.png"
+    image = Image.new("RGBA", (128, 32))
+    for col in range(8):
+        image.paste((80, 60, 40, 255), (col * 16 + 4, 2, col * 16 + 12, 30))
+    image.save(sheet)
+
+    with pytest.raises(ValueError, match="use single_row_pair"):
+        importer.build("broken", {
+            "applicable_clips": ["idle"],
+            "clips": [{"path": sheet, "clip": "idle", "layout": "action_columns"}],
+        })
+
+
 def test_single_rows_pair_complete_sprites_without_vertical_slicing(tmp_path, monkeypatch):
     monkeypatch.setattr(importer, "ROOT", tmp_path)
     original = tmp_path / "assets/units/stalker_512.png"
