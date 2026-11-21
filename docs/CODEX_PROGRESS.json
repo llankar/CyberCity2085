@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-NATIVE-PENDING enemy_mutant_05_irradiated_medic DONE: unchanged 144-frame atlas validated in native Windows Godot; regression and capture exit 0, 32 movement selections and eight captures. Idle, move, fire, melee, cover, hit, death and heal inspected at tactical scale; silhouette and green equipment remain coherent, effects attached, poses distinct and death terminal. Manifest promoted with no pixel change; plan was already complete. Verified coverage 136 / 233.",
-  "next_action": "ANIM-NATIVE-PENDING : exécuter la régression et les captures Windows natives uniquement pour `enemy_mutant_06_pit_fighter`, inspecter ses actions à l'échelle tactique, puis promouvoir le manifest seulement si les rendus sont propres. Poursuivre ensuite unité par unité jusqu'à `enemy_mutant_15_horned_warlord`. Couverture vérifiée actuelle : 136 / 233. Ne pas régénérer de preuves globales.",
+  "latest_batch": "ANIM-NATIVE-PENDING enemy_mutant_06_pit_fighter DONE: unchanged 112-frame atlas validated in native Windows Godot; regression and capture exit 0, 32 movement selections and six captures. Idle, move, melee, cover, hit and death inspected at tactical scale; massive build, fists and forearms, guard and strike remain readable, poses distinct and death terminal. Manifest promoted with no pixel change; plan was already complete. Python targeted: 3 passed and 1 X11 skip. Verified coverage 137 / 233.",
+  "next_action": "ANIM-NATIVE-PENDING : exécuter la régression et les captures Windows natives uniquement pour `enemy_mutant_07_sewer_veil`, inspecter ses actions à l'échelle tactique, puis promouvoir le manifest seulement si les rendus sont propres. Poursuivre ensuite unité par unité jusqu'à `enemy_mutant_15_horned_warlord`. Couverture vérifiée actuelle : 137 / 233. Ne pas régénérer de preuves globales.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
