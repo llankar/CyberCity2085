@@ -60,13 +60,13 @@ def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4,clean_components
     if not bounds:raise ValueError('Empty pose')
     return frame.crop(bounds)
 
-def extract_grid(image,row,col,grid_cols,grid_rows,edge_erosion=0):
+def extract_grid(image,row,col,grid_cols,grid_rows,edge_erosion=0,clean_components=True):
     if min(grid_cols,grid_rows) < 1 or not (0 <= col < grid_cols and 0 <= row < grid_rows):
         raise ValueError('source cell must fit within the declared grid')
     frame=image.crop((col*image.width//grid_cols,row*image.height//grid_rows,
                       (col+1)*image.width//grid_cols,(row+1)*image.height//grid_rows)).convert('RGBA')
     frame.putalpha(frame.getchannel('A').point(lambda a:max(0,min(255,round((a-160)*255/95)))))
-    frame=clean_alpha(frame)
+    if clean_components:frame=clean_alpha(frame)
     if edge_erosion:
         frame.putalpha(frame.getchannel('A').filter(ImageFilter.MinFilter(2*edge_erosion+1)))
     bounds=frame.getchannel('A').getbbox()
@@ -181,10 +181,11 @@ def build(key,config):
         elif layout == 'action_columns':
             order=sheet_directions(item,8)
             erosion=item.get('edge_erosion',0)
+            clean_components=not item.get('keep_disconnected_details',False)
             for source_col,direction in enumerate(order):
                 directions[direction]=normalise([
-                    extract_grid(image,0,source_col,8,2,erosion),
-                    extract_grid(image,1,source_col,8,2,erosion),
+                    extract_grid(image,0,source_col,8,2,erosion,clean_components),
+                    extract_grid(image,1,source_col,8,2,erosion,clean_components),
                 ],pose_height)
         elif layout == 'single_row_pair':
             follow_source=Path(item['follow_through_path'])
@@ -244,7 +245,7 @@ def build(key,config):
             provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
         if layout in ('front','rear') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
-        if layout in ('front','rear') and item.get('keep_disconnected_details'):
+        if layout in ('front','rear','action_columns') and item.get('keep_disconnected_details'):
             provenance[-1]['keep_disconnected_details']=True
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
