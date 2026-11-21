@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_mutant_08_crystal_growth.png",
-  "texture_sha256": "34f03a24481e16f884533ab825f7e392db1e3f8e4afb0ce6af29fa1455f28a54",
+  "texture_sha256": "cf50e2bcfc656bdbae861a74879c03b2c2bc929d3fb58fb04980aeb5a0ac2c3d",
   "frame_size": [
     256,
     256
@@ -376,13 +376,13 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "follow_through": {
         "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/hit-single_row_pair-5-follow-through.png",
-        "sha256": "7722b19b53fef0c0930cc274347e2c06da1cc1ed87de4cf73042149ac44c1867"
+        "sha256": "dabd440871ba26ed553faa22a2771067f3e396ef2a1fa249298758eb54278dbd"
       },
       "edge_erosion": 3
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/death-single_row_pair-6.png",
-      "sha256": "7722b19b53fef0c0930cc274347e2c06da1cc1ed87de4cf73042149ac44c1867",
+      "sha256": "dabd440871ba26ed553faa22a2771067f3e396ef2a1fa249298758eb54278dbd",
       "clip": "death",
       "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
@@ -408,5 +408,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_pending"
+  "review_status": "native_render_verified_complete"
 }
