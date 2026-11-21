@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_16_harpoon_gunner.png",
-  "texture_sha256": "46d0e32529be4d63eb0e9cca0e97f9929361067102e01a96db29d8a7a17fc77a",
+  "texture_sha256": "e7f46e38d2823a9926c40eef1f3c3473f0294ea35d19b9daecd8840d6b975a64",
   "frame_size": [
     256,
     256
@@ -344,12 +344,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/fire-action_columns-2.png",
-      "sha256": "2ffaf6baf544ac671484c9be61b855c849e5a3bef85f3ccde9f4d95989ddc554",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/fire-single_row_pair-2.png",
+      "sha256": "1fbad6870128396e8822fe0d238998390b52ce33651715826599c906f9fbbad1",
       "clip": "fire",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/fire-single_row_pair-2-follow-through.png",
+        "sha256": "091948519af3cca83cf160dadd9cc5d84d3b8685955140b2394fce90ea0d77bd"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -359,12 +364,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/melee-action_columns-3.png",
-      "sha256": "8ba33d16cf086d94b71447030eb99b97d9be88f05e39eb6ca15c18fa0a75ac24",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/melee-single_row_pair-3.png",
+      "sha256": "6cadf7f2712aa7c3d3ea728a1690bdd12758fb6ab020eaab2d2b8e0bc4bfae8d",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/melee-single_row_pair-3-follow-through.png",
+        "sha256": "94386eea7cf46c1928f496963ec2e581521d70d9945a20c34ab11a3ad6da5343"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
