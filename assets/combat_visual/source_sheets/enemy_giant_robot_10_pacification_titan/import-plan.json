@@ -1,12 +1,12 @@
 {
   "enemy_giant_robot_10_pacification_titan": {
     "clips": [
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/idle-direction-columns.png", "clip": "idle", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/idle-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/idle-repair-follow.png", "clip": "idle", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/fire-direction-columns.png", "clip": "fire", "layout": "action_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/melee-direction-columns.png", "clip": "melee", "layout": "action_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/hit-direction-columns.png", "clip": "hit", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/fire-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/fire-repair-follow.png", "clip": "fire", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/melee-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/melee-repair-follow.png", "clip": "melee", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/cover-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/cover-repair-follow.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/hit-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/hit-repair-follow.png", "clip": "hit", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_10_pacification_titan/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 184}
     ],
     "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
