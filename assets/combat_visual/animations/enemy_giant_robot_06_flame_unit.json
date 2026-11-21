@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_06_flame_unit.png",
-  "texture_sha256": "d69af8cc40704a959c18b6fb904a20f6e214ad4b8f40af03299699422d356edd",
+  "texture_sha256": "ba38c4a54b33042a1cff061bf3dc9d174daf5a6ea0d381817429078c1628ed49",
   "frame_size": [
     256,
     256
@@ -317,18 +317,26 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/fire-action_columns-2.png",
-      "sha256": "0af3de8fdec31a1a1f3d5ed51c93c73ed667e279d3497b2e3192b48a32551460",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/fire-single_row_pair-2.png",
+      "sha256": "17a19c6e05ae38a0f55da8d5820af2709aea1334afc3f48856ccd8fbb403452b",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/fire-single_row_pair-2-follow-through.png",
+        "sha256": "62b7ee2450c2af7b4d5889a28d5d0a921a4d7b494759bfe507c07437636348bc"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/melee-action_columns-3.png",
-      "sha256": "f269ae9acee88f1418162f41da9e12f8fd78b2b1567d08ca16742dcaa4f8c640",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/melee-single_row_pair-3.png",
+      "sha256": "5970aa7563e92ed8126bcc1bb11c03ce85f3c2509a5656c609a60dad38156d5d",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/melee-single_row_pair-3-follow-through.png",
+        "sha256": "6138a6921bf7d2cfa8a54893964f362cfb2030f7b7e684c30bc7e81c5a2a26a0"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/cover-action_columns-4.png",
@@ -338,18 +346,26 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/hit-action_columns-5.png",
-      "sha256": "49a7cce43bacce8777be7f5ac2d2548a087ebb53035ec049b7792d2667b98a90",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/hit-single_row_pair-5.png",
+      "sha256": "293609c5fd7915a624fbd6135254e08c8a4e73e0ef23ad6c480de5c5c1c7b3ef",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/hit-single_row_pair-5-follow-through.png",
+        "sha256": "8ff8b5219c2845fbbff29c70b4a021236c228fb85360d9e5ca211b99fe4e6ed4"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/death-action_columns-6.png",
-      "sha256": "a3054397f1a6a370bb299c92a2a491511b7306abdde3e5a3b19a5f54306e6732",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/death-single_row_pair-6.png",
+      "sha256": "9124f024263d94fe19156631e96381c6881906e41b8623826fe170218f96fa44",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_06_flame_unit/death-single_row_pair-6-follow-through.png",
+        "sha256": "0f8e7dce68ddc1a65847ea143c206c9d06a6615aa530362e83ebd6834fd1963f"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +383,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
