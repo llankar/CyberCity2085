@@ -2,12 +2,12 @@
   "enemy_mutant_01_hulk": {
     "body_height": 208,
     "clips": [
-      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-direction-columns.png", "clip": "idle", "layout": "action_columns", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-repair-follow.png", "clip": "idle", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns", "edge_erosion": 2},
-      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-direction-columns.png", "clip": "melee", "layout": "action_columns", "edge_erosion": 2},
-      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184, "edge_erosion": 2},
-      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-direction-columns.png", "clip": "hit", "layout": "action_columns", "edge_erosion": 2},
-      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 216, "edge_erosion": 2}
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-repair-follow.png", "clip": "melee", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-repair-follow.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-repair-follow.png", "clip": "hit", "layout": "single_row_pair"},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-repair-follow.png", "clip": "death", "layout": "single_row_pair", "body_height": 216}
     ],
     "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
     "non_applicable_clips": {

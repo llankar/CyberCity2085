@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_mutant_01_hulk.png",
-  "texture_sha256": "eb442b3b2d31c720121c85f685bd5632c52f272bbc0754a844578a5f414b08ad",
+  "texture_sha256": "1f0fe128352560addfa11ad5f27739ee57d53035bb0206347d7ac2f4fec69964",
   "frame_size": [
     256,
     256
@@ -261,11 +261,15 @@
   "source_sha256": "9778fd2e9f834a590a83100895be57b3b1d049b5a9bc40ab379eb829c2aeea59",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-action_columns-0.png",
-      "sha256": "b4e615f77d0bb2bdc283eb99c3dd5ce3a9f44672a8afa287676ebeda3f899130",
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-single_row_pair-0.png",
+      "sha256": "e5c1888e1186286a4fa9cc23cc47a09c23eb854c99784569e85e64e0343a6867",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-single_row_pair-0-follow-through.png",
+        "sha256": "9574456794799ba2ca8b891014d330d70dea29e001a905015de07784865aeb80"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-walk_columns-1.png",
@@ -279,32 +283,48 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-action_columns-2.png",
-      "sha256": "89872ec9c4f2ed75b844502b64cc67d6fb2c0eb634628a76874fa4d87edb7b79",
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-single_row_pair-2.png",
+      "sha256": "6dbb469d1431e81ce22c0a94d6cc009c336a97095918efe928ef240ce036f93a",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-single_row_pair-2-follow-through.png",
+        "sha256": "9fbe5c9e6885001427b7af5febafcdc798aabaa7360cb0d7a12208b076b38021"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-action_columns-3.png",
-      "sha256": "fd590922fbd9078dcb82462734882bb57ef710a4e93c4e4f1126f0c2456bb4a0",
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-single_row_pair-3.png",
+      "sha256": "5a2a2307c4994e51acc0265e5b9be0a7a22aa90b90a172c216272b932a1ca88d",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-single_row_pair-3-follow-through.png",
+        "sha256": "675fe916ec756db3abe2165fb0fba8ecafb0fbe989687c09cc99d04066cb4226"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-action_columns-4.png",
-      "sha256": "b317ad7ff7f5e04b64310d097d8891e107f3dab837457cb4626a8fe538fb8f9f",
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-single_row_pair-4.png",
+      "sha256": "59b6e510325dde6648c9debfef9f546c83ea905c69d567fcb8051a321e464299",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-single_row_pair-4-follow-through.png",
+        "sha256": "8056eff2c42553d25c54b805658613c6c6f2908ef4344cf82331471ecafd76b8"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-action_columns-5.png",
-      "sha256": "fef7c9cd528f5453a38d8a1c93ae31dfeb446c6cd0088883ffe8e49e71420e4a",
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-single_row_pair-5.png",
+      "sha256": "53d9b4085e6d93acaf054a1b08fadb85f65a2e5109f6e463561689fb5e106988",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-single_row_pair-5-follow-through.png",
+        "sha256": "1b341eab965d838e521e9f70d162bb126f15d46e08bb92d17033f22bbde62f78"
+      }
     }
   ],
   "required_clips": [
