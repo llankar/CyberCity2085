@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_19_oil_mechanic.png",
-  "texture_sha256": "031d4e214a95d053360522fc7c068a29ce5dd1e23aca68c102fd9c0bf0a8f0b6",
+  "texture_sha256": "54ca0a09107b666cb16941b2fbd5844225361d186743d0cda262a6dabe23147a",
   "frame_size": [
     256,
     256
@@ -294,7 +294,7 @@
         },
         {
           "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/move-single_row_walk-1-phase-2.png",
-          "sha256": "f0ef4d01f0b17cce2538dd2772a26e7f9c8efb70a62f21ccfa76f41b1ddd54ab"
+          "sha256": "1866aa418e8e6844e5ff88a21b7ad7cf78dbb4c36705d3996caff1b875357785"
         },
         {
           "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/move-single_row_walk-1-phase-3.png",
@@ -406,5 +406,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "native_render_verified_complete"
 }

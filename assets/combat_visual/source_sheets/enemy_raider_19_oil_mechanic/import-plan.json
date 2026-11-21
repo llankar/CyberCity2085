@@ -10,6 +10,6 @@
     ],
     "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
     "non_applicable_clips": {"fire": "The oil mechanic carries no ranged weapon.", "psi": "The oil mechanic has no psionic ability.", "heal": "The oil mechanic carries no medical equipment."},
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }
