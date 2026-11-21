@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_03_missile_artillery.png",
-  "texture_sha256": "5f7ffd81b438852e64ba5a9d3003b487943173884cdf152dc4e7f28c6ba41b57",
+  "texture_sha256": "9e969fbdbdd9fbbe0131d627faa9fde4beaa63ded6db0288509d6d82247ddb75",
   "frame_size": [
     256,
     256
@@ -324,11 +324,15 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/melee-action_columns-3.png",
-      "sha256": "99adf7e2e3650f4cedad6ccb8c6a60d16ffcd0dae56093e5af401bf10ff74e65",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/melee-single_row_pair-3.png",
+      "sha256": "cbc08be87ed031b4a89985d79aec8f8c4c2e82da9c1e8dbd27a7d3b4c3ac64f9",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/melee-single_row_pair-3-follow-through.png",
+        "sha256": "291e9cc14bf1af2fd35ce6581c31e3986650ea78250f49d679ff3f015f810c76"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/cover-action_columns-4.png",
@@ -338,11 +342,15 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/hit-action_columns-5.png",
-      "sha256": "c9356d2e7d0199e3c15be4389cb15005ac544cb271b9e8bfd5267a3745165912",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/hit-single_row_pair-5.png",
+      "sha256": "430d08e1053c0d5435c3e0847f9a0fed82a292fd2ae6ec491889cb1331312b87",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/hit-single_row_pair-5-follow-through.png",
+        "sha256": "7930e6f4bf6f352e57e7525a97240434570d0e6522638b579192cd95fda94e4f"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_03_missile_artillery/death-action_columns-6.png",
@@ -367,5 +375,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
