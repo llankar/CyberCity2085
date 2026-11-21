@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_16_harpoon_gunner.png",
-  "texture_sha256": "e7f46e38d2823a9926c40eef1f3c3473f0294ea35d19b9daecd8840d6b975a64",
+  "texture_sha256": "20309d9d18b8498e5be810593c94901ee319d651931566af7c19cba263e52bae",
   "frame_size": [
     256,
     256
@@ -299,19 +299,17 @@
   "source_sha256": "5fc4700e6f88b8bcb31ac9951427d09d1c828e69be24614eb33f3a0abe6888a4",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/idle-action_columns-0.png",
-      "sha256": "31e47185de5a938ad30b665bcd6a862714eea525bf430e494717686528d0cc65",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/idle-single_row_pair-0.png",
+      "sha256": "4baa9b49883abb7dcad96c5dbfceb8892e64b86d5d94513b27a420bbadbe8e9b",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/idle-single_row_pair-0-follow-through.png",
+        "sha256": "24ec4f3cf7f6e8a7a4525afb827313d2b261a099aa2481699720feb9bedc0359"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/move-single_row_walk-1.png",
@@ -384,49 +382,43 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/cover-action_columns-4.png",
-      "sha256": "76b5bc3dc457ed479b3d077dd1c807d85533d135d6c26eab082ceb7c542e1741",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/cover-single_row_pair-4.png",
+      "sha256": "d89973964253c19e9d67f7b5541fbcfb576ec419119cfafe426c4bc809f16674",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/cover-single_row_pair-4-follow-through.png",
+        "sha256": "8e8eb30c1f1a81b7e3abe75ca10983c6735ca9c6ebe28c65c51312bfd0200e85"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/hit-action_columns-5.png",
-      "sha256": "f21c13a85d4ab1d9b143f45938507bac403a92df74f9b7aea59b9926f1082cc1",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/hit-single_row_pair-5.png",
+      "sha256": "fb4b55886ac8c6703e3a20cbadaf729494fa1eed287d17ccaf97b818790647ea",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/hit-single_row_pair-5-follow-through.png",
+        "sha256": "6f9bd88fb634d481d112f881bc34ba254700892b7039e5e36b09a5210c34a65a"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/death-action_columns-6.png",
-      "sha256": "ae7f5cbd74f3d5b4d852a4fe62d7d0d50e19ecb1de46e6e6ff8d961cba5a536e",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/death-single_row_pair-6.png",
+      "sha256": "5f301e7ea60673fa3d02cba4dd24078d2971d94ecea2eb85f39e8e49182c2385",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/death-single_row_pair-6-follow-through.png",
+        "sha256": "4ee7e32b0877e839fc2ab9ac80ede025c8012e5b7e18c903520ac25a31d5e9d2"
+      },
+      "edge_erosion": 1
     }
   ],
   "required_clips": [
@@ -444,5 +436,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "native_render_verified_complete"
 }
