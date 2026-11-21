@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_mutant_07_sewer_veil.png",
-  "texture_sha256": "fc973c12f8de717207b90298fde048a6457152045055692840bf60fce368696c",
+  "texture_sha256": "706ffc797162b50660e2d1afdd5c190335de942d49b272dcd48bf34823a31670",
   "frame_size": [
     256,
     256
@@ -302,7 +302,7 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "follow_through": {
         "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/melee-single_row_pair-2-follow-through.png",
-        "sha256": "0d7f0c13e2074c908506057b8011d9cd1657dc28931c95232e04312997faee27"
+        "sha256": "d6013f5acad59c1e9c4a0d0b2c435b82260448387d99c04f3243835a254fd426"
       },
       "edge_erosion": 2
     },
@@ -358,5 +358,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_pending"
+  "review_status": "native_render_verified_complete"
 }
