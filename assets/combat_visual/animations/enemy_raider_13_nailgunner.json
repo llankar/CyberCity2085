@@ -299,19 +299,17 @@
   "source_sha256": "0e9b2186e7f1ab38acec698e899b31a4662bab30f5e2511aefccd9526f528784",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/idle-action_columns-0.png",
-      "sha256": "b62ddc6df4bda8ac91f202a81c6bbe75f6abe7d52ced62b84ebffe30b9e4c87c",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/idle-single_row_pair-0.png",
+      "sha256": "f0c12e1999eed819162f12d7e176faefd17de750782e48917afc0d5a4f44d383",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/idle-single_row_pair-0-follow-through.png",
+        "sha256": "bd8ab00dd8f6b4460728a4fd04f57804e7e09d5f12a288252c2d5f18e092e8a0"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/move-single_row_walk-1.png",
@@ -366,34 +364,30 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/cover-action_columns-4.png",
-      "sha256": "d04ad2c80b331a13edbc4d3a8c74ad340f4ae787242ee21809e9e097005fa428",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/cover-single_row_pair-4.png",
+      "sha256": "b9c3418c15a455af2bdd90737ac82a7fc4be3f6765849c66102144661b8d470c",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/cover-single_row_pair-4-follow-through.png",
+        "sha256": "ee76b16f38e3cb6332f5dd74041d72f010b0495ec7e445f4df7deb5c867c16f3"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/hit-action_columns-5.png",
-      "sha256": "40525a5db9bbf66c78255bca745f8811524e765e2089b5f7943c39b171882708",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/hit-single_row_pair-5.png",
+      "sha256": "d89288b353c7936a2d792468060ed42734a2f5a1710b31fad55957bcf54fff45",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/hit-single_row_pair-5-follow-through.png",
+        "sha256": "433efe1c8b4e2a0b102a2ee8730f1ef36bd62dbd13d1bc57fa466f68bce8ede4"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_13_nailgunner/death-single_row_pair-6.png",
@@ -422,5 +416,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "pending_native_review"
 }
