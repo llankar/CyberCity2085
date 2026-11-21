@@ -294,7 +294,7 @@
     {
       "id": "WINDOWS-RESULT-READ-RETRY",
       "title": "Retry transient Windows combat result reads",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "game/combat/godot_bridge.py",
         "game/ui/screens/godot_combat_handoff_view.py",
@@ -303,13 +303,14 @@
       ],
       "tests": [
         "23 targeted Python tests passed",
-        "Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection"
+        "Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection",
+        "Current focused checkpoint/result regression on 2026-11-21: 15 passed, including simulated Windows sharing violation retry"
       ],
       "evidence": [
         "tests/test_unified_checkpoints.py"
       ],
-      "remaining": "Production package rebuilt; native Arcade startup, bundled headless Godot, save reload and QA entry exclusion passed. Desktop interaction and audio listening remain open.",
-      "reason": ""
+      "remaining": "",
+      "reason": "The retry scope is complete. Desktop interaction, graphical acceptance and audio listening remain tracked by WINDOWS-CURRENT-BUILD, UE2-04 and UE5 tasks."
     },
     {
       "id": "WINDOWS-CURRENT-BUILD",

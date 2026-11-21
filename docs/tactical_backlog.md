@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- WINDOWS-RESULT-READ-RETRY — DONE (2026-11-21). La lecture du résultat retente les verrouillages/transitoires Windows et conserve l'application exactement une fois. Régression checkpoints/résultats actuelle : 15 PASS, dont une violation de partage simulée. Les contrôles graphiques et l'écoute audio restent suivis séparément.
+
 - GODOT-PARSE-01 — DONE (2026-11-21). Le Godot 4.7.2 inclus dans le package Windows actuel a chargé le projet en mode éditeur headless avec code 0, sans erreur de script ni de parsing ; données utilisateur et temporaires placés sur E:. L'ancienne session interrompue n'est plus une action ouverte.
 
 - UNIFIED-RUNTIME / `GameWindow` — IN_PROGRESS (2026-11-21). La régression native Windows isolée a confirmé le runtime démarré avant mission, deux missions successives dans le même PID, le parking, la fermeture possédée et la reprise après crash : 9 PASS, 1 SKIP réservé à Linux/X11. Aucun rapport de preuve supplémentaire n'a été créé. Restent NON VÉRIFIÉS : transition visible jusqu'à la readiness, Alt+Tab, DPI multi-écrans et écoute audio. Prochaine action : exécuter ces contrôles manuellement depuis `GameWindow`, sans automatisation du bureau.

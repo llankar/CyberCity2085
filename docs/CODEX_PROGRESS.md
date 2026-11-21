@@ -92,12 +92,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `assets/combat_visual/animations/enemy_raider_grunt.json`, `assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`, `docs/reports/current_combat_visual_tests.xml`.
 - Travail restant dans cette portée : Produire quatre poses A/B/C/D réellement alternées dans les huit directions, puis importer et valider uniquement `enemy_raider_grunt`.
 
-### WINDOWS-RESULT-READ-RETRY — IN_PROGRESS — Retry transient Windows combat result reads
+### WINDOWS-RESULT-READ-RETRY — DONE — Retry transient Windows combat result reads
 
 - Fichiers : `game/combat/godot_bridge.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_unified_checkpoints.py`, `CyberCity2085.spec`.
-- Tests / contrôles réellement exécutés : 23 targeted Python tests passed; Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection.
+- Tests / contrôles réellement exécutés : 23 targeted Python tests passed; Windows QA package: victory, defeat and retreat at 1280x720 passed debrief, HQ, save reload and duplicate-result rejection; current focused checkpoint/result regression on 2026-11-21: 15 passed, including simulated Windows sharing violation retry.
 - Preuves : `tests/test_unified_checkpoints.py`.
-- Travail restant dans cette portée : Production package rebuilt; native Arcade startup, bundled headless Godot, save reload and QA entry exclusion passed. Desktop interaction and audio listening remain open..
+- Travail restant dans cette portée : Aucun pour le retry de lecture. Desktop interaction, graphical acceptance and audio listening remain tracked by `WINDOWS-CURRENT-BUILD`, `UE2-04` and `UE5-*`.
 
 ### WINDOWS-CURRENT-BUILD — IN_PROGRESS — Current Windows distribution and headless smoke
 
