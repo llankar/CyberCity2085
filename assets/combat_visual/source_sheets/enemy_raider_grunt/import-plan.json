@@ -35,29 +35,19 @@
         "layout": "action_pairs"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-true-gait-cyan.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-phase-a-direction-columns.png",
+        "phase_paths": [
+          "assets/combat_visual/source_sheets/enemy_raider_grunt/move-phase-c-direction-columns.png",
+          "assets/combat_visual/source_sheets/enemy_raider_grunt/move-phase-b-direction-columns.png",
+          "assets/combat_visual/source_sheets/enemy_raider_grunt/move-phase-d-direction-columns.png"
+        ],
         "clip": "move",
-        "layout": "front",
-        "pose_indices": [0, 1, 2, 3],
-        "direction_indices": [0, 1, 2, 3],
-        "grid_rows": 8,
+        "layout": "single_row_walk",
+        "body_height": 185,
         "chroma_key": [0, 255, 255],
         "chroma_inner": 4,
         "chroma_outer": 128,
-        "edge_erosion": 2
-      },
-      {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-true-gait-cyan.png",
-        "clip": "move",
-        "layout": "rear",
-        "pose_indices": [0, 1, 2, 3],
-        "direction_indices": [4, 5, 6, 7],
-        "grid_rows": 8,
-        "source_row_offset": 4,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 2
+        "edge_erosion": 1
       }
     ],
     "applicable_clips": [
@@ -73,6 +63,6 @@
       "psi": "The raider grunt has no psionic actions.",
       "heal": "The raider grunt has no healing action."
     },
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }

@@ -140,7 +140,7 @@ def test_raider_grunt_has_complete_native_verified_true_gait():
     data=json.loads(path.read_text())
     assert data['coverage']=='complete'
     assert data['missing_clips']==[]
-    assert data['review_status']=='native_render_verified'
+    assert data['review_status']=='native_render_verified_complete'
     assert set(data['animations'])=={'idle','move','fire','melee','cover','hit','death'}
     assert set(data['required_clips'])=={'idle','move','fire','melee','cover','hit','death'}
     assert all(len(row)==4 for row in data['animations']['move']['rows'])

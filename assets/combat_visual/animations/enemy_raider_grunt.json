@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_grunt.png",
-  "texture_sha256": "3e884c11c148fa7c217d4f0a75e902f1e7a0f586066bc67718a7fb1d82dace25",
+  "texture_sha256": "3790db9786fec101ce052c33eb8f07ef6d4710caf2e223ddb1abd2321d4146c2",
   "frame_size": [
     256,
     256
@@ -341,55 +341,26 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-front-6.png",
-      "sha256": "56714a9e9a2759e22892d0463863ef18b704e236ef7c8c030ea2f1f29f4e3631",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-single_row_walk-6.png",
+      "sha256": "9f15378286a424df7d5937996ae33fae5f4d5500815c9350f20cd9ea55c3ec72",
       "clip": "move",
-      "layout": "front",
+      "layout": "single_row_walk",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
-      "direction_indices": [
-        0,
-        1,
-        2,
-        3
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-single_row_walk-6-phase-1.png",
+          "sha256": "bc8d6b669fad7ff4eab036daa597040d598f35e34c5e0e059b745947e3b68cf6"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-single_row_walk-6-phase-2.png",
+          "sha256": "410275d5d06f9d3f112ec68037f4887e8737a3e36bf4b397b3ef01e5762e94d3"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-single_row_walk-6-phase-3.png",
+          "sha256": "343abd54e8a9c81f019a64af6a66adf82d3e46e1ea9892d7d53b8112430317a2"
+        }
       ],
-      "pose_indices": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "grid_rows": 8,
-      "source_row_offset": 0,
-      "edge_erosion": 2,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
-    },
-    {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-rear-7.png",
-      "sha256": "56714a9e9a2759e22892d0463863ef18b704e236ef7c8c030ea2f1f29f4e3631",
-      "clip": "move",
-      "layout": "rear",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
-      "direction_indices": [
-        4,
-        5,
-        6,
-        7
-      ],
-      "pose_indices": [
-        0,
-        1,
-        2,
-        3
-      ],
-      "grid_rows": 8,
-      "source_row_offset": 4,
-      "edge_erosion": 2,
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -414,5 +385,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "native_render_verified_complete"
 }
