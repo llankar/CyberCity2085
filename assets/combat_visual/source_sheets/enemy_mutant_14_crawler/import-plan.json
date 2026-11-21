@@ -1,0 +1,20 @@
+{
+  "enemy_mutant_14_crawler": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_mutant_14_crawler/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 168, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_14_crawler/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3}
+    ],
+    "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "fire": "The crawler has no ranged weapon or ranged action.",
+      "psi": "The crawler has no psionic action.",
+      "heal": "The crawler has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
