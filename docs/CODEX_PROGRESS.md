@@ -307,7 +307,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
-- État courant (2026-11-21) : Shield brawler IN_PROGRESS. Marche A/B/C/D acceptée sur E: avec huit orientations, contacts droite/gauche opposés et passages hauts genou droit blindé/genou gauche non blindé opposés. Le casque acier à pointes, les détails frontaux du masque, l'unique bouclier rectangulaire grillagé au bras gauche et l'unique masse à pointes en main droite restent cohérents ; les vues arrière montrent les renforts et masquent les détails frontaux. Deux A contaminées, une A et une B aux appuis faux, puis une D opaque ont été rejetées. `idle`, `move`, `melee`, `cover`, `hit`, `death` sont applicables ; `fire`, `psi`, `heal` ne le sont pas. Aucun atlas partiel importé ; couverture complète inchangée à 110 / 233.
+- État courant (2026-11-21) : Shield brawler DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts en utilisant la genouillère droite comme repère ; attente, balayage de masse, couverture complète derrière le bouclier, impact et mort compacte sont distincts. Six brouillons contaminés, opaques ou directionnellement faux ont été rejetés. `fire`, `psi`, `heal` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 111 / 233.
 
 - État courant (2026-11-21) : Wasteland medic DONE. Atlas authentique de 128 frames, sept clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts ; attente, frappe courte à l'injecteur, couverture derrière la sacoche, impact, mort compacte et soin sont distincts. Le soin garde sa lueur verte attachée à l'injecteur et aux fioles. Cinq brouillons contaminés, opaques ou directionnellement faux ont été rejetés. `fire` et `psi` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et sept actions inspectées. Couverture complète : 110 / 233.
 
@@ -532,6 +532,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : produire attente, `melee`, `cover`, `hit` et `death` pour `enemy_raider_08_shield_brawler` en conservant bouclier gauche et masse droite ; importer ensuite cette seule unité. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : inventorier `enemy_raider_09_mohawk_duelist`, confirmer armes et clips applicables, puis produire sa phase A de marche sans importer d'atlas partiel. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
