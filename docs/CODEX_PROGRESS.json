@@ -1791,7 +1791,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-LAYOUT-CORRECTION : inspecter les clips invalides de `enemy_mutant_01_hulk`, les réparer avec des paires 8×1 contenues, puis importer et valider uniquement cette unité. Poursuivre ensuite les 18 robots géants affectés. Couverture vérifiée actuelle : 105 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : la paire idle 8×1 de `enemy_mutant_01_hulk` est acceptée sur E:. Produire melee, cover, hit et death, puis importer et valider uniquement cette unité. Poursuivre ensuite les 18 robots géants affectés. Couverture vérifiée actuelle : 105 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
