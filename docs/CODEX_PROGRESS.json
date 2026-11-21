@@ -277,6 +277,7 @@
         "Revue artistique reprise le 2026-11-21 : la planche 8 x 4 précédemment importée réutilise la même jambe avant dans plusieurs poses longues 1 et 3 ; le statut DONE est invalidé",
         "Un nouveau contact A aux appuis Sud/Nord corrects a été rejeté avant import pour larges fragments rouges et jaunes détachés ; source conservée uniquement sur E:/CyberCity2085-builds/raider-walk/rejected",
         "Nouvelle planche A/C/B/D du 2026-11-21 : alternance des contacts et passages crédible dans les vues frontales, latérales et arrière, mais rejetée pour liserés rouges/jaunes/verts et pixels détachés ; une seconde passe de nettoyage alpha conserve encore ces défauts et est également rejetée sur E:",
+        "Variante sur aplat cyan uniforme : identité et géométrie A/C/B/D conservées, source candidate intacte sur E:/CyberCity2085-builds/raider-walk/candidate-true-gait-cyan.png ; extraction générative rejetée car elle réintroduit de larges franges rouges",
         "Mouvement invalide retiré du plan et de l'atlas ; les six clips validés restent présents, 96 frames, couverture partielle et move seul manquant",
         "Tests animation et layout ciblés : 11 réussis, 1 skip X11 ; audit ciblé retourne uniquement l'erreur attendue missing clip: move",
         "Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets",
@@ -289,8 +290,8 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd",
         "docs/reports/current_combat_visual_tests.xml"
       ],
-      "remaining": "Reprendre la nouvelle géométrie A/C/B/D avec une source à fond neutre ou alpha réellement propre, vérifier à nouveau les 32 poses, puis importer et valider uniquement enemy_raider_grunt.",
-      "reason": "L’alternance est désormais crédible sur les deux nouveaux candidats, mais leurs liserés colorés et pixels détachés interdisent l’import en production."
+      "remaining": "Extraire déterministement le fond cyan uniforme du meilleur candidat sans repeindre les poses, inspecter les 32 contours et l’alternance, puis importer et valider uniquement enemy_raider_grunt si aucun halo ne subsiste.",
+      "reason": "L’alternance est crédible et le candidat cyan est propre comme source, mais l’extraction alpha générative produit encore des franges rouges incompatibles avec la production."
     },
     {
       "id": "WINDOWS-RESULT-READ-RETRY",
