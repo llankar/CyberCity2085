@@ -10,6 +10,6 @@
     ],
     "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
     "non_applicable_clips": {"fire": "The twin axe raider carries no ranged weapon.", "psi": "The twin axe raider has no psionic ability.", "heal": "The twin axe raider carries no medical equipment."},
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }
