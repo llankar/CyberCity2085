@@ -526,6 +526,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : inventorier `enemy_raider_06_chain_hook`, verrouiller le côté anatomique de la chaîne et du crochet, puis produire une phase A huit directions sans dupliquer ni retourner les vues. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : produire pour `enemy_raider_06_chain_hook` les poses attente, attaque au crochet, couverture, impact et mort en conservant l'unique chaîne/crochet dans la main anatomique gauche ; importer ensuite cette seule unité. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
