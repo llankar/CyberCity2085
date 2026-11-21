@@ -1,6 +1,8 @@
 # Tactical Combat Retrofit Backlog
 
-- ANIM-LAYOUT-CORRECTION — IN_PROGRESS (2026-11-21). Le contrat `action_columns` exige une vraie grille 8×2 sans encre opaque aux frontières. L'audit exact trouve 142 clips invalides répartis sur 28 unités. Cinq unités sont revalidées jusqu'à Skull Helm Heavy. Celui-ci : 112 frames, audit propre, Python 17 réussis/1 skip X11, Godot Windows natif 32 sélections et six captures inspectées. Couverture vérifiée : 101 / 233. Prochaine action : réparer mêlée et mort d'Armored Queen, puis les 22 autres unités affectées.
+- ANIM-LAYOUT-CORRECTION — IN_PROGRESS (2026-11-21). Le contrat `action_columns` exige une vraie grille 8×2 sans encre opaque aux frontières. L'audit exact trouve 142 clips invalides répartis sur 28 unités. Six unités sont revalidées jusqu'à Armored Queen. Celle-ci : 112 frames, audit propre, Python 17 réussis/1 skip X11, Godot Windows natif 32 sélections et six captures inspectées. Couverture vérifiée : 102 / 233. Prochaine action : réparer tir, mêlée et mort de Nailgunner, puis les 21 autres unités affectées.
+
+- ANIM-LAYOUT-CORRECTION / armored queen — DONE (2026-11-21). Mêlée et mort remplacées par quatre planches 8×1 contenues : boucle/frappe de fouet distinctes et chute à genoux/terminale, chaîne unique continue. Import 112 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, six captures inspectées et cible passée. Couverture vérifiée : 102 / 233.
 
 - ANIM-LAYOUT-CORRECTION / skull helm heavy — DONE (2026-11-21). Mêlée et impact remplacés par quatre planches 8×1 contenues : armé/smash bas et recul/récupération distincts, masse droite unique conservée. Import 112 frames, audit propre, Python 17 réussis/1 skip X11 ; Godot Windows natif : 32 sélections, six captures inspectées et cible passée. Couverture vérifiée : 101 / 233.
 

@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_14_armored_queen.png",
-  "texture_sha256": "622ca112a770049dec44ce163fca287b54abe7fc0b378160b9daa19fde2d3841",
+  "texture_sha256": "06590d7d1bf112435369bd67c3fdbea1d99fd4ed38394b3a87bcac42414d100f",
   "frame_size": [
     256,
     256
@@ -306,12 +306,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/melee-action_columns-2.png",
-      "sha256": "41f760cb6088b823a0e50a6c80e2b1422d34379cd57a937efecd982598d6ea0f",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/melee-single_row_pair-2.png",
+      "sha256": "b96512de91b6cd1b10b292dd4e58f0c39036ef28536247db221ea2f6a8639222",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/melee-single_row_pair-2-follow-through.png",
+        "sha256": "e4464b659146392af0282b1aa8b2f0a0b9f622c782e45a22e27aea959b041726"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -351,12 +356,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/death-action_columns-5.png",
-      "sha256": "78db182d9e291c41c5850caf17605cced8905f3f7182a0652cd5f7c981dfffbc",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/death-single_row_pair-5.png",
+      "sha256": "396ea390e280fb90fff7ba33421d2e1b60c0e29a26c09ae7d739ff76128bcb2d",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/death-single_row_pair-5-follow-through.png",
+        "sha256": "4e23451e8f4e298f1812cc197585ded0ad9a1bfe8644a6c28973d11c9203d2d7"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
