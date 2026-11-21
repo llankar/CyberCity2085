@@ -66,6 +66,15 @@ def test_odd_height_is_supported_when_middle_separator_is_clear():
     assert lead.size == follow.size
 
 
+def test_asymmetric_rows_use_nearby_clear_separator_band():
+    source = Image.new("RGBA", (400, 190))
+    source.alpha_composite(_row(), (0, 0))
+    source.alpha_composite(_row(), (0, 110))
+    lead, follow = repack.repack_two_rows(source)
+    assert lead.size == follow.size
+    assert all(image.getchannel("A").getbbox() for image in (lead, follow))
+
+
 def test_rejects_opaque_middle_separator():
     source = Image.new("RGBA", (400, 160))
     source.alpha_composite(_row(), (0, 0))

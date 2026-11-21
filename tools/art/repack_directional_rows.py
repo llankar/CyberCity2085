@@ -129,15 +129,39 @@ def repack_two_rows(source: Image.Image, **kwargs) -> tuple[Image.Image, Image.I
     source = source.convert("RGBA")
     middle = source.height // 2
     alpha = source.getchannel("A")
-    separator_rows = range(max(0, middle - 1), min(source.height, middle + 2))
-    separator_ink = sum(
-        alpha.getpixel((x, y)) >= 192 for y in separator_rows for x in range(source.width)
-    )
-    if separator_ink > source.width * len(separator_rows) * 0.01:
+    middle_rows = range(max(0, middle - 1), min(source.height, middle + 2))
+    middle_fractions = [
+        sum(alpha.getpixel((x, y)) >= 192 for x in range(source.width)) / source.width
+        for y in middle_rows
+    ]
+    if any(fraction > 0.5 for fraction in middle_fractions):
         raise ValueError("two-row source has opaque ink across its middle separator")
+
+    search_radius = max(3, source.height // 8)
+    first = max(1, middle - search_radius)
+    last = min(source.height - 1, middle + search_radius + 1)
+    clear_rows = []
+    for y in range(first, last):
+        ink = sum(alpha.getpixel((x, y)) >= 192 for x in range(source.width))
+        if ink <= source.width * 0.01:
+            clear_rows.append(y)
+    runs = []
+    for y in clear_rows:
+        if not runs or y != runs[-1][-1] + 1:
+            runs.append([y])
+        else:
+            runs[-1].append(y)
+    candidates = [run for run in runs if len(run) >= 3]
+    if not candidates:
+        raise ValueError("two-row source has no clear middle separator band")
+    separator = min(
+        candidates,
+        key=lambda run: (abs((run[0] + run[-1]) / 2 - middle), -len(run)),
+    )
+    split = (separator[0] + separator[-1] + 1) // 2
     return (
-        repack_row(source.crop((0, 0, source.width, middle)), **kwargs),
-        repack_row(source.crop((0, middle, source.width, source.height)), **kwargs),
+        repack_row(source.crop((0, 0, source.width, split)), **kwargs),
+        repack_row(source.crop((0, split, source.width, source.height)), **kwargs),
     )
 
 
