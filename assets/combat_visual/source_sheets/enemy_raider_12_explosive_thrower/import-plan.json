@@ -27,24 +27,16 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/fire-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/fire-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/fire-repair-follow.png",
         "clip": "fire",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
-        "keep_disconnected_details": true
+        "layout": "single_row_pair"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/melee-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/melee-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/melee-repair-follow.png",
         "clip": "melee",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
-        "keep_disconnected_details": true
+        "layout": "single_row_pair"
       },
       {
         "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-action-columns.png",
@@ -58,25 +50,16 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/hit-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/hit-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/hit-repair-follow.png",
         "clip": "hit",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
-        "keep_disconnected_details": true
+        "layout": "single_row_pair"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/death-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/death-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/death-repair-follow.png",
         "clip": "death",
-        "layout": "action_columns",
-        "body_height": 176,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
-        "keep_disconnected_details": true
+        "layout": "single_row_pair"
       }
     ],
     "applicable_clips": [
