@@ -2,12 +2,10 @@
   "enemy_raider_12_explosive_thrower": {
     "clips": [
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-repair-follow.png",
         "clip": "idle",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
@@ -39,13 +37,11 @@
         "layout": "single_row_pair"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-repair-follow.png",
         "clip": "cover",
-        "layout": "action_columns",
+        "layout": "single_row_pair",
         "body_height": 190,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
@@ -75,6 +71,6 @@
       "psi": "The explosive thrower has no psionic ability.",
       "heal": "The explosive thrower carries no medical equipment."
     },
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }

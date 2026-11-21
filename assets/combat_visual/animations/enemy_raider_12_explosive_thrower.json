@@ -299,19 +299,17 @@
   "source_sha256": "7bdf13a858b159d7ed90ed2bc1b6c7a49cd7cae6291b78a764c34529e1f177d5",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-action_columns-0.png",
-      "sha256": "664ce51260d3b064b9c38214dc808c380053235772b691872cbd5cf1853b4dbb",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-single_row_pair-0.png",
+      "sha256": "49ce145d38fa938e15446d6c8b2542fd8f98190677904bda9a49233d7d7fbaba",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/idle-single_row_pair-0-follow-through.png",
+        "sha256": "8b51c5470376cb5004b4d70c031d2e0593493f4a1dd046902bf75fb5fa18d0a8"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/move-single_row_walk-1.png",
@@ -366,19 +364,17 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-action_columns-4.png",
-      "sha256": "a40e6c37ef24ad22eaf5eacbae7ef1d6fbaabf1ccda37b0303f6a4a5fa3371af",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-single_row_pair-4.png",
+      "sha256": "ecf74b3b4db5587d3fcd97260ca12d3abaa6e1b5a3411ce8543dc9688070a11d",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/cover-single_row_pair-4-follow-through.png",
+        "sha256": "e0228f39c6b684070b8ac46ddd74d82b68dfe32a7dc40640f8309291919c3b2d"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_12_explosive_thrower/hit-single_row_pair-5.png",
@@ -418,5 +414,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "pending_native_review"
 }
