@@ -307,7 +307,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
-- État courant (2026-11-21) : Wasteland medic IN_PROGRESS. Marche A/B/C/D et paire d'attente acceptées sur E: avec huit orientations, contacts droite/gauche opposés, passages hauts genou droit/gauche opposés et respiration calme sans faux soin. La capuche olive, le respirateur à deux lentilles, l'unique sacoche médicale à croix rouge en main gauche, l'unique injecteur en main droite, les deux fioles vertes, le manteau déchiré, les genouillères et les bottes restent cohérents ; les vues arrière masquent les détails frontaux. Une C à fragments opaques et une attente à fond opaque ont été rejetées. `move` et `idle` sont prêts ; `melee`, `cover`, `hit`, `death` et `heal` restent à produire ; `fire` et `psi` ne sont pas applicables. Aucun atlas partiel importé ; couverture complète inchangée à 109 / 233.
+- État courant (2026-11-21) : Wasteland medic DONE. Atlas authentique de 128 frames, sept clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts ; attente, frappe courte à l'injecteur, couverture derrière la sacoche, impact, mort compacte et soin sont distincts. Le soin garde sa lueur verte attachée à l'injecteur et aux fioles. Cinq brouillons contaminés, opaques ou directionnellement faux ont été rejetés. `fire` et `psi` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et sept actions inspectées. Couverture complète : 110 / 233.
 
 - État courant (2026-11-21) : Chain hook DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts ; attente, attaque compacte au crochet, couverture, impact et mort sont distincts. Le crochet et sa chaîne restent uniques et attachés à la main anatomique gauche ; l'avant-bras droit blindé reste vide, et les vues arrière masquent le visage. Deux brouillons opaques ou directionnellement faux ont été rejetés. `fire`, `psi` et `heal` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 109 / 233.
 
@@ -530,6 +530,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : produire `melee` pour `enemy_raider_07_wasteland_medic` comme frappe courte à l'injecteur sans effet de soin, puis `cover`, `hit`, `death` et `heal` avant d'importer cette seule unité. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : inventorier `enemy_raider_08_shield_brawler`, confirmer les clips applicables et produire sa phase A de marche avec bouclier et arme strictement latéralisés, sans importer d'atlas partiel. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.

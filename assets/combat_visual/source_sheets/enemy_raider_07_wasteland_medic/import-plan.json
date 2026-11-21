@@ -1,0 +1,20 @@
+{
+  "enemy_raider_07_wasteland_medic": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_07_wasteland_medic/heal-direction-columns.png", "clip": "heal", "layout": "single_row_pair", "edge_erosion": 3}
+    ],
+    "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death", "heal"],
+    "non_applicable_clips": {
+      "fire": "The wasteland medic has no ranged firearm or projectile action.",
+      "psi": "The wasteland medic has no psychic action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}
