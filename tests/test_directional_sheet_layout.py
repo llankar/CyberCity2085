@@ -125,10 +125,11 @@ def test_single_rows_pair_complete_sprites_without_vertical_slicing(tmp_path, mo
     original.write_bytes(b"identity")
 
     def sheet(path, offset):
-        image = Image.new("RGBA", (128, 16))
+        image = Image.new("RGB", (128, 16), (0, 255, 255))
         for col in range(8):
-            image.paste((offset + col, 60, 100, 255),
+            image.paste((offset + col, 60, 100),
                         (col * 16 + 4, 2, col * 16 + 12, 14))
+            image.putpixel((col * 16 + 14, 2), (offset + col, 60, 100))
         image.save(path)
 
     phases = [tmp_path / f"phase-{index}.png" for index in range(4)]
@@ -138,9 +139,13 @@ def test_single_rows_pair_complete_sprites_without_vertical_slicing(tmp_path, mo
         "applicable_clips": ["idle", "move"],
         "clips": [
             {"path": phases[0], "follow_through_path": phases[1],
-             "clip": "idle", "layout": "single_row_pair"},
+             "clip": "idle", "layout": "single_row_pair",
+             "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128,
+             "keep_disconnected_details": True},
             {"path": phases[0], "phase_paths": [str(path) for path in phases[1:]],
-             "clip": "move", "layout": "single_row_walk"},
+             "clip": "move", "layout": "single_row_walk",
+             "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128,
+             "keep_disconnected_details": True},
         ],
     })
     manifest = __import__("json").loads(
@@ -155,3 +160,5 @@ def test_single_rows_pair_complete_sprites_without_vertical_slicing(tmp_path, mo
     assert idle == [[20 + direction, 40 + direction] for direction in range(8)]
     assert move == [[20 + direction, 40 + direction, 60 + direction, 80 + direction]
                     for direction in range(8)]
+    assert atlas.getchannel("A").getextrema()[0] == 0
+    assert manifest["provenance"][1]["keep_disconnected_details"] is True

@@ -192,13 +192,14 @@ def build(key,config):
             follow_dest=directory/(Path(name).stem+'-follow-through.png')
             if follow_source.resolve()!=follow_dest.resolve():
                 shutil.copyfile(follow_source,follow_dest)
-            follow_through=Image.open(follow_source).convert('RGBA')
+            follow_through=prepare_source(Image.open(follow_source).convert('RGBA'),item)
             order=sheet_directions(item,8)
             erosion=item.get('edge_erosion',0)
+            clean_components=not item.get('keep_disconnected_details',False)
             for source_col,direction in enumerate(order):
                 directions[direction]=normalise([
-                    extract_grid(image,0,source_col,8,1,erosion),
-                    extract_grid(follow_through,0,source_col,8,1,erosion),
+                    extract_grid(image,0,source_col,8,1,erosion,clean_components),
+                    extract_grid(follow_through,0,source_col,8,1,erosion,clean_components),
                 ],pose_height)
         elif layout == 'walk_columns':
             intermediate_source=Path(item['intermediate_path'])
@@ -224,13 +225,14 @@ def build(key,config):
                 phase_dest=directory/(Path(name).stem+f'-phase-{phase_index}.png')
                 if phase_source.resolve()!=phase_dest.resolve():
                     shutil.copyfile(phase_source,phase_dest)
-                phase_images.append(Image.open(phase_source).convert('RGBA'))
+                phase_images.append(prepare_source(Image.open(phase_source).convert('RGBA'),item))
                 phase_files.append((phase_source,phase_dest))
             order=sheet_directions(item,8)
             erosion=item.get('edge_erosion',0)
+            clean_components=not item.get('keep_disconnected_details',False)
             for source_col,direction in enumerate(order):
                 directions[direction]=normalise([
-                    extract_grid(phase,0,source_col,8,1,erosion) for phase in phase_images
+                    extract_grid(phase,0,source_col,8,1,erosion,clean_components) for phase in phase_images
                 ],pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
@@ -245,7 +247,7 @@ def build(key,config):
             provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
         if layout in ('front','rear') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
-        if layout in ('front','rear','action_columns') and item.get('keep_disconnected_details'):
+        if layout in ('front','rear','action_columns','single_row_pair','single_row_walk') and item.get('keep_disconnected_details'):
             provenance[-1]['keep_disconnected_details']=True
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
