@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_07_sewer_veil.png",
+  "texture_sha256": "fc973c12f8de717207b90298fde048a6457152045055692840bf60fce368696c",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_07_sewer_veil_512.png",
+  "source_sha256": "c07577bb6ed83884c58ee1d2ec98c7cf9e297870f09a39a05dd143098d1f6cfd",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/idle-single_row_pair-0.png",
+      "sha256": "286db7479d61a6459c7a9a2851e38f90e91e6adf5b451cdff08cce5e3e7e286a",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/idle-single_row_pair-0-follow-through.png",
+        "sha256": "3518d09aae60f92cb9a5a4227df7425bab67e72b3230ee2a529f7abfd5d728a4"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/move-single_row_walk-1.png",
+      "sha256": "134593fa1b9e7c465c919be43be79d9a1fd4e236f7a365f63ef6770912e24103",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/move-single_row_walk-1-phase-1.png",
+          "sha256": "5f6721b523d14695041c902d01de89fcea093627402e96f3a4864fa9172dbfb3"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/move-single_row_walk-1-phase-2.png",
+          "sha256": "82dcfa8b30cebda0c588b61433338e675e23ceb182059fb172e86240a0cb72e4"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/move-single_row_walk-1-phase-3.png",
+          "sha256": "570087cb81dcc5f0062138ec91081783a8115f65c3026c43cce277e54da41eda"
+        }
+      ],
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/melee-single_row_pair-2.png",
+      "sha256": "286db7479d61a6459c7a9a2851e38f90e91e6adf5b451cdff08cce5e3e7e286a",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/melee-single_row_pair-2-follow-through.png",
+        "sha256": "0d7f0c13e2074c908506057b8011d9cd1657dc28931c95232e04312997faee27"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/cover-single_row_pair-3.png",
+      "sha256": "286db7479d61a6459c7a9a2851e38f90e91e6adf5b451cdff08cce5e3e7e286a",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/cover-single_row_pair-3-follow-through.png",
+        "sha256": "658a4430e38cb51b0e98156ff8ff1fdb384e97691d701bee67a622a8763ba8bd"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/hit-single_row_pair-4.png",
+      "sha256": "286db7479d61a6459c7a9a2851e38f90e91e6adf5b451cdff08cce5e3e7e286a",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/hit-single_row_pair-4-follow-through.png",
+        "sha256": "79f9a89375537d33eaef3cc97fbb353b95e1e8e5e67768f5d17381cd4d198b65"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/death-single_row_pair-5.png",
+      "sha256": "79f9a89375537d33eaef3cc97fbb353b95e1e8e5e67768f5d17381cd4d198b65",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_07_sewer_veil/death-single_row_pair-5-follow-through.png",
+        "sha256": "b1476d18fd7e059012800483fcd9271f021b56f044476ce4bb4674eac60e3337"
+      },
+      "edge_erosion": 2
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The sewer veil has no ranged attack.",
+    "psi": "The sewer veil has no psionic action.",
+    "heal": "The sewer veil has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
