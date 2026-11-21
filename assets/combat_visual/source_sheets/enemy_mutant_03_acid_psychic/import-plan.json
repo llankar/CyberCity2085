@@ -1,0 +1,20 @@
+{
+  "enemy_mutant_03_acid_psychic": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/fire-direction-columns.png", "clip": "fire", "layout": "single_row_pair", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/psi-direction-columns.png", "clip": "psi", "layout": "single_row_pair", "edge_erosion": 2}
+    ],
+    "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death", "psi"],
+    "non_applicable_clips": {
+      "heal": "The acid psychic has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_03_acid_psychic.png",
+  "texture_sha256": "d51436b2c7e8191304c489a515498ae6953765b4e0e809916ba9abcc43e66958",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    },
+    "psi": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          128,
+          129
+        ],
+        [
+          130,
+          131
+        ],
+        [
+          132,
+          133
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          136,
+          137
+        ],
+        [
+          138,
+          139
+        ],
+        [
+          140,
+          141
+        ],
+        [
+          142,
+          143
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_03_acid_psychic_512.png",
+  "source_sha256": "4274d21a580a6a57b1d2bf613f8fb1a62df99091129373e64925706c7e24cde2",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-single_row_pair-0.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/idle-single_row_pair-0-follow-through.png",
+        "sha256": "a52f2c18cfeffa0f77c77b3a9c5a067d0ac1f430702ec7f56f4ba72db95aafdc"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-single_row_walk-1.png",
+      "sha256": "2f60d34d4ac1f182f82a7bda524c80f40eddcbb42609b6872ff8bb80839462f8",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-single_row_walk-1-phase-1.png",
+          "sha256": "dac646a32e22359198eb8886168583a26113599fca38662234ee012db530d0b4"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-single_row_walk-1-phase-2.png",
+          "sha256": "c83366a050164c60ca49f6036d3b2319a4854c3c4dec1cfd4bda046c0e141ca1"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/move-single_row_walk-1-phase-3.png",
+          "sha256": "ac8807bd428e97f95800211a9679aa8e4ed507ceef06fe6d9552c5ecc6e590e6"
+        }
+      ],
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/fire-single_row_pair-2.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/fire-single_row_pair-2-follow-through.png",
+        "sha256": "e70ed0aa8be30b5b66366b97379fb5472533860dfa255229604665cfdc4c8f82"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/melee-single_row_pair-3.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/melee-single_row_pair-3-follow-through.png",
+        "sha256": "83ad4082226739f58347fb7a8115de42807b8b5a4a6c9765f3644243201b9679"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/cover-single_row_pair-4.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/cover-single_row_pair-4-follow-through.png",
+        "sha256": "8322f7dcdc41e01702eb884f12c9c95f5fe335e7ac96cb644bfb0480400e70c0"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/hit-single_row_pair-5.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/hit-single_row_pair-5-follow-through.png",
+        "sha256": "9a80a38b1a942c966b41d61cf125a205ce094ea2bbec15fcde3e6d90b25cbfed"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/death-single_row_pair-6.png",
+      "sha256": "9a80a38b1a942c966b41d61cf125a205ce094ea2bbec15fcde3e6d90b25cbfed",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/death-single_row_pair-6-follow-through.png",
+        "sha256": "066ecd902249ed356ac1af73b8588e2d1dcaf29f0ab5d27f6168611fae17facb"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/psi-single_row_pair-7.png",
+      "sha256": "19e7619c626f572f86c8eea389a292dcceea13f8d83a8020804282d6f567afdd",
+      "clip": "psi",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_03_acid_psychic/psi-single_row_pair-7-follow-through.png",
+        "sha256": "11cb393215d5596e294f3061cb2843ce9a6d2db1fbe4805c6b2db2b0c656da33"
+      },
+      "edge_erosion": 2
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi"
+  ],
+  "non_applicable_clips": {
+    "heal": "The acid psychic has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
