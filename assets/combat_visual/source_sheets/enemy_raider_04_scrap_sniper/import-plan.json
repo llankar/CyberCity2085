@@ -1,0 +1,20 @@
+{
+  "enemy_raider_04_scrap_sniper": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/fire-direction-columns.png", "clip": "fire", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_04_scrap_sniper/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 216, "edge_erosion": 3}
+    ],
+    "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "psi": "The scrap sniper has no psychic action.",
+      "heal": "The scrap sniper has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}

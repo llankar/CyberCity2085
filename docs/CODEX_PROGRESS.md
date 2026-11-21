@@ -526,6 +526,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : produire une phase B pied gauche en avant pour `enemy_raider_04_scrap_sniper`, vérifier l'appui anatomique opposé en vues frontale et arrière, puis seulement produire les passages C/D. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : inventorier `enemy_raider_05_bike_scout` et déterminer quelles actions sont applicables au pilote avec sa moto ; produire ensuite une phase A huit directions sans dupliquer ni retourner les vues. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
