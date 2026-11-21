@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_02_tire_armor_brute.png",
+  "texture_sha256": "4da9ae47b56febbd588c7c7ae9376b0c77d448877562599a4488c0f95392fdaf",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_02_tire_armor_brute_512.png",
+  "source_sha256": "1bf6c31ecc69022acd1ee08676be789781445fcc1d1a9482bddad88ee2dc73bd",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/idle-single_row_pair-0.png",
+      "sha256": "6790dd88cfb78df59b812a567fa3c33cb8b72cc43ebd8907f5140a8c186f803d",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/idle-single_row_pair-0-follow-through.png",
+        "sha256": "6f8c6c42344aef0a806fecdd0a6b03ed7d794ddc5af58f4e1933566bebca83f3"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/move-single_row_walk-1.png",
+      "sha256": "1d8a87cdd056909175b651b5cf2285e3f7344f6b379a3a086d9562c0dd25937e",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/move-single_row_walk-1-phase-1.png",
+          "sha256": "9abd6fa067f37f3f99c4eac5fd9b75da8de2dcc0a08f74c10c594c36b3619b64"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/move-single_row_walk-1-phase-2.png",
+          "sha256": "82419cdc70860afef91e00e812e0d3743237a7c90ed7a2b445ef2eaa935bb339"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/move-single_row_walk-1-phase-3.png",
+          "sha256": "b39592faca30c8fd6d3acb3089f2ac6b6dea5d6d2561a7b752472eb97635bd1c"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/melee-single_row_pair-2.png",
+      "sha256": "6790dd88cfb78df59b812a567fa3c33cb8b72cc43ebd8907f5140a8c186f803d",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/melee-single_row_pair-2-follow-through.png",
+        "sha256": "131b2c0fed4ac337f672f228b4a2d18c2d7914ac418e15c7b186e45606af68f9"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/cover-single_row_pair-3.png",
+      "sha256": "6790dd88cfb78df59b812a567fa3c33cb8b72cc43ebd8907f5140a8c186f803d",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/cover-single_row_pair-3-follow-through.png",
+        "sha256": "e4806eed57a1e202af4a6a9ddc3f64d3ab03114514aef06346a9426daca02404"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/hit-single_row_pair-4.png",
+      "sha256": "6790dd88cfb78df59b812a567fa3c33cb8b72cc43ebd8907f5140a8c186f803d",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/hit-single_row_pair-4-follow-through.png",
+        "sha256": "f6f712d7c78a4fd8c82dd2331cdf09de841af7fc32cc4661b0847a1b8bd8106e"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/death-single_row_pair-5.png",
+      "sha256": "f6f712d7c78a4fd8c82dd2331cdf09de841af7fc32cc4661b0847a1b8bd8106e",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_02_tire_armor_brute/death-single_row_pair-5-follow-through.png",
+        "sha256": "b311ddd4d6efecc05b8cfd581913173314acb6f0ce2d1ce4dbd3feb38018b2d6"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The tire armor brute has no ranged weapon or projectile attack.",
+    "psi": "The tire armor brute has no psychic action.",
+    "heal": "The tire armor brute has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
