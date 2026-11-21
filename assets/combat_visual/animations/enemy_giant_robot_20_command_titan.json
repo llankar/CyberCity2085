@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_20_command_titan.png",
-  "texture_sha256": "be4af49053de21d0b961074def5a4b6bdb61c259c4ecc6e50ada8b7217d28565",
+  "texture_sha256": "fde2754cb37006caa58e3d99c4f98535d708a00949810357f3e6c562fc65a47f",
   "frame_size": [
     256,
     256
@@ -317,32 +317,48 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/fire-action_columns-2.png",
-      "sha256": "f412426e228924abdce05fbf9c4d912ca67e95d964139b054c46c7269b63c311",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/fire-single_row_pair-2.png",
+      "sha256": "be055c9534a54e8169a98bf186e0f4d6adbb5cfc1e7b09da4b500268cfc12f62",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/fire-single_row_pair-2-follow-through.png",
+        "sha256": "808e9ec3c0db6c88d00d8021e55f7d191131ea566414bbb8010943d855e3d516"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/melee-action_columns-3.png",
-      "sha256": "ea697124c7c2010c6159f7a8fed87a8ef5a191a1f6b9c26f3ee3c0ca1f36d878",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/melee-single_row_pair-3.png",
+      "sha256": "0f1df7398ff0c54b4dbd51a428815b1e5526d7c38b6a941cb626989f44bd9b88",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/melee-single_row_pair-3-follow-through.png",
+        "sha256": "ac530454bbafc4ed1688229a90f31b6e5fe4b4bea6a45d5bb701d12c8179dcb9"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/cover-action_columns-4.png",
-      "sha256": "d79988b82c81d6b8a5fd32074987fd7da6b52abee7ac194c486d1f07e3730b90",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/cover-single_row_pair-4.png",
+      "sha256": "5c532b787ef0e57fb90a2602d95a743ad6e51197ccb0fafc40da3db31e7727a5",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/cover-single_row_pair-4-follow-through.png",
+        "sha256": "3fb25ef8c090aadcfc336f290f6f21e71aa80b2e49d2f31a2bc187dcd11aa00a"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/hit-action_columns-5.png",
-      "sha256": "328fabee8436d128f6fae99123699d029a64ed2756669b4c90fe9290eb1329ff",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/hit-single_row_pair-5.png",
+      "sha256": "972b62ece9e8d6a0144fdc68c103e63589b0a74affc7f40de120780d2c67bdb3",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/hit-single_row_pair-5-follow-through.png",
+        "sha256": "9037af6a98946ff2ddd710ca1308ebf3d437d7ea6b51b9d2b4a3ab3cc408cf1a"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_20_command_titan/death-action_columns-6.png",
@@ -367,5 +383,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
