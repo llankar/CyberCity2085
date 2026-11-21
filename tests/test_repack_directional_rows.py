@@ -99,3 +99,13 @@ def test_2d_component_fallback_handles_overlapping_x_projections():
         .getbbox()
         for index in range(8)
     )
+
+
+def test_chroma_keyed_source_can_be_repacked_after_background_removal():
+    source = Image.new("RGBA", (400, 160), (0, 255, 255, 255))
+    source.alpha_composite(_row(), (0, 0))
+    source.alpha_composite(_row(), (0, 80))
+    keyed = repack.apply_chroma_key(source, [0, 255, 255], 4, 128)
+    lead, follow = repack.repack_two_rows(keyed)
+    assert lead.getchannel("A").getextrema()[0] == 0
+    assert follow.getchannel("A").getextrema()[0] == 0

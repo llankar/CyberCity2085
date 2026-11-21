@@ -2,12 +2,10 @@
   "enemy_raider_10_dust_preacher": {
     "clips": [
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-repair-follow.png",
         "clip": "idle",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
@@ -39,53 +37,43 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-repair-follow.png",
         "clip": "melee",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-repair-follow.png",
         "clip": "cover",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-repair-follow.png",
         "clip": "hit",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-repair-follow.png",
         "clip": "death",
-        "layout": "action_columns",
+        "layout": "single_row_pair",
         "body_height": 184,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-repair-follow.png",
         "clip": "psi",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       }
@@ -103,6 +91,6 @@
       "fire": "The dust preacher carries no ranged firearm.",
       "heal": "The dust preacher has no healing action."
     },
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }

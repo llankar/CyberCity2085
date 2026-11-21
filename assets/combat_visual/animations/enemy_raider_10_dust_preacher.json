@@ -299,19 +299,17 @@
   "source_sha256": "346408cbe8b133304d97651803b769fd671d297121d60d955e6119c37802f0e1",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-action_columns-0.png",
-      "sha256": "de0181004e133da9951c8e6f523eb2f4f9287a011bfd5b55c9b2723d16da1809",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-single_row_pair-0.png",
+      "sha256": "68ce7175baa16286b2e30a19230c748b14404879b5aab6a46581f9ff6bf1cc99",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/idle-single_row_pair-0-follow-through.png",
+        "sha256": "5fdefa42834e9d025150bad7761788f2b2cf72297073abd85977264af0c59a62"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/move-front-1.png",
@@ -374,79 +372,69 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-action_columns-3.png",
-      "sha256": "1ef87439e7ed7f2910a0e6f29ce75abbecc4ff7a1355841b0bc86a2d27a02810",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-single_row_pair-3.png",
+      "sha256": "e865b75ffa77ae1acf0d28949f07e9c3b0255356f1cb8d92af41f13fe417e3a6",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/melee-single_row_pair-3-follow-through.png",
+        "sha256": "01fe3616a7f2a7e67da197668638ede4f03777a370e8959c66ef812ccb0c1e9b"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-action_columns-4.png",
-      "sha256": "96193396d3f3dcdfcffd01df000faad3e4a5fa1b577e5970d6bb780ecfd98635",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-single_row_pair-4.png",
+      "sha256": "14bca6fd28fcf68117099b8d7aefe66646f55c1ce39af069a55d675d4c808f96",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/cover-single_row_pair-4-follow-through.png",
+        "sha256": "03b4f3b406a562402ee6292e6de10d1e51bd3f5dab5e1ad21622b09a2514f0b4"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-action_columns-5.png",
-      "sha256": "0a91cfa6761f46c5fba956dfa1b6d37f60ff577c6946c847c8a18eedaa92a2dd",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-single_row_pair-5.png",
+      "sha256": "060f70e0f66e4675102093f8bc65a5dd473bceb6e524219c133dc287959b5c44",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/hit-single_row_pair-5-follow-through.png",
+        "sha256": "155dd98fca8203dc859f2c4539a74fb7a710b3f1bd550129869135cb4f2f106e"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-action_columns-6.png",
-      "sha256": "17c880cb597d15fd516c107e358c5506247b465e5251e4429b7fc1186a9f0b7b",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-single_row_pair-6.png",
+      "sha256": "ee5ec7b1954e0521b7c05a8e8a28b76f00164c0c69015dcf1f845fd1dbe16cd2",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/death-single_row_pair-6-follow-through.png",
+        "sha256": "79d153a51506849d94e6df7533e81e429dafe5f56bfc716e06e29dcc12604d2f"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-action_columns-7.png",
-      "sha256": "de328b5a6a8d00cbecc14586909673070963019127139a9a6b10b956d160539b",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-single_row_pair-7.png",
+      "sha256": "573bbc741f814e50ff8bd7bec3b2db12613195cf7b8bbacb5eecd322798b8f56",
       "clip": "psi",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_10_dust_preacher/psi-single_row_pair-7-follow-through.png",
+        "sha256": "cce7a99ff94401e50b5dc82c13f528fc400f2b03a7bcf38a531b41e7b6871069"
+      },
+      "edge_erosion": 1
     }
   ],
   "required_clips": [
@@ -464,5 +452,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "pending_native_review"
 }
