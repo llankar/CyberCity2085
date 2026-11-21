@@ -33,20 +33,6 @@
         "path": "assets/combat_visual/source_sheets/enemy_raider_grunt/melee-action_pairs-5.png",
         "clip": "melee",
         "layout": "action_pairs"
-      },
-      {
-        "path": "E:/CyberCity2085-builds/raider-walk/clean-preview.png",
-        "clip": "move",
-        "layout": "front",
-        "grid_rows": 8,
-        "source_row_offset": 0
-      },
-      {
-        "path": "E:/CyberCity2085-builds/raider-walk/clean-preview.png",
-        "clip": "move",
-        "layout": "rear",
-        "grid_rows": 8,
-        "source_row_offset": 4
       }
     ],
     "applicable_clips": [
@@ -62,6 +48,6 @@
       "psi": "The raider grunt has no psionic actions.",
       "heal": "The raider grunt has no healing action."
     },
-    "review_status": "native_review_pending"
+    "review_status": "native_render_verified_partial"
   }
 }

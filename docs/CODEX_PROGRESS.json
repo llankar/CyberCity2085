@@ -264,7 +264,7 @@
     {
       "id": "RAIDER-WALK-01",
       "title": "Marche authentique du raider grunt dans huit directions",
-      "status": "DONE",
+      "status": "IN_PROGRESS",
       "files": [
         "assets/combat_visual/animations/enemy_raider_grunt.json",
         "assets/combat_visual/animations/enemy_raider_grunt.png",
@@ -274,6 +274,9 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd"
       ],
       "tests": [
+        "Revue artistique reprise le 2026-11-21 : la planche 8 x 4 précédemment importée réutilise la même jambe avant dans plusieurs poses longues 1 et 3 ; le statut DONE est invalidé",
+        "Mouvement invalide retiré du plan et de l'atlas ; les six clips validés restent présents, 96 frames, couverture partielle et move seul manquant",
+        "Tests animation et layout ciblés : 11 réussis, 1 skip X11 ; audit ciblé retourne uniquement l'erreur attendue missing clip: move",
         "Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets",
         "2 tests Python réussis, 1 test X11 ignoré sous Windows",
         "Godot 4.6.3 Windows natif : DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_raider_grunt sur Safehouse"
@@ -284,8 +287,8 @@
         "godot/combat_missions_ui/tests/directional_animation_regression.gd",
         "docs/reports/current_combat_visual_tests.xml"
       ],
-      "remaining": "",
-      "reason": ""
+      "remaining": "Produire quatre poses A/B/C/D réellement alternées dans les huit directions, puis importer et valider uniquement enemy_raider_grunt.",
+      "reason": "Les candidats E:/CyberCity2085-builds/raider-walk réutilisent la même jambe avant dans plusieurs directions ; aucune marche authentique acceptable n'est disponible."
     },
     {
       "id": "WINDOWS-RESULT-READ-RETRY",

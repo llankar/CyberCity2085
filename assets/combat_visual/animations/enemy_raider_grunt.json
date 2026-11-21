@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_grunt.png",
-  "texture_sha256": "4739729ea544ad19f897e029f8608e133c3aac2300ecb00360b68820a8a4d7f0",
+  "texture_sha256": "0a17dfdf68e9d7ef25db43ce03c3e68d4a0f62168902ee19a45550b06f2f51bb",
   "frame_size": [
     256,
     256
@@ -50,61 +50,83 @@
         ]
       ]
     },
-    "move": {
+    "fire": {
       "fps": 8,
-      "loop": true,
+      "loop": false,
       "rows": [
         [
           16,
-          17,
+          17
+        ],
+        [
           18,
           19
         ],
         [
           20,
-          21,
+          21
+        ],
+        [
           22,
           23
         ],
         [
           24,
-          25,
+          25
+        ],
+        [
           26,
           27
         ],
         [
           28,
-          29,
-          30,
-          31
+          29
         ],
         [
+          30,
+          31
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
           32,
-          33,
+          33
+        ],
+        [
           34,
           35
         ],
         [
           36,
-          37,
+          37
+        ],
+        [
           38,
           39
         ],
         [
           40,
-          41,
+          41
+        ],
+        [
           42,
           43
         ],
         [
           44,
-          45,
+          45
+        ],
+        [
           46,
           47
         ]
       ]
     },
-    "fire": {
+    "cover": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -142,7 +164,7 @@
         ]
       ]
     },
-    "melee": {
+    "hit": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -180,7 +202,7 @@
         ]
       ]
     },
-    "cover": {
+    "death": {
       "fps": 8,
       "loop": false,
       "rows": [
@@ -215,82 +237,6 @@
         [
           94,
           95
-        ]
-      ]
-    },
-    "hit": {
-      "fps": 8,
-      "loop": false,
-      "rows": [
-        [
-          96,
-          97
-        ],
-        [
-          98,
-          99
-        ],
-        [
-          100,
-          101
-        ],
-        [
-          102,
-          103
-        ],
-        [
-          104,
-          105
-        ],
-        [
-          106,
-          107
-        ],
-        [
-          108,
-          109
-        ],
-        [
-          110,
-          111
-        ]
-      ]
-    },
-    "death": {
-      "fps": 8,
-      "loop": false,
-      "rows": [
-        [
-          112,
-          113
-        ],
-        [
-          114,
-          115
-        ],
-        [
-          116,
-          117
-        ],
-        [
-          118,
-          119
-        ],
-        [
-          120,
-          121
-        ],
-        [
-          122,
-          123
-        ],
-        [
-          124,
-          125
-        ],
-        [
-          126,
-          127
         ]
       ]
     }
@@ -339,24 +285,6 @@
       "clip": "melee",
       "layout": "action_pairs",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
-    },
-    {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-front-6.png",
-      "sha256": "6d6e876807909b01626e6525f5755e335a884cf0ebfb0952427484d483a8ab9a",
-      "clip": "move",
-      "layout": "front",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
-      "grid_rows": 8,
-      "source_row_offset": 0
-    },
-    {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_grunt/move-rear-7.png",
-      "sha256": "6d6e876807909b01626e6525f5755e335a884cf0ebfb0952427484d483a8ab9a",
-      "clip": "move",
-      "layout": "rear",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
-      "grid_rows": 8,
-      "source_row_offset": 4
     }
   ],
   "required_clips": [
@@ -372,7 +300,9 @@
     "psi": "The raider grunt has no psionic actions.",
     "heal": "The raider grunt has no healing action."
   },
-  "coverage": "complete",
-  "missing_clips": [],
-  "review_status": "native_review_pending"
+  "coverage": "partial",
+  "missing_clips": [
+    "move"
+  ],
+  "review_status": "native_render_verified_partial"
 }

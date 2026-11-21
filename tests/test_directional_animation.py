@@ -5,7 +5,7 @@ import pytest
 from PIL import Image
 from tools.audit_combat_visuals import validate_atlas
 ROOT=Path(__file__).resolve().parents[1]
-KEYS=['agent_psi','agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','agent_diverse_16_heavy_breacher','agent_diverse_17_yellow_strike','agent_diverse_18_red_enforcer','agent_diverse_19_drone_handler','agent_diverse_20_cyber_doc','agent_diverse_21_twin_blade_adept','agent_diverse_22_veteran_inquisitor','agent_diverse_23_dreadlock_rifle','agent_diverse_24_hooded_psion','agent_diverse_25_redline_runner','enemy_grunt','enemy_raider_grunt','enemy_corp_37_power_armor_grunt','enemy_giant_robot_02_quadruped_siege','enemy_giant_robot_03_missile_artillery','enemy_giant_robot_04_riot_walker','enemy_giant_robot_05_railgun_sniper','enemy_giant_robot_06_flame_unit','enemy_giant_robot_07_drone_carrier','enemy_giant_robot_08_claw_demolisher','enemy_giant_robot_09_spider_tank','enemy_giant_robot_10_pacification_titan','robot_combat']
+KEYS=['agent_psi','agent_diverse_01_neon_blade','agent_diverse_02_longcoat_gunner','agent_diverse_03_magenta_pistol','agent_diverse_04_trench_sniper','agent_diverse_05_psi_doctor','agent_diverse_06_street_medic','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_09_blue_mohawk_scout','agent_diverse_10_ronin_duelist','agent_diverse_11_rail_sniper','agent_diverse_12_violet_fixer','agent_diverse_13_silver_pistol','agent_diverse_14_armored_vanguard','agent_diverse_15_chrome_medic','agent_diverse_16_heavy_breacher','agent_diverse_17_yellow_strike','agent_diverse_18_red_enforcer','agent_diverse_19_drone_handler','agent_diverse_20_cyber_doc','agent_diverse_21_twin_blade_adept','agent_diverse_22_veteran_inquisitor','agent_diverse_23_dreadlock_rifle','agent_diverse_24_hooded_psion','agent_diverse_25_redline_runner','enemy_grunt','enemy_corp_37_power_armor_grunt','enemy_giant_robot_02_quadruped_siege','enemy_giant_robot_03_missile_artillery','enemy_giant_robot_04_riot_walker','enemy_giant_robot_05_railgun_sniper','enemy_giant_robot_06_flame_unit','enemy_giant_robot_07_drone_carrier','enemy_giant_robot_08_claw_demolisher','enemy_giant_robot_09_spider_tank','enemy_giant_robot_10_pacification_titan','robot_combat']
 TARGET=os.environ.get('CYBERCITY_ANIMATION_ASSET')
 KEYS.insert(-1,'enemy_giant_robot_11_samurai_warbot')
 KEYS.insert(-1,'enemy_giant_robot_12_corp_security')
@@ -117,6 +117,17 @@ def test_shifted_copies_are_not_counted_as_real_animation(tmp_path):
     data=dict(texture='atlas.png',frame_size=[8,8],animations={'move':dict(fps=8,rows=[[d*2,d*2+1] for d in range(8)])})
     (tmp_path/'a.json').write_text(json.dumps(data))
     assert any('same pose after translation/scale' in e for e in validate_atlas(tmp_path/'a.json',tmp_path,{'move'}))
+
+
+def test_raider_grunt_keeps_only_artistically_verified_clips_until_walk_is_replaced():
+    path=ROOT/'assets/combat_visual/animations/enemy_raider_grunt.json'
+    data=json.loads(path.read_text())
+    assert data['coverage']=='partial'
+    assert data['missing_clips']==['move']
+    assert data['review_status']=='native_render_verified_partial'
+    assert set(data['animations'])=={'idle','fire','melee','cover','hit','death'}
+    assert set(data['required_clips'])=={'idle','move','fire','melee','cover','hit','death'}
+    assert validate_atlas(path,ROOT,set(data['animations']))==[]
 
 @pytest.mark.skipif(not os.environ.get('DISPLAY'),reason='Native animation rendering requires X11')
 def test_native_playback_facings_and_continuous_gait():

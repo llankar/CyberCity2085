@@ -85,12 +85,12 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Preuves : `docs/images/entity-scale-production-windows/catalogue-01.jpg`, `docs/images/entity-scale-production-windows/catalogue-02.jpg`, `docs/images/entity-scale-production-windows/native-report.json`.
 - Travail restant dans cette portée : Aucun.
 
-### RAIDER-WALK-01 — DONE — Marche authentique du raider grunt dans huit directions
+### RAIDER-WALK-01 — IN_PROGRESS — Marche authentique du raider grunt dans huit directions
 
 - Fichiers : `assets/combat_visual/animations/enemy_raider_grunt.json`, `assets/combat_visual/animations/enemy_raider_grunt.png`, `assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json`, `tools/art/import_directional_clips.py`, `tests/test_directional_animation.py`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`.
-- Tests / contrôles réellement exécutés : Audit ciblé enemy_raider_grunt : aucune erreur, 128 frames et sept clips complets; 2 tests Python réussis, 1 test X11 ignoré sous Windows; Godot 4.6.3 Windows natif : DIRECTIONAL_TARGET_CAPTURE_PASSED enemy_raider_grunt sur Safehouse.
+- Tests / contrôles réellement exécutés : La revue artistique reprise le 2026-11-21 invalide l'ancienne acceptation : dans plusieurs directions, les poses longues 1 et 3 de la planche 8 × 4 avancent la même jambe. Le mouvement a été retiré du plan et de l'atlas ; les six clips validés restent présents, soit 96 frames, `coverage: partial` et `missing_clips: [move]`. Tests animation/layout ciblés : 11 réussis, 1 skip X11. L'audit ciblé ne signale que `missing clip: move`, attendu tant que la marche n'est pas remplacée.
 - Preuves : `assets/combat_visual/animations/enemy_raider_grunt.json`, `assets/combat_visual/source_sheets/enemy_raider_grunt/import-plan.json`, `godot/combat_missions_ui/tests/directional_animation_regression.gd`, `docs/reports/current_combat_visual_tests.xml`.
-- Travail restant dans cette portée : Aucun.
+- Travail restant dans cette portée : Produire quatre poses A/B/C/D réellement alternées dans les huit directions, puis importer et valider uniquement `enemy_raider_grunt`.
 
 ### WINDOWS-RESULT-READ-RETRY — IN_PROGRESS — Retry transient Windows combat result reads
 
