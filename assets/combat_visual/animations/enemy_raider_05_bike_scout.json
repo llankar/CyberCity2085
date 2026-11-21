@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_05_bike_scout.png",
+  "texture_sha256": "af53b35e473d74eb26bc7636fda89eff46165f85a58e780f59485b53758f92dc",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_05_bike_scout_512.png",
+  "source_sha256": "66ce957ba00e945c005ddffb7a47fc5cae470fac0c4602ac61ac642c6271b943",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/idle-single_row_pair-0.png",
+      "sha256": "bd5e9877655218623a6c7dd2970642ffd67dbdcdf26e061907eb7054340863d9",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/idle-single_row_pair-0-follow-through.png",
+        "sha256": "24fb8114b07223b6e2547381c8ccdff97e05c4f2e63a72c17816eec7fc273775"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/move-single_row_walk-1.png",
+      "sha256": "0bcf36b1364cb33ba9bb9ae5eb14dab96a3caae12de404abf605212285768644",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/move-single_row_walk-1-phase-1.png",
+          "sha256": "9356f4a40bcbfc330b89fe3be17645070eb5475bafdd57c97565c3baf695b222"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/move-single_row_walk-1-phase-2.png",
+          "sha256": "de70b607a1eb74698dfc143aa7a1fb04e4aad0d5bcd85df1d2da4aac93c305fa"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/move-single_row_walk-1-phase-3.png",
+          "sha256": "075a6f5fcf2101faff2d22688d15806cdd42a2712d8674a493df3c7937207592"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/melee-single_row_pair-2.png",
+      "sha256": "bd5e9877655218623a6c7dd2970642ffd67dbdcdf26e061907eb7054340863d9",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/melee-single_row_pair-2-follow-through.png",
+        "sha256": "b91e31490afbb70026bcfdcdbf40eef9588dc27b3749db52c30ded2366dc2930"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/cover-single_row_pair-3.png",
+      "sha256": "bd5e9877655218623a6c7dd2970642ffd67dbdcdf26e061907eb7054340863d9",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/cover-single_row_pair-3-follow-through.png",
+        "sha256": "c5d784301e67fabd9aa0952dabe4710ae8351a9ee0892b11a392e61340d9fa0e"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/hit-single_row_pair-4.png",
+      "sha256": "bd5e9877655218623a6c7dd2970642ffd67dbdcdf26e061907eb7054340863d9",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/hit-single_row_pair-4-follow-through.png",
+        "sha256": "bde4b228ef38ae3c61f9333fafd23755dece7cb7f02b3572057cd2b6cd80e034"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/death-single_row_pair-5.png",
+      "sha256": "bde4b228ef38ae3c61f9333fafd23755dece7cb7f02b3572057cd2b6cd80e034",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_05_bike_scout/death-single_row_pair-5-follow-through.png",
+        "sha256": "f2488fe4ab3b87a36a6f1b4e6c79522df9f0b1fe712ef1412362c7e4efb1c6ea"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The mounted bike scout has no visible firearm or mounted ranged weapon.",
+    "psi": "The bike scout has no psychic action.",
+    "heal": "The bike scout has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
