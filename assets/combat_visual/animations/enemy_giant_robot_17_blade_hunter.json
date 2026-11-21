@@ -1,0 +1,371 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_giant_robot_17_blade_hunter.png",
+  "texture_sha256": "49e042ecebe66bb568da171c21193a444d317347396a57cab678c16df84a2ca6",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_giant_robot_17_blade_hunter_512.png",
+  "source_sha256": "4b491b60c51e35d647f31bffbc035862b00fb3847aa47e5697994accecd01a13",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/idle-action_columns-0.png",
+      "sha256": "0e0e6c2a34204a9d1ef976861dc0f2a015609505daf3c93b7257f503c00f6747",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/move-walk_columns-1.png",
+      "sha256": "83b6ecf74f6d82baa6204d841b9ffe6c1014d27c91de605122e480d7c7eb1dc5",
+      "clip": "move",
+      "layout": "walk_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "intermediate": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/move-walk_columns-1-intermediate.png",
+        "sha256": "6e9b4ce4624e4e225394ec3763e1e5f3b8a52ee80bd0a7673ca6e599e8cc4738"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/fire-action_columns-2.png",
+      "sha256": "59209f4b612622334d630015d65330fb95ff081a2b83fe0bddd0862ca3151d54",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/melee-action_columns-3.png",
+      "sha256": "02555513dacd455a6561e503bdf70b49e7de5c31f387614052eaa18eea226a17",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/cover-action_columns-4.png",
+      "sha256": "2d4e6487ca697f18a056fc8da1fd3e4e591144c3e2fc9f4e362bbb1d8d0f74ec",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/hit-action_columns-5.png",
+      "sha256": "2ee5f0c600ca39771b6e51d6981294ee51d0821da5c414ec8f25262d652fcbdc",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/death-action_columns-6.png",
+      "sha256": "de2a325db3e62f8ac9c08e01ca29da4f8d95531d384bae6a164feb9659e7bcbc",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The blade hunter has no psionic system.",
+    "heal": "The blade hunter has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
