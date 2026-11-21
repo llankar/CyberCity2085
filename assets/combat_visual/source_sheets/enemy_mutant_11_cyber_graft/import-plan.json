@@ -1,0 +1,17 @@
+{
+  "enemy_mutant_11_cyber_graft": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-follow-direction-columns.png", "clip": "idle", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/fire-direction-columns.png", "clip": "fire", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/melee-direction-columns.png", "clip": "melee", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/cover-direction-columns.png", "clip": "cover", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/hit-direction-columns.png", "clip": "hit", "layout": "single_row_pair", "edge_erosion": 3},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/hit-direction-columns.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/death-direction-columns.png", "clip": "death", "layout": "single_row_pair", "body_height": 184, "edge_erosion": 3}
+    ],
+    "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {"psi": "The cyber graft has no psionic action.", "heal": "The cyber graft has no healing action."},
+    "review_status": "native_render_verified_complete"
+  }
+}

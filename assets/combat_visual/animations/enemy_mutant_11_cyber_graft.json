@@ -1,0 +1,412 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_11_cyber_graft.png",
+  "texture_sha256": "e2ca647bdbdddfe3488ad8ba869af59fee2347730b2506bb5ee86d0d6290fea6",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_11_cyber_graft_512.png",
+  "source_sha256": "8ef3ba2cbadd6960f3b87af3daf44d9fc8f7480ffba425b6a9e811e563570577",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-single_row_pair-0.png",
+      "sha256": "47fe432477b105dc56eec89c28425b8300beab4244838b7334654b6771fe0f2b",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/idle-single_row_pair-0-follow-through.png",
+        "sha256": "1ed4a28d8ba9e9e4f2af7170c3c2d7d8aaf326f6f3cd7845de6b3e8dfec695f1"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-single_row_walk-1.png",
+      "sha256": "30dc903d2354ba989f8f1c883af94bc48e174ae9441d4ff01cb703d40f93415a",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-single_row_walk-1-phase-1.png",
+          "sha256": "d812611dd01788191f3201d9a159440231ce20077895a066d9d11cb5653df614"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-single_row_walk-1-phase-2.png",
+          "sha256": "52998c6ea1f803fecf3b4f8802f38243c8b3933b773b32411c4658cbfc43e342"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/move-single_row_walk-1-phase-3.png",
+          "sha256": "645f993639472c2bebfa459e31d5b4a7d492f0c821153f5960bbcb6fdaecd564"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/fire-single_row_pair-2.png",
+      "sha256": "47fe432477b105dc56eec89c28425b8300beab4244838b7334654b6771fe0f2b",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/fire-single_row_pair-2-follow-through.png",
+        "sha256": "366587b31d7dfd624077cfb0859419d4dbe941211392cb334248cb1b37dd7d86"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/melee-single_row_pair-3.png",
+      "sha256": "47fe432477b105dc56eec89c28425b8300beab4244838b7334654b6771fe0f2b",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/melee-single_row_pair-3-follow-through.png",
+        "sha256": "78b2eecc43cf9692e675b55861f3c41978019730acb5e3f8f26a4af17f89ce58"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/cover-single_row_pair-4.png",
+      "sha256": "47fe432477b105dc56eec89c28425b8300beab4244838b7334654b6771fe0f2b",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/cover-single_row_pair-4-follow-through.png",
+        "sha256": "bd2bc362b6be6903cd11329434bfa75ad90878dab77a587e8b8f6f616faa6cbf"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/hit-single_row_pair-5.png",
+      "sha256": "47fe432477b105dc56eec89c28425b8300beab4244838b7334654b6771fe0f2b",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/hit-single_row_pair-5-follow-through.png",
+        "sha256": "77f892a701d58c543ab39b11f7e804e83312ca02d4335d1c53bd039a5de7431a"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/death-single_row_pair-6.png",
+      "sha256": "77f892a701d58c543ab39b11f7e804e83312ca02d4335d1c53bd039a5de7431a",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_11_cyber_graft/death-single_row_pair-6-follow-through.png",
+        "sha256": "eb9eff9e6517d2521634e7662419eac0b953eb542a9d08fb62846dee1604c936"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The cyber graft has no psionic action.",
+    "heal": "The cyber graft has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
