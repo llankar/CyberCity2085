@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_18_banner_carrier.png",
-  "texture_sha256": "ec4f1189e3d1741bfe365be9b9313bbf439dbe9e1f488f0a4a2f02e1953e0f8c",
+  "texture_sha256": "8b01dc0484de1879b5af5863960569638b558002f742acfa5f411063cca82ffe",
   "frame_size": [
     256,
     256
@@ -306,12 +306,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/melee-action_columns-2.png",
-      "sha256": "64100e1695acfba7e859f45de385138dbf45b92f594ef9b03301c68a5b780e1c",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/melee-single_row_pair-2.png",
+      "sha256": "c83e0e07650bff1b4d84c12f9a7041b4b92e78a77960394752f882596cbda233",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/melee-single_row_pair-2-follow-through.png",
+        "sha256": "c819eb947035db6b61b71bd32decdbc3119231206376a8850dc239b44f73460a"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -351,12 +356,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/death-action_columns-5.png",
-      "sha256": "9ae22e9ef3e71902021504eebf93877e22fffab009ad90e57fe1274e615a737a",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/death-single_row_pair-5.png",
+      "sha256": "ac27c186e8220da2d54a489cd323d353e916854b8b6914d8bdad0f20eeac070f",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/death-single_row_pair-5-follow-through.png",
+        "sha256": "4e39f5055a4d0c2050ee936f44b6c1d37b5d764e50a20937cf3948b2e60c9aa0"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
