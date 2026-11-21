@@ -1,0 +1,385 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_14_armored_queen.png",
+  "texture_sha256": "622ca112a770049dec44ce163fca287b54abe7fc0b378160b9daa19fde2d3841",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_14_armored_queen_512.png",
+  "source_sha256": "8d1336d1a20dd2ea67784ca04dbfb21777fda5a71d4bc61bf1f5af532844bbaf",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/idle-action_columns-0.png",
+      "sha256": "02eb6d590bd37710e56b6597c3b88143234fffa15c6c3d4915afc4e2200e1af6",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/move-single_row_walk-1.png",
+      "sha256": "267dc146ef2901f699ea8be15cfa60af360795db0b7533a8ef3ebf70f6992235",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/move-single_row_walk-1-phase-1.png",
+          "sha256": "d039461ea7270f5fa545d897e2f8e081fce94c74e737a099cd5b6f1bd2258b7d"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/move-single_row_walk-1-phase-2.png",
+          "sha256": "a5a44cf0c4f0f7affd9c8e923b6b779fed9131321a1e295a2cbfc5060268070b"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/move-single_row_walk-1-phase-3.png",
+          "sha256": "82d330506a8a98542e5f6c73f3cd81e20c98ec79a245c20966c0b62852bce561"
+        }
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/melee-action_columns-2.png",
+      "sha256": "41f760cb6088b823a0e50a6c80e2b1422d34379cd57a937efecd982598d6ea0f",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/cover-action_columns-3.png",
+      "sha256": "a2946c8ab8e80eef34cd65c7c89c1db10929de62be1cc3f4397925d8c966b656",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/hit-action_columns-4.png",
+      "sha256": "d865162591a9a5148ef346162e76e1523672e69181dcd224a5b02d4d39b2de67",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/death-action_columns-5.png",
+      "sha256": "78db182d9e291c41c5850caf17605cced8905f3f7182a0652cd5f7c981dfffbc",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The armored queen carries no ranged weapon.",
+    "psi": "The armored queen has no psionic ability.",
+    "heal": "The armored queen carries no medical equipment."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified"
+}
