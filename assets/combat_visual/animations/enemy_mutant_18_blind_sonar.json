@@ -1,0 +1,412 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_18_blind_sonar.png",
+  "texture_sha256": "e3aa895fe67cd27c4745f01cb4450908080b667947c73dd173f1ee5a8b76c969",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_18_blind_sonar_512.png",
+  "source_sha256": "55454b311c3d3fab9260960b484af9171ce1e7c9d2d12486f8fe02d65f9a94c9",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/idle-single_row_pair-0.png",
+      "sha256": "bb4f4c77058c74f925fe4c7c0931610047d39d04f21fe719012e973e4ce93bb8",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/idle-single_row_pair-0-follow-through.png",
+        "sha256": "6240e56be414c4a242be5cdfb969de2d3983230b50ddb78bf022ac4bbace576c"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/move-single_row_walk-1.png",
+      "sha256": "5359f4272f58ac65847ea016b163390543c34cee025d39a3eff67a283af31df7",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/move-single_row_walk-1-phase-1.png",
+          "sha256": "562e085d72e0ef7fa71412acb71fa7a61bcab12bf3a3c0f8be5b48459ce2ee5e"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/move-single_row_walk-1-phase-2.png",
+          "sha256": "3c3a1ffba838f73b481e819d03f0ee394cb6f62f849fc77216b7c36953b4dbbf"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/move-single_row_walk-1-phase-3.png",
+          "sha256": "0a07830329e07d2b09e50a6116a94479a39f3c81c1b2d11952d14f0d08b23c5b"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/fire-single_row_pair-2.png",
+      "sha256": "bb4f4c77058c74f925fe4c7c0931610047d39d04f21fe719012e973e4ce93bb8",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/fire-single_row_pair-2-follow-through.png",
+        "sha256": "ae8835f1ffd886887030bcd90ed90830b1efb6e42567fc9d11b28eadb3b3cabe"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/melee-single_row_pair-3.png",
+      "sha256": "bb4f4c77058c74f925fe4c7c0931610047d39d04f21fe719012e973e4ce93bb8",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/melee-single_row_pair-3-follow-through.png",
+        "sha256": "931121fa86a39229cf9d182dda624603a44f1e57ce58beafc24ba81395e5256c"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/cover-single_row_pair-4.png",
+      "sha256": "bb4f4c77058c74f925fe4c7c0931610047d39d04f21fe719012e973e4ce93bb8",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/cover-single_row_pair-4-follow-through.png",
+        "sha256": "5e49dc21df2e5a6fa5cb3ef05001aa0584fd89cea2f976b2dea9663f097f61d2"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/hit-single_row_pair-5.png",
+      "sha256": "bb4f4c77058c74f925fe4c7c0931610047d39d04f21fe719012e973e4ce93bb8",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/hit-single_row_pair-5-follow-through.png",
+        "sha256": "f338b5b6e0a50fccd0a11f6df79b73ca8ae2c383f98cdc889757c336542533ae"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/death-single_row_pair-6.png",
+      "sha256": "f338b5b6e0a50fccd0a11f6df79b73ca8ae2c383f98cdc889757c336542533ae",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_18_blind_sonar/death-single_row_pair-6-follow-through.png",
+        "sha256": "f981de83b08532e8c75e27e4267db7bea720a0e757f380b1ad321468575d6130"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The blind-sonar mutant uses a biological sonar scream rather than a psionic action.",
+    "heal": "The blind-sonar mutant has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
