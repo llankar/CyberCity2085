@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_09_mohawk_duelist.png",
+  "texture_sha256": "652a0b1e5b15914c84565932b598542c2250b48a46ea91fca1246edceef25634",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_09_mohawk_duelist_512.png",
+  "source_sha256": "8c53c987f206f8082e6621f0c93e311df52be8ddeeffd1b1b4d33b7831cd5883",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/idle-single_row_pair-0.png",
+      "sha256": "d3243d0871462457f0c3e622fd00905790c580aed81c0342a33f52398eb902d0",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/idle-single_row_pair-0-follow-through.png",
+        "sha256": "95407e6a98e23f47868b114c1dd00204a7be342b87920bf949be67a00355c135"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/move-single_row_walk-1.png",
+      "sha256": "2c4ab70c43b9c920bc890aac0b9447bfcd6b9f3c688187fe203b12c3fdc961bd",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/move-single_row_walk-1-phase-1.png",
+          "sha256": "464cb36035aae00cd0facf13b17a6bea14004e613635c2ed6a4202c97ac09b9e"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/move-single_row_walk-1-phase-2.png",
+          "sha256": "25396e66054cf88e666fcdc7afd9ff943430ca6d524b1f0cae71c8bca0573b3c"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/move-single_row_walk-1-phase-3.png",
+          "sha256": "453d3df015a72bca2183e95e849cf1a21cc3febca47f96071963882fa09003e5"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/melee-single_row_pair-2.png",
+      "sha256": "d3243d0871462457f0c3e622fd00905790c580aed81c0342a33f52398eb902d0",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/melee-single_row_pair-2-follow-through.png",
+        "sha256": "87c90576fee41b6b4404cfa081ad406f89ec4eb4d285d7a008bd2c0885fbe22a"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/cover-single_row_pair-3.png",
+      "sha256": "d3243d0871462457f0c3e622fd00905790c580aed81c0342a33f52398eb902d0",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/cover-single_row_pair-3-follow-through.png",
+        "sha256": "4fc46a6a5df52ca2275a6ad90de3c655cfe34dcecaf1df75843ac34cc03ba72e"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/hit-single_row_pair-4.png",
+      "sha256": "d3243d0871462457f0c3e622fd00905790c580aed81c0342a33f52398eb902d0",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/hit-single_row_pair-4-follow-through.png",
+        "sha256": "fe82a846c31078b7d9fead5465cd3515013af95e409d065381664b0c63465840"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/death-single_row_pair-5.png",
+      "sha256": "fe82a846c31078b7d9fead5465cd3515013af95e409d065381664b0c63465840",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_09_mohawk_duelist/death-single_row_pair-5-follow-through.png",
+        "sha256": "613391eb975c2e68f9d6d6112fa9e6199e4205542937b6bd26ab4224463ed365"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The mohawk duelist has no ranged firearm or projectile action.",
+    "psi": "The mohawk duelist has no psychic action.",
+    "heal": "The mohawk duelist has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "source_art_reviewed"
+}
