@@ -1,11 +1,13 @@
 import importlib.util
 from pathlib import Path
+import sys
 
 import pytest
 from PIL import Image, ImageDraw
 
 
 MODULE_PATH = Path(__file__).parents[1] / "tools" / "art" / "repack_directional_rows.py"
+sys.path.insert(0, str(MODULE_PATH.parent))
 SPEC = importlib.util.spec_from_file_location("repack_directional_rows", MODULE_PATH)
 repack = importlib.util.module_from_spec(SPEC)
 assert SPEC.loader
@@ -54,3 +56,28 @@ def test_two_row_source_writes_distinct_phases():
     lead, follow = repack.repack_two_rows(source)
     assert lead.size == follow.size
     assert lead.tobytes() != follow.tobytes()
+
+
+def test_odd_height_is_supported_when_middle_separator_is_clear():
+    source = Image.new("RGBA", (400, 161))
+    source.alpha_composite(_row(), (0, 0))
+    source.alpha_composite(_row(), (0, 81))
+    lead, follow = repack.repack_two_rows(source)
+    assert lead.size == follow.size
+
+
+def test_rejects_opaque_middle_separator():
+    source = Image.new("RGBA", (400, 160))
+    source.alpha_composite(_row(), (0, 0))
+    source.alpha_composite(_row(), (0, 80))
+    ImageDraw.Draw(source).rectangle((0, 79, 399, 81), fill=(255, 0, 0, 255))
+    with pytest.raises(ValueError, match="middle separator"):
+        repack.repack_two_rows(source)
+
+
+def test_reviewed_small_component_cleanup_removes_detached_speck():
+    row = _row()
+    row.putpixel((45, 5), (255, 0, 0, 255))
+    output = repack.repack_row(row, clean_small_components=True)
+    baseline = repack.repack_row(_row(), clean_small_components=True)
+    assert output.tobytes() == baseline.tobytes()

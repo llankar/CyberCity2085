@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_15_stealth_mech.png",
-  "texture_sha256": "9c9523a3b81963063b7bbb3bb33311a2071d5161d45db5c6f1cfbbada452f16b",
+  "texture_sha256": "25d253ae9e21d485c42a56bcb566f1da512b4d873e6c27e3a7ec87f96b128c32",
   "frame_size": [
     256,
     256
@@ -324,25 +324,37 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/melee-action_columns-3.png",
-      "sha256": "beb4cba2662ca6707a3e5686abc1856cc00054890ddcf814f2c5fdc29ccbee26",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/melee-single_row_pair-3.png",
+      "sha256": "d9892371d669d77d279dd6f85baf0a22047a3020dae6f2b0950c41e87a162552",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/melee-single_row_pair-3-follow-through.png",
+        "sha256": "8b5f385aabd83a3a984fbf4d2b498e13e33299f042b20e4af2816e58cde556a5"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/cover-action_columns-4.png",
-      "sha256": "6fbb34826b436a1b9cb55889e4584d7ab48c1eb6369003884b8a56adb3163005",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/cover-single_row_pair-4.png",
+      "sha256": "d0a86fa1e77cea3d5e619525149e7c2edacf33be25dbf062292a7ed16e7c3f6c",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/cover-single_row_pair-4-follow-through.png",
+        "sha256": "b80c0851b48f4da48daffa0de1cbb89f787dd11b1dc096f72e472ce0a1c4f246"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/hit-action_columns-5.png",
-      "sha256": "92d61b19d6ffa9d45e0a58abfd559736b6a6422cb0fe12bb1ef86bf8d160c3ed",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/hit-single_row_pair-5.png",
+      "sha256": "17492481f8679924ff2a8172574a81873f125b4a385f560270b4c767facf9a71",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/hit-single_row_pair-5-follow-through.png",
+        "sha256": "9d0471fdda0b2ceee05fca71e83013a2a9b0738b2c7b660795ee6cd3d43167d7"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_15_stealth_mech/death-action_columns-6.png",
@@ -367,5 +379,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
