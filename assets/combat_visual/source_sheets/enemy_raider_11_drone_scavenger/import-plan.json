@@ -2,13 +2,10 @@
   "enemy_raider_11_drone_scavenger": {
     "clips": [
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-repair-follow.png",
         "clip": "idle",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
+        "layout": "single_row_pair",
         "keep_disconnected_details": true
       },
       {
@@ -27,34 +24,25 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-repair-follow.png",
         "clip": "fire",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
+        "layout": "single_row_pair",
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-repair-follow.png",
         "clip": "melee",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
+        "layout": "single_row_pair",
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-repair-follow.png",
         "clip": "cover",
-        "layout": "action_columns",
+        "layout": "single_row_pair",
         "body_height": 190,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
         "keep_disconnected_details": true
       },
       {
@@ -68,14 +56,11 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-repair-follow.png",
         "clip": "death",
-        "layout": "action_columns",
+        "layout": "single_row_pair",
         "body_height": 176,
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
-        "edge_erosion": 1,
         "keep_disconnected_details": true
       }
     ],

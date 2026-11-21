@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_11_drone_scavenger.png",
-  "texture_sha256": "ab8fff56e7b306116b2bda775827d814ac76bd832f21a81f20c12cbf5571d8b6",
+  "texture_sha256": "e42929db89531f5cbee14109ed65347b2e351e91d6e440512f9432e86f508ed3",
   "frame_size": [
     256,
     256
@@ -299,19 +299,16 @@
   "source_sha256": "257594128667b789a3532d10b189f275468539c988872d1c7a82a91be0e86f54",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-action_columns-0.png",
-      "sha256": "ef97d06122b67f6ac7b4fe604a6320d874e1645cb439de2d5ec5e627d1ef87a0",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-single_row_pair-0.png",
+      "sha256": "9604203d68d0d0cd24bef7839deaeeda99799808972759562eb6a2c6ef95a6e3",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/idle-single_row_pair-0-follow-through.png",
+        "sha256": "489e01805b44d650246672bc5fcba3fea6e0ada1f8d6015542459b2f0895163b"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/move-single_row_walk-1.png",
@@ -344,49 +341,40 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-action_columns-2.png",
-      "sha256": "f0866237bb7bf24660bdfa0b168fc5862099bb28d5b60878c94d4283aa0aba62",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-single_row_pair-2.png",
+      "sha256": "d4807a715db94a5eea2ae1096694b8f763dade7372c3e8469b7ca2c7696ed3f6",
       "clip": "fire",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/fire-single_row_pair-2-follow-through.png",
+        "sha256": "e3b10351f8985254b3bdfedf165d56e73f52b1518599836d967fe11e1675f4fa"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-action_columns-3.png",
-      "sha256": "3a0f3372886072493ad210c4652609173ee21440fc3627aa5b5d398c520fed79",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-single_row_pair-3.png",
+      "sha256": "05df658f3edf7328e2fb9dbf302bbbdea25e5730a990755495454239395a2201",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/melee-single_row_pair-3-follow-through.png",
+        "sha256": "be48ae54a9c7a795283c6779ef90c94f9efa3d3c2b00182a0f89d1027c8ba372"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-action_columns-4.png",
-      "sha256": "a7cb26878860daff2a31435bb762a2ac23ccab69cc4fca8349ef3dd7d6c819c3",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-single_row_pair-4.png",
+      "sha256": "c164436442ad98de80fd3af2cfc7bb81dcdf15c66adce16f8d39522a28c4bf9e",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/cover-single_row_pair-4-follow-through.png",
+        "sha256": "ce7c49eb619900a4185a017e547b46e3cbf078e0c2f64e8e394159cb091ed8bd"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-action_columns-5.png",
@@ -404,19 +392,16 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-action_columns-6.png",
-      "sha256": "ac6339f144b37a73e99c316b852f423458dcfd46e4b49838b9278e8a82a20e07",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-single_row_pair-6.png",
+      "sha256": "ec7739792ca00deefcaed1bd95a45c8b830543e3855fe7acdf3788bb1d302b95",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-single_row_pair-6-follow-through.png",
+        "sha256": "1b274bf0f154fd9c852ff86edf0d7ac32daf294fb278ce685eb37f169a85a702"
+      }
     }
   ],
   "required_clips": [
