@@ -52,6 +52,7 @@ KEYS.insert(-1,'enemy_raider_12_explosive_thrower')
 KEYS.insert(-1,'enemy_raider_13_nailgunner')
 KEYS.insert(-1,'enemy_raider_14_armored_queen')
 KEYS.insert(-1,'enemy_raider_15_skull_helm_heavy')
+KEYS.insert(-1,'enemy_raider_16_harpoon_gunner')
 KEYS.insert(-1,'enemy_raider_grunt')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')

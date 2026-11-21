@@ -1,0 +1,438 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_16_harpoon_gunner.png",
+  "texture_sha256": "46d0e32529be4d63eb0e9cca0e97f9929361067102e01a96db29d8a7a17fc77a",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_16_harpoon_gunner_512.png",
+  "source_sha256": "5fc4700e6f88b8bcb31ac9951427d09d1c828e69be24614eb33f3a0abe6888a4",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/idle-action_columns-0.png",
+      "sha256": "31e47185de5a938ad30b665bcd6a862714eea525bf430e494717686528d0cc65",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/move-single_row_walk-1.png",
+      "sha256": "9d7f27c5c6afd9645362ec5c3cc5b3a7d31ab1ce2d816a8168562e3d8c0ccb7c",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/move-single_row_walk-1-phase-1.png",
+          "sha256": "78bad390dba0af1c45895e6f5762ed00f1deada557d49d30eff5ab32930a9343"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/move-single_row_walk-1-phase-2.png",
+          "sha256": "fd60eba8663ec52912ad2bfdfdc7848cbcc0fba94053025127a9048a850691a5"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/move-single_row_walk-1-phase-3.png",
+          "sha256": "5fb45de8e7e32c9ac2592d4d3031629624baee09306d9a89b66074dd8537b67c"
+        }
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/fire-action_columns-2.png",
+      "sha256": "2ffaf6baf544ac671484c9be61b855c849e5a3bef85f3ccde9f4d95989ddc554",
+      "clip": "fire",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/melee-action_columns-3.png",
+      "sha256": "8ba33d16cf086d94b71447030eb99b97d9be88f05e39eb6ca15c18fa0a75ac24",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/cover-action_columns-4.png",
+      "sha256": "76b5bc3dc457ed479b3d077dd1c807d85533d135d6c26eab082ceb7c542e1741",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/hit-action_columns-5.png",
+      "sha256": "f21c13a85d4ab1d9b143f45938507bac403a92df74f9b7aea59b9926f1082cc1",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_16_harpoon_gunner/death-action_columns-6.png",
+      "sha256": "ae7f5cbd74f3d5b4d852a4fe62d7d0d50e19ecb1de46e6e6ff8d961cba5a536e",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The harpoon gunner has no psionic ability.",
+    "heal": "The harpoon gunner carries no medical equipment."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified"
+}
