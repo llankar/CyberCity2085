@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_17_glowing_vein.png",
+  "texture_sha256": "7c9ea5b259fed42c8b9e45e25335371dbbca83361b384035fe45cea617d00de8",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_17_glowing_vein_512.png",
+  "source_sha256": "5e4fc42538c6d72ee4bb326caa6b0edde8f81c6b36061d5649ca9b61cd0dc741",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/idle-single_row_pair-0.png",
+      "sha256": "3ca0c97b4e271190d8144a8ed59cd6b353ccd91ad03e11abbb15b873646e299a",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/idle-single_row_pair-0-follow-through.png",
+        "sha256": "15c77f40105b857141c78adf712114c6204fc0ac19d4cabad2d4550814358953"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/move-single_row_walk-1.png",
+      "sha256": "cd0751add374558106fa6ece87a6d9192fbb4fbc2967ec60f58a8adc509a31ff",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/move-single_row_walk-1-phase-1.png",
+          "sha256": "6f1212376901825adf78166bf767ef153de6c9a9bc25db5b66913cf058907b7c"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/move-single_row_walk-1-phase-2.png",
+          "sha256": "230499097804771da80480df54359cdb4ee8288a9b33dc0b292fd50c2d188214"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/move-single_row_walk-1-phase-3.png",
+          "sha256": "35235928bdb1c91a099afd2fb22c06500ea0c1da30d3a1157acfb462c088dfb6"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/melee-single_row_pair-2.png",
+      "sha256": "3ca0c97b4e271190d8144a8ed59cd6b353ccd91ad03e11abbb15b873646e299a",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/melee-single_row_pair-2-follow-through.png",
+        "sha256": "73a3bdd44494daee2e9966566840ee5121dc64f7cb11aba0067131dd391f6ab7"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/cover-single_row_pair-3.png",
+      "sha256": "3ca0c97b4e271190d8144a8ed59cd6b353ccd91ad03e11abbb15b873646e299a",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/cover-single_row_pair-3-follow-through.png",
+        "sha256": "7b9218afa4086857eda5a991aeaef69e2068d1b2a3a2d013e325baa7d2d3f1be"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/hit-single_row_pair-4.png",
+      "sha256": "3ca0c97b4e271190d8144a8ed59cd6b353ccd91ad03e11abbb15b873646e299a",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/hit-single_row_pair-4-follow-through.png",
+        "sha256": "567bacd4abc62c178a20df10c517309fd1ab8d2a91f0603dd697cd5091acbe6d"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/death-single_row_pair-5.png",
+      "sha256": "567bacd4abc62c178a20df10c517309fd1ab8d2a91f0603dd697cd5091acbe6d",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_17_glowing_vein/death-single_row_pair-5-follow-through.png",
+        "sha256": "077deebd4f2d32e2f59c5bf7f5905efba762c47633ba55f72001e86f0c65f6dd"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The glowing-vein mutant is unarmed and has no ranged action.",
+    "psi": "The glowing-vein mutant has no psionic action.",
+    "heal": "The glowing-vein mutant has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
