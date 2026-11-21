@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_18_anti_air DONE: idle, fire and hit use six authentic complete 8x1 rows; four red-tipped dorsal missiles, right cannon, cyan optics and true rear facings preserved; missiles remain attached during fire; 128 frames; focused audit clean; Python 25 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Three repaired actions inspected. Verified coverage 122 / 233.",
-  "next_action": "ANIM-LAYOUT-CORRECTION : diagnostiquer puis réparer uniquement les clips invalides de `enemy_giant_robot_19_mining_combat` avec `repack_directional_rows.py`; conserver le rejet strict si ni huit runs horizontaux ni huit composantes 2D substantielles ne sont trouvés. Il s'agit du dernier robot géant affecté de ce lot. Couverture vérifiée actuelle : 122 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_19_mining_combat DONE: fire, melee, cover, hit and death use ten authentic complete 8x1 rows; segmented right drill, left hand, yellow chassis, cyan cables and true rear facings preserved; charge, strike, low guard, recoil and wreck remain distinct; 128 frames; focused audit clean; Python 25 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Five repaired actions inspected. Verified coverage 123 / 233. Affected giant-robot batch complete.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : exécuter un inventaire read-only des plans d'import pour identifier tout layout `action_columns` encore invalide, puis reprendre la première unité résiduelle réellement affectée. Couverture vérifiée actuelle : 123 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

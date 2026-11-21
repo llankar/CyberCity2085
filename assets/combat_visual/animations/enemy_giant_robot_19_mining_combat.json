@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_19_mining_combat.png",
-  "texture_sha256": "304965d930a6af31f4f72e42eb373fec1ce151b480768b84b166d4b96b3bf78a",
+  "texture_sha256": "e10f139c934ec31c3ef6e23912e5483b3b82826a8a6c90693423495ad537d362",
   "frame_size": [
     256,
     256
@@ -317,39 +317,59 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/fire-action_columns-2.png",
-      "sha256": "c6cf923645861936c3257e75a7b6b91f9418cc3ad48c04e0140ee9b926ea3f34",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/fire-single_row_pair-2.png",
+      "sha256": "ea685ec2bbb614e5613a645582d838dc841d7f1f09541bed0dce15b323bd0739",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/fire-single_row_pair-2-follow-through.png",
+        "sha256": "ad26bc570f3e92a9796fd72fb733350bb17581eface85993a4618cfed11fb828"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/melee-action_columns-3.png",
-      "sha256": "b0ac7abbd002a7829672212f0cb7bec77f65e8b592b9bb1a4bd9daad424ec0d7",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/melee-single_row_pair-3.png",
+      "sha256": "91d0743f8e39a9f415d915859ea6e8eb790ead18b6f656dfd120b41f0a6dcea6",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/melee-single_row_pair-3-follow-through.png",
+        "sha256": "3a79d2a89c44b4331cc36aea3a25c34cbd2d739842ab15c79d20d13e3589e395"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/cover-action_columns-4.png",
-      "sha256": "652ae31ffd514deb7dffa527649fc89c1c74208696f8830e4323a1a98bd7627b",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/cover-single_row_pair-4.png",
+      "sha256": "0db26af1703ca6abe75f8ac6b9328dd79bec10bc3fc8d18103418ffe6d5070d2",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/cover-single_row_pair-4-follow-through.png",
+        "sha256": "44f93638f10e7cdd9e12ed4f22887f1aef0b9ce7ecb24120eeca23e2955a7070"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/hit-action_columns-5.png",
-      "sha256": "f7176409c5e24453e69d3b83a3a7659e7519230f54efbd993746c1f83ebf1790",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/hit-single_row_pair-5.png",
+      "sha256": "6d5eeee3a0aff13ea58bafd40712d19c8b327bfc565d68d3f1d8716adeddee68",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/hit-single_row_pair-5-follow-through.png",
+        "sha256": "dd9f754e415050c35dfb44058a8a5ee603d44822bd4ebde061110f423ef1ac4b"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/death-action_columns-6.png",
-      "sha256": "7a418600ec45d26a4543b9c8c0ef3bf62add75549c980db9520ccf72d79ee2f9",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/death-single_row_pair-6.png",
+      "sha256": "ee79dc968ce4edb8b2b3aa4e4047ddfb54a96ba2b60f2c545faf1f3cbe03dedf",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_19_mining_combat/death-single_row_pair-6-follow-through.png",
+        "sha256": "d9c8e61d73efc0b37f6a0779d119e0cfcbc732acf8fa0aa6d1a4ae74fb89b6cf"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +387,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
