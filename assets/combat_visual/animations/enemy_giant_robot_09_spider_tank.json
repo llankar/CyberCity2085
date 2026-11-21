@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_09_spider_tank.png",
-  "texture_sha256": "2f6e0b45cacf7d8e22d58f490e689787e77e8c99857d8baccef744eb0db34f50",
+  "texture_sha256": "be68641ba7312c08996e4cd7a2aa3eea3783ddc7736519d5f4b2e07e8a429a3d",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "c03a3fb69ba97a32e584ebbaaa04252ce60acae67408f04536312ac31e295ca6",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/idle-action_columns-0.png",
-      "sha256": "b11ec4b1c89c506d51da0d647c2a79740cb0109db8e82f036b8991008b0528be",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/idle-single_row_pair-0.png",
+      "sha256": "9ed89d047ab2486614e0cbb0afd42adcf39cf6d633975e05624ea4c6eefde6d1",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/idle-single_row_pair-0-follow-through.png",
+        "sha256": "588f62384d3a4d6d4316653422d175006d0f1c63ff567693f36bed4d362fa8dc"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/move-walk_columns-1.png",
@@ -317,11 +321,15 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/fire-action_columns-2.png",
-      "sha256": "b6dd509f80c83cf1d245fea4c6ca01b771a76624f062d99c087f9f8ba3d5a156",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/fire-single_row_pair-2.png",
+      "sha256": "4c001bcc9197f3ce6efa1ddab07e45402b384bc2bea01ff3798174a5f06269d8",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/fire-single_row_pair-2-follow-through.png",
+        "sha256": "80bc7e64892aded1b22b248f1e4f71a5030b2472fcc73d1d9091014046111d1d"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/melee-action_columns-3.png",
@@ -331,18 +339,26 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/cover-action_columns-4.png",
-      "sha256": "96265a4ee33951713d80834d231dc0c58a2d0c5dfaf1004e10a8e22246d221bc",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/cover-single_row_pair-4.png",
+      "sha256": "a6f6b753aabc31fbb8e6863e077297005d66851844544a2829600bdfe10f7669",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/cover-single_row_pair-4-follow-through.png",
+        "sha256": "ee3c11fc8e5d134a2e6b91ead8bc648298e7eec6de9a9e0057a110e50c5966b6"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/hit-action_columns-5.png",
-      "sha256": "99191ebe970cf7a3af953652c7c91077cd683b5afa8b70b5f4b9bfbaecf9db57",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/hit-single_row_pair-5.png",
+      "sha256": "7c3d6f8ca6c428419b4282aa50cc7307c58762c37261fafd008d71f750ac1bcd",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/hit-single_row_pair-5-follow-through.png",
+        "sha256": "b4ac8b2af56010fe752a0f3721a72e456de3ad8819a76c22f6b3a46e5fec62f0"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_09_spider_tank/death-action_columns-6.png",
@@ -367,5 +383,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
