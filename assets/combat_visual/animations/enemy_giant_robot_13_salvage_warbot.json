@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_13_salvage_warbot.png",
-  "texture_sha256": "51648731e7a7fd6d619a62da44c4ae53472aaad5bafb25292a7da9a40bf1af2c",
+  "texture_sha256": "d69e20cbf7cd54bd7bd1fc76781d345d486ed3cb2c5211356e8d1d4b2d19f2a0",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "2193e1a35cb88e0734dcee4ea4b298b19fe015ff1d607faf9958023bd1434bb0",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/idle-action_columns-0.png",
-      "sha256": "6fbc33e1ed911a6e46f4f6b64b18555b95543431b417b9ecaf7b3fd4fcc49d0d",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/idle-single_row_pair-0.png",
+      "sha256": "769b0dd7ae5a4ce36701a79d0626df77c5a0313ba9da73774e8c207726af9738",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/idle-single_row_pair-0-follow-through.png",
+        "sha256": "bfe13398ad634df8cdf6cb46c236a804598f05d496ad0a48cba280820c059f3c"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/move-walk_columns-1.png",
@@ -317,39 +321,59 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/fire-action_columns-2.png",
-      "sha256": "a5849f5c78560f089ccc23dc8b057760dbe2e54ea273480c922de991e149ad4d",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/fire-single_row_pair-2.png",
+      "sha256": "721bae4755fb5f1d02891ea885e1eb127e71edc5f366aaae631b5c971e3a5011",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/fire-single_row_pair-2-follow-through.png",
+        "sha256": "c57299f8585ad377f042d9fe6a42f55099f0342fbc5b52237c8c59190b26f874"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/melee-action_columns-3.png",
-      "sha256": "6b8bfb01f88a8f38b584fe1077f55726fa9287704ae8651dc9cc488ea1aac6a6",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/melee-single_row_pair-3.png",
+      "sha256": "a688170a45616b3616f0d22268f73f5a2d90c69dd93749acff75f7c0ef2e3099",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/melee-single_row_pair-3-follow-through.png",
+        "sha256": "9bdf5f55ebd988157d381b0eb289887e43bc2e7b449dbe82d1fc8bfea1ebf631"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/cover-action_columns-4.png",
-      "sha256": "14e6f6bb692827c0e88c2c56f8e5c626d4650a3a90f2ff42dbe18b0c1c32a26b",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/cover-single_row_pair-4.png",
+      "sha256": "ebfd30e372b722bf8f67f53dbf15ddfbec6c0fe6bbe066d4f1a750296a88f24b",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/cover-single_row_pair-4-follow-through.png",
+        "sha256": "fa387b9bb6831dd379927c2a66076affcd2439b1da74107920e1a426d42383e3"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/hit-action_columns-5.png",
-      "sha256": "be399a5ea4b6c2fa6d3d027064402d4618ed51098fad1fd431cd02db302ecc78",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/hit-single_row_pair-5.png",
+      "sha256": "228b5b0c7a81d4f2902c52e2b1b105921a01501261aa55872a112e7a73f4a4eb",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/hit-single_row_pair-5-follow-through.png",
+        "sha256": "d28e61ea042a38b5910b39d46e2fd1617ae85f5e51545b03fa6cc037da2d1d09"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/death-action_columns-6.png",
-      "sha256": "c90429877d26e83a1fbf7074ff0ce731b2a30cf6f271ac7d289b314acbdfeaf8",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/death-single_row_pair-6.png",
+      "sha256": "4a92759fdcb706c9970c18f241887d0da1c2b7f20c09316ba975a28c9dc238b2",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_13_salvage_warbot/death-single_row_pair-6-follow-through.png",
+        "sha256": "9c0fa3a1e6bfb4ce547f0e2475d4ada91cc784fa339aaa46c13c19f4d69fb26c"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +391,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
