@@ -307,7 +307,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### ANIM-COMPLETE — IN_PROGRESS — Actions multidirectionnelles complètes et applicabilité documentée
 
-- État courant (2026-11-21) : Wasteland medic IN_PROGRESS. Phase A acceptée sur E: avec huit orientations et botte anatomique droite en avant. La capuche olive, le respirateur à deux lentilles, l'unique sacoche médicale à croix rouge en main gauche, l'unique injecteur en main droite, les deux fioles vertes, le manteau déchiré, les genouillères et les bottes restent cohérents ; les vues arrière masquent les détails frontaux. `idle`, `move`, `melee`, `cover`, `hit`, `death` et `heal` sont applicables ; `fire` et `psi` ne le sont pas. Aucun atlas partiel importé ; couverture complète inchangée à 109 / 233.
+- État courant (2026-11-21) : Wasteland medic IN_PROGRESS. Marche A/B/C/D acceptée sur E: avec huit orientations, contacts droite/gauche opposés et passages hauts genou droit/gauche opposés. La capuche olive, le respirateur à deux lentilles, l'unique sacoche médicale à croix rouge en main gauche, l'unique injecteur en main droite, les deux fioles vertes, le manteau déchiré, les genouillères et les bottes restent cohérents ; les vues arrière masquent les détails frontaux. Une première C à fragments opaques a été rejetée. `idle`, `move`, `melee`, `cover`, `hit`, `death` et `heal` sont applicables ; `fire` et `psi` ne le sont pas. Aucun atlas partiel importé ; couverture complète inchangée à 109 / 233.
 
 - État courant (2026-11-21) : Chain hook DONE. Atlas authentique de 112 frames, six clips applicables et huit orientations. La marche A/B/C/D alterne contacts et passages hauts ; attente, attaque compacte au crochet, couverture, impact et mort sont distincts. Le crochet et sa chaîne restent uniques et attachés à la main anatomique gauche ; l'avant-bras droit blindé reste vide, et les vues arrière masquent le visage. Deux brouillons opaques ou directionnellement faux ont été rejetés. `fire`, `psi` et `heal` sont non applicables. Audit ciblé propre ; Python : 10 réussis, 1 skip X11 ; Godot Windows natif : 32 sélections et six actions inspectées. Couverture complète : 109 / 233.
 
@@ -530,6 +530,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIM-COMPLETE : produire uniquement la phase B de marche de `enemy_raider_07_wasteland_medic` avec botte anatomique gauche en avant, puis vérifier la cohérence des appuis avant/arrière avant de poursuivre C/D. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
+ANIM-COMPLETE : produire attente, `melee`, `cover`, `hit`, `death` et `heal` pour `enemy_raider_07_wasteland_medic`, en gardant l'effet de soin contenu autour de l'injecteur et des fioles ; importer ensuite cette seule unité. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
