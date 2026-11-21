@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_raider_13_nailgunner residual DONE: idle, cover and hit use six authentic 8x1 rows after cyan extraction and reviewed cleanup; closed skull helmet, single nailgun, left armor, tabard and true rear facings preserved; 128 frames; focused audit clean; Python 26 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Three repaired actions inspected. Verified coverage 128 / 233.",
-  "next_action": "ANIM-LAYOUT-CORRECTION : réparer les trois clips résiduels de `enemy_raider_14_armored_queen`, puis poursuivre les quatre autres raiders de l'inventaire. Il reste 15 clips invalides sur cinq unités. Couverture vérifiée actuelle : 128 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_raider_14_armored_queen residual DONE: idle, cover and hit use six authentic 8x1 rows after cyan extraction and reviewed cleanup; thorn crown, skull mask, red hair, chain whip, asymmetric armor and true rear facings preserved; 112 frames; focused audit clean; Python 26 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and six captures. Three repaired actions inspected. Verified coverage 129 / 233.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : réparer attente, couverture et mort de `enemy_raider_15_skull_helm_heavy`, puis poursuivre les trois autres raiders de l'inventaire. Il reste 12 clips invalides sur quatre unités. Couverture vérifiée actuelle : 129 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

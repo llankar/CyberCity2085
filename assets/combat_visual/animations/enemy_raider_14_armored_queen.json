@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_14_armored_queen.png",
-  "texture_sha256": "06590d7d1bf112435369bd67c3fdbea1d99fd4ed38394b3a87bcac42414d100f",
+  "texture_sha256": "d514bd65582486812f7f93aaad51d7042ce53a63b316394f484092e3a36f70a3",
   "frame_size": [
     256,
     256
@@ -261,19 +261,17 @@
   "source_sha256": "8d1336d1a20dd2ea67784ca04dbfb21777fda5a71d4bc61bf1f5af532844bbaf",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/idle-action_columns-0.png",
-      "sha256": "02eb6d590bd37710e56b6597c3b88143234fffa15c6c3d4915afc4e2200e1af6",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/idle-single_row_pair-0.png",
+      "sha256": "a91eff5e5bcdda54d180f336cd21e1b522c64cebf9337989ec44f18d7138800d",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/idle-single_row_pair-0-follow-through.png",
+        "sha256": "8508ef17e9f38a08fee133db6b624ca9156a5013bf433ac4d0c3125b25f0c0d8"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/move-single_row_walk-1.png",
@@ -326,34 +324,30 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/cover-action_columns-3.png",
-      "sha256": "a2946c8ab8e80eef34cd65c7c89c1db10929de62be1cc3f4397925d8c966b656",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/cover-single_row_pair-3.png",
+      "sha256": "9287ec28d6c52e2051290ad026555910cdb1181bda42826af5a88e23235758d3",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/cover-single_row_pair-3-follow-through.png",
+        "sha256": "75bc69df2930e9d419bb2fd55c3d105a63a52ad29eb5f9f4fa6e236d0aee0a9d"
+      },
+      "edge_erosion": 1
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/hit-action_columns-4.png",
-      "sha256": "d865162591a9a5148ef346162e76e1523672e69181dcd224a5b02d4d39b2de67",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/hit-single_row_pair-4.png",
+      "sha256": "47004349afc848af5b9fc520cdc2056dbfdd371fceb58ff3fe6ce0515a1b7f45",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/hit-single_row_pair-4-follow-through.png",
+        "sha256": "b328acd36bea564aab127823e76c209f851231fc2e900d300e7f28e99d498304"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_14_armored_queen/death-single_row_pair-5.png",
@@ -391,5 +385,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "native_render_verified_complete"
 }
