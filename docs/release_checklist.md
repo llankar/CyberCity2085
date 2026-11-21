@@ -20,6 +20,8 @@ The retrofit goal remains active; no desktop control was used for the new checks
 
 Latest local Windows build: `dist/windows-runtime-06377fd/CyberCity2085/CyberCity2085.exe`. Production build 06377fd bundles the allied VTOL atlas and the corrected financial debrief. The bundled Godot passed the native Dust Road VTOL fixture, headless startup and save reload. The source Arcade build with bundled Godot completed an unforced 720p victory on data_theft_d1_s2: mission funds +75, corporate balance +113, promotions, HQ return, save reload and duplicate reward rejection. A graphical campaign run on this production build remains open.
 
+Current E-isolated candidate: `E:/CyberCity2085-builds/cybercity-build-0d0d402a7cbb4e129d003357b77412d8/dist/CyberCity2085/CyberCity2085.exe`. The complete gate passed 1,164 tests, skipped 35 platform-inapplicable tests and passed 14 subtests. The packaged headless smoke passed with bundled Godot 4.7.2, 122 maps, 15 story objectives and save round-trip. Native graphical acceptance remains open.
+
 Previous local Windows build: dist/windows-current/CyberCity2085/CyberCity2085.exe. Baseline release gate: 1,145 passed, 35 skipped, 12 subtests passed. The later Windows result-read retry passed 23 targeted tests and was included in the rebuilt production executable. The production executable rejects the QA entry point. Bundled Godot 4.6.3 headless startup and save reload passed. Arcade and bundled Godot each opened a responsive native window from an independent working directory. The integrated graphical playthrough of this build remains open.
 
 Packaging regression: the production executable now includes Arcade 3.3.3 version metadata as a readable file. Nine packaging tests and the packaged headless smoke passed.
