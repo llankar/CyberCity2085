@@ -33,6 +33,7 @@ def test_chroma_key_removes_flat_background_and_unmixes_edge_colour():
     edge = keyed.getpixel((1, 0))
     assert 0 < edge[3] < 255
     assert edge[1] < 32 and edge[2] < 32
+    assert edge[1] <= edge[0] + 32 and edge[2] <= edge[0] + 32
     assert keyed.getpixel((2, 0))[3] > 200
 
 
@@ -42,6 +43,17 @@ def test_chroma_key_removes_flat_background_and_unmixes_edge_colour():
 def test_chroma_key_rejects_invalid_configuration(key, inner, outer):
     with pytest.raises(ValueError):
         apply_chroma_key(Image.new("RGBA", (1, 1)), key, inner, outer)
+
+
+def test_extract_can_preserve_reviewed_disconnected_costume_details():
+    image = Image.new("RGBA", (64, 32))
+    image.paste((80, 60, 40, 255), (2, 4, 9, 28))
+    image.paste((80, 60, 40, 255), (13, 4, 16, 7))
+
+    filtered = importer.extract(image, 0, 0, grid_rows=1)
+    preserved = importer.extract(image, 0, 0, grid_rows=1, clean_components=False)
+
+    assert sum(preserved.getchannel("A").getdata()) > sum(filtered.getchannel("A").getdata())
 
 
 def test_action_rows_pair_poses_by_direction(tmp_path, monkeypatch):

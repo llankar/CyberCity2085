@@ -25,8 +25,14 @@ def apply_chroma_key(image, key, inner=4, outer=255):
         if not alpha:
             pixels.append((0,0,0,0));continue
         fraction=alpha/255
-        clean=tuple(max(0,min(255,round((value-(1-fraction)*backdrop)/fraction)))
-                    for value,backdrop in ((red,kr),(green,kg),(blue,kb)))
+        clean=list(max(0,min(255,round((value-(1-fraction)*backdrop)/fraction)))
+                   for value,backdrop in ((red,kr),(green,kg),(blue,kb)))
+        if alpha < 255:
+            key_channels=[index for index,value in enumerate(key) if value >= 200]
+            other_channels=[index for index,value in enumerate(key) if value <= 55]
+            if key_channels and other_channels:
+                cap=max(clean[index] for index in other_channels)+32
+                for index in key_channels:clean[index]=min(clean[index],cap)
         pixels.append((*clean,alpha))
     result.putdata(pixels)
     return result
@@ -36,7 +42,7 @@ def prepare_source(image,item):
     if key is None:return image
     return apply_chroma_key(image,key,item.get('chroma_inner',4),item.get('chroma_outer',255))
 
-def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4):
+def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4,clean_components=True):
     if type(grid_rows) is not int or grid_rows < 1:
         raise ValueError('grid_rows must be a positive integer')
     frame=image.crop((col*image.width//4,row*image.height//grid_rows,(col+1)*image.width//4,(row+1)*image.height//grid_rows)).convert('RGBA')
@@ -47,7 +53,7 @@ def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4):
     # Generated transparent backdrops can contain low-alpha grey haze. Keep
     # opaque anatomy, real antialiasing and connected details, not the backdrop.
     frame.putalpha(frame.getchannel('A').point(lambda a:max(0,min(255,round((a-160)*255/95)))))
-    frame=clean_alpha(frame)
+    if clean_components:frame=clean_alpha(frame)
     if edge_erosion:
         frame.putalpha(frame.getchannel('A').filter(ImageFilter.MinFilter(2 * edge_erosion + 1)))
     bounds=frame.getchannel('A').getbbox()
@@ -126,6 +132,7 @@ def build(key,config):
             order = sheet_directions(item, len(poses), offset) if 'direction_indices' in item else [row + offset for row in poses]
             source_row_offset = item.get('source_row_offset', 0)
             grid_rows = item.get('grid_rows', 4)
+            clean_components = not item.get('keep_disconnected_details', False)
             if (type(source_row_offset) is not int or source_row_offset < 0
                     or type(grid_rows) is not int or grid_rows < 1
                     or source_row_offset + max(poses) >= grid_rows):
@@ -135,9 +142,9 @@ def build(key,config):
                 source_row = row + source_row_offset
                 erosion = item.get('edge_erosion', 0)
                 if item.get('transpose', False):
-                    directions[direction]=normalise([extract(image,col,source_row,edge_erosion=erosion,grid_rows=grid_rows) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,col,source_row,edge_erosion=erosion,grid_rows=grid_rows,clean_components=clean_components) for col in range(4)], pose_height)
                 else:
-                    directions[direction]=normalise([extract(image,source_row,col,edge_erosion=erosion,grid_rows=grid_rows) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,source_row,col,edge_erosion=erosion,grid_rows=grid_rows,clean_components=clean_components) for col in range(4)], pose_height)
         elif layout in ['idle_pairs','action_pairs']:
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -237,6 +244,8 @@ def build(key,config):
             provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
         if layout in ('front','rear') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
+        if layout in ('front','rear') and item.get('keep_disconnected_details'):
+            provenance[-1]['keep_disconnected_details']=True
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
                 'file': follow_dest.relative_to(ROOT).as_posix(), 'sha256': digest(follow_source)
