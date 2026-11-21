@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_16_twin_cannon.png",
-  "texture_sha256": "cf7f635319d93a836c26193bc290cf3310d9e91b8a548100b2ef9c9433539eec",
+  "texture_sha256": "ff320e8f71ab34828e4911830d74df294cdc7999e2f4e478d279d41830483f1e",
   "frame_size": [
     256,
     256
@@ -324,25 +324,37 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/melee-action_columns-3.png",
-      "sha256": "219948dab43006e0b3ea6c1d66ce1dc06dbead6bbb546192169db3dc3e76875d",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/melee-single_row_pair-3.png",
+      "sha256": "ad598096fcce4ca4a4c633b9c75592f81d13f4c2b91973aab30b1398d9c3b6f7",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/melee-single_row_pair-3-follow-through.png",
+        "sha256": "9ea3f61ba4940d38694d8b85f694d5894536d429b4f98aa4b6c775ec3b6d26f5"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/cover-action_columns-4.png",
-      "sha256": "e60de92f29d7fee48cc0c993f6fd90b8df4553ec779321db5654b3f3f5a6a862",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/cover-single_row_pair-4.png",
+      "sha256": "62d1d43a74734afd288b973bdf8ce8591f0a7c7a49529b52495eaab6021730c1",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/cover-single_row_pair-4-follow-through.png",
+        "sha256": "419d51ead1bbdc548718666099afec90c2941f4c7d9f6380007ecfa2eae09b36"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/hit-action_columns-5.png",
-      "sha256": "a5cd61ffda70ef62316ba7d3d33996a135559fcf23fa2c45a07338af5484654f",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/hit-single_row_pair-5.png",
+      "sha256": "591a23685112654effe161574084a9e106b6cdd64303188c610b3bad47b8d368",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/hit-single_row_pair-5-follow-through.png",
+        "sha256": "cdde40e11d964bbee6df7f06c3eff98dca0b21a8f79ff6607a6f1545e0ee1ebc"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_16_twin_cannon/death-action_columns-6.png",
@@ -367,5 +379,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }

@@ -81,3 +81,21 @@ def test_reviewed_small_component_cleanup_removes_detached_speck():
     output = repack.repack_row(row, clean_small_components=True)
     baseline = repack.repack_row(_row(), clean_small_components=True)
     assert output.tobytes() == baseline.tobytes()
+
+
+def test_2d_component_fallback_handles_overlapping_x_projections():
+    row = Image.new("RGBA", (400, 100))
+    draw = ImageDraw.Draw(row)
+    for index in range(8):
+        left = index * 50 + 5
+        draw.rectangle((left, 10, left + 39, 39), fill=(80, 90, 100, 255))
+        draw.rectangle((left + 10, 60, left + 49, 89), fill=(80, 90, 100, 255))
+        draw.rectangle((left + 20, 35, left + 29, 64), fill=(80, 90, 100, 255))
+    output = repack.repack_row(row)
+    assert output.width % 8 == 0
+    assert all(
+        output.crop((index * output.width // 8, 0, (index + 1) * output.width // 8, output.height))
+        .getchannel("A")
+        .getbbox()
+        for index in range(8)
+    )

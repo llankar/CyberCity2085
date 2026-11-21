@@ -5,9 +5,10 @@ row contains exactly eight substantial silhouettes at an alpha threshold.
 """
 
 import argparse
+from collections import deque
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageChops, ImageFilter
 
 from import_artist_variants import clean_alpha
 
@@ -40,6 +41,48 @@ def find_eight_runs(row: Image.Image, min_width: int = 20) -> tuple[list[tuple[i
     raise ValueError("expected exactly 8 substantial silhouettes (" + ", ".join(diagnostics) + ")")
 
 
+def _eight_component_sprites(row: Image.Image, threshold: int = 16) -> list[Image.Image]:
+    alpha = row.getchannel("A")
+    pixels = alpha.load()
+    seen = set()
+    components = []
+    for y in range(alpha.height):
+        for x in range(alpha.width):
+            if (x, y) in seen or pixels[x, y] < threshold:
+                continue
+            queue = deque([(x, y)])
+            seen.add((x, y))
+            points = []
+            while queue:
+                px, py = queue.popleft()
+                points.append((px, py))
+                for nx, ny in ((px - 1, py), (px + 1, py), (px, py - 1), (px, py + 1)):
+                    if (
+                        0 <= nx < alpha.width
+                        and 0 <= ny < alpha.height
+                        and (nx, ny) not in seen
+                        and pixels[nx, ny] >= threshold
+                    ):
+                        seen.add((nx, ny))
+                        queue.append((nx, ny))
+            if len(points) >= 64:
+                components.append(points)
+    if len(components) != 8:
+        raise ValueError(f"expected exactly 8 substantial 2D components, found {len(components)}")
+
+    sprites = []
+    for points in sorted(components, key=lambda item: sum(x for x, _y in item) / len(item)):
+        mask = Image.new("L", row.size)
+        target = mask.load()
+        for x, y in points:
+            target[x, y] = 255
+        mask = mask.filter(ImageFilter.MaxFilter(5))
+        sprite = row.copy()
+        sprite.putalpha(ImageChops.multiply(alpha, mask))
+        sprites.append(sprite.crop(sprite.getchannel("A").getbbox()))
+    return sprites
+
+
 def repack_row(
     row: Image.Image,
     min_width: int = 20,
@@ -48,22 +91,28 @@ def repack_row(
     clean_small_components: bool = False,
 ) -> Image.Image:
     row = row.convert("RGBA")
-    runs, _threshold = find_eight_runs(row, min_width=min_width)
-    boundaries = [0]
-    boundaries.extend((runs[index][1] + runs[index + 1][0]) // 2 for index in range(7))
-    boundaries.append(row.width)
+    try:
+        runs, _threshold = find_eight_runs(row, min_width=min_width)
+    except ValueError as run_error:
+        try:
+            sprites = _eight_component_sprites(row)
+        except ValueError as component_error:
+            raise ValueError(f"{run_error}; {component_error}") from component_error
+    else:
+        boundaries = [0]
+        boundaries.extend((runs[index][1] + runs[index + 1][0]) // 2 for index in range(7))
+        boundaries.append(row.width)
+        sprites = []
+        for index in range(8):
+            partition = row.crop((boundaries[index], 0, boundaries[index + 1], row.height))
+            bounds = partition.getchannel("A").getbbox()
+            if bounds is None:
+                raise ValueError(f"silhouette {index} has no source alpha")
+            sprites.append(partition.crop(bounds))
 
-    sprites = []
-    for index in range(8):
-        partition = row.crop((boundaries[index], 0, boundaries[index + 1], row.height))
-        bounds = partition.getchannel("A").getbbox()
-        if bounds is None:
-            raise ValueError(f"silhouette {index} has no source alpha")
-        sprite = partition.crop(bounds)
-        if clean_small_components:
-            sprite = clean_alpha(sprite)
-            sprite = sprite.crop(sprite.getchannel("A").getbbox())
-        sprites.append(sprite)
+    if clean_small_components:
+        sprites = [clean_alpha(sprite) for sprite in sprites]
+        sprites = [sprite.crop(sprite.getchannel("A").getbbox()) for sprite in sprites]
 
     cell_width = max(sprite.width for sprite in sprites) + padding
     height = max(sprite.height for sprite in sprites) + 2 * margin
