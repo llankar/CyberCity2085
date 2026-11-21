@@ -261,19 +261,17 @@
   "source_sha256": "9a66b70bea00058f56d8f58e30ab21b308639578c53f02a802a91e7e074eb475",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/idle-action_columns-0.png",
-      "sha256": "b4bff688eccdb5935e721489b3d65a668e39cf3cbf978ad60894c6777f1e603f",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/idle-single_row_pair-0.png",
+      "sha256": "3c6e148ac2f39e44cebb277dc56d1a238948c6673a2679a56fdd5d6053727fa5",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/idle-single_row_pair-0-follow-through.png",
+        "sha256": "f22095ec538233b84e889492c302ad659f3f5328bbed0c2157f08703898ee35f"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/move-single_row_walk-1.png",
@@ -326,19 +324,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/cover-action_columns-3.png",
-      "sha256": "53bd98d0bc1d084f8aa55411d299ad02f70ead53d63a900d3d7941b7f934e73a",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/cover-single_row_pair-3.png",
+      "sha256": "644ef9a5d70582cb04bfc6afc345b8716d4099bc2e1ac7ab6ff8f842bdb79f5e",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/cover-single_row_pair-3-follow-through.png",
+        "sha256": "6d9aa0188fbd52e16c7cfe9adbda68c39b58053f440242c8ef7ccce1b686b6c6"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/hit-single_row_pair-4.png",
@@ -361,19 +357,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/death-action_columns-5.png",
-      "sha256": "a6c3125ed80d44f03963b43431ffc6685795177135d5270cf1a356585d0a664e",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/death-single_row_pair-5.png",
+      "sha256": "5e63e90d2b63120a0b383277ab80249cc375f2f269cf31f4571f03c3a2c3ded1",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/death-single_row_pair-5-follow-through.png",
+        "sha256": "9a5a03a596f3a81e2f7668642064b643dd2433c0d71d12fd8d0ed2d604ed4002"
+      },
+      "edge_erosion": 1
     }
   ],
   "required_clips": [
@@ -391,5 +385,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "native_render_verified_complete"
 }
