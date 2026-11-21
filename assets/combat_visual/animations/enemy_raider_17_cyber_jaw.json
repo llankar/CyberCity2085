@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_17_cyber_jaw.png",
-  "texture_sha256": "1b015187dda071c224d38e8678b1e9f52d47ce76dc04ce69daf8b75083e2a21a",
+  "texture_sha256": "834dad5d03da03b2d6cbd14d225f00500068e69948dc66c1dbaa6d28f9dbc2e9",
   "frame_size": [
     256,
     256
@@ -306,12 +306,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/melee-action_columns-2.png",
-      "sha256": "ddb8d910f30e1b01c053f0769152fff1f9c54a32b257396e8869a5122d71dbb0",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/melee-single_row_pair-2.png",
+      "sha256": "29f39cc33b5040f9444cde5102572127c70cc55d774af364e1e3705c4ef22769",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/melee-single_row_pair-2-follow-through.png",
+        "sha256": "4dbb8ac21ececb43b849911e53cd3ca365ea7bf16646af42365c004ab1f48abc"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -336,12 +341,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/hit-action_columns-4.png",
-      "sha256": "058a6f09c3e06a85a6806d3facea1f047261a2facc91155ea116af865c97fecb",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/hit-single_row_pair-4.png",
+      "sha256": "4f4d63e8ccde5a80d986bbb5f4e0e30f52daa248a3d90d8a215d82250ad63f62",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/hit-single_row_pair-4-follow-through.png",
+        "sha256": "32f82eb05a4be006adb6bea1e2942b1483ee9084cc0a2a4a534a4b7ddc77c7f7"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -351,12 +361,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/death-action_columns-5.png",
-      "sha256": "0452a771fb8509af1eda2b33f76a916b96ab0f5049555079bba40c4c0a146457",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/death-single_row_pair-5.png",
+      "sha256": "226b333cb31eba08803a4f0267e9144b48e936cbd1e11095f3cf73f4b3b7a0cf",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_17_cyber_jaw/death-single_row_pair-5-follow-through.png",
+        "sha256": "92e05cecb6c7ca64f05d5f7d7b17d4bc557e70f9496cf2f542b8b29b14833553"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
