@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_06_chain_hook.png",
+  "texture_sha256": "05bc275b971aea7c0d7eae83c4c38276c44072a8adb627d51e846dd782ef84ce",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_06_chain_hook_512.png",
+  "source_sha256": "996e397672d5b39e1db06532a1deca6d3e99b50f0e84d33444a0f0cdba682e92",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/idle-single_row_pair-0.png",
+      "sha256": "b9e5f63b20d735a2d8f329fc37c0e6c7a485d80f09c8ea0ed3ac88318d357b88",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/idle-single_row_pair-0-follow-through.png",
+        "sha256": "db54cfc5735ea0a908d53794afb0e32dfd4698c7c272c8deab70747f51372712"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/move-single_row_walk-1.png",
+      "sha256": "c4a02b610d7a0faeea38e04a0d51895bf951941b2a1379895c62b5870a1f8a04",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/move-single_row_walk-1-phase-1.png",
+          "sha256": "61f366d479a3c5fec4425a53deaee0315f495c16f1d82c98b926454b63df5012"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/move-single_row_walk-1-phase-2.png",
+          "sha256": "a5d2c4aa0990be65c7651e9669e1debd50128dd14ecbe7419f4e597f262bdec0"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/move-single_row_walk-1-phase-3.png",
+          "sha256": "2f8363993435c1fa469b017c600f65b7cc4b34fcba201b2c6b75135251746bb9"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/melee-single_row_pair-2.png",
+      "sha256": "b9e5f63b20d735a2d8f329fc37c0e6c7a485d80f09c8ea0ed3ac88318d357b88",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/melee-single_row_pair-2-follow-through.png",
+        "sha256": "5f77600c354412d4bd24b5b78fda8d9e00617a94b02b2db5e66b10ee2924cb3a"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/cover-single_row_pair-3.png",
+      "sha256": "b9e5f63b20d735a2d8f329fc37c0e6c7a485d80f09c8ea0ed3ac88318d357b88",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/cover-single_row_pair-3-follow-through.png",
+        "sha256": "31bdd09c751a8162e25f0d83cc9875892c1cc921f7894c500641b551c899c232"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/hit-single_row_pair-4.png",
+      "sha256": "b9e5f63b20d735a2d8f329fc37c0e6c7a485d80f09c8ea0ed3ac88318d357b88",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/hit-single_row_pair-4-follow-through.png",
+        "sha256": "455258fd90c21b23f8ff52e84fbc2cc0c9ce89cc4ebbd4fc3e87287a82ec8988"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/death-single_row_pair-5.png",
+      "sha256": "455258fd90c21b23f8ff52e84fbc2cc0c9ce89cc4ebbd4fc3e87287a82ec8988",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_06_chain_hook/death-single_row_pair-5-follow-through.png",
+        "sha256": "4cbcf3aa9506848b5f73977a812167d084aaf9555170454b25c22b41dc0e93fd"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The chain hook raider has no ranged firearm or projectile action.",
+    "psi": "The chain hook raider has no psychic action.",
+    "heal": "The chain hook raider has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
