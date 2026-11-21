@@ -1791,7 +1791,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-LAYOUT-CORRECTION : réparer fire, melee, hit et death de `enemy_raider_12_explosive_thrower` avec des paires 8×1 contenues, puis importer et valider uniquement cette unité. Poursuivre ensuite les 20 autres unités affectées. Couverture vérifiée actuelle : 103 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : les paires fire et melee 8×1 de `enemy_raider_12_explosive_thrower` sont acceptées sur E:. Produire hit et death lead/follow, puis importer et valider uniquement cette unité. Poursuivre ensuite les 20 autres unités affectées. Couverture vérifiée actuelle : 103 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
