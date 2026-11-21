@@ -25,6 +25,7 @@ KEYS.insert(-1,'enemy_mutant_05_irradiated_medic')
 KEYS.insert(-1,'enemy_mutant_06_pit_fighter')
 KEYS.insert(-1,'enemy_mutant_07_sewer_veil')
 KEYS.insert(-1,'enemy_mutant_08_crystal_growth')
+KEYS.insert(-1,'enemy_mutant_09_toxin_carrier')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 

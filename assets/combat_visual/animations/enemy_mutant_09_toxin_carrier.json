@@ -1,0 +1,412 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_09_toxin_carrier.png",
+  "texture_sha256": "5679512c4db6ba790fb1c3e6b663e96f978cb68d62ebc0633c4a60253b9699a9",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_09_toxin_carrier_512.png",
+  "source_sha256": "538fa95310518e2fa8ea983ab825df5ab3b26ba2e1cf11c79450ff645129c697",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/idle-single_row_pair-0.png",
+      "sha256": "b685e820d5447f2974698a3f05dcd8cadf88bca27ec589e8706f94879f435d1e",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/idle-single_row_pair-0-follow-through.png",
+        "sha256": "44eaf186a3dcc4158b748f96026ff5f1c086e9d22c9dfc58bd7db79b003f5c50"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/move-single_row_walk-1.png",
+      "sha256": "4c46acbdcf4fe43605dd0d5d281d95e9df100e329ecc8ac6119033ca577e5118",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/move-single_row_walk-1-phase-1.png",
+          "sha256": "a074f0d6f001a79db4ff71662ee68e5e1cfde9d5dae56fc914af7174afa3f2a2"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/move-single_row_walk-1-phase-2.png",
+          "sha256": "a38f644741e365c08766e59a3701748054a0bf05fec077f46149c56f9cda875b"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/move-single_row_walk-1-phase-3.png",
+          "sha256": "0531d93552364ecf15c2ee08671a440c5017e39c803754e85652104e126325f5"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/fire-single_row_pair-2.png",
+      "sha256": "b685e820d5447f2974698a3f05dcd8cadf88bca27ec589e8706f94879f435d1e",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/fire-single_row_pair-2-follow-through.png",
+        "sha256": "b089c8dd9d0d7a031f8c8a95b446715cb0330bc1bd02ede24036745c2523a5b6"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/melee-single_row_pair-3.png",
+      "sha256": "b685e820d5447f2974698a3f05dcd8cadf88bca27ec589e8706f94879f435d1e",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/melee-single_row_pair-3-follow-through.png",
+        "sha256": "f64749fa91f69dd5768df025a9e8cd746163a5ac3b5112370e804df77fddfb23"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/cover-single_row_pair-4.png",
+      "sha256": "b685e820d5447f2974698a3f05dcd8cadf88bca27ec589e8706f94879f435d1e",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/cover-single_row_pair-4-follow-through.png",
+        "sha256": "d14ba167a40b96f1328e7869478735b6f5d68a4a941d4a548fc33b7c7c0a9f03"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/hit-single_row_pair-5.png",
+      "sha256": "b685e820d5447f2974698a3f05dcd8cadf88bca27ec589e8706f94879f435d1e",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/hit-single_row_pair-5-follow-through.png",
+        "sha256": "3119d578d9083ed0855ec375bff1e994c3373a4bf99cb72e86795f93d332846f"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/death-single_row_pair-6.png",
+      "sha256": "3119d578d9083ed0855ec375bff1e994c3373a4bf99cb72e86795f93d332846f",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_09_toxin_carrier/death-single_row_pair-6-follow-through.png",
+        "sha256": "47457db65689b18e4e954e37e041f4f8cf657fc327aaa8892537c16e829e7140"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The toxin carrier has no psionic action.",
+    "heal": "The toxin carrier has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
