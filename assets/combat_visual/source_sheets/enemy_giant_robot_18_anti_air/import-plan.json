@@ -1,12 +1,12 @@
 {
   "enemy_giant_robot_18_anti_air": {
     "clips": [
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-direction-columns.png", "clip": "idle", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-repair-follow.png", "clip": "idle", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns"},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-direction-columns.png", "clip": "fire", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-repair-follow.png", "clip": "fire", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/melee-direction-columns.png", "clip": "melee", "layout": "action_columns"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184},
-      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-direction-columns.png", "clip": "hit", "layout": "action_columns"},
+      {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-repair-lead.png", "follow_through_path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-repair-follow.png", "clip": "hit", "layout": "single_row_pair"},
       {"path": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 216}
     ],
     "applicable_clips": ["idle", "move", "fire", "melee", "cover", "hit", "death"],

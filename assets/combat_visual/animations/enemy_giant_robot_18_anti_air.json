@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_18_anti_air.png",
-  "texture_sha256": "95c73f1e5471ebbc1bba3939296c7472e685837429b5266ea4d7e83a4e8bd71c",
+  "texture_sha256": "b689486254a82e5205c1a8e5e096342a3d3dda4821151557f9281ba3a65b0e1c",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "9c6d49f2e39ea7a0c3330a18a0b28b10a6daa74f1e132f2b6c2ae7949f41503f",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-action_columns-0.png",
-      "sha256": "b1914bf43b546e848e78cabd49e6483b06363634c29f6d24646c798790d91b54",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-single_row_pair-0.png",
+      "sha256": "34de7300b8ae1fc5f26f193d441fdbf7f5e1c792c8de84e775c696bfe2c3703a",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/idle-single_row_pair-0-follow-through.png",
+        "sha256": "6d5277f356936d690fa05435116bba3549c2a85caa59491fce7bfdf310334fc6"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/move-walk_columns-1.png",
@@ -317,11 +321,15 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-action_columns-2.png",
-      "sha256": "cbcddba4d55ac44dee5b5dd6d85f7544812d33177f5a14127e14dba8ee3091ab",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-single_row_pair-2.png",
+      "sha256": "0679bb2b9b979a07380b5adea377ba4c4467e9f464d4dd9f724209a4f15a0f62",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/fire-single_row_pair-2-follow-through.png",
+        "sha256": "e1eb6891d9ca5064a2b3dc1d8637680e75d907c28769359a26a2e469f52a93ff"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/melee-action_columns-3.png",
@@ -338,11 +346,15 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-action_columns-5.png",
-      "sha256": "bacf8052ff81692987f1902e985af40226b7d2d94535cb5160b7b45ad4f1cdde",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-single_row_pair-5.png",
+      "sha256": "e5ff0b4f622c422804ad060e3c168cc5e091075d37ba7e84d79875823cdf10d7",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/hit-single_row_pair-5-follow-through.png",
+        "sha256": "9edf70992c50e5ec3ec881f300d87e39a41fba665a61c8f9ad77f7b97796c847"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_18_anti_air/death-action_columns-6.png",
@@ -367,5 +379,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }

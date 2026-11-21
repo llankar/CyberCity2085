@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_17_blade_hunter DONE: idle, fire, melee and hit use eight authentic complete 8x1 rows; twin blades, antennas, front red optic, blue lights and true rear facings preserved; blue charge remains attached to blades; 128 frames; focused audit clean; Python 25 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Four repaired actions inspected. Verified coverage 121 / 233.",
-  "next_action": "ANIM-LAYOUT-CORRECTION : diagnostiquer puis réparer uniquement les clips invalides de `enemy_giant_robot_18_anti_air` avec `repack_directional_rows.py`; conserver le rejet strict si ni huit runs horizontaux ni huit composantes 2D substantielles ne sont trouvés. Poursuivre ensuite le dernier robot géant affecté. Couverture vérifiée actuelle : 121 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_18_anti_air DONE: idle, fire and hit use six authentic complete 8x1 rows; four red-tipped dorsal missiles, right cannon, cyan optics and true rear facings preserved; missiles remain attached during fire; 128 frames; focused audit clean; Python 25 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Three repaired actions inspected. Verified coverage 122 / 233.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : diagnostiquer puis réparer uniquement les clips invalides de `enemy_giant_robot_19_mining_combat` avec `repack_directional_rows.py`; conserver le rejet strict si ni huit runs horizontaux ni huit composantes 2D substantielles ne sont trouvés. Il s'agit du dernier robot géant affecté de ce lot. Couverture vérifiée actuelle : 122 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
