@@ -1,0 +1,412 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_08_crystal_growth.png",
+  "texture_sha256": "34f03a24481e16f884533ab825f7e392db1e3f8e4afb0ce6af29fa1455f28a54",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_08_crystal_growth_512.png",
+  "source_sha256": "6496e215709393ba786d218e8f44f8d8dea4fa468c224b8ad42cdb122d6b76e7",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/idle-single_row_pair-0.png",
+      "sha256": "90f5e2760d56e5eef05a864c371450858d351d7203269b05951e79ac971e9260",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/idle-single_row_pair-0-follow-through.png",
+        "sha256": "2047dfc33cce3b77e5ed92bffd15988c2dba10fc652feb802405defbcf798d4b"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/move-single_row_walk-1.png",
+      "sha256": "285e661484a430df48d8cbf66c18cb5edd7312f767f18ffff49012f7da3475ec",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/move-single_row_walk-1-phase-1.png",
+          "sha256": "f3f1713d6caee9d3003cd55ccd78a6b64c6e773599ca4288213231e9577d4f57"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/move-single_row_walk-1-phase-2.png",
+          "sha256": "64a96ba7d1ff3fd00fa84b6b6d676a48f013688c547b020411796f90e8b8e195"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/move-single_row_walk-1-phase-3.png",
+          "sha256": "28c44a921947fbd86f33a69700fbf04b8605f07f31d1511d20268b16c3da14af"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/fire-single_row_pair-2.png",
+      "sha256": "90f5e2760d56e5eef05a864c371450858d351d7203269b05951e79ac971e9260",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/fire-single_row_pair-2-follow-through.png",
+        "sha256": "90bb3e6c9ede7a35130fc3c3f9e283501ad748886b360909abd7e64255a9a10f"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/melee-single_row_pair-3.png",
+      "sha256": "90f5e2760d56e5eef05a864c371450858d351d7203269b05951e79ac971e9260",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/melee-single_row_pair-3-follow-through.png",
+        "sha256": "6b8562aaf7ebafe4ccc100a8050288cd9b4944e986e1953b590eb6d3ed9f8e42"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/cover-single_row_pair-4.png",
+      "sha256": "90f5e2760d56e5eef05a864c371450858d351d7203269b05951e79ac971e9260",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/cover-single_row_pair-4-follow-through.png",
+        "sha256": "b58a797f4228b00a029011eb4e6e93b7bb80b8471a67aa606f8ebdc3e590cf74"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/hit-single_row_pair-5.png",
+      "sha256": "90f5e2760d56e5eef05a864c371450858d351d7203269b05951e79ac971e9260",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/hit-single_row_pair-5-follow-through.png",
+        "sha256": "7722b19b53fef0c0930cc274347e2c06da1cc1ed87de4cf73042149ac44c1867"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/death-single_row_pair-6.png",
+      "sha256": "7722b19b53fef0c0930cc274347e2c06da1cc1ed87de4cf73042149ac44c1867",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_08_crystal_growth/death-single_row_pair-6-follow-through.png",
+        "sha256": "401a2850f1f1ff418f191500d1d4f978f5e345bb6ef6972ead80c0926116486f"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The crystal growth has no psionic action.",
+    "heal": "The crystal growth has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
