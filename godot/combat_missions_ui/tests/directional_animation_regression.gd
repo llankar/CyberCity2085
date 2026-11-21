@@ -36,6 +36,7 @@ func run() -> void:
 	keys.append("enemy_mutant_09_toxin_carrier")
 	keys.append("enemy_mutant_10_bone_blade")
 	keys.append("enemy_mutant_11_cyber_graft")
+	keys.append("enemy_mutant_12_plague_monk")
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":
@@ -84,7 +85,7 @@ func run() -> void:
 				for direction in range(8):
 					unit.facing=direction;assert(unit.play_action(action));unit.frame_time=0.2;unit._process(0.0)
 					assert(unit.frame_index==1,action+" follow-through frame must be selected")
-		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege", "enemy_giant_robot_03_missile_artillery", "enemy_giant_robot_04_riot_walker", "enemy_giant_robot_05_railgun_sniper", "enemy_giant_robot_06_flame_unit", "enemy_giant_robot_07_drone_carrier", "enemy_giant_robot_08_claw_demolisher", "enemy_giant_robot_09_spider_tank", "enemy_giant_robot_10_pacification_titan", "enemy_giant_robot_11_samurai_warbot", "enemy_giant_robot_12_corp_security", "enemy_giant_robot_13_salvage_warbot", "enemy_giant_robot_14_killer_medic", "enemy_giant_robot_15_stealth_mech", "enemy_giant_robot_16_twin_cannon", "enemy_giant_robot_17_blade_hunter", "enemy_giant_robot_18_anti_air", "enemy_giant_robot_19_mining_combat", "enemy_giant_robot_20_command_titan", "enemy_mutant_01_hulk", "enemy_mutant_02_spine_stalker", "enemy_mutant_03_acid_psychic", "enemy_mutant_04_four_arm_brawler", "enemy_mutant_05_irradiated_medic", "enemy_mutant_06_pit_fighter", "enemy_mutant_07_sewer_veil", "enemy_mutant_08_crystal_growth", "enemy_mutant_09_toxin_carrier", "enemy_mutant_10_bone_blade", "enemy_mutant_11_cyber_graft"] and unit.manifest.animations.has("death"):
+		if key in ["robot_support", "power_armor_heavy", "power_armor", "enemy_giant_robot_02_quadruped_siege", "enemy_giant_robot_03_missile_artillery", "enemy_giant_robot_04_riot_walker", "enemy_giant_robot_05_railgun_sniper", "enemy_giant_robot_06_flame_unit", "enemy_giant_robot_07_drone_carrier", "enemy_giant_robot_08_claw_demolisher", "enemy_giant_robot_09_spider_tank", "enemy_giant_robot_10_pacification_titan", "enemy_giant_robot_11_samurai_warbot", "enemy_giant_robot_12_corp_security", "enemy_giant_robot_13_salvage_warbot", "enemy_giant_robot_14_killer_medic", "enemy_giant_robot_15_stealth_mech", "enemy_giant_robot_16_twin_cannon", "enemy_giant_robot_17_blade_hunter", "enemy_giant_robot_18_anti_air", "enemy_giant_robot_19_mining_combat", "enemy_giant_robot_20_command_titan", "enemy_mutant_01_hulk", "enemy_mutant_02_spine_stalker", "enemy_mutant_03_acid_psychic", "enemy_mutant_04_four_arm_brawler", "enemy_mutant_05_irradiated_medic", "enemy_mutant_06_pit_fighter", "enemy_mutant_07_sewer_veil", "enemy_mutant_08_crystal_growth", "enemy_mutant_09_toxin_carrier", "enemy_mutant_10_bone_blade", "enemy_mutant_11_cyber_graft", "enemy_mutant_12_plague_monk"] and unit.manifest.animations.has("death"):
 			unit.unit_data["hp"] = 0
 			for direction in range(8):
 				unit.facing = direction
