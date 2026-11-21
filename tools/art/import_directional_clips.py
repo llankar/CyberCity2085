@@ -150,6 +150,19 @@ def build(key,config):
                     extract_grid(image,0,source_col,8,2,erosion),
                     extract_grid(image,1,source_col,8,2,erosion),
                 ],pose_height)
+        elif layout == 'single_row_pair':
+            follow_source=Path(item['follow_through_path'])
+            follow_dest=directory/(Path(name).stem+'-follow-through.png')
+            if follow_source.resolve()!=follow_dest.resolve():
+                shutil.copyfile(follow_source,follow_dest)
+            follow_through=Image.open(follow_source).convert('RGBA')
+            order=sheet_directions(item,8)
+            erosion=item.get('edge_erosion',0)
+            for source_col,direction in enumerate(order):
+                directions[direction]=normalise([
+                    extract_grid(image,0,source_col,8,1,erosion),
+                    extract_grid(follow_through,0,source_col,8,1,erosion),
+                ],pose_height)
         elif layout == 'walk_columns':
             intermediate_source=Path(item['intermediate_path'])
             intermediate_dest=directory/(Path(name).stem+'-intermediate.png')
@@ -163,6 +176,24 @@ def build(key,config):
                     extract_grid(intermediate,0,source_col,8,2),
                     extract_grid(image,1,source_col,8,2),
                     extract_grid(intermediate,1,source_col,8,2),
+                ],pose_height)
+        elif layout == 'single_row_walk':
+            phase_sources=[Path(path) for path in item.get('phase_paths',[])]
+            if len(phase_sources)!=3:
+                raise ValueError('single_row_walk requires exactly three phase_paths after the lead path')
+            phase_images=[image]
+            phase_files=[]
+            for phase_index,phase_source in enumerate(phase_sources,1):
+                phase_dest=directory/(Path(name).stem+f'-phase-{phase_index}.png')
+                if phase_source.resolve()!=phase_dest.resolve():
+                    shutil.copyfile(phase_source,phase_dest)
+                phase_images.append(Image.open(phase_source).convert('RGBA'))
+                phase_files.append((phase_source,phase_dest))
+            order=sheet_directions(item,8)
+            erosion=item.get('edge_erosion',0)
+            for source_col,direction in enumerate(order):
+                directions[direction]=normalise([
+                    extract_grid(phase,0,source_col,8,1,erosion) for phase in phase_images
                 ],pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
@@ -188,6 +219,18 @@ def build(key,config):
                 'file':intermediate_dest.relative_to(ROOT).as_posix(),
                 'sha256':digest(intermediate_source),
             }
+        if layout == 'single_row_pair':
+            provenance[-1]['follow_through']={
+                'file':follow_dest.relative_to(ROOT).as_posix(),
+                'sha256':digest(follow_source),
+            }
+        if layout == 'single_row_walk':
+            provenance[-1]['phases']=[{
+                'file':phase_dest.relative_to(ROOT).as_posix(),
+                'sha256':digest(phase_source),
+            } for phase_source,phase_dest in phase_files]
+        if layout in ('single_row_pair','single_row_walk') and item.get('edge_erosion'):
+            provenance[-1]['edge_erosion']=item['edge_erosion']
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:

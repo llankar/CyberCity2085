@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_02_spine_stalker.png",
+  "texture_sha256": "bdd6c82acde1e1b9bd06fddedf20ef4bebeaf59350b10df9d1a1f597ab36f6ec",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_02_spine_stalker_512.png",
+  "source_sha256": "a0b97dedb5c3d6b003e200b0987b75504ebba89360c8572d563331688f075423",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/idle-single_row_pair-0.png",
+      "sha256": "d180d0055e2ecef4ae80bc1e66ec9cf0bdaa225eb81d3e1291a5be86a0437aea",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/idle-single_row_pair-0-follow-through.png",
+        "sha256": "05108fff5f205a9e11962044d7aacb8fc906f45e9d348004243ec4a405b2551d"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/move-single_row_walk-1.png",
+      "sha256": "4c7177361efe06213f0bb5334672684e04497ff27e869eae7adc4d0359c326e6",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/move-single_row_walk-1-phase-1.png",
+          "sha256": "9f41a7f83d0a54f89c41e99f3830d6b5a6daaf6d86fe1f01458612f225328013"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/move-single_row_walk-1-phase-2.png",
+          "sha256": "05ddad020b7802287777171803d3d20cb7b747a23ad1cdf180ebaabe9a06909e"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/move-single_row_walk-1-phase-3.png",
+          "sha256": "ac9950ac87de1ce0568761c5a72436ad6a5f6730ebcfb79b504db5b8727e2b5b"
+        }
+      ],
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/melee-single_row_pair-2.png",
+      "sha256": "08f86cb1961053076787d11fc174aa10c3c0c6b2bc7e9f7ef6c9a28a1e32ecb8",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/melee-single_row_pair-2-follow-through.png",
+        "sha256": "1956a158f57b3353b5e3431737bf93a87dcb40d34d0594959b21eb3a8fc7aab2"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/cover-single_row_pair-3.png",
+      "sha256": "d180d0055e2ecef4ae80bc1e66ec9cf0bdaa225eb81d3e1291a5be86a0437aea",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/cover-single_row_pair-3-follow-through.png",
+        "sha256": "08f86cb1961053076787d11fc174aa10c3c0c6b2bc7e9f7ef6c9a28a1e32ecb8"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/hit-single_row_pair-4.png",
+      "sha256": "d180d0055e2ecef4ae80bc1e66ec9cf0bdaa225eb81d3e1291a5be86a0437aea",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/hit-single_row_pair-4-follow-through.png",
+        "sha256": "69886657879172a151e13e3fffd0d1c35ec9dd56a890d2617a0bcf8297738a3e"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/death-single_row_pair-5.png",
+      "sha256": "69886657879172a151e13e3fffd0d1c35ec9dd56a890d2617a0bcf8297738a3e",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_02_spine_stalker/death-single_row_pair-5-follow-through.png",
+        "sha256": "2c154282e3265fbe1754fbb0f0c828fba10526573b36a6c39a7221de1b3645cb"
+      },
+      "edge_erosion": 2
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The unarmed spine stalker has no ranged attack.",
+    "psi": "The spine stalker has no psionic action.",
+    "heal": "The spine stalker has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}

@@ -18,6 +18,7 @@ KEYS.insert(-1,'enemy_giant_robot_18_anti_air')
 KEYS.insert(-1,'enemy_giant_robot_19_mining_combat')
 KEYS.insert(-1,'enemy_giant_robot_20_command_titan')
 KEYS.insert(-1,'enemy_mutant_01_hulk')
+KEYS.insert(-1,'enemy_mutant_02_spine_stalker')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
@@ -48,7 +49,7 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
                 expected_required.update({'fire','psi'});expected_exempt={'heal'}
             elif key=='enemy_giant_robot_14_killer_medic':
                 expected_required.update({'fire','heal'});expected_exempt={'psi'}
-            elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept','enemy_mutant_01_hulk'}:
+            elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept','enemy_mutant_01_hulk','enemy_mutant_02_spine_stalker'}:
                 expected_required.add('fire');expected_exempt={'psi','heal'}
             assert set(data['required_clips'])==expected_required
             assert set(data['non_applicable_clips'])==expected_exempt

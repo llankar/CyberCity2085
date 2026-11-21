@@ -82,3 +82,42 @@ def test_direction_columns_preserve_action_pairs_and_four_phase_walk(tmp_path, m
     assert idle == [[20 + direction, 28 + direction] for direction in range(8)]
     assert move == [[40 + direction, 60 + direction, 48 + direction, 68 + direction]
                     for direction in range(8)]
+
+
+def test_single_rows_pair_complete_sprites_without_vertical_slicing(tmp_path, monkeypatch):
+    monkeypatch.setattr(importer, "ROOT", tmp_path)
+    original = tmp_path / "assets/units/stalker_512.png"
+    original.parent.mkdir(parents=True)
+    original.write_bytes(b"identity")
+
+    def sheet(path, offset):
+        image = Image.new("RGBA", (128, 16))
+        for col in range(8):
+            image.paste((offset + col, 60, 100, 255),
+                        (col * 16 + 4, 2, col * 16 + 12, 14))
+        image.save(path)
+
+    phases = [tmp_path / f"phase-{index}.png" for index in range(4)]
+    for index, path in enumerate(phases):
+        sheet(path, 20 + index * 20)
+    importer.build("stalker", {
+        "applicable_clips": ["idle", "move"],
+        "clips": [
+            {"path": phases[0], "follow_through_path": phases[1],
+             "clip": "idle", "layout": "single_row_pair"},
+            {"path": phases[0], "phase_paths": [str(path) for path in phases[1:]],
+             "clip": "move", "layout": "single_row_walk"},
+        ],
+    })
+    manifest = __import__("json").loads(
+        (tmp_path / "assets/combat_visual/animations/stalker.json").read_text())
+    with Image.open(tmp_path / "assets/combat_visual/animations/stalker.png") as atlas:
+        def red(frame):
+            return atlas.getpixel((frame % 8 * 256 + 128, frame // 8 * 256 + 220))[0]
+        idle = [[red(frame) for frame in row]
+                for row in manifest["animations"]["idle"]["rows"]]
+        move = [[red(frame) for frame in row]
+                for row in manifest["animations"]["move"]["rows"]]
+    assert idle == [[20 + direction, 40 + direction] for direction in range(8)]
+    assert move == [[20 + direction, 40 + direction, 60 + direction, 80 + direction]
+                    for direction in range(8)]
