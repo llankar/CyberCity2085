@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_15_skull_helm_heavy.png",
-  "texture_sha256": "65cd76d5236f54df3f8327f8fb58c4d3070d5adbe8373b9372f78358c3b924c6",
+  "texture_sha256": "eb7fe0c6c99796bad92c3a974a45d802f982fb07816ba731c8594e22b82f947b",
   "frame_size": [
     256,
     256
@@ -306,12 +306,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/melee-action_columns-2.png",
-      "sha256": "09dc741bd1de7d1b2670f6362239a08112ff9b52dcf851a57c45b57447f814d3",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/melee-single_row_pair-2.png",
+      "sha256": "7f2f63ee9e11c508f324218c8cfa901a9f570facebeb060b5a16c4613d84b093",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/melee-single_row_pair-2-follow-through.png",
+        "sha256": "08dba095206ad68de2038e4c420d38c15cb7a5d478f35c1e0a2fb20614648110"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -336,12 +341,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/hit-action_columns-4.png",
-      "sha256": "49785c83f36071636885ce2c4c33151472a03c9b7217b5b9a4460f82cde13e72",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/hit-single_row_pair-4.png",
+      "sha256": "87ad14a3aa23a11d620ef8c2974da2334e5c9182c2875b2ebc4f45e2ded61b20",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/hit-single_row_pair-4-follow-through.png",
+        "sha256": "90aee2ef09c274c99c985f540c96292c552b27fe9cab998d2a744d0ab5134d07"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
