@@ -46,12 +46,10 @@
         "keep_disconnected_details": true
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-action-columns.png",
+        "path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-repair-lead.png",
+        "follow_through_path": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-repair-follow.png",
         "clip": "hit",
-        "layout": "action_columns",
-        "chroma_key": [0, 255, 255],
-        "chroma_inner": 4,
-        "chroma_outer": 128,
+        "layout": "single_row_pair",
         "edge_erosion": 1,
         "keep_disconnected_details": true
       },
@@ -77,6 +75,6 @@
       "psi": "The drone scavenger has no psionic ability.",
       "heal": "The drone scavenger carries no medical equipment."
     },
-    "review_status": "native_render_verified"
+    "review_status": "native_render_verified_complete"
   }
 }

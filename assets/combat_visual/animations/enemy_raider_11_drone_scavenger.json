@@ -377,19 +377,17 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-action_columns-5.png",
-      "sha256": "e44a3085b8ee7e4daddda15464f69ca1dce6b9d827c1a5111a2352fb1078731b",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-single_row_pair-5.png",
+      "sha256": "9175542cc3c5cd47a6b3825c3195c3977f01f637a237248871a8c3cbad6835e8",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
-      "chroma_key": [
-        0,
-        255,
-        255
-      ],
-      "chroma_inner": 4,
-      "chroma_outer": 128
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/hit-single_row_pair-5-follow-through.png",
+        "sha256": "eb57594c5d21c7a2b4110a9ab13f9be9b170c2da396e83743f9a1a4565f8ec31"
+      },
+      "edge_erosion": 1
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_raider_11_drone_scavenger/death-single_row_pair-6.png",
@@ -419,5 +417,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified"
+  "review_status": "pending_native_review"
 }
