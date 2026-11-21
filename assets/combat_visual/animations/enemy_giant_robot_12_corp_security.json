@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_12_corp_security.png",
-  "texture_sha256": "e9bc98e78e7d8366ef8f738ca78d3f8210842c0d8621ec583de744d1ae5621c9",
+  "texture_sha256": "4d15b107d321205e99d68c26d07253187874b216264a645a5fb88afe4242cf21",
   "frame_size": [
     256,
     256
@@ -324,25 +324,37 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/melee-action_columns-3.png",
-      "sha256": "bd12b0738d6f65785f953e4c67a97fc8b2e0d5969d28052e0085c17225d74e36",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/melee-single_row_pair-3.png",
+      "sha256": "af3b4ca75ac9e41d4d631c103449ea66fafc09eaba3c4a499a2122653ef18c7d",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/melee-single_row_pair-3-follow-through.png",
+        "sha256": "42a8d1a8e509d5706d945e78e60a6c3a788f93b5c78574fd829af2735baa6159"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/cover-action_columns-4.png",
-      "sha256": "4454c8fc9cc4af48a50e0f76f79d0e344bf07ea8410bab606b728293c1bf5e19",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/cover-single_row_pair-4.png",
+      "sha256": "77f7e019e1fb188f9fdecabbd0d393c80d4395682ed9bc990f8cad4bcd5d3d81",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/cover-single_row_pair-4-follow-through.png",
+        "sha256": "5acb8b75d9e4c3525e30f2a7557de211878f93d4ad559deec6237395349014df"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/hit-action_columns-5.png",
-      "sha256": "07fffc50fe12c7b0db421f323089946f3fb1870febdeea372182de188bc587b1",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/hit-single_row_pair-5.png",
+      "sha256": "61d6ddfdbf17b2744880123eb2cc1921fa8d139a19813bcbc1968cef5ead0d12",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/hit-single_row_pair-5-follow-through.png",
+        "sha256": "846df90fb56d3d37c8380f9ffed99268dcfb089575355d677ec30c5240947040"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_12_corp_security/death-action_columns-6.png",
@@ -367,5 +379,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
