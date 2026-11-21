@@ -1,0 +1,15 @@
+{
+  "enemy_raider_15_skull_helm_heavy": {
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/idle-action-columns.png", "clip": "idle", "layout": "action_columns", "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/move-phase-a-direction-columns.png", "phase_paths": ["assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/move-phase-c-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/move-phase-b-direction-columns.png", "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/move-phase-d-direction-columns.png"], "clip": "move", "layout": "single_row_walk", "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/melee-action-columns.png", "clip": "melee", "layout": "action_columns", "body_height": 190, "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/cover-action-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 190, "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/hit-action-columns.png", "clip": "hit", "layout": "action_columns", "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true},
+      {"path": "assets/combat_visual/source_sheets/enemy_raider_15_skull_helm_heavy/death-action-columns.png", "clip": "death", "layout": "action_columns", "body_height": 176, "chroma_key": [0, 255, 255], "chroma_inner": 4, "chroma_outer": 128, "edge_erosion": 1, "keep_disconnected_details": true}
+    ],
+    "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {"fire": "The skull-helm heavy carries no ranged weapon.", "psi": "The skull-helm heavy has no psionic ability.", "heal": "The skull-helm heavy carries no medical equipment."},
+    "review_status": "native_render_verified"
+  }
+}
