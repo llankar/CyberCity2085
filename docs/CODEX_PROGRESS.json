@@ -17,6 +17,7 @@
         "docs/images/entity-scale-production-windows/catalogue-11.jpg"
       ],
       "tests": [
+        "Rust mangler IN_PROGRESS: walk phase A is accepted on E: with eight true facings and the locked identity (perforated mask, circular chest mechanism, attached spike fan, one anatomical-right rust bar, empty anatomical-left arm with elbow disk, right armored boot and left bare toes). Three opposite-contact B attempts and one passing-pose C plus its extraction were rejected before import because opaque red edge contamination remained visible. No production atlas changed and complete coverage remains 102 / 233. Next action: regenerate B and C from a fresh clean-alpha source, accept only neutral edges and real leg alternation, then create D and applicable actions.",
         "Deux captures Windows Godot 2560x1440 de la planche 11 inspectees individuellement via des copies de revue 1280x720 : convoy crossing et salt flat ambush",
         "Raccords, lumieres, ombres, occultation, perspective, epaves, barils, palette et lisibilite tactique controles ; aucun defaut local reproductible",
         "Aucune modification des PNG source, SHA, placements ou de la geometrie tactique ; revue detaillee cumulee 122 / 122"
@@ -1747,7 +1748,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "next_action": "ANIM-COMPLETE : examiner enemy_mutant_20_rust_mangler, verrouiller son identité et ses actions applicables, puis produire sa marche authentique en huit directions avec alternance réelle des appuis. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "next_action": "ANIM-COMPLETE : régénérer B et C de enemy_mutant_20_rust_mangler depuis une nouvelle source à alpha propre, rejeter toute frange rouge opaque, puis vérifier l'alternance réelle des jambes avant de produire D et les actions applicables. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
