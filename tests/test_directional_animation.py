@@ -29,6 +29,7 @@ KEYS.insert(-1,'enemy_mutant_09_toxin_carrier')
 KEYS.insert(-1,'enemy_mutant_10_bone_blade')
 KEYS.insert(-1,'enemy_mutant_11_cyber_graft')
 KEYS.insert(-1,'enemy_mutant_12_plague_monk')
+KEYS.insert(-1,'enemy_mutant_13_scrap_shield')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
@@ -63,7 +64,7 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
                 expected_required.update({'fire','psi'});expected_exempt={'heal'}
             elif key=='enemy_mutant_05_irradiated_medic':
                 expected_required.update({'fire','heal'});expected_exempt={'psi'}
-            elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept','enemy_mutant_01_hulk','enemy_mutant_02_spine_stalker','enemy_mutant_04_four_arm_brawler','enemy_mutant_06_pit_fighter','enemy_mutant_07_sewer_veil','enemy_mutant_10_bone_blade'}:
+            elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept','enemy_mutant_01_hulk','enemy_mutant_02_spine_stalker','enemy_mutant_04_four_arm_brawler','enemy_mutant_06_pit_fighter','enemy_mutant_07_sewer_veil','enemy_mutant_10_bone_blade','enemy_mutant_13_scrap_shield'}:
                 expected_required.add('fire');expected_exempt={'psi','heal'}
             assert set(data['required_clips'])==expected_required
             assert set(data['non_applicable_clips'])==expected_exempt

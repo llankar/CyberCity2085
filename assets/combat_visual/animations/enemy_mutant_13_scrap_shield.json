@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_13_scrap_shield.png",
+  "texture_sha256": "39562a60c1c2f7d9ba49d4164cdb487eaa7a51d32e21c885bba970152fe459f2",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_13_scrap_shield_512.png",
+  "source_sha256": "7c16f9c7e6744b713abb16889fdccad888a9311af87e188bb0fff6d6e27dbf49",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/idle-single_row_pair-0.png",
+      "sha256": "1ce95f91b0ba239586e274ccc5b124cf5087a61ecf3649f007334d6fe6d50b28",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/idle-single_row_pair-0-follow-through.png",
+        "sha256": "1591e45cb33d8d4b898f9705424202c43aa439bd647720594b072d37bb05d873"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/move-single_row_walk-1.png",
+      "sha256": "4cf5b98f700c5fbcc5eab7dc9b0bd38cc82849faf75bbf399b92c746236c2a7d",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/move-single_row_walk-1-phase-1.png",
+          "sha256": "099a6b4d2e53aaa332e26591c7a63674b60e38bb6b96c736c95b89fcec44c474"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/move-single_row_walk-1-phase-2.png",
+          "sha256": "17384bbe28b3f8807541758d6e7fb6493dc3ba8865949d031bf966d4e8c3307c"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/move-single_row_walk-1-phase-3.png",
+          "sha256": "b15c9a4735ba3b44667c2dd4c6cc4712e042008666303897caac1d30a63a56cd"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/melee-single_row_pair-2.png",
+      "sha256": "1ce95f91b0ba239586e274ccc5b124cf5087a61ecf3649f007334d6fe6d50b28",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/melee-single_row_pair-2-follow-through.png",
+        "sha256": "4a675b90db854f5d6298990640d3784bc02f684089af099a1c88d095bfe8402a"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/cover-single_row_pair-3.png",
+      "sha256": "1ce95f91b0ba239586e274ccc5b124cf5087a61ecf3649f007334d6fe6d50b28",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/cover-single_row_pair-3-follow-through.png",
+        "sha256": "150c2666968f174e7c28021c42781cdd6b78a0872d4f051e94b12bc1b635ae50"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/hit-single_row_pair-4.png",
+      "sha256": "1ce95f91b0ba239586e274ccc5b124cf5087a61ecf3649f007334d6fe6d50b28",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/hit-single_row_pair-4-follow-through.png",
+        "sha256": "4cf7b3a197ac0569d78b68f86cee300925788f94b79b829b4751bf71c92a3fbc"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/death-single_row_pair-5.png",
+      "sha256": "4cf7b3a197ac0569d78b68f86cee300925788f94b79b829b4751bf71c92a3fbc",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_13_scrap_shield/death-single_row_pair-5-follow-through.png",
+        "sha256": "7b07a6a68c35589e399e5edf03d8fd8d35a36c05bce271a4ad778c8484fe2a8a"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The scrap shield mutant has no ranged weapon or ranged action.",
+    "psi": "The scrap shield mutant has no psionic action.",
+    "heal": "The scrap shield mutant has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
