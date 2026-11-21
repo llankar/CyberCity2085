@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_07_drone_carrier DONE: melee and hit repacked from four authentic rows; cover lead rebuilt because neighboring feet overlapped, authentic follow retained; four rotors and four legs preserved; 128 frames; focused audit clean; Python 17 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Cover inspected without halo or slicing. Verified coverage 111 / 233.",
-  "next_action": "ANIM-LAYOUT-CORRECTION : inspecter et réparer uniquement les clips invalides de `enemy_giant_robot_08_claw_demolisher`, puis importer et valider cette unité. Poursuivre ensuite les 12 autres robots géants affectés. Couverture vérifiée actuelle : 111 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
+  "latest_batch": "ANIM-LAYOUT-CORRECTION enemy_giant_robot_08_claw_demolisher DONE: six static actions repacked from twelve authentic rows by isolating eight complete silhouettes; move unchanged; twin claws, cyan fire and true backs preserved; 128 frames; focused audit clean; Python 17 passed and 1 X11 skip; native Windows Godot regression/capture exit 0, 32 movement selections and seven captures. Melee inspected without sliced claws or anchor drift. Death body height 216. Verified coverage 112 / 233.",
+  "next_action": "ANIM-LAYOUT-CORRECTION : inspecter et réparer uniquement les clips invalides de `enemy_giant_robot_09_spider_tank`, puis importer et valider cette unité. Poursuivre ensuite les 11 autres robots géants affectés. Couverture vérifiée actuelle : 112 / 233. La régénération des preuves globales ENV-FINAL reste laissée de côté à la demande de l'utilisateur.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

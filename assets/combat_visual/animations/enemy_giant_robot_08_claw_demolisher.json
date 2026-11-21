@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_08_claw_demolisher.png",
-  "texture_sha256": "c3b70ab613567a21c4ca00d85dd7251208d8712cef7145c8c4c4f4f9f40a5b5c",
+  "texture_sha256": "0cb8390e06c0b25c67b09aa59f4e22de40a8b48d59c3379b46041f8f41e88e53",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "7d156ba0f702e41ce8e310ef6a75e5f331fd0cc86d9d82f9d3cc7322a88d791d",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/idle-action_columns-0.png",
-      "sha256": "93db49fe7a3cb5067b590b07cd8eb7c704adc030e9919ad9462277810ead005e",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/idle-single_row_pair-0.png",
+      "sha256": "c7155f5f9d361b6a0efeb3bb032d441abe9f11db4409bd1a8d5409d7295b9e75",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/idle-single_row_pair-0-follow-through.png",
+        "sha256": "c6c07fe594505190f6e0c4e622421ac9232577a23ec14c89980ba5c0e5289642"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/move-walk_columns-1.png",
@@ -317,39 +321,59 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/fire-action_columns-2.png",
-      "sha256": "eacd707496186641d460e5a988aa68eaa03c011b0a8517edff559a40472c4d42",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/fire-single_row_pair-2.png",
+      "sha256": "b741492fd7236707677502a6c8f2e343610a26ff7de432b361c20f8fd285a29d",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/fire-single_row_pair-2-follow-through.png",
+        "sha256": "0116eb525e033fda3b9a544b7f4b5b7564a595d967d2cede140b4142925ecd59"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/melee-action_columns-3.png",
-      "sha256": "e1e78596f730824c8aea9ccc1b12cba707257e02dd904274f879f5bb8e86b942",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/melee-single_row_pair-3.png",
+      "sha256": "120b039f11965ab791d3f131e80127e46ef8493c722f17d9e83e9767d6fbdd61",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/melee-single_row_pair-3-follow-through.png",
+        "sha256": "c72d6020772c18ecd0f7a934378141d8f36675accec42ba1581ddc1eb22e1ce0"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/cover-action_columns-4.png",
-      "sha256": "e0f660b6d581abf7b94ad00d260cd3bc2efd19de55826895c39ea88cb7994719",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/cover-single_row_pair-4.png",
+      "sha256": "2514e756b5b46aea63a32b535748c2cd3e7249d970948a83fd1f36fa09e16ba1",
       "clip": "cover",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/cover-single_row_pair-4-follow-through.png",
+        "sha256": "80e6290a494b642eeefb0add7369164dec1e6b8140c2b31a35c78102576f65d0"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/hit-action_columns-5.png",
-      "sha256": "28df9d1c105c8c59e010b4352988e777d7642d713806f852f309de548f415f14",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/hit-single_row_pair-5.png",
+      "sha256": "dd76fdded2054d412b07114463390210afe1b215e1fcbab3253fcef78b1e7836",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/hit-single_row_pair-5-follow-through.png",
+        "sha256": "f1d665df942ad5ea27134f759a73da36641d159e67f5b1ca4a4e1054128d56b7"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/death-action_columns-6.png",
-      "sha256": "9f40c9f41c6435a8e0477cad6e7f20fcc60f94e433c8ffc183f56b16e8fd54d5",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/death-single_row_pair-6.png",
+      "sha256": "3c8e74b2313b2bda362fa77360d93589186e62459615c140295541e8db50df49",
       "clip": "death",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_08_claw_demolisher/death-single_row_pair-6-follow-through.png",
+        "sha256": "da1196fe970f05f36b953945e4181aa86223b63e8eef2da37add198af3aba529"
+      }
     }
   ],
   "required_clips": [
@@ -367,5 +391,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
