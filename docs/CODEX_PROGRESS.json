@@ -1345,14 +1345,15 @@
       ],
       "tests": [
         "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
-        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS",
+        "Windows natif headless après extraction de GameWindow : même PID pour deux missions, parking, fermeture possédée et reprise après crash ; routage associé : 9 PASS, 1 SKIP Linux/X11"
       ],
       "evidence": [
         "docs/images/unified-experience/batch5/report.json",
         "docs/reports/unified_persistent_runtime_tests.xml",
         "docs/reports/unified_runtime_lifecycle_tests.xml"
       ],
-      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "remaining": "Le routage natif isolé et la fermeture possédée sont vérifiés. Faire le parcours Windows visible depuis GameWindow, puis vérifier manuellement Alt+Tab, changement de DPI multi-écrans et écoute audio ; l’automatisation du bureau est interdite",
       "reason": ""
     },
     {
@@ -1365,14 +1366,15 @@
       ],
       "tests": [
         "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
-        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS",
+        "Régression Windows headless du runtime et du routage : 9 PASS, 1 SKIP Linux/X11 ; ce contrôle ne valide pas la transition visible"
       ],
       "evidence": [
         "docs/images/unified-experience/batch5/report.json",
         "docs/reports/unified_persistent_runtime_tests.xml",
         "docs/reports/unified_runtime_lifecycle_tests.xml"
       ],
-      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "remaining": "Vérifier manuellement sous Windows que la transition reste visible jusqu’à la readiness, puis Alt+Tab et DPI multi-écrans ; aucun test headless ne vaut validation graphique",
       "reason": ""
     },
     {
@@ -1384,14 +1386,15 @@
       ],
       "tests": [
         "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
-        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS"
+        "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS",
+        "Régression isolée Windows du 21 novembre 2026 : 9 PASS, 1 SKIP Linux/X11 ; aucun nouveau rapport de preuve généré à la demande de l’utilisateur"
       ],
       "evidence": [
         "docs/images/unified-experience/batch5/report.json",
         "docs/reports/unified_persistent_runtime_tests.xml",
         "docs/reports/unified_runtime_lifecycle_tests.xml"
       ],
-      "remaining": "Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés",
+      "remaining": "Consigner seulement les prochains résultats normaux dans ce registre ; contrôle Windows visible/DPI/Alt+Tab et écoute audio encore NON VÉRIFIÉS",
       "reason": ""
     },
     {

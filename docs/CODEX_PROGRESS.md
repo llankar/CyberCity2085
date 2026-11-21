@@ -435,23 +435,23 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### UE5-03 — IN_PROGRESS — Démarrer Godot avec le jeu et réutiliser le même processus dès la première mission
 
 - Fichiers : `game/combat/persistent_runtime.py`, `game/ui/application_window.py`, `main.py`, `godot/combat_missions_ui/scripts/persistent_runtime.gd`.
-- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS. Windows natif headless après extraction de `GameWindow` : même PID pour deux missions, parking et fermeture du processus possédé, reprise après crash ; routage associé : 9 PASS, 1 SKIP Linux/X11.
 - Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
-- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+- Travail restant dans cette portée : Le routage natif isolé et la fermeture possédée sont vérifiés. Faire le parcours Windows visible depuis `GameWindow`, puis vérifier manuellement Alt+Tab, changement de DPI multi-écrans et écoute audio ; l'automatisation du bureau est interdite.
 
 ### UE5-04 — IN_PROGRESS — Conserver la transition visible jusqu’à la readiness native Windows
 
 - Fichiers : `game/ui/screens/godot_combat_handoff_view.py`, `game/combat/win32_embed.py`.
-- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS. Régression Windows headless du runtime et du routage : 9 PASS, 1 SKIP Linux/X11 ; ce contrôle ne valide pas la transition visible.
 - Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
-- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+- Travail restant dans cette portée : Vérifier manuellement sous Windows que la transition reste visible jusqu'à la readiness, puis Alt+Tab et DPI multi-écrans. Aucun test headless ne vaut validation graphique.
 
 ### UE5-05 — IN_PROGRESS — Archiver les preuves natives, régressions et critères encore ouverts
 
 - Fichiers : `docs/UNIFIED_EXPERIENCE_PROGRESS.md`.
-- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS.
+- Tests / contrôles réellement exécutés : Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif); 84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS. Régression isolée Windows du 21 novembre 2026 : 9 PASS, 1 SKIP Linux/X11 ; aucun nouveau rapport de preuve généré à la demande de l'utilisateur.
 - Preuves : `docs/images/unified-experience/batch5/report.json`, `docs/reports/unified_persistent_runtime_tests.xml`, `docs/reports/unified_runtime_lifecycle_tests.xml`.
-- Travail restant dans cette portée : Finaliser validation après extraction de GameWindow, réexécuter le test natif de routage isolément ; Windows et audio non vérifiés.
+- Travail restant dans cette portée : Consigner seulement les prochains résultats normaux dans ce registre ; contrôle Windows visible/DPI/Alt+Tab et écoute audio encore NON VÉRIFIÉS.
 
 ### AUDIO-REPLACE-01 — DONE — Remplacer intégralement les anciens sons et musiques
 
