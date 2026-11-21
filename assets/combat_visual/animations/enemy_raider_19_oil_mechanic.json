@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_raider_19_oil_mechanic.png",
-  "texture_sha256": "dff61b7d0b3c3742ab7a8e068a7069abb575c448500ae7069409e3c9611bb74f",
+  "texture_sha256": "031d4e214a95d053360522fc7c068a29ce5dd1e23aca68c102fd9c0bf0a8f0b6",
   "frame_size": [
     256,
     256
@@ -261,12 +261,17 @@
   "source_sha256": "60ba5d6e53c66b2a4a634741649c6231433025c5935271430758e5342bc575d9",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/idle-action_columns-0.png",
-      "sha256": "a3011e8e12da35f4d21d6ce19a5e7d230005d4227263a17ebbc966b430f56f01",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/idle-single_row_pair-0.png",
+      "sha256": "e2d6877bc9b0098d8fe0c9ded3cbb2e0edd2ee579fd0dba9586a9d01df3c6cd7",
       "clip": "idle",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/idle-single_row_pair-0-follow-through.png",
+        "sha256": "db612d09a2d01bc0e6291af33643cf5b113ff23a4795a0897bbc01b5878809a6"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -306,12 +311,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/melee-action_columns-2.png",
-      "sha256": "3d7fd9cf69fbb838572cb42b1f61d6553efb60ecba9c317efc30c7e29f3e1c8f",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/melee-single_row_pair-2.png",
+      "sha256": "4ad593a8a0a5ebe6eedc6e06c095531ce9d27adb4a8c0bd1d679bfbc6cb57a72",
       "clip": "melee",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/melee-single_row_pair-2-follow-through.png",
+        "sha256": "a4c5879c9242316f9d50b2fadd6364174ced5b105d788553f1cf954d10f9223a"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -321,12 +331,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/cover-action_columns-3.png",
-      "sha256": "dafdd666a622953b2ffaf655c61cb20dca99395614df93131609457b742726f3",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/cover-single_row_pair-3.png",
+      "sha256": "b553402104aef3ec1dd793c3d3f84cf08f033a6941ed0ef901fcae95e1f8d0cd",
       "clip": "cover",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/cover-single_row_pair-3-follow-through.png",
+        "sha256": "e1711576c8d5914d29d454feb8888d035a48a05a366cc106b33f212eb5e0a543"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -336,12 +351,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/hit-action_columns-4.png",
-      "sha256": "d0f3411b280ff177dacab7d68f9d751674c147e137a1ff0f6ab05e319b5cf745",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/hit-single_row_pair-4.png",
+      "sha256": "b3fe7df24f6e2f4044c98ece8d48df1c995946b1eef07a6f234d8a813fd52bd5",
       "clip": "hit",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/hit-single_row_pair-4-follow-through.png",
+        "sha256": "fda903a1bb0137845e021b79b57e3c7a6c1de44dd602790b8448334105b0d415"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
@@ -351,12 +371,17 @@
       "chroma_outer": 128
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/death-action_columns-5.png",
-      "sha256": "b8f79a0f0b13aa678efa35ab7cbaa1364e94fbe7214f5106eed11494f6b0e26a",
+      "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/death-single_row_pair-5.png",
+      "sha256": "a134770b064a4563c7703ace96579f71291bb6cb3b7e53c8c3697fc2cfae520b",
       "clip": "death",
-      "layout": "action_columns",
+      "layout": "single_row_pair",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
       "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_19_oil_mechanic/death-single_row_pair-5-follow-through.png",
+        "sha256": "d0b99d2f682be1dfcaac6efd24877510e9ebe3a4a8e528b82fe5d44858d7de90"
+      },
+      "edge_erosion": 1,
       "chroma_key": [
         0,
         255,
