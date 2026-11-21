@@ -7,7 +7,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "art"))
 import import_directional_clips as importer
-from import_directional_clips import sheet_directions
+from import_directional_clips import apply_chroma_key, sheet_directions
 
 
 def test_sheet_order_preserves_default_and_maps_reviewed_pairs():
@@ -20,6 +20,28 @@ def test_sheet_order_preserves_default_and_maps_reviewed_pairs():
 def test_sheet_order_rejects_invalid_facings(order):
     with pytest.raises(ValueError, match="distinct engine facings"):
         sheet_directions({"direction_indices": order}, 4)
+
+
+def test_chroma_key_removes_flat_background_and_unmixes_edge_colour():
+    image = Image.new("RGBA", (3, 1), (0, 255, 255, 255))
+    image.putpixel((1, 0), (64, 191, 191, 255))
+    image.putpixel((2, 0), (64, 48, 32, 255))
+
+    keyed = apply_chroma_key(image, [0, 255, 255], inner=0, outer=255)
+
+    assert keyed.getpixel((0, 0)) == (0, 0, 0, 0)
+    edge = keyed.getpixel((1, 0))
+    assert 0 < edge[3] < 255
+    assert edge[1] < 32 and edge[2] < 32
+    assert keyed.getpixel((2, 0))[3] > 200
+
+
+@pytest.mark.parametrize("key,inner,outer", [
+    ([0, 255], 8, 96), ([0, 256, 0], 8, 96), ([0, 255, 255], 96, 8),
+])
+def test_chroma_key_rejects_invalid_configuration(key, inner, outer):
+    with pytest.raises(ValueError):
+        apply_chroma_key(Image.new("RGBA", (1, 1)), key, inner, outer)
 
 
 def test_action_rows_pair_poses_by_direction(tmp_path, monkeypatch):

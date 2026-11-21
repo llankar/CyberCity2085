@@ -46,6 +46,7 @@ KEYS.insert(-1,'enemy_raider_06_chain_hook')
 KEYS.insert(-1,'enemy_raider_07_wasteland_medic')
 KEYS.insert(-1,'enemy_raider_08_shield_brawler')
 KEYS.insert(-1,'enemy_raider_09_mohawk_duelist')
+KEYS.insert(-1,'enemy_raider_grunt')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
@@ -119,14 +120,16 @@ def test_shifted_copies_are_not_counted_as_real_animation(tmp_path):
     assert any('same pose after translation/scale' in e for e in validate_atlas(tmp_path/'a.json',tmp_path,{'move'}))
 
 
-def test_raider_grunt_keeps_only_artistically_verified_clips_until_walk_is_replaced():
+def test_raider_grunt_has_complete_native_verified_true_gait():
     path=ROOT/'assets/combat_visual/animations/enemy_raider_grunt.json'
     data=json.loads(path.read_text())
-    assert data['coverage']=='partial'
-    assert data['missing_clips']==['move']
-    assert data['review_status']=='native_render_verified_partial'
-    assert set(data['animations'])=={'idle','fire','melee','cover','hit','death'}
+    assert data['coverage']=='complete'
+    assert data['missing_clips']==[]
+    assert data['review_status']=='native_render_verified'
+    assert set(data['animations'])=={'idle','move','fire','melee','cover','hit','death'}
     assert set(data['required_clips'])=={'idle','move','fire','melee','cover','hit','death'}
+    assert all(len(row)==4 for row in data['animations']['move']['rows'])
+    assert len({frame for row in data['animations']['move']['rows'] for frame in row})==32
     assert validate_atlas(path,ROOT,set(data['animations']))==[]
 
 @pytest.mark.skipif(not os.environ.get('DISPLAY'),reason='Native animation rendering requires X11')

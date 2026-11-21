@@ -8,6 +8,34 @@ SIZE=256;BASELINE=244;BODY=216
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
+def apply_chroma_key(image, key, inner=4, outer=255):
+    """Turn a flat opaque backdrop into clean alpha and remove its edge colour."""
+    if (not isinstance(key, list) or len(key) != 3
+            or any(type(channel) is not int or not 0 <= channel <= 255 for channel in key)):
+        raise ValueError('chroma_key must contain three RGB integers from 0 to 255')
+    if (type(inner) is not int or type(outer) is not int
+            or not 0 <= inner < outer <= 255):
+        raise ValueError('chroma tolerances must satisfy 0 <= inner < outer <= 255')
+    source=image.convert('RGBA');result=Image.new('RGBA',source.size);pixels=[]
+    kr,kg,kb=key
+    for red,green,blue,source_alpha in source.getdata():
+        distance=max(abs(red-kr),abs(green-kg),abs(blue-kb))
+        alpha=max(0,min(255,round((distance-inner)*255/(outer-inner))))
+        alpha=round(alpha*source_alpha/255)
+        if not alpha:
+            pixels.append((0,0,0,0));continue
+        fraction=alpha/255
+        clean=tuple(max(0,min(255,round((value-(1-fraction)*backdrop)/fraction)))
+                    for value,backdrop in ((red,kr),(green,kg),(blue,kb)))
+        pixels.append((*clean,alpha))
+    result.putdata(pixels)
+    return result
+
+def prepare_source(image,item):
+    key=item.get('chroma_key')
+    if key is None:return image
+    return apply_chroma_key(image,key,item.get('chroma_inner',4),item.get('chroma_outer',255))
+
 def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4):
     if type(grid_rows) is not int or grid_rows < 1:
         raise ValueError('grid_rows must be a positive integer')
@@ -83,7 +111,7 @@ def build(key,config):
     for item in specs:
         source=Path(item['path']);name=item['clip']+'-'+item['layout']+'-'+str(len(provenance))+'.png';
         if source.resolve()!=(directory/name).resolve():shutil.copyfile(source,directory/name)
-        image=Image.open(source).convert('RGBA');layout=item['layout'];clip=item['clip']
+        image=prepare_source(Image.open(source).convert('RGBA'),item);layout=item['layout'];clip=item['clip']
         pose_height = item.get('body_height', body_height)
         if type(pose_height) is not int or not 1 <= pose_height <= BODY:
             raise ValueError(f'{clip}: body_height must be an integer between 1 and the default body height')
@@ -105,10 +133,11 @@ def build(key,config):
             for row,direction in zip(poses, order):
                 if direction in directions:raise ValueError(f'{clip}: repeated facing {direction}')
                 source_row = row + source_row_offset
+                erosion = item.get('edge_erosion', 0)
                 if item.get('transpose', False):
-                    directions[direction]=normalise([extract(image,col,source_row,grid_rows=grid_rows) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,col,source_row,edge_erosion=erosion,grid_rows=grid_rows) for col in range(4)], pose_height)
                 else:
-                    directions[direction]=normalise([extract(image,source_row,col,grid_rows=grid_rows) for col in range(4)], pose_height)
+                    directions[direction]=normalise([extract(image,source_row,col,edge_erosion=erosion,grid_rows=grid_rows) for col in range(4)], pose_height)
         elif layout in ['idle_pairs','action_pairs']:
             poses = item.get('pose_indices', list(range(8)))
             if not isinstance(poses, list) or not poses:
@@ -206,6 +235,8 @@ def build(key,config):
         if layout in ('front', 'rear') and item.get('grid_rows', 4) != 4:
             provenance[-1]['grid_rows'] = item['grid_rows']
             provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
+        if layout in ('front','rear') and item.get('edge_erosion'):
+            provenance[-1]['edge_erosion']=item['edge_erosion']
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
                 'file': follow_dest.relative_to(ROOT).as_posix(), 'sha256': digest(follow_source)
@@ -231,6 +262,10 @@ def build(key,config):
             } for phase_source,phase_dest in phase_files]
         if layout in ('single_row_pair','single_row_walk') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
+        if item.get('chroma_key') is not None:
+            provenance[-1]['chroma_key']=item['chroma_key']
+            provenance[-1]['chroma_inner']=item.get('chroma_inner',4)
+            provenance[-1]['chroma_outer']=item.get('chroma_outer',255)
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:
