@@ -12,6 +12,7 @@ KEYS.insert(-1,'enemy_giant_robot_12_corp_security')
 KEYS.insert(-1,'enemy_giant_robot_13_salvage_warbot')
 KEYS.insert(-1,'enemy_giant_robot_14_killer_medic')
 KEYS.insert(-1,'enemy_giant_robot_15_stealth_mech')
+KEYS.insert(-1,'enemy_giant_robot_16_twin_cannon')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
