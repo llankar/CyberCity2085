@@ -1,0 +1,385 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_18_banner_carrier.png",
+  "texture_sha256": "ec4f1189e3d1741bfe365be9b9313bbf439dbe9e1f488f0a4a2f02e1953e0f8c",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_18_banner_carrier_512.png",
+  "source_sha256": "3c999ba94c7e1e132dea746924b4de125540b7d47759821306b09df4e8c4fe88",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/idle-action_columns-0.png",
+      "sha256": "326bcff4e67539e83d256665d19d0cf5563e711b3fd81255d7d71a5eae15ed2c",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/move-single_row_walk-1.png",
+      "sha256": "63c51be73cab5d80a6681624cd1d2965a70476570478b3d035fcf91c10a1b754",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/move-single_row_walk-1-phase-1.png",
+          "sha256": "690e71fbd275e5d6882efa0e605f066e91870910744c8c075335d78e15708b8f"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/move-single_row_walk-1-phase-2.png",
+          "sha256": "1722b2563b33270fd24ec99332402dbbc2234a8f45ee0b262dfc06174f4fea72"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/move-single_row_walk-1-phase-3.png",
+          "sha256": "825a7725ae5681ff6795374087f5a182386912454e681301110f92d4a99cdf82"
+        }
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/melee-action_columns-2.png",
+      "sha256": "64100e1695acfba7e859f45de385138dbf45b92f594ef9b03301c68a5b780e1c",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/cover-action_columns-3.png",
+      "sha256": "4aaec51c8ee7e0504a3458d9c3defe87dd8a10af685172733c5b67f6cb375808",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/hit-action_columns-4.png",
+      "sha256": "00b751f89a34e1e3d07ccd65e92964c4b484127fc8aa70de6d65792317985b63",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_18_banner_carrier/death-action_columns-5.png",
+      "sha256": "9ae22e9ef3e71902021504eebf93877e22fffab009ad90e57fe1274e615a737a",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The banner carrier carries no ranged weapon.",
+    "psi": "The banner carrier has no psionic ability.",
+    "heal": "The banner carrier carries no medical equipment."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified"
+}
