@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_06_pit_fighter.png",
+  "texture_sha256": "753905a50debd2e32fddf87591de35cee68fee312b9ef15f035704cc7499a9fb",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_06_pit_fighter_512.png",
+  "source_sha256": "6ba44b52ae5be199673a5805c094a82110c0026929cbabd733a82f83f231f07b",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/idle-single_row_pair-0.png",
+      "sha256": "c146caf55fc08c0e9e8a73e8339909d4a14fb8807af26b14535f45b9c1648aaf",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/idle-single_row_pair-0-follow-through.png",
+        "sha256": "55f2e7b4d30a85d080295b5b52c4ce82991200d687a562c9b2346cc3918a5829"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/move-single_row_walk-1.png",
+      "sha256": "ee51806d65d92a2bfb2d08e9710ea318185e843924a25981a1e90029de6fa9e1",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/move-single_row_walk-1-phase-1.png",
+          "sha256": "921946c28a129ef1fd795d8e48a31883c73d68eab297d51093d25e70904515f0"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/move-single_row_walk-1-phase-2.png",
+          "sha256": "a9519ddfba581b24cc86420a538f11ae17ece6e8622664d41bae387a11ade1af"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/move-single_row_walk-1-phase-3.png",
+          "sha256": "d54315a9915f077fce810949cc733afc0e955605a92b6eee46920a6793b52b6d"
+        }
+      ],
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/melee-single_row_pair-2.png",
+      "sha256": "c146caf55fc08c0e9e8a73e8339909d4a14fb8807af26b14535f45b9c1648aaf",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/melee-single_row_pair-2-follow-through.png",
+        "sha256": "15bd580d9ac66427025ded6919e3740d08dbe5f261591f0a7662efddbd32db1b"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/cover-single_row_pair-3.png",
+      "sha256": "c146caf55fc08c0e9e8a73e8339909d4a14fb8807af26b14535f45b9c1648aaf",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/cover-single_row_pair-3-follow-through.png",
+        "sha256": "cdd332b342d3fccde78eaa851296ae56b06930a952518bc3fa9cae1fd2b62649"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/hit-single_row_pair-4.png",
+      "sha256": "c146caf55fc08c0e9e8a73e8339909d4a14fb8807af26b14535f45b9c1648aaf",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/hit-single_row_pair-4-follow-through.png",
+        "sha256": "d9533acc74c68095cd2155527208c02842eb03666d3eccf0df5a8d932667850b"
+      },
+      "edge_erosion": 2
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/death-single_row_pair-5.png",
+      "sha256": "d9533acc74c68095cd2155527208c02842eb03666d3eccf0df5a8d932667850b",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_06_pit_fighter/death-single_row_pair-5-follow-through.png",
+        "sha256": "fbcaff115cb6cdb9b8470ea7e5837f5bd761369d8dfd5b535e55b64392138858"
+      },
+      "edge_erosion": 2
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The unarmed pit fighter has no ranged attack.",
+    "psi": "The pit fighter has no psionic action.",
+    "heal": "The pit fighter has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_pending"
+}
