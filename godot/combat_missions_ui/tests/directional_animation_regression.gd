@@ -64,6 +64,7 @@ func run() -> void:
 	keys.append("enemy_raider_17_cyber_jaw")
 	keys.append("enemy_raider_18_banner_carrier")
 	keys.append("enemy_raider_19_oil_mechanic")
+	keys.append("enemy_raider_20_twin_axe")
 	var args:=OS.get_cmdline_user_args()
 	for i in range(args.size()-1):
 		if args[i]=="--asset":
@@ -165,6 +166,19 @@ func run() -> void:
 				assert(unit._art_sprite.texture == unit.atlas and not unit._cast_shadow.visible)
 			unit._death = false
 		if key == "enemy_raider_19_oil_mechanic" and unit.manifest.animations.has("death"):
+			unit.unit_data["hp"] = 0
+			for direction in range(8):
+				unit.facing = direction
+				unit.play_death()
+				unit.frame_time = 0.5
+				unit._process(0.0)
+				unit.queue_redraw()
+				await process_frame
+				await RenderingServer.frame_post_draw
+				assert(unit.clip == "death" and unit.frame_index == 1)
+				assert(unit._art_sprite.texture == unit.atlas and not unit._cast_shadow.visible)
+			unit._death = false
+		if key == "enemy_raider_20_twin_axe" and unit.manifest.animations.has("death"):
 			unit.unit_data["hp"] = 0
 			for direction in range(8):
 				unit.facing = direction

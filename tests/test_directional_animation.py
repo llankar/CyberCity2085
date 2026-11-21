@@ -56,6 +56,7 @@ KEYS.insert(-1,'enemy_raider_16_harpoon_gunner')
 KEYS.insert(-1,'enemy_raider_17_cyber_jaw')
 KEYS.insert(-1,'enemy_raider_18_banner_carrier')
 KEYS.insert(-1,'enemy_raider_19_oil_mechanic')
+KEYS.insert(-1,'enemy_raider_20_twin_axe')
 KEYS.insert(-1,'enemy_raider_grunt')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
@@ -97,7 +98,7 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
                 expected_required.add('heal');expected_exempt={'fire','psi'}
             elif key=='enemy_raider_10_dust_preacher':
                 expected_required.add('psi');expected_exempt={'fire','heal'}
-            elif key in {'enemy_raider_14_armored_queen','enemy_raider_15_skull_helm_heavy','enemy_raider_17_cyber_jaw','enemy_raider_18_banner_carrier','enemy_raider_19_oil_mechanic'}:
+            elif key in {'enemy_raider_14_armored_queen','enemy_raider_15_skull_helm_heavy','enemy_raider_17_cyber_jaw','enemy_raider_18_banner_carrier','enemy_raider_19_oil_mechanic','enemy_raider_20_twin_axe'}:
                 pass
             elif key not in {'agent_diverse_01_neon_blade','agent_diverse_07_hooded_infiltrator','agent_diverse_08_holo_hacker','agent_diverse_10_ronin_duelist','agent_diverse_21_twin_blade_adept','enemy_mutant_01_hulk','enemy_mutant_02_spine_stalker','enemy_mutant_04_four_arm_brawler','enemy_mutant_06_pit_fighter','enemy_mutant_07_sewer_veil','enemy_mutant_10_bone_blade','enemy_mutant_13_scrap_shield','enemy_mutant_14_crawler','enemy_mutant_15_horned_warlord','enemy_mutant_17_glowing_vein','enemy_mutant_19_hive_scarred','enemy_mutant_20_rust_mangler','enemy_raider_01_sawblade_marauder','enemy_raider_02_tire_armor_brute','enemy_raider_05_bike_scout','enemy_raider_06_chain_hook','enemy_raider_08_shield_brawler','enemy_raider_09_mohawk_duelist'}:
                 expected_required.add('fire');expected_exempt={'psi','heal'}

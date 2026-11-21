@@ -1,0 +1,410 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_20_twin_axe.png",
+  "texture_sha256": "2bbeec82ab62c5491da1b455ce1100835cc6b73d62ec68982830b1a48bd3ea1b",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.84375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_20_twin_axe_512.png",
+  "source_sha256": "705158dc7dff28acfa866d0cf9d5fd366649c1dc69a95956fd6a88875b3783d7",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/idle-single_row_pair-0.png",
+      "sha256": "d8cb2ee36457d001394e3528a7e6f8ee8e5f771d699017fc1f166d4614a64d32",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/idle-single_row_pair-0-follow-through.png",
+        "sha256": "f59ee0f53f67ceac60b9c2d2e6c7e3ca56c3571ab837540149f08db214955fad"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/move-single_row_walk-1.png",
+      "sha256": "c5ab2cbd30640f1948cbcfca6ac8917e38c9461ce4f337ca0e234190249224f2",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/move-single_row_walk-1-phase-1.png",
+          "sha256": "2c16cf65f1756c79c54b026ebf8c40454a91027f70019e551fc625735785398f"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/move-single_row_walk-1-phase-2.png",
+          "sha256": "d60accee4b8cb67ccd6e6358d63e3dd4b845c637a04b6dafcb8ebfa1d7faa349"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/move-single_row_walk-1-phase-3.png",
+          "sha256": "0ce86e5c808bc40fc70e242d32cc6064b31408b331e3a60ffacf249c09965167"
+        }
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/melee-single_row_pair-2.png",
+      "sha256": "b0703bbf61c55ee9bc2e72ccecbbb3c4725f1468fd3b13672255c8464e261cd2",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/melee-single_row_pair-2-follow-through.png",
+        "sha256": "65e3d7e0666273d0b6839fc9b3a650f884d650947d2b4081a6c590a1561cd146"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/cover-single_row_pair-3.png",
+      "sha256": "1c9c5bddfa22646510607583137f01f191c5658598efb87b04ceacb2d705f5bf",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/cover-single_row_pair-3-follow-through.png",
+        "sha256": "b01796c35119fddd1d5d0c1d9a315354bcd043e7506c2941bed50017f6d0d283"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/hit-single_row_pair-4.png",
+      "sha256": "82611a032d9b348b181f8c5e299d0e2fe1297238560cff198f337461db70c17c",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/hit-single_row_pair-4-follow-through.png",
+        "sha256": "bb0b4b95eba0b9e65b9987776957011f9d516c88ed6e32e1fd8980e4e26b2d2e"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/death-single_row_pair-5.png",
+      "sha256": "5b0272d8ad4c3f92897c91d5cab5f2c1f85e3a29ae4dc8f0d28b2eaa0a5acd5d",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "keep_disconnected_details": true,
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_20_twin_axe/death-single_row_pair-5-follow-through.png",
+        "sha256": "ddba0da47c6d9c7a90936b30908ba7d33c4abe61bc2817c2bb682ebac4f644ec"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The twin axe raider carries no ranged weapon.",
+    "psi": "The twin axe raider has no psionic ability.",
+    "heal": "The twin axe raider carries no medical equipment."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified"
+}
