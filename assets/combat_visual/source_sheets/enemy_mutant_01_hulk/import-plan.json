@@ -1,0 +1,20 @@
+{
+  "enemy_mutant_01_hulk": {
+    "body_height": 208,
+    "clips": [
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-direction-columns.png", "clip": "idle", "layout": "action_columns", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-extremes-direction-columns.png", "intermediate_path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-intermediates-direction-columns.png", "clip": "move", "layout": "walk_columns", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-direction-columns.png", "clip": "melee", "layout": "action_columns", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-direction-columns.png", "clip": "cover", "layout": "action_columns", "body_height": 184, "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-direction-columns.png", "clip": "hit", "layout": "action_columns", "edge_erosion": 2},
+      {"path": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-direction-columns.png", "clip": "death", "layout": "action_columns", "body_height": 216, "edge_erosion": 2}
+    ],
+    "applicable_clips": ["idle", "move", "melee", "cover", "hit", "death"],
+    "non_applicable_clips": {
+      "fire": "The unarmed hulk has no ranged attack.",
+      "psi": "The hulk has no psionic action.",
+      "heal": "The hulk has no healing action."
+    },
+    "review_status": "native_render_verified_complete"
+  }
+}

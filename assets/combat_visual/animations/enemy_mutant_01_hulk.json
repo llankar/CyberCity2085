@@ -1,0 +1,326 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_01_hulk.png",
+  "texture_sha256": "eb442b3b2d31c720121c85f685bd5632c52f272bbc0754a844578a5f414b08ad",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_01_hulk_512.png",
+  "source_sha256": "9778fd2e9f834a590a83100895be57b3b1d049b5a9bc40ab379eb829c2aeea59",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/idle-action_columns-0.png",
+      "sha256": "b4e615f77d0bb2bdc283eb99c3dd5ce3a9f44672a8afa287676ebeda3f899130",
+      "clip": "idle",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-walk_columns-1.png",
+      "sha256": "3677d98344409641b89c9a33cd2476d3ae43a40d7c86a263be4b7d195bde04d6",
+      "clip": "move",
+      "layout": "walk_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "intermediate": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/move-walk_columns-1-intermediate.png",
+        "sha256": "6cb4d2468c77a6bc398be8a85436712149641040fd13ceac32046b2f34c44f97"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/melee-action_columns-2.png",
+      "sha256": "89872ec9c4f2ed75b844502b64cc67d6fb2c0eb634628a76874fa4d87edb7b79",
+      "clip": "melee",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/cover-action_columns-3.png",
+      "sha256": "fd590922fbd9078dcb82462734882bb57ef710a4e93c4e4f1126f0c2456bb4a0",
+      "clip": "cover",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/hit-action_columns-4.png",
+      "sha256": "b317ad7ff7f5e04b64310d097d8891e107f3dab837457cb4626a8fe538fb8f9f",
+      "clip": "hit",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_01_hulk/death-action_columns-5.png",
+      "sha256": "fef7c9cd528f5453a38d8a1c93ae31dfeb446c6cd0088883ffe8e49e71420e4a",
+      "clip": "death",
+      "layout": "action_columns",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The unarmed hulk has no ranged attack.",
+    "psi": "The hulk has no psionic action.",
+    "heal": "The hulk has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
