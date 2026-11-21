@@ -1,0 +1,362 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_20_rust_mangler.png",
+  "texture_sha256": "97d95e1e658437d2df21eb4edddcb1d9a17d05783957827fe1edf37fa2c23184",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.78125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_20_rust_mangler_512.png",
+  "source_sha256": "8d6a3df5d4e6f7750bed914bc43aa64036b71b22021655eda449e873478c728e",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/idle-single_row_pair-0.png",
+      "sha256": "d499c654770e5d1bd637f21148da87acc7034d63051c79355dbc5dced2ae20dc",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/idle-single_row_pair-0-follow-through.png",
+        "sha256": "9432963b37b37ff410193997e141a4d8f4feb9744d9837741c848c6442bc3d48"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/move-single_row_walk-1.png",
+      "sha256": "af1515bc5e594e6a42dd3b14a467e5a2b0275c0ba36778215db92f6b84258009",
+      "clip": "move",
+      "layout": "single_row_walk",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "phases": [
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/move-single_row_walk-1-phase-1.png",
+          "sha256": "ed5b9c3249d4dab16de877842121f87d89f6d3ac2458d52688f92bda51b0dca2"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/move-single_row_walk-1-phase-2.png",
+          "sha256": "b0cd155097bd840a6e55133e139de564d7eccc2bd5cb288acd754604149c00d4"
+        },
+        {
+          "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/move-single_row_walk-1-phase-3.png",
+          "sha256": "ec435840c1d8a39cd74fec8a7eec82c3355e51328f467cba7cbf8d9e68ab8de8"
+        }
+      ],
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/melee-single_row_pair-2.png",
+      "sha256": "d499c654770e5d1bd637f21148da87acc7034d63051c79355dbc5dced2ae20dc",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/melee-single_row_pair-2-follow-through.png",
+        "sha256": "a5ed85656b71c26783e9d3124cf994c8bfba5cb2169f68b35a98200c185dadfa"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/cover-single_row_pair-3.png",
+      "sha256": "d499c654770e5d1bd637f21148da87acc7034d63051c79355dbc5dced2ae20dc",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/cover-single_row_pair-3-follow-through.png",
+        "sha256": "d8d615f18e55b9f582427b0ccb7205b514a87f3d099cc240722a2415a765d896"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/hit-single_row_pair-4.png",
+      "sha256": "d499c654770e5d1bd637f21148da87acc7034d63051c79355dbc5dced2ae20dc",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/hit-single_row_pair-4-follow-through.png",
+        "sha256": "68d7093185b4031ef54ec7bc22c7f09cd49625e35ed2e4dd71794e8722318ea6"
+      },
+      "edge_erosion": 3
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/death-single_row_pair-5.png",
+      "sha256": "68d7093185b4031ef54ec7bc22c7f09cd49625e35ed2e4dd71794e8722318ea6",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_20_rust_mangler/death-single_row_pair-5-follow-through.png",
+        "sha256": "0c3caa06f6b8c31fdc434bf0c6557fd40d7a092db15f7c57c2f758b93366a0c0"
+      },
+      "edge_erosion": 3
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The rust mangler has no ranged weapon or projectile attack.",
+    "psi": "The rust mangler has no psychic action.",
+    "heal": "The rust mangler has no healing action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
