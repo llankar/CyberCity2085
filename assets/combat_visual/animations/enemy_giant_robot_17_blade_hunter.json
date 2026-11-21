@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_17_blade_hunter.png",
-  "texture_sha256": "49e042ecebe66bb568da171c21193a444d317347396a57cab678c16df84a2ca6",
+  "texture_sha256": "da10d8ff2cfdad0ee9aa3a9fa2eec62b270b7d26cac57b3b8e9e77eb2dbf3c45",
   "frame_size": [
     256,
     256
@@ -299,11 +299,15 @@
   "source_sha256": "4b491b60c51e35d647f31bffbc035862b00fb3847aa47e5697994accecd01a13",
   "provenance": [
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/idle-action_columns-0.png",
-      "sha256": "0e0e6c2a34204a9d1ef976861dc0f2a015609505daf3c93b7257f503c00f6747",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/idle-single_row_pair-0.png",
+      "sha256": "79723a6c2e907b2870b77abc94e0a9053fb80243a6fd93505f8eb4573e88cb70",
       "clip": "idle",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/idle-single_row_pair-0-follow-through.png",
+        "sha256": "ffd7f19b21ac78c12a8017227911b690a64f38076da8c26d1ca1b7cca942113f"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/move-walk_columns-1.png",
@@ -317,18 +321,26 @@
       }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/fire-action_columns-2.png",
-      "sha256": "59209f4b612622334d630015d65330fb95ff081a2b83fe0bddd0862ca3151d54",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/fire-single_row_pair-2.png",
+      "sha256": "8cc59496f215dcd63f0f593eac616b749dcb3f03afcf0e1bb9ff8fa92d2c26d3",
       "clip": "fire",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/fire-single_row_pair-2-follow-through.png",
+        "sha256": "7e0ae6da59a357196d82807e9b139666cfb702e791db8a492208eab7d5e3445d"
+      }
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/melee-action_columns-3.png",
-      "sha256": "02555513dacd455a6561e503bdf70b49e7de5c31f387614052eaa18eea226a17",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/melee-single_row_pair-3.png",
+      "sha256": "15d5960e2bc336c58a59236bbf71f9f0767d73f08f3f6caef36f42f1edf62c56",
       "clip": "melee",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/melee-single_row_pair-3-follow-through.png",
+        "sha256": "b32e2f0efedc76f784028918daa1e26fba5d92bb2b79cf70289b3d17e0f87849"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/cover-action_columns-4.png",
@@ -338,11 +350,15 @@
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
-      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/hit-action_columns-5.png",
-      "sha256": "2ee5f0c600ca39771b6e51d6981294ee51d0821da5c414ec8f25262d652fcbdc",
+      "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/hit-single_row_pair-5.png",
+      "sha256": "bc83063af8d5e8bad0c801315a20597e797cbd5600a8246f74263608064913ce",
       "clip": "hit",
-      "layout": "action_columns",
-      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/hit-single_row_pair-5-follow-through.png",
+        "sha256": "e6ebdd9f97d9c5420eac243c3b00a547da1210549730982af6d8f4f704a8d688"
+      }
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_17_blade_hunter/death-action_columns-6.png",
@@ -367,5 +383,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "pending_native_review"
 }
