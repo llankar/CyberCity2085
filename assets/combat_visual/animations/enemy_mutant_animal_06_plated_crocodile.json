@@ -1,0 +1,422 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_animal_06_plated_crocodile.png",
+  "texture_sha256": "53b218c3919ee2b8fad5f491528f0d2dc42dd8d715dab542abd4eb943243cedb",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.765625,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_animal_06_plated_crocodile_512.png",
+  "source_sha256": "8a4f4cf738eacac2155654ef7f84bbc0f60dcbdd5525fa86c17caaf3a37fad50",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/idle-single_row_pair-0.png",
+      "sha256": "d6078f0c90409a2ea420fc589a49a00bb874acca32d942426a9a470fa7d35791",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/idle-single_row_pair-0-follow-through.png",
+        "sha256": "8cf5343d9dade01074a63c8a73cdf5543bcc473fee47fb0d2cdf1062ca64b8bb"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/move-walk_rows-1.png",
+      "sha256": "210aac43a42cded09864b578b8825ced417f10760e9e8aa856a8a6dba56ab6dd",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/melee-single_row_pair-2.png",
+      "sha256": "3f40f9a38fa565b43f15114c78bbd6df5da3bbdf1bc57b3ad437e2797c4724a2",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/melee-single_row_pair-2-follow-through.png",
+        "sha256": "21533bf28a6f2712aecd13680b19f15a69c8ae06b92f3d5b2b3624fd53466241"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/cover-single_row_pair-3.png",
+      "sha256": "9ef90138c15b3e0e6160a35881264e50e9c6bbf3dd386b173e16ec30cf408311",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/cover-single_row_pair-3-follow-through.png",
+        "sha256": "e9d4ec7124118c7972ff2d2cf42ec4b7312e22ff91253ca3319ef23bcc3bbe90"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/hit-single_row_pair-4.png",
+      "sha256": "aa5af25853df465e253fb6da3cc2116fcea36a18c32ec0b7d128d9723d55478f",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/hit-single_row_pair-4-follow-through.png",
+        "sha256": "d1921432b6390916fd12ee92a2cb883223ce3a8978088e69bb7dd54a9e2466de"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/death-single_row_pair-5.png",
+      "sha256": "529d79dc6746893da912d3cd7f7ce67765672fd93fcedcadbb55fd1dbd78d43d",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_06_plated_crocodile/death-single_row_pair-5-follow-through.png",
+        "sha256": "2adf5e2106cbf2d8a30240d0a4d4e6e4948c9dccc462513bc07cbc4901d19c00"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The plated crocodile has no ranged weapon or projectile anatomy.",
+    "psi": "The plated crocodile has no authored psychic ability.",
+    "heal": "The plated crocodile has no medical or regenerative combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}

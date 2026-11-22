@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-COMPLETE six-leg wolf DONE. The mutant wolf has 112 frames across six applicable clips and eight true facings. Its four-phase hexapod gait alternates opposing tripods with two distinct passing poses; one head, six countable legs in three pairs, six paws, one tail and the spiked dorsal carapace remain attached. Focused audit returned no errors; the shared directional tests in this batch passed 28 with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti captured all six clips and passed DIRECTIONAL_TARGET_CAPTURE_PASSED. Complete manifests are 128 / 233 and artistically verified coverage is 151 / 233.",
-  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_animal_06_plated_crocodile. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
+  "latest_batch": "ANIM-COMPLETE plated crocodile DONE. The mutant crocodile has 112 frames across six applicable clips and eight true facings. One head, four legs, one continuous heavy tail and the bolted carapace remain attached. The first combined death was rejected after the packer and native render exposed neighboring-row pixels and two overlaid bodies; a dedicated 8x2 death sheet with a large separator corrected the defect. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti passed DIRECTIONAL_TARGET_CAPTURE_PASSED and the corrected death shows one body. Complete manifests are 129 / 233 and artistically verified coverage is 152 / 233.",
+  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_animal_07_vulture_raptor. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
