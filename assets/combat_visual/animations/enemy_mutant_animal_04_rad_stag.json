@@ -1,0 +1,422 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_animal_04_rad_stag.png",
+  "texture_sha256": "840a6581f13e932e9727bf6186fe12314377f46e45a27676d3d3442d387dfae9",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.765625,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_animal_04_rad_stag_512.png",
+  "source_sha256": "3793614646715cd20851e4755deaa0561450f10f39fe66e97e38d872c29583d4",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/idle-single_row_pair-0.png",
+      "sha256": "6d1939b5385ae7446f50f3e4c38929d1a333ba271a3632b6e1ffbfafadeb01a2",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/idle-single_row_pair-0-follow-through.png",
+        "sha256": "a7db9592627a1a3aaab66b39d4b03a179a980711a7c30f90aa3305f19e513493"
+      },
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/move-walk_rows-1.png",
+      "sha256": "73bc4be3289fb4e40afd65993204d2d38fa4b070697624f6300b7c2fecd91a11",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/melee-single_row_pair-2.png",
+      "sha256": "5a3684907b83370b51f605e7d1072ce131c5bcd4302139ce67d0b7ef820c4105",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/melee-single_row_pair-2-follow-through.png",
+        "sha256": "b178d35aa2cdd030f7b1ad4ca9f9cabb080a53262ac6e1bab3f6863f453e0bdb"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/cover-single_row_pair-3.png",
+      "sha256": "7fd030d7a4b5552759dfe7e4221cd00686b13ba2fd36f97975806efab7b08e32",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/cover-single_row_pair-3-follow-through.png",
+        "sha256": "f63cfd140dc52bacbcc8001678a8b91873ed2f2313c757f4efed5a715df22492"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/hit-single_row_pair-4.png",
+      "sha256": "16edfa7e376b6b5f9a1c32f8d31532bf8ad73bdef1f44548f3d3a6b8859f8ef6",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/hit-single_row_pair-4-follow-through.png",
+        "sha256": "8108a34e525ef20b8d2493002802b41a30ada20b0624549febabda88b88c5ef1"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/death-single_row_pair-5.png",
+      "sha256": "ff6a2a2a594e28f2f728f530ab33929c4cf7b28f31390a1f7895da580d5dcc9c",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_04_rad_stag/death-single_row_pair-5-follow-through.png",
+        "sha256": "0668576ecf7f72ef2223c88d81f92f7b3f2936e8a18564b42fe27e80c7462ec3"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The rad stag has no ranged weapon or projectile anatomy.",
+    "psi": "The rad stag has no authored psychic ability.",
+    "heal": "The rad stag has no medical or regenerative combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
