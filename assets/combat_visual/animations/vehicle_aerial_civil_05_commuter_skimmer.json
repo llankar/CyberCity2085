@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_05_commuter_skimmer.png",
+  "texture_sha256": "13c9186e0f8370eb840068702b9e8973a6ccc9238898850d7952951b70ac8aa9",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_05_commuter_skimmer_512.png",
+  "source_sha256": "d94f372e083967e20bfde8e2fc9fbe92bb3acbddb628eb69957648bc0b3cc72d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_05_commuter_skimmer/idle-single_row_pair-0.png",
+      "sha256": "dbb502c69a65ecf580316b847b81db66cfaf7c148a1ac3dc43ec7c92516cd91e",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_05_commuter_skimmer/idle-single_row_pair-0-follow-through.png",
+        "sha256": "0c969dc799057af3c7cbb0ede2a42f1f37de070de6a79c7ef75d914df3343468"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian commuter skimmer is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian commuter skimmer is unarmed.",
+    "melee": "The civilian commuter skimmer has no melee action.",
+    "cover": "The civilian commuter skimmer has no cover action.",
+    "hit": "The civilian commuter skimmer has no authored hit action.",
+    "death": "The intact civilian commuter skimmer has no authored destruction action.",
+    "psi": "The civilian commuter skimmer has no psychic action.",
+    "heal": "The civilian commuter skimmer has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
