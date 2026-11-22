@@ -1,0 +1,415 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_animal_19_mandible_horse.png",
+  "texture_sha256": "27f7ce95260ced64545af29e4dd080745727297a888c0b1677e2597e2d6d0781",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.765625,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_animal_19_mandible_horse_512.png",
+  "source_sha256": "0851047187e6511a15e0dd68f9043079349e22328126d1a20f1f72b9a5b7637d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/idle-single_row_pair-0.png",
+      "sha256": "ee529884f577dc48685e96fa953235c87b3b422408420f736c1098e9ff650005",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/idle-single_row_pair-0-follow-through.png",
+        "sha256": "1d2280f93b7e3ce6b3039076e7d4bda4e6f5794c9c3c1b67484bc3b516e75865"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/move-walk_rows-1.png",
+      "sha256": "45ea80eec1d0e074e24257b1032135bd73f32caacc1f60c2dea629714e960163",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/melee-single_row_pair-2.png",
+      "sha256": "fd881b81a39faba9c5bfa4e379e5dc15b1019a14798e976dd55f04c65348b868",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/melee-single_row_pair-2-follow-through.png",
+        "sha256": "23127e1dee7d957a34ce330621c58e14ce5100c3a20a299c479b4a1c10ef1f01"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/cover-single_row_pair-3.png",
+      "sha256": "bf45f002b4eceb7c6651f5a9543d58bd327cb04049cfe6fae1d1c9a30badf828",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/cover-single_row_pair-3-follow-through.png",
+        "sha256": "8ced92148d40dd4ce4dd8540a505fea1342654ccd62a40e7e02410d370f42c34"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/hit-single_row_pair-4.png",
+      "sha256": "2074ef2d10494c4425e8500a88239300397d7c476cbc997ee0de4b86aebab482",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/hit-single_row_pair-4-follow-through.png",
+        "sha256": "fe61c3fbaceb08ac490c6b013aa1dfc2e22c697b8996914ab6eca141137fac7d"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/death-single_row_pair-5.png",
+      "sha256": "de92309aefebae10ce45fc4504f13844f1eca69b26d468a21317c4cdb506c8e0",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_19_mandible_horse/death-single_row_pair-5-follow-through.png",
+        "sha256": "899157f9323356a96abf37b4610ba8782bd55886b1a88cfe5675c0919e893f78"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The mandible horse has no authored ranged attack.",
+    "psi": "The mandible horse has no authored psychic ability.",
+    "heal": "The mandible horse has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
