@@ -1,0 +1,415 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_mutant_animal_14_scarab_dog.png",
+  "texture_sha256": "efa21811ae0534b57f12d57a2c32f541abe14c12f38420d1821d9b67e3d15183",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.765625,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_mutant_animal_14_scarab_dog_512.png",
+  "source_sha256": "19923e9506f2e106ef797a0e1a30a96393213fed9f049f344a1854a7eb8b97d3",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/idle-single_row_pair-0.png",
+      "sha256": "a6bbb64752221a00400308b762137fcd5fd6caa5c8ba3927aea48472415b5f5e",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/idle-single_row_pair-0-follow-through.png",
+        "sha256": "d2dd42f416cf8ecea761a965a0ad917bb758b11db93ab4eb1878fafa14b2642a"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/move-walk_rows-1.png",
+      "sha256": "35916ca3aec1621dbffe98097161f2ca94f71691eed74a5f18a4d64ffeb5739a",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/melee-single_row_pair-2.png",
+      "sha256": "00ac61d0f562cc980ba56e0a9d45a968e16015b5fe97abb47f6282282af9379d",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/melee-single_row_pair-2-follow-through.png",
+        "sha256": "f955243f610a367f11487b097bce150850cc59d3b6e02c7e6f242d1bbaf9552d"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/cover-single_row_pair-3.png",
+      "sha256": "eb6698a6c5e8013dacc1115a5f6a86340a44176080d00579f26105d2d4b3faee",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/cover-single_row_pair-3-follow-through.png",
+        "sha256": "a42e272f299a0105102faf25a4b90366dc12e2e11824b2ef9226c263614e480b"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/hit-single_row_pair-4.png",
+      "sha256": "31286e9c3fd767c5340fcc8befc82057eead2ad803c29774449835ef2ac969b1",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/hit-single_row_pair-4-follow-through.png",
+        "sha256": "1cfed1a5003d48e3b6be3553149ec0654fcf132a462d5ed8198e46dae93c4039"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/death-single_row_pair-5.png",
+      "sha256": "af2d38fffd201c38d54794cdbbc4a678a546c06af81eba3f3736e7871a7105ab",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_mutant_animal_14_scarab_dog/death-single_row_pair-5-follow-through.png",
+        "sha256": "c4691498638db6176f6a195305bdf60137fbb3f297833042ab5768581b44ebfa"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The scarab dog has no ranged weapon.",
+    "psi": "The scarab dog has no authored psychic ability.",
+    "heal": "The scarab dog has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
