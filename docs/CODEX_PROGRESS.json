@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-COMPLETE bat-wing dog DONE. The mutant dog has 112 frames across six applicable clips and eight true facings. Its diagonal gait alternates; one head, four legs, exactly two attached bat wings and one thin tail remain coherent. The cropped reference fragment was restored only as the attached opposite wing, with no floating piece. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti passed DIRECTIONAL_TARGET_CAPTURE_PASSED and movement, attack and single-body death were inspected. Complete manifests are 143 / 233 and artistically verified coverage is 166 / 233.",
-  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_commander. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
+  "latest_batch": "ANIM-COMPLETE mutant commander DONE. The sealed-suit commander has 128 frames across seven applicable clips and eight true facings. Its human gait alternates; one body, two arms, two legs, acid-yellow suit, yellow-visor respirator, single-antenna radio pack and pistol retained in anatomical right hand remain coherent. The corridor illustration was converted to isolated sprites without scenery. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti passed DIRECTIONAL_TARGET_CAPTURE_PASSED and movement, fire and single-body death were inspected. Complete manifests are 144 / 233 and artistically verified coverage is 167 / 233.",
+  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_elite. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
