@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_02_courier_van.png",
+  "texture_sha256": "01324bf8ff41c2e5ee364732ceb73d19e8ff0037f16daca2d346942b96dc3330",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_02_courier_van_512.png",
+  "source_sha256": "2536de286c279143d0fe8f65b44a6382ded6ff93766dda18553af9618252e48b",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_02_courier_van/idle-single_row_pair-0.png",
+      "sha256": "7479fbe2b1a402382c724a7799e09f22b97381008a26a0b10db73dadf0b93db5",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_02_courier_van/idle-single_row_pair-0-follow-through.png",
+        "sha256": "b331cd83d5fb214c699200dfcbdaa90ee9711b4777b8831f77e4d931fd0a36ed"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian courier van is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian courier van has no tactical fire action.",
+    "melee": "The civilian courier van has no melee action.",
+    "cover": "The civilian courier van has no cover action.",
+    "hit": "The civilian courier van has no authored hit action.",
+    "death": "The civilian courier van has no authored death action.",
+    "psi": "The civilian courier van has no psychic action.",
+    "heal": "The civilian courier van has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
