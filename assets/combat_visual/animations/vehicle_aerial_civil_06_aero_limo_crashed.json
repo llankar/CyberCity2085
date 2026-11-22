@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_06_aero_limo_crashed.png",
+  "texture_sha256": "120c1cb434211d0212ef1babdd997aa4d8fd0cf4047537ec35216a3356889e89",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_06_aero_limo_crashed_512.png",
+  "source_sha256": "7b66e69bf9cc9cdbd5e799c654f659d83a6d260c337f71656be6b5b78fd57d9d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_06_aero_limo_crashed/idle-single_row_pair-0.png",
+      "sha256": "f1913ca6640b601b597bad54cdaaed4c412f6343cdb893cc5bf5b8101e385c56",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_06_aero_limo_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "6b70a0895fbccc0fd1d3935d56ff4d9022ca96bd197a80bb6506dabd8553777c"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed civilian aero-limo is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed civilian aero-limo is unarmed.",
+    "melee": "The crashed civilian aero-limo has no melee action.",
+    "cover": "The crashed civilian aero-limo has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed civilian aero-limo has no psychic action.",
+    "heal": "The crashed civilian aero-limo has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
