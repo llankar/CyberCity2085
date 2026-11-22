@@ -7,10 +7,13 @@ import pytest
 
 from game.character import Character
 from game.combat.encounter_composition import compose_encounter, enemy_spawn_positions, ROLE_COST
-from game.combat.encounter_qa import simulate_encounter
+from game.combat.encounter_qa import objective_threat_distance, simulate_encounter, synthetic_enemy_position
 from game.combat_system import create_enemy_units
 from game.enemy_themes import ENEMY_THEMES
+from game.mission_objectives import create_battle_objective
 from game.mission_templates import MissionTemplate
+from game.stats import PlayerStats
+from game.unit import Unit
 
 
 def test_composition_matrix_keeps_headcount_budget_frontline_and_specialist_bounds():
@@ -75,6 +78,29 @@ def test_simulation_is_reproducible_restores_rng_and_runs_real_enemy_telegraphs(
     assert 1 <= result["turns"] <= 30
     assert result["announced"].get("LOCK", 0) > 0
     assert result["dodges"] > 0 and result["interruptions"] > 0
+
+
+def test_objective_qa_prioritizes_enemies_threatening_defensive_boundaries():
+    containment = create_battle_objective(MissionTemplate(
+        "qa", "QA", "Contain", "", "", {}, 2, objective_type="containment"
+    ))
+    defend = create_battle_objective(MissionTemplate(
+        "qa", "QA", "Defend", "", "", {}, 2, objective_type="defend"
+    ), position=(128, 192))
+    near_line = Unit(position=(288, 224), stats=PlayerStats(), health=10)
+    far_from_line = Unit(position=(288, 320), stats=PlayerStats(), health=1)
+    near_zone = Unit(position=(192, 192), stats=PlayerStats(), health=10)
+    far_from_zone = Unit(position=(384, 320), stats=PlayerStats(), health=1)
+
+    assert objective_threat_distance(near_line, containment) < objective_threat_distance(far_from_line, containment)
+    assert objective_threat_distance(near_zone, defend) < objective_threat_distance(far_from_zone, defend)
+
+
+def test_synthetic_containment_opening_preserves_a_full_response_activation():
+    positions = [synthetic_enemy_position(index, "containment") for index in range(12)]
+    assert len(set(positions)) == 12
+    assert all(0 <= x < 640 and 0 <= y < 384 for x, y in positions)
+    assert all((y - 192) // 32 > 3 for _, y in positions)
 
 
 @pytest.mark.parametrize("theme", ["starver", "mutant", "raider", "corp_samurai", "corp_37_robot", "novatek_hybrid"])

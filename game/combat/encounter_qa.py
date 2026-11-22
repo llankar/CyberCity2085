@@ -27,6 +27,24 @@ def first_reachable_approach(actor, destinations, legal, *, width, height):
     return None, None
 
 
+def objective_threat_distance(enemy, objective):
+    """Sort defensive QA targets by the danger they pose to the objective."""
+    if objective is None:
+        return 0
+    if objective.kind == "containment" and objective.breach_y is not None:
+        return enemy.position[1] - objective.breach_y
+    if objective.kind == "defend":
+        return enemy.distance_to(objective)
+    return 0
+
+
+def synthetic_enemy_position(index, objective_kind):
+    """Place synthetic QA enemies with the same containment response margin as authored maps."""
+    if objective_kind == "containment":
+        return 288 + (index // 2) * 32, 320 + (index % 2) * 32
+    return 288 + (index // 4) * 64, 64 + (index % 4) * 64
+
+
 def simulate_encounter(*, theme, level, risk, count, seed, policy="focus", layout="open", max_turns=30, objective_kind="eliminate", map_path=None, mission_template=None):
     if mission_template is not None:
         mission_template = MissionTemplate.from_dict(mission_template.to_dict())
@@ -57,9 +75,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
     objective = create_battle_objective(mission, position=(128, 192) if objective_kind == "defend" else (256, 192))
     enemies, _ = create_enemy_units(mission, characters, rng=random.Random(seed))
     for i, enemy in enumerate(enemies):
-        enemy.position = (288 + (i // 4) * 64, 64 + (i % 4) * 64)
-        if objective_kind == "containment":
-            enemy.position = (288 + (i // 4) * 64, 256 + (i % 4) * 32)
+        enemy.position = synthetic_enemy_position(i, objective_kind)
     original_allies, original_enemies = list(allies), list(enemies)
     cover = [CoverNode(6, 4, "high", False), CoverNode(7, 6, "low")] if layout == "cover" else []
     state = CombatState(mission, allies, enemies, objective=objective)
@@ -152,7 +168,20 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                                                    move_delta=(cell[0]-actor.position[0], cell[1]-actor.position[1]))
                     dodges += int(action.success)
                 else:
-                    targets = sorted((e for e in enemies if e.health > 0), key=lambda e: (e.health, actor.distance_to(e)))
+                    defensive_objective = (
+                        objective
+                        if policy.startswith("objective") and objective is not None
+                        and objective.kind in {"defend", "containment"}
+                        else None
+                    )
+                    targets = sorted(
+                        (e for e in enemies if e.health > 0),
+                        key=lambda e: (
+                            objective_threat_distance(e, defensive_objective),
+                            e.health,
+                            actor.distance_to(e),
+                        ),
+                    )
                     hvt = state.tactical_flags.get("assassination_target")
                     if policy.startswith("objective") and hvt is not None and hvt.health > 0:
                         targets.sort(key=lambda e: e is not hvt)
