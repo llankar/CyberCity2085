@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_10_delivery_blimp_drone_crashed.png",
+  "texture_sha256": "400e064b979dd081c1270c69c9478ac3749d3a24432808061dd67f6aca802255",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_10_delivery_blimp_drone_crashed_512.png",
+  "source_sha256": "4c61f38aa6528a1ea101357d0322d89182f5703b0fdf1b840f0a34c73c9fe426",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_10_delivery_blimp_drone_crashed/idle-single_row_pair-0.png",
+      "sha256": "cf159709b267a11672d59a9245f2afa852859a267e7880108fa3119df14233ae",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_10_delivery_blimp_drone_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "ef43d8034a63274c3258eead7436cc50e1355ea9d8c7403f5fcdbcf38d69a9a7"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed civilian delivery blimp drone is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed civilian delivery blimp drone is unarmed.",
+    "melee": "The crashed civilian delivery blimp drone has no melee action.",
+    "cover": "The crashed civilian delivery blimp drone has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed civilian delivery blimp drone has no psychic action.",
+    "heal": "The crashed civilian delivery blimp drone has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
