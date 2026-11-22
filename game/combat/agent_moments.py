@@ -44,6 +44,23 @@ def remember_objective_contribution(character: Character, mission, count: int) -
     }
 
 
+def remember_under_fire(character: Character, mission, damage_taken: int, max_hp: int) -> dict | None:
+    """Remember a living agent who absorbed a substantial factual damage total."""
+    threshold = max(10, (max(1, int(max_hp)) + 1) // 2)
+    damage_taken = max(0, int(damage_taken))
+    if damage_taken < threshold:
+        return None
+    title = getattr(mission, "title", None) or "Tactical engagement"
+    memory = f"{title}: stayed in the fight after taking {damage_taken} damage."
+    if memory not in character.history:
+        character.history.append(memory)
+    return {
+        "kind": "under_fire",
+        "agent_name": character.name,
+        "text": f"{character.name}: {memory}",
+    }
+
+
 def last_stand_dialogue(character: Character) -> str:
     """Select the line from campaign state for either tactical client."""
     traits = {str(trait).casefold() for trait in character.traits}

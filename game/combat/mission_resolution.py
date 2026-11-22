@@ -88,7 +88,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         if combat_state is not None
         else []
     )
-    from .agent_moments import remember_objective_contribution
+    from .agent_moments import remember_objective_contribution, remember_under_fire
     existing_objective_agents = {
         moment.get("agent_name") for moment in tactical_moments
         if moment.get("kind") == "objective_specialist"
@@ -99,6 +99,23 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         if character is None or agent_name in existing_objective_agents:
             continue
         moment = remember_objective_contribution(character, self.mission, int(count))
+        if moment is not None:
+            tactical_moments.append(moment)
+    existing_under_fire_agents = {
+        moment.get("agent_name") for moment in tactical_moments
+        if moment.get("kind") == "under_fire"
+    }
+    for unit in all_player_units:
+        if (not unit.character or unit.health <= 0
+                or unit.character.name in existing_under_fire_agents
+                or not hasattr(unit, "_damage_taken")):
+            continue
+        moment = remember_under_fire(
+            unit.character,
+            self.mission,
+            getattr(unit, "_damage_taken", 0),
+            getattr(unit.stats, "max_hp", 1) if unit.stats else 1,
+        )
         if moment is not None:
             tactical_moments.append(moment)
     relationship_characters = []

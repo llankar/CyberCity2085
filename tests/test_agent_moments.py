@@ -34,6 +34,25 @@ def test_real_low_health_kill_records_dialogue_and_persistent_memory():
     assert "1 HP" in restored.history[0]
 
 
+def test_real_attack_metrics_feed_one_factual_under_fire_memory():
+    from game.combat.agent_moments import remember_under_fire
+    from game.combat.attack_resolution import resolve_attack
+
+    character, actor, enemy, state = fixture()
+    enemy.stats.str = 13
+    actor.stats.max_hp = 20
+    actor.health = actor.stats.hp = actor.stats.max_hp
+    with patch("game.combat.attack_resolution.random.random", side_effect=[0.0, 1.0]):
+        resolution = resolve_attack(enemy, actor, "melee", spend_ap=False)
+    assert resolution.damage == actor._damage_taken == enemy._damage_dealt
+    assert not hasattr(enemy, "_kills")
+    assert remember_under_fire(character, state.mission, actor._damage_taken, actor.stats.max_hp) is not None
+    assert remember_under_fire(character, state.mission, actor._damage_taken, actor.stats.max_hp) is not None
+    assert character.history.count(
+        f"Tactical engagement: stayed in the fight after taking {actor._damage_taken} damage."
+    ) == 1
+
+
 def test_last_stand_dialogue_reflects_ambition_and_active_scars():
     from game.combat.godot_bridge import _agent_payload
 

@@ -246,6 +246,12 @@ def resolve_attack(
     before_hp = defender.stats.hp
     defender.stats.hp = max(0, defender.stats.hp - damage)
     defender.health = defender.stats.hp
+    applied_damage = max(0, before_hp - defender.stats.hp)
+    if applied_damage:
+        defender._damage_taken = getattr(defender, "_damage_taken", 0) + applied_damage
+        attacker._damage_dealt = getattr(attacker, "_damage_dealt", 0) + applied_damage
+        if defender.health <= 0:
+            attacker._kills = getattr(attacker, "_kills", 0) + 1
     attacker._last_crit = critical
     if hit:
         defender.is_defending = False
@@ -259,7 +265,7 @@ def resolve_attack(
         context,
         hit=hit,
         critical=critical,
-        damage=max(0, before_hp - defender.stats.hp),
+        damage=applied_damage,
         defeated=defender.health <= 0,
         consumed_ap=consumed_ap,
         consumed_resource=consumed_resource,

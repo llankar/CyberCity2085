@@ -123,6 +123,28 @@ def test_godot_objective_actions_create_one_named_memory_and_reputation(tmp_path
     assert restored.__dict__ == before
 
 
+def test_godot_damage_total_creates_one_survivor_memory_after_replay(tmp_path):
+    state, mission, session, result = scenario(tmp_path)
+    result['agents'][0]['damage_taken'] = 12
+    resolve_godot_result(state, mission, result, session['session_id'])
+    character = state.characters[0]
+    moments = state.latest_mission_debrief['tactical_moments']
+    assert moments == [{
+        'kind': 'under_fire',
+        'agent_name': 'Vera',
+        'text': 'Vera: Unified test: stayed in the fight after taking 12 damage.',
+    }]
+    assert character.history.count(
+        'Unified test: stayed in the fight after taking 12 damage.'
+    ) == 1
+    save = tmp_path / 'under-fire-memory.json'
+    state.save(str(save))
+    restored = GameState.load(str(save))
+    before = copy.deepcopy(restored.__dict__)
+    assert resolve_godot_result(restored, mission, result, session['session_id']) is None
+    assert restored.__dict__ == before
+
+
 def test_result_rejects_negative_objective_contribution(tmp_path):
     state, mission, session, result = scenario(tmp_path)
     result['agents'][0]['objective_contribution'] = -1

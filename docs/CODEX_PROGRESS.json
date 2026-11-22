@@ -1195,6 +1195,9 @@
         "docs/images/combat-directional-animation",
         "game/narrative/relationship_consequences.py",
         "game/combat/mission_resolution.py",
+        "game/combat/attack_resolution.py",
+        "game/combat/agent_moments.py",
+        "game/narrative/debrief.py",
         "game/ui/screens/battle_debrief_view.py"
       ],
       "tests": [
@@ -1213,7 +1216,8 @@
         "TAC-RC-02 DONE: the 1,728-case objective matrix recorded 117,740 consumed policy decisions: fire 56.87%, move 39.31%, objective interaction 1.97% and defend 1.85%. A reproducible gate fails above 70% for one action or when any required policy branch disappears. Current status PASS; 40 focused tests and 3 subtests passed.",
         "TAC-RC-03 DONE: all 15 authored story missions run through the real Arcade combat engine on their reviewed map with their authored objective. The natural seed-1 path wins without forcing terminal states, passes each result through shared campaign resolution and debrief, saves/reloads after every mission, and reaches the persisted finale. Three focused campaign-flow tests passed.",
         "TAC-FEEL-01 phase pacing automated subset DONE: a native Godot 4.7.2 regression verifies the 1.86-second normal banner, readable 1.30-second reduced-motion hold, and clean replacement of an in-progress turn announcement. Physical listening and human pacing/impact feel remain NOT VERIFIED.",
-        "TAC-STORY-01/02 objective attribution DONE: Godot exports each agent's factual objective interaction count; protocol validation rejects invalid values. Two or more real interactions create one named objective-specialist memory in the debrief and apply Keymaker reputation once. Save/reload and duplicate result replay are idempotent. Seventy-seven focused Python tests and one real Windows Godot 4.7.2 HQ-to-HQ victory path passed."
+        "TAC-STORY-01/02 objective attribution DONE: Godot exports each agent's factual objective interaction count; protocol validation rejects invalid values. Two or more real interactions create one named objective-specialist memory in the debrief and apply Keymaker reputation once. Save/reload and duplicate result replay are idempotent. Seventy-seven focused Python tests and one real Windows Godot 4.7.2 HQ-to-HQ victory path passed.",
+        "TAC-STORY-01/02 survivor-under-fire slice DONE: Arcade accumulates real applied damage, received damage and takedowns in the authoritative attack resolver. Shared campaign resolution creates one factual under_fire memory for a living agent above the bounded damage threshold; validated Godot metrics use the same path. Debrief, save/reload and duplicate replay remain idempotent. Sixty-five focused tests and 47 adjacent simulation/campaign tests passed."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
