@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_07_drone_command_halftrack.png",
+  "texture_sha256": "833d4d47eecae56f47cf752784c1f34149d971a15af0eb5f2b6e5207aa4d72ed",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_07_drone_command_halftrack_512.png",
+  "source_sha256": "b5323f3071940b163f2552df7e6739c4106bb2f3f0e5f109af8eae238b79e5c1",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_07_drone_command_halftrack/idle-single_row_pair-0.png",
+      "sha256": "0c756bea6b8738297c9a3bb43c5248555cb82bd09627897c75663f55a0372f0c",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_07_drone_command_halftrack/idle-single_row_pair-0-follow-through.png",
+        "sha256": "58b470a693a78405878d319977df4ff8400f5b9f4b959f9d9fb4b2609c8b6c5e"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The drone command halftrack is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The drone command halftrack is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The drone command halftrack has no tactical melee action.",
+    "cover": "The drone command halftrack has no tactical cover action.",
+    "hit": "The drone command halftrack has no authored hit action in the current runtime.",
+    "death": "The drone command halftrack has no authored death action in the current runtime.",
+    "psi": "The drone command halftrack has no psychic action.",
+    "heal": "The drone command halftrack has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
