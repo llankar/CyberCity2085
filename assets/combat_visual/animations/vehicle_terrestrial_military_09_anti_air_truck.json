@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_09_anti_air_truck.png",
+  "texture_sha256": "4c3a20af352e6631e35c4cbfb10b6021ccfac699109ba4d45d47696a4e2d9646",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_09_anti_air_truck_512.png",
+  "source_sha256": "4b119136af570c1f9c1ed8853850de40ff1a2e577f6205669198ab752dfa8c00",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_09_anti_air_truck/idle-single_row_pair-0.png",
+      "sha256": "11d7cd6c729d1e024807f8f48b418de9d5e4d59e6551c32457d18cf9778c7945",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_09_anti_air_truck/idle-single_row_pair-0-follow-through.png",
+        "sha256": "260fcad9953621408d33fa91014be7e1a766eb6d54af6658cf39040f01fab62b"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The anti-air truck is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The anti-air truck is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The anti-air truck has no tactical melee action.",
+    "cover": "The anti-air truck has no tactical cover action.",
+    "hit": "The anti-air truck has no authored hit action in the current runtime.",
+    "death": "The anti-air truck has no authored death action in the current runtime.",
+    "psi": "The anti-air truck has no psychic action.",
+    "heal": "The anti-air truck has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
