@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_03_vtol_missile_interceptor_crashed.png",
+  "texture_sha256": "88efb8281631a33026c17a67d7ffdc732b1fbaf6ab9f0f5b72c89abf8f0a93dd",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_03_vtol_missile_interceptor_crashed_512.png",
+  "source_sha256": "63d29e9487db2a2d77718a0e17dfcce8f0aad1b9ce2dccec838bd0a1035dc62d",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_03_vtol_missile_interceptor_crashed/idle-single_row_pair-0.png",
+      "sha256": "15ba756f8695fdb031d7ac743069b065557b716299c7bc78abaf8c103ff781e0",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_03_vtol_missile_interceptor_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "326c4e9cc079ae29a5ca72e867a20805ea3b313fa0a18378e0a64705edef4ced"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed military VTOL missile interceptor is an immobile decorative wreck with 0 AP.",
+    "fire": "The terminal wreck has no tactical fire action.",
+    "melee": "The terminal wreck has no melee action.",
+    "cover": "The terminal wreck has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed military VTOL missile interceptor has no psychic action.",
+    "heal": "The crashed military VTOL missile interceptor has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
