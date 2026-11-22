@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_03_street_food_truck.png",
+  "texture_sha256": "73587b8151333d0256e9725d94395d05a5a813700b70dc4bf0d20cea5aec8725",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_03_street_food_truck_512.png",
+  "source_sha256": "da09c05d44055f64abdc03ce28d98570933802a49859414bbaa605d31ce7db89",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_03_street_food_truck/idle-single_row_pair-0.png",
+      "sha256": "8ed87b3a8f80f7d1709a9d7d721fc8ad094073859ea0feae40d8367127dc5840",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_03_street_food_truck/idle-single_row_pair-0-follow-through.png",
+        "sha256": "4dc1ee0401353f40b1f349e402b1d652fcfbeeeec4fed1252f017aaff2e5f8a8"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian street food truck is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian street food truck has no tactical fire action.",
+    "melee": "The civilian street food truck has no melee action.",
+    "cover": "The civilian street food truck has no cover action.",
+    "hit": "The civilian street food truck has no authored hit action.",
+    "death": "The civilian street food truck has no authored death action.",
+    "psi": "The civilian street food truck has no psychic action.",
+    "heal": "The civilian street food truck has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
