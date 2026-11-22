@@ -6,6 +6,19 @@ import sys
 from tools import simulate_encounters as cli
 
 
+def test_objective_matrix_action_dominance_gate_rejects_monopoly_and_silence():
+    healthy = cli.evaluate_action_dominance(
+        {"fire": 57, "move": 39, "defend": 2, "objective": 2}
+    )
+    assert healthy["status"] == "PASS"
+    monopoly = cli.evaluate_action_dominance(
+        {"fire": 90, "move": 10, "defend": 0, "objective": 0}
+    )
+    assert monopoly["status"] == "FAIL"
+    assert monopoly["dominant_actions"] == ["fire"]
+    assert monopoly["missing_policy_actions"] == ["defend", "objective"]
+
+
 def test_limited_replay_only_runs_the_original_limited_case(monkeypatch, tmp_path):
     case = dict(map_file="city_industrial_dockside_terminal.png", theme="corp_37_robot", level=4,
                 risk=5, count=6, seed=17, policy="objective_counterplay", layout="open",
@@ -16,7 +29,10 @@ def test_limited_replay_only_runs_the_original_limited_case(monkeypatch, tmp_pat
     calls = []
     def simulate(**kwargs):
         calls.append(kwargs)
-        return {"map_file": case["map_file"], "outcome": "victory"}
+        return {"map_file": case["map_file"], "outcome": "victory",
+                "theme": case["theme"], "objective_kind": case["objective_kind"],
+                "roles": {"grunt": case["count"]},
+                "player_actions": {"move": 2, "fire": 3}}
     def unrelated_matrix(_):
         raise AssertionError("Replay must not run the unrelated authored matrix")
     monkeypatch.setattr(cli, "simulate_encounter", simulate)
@@ -30,3 +46,10 @@ def test_limited_replay_only_runs_the_original_limited_case(monkeypatch, tmp_pat
     report = json.loads(output.read_text(encoding="utf-8"))
     assert report["limited_retest_only"] and report["baseline_sources_sha256"] == "old-sources"
     assert report["summary"] == {"victory": 1} and len(report["runs"]) == 1
+    assert report["coverage"]["objectives"] == ["extract"]
+    assert report["coverage"]["player_actions"] == list(cli.simulate_action_coverage())
+    assert report["action_distribution"] == {
+        "fire": {"count": 3, "share": 0.6},
+        "move": {"count": 2, "share": 0.4},
+    }
+    assert report["dominance_check"]["status"] == "NOT_APPLICABLE"

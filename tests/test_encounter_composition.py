@@ -7,7 +7,13 @@ import pytest
 
 from game.character import Character
 from game.combat.encounter_composition import compose_encounter, enemy_spawn_positions, ROLE_COST
-from game.combat.encounter_qa import objective_threat_distance, simulate_encounter, synthetic_enemy_position
+from game.combat.encounter_qa import (
+    QA_PLAYER_ACTIONS,
+    objective_threat_distance,
+    simulate_action_coverage,
+    simulate_encounter,
+    synthetic_enemy_position,
+)
 from game.combat_system import create_enemy_units
 from game.enemy_themes import ENEMY_THEMES
 from game.mission_objectives import create_battle_objective
@@ -78,6 +84,15 @@ def test_simulation_is_reproducible_restores_rng_and_runs_real_enemy_telegraphs(
     assert 1 <= result["turns"] <= 30
     assert result["announced"].get("LOCK", 0) > 0
     assert result["dodges"] > 0 and result["interruptions"] > 0
+    assert sum(result["player_actions"].values()) > 0
+    assert {"move", "fire"} <= result["player_actions"].keys()
+
+
+def test_pure_qa_executes_every_player_facing_engine_action():
+    coverage = simulate_action_coverage()
+    assert tuple(coverage) == QA_PLAYER_ACTIONS
+    assert coverage["missiles"]["consumed_resource"] == 1
+    assert all(coverage[action]["consumed_ap"] > 0 for action in QA_PLAYER_ACTIONS)
 
 
 def test_objective_qa_prioritizes_enemies_threatening_defensive_boundaries():

@@ -18,6 +18,75 @@ from .pack_maneuvers import neighbors, approach_step
 from .state import CombatState
 
 
+QA_PLAYER_ACTIONS = (
+    "move", "fire", "melee", "psi", "first_aid", "missiles",
+    "overwatch", "defend", "end_turn",
+)
+
+
+def simulate_action_coverage():
+    """Execute every player-facing engine action in a fresh deterministic state.
+
+    This is deliberately separate from the balance squad: giving one synthetic
+    unit every capability would hide the real availability rules for agents and
+    support assets.
+    """
+    from game.management.spec_ops_assets import default_spec_ops_assets
+    from game.unit import STATUS_BLEEDING
+
+    performed = {}
+
+    def run(action, actor, *, target=None, move_delta=None, allies=None):
+        enemy = Unit(position=(32, 0), stats=PlayerStats(hp=100), health=100, unit_type="enemy")
+        party = list(allies or [actor])
+        state = CombatState(None, party, [enemy])
+        engine = CombatEngine(state)
+        engine.start_player_turn()
+        result = engine.perform_action(
+            action,
+            actor=actor,
+            target=target or (enemy if action in {"fire", "melee", "psi", "missiles"} else None),
+            move_delta=move_delta,
+        )
+        if not result.success:
+            raise AssertionError(f"QA action {action} did not execute: {result.message}")
+        performed[action] = {
+            "consumed_ap": result.consumed_ap,
+            "consumed_resource": result.consumed_resource,
+        }
+
+    def agent(name, *, role="sniper", weapon=None, position=(0, 0)):
+        character = Character(name, role=role)
+        character.stats = PlayerStats(agi=8, str=8, psi=8)
+        if weapon is not None:
+            character.loadout.primary_weapon = weapon
+        return Unit(position=position, stats=character.stats, health=character.stats.hp,
+                    character=character, attack_range=8)
+
+    run("move", agent("Move", weapon=Weapon("rifle", "Rifle", "primary_weapon", range_cells=8)),
+        move_delta=(0, 32))
+    run("fire", agent("Fire", weapon=Weapon("rifle", "Rifle", "primary_weapon", range_cells=8)))
+    run("melee", agent("Melee", weapon=Weapon("blade", "Blade", "primary_weapon", attack_stat="str")))
+    run("psi", agent("Psi", role="psi"))
+
+    medic = agent("Medic", role="medic", position=(0, 0))
+    patient = agent("Patient", position=(0, 32))
+    patient.health = max(1, patient.stats.max_hp - 2)
+    patient.apply_status(STATUS_BLEEDING)
+    run("first_aid", medic, target=patient, allies=[medic, patient])
+
+    missile_asset = next(asset for asset in default_spec_ops_assets() if asset.missile_capacity > 0)
+    missile_actor = Unit(position=(0, 0), stats=missile_asset.combat_stats(),
+                         health=missile_asset.combat_stats().hp, spec_ops_asset=missile_asset)
+    run("missiles", missile_actor)
+    run("overwatch", agent("Overwatch", weapon=Weapon("rifle", "Rifle", "primary_weapon", range_cells=8)))
+    run("defend", agent("Defend", weapon=Weapon("rifle", "Rifle", "primary_weapon", range_cells=8)))
+    run("end_turn", agent("End", weapon=Weapon("rifle", "Rifle", "primary_weapon", range_cells=8)))
+    if tuple(performed) != QA_PLAYER_ACTIONS:
+        raise AssertionError("QA action coverage drifted from the public action contract")
+    return performed
+
+
 def first_reachable_approach(actor, destinations, legal, *, width, height):
     """QA policy: do not guard forever because its first candidate is sealed."""
     for destination in destinations:
@@ -130,7 +199,14 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
         assert terrain is None or all(terrain.is_walkable(*cell) for cell in living), "Unit entered authored obstacle"
     initial_hp = sum(unit.health for unit in allies)
     announced = Counter()
+    player_actions = Counter()
     dodges = 0
+
+    def perform(action, **kwargs):
+        result = engine.perform_action(action, **kwargs)
+        if result.success:
+            player_actions[action] += 1
+        return result
     def snapshot():
         units = tuple((unit.position, unit.health, tuple(sorted(unit.status_effects)))
                       for unit in [*original_allies, *original_enemies])
@@ -152,6 +228,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                 if policy.startswith("objective") and objective is not None and objective.kind not in {"defend", "containment", "assassination"} and not objective.completed:
                     interaction = engine.interact_with_objective(actor)
                     if interaction.consumed_ap:
+                        player_actions["objective"] += 1
                         continue
                     objective_blocked = interaction.reason in {"objective_contested", "interaction_already_used_this_turn"}
                 threats = engine.enemy_intents()
@@ -164,8 +241,8 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                         and not any(zone.contains(cell) for zone in state.tactical_flags.get("hazards", ()))]
                 if marked and safe:
                     cell = min(safe, key=lambda c: (abs(c[0] - 64), c))
-                    action = engine.perform_action("move", actor=actor,
-                                                   move_delta=(cell[0]-actor.position[0], cell[1]-actor.position[1]))
+                    action = perform("move", actor=actor,
+                                     move_delta=(cell[0]-actor.position[0], cell[1]-actor.position[1]))
                     dodges += int(action.success)
                 else:
                     defensive_objective = (
@@ -193,18 +270,18 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                     if advance_objective:
                         _, step = first_reachable_approach(actor, [objective], legal, width=width, height=height)
                     if step is not None:
-                        engine.perform_action("move", actor=actor, move_delta=step)
+                        perform("move", actor=actor, move_delta=step)
                     elif shootable:
-                        engine.perform_action("fire", actor=actor, target=shootable[0])
+                        perform("fire", actor=actor, target=shootable[0])
                     elif targets:
                         destinations = sorted(targets, key=lambda target: (
                             target is not hvt if policy.startswith("objective") and hvt else False,
                             actor.distance_to(target)))
                         _, step = first_reachable_approach(actor, destinations, legal, width=width, height=height)
                         if step:
-                            engine.perform_action("move", actor=actor, move_delta=step)
+                            perform("move", actor=actor, move_delta=step)
                 if actor.action_points >= before:
-                    engine.perform_action("defend", actor=actor)
+                    perform("defend", actor=actor)
                     break
                 check_geometry()
         result = engine.end_battle_check()
@@ -237,5 +314,6 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                 allied_losses=sum(u.health <= 0 for u in original_allies),
                 enemy_survivors=sum(u.health > 0 for u in original_enemies),
                 infections=sum(c.starver_infection_days is not None for c in characters),
+                player_actions=dict(player_actions),
                 announced=dict(announced), dodges=dodges,
                 interruptions=sum("Enemy plan interrupted" in line for line in state.logs))
