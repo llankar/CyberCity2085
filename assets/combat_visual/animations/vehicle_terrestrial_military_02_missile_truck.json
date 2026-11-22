@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_02_missile_truck.png",
+  "texture_sha256": "77ed3404d7300af28c1c3dfbc29201a6cf674157d3f1d94d4f4adb503c02311c",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_02_missile_truck_512.png",
+  "source_sha256": "015f7dc75cb710198b922c4beb6a83213fd01aeaff4e09f5f634e5bbaa06eda0",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_02_missile_truck/idle-single_row_pair-0.png",
+      "sha256": "6925cd9930592f62d4bd8e978fad39c22c1f585ff83fd902a330e563f41a1e57",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_02_missile_truck/idle-single_row_pair-0-follow-through.png",
+        "sha256": "229e499af91e28bf79b96d552f712b6943b8efb69f8bfab5094fdf1e698c3f24"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The missile truck is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The missile truck is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The missile truck has no tactical melee action.",
+    "cover": "The missile truck has no tactical cover action.",
+    "hit": "The missile truck has no authored hit action in the current runtime.",
+    "death": "The missile truck has no authored death action in the current runtime.",
+    "psi": "The missile truck has no psychic action.",
+    "heal": "The missile truck has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
