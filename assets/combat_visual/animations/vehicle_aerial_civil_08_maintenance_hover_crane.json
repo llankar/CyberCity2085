@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_08_maintenance_hover_crane.png",
+  "texture_sha256": "d4e84f68b2efbc9d66e44791bc8b9da34ebe2ac28707b551342885c2ae16b0ef",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_08_maintenance_hover_crane_512.png",
+  "source_sha256": "14bc69189e97ca2e0ce3587db291269220fa965cb00eb73932cf853e03dfffaf",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_08_maintenance_hover_crane/idle-single_row_pair-0.png",
+      "sha256": "08e1fa27fc5569c086bed55d946bcedb6fbb48f6ef0f59fc3c611474f19c63f7",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_08_maintenance_hover_crane/idle-single_row_pair-0-follow-through.png",
+        "sha256": "2adfc6be5b1117a136afd4c2b605a421d0f3ea7957b912b7f701e7452eaf1384"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian maintenance hover crane is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian maintenance hover crane is unarmed.",
+    "melee": "The civilian maintenance hover crane has no melee action.",
+    "cover": "The civilian maintenance hover crane has no cover action.",
+    "hit": "The civilian maintenance hover crane has no authored hit action.",
+    "death": "The intact civilian maintenance hover crane has no authored destruction action.",
+    "psi": "The civilian maintenance hover crane has no psychic action.",
+    "heal": "The civilian maintenance hover crane has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
