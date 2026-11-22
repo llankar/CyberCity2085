@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_06_railgun_strike_craft_crashed.png",
+  "texture_sha256": "ce023dcb135bcf9cd89d5cb9150b194e2f00b2ac5c115f4dec4ddb4b3359bba7",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_06_railgun_strike_craft_crashed_512.png",
+  "source_sha256": "e36e2a61b71417558e09674ee4ffc083493a9df97c27c1f2de117c29fd9e8d29",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_06_railgun_strike_craft_crashed/idle-single_row_pair-0.png",
+      "sha256": "c61f71a8d0729fa01a75ceeca29b69cdbcd869d9b706cea1a985929d4980c24d",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_06_railgun_strike_craft_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "20a9a9983ac5679090db634e7ffa52cc5186b80cd30ac2ff504bf4650c77d958"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed military railgun strike craft is an immobile decorative wreck with 0 AP.",
+    "fire": "The terminal wreck has no tactical fire action.",
+    "melee": "The terminal wreck has no melee action.",
+    "cover": "The terminal wreck has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed military railgun strike craft has no psychic action.",
+    "heal": "The crashed military railgun strike craft has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
