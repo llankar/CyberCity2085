@@ -262,6 +262,15 @@ def build(key,config):
                 directions[direction]=normalise([
                     extract_grid(phase,0,source_col,8,1,erosion,clean_components) for phase in phase_images
                 ],pose_height)
+        elif layout == 'walk_rows':
+            order=sheet_directions(item,8)
+            erosion=item.get('edge_erosion',0)
+            clean_components=not item.get('keep_disconnected_details',False)
+            for source_col,direction in enumerate(order):
+                directions[direction]=normalise([
+                    extract_grid(image,source_row,source_col,8,4,erosion,clean_components)
+                    for source_row in range(4)
+                ],pose_height)
         else:raise ValueError(layout)
         provenance.append(dict(file=(directory/name).relative_to(ROOT).as_posix(),sha256=digest(source),clip=clip,layout=layout,method='New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.'))
         if 'direction_indices' in item:
@@ -275,7 +284,7 @@ def build(key,config):
             provenance[-1]['source_row_offset'] = item.get('source_row_offset', 0)
         if layout in ('front','rear') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
-        if layout in ('front','rear','action_columns','single_row_pair','single_row_walk') and item.get('keep_disconnected_details'):
+        if layout in ('front','rear','action_columns','single_row_pair','single_row_walk','walk_rows') and item.get('keep_disconnected_details'):
             provenance[-1]['keep_disconnected_details']=True
         if layout == 'action_rows' and item.get('follow_through_path'):
             provenance[-1]['follow_through'] = {
@@ -300,7 +309,7 @@ def build(key,config):
                 'file':phase_dest.relative_to(ROOT).as_posix(),
                 'sha256':digest(phase_source),
             } for phase_source,phase_dest in phase_files]
-        if layout in ('single_row_pair','single_row_walk') and item.get('edge_erosion'):
+        if layout in ('single_row_pair','single_row_walk','walk_rows') and item.get('edge_erosion'):
             provenance[-1]['edge_erosion']=item['edge_erosion']
         if item.get('chroma_key') is not None:
             provenance[-1]['chroma_key']=item['chroma_key']

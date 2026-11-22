@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -43,6 +44,30 @@ def test_chroma_key_removes_flat_background_and_unmixes_edge_colour():
 def test_chroma_key_rejects_invalid_configuration(key, inner, outer):
     with pytest.raises(ValueError):
         apply_chroma_key(Image.new("RGBA", (1, 1)), key, inner, outer)
+
+
+def test_walk_rows_imports_four_phases_for_eight_reviewed_directions(tmp_path, monkeypatch):
+    monkeypatch.setattr(importer, "ROOT", tmp_path)
+    units = tmp_path / "assets/units"
+    units.mkdir(parents=True)
+    Image.new("RGBA", (16, 16), (80, 40, 20, 255)).save(units / "boar_512.png")
+    source = tmp_path / "walk.png"
+    sheet = Image.new("RGBA", (8 * 24, 4 * 24))
+    for row in range(4):
+        for col in range(8):
+            colour = (40 + row * 30, 30 + col * 10, 20, 255)
+            Image.new("RGBA", (14, 16), colour).save(tmp_path / "cell.png")
+            sheet.alpha_composite(Image.open(tmp_path / "cell.png"), (col * 24 + 5, row * 24 + 4))
+    sheet.save(source)
+    importer.build("boar", {
+        "applicable_clips": ["move"],
+        "non_applicable_clips": {},
+        "clips": [{"clip": "move", "layout": "walk_rows", "path": str(source),
+                   "direction_indices": [1, 2, 3, 4, 5, 6, 7, 0]}],
+    })
+    manifest = json.loads((tmp_path / "assets/combat_visual/animations/boar.json").read_text())
+    assert [len(row) for row in manifest["animations"]["move"]["rows"]] == [4] * 8
+    assert manifest["coverage"] == "complete"
 
 
 def test_extract_can_preserve_reviewed_disconnected_costume_details():
