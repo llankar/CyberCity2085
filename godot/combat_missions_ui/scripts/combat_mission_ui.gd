@@ -373,7 +373,8 @@ func _sync_display() -> void:
 
 	# Objective proximity hint — overrides status line when actionable.
 	if turn_side == "player" and not objective.is_empty() \
-			and objective.get("needs_marker", false) and not objective_completed:
+			and objective.get("needs_marker", false) and objective.get("interactive", true) \
+			and not objective_completed:
 		var active := _current_active_player()
 		if not active.is_empty() and int(active.get("ap", 0)) > 0:
 			var apos     := _cell_position(active)
@@ -995,7 +996,7 @@ func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> voi
 	# Objective interaction: clicking the objective cell when the active player
 	# is within interact_range and has AP triggers the mission-specific action.
 	if not objective.is_empty() and objective.get("needs_marker", false) \
-			and not objective_completed:
+			and objective.get("interactive", true) and not objective_completed:
 		var obj_cell := objective["cell"] as Vector2i
 		if cell == obj_cell:
 			var active := _current_active_player()
@@ -1208,7 +1209,7 @@ func _start_combat(source: String) -> void:
 	# Pass 2× the viewport size so the battlefield grid is twice as large.
 	# Camera2D starts at zoom=0.5 (fit-to-screen) and can zoom in/out.
 	var obj_cell := objective.get("cell", Vector2i(GRID_COLS / 2, GRID_ROWS / 2)) as Vector2i
-	_battlefield.configure(size * 4.0, map_texture, cover_nodes, obj_cell)
+	_battlefield.configure(size * 4.0, map_texture, cover_nodes, obj_cell, objective)
 	if resume.is_empty():
 		preload("res://scripts/map_wall_layout.gd").place_encounter(player_units, enemy_units, objective, _battlefield)
 
@@ -1612,9 +1613,17 @@ func _resolve_enemy_turn() -> void:
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) > 0:
 			enemy_units[i]["ap"] = 2
+	var containment: bool = objective.get("type", "") == "containment"
+	var breacher := _containment_breacher_index() if containment else -1
 	for i in range(enemy_units.size()):
-		if int(enemy_units[i].get("hp", 0)) > 0:
+		if int(enemy_units[i].get("hp", 0)) <= 0: continue
+		if containment:
+			if i == breacher: _enemy_containment_act(i)
+		else:
 			_enemy_act(i)
+		if containment and _containment_breached():
+			_end_combat("defeat", "Containment failed: a hostile crossed the marked breach zone.")
+			return
 	turn_side    = "player"
 	turn_number += 1
 	overwatch_indices.clear()
@@ -1737,6 +1746,35 @@ func _enemy_act(enemy_index: int) -> void:
 	enemy["ap"] = ap
 	enemy_units[enemy_index] = enemy
 
+func _containment_breacher_index() -> int:
+	return preload("res://scripts/containment_objective.gd").breacher_index(enemy_units, objective)
+
+func _enemy_containment_act(enemy_index: int) -> void:
+	var enemy := enemy_units[enemy_index] as Dictionary
+	var start := _cell_position(enemy)
+	var marker := objective.get("cell", Vector2i.ZERO) as Vector2i
+	var half_width := int(objective.get("breach_half_width_cells", 3))
+	var goal := preload("res://scripts/containment_objective.gd").target_cell(start, objective)
+	var route: Array[Vector2i] = _battlefield.find_path(start, goal)
+	if route.size() < 2:
+		for row in range(marker.y - half_width, marker.y + half_width + 1):
+			if row < 0 or row >= GRID_ROWS: continue
+			var alternate: Array[Vector2i] = _battlefield.find_path(start, Vector2i(marker.x, row))
+			if alternate.size() >= 2 and (route.is_empty() or alternate.size() < route.size()):
+				route = alternate
+	if route.size() >= 2:
+		var destination := route[1]
+		if not _is_cell_occupied(destination, -1, enemy_index):
+			enemy["position"] = destination
+			var ekey := "e%d" % enemy_index
+			if _unit_tokens.has(ekey):
+				_visual_move_token(ekey, start, destination, enemy)
+	enemy["ap"] = 0
+	enemy_units[enemy_index] = enemy
+
+func _containment_breached() -> bool:
+	return preload("res://scripts/containment_objective.gd").breached(enemy_units, objective)
+
 func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void:
 	var enemy  := enemy_units[enemy_index] as Dictionary
 	var target := player_units[target_index] as Dictionary
@@ -1827,10 +1865,10 @@ func _complete_mission() -> void:
 	_sync_display()
 	_end_combat("victory")
 
-func _end_combat(outcome: String) -> void:
+func _end_combat(outcome: String, failure_message: String = "") -> void:
 	if outcome == "defeat":
 		turn_side   = "ended"
-		status_line = "Squad eliminated. Mission failed."
+		status_line = failure_message if not failure_message.is_empty() else "Squad eliminated. Mission failed."
 		_log_event("── MISSION FAILED ──")
 		_refresh_initiative()
 		_sync_display()

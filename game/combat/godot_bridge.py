@@ -61,7 +61,7 @@ class GodotCombatLaunchResult:
 
 
 def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
-    return {
+    payload = {
         "id": mission.id,
         "title": mission.title,
         "objective_text": mission.objective_text,
@@ -73,6 +73,13 @@ def _mission_payload(mission: MissionTemplate) -> dict[str, Any]:
         "fund_reward": mission.fund_reward,
         "enemy_theme": getattr(mission, "enemy_theme", ""),
     }
+    if payload["objective_type"] == "containment":
+        payload["objective_geometry"] = {
+            "breach_half_width_cells": 3,
+            "active_breachers": 1,
+            "breach_steps_per_phase": 1,
+        }
+    return payload
 
 
 def _map_payload(mission: MissionTemplate) -> dict[str, Any]:

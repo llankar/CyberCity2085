@@ -26,6 +26,7 @@ var battlefield_rect: Rect2   = Rect2()
 var map_texture     : Texture2D = null
 var cover_nodes     : Array[Dictionary] = []
 var objective_cell  : Vector2i = Vector2i(6, 3)
+var objective_data  : Dictionary = {}
 
 var move_range_cells  : Array[Vector2i] = []
 var move_range_anchor : Vector2i = Vector2i(-1, -1)
@@ -61,7 +62,8 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 func configure(vp_size: Vector2, map_tex: Texture2D,
-			   covers: Array[Dictionary], obj_cell: Vector2i) -> void:
+			   covers: Array[Dictionary], obj_cell: Vector2i,
+			   obj_data: Dictionary = {}) -> void:
 	viewport_size  = vp_size
 	map_texture    = map_tex
 	cover_nodes    = covers
@@ -74,6 +76,7 @@ func configure(vp_size: Vector2, map_tex: Texture2D,
 				_opaque_cells.append(wall["cell"] as Vector2i)
 	_blocked = _wall_cells.duplicate()
 	objective_cell = obj_cell
+	objective_data = obj_data.duplicate()
 	_compute_rect()
 	_rebuild_astar()
 	queue_redraw()
@@ -468,6 +471,17 @@ func _draw_cover_nodes() -> void:
 
 func _draw_objective() -> void:
 	var center := cell_to_world(objective_cell)
+	if objective_data.get("type", "") == "containment":
+		var half_width := int(objective_data.get("breach_half_width_cells", 3))
+		for row in range(objective_cell.y - half_width, objective_cell.y + half_width + 1):
+			if row < 0 or row >= GRID_ROWS: continue
+			var cell := Vector2i(objective_cell.x, row)
+			var diamond := _iso_corners_inner(cell, 0.10)
+			draw_polygon(diamond, PackedColorArray([Color(1.0, 0.20, 0.18, 0.22)]))
+			draw_polyline(PackedVector2Array([diamond[0], diamond[1], diamond[2], diamond[3], diamond[0]]),
+					Color(1.0, 0.34, 0.30, 0.90), 2.0)
+		draw_string(ThemeDB.fallback_font, center + Vector2(-34, -25),
+				"BREACH ZONE", HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(1.0, 0.34, 0.30, 1.0))
 	var pulse  := 0.70 + 0.30 * sin(_elapsed * 2.2)
 	var ring   := 14.0 + 4.0 * pulse
 	draw_arc(center, ring, 0.0, TAU, 48, PLAYER_COL, 2.0)

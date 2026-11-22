@@ -41,6 +41,21 @@ def _mission() -> MissionTemplate:
 
 
 class GodotCombatBridgeTest(unittest.TestCase):
+    def test_containment_payload_carries_shared_breach_geometry(self) -> None:
+        game_state = GameState(
+            characters=[Character("Vera")], selected_agent_names=["Vera"]
+        )
+        mission = _mission()
+        mission.objective_type = "containment"
+
+        payload = build_godot_combat_payload(game_state, mission)
+
+        self.assertEqual(payload["mission"]["objective_geometry"], {
+            "breach_half_width_cells": 3,
+            "active_breachers": 1,
+            "breach_steps_per_phase": 1,
+        })
+
     def test_payload_transmits_reduced_motion_preference(self) -> None:
         game_state = GameState(
             characters=[Character("Vera")], selected_agent_names=["Vera"]

@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-ENEMY-05 marker-local containment IN_PROGRESS. Python/Arcade now uses one seven-cell breach zone for failure, enemy routing, placement and rendering, with one telegraphed one-cell breach advance per phase. Three pilot maps improved to two standard victories and one extended turn-63 victory without stagnation. The real 122-map pass produced 109 victories, 9 defeats and 4 active limits; the 1,728-run matrix produced 1,505 victories, 223 defeats, zero limits and zero errors. Godot geometry parity remains NOT VERIFIED.",
-  "next_action": "TAC-ENEMY-05 : serialize the local containment breach geometry into the tactical payload, implement matching Godot runtime/render behavior and tests, then run one targeted native containment mission. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
+  "latest_batch": "TAC-ENEMY-05 Godot containment parity IN_PROGRESS. The payload now carries breach width, active breacher count and cadence. Godot creates and renders the local non-interactive zone, selects one breacher, advances it one cell and fails on crossing while preserving elimination victory. 108 Python/Godot tests and 5 subtests passed. The dedicated rule regression passed under Godot 4.6.3 and packaged Windows Godot 4.7.2 with CONTAINMENT_OBJECTIVE_CHECKS_PASSED. Visible Windows rendering and native victory/defeat debrief paths remain NOT VERIFIED.",
+  "next_action": "TAC-ENEMY-05 : run a visible Windows Godot containment fixture, inspect zone and trajectory, then verify native victory and defeat through the Python debrief with single application. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

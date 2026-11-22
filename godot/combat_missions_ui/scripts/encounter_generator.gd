@@ -255,7 +255,8 @@ func _find_cell(subtype: String, idx: int, _is_giant: bool,
 # progress tracking. Elimination missions need no map marker.
 # ──────────────────────────────────────────────────────────────────────────────
 
-func build_objective(obj_type: String, grid_cols: int, grid_rows: int) -> Dictionary:
+func build_objective(obj_type: String, grid_cols: int, grid_rows: int,
+		geometry: Dictionary = {}) -> Dictionary:
 	# Place the objective in the far 62–82% of the X axis, random Y band.
 	var ox := int(grid_cols * 0.62) + randi() % maxi(1, int(grid_cols * 0.20))
 	var oy := int(grid_rows * 0.20) + randi() % maxi(1, int(grid_rows * 0.60))
@@ -266,6 +267,9 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int) -> Dictio
 	var needs_marker:    bool = true
 
 	match obj_type:
+		"containment":
+			ox = int(grid_cols * 0.35); oy = int(grid_rows * 0.50)
+			label = "Breach Zone"; action_key = ""; needs_marker = true
 		"data_with_detour", "data_theft", "data_extract", "intel_gather":
 			label = "Hack Terminal";  action_key = "HACK"
 		"extraction", "extract_vip", "safe_extraction", "extract":
@@ -296,7 +300,11 @@ func build_objective(obj_type: String, grid_cols: int, grid_rows: int) -> Dictio
 		"action_key":       action_key,
 		"progress_needed":  progress_needed,
 		"needs_marker":     needs_marker,
+		"interactive":      obj_type != "containment",
 		"interact_range":   2,   # grid cells within which the player can interact
+		"breach_half_width_cells": int(geometry.get("breach_half_width_cells", 3)),
+		"active_breachers": int(geometry.get("active_breachers", 1)),
+		"breach_steps_per_phase": int(geometry.get("breach_steps_per_phase", 1)),
 	}
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -458,7 +466,8 @@ func generate(handoff: Dictionary, grid_cols: int, grid_rows: int) -> Dictionary
 			u = apply_giant(u)
 		units.append(u)
 
-	var objective := build_objective(obj_type, grid_cols, grid_rows)
+	var geometry := mission.get("objective_geometry", {}) as Dictionary
+	var objective := build_objective(obj_type, grid_cols, grid_rows, geometry)
 	var placed    := place_enemies(units, objective["cell"] as Vector2i,
 								  tags, grid_cols, grid_rows)
 	if mission.get("id") == "sm_act5_expose" and theme == "corp_37_robot":
