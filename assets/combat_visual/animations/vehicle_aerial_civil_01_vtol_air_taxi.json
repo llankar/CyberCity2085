@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_01_vtol_air_taxi.png",
+  "texture_sha256": "32de1481eb0e6a224174292d0ccf3725a3b4676f33277a7b97084b2a4d6f6fa0",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_01_vtol_air_taxi_512.png",
+  "source_sha256": "a02c5615a4106f867552acbd1de38d3728e666b22f3f102b868af2738b2afbe9",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_01_vtol_air_taxi/idle-single_row_pair-0.png",
+      "sha256": "597eb7dab25b10331254784100b3440563917e1c5d7def7566ea5f9cc6e746b1",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_01_vtol_air_taxi/idle-single_row_pair-0-follow-through.png",
+        "sha256": "ff65a4ea037453a33ce414642c1576d4cc3be5c2c8dde1c3b8b034e43eb17543"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian air taxi is a stationary decorative vehicle with 0 AP and no tactical actions.",
+    "fire": "The civilian air taxi is unarmed and has no tactical actions.",
+    "melee": "The civilian air taxi has no melee action.",
+    "cover": "The civilian air taxi has no cover action.",
+    "hit": "The civilian air taxi has no authored hit action.",
+    "death": "The intact civilian air taxi has no authored destruction action.",
+    "psi": "The civilian air taxi has no psychic action.",
+    "heal": "The civilian air taxi has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
