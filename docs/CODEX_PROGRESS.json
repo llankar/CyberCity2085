@@ -1919,8 +1919,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "Commit 3c27289 adds the shared survivor-under-fire memory and Arcade attack metrics after closing TAC-ENEMY-05 tracking. The full E: regression gate passed 1205 tests with 36 skipped and 14 subtests in 255.97 seconds. The previously packaged executable predates these changes and is retained only as the last verified package, not the current source candidate.",
-  "next_action": "Build the current 3c27289 source on E: with the verified full suite reused, then run packaged smoke and record the executable SHA-256. After that, perform manual Windows readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, tactical playthrough and audible Arcade/Godot fades without desktop automation.",
+  "latest_batch": "The current Windows package includes the shared survivor-under-fire memory and Arcade attack metrics. The full E: gate passed 1205 tests with 36 skipped and 14 subtests in 255.97 seconds. PyInstaller reused that gate with -SkipTests; packaged smoke passed with 122 maps, 7 MP3 tracks, 15 story objectives, save round-trip, tactical victory and bundled Godot 4.7.2 startup. Executable SHA-256: 2319535923E310CCF1E1717832296AAC6631C157765562ED3CADEF8D0D07CB45.",
+  "next_action": "MANUAL WINDOWS ACCEPTANCE: launch E:/CyberCity2085-builds/cybercity-build-3874493ae8984afd8e227fafebcb7c85/dist/CyberCity2085/CyberCity2085.exe and verify visible readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, tactical playthrough and audible Arcade/Godot fades. Desktop automation is forbidden. Continue factual non-manual TAC-STORY/TAC-FEEL gaps when manual input is unavailable.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
