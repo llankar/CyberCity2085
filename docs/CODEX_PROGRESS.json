@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-COMPLETE mutant grunt DONE. The armored grunt has 128 frames across seven applicable clips and eight true facings. Its human gait alternates; one body, two arms, two legs, olive/pale-green armor, orange thigh plates, yellow visor, attached cables and one industrial rifle remain coherent. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti produced seven targeted captures, and movement, fire, melee and single-body death were inspected. Complete manifests are 146 / 233 and artistically verified coverage is 169 / 233.",
-  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_heavy. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
+  "latest_batch": "ANIM-COMPLETE mutant heavy DONE. The heavy has 128 frames across seven applicable clips and eight true facings. Its weighted human gait alternates; one body, two arms, two legs, neon-lime/gunmetal exoskeleton, red optics, two back canisters, attached hose and one rectangular heavy rifle remain coherent. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti produced seven targeted captures, and movement, fire, melee and single-body death were inspected. Complete manifests are 147 / 233 and artistically verified coverage is 170 / 233.",
+  "next_action": "ANIMATIONS: create, import and validate only enemy_raider_commander. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
