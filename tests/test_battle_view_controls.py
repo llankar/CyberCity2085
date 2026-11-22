@@ -1,8 +1,10 @@
 """Focused BattleView keyboard control regressions."""
 
 import unittest
+from types import SimpleNamespace
 
 from game import views
+from game import battle_maps
 
 
 class _Player:
@@ -41,6 +43,28 @@ class BattleViewControlsTest(unittest.TestCase):
 
         view.on_key_press(views.arcade.key.ESCAPE, 0)
         self.assertFalse(view._paused)
+
+    def test_map_change_reapplies_one_ratio_to_every_existing_sprite(self):
+        view = self._view()
+        view.active_map_entry = next(
+            entry
+            for entry in battle_maps.BATTLE_MAP_CATALOG
+            if entry.filename == "city_interior_safehouse.png"
+        )
+        human = SimpleNamespace(unit_type="agent", sprite=SimpleNamespace(scale=0.0))
+        robot = SimpleNamespace(
+            unit_type="enemy",
+            enemy_theme="corp_37_robot",
+            sprite=SimpleNamespace(scale=0.0),
+        )
+        view.player_units = [human]
+        view.enemy_units = [robot]
+        view.defeated_player_units = []
+
+        view._apply_active_map_unit_scale()
+
+        self.assertAlmostEqual(human.sprite.scale, 1.1)
+        self.assertAlmostEqual(robot.sprite.scale, 2.2)
 
 
 if __name__ == "__main__":

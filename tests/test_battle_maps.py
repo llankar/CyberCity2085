@@ -77,6 +77,56 @@ class BattleMapsTest(unittest.TestCase):
         self.assertAlmostEqual(battle_maps.battle_token_scale_for_unit(robot_asset_unit), 0.825)
         self.assertAlmostEqual(battle_maps.battle_token_scale_for_unit(robot_enemy_unit), 1.65)
 
+    def test_every_map_has_one_shared_unit_scale_ratio(self) -> None:
+        ratios = battle_maps._load_map_height_ratios()
+        units = [
+            SimpleNamespace(unit_type="agent"),
+            SimpleNamespace(unit_type="enemy"),
+            SimpleNamespace(unit_type="power_armor"),
+            SimpleNamespace(unit_type="vehicle"),
+            SimpleNamespace(unit_type="enemy", enemy_theme="corp_37_robot"),
+        ]
+
+        self.assertEqual(set(ratios), {entry.filename for entry in battle_maps.BATTLE_MAP_CATALOG})
+        self.assertEqual(len(ratios), 122)
+        self.assertTrue(all(0.015 <= ratio <= 0.020 for ratio in ratios.values()))
+        for entry in battle_maps.BATTLE_MAP_CATALOG:
+            map_scale = ratios[entry.filename] / battle_maps.BASE_HUMAN_HEIGHT_RATIO
+            self.assertAlmostEqual(battle_maps.battle_map_unit_scale(entry), map_scale)
+            for unit in units:
+                intrinsic = battle_maps.battle_token_scale_for_unit(unit)
+                self.assertAlmostEqual(
+                    battle_maps.battle_token_scale_for_unit(unit, entry),
+                    intrinsic * map_scale,
+                )
+
+    def test_interior_map_ratio_multiplies_all_unit_categories_equally(self) -> None:
+        interior = next(
+            entry
+            for entry in battle_maps.BATTLE_MAP_CATALOG
+            if entry.filename == "city_interior_safehouse.png"
+        )
+        exterior = next(
+            entry
+            for entry in battle_maps.BATTLE_MAP_CATALOG
+            if entry.filename == "city_exterior_rooftop_access.png"
+        )
+        human = SimpleNamespace(unit_type="agent")
+        robot = SimpleNamespace(unit_type="enemy", enemy_theme="corp_37_robot")
+
+        self.assertAlmostEqual(battle_maps.battle_map_unit_scale(exterior), 1.0)
+        self.assertAlmostEqual(battle_maps.battle_map_unit_scale(interior), 4 / 3)
+        self.assertAlmostEqual(
+            battle_maps.battle_token_scale_for_unit(human, interior)
+            / battle_maps.battle_token_scale_for_unit(human, exterior),
+            4 / 3,
+        )
+        self.assertAlmostEqual(
+            battle_maps.battle_token_scale_for_unit(robot, interior)
+            / battle_maps.battle_token_scale_for_unit(robot, exterior),
+            4 / 3,
+        )
+
     def test_new_map_assets_exist_on_disk(self) -> None:
         city_files = [path for path in Path("assets/maps").iterdir() if path.is_file() and path.name.startswith("city_") and path.suffix.lower() == ".png"]
         self.assertEqual(len(city_files), 36)

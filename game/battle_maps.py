@@ -4,13 +4,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from hashlib import sha1
+import json
 from pathlib import Path
 from typing import Any
 
 
 ASSET_DIR = Path("assets/maps")
+MAP_PRESENTATION_PATH = Path("godot/combat_missions_ui/art/environment/map_presentation.json")
 BATTLE_TOKEN_SCALE = 1.5 * 1.10
 BATTLE_TOKEN_SCALE_NON_ROBOT = BATTLE_TOKEN_SCALE / 2
+BASE_HUMAN_HEIGHT_RATIO = 0.015
 
 _IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg"}
 _WASTELAND_MISSION_KEYWORDS = (
@@ -176,6 +179,35 @@ def battle_map_pool_for_mission(mission: Any) -> list[BattleMapEntry]:
     return battle_map_pool_for_environment(infer_battle_environment(mission))
 
 
+def _load_map_height_ratios(path: Path = MAP_PRESENTATION_PATH) -> dict[str, float]:
+    """Load the shared per-map presentation ratio without changing map geometry."""
+    if not path.exists():
+        return {}
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if int(data.get("schema_version", 0)) != 1:
+        return {}
+    return {
+        str(filename): float(row["human_height_ratio"])
+        for filename, row in data.get("maps", {}).items()
+        if isinstance(row, dict) and "human_height_ratio" in row
+    }
+
+
+_MAP_HEIGHT_RATIOS = _load_map_height_ratios()
+
+
+def battle_map_unit_scale(map_entry: BattleMapEntry | str | None) -> float:
+    """Return one global visual multiplier for every unit image on a map."""
+    if isinstance(map_entry, BattleMapEntry):
+        filename = map_entry.filename
+    elif map_entry:
+        filename = Path(str(map_entry)).name
+    else:
+        return 1.0
+    ratio = _MAP_HEIGHT_RATIOS.get(filename, BASE_HUMAN_HEIGHT_RATIO)
+    return max(0.5, min(2.0, ratio / BASE_HUMAN_HEIGHT_RATIO))
+
+
 def _is_robot_unit(unit: Any) -> bool:
     asset = getattr(unit, "spec_ops_asset", None)
     if asset is not None:
@@ -200,9 +232,13 @@ def _is_robot_unit(unit: Any) -> bool:
     return False
 
 
-def battle_token_scale_for_unit(unit: Any) -> float:
-    """Return the battle token scale for a unit, keeping robots at full size."""
-    return BATTLE_TOKEN_SCALE if _is_robot_unit(unit) else BATTLE_TOKEN_SCALE_NON_ROBOT
+def battle_token_scale_for_unit(
+    unit: Any,
+    map_entry: BattleMapEntry | str | None = None,
+) -> float:
+    """Apply the map's single global ratio after the unit's intrinsic size."""
+    intrinsic = BATTLE_TOKEN_SCALE if _is_robot_unit(unit) else BATTLE_TOKEN_SCALE_NON_ROBOT
+    return intrinsic * battle_map_unit_scale(map_entry)
 
 
 def select_battle_map_entry(mission: Any) -> BattleMapEntry | None:
@@ -224,11 +260,14 @@ __all__ = [
     "BATTLE_MAP_CATALOG",
     "BATTLE_TOKEN_SCALE",
     "BATTLE_TOKEN_SCALE_NON_ROBOT",
+    "BASE_HUMAN_HEIGHT_RATIO",
+    "MAP_PRESENTATION_PATH",
     "BattleMapEntry",
     "CITY_BATTLE_MAPS",
     "WASTELAND_BATTLE_MAPS",
     "battle_map_pool_for_environment",
     "battle_map_pool_for_mission",
+    "battle_map_unit_scale",
     "battle_token_scale_for_unit",
     "build_battle_map_catalog",
     "infer_battle_environment",
