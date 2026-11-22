@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-COMPLETE two-head hound DONE. The mutant canine has 112 frames across six applicable clips and eight true facings. Its four-phase quadruped gait alternates contacts; exactly two attached heads, four red eyes, double collars and harness remain coherent, while the detached reference fragment and magenta fringe are excluded. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti captured all six clips and passed DIRECTIONAL_TARGET_CAPTURE_PASSED. Complete manifests are 125 / 233 and artistically verified coverage is 148 / 233.",
-  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_animal_03_rat_king, the next of 108 missing sets. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
+  "latest_batch": "ANIM-COMPLETE rat king DONE. The mutant rat has 112 frames across six applicable clips and eight true facings. Its four-phase quadruped gait alternates diagonal contacts; exactly one bronze bracer remains on the anatomical-left foreleg and the pink tail stays continuous. A death sheet with a gold tail was rejected before import. Focused audit returned no errors; Python passed 28 tests with one X11 skip; packaged Windows Godot 4.7.2/OpenGL on RTX 5070 Ti captured all six clips and passed DIRECTIONAL_TARGET_CAPTURE_PASSED. Complete manifests are 126 / 233 and artistically verified coverage is 149 / 233.",
+  "next_action": "ANIMATIONS: create, import and validate only enemy_mutant_animal_04_rad_stag. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
