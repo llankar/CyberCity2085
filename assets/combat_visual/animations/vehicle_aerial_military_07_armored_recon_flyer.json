@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_07_armored_recon_flyer.png",
+  "texture_sha256": "25d7e032b7b6a52a027b6144fe2aa1aaafad42c69634baa77123821a9a63595e",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_07_armored_recon_flyer_512.png",
+  "source_sha256": "9dd7a8ab1aebf510c14021707131706684ab5a1fe65d4ecd1b3bf895f0558a66",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_07_armored_recon_flyer/idle-single_row_pair-0.png",
+      "sha256": "4f2dcdb18bf1f1541980f5de178f4b5f19f691f562e1ae75994cce5416ed3daa",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_07_armored_recon_flyer/idle-single_row_pair-0-follow-through.png",
+        "sha256": "5007c8fe0745ccdaa24e44822ef3cb9b96146be29bd33810d37bda76bd3ea331"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The military armored recon flyer is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The decorative recon flyer has no tactical fire action.",
+    "melee": "The military armored recon flyer has no melee action.",
+    "cover": "The military armored recon flyer has no cover action.",
+    "hit": "The military armored recon flyer has no authored hit action.",
+    "death": "The military armored recon flyer has no authored death action; its crashed variant is a separate asset.",
+    "psi": "The military armored recon flyer has no psychic action.",
+    "heal": "The military armored recon flyer has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
