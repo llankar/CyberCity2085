@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-NATIVE-PENDING mutants 09-15 DONE: toxin carrier, bone blade, cyber graft, plague monk, scrap shield, crawler and horned warlord each passed targeted Godot 4.7.2 native Windows capture. All 46 applicable action captures were inspected at tactical scale without neighboring fragments or detached halos. Seven manifests promoted without atlas pixel changes; targeted Python total 21 passed and 7 X11 skips. Complete animation contract: 123 / 123 manifests. Verified artistic coverage: 146 / 233.",
-  "next_action": "BUILD-RECOVERY : inspecter les processus et résultats existants de la suite complète et du dernier package Windows sous `E:\\CyberCity2085-builds` avant toute relance. Si aucun processus n'est actif, classifier les journaux et artefacts existants, puis ne relancer que l'étape manquante sur E:. Ne pas régénérer de preuves globales.",
+  "latest_batch": "BUILD-RECOVERY and current Windows package DONE. No prior process was active and no conclusive current full-suite log existed. E-isolated full suite: 1181 passed, 35 skipped, 14 subtests passed, 0 failed. Canonical isolated build repeated the same green gate, then PyInstaller and packaged smoke passed. Candidate executable SHA-256 is 2BDC73389438A9D746FF3895036540D15870D381ED413E63B1DDEE899DBFB395. Smoke confirms 122 maps, 7 MP3 tracks, 15 story objectives, save round-trip, tactical victory and bundled Godot 4.7.2. Mutant 09-15 JSON/PNG hashes match source; bundled Godot selected 3904 native frames against the packaged project.",
+  "next_action": "UNIFIED-RUNTIME : reprendre le premier contrôle automatisable encore ouvert de l'intégration Arcade vers Godot sur le candidat Windows courant. Conserver Alt+Tab, DPI multi-écrans et écoute audio en NOT VERIFIED jusqu'à une validation manuelle, sans automatiser le bureau Windows.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
