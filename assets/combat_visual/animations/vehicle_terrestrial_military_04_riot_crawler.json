@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_04_riot_crawler.png",
+  "texture_sha256": "9f73c124770f100c38eee69937c79b5f8f8761a5df20bf0ee1a3f9e7a560282e",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_04_riot_crawler_512.png",
+  "source_sha256": "8f4f6af9c3dc42812fc291beaca04d19a9c936b340d4d52f62397e6d96eb2390",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_04_riot_crawler/idle-single_row_pair-0.png",
+      "sha256": "b587bfdb6cc87f8b3a6153369a3b6507dc25d6e76fa4a03509bbb6127be64269",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_04_riot_crawler/idle-single_row_pair-0-follow-through.png",
+        "sha256": "12a5187d028d3d0a2b797c97567286bba66e904f01913ce72c423f68bf0aa142"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The riot crawler is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The riot crawler is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The riot crawler has no tactical melee action.",
+    "cover": "The riot crawler has no tactical cover action.",
+    "hit": "The riot crawler has no authored hit action in the current runtime.",
+    "death": "The riot crawler has no authored death action in the current runtime.",
+    "psi": "The riot crawler has no psychic action.",
+    "heal": "The riot crawler has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
