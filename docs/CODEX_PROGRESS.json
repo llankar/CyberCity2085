@@ -1908,8 +1908,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-FEEL-01 phase pacing automated subset is complete. Native Godot 4.7.2 verifies that normal turn banners remain for 1.86 seconds, reduced-motion banners retain a readable 1.30-second hold, and a replacement announcement cancels the old transition cleanly. Physical listening and human pacing/impact feel remain NOT VERIFIED.",
-  "next_action": "Continue the first factual non-manual TAC-STORY or TAC-FEEL gap, then refresh the full suite and Windows package after the accumulated code batches. TAC-RC-04, focus, Alt+Tab, multi-display DPI, physical controller and listening remain manual; desktop automation is forbidden.",
+  "latest_batch": "The current Windows package has been refreshed after TAC-RC-01/02/03 and the Godot phase-pacing regression. The full E: gate passed 1201 tests with 36 skipped and 14 subtests in 249.72 seconds. PyInstaller resumed the already verified gate with -SkipTests; packaged smoke passed with 122 maps, 7 MP3 tracks, 15 story objectives, save round-trip, tactical victory and bundled Godot 4.7.2 startup. Executable SHA-256: D91A060230BF6C38C3280F7BE3034493F6CBFE568DF0E310BEDEAC7F6C5411ED.",
+  "next_action": "MANUAL WINDOWS ACCEPTANCE: launch E:/CyberCity2085-builds/cybercity-build-705cafafde0e4c40a916787a9e5adf1b/dist/CyberCity2085/CyberCity2085.exe and verify visible readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, tactical playthrough and audible Arcade/Godot fades. Desktop automation is forbidden. Continue factual non-manual TAC-STORY/TAC-FEEL gaps when manual input is unavailable.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
