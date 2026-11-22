@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_07_armored_recon_flyer_crashed.png",
+  "texture_sha256": "2963a4f9bbd32dfae5a1ea263e023a3d94dac54a57056a34a2db06f46f2e3b0f",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_07_armored_recon_flyer_crashed_512.png",
+  "source_sha256": "9eca0814a046630fce97205550cb0e670f13e09edb11a9eea8833ce4b9a518e0",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_07_armored_recon_flyer_crashed/idle-single_row_pair-0.png",
+      "sha256": "1223bb88ddf500d9eae8403e54fad7d5ccbc0d43ea5811468f85c95bb4192f23",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_07_armored_recon_flyer_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "11c15f1a6fcacd4372514a5ca8193e92b23fa3e421f9c31016c7e35adf8e0834"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed military armored recon flyer is an immobile decorative wreck with 0 AP.",
+    "fire": "The terminal wreck has no tactical fire action.",
+    "melee": "The terminal wreck has no melee action.",
+    "cover": "The terminal wreck has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed military armored recon flyer has no psychic action.",
+    "heal": "The crashed military armored recon flyer has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
