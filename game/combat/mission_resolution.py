@@ -5,6 +5,7 @@ The context carries real units, mission and GameState; no window or engine API.
 from game.agent_aftermath import apply_mission_aftermath
 from game.deployment import sanitize_selected_agent_names
 from game.narrative.debrief import build_mission_debrief_report
+from game.narrative.relationship_consequences import apply_tactical_relationship_consequences
 
 
 def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
@@ -82,13 +83,28 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
             for metric in ["kills","damage_dealt","damage_taken"]:
                 if not hasattr(unit,"_"+metric):
                     performance_by_agent[unit.character.name].pop(metric,None)
+    tactical_moments = (
+        combat_state.tactical_flags.get("agent_moments", [])
+        if combat_state is not None
+        else []
+    )
+    relationship_characters = []
+    relationship_character_ids = set()
+    for unit in all_player_units:
+        if unit.character and id(unit.character) not in relationship_character_ids:
+            relationship_character_ids.add(id(unit.character))
+            relationship_characters.append(unit.character)
+    relationship_changes = apply_tactical_relationship_consequences(
+        relationship_characters,
+        tactical_moments,
+    )
     debrief_report = build_mission_debrief_report(
         surviving_participants,
         self.mission,
         victory,
         self.triggered_complication,
         performance_by_agent=performance_by_agent,
-        tactical_moments=combat_state.tactical_flags.get("agent_moments", []) if combat_state is not None else [],
+        tactical_moments=tactical_moments,
     )
     from game.narrative.agent_reputation import apply_agent_reputation_awards
 
@@ -97,6 +113,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         debrief_report.reputation_awards,
     )
     self.game_state.latest_mission_debrief = debrief_report.to_dict()
+    self.game_state.latest_mission_debrief["relationship_changes"] = relationship_changes
     mission_payout = sum(
         transaction.amount
         for transaction in self.game_state.funds.transaction_history[transaction_start:]
@@ -130,5 +147,7 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         self.game_state.add_event(line)
     for line in reputation_lines:
         self.game_state.add_event(line)
+    for change in relationship_changes:
+        self.game_state.add_event(str(change["text"]))
 
     return surviving_participants, all_player_units

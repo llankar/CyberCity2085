@@ -1192,7 +1192,10 @@
       "status": "IN_PROGRESS",
       "files": [
         "godot/combat_missions_ui/tests",
-        "docs/images/combat-directional-animation"
+        "docs/images/combat-directional-animation",
+        "game/narrative/relationship_consequences.py",
+        "game/combat/mission_resolution.py",
+        "game/ui/screens/battle_debrief_view.py"
       ],
       "tests": [
         "Arcade debrief AP totals now count paid actions across turns. 36 focused tests passed.",
@@ -1203,7 +1206,8 @@
         "Parked vehicles omit tactical status markings in both Godot interfaces. Native Dust Road VTOL fixture passed and a before/after pixel check confirmed the cyan health bar was removed. Combat vehicles remain on the existing combat token path.",
         "Debrief now distinguishes ledger mission income from the total corporate balance change. Forty targeted tests passed. Native 720p retreat showed zero mission payout, a corporate balance increase of 100, and a successful HQ return.",
         "Godot now carries actual HP lost and enemy takedowns into the campaign debrief. Direct and area hits count the real HP change, including overkill. Old checkpoints keep unavailable totals unset. 60 focused tests passed, eight skipped. Native 720p defeat showed the received damage beside each agent and returned to HQ.",
-        "Godot exports spent AP through the existing actions_used result field. The victory at Ghost Order Cache showed per-agent AP totals at 720p, with promotions and HQ return. 60 focused tests passed, 8 skipped."
+        "Godot exports spent AP through the existing actions_used result field. The victory at Ghost Order Cache showed per-agent AP totals at 720p, with promotions and HQ return. 60 focused tests passed, 8 skipped.",
+        "TAC-STORY-03 DONE: a real Arcade rescue now produces one reciprocal +1 bond at campaign resolution, records the exact cause, appears under RELATIONSHIPS in the debrief, persists through save/reload and is idempotent. Existing performance-based reputation awards remain visible in the same debrief. Godot Trauma Patch is self-only, so no two-agent bond is fabricated. 66 focused tests passed."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -1899,7 +1903,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "Registry reconciliation: the strict current Combat Visual audit completed successfully with 122 surveyed maps, zero invalid map hashes, 253 unit-art references, 233 animation-eligible units, zero partial atlases and 233 complete atlases. The final tactical backlog records 233 / 233 artistically verified resources. ENV-FINAL, UNIT-COVERAGE and ANIM-COMPLETE are reconciled to DONE. Existing Windows full-suite and packaged native regression results were also recovered from E: without rerun; manual focus, DPI, Alt+Tab, resize and listening acceptance remain open.",
+  "latest_batch": "TAC-STORY-03 DONE: a factual Arcade rescue between two agents applies one reciprocal +1 bond during campaign resolution, records the named cause, appears under RELATIONSHIPS in the debrief, survives save/reload and cannot be applied twice. Existing performance-based reputation awards remain visible. Godot Trauma Patch is self-only, so no false two-agent consequence is created. 66 focused tests passed. Manual Windows focus, DPI, Alt+Tab, resize and listening acceptance remain open.",
   "next_action": "MANUAL WINDOWS ACCEPTANCE: launch the current packaged CyberCity2085.exe from E:/CyberCity2085-builds/cybercity-build-9fdc2145bad248af978e4608719bddf7/dist/CyberCity2085 and manually verify the visible readiness transition, automatic Godot focus, resize, Alt+Tab, minimize/restore, DPI change between two displays and audible Arcade/Godot fades. Desktop automation is forbidden; record the observed results in the existing unified-experience register only.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {

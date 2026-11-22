@@ -82,6 +82,7 @@ def build_battle_debrief_summary(
     debrief_raw = getattr(game_state, "latest_mission_debrief", {}) or {}
     narrative_lines: list[str] = []
     tactical_moments: list[str] = []
+    relationship_changes: list[str] = []
     if isinstance(debrief_raw, dict):
         tactical_moments = [
             moment["text"]
@@ -105,6 +106,14 @@ def build_battle_debrief_summary(
             narrative_lines.append(
                 f"Reputation: {agent}{label} earned {tag} ({reason})."
             )
+        relationship_changes = [
+            str(change["text"])
+            for change in debrief_raw.get("relationship_changes", [])
+            if isinstance(change, dict)
+            and isinstance(change.get("text"), str)
+            and change["text"].strip()
+        ]
+        narrative_lines.extend(relationship_changes)
     narrative_lines.extend(
         _consequence_text(consequence) for consequence in consequences
     )
@@ -186,6 +195,7 @@ def build_battle_debrief_summary(
         ],
         "narrative_consequences": narrative_lines[:10],
         "tactical_moments": tactical_moments,
+        "relationship_changes": relationship_changes,
         "continue_action": "ManagementView",
     }
 
@@ -240,6 +250,7 @@ def build_consequence_summary_lines(
                             for tag in _tag_names(consequence.tags))
     section("NEW DEVELOPMENTS", list(effects))
     section("COMPLICATIONS", summary["triggered_complications"])
+    section("RELATIONSHIPS", summary["relationship_changes"])
     deployed = {stat.name for stat in agent_stats}
     scars = []
     for character in game_state.characters:

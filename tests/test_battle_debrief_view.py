@@ -97,6 +97,15 @@ class BattleDebriefSummaryTest(unittest.TestCase):
                     "reason": "eliminated 3 hostiles during Glass Breakpoint",
                 }
             ],
+            "relationship_changes": [
+                {
+                    "kind": "rescue_bond",
+                    "source": "Vera",
+                    "target": "Rook",
+                    "delta": 1,
+                    "text": "Relationship: Vera and Rook gained +1 bond after the rescue.",
+                }
+            ],
         }
         agent_stats = [
             AgentDebriefStat(
@@ -127,6 +136,10 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertEqual(summary["agent_rows"][0]["kills"], 2)
         self.assertEqual(summary["agent_rows"][0]["nickname"], "Breaker")
         self.assertIn("elite_breaker", summary["agent_rows"][0]["reputation"])
+        self.assertEqual(
+            summary["relationship_changes"],
+            ["Relationship: Vera and Rook gained +1 bond after the rescue."],
+        )
         self.assertEqual(summary["agent_rows"][0]["damage_dealt"], 18)
         self.assertEqual(summary["agent_rows"][0]["damage_taken"], 7)
         self.assertEqual(summary["agent_rows"][0]["stress_delta"], 12)
@@ -162,6 +175,11 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertIn("Jackal Relay Lockdown", consequence_lines)
         self.assertIn("The Three Sevens Banner", consequence_lines)
         self.assertIn("Hungry Tide 17%", consequence_lines)
+        self.assertIn("RELATIONSHIPS", consequence_lines)
+        self.assertIn(
+            "Relationship: Vera and Rook gained +1 bond after the rescue.",
+            consequence_lines,
+        )
         self.assertFalse(any("_" in line for line in consequence_lines))
 
 

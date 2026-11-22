@@ -1,5 +1,6 @@
 from unittest.mock import patch
 import random
+from types import SimpleNamespace
 
 from game.character import Character
 from game.combat import CombatEngine, CombatState
@@ -88,7 +89,7 @@ def test_fear_and_cautious_personality_change_the_reaction():
     assert any("need cover" in line for line in other.logs)
 
 
-def test_real_aid_records_both_agents_and_uses_existing_bond_without_changing_it():
+def test_real_aid_records_both_agents_and_uses_existing_bond_until_debrief():
     helper = Character("Echo",role="medic")
     patient = Character("Rook",relationships={"Echo":5})
     medic = Unit(position=(0,0),stats=helper.stats,character=helper)
@@ -105,6 +106,91 @@ def test_real_aid_records_both_agents_and_uses_existing_bond_without_changing_it
     assert patient.relationships=={"Echo":5}
     engine.perform_action("first_aid",actor=medic,target=wounded)
     assert len(helper.history)==len(patient.history)==1
+
+
+def test_rescue_debrief_applies_a_reciprocal_bond_once():
+    from game.narrative.relationship_consequences import apply_tactical_relationship_consequences
+
+    helper = Character("Echo", relationships={"Rook": 2})
+    patient = Character("Rook", relationships={"Echo": -1})
+    moments = [{
+        "kind": "rescue",
+        "agent_name": "Echo",
+        "patient_name": "Rook",
+        "text": "Echo stopped the bleeding for Rook.",
+    }]
+
+    changes = apply_tactical_relationship_consequences([helper, patient], moments)
+
+    assert helper.relationships["Rook"] == 3
+    assert patient.relationships["Echo"] == 0
+    assert changes == [{
+        "kind": "rescue_bond",
+        "source": "Echo",
+        "target": "Rook",
+        "delta": 1,
+        "text": "Relationship: Echo and Rook gained +1 bond after the rescue.",
+    }]
+    assert apply_tactical_relationship_consequences([helper, patient], moments) == []
+    assert helper.relationships["Rook"] == 3
+    assert patient.relationships["Echo"] == 0
+
+
+def test_campaign_resolution_persists_rescue_bond_and_debrief_change(tmp_path):
+    from game.combat.mission_resolution import resolve_campaign_battle
+    from game.gamestate import GameState
+    from game.mission_templates import MissionTemplate
+    from game.persistence import SaveSystem
+
+    helper = Character("Echo", role="medic")
+    patient = Character("Rook")
+    helper_unit = Unit(position=(0, 0), stats=helper.stats, character=helper)
+    patient_unit = Unit(position=(32, 0), stats=patient.stats, character=patient)
+    state = GameState(characters=[helper, patient])
+    mission = MissionTemplate(
+        "rescue_bond_test",
+        "Clinic Hold",
+        "Hold the clinic.",
+        "Raiders",
+        "Clinic",
+        {},
+        0,
+    )
+    combat_state = CombatState(mission, [helper_unit, patient_unit], [])
+    combat_state.tactical_flags["agent_moments"] = [{
+        "kind": "rescue",
+        "agent_name": "Echo",
+        "patient_name": "Rook",
+        "text": "Echo stopped the bleeding for Rook.",
+    }]
+    context = SimpleNamespace(
+        game_state=state,
+        enemy_units=[],
+        initial_enemy_count=0,
+        player_units=[helper_unit, patient_unit],
+        defeated_player_units=[],
+        combat_state=combat_state,
+        mission=mission,
+        triggered_complication=None,
+        resolve_mission_outcome=lambda victory: None,
+        resolve_defeated_player_unit=lambda unit: None,
+    )
+
+    resolve_campaign_battle(context, True)
+
+    assert helper.relationships["Rook"] == 1
+    assert patient.relationships["Echo"] == 1
+    changes = state.latest_mission_debrief["relationship_changes"]
+    assert changes[0]["kind"] == "rescue_bond"
+    assert any("gained +1 bond" in event for event in state.event_log)
+
+    path = tmp_path / "relationship-consequence.json"
+    assert SaveSystem.save_game(state, path).ok
+    loaded, status = SaveSystem.load_game(path)
+    assert status.ok
+    assert loaded.characters[0].relationships["Rook"] == 1
+    assert loaded.characters[1].relationships["Echo"] == 1
+    assert loaded.latest_mission_debrief["relationship_changes"] == changes
 
 
 def test_aid_cannot_revive_dead_or_treat_enemy():
