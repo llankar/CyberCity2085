@@ -653,6 +653,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 - Audit courant : une fuite réelle non couverte a été corrigée dans le briefing de la carte mondiale (`RISQUE`, `J`, `ENNEMI` → `RISK`, `DAYS`, `HOSTILES`). Le contrat statique couvre désormais ces libellés. Rejeu : 31 tests ciblés réussis, 2 captures Arcade X11 ignorées sous Windows. La revue visuelle humaine de tous les écrans reste ouverte.
 
+- État courant (2026-11-22) : package Windows après correction de la carte mondiale PASS. Suite complète : 1205 réussis, 36 skips, 14 sous-tests en 254,09 s. Candidat : `E:/CyberCity2085-builds/cybercity-build-97f2c4384e6746d5a4c3e398c8d24d2d/dist/CyberCity2085/CyberCity2085.exe`, SHA-256 `B325798B01BD071C3DBBFDF2067C72BCEBBEEF0FD2B7B0CF7A28D9D3A4631BE6`. Smoke emballé : 122 cartes, 7 MP3, 15 objectifs, sauvegarde aller-retour, victoire tactique et Godot 4.7.2 intégré.
+
 ### GODOT-UI-FOCUS-01 — IN_PROGRESS — Traduire le HUD tactique résiduel et afficher le combat sans clic
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
