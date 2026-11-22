@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_02_vtol_medevac.png",
+  "texture_sha256": "b9bcbf1604a4fb74e48721741e9ec205074f8a5888587d2c142317d009115cbc",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_02_vtol_medevac_512.png",
+  "source_sha256": "269cc8a70f044194365f525aca2da3469ec2bf95846443c58e5ac1922e5ab738",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_02_vtol_medevac/idle-single_row_pair-0.png",
+      "sha256": "6738d268cb70b5b69dbc4a7ffaed2697202d3d662342cce74394969d6ee9921b",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_02_vtol_medevac/idle-single_row_pair-0-follow-through.png",
+        "sha256": "a695b4d9fd6bdc235c588cf9f5b9863218c6e18c2e21ccb8e13c7415d46961bc"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian medevac VTOL is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian medevac VTOL is unarmed.",
+    "melee": "The civilian medevac VTOL has no melee action.",
+    "cover": "The civilian medevac VTOL has no cover action.",
+    "hit": "The civilian medevac VTOL has no authored hit action.",
+    "death": "The intact civilian medevac VTOL has no authored destruction action.",
+    "psi": "The civilian medevac VTOL has no psychic action.",
+    "heal": "Its medical role is environmental; it has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
