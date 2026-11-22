@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_06_recon_buggy.png",
+  "texture_sha256": "580c2ef46b1312a0659364687edafbd66c7eaba92d4c0525def2f47dd71588b7",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_06_recon_buggy_512.png",
+  "source_sha256": "5985f8533cd9cec41ca0a8b85ccb441c3415837b2d4aa5656602f3bbb36b7c0c",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_06_recon_buggy/idle-single_row_pair-0.png",
+      "sha256": "9fbcbf410deb9eec2f38d49cd071730d6148ffa683c2859a1c379660050b38dc",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_06_recon_buggy/idle-single_row_pair-0-follow-through.png",
+        "sha256": "2d8fb970d91f3ef6f985a650c549e66b7389cfb81bfc8656ece47d22bda42885"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The recon buggy is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The recon buggy is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The recon buggy has no tactical melee action.",
+    "cover": "The recon buggy has no tactical cover action.",
+    "hit": "The recon buggy has no authored hit action in the current runtime.",
+    "death": "The recon buggy has no authored death action in the current runtime.",
+    "psi": "The recon buggy has no psychic action.",
+    "heal": "The recon buggy has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
