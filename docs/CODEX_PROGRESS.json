@@ -1211,7 +1211,8 @@
         "TAC-ENEMY-05 containment parity DONE: the packaged Windows Godot 4.7.2 runtime drove victory by eliminating all hostiles and defeat by a real breach. Python resolved both results, persisted and reloaded the campaign, then rejected the duplicate result without applying consequences twice. Two native focused tests passed.",
         "TAC-RC-01 DONE: 1,728 deterministic simulations cover 8 objectives, 6 faction doctrines and all 4 enemy roles with 1,505 victories, 223 defeats, zero turn limits and zero errors. Fresh-state probes execute all 9 player-facing engine actions through their real availability and resolution paths. Twenty-eight focused tests passed. This is structural coverage, not human balance proof.",
         "TAC-RC-02 DONE: the 1,728-case objective matrix recorded 117,740 consumed policy decisions: fire 56.87%, move 39.31%, objective interaction 1.97% and defend 1.85%. A reproducible gate fails above 70% for one action or when any required policy branch disappears. Current status PASS; 40 focused tests and 3 subtests passed.",
-        "TAC-RC-03 DONE: all 15 authored story missions run through the real Arcade combat engine on their reviewed map with their authored objective. The natural seed-1 path wins without forcing terminal states, passes each result through shared campaign resolution and debrief, saves/reloads after every mission, and reaches the persisted finale. Three focused campaign-flow tests passed."
+        "TAC-RC-03 DONE: all 15 authored story missions run through the real Arcade combat engine on their reviewed map with their authored objective. The natural seed-1 path wins without forcing terminal states, passes each result through shared campaign resolution and debrief, saves/reloads after every mission, and reaches the persisted finale. Three focused campaign-flow tests passed.",
+        "TAC-FEEL-01 phase pacing automated subset DONE: a native Godot 4.7.2 regression verifies the 1.86-second normal banner, readable 1.30-second reduced-motion hold, and clean replacement of an in-progress turn announcement. Physical listening and human pacing/impact feel remain NOT VERIFIED."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -1907,8 +1908,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-RC-03 is complete. All 15 authored story missions now traverse the real Arcade combat engine on their selected reviewed map with their authored objective. The natural seed-1 route wins without forced terminal state, passes each result through shared campaign resolution and debrief, saves/reloads after every mission, verifies progressive story completion, and reaches the persisted finale. Three focused campaign-flow tests passed.",
-  "next_action": "Continue the first non-manual TAC-STORY or TAC-FEEL criterion. TAC-RC-04 requires a physical packaged Windows tactical playthrough; focus, Alt+Tab, multi-display DPI, physical controller and listening checks remain manual and desktop automation is forbidden.",
+  "latest_batch": "TAC-FEEL-01 phase pacing automated subset is complete. Native Godot 4.7.2 verifies that normal turn banners remain for 1.86 seconds, reduced-motion banners retain a readable 1.30-second hold, and a replacement announcement cancels the old transition cleanly. Physical listening and human pacing/impact feel remain NOT VERIFIED.",
+  "next_action": "Continue the first factual non-manual TAC-STORY or TAC-FEEL gap, then refresh the full suite and Windows package after the accumulated code batches. TAC-RC-04, focus, Alt+Tab, multi-display DPI, physical controller and listening remain manual; desktop automation is forbidden.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

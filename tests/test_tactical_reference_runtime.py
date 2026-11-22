@@ -10,6 +10,7 @@ import pytest
     ('tactical_reference_regression.gd','TACTICAL_REFERENCE_CHECKS_PASSED'),
     ('combat_feedback_regression.gd','COMBAT_FEEDBACK_CHECKS_PASSED'),
     ('combat_polish_regression.gd','COMBAT_POLISH_CHECKS_PASSED'),
+    ('phase_pacing_regression.gd','PHASE_PACING_CHECKS_PASSED'),
     ('environment_depth_regression.gd','ENVIRONMENT_DEPTH_CHECKS_PASSED 122'),
 ])
 def test_runtime_contract(script, sentinel):
