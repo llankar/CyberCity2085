@@ -1498,7 +1498,8 @@
       "tests": [
         "Deux missions naturelles de campagne dans le même PID, initialisé avant la première mission (Linux natif)",
         "84 tests ciblés PASS, 1 test natif désélectionné après un timeout sous charge ; 6 tests de cycle de vie/entrées PASS",
-        "Windows natif headless après extraction de GameWindow : même PID pour deux missions, parking, fermeture possédée et reprise après crash ; routage associé : 9 PASS, 1 SKIP Linux/X11"
+        "Windows natif headless après extraction de GameWindow : même PID pour deux missions, parking, fermeture possédée et reprise après crash ; routage associé : 9 PASS, 1 SKIP Linux/X11",
+        "Runtime Godot 4.7.2 du package e3ce2d3 revalidé le 2026-11-23 : démarrage avant mission, même PID sur deux missions, parking, expiration heartbeat, fermeture et reprise de snapshot après crash ; 6 tests réussis en 20,71 s, temporaires sur E:."
       ],
       "evidence": [
         "docs/images/unified-experience/batch5/report.json",
@@ -1945,7 +1946,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "The bundled Godot 4.7.2 runtime from the current e3ce2d3 Windows package replayed all three real terminal paths at 1280x720: authored objective completion produced victory, actual squad elimination produced defeat, and the twice-confirmed RETREAT command produced retreat. Every case waited for confirmation, reached the Python debrief, returned to HQ, survived save/reload and rejected duplicate result application. First-frame/readiness times were 3.812s, 3.172s and 4.750s respectively. This native Windows headless pass does not claim visible desktop, controller or audible acceptance; temporary outputs remain on E: and no separate evidence report was added to the repository.",
+  "latest_batch": "The current package's bundled Godot 4.7.2 runtime passed six Windows headless lifecycle checks: it starts before the first mission, reuses one PID for two missions, parks cleanly, expires after a lost heartbeat, closes under ownership and restarts after a crash while restoring the tactical snapshot. The prior three real outcomes also remain valid. Temporary data stayed on E:. These checks do not claim visible desktop, controller, DPI or audible acceptance.",
   "next_action": "Run the current packaged executable manually and record visible readiness, automatic focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller and audible fades in the existing registry. Human-audition pending ElevenLabs pilots before integration; desktop automation is forbidden.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
