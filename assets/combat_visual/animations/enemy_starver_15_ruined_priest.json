@@ -1,0 +1,475 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_starver_15_ruined_priest.png",
+  "texture_sha256": "59f6a4af400e9727879a66f9455b20f66b6da88491f32d06e1c6678bdc777d93",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.75,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "psi": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_starver_15_ruined_priest_512.png",
+  "source_sha256": "768f6acff623d37a6e151b3703632770fc542cb0de5d5c4d86cd7e29c3878fba",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/idle-single_row_pair-0.png",
+      "sha256": "4075ad86280bb2f7839d14a51e2e1b587cb0f941ca8d103cd3d4f7162ce100bd",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/idle-single_row_pair-0-follow-through.png",
+        "sha256": "d1c0a69740f3504ec75a46d2eb1a014ce4c3ddb83fe8824d76d724034961a8cb"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/move-walk_rows-1.png",
+      "sha256": "df415783ae85f496af6b9dcb5af60b3e3d71dd4a3add68492486be2be5eeecdb",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/melee-single_row_pair-2.png",
+      "sha256": "69172a36509eae2bcfd7874e0ae1a863341ee577a7ad52760b051a19ada056d7",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/melee-single_row_pair-2-follow-through.png",
+        "sha256": "a1f92a97d433e62a52ba41528aa4fdef5af8996c7215286f7d7d045b0ea67fb1"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/cover-single_row_pair-3.png",
+      "sha256": "198828370068fc4920c45d3d9e65334e07efabf6f794e11415bf9692f1703e63",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/cover-single_row_pair-3-follow-through.png",
+        "sha256": "09b4f3e728c18be4aa61ce9976ec58cdd45ae4e381b80dbb5cec13e8650dd677"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/hit-single_row_pair-4.png",
+      "sha256": "79e8168a07c7f7a334d2540a5f4cd8eebbe2e67a6ba21b3c4295e40c92e540d5",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/hit-single_row_pair-4-follow-through.png",
+        "sha256": "fec86ed3a205725a2b0f3fd52b732cba5888d3b415212399d5166e055848fdd6"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/death-single_row_pair-5.png",
+      "sha256": "30bf649bfea9406abfb206dadbb3e573220c9e117281984915696976a30aca17",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/death-single_row_pair-5-follow-through.png",
+        "sha256": "35871d24fed225ed190dbe83de9a70667696b48a9c6cd9426acead51b0ea3e85"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/psi-single_row_pair-6.png",
+      "sha256": "dff39342ce2757c725c0f8cb4cc1687b86b63b3ab3f7e46b4ca96866c9d0627c",
+      "clip": "psi",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_15_ruined_priest/psi-single_row_pair-6-follow-through.png",
+        "sha256": "29f2e3bdfb43163ea177f9eea8e94dc29e7b902e0023f6024635facbd974559e"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death",
+    "psi"
+  ],
+  "non_applicable_clips": {
+    "fire": "The ruined priest has no ranged weapon.",
+    "heal": "The ruined priest has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
