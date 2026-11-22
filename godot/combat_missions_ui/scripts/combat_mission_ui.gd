@@ -2157,7 +2157,11 @@ func _elimination_objective_met() -> bool:
 		objective_completed = true
 		objective_progress = int(objective.get("progress_needed", 1))
 		return true
-	return _enemy_alive_count() == 0
+	var eliminated := _enemy_alive_count() == 0
+	if eliminated and objective.get("type", "") == "containment":
+		objective_completed = true
+		objective_progress = int(objective.get("progress_needed", 1))
+	return eliminated
 
 func _enemy_alive_count() -> int:
 	var c: int = 0

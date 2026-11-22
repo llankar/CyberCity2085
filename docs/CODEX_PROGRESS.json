@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-ENEMY-05 native Godot containment rendering IN_PROGRESS. Packaged Windows Godot 4.7.2 rendered the real OpenGL scene at 1280x720 on RTX 5070 Ti. The seven red breach cells, marker and BREACH ZONE label are readable; enemies start outside, and the HUD shows HOLD without a fake interaction counter. 20 bridge/UI tests and 2 subtests passed. Native victory/defeat results and Python debrief idempotence remain NOT VERIFIED.",
-  "next_action": "TAC-ENEMY-05 : drive one native Godot defeat by breach and one victory by elimination, verify both Python debriefs, then replay each result to confirm single application. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
+  "latest_batch": "TAC-ENEMY-05 native containment outcomes DONE. A real breacher crossing produces defeat and real hostile elimination produces victory without forcing terminal state. Elimination now marks containment completed. Godot 4.6.3 and packaged Windows Godot 4.7.2 published both confirmed results; Python applied each debrief once, then ignored identical replay after save/reload. The expanded regression passed 112 tests, skipped 8 environment-specific tests and passed 5 subtests.",
+  "next_action": "UNIFIED-EXPERIENCE: resume the full HQ -> map -> briefing -> Godot -> debrief -> HQ route for victory, defeat and retreat, prioritizing debrief, promotion and consequence branches not yet covered end to end. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

@@ -207,6 +207,45 @@ def test_native_godot_exports_last_stand_for_campaign_debrief(tmp_path):
     assert state.latest_mission_debrief["tactical_moments"][0]["agent_name"] == "Vera"
 
 
+@pytest.mark.parametrize("outcome", ["victory", "defeat"])
+def test_native_containment_outcome_is_applied_once_after_save_reload(tmp_path, outcome):
+    import subprocess
+    from game.combat.godot_bridge import find_godot_executable
+
+    godot = find_godot_executable()
+    if not godot:
+        pytest.skip("Godot unavailable")
+    agent = Character("Vera", role="sniper")
+    state = GameState(characters=[agent], selected_agent_names=["Vera"])
+    mission = MissionTemplate(
+        id=f"native_containment_{outcome}", title="Native containment",
+        objective_text="Hold the marked breach", target_faction="Novatek",
+        district="Chrome", district_pressure={}, starting_enemy_count=3,
+        risk_level=2, objective_type="containment", fund_reward=120,
+    )
+    state.active_mission = mission
+    handoff = write_godot_combat_handoff(state, mission, handoff_path=tmp_path / "handoff.json")
+    handoff, session = create_session(state, mission, handoff)
+    project = Path(__file__).resolve().parents[1] / "godot/combat_missions_ui"
+    proc = subprocess.run([
+        godot, "--headless", "--audio-driver", "Dummy", "--path", str(project),
+        "--script", "res://tests/containment_outcome_regression.gd", "--",
+        "--handoff", str(handoff), "--qa-outcome", outcome,
+    ], capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=30)
+    output = proc.stdout + proc.stderr
+    assert proc.returncode == 0 and f"CONTAINMENT_NATIVE_OUTCOME_PASSED outcome={outcome}" in output, output
+    result = json.loads(Path(session["result_path"]).read_text(encoding="utf-8"))
+    assert result["outcome"] == outcome
+    assert result["objective_completed"] is (outcome == "victory")
+    assert resolve_godot_result(state, mission, result, session["session_id"]) is not None
+    save = tmp_path / "campaign.json"
+    state.save(str(save))
+    restored = GameState.load(str(save))
+    before = copy.deepcopy(restored.__dict__)
+    assert resolve_godot_result(restored, mission, result, session["session_id"]) is None
+    assert restored.__dict__ == before
+
+
 def test_confirmed_death_uses_the_existing_roster_removal_rule(tmp_path):
     state,mission,session,result=scenario(tmp_path);result['agents'][0]['hp']=0
     with patch('game.battle_outcomes.random.choice',return_value='killed'):

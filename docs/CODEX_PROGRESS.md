@@ -664,6 +664,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-TAC-ENEMY-05 : driver une défaite Godot native par franchissement et une victoire par élimination, contrôler les deux débriefs Python puis rejouer chaque résultat pour confirmer l'application unique. Conserver Alt+Tab, DPI multi-écrans et écoute audio en NON VÉRIFIÉ jusqu'à une validation manuelle ; ne pas automatiser le bureau Windows ni régénérer de preuves globales.
+UNIFIED-EXPERIENCE : reprendre le parcours QG → carte → briefing → Godot → débrief → QG pour victoire, défaite et retraite, puis combler en priorité les branches de débrief, promotions et conséquences qui ne sont pas encore couvertes de bout en bout. Le sous-lot confinement est terminé : les deux issues natives passent sous Godot 4.6.3 et le runtime Windows 4.7.2 emballé, leurs résultats sont confirmés puis appliqués une seule fois après sauvegarde/rechargement (112 tests réussis, 8 skips, 5 sous-tests sur la passe élargie). Conserver Alt+Tab, DPI multi-écrans et écoute audio en NON VÉRIFIÉ jusqu'à une validation manuelle ; ne pas automatiser le bureau Windows ni régénérer de preuves globales.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
