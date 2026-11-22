@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_01_vtol_air_taxi_crashed.png",
+  "texture_sha256": "ec606d04d9f04b84eee203d3ac21a5485e09ea7ece5b65ef73958a2014b94dbe",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_01_vtol_air_taxi_crashed_512.png",
+  "source_sha256": "cc00687a9c9b9d7c4420cfdfa64f2303fb68b51536b2a5025fc24c90d0a993e1",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_01_vtol_air_taxi_crashed/idle-single_row_pair-0.png",
+      "sha256": "dfe244993b571a3a62a69aed6d507b737bf42a8c23ef02696539f46949e86a80",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_01_vtol_air_taxi_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "f7148c2cad20fb74cda40e4b686d6cd957df51393af772b68a442178904bff6f"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed air taxi is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed air taxi is unarmed.",
+    "melee": "The crashed air taxi has no melee action.",
+    "cover": "The crashed air taxi has no cover action.",
+    "hit": "The wreck has no authored hit action.",
+    "death": "The asset already represents its terminal wreck state.",
+    "psi": "The crashed air taxi has no psychic action.",
+    "heal": "The crashed air taxi has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
