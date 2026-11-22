@@ -1,0 +1,415 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_starver_12_pale_blind.png",
+  "texture_sha256": "e8deaa54d64e29e89288a40702e1ff30f73431e7977fd38d0551f1f07bef6efe",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.7421875,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_starver_12_pale_blind_512.png",
+  "source_sha256": "52cb51a0f3159c53d50982c4a7922707363c44edc69777d3a6f55881f2aa8b45",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/idle-single_row_pair-0.png",
+      "sha256": "b901770127ea82780e6c609507ce04c9be66172d59c3bea0139d45373abcced6",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/idle-single_row_pair-0-follow-through.png",
+        "sha256": "3fedbc444a87579830c650a1bff7fe64a34ddfa115e8259272c32410237c6f95"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/move-walk_rows-1.png",
+      "sha256": "1372fb2b601d564b97fe43de0407cdc16b99b01da625e6231e015b6124863559",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/melee-single_row_pair-2.png",
+      "sha256": "737a9c0cd68494affdde21fd40b5de2c211ea798b050453ce728fad523e2d69e",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/melee-single_row_pair-2-follow-through.png",
+        "sha256": "d4bf4ec74e1c59141dd049b7c1dbb9401f4a0a347476893b77f0fbb5e541836e"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/cover-single_row_pair-3.png",
+      "sha256": "63aa92d0aa9ee4df2c124c0daaab7155a63b1c5eb454cef186e0ef327b713d42",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/cover-single_row_pair-3-follow-through.png",
+        "sha256": "9495f7448d28a771f5dfc703c991de87707df56021cee476868901d0457c1dae"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/hit-single_row_pair-4.png",
+      "sha256": "049f373b516a3118967b8393b6a02b0d82d7e0c7e285aaa2117f5dd3cdb5beb2",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/hit-single_row_pair-4-follow-through.png",
+        "sha256": "59a748dc3c375354b1861a94cdb56f90c0db36c4a7bc9ebda2516d60f44a61ee"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/death-single_row_pair-5.png",
+      "sha256": "5d87bd72abc5ec15d52bdcfc39419e17a650ebd7bf3ca163c157369d73585300",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_starver_12_pale_blind/death-single_row_pair-5-follow-through.png",
+        "sha256": "188d5f7ab1cf26df526a47bf9f5be0cbac17fb80d3b5c60c6aa7e7ffb3243b1f"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "fire": "The Pale Blind has no ranged weapon.",
+    "psi": "The Pale Blind has no authored psychic ability.",
+    "heal": "The Pale Blind has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
