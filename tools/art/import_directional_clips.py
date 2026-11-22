@@ -74,6 +74,8 @@ def apply_connected_chroma_key(image, key, inner=4, outer=255):
 def prepare_source(image,item):
     key=item.get('chroma_key')
     if key is None:return image
+    if item.get('connected_chroma_key',False):
+        return apply_connected_chroma_key(image,key,item.get('chroma_inner',4),item.get('chroma_outer',255))
     return apply_chroma_key(image,key,item.get('chroma_inner',4),item.get('chroma_outer',255))
 
 def extract(image,row,col,trim_top=0,edge_erosion=0,grid_rows=4,clean_components=True):
@@ -349,6 +351,8 @@ def build(key,config):
             provenance[-1]['chroma_key']=item['chroma_key']
             provenance[-1]['chroma_inner']=item.get('chroma_inner',4)
             provenance[-1]['chroma_outer']=item.get('chroma_outer',255)
+            if item.get('connected_chroma_key',False):
+                provenance[-1]['connected_chroma_key']=True
     files=[];animations={}
     clip_order=['idle','move','fire','melee','cover','hit','death','psi','heal']
     for name in [clip for clip in clip_order if clip in clips]:

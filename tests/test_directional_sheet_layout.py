@@ -60,6 +60,24 @@ def test_connected_chroma_key_preserves_enclosed_backdrop_coloured_paint():
     assert keyed.getpixel((3, 3)) == (255, 255, 255, 255)
 
 
+def test_prepare_source_honours_connected_chroma_key():
+    image = Image.new("RGBA", (7, 7), (255, 255, 255, 255))
+    for y in range(1, 6):
+        for x in range(1, 6):
+            image.putpixel((x, y), (20, 20, 20, 255))
+    image.putpixel((3, 3), (255, 255, 255, 255))
+
+    keyed = importer.prepare_source(image, {
+        "chroma_key": [255, 255, 255],
+        "connected_chroma_key": True,
+        "chroma_inner": 0,
+        "chroma_outer": 64,
+    })
+
+    assert keyed.getpixel((0, 0))[3] == 0
+    assert keyed.getpixel((3, 3)) == (255, 255, 255, 255)
+
+
 def test_walk_rows_imports_four_phases_for_eight_reviewed_directions(tmp_path, monkeypatch):
     monkeypatch.setattr(importer, "ROOT", tmp_path)
     units = tmp_path / "assets/units"

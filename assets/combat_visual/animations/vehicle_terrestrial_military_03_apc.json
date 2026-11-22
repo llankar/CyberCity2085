@@ -1,0 +1,356 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_03_apc.png",
+  "texture_sha256": "94fd3a6a4529d6d9d98e190a6b0b22dd874596265a977020d89fe69584e05f6d",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_03_apc_512.png",
+  "source_sha256": "c0aa3d4fab5d884aec644e4899f83e5b80aa896a68931906e28790d5e491abd0",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/idle-single_row_pair-0.png",
+      "sha256": "cfad1c59710db3e73b3a779b0358f8308b6e0007e6f7d4028279dad626cd124e",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/idle-single_row_pair-0-follow-through.png",
+        "sha256": "af367405f70316af6e945cfd393bbf24d0de9f325ea31d84380224367e6e1a2e"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/move-walk_rows-1.png",
+      "sha256": "9ccad923e50ff2438be2d60dd53d78878cc789c21da3a18a7d419ad32cf9612f",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        255,
+        255,
+        255
+      ],
+      "chroma_inner": 1,
+      "chroma_outer": 32,
+      "connected_chroma_key": true
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/fire-single_row_pair-2.png",
+      "sha256": "6cdb5adff78bf00665b0907cf32171536d7c5bb1220b7e9d0ed643a436840804",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/fire-single_row_pair-2-follow-through.png",
+        "sha256": "061a1e9cc3009dc20208a69b3c257ca5a19a5c41a528691d268ab7ad7e177a4c"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/hit-single_row_pair-3.png",
+      "sha256": "b9d8d626071a84cb71703834e6d45e4dc8558a4e20cbd0f18caa3efe21e49238",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/hit-single_row_pair-3-follow-through.png",
+        "sha256": "e2cf3d406b3201b924766e10210a1fc6859b38f64843e38e37509be9fc261a4d"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/death-single_row_pair-4.png",
+      "sha256": "85c908f32020a5435c4b4cef0929dcf13a90c771d3f34f44cf58a76c37c1e9b1",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_03_apc/death-single_row_pair-4-follow-through.png",
+        "sha256": "7a8c540dc7c6c93c07b1b652a2acdfcd49825e2d5c7f0ac6b3161947e3a88628"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "melee": "The APC enemy AI always resolves its attack as ranged fire and has no melee action.",
+    "cover": "Enemy units do not enter the player defend action and this APC has no authored cover action.",
+    "psi": "The APC has no psychic action.",
+    "heal": "The APC has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
