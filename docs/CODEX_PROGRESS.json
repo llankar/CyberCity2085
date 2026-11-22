@@ -987,7 +987,7 @@
         "docs/images/entity-scale-production-windows/catalogue-01.jpg",
         "docs/images/entity-scale-production-windows/catalogue-11.jpg"
       ],
-      "remaining": "None. All 122 maps were reviewed at 720p and calibrated across 720p, 1080p and 1440p; no reproducible artistic or calibration defect remains open in this scope.",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -1006,7 +1006,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "None. Strict current audit: 253 unit-art references, 233 animation-eligible units and 233 complete directional atlases; final backlog: 233 / 233 artistically verified.",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -1183,7 +1183,7 @@
         "assets/combat_visual/animations/power_armor.json",
         "assets/combat_visual/animations/vehicle_aerial_military_01_vtol_gunship.json"
       ],
-      "remaining": "None. Strict current audit: 233 / 233 eligible units complete, zero partial atlases and zero animation errors. Existing targeted native reviews and the final backlog record 233 / 233 artistically verified resources; raider grunt has a usable directional walk.",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -1247,6 +1247,11 @@
       "title": "Recalibrer PJ, PNJ, robots, armures et véhicules sur les décors des 122 cartes",
       "status": "DONE",
       "files": [
+        "godot/combat_missions_ui/art/environment/map_presentation.json",
+        "godot/combat_missions_ui/scripts/map_presentation.gd",
+        "godot/combat_missions_ui/tests/top_down_regression.gd",
+        "tools/apply_entity_scale_profiles.py",
+        "tests/test_entity_scale_profiles.py",
         "godot/combat_missions_ui/scripts/unit_presentation.gd",
         "godot/combat_missions_ui/scripts/visual_battlefield.gd",
         "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
@@ -1259,7 +1264,8 @@
       "tests": [
         "Revue visuelle des 122 cartes et cinq profils d’environnement",
         "Trois résolutions natives avec agents, ennemis, robots, power armors et véhicules ; clics et zoom vérifiés",
-        "Parité Arcade/Godot du rapport global par carte : 122/122 entrées couvertes. Les 59 cartes intérieures/industrielles utilisent 0.020 et les 63 scènes urbaines ouvertes/wasteland 0.015. Le même multiplicateur de carte est appliqué aux humains, ennemis, robots, armures et véhicules, y compris après changement de carte pendant le déploiement et redimensionnement 720p/1080p/1440p. 30 tests Python ciblés réussis ; Godot natif headless : 122 cartes, projection, murs et échelle réussis. Arcade/OpenGL caché : safehouse, clinique et blacksite inspectés à 720p, puis clinique à 1080p et 1440p ; proportions cohérentes avec portes, lits, consoles et mobilier."
+        "Parité Arcade/Godot du rapport global par carte : 122/122 entrées couvertes. Les 59 cartes intérieures/industrielles utilisent 0.020 et les 63 scènes urbaines ouvertes/wasteland 0.015. Le même multiplicateur de carte est appliqué aux humains, ennemis, robots, armures et véhicules, y compris après changement de carte pendant le déploiement et redimensionnement 720p/1080p/1440p. 30 tests Python ciblés réussis ; Godot natif headless : 122 cartes, projection, murs et échelle réussis. Arcade/OpenGL caché : safehouse, clinique et blacksite inspectés à 720p, puis clinique à 1080p et 1440p ; proportions cohérentes avec portes, lits, consoles et mobilier.",
+        "Règle explicitement verrouillée : un unique rapport global par carte sert de base aux images d'agents, ennemis, robots, armures et véhicules. Les multiplicateurs de silhouette propres aux familles ne recalibrent jamais une carte. Cinq tests ciblés réussis, dont Godot 4.7.2 natif sur 122 cartes, trois résolutions et cinq familles représentatives."
       ],
       "evidence": [
         "docs/images/entity-scale-production-windows/README.md",

@@ -11,6 +11,9 @@ static func entry_for(map_data: Dictionary) -> Dictionary:
 
 static func human_height_ratio(map_data: Dictionary) -> float:
 	var entry := entry_for(map_data)
-	# A handoff can override a single map's presentation without touching surveys.
+	# This is the single global entity-scale base for the map. Agents, enemies,
+	# robots, armors and vehicles all consume it; their intrinsic type multiplier
+	# preserves relative silhouette differences without recalibrating the map.
+	# A handoff can override one map's presentation without touching surveys.
 	var override: Dictionary=map_data.get("presentation",{})
 	return clampf(float(override.get("human_height_ratio",entry.get("human_height_ratio",.035))),.015,.10)

@@ -29,8 +29,11 @@ def apply_profiles(path: Path, write: bool = False) -> dict:
             changed.append(name)
             row["human_height_ratio"] = ratio
     data["notes"] = (
-        "Art-directed standing-silhouette height relative to source width; "
-        "reviewed against visible cars, furniture, doors, machines and wrecks. "
+        "One global entity-scale ratio per map, expressed as standing-human silhouette height "
+        "relative to source width. The same map ratio is the base for every agent, enemy, robot, "
+        "armor and vehicle image; family-specific silhouette multipliers preserve their natural "
+        "relative sizes but never recalibrate a map. Reviewed against visible cars, furniture, "
+        "doors, machines and wrecks. "
         "Presentation only: no tactical scale, collision, pathfinding or source PNG changes."
     )
     if write:

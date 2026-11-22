@@ -21,7 +21,22 @@ func run() -> void:
 			assert(is_equal_approx(board._u_axis.length()/tex.size.x,board._v_axis.length()/tex.size.y),"no image stretching")
 			unit.cell_size=Vector2.ONE*board.iso_tw*2
 			unit.terrain_scale=board.token_terrain_scale()
+			unit.visual_key="agent"
+			unit.unit_data={}
 			assert(is_equal_approx(unit._body_height()/board.source_rect.size.x,board.human_height_ratio),"token/map art scale survives resolution changes")
+			# A map owns one scale ratio. Unit families retain only their intrinsic
+			# silhouette multiplier; none may introduce a second map calibration.
+			for specimen: Dictionary in [
+				{"key":"agent","data":{}},
+				{"key":"raider_grunt","data":{"enemy_theme":"raider"}},
+				{"key":"security_robot","data":{"role":"robot"}},
+				{"key":"power_armor","data":{"role":"power_armor"}},
+				{"key":"vehicle_ground","data":{"vehicle_key":"ground","size_scale":2.4}},
+			]:
+				unit.visual_key=specimen.key
+				unit.unit_data=specimen.data
+				var intrinsic: float=unit._visual_size_scale()
+				assert(is_equal_approx(unit._body_height()/intrinsic/board.source_rect.size.x,board.human_height_ratio),"one map ratio applies to every entity family")
 			for y in range(28):
 				for x in range(40):
 					var cell:=Vector2i(x,y)
