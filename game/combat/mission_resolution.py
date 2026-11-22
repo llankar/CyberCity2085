@@ -88,6 +88,19 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         if combat_state is not None
         else []
     )
+    from .agent_moments import remember_objective_contribution
+    existing_objective_agents = {
+        moment.get("agent_name") for moment in tactical_moments
+        if moment.get("kind") == "objective_specialist"
+    }
+    by_name = {unit.character.name: unit.character for unit in all_player_units if unit.character}
+    for agent_name, count in objective_contributions.items():
+        character = by_name.get(agent_name)
+        if character is None or agent_name in existing_objective_agents:
+            continue
+        moment = remember_objective_contribution(character, self.mission, int(count))
+        if moment is not None:
+            tactical_moments.append(moment)
     relationship_characters = []
     relationship_character_ids = set()
     for unit in all_player_units:

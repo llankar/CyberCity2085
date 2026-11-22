@@ -101,6 +101,35 @@ def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tm
     assert state.combat_sessions[session['session_id']]['status']=='applied'
 
 
+def test_godot_objective_actions_create_one_named_memory_and_reputation(tmp_path):
+    state, mission, session, result = scenario(tmp_path)
+    result['agents'][0]['objective_contribution'] = 2
+    resolve_godot_result(state, mission, result, session['session_id'])
+    character = state.characters[0]
+    moments = state.latest_mission_debrief['tactical_moments']
+    assert moments == [{
+        'kind': 'objective_specialist',
+        'agent_name': 'Vera',
+        'text': 'Vera: Unified test: completed 2 decisive objective actions.',
+    }]
+    assert character.history.count('Unified test: completed 2 decisive objective actions.') == 1
+    assert 'objective_specialist' in character.reputation
+    assert character.nickname == 'Keymaker'
+    save = tmp_path / 'objective-memory.json'
+    state.save(str(save))
+    restored = GameState.load(str(save))
+    before = copy.deepcopy(restored.__dict__)
+    assert resolve_godot_result(restored, mission, result, session['session_id']) is None
+    assert restored.__dict__ == before
+
+
+def test_result_rejects_negative_objective_contribution(tmp_path):
+    state, mission, session, result = scenario(tmp_path)
+    result['agents'][0]['objective_contribution'] = -1
+    with pytest.raises(ValueError, match='objective_contribution'):
+        validate_result(result, state.combat_sessions[session['session_id']], session['session_id'])
+
+
 @pytest.mark.parametrize('outcome',['defeat','retreat'])
 def test_non_victory_keeps_failure_policy_without_synthetic_xp(tmp_path,outcome):
     state,mission,session,result=scenario(tmp_path);result['outcome']=outcome

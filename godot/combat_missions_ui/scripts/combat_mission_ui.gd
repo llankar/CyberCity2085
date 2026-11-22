@@ -1070,6 +1070,7 @@ func _interact_with_objective() -> void:
 
 	# Spend 1 AP per interaction tick.
 	_spend_player_ap(active, 1)
+	active["objective_contribution"] = int(active.get("objective_contribution", 0)) + 1
 	player_units[active_player_index] = active
 	objective_progress += 1
 
@@ -1882,7 +1883,7 @@ func _end_combat(outcome: String, failure_message: String = "") -> void:
 	var support: Array=[]
 	for unit: Dictionary in player_units:
 		var snapshot: Dictionary={"name":unit.name,"hp":int(unit.hp),"max_hp":int(unit.max_hp),"stress":int(unit.get("stress",0))}
-		for metric in ["damage_dealt", "damage_taken", "kills", "actions_used"]:
+		for metric in ["damage_dealt", "damage_taken", "kills", "actions_used", "objective_contribution"]:
 			if unit.has(metric):
 				snapshot[metric] = int(unit[metric])
 		if not str(unit.get("asset_id","")).is_empty():

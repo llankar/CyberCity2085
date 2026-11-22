@@ -29,6 +29,21 @@ def remember_last_stand(character: Character, mission, hp: int) -> dict:
     return {"kind": "last_stand", "agent_name": character.name, "text": f"{character.name}: {memory}"}
 
 
+def remember_objective_contribution(character: Character, mission, count: int) -> dict | None:
+    """Persist a standout objective contribution once, from factual action counts."""
+    if count < 2:
+        return None
+    title = getattr(mission, "title", None) or "Tactical engagement"
+    memory = f"{title}: completed {count} decisive objective actions."
+    if memory not in character.history:
+        character.history.append(memory)
+    return {
+        "kind": "objective_specialist",
+        "agent_name": character.name,
+        "text": f"{character.name}: {memory}",
+    }
+
+
 def last_stand_dialogue(character: Character) -> str:
     """Select the line from campaign state for either tactical client."""
     traits = {str(trait).casefold() for trait in character.traits}

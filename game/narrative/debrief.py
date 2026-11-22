@@ -257,7 +257,7 @@ def build_mission_debrief_report(
         complication,
     )
     moments = [dict(moment) for moment in tactical_moments or []]
-    moment_lines = [DebriefLine(moment["agent_name"], {"last_stand": "heroic", "rescue": "relief", "downed": "loss", "panic": "tense"}.get(moment["kind"], "neutral"),
+    moment_lines = [DebriefLine(moment["agent_name"], {"last_stand": "heroic", "rescue": "relief", "downed": "loss", "panic": "tense", "objective_specialist": "focused"}.get(moment["kind"], "neutral"),
                                moment["kind"], moment["text"]) for moment in moments]
     return DebriefReport(
         mission_title=mission_title,

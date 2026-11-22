@@ -43,10 +43,18 @@ def resolve_godot_result(game_state,mission,result,session_id):
         if row['id'] not in assets:raise ValueError('Deployed support no longer exists')
         asset=assets[row['id']]
         units.append(Unit((0,0),stats=asset.combat_stats(),spec_ops_asset=asset,health=row['hp']))
+    renames = getattr(shadow, '_loaded_agent_renames', {})
+    objective_contributions = {
+        renames.get(identities[row['name']], identities[row['name']]): row['objective_contribution']
+        for row in result['agents'] if row.get('objective_contribution', 0) > 0
+    }
     context=SimpleNamespace(game_state=shadow,mission=deepcopy(mission),player_units=units,
         defeated_player_units=[],enemy_units=[],initial_enemy_count=result['initial_enemy_count'],
         triggered_complication=None,window=None,
-        combat_state=SimpleNamespace(mission=mission, logs=[], tactical_flags={'agent_moments': moments}))
+        combat_state=SimpleNamespace(mission=mission, logs=[], tactical_flags={
+            'agent_moments': moments,
+            'objective_contributions': objective_contributions,
+        }))
     record_losses(context.combat_state, units)
     context.resolve_defeated_player_unit=lambda u:resolve_defeated_agent_outcome(u.character,
         remove_character=shadow.record_agent_death,record_event=shadow.add_event)

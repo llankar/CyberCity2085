@@ -143,6 +143,10 @@ func run() -> void:
 	if expected_outcome == "victory":
 		assert(scene.objective_completed, "mission ended without completing its authored objective")
 		assert(actions >= int(scene.objective.get("progress_needed", 1)), "objective was not completed through actions")
+		var contributions := 0
+		for unit: Dictionary in scene.player_units:
+			contributions += int(unit.get("objective_contribution", 0))
+		assert(contributions == scene.objective_progress, "objective actions must remain attributed to their agents")
 	elif expected_outcome == "defeat":
 		assert(scene._player_alive_count() == 0, "defeat was not caused by squad elimination")
 	print("UNIFIED_REAL_MISSION_COMPLETED actions=", actions, " turns=", turns)
@@ -161,5 +165,11 @@ func run() -> void:
 		await create_timer(0.05).timeout
 	scene._results._extract_btn.pressed.emit()
 	assert(FileAccess.file_exists(session.result_path))
+	if expected_outcome == "victory":
+		var confirmed: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(session.result_path))
+		var exported_contributions := 0
+		for agent: Dictionary in confirmed.get("agents", []):
+			exported_contributions += int(agent.get("objective_contribution", 0))
+		assert(exported_contributions == scene.objective_progress, "confirmed result lost objective attribution")
 	print("UNIFIED_NATIVE_RESULT_CONFIRMED")
 
