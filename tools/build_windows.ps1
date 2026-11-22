@@ -1,7 +1,8 @@
 param(
     [string]$OutputDirectory = "dist",
     [string]$GodotExecutable = $env:CYBERCITY_PACKAGE_GODOT,
-    [string]$ScratchRoot
+    [string]$ScratchRoot,
+    [switch]$SkipTests
 )
 
 $ErrorActionPreference = "Stop"
@@ -33,10 +34,23 @@ if ($ScratchRoot) {
     $env:APPDATA = Join-Path $RunRoot "appdata"
     $env:PYINSTALLER_CONFIG_DIR = Join-Path $RunRoot "cache"
 }
-python -m pytest -q
-if ($LASTEXITCODE -ne 0) { throw "Tests failed; build cancelled." }
-python -m PyInstaller --noconfirm --clean --distpath "$BuildOutput" --workpath "$WorkPath" CyberCity2085.spec
-if ($LASTEXITCODE -ne 0) { throw "Windows packaging failed." }
+if (-not $SkipTests) {
+    python -m pytest -q
+    if ($LASTEXITCODE -ne 0) { throw "Tests failed; build cancelled." }
+}
+
+# PyInstaller writes routine progress messages to stderr. Windows PowerShell 5
+# promotes those messages to terminating errors while ErrorActionPreference is
+# Stop, before its actual process exit code can be checked.
+$PreviousErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = "Continue"
+try {
+    python -m PyInstaller --noconfirm --clean --distpath "$BuildOutput" --workpath "$WorkPath" CyberCity2085.spec
+    $PyInstallerExitCode = $LASTEXITCODE
+} finally {
+    $ErrorActionPreference = $PreviousErrorActionPreference
+}
+if ($PyInstallerExitCode -ne 0) { throw "Windows packaging failed." }
 
 $Executable = Join-Path $BuildOutput "CyberCity2085\CyberCity2085.exe"
 $SmokeReport = Join-Path $BuildOutput "packaged-smoke.json"
