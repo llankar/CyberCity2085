@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_04_vtol_news_drone_van.png",
+  "texture_sha256": "8e060c8af849705479ff99fc6786625bb6dc79e7402bc165b36c9a740680e8ff",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_04_vtol_news_drone_van_512.png",
+  "source_sha256": "7b6d8b0df2aa8e3b6cef5999d2799cfc6ebc56fe11a0ee85ddf22d7415f918dd",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_04_vtol_news_drone_van/idle-single_row_pair-0.png",
+      "sha256": "b68cbedfd4be7e0ec92b5a98e86ef0fde67f2662747726c1e312e057d3e10765",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_04_vtol_news_drone_van/idle-single_row_pair-0-follow-through.png",
+        "sha256": "03ca657232e66407b8b0ac3d9c7d47655d08576dba3cfa05864e12bebb2c5ba5"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian news VTOL is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian news VTOL is unarmed.",
+    "melee": "The civilian news VTOL has no melee action.",
+    "cover": "The civilian news VTOL has no cover action.",
+    "hit": "The civilian news VTOL has no authored hit action.",
+    "death": "The intact civilian news VTOL has no authored destruction action.",
+    "psi": "The civilian news VTOL has no psychic action.",
+    "heal": "The civilian news VTOL has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
