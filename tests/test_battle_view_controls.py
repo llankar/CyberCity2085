@@ -51,6 +51,7 @@ class BattleViewControlsTest(unittest.TestCase):
             for entry in battle_maps.BATTLE_MAP_CATALOG
             if entry.filename == "city_interior_safehouse.png"
         )
+        view.window = SimpleNamespace(width=1280)
         human = SimpleNamespace(unit_type="agent", sprite=SimpleNamespace(scale=0.0))
         robot = SimpleNamespace(
             unit_type="enemy",
@@ -65,6 +66,12 @@ class BattleViewControlsTest(unittest.TestCase):
 
         self.assertAlmostEqual(human.sprite.scale, 1.1)
         self.assertAlmostEqual(robot.sprite.scale, 2.2)
+
+        view.window.width = 1920
+        view.on_resize(1920, 1080)
+
+        self.assertAlmostEqual(human.sprite.scale, 1.65)
+        self.assertAlmostEqual(robot.sprite.scale, 3.3)
 
 
 if __name__ == "__main__":

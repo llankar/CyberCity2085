@@ -93,12 +93,14 @@ class BattleMapsTest(unittest.TestCase):
         for entry in battle_maps.BATTLE_MAP_CATALOG:
             map_scale = ratios[entry.filename] / battle_maps.BASE_HUMAN_HEIGHT_RATIO
             self.assertAlmostEqual(battle_maps.battle_map_unit_scale(entry), map_scale)
-            for unit in units:
-                intrinsic = battle_maps.battle_token_scale_for_unit(unit)
-                self.assertAlmostEqual(
-                    battle_maps.battle_token_scale_for_unit(unit, entry),
-                    intrinsic * map_scale,
-                )
+            for width in (1280, 1920, 2560):
+                resolution_scale = width / battle_maps.BASE_PRESENTATION_WIDTH
+                for unit in units:
+                    intrinsic = battle_maps.battle_token_scale_for_unit(unit)
+                    self.assertAlmostEqual(
+                        battle_maps.battle_token_scale_for_unit(unit, entry, width),
+                        intrinsic * map_scale * resolution_scale,
+                    )
 
     def test_interior_map_ratio_multiplies_all_unit_categories_equally(self) -> None:
         interior = next(

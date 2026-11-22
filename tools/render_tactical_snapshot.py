@@ -9,12 +9,13 @@ from unittest.mock import patch
 def render_snapshot(output, width=1280, height=720, title="Relay Defense", *,
                     deployment=False, camera_pan=(0, 0), begin_battle=False,
                     targeting=False, show_log=True, cancel_targeting=False, exercise_fire=False,
-                    settle_effects=False, exercise_turn=False):
+                    settle_effects=False, exercise_turn=False, map_filename=None):
     import arcade
     from game.character import Character
     from game.gamestate import GameState
     from game.management.equipment import equip_starter_loadout
     from game.mission_templates import MissionTemplate
+    from game.battle_maps import battle_map_unit_scale
     from game.views import BattleView
 
     characters=[Character(name,role=role) for name,role in
@@ -29,6 +30,18 @@ def render_snapshot(output, width=1280, height=720, title="Relay Defense", *,
         with patch("game.audio.SoundManager.get"):
             view=BattleView(state)
             view.setup(mission)
+            if map_filename:
+                map_index = next(
+                    (
+                        index
+                        for index, entry in enumerate(view.available_maps)
+                        if entry.filename == map_filename
+                    ),
+                    None,
+                )
+                if map_index is None:
+                    raise ValueError(f"Map is not available for this fixture: {map_filename}")
+                view._load_battle_map(map_index)
             view._deploying=deployment
             view._cam_pan_x, view._cam_pan_y = camera_pan
             view._intro_active=False
@@ -130,7 +143,8 @@ def render_snapshot(output, width=1280, height=720, title="Relay Defense", *,
                     "camera_pan":[view._cam_pan_x, view._cam_pan_y],
                     "active_unit_screen":[view.player_units[view._deploy_cursor if deployment else view.active_index].position[0]-view._cam_pan_x,
                                           view.player_units[view._deploy_cursor if deployment else view.active_index].position[1]-view._cam_pan_y],
-                    "renderer":"real Arcade/OpenGL", "fixture_only":True, "map":view.map_path}
+                    "renderer":"real Arcade/OpenGL", "fixture_only":True, "map":view.map_path,
+                    "map_unit_scale":battle_map_unit_scale(view.active_map_entry)}
     finally:
         window.close()
 
@@ -151,13 +165,14 @@ def main():
     parser.add_argument("--hide-log",action="store_true")
     parser.add_argument("--pan-x",type=float,default=0)
     parser.add_argument("--pan-y",type=float,default=0)
+    parser.add_argument("--map-filename")
     args=parser.parse_args()
     result = render_snapshot(args.output,args.width,args.height,args.title,
                                     deployment=args.deployment,camera_pan=(args.pan_x,args.pan_y),
                                     begin_battle=args.begin_battle,targeting=args.targeting,
                                     show_log=not args.hide_log,cancel_targeting=args.cancel_targeting,
                                     exercise_fire=args.exercise_fire,settle_effects=args.settle_effects,
-                                    exercise_turn=args.exercise_turn)
+                                    exercise_turn=args.exercise_turn,map_filename=args.map_filename)
     args.output.with_suffix(".json").write_text(json.dumps(result,indent=2),encoding="utf-8")
     print(json.dumps(result))
 

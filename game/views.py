@@ -1780,7 +1780,9 @@ class BattleView(GameView):
                 _sprite_path_for_unit(unit),
                 center_x=unit.position[0],
                 center_y=unit.position[1],
-                scale=battle_token_scale_for_unit(unit, self.active_map_entry),
+                scale=battle_token_scale_for_unit(
+                    unit, self.active_map_entry, getattr(self.window, "width", 1280)
+                ),
             )
             unit.sprite = sprite
             self.player_list.append(sprite)
@@ -1790,7 +1792,9 @@ class BattleView(GameView):
                 _sprite_path_for_unit(enemy),
                 center_x=enemy.position[0],
                 center_y=enemy.position[1],
-                scale=battle_token_scale_for_unit(enemy, self.active_map_entry),
+                scale=battle_token_scale_for_unit(
+                    enemy, self.active_map_entry, getattr(self.window, "width", 1280)
+                ),
             )
             enemy.sprite = sprite
             self.enemy_list.append(sprite)
@@ -1938,6 +1942,7 @@ class BattleView(GameView):
     def _apply_active_map_unit_scale(self) -> None:
         """Apply one map multiplier to every existing tactical unit sprite."""
         active_map = getattr(self, "active_map_entry", None)
+        viewport_width = getattr(getattr(self, "window", None), "width", 1280)
         for unit in (
             list(getattr(self, "player_units", []))
             + list(getattr(self, "enemy_units", []))
@@ -1945,7 +1950,11 @@ class BattleView(GameView):
         ):
             sprite = getattr(unit, "sprite", None)
             if sprite is not None:
-                sprite.scale = battle_token_scale_for_unit(unit, active_map)
+                sprite.scale = battle_token_scale_for_unit(unit, active_map, viewport_width)
+
+    def on_resize(self, width: int, height: int) -> None:
+        """Keep the shared map/unit ratio stable when the Arcade window resizes."""
+        self._apply_active_map_unit_scale()
 
     def _fit_authored_encounter(self) -> None:
         self._deployment_cells = None
@@ -2086,7 +2095,9 @@ class BattleView(GameView):
                 "assets/enemy.png",
                 center_x=x,
                 center_y=y,
-                scale=battle_token_scale_for_unit(new_enemy, self.active_map_entry),
+                scale=battle_token_scale_for_unit(
+                    new_enemy, self.active_map_entry, getattr(self.window, "width", 1280)
+                ),
             )
             new_enemy.sprite = sprite
             self.enemy_list.append(sprite)

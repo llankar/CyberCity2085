@@ -14,6 +14,7 @@ MAP_PRESENTATION_PATH = Path("godot/combat_missions_ui/art/environment/map_prese
 BATTLE_TOKEN_SCALE = 1.5 * 1.10
 BATTLE_TOKEN_SCALE_NON_ROBOT = BATTLE_TOKEN_SCALE / 2
 BASE_HUMAN_HEIGHT_RATIO = 0.015
+BASE_PRESENTATION_WIDTH = 1280
 
 _IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg"}
 _WASTELAND_MISSION_KEYWORDS = (
@@ -235,10 +236,12 @@ def _is_robot_unit(unit: Any) -> bool:
 def battle_token_scale_for_unit(
     unit: Any,
     map_entry: BattleMapEntry | str | None = None,
+    viewport_width: int | float = BASE_PRESENTATION_WIDTH,
 ) -> float:
     """Apply the map's single global ratio after the unit's intrinsic size."""
     intrinsic = BATTLE_TOKEN_SCALE if _is_robot_unit(unit) else BATTLE_TOKEN_SCALE_NON_ROBOT
-    return intrinsic * battle_map_unit_scale(map_entry)
+    resolution_scale = max(0.5, min(3.0, float(viewport_width) / BASE_PRESENTATION_WIDTH))
+    return intrinsic * battle_map_unit_scale(map_entry) * resolution_scale
 
 
 def select_battle_map_entry(mission: Any) -> BattleMapEntry | None:
@@ -261,6 +264,7 @@ __all__ = [
     "BATTLE_TOKEN_SCALE",
     "BATTLE_TOKEN_SCALE_NON_ROBOT",
     "BASE_HUMAN_HEIGHT_RATIO",
+    "BASE_PRESENTATION_WIDTH",
     "MAP_PRESENTATION_PATH",
     "BattleMapEntry",
     "CITY_BATTLE_MAPS",
