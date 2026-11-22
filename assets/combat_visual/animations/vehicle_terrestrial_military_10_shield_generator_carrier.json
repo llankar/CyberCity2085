@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_10_shield_generator_carrier.png",
+  "texture_sha256": "873c1adfe75cf592edf80f71fcd79e5ef52419b26da1adad4cf548bd99288742",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_10_shield_generator_carrier_512.png",
+  "source_sha256": "e3fb719837da1cca729d6c08ea2c78136da80ea95de87c6bd827e90767d394db",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_10_shield_generator_carrier/idle-single_row_pair-0.png",
+      "sha256": "2496a6592baf9594daa1e3ef126561fa1073049bc42ea8f47179a9a0a74de4fa",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_10_shield_generator_carrier/idle-single_row_pair-0-follow-through.png",
+        "sha256": "cf92cb5a9ecb7d6d2af83ff920934f9323e18951880dfa62ed6ebfd9d650f5b4"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The shield generator carrier is not instantiated as a movable unit by the current encounter routing and has no tactical move action.",
+    "fire": "The shield generator carrier is not instantiated as a combat unit by the current encounter routing and has no tactical fire action.",
+    "melee": "The shield generator carrier has no tactical melee action.",
+    "cover": "The shield generator carrier has no tactical cover action.",
+    "hit": "The shield generator carrier has no authored hit action in the current runtime.",
+    "death": "The shield generator carrier has no authored death action in the current runtime.",
+    "psi": "The shield generator carrier has no psychic action.",
+    "heal": "The shield generator carrier has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
