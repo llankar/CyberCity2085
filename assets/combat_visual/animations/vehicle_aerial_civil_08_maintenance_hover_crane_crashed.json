@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_08_maintenance_hover_crane_crashed.png",
+  "texture_sha256": "ba1efdad6809d3c72bb62525a99c60fdc21150eefd4cdb4a503be749fc706bd7",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_08_maintenance_hover_crane_crashed_512.png",
+  "source_sha256": "41af9500dc761e6669c6dab292d9ebbf21e49fff0a0045d15e1f1716ef104e42",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_08_maintenance_hover_crane_crashed/idle-single_row_pair-0.png",
+      "sha256": "b32f4550343c346f514ee7e73a84a37c19645738f7d2f347678f471e33aa0b1e",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_08_maintenance_hover_crane_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "25451f470af23bd3bfcab6bb182bc406bbc4d4dd8ddfebe0369b682477c1aa9a"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed civilian maintenance hover crane is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed civilian maintenance hover crane is unarmed.",
+    "melee": "The crashed civilian maintenance hover crane has no melee action.",
+    "cover": "The crashed civilian maintenance hover crane has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed civilian maintenance hover crane has no psychic action.",
+    "heal": "The crashed civilian maintenance hover crane has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
