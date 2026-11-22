@@ -664,6 +664,6 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Prochaine action précise
 
-ANIMATIONS : produire et valider uniquement `enemy_mutant_animal_02_two_head_hound`, prochain des 109 ensembles encore manquants. `enemy_mutant_animal_01_sewer_boar` est complet et validé nativement : 112 frames, six clips applicables, vraie marche quadrupède, audit propre, 28 tests réussis/1 skip X11 et capture Godot Windows 4.7.2 ciblée réussie. Couverture : 124 / 233 manifests complets et 147 / 233 ressources artistiquement vérifiées. Les revues globales de cartes, échelle, performances et résolutions sont périmées selon le contrôle reproductible courant ; ne pas les convertir en PASS ni régénérer de rapports de preuve séparés.
+ANIMATIONS : produire et valider uniquement `enemy_mutant_animal_03_rat_king`, prochain des 108 ensembles encore manquants. `enemy_mutant_animal_02_two_head_hound` est complet et validé nativement : 112 frames, six clips applicables, deux têtes et vraie marche quadrupède, audit propre, 28 tests réussis/1 skip X11 et capture Godot Windows 4.7.2 ciblée réussie. Couverture : 125 / 233 manifests complets et 148 / 233 ressources artistiquement vérifiées. Les revues globales de cartes, échelle, performances et résolutions sont périmées selon le contrôle reproductible courant ; ne pas les convertir en PASS ni régénérer de rapports de preuve séparés.
 
 Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan global](reports/combat_visual_acceptance.md). Un lot validé ne termine pas le chantier.
