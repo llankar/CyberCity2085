@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_02_vtol_troop_carrier.png",
+  "texture_sha256": "849a62023d13dca02ed5ec933d430188cdcba0a6553a4e04e931026cb90de859",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_02_vtol_troop_carrier_512.png",
+  "source_sha256": "24af008624f28234e3db57673961f60470fcfe468e894470f88ac0c303e0b614",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_02_vtol_troop_carrier/idle-single_row_pair-0.png",
+      "sha256": "8898c32e3a4313efc534f9ee1e3baa88990f3efacd31f2cc266dd78dc32ea029",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_02_vtol_troop_carrier/idle-single_row_pair-0-follow-through.png",
+        "sha256": "3a3a659271abf5a1f1a21afa4887a05240ce5e1a6c4802650e3fea589ee896ee"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The military VTOL troop carrier is a stationary decorative insertion vehicle with 0 AP.",
+    "fire": "The military VTOL troop carrier has no tactical fire action.",
+    "melee": "The military VTOL troop carrier has no melee action.",
+    "cover": "The military VTOL troop carrier has no cover action.",
+    "hit": "The military VTOL troop carrier has no authored hit action.",
+    "death": "The intact military VTOL troop carrier has no authored destruction action.",
+    "psi": "The military VTOL troop carrier has no psychic action.",
+    "heal": "The military VTOL troop carrier has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
