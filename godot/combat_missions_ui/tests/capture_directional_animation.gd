@@ -92,6 +92,7 @@ func run() -> void:
 	if not enemy_target.is_empty():
 		var enemy=scene._unit_tokens["e0"]
 		assert(enemy.visual_key==enemy_target,"capture must exercise the requested enemy atlas")
+		print("DIRECTIONAL_TARGET_SCREEN ", enemy_target, " ", enemy.get_global_transform_with_canvas().origin)
 		enemy.set_process(false)
 		if enemy.manifest.animations.has("fire"):
 			scene._enemy_attack(0, 0, "grunt")
