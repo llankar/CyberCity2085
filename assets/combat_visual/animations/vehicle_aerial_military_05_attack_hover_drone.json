@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_05_attack_hover_drone.png",
+  "texture_sha256": "860f2ba84f0460e1bc1de3536fec4055580f9ab7e93f98f336f79aae37764f84",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_05_attack_hover_drone_512.png",
+  "source_sha256": "105033740f9935ece38d91635bf64eb060dd1cbe61b8e9b3551f2ac47b54eab8",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_05_attack_hover_drone/idle-single_row_pair-0.png",
+      "sha256": "e7ea9212590a8be7930e73047dc0ed8e01cb7535b9032f7bba8ee9201445a24d",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_05_attack_hover_drone/idle-single_row_pair-0-follow-through.png",
+        "sha256": "6b672a5d878a7ae326cccb2819945f63bed98ef51ee8d91ae6e491e5cee7a2e8"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The military attack hover drone is a stationary decorative vehicle with 0 AP.",
+    "fire": "The decorative attack drone has no tactical fire action.",
+    "melee": "The military attack hover drone has no melee action.",
+    "cover": "The military attack hover drone has no cover action.",
+    "hit": "The military attack hover drone has no authored hit action.",
+    "death": "The intact military attack hover drone has no authored destruction action.",
+    "psi": "The military attack hover drone has no psychic action.",
+    "heal": "The military attack hover drone has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
