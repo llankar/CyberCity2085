@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_04_vtol_news_drone_van_crashed.png",
+  "texture_sha256": "4e6fc6b730a84532cb83ab385ccf69e7c07bc67225c530310aa56877c6972f6f",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_04_vtol_news_drone_van_crashed_512.png",
+  "source_sha256": "d2ebd309eccb63bebaeb045bd61f1556adeb3fece099a34389c159be77b74359",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_04_vtol_news_drone_van_crashed/idle-single_row_pair-0.png",
+      "sha256": "96a339f84534a2ee08ccc86d797eec42a74f61e6a0e484c29ffc3311b6b06de4",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_04_vtol_news_drone_van_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "9a1b6d9dd90419fec4d8da6c68e433054efbf00d53051aebdf3c9225f7e55e0a"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed civilian news vehicle is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed civilian news vehicle is unarmed.",
+    "melee": "The crashed civilian news vehicle has no melee action.",
+    "cover": "The crashed civilian news vehicle has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed civilian news vehicle has no psychic action.",
+    "heal": "The crashed civilian news vehicle has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
