@@ -3,9 +3,20 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 from PIL import Image, ImageDraw
+
+
+def _capture_path(captures: Path, name: str) -> Path:
+    pattern = re.compile(rf"^{re.escape(name)}-\d+x\d+\.png$")
+    matches = sorted(path for path in captures.glob(f"{name}-*.png") if pattern.match(path.name))
+    if len(matches) != 1:
+        raise ValueError(
+            f"expected exactly one primary resolution capture for {name}, found {len(matches)}"
+        )
+    return matches[0]
 
 
 def build(captures: Path, output: Path) -> dict:
@@ -20,7 +31,7 @@ def build(captures: Path, output: Path) -> dict:
         names = []
         for cell, row in enumerate(rows[start:start + 6]):
             name = Path(row["map"]).stem
-            source = Image.open(captures / f"{name}-1280x720.png").convert("RGB")
+            source = Image.open(_capture_path(captures, name)).convert("RGB")
             source.thumbnail((960, 540))
             x, y = cell % 2 * 960, cell // 2 * 568
             sheet.paste(source, (x, y + 28))
