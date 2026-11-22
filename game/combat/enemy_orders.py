@@ -31,6 +31,28 @@ class EnemyOrders:
         self.orders: dict[int, ReservedOrder] = {}
         self._next_targets: dict[int, object] = {}
 
+    def _stage_defensive_breaches(self, enemies, objective):
+        """Keep a defended-zone push readable instead of rushing the full roster."""
+        if objective is None or getattr(objective, "kind", "") != "defend":
+            return
+        living_orders = [enemy for enemy in enemies if enemy.health > 0 and id(enemy) in self.orders]
+        breachers = [enemy for enemy in living_orders
+                     if self.orders[id(enemy)].intent.action == "BREACH"
+                     and self.orders[id(enemy)].intent.target is None]
+        danger = lambda enemy: (enemy.distance_to(objective), enemy.position)
+        limit = min(2, max(1, (len(living_orders) + 2) // 3))
+        if len(breachers) <= limit:
+            return
+        active = {id(enemy) for enemy in sorted(breachers, key=danger)[:limit]}
+        for enemy in breachers:
+            if id(enemy) not in active:
+                order = self.orders[id(enemy)]
+                order.intent = replace(
+                    order.intent, action="HOLD", target=None, target_name="breach reserve",
+                    rationale="BREACH WAVE: screen the active push; advance when a lane opens",
+                )
+                order.target_position = None
+
     def reserve(self, enemies, allies, objective, cover_nodes, *, refresh=False, can_enter=None, terrain_profile=None):
         if refresh:
             self.orders.clear()
@@ -115,6 +137,7 @@ class EnemyOrders:
             order = self.orders[id(enemy)]
             order.intent = reserve_precision(enemy, order.intent, cover_nodes)
             order.target_position = order.intent.target.position if order.intent.target is not None else None
+        self._stage_defensive_breaches(enemies, objective)
 
     def interrupt(self, enemy, reason, allies, objective, cover_nodes, logs, *, can_enter=None, terrain_profile=None):
         order = self.orders.get(id(enemy))

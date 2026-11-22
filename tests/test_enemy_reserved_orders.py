@@ -105,6 +105,26 @@ def test_objective_reservation_controls_actual_movement_and_blocked_order_holds(
     assert any("movement_blocked" in line for line in state.logs)
 
 
+def test_defend_objective_stages_a_readable_breach_wave():
+    a, b, _ = squad()
+    a.position, b.position = (320, 0), (352, 0)
+    enemies = [
+        Unit(position=(index * 32, 128 + index * 32), health=30,
+             stats=EnemyStats(max_hp=30), unit_type="enemy",
+             enemy_theme="corp_37", attack_range=1)
+        for index in range(6)
+    ]
+    objective = BattleObjective("defend", (256, 192), "Hold relay")
+    engine = CombatEngine(CombatState(None, [a, b], enemies, objective=objective))
+
+    engine.start_player_turn()
+    intents = engine.enemy_intents()
+
+    assert sum(intent.action == "BREACH" for intent in intents) == 2
+    assert sum(intent.action == "HOLD" for intent in intents) == 4
+    assert all("BREACH WAVE" in intent.rationale for intent in intents if intent.action == "HOLD")
+
+
 def test_books_are_isolated_and_new_reinforcements_get_an_order():
     a, b, enemy = squad()
     first = CombatEngine(CombatState(None, [a, b], [enemy]))

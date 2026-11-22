@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-ENEMY-05 IN_PROGRESS. Defensive-objective QA now prioritizes the enemy closest to the containment line or defended zone, and synthetic containment openings preserve the authored-map response margin. 34 targeted tests passed. The 1,728-run objective matrix completed with 1,471 victories, 257 defeats, zero limits and zero errors. Mutant and Novatek defend results improved, but four families still lose all containment runs and Starvers lose all defend runs; this remains a measured balance signal, not playable validation.",
-  "next_action": "TAC-ENEMY-05 : trace a minimal sample of systematic containment and Starver defend failures to isolate movement, durability, range or threshold causality before changing balance. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
+  "latest_batch": "TAC-ENEMY-05 defend waves IN_PROGRESS. Defend orders now expose at most one breacher per three living enemies, capped at two, while the remaining breachers visibly hold in reserve. 51 targeted tests passed. The real 122-map defend pass produced 118 victories, 4 defeats, zero limits and zero errors. Multiple containment variants were measured and rejected before commit because they did not robustly improve the real-map pass; global breach lines behind occlusion remain open.",
+  "next_action": "TAC-ENEMY-05 : define a marker-local containment breach zone, verify it first on three representative geometries, and run all 122 maps only if those cases improve without limits. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
