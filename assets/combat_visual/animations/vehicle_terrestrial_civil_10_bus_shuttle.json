@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_10_bus_shuttle.png",
+  "texture_sha256": "be6d561bcea913b5f0ea7bdd27d5034a1051459c09d608ceb8f6456cbedd15eb",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_10_bus_shuttle_512.png",
+  "source_sha256": "bd7c300b17185ba155b5bfe96e5aecae2b8b1b8e2d65e280d789f542f0e699da",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_10_bus_shuttle/idle-single_row_pair-0.png",
+      "sha256": "928308b7d33f64e308ed2293b86ebe90349c4fccc85733c5e01ea345acbcc6e1",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_10_bus_shuttle/idle-single_row_pair-0-follow-through.png",
+        "sha256": "3ea07d0677afb8d72146c9e2a1f62d0ad2b4554e09871f3b8cb1d303006c0540"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian bus shuttle is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian bus shuttle has no tactical fire action.",
+    "melee": "The civilian bus shuttle has no melee action.",
+    "cover": "The civilian bus shuttle has no cover action.",
+    "hit": "The civilian bus shuttle has no authored hit action.",
+    "death": "The civilian bus shuttle has no authored death action.",
+    "psi": "The civilian bus shuttle has no psychic action.",
+    "heal": "The civilian bus shuttle has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
