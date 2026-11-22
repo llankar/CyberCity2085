@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_07_courier_quadcopter.png",
+  "texture_sha256": "832cb24c04269f03087782e2213d258cb0d9b5f99650a46c1c7cb0d7305a1368",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_07_courier_quadcopter_512.png",
+  "source_sha256": "1bc2de6d2ca8c1c58946dedf1994c2bad6989c35ea9ca495d2931d6c8b382657",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_07_courier_quadcopter/idle-single_row_pair-0.png",
+      "sha256": "2f691021bda744ef03c19c06b049ba2d04c7f9b83530c3ebeec1474171d2713d",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_07_courier_quadcopter/idle-single_row_pair-0-follow-through.png",
+        "sha256": "455c165aaf5fe5faa9817ba24439c5623769e9f77140a65a396301e68da435fe"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian courier quadcopter is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian courier quadcopter is unarmed.",
+    "melee": "The civilian courier quadcopter has no melee action.",
+    "cover": "The civilian courier quadcopter has no cover action.",
+    "hit": "The civilian courier quadcopter has no authored hit action.",
+    "death": "The intact civilian courier quadcopter has no authored destruction action.",
+    "psi": "The civilian courier quadcopter has no psychic action.",
+    "heal": "The civilian courier quadcopter has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
