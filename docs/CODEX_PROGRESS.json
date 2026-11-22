@@ -1846,88 +1846,80 @@
           "sha256": "094d4caa9bff33fde14cb06ce41500e2ad2ec6f7d52aae1a7df6f9edc2d1adf7"
         }
       ]
+    },
+    "FUNCTIONAL": {
+      "status": "PASS",
+      "scope": "122 tests sans échec ni skip couvrent sélection et commandes Arcade, déplacement et occupation, ciblage/LOS, résolution d'attaque, PA et tours, IA et ordres réservés, routes sur terrain revu, équipes mixtes/supports/armure pilotée, parcours statique, briefing et fallback Godot. Les 122 cartes sont en plus parcourues par les profils de balance actuels ; cette revue fonctionnelle ne remplace pas le ressenti humain du package.",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
+      "evidence": [
+        {
+          "path": "docs/reports/current_unified_progress_tests.xml",
+          "sha256": "e220bd05d685e552038c04c1403cfb140ad7eaecefb22569a70af890c3cf8e17"
+        }
+      ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "309ab2038467e8bd2eeb679a5da5e4d71acf24e25c7977788fa12ba1747d51e1",
-    "scope": "44 cas ciblés : 41 réussis, 3 tests natifs X11 ignorés sous Windows ; acceptation globale, suivi artistique, animations, benchmark GPU et échelle 122 cartes ; trois passes natives Windows exécutées séparément",
-    "not_executed": [
-      "Actions de combat manquantes et autres unités",
-      "Suite intégrale du jeu"
-    ],
+    "sha256": "e220bd05d685e552038c04c1403cfb140ad7eaecefb22569a70af890c3cf8e17",
+    "scope": "122 tests fonctionnels réussis, 0 échec, 0 skip et 2 sous-tests : commandes/sélection Arcade, mouvement/occupation, ciblage/LOS, attaques, PA/tours, IA/ordres/routes, équipes mixtes et supports, flux statique, briefing et fallback Godot. La suite complète séparée a réussi 1216 tests, 36 skips et 14 sous-tests.",
+    "not_executed": [],
     "sources": [
       {
-        "path": "tools/check_combat_visual_acceptance.py",
-        "sha256": "a155e60a8ac9b35e8a5d44a4ab8c6225547c68b9c6a06c6950bb62725114502e"
+        "path": "tests/test_combat_command_validation.py",
+        "sha256": "bce04a77c4a10f93d483c4be8c198ea63a1f7da48680070056ff28967532e632"
       },
       {
-        "path": "tools/art/update_environment_progress.py",
-        "sha256": "1c204d356d8ecb16329e19216e00bd6b0b1992630735d533c1f5ade1631596c7"
+        "path": "tests/test_combat_movement.py",
+        "sha256": "5070a045acdb5e8925abdbe80b3e8db307f66cc753dc6cf2983eb61438ede370"
       },
       {
-        "path": "tools/audit_entity_scale.py",
-        "sha256": "721341c12d6dda01828fb08cbff345be15fa5efb961e5521ae21cfda3d60d6cf"
+        "path": "tests/test_attack_resolution.py",
+        "sha256": "79779a018cf7b9790d42036fb730453968afcd860031e1d93e4a12a345434d36"
       },
       {
-        "path": "tests/test_combat_visual_acceptance.py",
-        "sha256": "c3c1bf12b4a006825bee21e8c11f23523eee39dd410dfca1ad69f15d9aecf3bd"
+        "path": "tests/test_combat_engine.py",
+        "sha256": "468b8f0d9ff45cea9d61ade5069dfd2f93ae2a3e7d583e71ef71086bc59d56e6"
       },
       {
-        "path": "tests/test_environment_progress.py",
-        "sha256": "f52f2430bed1c8d9d1664cb3978553a5148eebb5787589566231f89aa2d706a5"
+        "path": "tests/test_enemy_ai_upgrade.py",
+        "sha256": "1c76eda2bab0c426c6d068cdc8ee8fd73a6eec589116198a6b5ebfaa90b5cee3"
       },
       {
-        "path": "tests/test_entity_scale_inventory.py",
-        "sha256": "ef6c9d8061df21d9cccad263b2f3bccefa774c33211f7fa189479a9af4066df1"
+        "path": "tests/test_enemy_reserved_orders.py",
+        "sha256": "be3bddb8e9a7998a4ade4e7e68f7092b9d9f59bebb040bc7fa8cdb76c13c0c24"
       },
       {
-        "path": "tests/test_directional_animation.py",
-        "sha256": "55ab87df0ae0d4a4b1b76e04865cb2ac5fd52fe494653693e2879f075a7dbc87"
+        "path": "tests/test_enemy_terrain_routes.py",
+        "sha256": "9d8e2d599d75a75fe54bcc6a4fe31b631a8ac221f256521190917f4dd265f713"
       },
       {
-        "path": "godot/combat_missions_ui/tests/directional_animation_regression.gd",
-        "sha256": "b17e42695ad6f745d45dc3bfd7d8ec321a535a936a13b0b9ec76d2c80a3865e0"
+        "path": "tests/test_mixed_squad_integration.py",
+        "sha256": "d71f8ebc2292c69c7d5d694f6c8fa56e0f86e6b053237d367affc775ca7e167f"
       },
       {
-        "path": "godot/combat_missions_ui/tests/capture_directional_animation.gd",
-        "sha256": "0d22c53edb545cdd7561a638c459e626a91a3eace2dc70efa9c45ed945098d2a"
+        "path": "tests/test_mixed_squad_balance.py",
+        "sha256": "ef6876bfd275495110ddf8ada57eae2db8134a5918adec9dcd8f202602f8a45d"
       },
       {
-        "path": "tests/test_windows_gpu_benchmark.py",
-        "sha256": "7077090ea39b145ea755d29b7676b6734909ac842797b1ae97ca0f9ab8f4fb21"
+        "path": "tests/test_static_game_flow_e2e.py",
+        "sha256": "87b7d96e25a52795ef59390c5e64a50a8ccfe646f72e876a158e3898d254bba6"
       },
       {
-        "path": "tools/apply_entity_scale_profiles.py",
-        "sha256": "520e8f321495caf46392ed37964fa2086710c2bd49dc67991815af0bf9052caf"
+        "path": "tests/test_battle_view_controls.py",
+        "sha256": "faf1618b749a1d8ca554e029ac5eb883249b0550ddab1a59706f2bfd0ce5688b"
       },
       {
-        "path": "tools/record_entity_scale_review.py",
-        "sha256": "0a1e6670b6c87459c681d16658079248dc053f7e129487e292d5595ccf83e237"
+        "path": "tests/test_battle_hud_ui.py",
+        "sha256": "ab708423d0a1c013b8016494eae590c338738295e0c8a9cfba0ac748fe348f86"
       },
       {
-        "path": "tests/test_entity_scale_profiles.py",
-        "sha256": "fba647626236affe6f2a556ada1df7b3e687bb1d40e3690a9e790a555470cf36"
+        "path": "tests/test_mission_briefing_view.py",
+        "sha256": "88e0896553515a62c488b0fe608b03946a3b4ccc0bb9f5e729189e552950da72"
       },
       {
-        "path": "tests/test_entity_scale_review.py",
-        "sha256": "45fdabecc112d097b7fada87a3a435f167a61cb71493aab063d6e5c56760a27b"
-      },
-      {
-        "path": "tests/test_top_down_combat.py",
-        "sha256": "cd5d7048954ce5ffc4a2377a47c14cfc261368223fc5b71ebb6842dbc7875d92"
-      },
-      {
-        "path": "tests/test_unit_presentation.py",
-        "sha256": "c3d6bcbab19c5d8384a5cdfa74f7769a15a4f82e7008e545457e3a3f4b511514"
-      },
-      {
-        "path": "godot/combat_missions_ui/tests/top_down_regression.gd",
-        "sha256": "62d040ec81ed24bd6fb76a31d52773e9697b98a4d758f12ced1a615b772b34bd"
-      },
-      {
-        "path": "godot/combat_missions_ui/art/environment/map_presentation.json",
-        "sha256": "68a438b4831e360a46469ae355e54428a62081283e2e57d016a4978cac9c97c1"
+        "path": "tests/test_godot_combat_bridge.py",
+        "sha256": "1c463488c0021ab6c7695135a009163ce216cb36cb0c5d7d6406b6d778991311"
       }
     ]
   },
@@ -1952,8 +1944,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-    "latest_batch": "Current-source sustained balance QA now uses real deployment manifests for mixed roles, two-agent understrength, robot/drone support and piloted armor. Four profiles ran across all 122 authored maps at extreme risk 5/count 6; mixed and support profiles also won all 15 authored story templates. A 100-turn diagnostic of the 17 original limits produced four late victories, four late defeats and nine continuing limits with no hard geometry lock. Five missing ElevenLabs pilot generations also started through the authenticated connector; download and human audition remain open. The full E: gate passed 1216 tests, 36 skipped and 14 subtests in 268.14 seconds. Source checkpoint c1721b9 was packaged on E:; smoke passed with 122 maps, 7 MP3 tracks, 15 story objectives, save round-trip, tactical victory and bundled Godot 4.7.2. Executable: E:/CyberCity2085-builds/cybercity-build-f7747d62f839433e85ee9c30bf9c172a/dist/CyberCity2085/CyberCity2085.exe; SHA-256 1F8864EF818072560782BF3D1D8280C9F385D1E592DEA5CB2D8C1D67ACA3E9B0.",
-    "next_action": "Commit the current mixed-balance QA checkpoint, then keep the nine persistent extreme pacing cases open without raising the turn cap. Separately, when the ElevenLabs provider view exposes completed media, download and human-audition the five pilot generations before any integration. Manual Windows acceptance still requires visible readiness, automatic focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, tactical playthrough and audible fades; desktop automation is forbidden.",
+    "latest_batch": "The reproducible Combat Visual acceptance gate now records FUNCTIONAL PASS and TARGETED-TESTS PASS against the current render signature. The focused current-source run passed 122 tests with zero failures and zero skips, plus two subtests, across Arcade commands and selection, movement and occupation, targeting and LOS, attacks, AP and turns, enemy AI/orders/routes, mixed and supported squads, static flow, briefing and Godot fallback. Its existing JUnit register entry and all 14 test-source hashes were verified. The global gate remains incomplete solely because TASK-COMPLETION is 60/67; automated checks do not replace the remaining visible Windows and human audio acceptance.",
+    "next_action": "Run the current packaged executable manually and record visible readiness, automatic focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, victory/defeat/retreat tactical playthroughs and audible fades in the existing registry; desktop automation is forbidden. Separately, when the ElevenLabs provider view exposes completed media, download and human-audition the five pilot generations before any integration. Keep the nine persistent extreme pacing cases open without raising the turn cap.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
