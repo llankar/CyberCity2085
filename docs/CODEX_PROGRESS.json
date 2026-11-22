@@ -1909,8 +1909,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-STORY-01/02 objective attribution is complete. Godot now exports each agent's factual objective interaction count and protocol validation rejects invalid values. Two or more real actions create one named objective-specialist memory in the debrief and apply Keymaker reputation once; save/reload and duplicate result replay are idempotent. Seventy-seven focused Python tests passed. A real Windows Godot 4.7.2 HQ-to-HQ victory path also passed and exported its single interaction without falsely crossing the two-action threshold.",
-  "next_action": "Run the focused unified/session regressions, then refresh the full suite and Windows package because objective attribution changes the protocol and bundled Godot script. Manual focus, Alt+Tab, multi-display DPI, physical controller, tactical playthrough and listening remain open; desktop automation is forbidden.",
+  "latest_batch": "The Windows package is current after objective attribution. The full E: gate passed 1203 tests with 36 skipped and 14 subtests in 265.27 seconds. PyInstaller resumed the verified gate with -SkipTests; packaged smoke passed with 122 maps, 7 MP3 tracks, 15 story objectives, save round-trip, tactical victory and bundled Godot 4.7.2 startup. Executable SHA-256: BB80D966CA42FD8FB15841DD2172AEE770EACCA96AE0164C63C5E626935165E6.",
+  "next_action": "MANUAL WINDOWS ACCEPTANCE: launch E:/CyberCity2085-builds/cybercity-build-bd0baf1a0ade4d8d931eaaf0760590b3/dist/CyberCity2085/CyberCity2085.exe and verify visible readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, tactical playthrough and audible Arcade/Godot fades. Desktop automation is forbidden. Continue factual non-manual TAC-STORY/TAC-FEEL gaps when manual input is unavailable.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
