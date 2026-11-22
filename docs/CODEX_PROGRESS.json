@@ -1219,7 +1219,7 @@
         "TAC-STORY-01/02 objective attribution DONE: Godot exports each agent's factual objective interaction count; protocol validation rejects invalid values. Two or more real interactions create one named objective-specialist memory in the debrief and apply Keymaker reputation once. Save/reload and duplicate result replay are idempotent. Seventy-seven focused Python tests and one real Windows Godot 4.7.2 HQ-to-HQ victory path passed.",
         "TAC-STORY-01/02 survivor-under-fire slice DONE: Arcade accumulates real applied damage, received damage and takedowns in the authoritative attack resolver. Shared campaign resolution creates one factual under_fire memory for a living agent above the bounded damage threshold; validated Godot metrics use the same path. Debrief, save/reload and duplicate replay remain idempotent. Sixty-five focused tests and 47 adjacent simulation/campaign tests passed.",
         "TAC-STORY-01/02 DONE: one shared selector now surfaces the latest recognized factual tactical memory in the next briefing, recovery dialogue, existing debrief path and campaign finale while excluding unrelated history. Covered patterns are last stand, aid under fire, fallen/witness, panic, objective contribution and survivor under fire. Twenty-one direct and 97 adjacent narrative/integration tests passed. Human presentation remains under TAC-FEEL-01/02.",
-        "BALANCE-MIXED recruited-role correction IN_PROGRESS: sustained QA now creates agents through the real role-biased recruitment path, applies starter loadouts and one conservative signature-stat point per completed level, and uses overwatch rather than passive defense when a ranged unit has no legal attack. Across 122 extreme risk-5/six-hostile elimination maps, mixed scored 104/17/1, understrength 0/116/6, support 115/6/1 and piloted armor 2/111/9 (victory/defeat/limit). Fifteen authored story missions scored 15/15, 13/15, 15/15 and 14/15 victories. At 100 turns seven limits persist; two show 32/38 unchanged rounds and remain open. Twenty focused tests passed, then the full gate passed 1216 tests, 36 skips and 14 subtests in 265.31 seconds."
+        "BALANCE-MIXED recruited-role and zero-value-loop correction IN_PROGRESS: sustained QA uses the real recruitment path, starter loadouts and conservative signature-stat progression. Medics aid at most once per turn; zero-chance/zero-damage attacks are rejected; units retain one pursuit target; ranged units use overwatch rather than passive defense when appropriate. Across 122 extreme risk-5/six-hostile elimination maps, mixed scored 102/20/0, understrength 0/119/3, support 113/8/1 and piloted armor 2/110/10 (victory/defeat/limit). Fifteen story missions scored 15/15, 14/15, 15/15 and 14/15 victories. The 14 limits replayed to 100 turns yield nine victories, three defeats and two continuing combats with no static lock (maximum five unchanged rounds). The full gate passed 1218 tests, 36 skips and 14 subtests in 263.90 seconds."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -1850,20 +1850,20 @@
     },
     "FUNCTIONAL": {
       "status": "PASS",
-      "scope": "122 tests sans échec ni skip couvrent sélection et commandes Arcade, déplacement et occupation, ciblage/LOS, résolution d'attaque, PA et tours, IA et ordres réservés, routes sur terrain revu, équipes mixtes/supports/armure pilotée, parcours statique, briefing et fallback Godot. Les 122 cartes sont en plus parcourues par les profils de balance actuels ; cette revue fonctionnelle ne remplace pas le ressenti humain du package.",
+      "scope": "124 tests sans échec ni skip couvrent sélection et commandes Arcade, déplacement et occupation, ciblage/LOS, résolution d'attaque, PA et tours, IA et ordres réservés, routes sur terrain revu, équipes mixtes/supports/armure pilotée, parcours statique, briefing et fallback Godot. Les 122 cartes sont en plus parcourues par les profils de balance actuels ; cette revue fonctionnelle ne remplace pas le ressenti humain du package.",
       "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
       "evidence": [
         {
           "path": "docs/reports/current_unified_progress_tests.xml",
-          "sha256": "5b33c1a4c120c3f81fc6595e489d4929e97c7d6a6422f7376508ace351be84d7"
+          "sha256": "15ce3f2a3717bd96280d2613689cb54de270fb3bf2b0bd152a0c5f868a9fe8d8"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "5b33c1a4c120c3f81fc6595e489d4929e97c7d6a6422f7376508ace351be84d7",
-    "scope": "122 tests fonctionnels réussis, 0 échec, 0 skip et 2 sous-tests : commandes/sélection Arcade, mouvement/occupation, ciblage/LOS, attaques, PA/tours, IA/ordres/routes, équipes mixtes et supports, flux statique, briefing et fallback Godot. La suite complète séparée a réussi 1216 tests, 36 skips et 14 sous-tests.",
+    "sha256": "15ce3f2a3717bd96280d2613689cb54de270fb3bf2b0bd152a0c5f868a9fe8d8",
+    "scope": "124 tests fonctionnels réussis, 0 échec, 0 skip et 2 sous-tests : commandes/sélection Arcade, mouvement/occupation, ciblage/LOS, attaques, PA/tours, IA/ordres/routes, équipes mixtes et supports, boucles de décision extrêmes, flux statique, briefing et fallback Godot. La suite complète séparée a réussi 1218 tests, 36 skips et 14 sous-tests.",
     "not_executed": [],
     "sources": [
       {
@@ -1900,7 +1900,7 @@
       },
       {
         "path": "tests/test_mixed_squad_balance.py",
-        "sha256": "f5be7f1ec49ece6fab4e4cf2f0bf1a32725c50b1cfa1bdba0d65625568180b28"
+        "sha256": "6bf71a5f57f1ab0c61e50fdcd290f862d8c4443c44fd751a43e05cdea4871e98"
       },
       {
         "path": "tests/test_static_game_flow_e2e.py",
@@ -1945,8 +1945,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-    "latest_batch": "Sustained mixed-squad QA no longer labels generic agents as roles without their real recruitment statistics. It now uses the production recruitment path, starter loadouts, conservative signature-stat progression and ranged overwatch fallback. Four profiles ran across all 122 authored maps at extreme risk 5/count 6: mixed 104/17/1, understrength 0/116/6, support 115/6/1 and piloted armor 2/111/9 (victory/defeat/limit). All 15 authored story missions remain won by mixed/support, with 13/15 understrength and 14/15 piloted-armor wins. A 100-turn diagnostic leaves seven limits, six understrength and one piloted armor; two exhibit 32/38 unchanged rounds. The full E: gate passed 1216 tests, 36 skips and 14 subtests in 265.31 seconds; the refreshed 122-test acceptance slice passed with zero failures/skips.",
-    "next_action": "Correct tactical repositioning in the two persistent static extreme cases without changing production statistics or raising the turn cap, then rebuild the Windows candidate on E:. Manual Windows acceptance and human audition of the pending ElevenLabs pilots remain separate and desktop automation is forbidden.",
+    "latest_batch": "Sustained mixed-squad QA now uses production recruitment statistics and conservative signature progression, limits medic aid to once per turn, rejects zero-chance/zero-damage attacks, retains one pursuit target and falls back to overwatch appropriately. Across all 122 maps at extreme risk 5/count 6: mixed 102/20/0, understrength 0/119/3, support 113/8/1 and piloted armor 2/110/10 (victory/defeat/limit). Story missions remain 15/15 mixed, 14/15 understrength, 15/15 support and 14/15 piloted armor. Fourteen 60-turn limits replay to nine victories, three defeats and two active combats at 100 turns, with no static lock. The full E: gate passed 1218 tests, 36 skips and 14 subtests in 263.90 seconds; the refreshed 124-test acceptance slice passed with zero failures/skips.",
+    "next_action": "Create the local source checkpoint, then rebuild the Windows candidate on E: with the completed full gate reused via -SkipTests and run packaged smoke. Manual Windows acceptance and human audition of pending ElevenLabs pilots remain separate; desktop automation is forbidden.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

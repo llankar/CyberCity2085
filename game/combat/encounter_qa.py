@@ -271,6 +271,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
     initial_hp = sum(unit.health for unit in allies)
     announced = Counter()
     player_actions = Counter()
+    pursuit_targets = {}
     dodges = 0
 
     def perform(action, **kwargs):
@@ -291,6 +292,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
         if result.ended:
             outcome = result.outcome
             break
+        aid_used_this_turn = set()
         announced.update(intent.action for intent in engine.enemy_intents())
         for actor in list(allies):
             while actor.health > 0 and actor.action_points > 0 and not engine.end_battle_check().ended:
@@ -336,7 +338,13 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                     advance_objective = (policy.startswith("objective") and objective is not None
                                          and not objective.completed and not objective_blocked
                                          and objective.kind not in {"defend", "containment", "assassination"})
-                    shootable = [e for e in targets if (ctx := build_attack_context(actor, e, "fire", cover_nodes=cover)).in_range and not ctx.line_blocked]
+                    shootable = [
+                        e for e in targets
+                        if (ctx := build_attack_context(actor, e, "fire", cover_nodes=cover)).in_range
+                        and not ctx.line_blocked
+                        and ctx.hit_chance > 0
+                        and ctx.normal_damage > 0
+                    ]
                     step = None
                     if advance_objective:
                         _, step = first_reachable_approach(actor, [objective], legal, width=width, height=height)
@@ -356,7 +364,11 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                                 ),
                                 None,
                             )
-                            if getattr(getattr(actor, "character", None), "role", "") == "medic" and wounded:
+                            if (
+                                getattr(getattr(actor, "character", None), "role", "") == "medic"
+                                and wounded
+                                and id(actor) not in aid_used_this_turn
+                            ):
                                 action_name, target = "first_aid", wounded
                             elif getattr(getattr(actor, "spec_ops_asset", None), "missile_capacity", 0) > 0:
                                 action_name = "missiles"
@@ -365,14 +377,23 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                             elif getattr(getattr(actor, "character", None), "role", "") == "psi":
                                 action_name = "psi"
                         result = perform(action_name, actor=actor, target=target)
+                        if result.success and action_name == "first_aid":
+                            aid_used_this_turn.add(id(actor))
                         if not result.success and action_name != "fire":
                             perform("fire", actor=actor, target=shootable[0])
                     elif targets:
                         destinations = sorted(targets, key=lambda target: (
                             target is not hvt if policy.startswith("objective") and hvt else False,
                             actor.distance_to(target)))
-                        _, step = first_reachable_approach(actor, destinations, legal, width=width, height=height)
+                        locked = pursuit_targets.get(id(actor))
+                        if locked in destinations and locked.health > 0:
+                            destinations.remove(locked)
+                            destinations.insert(0, locked)
+                        destination, step = first_reachable_approach(
+                            actor, destinations, legal, width=width, height=height
+                        )
                         if step:
+                            pursuit_targets[id(actor)] = destination
                             perform("move", actor=actor, move_delta=step)
                 if actor.action_points >= before:
                     available = {action.key for action in available_combat_actions(actor)}

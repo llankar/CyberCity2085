@@ -48,3 +48,28 @@ def test_sustained_profiles_finish_on_three_representative_maps(profile: str) ->
         assert row["outcome"] in {"victory", "defeat"}
         assert row["geometry_checked"]
         assert row["longest_unchanged_rounds"] < 10
+
+
+@pytest.mark.parametrize(
+    ("profile", "map_name"),
+    [
+        ("understrength", "cybercity_street_02_neon_market_alley.png"),
+        ("piloted_armor", "cybercity_street_10_civic_plaza.png"),
+    ],
+)
+def test_extreme_profiles_do_not_repeat_zero_value_actions(profile: str, map_name: str) -> None:
+    row = simulate_encounter(
+        theme="corp_37_robot",
+        level=4,
+        risk=5,
+        count=6,
+        seed=0,
+        policy="objective_counterplay",
+        objective_kind="eliminate",
+        max_turns=100,
+        map_path=f"assets/maps/{map_name}",
+        squad_profile=profile,
+    )
+    assert row["longest_unchanged_rounds"] < 10
+    if profile == "understrength":
+        assert row["player_actions"].get("first_aid", 0) <= row["turns"]
