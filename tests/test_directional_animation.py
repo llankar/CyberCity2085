@@ -58,6 +58,7 @@ KEYS.insert(-1,'enemy_raider_18_banner_carrier')
 KEYS.insert(-1,'enemy_raider_19_oil_mechanic')
 KEYS.insert(-1,'enemy_raider_20_twin_axe')
 KEYS.insert(-1,'enemy_raider_grunt')
+KEYS.insert(-1,'vehicle_terrestrial_military_01_battle_tank')
 TEST_KEYS=[TARGET] if TARGET else KEYS
 if TARGET and TARGET not in KEYS:raise ValueError(f'Unknown animation asset: {TARGET}')
 
@@ -72,7 +73,10 @@ def test_production_walk_and_idle_have_eight_distinct_views_and_real_frames():
             assert data['coverage']=='complete'
             expected_required={'idle','move','melee','cover','hit','death'}
             expected_exempt={'fire','psi','heal'}
-            if key=='agent_diverse_05_psi_doctor':
+            if key=='vehicle_terrestrial_military_01_battle_tank':
+                expected_required={'idle','move','fire','hit','death'}
+                expected_exempt={'melee','cover','psi','heal'}
+            elif key=='agent_diverse_05_psi_doctor':
                 expected_required.update({'psi','heal'});expected_exempt={'fire'}
             elif key=='agent_psi':
                 expected_required.add('psi');expected_exempt={'fire','heal'}

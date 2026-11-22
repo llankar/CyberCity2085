@@ -1,0 +1,350 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_military_01_battle_tank.png",
+  "texture_sha256": "ac62a203490cb1ab2aeda27e8a014ffafaa269c824455c715b0c981048d8434f",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.8125,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_military_01_battle_tank_512.png",
+  "source_sha256": "173c80a82105a1eb8edf4a4f6882b25821a40f2d8200b25dd3d2dff9d56c308f",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/idle-single_row_pair-0.png",
+      "sha256": "f68b7f36f6e7b515b8e91e757cd31b1423d3d303ef29031140357ff7ad11d9da",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/idle-single_row_pair-0-follow-through.png",
+        "sha256": "3ca3484dc20ec6045a528e2a2ab8c802baebaa7b224651b4a9e03e34fc592b4a"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/move-walk_rows-1.png",
+      "sha256": "d84f6ec3a59c37faf37d7107bf887892f5e5045e075094a2f3ceaa0d6738071d",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "chroma_key": [
+        255,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 96
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/fire-single_row_pair-2.png",
+      "sha256": "0bad849c52758586baa024ae04015417212c5a9f991421ea4619d4c5b9a92d35",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/fire-single_row_pair-2-follow-through.png",
+        "sha256": "2776ab49c44510162413d05e64b408ad35284907be768b0106210d53a7921d78"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/hit-single_row_pair-3.png",
+      "sha256": "b617805136a8b77f95729959c558ca47e9aaf05d7eadb3f550f647f357dd5d4d",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/hit-single_row_pair-3-follow-through.png",
+        "sha256": "ec6cddc050a29fbea8cf9782270fc8108c9fbfc8a83da8eadf5290365612c272"
+      }
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/death-single_row_pair-4.png",
+      "sha256": "3d4b81f8a02441ef7adcd4da61e1af91dad37cbdecdbbf1f091307dd0925b184",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_military_01_battle_tank/death-single_row_pair-4-follow-through.png",
+        "sha256": "8ef83480dfc7990ea1542e9fdfcd5b9096fd712d53baebe81c97b15dcd53f639"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "melee": "The battle tank enemy AI always resolves its attack as ranged fire and has no melee action.",
+    "cover": "Enemy units do not enter the player defend action and this battle tank has no authored cover action.",
+    "psi": "The battle tank has no psychic action.",
+    "heal": "The battle tank has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
