@@ -1223,7 +1223,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Exécuter les interactions et revues restant ouvertes ; ne pas extrapoler depuis cinq familles",
+      "remaining": "Validation humaine restante : manette physique, impact/pacing ressenti, écoute audio et parcours tactique emballé. Les validations automatisées couvrent désormais 122 cartes, trois résolutions et 233 unités, mais ne remplacent pas ces contrôles.",
       "reason": ""
     },
     {
@@ -1530,7 +1530,7 @@
     {
       "id": "UE5-05",
       "title": "Archiver les preuves natives, régressions et critères encore ouverts",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "docs/UNIFIED_EXPERIENCE_PROGRESS.md"
       ],
@@ -1544,7 +1544,7 @@
         "docs/reports/unified_persistent_runtime_tests.xml",
         "docs/reports/unified_runtime_lifecycle_tests.xml"
       ],
-      "remaining": "Consigner seulement les prochains résultats normaux dans ce registre ; contrôle Windows visible/DPI/Alt+Tab et écoute audio encore NON VÉRIFIÉS",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -1765,11 +1765,11 @@
     "MAP-ART": {
       "status": "PASS",
       "scope": "122 cartes examinées sur 21 planches détaillées ; murs, mobilier, machines, matériaux, lumières, ombres, raccords, occultations et fallbacks source contrôlés. Trois aplats corrigés et rerendus.",
-      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
-          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+          "sha256": "c16df24ddc255d076de2d1d9b49fb94d5bed925ea3f9dbc062023429d48a63c6"
         },
         {
           "path": "docs/images/environment-art-review-windows/native-report.json",
@@ -1780,18 +1780,18 @@
     "ART-OBJECTS": {
       "status": "PASS",
       "scope": "Tous les placements actifs et fallbacks visibles ont été revus dans le contexte des 122 cartes ; les 37 overlays désactivés conservent une raison et le dessin source supérieur.",
-      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
       "evidence": [
         {
           "path": "docs/images/environment-art-review-windows/manifest.json",
-          "sha256": "e2cecde6bfd75beedff3e79c25203f62b37b602522f9f5471906dd82d91bfac3"
+          "sha256": "c16df24ddc255d076de2d1d9b49fb94d5bed925ea3f9dbc062023429d48a63c6"
         }
       ]
     },
     "PERFORMANCE": {
       "status": "PASS",
       "scope": "Combat animé natif Windows 2560×1440 sur NVIDIA RTX 5070 Ti : 2400 frames, FPS/CPU/GPU/mémoire mesurés. Une seule machine ; aucune extrapolation à la configuration minimale.",
-      "render_signature": "1d00ff445379d3efbe21e308f4e378cadc6de2fb89c24cefe8bf1707411988ec",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
       "evidence": [
         {
           "path": "docs/reports/windows_gpu_benchmark_system.json",
@@ -1802,7 +1802,37 @@
     "UNIT-SCALE": {
       "status": "PASS",
       "scope": "122 cartes examinées à 720p, cas de lisibilité limitant ; captures et contrôles natifs correspondants à 720p/1080p/1440p. Échelle seulement, finition artistique exclue.",
-      "render_signature": "afd0920d7df440ebac1b61c558b5d0c89037812df9b04f4c905783756f067bfc",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
+      "evidence": [
+        {
+          "path": "docs/reports/entity_scale_review_windows.json",
+          "sha256": "743388dfca0fd0703daae52db5c4769508efb6019394d9f6796010252d6c917a"
+        },
+        {
+          "path": "docs/images/entity-scale-production-windows/native-report.json",
+          "sha256": "094d4caa9bff33fde14cb06ce41500e2ad2ec6f7d52aae1a7df6f9edc2d1adf7"
+        }
+      ]
+    },
+    "UNIT-ART": {
+      "status": "PASS",
+      "scope": "233 / 233 unités éligibles possèdent leurs actions applicables complètes, huit orientations et une revue artistique ciblée ; les vues erronées, poses quasi dupliquées et alternances de jambes invalides ont été rejetées pendant les lots unitaires.",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
+      "evidence": [
+        {
+          "path": "docs/images/combat-directional-animation/README.md",
+          "sha256": "85e934c1235a1a18272be26f52fff67c2d36dbf1e922452ceb4518060bf118dd"
+        },
+        {
+          "path": "docs/images/combat-directional-animation/validation-results.txt",
+          "sha256": "f89326e51e22062b1c0e18442deeca4498705636ed2609f6bd2bb4725258f0ba"
+        }
+      ]
+    },
+    "RESOLUTIONS": {
+      "status": "PASS",
+      "scope": "Les 122 cartes ont été comparées par lots à 720p, 1080p et 1440p pour le cadrage, la grille, l'échelle/ancrage, la sélection, les PV, le contraste et le HUD ; aucun défaut comparatif reproductible ne reste ouvert dans cette portée.",
+      "render_signature": "63a16d4eda2d88ef9736a93078711e3e2583e39d68e9021bba43c27225dfd761",
       "evidence": [
         {
           "path": "docs/reports/entity_scale_review_windows.json",

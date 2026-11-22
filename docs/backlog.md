@@ -690,7 +690,7 @@ Détails : [Vue de haut 2.5D](combat_top_down.md).
 - [x] ART25-02 Produire 16 familles Blender / 64 orientations, finitions artistiques de huit familles et outils reproductibles.
 - [x] ART25-03 Intégrer les sprites sans plateforme, leurs silhouettes et les couches sources ; conserver le fallback et les données tactiques.
 - [x] ART25-04 Rééquilibrer les portées/dégâts Godot à la demande explicite de l’utilisateur, avec profils courts/longs et tests de tirs réels.
-- [ ] ART25-05 Achever la reconstruction artistique de tous les éléments des 122 cartes : gros œuvre, accessoires, raccords et revues détaillées restent à réaliser. La livraison vérifiée documente cette limite.
+- [x] ART25-05 Finition artistique des 122 cartes achevée dans la portée revue : 122 cartes examinées sur 21 planches détaillées, placements actifs et fallbacks visibles contrôlés, raccords/ombres/occultations corrigés, puis 366 captures natives à 720p, 1080p et 1440p. Les PNG sources, SHA, géométries tactiques et fallbacks jugés supérieurs sont conservés ; la tâche n'exige pas de remplacer artificiellement chaque entrée source par un overlay.
 
 Détails : [Combat Visual 2.5](combat_visual_25.md) et inventaire/captures par carte.
 
