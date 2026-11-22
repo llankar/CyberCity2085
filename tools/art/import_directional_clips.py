@@ -37,6 +37,40 @@ def apply_chroma_key(image, key, inner=4, outer=255):
     result.putdata(pixels)
     return result
 
+def apply_connected_chroma_key(image, key, inner=4, outer=255):
+    """Key only backdrop-coloured pixels connected to the canvas border.
+
+    This preserves enclosed light paint and highlights that happen to match a
+    generated white backdrop.  OpenCV is imported lazily because ordinary
+    transparent-sheet imports do not need it.
+    """
+    import cv2
+    import numpy as np
+
+    if (not isinstance(key, list) or len(key) != 3
+            or any(type(channel) is not int or not 0 <= channel <= 255 for channel in key)):
+        raise ValueError('chroma_key must contain three RGB integers from 0 to 255')
+    if (type(inner) is not int or type(outer) is not int
+            or not 0 <= inner < outer <= 255):
+        raise ValueError('chroma tolerances must satisfy 0 <= inner < outer <= 255')
+    rgba=np.asarray(image.convert('RGBA')).copy()
+    distance=np.max(np.abs(rgba[:,:,:3].astype(np.int16)-np.array(key,dtype=np.int16)),axis=2)
+    candidates=(distance < outer).astype(np.uint8)
+    count,labels=cv2.connectedComponents(candidates,connectivity=4)
+    border_labels=np.unique(np.concatenate((labels[0,:],labels[-1,:],labels[:,0],labels[:,-1])))
+    connected=np.isin(labels,border_labels[border_labels != 0])
+    alpha=np.full(distance.shape,255,dtype=np.float32)
+    alpha[connected]=np.clip((distance[connected]-inner)*255/(outer-inner),0,255)
+    alpha*=rgba[:,:,3]/255
+    partial=connected & (alpha > 0) & (alpha < 255)
+    fraction=np.maximum(alpha/255,1/255)
+    for channel,backdrop in enumerate(key):
+        cleaned=(rgba[:,:,channel]-(1-fraction)*backdrop)/fraction
+        rgba[:,:,channel][partial]=np.clip(np.rint(cleaned[partial]),0,255).astype(np.uint8)
+    rgba[:,:,3]=np.rint(alpha).astype(np.uint8)
+    rgba[rgba[:,:,3] == 0,:3]=0
+    return Image.fromarray(rgba)
+
 def prepare_source(image,item):
     key=item.get('chroma_key')
     if key is None:return image

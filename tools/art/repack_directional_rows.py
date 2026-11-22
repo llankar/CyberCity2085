@@ -11,7 +11,7 @@ from pathlib import Path
 from PIL import Image, ImageChops, ImageFilter
 
 from import_artist_variants import clean_alpha
-from import_directional_clips import apply_chroma_key
+from import_directional_clips import apply_chroma_key, apply_connected_chroma_key
 
 
 ALPHA_THRESHOLDS = (16, 32, 64, 96, 128, 160, 192, 220, 240, 250)
@@ -178,6 +178,11 @@ def main() -> None:
     parser.add_argument("--chroma-inner", type=int, default=4)
     parser.add_argument("--chroma-outer", type=int, default=128)
     parser.add_argument(
+        "--connected-chroma-key",
+        action="store_true",
+        help="remove only backdrop-coloured regions connected to the canvas border",
+    )
+    parser.add_argument(
         "--clean-small-components",
         action="store_true",
         help="remove reviewed detached specks smaller than 2%% of the main opaque body",
@@ -187,7 +192,8 @@ def main() -> None:
         source = source.convert("RGBA")
         if args.chroma_key:
             key = [int(value) for value in args.chroma_key.split(",")]
-            source = apply_chroma_key(source, key, args.chroma_inner, args.chroma_outer)
+            keyer = apply_connected_chroma_key if args.connected_chroma_key else apply_chroma_key
+            source = keyer(source, key, args.chroma_inner, args.chroma_outer)
         lead, follow = repack_two_rows(
             source,
             min_width=args.min_width,

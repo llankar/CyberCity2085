@@ -8,7 +8,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "art"))
 import import_directional_clips as importer
-from import_directional_clips import apply_chroma_key, sheet_directions
+from import_directional_clips import apply_chroma_key, apply_connected_chroma_key, sheet_directions
 
 
 def test_sheet_order_preserves_default_and_maps_reviewed_pairs():
@@ -44,6 +44,20 @@ def test_chroma_key_removes_flat_background_and_unmixes_edge_colour():
 def test_chroma_key_rejects_invalid_configuration(key, inner, outer):
     with pytest.raises(ValueError):
         apply_chroma_key(Image.new("RGBA", (1, 1)), key, inner, outer)
+
+
+def test_connected_chroma_key_preserves_enclosed_backdrop_coloured_paint():
+    image = Image.new("RGBA", (7, 7), (255, 255, 255, 255))
+    pixels = image.load()
+    for y in range(1, 6):
+        for x in range(1, 6):
+            pixels[x, y] = (20, 20, 20, 255)
+    pixels[3, 3] = (255, 255, 255, 255)
+
+    keyed = apply_connected_chroma_key(image, [255, 255, 255], inner=0, outer=64)
+
+    assert keyed.getpixel((0, 0))[3] == 0
+    assert keyed.getpixel((3, 3)) == (255, 255, 255, 255)
 
 
 def test_walk_rows_imports_four_phases_for_eight_reviewed_directions(tmp_path, monkeypatch):
