@@ -1662,7 +1662,8 @@
         "python -m pytest -q tests/test_english_player_ui.py tests/test_management_hub_ui.py tests/test_godot_launch_routing.py tests/test_godot_move_highlights.py tests/test_psi_combat_routing.py tests/test_mission_generation.py tests/test_objective_branches.py : 44 passed, 1 skipped, 5 subtests passed",
         "Contrat : les anciennes sauvegardes fr sont normalisées en anglais",
         "Contrat : les copies Arcade et Godot inspectées ne contiennent plus les fuites françaises connues",
-        "Contrat : les réglages joueur ne montrent plus le nom ou le chemin du moteur tactique"
+        "Contrat : les réglages joueur ne montrent plus le nom ou le chemin du moteur tactique",
+        "Audit élargi : la fiche de briefing de la carte mondiale affichait encore RISQUE, J et ENNEMI directement. Remplacés par RISK, DAYS et HOSTILES et ajoutés au contrat anti-régression. 31 tests ciblés réussis ; 2 captures Arcade X11 ignorées sous Windows."
       ],
       "evidence": [
         "tests/test_english_player_ui.py"
@@ -1697,7 +1698,7 @@
     {
       "id": "GODOT-ENGLISH-02",
       "title": "Auditer toutes les chaînes Godot et retirer les dernières fuites françaises",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/scripts/visual_hud.gd",
         "godot/combat_missions_ui/scripts/combat_mission_ui.gd",
@@ -1709,13 +1710,14 @@
         "python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py tests/test_godot_move_highlights.py : 17 passed, 1 skipped",
         "Scan de tous les littéraux .gd/.tscn/.tres/.cfg/.json/.txt sous godot : aucune phrase française joueur connue restante",
         "Contrat : COMBAT LOG et F9: classic interface remplacent les libellés visibles français",
-        "Contrat : aucun titre moteur ni diagnostic WALL TEST dans la copie joueur"
+        "Contrat : aucun titre moteur ni diagnostic WALL TEST dans la copie joueur",
+        "Rejeu courant avec le Godot 4.7.2 emballé : 18 tests réussis ; 1 skip concerne le routage graphique Linux/X11, hors du contrat de langue. Le parsing natif Windows a réussi."
       ],
       "evidence": [
         "tests/test_english_player_ui.py"
       ],
-      "remaining": "Validation visuelle humaine de tous les écrans non exécutée.",
-      "reason": "Le parsing et le runtime natifs ont été validés ensuite dans GODOT-PARSE-01."
+      "remaining": "",
+      "reason": ""
     },
     {
       "id": "GODOT-PARSE-01",

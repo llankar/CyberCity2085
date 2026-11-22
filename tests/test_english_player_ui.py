@@ -29,6 +29,8 @@ FORBIDDEN_PLAYER_COPY = (
     "déploiement tactique",
     "escouade déployée",
     "jouera au retour",
+    "risque ",
+    "ennemi //",
     "rapport de combat",
     "réessayer",
     "réglages",
@@ -59,6 +61,10 @@ def test_arcade_and_godot_player_copy_has_no_known_french_leaks():
     )
     for phrase in FORBIDDEN_PLAYER_COPY:
         assert phrase not in combined, phrase
+    world_map = (ROOT / "game/ui/screens/world_map_view.py").read_text(encoding="utf-8")
+    assert 'f"RISK {mission.risk_level}' in world_map
+    assert "{mission.duration_days} DAYS" in world_map
+    assert 'paragraph("HOSTILES // "' in world_map
 
 
 def test_settings_do_not_expose_engine_internals_to_players():

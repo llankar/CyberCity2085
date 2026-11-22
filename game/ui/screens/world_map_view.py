@@ -598,7 +598,7 @@ class MissionWorldMapView(GameView):
             paragraph(mission.title.upper(), 21, (244, 246, 250), 12, True)
             paragraph("SITE // " + site, 11, color, 16, True)
             paragraph(
-                f"RISQUE {mission.risk_level}   /   {mission.duration_days} J   /   ¥{mission.fund_reward:,}",
+                f"RISK {mission.risk_level}   /   {mission.duration_days} DAYS   /   ¥{mission.fund_reward:,}",
                 12,
                 color,
                 18,
@@ -626,7 +626,7 @@ class MissionWorldMapView(GameView):
                     self.game_state.characters, self.game_state.selected_agent_names
                 )
                 tactical = build_tactical_briefing(mission, selected)
-                paragraph("ENNEMI // " + tactical.enemy_label, 13, color, 10, True)
+                paragraph("HOSTILES // " + tactical.enemy_label, 13, color, 10, True)
                 paragraph("DOCTRINE // " + tactical.doctrine, 12)
                 paragraph(
                     f"SQUAD // {tactical.squad_count} assigned · {tactical.armed_count} armed",

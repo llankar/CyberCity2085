@@ -873,6 +873,8 @@ Les quatre premiers diagnostics utilisent des overrides de capture uniquement ; 
 
 Le chantier global reste incomplet : voir [UNIFIED_EXPERIENCE_PROGRESS.md](UNIFIED_EXPERIENCE_PROGRESS.md).
 
+- [x] Copie carte mondiale : remplacer les libellés français résiduels du briefing (`RISQUE`, `J`, `ENNEMI`) par `RISK`, `DAYS`, `HOSTILES` et verrouiller leur absence dans le scan de copie joueur. 31 tests ciblés réussis ; les deux captures X11 restent hors Windows.
+
 ### Unified Experience — lot 2 récupération durable
 
 - [x] UE2-01 Checkpoints Python atomiques avant et après résolution.

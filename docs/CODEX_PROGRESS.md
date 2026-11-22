@@ -651,6 +651,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Validation visuelle humaine de tous les écrans non exécutée..
 - Problème / raison : Un test natif nécessitant un environnement graphique a été ignoré..
 
+- Audit courant : une fuite réelle non couverte a été corrigée dans le briefing de la carte mondiale (`RISQUE`, `J`, `ENNEMI` → `RISK`, `DAYS`, `HOSTILES`). Le contrat statique couvre désormais ces libellés. Rejeu : 31 tests ciblés réussis, 2 captures Arcade X11 ignorées sous Windows. La revue visuelle humaine de tous les écrans reste ouverte.
+
 ### GODOT-UI-FOCUS-01 — IN_PROGRESS — Traduire le HUD tactique résiduel et afficher le combat sans clic
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
@@ -659,13 +661,14 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Travail restant dans cette portée : Validation native Windows du focus automatique à exécuter en lançant une mission réelle..
 - Problème / raison : Le test cross-process natif est ignoré hors environnement graphique compatible..
 
-### GODOT-ENGLISH-02 — IN_PROGRESS — Auditer toutes les chaînes Godot et retirer les dernières fuites françaises
+### GODOT-ENGLISH-02 — DONE — Auditer toutes les chaînes Godot et retirer les dernières fuites françaises
 
 - Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/tests/combat_feedback_regression.gd`, `godot/combat_missions_ui/tests/weapon_balance_regression.gd`, `tests/test_english_player_ui.py`.
 - Tests / contrôles réellement exécutés : python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py tests/test_godot_move_highlights.py : 17 passed, 1 skipped; Scan de tous les littéraux .gd/.tscn/.tres/.cfg/.json/.txt sous godot : aucune phrase française joueur connue restante; Contrat : COMBAT LOG et F9: classic interface remplacent les libellés visibles français; Contrat : aucun titre moteur ni diagnostic WALL TEST dans la copie joueur.
 - Preuves : `tests/test_english_player_ui.py`.
-- Travail restant dans cette portée : Validation visuelle humaine de tous les écrans non exécutée..
-- Problème / raison : Le parsing et le runtime natifs ont été validés ensuite dans GODOT-PARSE-01..
+- Tests / contrôles courants : 18 réussis avec le Godot 4.7.2 du package courant ; l'unique skip est le routage graphique Linux/X11, hors du contrat de langue. Le parsing natif Windows réussit.
+- Travail restant dans cette portée : Aucun. La revue visuelle globale de tous les écrans reste suivie séparément par ENGLISH-UI-01.
+- Problème / raison : Aucun.
 
 ### GODOT-PARSE-01 — DONE — Réparer le blocage de chargement après traduction du HUD
 
