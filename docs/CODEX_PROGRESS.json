@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-ENEMY-05 Godot containment parity IN_PROGRESS. The payload now carries breach width, active breacher count and cadence. Godot creates and renders the local non-interactive zone, selects one breacher, advances it one cell and fails on crossing while preserving elimination victory. 108 Python/Godot tests and 5 subtests passed. The dedicated rule regression passed under Godot 4.6.3 and packaged Windows Godot 4.7.2 with CONTAINMENT_OBJECTIVE_CHECKS_PASSED. Visible Windows rendering and native victory/defeat debrief paths remain NOT VERIFIED.",
-  "next_action": "TAC-ENEMY-05 : run a visible Windows Godot containment fixture, inspect zone and trajectory, then verify native victory and defeat through the Python debrief with single application. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
+  "latest_batch": "TAC-ENEMY-05 native Godot containment rendering IN_PROGRESS. Packaged Windows Godot 4.7.2 rendered the real OpenGL scene at 1280x720 on RTX 5070 Ti. The seven red breach cells, marker and BREACH ZONE label are readable; enemies start outside, and the HUD shows HOLD without a fake interaction counter. 20 bridge/UI tests and 2 subtests passed. Native victory/defeat results and Python debrief idempotence remain NOT VERIFIED.",
+  "next_action": "TAC-ENEMY-05 : drive one native Godot defeat by breach and one victory by elimination, verify both Python debriefs, then replay each result to confirm single application. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

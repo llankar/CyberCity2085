@@ -2305,7 +2305,10 @@ func _update_visual_context() -> void:
 	var active := _current_active_player()
 	_update_prop_occlusion()
 	if not _hud.has_signal("quality_changed"): return
-	_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
+	if objective.get("type", "") == "containment":
+		_hud.objective_text = "HOLD // %s" % str(_mission_data().get("objective_text","Hold the breach zone"))
+	else:
+		_hud.objective_text = "%d/%d // %s" % [objective_progress, int(objective.get("progress_needed",1)), str(_mission_data().get("objective_text","Complete the objective"))]
 	_hud.target_info = {}
 	_hud.target_anchor_node = null
 	if _gamepad_cell.x >= 0 and _enemy_at_cell(_gamepad_cell) < 0:

@@ -238,6 +238,16 @@ func _draw_cover_nodes() -> void:
 func _draw_objective() -> void:
 	var center:=cell_to_world(objective_cell)
 	var pixel:=_screen_unit()
+	if objective_data.get("type", "") == "containment":
+		var half_width:=int(objective_data.get("breach_half_width_cells",3))
+		for row in range(objective_cell.y-half_width,objective_cell.y+half_width+1):
+			if row<0 or row>=GRID_ROWS:continue
+			var zone:=_iso_corners_inner(Vector2i(objective_cell.x,row),.16)
+			draw_colored_polygon(zone,Color(1,.08,.06,.32))
+			zone.append(zone[0])
+			draw_polyline(zone,Color(1,.24,.20,.95),3*pixel,true)
+		draw_string(ThemeDB.fallback_font,center+Vector2(-45,-30)*pixel,"BREACH ZONE",
+				HORIZONTAL_ALIGNMENT_LEFT,-1,maxi(1,roundi(12*pixel)),Color(1,.3,.24))
 	var ring:=_iso_corners_inner(objective_cell,.62)
 	draw_colored_polygon(ring,Color(1,.72,.18,.10))
 	ring.append(ring[0])

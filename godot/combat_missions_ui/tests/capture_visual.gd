@@ -11,7 +11,10 @@ func run() -> void:
 			root.size = Vector2i(int(dimensions[0]),int(dimensions[1]))
 	var scene := load("res://scenes/combat_mission_ui.tscn").instantiate() as Control
 	root.add_child(scene)
-	await create_timer(1.5).timeout
+	var capture_delay := 1.5
+	for i in range(args.size()-1):
+		if args[i] == "--capture-delay": capture_delay = float(args[i+1])
+	await create_timer(capture_delay).timeout
 	if "--capture-target" in args:
 		scene.selected_action = "Rifle Burst"
 		scene._sync_display()
