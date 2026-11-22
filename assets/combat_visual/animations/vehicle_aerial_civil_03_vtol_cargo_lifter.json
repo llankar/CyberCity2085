@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_03_vtol_cargo_lifter.png",
+  "texture_sha256": "e6d6d7bb14a966cef2c5dff5222bb5fcb61007afae53f44621095ef1d8ed9bb0",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_03_vtol_cargo_lifter_512.png",
+  "source_sha256": "fac3dfaff5f34bbdc2becaba5077fe9009455598b9f5f6c6efc70fe86dbdf6aa",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_03_vtol_cargo_lifter/idle-single_row_pair-0.png",
+      "sha256": "3b8bf81f712749e9a9158c0751786e6d6084d99b161cae3027fb2840e8b33b2c",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_03_vtol_cargo_lifter/idle-single_row_pair-0-follow-through.png",
+        "sha256": "a77eb321df549d876b3c25b0b21f0ce298bd3823a5d7feef28dde7f4830fe04e"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian cargo lifter is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian cargo lifter is unarmed.",
+    "melee": "The civilian cargo lifter has no melee action.",
+    "cover": "The civilian cargo lifter has no cover action.",
+    "hit": "The civilian cargo lifter has no authored hit action.",
+    "death": "The intact civilian cargo lifter has no authored destruction action.",
+    "psi": "The civilian cargo lifter has no psychic action.",
+    "heal": "The civilian cargo lifter has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
