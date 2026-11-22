@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_08_heavy_bomber_skimmer_crashed.png",
+  "texture_sha256": "76772e8381608d44fa0a6cbc187d12ebfca2d9ba23327ce83909876ec5307a9b",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_08_heavy_bomber_skimmer_crashed_512.png",
+  "source_sha256": "5c0451b0d7c7e2b04cd855dc4c8bc2c387cbe8cc6d64ecf7edd09f83dc8dcc47",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_08_heavy_bomber_skimmer_crashed/idle-single_row_pair-0.png",
+      "sha256": "78042545f7d38ec23dd55bc80e869e44ebd22053e27d1e6cf1ef137813599563",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_08_heavy_bomber_skimmer_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "43f237c39349d917714bbfd6a1ccbbd8131b8909652c972459c0248ffeac3d87"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed military heavy bomber skimmer is an immobile decorative wreck with 0 AP.",
+    "fire": "The terminal wreck has no tactical fire action.",
+    "melee": "The terminal wreck has no melee action.",
+    "cover": "The terminal wreck has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed military heavy bomber skimmer has no psychic action.",
+    "heal": "The crashed military heavy bomber skimmer has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
