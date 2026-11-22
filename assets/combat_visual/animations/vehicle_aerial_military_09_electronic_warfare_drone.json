@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_09_electronic_warfare_drone.png",
+  "texture_sha256": "4542e16c7ad5619e3e54e6d1726626877c4dad01f951362fa0cecc1bd0535939",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_09_electronic_warfare_drone_512.png",
+  "source_sha256": "dfc68c33bca42c6ad8146893bd14caf9651e58ef261eb878644d7abeb7826acf",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_09_electronic_warfare_drone/idle-single_row_pair-0.png",
+      "sha256": "49acd3cd11c565ceec711698addf98f40b05354d458d5aacc4bab589c64003f7",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_09_electronic_warfare_drone/idle-single_row_pair-0-follow-through.png",
+        "sha256": "d94cf617e178ee269be875d5ac076880d6bcfddb6b3045fdd97809b0e5e18915"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The military electronic warfare drone is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The decorative electronic warfare drone has no tactical fire action.",
+    "melee": "The military electronic warfare drone has no melee action.",
+    "cover": "The military electronic warfare drone has no cover action.",
+    "hit": "The military electronic warfare drone has no authored hit action.",
+    "death": "The military electronic warfare drone has no authored death action; its crashed variant is a separate asset.",
+    "psi": "The military electronic warfare drone has no psychic action.",
+    "heal": "The military electronic warfare drone has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
