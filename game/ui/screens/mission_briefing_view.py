@@ -14,6 +14,7 @@ from game.agent_readiness import estimate_mission_stress, projected_stress
 from game.battle_maps import select_battle_map_entry
 from game.deployment import selected_deployable_agents
 from game.narrative.mission_briefing_conventions import translate_legacy_briefing_text
+from game.narrative.agent_memory import latest_tactical_memory
 from game.narrative.temporary_scars import build_temporary_scar_summary
 
 if TYPE_CHECKING:
@@ -128,6 +129,11 @@ def build_mission_briefing_facts(
         ],
         "map_thumbnail": map_thumbnail,
         "squad_roster": [agent.name for agent in agents],
+        "recent_tactical_memories": [
+            f"{agent.name}: {memory}"
+            for agent in agents
+            if (memory := latest_tactical_memory(getattr(agent, "history", [])))
+        ],
         "temporary_scar_summary": [
             f"{agent.name}: {line}"
             for agent in agents

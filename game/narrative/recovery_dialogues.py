@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 
 from ..character import Character
+from .agent_memory import tactical_memory_summary
 
 STRESS_TRIGGER_THRESHOLD = 65
 MAX_DIALOGUES_PER_TICK = 3
@@ -152,6 +153,14 @@ def generate_recovery_dialogues(
             mentor=left.name,
             partner=right.name,
         )
+        remembered_agent = right if tactical_memory_summary(right.history) else left
+        remembered = tactical_memory_summary(remembered_agent.history, limit=72)
+        if remembered:
+            supporter = left if remembered_agent is right else right
+            line = (
+                f"{supporter.name} helps {remembered_agent.name} talk through how they "
+                f"{remembered}."
+            )
         if line in blocked_lines:
             continue
         output.append(

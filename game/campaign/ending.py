@@ -9,6 +9,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
+from game.narrative.agent_memory import tactical_memory_summary
+
 if TYPE_CHECKING:
     from game.gamestate import GameState
 
@@ -67,6 +69,9 @@ def _agent_epilogue(character: object) -> str:
         return f"{display_name} leaves the war known for {reputation[-1]}."
     if scars:
         return f"{display_name} survives with scars that make the truth impossible to forget."
+    remembered = tactical_memory_summary(getattr(character, "history", []), limit=110)
+    if remembered:
+        return f"{display_name} is remembered for how they {remembered}."
     return f"{display_name} survives, carrying the squad's story into the new city."
 
 

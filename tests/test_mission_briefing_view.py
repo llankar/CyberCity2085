@@ -123,6 +123,10 @@ class MissionBriefingLaunchTest(unittest.TestCase):
                 "tags": ["injury"],
             }
         ]
+        game_state.characters[0].history = [
+            "Jackal Relay: stayed in the fight after taking 18 damage."
+        ]
+        game_state.characters[1].history = ["Joined the squad on day 2."]
 
         facts = build_mission_briefing_facts(game_state, _mission())
 
@@ -136,6 +140,10 @@ class MissionBriefingLaunchTest(unittest.TestCase):
         self.assertEqual(facts["complications"], ["A countertrace exposes the squad route."])
         self.assertIn("maps", facts["map_thumbnail"])
         self.assertEqual(facts["squad_roster"], ["Vera", "Mako"])
+        self.assertEqual(
+            facts["recent_tactical_memories"],
+            ["Vera: Jackal Relay: stayed in the fight after taking 18 damage."],
+        )
         self.assertTrue(
             any("Vera: Nights of Sirens" in line for line in facts["temporary_scar_summary"])
         )

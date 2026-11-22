@@ -71,6 +71,21 @@ def test_finale_evaluation_uses_world_and_agent_history() -> None:
     assert any("Iris" in line and "Warsaw witness" in line for line in ending.agent_epilogues)
 
 
+def test_finale_surfaces_tactical_memory_but_ignores_unrelated_history() -> None:
+    remembered = Character("Vera")
+    remembered.history = [
+        "Joined the squad on day 2.",
+        "Ghost Order Cache: held on at 2 HP and neutralized a hostile.",
+    ]
+    ordinary = Character("Mako")
+    ordinary.history = ["Joined the squad on day 3."]
+
+    ending = evaluate_campaign_ending(GameState(characters=[remembered, ordinary]))
+
+    assert any("Vera" in line and "held on at 2 HP" in line for line in ending.agent_epilogues)
+    assert any("Mako survives, carrying" in line for line in ending.agent_epilogues)
+
+
 def test_finale_round_trips_and_old_saves_default_safely(tmp_path) -> None:
     state = GameState(characters=[Character("Kade")])
     state.campaign.ending = evaluate_campaign_ending(state)

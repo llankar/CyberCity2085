@@ -102,6 +102,21 @@ class RecoveryDialoguesTest(unittest.TestCase):
         self.assertEqual(second.stress, 67)
         self.assertTrue(any("Recovery bond" in line for line in lines))
 
+    def test_recovery_dialogue_surfaces_latest_factual_tactical_memory(self):
+        first = Character("Nyx", stress=75)
+        second = Character("Patch", stress=72)
+        second.history = [
+            "Routine medical certification renewed.",
+            "Relay Trace: completed 3 decisive objective actions.",
+        ]
+
+        dialogues = generate_recovery_dialogues(
+            [first, second], {"day": 5, "memory": {}}
+        )
+
+        self.assertIn("completed 3 decisive objective actions", dialogues[0]["line"])
+        self.assertNotIn("certification", dialogues[0]["line"])
+
 
 if __name__ == "__main__":
     unittest.main()

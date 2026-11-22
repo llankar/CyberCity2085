@@ -6,6 +6,7 @@ from game.agent_readiness import stress_state_label
 from game.ui.theme.typography import scale_font_size
 from game.ui.layouts.world_map_beacons import Rect
 from game.ui.portraits import portrait_path_for_character
+from game.narrative.agent_memory import tactical_memory_summary
 from .briefing_content import support_art
 from .squad_style import CYAN, GOLD, MINT, RED, TEXT, MUTED
 
@@ -93,11 +94,18 @@ def draw_squad(p, r):
             color,
             8,
         )
+        memory = tactical_memory_summary(getattr(agent, "history", []))
+        details = (
+            f"{agent.name} · {role} · {agent.stats.hp}/{agent.stats.max_hp} "
+            f"{p.tr('hp')} · {agent.stress}%"
+        )
+        if memory:
+            details += f" · REMEMBERS: {memory}"
         p.hit(
             card,
             "info",
             agent.name,
-            f"{agent.name} · {role} · {agent.stats.hp}/{agent.stats.max_hp} {p.tr("hp")} · {agent.stress}%",
+            details,
         )
     avg = sum(a.stress for a in p.agents) // max(1, len(p.agents))
     color = RED if avg >= 65 else GOLD if avg >= 35 else MINT
