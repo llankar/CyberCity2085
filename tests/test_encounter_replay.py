@@ -22,7 +22,7 @@ def test_objective_matrix_action_dominance_gate_rejects_monopoly_and_silence():
 def test_limited_replay_only_runs_the_original_limited_case(monkeypatch, tmp_path):
     case = dict(map_file="city_industrial_dockside_terminal.png", theme="corp_37_robot", level=4,
                 risk=5, count=6, seed=17, policy="objective_counterplay", layout="open",
-                objective_kind="extract", turns=60, outcome="turn_limit")
+                objective_kind="extract", turns=60, outcome="turn_limit", squad_profile="mixed")
     baseline = tmp_path / "baseline.json"
     baseline.write_text(json.dumps({"combat_sources_sha256": "old-sources",
                                     "runs": [case, {**case, "outcome": "victory"}]}), encoding="utf-8")
@@ -43,6 +43,7 @@ def test_limited_replay_only_runs_the_original_limited_case(monkeypatch, tmp_pat
     assert len(calls) == 1
     assert calls[0]["seed"] == 17 and calls[0]["max_turns"] == 60
     assert calls[0]["policy"] == case["policy"] and calls[0]["objective_kind"] == "extract"
+    assert calls[0]["squad_profile"] == "mixed"
     report = json.loads(output.read_text(encoding="utf-8"))
     assert report["limited_retest_only"] and report["baseline_sources_sha256"] == "old-sources"
     assert report["summary"] == {"victory": 1} and len(report["runs"]) == 1

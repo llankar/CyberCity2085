@@ -5,9 +5,10 @@ from pathlib import Path
 import random
 
 from game.character import Character
-from game.combat_system import create_enemy_units
+from game.combat_system import create_enemy_units, create_player_units
 from game.cover_system import CoverNode
-from game.management.equipment import Weapon
+from game.management.equipment import Weapon, equip_starter_loadout
+from game.management.spec_ops_assets import default_spec_ops_assets
 from game.mission_templates import MissionTemplate
 from game.mission_objectives import create_battle_objective
 from game.stats import PlayerStats
@@ -22,6 +23,61 @@ QA_PLAYER_ACTIONS = (
     "move", "fire", "melee", "psi", "first_aid", "missiles",
     "overwatch", "defend", "end_turn",
 )
+
+QA_SQUAD_PROFILES = ("rifle", "mixed", "understrength", "support", "piloted_armor")
+
+
+def create_qa_allies(profile: str, level: int) -> tuple[list[Character], list[Unit]]:
+    """Build real deployment manifests for sustained balance simulations."""
+    if profile not in QA_SQUAD_PROFILES:
+        raise ValueError(f"Unknown QA squad profile: {profile}")
+    if profile == "rifle":
+        characters = [Character(name) for name in ("Rook", "Echo", "Nyx", "Mara")]
+        allies = []
+        for i, character in enumerate(characters):
+            character.stats = PlayerStats(
+                level=level,
+                agi=level + 3,
+                str=level + 3,
+                defense=max(1, level // 2),
+            )
+            character.loadout.primary_weapon = Weapon(
+                "qa_rifle", "QA Rifle", "primary_weapon", range_cells=6
+            )
+            allies.append(
+                Unit(
+                    position=(64, 64 + i * 64),
+                    stats=character.stats,
+                    health=character.stats.hp,
+                    character=character,
+                    attack_range=6,
+                )
+            )
+        return characters, allies
+
+    role_rows = {
+        "mixed": (("Rook", "samurai"), ("Longshot", "sniper"), ("Oracle", "psi"), ("Echo", "medic")),
+        "understrength": (("Rook", "samurai"), ("Echo", "medic")),
+        "support": (("Rook", "samurai"), ("Longshot", "sniper"), ("Oracle", "psi"), ("Echo", "medic")),
+        "piloted_armor": (("Mara", "sniper"), ("Rook", "samurai"), ("Echo", "medic")),
+    }
+    characters = [Character(name, role=role) for name, role in role_rows[profile]]
+    for character in characters:
+        character.stats.level = level
+        equip_starter_loadout(character.loadout, character.role)
+    assets = []
+    if profile == "support":
+        assets = default_spec_ops_assets()[:2]
+    elif profile == "piloted_armor":
+        assets = [default_spec_ops_assets()[2]]
+        assets[0].pilot_agent_name = characters[0].name
+    allies = create_player_units(
+        characters,
+        [character.name for character in characters],
+        assets,
+        [asset.id for asset in assets],
+    )
+    return characters, allies
 
 
 def simulate_action_coverage():
@@ -114,31 +170,27 @@ def synthetic_enemy_position(index, objective_kind):
     return 288 + (index // 4) * 64, 64 + (index % 4) * 64
 
 
-def simulate_encounter(*, theme, level, risk, count, seed, policy="focus", layout="open", max_turns=30, objective_kind="eliminate", map_path=None, mission_template=None):
+def simulate_encounter(*, theme, level, risk, count, seed, policy="focus", layout="open", max_turns=30, objective_kind="eliminate", map_path=None, mission_template=None, squad_profile="rifle"):
     if mission_template is not None:
         mission_template = MissionTemplate.from_dict(mission_template.to_dict())
         theme, risk, count = mission_template.enemy_theme, mission_template.risk_level, mission_template.starting_enemy_count
         objective_kind = mission_template.objective_type
     if policy not in {"focus", "counterplay", "objective", "objective_counterplay"} or layout not in {"open", "cover"}:
         raise ValueError("Unknown QA policy/layout")
+    if squad_profile not in QA_SQUAD_PROFILES:
+        raise ValueError("Unknown QA squad profile")
     if not 1 <= count <= 12 or not 1 <= max_turns <= 100:
         raise ValueError("QA supports 1..12 enemies and 1..100 turns")
     saved_rng = random.getstate()
     try:
         random.seed(seed)
-        return _simulate(theme, level, risk, count, seed, policy, layout, max_turns, objective_kind, map_path, mission_template)
+        return _simulate(theme, level, risk, count, seed, policy, layout, max_turns, objective_kind, map_path, mission_template, squad_profile)
     finally:
         random.setstate(saved_rng)
 
 
-def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, objective_kind, map_path, mission_template=None):
-    characters = [Character(name) for name in ("Rook", "Echo", "Nyx", "Mara")]
-    allies = []
-    for i, character in enumerate(characters):
-        character.stats = PlayerStats(level=level, agi=level + 3, str=level + 3, defense=max(1, level // 2))
-        character.loadout.primary_weapon = Weapon("qa_rifle", "QA Rifle", "primary_weapon", range_cells=6)
-        allies.append(Unit(position=(64, 64 + i * 64), stats=character.stats,
-                           health=character.stats.hp, character=character, attack_range=6))
+def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, objective_kind, map_path, mission_template=None, squad_profile="rifle"):
+    characters, allies = create_qa_allies(squad_profile, level)
     mission = mission_template or MissionTemplate("encounter_qa", "Encounter QA", "Eliminate hostiles", "", "", {}, count,
                               enemy_theme=theme, risk_level=risk, objective_type=objective_kind)
     objective = create_battle_objective(mission, position=(128, 192) if objective_kind == "defend" else (256, 192))
@@ -272,7 +324,30 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                     if step is not None:
                         perform("move", actor=actor, move_delta=step)
                     elif shootable:
-                        perform("fire", actor=actor, target=shootable[0])
+                        target = shootable[0]
+                        action_name = "fire"
+                        if squad_profile != "rifle":
+                            wounded = next(
+                                (
+                                    ally
+                                    for ally in allies
+                                    if ally.health > 0
+                                    and ally.health * 2 <= ally.stats.max_hp
+                                    and actor.distance_to(ally) <= 32
+                                ),
+                                None,
+                            )
+                            if getattr(getattr(actor, "character", None), "role", "") == "medic" and wounded:
+                                action_name, target = "first_aid", wounded
+                            elif getattr(getattr(actor, "spec_ops_asset", None), "missile_capacity", 0) > 0:
+                                action_name = "missiles"
+                            elif actor.distance_to(target) <= 32 and getattr(getattr(actor, "character", None), "role", "") == "samurai":
+                                action_name = "melee"
+                            elif getattr(getattr(actor, "character", None), "role", "") == "psi":
+                                action_name = "psi"
+                        result = perform(action_name, actor=actor, target=target)
+                        if not result.success and action_name != "fire":
+                            perform("fire", actor=actor, target=shootable[0])
                     elif targets:
                         destinations = sorted(targets, key=lambda target: (
                             target is not hvt if policy.startswith("objective") and hvt else False,
@@ -299,7 +374,7 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
         if result.ended:
             outcome = result.outcome
             break
-    return dict(theme=theme, level=level, risk=risk, count=count, seed=seed, policy=policy, layout=layout, objective_kind=objective_kind,
+    return dict(theme=theme, level=level, risk=risk, count=count, seed=seed, policy=policy, layout=layout, objective_kind=objective_kind, squad_profile=squad_profile,
                 mission_id=mission.id,
                 map_file=Path(map_path).name if map_path is not None else None,
                 terrain_source=terrain.source if terrain else "synthetic", geometry_checked=True,

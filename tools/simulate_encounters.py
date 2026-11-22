@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from hashlib import sha256
 
-from game.combat.encounter_qa import simulate_action_coverage, simulate_encounter
+from game.combat.encounter_qa import QA_SQUAD_PROFILES, simulate_action_coverage, simulate_encounter
 from game.combat.tactical_identity import profile_for_theme
 
 
@@ -54,7 +54,8 @@ def story_rows(args):
             row = simulate_encounter(theme=mission.enemy_theme, level=4, risk=mission.risk_level,
                                      count=mission.starting_enemy_count, seed=seed,
                                      policy="objective_counterplay", max_turns=60,
-                                     map_path=entry.path, mission_template=mission)
+                                     map_path=entry.path, mission_template=mission,
+                                     squad_profile=args.squad_profile)
             row["mission_template_sha256"] = sha256(json.dumps(mission.to_dict(), sort_keys=True).encode()).hexdigest()
             rows.append(row)
         print(json.dumps({"story_checked": story.id, "runs": len(rows)}), flush=True)
@@ -72,7 +73,8 @@ def authored_rows(args):
                 try:
                     row = simulate_encounter(theme=themes[index % len(themes)], level=4, risk=5, count=6,
                                              seed=seed, policy="objective_counterplay", map_path=entry.path,
-                                             objective_kind=objective, max_turns=60)
+                                             objective_kind=objective, max_turns=60,
+                                             squad_profile=args.squad_profile)
                 except (AssertionError, ValueError) as error:
                     row = dict(map_file=entry.filename, objective_kind=objective, seed=seed,
                                outcome="error", error=str(error))
@@ -93,6 +95,7 @@ def retest_limited_rows(path):
         if not old.get("map_file") or Path(old["map_file"]).name != old["map_file"]:
             raise ValueError("Limited-case replay requires an authored map filename")
         arguments = {key: old[key] for key in ("theme", "level", "risk", "count", "seed", "policy", "layout", "objective_kind")}
+        arguments["squad_profile"] = old.get("squad_profile", "rifle")
         rows.append(simulate_encounter(**arguments, map_path=Path("assets/maps") / old["map_file"], max_turns=old["turns"]))
         if len(rows) % 5 == 0:
             print(json.dumps({"limited_cases_checked": len(rows)}), flush=True)
@@ -105,6 +108,7 @@ def main():
     parser.add_argument("--seeds", type=int, default=3)
     parser.add_argument("--scenario", choices=("elimination", "objectives", "authored", "story"), default="elimination")
     parser.add_argument("--objective", choices=("eliminate", *OBJECTIVES))
+    parser.add_argument("--squad-profile", choices=QA_SQUAD_PROFILES, default="rifle")
     parser.add_argument("--retest-limits", type=Path, help="Replay only limited authored cases with their original turn caps")
     args = parser.parse_args()
     if args.scenario == "story" and (args.objective or args.retest_limits):
@@ -153,7 +157,8 @@ def main():
         if args.scenario == "objectives" and not args.retest_limits
         else {"status": "NOT_APPLICABLE"}
     )
-    report = {"scope": "Fixed four-rifle balance squad plus isolated real-action probes; not campaign or human balance proof", "scenario": args.scenario,
+    report = {"scope": f"{args.squad_profile} sustained balance squad plus isolated real-action probes; not human balance proof", "scenario": args.scenario,
+              "squad_profile": args.squad_profile,
               "combat_sources_sha256": fingerprint,
               "baseline_sources_sha256": baseline_fingerprint,
               "limited_retest_only": args.retest_limits is not None,

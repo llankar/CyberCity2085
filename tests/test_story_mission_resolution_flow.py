@@ -3,6 +3,8 @@
 from types import SimpleNamespace
 from unittest.mock import patch
 
+import pytest
+
 from game.character import Character
 from game.gamestate import GameState
 from game.missions.flow import ensure_mission_templates, launch_selected_mission, resolve_mission_outcome
@@ -127,3 +129,29 @@ def test_fifteen_real_arcade_fallback_combats_reach_finale_with_save_reload(tmp_
     assert len(combat_rows) == 15
     assert state.campaign.ending is not None
     assert "campaign_complete" in state.campaign.act_triggers_seen
+
+
+@pytest.mark.parametrize("squad_profile", ("mixed", "support"))
+def test_all_story_missions_are_winnable_with_viable_real_squad_profiles(squad_profile):
+    from game.battle_maps import select_battle_map_entry
+    from game.campaign.story_missions import STORY_MISSIONS
+    from game.combat.encounter_qa import simulate_encounter
+    from game.mission_generation import story_mission_to_template
+
+    state = GameState()
+    for story in STORY_MISSIONS:
+        mission = story_mission_to_template(story, state)
+        result = simulate_encounter(
+            theme=mission.enemy_theme,
+            level=4,
+            risk=mission.risk_level,
+            count=mission.starting_enemy_count,
+            seed=0,
+            policy="objective_counterplay",
+            max_turns=60,
+            map_path=select_battle_map_entry(mission).path,
+            mission_template=mission,
+            squad_profile=squad_profile,
+        )
+        assert result["outcome"] == "victory", (story.id, squad_profile, result)
+        assert result["geometry_checked"]
