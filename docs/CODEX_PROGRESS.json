@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "ANIM-COMPLETE hospital-gown Starver DONE. The unit has 112 frames across six applicable clips and eight true facings. Its human gait alternates; one bald head, two arms, two bare legs and one torn mint hospital gown remain coherent, without weapon or added equipment. Cover, hit and unarmed melee are distinct, and defeat ends as one prone body. Focused audit returned no errors; Python passed 28 tests with one X11 skip; Windows Godot 4.7.2 produced six targeted captures, and movement, melee and single-body defeat were inspected. Complete manifests are 153 / 233 and artistically verified coverage is 176 / 233.",
-  "next_action": "ANIMATIONS: create, import and validate only enemy_starver_04_ash_burned. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
+  "latest_batch": "ANIM-COMPLETE ash-burned Starver DONE. The unit has 112 frames across six applicable clips and eight true facings. Its human gait alternates; one bald head, two arms, two legs, charred black-brown skin with restrained orange fissures, torn charcoal trousers and bare feet remain coherent, without weapon or added equipment. Cover, hit and unarmed claw melee are distinct, and defeat ends as one prone body. Focused audit returned no errors; Python passed 28 tests with one X11 skip; Windows Godot 4.7.2 produced six targeted captures, and movement, melee and single-body defeat were inspected. Complete manifests are 154 / 233 and artistically verified coverage is 177 / 233.",
+  "next_action": "ANIMATIONS: create, import and validate only enemy_starver_05_riot_armor. Current reproducible acceptance marks the global map, scale, performance and resolution reviews stale; do not assume PASS or regenerate separate proof reports.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
