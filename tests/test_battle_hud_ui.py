@@ -243,14 +243,15 @@ class BattleHUDUITest(unittest.TestCase):
             edge = last_row + 16
             with patch.object(arcade, "draw_line") as lines:
                 battle_hud.draw_objective_marker(objective, 0, battlefield_width=width)
-            self.assertTrue(any(call.args[:4] == (0, edge, width, edge) for call in lines.call_args_list))
-            self.assertTrue(objective_failed_by_enemy_positions([(64, last_row)], objective)[0])
-            self.assertFalse(objective_failed_by_enemy_positions([(64, last_row+32)], objective)[0])
-            self.assertIn("BREACH LINE - KEEP HOSTILES ABOVE", [call[0] for call in captured_draw_text])
+            self.assertTrue(any(call.args[:4] == (336.0, edge, 560.0, edge) for call in lines.call_args_list))
+            self.assertTrue(objective_failed_by_enemy_positions([(448, last_row)], objective)[0])
+            self.assertFalse(objective_failed_by_enemy_positions([(448, last_row+32)], objective)[0])
+            self.assertFalse(objective_failed_by_enemy_positions([(64, last_row)], objective)[0])
+            self.assertIn("BREACH ZONE - KEEP HOSTILES OUT", [call[0] for call in captured_draw_text])
             objective.completed = True
             captured_draw_text.clear()
             battle_hud.draw_objective_marker(objective, 0, battlefield_width=width)
-            self.assertNotIn("BREACH LINE - KEEP HOSTILES ABOVE", [call[0] for call in captured_draw_text])
+            self.assertNotIn("BREACH ZONE - KEEP HOSTILES OUT", [call[0] for call in captured_draw_text])
 
     def test_defense_marker_shows_the_full_nine_cell_breach_zone(self):
         from types import SimpleNamespace

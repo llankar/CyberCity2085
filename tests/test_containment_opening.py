@@ -1,6 +1,8 @@
 """Containment opening spacing follows paths and respects corridor capacity."""
 
-from game.combat.encounter_placement import fit_encounter, approach_distances, connected_regions
+from game.combat.encounter_placement import (
+    fit_encounter, approach_distances, connected_regions, containment_breach_cells,
+)
 from game.map_terrain import TerrainProfile, build_terrain_profile
 from game.battle_maps import build_battle_map_catalog
 
@@ -10,7 +12,11 @@ def test_open_map_gives_hostiles_more_than_a_starver_activation_to_breach():
     terrain = TerrainProfile("open",512,512,32,floor,255)
     placed = fit_encounter(terrain, [(64,64)], [(256,224)], [(448,320)],
                            objective_kind="containment", breach_y=192)
-    assert placed.enemies[0][1] >= 320
+    region = connected_regions(terrain)[0]
+    distance = approach_distances(
+        region, containment_breach_cells(region, placed.breach_y, placed.objectives[0][0])
+    )
+    assert distance[placed.enemies[0]] > 3
     assert placed.breach_y == 192
 
 
@@ -22,9 +28,12 @@ def test_all_maps_use_best_available_opening_distance_without_dropping_enemies()
                                    [(1152,352+i*32) for i in range(8)],[(448,320)],
                                    objective_kind="containment",breach_y=192)
             region = connected_regions(terrain)[0]
-            distance = approach_distances(region,{c for c in region if c[1]<=placed.breach_y})
+            distance = approach_distances(
+                region, containment_breach_cells(region, placed.breach_y, placed.objectives[0][0])
+            )
             candidates = region-placed.deployment_cells-set(placed.allies)-set(placed.objectives)
-            ranked = sorted((distance[c] for c in candidates if c[1]>placed.breach_y), reverse=True)
+            ranked = sorted((distance[c] for c in candidates
+                             if c[1]>placed.breach_y and c in distance), reverse=True)
             expected = min(4,ranked[7])
             assert len(set(placed.enemies)) == 8
             assert all(distance[c]>=expected and c[1]>placed.breach_y for c in placed.enemies), entry.filename
@@ -37,9 +46,12 @@ def test_shallow_corridor_adjusts_frontier_and_preserves_headcount():
     placed = fit_encounter(terrain,[(64,64)],[(256,224)]*8,[(448,160)],
                            objective_kind="containment",breach_y=192)
     assert len(set(placed.enemies)) == 8
-    assert placed.breach_y == 128
-    assert all(y>=256 for x,y in placed.enemies)
-    assert max(y for x,y in placed.deployment_cells) == 96
+    region = connected_regions(terrain)[0]
+    distance = approach_distances(
+        region, containment_breach_cells(region, placed.breach_y, placed.objectives[0][0])
+    )
+    assert all(distance[cell] > 3 for cell in placed.enemies)
+    assert all(y <= placed.breach_y for x,y in placed.deployment_cells)
 
 
 def test_freeway_has_four_step_approaches_at_small_viewports():
@@ -48,7 +60,9 @@ def test_freeway_has_four_step_approaches_at_small_viewports():
         placed=fit_encounter(terrain,[(96+i*64,64) for i in range(6)],[(1152,352+i*32) for i in range(8)],
                              [(448,320)],objective_kind="containment",breach_y=192)
         region=connected_regions(terrain)[0]
-        distance=approach_distances(region,{c for c in region if c[1]<=placed.breach_y})
+        distance=approach_distances(
+            region, containment_breach_cells(region, placed.breach_y, placed.objectives[0][0])
+        )
         assert min(distance[c] for c in placed.enemies)>=4
         assert all(y<=placed.breach_y for x,y in placed.allies)
 
@@ -70,4 +84,4 @@ def test_real_starver_cannot_cross_on_first_activation_when_four_steps_fit():
                           can_enter=terrain.is_walkable,terrain_profile=terrain)
     engine.start_player_turn()
     assert not engine.start_enemy_turn().ended
-    assert enemy.position[1]>placed.breach_y and not objective.failed
+    assert not objective.failed

@@ -1365,13 +1365,16 @@ def draw_objective_marker(objective: object, elapsed: float, *, battlefield_widt
             # upper tile edge, not the centre of the last forbidden row.
             edge = (breach_y // CELL + 0.5) * CELL
             danger = (255, 95, 90, 210)
-            arcade.draw_lrbt_rectangle_filled(0, battlefield_width, max(0, edge-CELL), edge,
+            half_width = max(CELL, int(getattr(objective, "breach_half_width", CELL * 3)))
+            left = max(0, ox - half_width - CELL / 2)
+            right = min(battlefield_width, ox + half_width + CELL / 2)
+            arcade.draw_lrbt_rectangle_filled(left, right, max(0, edge-CELL), edge,
                                                (*danger[:3], 36))
-            arcade.draw_line(0, edge, battlefield_width, edge, danger, 3)
-            for x in range(16, battlefield_width, 64):
+            arcade.draw_line(left, edge, right, edge, danger, 3)
+            for x in range(int(left) + 16, int(right), 64):
                 arcade.draw_line(x, edge-6, x+12, edge-18, danger, 2)
                 arcade.draw_line(x+12, edge-18, x+24, edge-6, danger, 2)
-            arcade.draw_text("BREACH LINE - KEEP HOSTILES ABOVE", battlefield_width/2, edge+8,
+            arcade.draw_text("BREACH ZONE - KEEP HOSTILES OUT", (left+right)/2, edge+8,
                              danger, font_size=10, bold=True, anchor_x="center")
 
     if getattr(objective, "kind", "") == "defend" and not completed:

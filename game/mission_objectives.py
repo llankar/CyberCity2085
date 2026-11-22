@@ -60,14 +60,15 @@ _OBJECTIVE_PROTOTYPES = {
         "phase_labels": ["BREACH CACHE", "COMPLETE DOWNLOAD"],
     },
     "containment": {
-        "label": "BREACH LINE",
-        "description": "hold the containment line and prevent Starvers or mutants from crossing",
-        "interaction_prompt": "Keep hostiles above the marked breach line. Eliminate them to contain the threat.",
-        "success_condition": "Win while no enemy crosses the containment threshold.",
-        "failure_condition": "Containment fails if an enemy crosses the breach line.",
-        "completion_message": "Containment line held. Threat contained.",
+        "label": "BREACH ZONE",
+        "description": "hold the marked containment breach and prevent Starvers or mutants from crossing",
+        "interaction_prompt": "Keep hostiles out of the marked breach zone. Eliminate them to contain the threat.",
+        "success_condition": "Win while no enemy crosses the marked containment breach.",
+        "failure_condition": "Containment fails if an enemy crosses the marked breach zone.",
+        "completion_message": "Containment breach held. Threat contained.",
         "required_interactions": 1,
         "breach_y": 192,
+        "breach_half_width": 96,
     },
     "civilian_rescue": {
         "label": "CIVILIANS",
@@ -127,6 +128,7 @@ class BattleObjective:
     required_interactions: int = 1
     marker_positions: list[tuple[int, int]] = field(default_factory=list)
     breach_y: int | None = None
+    breach_half_width: int = 96
     phase_labels: list[str] = field(default_factory=list)
     interaction_turns: list[int] = field(default_factory=list)
     hold_turns_after_interaction: int = 0
@@ -194,6 +196,7 @@ def create_battle_objective(
         required_interactions=int(prototype.get("required_interactions", 1)),
         marker_positions=marker_positions,
         breach_y=prototype.get("breach_y"),
+        breach_half_width=int(prototype.get("breach_half_width", 96)),
         phase_labels=list(prototype.get("phase_labels", [])),
         hold_turns_after_interaction=int(prototype.get("hold_turns_after_interaction", 0)),
     )
@@ -244,7 +247,10 @@ def objective_failed_by_enemy_positions(
     if objective is None or objective.completed:
         return False, ""
     if objective.kind == "containment" and objective.breach_y is not None:
-        if any(y <= objective.breach_y for _, y in enemy_positions):
+        center_x = objective.position[0]
+        half_width = max(grid_size, int(getattr(objective, "breach_half_width", 96)))
+        if any(y <= objective.breach_y and abs(x - center_x) <= half_width
+               for x, y in enemy_positions):
             return True, objective.failure_condition
     if objective.kind == "defend":
         ox, oy = objective.position

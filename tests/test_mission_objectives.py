@@ -87,10 +87,12 @@ class MissionObjectivesTest(unittest.TestCase):
 
         safe, _ = objective_failed_by_enemy_positions([(448, 224)], objective)
         failed, reason = objective_failed_by_enemy_positions([(448, 160)], objective)
+        outside_zone, _ = objective_failed_by_enemy_positions([(96, 160)], objective)
 
         self.assertFalse(safe)
+        self.assertFalse(outside_zone)
         self.assertTrue(failed)
-        self.assertIn("crosses the breach line", reason)
+        self.assertIn("crosses the marked breach zone", reason)
 
     def test_civilian_rescue_requires_multiple_groups(self):
         objective = create_battle_objective(_mission("civilian_rescue"))

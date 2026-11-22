@@ -595,6 +595,8 @@ def run_enemy_ai(
                         results.append(EnemyActionResult(enemy, None, moved=True, decision_reason="objective_pressure"))
                         if _check_overwatch(enemy, player_units, enemy_units, on_overwatch_shot, on_defeated, cover_nodes):
                             break
+                        if getattr(objective, "kind", "") == "containment":
+                            enemy.action_points = 0
                         continue
                     if on_plan_interrupted:
                         on_plan_interrupted(enemy, "movement_blocked")

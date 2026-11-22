@@ -4,6 +4,14 @@ from collections import deque
 from dataclasses import dataclass
 
 MAX_OPENING_MOVES = 3  # Two AP plus the Starver movement-only stride.
+CONTAINMENT_HALF_WIDTH = 96
+
+
+def containment_breach_cells(region, breach_y, center_x, half_width=CONTAINMENT_HALF_WIDTH):
+    """Cells whose centres form the marker-local containment breach."""
+    local = {cell for cell in region
+             if cell[1] <= breach_y and abs(cell[0] - center_x) <= half_width}
+    return local or {cell for cell in region if cell[1] <= breach_y}
 
 
 def defense_approach_distances(region, objectives):
@@ -66,7 +74,8 @@ def fit_encounter(profile, allies, enemies, objectives=(), *, objective_kind="el
         raise ValueError("Authored map has insufficient deployment space")
     if objective_kind == "containment":
         original_line = max(breach_y or 0, max(y for x, y in bottom)+profile.cell_size)
-        field = approach_distances(region, {cell for cell in region if cell[1] <= original_line})
+        center_x = objectives[0][0] if objectives else sum(x for x, _ in bottom) // max(1, len(bottom))
+        field = approach_distances(region, containment_breach_cells(region, original_line, center_x))
         capacity = len(enemies)+len(objectives)
         if sum(field.get(cell, 0) > MAX_OPENING_MOVES for cell in region-bottom) < capacity:
             # Try shallower allied bands only when the original frontier leaves
@@ -76,7 +85,7 @@ def fit_encounter(profile, allies, enemies, objectives=(), *, objective_kind="el
                 line = top+profile.cell_size
                 if len(band) < len(allies):
                     continue
-                distance = approach_distances(region, {cell for cell in region if cell[1] <= line})
+                distance = approach_distances(region, containment_breach_cells(region, line, center_x))
                 if sum(distance.get(cell, 0) > MAX_OPENING_MOVES for cell in region-band) >= capacity:
                     bottom, breach_y = band, line
                     break
@@ -99,7 +108,8 @@ def fit_encounter(profile, allies, enemies, objectives=(), *, objective_kind="el
     if objective_kind == "containment":
         breach_y = max(breach_y or 0, max(y for x, y in bottom) + profile.cell_size)
         enemy_region = {cell for cell in enemy_region if cell[1] > breach_y}
-        distances = approach_distances(region, {cell for cell in region if cell[1] <= breach_y})
+        center_x = objective_positions[0][0] if objective_positions else sum(x for x, _ in bottom) // max(1, len(bottom))
+        distances = approach_distances(region, containment_breach_cells(region, breach_y, center_x))
         # Prefer a full response activation, preserving authored headcount on
         # shallow corridors where four steps cannot physically fit.
         ranked = sorted((distances.get(cell, 0) for cell in enemy_region-occupied), reverse=True)

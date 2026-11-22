@@ -32,10 +32,38 @@ class EnemyOrders:
         self._next_targets: dict[int, object] = {}
 
     def _stage_defensive_breaches(self, enemies, objective):
-        """Keep a defended-zone push readable instead of rushing the full roster."""
-        if objective is None or getattr(objective, "kind", "") != "defend":
+        """Keep defensive pushes readable instead of rushing the full roster."""
+        if objective is None or getattr(objective, "kind", "") not in {"defend", "containment"}:
             return
         living_orders = [enemy for enemy in enemies if enemy.health > 0 and id(enemy) in self.orders]
+        if objective.kind == "containment":
+            center_x = objective.position[0]
+            breach_y = int(objective.breach_y or 0)
+            active = min(
+                living_orders,
+                key=lambda enemy: (
+                    max(0, enemy.position[1] - breach_y),
+                    abs(enemy.position[0] - center_x),
+                    enemy.position,
+                ),
+                default=None,
+            )
+            for enemy in living_orders:
+                order = self.orders[id(enemy)]
+                if enemy is active:
+                    order.intent = replace(
+                        order.intent, action="BREACH", target=None,
+                        target_name="containment zone", destination=None, coordinator=None,
+                        rationale="BREACH WAVE: advance one telegraphed cell toward the marked zone",
+                    )
+                else:
+                    order.intent = replace(
+                        order.intent, action="HOLD", target=None,
+                        target_name="breach reserve", destination=None, coordinator=None,
+                        rationale="BREACH WAVE: screen the active push; advance when the lane opens",
+                    )
+                order.target_position = None
+            return
         breachers = [enemy for enemy in living_orders
                      if self.orders[id(enemy)].intent.action == "BREACH"
                      and self.orders[id(enemy)].intent.target is None]

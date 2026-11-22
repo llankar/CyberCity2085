@@ -1791,8 +1791,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "TAC-ENEMY-05 defend waves IN_PROGRESS. Defend orders now expose at most one breacher per three living enemies, capped at two, while the remaining breachers visibly hold in reserve. 51 targeted tests passed. The real 122-map defend pass produced 118 victories, 4 defeats, zero limits and zero errors. Multiple containment variants were measured and rejected before commit because they did not robustly improve the real-map pass; global breach lines behind occlusion remain open.",
-  "next_action": "TAC-ENEMY-05 : define a marker-local containment breach zone, verify it first on three representative geometries, and run all 122 maps only if those cases improve without limits. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
+  "latest_batch": "TAC-ENEMY-05 marker-local containment IN_PROGRESS. Python/Arcade now uses one seven-cell breach zone for failure, enemy routing, placement and rendering, with one telegraphed one-cell breach advance per phase. Three pilot maps improved to two standard victories and one extended turn-63 victory without stagnation. The real 122-map pass produced 109 victories, 9 defeats and 4 active limits; the 1,728-run matrix produced 1,505 victories, 223 defeats, zero limits and zero errors. Godot geometry parity remains NOT VERIFIED.",
+  "next_action": "TAC-ENEMY-05 : serialize the local containment breach geometry into the tactical payload, implement matching Godot runtime/render behavior and tests, then run one targeted native containment mission. Keep Alt+Tab, multi-monitor DPI and audio listening NOT VERIFIED until manual validation; do not automate the Windows desktop or regenerate global proof artifacts.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

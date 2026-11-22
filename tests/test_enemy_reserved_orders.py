@@ -125,6 +125,31 @@ def test_defend_objective_stages_a_readable_breach_wave():
     assert all("BREACH WAVE" in intent.rationale for intent in intents if intent.action == "HOLD")
 
 
+def test_containment_stages_one_breacher_and_one_cell_per_phase():
+    a, b, _ = squad()
+    a.position, b.position = (320, 0), (352, 0)
+    enemies = [
+        Unit(position=(256 + index * 32, 224 + index * 32), health=30,
+             stats=EnemyStats(max_hp=30), unit_type="enemy",
+             enemy_theme="corp_samurai", attack_range=1)
+        for index in range(3)
+    ]
+    objective = BattleObjective("containment", (320, 192), "Hold zone", breach_y=128)
+    engine = CombatEngine(CombatState(None, [a, b], enemies, objective=objective))
+
+    engine.start_player_turn()
+    intents = engine.enemy_intents()
+    active = next(intent.enemy for intent in intents if intent.action == "BREACH")
+    before = active.position
+    assert sum(intent.action == "BREACH" for intent in intents) == 1
+    assert sum(intent.action == "HOLD" for intent in intents) == 2
+
+    engine.start_enemy_turn()
+
+    assert active.action_points == 0
+    assert abs(active.position[0] - before[0]) + abs(active.position[1] - before[1]) == 32
+
+
 def test_books_are_isolated_and_new_reinforcements_get_an_order():
     a, b, enemy = squad()
     first = CombatEngine(CombatState(None, [a, b], [enemy]))
