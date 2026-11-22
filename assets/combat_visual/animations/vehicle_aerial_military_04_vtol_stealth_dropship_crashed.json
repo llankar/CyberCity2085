@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_military_04_vtol_stealth_dropship_crashed.png",
+  "texture_sha256": "d9ade7a7f51a4874bbb630c665abe249b0001578a0e06db20ed63d2bb2a9bfce",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_crashed_512.png",
+  "source_sha256": "37f432e5752f3c9335f51251ebe9ada444be6d8b89013a98ff48a45c588fc450",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_04_vtol_stealth_dropship_crashed/idle-single_row_pair-0.png",
+      "sha256": "44d5eb7751a0e6d0d35c3cad2cb772529ee473bc0306136b7a7ae36b19fa3240",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_military_04_vtol_stealth_dropship_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "bf086e9dc848d1aab89d996fa57a3430f6aec2f7673fb171ff8c1ef28ee02588"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed military VTOL stealth dropship is an immobile decorative wreck with 0 AP.",
+    "fire": "The terminal wreck has no tactical fire action.",
+    "melee": "The terminal wreck has no melee action.",
+    "cover": "The terminal wreck has no cover action.",
+    "hit": "The terminal wreck has no authored hit action.",
+    "death": "The vehicle is already a terminal wreck.",
+    "psi": "The crashed military VTOL stealth dropship has no psychic action.",
+    "heal": "The crashed military VTOL stealth dropship has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
