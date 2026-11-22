@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_04_armored_ambulance.png",
+  "texture_sha256": "8223b245b6b9d54d7fb87d2dd72d1dcaa8f0abce7c64405aeeda258f152ad842",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_04_armored_ambulance_512.png",
+  "source_sha256": "2f0442742e107e704934257e1cf3930b3b1f891de6e7725a3d80d0baf1967030",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_04_armored_ambulance/idle-single_row_pair-0.png",
+      "sha256": "0991ff907c984f37e9b3789471f126cc18794b1c0703138dbe9a924c7eb562b5",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_04_armored_ambulance/idle-single_row_pair-0-follow-through.png",
+        "sha256": "0a01266f4bbec2a3327578d997d4d9d20079a84721a5ecd6212fd4690f504c06"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian armored ambulance is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian armored ambulance has no tactical fire action.",
+    "melee": "The civilian armored ambulance has no melee action.",
+    "cover": "The civilian armored ambulance has no cover action.",
+    "hit": "The civilian armored ambulance has no authored hit action.",
+    "death": "The civilian armored ambulance has no authored death action.",
+    "psi": "The civilian armored ambulance has no psychic action.",
+    "heal": "The civilian armored ambulance has no tactical heal action; its medical role is environmental in the current roster."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
