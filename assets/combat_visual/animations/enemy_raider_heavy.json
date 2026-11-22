@@ -1,0 +1,475 @@
+{
+  "texture": "assets/combat_visual/animations/enemy_raider_heavy.png",
+  "texture_sha256": "80f71585ab8a09d7ab5192b094764e546c75d066716303316071f6e6e12e0c2c",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.765625,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    "move": {
+      "fps": 8,
+      "loop": true,
+      "rows": [
+        [
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23
+        ],
+        [
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31
+        ],
+        [
+          32,
+          33,
+          34,
+          35
+        ],
+        [
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43
+        ],
+        [
+          44,
+          45,
+          46,
+          47
+        ]
+      ]
+    },
+    "fire": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          48,
+          49
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    "melee": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          64,
+          65
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          78,
+          79
+        ]
+      ]
+    },
+    "cover": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          80,
+          81
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          94,
+          95
+        ]
+      ]
+    },
+    "hit": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          96,
+          97
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          110,
+          111
+        ]
+      ]
+    },
+    "death": {
+      "fps": 8,
+      "loop": false,
+      "rows": [
+        [
+          112,
+          113
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          126,
+          127
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/enemy_raider_heavy_512.png",
+  "source_sha256": "6e3fc118994ec30fda4098d83418457c2d98ee8f32a9c043ac989010699aa56f",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/idle-single_row_pair-0.png",
+      "sha256": "0353a197e74c8b90f4f232ceb5cd0651aacedbdf5d815eabaf351e97e3cca618",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/idle-single_row_pair-0-follow-through.png",
+        "sha256": "4ae4b0abdb2786c2f1f905a251cb70875b8851745aa8f1a83cce16e39d5328f2"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/move-walk_rows-1.png",
+      "sha256": "06fbac2cdb8a31a7484091f09386f9838595a3dbcf9a2910544cb92cd53fc873",
+      "clip": "move",
+      "layout": "walk_rows",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "edge_erosion": 1,
+      "chroma_key": [
+        0,
+        255,
+        255
+      ],
+      "chroma_inner": 4,
+      "chroma_outer": 128
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/fire-single_row_pair-2.png",
+      "sha256": "036fd0d86bb0ecc1fb89a65989f0f1d40415e53b68393705eebe2c5be69a13f7",
+      "clip": "fire",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/fire-single_row_pair-2-follow-through.png",
+        "sha256": "d102c8716c5dbdc031d5ccce1221fcf456af3a6705378b452ff1110758649602"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/melee-single_row_pair-3.png",
+      "sha256": "c8000a38a3514cada87107fd437c8be3664618c5a25baea7c49cc80c3e6beff7",
+      "clip": "melee",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/melee-single_row_pair-3-follow-through.png",
+        "sha256": "7c9c8e7eeeca88df13d8658183bb4b81be8c1091f1e106f33dd1c33282889479"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/cover-single_row_pair-4.png",
+      "sha256": "e095865b98cec7ed41bbcaf6d03df7ea1c01d256181a399a9dacbaa3db58ca6c",
+      "clip": "cover",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/cover-single_row_pair-4-follow-through.png",
+        "sha256": "38e59344bc69f2b1ad926a2b8e5ada60d5395ee98026022ac81295ed57fe78d9"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/hit-single_row_pair-5.png",
+      "sha256": "67a7da8655d9cb59305035409d0035c1e5b41af8560387726362be1f59c51b0f",
+      "clip": "hit",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/hit-single_row_pair-5-follow-through.png",
+        "sha256": "1b84f86047732dba32f5a6d13cf3d9f47b057bcc02a66b5dd5ee1e73765e2074"
+      },
+      "edge_erosion": 1
+    },
+    {
+      "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/death-single_row_pair-6.png",
+      "sha256": "27453e433863063af5e9b0bc409aa4bb0d28692e0053eb4db2a0b0f8d7ddf464",
+      "clip": "death",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/enemy_raider_heavy/death-single_row_pair-6-follow-through.png",
+        "sha256": "ffb18dfe0906897c8f2cfc5f5eec28f1013f656e16422be905ac6facf2802deb"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle",
+    "move",
+    "fire",
+    "melee",
+    "cover",
+    "hit",
+    "death"
+  ],
+  "non_applicable_clips": {
+    "psi": "The raider heavy has no authored psychic ability.",
+    "heal": "The raider heavy has no medical combat action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
