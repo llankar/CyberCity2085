@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_09_delivery_rover.png",
+  "texture_sha256": "9ad497d9b33eadb8aaac15f1e85df0a58c0c07d64d465759a6844bd7f3be12e5",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_09_delivery_rover_512.png",
+  "source_sha256": "db6fa67fe3a69c2897a12f4c82f9cf340df273507c78e9d36917208c23138b30",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_09_delivery_rover/idle-single_row_pair-0.png",
+      "sha256": "81167de36f2de9a17a458edc66bcaef2c234c8cbf3499cdde52c98768a344b41",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_09_delivery_rover/idle-single_row_pair-0-follow-through.png",
+        "sha256": "92394750ef0c39b86cf9c2212ad5bddfee61335dcccbcb2cdb528f0b29a0d845"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian delivery rover is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian delivery rover has no tactical fire action.",
+    "melee": "The civilian delivery rover has no melee action.",
+    "cover": "The civilian delivery rover has no cover action.",
+    "hit": "The civilian delivery rover has no authored hit action.",
+    "death": "The civilian delivery rover has no authored death action.",
+    "psi": "The civilian delivery rover has no psychic action.",
+    "heal": "The civilian delivery rover has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
