@@ -1,0 +1,95 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_terrestrial_civil_01_neon_taxi.png",
+  "texture_sha256": "e1bab05053a114d7d91113b1c694349af69c246bdac92e3c2cb3d346b0f4acdd",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_terrestrial_civil_01_neon_taxi_512.png",
+  "source_sha256": "45f57a77b119f9631e4bf5889c2d6f8b535f606334a12d23d3a67706b80ce165",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_01_neon_taxi/idle-single_row_pair-0.png",
+      "sha256": "a18668c6537bd16e1db5b9e10cb1bbc9f2c45ebb4e80d1528efa1a1d55a4eedd",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_terrestrial_civil_01_neon_taxi/idle-single_row_pair-0-follow-through.png",
+        "sha256": "a71b95a1b11e5f2171a302fd3af0edd5ce96ef3dad17afeed57d2af65d584136"
+      }
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian neon taxi is a stationary decorative vehicle with 0 AP in the current tactical roster.",
+    "fire": "The civilian neon taxi has no tactical fire action.",
+    "melee": "The civilian neon taxi has no melee action.",
+    "cover": "The civilian neon taxi has no cover action.",
+    "hit": "The civilian neon taxi has no authored hit action.",
+    "death": "The civilian neon taxi has no authored death action.",
+    "psi": "The civilian neon taxi has no psychic action.",
+    "heal": "The civilian neon taxi has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
