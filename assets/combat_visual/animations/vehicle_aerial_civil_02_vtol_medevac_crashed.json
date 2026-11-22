@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_02_vtol_medevac_crashed.png",
+  "texture_sha256": "a0ae53f61ca317bd0ea6d475213085f8f4b09e7ca4cae209c0cf397188397547",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_02_vtol_medevac_crashed_512.png",
+  "source_sha256": "20bce6c57ec1ae47b627aba30b02447b485845d2b02b60ad89cf976f126f00a9",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_02_vtol_medevac_crashed/idle-single_row_pair-0.png",
+      "sha256": "5879a4bd2ed3c153b807fa4dc69f09bb9c75372c518632c95b57293e3cbabdf0",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_02_vtol_medevac_crashed/idle-single_row_pair-0-follow-through.png",
+        "sha256": "e5ea8e13c7470d609d15629eaf37cae75124ede6c4e4df0474c7bd353fc2c2a2"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The crashed medevac VTOL is an immobile decorative wreck with 0 AP.",
+    "fire": "The crashed medevac VTOL is unarmed.",
+    "melee": "The crashed medevac VTOL has no melee action.",
+    "cover": "The crashed medevac VTOL has no cover action.",
+    "hit": "The wreck has no authored hit action.",
+    "death": "The asset already represents its terminal wreck state.",
+    "psi": "The crashed medevac VTOL has no psychic action.",
+    "heal": "The wreck cannot perform a tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
