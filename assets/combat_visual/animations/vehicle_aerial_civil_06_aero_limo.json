@@ -1,0 +1,96 @@
+{
+  "texture": "assets/combat_visual/animations/vehicle_aerial_civil_06_aero_limo.png",
+  "texture_sha256": "d440ebdfe744bd4d529076f8b99b82f7ebeb9a7e8d8c4f621f76ef4ae1ccb530",
+  "frame_size": [
+    256,
+    256
+  ],
+  "anchor_uv": [
+    0.5,
+    0.953125
+  ],
+  "reference_height_uv": 0.4375,
+  "directions": "E,SE,S,SW,W,NW,N,NE",
+  "animations": {
+    "idle": {
+      "fps": 2,
+      "loop": true,
+      "rows": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    }
+  },
+  "source_image": "assets/units/vehicle_aerial_civil_06_aero_limo_512.png",
+  "source_sha256": "6cf56baf83865907f97362a8a5948b4b7a801eeef29e51b58974f1538ed8ea25",
+  "provenance": [
+    {
+      "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_06_aero_limo/idle-single_row_pair-0.png",
+      "sha256": "4bb23167c865b87b2f1390653246f1278e294d897ff0d7f6f05596dc6bd95376",
+      "clip": "idle",
+      "layout": "single_row_pair",
+      "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings.",
+      "direction_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        0
+      ],
+      "follow_through": {
+        "file": "assets/combat_visual/source_sheets/vehicle_aerial_civil_06_aero_limo/idle-single_row_pair-0-follow-through.png",
+        "sha256": "ddd2f8dc93a8c312a5ffcc9aecdd1a4f9306b33a913ad8ce7a45bef58556f5c6"
+      },
+      "edge_erosion": 1
+    }
+  ],
+  "required_clips": [
+    "idle"
+  ],
+  "non_applicable_clips": {
+    "move": "The civilian aero-limo is a stationary decorative vehicle with 0 AP.",
+    "fire": "The civilian aero-limo is unarmed.",
+    "melee": "The civilian aero-limo has no melee action.",
+    "cover": "The civilian aero-limo has no cover action.",
+    "hit": "The civilian aero-limo has no authored hit action.",
+    "death": "The intact civilian aero-limo has no authored destruction action.",
+    "psi": "The civilian aero-limo has no psychic action.",
+    "heal": "The civilian aero-limo has no tactical heal action."
+  },
+  "coverage": "complete",
+  "missing_clips": [],
+  "review_status": "native_render_verified_complete"
+}
