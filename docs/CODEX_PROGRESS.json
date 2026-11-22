@@ -1218,7 +1218,8 @@
         "TAC-FEEL-01 phase pacing automated subset DONE: a native Godot 4.7.2 regression verifies the 1.86-second normal banner, readable 1.30-second reduced-motion hold, and clean replacement of an in-progress turn announcement. Physical listening and human pacing/impact feel remain NOT VERIFIED.",
         "TAC-STORY-01/02 objective attribution DONE: Godot exports each agent's factual objective interaction count; protocol validation rejects invalid values. Two or more real interactions create one named objective-specialist memory in the debrief and apply Keymaker reputation once. Save/reload and duplicate result replay are idempotent. Seventy-seven focused Python tests and one real Windows Godot 4.7.2 HQ-to-HQ victory path passed.",
         "TAC-STORY-01/02 survivor-under-fire slice DONE: Arcade accumulates real applied damage, received damage and takedowns in the authoritative attack resolver. Shared campaign resolution creates one factual under_fire memory for a living agent above the bounded damage threshold; validated Godot metrics use the same path. Debrief, save/reload and duplicate replay remain idempotent. Sixty-five focused tests and 47 adjacent simulation/campaign tests passed.",
-        "TAC-STORY-01/02 DONE: one shared selector now surfaces the latest recognized factual tactical memory in the next briefing, recovery dialogue, existing debrief path and campaign finale while excluding unrelated history. Covered patterns are last stand, aid under fire, fallen/witness, panic, objective contribution and survivor under fire. Twenty-one direct and 97 adjacent narrative/integration tests passed. Human presentation remains under TAC-FEEL-01/02."
+        "TAC-STORY-01/02 DONE: one shared selector now surfaces the latest recognized factual tactical memory in the next briefing, recovery dialogue, existing debrief path and campaign finale while excluding unrelated history. Covered patterns are last stand, aid under fire, fallen/witness, panic, objective contribution and survivor under fire. Twenty-one direct and 97 adjacent narrative/integration tests passed. Human presentation remains under TAC-FEEL-01/02.",
+        "BALANCE-MIXED recruited-role correction IN_PROGRESS: sustained QA now creates agents through the real role-biased recruitment path, applies starter loadouts and one conservative signature-stat point per completed level, and uses overwatch rather than passive defense when a ranged unit has no legal attack. Across 122 extreme risk-5/six-hostile elimination maps, mixed scored 104/17/1, understrength 0/116/6, support 115/6/1 and piloted armor 2/111/9 (victory/defeat/limit). Fifteen authored story missions scored 15/15, 13/15, 15/15 and 14/15 victories. At 100 turns seven limits persist; two show 32/38 unchanged rounds and remain open. Twenty focused tests passed, then the full gate passed 1216 tests, 36 skips and 14 subtests in 265.31 seconds."
       ],
       "evidence": [
         "docs/images/combat-directional-animation/README.md",
@@ -1854,14 +1855,14 @@
       "evidence": [
         {
           "path": "docs/reports/current_unified_progress_tests.xml",
-          "sha256": "e220bd05d685e552038c04c1403cfb140ad7eaecefb22569a70af890c3cf8e17"
+          "sha256": "5b33c1a4c120c3f81fc6595e489d4929e97c7d6a6422f7376508ace351be84d7"
         }
       ]
     }
   },
   "test_run": {
     "path": "docs/reports/current_unified_progress_tests.xml",
-    "sha256": "e220bd05d685e552038c04c1403cfb140ad7eaecefb22569a70af890c3cf8e17",
+    "sha256": "5b33c1a4c120c3f81fc6595e489d4929e97c7d6a6422f7376508ace351be84d7",
     "scope": "122 tests fonctionnels réussis, 0 échec, 0 skip et 2 sous-tests : commandes/sélection Arcade, mouvement/occupation, ciblage/LOS, attaques, PA/tours, IA/ordres/routes, équipes mixtes et supports, flux statique, briefing et fallback Godot. La suite complète séparée a réussi 1216 tests, 36 skips et 14 sous-tests.",
     "not_executed": [],
     "sources": [
@@ -1899,7 +1900,7 @@
       },
       {
         "path": "tests/test_mixed_squad_balance.py",
-        "sha256": "ef6876bfd275495110ddf8ada57eae2db8134a5918adec9dcd8f202602f8a45d"
+        "sha256": "f5be7f1ec49ece6fab4e4cf2f0bf1a32725c50b1cfa1bdba0d65625568180b28"
       },
       {
         "path": "tests/test_static_game_flow_e2e.py",
@@ -1944,8 +1945,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-    "latest_batch": "The reproducible Combat Visual acceptance gate now records FUNCTIONAL PASS and TARGETED-TESTS PASS against the current render signature. The focused current-source run passed 122 tests with zero failures and zero skips, plus two subtests, across Arcade commands and selection, movement and occupation, targeting and LOS, attacks, AP and turns, enemy AI/orders/routes, mixed and supported squads, static flow, briefing and Godot fallback. Its existing JUnit register entry and all 14 test-source hashes were verified. The global gate remains incomplete solely because TASK-COMPLETION is 60/67; automated checks do not replace the remaining visible Windows and human audio acceptance.",
-    "next_action": "Run the current packaged executable manually and record visible readiness, automatic focus, resize, Alt+Tab, minimize/restore, multi-display DPI, physical controller, victory/defeat/retreat tactical playthroughs and audible fades in the existing registry; desktop automation is forbidden. Separately, when the ElevenLabs provider view exposes completed media, download and human-audition the five pilot generations before any integration. Keep the nine persistent extreme pacing cases open without raising the turn cap.",
+    "latest_batch": "Sustained mixed-squad QA no longer labels generic agents as roles without their real recruitment statistics. It now uses the production recruitment path, starter loadouts, conservative signature-stat progression and ranged overwatch fallback. Four profiles ran across all 122 authored maps at extreme risk 5/count 6: mixed 104/17/1, understrength 0/116/6, support 115/6/1 and piloted armor 2/111/9 (victory/defeat/limit). All 15 authored story missions remain won by mixed/support, with 13/15 understrength and 14/15 piloted-armor wins. A 100-turn diagnostic leaves seven limits, six understrength and one piloted armor; two exhibit 32/38 unchanged rounds. The full E: gate passed 1216 tests, 36 skips and 14 subtests in 265.31 seconds; the refreshed 122-test acceptance slice passed with zero failures/skips.",
+    "next_action": "Correct tactical repositioning in the two persistent static extreme cases without changing production statistics or raising the turn cap, then rebuild the Windows candidate on E:. Manual Windows acceptance and human audition of the pending ElevenLabs pilots remain separate and desktop automation is forbidden.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {

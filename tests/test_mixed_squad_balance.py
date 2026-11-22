@@ -10,6 +10,16 @@ def test_real_deployment_profiles_keep_pilot_and_support_identity() -> None:
         assert allies
         assert len({id(unit) for unit in allies}) == len(allies)
         assert len({unit.position for unit in allies}) == len(allies)
+        if profile != "rifle":
+            assert all(character.stats.level == 4 for character in characters)
+            assert all(character.stats.hp == character.stats.max_hp for character in characters)
+            by_role = {character.role: character for character in characters}
+            if "samurai" in by_role:
+                assert by_role["samurai"].stats.str > by_role["samurai"].stats.agi
+            if "sniper" in by_role:
+                assert by_role["sniper"].stats.agi > by_role["sniper"].stats.str
+            if "psi" in by_role:
+                assert by_role["psi"].stats.psi > by_role["psi"].stats.agi
         if profile == "support":
             assert sum(unit.spec_ops_asset is not None for unit in allies) == 2
         if profile == "piloted_armor":

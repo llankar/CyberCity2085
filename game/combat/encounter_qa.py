@@ -5,6 +5,8 @@ from pathlib import Path
 import random
 
 from game.character import Character
+from game.combat_actions import available_combat_actions
+from game.recruitment import create_character
 from game.combat_system import create_enemy_units, create_player_units
 from game.cover_system import CoverNode
 from game.management.equipment import Weapon, equip_starter_loadout
@@ -61,9 +63,26 @@ def create_qa_allies(profile: str, level: int) -> tuple[list[Character], list[Un
         "support": (("Rook", "samurai"), ("Longshot", "sniper"), ("Oracle", "psi"), ("Echo", "medic")),
         "piloted_armor": (("Mara", "sniper"), ("Rook", "samurai"), ("Echo", "medic")),
     }
-    characters = [Character(name, role=role) for name, role in role_rows[profile]]
+    # Use the same role-biased base statistics as real recruited agents.  A
+    # bare Character would label a sniper/psi without granting their actual
+    # AGI/PSI identity and made the balance bench measure generic level-one
+    # bodies against level-scaled enemies.
+    characters = [create_character(name, role) for name, role in role_rows[profile]]
     for character in characters:
         character.stats.level = level
+        signature_stat = {
+            "samurai": "str",
+            "sniper": "agi",
+            "psi": "psi",
+            "medic": "agi",
+        }[character.role]
+        setattr(
+            character.stats,
+            signature_stat,
+            min(10, getattr(character.stats, signature_stat) + max(0, level - 1)),
+        )
+        character.stats.recalculate_hp()
+        character.stats.hp = character.stats.max_hp
         equip_starter_loadout(character.loadout, character.role)
     assets = []
     if profile == "support":
@@ -356,7 +375,8 @@ def _simulate(theme, level, risk, count, seed, policy, layout, max_turns, object
                         if step:
                             perform("move", actor=actor, move_delta=step)
                 if actor.action_points >= before:
-                    perform("defend", actor=actor)
+                    available = {action.key for action in available_combat_actions(actor)}
+                    perform("overwatch" if "overwatch" in available else "defend", actor=actor)
                     break
                 check_geometry()
         result = engine.end_battle_check()
