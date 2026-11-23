@@ -97,6 +97,7 @@ def draw_overview(p, r: Rect):
         y = specs.top - (55 + i*55)*u
         p.label(item.node.name.upper(), specs.left+16*u, y, 12, MINT, bold=True, width=specs.width-32*u)
         p.label(item.node.description, specs.left+16*u, y-21*u, 10, TEXT, width=specs.width-32*u)
+    p.hit(specs, "dossier_tab", "skills", "Open skills and specializations")
 
     attr = Rect(middle.left, middle.top-middle.height*.34, middle.right, middle.top)
     _panel(p, attr, "ATTRIBUTES", CYAN)
@@ -189,6 +190,20 @@ def draw_inventory(p, r: Rect):
             delta = new-old
             p.label(f"{key.upper():<12} {old:+d}  →  {new:+d}   ({delta:+d})", detail.left+16*u, y, 12, MINT if delta>0 else RED if delta<0 else MUTED, width=detail.width-32*u)
             y -= 29*u
+        metrics = []
+        if isinstance(chosen, Weapon):
+            old_weapon = equipped if isinstance(equipped, Weapon) else None
+            metrics.extend([
+                ("RANGE", old_weapon.range_cells if old_weapon else 0, chosen.range_cells),
+                ("DAMAGE", old_weapon.damage_bonus if old_weapon else 0, chosen.damage_bonus),
+            ])
+        if isinstance(chosen, Armor):
+            old_armor = equipped if isinstance(equipped, Armor) else None
+            metrics.append(("MITIGATION", old_armor.mitigation if old_armor else 0, chosen.mitigation))
+        for label, old, new in metrics:
+            delta = new-old
+            p.label(f"{label:<12} {old:+d}  →  {new:+d}   ({delta:+d})", detail.left+16*u, y, 12, MINT if delta>0 else RED if delta<0 else MUTED, width=detail.width-32*u)
+            y -= 29*u
         equip = Rect(detail.left+16*u, detail.bottom+18*u, detail.right-16*u, detail.bottom+64*u)
         p.paint.panel(equip, GOLD, selected=True)
         p.label("EQUIP" if not equipped or equipped.id != chosen.id else "REMOVE", *equip.center, 13, GOLD, bold=True, anchor_x="center")
@@ -204,6 +219,10 @@ def draw_cyberware(p, r: Rect):
     _panel(p, summary, "CYBERWARE MAP", VIOLET)
     figure = Rect(summary.left+20*u, summary.bottom+150*u, summary.right-20*u, summary.top-52*u)
     _draw_anatomy(p, figure, getattr(p.view, "dossier_cyberware_zone", ZONE_ORDER[0]))
+    if p.view._elapsed < getattr(p.view, "dossier_cyber_scan_until", 0.0):
+        progress = 1.0 - max(0.0, p.view.dossier_cyber_scan_until - p.view._elapsed) / 0.6
+        scan_y = figure.bottom + figure.height * progress
+        arcade.draw_line(figure.left, scan_y, figure.right, scan_y, (*GOLD, 235), max(2, 3*u))
     remaining = humanity_remaining(c.installed_cyberware)
     p.label(f"HUMANITY {remaining} / {MAX_HUMANITY}", summary.left+15*u, summary.bottom+116*u, 16, GOLD, bold=True)
     p.label(f"INSTALLED {len(c.installed_cyberware)} / {len(ZONE_ORDER)}", summary.left+15*u, summary.bottom+82*u, 13, TEXT)
@@ -225,7 +244,9 @@ def draw_cyberware(p, r: Rect):
     for row, item in zip(_rows(Rect(catalog.left+9*u, catalog.bottom+12*u, catalog.right-9*u, catalog.top-45*u), 10, 3*u), items):
         active = selected_id == item.id
         installed = item.id in c.installed_cyberware
-        p.paint.panel(row, GOLD if active else MINT if installed else CYAN, selected=active)
+        affordable = item.credit_cost <= p.gs.available_funds and item.humanity_cost <= MAX_HUMANITY
+        row_color = GOLD if active else MINT if installed else CYAN if affordable else MUTED
+        p.paint.panel(row, row_color, selected=active)
         p.label(item.name.upper(), row.left+8*u, row.center[1]+7*u, 9, TEXT, bold=True, width=row.width-16*u)
         p.label(f"CR {item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", row.left+8*u, row.center[1]-10*u, 8, GOLD, width=row.width-16*u)
         p.hit(row, "dossier_cyberware_item", item.id, "Inspect implant")

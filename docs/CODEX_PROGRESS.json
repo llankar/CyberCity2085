@@ -33,7 +33,8 @@
         "Les cinq maquettes sont des references de composition uniquement; aucun texte ou nombre fictif ne sera integre comme image de fond.",
         "Premier lot integre: conteneur commun, cinq onglets, Overview reel, Skills existant preserve, Inventory compatible, Cyberware zonal, Journal campagne et notes personnelles retrocompatibles.",
         "L'ancienne surcouche Cyberware n'est plus dessinee; les anciens appels sont rediriges vers l'onglet integre.",
-        "La barre permanente affiche les cinq ressources reelles; Inventory equipe et retire; la silhouette Cyberware est vectorielle et synchronisee; un test rend les cinq pages."
+        "La barre permanente affiche les cinq ressources reelles; Inventory equipe et retire; la silhouette Cyberware est vectorielle et synchronisee; un test rend les cinq pages.",
+        "Navigation clavier: Tab parcourt les pages, 1-5 les ouvrent directement, Q/E changent d'agent. L'installation Cyberware declenche un scan de 0,6 seconde."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

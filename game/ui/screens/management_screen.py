@@ -2335,6 +2335,8 @@ class ManagementView(GameView):
                 verb = "installed" if reason == "installed" else ("replaced the slot implant" if reason == "replaced" else "removed")
                 self.message = f"{item.name} {verb} for {char.name}."
                 self.game_state.add_event(self.message)
+                if reason in {"installed", "replaced"}:
+                    self.dossier_cyber_scan_until = self._elapsed + 0.6
             elif reason == "funds" and item:
                 self.message = f"Insufficient funds: {item.name} costs ¥{item.credit_cost:,}."
             else:
@@ -2895,6 +2897,7 @@ class ManagementView(GameView):
         self.dossier_note_edit_index: int | None = None
         self.dossier_note_buffer = ""
         self.dossier_note_delete_pending: int | None = None
+        self.dossier_cyber_scan_until = 0.0
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -3046,6 +3049,10 @@ class ManagementView(GameView):
                 from game.ui.components.character_sheet import DOSSIER_PAGES
                 index = DOSSIER_PAGES.index(self.dossier_page)
                 self.dossier_page = DOSSIER_PAGES[(index + 1) % len(DOSSIER_PAGES)]
+            elif key in tuple(getattr(arcade.key, f"KEY_{n}", None) for n in range(1, 6)):
+                from game.ui.components.character_sheet import DOSSIER_PAGES
+                number_keys = [getattr(arcade.key, f"KEY_{n}", None) for n in range(1, 6)]
+                self.dossier_page = DOSSIER_PAGES[number_keys.index(key)]
             elif key in (getattr(arcade.key, "Q", None), getattr(arcade.key, "E", None)):
                 step = -1 if key == getattr(arcade.key, "Q", None) else 1
                 count = len(self.game_state.characters)
