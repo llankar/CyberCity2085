@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generation_status": "partial_7_provider_generations_5_user_supplied_wav_unreviewed",
+  "generation_status": "partial_12_provider_generations_5_downloaded_converted_unreviewed",
   "credits_estimate": {
     "kind": "pilot_provider_estimate_and_full_extrapolation",
     "provider": "ElevenLabs Creative Studio / Sound Effects v2",
@@ -3347,13 +3347,24 @@
     "failed_before_start_count": 4,
     "failure_code": "free_shared",
     "credits_reported_for_started_generations": 16,
-    "status": "provider_view_tracking_pending_generations",
+    "status": "five_generations_completed_downloaded_and_converted_for_technical_qa",
     "auditory_validation_performed": false,
-    "downloaded": false,
-    "note": "The connector view tracks completion. Do not retry or poll these sessions; download and human audition remain required before integration."
+    "downloaded": true,
+    "download_directory": "E:/CyberCity2085-builds/audio-pilot-20261123",
+    "technical_qa": {
+      "format": "PCM signed 16-bit little-endian, 48000 Hz, stereo",
+      "files": [
+        {"generation_id": "YlVWzsQ29QfVjlLdDoQH", "family": "fire_assault", "duration_seconds": 1.48, "peak_dbfs": -16.7, "sha256": "4a480d75703f65f98d5b9f4cd9035d308a0b166ba71d78bf481fd29433b4bb91", "status": "human_audition_pending_low_level"},
+        {"generation_id": "xv8Gzq2sccJdkTGrTECr", "family": "impact_metal", "duration_seconds": 1.0, "peak_dbfs": -40.7, "sha256": "784d0136d88ff8284724277f2228e3bc48477134b1a143a7ddf247c8eb8a08f7", "status": "technical_reject_near_inaudible"},
+        {"generation_id": "P6SGIxatnYJfemFxECnA", "family": "step_concrete", "duration_seconds": 0.8, "peak_dbfs": -7.9, "sha256": "f4812d08d0ae92eab9a4b4f009496c2877b392c720467686f82232e0a625673b", "status": "human_audition_pending"},
+        {"generation_id": "ADTSrRm6qWRR630vM0Wx", "family": "step_concrete", "duration_seconds": 0.8, "peak_dbfs": -2.9, "sha256": "e8c1f2fb7bfb4bced9ba0d892e99dea47e5a94c38368ea3c4e1af433062bbbc7", "status": "human_audition_pending"},
+        {"generation_id": "37gkKwp5ygrM28ESGxii", "family": "ui_click", "duration_seconds": 0.6, "peak_dbfs": -5.8, "sha256": "ff7bba46ff919508cdb16ae62dba14f4ff1d4af0247027c2ee389dba95576ca4", "status": "human_audition_pending"}
+      ]
+    },
+    "note": "All five sessions completed. Their MP3 masters were downloaded and converted on E: for technical QA only. No file was copied into production; human audition and provider-license verification remain required."
   },
   "notes": [
-    "Preserve existing MP3 music. No SFX outputs or WAV files have been downloaded, listened to or approved.",
+    "Preserve existing MP3 music. Five new pilot outputs are staged on E: for technical QA; none has been listened to, approved or copied into production.",
     "Variant paths are targets, not created files. Do not copy placeholders as audio.",
     "Generate stems using Sound Effects v2 then verify audible quality, format, duration, loop seams and license before marking ready.",
     "Retain compatibility fallback for current 19 WAV effects in Arcade and Godot.",
@@ -3366,7 +3377,8 @@
     "2026-11-19: user supplied 5 PCM 48k stereo 16-bit WAV files via conversation staging ZIP. These are NOT committed to git, nor downloaded by assistant; no human listening review performed.",
     "Provider durations disagree with user WAV durations for pistol, rifle and metal impact; generation IDs from user import report need to be verified before integration.",
     "Metal impact user WAV has 3 full-scale samples; technical headroom staging attenuates 3dB but cannot reverse clipped source samples."
-    ,"2026-11-22: authenticated connector access became available. Five missing pilot generations started and four capacity requests failed before start; the provider view tracks the five pending sessions. No retry, download, listening claim or production integration was made."
+    ,"2026-11-22: authenticated connector access became available. Five missing pilot generations started and four capacity requests failed before start; no retry was made."
+    ,"2026-11-23: the five started sessions were confirmed completed, downloaded to E:/CyberCity2085-builds/audio-pilot-20261123 and converted to PCM 48 kHz stereo 16-bit. Technical QA rejects impact_metal xv8Gzq2sccJdkTGrTECr as near-inaudible at -40.7 dBFS peak; the other four remain unreviewed pending human audition and license verification. Nothing entered production."
   ],
   "quality_gate": {
     "audio_generated": true,
@@ -3424,10 +3436,10 @@
     }
   },
   "configured_families": 58,
-  "verified_completed_generations": 7,
+  "verified_completed_generations": 12,
   "audio_families_with_completed_generations": 5,
-  "audio_files_downloaded": 0,
-  "audio_files_converted": 5,
+  "audio_files_downloaded": 5,
+  "audio_files_converted": 10,
   "audio_files_user_supplied_wav": 5,
-  "audio_files_converted_by_assistant": 0
+  "audio_files_converted_by_assistant": 5
 }

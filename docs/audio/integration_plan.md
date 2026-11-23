@@ -1,7 +1,7 @@
 # CyberCity 2085 — Plan d'intégration Codex des bruitages
 
 ## État et limites
-Les assets de `docs/audio/elevenlabs_manifest.json` sont tous **pending_generation**. Ne jamais déclarer une variante créée si le WAV final n'existe pas ; pas de génération ElevenLabs audio achevée. Préserver les MP3 du catalogue. Toujours tester sur une branche avant fusion.
+Le manifeste reste majoritairement **pending_generation**, mais douze générations fournisseur sont maintenant confirmées et cinq sorties du lot du 22 novembre ont été téléchargées puis converties en staging sur `E:`. Aucune n'est intégrée : quatre attendent une écoute humaine et la vérification de licence ; l'impact métal `xv8Gzq2sccJdkTGrTECr` est rejeté techniquement comme quasi inaudible. Ne jamais déclarer une variante prête si le WAV final approuvé n'existe pas. Préserver les MP3 du catalogue.
 
 ## Source de vérité
 - L'ancien inventaire des 19 WAV a été retiré avec la banque historique.
