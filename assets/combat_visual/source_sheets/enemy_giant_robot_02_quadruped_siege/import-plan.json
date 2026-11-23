@@ -57,6 +57,6 @@
       "psi": "The quadruped siege robot has no psionic system.",
       "heal": "The quadruped siege robot has no healing action."
     },
-    "review_status": "native_review_pending"
+    "review_status": "native_render_verified_complete"
   }
 }
