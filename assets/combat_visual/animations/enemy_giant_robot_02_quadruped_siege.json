@@ -1,6 +1,6 @@
 {
   "texture": "assets/combat_visual/animations/enemy_giant_robot_02_quadruped_siege.png",
-  "texture_sha256": "66fb6f1b5f9f9e50f5f0f694284410e6dec9aa06313bd26e2d55b125fa7036a6",
+  "texture_sha256": "e2a9c2fa728c0882611faf1e985cf5a23658f0da8e81f72e0bba52d1d6bb263e",
   "frame_size": [
     256,
     256
@@ -307,14 +307,14 @@
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-front-1.png",
-      "sha256": "5e67f5143b878ec26ae32e237a1f1a77b78c8c0e83e204b889a9cd6c6cf5346c",
+      "sha256": "0c022ed879dcf45b338172b800b903b54342ba57e2b1576640d7eeef2036a219",
       "clip": "move",
       "layout": "front",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
     },
     {
       "file": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-rear-2.png",
-      "sha256": "70f46262ec5c717d08564fed4d5c0b76d7e27696d4cfc43ea036ba002d3ab0b2",
+      "sha256": "483d1ca65e940f55961bdf032c5a0b56aaa4b4e3c0f623f05ea59f2a23e0d0b1",
       "clip": "move",
       "layout": "rear",
       "method": "New drawn poses and viewpoints from original character reference; no flat-image rotation or mirrored facings."
@@ -370,5 +370,5 @@
   },
   "coverage": "complete",
   "missing_clips": [],
-  "review_status": "native_render_verified_complete"
+  "review_status": "native_review_pending"
 }

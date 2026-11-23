@@ -7,12 +7,12 @@
         "layout": "action_rows"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-front.png",
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-front-v2.png",
         "clip": "move",
         "layout": "front"
       },
       {
-        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-rear.png",
+        "path": "assets/combat_visual/source_sheets/enemy_giant_robot_02_quadruped_siege/move-rear-v2.png",
         "clip": "move",
         "layout": "rear"
       },
@@ -57,6 +57,6 @@
       "psi": "The quadruped siege robot has no psionic system.",
       "heal": "The quadruped siege robot has no healing action."
     },
-    "review_status": "native_render_verified_complete"
+    "review_status": "native_review_pending"
   }
 }
