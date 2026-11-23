@@ -3,8 +3,8 @@
 import arcade
 from game.management.equipment import EQUIPMENT_SLOTS, Weapon, Armor
 from game.ui.layouts.world_map_beacons import Rect
-from game.ui.panels import _load_texture_once
 from game.ui.portraits import portrait_path_for_character
+from .equipment_art import equipment_art_path
 from .squad_style import CYAN, GOLD, MINT, TEXT, MUTED
 
 
@@ -91,7 +91,6 @@ def draw_equipment(self, r):
         width=shade.width - 20 * u,
     )
     self.hit(shade, "squad_sheet", index, self.tr("full_sheet"))
-    sheet = _load_texture_once("assets/ui/squad_command/equipment_sheet.png")
     left = hero_right + 3 * u
     gap = 7 * u
     row_h = (inner.height - 5 * gap) / 6
@@ -113,20 +112,7 @@ def draw_equipment(self, r):
             rect.left + art_w,
             rect.top - 3 * u,
         )
-        if isinstance(item, Weapon) and any(
-            tag in item.tags for tag in ("blade", "katana", "melee")
-        ):
-            self.icon("sword", *ar.center, 48, CYAN)
-        elif sheet:
-            key = ("equipment", i)
-            if key not in self._tiles:
-                self._tiles[key] = sheet.crop(
-                    (i % 2) * (sheet.width // 2),
-                    (i // 2) * (sheet.height // 3),
-                    sheet.width // 2,
-                    sheet.height // 3,
-                )
-            self.texture(self._tiles[key], ar, cover=False, alpha=255 if item else 105)
+        self.image(equipment_art_path(item, slot), ar)
         tx = ar.right + 5 * u
         right = rect.right - 41 * u
         self.label(

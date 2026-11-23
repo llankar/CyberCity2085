@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-23) : OPERATIVE-DOSSIER-20 équipement Squad/Inventory DONE. La page Squad utilise désormais le même résolveur d'illustrations par identifiant d'objet que la page Inventory pour les six emplacements. Katana, Mono-Knife et les autres lames affichent leur PNG réel au lieu du pictogramme générique ; un fallback par emplacement reste disponible. Gate ciblé : 70 tests réussis, 1 skip framebuffer X11 attendu sous Windows et 5 sous-tests réussis. Le chantier Operative Dossier global reste IN_PROGRESS.
+
 Source structurée : `docs/CODEX_PROGRESS.json`. Générer ce document avec la commande de [vérification globale](COMBAT_VISUAL_ACCEPTANCE.md).
 
 Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et vérifié dans la portée indiquée ; `BLOCKED` bloqué avec raison explicite.

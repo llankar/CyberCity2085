@@ -8,7 +8,6 @@ routed back through ``ManagementView`` hit actions.
 from __future__ import annotations
 
 import arcade
-from pathlib import Path
 
 from game.agents.cyberware import (
     BY_ID,
@@ -24,6 +23,7 @@ from game.ui.layouts.world_map_beacons import Rect
 from game.ui.portraits import portrait_path_for_character
 
 from .character_sheet import VIOLET
+from .equipment_art import equipment_art_path
 from .squad_style import CYAN, GOLD, MINT, MUTED, RED, TEXT
 
 
@@ -35,15 +35,6 @@ SLOT_LABELS = {
     "psi_focus": "PSI FOCUS",
     "special_gear": "SPECIAL",
 }
-
-
-def _equipment_art(slot: str) -> str:
-    return f"assets/ui/inventory/{slot}.png"
-
-
-def _equipment_item_art(item, slot: str) -> str:
-    path = f"assets/ui/inventory/items/{item.id}.png" if item is not None else ""
-    return path if path and Path(path).exists() else _equipment_art(slot)
 
 
 def _cyberware_art(zone: str) -> str:
@@ -175,7 +166,7 @@ def draw_inventory(p, r: Rect):
         p.paint.panel(row, GOLD if active else CYAN, selected=active)
         item = c.loadout.item_for_slot(slot)
         art = Rect(row.left+7*u, row.bottom+7*u, row.left+82*u, row.top-7*u)
-        p.image(_equipment_item_art(item, slot), art)
+        p.image(equipment_art_path(item, slot), art)
         arcade.draw_lrbt_rectangle_outline(art.left, art.right, art.bottom, art.top, (*CYAN, 150), max(1, u))
         text_x = art.right + 10*u
         p.label(SLOT_LABELS[slot], text_x, row.top-19*u, 10, CYAN, bold=True)
@@ -189,7 +180,7 @@ def draw_inventory(p, r: Rect):
         equipped = c.loadout.item_for_slot(selected_slot)
         p.paint.panel(row, GOLD if active else VIOLET if equipped and equipped.id == item.id else CYAN, selected=active)
         thumb = Rect(row.left+5*u, row.bottom+5*u, row.left+62*u, row.top-5*u)
-        p.image(_equipment_item_art(item, selected_slot), thumb)
+        p.image(equipment_art_path(item, selected_slot), thumb)
         text_x = thumb.right + 8*u
         p.label(item.name.upper(), text_x, row.center[1]+8*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
@@ -200,7 +191,7 @@ def draw_inventory(p, r: Rect):
     if chosen:
         equipped = c.loadout.item_for_slot(selected_slot)
         hero = Rect(detail.left+16*u, detail.top-245*u, detail.right-16*u, detail.top-48*u)
-        p.image(_equipment_item_art(chosen, selected_slot), hero)
+        p.image(equipment_art_path(chosen, selected_slot), hero)
         arcade.draw_lrbt_rectangle_outline(hero.left, hero.right, hero.bottom, hero.top, (*VIOLET, 160), max(1, 1.5*u))
         p.label(chosen.name.upper(), detail.left+16*u, detail.top-270*u, 20, TEXT, bold=True, width=detail.width-32*u)
         kind = "WEAPON" if isinstance(chosen, Weapon) else "ARMOR" if isinstance(chosen, Armor) else "GEAR"

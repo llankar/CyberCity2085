@@ -21,6 +21,8 @@
         "game/ui/components/character_sheet.py",
         "game/ui/layouts/character_sheet.py",
         "game/ui/screens/management_screen.py",
+        "game/ui/components/equipment_art.py",
+        "game/ui/components/squad_equipment.py",
         "game/character.py",
         "tests/test_character_sheet_visual.py"
       ],
@@ -28,7 +30,8 @@
         "python -m pytest -q tests/test_operative_dossier.py tests/test_character_sheet_visual.py tests/test_cyberware.py tests/test_agent_equipment.py tests/test_management_hub_ui.py : 64 passed, 1 skipped (capture X11), 5 subtests passed.",
         "Persistence/progression/story gate with test_save_system.py, test_agent_progression.py and test_story_mission_resolution_flow.py : 82 passed, 1 skipped, 5 subtests passed.",
         "Marker/per-item art/package gate: 67 passed, 5 subtests passed; 42 item PNG files and 42 unique SHA-256 digests.",
-        "LEGS zone gate: 81 passed, 7 subtests passed across Cyberware, dossier UI, packaging, equipment and Godot bridge."
+        "LEGS zone gate: 81 passed, 7 subtests passed across Cyberware, dossier UI, packaging, equipment and Godot bridge.",
+        "Shared Squad/Inventory equipment art gate: 70 passed, 1 skipped (X11 framebuffer), 5 subtests passed."
       ],
       "evidence": [
         "Inspection initiale: la fiche existante projette deja les vraies statistiques, competences, talents et equipements; le Cyberware, les missions, les evenements et la sauvegarde possedent leurs sources de verite existantes.",
@@ -41,7 +44,8 @@
         "Le mannequin affiche un reticule synchronise sur la zone Cyberware selectionnee (deux marqueurs pour Arms). Inventory dispose de 42 PNG distincts, un par objet reel du catalogue, generes de facon reproductible par tools/generate_equipment_thumbnails.py."
         ,"Recalage anatomique: Head 94,7%, Eyes 90,2%, Circulatory 74,8% (coeur), Torso 68,5%, Arms 64,5% et Nervous System 60,5%. Les positions Torso et Nervous System ont ete permutees a la demande. Les 42 pictogrammes abstraits ont ete remplaces par de vrais rendus d'objets issus de six planches source haute qualite.",
         "Lisibilite Attributes: libelles remontes, valeurs descendues et taille des scores reduite de 38 a 34."
-        ,"Extension LEGS: septieme zone Cyberware avec dix implants, un emplacement, couts Credits/Humanite, bonus tactiques, illustration et deux marqueurs sur le mannequin."
+        ,"Extension LEGS: septieme zone Cyberware avec dix implants, un emplacement, couts Credits/Humanite, bonus tactiques, illustration et deux marqueurs sur le mannequin.",
+        "Parite Squad/Inventory: les six emplacements Squad resolvent maintenant le meme PNG individuel par identifiant d'objet que le dossier Inventory; les lames ne sont plus remplacees par un pictogramme generique."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

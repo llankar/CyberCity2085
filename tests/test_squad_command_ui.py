@@ -11,6 +11,23 @@ from game.i18n import t
 from game.ui.layouts.squad_command import squad_command_layout, visible_roster_range
 
 
+def test_squad_equipment_reuses_inventory_item_art_for_every_catalog_item():
+    from game.management.equipment import default_equipment_catalog
+    from game.ui.components.equipment_art import equipment_art_path
+
+    for slot, items in default_equipment_catalog().items():
+        for item in items:
+            path = equipment_art_path(item, slot)
+            assert path == f"assets/ui/inventory/items/{item.id}.png"
+            assert Path(path).is_file()
+
+
+def test_squad_equipment_art_falls_back_for_an_empty_slot():
+    from game.ui.components.equipment_art import equipment_art_path
+
+    assert equipment_art_path(None, "sidearm") == "assets/ui/inventory/sidearm.png"
+
+
 @pytest.mark.parametrize(
     "width,height", [(1280, 720), (1672, 941), (1920, 1080), (2560, 1440)]
 )
