@@ -15,7 +15,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Compatibilité : l’ancienne surcouche Cyberware n’est plus dessinée ; ses anciens appels ouvrent l’onglet intégré. Les maquettes restent des références visuelles et ne sont jamais utilisées comme fonds contenant de fausses données.
 - Interactions : `Tab` parcourt les pages, `1–5` les ouvrent directement et `Q/E` changent d’agent. Inventory compare aussi portée, dégâts et mitigation réels ; Cyberware affiche un scan de 0,6 seconde après installation.
 - Correctif graphique : la bannière ne laisse plus l’onglet Overview recouvrir le niveau ; Inventory emploie six vignettes locales issues de la planche existante ; Cyberware remplace le schéma filaire par `cyberware_body_map_v1.png` et six illustrations zonées. Génération intégrée sans texte ni données fictives.
-- Tests : gate graphique ciblé dossier, hub, packaging et rendu : 61 réussis, 1 ignoré (capture Arcade nécessitant X11), 5 sous-tests réussis. Gate étendu précédent : 82 réussis, 1 ignoré, 5 sous-tests réussis.
+- Synchronisation graphique : sélectionner une zone Cyberware déplace un réticule orange sur le mannequin (deux marqueurs pour les bras). Inventory contient désormais 42 PNG distincts, un pour chaque objet réel ; le générateur reproductible dérive leur signature visuelle de l’identifiant et des tags du catalogue.
+- Tests : gate marqueur, 42 illustrations, équipement, Cyberware, hub et packaging : 67 réussis, 5 sous-tests réussis ; les 42 PNG possèdent 42 empreintes SHA-256 distinctes. Gate étendu précédent : 82 réussis, 1 ignoré, 5 sous-tests réussis.
 - Travail restant : compléter les détails et interactions avancées, ajouter les assets réellement manquants, exécuter la suite globale, lancer le jeu et effectuer la revue visuelle multi-résolution.
 
 ### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques

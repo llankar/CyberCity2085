@@ -38,8 +38,12 @@ def test_cyberware_page_exposes_ten_real_implants_per_zone():
 
 
 def test_dossier_graphic_assets_cover_inventory_and_cyberware_zones():
+    catalog = default_equipment_catalog()
     for slot in EQUIPMENT_SLOTS:
         assert Path(f"assets/ui/inventory/{slot}.png").stat().st_size > 0
+        for item in catalog[slot]:
+            assert Path(f"assets/ui/inventory/items/{item.id}.png").stat().st_size > 0
+    assert sum(len(items) for items in catalog.values()) == 42
     assert Path("assets/ui/cyberware/cyberware_body_map_v1.png").stat().st_size > 0
     for zone in ZONE_ORDER:
         filename = zone.lower().replace(" ", "_") + ".png"

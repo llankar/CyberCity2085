@@ -1070,6 +1070,18 @@ class ManagementHubUITest(unittest.TestCase):
                 f"{page} did not expose {action}",
             )
 
+    def test_cyberware_zone_selection_updates_body_marker_source(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view._open_agent_sheet(0)
+        view.dossier_page = "cyberware"
+        view._dispatch("cyberware_zone", "ARMS")
+        self.assertEqual(view.dossier_cyberware_zone, "ARMS")
+        view.on_draw()  # marker and catalogue use the same selected-zone state
+        self.assertTrue(any(hit.action == "cyberware_zone" and hit.data == "ARMS" for hit in view._modal_hits))
+
 
 if __name__ == "__main__":
     unittest.main()

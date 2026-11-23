@@ -26,7 +26,8 @@
       ],
       "tests": [
         "python -m pytest -q tests/test_operative_dossier.py tests/test_character_sheet_visual.py tests/test_cyberware.py tests/test_agent_equipment.py tests/test_management_hub_ui.py : 64 passed, 1 skipped (capture X11), 5 subtests passed.",
-        "Persistence/progression/story gate with test_save_system.py, test_agent_progression.py and test_story_mission_resolution_flow.py : 82 passed, 1 skipped, 5 subtests passed."
+        "Persistence/progression/story gate with test_save_system.py, test_agent_progression.py and test_story_mission_resolution_flow.py : 82 passed, 1 skipped, 5 subtests passed.",
+        "Marker/per-item art/package gate: 67 passed, 5 subtests passed; 42 item PNG files and 42 unique SHA-256 digests."
       ],
       "evidence": [
         "Inspection initiale: la fiche existante projette deja les vraies statistiques, competences, talents et equipements; le Cyberware, les missions, les evenements et la sauvegarde possedent leurs sources de verite existantes.",
@@ -35,7 +36,8 @@
         "L'ancienne surcouche Cyberware n'est plus dessinee; les anciens appels sont rediriges vers l'onglet integre.",
         "La barre permanente affiche les cinq ressources reelles; Inventory equipe et retire; la silhouette Cyberware est vectorielle et synchronisee; un test rend les cinq pages.",
         "Navigation clavier: Tab parcourt les pages, 1-5 les ouvrent directement, Q/E changent d'agent. L'installation Cyberware declenche un scan de 0,6 seconde."
-        ,"Correctif graphique: l'identite de banniere ne contient plus le niveau et reserve 36% avant les onglets; Inventory affiche six vignettes locales; Cyberware utilise un mannequin diagnostique detaille et six illustrations de zones."
+        ,"Correctif graphique: l'identite de banniere ne contient plus le niveau et reserve 36% avant les onglets; Inventory affiche six vignettes locales; Cyberware utilise un mannequin diagnostique detaille et six illustrations de zones.",
+        "Le mannequin affiche un reticule synchronise sur la zone Cyberware selectionnee (deux marqueurs pour Arms). Inventory dispose de 42 PNG distincts, un par objet reel du catalogue, generes de facon reproductible par tools/generate_equipment_thumbnails.py."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

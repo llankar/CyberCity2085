@@ -8,6 +8,7 @@ routed back through ``ManagementView`` hit actions.
 from __future__ import annotations
 
 import arcade
+from pathlib import Path
 
 from game.agents.cyberware import (
     BY_ID,
@@ -38,6 +39,11 @@ SLOT_LABELS = {
 
 def _equipment_art(slot: str) -> str:
     return f"assets/ui/inventory/{slot}.png"
+
+
+def _equipment_item_art(item, slot: str) -> str:
+    path = f"assets/ui/inventory/items/{item.id}.png" if item is not None else ""
+    return path if path and Path(path).exists() else _equipment_art(slot)
 
 
 def _cyberware_art(zone: str) -> str:
@@ -169,7 +175,7 @@ def draw_inventory(p, r: Rect):
         p.paint.panel(row, GOLD if active else CYAN, selected=active)
         item = c.loadout.item_for_slot(slot)
         art = Rect(row.left+7*u, row.bottom+7*u, row.left+82*u, row.top-7*u)
-        p.image(_equipment_art(slot), art)
+        p.image(_equipment_item_art(item, slot), art)
         arcade.draw_lrbt_rectangle_outline(art.left, art.right, art.bottom, art.top, (*CYAN, 150), max(1, u))
         text_x = art.right + 10*u
         p.label(SLOT_LABELS[slot], text_x, row.top-19*u, 10, CYAN, bold=True)
@@ -183,7 +189,7 @@ def draw_inventory(p, r: Rect):
         equipped = c.loadout.item_for_slot(selected_slot)
         p.paint.panel(row, GOLD if active else VIOLET if equipped and equipped.id == item.id else CYAN, selected=active)
         thumb = Rect(row.left+5*u, row.bottom+5*u, row.left+62*u, row.top-5*u)
-        p.image(_equipment_art(selected_slot), thumb)
+        p.image(_equipment_item_art(item, selected_slot), thumb)
         text_x = thumb.right + 8*u
         p.label(item.name.upper(), text_x, row.center[1]+8*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
@@ -194,7 +200,7 @@ def draw_inventory(p, r: Rect):
     if chosen:
         equipped = c.loadout.item_for_slot(selected_slot)
         hero = Rect(detail.left+16*u, detail.top-245*u, detail.right-16*u, detail.top-48*u)
-        p.image(_equipment_art(selected_slot), hero)
+        p.image(_equipment_item_art(chosen, selected_slot), hero)
         arcade.draw_lrbt_rectangle_outline(hero.left, hero.right, hero.bottom, hero.top, (*VIOLET, 160), max(1, 1.5*u))
         p.label(chosen.name.upper(), detail.left+16*u, detail.top-270*u, 20, TEXT, bold=True, width=detail.width-32*u)
         kind = "WEAPON" if isinstance(chosen, Weapon) else "ARMOR" if isinstance(chosen, Armor) else "GEAR"
@@ -233,11 +239,13 @@ def draw_inventory(p, r: Rect):
 
 def draw_cyberware(p, r: Rect):
     u, c = p.u, p.character
+    selected_zone = getattr(p.view, "dossier_cyberware_zone", ZONE_ORDER[0])
     summary, zones, catalog, detail = _columns(r, (22, 25, 27, 26), 10*u)
     _panel(p, summary, "CYBERWARE MAP", VIOLET)
     figure = Rect(summary.left+12*u, summary.bottom+142*u, summary.right-12*u, summary.top-45*u)
     p.image("assets/ui/cyberware/cyberware_body_map_v1.png", figure)
     arcade.draw_lrbt_rectangle_outline(figure.left, figure.right, figure.bottom, figure.top, (*VIOLET, 130), max(1, u))
+    _draw_body_marker(p, figure, selected_zone)
     if p.view._elapsed < getattr(p.view, "dossier_cyber_scan_until", 0.0):
         progress = 1.0 - max(0.0, p.view.dossier_cyber_scan_until - p.view._elapsed) / 0.6
         scan_y = figure.bottom + figure.height * progress
@@ -248,7 +256,6 @@ def draw_cyberware(p, r: Rect):
     totals = combat_bonuses(c.installed_cyberware)
     p.label("  ".join(f"{k.upper()} {v:+d}" for k,v in totals.items()) or "NO ACTIVE BONUSES", summary.left+15*u, summary.bottom+47*u, 10, MINT, width=summary.width-30*u)
     _panel(p, zones, "BODY ZONES", CYAN)
-    selected_zone = getattr(p.view, "dossier_cyberware_zone", ZONE_ORDER[0])
     installed_by_zone = {BY_ID[key].zone: BY_ID[key] for key in c.installed_cyberware if key in BY_ID}
     for row, zone in zip(_rows(Rect(zones.left+9*u, zones.bottom+12*u, zones.right-9*u, zones.top-45*u), 6, 7*u), ZONE_ORDER):
         active = zone == selected_zone
@@ -397,3 +404,25 @@ def _draw_anatomy(p, r: Rect, selected_zone: str):
             p.paint.glow(px, py, 52*u, 52*u, dot, 65)
         arcade.draw_circle_filled(px, py, (8 if active else 5)*u, dot)
         arcade.draw_circle_outline(px, py, (15 if active else 10)*u, dot, 2*u)
+
+
+def _draw_body_marker(p, figure: Rect, zone: str):
+    """Pin the selected catalogue zone to the matching place on the body art."""
+    u = p.u
+    relative = {
+        "HEAD": ((0.50, 0.92),),
+        "EYES": ((0.50, 0.875),),
+        "ARMS": ((0.25, 0.60), (0.75, 0.60)),
+        "TORSO": ((0.50, 0.66),),
+        "CIRCULATORY": ((0.50, 0.72),),
+        "NERVOUS SYSTEM": ((0.50, 0.53),),
+    }
+    for px, py in relative.get(zone, ((0.5, 0.5),)):
+        x = figure.left + figure.width * px
+        y = figure.bottom + figure.height * py
+        p.paint.glow(x, y, 54*u, 54*u, GOLD, 80)
+        arcade.draw_circle_filled(x, y, 7*u, GOLD)
+        arcade.draw_circle_outline(x, y, 17*u, GOLD, max(2, 2.5*u))
+        arcade.draw_circle_outline(x, y, 25*u, (*GOLD, 120), max(1, 1.5*u))
+        arcade.draw_line(x-32*u, y, x-13*u, y, GOLD, max(1, 1.5*u))
+        arcade.draw_line(x+13*u, y, x+32*u, y, GOLD, max(1, 1.5*u))
