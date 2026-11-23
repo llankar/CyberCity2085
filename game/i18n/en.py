@@ -79,7 +79,6 @@ STRINGS = {
     "squad.nav.next_step": "NEXT|STEP",
     "squad.nav.recruit_prompt": "RECRUIT|AGENT",
     "squad.nav.open_mission_map": "SELECT|MISSION",
-    "squad.nav.open_cyberware": "CYBER|WARE",
     "squad.nav.remove_agent": "REMOVE|AGENT",
     "squad.nav.agent_prev": "PREV.|AGENT",
     "squad.nav.select_agent": "TOGGLE|SQUAD",

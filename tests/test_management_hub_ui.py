@@ -961,7 +961,7 @@ class ManagementHubUITest(unittest.TestCase):
         )
         self.assertNotIn(removed_name, view.game_state.selected_agent_names)
 
-    def test_cyberware_footer_is_lower_and_separated_from_room_content(self):
+    def test_squad_restores_mission_intel_and_keeps_cyberware_in_agent_sheet(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
@@ -971,12 +971,15 @@ class ManagementHubUITest(unittest.TestCase):
         view.room_ui.expansion = 1.0
         view.on_draw()
 
-        launch_hit = next(button for button in view._hits if button.action == "squad_nav" and button.data == "open_cyberware")
         renderer = view._squad_command
-        self.assertGreaterEqual(launch_hit.bottom, 0)
-        self.assertLess(launch_hit.top, renderer.layout.mission.top)
+        self.assertIn("mission_art", renderer.regions)
+        self.assertIn("downtime", renderer.regions)
+        self.assertFalse(
+            any(hit.data == "open_cyberware" for hit in view._hits)
+        )
+        self.assertFalse(any(hit.action == "open_mission_map" for hit in view._hits))
         footer_hits = [hit for hit in view._hits if hit.action == "squad_nav"]
-        self.assertEqual(len(footer_hits), 11)
+        self.assertEqual(len(footer_hits), 10)
         self.assertLess(
             max(hit.top for hit in footer_hits), renderer.layout.roster.bottom
         )
@@ -1000,8 +1003,16 @@ class ManagementHubUITest(unittest.TestCase):
 
         view._open_hub_room("squad")
         view._perform_primary_hub_action()
-        self.assertTrue(view.cyberware_sheet_open)
+        self.assertIsNotNone(view.expanded_agent_sheet_index)
+        self.assertFalse(view.cyberware_sheet_open)
         self.assertIsNone(view.window.shown_view)
+
+        view.on_draw()
+        cyberware = next(
+            hit for hit in view._modal_hits if hit.action == "sheet_cyberware"
+        )
+        view._dispatch(cyberware.action, cyberware.data)
+        self.assertTrue(view.cyberware_sheet_open)
 
         view._close_agent_sheet()
         self.assertFalse(view.cyberware_sheet_open)

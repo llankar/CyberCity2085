@@ -2227,13 +2227,6 @@ class ManagementView(GameView):
             self.cyberware_sheet_open = True
             self.cyberware_zone_open = None
             return
-        if action == "open_cyberware":
-            index = int(data) if isinstance(data, int) else self.deployment_cursor
-            if 0 <= index < len(self.game_state.characters):
-                self._open_agent_sheet(index)
-                self.cyberware_sheet_open = True
-                self.cyberware_zone_open = None
-            return
         if action == "cyberware_close":
             self.cyberware_sheet_open = False
             self.cyberware_zone_open = None
@@ -3239,12 +3232,6 @@ class ManagementView(GameView):
         if action == "select_agent":
             self._toggle_selected_agent()
             return
-        if action == "open_cyberware":
-            if self.game_state.characters:
-                self._open_agent_sheet(self.deployment_cursor)
-                self.cyberware_sheet_open = True
-            return
-
         if action == "asset_prev":
             self._cycle_asset_cursor(-1)
             return
@@ -3305,7 +3292,7 @@ class ManagementView(GameView):
         if active_room == "squad":
             if self.game_state.characters:
                 self._open_agent_sheet(self.deployment_cursor)
-                self.cyberware_sheet_open = True
+                self.cyberware_sheet_open = False
             return
         if active_room == "assets":
             self._open_mission_map()

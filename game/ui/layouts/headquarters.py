@@ -33,8 +33,10 @@ LEGACY_ROOMS = (
 # The aircraft deck is a seventh, full-width destination in the artwork.  It is
 # deliberately separate from ``ROOMS`` because F4/Asset Bay remains the vehicle
 # management room while this region launches the mission world map.
-VISUAL_HANGAR = (105, 72, 1565, 330)
-LEGACY_HANGAR = (105, 72, 1565, 330)
+# Measured outer walls of the lower aircraft bay. The frame spans the building,
+# but does not leak into the city backdrop on either side.
+VISUAL_HANGAR = (195, 70, 1452, 337)
+LEGACY_HANGAR = (195, 70, 1452, 337)
 
 
 @dataclass(frozen=True)

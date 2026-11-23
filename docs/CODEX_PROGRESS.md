@@ -21,8 +21,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### HQ-HANGAR-MISSIONS-01 — IN_PROGRESS — Déplacer le choix des missions vers le hangar bas du QG
 
-- État : la baie inférieure est désormais une septième destination visible, avec cadre doré, libellé `MISSION HANGAR`, indication `WORLD MAP // DEPLOY`, survol et zone de clic couvrant le hangar. Le clic ouvre directement la World Map. `F4 / ASSET BAY` reste une salle distincte de gestion des véhicules et armures ; son bouton et `B` ouvrent aussi les missions. Squad expose le Cyberware et ne lance aucune mission.
-- Tests : 51 réussis, 1 ignoré, 5 sous-tests réussis sur la navigation Squad/Hangar/Cyberware.
+- État : la baie inférieure est désormais une septième destination visible, avec cadre cyan aligné sur les murs extérieurs du bâtiment, libellé `MISSION HANGAR`, indication `WORLD MAP // DEPLOY`, survol et zone de clic couvrant le hangar. Le clic ouvre directement la World Map. `F4 / ASSET BAY` reste une salle distincte de gestion des véhicules et armures ; son bouton et `B` ouvrent aussi les missions. Squad conserve son ancien panneau de mission, renseignement tactique et repos, sans bouton World Map ; Cyberware est accessible uniquement depuis la fiche personnage.
+- Tests : 81 réussis, 2 ignorés graphiques, 5 sous-tests réussis sur la navigation Squad/Hangar, la fiche Cyberware et le package.
 - Cohérence de l'aide : `B` est inactif dans Squad et réservé au Hangar ; l'écran des contrôles indique `F4 then B — Hangar missions`. 42 tests et 5 sous-tests réussis.
 - Package : le candidat Windows `BUILD 9e6f4dee` contient le routage final par le hangar ; son smoke emballé est réussi.
 - Travail restant : vérifier visuellement le placement du bouton dans une fenêtre Windows native.

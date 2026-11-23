@@ -222,19 +222,19 @@ class HeadquartersRenderer(SquadCommandRenderer):
         amount = self.amounts["hangar"]
         if hot:
             self.paint.glow(
-                *r.center, r.width * 1.02, r.height * 1.08, GOLD, 20 + amount * 30
+                *r.center, r.width * 1.02, r.height * 1.08, CYAN, 20 + amount * 30
             )
-        self.outline(r, GOLD, hot, amount)
+        self.outline(r, CYAN, hot, amount)
         rail = self.layout.hangar_label
-        self.paint.panel(rail, GOLD, selected=hot)
+        self.paint.panel(rail, CYAN, selected=hot)
         badge = Rect(
             rail.left + 7 * u,
             rail.bottom + 6 * u,
             rail.left + 61 * u,
             rail.top - 6 * u,
         )
-        self.paint.panel(badge, GOLD)
-        self.label("B", *badge.center, 20, GOLD, bold=True, anchor_x="center")
+        self.paint.panel(badge, CYAN)
+        self.label("B", *badge.center, 20, CYAN, bold=True, anchor_x="center")
         self.label(
             "MISSION HANGAR",
             rail.left + 74 * u,
@@ -249,12 +249,12 @@ class HeadquartersRenderer(SquadCommandRenderer):
             rail.right + 24 * u,
             rail.center[1],
             14,
-            GOLD,
+            CYAN,
             bold=True,
             width=max(120 * u, r.right - rail.right - 52 * u),
         )
         if hot:
-            self.icon("next", r.right - 38 * u, rail.center[1], 34, GOLD)
+            self.icon("next", r.right - 38 * u, rail.center[1], 34, CYAN)
         self.hit(r, "hq_hangar", "hangar")
 
     def hud(self):

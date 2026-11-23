@@ -9,7 +9,7 @@ from game.missions.flow import selected_mission
 from game.ui.layouts.world_map_beacons import Rect
 from game.ui.theme.typography import scale_font_size
 from game.ui.screens.world_map import infer_world_map_site, mission_site_name
-from .squad_style import CYAN, GOLD, MINT, RED, TEXT, MUTED
+from .squad_style import CYAN, GOLD, RED, TEXT, MUTED
 
 
 def mission_art_path(mission):
@@ -192,13 +192,19 @@ def draw_mission(self, r):
         )
     else:
         self.label(self.tr("no_mission"), left, top - 35 * u, 18, MUTED, width=width)
-    self.button(
-        cta,
-        self.tr("select_mission"),
-        "open_mission_map",
-        color=MINT,
-        icon="right",
-        primary=True,
+    # Mission selection belongs to the visible hangar on the HQ overview.  The
+    # Squad room keeps the valuable current-mission intel and downtime panel,
+    # but deliberately exposes no second world-map launcher.
+    self.paint.panel(cta, GOLD)
+    self.icon("target", cta.left + 24 * u, cta.center[1], 24, GOLD)
+    self.label(
+        "MISSION SELECTION — BASE HANGAR",
+        cta.left + 48 * u,
+        cta.center[1],
+        13,
+        GOLD,
+        bold=True,
+        width=cta.width - 60 * u,
     )
     arcade.draw_line(dt.left, dt.top, dt.right, dt.top, (*CYAN, 150), 1)
     self.label(
