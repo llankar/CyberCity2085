@@ -777,7 +777,8 @@
       ],
       "tests": [
         "65 tests ciblés Python/Godot du lot 2 ; 19 régressions de lancement",
-        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p"
+        "Parcours natifs Linux : crash/récupération sur trois issues en 720p ; victoire et reprise en 1080p/1440p",
+        "Win32 monitor probe on 2026-11-23: one active monitor only (DISPLAY1, 1920x1080, effective DPI 96). Multi-display DPI transition cannot be executed on the current hardware state."
       ],
       "evidence": [
         "docs/reports/unified_batch2_tests.xml",
@@ -848,7 +849,7 @@
         "docs/reports/unified_window_regression_tests.xml",
         "docs/images/unified-experience/batch2/README.md"
       ],
-      "remaining": "Validation graphique Windows restante : redimensionnement et DPI multi-écrans",
+      "remaining": "Validation graphique Windows restante : redimensionnement visible. DPI multi-écrans BLOCKED tant qu'un second écran actif avec une autre échelle n'est pas connecté ; Win32 ne voit actuellement que DISPLAY1 1920x1080 à 96 DPI.",
       "reason": "Alt+Tab, réduction et restauration visuellement vérifiés ; bord de redimensionnement intercepté par la fenêtre Godot possédée"
     },
     {
@@ -1948,7 +1949,7 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "A connected Nintendo Switch Pro-compatible controller (VID 057E/PID 2009) is healthy in Windows PnP, but the current package's Godot 4.7.2 runtime cannot open it: native OpenGL reports 'Couldn't load stick calibration' and Input.get_connected_joypads() remains empty. Disabling the Switch HIDAPI driver and then all SDL HIDAPI drivers removes the error but still yields no device. Physical controller acceptance is therefore FAIL on this hardware rather than NOT VERIFIED. No desktop control or input injection was used; probe files remain on E:.",
+  "latest_batch": "Current physical acceptance hardware was probed without desktop control. The connected Switch Pro-compatible controller is healthy in Windows PnP but fails Godot/SDL calibration and remains invisible even with HIDAPI disabled. Win32 exposes only one active monitor, DISPLAY1 at 1920x1080 and 96 effective DPI, so a real cross-monitor DPI transition cannot be run in the current hardware state. Controller acceptance is FAIL; multi-display DPI is BLOCKED, not silently assumed.",
   "next_action": "Wake and physically reconnect the Switch Pro-compatible controller, or switch it to XInput mode, then rerun the packaged native joypad probe. If Godot exposes a device, perform the manual controller playthrough together with visible readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI and audible fades; desktop automation remains forbidden.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
