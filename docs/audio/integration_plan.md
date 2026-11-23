@@ -1,7 +1,7 @@
 # CyberCity 2085 — Plan d'intégration Codex des bruitages
 
 ## État et limites
-Le manifeste reste majoritairement **pending_generation**, mais douze générations fournisseur sont maintenant confirmées et cinq sorties du lot du 22 novembre ont été téléchargées puis converties en staging sur `E:`. Aucune n'est intégrée : quatre attendent une écoute humaine et la vérification de licence ; l'impact métal `xv8Gzq2sccJdkTGrTECr` est rejeté techniquement comme quasi inaudible. Ne jamais déclarer une variante prête si le WAV final approuvé n'existe pas. Préserver les MP3 du catalogue.
+Le manifeste reste majoritairement **pending_generation**, mais douze générations fournisseur sont maintenant confirmées et cinq sorties du lot du 22 novembre ont été téléchargées puis converties en staging sur `E:`. Aucune n'est intégrée : quatre attendent une écoute humaine ; l'impact métal `xv8Gzq2sccJdkTGrTECr` est rejeté techniquement comme quasi inaudible. Les conditions EEE ElevenLabs consultées le 23 novembre 2026 réservent l'usage commercial aux utilisateurs payants. Le connecteur ne prouve pas le plan actif lors des générations : les cinq sorties sont donc bloquées pour distribution jusqu'à justification du plan et des droits applicables. Ne jamais déclarer une variante prête si le WAV final approuvé n'existe pas. Préserver les MP3 du catalogue.
 
 ## Source de vérité
 - L'ancien inventaire des 19 WAV a été retiré avec la banque historique.

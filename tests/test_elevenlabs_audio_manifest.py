@@ -29,3 +29,13 @@ def test_near_inaudible_impact_is_rejected_not_normalized_into_production():
     assert impact["family"] == "impact_metal"
     assert impact["peak_dbfs"] == -40.7
     assert impact["status"] == "technical_reject_near_inaudible"
+
+
+def test_pilot_is_license_blocked_until_generation_plan_is_proven():
+    data = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    review = data["latest_connector_attempt"]["license_review"]
+
+    assert review["status"] == "blocked_plan_at_generation_unverified"
+    assert review["jurisdiction"] == "EEA"
+    assert review["terms_url"] == "https://elevenlabs.io/terms-of-use-eu"
+    assert "Do not integrate or distribute" in review["release_rule"]

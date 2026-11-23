@@ -3351,6 +3351,15 @@
     "auditory_validation_performed": false,
     "downloaded": true,
     "download_directory": "E:/CyberCity2085-builds/audio-pilot-20261123",
+    "license_review": {
+      "status": "blocked_plan_at_generation_unverified",
+      "jurisdiction": "EEA",
+      "terms_checked": "2026-11-23",
+      "terms_url": "https://elevenlabs.io/terms-of-use-eu",
+      "finding": "The current EEA terms limit Free Users to non-commercial use and allow Paid Users commercial use, subject to the terms and prohibited-use policy.",
+      "account_evidence": "The provider returned free_shared capacity errors, which suggests but does not prove a free plan. The plan active when each output was generated is not available through the connector.",
+      "release_rule": "Do not integrate or distribute these outputs until the generation-time plan and applicable commercial rights are documented."
+    },
     "technical_qa": {
       "format": "PCM signed 16-bit little-endian, 48000 Hz, stereo",
       "files": [
@@ -3361,7 +3370,7 @@
         {"generation_id": "37gkKwp5ygrM28ESGxii", "family": "ui_click", "duration_seconds": 0.6, "peak_dbfs": -5.8, "sha256": "ff7bba46ff919508cdb16ae62dba14f4ff1d4af0247027c2ee389dba95576ca4", "status": "human_audition_pending"}
       ]
     },
-    "note": "All five sessions completed. Their MP3 masters were downloaded and converted on E: for technical QA only. No file was copied into production; human audition and provider-license verification remain required."
+    "note": "All five sessions completed. Their MP3 masters were downloaded and converted on E: for technical QA only. No file was copied into production; human audition remains required and commercial use is blocked until the plan active at generation time is documented."
   },
   "notes": [
     "Preserve existing MP3 music. Five new pilot outputs are staged on E: for technical QA; none has been listened to, approved or copied into production.",
@@ -3379,6 +3388,7 @@
     "Metal impact user WAV has 3 full-scale samples; technical headroom staging attenuates 3dB but cannot reverse clipped source samples."
     ,"2026-11-22: authenticated connector access became available. Five missing pilot generations started and four capacity requests failed before start; no retry was made."
     ,"2026-11-23: the five started sessions were confirmed completed, downloaded to E:/CyberCity2085-builds/audio-pilot-20261123 and converted to PCM 48 kHz stereo 16-bit. Technical QA rejects impact_metal xv8Gzq2sccJdkTGrTECr as near-inaudible at -40.7 dBFS peak; the other four remain unreviewed pending human audition and license verification. Nothing entered production."
+    ,"2026-11-23: ElevenLabs EEA terms were checked. Free User outputs are non-commercial; Paid User outputs may be used commercially subject to the terms. Because the connector exposes free_shared capacity errors but not the plan active at generation time, all five staged outputs remain license-blocked and must not enter a distributable build."
   ],
   "quality_gate": {
     "audio_generated": true,
