@@ -29,22 +29,24 @@
         "tests/test_equipment_economy.py"
       ],
       "tests": [
-        "Core economy targeted gate: 96 passed, 1 skipped (X11 framebuffer), 5 subtests passed."
+        "Core economy targeted gate: 96 passed, 1 skipped (X11 framebuffer), 5 subtests passed.",
+        "Pre-pacing global gate: 1260 passed, 36 skipped, 14 subtests passed, 1 intermittent Hangar edge-click failure that passed immediately in isolation.",
+        "Post-pacing economy/cyberware/management gate: 48 passed, 5 subtests passed."
       ],
       "evidence": [
         "Audit: les Neodollars correspondent au registre CorporateFunds/available_funds affiche avec le symbole yen; Credits reste une ressource strategique distincte.",
         "HangarProgression centralise exactement les niveaux 1-4, capacites 5-8 et couts fixes 0/20000/60000/180000; les achats ordonnes debitent atomiquement le registre.",
         "Les sauvegardes conservent le niveau Hangar et owned_equipment; les anciennes sauvegardes migrent au plus petit niveau legitime preservant leur roster et materialisent leurs loadouts sans facturation retrospective.",
         "Equipment pricing utilise des poids differencies pour defense, attributs, HP, degats, portee, mitigation, polyvalence et tags puissants; Inventory expose prix, possession et actions BUY/EQUIP/REMOVE.",
-        "Le recrutement respecte la capacite dynamique et le changement rapide Squad ne parcourt que les objets possedes."
+        "Le recrutement respecte la capacite dynamique et le changement rapide Squad ne parcourt que les objets possedes.",
+        "La World Map issue du Hangar affiche le niveau, la capacite, le prochain cout, les fonds manquants et un bouton d'upgrade atomique.",
+        "Cyberware est revalorise par tiers: Basic 500-1200, Advanced 1500-3500, Military 4000-8000 et Experimental au moins 10000 pour les implants AP.",
+        "Simulation reproductible sur 120 missions: recompense moyenne et mediane 1500; expansion atteint le niveau 2, equipment depense 79430, cyberware 167200, balanced atteint le niveau 2 avec 41160 equipment et 89000 cyberware.",
+        "Le plancher de recompense de mission vaut 1200 + 100 par niveau de risque: mediane 1500, soit environ 13-14 victoires pour le premier Hangar a 20000 sans depense concurrente."
       ],
       "remaining": [
-        "Integrer le panneau HANGAR UPGRADES // SQUAD CAPACITY et son action d'achat dans l'interface Hangar.",
-        "Appliquer partout la capacite dynamique, notamment les anciens chemins views.py et les affichages secondaires.",
-        "Revaloriser Cyberware dans les fourchettes Basic/Advanced/Military/Experimental et centraliser definitivement la transaction achat-installation.",
-        "Finaliser les quantites et transferts d'equipement entre agents sans duplication.",
-        "Creer et executer la simulation economique reproductible des quatre strategies.",
-        "Executer la suite globale et une validation visuelle Windows native."
+        "Reexecuter le gate global apres le changement de rythme des recompenses.",
+        "Effectuer une validation visuelle Windows native du panneau Hangar, des achats Inventory et Cyberware; NOT VERIFIED."
       ]
     },
     {

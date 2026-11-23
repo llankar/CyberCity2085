@@ -29,10 +29,10 @@ class MissionFundsTest(unittest.TestCase):
     def test_reward_calculation_requires_victory_and_positive_reward(self):
         mission = _mission(fund_reward=80)
 
-        self.assertEqual(calculate_mission_fund_reward(mission, True), 80)
+        self.assertEqual(calculate_mission_fund_reward(mission, True), 1400)
         self.assertEqual(calculate_mission_fund_reward(mission, False), 0)
         self.assertEqual(
-            calculate_mission_fund_reward(_mission(fund_reward=-5), True), 0
+            calculate_mission_fund_reward(_mission(fund_reward=-5), True), 1400
         )
 
     def test_default_distribution_keeps_every_reward_dollar_allocated(self):
@@ -51,14 +51,14 @@ class MissionFundsTest(unittest.TestCase):
 
         resolve_mission_outcome(game_state, _mission(fund_reward=80), True)
 
-        self.assertEqual(game_state.mission_fund_allocations["agent_pay_morale"], 20)
-        self.assertEqual(game_state.mission_fund_allocations["research"], 20)
-        self.assertEqual(game_state.mission_fund_allocations["equipment"], 16)
+        self.assertEqual(game_state.mission_fund_allocations["agent_pay_morale"], 350)
+        self.assertEqual(game_state.mission_fund_allocations["research"], 350)
+        self.assertEqual(game_state.mission_fund_allocations["equipment"], 280)
         self.assertEqual(
             game_state.mission_fund_allocations["robot_power_armor_maintenance"],
-            12,
+            210,
         )
-        self.assertEqual(game_state.mission_fund_allocations["corporate_reserves"], 12)
+        self.assertEqual(game_state.mission_fund_allocations["corporate_reserves"], 210)
         self.assertGreater(game_state.available_funds, starting_funds)
         self.assertTrue(
             any(

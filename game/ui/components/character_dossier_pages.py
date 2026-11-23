@@ -200,6 +200,7 @@ def draw_inventory(p, r: Rect):
         p.label(kind, detail.left+16*u, detail.top-299*u, 11, VIOLET, bold=True)
         price = equipment_purchase_price(chosen)
         owned = p.gs.owns_equipment(chosen.id)
+        available = p.gs.can_assign_equipment(chosen.id, c)
         p.label(f"{equipment_power_band(chosen)}  //  ¥{price:,}  //  {'OWNED' if owned else 'AVAILABLE'}", detail.left+16*u, detail.top-318*u, 10, MINT if owned else GOLD, bold=True)
         p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-397*u, detail.right-16*u, detail.top-330*u), 11, TEXT)
         y = detail.top-410*u
@@ -228,11 +229,11 @@ def draw_inventory(p, r: Rect):
         can_buy = p.gs.available_funds >= price
         button_color = GOLD if owned or can_buy else RED
         p.paint.panel(equip, button_color, selected=True)
-        label = ("REMOVE" if equipped and equipped.id == chosen.id else "EQUIP") if owned else ("BUY" if can_buy else "NOT ENOUGH FUNDS")
+        label = ("REMOVE" if equipped and equipped.id == chosen.id else "EQUIP" if available else "IN USE") if owned else ("BUY" if can_buy else "NOT ENOUGH FUNDS")
         p.label(label, *equip.center, 13, button_color, bold=True, anchor_x="center")
         if not owned and can_buy:
             p.hit(equip, "dossier_buy_item", (selected_slot, chosen.id), "Purchase selected item")
-        elif owned and (not equipped or equipped.id != chosen.id):
+        elif owned and available and (not equipped or equipped.id != chosen.id):
             p.hit(equip, "dossier_equip_item", (selected_slot, chosen.id), "Equip selected item")
         elif owned:
             p.hit(equip, "dossier_unequip", selected_slot, "Remove equipped item")

@@ -2,6 +2,7 @@ import pytest
 
 from game.agents.cyberware import (
     CATALOGUE,
+    BY_ID,
     MAX_HUMANITY,
     combat_bonuses,
     humanity_remaining,
@@ -71,8 +72,9 @@ def test_catalogue_is_grouped_by_body_zone_and_prices_scale_with_power():
 
 
 def test_cyberware_purchase_charges_credits_and_rejects_unaffordable_surgery():
-    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", 500)
-    assert (installed, funds, changed, reason) == (["smart_eye"], 50, True, "installed")
+    cost = BY_ID["smart_eye"].credit_cost
+    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", cost)
+    assert (installed, funds, changed, reason) == (["smart_eye"], 0, True, "installed")
     unchanged, funds, changed, reason = purchase_or_remove(installed, "tactical_coprocessor", 50)
     assert unchanged == installed and funds == 50 and not changed and reason == "funds"
     removed, funds, changed, reason = purchase_or_remove(installed, "smart_eye", 50)
@@ -80,29 +82,32 @@ def test_cyberware_purchase_charges_credits_and_rejects_unaffordable_surgery():
 
 
 def test_expensive_cyberware_also_consumes_more_humanity():
-    installed, funds, changed, reason = purchase_or_remove([], "tactical_coprocessor", 3000)
-    assert changed and reason == "installed" and funds == 800
+    cost = BY_ID["tactical_coprocessor"].credit_cost
+    installed, funds, changed, reason = purchase_or_remove([], "tactical_coprocessor", cost)
+    assert changed and reason == "installed" and funds == 0
     assert humanity_remaining(installed) == 2
     unchanged, funds, changed, reason = purchase_or_remove(installed, "subdermal_mesh", funds)
-    assert unchanged == installed and funds == 800 and not changed and reason == "funds"
+    assert unchanged == installed and funds == 0 and not changed and reason == "funds"
 
 
 def test_each_body_zone_offers_a_choice_and_accepts_only_one_implant():
     from game.agents.cyberware import ZONE_ORDER, catalogue_for_zone, normalize_installed
 
     assert all(len(catalogue_for_zone(zone)) >= 10 for zone in ZONE_ORDER)
-    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", 5_000)
+    starting = 20_000
+    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", starting)
     assert changed and reason == "installed"
     installed, funds, changed, reason = purchase_or_remove(installed, "predator_optics", funds)
     assert changed and reason == "replaced"
     assert "smart_eye" not in installed and installed == ["predator_optics"]
-    assert funds == 3_200
+    assert funds == starting - BY_ID["smart_eye"].credit_cost - BY_ID["predator_optics"].credit_cost
     assert normalize_installed(["smart_eye", "predator_optics"]) == ["smart_eye"]
 
 
 def test_legs_are_a_real_single_slot_with_tactical_bonuses():
-    installed, funds, changed, reason = purchase_or_remove([], "stride_servos", 5_000)
-    assert changed and reason == "installed" and funds == 4_520
+    starting = 20_000
+    installed, funds, changed, reason = purchase_or_remove([], "stride_servos", starting)
+    assert changed and reason == "installed" and funds == starting - BY_ID["stride_servos"].credit_cost
     installed, funds, changed, reason = purchase_or_remove(installed, "sprinter_myomers", funds)
     assert changed and reason == "replaced"
     assert installed == ["sprinter_myomers"]

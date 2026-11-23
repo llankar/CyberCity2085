@@ -25,6 +25,9 @@ DEFAULT_MISSION_FUND_SPLIT = {
     "corporate_reserves": 15,
 }
 
+HANGAR_PACING_BASE_REWARD = 1_200
+HANGAR_PACING_RISK_REWARD = 100
+
 
 @dataclass(frozen=True)
 class FundsTransaction:
@@ -127,7 +130,11 @@ def calculate_mission_fund_reward(mission: object | None, victory: bool) -> int:
     """Return the cash payout for a resolved mission."""
     if not victory or mission is None:
         return 0
-    return max(0, int(getattr(mission, "fund_reward", 0)))
+    listed = max(0, int(getattr(mission, "fund_reward", 0)))
+    risk = max(1, int(getattr(mission, "risk_level", 1)))
+    # A successful ordinary mission must make the first 20k Hangar expansion
+    # reachable in roughly 10-15 victories while preserving richer story payouts.
+    return max(listed, HANGAR_PACING_BASE_REWARD + risk * HANGAR_PACING_RISK_REWARD)
 
 
 def default_mission_fund_distribution(amount: int) -> dict[str, int]:

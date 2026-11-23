@@ -329,6 +329,21 @@ class MissionWorldMapView(GameView):
             anchor_x="right",
             anchor_y="center",
         )
+        hangar = self.game_state.hangar
+        upgrade = hangar.next_upgrade
+        hx0, hx1, hy0, hy1 = 20, min(455, w * 0.34), h - 92, h - 48
+        color = colors.accent_success if upgrade and self.game_state.can_afford(upgrade[3]) else colors.accent_warning
+        arcade.draw_lrbt_rectangle_filled(hx0, hx1, hy0, hy1, (2, 15, 24, 238))
+        arcade.draw_lrbt_rectangle_outline(hx0, hx1, hy0, hy1, color, 2)
+        if upgrade:
+            missing = max(0, upgrade[3] - self.game_state.available_funds)
+            label = f"HANGAR L{hangar.level}  {hangar.squad_capacity} AGENTS  //  UPGRADE ¥{upgrade[3]:,}"
+            if missing:
+                label += f"  //  MISSING ¥{missing:,}"
+            self._hits.append(_HitRegion(hx0, hy0, hx1, hy1, "upgrade_hangar"))
+        else:
+            label = "HANGAR MAX LEVEL  //  SQUAD CAPACITY 8"
+        painter.text(label, hx0 + 12, (hy0 + hy1) / 2, 10 * ui, color, bold=True, anchor_y="center")
         texture = load_world_map_texture()
         # A dedicated transparent HUD gutter preserves the *entire* original
         # artwork, including every baked legend, city name and compass.
@@ -744,6 +759,9 @@ class MissionWorldMapView(GameView):
             return
         if action == "back":
             self._back_to_management()
+            return
+        if action == "upgrade_hangar":
+            _, self._message = self.game_state.upgrade_hangar()
 
     def _launch_selected_mission(self) -> None:
         if self._selection_type == "text":

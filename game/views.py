@@ -1098,6 +1098,7 @@ class RPGView(GameView):
                     self.game_state.characters,
                     self.game_state.selected_agent_names,
                     self.deployment_cursor_index,
+                    self.game_state.squad_capacity,
                 )
                 self.pending_breakdown_confirmation = False
                 self.pending_breakdown_mission_id = None
@@ -1141,6 +1142,7 @@ class RPGView(GameView):
                 self.game_state.characters,
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
+                self.game_state.squad_capacity,
             )
             state = apply_agent_toggle(
                 self.game_state.selected_agent_names,
@@ -1356,6 +1358,7 @@ class RPGView(GameView):
                 self.game_state.characters,
                 self.game_state.selected_agent_names,
                 self.deployment_cursor_index,
+                self.game_state.squad_capacity,
             )
             self.pending_breakdown_confirmation = False
             self.pending_breakdown_mission_id = None

@@ -2258,9 +2258,12 @@ class ManagementView(GameView):
                 self.message = f"Buy {item.name} before equipping it."
             elif item is not None and self.expanded_agent_sheet_index is not None:
                 char = self.game_state.characters[self.expanded_agent_sheet_index]
-                char.loadout.equip(str(slot), item)
-                self.message = f"{char.name} equipped {item.name}."
-                self.game_state.add_event(self.message)
+                if self.game_state.can_assign_equipment(item.id, char):
+                    char.loadout.equip(str(slot), item)
+                    self.message = f"{char.name} equipped {item.name}."
+                    self.game_state.add_event(self.message)
+                else:
+                    self.message = f"{item.name} is equipped by another operative. Unequip it first."
             return
         if action == "dossier_unequip":
             if self.expanded_agent_sheet_index is not None:

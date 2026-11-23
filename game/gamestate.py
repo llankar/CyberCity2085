@@ -257,6 +257,19 @@ class GameState:
             for item in character.loadout.equipped_items()
         )
 
+    def equipment_available_count(self, item_id: str, for_character=None) -> int:
+        key = str(item_id)
+        owned = self.owned_equipment.get(key, 0)
+        equipped = sum(
+            1 for character in self.characters
+            for item in character.loadout.equipped_items()
+            if item.id == key and character is not for_character
+        )
+        return max(0, owned - equipped)
+
+    def can_assign_equipment(self, item_id: str, character) -> bool:
+        return self.equipment_available_count(item_id, character) > 0
+
     def purchase_equipment(self, item) -> tuple[bool, str]:
         """Atomically purchase one catalogue item into the campaign inventory."""
         from .management.equipment import equipment_purchase_price

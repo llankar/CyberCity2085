@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 MAX_HUMANITY = 5
 INELIGIBLE_ROLES = {"robot", "power_armor", "heavy_armor", "starver"}
@@ -93,6 +93,20 @@ CATALOGUE: tuple[Cyberware, ...] = (
     Cyberware("siege_pistons", "Siege Pistons", "LEGS", 3, 3, 2750, "Reinforced pistons anchor the operative against punishing impacts.", {"hp": 7, "defense": 3}),
     Cyberware("mercury_lower_frame", "Mercury Lower Frame", "LEGS", 3, 3, 3150, "A restricted full-leg replacement merges speed, balance and tactical tempo.", {"action_points": 1, "initiative": 5, "defense": 2}),
 )
+
+
+def _strategic_price(item: Cyberware) -> int:
+    """Map implant power to the campaign's intentionally expensive bands."""
+    if item.power_tier == 1:
+        return min(1_200, max(500, int(round(item.credit_cost / 50) * 50)))
+    if item.power_tier == 2:
+        return min(3_500, max(1_500, int(round(item.credit_cost * 1.75 / 50) * 50)))
+    if item.combat_bonuses.get("action_points", 0):
+        return max(10_000, int(round(item.credit_cost * 3.5 / 100) * 100))
+    return min(8_000, max(4_000, int(round(item.credit_cost * 2.0 / 100) * 100)))
+
+
+CATALOGUE = tuple(replace(item, credit_cost=_strategic_price(item)) for item in CATALOGUE)
 
 BY_ID = {item.id: item for item in CATALOGUE}
 
