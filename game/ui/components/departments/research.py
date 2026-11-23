@@ -8,10 +8,6 @@ def draw_research(k, left, center, right):
     gs = k.gs
     u = k.u
     mode = k.selection.get("research_mode", "research")
-    tabs = Rect(left.left + 10*u, left.top - 54*u, right.right - 10*u, left.top - 10*u)
-    half = (tabs.width - 8*u) / 2
-    k.action(Rect(tabs.left, tabs.bottom, tabs.left+half, tabs.top), "RESEARCH PROJECTS", "department_select", ("research_mode", "research"), selected=mode == "research")
-    k.action(Rect(tabs.left+half+8*u, tabs.bottom, tabs.right, tabs.top), "BASE UPGRADES // VEHICLE", "department_select", ("research_mode", "base"), selected=mode == "base", primary=mode == "base")
     if mode == "base":
         _draw_base_upgrades(k, left, center, right)
         return
@@ -23,6 +19,7 @@ def draw_research(k, left, center, right):
     projects = list(tree.projects.values())
     k.panel(left, k.tr("research"), "chip")
     r = k.body(left)
+    r = _draw_mode_tabs(k, r, mode)
     selected = k.selection.get("research", projects[0].id if projects else None)
     if selected not in tree.projects:
         selected = projects[0].id if projects else None
@@ -161,7 +158,7 @@ def _draw_base_upgrades(k, left, center, right):
     from game.management.base_upgrades import BASE_UPGRADES, VEHICLE_UPGRADES
     gs, u = k.gs, k.u
     k.panel(left, "BASE UPGRADES", "layers")
-    area = Rect(k.body(left).left, k.body(left).bottom, k.body(left).right, k.body(left).top-48*u)
+    area = _draw_mode_tabs(k, k.body(left), "base")
     choices = list(BASE_UPGRADES) + list(VEHICLE_UPGRADES)
     selected = k.selection.get("base_upgrade", choices[0].id)
     for _, item, card in k.page("base_upgrades", choices, area, 78):
@@ -192,3 +189,14 @@ def _draw_base_upgrades(k, left, center, right):
     installed = [x for x in VEHICLE_UPGRADES if x.id in gs.vehicle_upgrade_ids]
     text = "ACTIVE MODULES\n\n" + ("\n".join(f"• {x.name}: {x.effect}" for x in installed) if installed else "No vehicle modules installed.")
     k.document("vehicle_modules", text, Rect(body.left, body.bottom, body.right, body.top-60*u), 16)
+
+
+def _draw_mode_tabs(k, area: Rect, mode: str) -> Rect:
+    """Draw readable local tabs and return the remaining list area."""
+    u = k.u
+    tabs = Rect(area.left, area.top - 44*u, area.right, area.top)
+    gap = 7*u
+    half = (tabs.width-gap)/2
+    k.action(Rect(tabs.left, tabs.bottom, tabs.left+half, tabs.top), "RESEARCH", "department_select", ("research_mode", "research"), selected=mode == "research")
+    k.action(Rect(tabs.left+half+gap, tabs.bottom, tabs.right, tabs.top), "BASE + VEHICLE", "department_select", ("research_mode", "base"), selected=mode == "base", primary=mode == "base")
+    return Rect(area.left, area.bottom, area.right, tabs.bottom-10*u)

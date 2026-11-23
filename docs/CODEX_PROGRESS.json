@@ -20,12 +20,13 @@
       "title": "Onglet Base Upgrades et progression du vehicule de deploiement",
       "status": "IN_PROGRESS",
       "files": ["game/management/base_upgrades.py", "game/gamestate.py", "game/ui/components/departments/research.py", "game/ui/screens/management_screen.py", "game/ui/screens/world_map_view.py", "tests/test_base_vehicle_upgrades.py"],
-      "tests": ["Base/vehicle targeted gate: 51 passed, 5 subtests passed."],
+      "tests": ["Base/vehicle targeted gate: 51 passed, 5 subtests passed.", "Research tab readability regression gate: 51 passed, 5 subtests passed."],
       "evidence": [
         "Le bandeau Hangar illisible a ete retire de la World Map.",
         "Le Research Lab possede deux onglets: Research Projects et Base Upgrades // Vehicle.",
         "Hangar, Trauma Center, Rapid Fabricator et Signal Array sont presentes dans Base Upgrades.",
-        "Le Nighthawk VTOL accepte Vector Engines, Field Medevac Suite, Heavy Strike Hardpoint et Armored Deployment Cradle; achats atomiques et persistance verifies."
+        "Le Nighthawk VTOL accepte Vector Engines, Field Medevac Suite, Heavy Strike Hardpoint et Armored Deployment Cradle; achats atomiques et persistance verifies.",
+        "Correctif lisibilite: les tabs Research et Base + Vehicle vivent maintenant dans une barre locale reservee de la colonne gauche; la liste commence sous cette barre et les titres des trois panneaux ne sont plus recouverts."
       ],
       "remaining": [
         "Brancher les quatre effets du vehicule dans le runtime tactique Godot/Arcade, notamment le sauvetage unique et la frappe unique.",
