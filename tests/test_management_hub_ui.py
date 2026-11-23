@@ -950,6 +950,23 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_mouse_press((open_map.left + open_map.right) // 2, (open_map.bottom + open_map.top) // 2, 0, 0)
         self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
 
+    def test_primary_room_actions_keep_missions_in_hangar(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+
+        view._open_hub_room("squad")
+        view._perform_primary_hub_action()
+        self.assertTrue(view.cyberware_sheet_open)
+        self.assertIsNone(view.window.shown_view)
+
+        view._close_agent_sheet()
+        self.assertFalse(view.cyberware_sheet_open)
+        view._open_hub_room("assets")
+        view._perform_primary_hub_action()
+        self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
+
     def test_room_click_starts_fast_transition_and_reduced_motion_skips_it(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()

@@ -2647,6 +2647,7 @@ class ManagementView(GameView):
     def _close_agent_sheet(self) -> None:
         if self.expanded_agent_sheet_index is None:
             return
+        self.cyberware_sheet_open = False
         self.expanded_agent_sheet_index = None
         _set_window_topmost(self.window, False)
 
@@ -2947,9 +2948,6 @@ class ManagementView(GameView):
             if key in [k for k in downtime_keys if k is not None]:
                 self._do_downtime_activity(downtime_keys.index(key))
                 return
-            if b_key is not None and key == b_key:
-                self._open_mission_map()
-                return
             if n_key is not None and key == n_key:
                 self._do_recruit_prompt()
                 return
@@ -2963,6 +2961,9 @@ class ManagementView(GameView):
                 self._toggle_selected_agent()
                 return
         elif active_room == "assets":
+            if b_key is not None and key == b_key:
+                self._open_mission_map()
+                return
             if left_key is not None and key == left_key:
                 self._cycle_asset_cursor(-1)
                 return
@@ -3216,16 +3217,12 @@ class ManagementView(GameView):
             self._do_city_upgrade("armaments", {"credits": 5, "salvage": 3})
             return
         if active_room == "squad":
-            self._open_mission_map()
+            if self.game_state.characters:
+                self._open_agent_sheet(self.deployment_cursor)
+                self.cyberware_sheet_open = True
             return
         if active_room == "assets":
-            asset = self.game_state.spec_ops_assets[self._asset_cursor] if self.game_state.spec_ops_assets else None
-            if asset is None:
-                return
-            if asset.is_deployable:
-                self._do_asset_deploy_toggle(self._asset_cursor)
-            else:
-                self._do_asset_repair(self._asset_cursor)
+            self._open_mission_map()
             return
         if active_room == "research":
             completed = set(self.game_state.completed_research)

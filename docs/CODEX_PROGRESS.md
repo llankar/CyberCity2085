@@ -18,8 +18,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### HQ-HANGAR-MISSIONS-01 — IN_PROGRESS — Déplacer le choix des missions vers le hangar bas du QG
 
-- État : le roster Squad expose désormais le Cyberware ; le choix des missions et l'ouverture de la carte sont routés depuis Asset Bay/Hangar.
-- Tests : absence dans Squad et ouverture depuis le Hangar vérifiées dans la suite ciblée partagée (71 réussis, 1 ignoré, 7 sous-tests réussis).
+- État : le roster Squad expose désormais le Cyberware ; le choix des missions et l'ouverture de la carte sont routés depuis Asset Bay/Hangar. Les chemins résiduels `B` et action primaire ont aussi été retirés de Squad ; `Entrée` y ouvre Cyberware, tandis que l'action primaire du Hangar ouvre les missions.
+- Tests : 51 réussis, 1 ignoré, 5 sous-tests réussis sur la navigation Squad/Hangar/Cyberware.
 - Travail restant : vérifier visuellement le placement du bouton dans une fenêtre Windows native.
 
 ### HQ-ROOM-TRANSITION-01 — IN_PROGRESS — Animation rapide d'entrée dans les pièces du QG
