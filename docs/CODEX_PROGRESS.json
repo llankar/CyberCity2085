@@ -6,6 +6,8 @@
   "working_branch": "main",
   "active_batch": [
     "WINDOWS-CURRENT-BUILD",
+    "HQ-HANGAR-MISSIONS-01",
+    "HQ-ROOM-TRANSITION-01",
     "UE2-04",
     "TACTICAL-REVIEW",
     "AUDIO-PILOT"
@@ -26,7 +28,7 @@
       "status": "IN_PROGRESS",
       "files": ["game/ui/screens/management_screen.py", "game/ui/components/departments/assets.py", "game/ui/components/squad_command.py", "game/ui/components/squad_cyberware.py", "game/ui/room_interaction.py"],
       "tests": ["Le contrat UI cible verifie l'absence du choix de mission dans Squad et son ouverture depuis Asset Bay/Hangar.", "Les actions primaires et raccourcis de Squad n'ouvrent plus la carte; Enter dans Squad ouvre Cyberware et l'action primaire du Hangar ouvre les missions.", "python -m pytest -q tests/test_management_hub_ui.py tests/test_room_interaction_ui.py tests/test_squad_command_ui.py tests/test_cyberware.py : 51 passed, 1 skipped, 5 subtests passed"],
-      "evidence": ["Tous les chemins de navigation courants routent la selection de mission par Asset Bay/Hangar."],
+      "evidence": ["Tous les chemins de navigation courants routent la selection de mission par Asset Bay/Hangar.", "Le candidat Windows BUILD 9e6f4dee contient ce routage et son smoke emballe est ok."],
       "remaining": ["Verifier visuellement le placement du bouton Mission Hangar dans une fenetre Windows native."]
     },
     {
@@ -502,7 +504,7 @@
         "Current E-isolated Windows gate completed after the parser fix: 1164 passed, 35 skipped and 14 subtests passed. PyInstaller produced CyberCity2085.exe with bundled Godot 4.7.2; packaged headless smoke returned ok with 122 maps, 15 story objectives, save round-trip and bundled tactical startup. Executable SHA-256: 0B21DFAB0374DB4E29925986B2B9D5FA028D56444A9C69E01777F7622C6E4A99. The packaged Wasteland Medic, Shield Brawler and Mohawk Duelist animation JSON/PNG files match source SHA-256 hashes. The bundled Godot loaded the packaged Mohawk atlas through native OpenGL on RTX 5070 Ti, selected 32 movement frames, and captured all six actions to E:. Broader native graphical acceptance remains open.",
         "Recovered the completed E-isolated current gate without rerunning it: E:/CyberCity2085-builds/full-suite-current/pytest-full.log records 1181 passed, 35 skipped and 14 subtests passed in 238.39 seconds, with no failure. E:/CyberCity2085-builds/package-current-native records a successful bundled Godot 4.7.2/OpenGL directional regression with 3904 actual frame selections; the only stderr line is the known SDL gamepad calibration warning. The corresponding PyInstaller distribution exists at E:/CyberCity2085-builds/cybercity-build-9fdc2145bad248af978e4608719bddf7/dist/CyberCity2085 with CyberCity2085.exe and bundled Godot. No matching build, pytest or Godot process remained active when checked. Native manual graphical, DPI and listening acceptance remains open.",
         "Current source checkpoint 7a259b0 was rebuilt in E:/CyberCity2085-builds/cybercity-build-dc37fff99f844d4daf5e954b4f8bd519 after the focused quadruped correction passed 25 tests with one Windows-inapplicable X11 skip. PyInstaller and packaged smoke returned code 0; focused Combat Visual acceptance passed 22/22; build label BUILD 7a259b00. Executable SHA-256 is 371F8C35B099A5ED4AEBD2DCE460E6869D9008C2FD09BEC7C274A56C6D39901D, and the packaged quadruped JSON/PNG hashes match source.",
-        "Windows package BUILD 8d4be1be produced on E: after Cyberware/Hangar and transparent 3:2 atlas v2 integration. PyInstaller and packaged smoke passed: 122 maps, 7 MP3, 15 story objectives, campaign and Cyberware roundtrips, cyberware_atlas_v2.png present, reference battle victory and bundled Godot 4.7.2 headless startup. Packaged atlas is RGBA 1536x1024 with 255 alpha levels. Executable SHA-256: 07D48E541DE308E71DEC890D95BA8B76A5D6C148094FF1FF2346B80AA9DD6A33. Build reused the targeted green gates; a new full-suite run was not executed for this package."
+        "Windows package BUILD 9e6f4dee produced on E: after routing every current mission-selection path through Asset Bay/Hangar. PyInstaller and packaged smoke passed: 122 maps, 7 MP3, 15 story objectives, campaign and Cyberware roundtrips, cyberware_atlas_v2.png present, reference battle victory and bundled Godot 4.7.2 headless startup. Packaged atlas is RGBA 1536x1024 with 255 alpha levels. Executable SHA-256: 4089AB1F8CD628C3982679673419BE1CFB3BB7DD44C7DD97575CC95B62654546. Build reused the targeted green gates; a new full-suite run was not executed for this package."
       ],
       "evidence": [
         "E:/CyberCity2085-cleanup/old-release-builds/windows-current/CyberCity2085/CyberCity2085.exe",
@@ -514,8 +516,8 @@
         "E:/CyberCity2085-builds/package-current-native/regression.stdout.log",
         "E:/CyberCity2085-builds/package-current-native/regression.stderr.log",
         "E:/CyberCity2085-builds/cybercity-build-9fdc2145bad248af978e4608719bddf7/dist/CyberCity2085/CyberCity2085.exe",
-        "E:/CyberCity2085-builds/cybercity-build-7d949bcbdcf444a99a190f9f224ac9ca/dist/CyberCity2085/CyberCity2085.exe",
-        "E:/CyberCity2085-builds/cybercity-build-7d949bcbdcf444a99a190f9f224ac9ca/dist/packaged-smoke.json"
+        "E:/CyberCity2085-builds/cybercity-build-ca099e94fbb44c0bab5b3672efa1e145/dist/CyberCity2085/CyberCity2085.exe",
+        "E:/CyberCity2085-builds/cybercity-build-ca099e94fbb44c0bab5b3672efa1e145/dist/packaged-smoke.json"
       ],
       "remaining": "Native graphical acceptance remains open.",
       "reason": ""
