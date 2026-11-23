@@ -12,18 +12,20 @@ INELIGIBLE_ROLES = {"robot", "power_armor", "heavy_armor", "starver"}
 class Cyberware:
     id: str
     name: str
+    zone: str
     humanity_cost: int
+    credit_cost: int
     description: str
     combat_bonuses: dict[str, int]
 
 
 CATALOGUE: tuple[Cyberware, ...] = (
-    Cyberware("kerenzikov_reflex", "Kerenzikov Reflex", 2, "Predictive nerves seize the first beat.", {"initiative": 4}),
-    Cyberware("smart_eye", "Smart Targeting Eye", 1, "Ballistic overlay corrects aim in real time.", {"aim": 2, "crit": 1}),
-    Cyberware("subdermal_mesh", "Subdermal Armor Mesh", 2, "Flexible plates harden beneath the skin.", {"defense": 2, "hp": 4}),
-    Cyberware("titan_arm", "Titan Cyberarm", 2, "Reinforced myomers turn close combat brutal.", {"melee_power": 4}),
-    Cyberware("adrenal_pump", "Adrenal Overdrive", 1, "Emergency pump sustains a wounded operator.", {"hp": 3, "initiative": 1}),
-    Cyberware("tactical_coprocessor", "Tactical Co-processor", 1, "A combat cache expands moment-to-moment options.", {"action_points": 1, "initiative": 1}),
+    Cyberware("smart_eye", "Smart Targeting Eye", "EYES", 1, 450, "Ballistic overlay corrects aim in real time.", {"aim": 2, "crit": 1}),
+    Cyberware("tactical_coprocessor", "Tactical Co-processor", "HEAD", 3, 2200, "A combat cache expands moment-to-moment options.", {"action_points": 1, "initiative": 1}),
+    Cyberware("kerenzikov_reflex", "Kerenzikov Reflex", "NERVOUS SYSTEM", 2, 1200, "Predictive nerves seize the first beat.", {"initiative": 4}),
+    Cyberware("titan_arm", "Titan Cyberarm", "ARMS", 2, 1100, "Reinforced myomers turn close combat brutal.", {"melee_power": 4}),
+    Cyberware("subdermal_mesh", "Subdermal Armor Mesh", "TORSO", 2, 1400, "Flexible plates harden beneath the skin.", {"defense": 2, "hp": 4}),
+    Cyberware("adrenal_pump", "Adrenal Overdrive", "CIRCULATORY", 1, 600, "Emergency pump sustains a wounded operator.", {"hp": 3, "initiative": 1}),
 )
 
 BY_ID = {item.id: item for item in CATALOGUE}
@@ -60,6 +62,29 @@ def toggle_cyberware(ids: object, cyberware_id: str) -> tuple[list[str], bool]:
         return installed, False
     installed.append(cyberware_id)
     return installed, True
+
+
+def purchase_or_remove(
+    ids: object, cyberware_id: str, available_funds: int
+) -> tuple[list[str], int, bool, str]:
+    """Apply one clinic transaction without allowing negative funds or Humanity.
+
+    Removal restores Humanity but does not refund surgery or hardware costs.
+    """
+    installed = normalize_installed(ids)
+    item = BY_ID.get(cyberware_id)
+    funds = max(0, int(available_funds))
+    if item is None:
+        return installed, funds, False, "unknown"
+    if cyberware_id in installed:
+        installed.remove(cyberware_id)
+        return installed, funds, True, "removed"
+    if item.humanity_cost > humanity_remaining(installed):
+        return installed, funds, False, "humanity"
+    if item.credit_cost > funds:
+        return installed, funds, False, "funds"
+    installed.append(cyberware_id)
+    return installed, funds - item.credit_cost, True, "installed"
 
 
 def combat_bonuses(ids: object) -> dict[str, int]:

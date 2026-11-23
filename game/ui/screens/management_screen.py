@@ -678,7 +678,8 @@ class ManagementView(GameView):
         arcade.draw_text(f"{char.name.upper()} // CYBERWARE", x0 + 22, y1 - 38, palette.TEXT, font_size=18, bold=True)
         humanity = humanity_remaining(char.installed_cyberware)
         arcade.draw_text(f"HUMANITY  {humanity} / 5", x1 - 68, y1 - 38, palette.WARNING if humanity <= 1 else palette.ACCENT, font_size=16, bold=True, anchor_x="right")
-        arcade.draw_text("Every implant trades human capacity for a permanent tactical edge.", x0 + 22, y1 - 62, palette.MUTED_TEXT, font_size=10)
+        arcade.draw_text(f"FUNDS  ¥{self.game_state.available_funds:,}", x1 - 68, y1 - 62, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
+        arcade.draw_text("Implants are grouped by body zone. Stronger benefits cost more credits and Humanity.", x0 + 22, y1 - 62, palette.MUTED_TEXT, font_size=10)
         close = _HitRegion(x1 - 48, y1 - 54, x1 - 18, y1 - 24, "cyberware_close")
         _rect(close.left, close.bottom, close.right, close.top, (20, 24, 30, 240))
         arcade.draw_text("X", (close.left + close.right) // 2, (close.bottom + close.top) // 2, palette.DANGER, font_size=13, bold=True, anchor_x="center", anchor_y="center")
@@ -702,13 +703,14 @@ class ManagementView(GameView):
             top = grid_top - row * (card_h + gap)
             bottom = top - card_h
             owned = item.id in installed
-            affordable = item.humanity_cost <= humanity
+            affordable = item.humanity_cost <= humanity and item.credit_cost <= self.game_state.available_funds
             border = palette.TACTICAL_GREEN if owned else (palette.ACCENT if eligible and affordable else palette.PANEL_BORDER_MUTED)
             _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
             _border(left, bottom, left + card_w, top, border, 1)
             arcade.draw_text(item.name.upper(), left + 12, top - 24, palette.TEXT, font_size=11, bold=True)
-            arcade.draw_text(f"HUMANITY -{item.humanity_cost}", left + card_w - 12, top - 24, palette.WARNING, font_size=9, bold=True, anchor_x="right")
-            arcade.draw_text(item.description, left + 12, top - 54, palette.MUTED_TEXT, font_size=9, width=card_w - 24, multiline=True)
+            arcade.draw_text(item.zone, left + 12, top - 42, palette.ACCENT, font_size=8, bold=True)
+            arcade.draw_text(f"¥{item.credit_cost:,}  H-{item.humanity_cost}", left + card_w - 12, top - 24, palette.WARNING, font_size=9, bold=True, anchor_x="right")
+            arcade.draw_text(item.description, left + 12, top - 60, palette.MUTED_TEXT, font_size=9, width=card_w - 24, multiline=True)
             bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
             arcade.draw_text(bonus_text, left + 12, bottom + 46, palette.RESOURCE, font_size=9, bold=True)
             label = "REMOVE" if owned else ("INSTALL" if eligible and affordable else "LOCKED")
@@ -2183,11 +2185,29 @@ class ManagementView(GameView):
             self.cyberware_sheet_open = False
             return
         if action == "cyberware_toggle":
-            from game.agents.cyberware import BY_ID, toggle_cyberware
+            from game.agents.cyberware import BY_ID, purchase_or_remove
             char = self.game_state.characters[self.expanded_agent_sheet_index]
-            char.installed_cyberware, changed = toggle_cyberware(char.installed_cyberware, str(data))
+            updated, _, changed, reason = purchase_or_remove(
+                char.installed_cyberware, str(data), self.game_state.available_funds
+            )
             item = BY_ID.get(str(data))
-            self.message = (f"{item.name} configuration updated for {char.name}." if changed and item else "Insufficient Humanity.")
+            if changed and reason == "installed" and item:
+                if not self.game_state.spend_funds(
+                    item.credit_cost, "cyberware", f"Installed {item.name} for {char.name}."
+                ):
+                    changed, reason = False, "funds"
+                else:
+                    char.installed_cyberware = updated
+            elif changed:
+                char.installed_cyberware = updated
+            if changed and item:
+                verb = "installed" if reason == "installed" else "removed"
+                self.message = f"{item.name} {verb} for {char.name}."
+                self.game_state.add_event(self.message)
+            elif reason == "funds" and item:
+                self.message = f"Insufficient funds: {item.name} costs ¥{item.credit_cost:,}."
+            else:
+                self.message = "Insufficient Humanity."
             return
 
         if action == "sheet_spend_stat":

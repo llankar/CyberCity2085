@@ -85,7 +85,7 @@ def run_smoke():
             or restored is None
             or restored.characters[0].starver_infection_days != 2
             or restored.characters[0].installed_cyberware != ["smart_eye", "tactical_coprocessor"]
-            or restored.characters[0].humanity != 3
+            or restored.characters[0].humanity != 1
         ):
             raise RuntimeError("Packaged campaign save/load roundtrip failed")
     entry = next(entry for entry in entries if entry.filename == "city_industrial_dockside_terminal.png")

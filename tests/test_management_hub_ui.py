@@ -277,16 +277,23 @@ class ManagementHubUITest(unittest.TestCase):
         view.window = _FakeWindow()
         view.setup()
         self._seed_interactive_state(view)
+        view.game_state.add_funds(10_000, "test", "Cyberware fixture")
         view._open_agent_sheet(0)
         view.cyberware_sheet_open = True
 
         view.on_draw()
 
         implant = next(hit for hit in view._modal_hits if hit.action == "cyberware_toggle")
+        from game.agents.cyberware import BY_ID
+        funds_before = view.game_state.available_funds
         view._dispatch(implant.action, implant.data)
         agent = view.game_state.characters[0]
         self.assertIn(implant.data, agent.installed_cyberware)
         self.assertLess(agent.humanity, 5)
+        self.assertEqual(
+            view.game_state.available_funds,
+            funds_before - BY_ID[implant.data].credit_cost,
+        )
 
     def test_escape_closes_expanded_agent_sheet(self):
         view = ManagementView(GameState())

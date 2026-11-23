@@ -1,9 +1,11 @@
 import pytest
 
 from game.agents.cyberware import (
+    CATALOGUE,
     MAX_HUMANITY,
     combat_bonuses,
     humanity_remaining,
+    purchase_or_remove,
     toggle_cyberware,
 )
 from game.character import Character
@@ -41,7 +43,7 @@ def test_combat_payload_applies_cyberware_bonuses():
     assert chrome_payload["aim"] == plain_payload["aim"] + 2
     assert chrome_payload["initiative"] == plain_payload["initiative"] + 1
     assert chrome_payload["action_points"] == 5
-    assert chrome_payload["humanity"] == 3
+    assert chrome_payload["humanity"] == 1
     assert combat_bonuses(chrome.installed_cyberware)["crit"] == 1
 
 
@@ -49,6 +51,33 @@ def test_removing_implant_restores_capacity():
     installed, _ = toggle_cyberware(["subdermal_mesh"], "subdermal_mesh")
     assert installed == []
     assert humanity_remaining(installed) == 5
+
+
+def test_catalogue_is_grouped_by_body_zone_and_prices_scale_with_power():
+    assert {item.zone for item in CATALOGUE} == {
+        "HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"
+    }
+    by_humanity = {}
+    for item in CATALOGUE:
+        by_humanity.setdefault(item.humanity_cost, []).append(item.credit_cost)
+    assert max(by_humanity[1]) < min(by_humanity[2]) < min(by_humanity[3])
+
+
+def test_cyberware_purchase_charges_credits_and_rejects_unaffordable_surgery():
+    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", 500)
+    assert (installed, funds, changed, reason) == (["smart_eye"], 50, True, "installed")
+    unchanged, funds, changed, reason = purchase_or_remove(installed, "tactical_coprocessor", 50)
+    assert unchanged == installed and funds == 50 and not changed and reason == "funds"
+    removed, funds, changed, reason = purchase_or_remove(installed, "smart_eye", 50)
+    assert (removed, funds, changed, reason) == ([], 50, True, "removed")
+
+
+def test_expensive_cyberware_also_consumes_more_humanity():
+    installed, funds, changed, reason = purchase_or_remove([], "tactical_coprocessor", 3000)
+    assert changed and reason == "installed" and funds == 800
+    assert humanity_remaining(installed) == 2
+    unchanged, funds, changed, reason = purchase_or_remove(installed, "subdermal_mesh", funds)
+    assert unchanged == installed and funds == 800 and not changed and reason == "funds"
 
 
 def test_arcade_unit_keeps_ap_and_combat_bonuses_across_turns():
