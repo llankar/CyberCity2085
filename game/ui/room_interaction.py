@@ -91,13 +91,13 @@ ROOM_ACTIONS = {
         ],
         "squad": [
             RoomAction("recruit_prompt", "recruit", "Recruit agent"),
-            RoomAction("open_mission_map", "select", "Select mission"),
             RoomAction("remove_agent", "black_ops", "Remove agent"),
             RoomAction("agent_prev", "left", "Prev agent"),
             RoomAction("select_agent", "select", "Toggle squad"),
             RoomAction("agent_next", "right", "Next agent"),
         ],
         "assets": [
+            RoomAction("open_mission_map", "target", "Select mission"),
             RoomAction("asset_prev", "left", "Prev asset"),
             RoomAction("asset_repair", "shield", "Repair asset"),
             RoomAction("asset_deploy_toggle", "select", "Toggle deploy"),

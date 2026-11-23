@@ -252,6 +252,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertGreater(view.game_state.characters[0].stats.str, before_str)
 
         view.game_state.characters[0].pending_points = 1
+        view.on_draw()
         skill_hit = next(
             (hit for hit in view._modal_hits if hit.action == "sheet_spend_skill_rank"),
             None,
@@ -270,6 +271,22 @@ class ManagementHubUITest(unittest.TestCase):
                 view.game_state.characters[0].skills.get(skill_key, 0),
                 before_skills.get(skill_key, 0),
             )
+
+    def test_cyberware_sheet_installs_implant_and_spends_humanity(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view._open_agent_sheet(0)
+        view.cyberware_sheet_open = True
+
+        view.on_draw()
+
+        implant = next(hit for hit in view._modal_hits if hit.action == "cyberware_toggle")
+        view._dispatch(implant.action, implant.data)
+        agent = view.game_state.characters[0]
+        self.assertIn(implant.data, agent.installed_cyberware)
+        self.assertLess(agent.humanity, 5)
 
     def test_escape_closes_expanded_agent_sheet(self):
         view = ManagementView(GameState())
@@ -327,12 +344,9 @@ class ManagementHubUITest(unittest.TestCase):
             management_screen.arcade.key = original_key_ns
 
         self.assertEqual(view.room_ui.active_room_key, "squad")
-        self.assertTrue(
-            any(
-                button.action.key == "open_mission_map"
-                for button in view.room_ui.action_buttons
-            )
-        )
+        self.assertFalse(any(button.action.key == "open_mission_map" for button in view.room_ui.action_buttons))
+        view._open_hub_room("assets")
+        self.assertTrue(any(button.action.key == "open_mission_map" for button in view.room_ui.action_buttons))
 
     def test_room_info_lines_use_the_current_room_content_sources(self):
         view = ManagementView(GameState())
@@ -593,7 +607,7 @@ class ManagementHubUITest(unittest.TestCase):
                 "spend_stat_point",
                 "equip_prev",
                 "equip_next",
-                "select_mission",
+                "squad_sheet",
             ),
             "assets": (
                 "asset_select",
@@ -628,9 +642,6 @@ class ManagementHubUITest(unittest.TestCase):
                     )
                     first_equip = next(
                         hit for hit in view._hits if hit.action == "equip_next"
-                    )
-                    open_map = next(
-                        hit for hit in view._hits if hit.action == "open_mission_map"
                     )
 
                     agent_name = view.game_state.characters[0].name
@@ -681,15 +692,6 @@ class ManagementHubUITest(unittest.TestCase):
                     self.assertIsNotNone(after_item)
                     self.assertNotEqual(after_item, before_item)
 
-                    view.on_mouse_press(
-                        (open_map.left + open_map.right) // 2,
-                        (open_map.bottom + open_map.top) // 2,
-                        0,
-                        0,
-                    )
-                    self.assertEqual(
-                        view.window.shown_view.__class__.__name__, "MissionWorldMapView"
-                    )
 
     def test_rect_skips_invalid_lrbt_inputs(self):
         calls = []
@@ -917,7 +919,7 @@ class ManagementHubUITest(unittest.TestCase):
         )
         self.assertNotIn(removed_name, view.game_state.selected_agent_names)
 
-    def test_select_mission_footer_is_lower_and_separated_from_room_text(self):
+    def test_cyberware_footer_is_lower_and_separated_from_room_content(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
@@ -927,17 +929,40 @@ class ManagementHubUITest(unittest.TestCase):
         view.room_ui.expansion = 1.0
         view.on_draw()
 
-        launch_hit = next(
-            button for button in view._hits if button.action == "open_mission_map"
-        )
+        launch_hit = next(button for button in view._hits if button.action == "squad_nav" and button.data == "open_cyberware")
         renderer = view._squad_command
-        self.assertGreater(launch_hit.bottom, renderer.regions["downtime"].top)
+        self.assertGreaterEqual(launch_hit.bottom, 0)
         self.assertLess(launch_hit.top, renderer.layout.mission.top)
         footer_hits = [hit for hit in view._hits if hit.action == "squad_nav"]
         self.assertEqual(len(footer_hits), 11)
         self.assertLess(
             max(hit.top for hit in footer_hits), renderer.layout.roster.bottom
         )
+
+    def test_mission_selection_is_exposed_from_asset_hangar(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view._open_hub_room("assets")
+        view.on_draw()
+        open_map = next(hit for hit in view._hits if hit.action == "open_mission_map")
+        view.on_mouse_press((open_map.left + open_map.right) // 2, (open_map.bottom + open_map.top) // 2, 0, 0)
+        self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
+
+    def test_room_click_starts_fast_transition_and_reduced_motion_skips_it(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        view._hq_reduced_motion = False
+        view._open_hub_room("research")
+        self.assertEqual(view._room_entry_elapsed, 0.0)
+        view.on_update(0.23)
+        self.assertGreater(view._room_entry_elapsed, 0.22)
+
+        view._hq_reduced_motion = True
+        view._open_hub_room("intel")
+        self.assertEqual(view._room_entry_elapsed, 1.0)
 
 
 if __name__ == "__main__":

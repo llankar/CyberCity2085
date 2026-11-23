@@ -79,6 +79,7 @@ STRINGS = {
     "squad.nav.next_step": "ÉTAPE|SUIV.",
     "squad.nav.recruit_prompt": "RECRUT.|AGENT",
     "squad.nav.open_mission_map": "CHOIX|MISSION",
+    "squad.nav.open_cyberware": "CYBER|WARE",
     "squad.nav.remove_agent": "RETIRER|AGENT",
     "squad.nav.agent_prev": "AGENT|PRÉCÉD.",
     "squad.nav.select_agent": "ÉQUIPE|ON / OFF",

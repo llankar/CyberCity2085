@@ -42,6 +42,12 @@ class Character:
     attributes: dict[str, int] = field(default_factory=lambda: default_agent_sheet().attributes)
     skills: dict[str, int] = field(default_factory=lambda: default_agent_sheet().skills)
     derived_stats: dict[str, int] = field(default_factory=lambda: default_agent_sheet().derived_stats)
+    installed_cyberware: list[str] = field(default_factory=list)
+
+    @property
+    def humanity(self) -> int:
+        from .agents.cyberware import humanity_remaining
+        return humanity_remaining(self.installed_cyberware)
 
     def to_dict(self) -> dict:
         return {
@@ -76,10 +82,13 @@ class Character:
             "attributes": dict(self.attributes),
             "skills": dict(self.skills),
             "derived_stats": dict(self.derived_stats),
+            "installed_cyberware": list(self.installed_cyberware),
         }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Character":
+        from .agents.cyberware import normalize_installed
+
         stats_data = data.get("stats", {})
         stats = PlayerStats(**stats_data)
         sheet = normalize_agent_sheet(
@@ -120,6 +129,7 @@ class Character:
             attributes=sheet.attributes,
             skills=sheet.skills,
             derived_stats=sheet.derived_stats,
+            installed_cyberware=normalize_installed(data.get("installed_cyberware", [])),
         )
 
     def gain_xp(self, amount: int) -> None:

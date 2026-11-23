@@ -67,6 +67,15 @@ def draw(k, left, center, right):
     k.panel(right, k.tr("catalog"), "coins")
     catalog = asset_catalog()
     area = k.body(right)
+    mission_button = Rect(area.left, area.top - 44 * u, area.right, area.top)
+    k.action(
+        mission_button,
+        "MISSION HANGAR  //  CHOOSE MISSION",
+        "open_mission_map",
+        primary=True,
+        tooltip="Open mission selection from the hangar",
+    )
+    area = Rect(area.left, area.bottom, area.right, area.top - 55 * u)
     # Legacy catalogue arrows still own the same catalogue cursor.
     first = getattr(v, "_catalog_scroll", 0) % max(1, len(catalog))
     ordered = list(enumerate(catalog))

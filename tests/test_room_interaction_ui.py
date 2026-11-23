@@ -46,13 +46,14 @@ class RoomInteractionUITest(unittest.TestCase):
         self.assertEqual(action.key, "next_step")
 
     def test_hub_room_actions_include_room_specific_controls(self):
-        actions = actions_for_room("hub", "squad")
-        keys = [action.key for action in actions]
+        squad_keys = [action.key for action in actions_for_room("hub", "squad")]
+        asset_keys = [action.key for action in actions_for_room("hub", "assets")]
 
-        self.assertIn("open_mission_map", keys)
-        self.assertIn("recruit_prompt", keys)
-        self.assertIn("save", keys)
-        self.assertIn("load", keys)
+        self.assertNotIn("open_mission_map", squad_keys)
+        self.assertIn("open_mission_map", asset_keys)
+        self.assertIn("recruit_prompt", squad_keys)
+        self.assertIn("save", squad_keys)
+        self.assertIn("load", squad_keys)
 
     def test_room_animation_opens_and_closes_without_text_state(self):
         state = RoomUIState("city")

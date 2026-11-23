@@ -259,6 +259,8 @@ class ManagementView(GameView):
         self._last_agent_click_index: int | None = None
         self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
+        self.cyberware_sheet_open: bool = False
+        self._room_entry_elapsed: float = 1.0
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -286,6 +288,7 @@ class ManagementView(GameView):
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
+        self._room_entry_elapsed += delta_time
         # Tick act-advance overlay
         if getattr(self, "_act_advance_timer", 0.0) > 0:
             self._act_advance_timer -= delta_time
@@ -355,6 +358,7 @@ class ManagementView(GameView):
         # Notifications toast — newest-first, bottom-right corner
         _draw_notification_toast(self.notifications, w, h)
         self._draw_expanded_agent_sheet_modal(w, h)
+        self._draw_cyberware_modal(w, h)
 
         # Campaign: act-advance overlay
         act_data = getattr(self, "_act_advance_data", None)
@@ -430,6 +434,12 @@ class ManagementView(GameView):
         arcade.draw_line(close_left, close_bottom + 28, close_left + 28, close_bottom + 28, palette.PANEL_BORDER_MUTED, 1)
         arcade.draw_text("X", close_left + 14, close_bottom + 14, palette.DANGER, font_size=14, bold=True, anchor_x="center", anchor_y="center")
         self._modal_hits.append(_HitRegion(close_left, close_bottom, close_left + 28, close_bottom + 28, "sheet_close"))
+
+        cyber_left = close_left - 126
+        _rect(cyber_left, close_bottom, close_left - 8, close_bottom + 28, (12, 40, 48, 240))
+        _border(cyber_left, close_bottom, close_left - 8, close_bottom + 28, palette.ACCENT, 1)
+        arcade.draw_text("CYBERWARE", cyber_left + 55, close_bottom + 14, palette.ACCENT, font_size=9, bold=True, anchor_x="center", anchor_y="center")
+        self._modal_hits.append(_HitRegion(cyber_left, close_bottom, close_left - 8, close_bottom + 28, "sheet_cyberware"))
 
         left_w = 340
         pad = 18
@@ -650,6 +660,61 @@ class ManagementView(GameView):
             font_size=9,
         )
         arcade.draw_text("ESC closes this sheet.", mx1 - 18, footer_y, palette.MUTED_TEXT, font_size=9, anchor_x="right")
+
+    def _draw_cyberware_modal(self, w: int, h: int) -> None:
+        if not self.cyberware_sheet_open or self.expanded_agent_sheet_index is None:
+            return
+        from game.agents.cyberware import CATALOGUE, combat_bonuses, humanity_remaining, is_eligible_role
+        from game.ui.panels import _load_texture_once
+
+        char = self.game_state.characters[self.expanded_agent_sheet_index]
+        self._modal_hits = []
+        _rect(0, 0, w, h, (0, 0, 0, 220))
+        mw, mh = min(1100, w - 30), min(760, h - 30)
+        x0, y0 = (w - mw) // 2, (h - mh) // 2
+        x1, y1 = x0 + mw, y0 + mh
+        _rect(x0, y0, x1, y1, (6, 15, 22, 252))
+        _border(x0, y0, x1, y1, palette.ACCENT, 2)
+        arcade.draw_text(f"{char.name.upper()} // CYBERWARE", x0 + 22, y1 - 38, palette.TEXT, font_size=18, bold=True)
+        humanity = humanity_remaining(char.installed_cyberware)
+        arcade.draw_text(f"HUMANITY  {humanity} / 5", x1 - 68, y1 - 38, palette.WARNING if humanity <= 1 else palette.ACCENT, font_size=16, bold=True, anchor_x="right")
+        arcade.draw_text("Every implant trades human capacity for a permanent tactical edge.", x0 + 22, y1 - 62, palette.MUTED_TEXT, font_size=10)
+        close = _HitRegion(x1 - 48, y1 - 54, x1 - 18, y1 - 24, "cyberware_close")
+        _rect(close.left, close.bottom, close.right, close.top, (20, 24, 30, 240))
+        arcade.draw_text("X", (close.left + close.right) // 2, (close.bottom + close.top) // 2, palette.DANGER, font_size=13, bold=True, anchor_x="center", anchor_y="center")
+        self._modal_hits.append(close)
+
+        atlas = _load_texture_once("assets/ui/cyberware/cyberware_atlas.png")
+        if atlas is not None:
+            arcade.draw_texture_rect(atlas, arcade.LBWH(x0 + 22, y0 + 42, 310, 310))
+        bonuses = combat_bonuses(char.installed_cyberware)
+        summary = "  ".join(f"+{value} {key.upper()}" for key, value in bonuses.items()) or "NO AUGMENTATION INSTALLED"
+        arcade.draw_text(summary, x0 + 22, y0 + 20, palette.RESOURCE, font_size=9, bold=True)
+
+        eligible = is_eligible_role(char.role)
+        grid_x, grid_top = x0 + 360, y1 - 92
+        gap, card_h = 12, 184
+        card_w = (x1 - grid_x - 24 - gap) // 2
+        installed = set(char.installed_cyberware)
+        for index, item in enumerate(CATALOGUE):
+            row, col = divmod(index, 2)
+            left = grid_x + col * (card_w + gap)
+            top = grid_top - row * (card_h + gap)
+            bottom = top - card_h
+            owned = item.id in installed
+            affordable = item.humanity_cost <= humanity
+            border = palette.TACTICAL_GREEN if owned else (palette.ACCENT if eligible and affordable else palette.PANEL_BORDER_MUTED)
+            _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
+            _border(left, bottom, left + card_w, top, border, 1)
+            arcade.draw_text(item.name.upper(), left + 12, top - 24, palette.TEXT, font_size=11, bold=True)
+            arcade.draw_text(f"HUMANITY -{item.humanity_cost}", left + card_w - 12, top - 24, palette.WARNING, font_size=9, bold=True, anchor_x="right")
+            arcade.draw_text(item.description, left + 12, top - 54, palette.MUTED_TEXT, font_size=9, width=card_w - 24, multiline=True)
+            bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
+            arcade.draw_text(bonus_text, left + 12, bottom + 46, palette.RESOURCE, font_size=9, bold=True)
+            label = "REMOVE" if owned else ("INSTALL" if eligible and affordable else "LOCKED")
+            arcade.draw_text(label, left + card_w - 12, bottom + 16, border, font_size=9, bold=True, anchor_x="right")
+            if owned or (eligible and affordable):
+                self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "cyberware_toggle", item.id))
 
     def _draw_recruit_window_modal(self, w, h):
         if not self.recruit_window_open or not self.pending_recruit_candidates:
@@ -2111,6 +2176,19 @@ class ManagementView(GameView):
         if action == "sheet_close":
             self._close_agent_sheet()
             return
+        if action == "sheet_cyberware":
+            self.cyberware_sheet_open = True
+            return
+        if action == "cyberware_close":
+            self.cyberware_sheet_open = False
+            return
+        if action == "cyberware_toggle":
+            from game.agents.cyberware import BY_ID, toggle_cyberware
+            char = self.game_state.characters[self.expanded_agent_sheet_index]
+            char.installed_cyberware, changed = toggle_cyberware(char.installed_cyberware, str(data))
+            item = BY_ID.get(str(data))
+            self.message = (f"{item.name} configuration updated for {char.name}." if changed and item else "Insufficient Humanity.")
+            return
 
         if action == "sheet_spend_stat":
             char_idx, stat_key = data  # type: ignore[misc]
@@ -2637,6 +2715,7 @@ class ManagementView(GameView):
         self._headquarters = None
         self._hq_last_room = "command"
         self._hq_reduced_motion = False
+        self._room_entry_elapsed = 1.0
         self._squad_command = None
         self._department_deck = None
         self._character_sheet_renderer = None
@@ -2648,6 +2727,7 @@ class ManagementView(GameView):
         self._last_agent_click_index: int | None = None
         self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
+        self.cyberware_sheet_open: bool = False
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -2675,6 +2755,7 @@ class ManagementView(GameView):
 
     def on_update(self, delta_time: float) -> None:
         self._elapsed += delta_time
+        self._room_entry_elapsed += delta_time
         step_room_ui(self.room_ui, delta_time)
         if self._headquarters is not None:
             self._headquarters.update(delta_time, self._hq_reduced_motion)
@@ -2690,6 +2771,7 @@ class ManagementView(GameView):
         w, h = self.window.width, self.window.height
         if self.expanded_agent_sheet_index is not None:
             self._draw_expanded_agent_sheet_modal(w, h)
+            self._draw_cyberware_modal(w, h)
             return
         if self.room_ui.active_room_key == "squad":
             if self._squad_command is None:
@@ -2697,6 +2779,7 @@ class ManagementView(GameView):
 
                 self._squad_command = SquadCommandRenderer()
             self._squad_command.draw(self, w, h)
+            self._draw_room_entry_transition(w, h)
             self._draw_expanded_agent_sheet_modal(w, h)
             self._draw_recruit_window_modal(w, h)
             return
@@ -2713,8 +2796,18 @@ class ManagementView(GameView):
 
             self._department_deck = DepartmentDeck()
         self._department_deck.draw(self, w, h)
+        self._draw_room_entry_transition(w, h)
         self._draw_expanded_agent_sheet_modal(w, h)
         self._draw_recruit_window_modal(w, h)
+
+    def _draw_room_entry_transition(self, w: int, h: int) -> None:
+        if self._hq_reduced_motion or self._room_entry_elapsed >= 0.22:
+            return
+        progress = max(0.0, min(1.0, self._room_entry_elapsed / 0.22))
+        alpha = round(150 * (1.0 - progress))
+        _rect(0, 0, w, h, (0, 8, 14, alpha))
+        sweep_y = h * (1.0 - progress)
+        arcade.draw_line(0, sweep_y, w, sweep_y, (*palette.ACCENT[:3], round(220 * (1.0 - progress))), 3)
 
     def _draw_expanded_agent_sheet_modal(self, w, h):
         index = self.expanded_agent_sheet_index
@@ -2746,7 +2839,10 @@ class ManagementView(GameView):
 
         if self.expanded_agent_sheet_index is not None:
             if key == getattr(arcade.key, "ESCAPE", None):
-                self._close_agent_sheet()
+                if self.cyberware_sheet_open:
+                    self.cyberware_sheet_open = False
+                else:
+                    self._close_agent_sheet()
             elif self._character_sheet_renderer is not None:
                 if key == getattr(arcade.key, "PAGEDOWN", None):
                     self._character_sheet_renderer.scroll(
@@ -2955,6 +3051,7 @@ class ManagementView(GameView):
 
             self._headquarters = HeadquartersRenderer()
         open_room(self.room_ui, self.window.width, self.window.height, room_key)
+        self._room_entry_elapsed = 1.0 if self._hq_reduced_motion else 0.0
         self._hq_last_room = room_key
         legacy = self._headquarters.legacy if self._headquarters is not None else False
         layout = headquarters_layout(self.window.width, self.window.height, legacy)
@@ -3054,6 +3151,11 @@ class ManagementView(GameView):
             return
         if action == "select_agent":
             self._toggle_selected_agent()
+            return
+        if action == "open_cyberware":
+            if self.game_state.characters:
+                self._open_agent_sheet(self.deployment_cursor)
+                self.cyberware_sheet_open = True
             return
 
         if action == "asset_prev":

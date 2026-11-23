@@ -98,6 +98,7 @@ def _map_payload(mission: MissionTemplate) -> dict[str, Any]:
 
 def _agent_payload(character) -> dict[str, Any]:
     from .agent_moments import last_stand_dialogue
+    from game.agents.cyberware import combat_bonuses, humanity_remaining
 
     stats = character.stats
     portrait_path = portrait_path_for_character(character)
@@ -116,7 +117,10 @@ def _agent_payload(character) -> dict[str, Any]:
         else "frayed" if character.stress < 85
         else "breaking"
     )
+    cyberware_bonuses = combat_bonuses(getattr(character, "installed_cyberware", []))
     loadout_bonuses = character.loadout.total_stat_bonuses()
+    for key, value in cyberware_bonuses.items():
+        loadout_bonuses[key] = loadout_bonuses.get(key, 0) + value
     derived = compute_derived_stats(sheet_attrs, character.skills, loadout_bonuses, stress_state)
     is_robot = str(getattr(character, "role", "")).lower() == "robot"
     return {
@@ -135,6 +139,9 @@ def _agent_payload(character) -> dict[str, Any]:
         "defense":     derived["defense"],
         "initiative":  derived["initiative"],
         "melee_power": derived["melee_power"],
+        "action_points": 4 + cyberware_bonuses.get("action_points", 0),
+        "humanity": humanity_remaining(getattr(character, "installed_cyberware", [])),
+        "cyberware": list(getattr(character, "installed_cyberware", [])),
         "size_scale":  3.5 if is_robot else (1.15 if str(character.role).lower() in {"power_armor", "heavy_armor"} else 1.0),
     }
 

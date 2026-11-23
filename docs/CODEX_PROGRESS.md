@@ -8,6 +8,25 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques
+
+- Fichiers : `game/agents/cyberware.py`, `game/character.py`, `game/combat/godot_bridge.py`, `game/ui/screens/management_screen.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `assets/ui/cyberware/cyberware_atlas.png`, `tests/test_cyberware.py`.
+- État : six implants originaux, Humanité bornée de 5 à 0, feuille séparée, persistance, installation UI et bonus tactiques Godot intégrés.
+- Tests : suite ciblée partagée Cyberware/QG : 71 réussis, 1 ignoré, 7 sous-tests réussis.
+- Travail restant dans cette portée : vérifier artistiquement la feuille et l'atlas dans une fenêtre Windows native.
+
+### HQ-HANGAR-MISSIONS-01 — IN_PROGRESS — Déplacer le choix des missions vers le hangar bas du QG
+
+- État : le roster Squad expose désormais le Cyberware ; le choix des missions et l'ouverture de la carte sont routés depuis Asset Bay/Hangar.
+- Tests : absence dans Squad et ouverture depuis le Hangar vérifiées dans la suite ciblée partagée (71 réussis, 1 ignoré, 7 sous-tests réussis).
+- Travail restant : vérifier visuellement le placement du bouton dans une fenêtre Windows native.
+
+### HQ-ROOM-TRANSITION-01 — IN_PROGRESS — Animation rapide d'entrée dans les pièces du QG
+
+- État : transition de 0,22 seconde avec voile et balayage cyan ; reduced motion la saute.
+- Tests : durée et bypass d'accessibilité vérifiés dans la suite ciblée partagée.
+- Travail restant : vérifier visuellement le rythme dans une fenêtre Windows native.
+
 ### SQUAD-CLICK-CONTRACT-01 — DONE — Séparer sélection, affectation et suppression dans la page Squad
 
 - Fichiers : `game/ui/screens/management_screen.py`, `game/i18n/en.py`, `game/i18n/fr.py`, `tests/test_management_hub_ui.py`, `tests/test_squad_command_ui.py`.

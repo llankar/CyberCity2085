@@ -142,6 +142,10 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         self.hit(close, "sheet_close", tooltip=self.tr("close"))
         banner = self.layout.banner
         self.paint.panel(banner, CYAN)
+        cyber = Rect(banner.right - 190 * u, banner.bottom + 8 * u, banner.right - 16 * u, banner.top - 8 * u)
+        self.paint.panel(cyber, VIOLET, selected=self.hover == ("sheet_cyberware", None))
+        self.label("CYBERWARE", cyber.center[0], cyber.center[1], 12, VIOLET, bold=True, anchor_x="center")
+        self.hit(cyber, "sheet_cyberware", tooltip="Open cyberware sheet")
         self.icon("target", banner.left + 27 * u, banner.center[1], 30, GOLD)
         name = self.label(
             char.name.upper(),

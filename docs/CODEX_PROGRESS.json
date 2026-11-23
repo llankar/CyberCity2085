@@ -12,6 +12,33 @@
   ],
   "tasks": [
     {
+      "id": "CYBERWARE-01",
+      "title": "Feuille Cyberware, Humanite et avantages tactiques",
+      "status": "IN_PROGRESS",
+      "files": ["game/agents/cyberware.py", "game/character.py", "game/combat/godot_bridge.py", "game/ui/screens/management_screen.py", "assets/ui/cyberware/cyberware_atlas.png", "tests/test_cyberware.py"],
+      "tests": [],
+      "evidence": ["Six implants originaux, Humanite 5..0, feuille separee, persistance, installation UI et bonus Godot verifies par les contrats cibles.", "python -m pytest -q tests/test_cyberware.py tests/test_management_hub_ui.py tests/test_squad_command_ui.py tests/test_facility_ui.py tests/test_room_interaction_ui.py tests/test_godot_combat_bridge.py : 71 passed, 1 skipped, 7 subtests passed."],
+      "remaining": ["Verifier artistiquement la feuille et l'atlas dans une fenetre Windows native."]
+    },
+    {
+      "id": "HQ-HANGAR-MISSIONS-01",
+      "title": "Deplacer le choix des missions vers le hangar bas du QG",
+      "status": "IN_PROGRESS",
+      "files": ["game/ui/screens/management_screen.py", "game/ui/components/departments/assets.py", "game/ui/components/squad_command.py", "game/ui/components/squad_cyberware.py", "game/ui/room_interaction.py"],
+      "tests": ["Le contrat UI cible verifie l'absence du choix de mission dans Squad et son ouverture depuis Asset Bay/Hangar."],
+      "evidence": ["71 tests passed, 1 skipped, 7 subtests passed dans la suite cible partagee."],
+      "remaining": ["Verifier visuellement le placement du bouton Mission Hangar dans une fenetre Windows native."]
+    },
+    {
+      "id": "HQ-ROOM-TRANSITION-01",
+      "title": "Animation rapide d'entree dans les pieces du QG",
+      "status": "IN_PROGRESS",
+      "files": ["game/ui/screens/management_screen.py", "tests/test_management_hub_ui.py"],
+      "tests": ["Transition de 0.22 seconde demarree a l'ouverture; reduced motion la saute."],
+      "evidence": ["71 tests passed, 1 skipped, 7 subtests passed dans la suite cible partagee."],
+      "remaining": ["Verifier visuellement le rythme et le balayage dans une fenetre Windows native."]
+    },
+    {
       "id": "SQUAD-CLICK-CONTRACT-01",
       "title": "Separer selection, affectation et suppression dans la page Squad",
       "status": "DONE",

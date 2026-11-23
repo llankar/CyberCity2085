@@ -176,9 +176,9 @@ class SquadCommandRenderer(VisualKit):
         draw_equipment(self, r)
 
     def mission(self, r):
-        from .squad_mission import draw_mission
+        from .squad_cyberware import draw_cyberware
 
-        draw_mission(self, r)
+        draw_cyberware(self, r)
 
     def footer(self):
         u = self.u
@@ -189,7 +189,7 @@ class SquadCommandRenderer(VisualKit):
         specs = [
             ("next_step", "right", CYAN),
             ("recruit_prompt", "recruit", CYAN),
-            ("open_mission_map", "select", CYAN),
+            ("open_cyberware", "chip", CYAN),
             ("remove_agent", "black_ops", RED),
             ("agent_prev", "left", CYAN),
             ("select_agent", "squad", CYAN),

@@ -1976,7 +1976,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"hp":                int(agent.get("hp", 30)),
 			"max_hp":            maxi(1, int(agent.get("max_hp", agent.get("hp", 30)))),
 			"stress":            int(agent.get("stress", 0)),
-			"ap":                2 if int(agent.get("stress", 0)) >= 80 else 4,
+			"ap":                2 if int(agent.get("stress", 0)) >= 80 else maxi(4, int(agent.get("action_points", 4))),
 			"defense":           int(agent.get("defense", role_def_base)),
 			"initiative":        int(agent.get("initiative", 20 + int(agent.get("level", 1)) * 2 - i)),
 			"aim":               int(agent.get("aim", 5)),
