@@ -74,6 +74,8 @@ def test_settings_do_not_expose_engine_internals_to_players():
     assert "GODOT EXECUTABLE" not in source
     assert "godot_bin_path" not in source
     assert "godot_bin_browse" not in source
+    assert "F4 then B   Hangar missions" in source
+    assert "B   Mission / N   Recruitment" not in source
 
 
 def test_every_godot_literal_rejects_french_player_copy():

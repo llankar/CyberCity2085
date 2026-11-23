@@ -125,8 +125,8 @@ class SettingsDeck(UtilityDeck):
             width=r.width,
         )
         shortcuts = self.word(
-            "F1–F6   Départements\nD   Jour suivant\nS / L   Sauvegarder / charger\nB   Mission / N   Recrutement\nFLÈCHES   Navigation\nENTRÉE   Confirmer\nÉCHAP   Retour",
-            "F1–F6   Departments\nD   Advance day\nS / L   Save / load\nB   Mission / N   Recruitment\nARROWS   Navigation\nENTER   Confirm\nESC   Back",
+            "F1–F6   Départements\nF4 puis B   Missions du hangar\nN dans Escouade   Recrutement\nD   Jour suivant\nS / L   Sauvegarder / charger\nFLÈCHES   Navigation\nENTRÉE   Confirmer\nÉCHAP   Retour",
+            "F1–F6   Departments\nF4 then B   Hangar missions\nN in Squad   Recruitment\nD   Advance day\nS / L   Save / load\nARROWS   Navigation\nENTER   Confirm\nESC   Back",
         )
         self.document(
             "shortcuts", shortcuts, Rect(r.left, r.bottom, r.right, r.top - 41 * u), 18

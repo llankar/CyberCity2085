@@ -22,6 +22,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 - État : le roster Squad expose désormais le Cyberware ; le choix des missions et l'ouverture de la carte sont routés depuis Asset Bay/Hangar. Les chemins résiduels `B` et action primaire ont aussi été retirés de Squad ; `Entrée` y ouvre Cyberware, tandis que l'action primaire du Hangar ouvre les missions.
 - Tests : 51 réussis, 1 ignoré, 5 sous-tests réussis sur la navigation Squad/Hangar/Cyberware.
+- Cohérence de l'aide : `B` est inactif dans Squad et réservé au Hangar ; l'écran des contrôles indique `F4 then B — Hangar missions`. 42 tests et 5 sous-tests réussis.
 - Package : le candidat Windows `BUILD 9e6f4dee` contient le routage final par le hangar ; son smoke emballé est réussi.
 - Travail restant : vérifier visuellement le placement du bouton dans une fenêtre Windows native.
 

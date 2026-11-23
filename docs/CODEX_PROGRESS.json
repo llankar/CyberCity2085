@@ -26,9 +26,9 @@
       "id": "HQ-HANGAR-MISSIONS-01",
       "title": "Deplacer le choix des missions vers le hangar bas du QG",
       "status": "IN_PROGRESS",
-      "files": ["game/ui/screens/management_screen.py", "game/ui/components/departments/assets.py", "game/ui/components/squad_command.py", "game/ui/components/squad_cyberware.py", "game/ui/room_interaction.py"],
-      "tests": ["Le contrat UI cible verifie l'absence du choix de mission dans Squad et son ouverture depuis Asset Bay/Hangar.", "Les actions primaires et raccourcis de Squad n'ouvrent plus la carte; Enter dans Squad ouvre Cyberware et l'action primaire du Hangar ouvre les missions.", "python -m pytest -q tests/test_management_hub_ui.py tests/test_room_interaction_ui.py tests/test_squad_command_ui.py tests/test_cyberware.py : 51 passed, 1 skipped, 5 subtests passed"],
-      "evidence": ["Tous les chemins de navigation courants routent la selection de mission par Asset Bay/Hangar.", "Le candidat Windows BUILD 9e6f4dee contient ce routage et son smoke emballe est ok."],
+      "files": ["game/ui/screens/management_screen.py", "game/ui/components/departments/assets.py", "game/ui/components/squad_command.py", "game/ui/components/squad_cyberware.py", "game/ui/components/utilities/settings.py", "game/ui/room_interaction.py"],
+      "tests": ["Le contrat UI cible verifie l'absence du choix de mission dans Squad et son ouverture depuis Asset Bay/Hangar.", "Les actions primaires et raccourcis de Squad n'ouvrent plus la carte; Enter dans Squad ouvre Cyberware et l'action primaire du Hangar ouvre les missions.", "python -m pytest -q tests/test_management_hub_ui.py tests/test_room_interaction_ui.py tests/test_squad_command_ui.py tests/test_cyberware.py : 51 passed, 1 skipped, 5 subtests passed", "Aide et portee du raccourci: 42 passed, 5 subtests passed; B est inactif dans Squad et ouvre les missions uniquement dans le Hangar, l'aide affiche F4 then B Hangar missions."],
+      "evidence": ["Tous les chemins de navigation courants routent la selection de mission par Asset Bay/Hangar.", "Le candidat Windows BUILD 1e878ce6 contient ce routage et son smoke emballe est ok."],
       "remaining": ["Verifier visuellement le placement du bouton Mission Hangar dans une fenetre Windows native."]
     },
     {
