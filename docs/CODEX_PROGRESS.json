@@ -38,7 +38,8 @@
         "Navigation clavier: Tab parcourt les pages, 1-5 les ouvrent directement, Q/E changent d'agent. L'installation Cyberware declenche un scan de 0,6 seconde."
         ,"Correctif graphique: l'identite de banniere ne contient plus le niveau et reserve 36% avant les onglets; Inventory affiche six vignettes locales; Cyberware utilise un mannequin diagnostique detaille et six illustrations de zones.",
         "Le mannequin affiche un reticule synchronise sur la zone Cyberware selectionnee (deux marqueurs pour Arms). Inventory dispose de 42 PNG distincts, un par objet reel du catalogue, generes de facon reproductible par tools/generate_equipment_thumbnails.py."
-        ,"Recalage anatomique: Head 94,7%, Eyes 90,2%, Circulatory 74,8% (coeur), Torso 60,5% (abdomen), Arms 64,5% et Nervous System 68,5% (haut de la colonne). Les 42 pictogrammes abstraits ont ete remplaces par de vrais rendus d'objets issus de six planches source haute qualite."
+        ,"Recalage anatomique: Head 94,7%, Eyes 90,2%, Circulatory 74,8% (coeur), Torso 60,5% (abdomen), Arms 64,5% et Nervous System 68,5% (haut de la colonne). Les 42 pictogrammes abstraits ont ete remplaces par de vrais rendus d'objets issus de six planches source haute qualite.",
+        "Lisibilite Attributes: libelles remontes, valeurs descendues et taille des scores reduite de 38 a 34."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

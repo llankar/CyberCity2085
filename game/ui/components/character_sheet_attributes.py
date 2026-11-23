@@ -55,12 +55,12 @@ def draw_attributes(p, r):
         )
         x = rect.center[0]
         p.icon(ATTRIBUTE_ICONS[key], x, rect.top - 28 * u, 32, color)
-        p.label(label, x, rect.top - 67 * u, 18, TEXT, bold=True, anchor_x="center")
+        p.label(label, x, rect.top - 63 * u, 17, TEXT, bold=True, anchor_x="center")
         p.label(
             str(value),
             x,
-            rect.center[1] - 6 * u,
-            38,
+            rect.center[1] - 14 * u,
+            34,
             TEXT,
             bold=True,
             anchor_x="center",

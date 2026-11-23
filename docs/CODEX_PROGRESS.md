@@ -18,6 +18,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Synchronisation graphique : sélectionner une zone Cyberware déplace un réticule orange sur le mannequin (deux marqueurs pour les bras). Inventory contient désormais 42 PNG distincts, un pour chaque objet réel ; le générateur reproductible dérive leur signature visuelle de l’identifiant et des tags du catalogue.
 - Recalage et qualité : Head et Eyes sont placés sur le crâne et les yeux, Circulatory sur le cœur, Torso sur l’abdomen. Les anciennes cartes techniques abstraites ont été remplacées par 42 vrais rendus d’objets découpés depuis six planches source haute qualité et mappés selon l’ordre du catalogue.
 - Ajustement anatomique : le marqueur Nervous System est remonté à 68,5 % de la silhouette, sur le haut de la colonne entre les omoplates.
+- Lisibilité Attributes : les libellés STR/AGI/PSI/DEF/CON sont remontés, les scores descendus et leur corps réduit de 38 à 34 afin de rétablir une séparation nette.
 - Tests : gate marqueur, 42 illustrations, équipement, Cyberware, hub et packaging : 67 réussis, 5 sous-tests réussis ; les 42 PNG possèdent 42 empreintes SHA-256 distinctes. Gate étendu précédent : 82 réussis, 1 ignoré, 5 sous-tests réussis.
 - Travail restant : compléter les détails et interactions avancées, ajouter les assets réellement manquants, exécuter la suite globale, lancer le jeu et effectuer la revue visuelle multi-résolution.
 
