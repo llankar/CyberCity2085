@@ -65,7 +65,14 @@ def run_smoke():
         raise RuntimeError("Missing bundled Windows Godot executable")
     if bundled_godot:
         check_bundled_tactical_startup(bundled_godot, godot_project)
-    character = Character("Smoke Agent", starver_infection_days=2)
+    cyberware_atlas = Path("assets/ui/cyberware/cyberware_atlas.png")
+    if not cyberware_atlas.is_file() or cyberware_atlas.stat().st_size == 0:
+        raise RuntimeError("Missing bundled cyberware atlas")
+    character = Character(
+        "Smoke Agent",
+        starver_infection_days=2,
+        installed_cyberware=["smart_eye", "tactical_coprocessor"],
+    )
     state = GameState(characters=[character], selected_agent_names=[character.name])
     with TemporaryDirectory(prefix="cybercity-smoke-") as temporary:
         path = Path(temporary) / "campaign.json"
@@ -73,7 +80,13 @@ def run_smoke():
         if not saved.ok:
             raise RuntimeError(saved.message)
         restored, loaded = SaveSystem.load_game(path)
-        if not loaded.ok or restored is None or restored.characters[0].starver_infection_days != 2:
+        if (
+            not loaded.ok
+            or restored is None
+            or restored.characters[0].starver_infection_days != 2
+            or restored.characters[0].installed_cyberware != ["smart_eye", "tactical_coprocessor"]
+            or restored.characters[0].humanity != 3
+        ):
             raise RuntimeError("Packaged campaign save/load roundtrip failed")
     entry = next(entry for entry in entries if entry.filename == "city_industrial_dockside_terminal.png")
     battle = simulate_encounter(theme="corp_37_robot", level=2, risk=2, count=2, seed=0,
@@ -82,6 +95,8 @@ def run_smoke():
         raise RuntimeError("Packaged reference battle did not reach a legal terminal outcome")
     return {"status": "ok", "manual_maps": len(entries), "mp3_tracks": len(music),
             "story_objectives_preserved": len(STORY_MISSIONS),
-            "save_roundtrip": True, "battle": battle, "game_window_opened": False,
+            "save_roundtrip": True, "cyberware_roundtrip": True,
+            "cyberware_atlas": cyberware_atlas.name,
+            "battle": battle, "game_window_opened": False,
             "bundled_godot": Path(bundled_godot).name if bundled_godot else None,
             "bundled_tactical_headless_startup": bool(bundled_godot)}
