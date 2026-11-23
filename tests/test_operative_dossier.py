@@ -41,6 +41,7 @@ def test_dossier_graphic_assets_cover_inventory_and_cyberware_zones():
     catalog = default_equipment_catalog()
     for slot in EQUIPMENT_SLOTS:
         assert Path(f"assets/ui/inventory/{slot}.png").stat().st_size > 0
+        assert Path(f"assets/ui/inventory/source_sheets/{slot}.png").stat().st_size > 0
         for item in catalog[slot]:
             assert Path(f"assets/ui/inventory/items/{item.id}.png").stat().st_size > 0
     assert sum(len(items) for items in catalog.values()) == 42

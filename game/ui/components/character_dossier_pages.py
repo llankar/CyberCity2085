@@ -410,12 +410,12 @@ def _draw_body_marker(p, figure: Rect, zone: str):
     """Pin the selected catalogue zone to the matching place on the body art."""
     u = p.u
     relative = {
-        "HEAD": ((0.50, 0.92),),
-        "EYES": ((0.50, 0.875),),
-        "ARMS": ((0.25, 0.60), (0.75, 0.60)),
-        "TORSO": ((0.50, 0.66),),
-        "CIRCULATORY": ((0.50, 0.72),),
-        "NERVOUS SYSTEM": ((0.50, 0.53),),
+        "HEAD": ((0.50, 0.947),),
+        "EYES": ((0.50, 0.902),),
+        "ARMS": ((0.25, 0.645), (0.75, 0.645)),
+        "TORSO": ((0.50, 0.605),),
+        "CIRCULATORY": ((0.50, 0.748),),
+        "NERVOUS SYSTEM": ((0.50, 0.555),),
     }
     for px, py in relative.get(zone, ((0.5, 0.5),)):
         x = figure.left + figure.width * px
