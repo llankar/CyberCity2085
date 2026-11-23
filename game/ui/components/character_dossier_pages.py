@@ -36,6 +36,14 @@ SLOT_LABELS = {
 }
 
 
+def _equipment_art(slot: str) -> str:
+    return f"assets/ui/inventory/{slot}.png"
+
+
+def _cyberware_art(zone: str) -> str:
+    return "assets/ui/cyberware/zones/" + zone.lower().replace(" ", "_") + ".png"
+
+
 def _panel(p, rect: Rect, title: str, color=CYAN):
     p.paint.panel(rect, color)
     p.label(title, rect.left + 14 * p.u, rect.top - 22 * p.u, 15, color, bold=True, width=rect.width - 28 * p.u)
@@ -160,8 +168,12 @@ def draw_inventory(p, r: Rect):
         active = selected_slot == slot
         p.paint.panel(row, GOLD if active else CYAN, selected=active)
         item = c.loadout.item_for_slot(slot)
-        p.label(SLOT_LABELS[slot], row.left+12*u, row.top-19*u, 10, CYAN, bold=True)
-        p.label(item.name.upper() if item else "— EMPTY —", row.left+12*u, row.center[1]-9*u, 13, TEXT if item else MUTED, bold=True, width=row.width-24*u)
+        art = Rect(row.left+7*u, row.bottom+7*u, row.left+82*u, row.top-7*u)
+        p.image(_equipment_art(slot), art)
+        arcade.draw_lrbt_rectangle_outline(art.left, art.right, art.bottom, art.top, (*CYAN, 150), max(1, u))
+        text_x = art.right + 10*u
+        p.label(SLOT_LABELS[slot], text_x, row.top-19*u, 10, CYAN, bold=True)
+        p.label(item.name.upper() if item else "— EMPTY —", text_x, row.center[1]-9*u, 12, TEXT if item else MUTED, bold=True, width=row.right-text_x-8*u)
         p.hit(row, "dossier_inventory_slot", slot, "Show compatible equipment")
     _panel(p, catalog, f"AVAILABLE // {SLOT_LABELS[selected_slot]}", CYAN)
     items = p.view.equipment_catalog.get(selected_slot, [])
@@ -170,19 +182,25 @@ def draw_inventory(p, r: Rect):
         active = selected_id == item.id
         equipped = c.loadout.item_for_slot(selected_slot)
         p.paint.panel(row, GOLD if active else VIOLET if equipped and equipped.id == item.id else CYAN, selected=active)
-        p.label(item.name.upper(), row.left+10*u, row.center[1]+8*u, 11, TEXT, bold=True, width=row.width-20*u)
+        thumb = Rect(row.left+5*u, row.bottom+5*u, row.left+62*u, row.top-5*u)
+        p.image(_equipment_art(selected_slot), thumb)
+        text_x = thumb.right + 8*u
+        p.label(item.name.upper(), text_x, row.center[1]+8*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
-        p.label(bonuses, row.left+10*u, row.center[1]-12*u, 9, MINT, width=row.width-20*u)
+        p.label(bonuses, text_x, row.center[1]-12*u, 9, MINT, width=row.right-text_x-8*u)
         p.hit(row, "dossier_inventory_item", item.id, "Inspect item")
     _panel(p, detail, "ITEM DETAILS // COMPARISON", CYAN)
     chosen = next((item for item in items if item.id == selected_id), None) or (items[0] if items else None)
     if chosen:
         equipped = c.loadout.item_for_slot(selected_slot)
-        p.label(chosen.name.upper(), detail.left+16*u, detail.top-58*u, 20, TEXT, bold=True, width=detail.width-32*u)
+        hero = Rect(detail.left+16*u, detail.top-245*u, detail.right-16*u, detail.top-48*u)
+        p.image(_equipment_art(selected_slot), hero)
+        arcade.draw_lrbt_rectangle_outline(hero.left, hero.right, hero.bottom, hero.top, (*VIOLET, 160), max(1, 1.5*u))
+        p.label(chosen.name.upper(), detail.left+16*u, detail.top-270*u, 20, TEXT, bold=True, width=detail.width-32*u)
         kind = "WEAPON" if isinstance(chosen, Weapon) else "ARMOR" if isinstance(chosen, Armor) else "GEAR"
-        p.label(kind, detail.left+16*u, detail.top-87*u, 11, VIOLET, bold=True)
-        p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-185*u, detail.right-16*u, detail.top-105*u), 12, TEXT)
-        y = detail.top-215*u
+        p.label(kind, detail.left+16*u, detail.top-299*u, 11, VIOLET, bold=True)
+        p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-385*u, detail.right-16*u, detail.top-317*u), 11, TEXT)
+        y = detail.top-410*u
         all_stats = sorted(set(chosen.stat_bonuses) | set(equipped.stat_bonuses if equipped else {}))
         for key in all_stats:
             old = equipped.stat_bonuses.get(key, 0) if equipped else 0
@@ -217,8 +235,9 @@ def draw_cyberware(p, r: Rect):
     u, c = p.u, p.character
     summary, zones, catalog, detail = _columns(r, (22, 25, 27, 26), 10*u)
     _panel(p, summary, "CYBERWARE MAP", VIOLET)
-    figure = Rect(summary.left+20*u, summary.bottom+150*u, summary.right-20*u, summary.top-52*u)
-    _draw_anatomy(p, figure, getattr(p.view, "dossier_cyberware_zone", ZONE_ORDER[0]))
+    figure = Rect(summary.left+12*u, summary.bottom+142*u, summary.right-12*u, summary.top-45*u)
+    p.image("assets/ui/cyberware/cyberware_body_map_v1.png", figure)
+    arcade.draw_lrbt_rectangle_outline(figure.left, figure.right, figure.bottom, figure.top, (*VIOLET, 130), max(1, u))
     if p.view._elapsed < getattr(p.view, "dossier_cyber_scan_until", 0.0):
         progress = 1.0 - max(0.0, p.view.dossier_cyber_scan_until - p.view._elapsed) / 0.6
         scan_y = figure.bottom + figure.height * progress
@@ -234,9 +253,12 @@ def draw_cyberware(p, r: Rect):
     for row, zone in zip(_rows(Rect(zones.left+9*u, zones.bottom+12*u, zones.right-9*u, zones.top-45*u), 6, 7*u), ZONE_ORDER):
         active = zone == selected_zone
         p.paint.panel(row, GOLD if active else VIOLET, selected=active)
-        p.label(zone, row.left+11*u, row.top-20*u, 11, TEXT, bold=True, width=row.width-22*u)
+        thumb = Rect(row.left+6*u, row.bottom+6*u, row.left+67*u, row.top-6*u)
+        p.image(_cyberware_art(zone), thumb)
+        text_x = thumb.right + 8*u
+        p.label(zone, text_x, row.top-20*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         installed = installed_by_zone.get(zone)
-        p.label(installed.name if installed else "EMPTY SLOT", row.left+11*u, row.bottom+17*u, 9, MINT if installed else MUTED, width=row.width-22*u)
+        p.label(installed.name if installed else "EMPTY SLOT", text_x, row.bottom+17*u, 9, MINT if installed else MUTED, width=row.right-text_x-8*u)
         p.hit(row, "cyberware_zone", zone, "Open implant catalog")
     _panel(p, catalog, f"IMPLANT CATALOG // {selected_zone}", VIOLET)
     items = catalogue_for_zone(selected_zone)
@@ -247,8 +269,11 @@ def draw_cyberware(p, r: Rect):
         affordable = item.credit_cost <= p.gs.available_funds and item.humanity_cost <= MAX_HUMANITY
         row_color = GOLD if active else MINT if installed else CYAN if affordable else MUTED
         p.paint.panel(row, row_color, selected=active)
-        p.label(item.name.upper(), row.left+8*u, row.center[1]+7*u, 9, TEXT, bold=True, width=row.width-16*u)
-        p.label(f"CR {item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", row.left+8*u, row.center[1]-10*u, 8, GOLD, width=row.width-16*u)
+        thumb = Rect(row.left+4*u, row.bottom+4*u, row.left+48*u, row.top-4*u)
+        p.image(_cyberware_art(selected_zone), thumb)
+        text_x = thumb.right + 7*u
+        p.label(item.name.upper(), text_x, row.center[1]+7*u, 9, TEXT, bold=True, width=row.right-text_x-28*u)
+        p.label(f"CR {item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", text_x, row.center[1]-10*u, 8, GOLD, width=row.right-text_x-28*u)
         p.hit(row, "dossier_cyberware_item", item.id, "Inspect implant")
         quick = Rect(row.right-28*u, row.bottom+4*u, row.right-4*u, row.top-4*u)
         p.hit(quick, "cyberware_toggle", item.id, "Install or remove this implant")
@@ -258,10 +283,13 @@ def draw_cyberware(p, r: Rect):
         p.paragraph("This operative chassis is not eligible for human cyberware.", Rect(detail.left+16*u, detail.bottom+20*u, detail.right-16*u, detail.top-55*u), 13, RED)
     elif chosen:
         installed = chosen.id in c.installed_cyberware
-        p.label(chosen.name.upper(), detail.left+15*u, detail.top-58*u, 18, TEXT, bold=True, width=detail.width-30*u)
-        p.label(f"{chosen.zone} // TIER {chosen.power_tier}", detail.left+15*u, detail.top-88*u, 11, VIOLET, bold=True)
-        p.paragraph(chosen.description, Rect(detail.left+15*u, detail.top-190*u, detail.right-15*u, detail.top-108*u), 12, TEXT)
-        y = detail.top-220*u
+        hero = Rect(detail.left+15*u, detail.top-238*u, detail.right-15*u, detail.top-48*u)
+        p.image(_cyberware_art(chosen.zone), hero)
+        arcade.draw_lrbt_rectangle_outline(hero.left, hero.right, hero.bottom, hero.top, (*VIOLET, 160), max(1, 1.5*u))
+        p.label(chosen.name.upper(), detail.left+15*u, detail.top-264*u, 17, TEXT, bold=True, width=detail.width-30*u)
+        p.label(f"{chosen.zone} // TIER {chosen.power_tier}", detail.left+15*u, detail.top-293*u, 11, VIOLET, bold=True)
+        p.paragraph(chosen.description, Rect(detail.left+15*u, detail.top-390*u, detail.right-15*u, detail.top-312*u), 11, TEXT)
+        y = detail.top-420*u
         for key, value in chosen.combat_bonuses.items():
             p.label(f"{key.upper()} {value:+d}", detail.left+15*u, y, 13, MINT, bold=True)
             y -= 28*u

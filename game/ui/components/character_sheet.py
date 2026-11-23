@@ -133,28 +133,28 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         banner = self.layout.banner
         self.paint.panel(banner, CYAN)
         self.icon("target", banner.left + 27 * u, banner.center[1], 30, GOLD)
+        tabs_left = banner.left + banner.width * 0.36
         name = self.label(
             char.name.upper(),
             banner.left + 56 * u,
             banner.center[1],
-            30,
+            27,
             TEXT,
             bold=True,
-            width=banner.width * 0.22,
+            width=max(1, tabs_left - banner.left - 190 * u),
         )
         role = t("squad.role." + char.role, self.gs.ui_language)
         if role.startswith("squad."):
             role = char.role.upper()
         self.role_label = role
         self.label(
-            " //  " + role + "  //  " + self.tr("level", level=char.stats.level),
-            banner.left + 70 * u + name.content_width,
+            "//  " + role,
+            min(tabs_left - 118 * u, banner.left + 70 * u + name.content_width),
             banner.center[1],
-            22,
-            TEXT,
-            width=banner.width * 0.24,
+            17,
+            MUTED,
+            width=max(1, tabs_left - banner.left - 80 * u),
         )
-        tabs_left = banner.left + banner.width * 0.34
         gap = 8 * u
         tab_w = (banner.right - tabs_left - 14 * u - gap * 4) / 5
         for i, page in enumerate(DOSSIER_PAGES):

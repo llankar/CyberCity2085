@@ -35,6 +35,7 @@
         "L'ancienne surcouche Cyberware n'est plus dessinee; les anciens appels sont rediriges vers l'onglet integre.",
         "La barre permanente affiche les cinq ressources reelles; Inventory equipe et retire; la silhouette Cyberware est vectorielle et synchronisee; un test rend les cinq pages.",
         "Navigation clavier: Tab parcourt les pages, 1-5 les ouvrent directement, Q/E changent d'agent. L'installation Cyberware declenche un scan de 0,6 seconde."
+        ,"Correctif graphique: l'identite de banniere ne contient plus le niveau et reserve 36% avant les onglets; Inventory affiche six vignettes locales; Cyberware utilise un mannequin diagnostique detaille et six illustrations de zones."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

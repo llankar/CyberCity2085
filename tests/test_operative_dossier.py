@@ -1,5 +1,7 @@
 """Functional contracts introduced by Operative Dossier 2.0."""
 
+from pathlib import Path
+
 from game.agents.cyberware import ZONE_ORDER, catalogue_for_zone
 from game.character import Character
 from game.gamestate import GameState
@@ -33,6 +35,15 @@ def test_inventory_catalog_uses_real_slots_and_compatible_items():
 def test_cyberware_page_exposes_ten_real_implants_per_zone():
     assert len(ZONE_ORDER) == 6
     assert all(len(catalogue_for_zone(zone)) >= 10 for zone in ZONE_ORDER)
+
+
+def test_dossier_graphic_assets_cover_inventory_and_cyberware_zones():
+    for slot in EQUIPMENT_SLOTS:
+        assert Path(f"assets/ui/inventory/{slot}.png").stat().st_size > 0
+    assert Path("assets/ui/cyberware/cyberware_body_map_v1.png").stat().st_size > 0
+    for zone in ZONE_ORDER:
+        filename = zone.lower().replace(" ", "_") + ".png"
+        assert Path("assets/ui/cyberware/zones", filename).stat().st_size > 0
 
 
 def test_personal_notes_round_trip_and_old_saves_migrate_empty():
