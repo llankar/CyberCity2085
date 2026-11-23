@@ -182,6 +182,7 @@ class ManagementHubUITest(unittest.TestCase):
             create_character("Katana", "samurai"),
         ]
         view.game_state.characters[0].pending_points = 5
+        view.game_state.owned_equipment = {"pulse_rifle": 1}
         view.game_state.selected_agent_names = [view.game_state.characters[0].name]
         view.game_state.spec_ops_assets = default_spec_ops_assets()
 

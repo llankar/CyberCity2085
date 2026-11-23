@@ -39,7 +39,8 @@ def sanitize_selected_agent_names(
 
 
 def toggle_agent_selection(
-    characters: list[Character], selected_agent_names: list[str], index: int
+    characters: list[Character], selected_agent_names: list[str], index: int,
+    capacity: int | None = None,
 ) -> tuple[list[str], str]:
     """Toggle a roster slot and return the updated selection plus a readable result."""
     if index < 0 or index >= len(characters):
@@ -56,6 +57,9 @@ def toggle_agent_selection(
     if character.name in sanitized:
         sanitized.remove(character.name)
         return sanitized, f"{character.name} removed from the squad."
+
+    if capacity is not None and len(sanitized) >= max(0, int(capacity)):
+        return sanitized, f"Squad capacity reached ({capacity}). Upgrade the Hangar."
 
     sanitized.append(character.name)
     return sanitized, f"{character.name} added to the squad."

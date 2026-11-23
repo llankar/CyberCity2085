@@ -821,6 +821,7 @@ class ManagementView(GameView):
                     self.game_state.characters,
                     self.game_state.selected_agent_names,
                     self.deployment_cursor,
+                    self.game_state.squad_capacity,
                 )
                 self.pending_launch_confirm = False
             elif key in (arcade.key.KEY_7, arcade.key.KEY_8, arcade.key.KEY_9):
@@ -2238,13 +2239,24 @@ class ManagementView(GameView):
         if action == "dossier_inventory_item":
             self.dossier_inventory_item = str(data)
             return
+        if action == "dossier_buy_item":
+            slot, item_id = data
+            item = next(
+                (entry for entry in self.equipment_catalog.get(str(slot), []) if entry.id == str(item_id)),
+                None,
+            )
+            if item is not None:
+                _, self.message = self.game_state.purchase_equipment(item)
+            return
         if action == "dossier_equip_item":
             slot, item_id = data
             item = next(
                 (entry for entry in self.equipment_catalog.get(str(slot), []) if entry.id == str(item_id)),
                 None,
             )
-            if item is not None and self.expanded_agent_sheet_index is not None:
+            if item is not None and not self.game_state.owns_equipment(item.id):
+                self.message = f"Buy {item.name} before equipping it."
+            elif item is not None and self.expanded_agent_sheet_index is not None:
                 char = self.game_state.characters[self.expanded_agent_sheet_index]
                 char.loadout.equip(str(slot), item)
                 self.message = f"{char.name} equipped {item.name}."
@@ -2505,6 +2517,10 @@ class ManagementView(GameView):
     def _do_recruit_prompt(self) -> None:
         """Open the recruit chooser with a small list of named agents."""
         gs = self.game_state
+        if not gs.can_recruit():
+            self.message = f"Roster capacity reached ({len(gs.characters)}/{gs.squad_capacity}). Upgrade the Hangar."
+            self.notifications.warning(self.message)
+            return
         self._close_agent_sheet()
         self.pending_recruit_candidates = build_recruitment_candidates(gs.characters)
         self.recruit_window_open = True
@@ -2512,6 +2528,10 @@ class ManagementView(GameView):
 
     def _do_recruit_candidate(self, candidate_index: int) -> None:
         gs = self.game_state
+        if not gs.can_recruit():
+            self.message = f"Roster capacity reached ({len(gs.characters)}/{gs.squad_capacity}). Upgrade the Hangar."
+            self.notifications.warning(self.message)
+            return
         if candidate_index >= len(self.pending_recruit_candidates):
             return
         candidate = self.pending_recruit_candidates[candidate_index]
@@ -2530,6 +2550,8 @@ class ManagementView(GameView):
             skills=candidate.skill_ranks,
             sex=candidate.sex,
         )
+        for item in agent.loadout.equipped_items():
+            gs.owned_equipment[item.id] = gs.owned_equipment.get(item.id, 0) + 1
         self.deployment_cursor = len(gs.characters) - 1
         self._cycle_agent_cursor(0)
         if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < 4:
@@ -2840,7 +2862,10 @@ class ManagementView(GameView):
         char   = gs.characters[char_idx]
         catalog_options = self.equipment_catalog.get(slot, [])
         # Build pool: None (empty) + catalog items that fit the slot
-        pool = [None] + [it for it in catalog_options if it.can_equip_to(slot)]
+        pool = [None] + [
+            it for it in catalog_options
+            if it.can_equip_to(slot) and gs.owns_equipment(it.id)
+        ]
         if len(pool) <= 1:
             return
         current = char.loadout.item_for_slot(slot)
@@ -2850,6 +2875,8 @@ class ManagementView(GameView):
             cur_idx = 0
         new_idx = (cur_idx + direction) % len(pool)
         new_item = pool[new_idx]
+        if new_item is None and current is not None and len(pool) == 2:
+            return
         char.loadout.equip(slot, new_item)
         name = new_item.name if new_item else "empty"
         gs.add_event(f"{char.name} — {slot.replace('_', ' ')}: {name}")
@@ -3308,6 +3335,7 @@ class ManagementView(GameView):
             self.game_state.characters,
             self.game_state.selected_agent_names,
             self.deployment_cursor,
+            self.game_state.squad_capacity,
         )
         self.pending_launch_confirm = False
 

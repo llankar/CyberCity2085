@@ -18,7 +18,7 @@ from game.agents.cyberware import (
     humanity_remaining,
     is_eligible_role,
 )
-from game.management.equipment import EQUIPMENT_SLOTS, Armor, Weapon
+from game.management.equipment import EQUIPMENT_SLOTS, Armor, Weapon, equipment_power_band, equipment_purchase_price
 from game.ui.layouts.world_map_beacons import Rect
 from game.ui.portraits import portrait_path_for_character
 
@@ -148,9 +148,9 @@ def draw_overview(p, r: Rect):
         p.label(f"{item.zone}: {item.name}", cyber.left+14*u, cyber.top-(86+i*29)*u, 11, TEXT, width=cyber.width-28*u)
     p.hit(cyber, "dossier_tab", "cyberware", "Manage cyberware")
     squad = Rect(right.left, right.bottom, right.right, cyber.bottom-12*u)
-    _panel(p, squad, f"SQUAD {len(p.gs.selected_agent_names)}/5", CYAN)
+    _panel(p, squad, f"SQUAD {len(p.gs.selected_agent_names)}/{p.gs.squad_capacity}", CYAN)
     selected = [ch for ch in p.gs.characters if ch.name in p.gs.selected_agent_names]
-    for i, agent in enumerate(selected[:5]):
+    for i, agent in enumerate(selected[:p.gs.squad_capacity]):
         p.label(agent.name.upper(), squad.left+14*u, squad.top-(52+i*32)*u, 11, TEXT, bold=True, width=squad.width*.48)
         p.label(f"HP {agent.stats.hp}/{agent.stats.max_hp}  STRESS {agent.stress}%", squad.right-14*u, squad.top-(52+i*32)*u, 9, MINT, anchor_x="right", width=squad.width*.48)
 
@@ -184,7 +184,9 @@ def draw_inventory(p, r: Rect):
         text_x = thumb.right + 8*u
         p.label(item.name.upper(), text_x, row.center[1]+8*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
-        p.label(bonuses, text_x, row.center[1]-12*u, 9, MINT, width=row.right-text_x-8*u)
+        owned = p.gs.owns_equipment(item.id)
+        price = equipment_purchase_price(item)
+        p.label(f"{bonuses}  //  {'OWNED' if owned else f'¥{price:,}'}", text_x, row.center[1]-12*u, 9, MINT if owned else GOLD, width=row.right-text_x-8*u)
         p.hit(row, "dossier_inventory_item", item.id, "Inspect item")
     _panel(p, detail, "ITEM DETAILS // COMPARISON", CYAN)
     chosen = next((item for item in items if item.id == selected_id), None) or (items[0] if items else None)
@@ -196,7 +198,10 @@ def draw_inventory(p, r: Rect):
         p.label(chosen.name.upper(), detail.left+16*u, detail.top-270*u, 20, TEXT, bold=True, width=detail.width-32*u)
         kind = "WEAPON" if isinstance(chosen, Weapon) else "ARMOR" if isinstance(chosen, Armor) else "GEAR"
         p.label(kind, detail.left+16*u, detail.top-299*u, 11, VIOLET, bold=True)
-        p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-385*u, detail.right-16*u, detail.top-317*u), 11, TEXT)
+        price = equipment_purchase_price(chosen)
+        owned = p.gs.owns_equipment(chosen.id)
+        p.label(f"{equipment_power_band(chosen)}  //  ¥{price:,}  //  {'OWNED' if owned else 'AVAILABLE'}", detail.left+16*u, detail.top-318*u, 10, MINT if owned else GOLD, bold=True)
+        p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-397*u, detail.right-16*u, detail.top-330*u), 11, TEXT)
         y = detail.top-410*u
         all_stats = sorted(set(chosen.stat_bonuses) | set(equipped.stat_bonuses if equipped else {}))
         for key in all_stats:
@@ -220,11 +225,16 @@ def draw_inventory(p, r: Rect):
             p.label(f"{label:<12} {old:+d}  →  {new:+d}   ({delta:+d})", detail.left+16*u, y, 12, MINT if delta>0 else RED if delta<0 else MUTED, width=detail.width-32*u)
             y -= 29*u
         equip = Rect(detail.left+16*u, detail.bottom+18*u, detail.right-16*u, detail.bottom+64*u)
-        p.paint.panel(equip, GOLD, selected=True)
-        p.label("EQUIP" if not equipped or equipped.id != chosen.id else "REMOVE", *equip.center, 13, GOLD, bold=True, anchor_x="center")
-        if not equipped or equipped.id != chosen.id:
+        can_buy = p.gs.available_funds >= price
+        button_color = GOLD if owned or can_buy else RED
+        p.paint.panel(equip, button_color, selected=True)
+        label = ("REMOVE" if equipped and equipped.id == chosen.id else "EQUIP") if owned else ("BUY" if can_buy else "NOT ENOUGH FUNDS")
+        p.label(label, *equip.center, 13, button_color, bold=True, anchor_x="center")
+        if not owned and can_buy:
+            p.hit(equip, "dossier_buy_item", (selected_slot, chosen.id), "Purchase selected item")
+        elif owned and (not equipped or equipped.id != chosen.id):
             p.hit(equip, "dossier_equip_item", (selected_slot, chosen.id), "Equip selected item")
-        else:
+        elif owned:
             p.hit(equip, "dossier_unequip", selected_slot, "Remove equipped item")
 
 

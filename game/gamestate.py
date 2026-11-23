@@ -28,6 +28,7 @@ from .management.funds import (
     default_mission_fund_distribution,
 )
 from .management.stress import daily_stress_recovery
+from .management.hangar_progression import HangarProgression
 from .campaign import CampaignState
 from .narrative.temporary_scars import tick_temporary_scars
 from .narrative.recovery_dialogues import (
@@ -87,6 +88,8 @@ class GameState:
 
     # List of recruited characters
     characters: List[Character] = field(default_factory=list)
+    hangar: HangarProgression = field(default_factory=HangarProgression)
+    owned_equipment: dict[str, int] = field(default_factory=dict)
 
     # Corporation identity — set during New Game setup
     corp_name: str = "AEGIS Corporation"
@@ -221,6 +224,51 @@ class GameState:
         if spent:
             self.budget_pool = self.funds.available_funds
         return spent
+
+    @property
+    def squad_capacity(self) -> int:
+        return self.hangar.squad_capacity
+
+    def upgrade_hangar(self) -> tuple[bool, str]:
+        """Atomically buy exactly the next fixed Hangar level."""
+        upgrade = self.hangar.next_upgrade
+        if upgrade is None:
+            return False, "Hangar is already at maximum level."
+        level, name, capacity, cost = upgrade
+        if not self.spend_funds(cost, "hangar_upgrade", f"Hangar level {level}: {name}."):
+            missing = max(0, cost - self.available_funds)
+            return False, f"Insufficient funds: need ¥{missing:,} more."
+        self.hangar.level = level
+        self.add_event(f"Hangar upgraded to {name}; squad capacity is now {capacity}.")
+        return True, f"{name} acquired. Squad capacity: {capacity}."
+
+    def can_recruit(self) -> bool:
+        return len(self.characters) < self.squad_capacity
+
+    def owns_equipment(self, item_id: str) -> bool:
+        key = str(item_id)
+        if self.owned_equipment.get(key, 0) > 0:
+            return True
+        # Characters created by older helpers or fixtures already own the gear
+        # they carry, even before the next save migration materializes counts.
+        return any(
+            item.id == key
+            for character in self.characters
+            for item in character.loadout.equipped_items()
+        )
+
+    def purchase_equipment(self, item) -> tuple[bool, str]:
+        """Atomically purchase one catalogue item into the campaign inventory."""
+        from .management.equipment import equipment_purchase_price
+
+        if self.owns_equipment(item.id):
+            return False, f"{item.name} is already owned."
+        price = equipment_purchase_price(item)
+        if not self.spend_funds(price, "equipment_purchase", f"Purchased {item.name}."):
+            return False, f"Insufficient funds: {item.name} costs ¥{price:,}."
+        self.owned_equipment[item.id] = self.owned_equipment.get(item.id, 0) + 1
+        self.add_event(f"Equipment acquired: {item.name} for ¥{price:,}.")
+        return True, f"{item.name} purchased for ¥{price:,}."
 
     def allocate_corp_funds(self, key: str, amount: int) -> bool:
         """Attempt to allocate funds from the current corporate ledger."""
@@ -579,6 +627,8 @@ class GameState:
             "strategic_resources": self.strategic_resources,
             "mission_fund_allocations": self.mission_fund_allocations,
             "characters": [c.to_dict() for c in self.characters],
+            "hangar": self.hangar.to_dict(),
+            "owned_equipment": dict(self.owned_equipment),
             "x": self.x,
             "corp_name": self.corp_name,
             "city_name": self.city_name,
@@ -749,6 +799,15 @@ class GameState:
                 character.name = new_name
             normalized_chars.append(character)
         gs.characters = normalized_chars
+        gs.hangar = HangarProgression.from_dict(data.get("hangar"), len(gs.characters))
+        gs.owned_equipment = {
+            str(item_id): max(0, int(quantity))
+            for item_id, quantity in data.get("owned_equipment", {}).items()
+        }
+        if "owned_equipment" not in data:
+            for character in gs.characters:
+                for item in character.loadout.equipped_items():
+                    gs.owned_equipment[item.id] = gs.owned_equipment.get(item.id, 0) + 1
         from .deployment import sanitize_selected_agent_names, sanitize_selected_asset_ids
 
         if renamed:

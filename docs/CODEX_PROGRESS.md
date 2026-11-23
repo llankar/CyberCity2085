@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-23) : ECONOMY-HANGAR-AUGMENTATION-01 IN_PROGRESS. `CorporateFunds/available_funds` est confirmé comme solde Néo­dollars, distinct de Credits. Le socle persistant gère quatre niveaux Hangar (5/6/7/8 places) aux coûts fixes 0/20 000/60 000/180 000, achats atomiques et migration des anciens rosters. L'équipement possède désormais une valorisation pondérée, un inventaire possédé persistant et les états BUY/OWNED/EQUIP/NOT ENOUGH FUNDS dans Operative Dossier ; Squad ne parcourt que les objets possédés. Gate ciblé : 96 tests réussis, 1 skip X11 attendu, 5 sous-tests réussis. Restent le panneau Hangar, l'audit de tous les anciens chemins à capacité fixe, la revalorisation Cyberware, la simulation économique et les validations globale/Windows.
+
 - État courant (2026-11-23) : OPERATIVE-DOSSIER-20 équipement Squad/Inventory DONE. La page Squad utilise désormais le même résolveur d'illustrations par identifiant d'objet que la page Inventory pour les six emplacements. Katana, Mono-Knife et les autres lames affichent leur PNG réel au lieu du pictogramme générique ; un fallback par emplacement reste disponible. Gate ciblé : 70 tests réussis, 1 skip framebuffer X11 attendu sous Windows et 5 sous-tests réussis. Le chantier Operative Dossier global reste IN_PROGRESS.
 
 Source structurée : `docs/CODEX_PROGRESS.json`. Générer ce document avec la commande de [vérification globale](COMBAT_VISUAL_ACCEPTANCE.md).

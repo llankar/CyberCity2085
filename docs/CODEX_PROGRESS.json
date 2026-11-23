@@ -5,6 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
+    "ECONOMY-HANGAR-AUGMENTATION-01",
     "WINDOWS-CURRENT-BUILD",
     "HQ-HANGAR-MISSIONS-01",
     "HQ-ROOM-TRANSITION-01",
@@ -13,6 +14,39 @@
     "AUDIO-PILOT"
   ],
   "tasks": [
+    {
+      "id": "ECONOMY-HANGAR-AUGMENTATION-01",
+      "title": "Economie Neodollars, progression Hangar et acquisition equipement/Cyberware",
+      "status": "IN_PROGRESS",
+      "files": [
+        "game/management/hangar_progression.py",
+        "game/management/equipment.py",
+        "game/gamestate.py",
+        "game/deployment.py",
+        "game/ui/screens/management_screen.py",
+        "game/ui/components/character_dossier_pages.py",
+        "tests/test_hangar_progression.py",
+        "tests/test_equipment_economy.py"
+      ],
+      "tests": [
+        "Core economy targeted gate: 96 passed, 1 skipped (X11 framebuffer), 5 subtests passed."
+      ],
+      "evidence": [
+        "Audit: les Neodollars correspondent au registre CorporateFunds/available_funds affiche avec le symbole yen; Credits reste une ressource strategique distincte.",
+        "HangarProgression centralise exactement les niveaux 1-4, capacites 5-8 et couts fixes 0/20000/60000/180000; les achats ordonnes debitent atomiquement le registre.",
+        "Les sauvegardes conservent le niveau Hangar et owned_equipment; les anciennes sauvegardes migrent au plus petit niveau legitime preservant leur roster et materialisent leurs loadouts sans facturation retrospective.",
+        "Equipment pricing utilise des poids differencies pour defense, attributs, HP, degats, portee, mitigation, polyvalence et tags puissants; Inventory expose prix, possession et actions BUY/EQUIP/REMOVE.",
+        "Le recrutement respecte la capacite dynamique et le changement rapide Squad ne parcourt que les objets possedes."
+      ],
+      "remaining": [
+        "Integrer le panneau HANGAR UPGRADES // SQUAD CAPACITY et son action d'achat dans l'interface Hangar.",
+        "Appliquer partout la capacite dynamique, notamment les anciens chemins views.py et les affichages secondaires.",
+        "Revaloriser Cyberware dans les fourchettes Basic/Advanced/Military/Experimental et centraliser definitivement la transaction achat-installation.",
+        "Finaliser les quantites et transferts d'equipement entre agents sans duplication.",
+        "Creer et executer la simulation economique reproductible des quatre strategies.",
+        "Executer la suite globale et une validation visuelle Windows native."
+      ]
+    },
     {
       "id": "OPERATIVE-DOSSIER-20",
       "title": "Refonte unifiee Operative Dossier 2.0 en cinq pages",

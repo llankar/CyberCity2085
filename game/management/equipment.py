@@ -19,6 +19,37 @@ EQUIPMENT_SLOTS = (
 
 COMBAT_STAT_KEYS = ("defense", "psi", "str", "agi", "con", "hp", "max_hp")
 
+STAT_PRICE_WEIGHTS = {
+    "defense": 210, "psi": 170, "str": 140, "agi": 170,
+    "con": 130, "hp": 70, "max_hp": 90,
+}
+
+
+def equipment_purchase_price(item: "EquipmentItem") -> int:
+    """Deterministically value real tactical effects, not a cosmetic rarity tag."""
+    value = 50 + sum(STAT_PRICE_WEIGHTS[key] * max(0, amount) for key, amount in item.stat_bonuses.items())
+    effects = sum(1 for amount in item.stat_bonuses.values() if amount)
+    if isinstance(item, Weapon):
+        value += item.damage_bonus * 230 + item.range_cells * 22
+    if isinstance(item, Armor):
+        value += item.mitigation * 320
+    if effects >= 2:
+        value = int(value * (1.0 + min(0.3, (effects - 1) * 0.1)))
+    if any(tag in item.tags for tag in ("heavy", "plasma", "exo", "stealth")):
+        value = int(value * 1.12)
+    return max(50, int(round(value / 10.0) * 10))
+
+
+def equipment_power_band(item: "EquipmentItem") -> str:
+    price = equipment_purchase_price(item)
+    if price <= 200:
+        return "COMMON"
+    if price <= 600:
+        return "IMPROVED"
+    if price <= 1_500:
+        return "RARE"
+    return "EXCEPTIONAL"
+
 
 @dataclass(frozen=True)
 class EquipmentItem:
