@@ -5,6 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
+    "BASE-VEHICLE-UPGRADES-01",
     "ECONOMY-HANGAR-AUGMENTATION-01",
     "WINDOWS-CURRENT-BUILD",
     "HQ-HANGAR-MISSIONS-01",
@@ -14,6 +15,24 @@
     "AUDIO-PILOT"
   ],
   "tasks": [
+    {
+      "id": "BASE-VEHICLE-UPGRADES-01",
+      "title": "Onglet Base Upgrades et progression du vehicule de deploiement",
+      "status": "IN_PROGRESS",
+      "files": ["game/management/base_upgrades.py", "game/gamestate.py", "game/ui/components/departments/research.py", "game/ui/screens/management_screen.py", "game/ui/screens/world_map_view.py", "tests/test_base_vehicle_upgrades.py"],
+      "tests": ["Base/vehicle targeted gate: 51 passed, 5 subtests passed."],
+      "evidence": [
+        "Le bandeau Hangar illisible a ete retire de la World Map.",
+        "Le Research Lab possede deux onglets: Research Projects et Base Upgrades // Vehicle.",
+        "Hangar, Trauma Center, Rapid Fabricator et Signal Array sont presentes dans Base Upgrades.",
+        "Le Nighthawk VTOL accepte Vector Engines, Field Medevac Suite, Heavy Strike Hardpoint et Armored Deployment Cradle; achats atomiques et persistance verifies."
+      ],
+      "remaining": [
+        "Brancher les quatre effets du vehicule dans le runtime tactique Godot/Arcade, notamment le sauvetage unique et la frappe unique.",
+        "Brancher les effets Trauma Center, Fabricator et Signal Array aux systemes metier correspondants.",
+        "Creer ou reutiliser une illustration locale du Nighthawk VTOL et valider visuellement l'onglet Windows."
+      ]
+    },
     {
       "id": "ECONOMY-HANGAR-AUGMENTATION-01",
       "title": "Economie Neodollars, progression Hangar et acquisition equipement/Cyberware",

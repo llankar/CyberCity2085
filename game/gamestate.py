@@ -90,6 +90,8 @@ class GameState:
     characters: List[Character] = field(default_factory=list)
     hangar: HangarProgression = field(default_factory=HangarProgression)
     owned_equipment: dict[str, int] = field(default_factory=dict)
+    base_upgrade_ids: list[str] = field(default_factory=list)
+    vehicle_upgrade_ids: list[str] = field(default_factory=list)
 
     # Corporation identity — set during New Game setup
     corp_name: str = "AEGIS Corporation"
@@ -244,6 +246,21 @@ class GameState:
 
     def can_recruit(self) -> bool:
         return len(self.characters) < self.squad_capacity
+
+    def purchase_base_upgrade(self, upgrade_id: str, vehicle: bool = False) -> tuple[bool, str]:
+        from .management.base_upgrades import BASE_UPGRADES, VEHICLE_UPGRADES
+        catalogue = VEHICLE_UPGRADES if vehicle else BASE_UPGRADES
+        owned = self.vehicle_upgrade_ids if vehicle else self.base_upgrade_ids
+        item = next((entry for entry in catalogue if entry.id == upgrade_id), None)
+        if item is None or item.id == "hangar":
+            return False, "Use the Hangar progression control."
+        if item.id in owned:
+            return False, f"{item.name} is already installed."
+        if not self.spend_funds(item.cost, "vehicle_upgrade" if vehicle else "base_upgrade", item.name):
+            return False, f"Insufficient funds: {item.name} costs ¥{item.cost:,}."
+        owned.append(item.id)
+        self.add_event(f"Upgrade installed: {item.name}.")
+        return True, f"{item.name} installed."
 
     def owns_equipment(self, item_id: str) -> bool:
         key = str(item_id)
@@ -642,6 +659,8 @@ class GameState:
             "characters": [c.to_dict() for c in self.characters],
             "hangar": self.hangar.to_dict(),
             "owned_equipment": dict(self.owned_equipment),
+            "base_upgrade_ids": list(self.base_upgrade_ids),
+            "vehicle_upgrade_ids": list(self.vehicle_upgrade_ids),
             "x": self.x,
             "corp_name": self.corp_name,
             "city_name": self.city_name,
@@ -817,6 +836,8 @@ class GameState:
             str(item_id): max(0, int(quantity))
             for item_id, quantity in data.get("owned_equipment", {}).items()
         }
+        gs.base_upgrade_ids = list(dict.fromkeys(data.get("base_upgrade_ids", [])))
+        gs.vehicle_upgrade_ids = list(dict.fromkeys(data.get("vehicle_upgrade_ids", [])))
         if "owned_equipment" not in data:
             for character in gs.characters:
                 for item in character.loadout.equipped_items():

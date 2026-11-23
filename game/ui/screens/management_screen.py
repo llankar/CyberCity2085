@@ -2207,6 +2207,13 @@ class ManagementView(GameView):
         if action == "recruit_prompt":
             self._do_recruit_prompt()
             return
+        if action == "upgrade_hangar":
+            _, self.message = gs.upgrade_hangar()
+            return
+        if action == "purchase_base_upgrade":
+            upgrade_id, vehicle = data
+            _, self.message = gs.purchase_base_upgrade(str(upgrade_id), bool(vehicle))
+            return
         if action == "recruit_candidate":
             self._do_recruit_candidate(int(data))
             return
