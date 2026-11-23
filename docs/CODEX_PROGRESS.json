@@ -3,9 +3,12 @@
   "global_status": "IN_PROGRESS",
   "expected_maps": 122,
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
-  "working_branch": "codex/unified-experience",
+  "working_branch": "main",
   "active_batch": [
-    "ANIM-COMPLETE"
+    "WINDOWS-CURRENT-BUILD",
+    "UE2-04",
+    "TACTICAL-REVIEW",
+    "AUDIO-PILOT"
   ],
   "tasks": [
     {
@@ -1950,8 +1953,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "Current source checkpoint 7a259b0 was packaged in the isolated E: scratch after the focused quadruped slice passed 25 tests with one Windows-inapplicable X11 skip. PyInstaller and packaged smoke returned code 0; focused Combat Visual acceptance passed 22/22. The executable is E:/CyberCity2085-builds/cybercity-build-dc37fff99f844d4daf5e954b4f8bd519/dist/CyberCity2085/CyberCity2085.exe, SHA-256 371F8C35B099A5ED4AEBD2DCE460E6869D9008C2FD09BEC7C274A56C6D39901D, label BUILD 7a259b00. The corrected quadruped JSON and PNG match source hashes. Physical controller, visible desktop, listening and cross-monitor DPI acceptance remain separate.",
-  "next_action": "Wake and physically reconnect the Switch Pro-compatible controller, or switch it to XInput mode, then rerun the packaged native joypad probe. If Godot exposes a device, perform the manual controller playthrough together with visible readiness, focus, resize, Alt+Tab, minimize/restore, multi-display DPI and audible fades; desktop automation remains forbidden.",
+  "latest_batch": "AUDIO-PILOT remains IN_PROGRESS without production integration. Five completed ElevenLabs outputs were downloaded and converted on E:; technical QA rejected the near-inaudible metal impact and retained four unreviewed candidates. Current EEA terms permit commercial use for Paid Users but restrict Free Users to non-commercial use. The connector exposed free_shared capacity errors but cannot prove the plan active at generation time, so all five outputs remain blocked for distribution. Three focused manifest tests pass. The current Windows package and all previous evidence remain unchanged.",
+  "next_action": "Human/external actions are now required: document the ElevenLabs plan active when the five pilot sounds were generated and audition the four technically retained candidates; wake or reconnect a controller exposed through WGI/XInput; connect a second display at a different DPI; then perform the visible packaged Windows playthrough, focus/resize/Alt+Tab/minimize-restore checks and audible fades. Do not automate the desktop or integrate unlistened/unlicensed audio.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
