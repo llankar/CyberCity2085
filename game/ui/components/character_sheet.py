@@ -14,6 +14,7 @@ from game.ui.theme.typography import get_text_size, scale_font_size
 
 VIOLET = (200, 130, 255)
 LOCKED = (111, 140, 153)
+DOSSIER_PAGES = ("overview", "skills", "inventory", "cyberware", "journal")
 
 
 class CharacterSheetRenderer(SquadCommandRenderer):
@@ -77,6 +78,9 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         self.last_values = values
         self.visible_skills = set()
         self.visible_talents = set()
+        self.page = getattr(view, "dossier_page", "overview")
+        if self.page not in DOSSIER_PAGES:
+            self.page = "overview"
         view._modal_hits = []
         super().draw(view, w, h)
 
@@ -142,10 +146,6 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         self.hit(close, "sheet_close", tooltip=self.tr("close"))
         banner = self.layout.banner
         self.paint.panel(banner, CYAN)
-        cyber = Rect(banner.right - 190 * u, banner.bottom + 8 * u, banner.right - 16 * u, banner.top - 8 * u)
-        self.paint.panel(cyber, VIOLET, selected=self.hover == ("sheet_cyberware", None))
-        self.label("CYBERWARE", cyber.center[0], cyber.center[1], 12, VIOLET, bold=True, anchor_x="center")
-        self.hit(cyber, "sheet_cyberware", tooltip="Open cyberware sheet")
         self.icon("target", banner.left + 27 * u, banner.center[1], 30, GOLD)
         name = self.label(
             char.name.upper(),
@@ -154,7 +154,7 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             30,
             TEXT,
             bold=True,
-            width=banner.width * 0.38,
+            width=banner.width * 0.22,
         )
         role = t("squad.role." + char.role, self.gs.ui_language)
         if role.startswith("squad."):
@@ -166,10 +166,32 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             banner.center[1],
             22,
             TEXT,
-            width=banner.width * 0.56,
+            width=banner.width * 0.24,
         )
+        tabs_left = banner.left + banner.width * 0.34
+        gap = 8 * u
+        tab_w = (banner.right - tabs_left - 14 * u - gap * 4) / 5
+        for i, page in enumerate(DOSSIER_PAGES):
+            tab = Rect(
+                tabs_left + i * (tab_w + gap), banner.bottom + 8 * u,
+                tabs_left + i * (tab_w + gap) + tab_w, banner.top - 8 * u,
+            )
+            active = self.page == page
+            color = GOLD if active else VIOLET if page == "cyberware" else CYAN
+            self.paint.panel(tab, color, selected=active or self.hover == ("dossier_tab", page))
+            self.label(page.upper(), *tab.center, 11, color, bold=True, anchor_x="center", width=tab.width - 8 * u)
+            self.hit(
+                tab,
+                "sheet_cyberware" if page == "cyberware" else "dossier_tab",
+                None if page == "cyberware" else page,
+                f"Open {page}",
+            )
 
     def agents(self, _):
+        if self.page != "skills":
+            from .character_dossier_pages import draw_page
+            draw_page(self, self.layout.content, self.page)
+            return
         from .character_sheet_identity import draw_identity
         from .character_sheet_talents import draw_talents
 
@@ -177,6 +199,8 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         draw_talents(self, self.layout.talents)
 
     def equipment(self, _):
+        if self.page != "skills":
+            return
         from .character_sheet_attributes import (
             draw_attributes,
             draw_readiness,
@@ -188,6 +212,8 @@ class CharacterSheetRenderer(SquadCommandRenderer):
         draw_schematic(self, self.layout.schematic)
 
     def mission(self, _):
+        if self.page != "skills":
+            return
         from .character_sheet_skills import draw_skills
 
         draw_skills(self, self.layout.skills)
@@ -218,8 +244,13 @@ class CharacterSheetRenderer(SquadCommandRenderer):
                 )
         else:
             self.icon("target", r.left + 22 * u, r.center[1], 20)
+            instruction = (
+                self.tr("instruction", points=self.character.pending_points)
+                if self.page == "skills"
+                else "Q / E: switch operative   |   TAB: next dossier page   |   ESC: close"
+            )
             self.label(
-                self.tr("instruction", points=self.character.pending_points),
+                instruction,
                 r.left + 43 * u,
                 r.center[1],
                 13,

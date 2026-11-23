@@ -43,6 +43,7 @@ class Character:
     skills: dict[str, int] = field(default_factory=lambda: default_agent_sheet().skills)
     derived_stats: dict[str, int] = field(default_factory=lambda: default_agent_sheet().derived_stats)
     installed_cyberware: list[str] = field(default_factory=list)
+    personal_notes: list[str] = field(default_factory=list)
 
     @property
     def humanity(self) -> int:
@@ -83,6 +84,7 @@ class Character:
             "skills": dict(self.skills),
             "derived_stats": dict(self.derived_stats),
             "installed_cyberware": list(self.installed_cyberware),
+            "personal_notes": list(self.personal_notes),
         }
 
     @classmethod
@@ -130,6 +132,7 @@ class Character:
             skills=sheet.skills,
             derived_stats=sheet.derived_stats,
             installed_cyberware=normalize_installed(data.get("installed_cyberware", [])),
+            personal_notes=[str(note) for note in data.get("personal_notes", [])],
         )
 
     def gain_xp(self, amount: int) -> None:

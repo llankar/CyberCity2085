@@ -2223,9 +2223,77 @@ class ManagementView(GameView):
         if action == "sheet_close":
             self._close_agent_sheet()
             return
+        if action == "dossier_tab":
+            self.dossier_page = str(data)
+            return
+        if action == "dossier_overview_inventory":
+            self.dossier_inventory_slot = str(data)
+            self.dossier_inventory_item = None
+            self.dossier_page = "inventory"
+            return
+        if action == "dossier_inventory_slot":
+            self.dossier_inventory_slot = str(data)
+            self.dossier_inventory_item = None
+            return
+        if action == "dossier_inventory_item":
+            self.dossier_inventory_item = str(data)
+            return
+        if action == "dossier_equip_item":
+            slot, item_id = data
+            item = next(
+                (entry for entry in self.equipment_catalog.get(str(slot), []) if entry.id == str(item_id)),
+                None,
+            )
+            if item is not None and self.expanded_agent_sheet_index is not None:
+                char = self.game_state.characters[self.expanded_agent_sheet_index]
+                char.loadout.equip(str(slot), item)
+                self.message = f"{char.name} equipped {item.name}."
+                self.game_state.add_event(self.message)
+            return
+        if action == "dossier_cyberware_zone":
+            self.dossier_cyberware_zone = str(data)
+            self.dossier_cyberware_item = None
+            return
+        if action == "dossier_cyberware_item":
+            self.dossier_cyberware_item = str(data)
+            return
+        if action == "dossier_journal_section":
+            self.dossier_journal_section = str(data)
+            return
+        if action == "dossier_note_new":
+            self.dossier_note_edit_index = None
+            self.dossier_note_buffer = ""
+            self.dossier_note_editing = True
+            self.dossier_note_delete_pending = None
+            return
+        if action == "dossier_note_edit":
+            if self.expanded_agent_sheet_index is not None:
+                notes = self.game_state.characters[self.expanded_agent_sheet_index].personal_notes
+                index = int(data)
+                if 0 <= index < len(notes):
+                    self.dossier_note_edit_index = index
+                    self.dossier_note_buffer = notes[index]
+                    self.dossier_note_editing = True
+                    self.dossier_note_delete_pending = None
+            return
+        if action == "dossier_note_save":
+            self._save_dossier_note()
+            return
+        if action == "dossier_note_delete":
+            index = int(data)
+            if self.dossier_note_delete_pending == index:
+                char = self.game_state.characters[self.expanded_agent_sheet_index]
+                if 0 <= index < len(char.personal_notes):
+                    char.personal_notes.pop(index)
+                    self.game_state.add_event(f"Personal note removed from {char.name}'s dossier.")
+                self.dossier_note_delete_pending = None
+            else:
+                self.dossier_note_delete_pending = index
+            return
         if action == "sheet_cyberware":
+            self.dossier_page = "cyberware"
+            # Compatibility state only; draw consumes it into the integrated tab.
             self.cyberware_sheet_open = True
-            self.cyberware_zone_open = None
             return
         if action == "cyberware_close":
             self.cyberware_sheet_open = False
@@ -2233,11 +2301,13 @@ class ManagementView(GameView):
             return
         if action == "cyberware_zone":
             self.cyberware_zone_open = str(data)
+            self.dossier_cyberware_zone = str(data)
+            self.dossier_cyberware_item = None
             return
         if action == "cyberware_zone_back":
             self.cyberware_zone_open = None
             return
-        if action == "cyberware_toggle":
+        if action in {"cyberware_toggle", "dossier_cyberware_toggle"}:
             from game.agents.cyberware import BY_ID, purchase_or_remove
             char = self.game_state.characters[self.expanded_agent_sheet_index]
             updated, _, changed, reason = purchase_or_remove(
@@ -2715,6 +2785,7 @@ class ManagementView(GameView):
         if not 0 <= char_idx < len(self.game_state.characters):
             return
         self.expanded_agent_sheet_index = char_idx
+        self.dossier_page = "overview"
         _set_window_topmost(self.window, True)
 
     def _close_agent_sheet(self) -> None:
@@ -2804,6 +2875,18 @@ class ManagementView(GameView):
         self.expanded_agent_sheet_index: int | None = None
         self.cyberware_sheet_open: bool = False
         self.cyberware_zone_open: str | None = None
+        # Normal UI entry resets this to Overview. Keeping Skills here preserves
+        # direct renderer/debug callers that predate the dossier navigation.
+        self.dossier_page = "skills"
+        self.dossier_inventory_slot = "primary_weapon"
+        self.dossier_inventory_item: str | None = None
+        self.dossier_cyberware_zone = "HEAD"
+        self.dossier_cyberware_item: str | None = None
+        self.dossier_journal_section = "mission"
+        self.dossier_note_editing = False
+        self.dossier_note_edit_index: int | None = None
+        self.dossier_note_buffer = ""
+        self.dossier_note_delete_pending: int | None = None
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -2847,7 +2930,6 @@ class ManagementView(GameView):
         w, h = self.window.width, self.window.height
         if self.expanded_agent_sheet_index is not None:
             self._draw_expanded_agent_sheet_modal(w, h)
-            self._draw_cyberware_modal(w, h)
             return
         if self.room_ui.active_room_key == "squad":
             if self._squad_command is None:
@@ -2896,7 +2978,34 @@ class ManagementView(GameView):
             from game.ui.components.character_sheet import CharacterSheetRenderer
 
             self._character_sheet_renderer = CharacterSheetRenderer()
+        # Legacy callers that opened the former nested modal now land on the
+        # integrated Cyberware tab; no second window is drawn.
+        if self.cyberware_sheet_open:
+            self.dossier_page = "cyberware"
+            self.cyberware_sheet_open = False
         self._character_sheet_renderer.draw(self, w, h)
+
+    def _save_dossier_note(self) -> None:
+        if self.expanded_agent_sheet_index is None:
+            return
+        text = self.dossier_note_buffer.strip()
+        if not text:
+            self.message = "A personal note cannot be empty."
+            return
+        char = self.game_state.characters[self.expanded_agent_sheet_index]
+        if self.dossier_note_edit_index is None:
+            char.personal_notes.append(text)
+        elif 0 <= self.dossier_note_edit_index < len(char.personal_notes):
+            char.personal_notes[self.dossier_note_edit_index] = text
+        self.game_state.add_event(f"Personal dossier updated for {char.name}.")
+        self.dossier_note_editing = False
+        self.dossier_note_edit_index = None
+        self.dossier_note_buffer = ""
+
+    def on_text(self, text: str) -> None:
+        if self.expanded_agent_sheet_index is not None and self.dossier_note_editing:
+            if text.isprintable() and len(self.dossier_note_buffer) < 500:
+                self.dossier_note_buffer += text
 
     def on_key_press(self, key: int, modifiers: int) -> None:
         if self.recruit_window_open:
@@ -2914,12 +3023,26 @@ class ManagementView(GameView):
             return
 
         if self.expanded_agent_sheet_index is not None:
+            if self.dossier_note_editing:
+                if key in (getattr(arcade.key, "ENTER", None), getattr(arcade.key, "NUM_ENTER", None)):
+                    self._save_dossier_note()
+                elif key == getattr(arcade.key, "BACKSPACE", None):
+                    self.dossier_note_buffer = self.dossier_note_buffer[:-1]
+                elif key == getattr(arcade.key, "ESCAPE", None):
+                    self.dossier_note_editing = False
+                    self.dossier_note_buffer = ""
+                return
             if key == getattr(arcade.key, "ESCAPE", None):
-                if self.cyberware_sheet_open:
-                    self.cyberware_sheet_open = False
-                    self.cyberware_zone_open = None
-                else:
-                    self._close_agent_sheet()
+                self._close_agent_sheet()
+            elif key == getattr(arcade.key, "TAB", None):
+                from game.ui.components.character_sheet import DOSSIER_PAGES
+                index = DOSSIER_PAGES.index(self.dossier_page)
+                self.dossier_page = DOSSIER_PAGES[(index + 1) % len(DOSSIER_PAGES)]
+            elif key in (getattr(arcade.key, "Q", None), getattr(arcade.key, "E", None)):
+                step = -1 if key == getattr(arcade.key, "Q", None) else 1
+                count = len(self.game_state.characters)
+                if count:
+                    self.expanded_agent_sheet_index = (self.expanded_agent_sheet_index + step) % count
             elif self._character_sheet_renderer is not None:
                 if key == getattr(arcade.key, "PAGEDOWN", None):
                     self._character_sheet_renderer.scroll(

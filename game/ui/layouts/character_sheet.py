@@ -20,6 +20,11 @@ class CharacterSheetLayout:
     skills: Rect
     footer: Rect
 
+    @property
+    def content(self):
+        """Full body used by dossier pages that do not need the Skills columns."""
+        return Rect(self.identity.left, self.footer.top, self.skills.right, self.identity.top)
+
     # Shared command-painter section hooks, with dossier-specific contents.
     @property
     def roster(self):
