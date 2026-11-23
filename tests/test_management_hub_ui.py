@@ -289,7 +289,7 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_draw()
         self.assertEqual(
             len([hit for hit in view._modal_hits if hit.action == "cyberware_toggle"]),
-            4,
+            10,
         )
         implant = next(hit for hit in view._modal_hits if hit.action == "cyberware_toggle")
         from game.agents.cyberware import BY_ID
@@ -345,12 +345,26 @@ class ManagementHubUITest(unittest.TestCase):
         view.setup()
         self._seed_interactive_state(view)
         from game.ui.layouts.headquarters import headquarters_layout
-        hangar = headquarters_layout(view.window.width, view.window.height).rooms[3]
+        hangar = headquarters_layout(view.window.width, view.window.height).hangar
 
         view.on_mouse_press(hangar.left + 1, hangar.bottom + 1, 0, 0)
 
         self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
         self.assertFalse(view.room_ui.is_open)
+
+    def test_asset_bay_remains_a_distinct_management_room(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        from game.ui.layouts.headquarters import headquarters_layout
+        asset_bay = headquarters_layout(view.window.width, view.window.height).rooms[3]
+
+        view.on_mouse_press(asset_bay.left + 1, asset_bay.bottom + 1, 0, 0)
+
+        self.assertIsNone(view.window.shown_view)
+        self.assertTrue(view.room_ui.is_open)
+        self.assertEqual(view.room_ui.active_room_key, "assets")
 
     def test_keyboard_shortcut_opens_the_correct_room(self):
         view = ManagementView(GameState())

@@ -26,6 +26,7 @@ class HeadquartersRenderer(SquadCommandRenderer):
         self.legacy = False
         self.frames = {}
         self.amounts = {key: 0.0 for key, _, _ in ROOMS}
+        self.amounts["hangar"] = 0.0
         self.hover_key = None
         self.ambient = HeadquartersAmbient()
         self.room_textures = {}
@@ -107,6 +108,7 @@ class HeadquartersRenderer(SquadCommandRenderer):
             self.ambient.draw(self, view._elapsed, reduced)
         for i, (key, title, icon) in enumerate(ROOMS):
             self.room(i, key, title, icon)
+        self.hangar()
         self.hud()
         self.navigation()
         self.notice()
@@ -211,6 +213,49 @@ class HeadquartersRenderer(SquadCommandRenderer):
         if selected or hot:
             self.icon("next", r.right - 29 * u, r.bottom + 23 * u, 30, CYAN)
         self.hit(r, "hq_room", key)
+
+    def hangar(self):
+        """Draw the mission hangar as a real seventh interactive HQ room."""
+        u = self.u
+        r = self.layout.hangar
+        hot = self.hover_key == "hangar"
+        amount = self.amounts["hangar"]
+        if hot:
+            self.paint.glow(
+                *r.center, r.width * 1.02, r.height * 1.08, GOLD, 20 + amount * 30
+            )
+        self.outline(r, GOLD, hot, amount)
+        rail = self.layout.hangar_label
+        self.paint.panel(rail, GOLD, selected=hot)
+        badge = Rect(
+            rail.left + 7 * u,
+            rail.bottom + 6 * u,
+            rail.left + 61 * u,
+            rail.top - 6 * u,
+        )
+        self.paint.panel(badge, GOLD)
+        self.label("B", *badge.center, 20, GOLD, bold=True, anchor_x="center")
+        self.label(
+            "MISSION HANGAR",
+            rail.left + 74 * u,
+            rail.center[1],
+            22,
+            TEXT,
+            bold=True,
+            width=rail.width - 88 * u,
+        )
+        self.label(
+            "WORLD MAP  //  DEPLOY",
+            rail.right + 24 * u,
+            rail.center[1],
+            14,
+            GOLD,
+            bold=True,
+            width=max(120 * u, r.right - rail.right - 52 * u),
+        )
+        if hot:
+            self.icon("next", r.right - 38 * u, rail.center[1], 34, GOLD)
+        self.hit(r, "hq_hangar", "hangar")
 
     def hud(self):
         u = self.u

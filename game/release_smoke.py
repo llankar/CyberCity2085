@@ -73,7 +73,7 @@ def run_smoke():
     if {item.zone for item in CATALOGUE} != expected_zones:
         raise RuntimeError("Incomplete bundled cyberware body-zone catalogue")
     choices_per_zone = min(sum(item.zone == zone for item in CATALOGUE) for zone in expected_zones)
-    if choices_per_zone < 4:
+    if choices_per_zone < 10:
         raise RuntimeError("A bundled cyberware body slot has no implant choice")
     power_tiers: dict[int, list[object]] = {}
     for item in CATALOGUE:

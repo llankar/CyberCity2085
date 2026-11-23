@@ -62,7 +62,8 @@ def test_room_edges_labels_and_footer_share_click_geometry(size, legacy, text_sc
         headquarters_target_at(w, h, *layout.navigation[6].center, legacy, text_scale)
         == "close"
     )
-    # Elevator shaft and hangar are scenery, not overlapping hidden room buttons.
+    # The elevator shaft remains scenery. The aircraft deck is a visible,
+    # independent seventh destination instead of a hidden Asset Bay shortcut.
     assert (
         headquarters_target_at(
             w,
@@ -73,6 +74,14 @@ def test_room_edges_labels_and_footer_share_click_geometry(size, legacy, text_sc
         )
         is None
     )
+    assert layout.hangar.inside(layout.art)
+    assert not any(layout.hangar.intersects(room) for room in layout.rooms)
+    assert headquarters_target_at(
+        w, h, *layout.hangar.center, legacy, text_scale
+    ) == "hangar"
+    assert headquarters_target_at(
+        w, h, *layout.hangar_label.center, legacy, text_scale
+    ) == "hangar"
 
 
 def test_room_transition_uses_visual_origin_then_resets_without_campaign_state():

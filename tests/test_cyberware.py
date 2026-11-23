@@ -90,7 +90,7 @@ def test_expensive_cyberware_also_consumes_more_humanity():
 def test_each_body_zone_offers_a_choice_and_accepts_only_one_implant():
     from game.agents.cyberware import ZONE_ORDER, catalogue_for_zone, normalize_installed
 
-    assert all(len(catalogue_for_zone(zone)) >= 4 for zone in ZONE_ORDER)
+    assert all(len(catalogue_for_zone(zone)) >= 10 for zone in ZONE_ORDER)
     installed, funds, changed, reason = purchase_or_remove([], "smart_eye", 5_000)
     assert changed and reason == "installed"
     installed, funds, changed, reason = purchase_or_remove(installed, "predator_optics", funds)

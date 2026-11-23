@@ -30,6 +30,11 @@ LEGACY_ROOMS = (
     (270, 351, 775, 488),
     (881, 349, 1384, 492),
 )
+# The aircraft deck is a seventh, full-width destination in the artwork.  It is
+# deliberately separate from ``ROOMS`` because F4/Asset Bay remains the vehicle
+# management room while this region launches the mission world map.
+VISUAL_HANGAR = (105, 72, 1565, 330)
+LEGACY_HANGAR = (105, 72, 1565, 330)
 
 
 @dataclass(frozen=True)
@@ -42,6 +47,8 @@ class HeadquartersLayout:
     resources: tuple[Rect, ...]
     rooms: tuple[Rect, ...]
     labels: tuple[Rect, ...]
+    hangar: Rect
+    hangar_label: Rect
     footer: Rect
     navigation: tuple[Rect, ...]
 
@@ -63,6 +70,14 @@ def headquarters_layout(w, h, legacy=False, text_scale=1.0):
             r.bottom + 41 * u,
         )
         for r in rooms
+    )
+    hx0, hy0, hx1, hy1 = LEGACY_HANGAR if legacy else VISUAL_HANGAR
+    hangar = Rect(ox + hx0 * u, oy + hy0 * u, ox + hx1 * u, oy + hy1 * u)
+    hangar_label = Rect(
+        hangar.left + 28 * u,
+        hangar.bottom + 14 * u,
+        min(hangar.right - 28 * u, hangar.left + 510 * u),
+        hangar.bottom + 64 * u,
     )
     footer = Rect(
         15 * u,
@@ -103,6 +118,8 @@ def headquarters_layout(w, h, legacy=False, text_scale=1.0):
         resources,
         rooms,
         labels,
+        hangar,
+        hangar_label,
         footer,
         nav,
     )
@@ -116,4 +133,6 @@ def headquarters_target_at(w, h, x, y, legacy=False, text_scale=1.0):
     for i, rect in enumerate(layout.rooms):
         if rect.contains(x, y):
             return ROOMS[i][0]
+    if layout.hangar.contains(x, y):
+        return "hangar"
     return None

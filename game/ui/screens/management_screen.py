@@ -734,12 +734,17 @@ class ManagementView(GameView):
             _border(back.left, back.bottom, back.right, back.top, palette.ACCENT, 1)
             arcade.draw_text("BACK TO BODY SLOTS", (back.left + back.right) // 2, (back.bottom + back.top) // 2, palette.ACCENT, font_size=10, bold=True, anchor_x="center", anchor_y="center")
             self._modal_hits.append(back)
-            card_w = (x1 - grid_x - 24 - gap) // 2
-            card_h = 220
+            columns = 2
+            rows = max(1, (len(options) + columns - 1) // columns)
+            compact_gap = 8
+            card_w = (x1 - grid_x - 24 - compact_gap) // columns
+            list_top = grid_top - 34
+            list_bottom = y0 + 80
+            card_h = (list_top - list_bottom - compact_gap * (rows - 1)) / rows
             for index, item in enumerate(options):
-                row, col = divmod(index, 2)
-                left = grid_x + col * (card_w + gap)
-                top = grid_top - 34 - row * (card_h + gap)
+                row, col = divmod(index, columns)
+                left = grid_x + col * (card_w + compact_gap)
+                top = list_top - row * (card_h + compact_gap)
                 bottom = top - card_h
                 owned = item.id in char.installed_cyberware
                 remaining_after_slot = humanity + (installed_by_zone[selected_zone].humanity_cost if selected_zone in installed_by_zone else 0)
@@ -747,13 +752,14 @@ class ManagementView(GameView):
                 border = palette.TACTICAL_GREEN if owned else (palette.ACCENT if eligible and affordable else palette.PANEL_BORDER_MUTED)
                 _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
                 _border(left, bottom, left + card_w, top, border, 1)
-                arcade.draw_text(item.name.upper(), left + 14, top - 30, palette.TEXT, font_size=13, bold=True)
-                arcade.draw_text(f"TIER {item.power_tier}  //  ¥{item.credit_cost:,}  //  HUMANITY -{item.humanity_cost}", left + 14, top - 55, palette.WARNING, font_size=10, bold=True)
-                arcade.draw_text(item.description, left + 14, top - 88, palette.MUTED_TEXT, font_size=10, width=card_w - 28, multiline=True)
+                arcade.draw_text(item.name.upper(), left + 10, top - 20, palette.TEXT, font_size=9, bold=True)
+                arcade.draw_text(f"T{item.power_tier}  //  ¥{item.credit_cost:,}  //  H-{item.humanity_cost}", left + 10, top - 38, palette.WARNING, font_size=8, bold=True)
+                description = item.description if len(item.description) <= 58 else item.description[:57].rstrip() + "…"
+                arcade.draw_text(description, left + 10, top - 56, palette.MUTED_TEXT, font_size=7, width=card_w - 20)
                 bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
-                arcade.draw_text(bonus_text, left + 14, bottom + 50, palette.RESOURCE, font_size=10, bold=True)
+                arcade.draw_text(bonus_text, left + 10, bottom + 25, palette.RESOURCE, font_size=8, bold=True)
                 label = "REMOVE" if owned else ("INSTALL / REPLACE" if eligible and affordable else "LOCKED")
-                arcade.draw_text(label, left + card_w - 14, bottom + 18, border, font_size=10, bold=True, anchor_x="right")
+                arcade.draw_text(label, left + card_w - 10, bottom + 8, border, font_size=8, bold=True, anchor_x="right")
                 if owned or (eligible and affordable):
                     self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "cyberware_toggle", item.id))
 
@@ -3118,7 +3124,7 @@ class ManagementView(GameView):
         if target == "close":
             self.on_key_press(arcade.key.ESCAPE, 0)
         elif target is not None:
-            if target == "assets":
+            if target == "hangar":
                 self._open_mission_map()
             else:
                 self._open_hub_room(target)
