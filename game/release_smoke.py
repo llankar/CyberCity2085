@@ -69,7 +69,7 @@ def run_smoke():
     if not cyberware_atlas.is_file() or cyberware_atlas.stat().st_size == 0:
         raise RuntimeError("Missing bundled cyberware atlas")
     from game.agents.cyberware import CATALOGUE
-    expected_zones = {"HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"}
+    expected_zones = {"HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM", "LEGS"}
     if {item.zone for item in CATALOGUE} != expected_zones:
         raise RuntimeError("Incomplete bundled cyberware body-zone catalogue")
     choices_per_zone = min(sum(item.zone == zone for item in CATALOGUE) for zone in expected_zones)

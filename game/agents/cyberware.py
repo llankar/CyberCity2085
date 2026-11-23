@@ -6,7 +6,7 @@ from dataclasses import dataclass
 
 MAX_HUMANITY = 5
 INELIGIBLE_ROLES = {"robot", "power_armor", "heavy_armor", "starver"}
-ZONE_ORDER = ("HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM")
+ZONE_ORDER = ("HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM", "LEGS")
 
 
 @dataclass(frozen=True)
@@ -82,6 +82,16 @@ CATALOGUE: tuple[Cyberware, ...] = (
     Cyberware("combat_reflex_bus", "Combat Reflex Bus", "NERVOUS SYSTEM", 2, 2, 1580, "A parallel nerve bus routes urgent motion around hesitation.", {"initiative": 4, "defense": 1}),
     Cyberware("razor_synapses", "Razor Synapses", "NERVOUS SYSTEM", 2, 2, 1920, "Overclocked sensory loops sharpen aim at dangerous speed.", {"initiative": 4, "aim": 3}),
     Cyberware("temporal_overclock", "Temporal Overclock", "NERVOUS SYSTEM", 3, 3, 3000, "Perception stretches into tactical intervals under fire.", {"action_points": 1, "initiative": 5, "aim": 2}),
+    Cyberware("stride_servos", "Stride Servos", "LEGS", 1, 1, 480, "Compact ankle servos accelerate the first committed step.", {"initiative": 1, "defense": 1}),
+    Cyberware("magnetic_soles", "Magnetic Soles", "LEGS", 1, 1, 590, "Variable-grip soles stabilize firing stances on hostile terrain.", {"defense": 1, "aim": 1}),
+    Cyberware("shock_knees", "Shock-Absorber Knees", "LEGS", 1, 1, 720, "Impact-damping joints preserve momentum through hard landings.", {"hp": 2, "initiative": 1}),
+    Cyberware("sprinter_myomers", "Sprinter Myomers", "LEGS", 2, 2, 1180, "Synthetic muscle bundles deliver explosive short-range acceleration.", {"initiative": 3, "defense": 1}),
+    Cyberware("wallrunner_tendons", "Wallrunner Tendons", "LEGS", 2, 2, 1380, "High-tension tendons turn vertical surfaces into brief attack lanes.", {"initiative": 3, "aim": 1}),
+    Cyberware("stability_gyros", "Stability Gyros", "LEGS", 2, 2, 1560, "Pelvic and knee gyros correct balance before recoil can spread.", {"defense": 2, "aim": 2}),
+    Cyberware("predator_stride", "Predator Stride", "LEGS", 2, 2, 1840, "Silent adaptive feet combine fast approach with controlled posture.", {"initiative": 4, "defense": 2}),
+    Cyberware("vector_legs", "Vector Leg Pair", "LEGS", 3, 3, 2450, "Military vector actuators compress a full sprint into a single opening.", {"action_points": 1, "initiative": 3}),
+    Cyberware("siege_pistons", "Siege Pistons", "LEGS", 3, 3, 2750, "Reinforced pistons anchor the operative against punishing impacts.", {"hp": 7, "defense": 3}),
+    Cyberware("mercury_lower_frame", "Mercury Lower Frame", "LEGS", 3, 3, 3150, "A restricted full-leg replacement merges speed, balance and tactical tempo.", {"action_points": 1, "initiative": 5, "defense": 2}),
 )
 
 BY_ID = {item.id: item for item in CATALOGUE}

@@ -120,7 +120,7 @@ def test_actual_smoke_entry_point_runs_without_arcade_or_a_player_save(tmp_path)
     assert report["cyberware_power_tiers"] == [1, 2, 3]
     assert report["cyberware_choices_per_zone"] >= 10
     assert report["cyberware_zones"] == [
-        "ARMS", "CIRCULATORY", "EYES", "HEAD", "NERVOUS SYSTEM", "TORSO"
+            "ARMS", "CIRCULATORY", "EYES", "HEAD", "LEGS", "NERVOUS SYSTEM", "TORSO"
     ]
     assert not report["game_window_opened"]
     assert report["battle"]["outcome"] == "victory" and report["battle"]["geometry_checked"]

@@ -257,7 +257,7 @@ def draw_cyberware(p, r: Rect):
     p.label("  ".join(f"{k.upper()} {v:+d}" for k,v in totals.items()) or "NO ACTIVE BONUSES", summary.left+15*u, summary.bottom+47*u, 10, MINT, width=summary.width-30*u)
     _panel(p, zones, "BODY ZONES", CYAN)
     installed_by_zone = {BY_ID[key].zone: BY_ID[key] for key in c.installed_cyberware if key in BY_ID}
-    for row, zone in zip(_rows(Rect(zones.left+9*u, zones.bottom+12*u, zones.right-9*u, zones.top-45*u), 6, 7*u), ZONE_ORDER):
+    for row, zone in zip(_rows(Rect(zones.left+9*u, zones.bottom+12*u, zones.right-9*u, zones.top-45*u), len(ZONE_ORDER), 5*u), ZONE_ORDER):
         active = zone == selected_zone
         p.paint.panel(row, GOLD if active else VIOLET, selected=active)
         thumb = Rect(row.left+6*u, row.bottom+6*u, row.left+67*u, row.top-6*u)
@@ -416,6 +416,7 @@ def _draw_body_marker(p, figure: Rect, zone: str):
         "TORSO": ((0.50, 0.685),),
         "CIRCULATORY": ((0.50, 0.748),),
         "NERVOUS SYSTEM": ((0.50, 0.605),),
+        "LEGS": ((0.39, 0.315), (0.61, 0.315)),
     }
     for px, py in relative.get(zone, ((0.5, 0.5),)):
         x = figure.left + figure.width * px

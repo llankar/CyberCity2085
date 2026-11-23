@@ -33,7 +33,7 @@ def test_inventory_catalog_uses_real_slots_and_compatible_items():
 
 
 def test_cyberware_page_exposes_ten_real_implants_per_zone():
-    assert len(ZONE_ORDER) == 6
+    assert len(ZONE_ORDER) == 7
     assert all(len(catalogue_for_zone(zone)) >= 10 for zone in ZONE_ORDER)
 
 

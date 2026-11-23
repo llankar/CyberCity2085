@@ -27,7 +27,8 @@
       "tests": [
         "python -m pytest -q tests/test_operative_dossier.py tests/test_character_sheet_visual.py tests/test_cyberware.py tests/test_agent_equipment.py tests/test_management_hub_ui.py : 64 passed, 1 skipped (capture X11), 5 subtests passed.",
         "Persistence/progression/story gate with test_save_system.py, test_agent_progression.py and test_story_mission_resolution_flow.py : 82 passed, 1 skipped, 5 subtests passed.",
-        "Marker/per-item art/package gate: 67 passed, 5 subtests passed; 42 item PNG files and 42 unique SHA-256 digests."
+        "Marker/per-item art/package gate: 67 passed, 5 subtests passed; 42 item PNG files and 42 unique SHA-256 digests.",
+        "LEGS zone gate: 81 passed, 7 subtests passed across Cyberware, dossier UI, packaging, equipment and Godot bridge."
       ],
       "evidence": [
         "Inspection initiale: la fiche existante projette deja les vraies statistiques, competences, talents et equipements; le Cyberware, les missions, les evenements et la sauvegarde possedent leurs sources de verite existantes.",
@@ -40,6 +41,7 @@
         "Le mannequin affiche un reticule synchronise sur la zone Cyberware selectionnee (deux marqueurs pour Arms). Inventory dispose de 42 PNG distincts, un par objet reel du catalogue, generes de facon reproductible par tools/generate_equipment_thumbnails.py."
         ,"Recalage anatomique: Head 94,7%, Eyes 90,2%, Circulatory 74,8% (coeur), Torso 68,5%, Arms 64,5% et Nervous System 60,5%. Les positions Torso et Nervous System ont ete permutees a la demande. Les 42 pictogrammes abstraits ont ete remplaces par de vrais rendus d'objets issus de six planches source haute qualite.",
         "Lisibilite Attributes: libelles remontes, valeurs descendues et taille des scores reduite de 38 a 34."
+        ,"Extension LEGS: septieme zone Cyberware avec dix implants, un emplacement, couts Credits/Humanite, bonus tactiques, illustration et deux marqueurs sur le mannequin."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",
@@ -53,7 +55,7 @@
       "status": "IN_PROGRESS",
       "files": ["game/agents/cyberware.py", "game/character.py", "game/combat/godot_bridge.py", "game/combat_system.py", "game/combat/attack_resolution.py", "game/unit.py", "game/ui/components/combat/initiative_timeline.py", "game/ui/screens/management_screen.py", "assets/ui/cyberware/cyberware_atlas_v2.png", "tests/test_cyberware.py"],
       "tests": ["python -m pytest -q tests/test_cyberware.py tests/test_rpg_view.py tests/test_attack_resolution.py tests/test_battle_hud_ui.py tests/test_godot_combat_bridge.py tests/test_agent_equipment.py tests/test_mixed_squad_integration.py tests/test_tactical_identity.py : 125 passed, 2 subtests passed", "python -m pytest -q tests/test_cyberware.py tests/test_management_hub_ui.py tests/test_squad_command_ui.py tests/test_room_interaction_ui.py tests/test_release_packaging.py : 69 passed, 1 skipped, 5 subtests passed", "Full post-change gate before body-slot lists: 1238 passed, 34 skipped, 14 subtests passed in 267.22 seconds; temporary files on E:/CyberCity2085-builds/pytest-full-cyberware-zones.", "python -m pytest -q tests/test_cyberware.py tests/test_headquarters_ui.py tests/test_management_hub_ui.py tests/test_release_packaging.py : 70 passed, 1 skipped, 5 subtests passed; verifies ten choices per body zone and independent Hangar geometry."],
-      "evidence": ["Six emplacements HEAD, EYES, ARMS, TORSO, CIRCULATORY et NERVOUS SYSTEM ouvrent chacun une liste compacte 2x5 de dix implants, soit soixante implants originaux. Un seul implant est conserve par zone, y compris lors de la normalisation des sauvegardes.", "Chaque fiche affiche credits, Humanite et TIER 1/2/3; chaque hausse de tier augmente strictement les deux couts.", "L'installation ou le remplacement debite le registre financier de campagne et refuse atomiquement les fonds ou l'Humanite insuffisants; le retrait restaure l'Humanite sans remboursement.", "Parite Arcade: aim, crit, melee, initiative, HP, defense et AP de base sont appliques par le moteur tactique et survivent au reset de tour.", "Le smoke exige au moins dix choix par zone; les noms et effets sont originaux."],
+      "evidence": ["Sept emplacements HEAD, EYES, ARMS, TORSO, CIRCULATORY, NERVOUS SYSTEM et LEGS ouvrent chacun une liste de dix implants, soit soixante-dix implants originaux. Un seul implant est conserve par zone, y compris lors de la normalisation des sauvegardes.", "Chaque fiche affiche credits, Humanite et TIER 1/2/3; chaque hausse de tier augmente strictement les deux couts.", "L'installation ou le remplacement debite le registre financier de campagne et refuse atomiquement les fonds ou l'Humanite insuffisants; le retrait restaure l'Humanite sans remboursement.", "Parite Arcade: aim, crit, melee, initiative, HP, defense et AP de base sont appliques par le moteur tactique et survivent au reset de tour.", "Le smoke exige au moins dix choix par zone; les noms et effets sont originaux."],
       "remaining": ["Verifier artistiquement la feuille et l'atlas dans une fenetre Windows native."]
     },
     {

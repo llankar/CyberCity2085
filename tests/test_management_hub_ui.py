@@ -283,7 +283,7 @@ class ManagementHubUITest(unittest.TestCase):
 
         view.on_draw()
         zones = [hit for hit in view._modal_hits if hit.action == "cyberware_zone"]
-        self.assertEqual(len(zones), 6)
+        self.assertEqual(len(zones), 7)
         eyes = next(hit for hit in zones if hit.data == "EYES")
         view._dispatch(eyes.action, eyes.data)
         view.on_draw()

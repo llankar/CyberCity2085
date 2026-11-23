@@ -55,7 +55,7 @@ def test_removing_implant_restores_capacity():
 
 def test_catalogue_is_grouped_by_body_zone_and_prices_scale_with_power():
     assert {item.zone for item in CATALOGUE} == {
-        "HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"
+        "HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM", "LEGS"
     }
     by_tier = {}
     for item in CATALOGUE:
@@ -98,6 +98,15 @@ def test_each_body_zone_offers_a_choice_and_accepts_only_one_implant():
     assert "smart_eye" not in installed and installed == ["predator_optics"]
     assert funds == 3_200
     assert normalize_installed(["smart_eye", "predator_optics"]) == ["smart_eye"]
+
+
+def test_legs_are_a_real_single_slot_with_tactical_bonuses():
+    installed, funds, changed, reason = purchase_or_remove([], "stride_servos", 5_000)
+    assert changed and reason == "installed" and funds == 4_520
+    installed, funds, changed, reason = purchase_or_remove(installed, "sprinter_myomers", funds)
+    assert changed and reason == "replaced"
+    assert installed == ["sprinter_myomers"]
+    assert combat_bonuses(installed) == {"initiative": 3, "defense": 1}
 
 
 def test_arcade_unit_keeps_ap_and_combat_bonuses_across_turns():
