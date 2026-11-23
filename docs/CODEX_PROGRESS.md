@@ -8,6 +8,13 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ## Tâches et preuves
 
+### SQUAD-CLICK-CONTRACT-01 — DONE — Séparer sélection, affectation et suppression dans la page Squad
+
+- Fichiers : `game/ui/screens/management_screen.py`, `game/i18n/en.py`, `game/i18n/fr.py`, `tests/test_management_hub_ui.py`, `tests/test_squad_command_ui.py`.
+- Tests / contrôles réellement exécutés : `python -m pytest -q tests/test_management_hub_ui.py tests/test_squad_command_ui.py` : 34 réussis, 1 ignoré, 5 sous-tests réussis.
+- Preuves : le clic simple change uniquement l'agent affiché ; le double-clic et le bouton Toggle Squad changent l'affectation ; Remove Agent exige un second clic pour le même agent.
+- Travail restant dans cette portée : Aucun.
+
 ### ENV-DETAIL-WASTELAND-11 — DONE — Revue artistique native detaillee du dernier lot wasteland
 
 - Fichiers : `godot/combat_missions_ui/art/environment/environment_art.json`, `docs/images/entity-scale-production-windows/catalogue-11.jpg`.

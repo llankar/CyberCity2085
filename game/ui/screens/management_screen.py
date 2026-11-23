@@ -257,6 +257,7 @@ class ManagementView(GameView):
         self.equipment_catalog = default_equipment_catalog()
         self._last_agent_click_time: float = 0.0
         self._last_agent_click_index: int | None = None
+        self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
 
         ensure_mission_templates(self.game_state)
@@ -2061,6 +2062,7 @@ class ManagementView(GameView):
         if action == "agent_card":
             self.deployment_cursor = data
             self.message = ""
+            self.pending_remove_agent_name = None
             now = time.monotonic()
             is_double_click = (
                 self._last_agent_click_index == data
@@ -2071,14 +2073,8 @@ class ManagementView(GameView):
             char = gs.characters[data] if data < len(gs.characters) else None
             if char:
                 if is_double_click:
-                    self._open_agent_sheet(data)
-                    self.pending_launch_confirm = False
-                    self.message = f"Opened full sheet for {char.name}."
+                    self._toggle_selected_agent()
                     return
-                gs.selected_agent_names, self.message = toggle_agent_selection(
-                    gs.characters, gs.selected_agent_names, data
-                )
-                self.pending_launch_confirm = False
             return
 
         if action == "select_mission":
@@ -2322,6 +2318,13 @@ class ManagementView(GameView):
         if not gs.characters:
             return
         index = min(max(self.deployment_cursor, 0), len(gs.characters) - 1)
+        agent_name = gs.characters[index].name
+        if self.pending_remove_agent_name != agent_name:
+            self.pending_remove_agent_name = agent_name
+            self.message = f"Confirm removal of {agent_name}: press Remove Agent again."
+            self.notifications.warning(self.message)
+            return
+        self.pending_remove_agent_name = None
         removed, sanitized_agents, sanitized_assets = remove_agent_from_roster(
             gs.characters,
             gs.spec_ops_assets,
@@ -2643,6 +2646,7 @@ class ManagementView(GameView):
         self.equipment_catalog = default_equipment_catalog()
         self._last_agent_click_time: float = 0.0
         self._last_agent_click_index: int | None = None
+        self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
 
         ensure_mission_templates(self.game_state)

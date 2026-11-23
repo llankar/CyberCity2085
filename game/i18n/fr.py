@@ -27,7 +27,7 @@ STRINGS = {
     "squad.hp": "PV",
     "squad.ready": "PRÊT",
     "squad.recovering": "RÉCUP. {days}j",
-    "squad.double_click": "Double-clic : fiche complète",
+    "squad.double_click": "Double-clic : équipe ON / OFF",
     "squad.upgrade": "Améliorer les caractéristiques",
     "squad.recruit_window": "RECRUTEMENT [N]",
     "squad.scroll": "MOLETTE",

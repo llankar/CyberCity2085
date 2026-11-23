@@ -12,6 +12,25 @@
   ],
   "tasks": [
     {
+      "id": "SQUAD-CLICK-CONTRACT-01",
+      "title": "Separer selection, affectation et suppression dans la page Squad",
+      "status": "DONE",
+      "files": [
+        "game/ui/screens/management_screen.py",
+        "game/i18n/en.py",
+        "game/i18n/fr.py",
+        "tests/test_management_hub_ui.py",
+        "tests/test_squad_command_ui.py"
+      ],
+      "tests": [
+        "python -m pytest -q tests/test_management_hub_ui.py tests/test_squad_command_ui.py : 34 passed, 1 skipped, 5 subtests passed"
+      ],
+      "evidence": [
+        "Single click changes only the focused agent; double click and Toggle Squad change deployment membership; Remove Agent requires a second click for the same agent."
+      ],
+      "remaining": []
+    },
+    {
       "id": "ENV-DETAIL-WASTELAND-11",
       "title": "Revue artistique native detaillee du dernier lot wasteland",
       "status": "DONE",

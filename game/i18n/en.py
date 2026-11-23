@@ -27,7 +27,7 @@ STRINGS = {
     "squad.hp": "HP",
     "squad.ready": "READY",
     "squad.recovering": "RECOVERY {days}d",
-    "squad.double_click": "Double-click: full agent sheet",
+    "squad.double_click": "Double-click: toggle squad",
     "squad.upgrade": "Upgrade attributes",
     "squad.recruit_window": "RECRUITMENT [N]",
     "squad.scroll": "SCROLL",

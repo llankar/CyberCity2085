@@ -119,6 +119,10 @@ def test_modal_chrome_localization_preserves_identity_and_numbers():
     )
 
 
+def test_agent_card_hint_matches_double_click_squad_toggle():
+    assert t("squad.double_click", "en") == "Double-click: toggle squad"
+
+
 def test_feedback_keeps_result_without_technical_action_fields():
     from game.ui.components.squad_copy import notification_summary
 

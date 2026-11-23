@@ -185,16 +185,22 @@ class ManagementHubUITest(unittest.TestCase):
         view.game_state.selected_agent_names = [view.game_state.characters[0].name]
         view.game_state.spec_ops_assets = default_spec_ops_assets()
 
-    def test_double_click_agent_card_opens_full_sheet(self):
+    def test_single_click_selects_agent_and_double_click_toggles_squad(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
         self._seed_interactive_state(view)
 
-        view._dispatch("agent_card", 0)
+        selected_before = list(view.game_state.selected_agent_names)
         view._dispatch("agent_card", 0)
 
-        self.assertEqual(view.expanded_agent_sheet_index, 0)
+        self.assertEqual(view.deployment_cursor, 0)
+        self.assertEqual(view.game_state.selected_agent_names, selected_before)
+
+        view._dispatch("agent_card", 0)
+
+        self.assertNotIn("Rook", view.game_state.selected_agent_names)
+        self.assertIsNone(view.expanded_agent_sheet_index)
 
     def test_opening_and_closing_agent_sheet_toggles_topmost_focus(self):
         view = ManagementView(GameState())
@@ -210,8 +216,7 @@ class ManagementHubUITest(unittest.TestCase):
 
         management_screen._set_window_topmost = _capture
         try:
-            view._dispatch("agent_card", 0)
-            view._dispatch("agent_card", 0)
+            view._open_agent_sheet(0)
             view.on_key_press(management_screen.arcade.key.ESCAPE, 0)
         finally:
             management_screen._set_window_topmost = original
@@ -641,6 +646,14 @@ class ManagementHubUITest(unittest.TestCase):
                         0,
                         0,
                     )
+                    self.assertIn(agent_name, view.game_state.selected_agent_names)
+
+                    view.on_mouse_press(
+                        (first_agent.left + first_agent.right) // 2,
+                        (first_agent.bottom + first_agent.top) // 2,
+                        0,
+                        0,
+                    )
                     self.assertNotIn(agent_name, view.game_state.selected_agent_names)
 
                     view.on_mouse_press(
@@ -875,7 +888,7 @@ class ManagementHubUITest(unittest.TestCase):
         self.assertGreater(dossier.layout.identity.top, dossier.layout.identity.bottom)
         self.assertEqual(dossier.data.derived["stress_cap"], 12)
 
-    def test_squad_room_can_remove_agent_from_roster(self):
+    def test_squad_room_requires_confirmation_before_removing_agent(self):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
@@ -889,6 +902,12 @@ class ManagementHubUITest(unittest.TestCase):
             for button in view.room_ui.action_buttons
             if button.action.key == "remove_agent"
         ).rect
+
+        view._do_remove_agent()
+
+        self.assertEqual(len(view.game_state.characters), 4)
+        self.assertEqual(view.pending_remove_agent_name, removed_name)
+        self.assertIn("Confirm removal", view.message)
 
         view._do_remove_agent()
 
