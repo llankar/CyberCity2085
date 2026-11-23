@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-23) : contraste du bouton LAUNCH MISSION corrigé. L'état bloqué utilisait par erreur `AMBER_FILL` (48,31,10), une couleur de fond, comme couleur de texte et de bordure. Un token sémantique `accent_warning_text` utilise désormais le jaune lisible `WARNING` (255,190,76). Le blocage reste orange, le lancement valide reste vert. Gate World Map : 8 tests réussis.
+
 - État courant (2026-11-23) : WORLD-MAP-RETURN/LABEL DONE. BACK et Échap reconstruisent maintenant ManagementView avec toutes les salles fermées, donc sur l'image générale de la base au lieu d'ouvrir Squad. Le bouton central garde toujours le nom fonctionnel LAUNCH MISSION ; un équipement incomplet change sa couleur et le message d'avertissement, pas son libellé. `tests/test_world_map_ui.py` : 10 réussis. `tests/test_management_hub_ui.py` : 32 réussis et 5 sous-tests réussis. Les deux modules doivent rester séparés sous Windows car leur fixture Arcade partage une fenêtre globale.
 
 - État courant (2026-11-23) : correctif de lisibilité du Research Lab DONE dans la portée UI. Les onglets surdimensionnés qui recouvraient RESEARCH LAB, OPERATIONAL PROFILE et PROGRESS ont été retirés de la ligne supérieure. Deux boutons compacts RESEARCH et BASE + VEHICLE occupent désormais une barre réservée dans la colonne gauche, et la liste est décalée sous eux. Gate ciblé : 51 tests réussis, 5 sous-tests réussis. Revue visuelle Windows de la nouvelle géométrie encore NOT VERIFIED.

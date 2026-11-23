@@ -18,6 +18,7 @@ class ColorTokens:
 
     accent_primary: tuple[int, int, int] = palette.HEADER
     accent_warning: tuple[int, int, int] = palette.AMBER_FILL
+    accent_warning_text: tuple[int, int, int] = palette.WARNING
     accent_danger: tuple[int, int, int] = palette.DANGER
     accent_success: tuple[int, int, int] = palette.TACTICAL_GREEN
 

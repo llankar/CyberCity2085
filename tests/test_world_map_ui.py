@@ -123,8 +123,9 @@ class WorldMapUITest(unittest.TestCase):
         view = object.__new__(MissionWorldMapView)
         view.game_state = state
         view._selection_type = "combat"
-        label, _ = view._launch_button_presentation()
+        label, color = view._launch_button_presentation()
         self.assertEqual(label, "LAUNCH MISSION")
+        self.assertGreater(min(color[:3]), 70)
 
 
 if __name__ == "__main__":

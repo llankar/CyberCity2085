@@ -690,19 +690,19 @@ class MissionWorldMapView(GameView):
             return (
                 ("LAUNCH NARRATIVE MISSION", colors.accent_success)
                 if selected
-                else ("ASSIGN AN AGENT FIRST", colors.accent_warning)
+                else ("ASSIGN AN AGENT FIRST", colors.accent_warning_text)
             )
         mission = _selected_mission(self.game_state)
         selected = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
         )
         if mission is None:
-            return "SELECT A MISSION", colors.accent_warning
+            return "SELECT A MISSION", colors.accent_warning_text
         if not selected:
-            return "ASSIGN AN AGENT FIRST", colors.accent_warning
+            return "ASSIGN AN AGENT FIRST", colors.accent_warning_text
         tactical = build_tactical_briefing(mission, selected)
         if not tactical.ready:
-            return "LAUNCH MISSION", colors.accent_warning
+            return "LAUNCH MISSION", colors.accent_warning_text
         return "LAUNCH MISSION", colors.accent_success
 
     def on_mouse_press(self, x, y, button, modifiers) -> None:
