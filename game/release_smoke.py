@@ -72,17 +72,22 @@ def run_smoke():
     expected_zones = {"HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"}
     if {item.zone for item in CATALOGUE} != expected_zones:
         raise RuntimeError("Incomplete bundled cyberware body-zone catalogue")
-    credit_tiers: dict[int, list[int]] = {}
+    power_tiers: dict[int, list[object]] = {}
     for item in CATALOGUE:
-        if item.humanity_cost < 1 or item.credit_cost <= 0:
+        if item.power_tier not in {1, 2, 3} or item.humanity_cost < 1 or item.credit_cost <= 0:
             raise RuntimeError(f"Invalid bundled cyberware economy: {item.id}")
-        credit_tiers.setdefault(item.humanity_cost, []).append(item.credit_cost)
-    ordered_tiers = sorted(credit_tiers)
+        power_tiers.setdefault(item.power_tier, []).append(item)
+    ordered_tiers = sorted(power_tiers)
+    if ordered_tiers != [1, 2, 3]:
+        raise RuntimeError("Incomplete bundled cyberware power tiers")
     if any(
-        max(credit_tiers[lower]) >= min(credit_tiers[upper])
+        max(item.credit_cost for item in power_tiers[lower])
+        >= min(item.credit_cost for item in power_tiers[upper])
+        or max(item.humanity_cost for item in power_tiers[lower])
+        >= min(item.humanity_cost for item in power_tiers[upper])
         for lower, upper in zip(ordered_tiers, ordered_tiers[1:])
     ):
-        raise RuntimeError("Cyberware price tiers do not scale with Humanity cost")
+        raise RuntimeError("Cyberware prices and Humanity do not scale with power tier")
     character = Character(
         "Smoke Agent",
         starver_infection_days=2,
@@ -113,6 +118,7 @@ def run_smoke():
             "save_roundtrip": True, "cyberware_roundtrip": True,
             "cyberware_atlas": cyberware_atlas.name,
             "cyberware_zones": sorted(expected_zones),
+            "cyberware_power_tiers": ordered_tiers,
             "cyberware_economy": True,
             "battle": battle, "game_window_opened": False,
             "bundled_godot": Path(bundled_godot).name if bundled_godot else None,

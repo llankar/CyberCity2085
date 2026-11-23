@@ -13,6 +13,7 @@ class Cyberware:
     id: str
     name: str
     zone: str
+    power_tier: int
     humanity_cost: int
     credit_cost: int
     description: str
@@ -20,12 +21,12 @@ class Cyberware:
 
 
 CATALOGUE: tuple[Cyberware, ...] = (
-    Cyberware("smart_eye", "Smart Targeting Eye", "EYES", 1, 450, "Ballistic overlay corrects aim in real time.", {"aim": 2, "crit": 1}),
-    Cyberware("tactical_coprocessor", "Tactical Co-processor", "HEAD", 3, 2200, "A combat cache expands moment-to-moment options.", {"action_points": 1, "initiative": 1}),
-    Cyberware("kerenzikov_reflex", "Kerenzikov Reflex", "NERVOUS SYSTEM", 2, 1200, "Predictive nerves seize the first beat.", {"initiative": 4}),
-    Cyberware("titan_arm", "Titan Cyberarm", "ARMS", 2, 1100, "Reinforced myomers turn close combat brutal.", {"melee_power": 4}),
-    Cyberware("subdermal_mesh", "Subdermal Armor Mesh", "TORSO", 2, 1400, "Flexible plates harden beneath the skin.", {"defense": 2, "hp": 4}),
-    Cyberware("adrenal_pump", "Adrenal Overdrive", "CIRCULATORY", 1, 600, "Emergency pump sustains a wounded operator.", {"hp": 3, "initiative": 1}),
+    Cyberware("smart_eye", "Smart Targeting Eye", "EYES", 1, 1, 450, "Ballistic overlay corrects aim in real time.", {"aim": 2, "crit": 1}),
+    Cyberware("tactical_coprocessor", "Tactical Co-processor", "HEAD", 3, 3, 2200, "A combat cache expands moment-to-moment options.", {"action_points": 1, "initiative": 1}),
+    Cyberware("kerenzikov_reflex", "Kerenzikov Reflex", "NERVOUS SYSTEM", 2, 2, 1200, "Predictive nerves seize the first beat.", {"initiative": 4}),
+    Cyberware("titan_arm", "Titan Cyberarm", "ARMS", 2, 2, 1100, "Reinforced myomers turn close combat brutal.", {"melee_power": 4}),
+    Cyberware("subdermal_mesh", "Subdermal Armor Mesh", "TORSO", 2, 2, 1400, "Flexible plates harden beneath the skin.", {"defense": 2, "hp": 4}),
+    Cyberware("adrenal_pump", "Adrenal Overdrive", "CIRCULATORY", 1, 1, 600, "Emergency pump sustains a wounded operator.", {"hp": 3, "initiative": 1}),
 )
 
 BY_ID = {item.id: item for item in CATALOGUE}

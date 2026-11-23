@@ -57,10 +57,17 @@ def test_catalogue_is_grouped_by_body_zone_and_prices_scale_with_power():
     assert {item.zone for item in CATALOGUE} == {
         "HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"
     }
-    by_humanity = {}
+    by_tier = {}
     for item in CATALOGUE:
-        by_humanity.setdefault(item.humanity_cost, []).append(item.credit_cost)
-    assert max(by_humanity[1]) < min(by_humanity[2]) < min(by_humanity[3])
+        by_tier.setdefault(item.power_tier, []).append(item)
+    assert set(by_tier) == {1, 2, 3}
+    for lower, upper in ((1, 2), (2, 3)):
+        assert max(item.credit_cost for item in by_tier[lower]) < min(
+            item.credit_cost for item in by_tier[upper]
+        )
+        assert max(item.humanity_cost for item in by_tier[lower]) < min(
+            item.humanity_cost for item in by_tier[upper]
+        )
 
 
 def test_cyberware_purchase_charges_credits_and_rejects_unaffordable_surgery():

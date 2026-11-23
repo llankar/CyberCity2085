@@ -708,7 +708,7 @@ class ManagementView(GameView):
             _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
             _border(left, bottom, left + card_w, top, border, 1)
             arcade.draw_text(item.name.upper(), left + 12, top - 24, palette.TEXT, font_size=11, bold=True)
-            arcade.draw_text(item.zone, left + 12, top - 42, palette.ACCENT, font_size=8, bold=True)
+            arcade.draw_text(f"{item.zone}  //  TIER {item.power_tier}", left + 12, top - 42, palette.ACCENT, font_size=8, bold=True)
             arcade.draw_text(f"¥{item.credit_cost:,}  H-{item.humanity_cost}", left + card_w - 12, top - 24, palette.WARNING, font_size=9, bold=True, anchor_x="right")
             arcade.draw_text(item.description, left + 12, top - 60, palette.MUTED_TEXT, font_size=9, width=card_w - 24, multiline=True)
             bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())

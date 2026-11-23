@@ -117,6 +117,7 @@ def test_actual_smoke_entry_point_runs_without_arcade_or_a_player_save(tmp_path)
     assert report["mp3_tracks"] >= 7 and report["save_roundtrip"]
     assert report["story_objectives_preserved"] == 15
     assert report["cyberware_economy"] is True
+    assert report["cyberware_power_tiers"] == [1, 2, 3]
     assert report["cyberware_zones"] == [
         "ARMS", "CIRCULATORY", "EYES", "HEAD", "NERVOUS SYSTEM", "TORSO"
     ]

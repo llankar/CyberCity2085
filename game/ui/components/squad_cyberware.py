@@ -23,7 +23,7 @@ def draw_cyberware(self, r):
         card = Rect(body.left, y - 74 * self.u, body.right, y)
         self.paint.panel(card, MINT)
         self.label(item.name.upper(), card.left + 10 * self.u, card.top - 21 * self.u, 14, TEXT, bold=True, width=card.width - 20 * self.u)
-        self.label(f"{item.zone}  //  ¥{item.credit_cost:,}  H-{item.humanity_cost}", card.left + 10 * self.u, card.top - 39 * self.u, 10, GOLD, width=card.width - 20 * self.u)
+        self.label(f"{item.zone} T{item.power_tier}  //  ¥{item.credit_cost:,}  H-{item.humanity_cost}", card.left + 10 * self.u, card.top - 39 * self.u, 10, GOLD, width=card.width - 20 * self.u)
         bonuses = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
         self.label(bonuses, card.left + 10 * self.u, card.bottom + 11 * self.u, 11, CYAN, width=card.width - 20 * self.u)
         y -= 84 * self.u
