@@ -65,7 +65,7 @@ def run_smoke():
         raise RuntimeError("Missing bundled Windows Godot executable")
     if bundled_godot:
         check_bundled_tactical_startup(bundled_godot, godot_project)
-    cyberware_atlas = Path("assets/ui/cyberware/cyberware_atlas.png")
+    cyberware_atlas = Path("assets/ui/cyberware/cyberware_atlas_v2.png")
     if not cyberware_atlas.is_file() or cyberware_atlas.stat().st_size == 0:
         raise RuntimeError("Missing bundled cyberware atlas")
     character = Character(

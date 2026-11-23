@@ -68,7 +68,7 @@ def test_release_assets_include_cyberware_atlas_directory():
     packaged = dict(runtime_asset_data(assets))
     assert str(assets / "ui") in packaged
     assert packaged[str(assets / "ui")] == "assets/ui"
-    assert (assets / "ui/cyberware/cyberware_atlas.png").stat().st_size > 0
+    assert (assets / "ui/cyberware/cyberware_atlas_v2.png").stat().st_size > 0
 
 
 def test_arcade_version_data_is_a_file_in_the_package():

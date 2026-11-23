@@ -684,9 +684,9 @@ class ManagementView(GameView):
         arcade.draw_text("X", (close.left + close.right) // 2, (close.bottom + close.top) // 2, palette.DANGER, font_size=13, bold=True, anchor_x="center", anchor_y="center")
         self._modal_hits.append(close)
 
-        atlas = _load_texture_once("assets/ui/cyberware/cyberware_atlas.png")
+        atlas = _load_texture_once("assets/ui/cyberware/cyberware_atlas_v2.png")
         if atlas is not None:
-            arcade.draw_texture_rect(atlas, arcade.LBWH(x0 + 22, y0 + 42, 310, 310))
+            arcade.draw_texture_rect(atlas, arcade.LBWH(x0 + 22, y0 + 88, 310, 207))
         bonuses = combat_bonuses(char.installed_cyberware)
         summary = "  ".join(f"+{value} {key.upper()}" for key, value in bonuses.items()) or "NO AUGMENTATION INSTALLED"
         arcade.draw_text(summary, x0 + 22, y0 + 20, palette.RESOURCE, font_size=9, bold=True)
