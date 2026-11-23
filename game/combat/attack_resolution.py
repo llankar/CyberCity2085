@@ -133,6 +133,10 @@ def build_attack_context(
     # Apply stance bonuses to attack value (BREACH boosts, GUARD reduces for precision trades)
     base_attack_value = max(0, int(getattr(attacker.stats, stat, 0))) if attacker.stats else 0
     adjusted_attack_value = base_attack_value + stance_bonus - stance_penalty
+    if normalized == "melee":
+        adjusted_attack_value += max(0, int(getattr(attacker, "tactical_melee_bonus", 0)))
+    elif normalized != "psi":
+        adjusted_attack_value += max(0, int(getattr(attacker, "tactical_aim_bonus", 0)))
     
     damage_bonus = 2 if normalized == "missiles" else 0
     accuracy_bonus = 2 if normalized == "missiles" else 0
@@ -188,7 +192,7 @@ def build_attack_context(
         cover_bonus=cover_bonus,
         effective_defense=effective_defense,
         hit_chance=max(0.0, min(1.0, hit_chance)),
-        crit_chance=0.30 if precision else BASE_CRIT_CHANCE,
+        crit_chance=min(0.95, (0.30 if precision else BASE_CRIT_CHANCE) + max(0, int(getattr(attacker, "tactical_crit_bonus", 0))) * 0.05),
         normal_damage=normal_damage,  # Already applies psi RISK factor via adjusted_attack_value
         critical_damage=max(0, int(normal_damage * 2)),
         distance_cells=distance_cells,

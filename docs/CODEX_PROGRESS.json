@@ -15,9 +15,9 @@
       "id": "CYBERWARE-01",
       "title": "Feuille Cyberware, Humanite et avantages tactiques",
       "status": "IN_PROGRESS",
-      "files": ["game/agents/cyberware.py", "game/character.py", "game/combat/godot_bridge.py", "game/ui/screens/management_screen.py", "assets/ui/cyberware/cyberware_atlas.png", "tests/test_cyberware.py"],
-      "tests": [],
-      "evidence": ["Six implants originaux, Humanite 5..0, feuille separee, persistance, installation UI et bonus Godot verifies par les contrats cibles.", "python -m pytest -q tests/test_cyberware.py tests/test_management_hub_ui.py tests/test_squad_command_ui.py tests/test_facility_ui.py tests/test_room_interaction_ui.py tests/test_godot_combat_bridge.py : 71 passed, 1 skipped, 7 subtests passed."],
+      "files": ["game/agents/cyberware.py", "game/character.py", "game/combat/godot_bridge.py", "game/combat_system.py", "game/combat/attack_resolution.py", "game/unit.py", "game/ui/components/combat/initiative_timeline.py", "game/ui/screens/management_screen.py", "assets/ui/cyberware/cyberware_atlas.png", "tests/test_cyberware.py"],
+      "tests": ["python -m pytest -q tests/test_cyberware.py tests/test_rpg_view.py tests/test_attack_resolution.py tests/test_battle_hud_ui.py tests/test_godot_combat_bridge.py tests/test_agent_equipment.py tests/test_mixed_squad_integration.py tests/test_tactical_identity.py : 121 passed, 2 subtests passed"],
+      "evidence": ["Six implants originaux, Humanite 5..0, feuille separee, persistance, installation UI et bonus Godot verifies par les contrats cibles.", "Parite Arcade: aim, crit, melee, initiative, HP, defense et AP de base sont appliques par le moteur tactique et survivent au reset de tour.", "Suite UI/QG precedente: 71 passed, 1 skipped, 7 subtests passed."],
       "remaining": ["Verifier artistiquement la feuille et l'atlas dans une fenetre Windows native."]
     },
     {

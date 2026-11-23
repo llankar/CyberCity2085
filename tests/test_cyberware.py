@@ -1,3 +1,5 @@
+import pytest
+
 from game.agents.cyberware import (
     MAX_HUMANITY,
     combat_bonuses,
@@ -6,6 +8,11 @@ from game.agents.cyberware import (
 )
 from game.character import Character
 from game.combat.godot_bridge import _agent_payload
+from game.combat.attack_resolution import build_attack_context
+from game.combat_system import create_player_units
+from game.stats import EnemyStats
+from game.unit import Unit
+from game.ui.components.combat.initiative_timeline import _initiative_value
 
 
 def test_humanity_starts_at_five_and_never_drops_below_zero():
@@ -42,3 +49,39 @@ def test_removing_implant_restores_capacity():
     installed, _ = toggle_cyberware(["subdermal_mesh"], "subdermal_mesh")
     assert installed == []
     assert humanity_remaining(installed) == 5
+
+
+def test_arcade_unit_keeps_ap_and_combat_bonuses_across_turns():
+    chrome = Character(
+        "Chrome",
+        role="samurai",
+        installed_cyberware=["smart_eye", "titan_arm", "tactical_coprocessor"],
+    )
+    unit = create_player_units([chrome])[0]
+    assert unit.action_points == unit.base_action_points == 3
+    assert unit.tactical_aim_bonus == 2
+    assert unit.tactical_melee_bonus == 4
+    unit.action_points = 0
+    unit.reset_actions()
+    assert unit.action_points == 3
+
+    target = Unit(position=(32, 0), stats=EnemyStats(defense=2), health=10, unit_type="enemy")
+    plain = create_player_units([Character("Plain", role="samurai")])[0]
+    plain.position = unit.position
+    melee = build_attack_context(unit, target, "melee")
+    plain_melee = build_attack_context(plain, target, "melee")
+    assert melee.attack_value == plain_melee.attack_value + 4
+    ranged = build_attack_context(unit, target, "ranged")
+    plain_ranged = build_attack_context(plain, target, "ranged")
+    assert ranged.attack_value == plain_ranged.attack_value + 2
+    assert ranged.crit_chance == pytest.approx(0.17)
+    assert _initiative_value(unit) == unit.stats.agi + 1
+
+
+def test_arcade_subdermal_implant_applies_hp_and_defense():
+    plain = create_player_units([Character("Plain", role="sniper")])[0]
+    armored = create_player_units([
+        Character("Armored", role="sniper", installed_cyberware=["subdermal_mesh"])
+    ])[0]
+    assert armored.stats.max_hp == plain.stats.max_hp + 4
+    assert armored.stats.defense == plain.stats.defense + 2

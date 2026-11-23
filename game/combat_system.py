@@ -62,16 +62,21 @@ def is_occupied(
 
 def equipped_player_stats(character: Character) -> PlayerStats:
     """Return combat stats with loadout bonuses applied without mutating the agent."""
+    from .agents.cyberware import combat_bonuses
+
     stats = replace(character.stats)
     for stat_key, amount in character.loadout.total_stat_bonuses().items():
         if not hasattr(stats, stat_key):
             continue
         setattr(stats, stat_key, max(0, getattr(stats, stat_key) + amount))
     stats = apply_talent_bonuses(stats, character.specializations)
+    derived_bonuses = character.loadout.total_stat_bonuses()
+    for key, value in combat_bonuses(character.installed_cyberware).items():
+        derived_bonuses[key] = derived_bonuses.get(key, 0) + value
     derived = compute_derived_stats(
         character.attributes,
         character.skills,
-        character.loadout.total_stat_bonuses(),
+        derived_bonuses,
         "steady" if character.stress < 35 else "rattled" if character.stress < 65 else "frayed" if character.stress < 85 else "breaking",
     )
     stats.defense = max(0, int(derived.get("defense", stats.defense)))
@@ -105,6 +110,7 @@ def create_asset_unit(asset: SpecOpsAsset, index: int) -> Unit:
         unit_type=asset.asset_type,
         attack_range=asset.primary_range,
         action_points=asset.action_points,
+        base_action_points=asset.action_points,
         available_actions=asset.combat_actions,
         equipment_summary=[
             *(hardpoint.name for hardpoint in asset.hardpoints),
@@ -155,6 +161,9 @@ def create_player_units(
 
     player_units: list[Unit] = []
     for i, char in enumerate(c for c in deployable_characters if c.name not in piloted_by_armor):
+        from .agents.cyberware import combat_bonuses
+
+        cyberware = combat_bonuses(char.installed_cyberware)
         stats = equipped_player_stats(char)
         pos   = _PLAYER_SPAWN[len(player_units) % len(_PLAYER_SPAWN)]
         player_units.append(
@@ -165,6 +174,12 @@ def create_player_units(
                 character=char,
                 unit_type="agent",
                 attack_range=primary_attack_range(char),
+                action_points=2 + cyberware.get("action_points", 0),
+                base_action_points=2 + cyberware.get("action_points", 0),
+                tactical_aim_bonus=cyberware.get("aim", 0),
+                tactical_melee_bonus=cyberware.get("melee_power", 0),
+                tactical_crit_bonus=cyberware.get("crit", 0),
+                initiative_bonus=cyberware.get("initiative", 0),
                 available_actions=char.loadout.combat_actions(),
                 equipment_summary=char.loadout.summary_lines(),
             )
@@ -181,6 +196,7 @@ def create_player_units(
             unit_type=asset.asset_type,
             attack_range=asset.primary_range,
             action_points=asset.action_points,
+            base_action_points=asset.action_points,
             available_actions=asset.combat_actions,
             equipment_summary=[
                 *(hp.name for hp in asset.hardpoints),

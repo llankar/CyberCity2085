@@ -33,7 +33,7 @@ def _unit_label(unit: object) -> str:
 
 def _initiative_value(unit: object) -> int:
     stats = getattr(unit, "stats", None)
-    return int(getattr(stats, "agi", 0)) if stats else 0
+    return (int(getattr(stats, "agi", 0)) if stats else 0) + int(getattr(unit, "initiative_bonus", 0))
 
 
 def _threat_for_enemy(unit: object) -> str | None:

@@ -11,8 +11,8 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques
 
 - Fichiers : `game/agents/cyberware.py`, `game/character.py`, `game/combat/godot_bridge.py`, `game/ui/screens/management_screen.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `assets/ui/cyberware/cyberware_atlas.png`, `tests/test_cyberware.py`.
-- État : six implants originaux, Humanité bornée de 5 à 0, feuille séparée, persistance, installation UI et bonus tactiques Godot intégrés.
-- Tests : suite ciblée partagée Cyberware/QG : 71 réussis, 1 ignoré, 7 sous-tests réussis.
+- État : six implants originaux, Humanité bornée de 5 à 0, feuille séparée, persistance et installation UI. Parité tactique : Godot et Arcade appliquent les bonus ; Arcade conserve visée, critique, mêlée, initiative, PV, défense et AP après le reset de tour.
+- Tests : suite ciblée UI/QG : 71 réussis, 1 ignoré, 7 sous-tests réussis ; suite de parité/régression tactique : 121 réussis, 2 sous-tests réussis.
 - Travail restant dans cette portée : vérifier artistiquement la feuille et l'atlas dans une fenêtre Windows native.
 
 ### HQ-HANGAR-MISSIONS-01 — IN_PROGRESS — Déplacer le choix des missions vers le hangar bas du QG

@@ -39,6 +39,11 @@ class Unit:
     attack_range: int = 1
     health: int = 3
     action_points: int = 2
+    base_action_points: int = 2
+    tactical_aim_bonus: int = 0
+    tactical_melee_bonus: int = 0
+    tactical_crit_bonus: int = 0
+    initiative_bonus: int = 0
     available_actions: list[str] | None = None
     sprite: arcade.Sprite | None = None
     is_defending: bool = False
@@ -211,7 +216,7 @@ class Unit:
     def reset_actions(self):
         self.control_cooldown = max(0, self.control_cooldown - 1)
         # Suppressed units get reduced AP next turn
-        base_ap = 2
+        base_ap = max(0, int(self.base_action_points))
         if STATUS_SUPPRESSED in self.status_effects:
             base_ap = max(0, base_ap - 2)
         # Stunned units get 0 AP next turn
