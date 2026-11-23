@@ -282,7 +282,15 @@ class ManagementHubUITest(unittest.TestCase):
         view.cyberware_sheet_open = True
 
         view.on_draw()
-
+        zones = [hit for hit in view._modal_hits if hit.action == "cyberware_zone"]
+        self.assertEqual(len(zones), 6)
+        eyes = next(hit for hit in zones if hit.data == "EYES")
+        view._dispatch(eyes.action, eyes.data)
+        view.on_draw()
+        self.assertEqual(
+            len([hit for hit in view._modal_hits if hit.action == "cyberware_toggle"]),
+            2,
+        )
         implant = next(hit for hit in view._modal_hits if hit.action == "cyberware_toggle")
         from game.agents.cyberware import BY_ID
         funds_before = view.game_state.available_funds
@@ -330,6 +338,19 @@ class ManagementHubUITest(unittest.TestCase):
                 for button in view.room_ui.action_buttons
             )
         )
+
+    def test_clicking_hangar_on_base_opens_world_map_directly(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        from game.ui.layouts.headquarters import headquarters_layout
+        hangar = headquarters_layout(view.window.width, view.window.height).rooms[3]
+
+        view.on_mouse_press(hangar.left + 1, hangar.bottom + 1, 0, 0)
+
+        self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
+        self.assertFalse(view.room_ui.is_open)
 
     def test_keyboard_shortcut_opens_the_correct_room(self):
         view = ManagementView(GameState())

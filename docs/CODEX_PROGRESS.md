@@ -11,7 +11,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques
 
 - Fichiers : `game/agents/cyberware.py`, `game/character.py`, `game/combat/godot_bridge.py`, `game/ui/screens/management_screen.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `assets/ui/cyberware/cyberware_atlas.png`, `tests/test_cyberware.py`.
-- État : six implants originaux classés par zones corporelles, Humanité bornée de 5 à 0, prix en crédits, feuille séparée, persistance et installation UI. Les paliers TIER 1/2/3 sont visibles et chaque hausse de tier augmente strictement crédits et Humanité. L'installation débite le registre financier et refuse fonds/Humanité insuffisants ; le retrait restaure l'Humanité sans remboursement. Parité tactique : Godot et Arcade appliquent les bonus ; Arcade conserve visée, critique, mêlée, initiative, PV, défense et AP après le reset de tour. L'atlas v2 conserve les six implants, possède une transparence alpha réelle et s'affiche au ratio 3:2 sans écrasement.
+- État : six emplacements corporels ouvrent chacun une liste de deux implants, soit douze choix. Une zone conserve un seul implant ; remplacement, crédits et Humanité sont atomiques. Les paliers TIER 1/2/3 restent visibles et strictement croissants en crédits/Humanité. Les anciennes sauvegardes sont normalisées à un implant par zone. Parité tactique Godot/Arcade conservée.
 - Gate économique/UI/package : 59 réussis, 1 ignoré, 5 sous-tests réussis. Parité tactique : 124 réussis, 2 sous-tests. Gate complet post-changement : 1 238 réussis, 34 ignorés, 14 sous-tests réussis en 267,22 s, avec temporaires sur `E:`.
 - Package : `BUILD 1e878ce6` contient le catalogue zoné et l'économie crédits/Humanité ; PyInstaller et le smoke emballé sont réussis.
 - Candidat courant : `BUILD d7ebe058` contient l'aide Hangar corrigée, les TIER 1/2/3 et le smoke strict des six zones/paliers Cyberware ; PyInstaller et le smoke emballé sont réussis.
@@ -21,7 +21,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### HQ-HANGAR-MISSIONS-01 — IN_PROGRESS — Déplacer le choix des missions vers le hangar bas du QG
 
-- État : le roster Squad expose désormais le Cyberware ; le choix des missions et l'ouverture de la carte sont routés depuis Asset Bay/Hangar. Les chemins résiduels `B` et action primaire ont aussi été retirés de Squad ; `Entrée` y ouvre Cyberware, tandis que l'action primaire du Hangar ouvre les missions.
+- État : le clic sur le hangar dans la vue générale ouvre directement la World Map. `F4` conserve la gestion Asset Bay ; son bouton et `B` ouvrent aussi les missions. Squad expose le Cyberware et ne lance aucune mission.
 - Tests : 51 réussis, 1 ignoré, 5 sous-tests réussis sur la navigation Squad/Hangar/Cyberware.
 - Cohérence de l'aide : `B` est inactif dans Squad et réservé au Hangar ; l'écran des contrôles indique `F4 then B — Hangar missions`. 42 tests et 5 sous-tests réussis.
 - Package : le candidat Windows `BUILD 9e6f4dee` contient le routage final par le hangar ; son smoke emballé est réussi.

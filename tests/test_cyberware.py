@@ -87,6 +87,19 @@ def test_expensive_cyberware_also_consumes_more_humanity():
     assert unchanged == installed and funds == 800 and not changed and reason == "funds"
 
 
+def test_each_body_zone_offers_a_choice_and_accepts_only_one_implant():
+    from game.agents.cyberware import ZONE_ORDER, catalogue_for_zone, normalize_installed
+
+    assert all(len(catalogue_for_zone(zone)) >= 2 for zone in ZONE_ORDER)
+    installed, funds, changed, reason = purchase_or_remove([], "smart_eye", 5_000)
+    assert changed and reason == "installed"
+    installed, funds, changed, reason = purchase_or_remove(installed, "predator_optics", funds)
+    assert changed and reason == "replaced"
+    assert "smart_eye" not in installed and installed == ["predator_optics"]
+    assert funds == 3_200
+    assert normalize_installed(["smart_eye", "predator_optics"]) == ["smart_eye"]
+
+
 def test_arcade_unit_keeps_ap_and_combat_bonuses_across_turns():
     chrome = Character(
         "Chrome",

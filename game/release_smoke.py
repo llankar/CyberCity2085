@@ -72,6 +72,8 @@ def run_smoke():
     expected_zones = {"HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"}
     if {item.zone for item in CATALOGUE} != expected_zones:
         raise RuntimeError("Incomplete bundled cyberware body-zone catalogue")
+    if any(sum(item.zone == zone for item in CATALOGUE) < 2 for zone in expected_zones):
+        raise RuntimeError("A bundled cyberware body slot has no implant choice")
     power_tiers: dict[int, list[object]] = {}
     for item in CATALOGUE:
         if item.power_tier not in {1, 2, 3} or item.humanity_cost < 1 or item.credit_cost <= 0:
@@ -118,6 +120,7 @@ def run_smoke():
             "save_roundtrip": True, "cyberware_roundtrip": True,
             "cyberware_atlas": cyberware_atlas.name,
             "cyberware_zones": sorted(expected_zones),
+            "cyberware_choices_per_zone": 2,
             "cyberware_power_tiers": ordered_tiers,
             "cyberware_economy": True,
             "battle": battle, "game_window_opened": False,

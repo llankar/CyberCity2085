@@ -260,6 +260,7 @@ class ManagementView(GameView):
         self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
         self.cyberware_sheet_open: bool = False
+        self.cyberware_zone_open: str | None = None
         self._room_entry_elapsed: float = 1.0
 
         ensure_mission_templates(self.game_state)
@@ -664,7 +665,7 @@ class ManagementView(GameView):
     def _draw_cyberware_modal(self, w: int, h: int) -> None:
         if not self.cyberware_sheet_open or self.expanded_agent_sheet_index is None:
             return
-        from game.agents.cyberware import CATALOGUE, combat_bonuses, humanity_remaining, is_eligible_role
+        from game.agents.cyberware import BY_ID, ZONE_ORDER, catalogue_for_zone, combat_bonuses, humanity_remaining, is_eligible_role
         from game.ui.panels import _load_texture_once
 
         char = self.game_state.characters[self.expanded_agent_sheet_index]
@@ -694,29 +695,66 @@ class ManagementView(GameView):
 
         eligible = is_eligible_role(char.role)
         grid_x, grid_top = x0 + 360, y1 - 92
-        gap, card_h = 12, 184
-        card_w = (x1 - grid_x - 24 - gap) // 2
-        installed = set(char.installed_cyberware)
-        for index, item in enumerate(CATALOGUE):
-            row, col = divmod(index, 2)
-            left = grid_x + col * (card_w + gap)
-            top = grid_top - row * (card_h + gap)
-            bottom = top - card_h
-            owned = item.id in installed
-            affordable = item.humanity_cost <= humanity and item.credit_cost <= self.game_state.available_funds
-            border = palette.TACTICAL_GREEN if owned else (palette.ACCENT if eligible and affordable else palette.PANEL_BORDER_MUTED)
-            _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
-            _border(left, bottom, left + card_w, top, border, 1)
-            arcade.draw_text(item.name.upper(), left + 12, top - 24, palette.TEXT, font_size=11, bold=True)
-            arcade.draw_text(f"{item.zone}  //  TIER {item.power_tier}", left + 12, top - 42, palette.ACCENT, font_size=8, bold=True)
-            arcade.draw_text(f"¥{item.credit_cost:,}  H-{item.humanity_cost}", left + card_w - 12, top - 24, palette.WARNING, font_size=9, bold=True, anchor_x="right")
-            arcade.draw_text(item.description, left + 12, top - 60, palette.MUTED_TEXT, font_size=9, width=card_w - 24, multiline=True)
-            bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
-            arcade.draw_text(bonus_text, left + 12, bottom + 46, palette.RESOURCE, font_size=9, bold=True)
-            label = "REMOVE" if owned else ("INSTALL" if eligible and affordable else "LOCKED")
-            arcade.draw_text(label, left + card_w - 12, bottom + 16, border, font_size=9, bold=True, anchor_x="right")
-            if owned or (eligible and affordable):
-                self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "cyberware_toggle", item.id))
+        gap = 12
+        installed_by_zone = {
+            BY_ID[key].zone: BY_ID[key]
+            for key in char.installed_cyberware
+            if key in BY_ID
+        }
+        selected_zone = getattr(self, "cyberware_zone_open", None)
+        if selected_zone not in ZONE_ORDER:
+            self.cyberware_zone_open = None
+            card_h = 184
+            card_w = (x1 - grid_x - 24 - gap) // 2
+            for index, zone in enumerate(ZONE_ORDER):
+                row, col = divmod(index, 2)
+                left = grid_x + col * (card_w + gap)
+                top = grid_top - row * (card_h + gap)
+                bottom = top - card_h
+                current = installed_by_zone.get(zone)
+                border = palette.TACTICAL_GREEN if current else palette.ACCENT
+                _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
+                _border(left, bottom, left + card_w, top, border, 1)
+                arcade.draw_text(zone, left + 12, top - 28, palette.ACCENT, font_size=11, bold=True)
+                if current:
+                    arcade.draw_text(current.name.upper(), left + 12, top - 58, palette.TEXT, font_size=11, bold=True)
+                    arcade.draw_text(f"TIER {current.power_tier}  //  H-{current.humanity_cost}", left + 12, top - 80, palette.WARNING, font_size=9, bold=True)
+                    bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in current.combat_bonuses.items())
+                    arcade.draw_text(bonus_text, left + 12, bottom + 44, palette.RESOURCE, font_size=9, bold=True)
+                else:
+                    arcade.draw_text("EMPTY SLOT", left + 12, top - 62, palette.MUTED_TEXT, font_size=11, bold=True)
+                    arcade.draw_text(f"{len(catalogue_for_zone(zone))} IMPLANTS AVAILABLE", left + 12, bottom + 44, palette.RESOURCE, font_size=9, bold=True)
+                arcade.draw_text("OPEN LIST", left + card_w - 12, bottom + 16, border, font_size=9, bold=True, anchor_x="right")
+                self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "cyberware_zone", zone))
+        else:
+            options = catalogue_for_zone(selected_zone)
+            arcade.draw_text(f"{selected_zone} // AVAILABLE CYBERWARE", grid_x, grid_top, palette.ACCENT, font_size=14, bold=True)
+            back = _HitRegion(grid_x, y0 + 34, x1 - 24, y0 + 72, "cyberware_zone_back")
+            _rect(back.left, back.bottom, back.right, back.top, (15, 32, 40, 245))
+            _border(back.left, back.bottom, back.right, back.top, palette.ACCENT, 1)
+            arcade.draw_text("BACK TO BODY SLOTS", (back.left + back.right) // 2, (back.bottom + back.top) // 2, palette.ACCENT, font_size=10, bold=True, anchor_x="center", anchor_y="center")
+            self._modal_hits.append(back)
+            card_w = x1 - grid_x - 24
+            card_h = 220
+            for index, item in enumerate(options):
+                left = grid_x
+                top = grid_top - 34 - index * (card_h + gap)
+                bottom = top - card_h
+                owned = item.id in char.installed_cyberware
+                remaining_after_slot = humanity + (installed_by_zone[selected_zone].humanity_cost if selected_zone in installed_by_zone else 0)
+                affordable = item.humanity_cost <= remaining_after_slot and item.credit_cost <= self.game_state.available_funds
+                border = palette.TACTICAL_GREEN if owned else (palette.ACCENT if eligible and affordable else palette.PANEL_BORDER_MUTED)
+                _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
+                _border(left, bottom, left + card_w, top, border, 1)
+                arcade.draw_text(item.name.upper(), left + 14, top - 30, palette.TEXT, font_size=13, bold=True)
+                arcade.draw_text(f"TIER {item.power_tier}  //  ¥{item.credit_cost:,}  //  HUMANITY -{item.humanity_cost}", left + 14, top - 55, palette.WARNING, font_size=10, bold=True)
+                arcade.draw_text(item.description, left + 14, top - 88, palette.MUTED_TEXT, font_size=10, width=card_w - 28, multiline=True)
+                bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
+                arcade.draw_text(bonus_text, left + 14, bottom + 50, palette.RESOURCE, font_size=10, bold=True)
+                label = "REMOVE" if owned else ("INSTALL / REPLACE" if eligible and affordable else "LOCKED")
+                arcade.draw_text(label, left + card_w - 14, bottom + 18, border, font_size=10, bold=True, anchor_x="right")
+                if owned or (eligible and affordable):
+                    self._modal_hits.append(_HitRegion(left, bottom, left + card_w, top, "cyberware_toggle", item.id))
 
     def _draw_recruit_window_modal(self, w, h):
         if not self.recruit_window_open or not self.pending_recruit_candidates:
@@ -2180,9 +2218,24 @@ class ManagementView(GameView):
             return
         if action == "sheet_cyberware":
             self.cyberware_sheet_open = True
+            self.cyberware_zone_open = None
+            return
+        if action == "open_cyberware":
+            index = int(data) if isinstance(data, int) else self.deployment_cursor
+            if 0 <= index < len(self.game_state.characters):
+                self._open_agent_sheet(index)
+                self.cyberware_sheet_open = True
+                self.cyberware_zone_open = None
             return
         if action == "cyberware_close":
             self.cyberware_sheet_open = False
+            self.cyberware_zone_open = None
+            return
+        if action == "cyberware_zone":
+            self.cyberware_zone_open = str(data)
+            return
+        if action == "cyberware_zone_back":
+            self.cyberware_zone_open = None
             return
         if action == "cyberware_toggle":
             from game.agents.cyberware import BY_ID, purchase_or_remove
@@ -2191,7 +2244,7 @@ class ManagementView(GameView):
                 char.installed_cyberware, str(data), self.game_state.available_funds
             )
             item = BY_ID.get(str(data))
-            if changed and reason == "installed" and item:
+            if changed and reason in {"installed", "replaced"} and item:
                 if not self.game_state.spend_funds(
                     item.credit_cost, "cyberware", f"Installed {item.name} for {char.name}."
                 ):
@@ -2201,7 +2254,7 @@ class ManagementView(GameView):
             elif changed:
                 char.installed_cyberware = updated
             if changed and item:
-                verb = "installed" if reason == "installed" else "removed"
+                verb = "installed" if reason == "installed" else ("replaced the slot implant" if reason == "replaced" else "removed")
                 self.message = f"{item.name} {verb} for {char.name}."
                 self.game_state.add_event(self.message)
             elif reason == "funds" and item:
@@ -2668,6 +2721,7 @@ class ManagementView(GameView):
         if self.expanded_agent_sheet_index is None:
             return
         self.cyberware_sheet_open = False
+        self.cyberware_zone_open = None
         self.expanded_agent_sheet_index = None
         _set_window_topmost(self.window, False)
 
@@ -2749,6 +2803,7 @@ class ManagementView(GameView):
         self.pending_remove_agent_name: str | None = None
         self.expanded_agent_sheet_index: int | None = None
         self.cyberware_sheet_open: bool = False
+        self.cyberware_zone_open: str | None = None
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
@@ -2862,6 +2917,7 @@ class ManagementView(GameView):
             if key == getattr(arcade.key, "ESCAPE", None):
                 if self.cyberware_sheet_open:
                     self.cyberware_sheet_open = False
+                    self.cyberware_zone_open = None
                 else:
                     self._close_agent_sheet()
             elif self._character_sheet_renderer is not None:
@@ -3061,7 +3117,10 @@ class ManagementView(GameView):
         if target == "close":
             self.on_key_press(arcade.key.ESCAPE, 0)
         elif target is not None:
-            self._open_hub_room(target)
+            if target == "assets":
+                self._open_mission_map()
+            else:
+                self._open_hub_room(target)
 
     def _open_hub_room(self, room_key: str) -> None:
         from game.ui.layouts.headquarters import headquarters_layout, ROOMS

@@ -33,4 +33,4 @@ def draw_cyberware(self, r):
     button = Rect(body.left, body.bottom, body.right, body.bottom + 48 * self.u)
     self.paint.panel(button, CYAN, selected=True)
     self.label("OPEN CYBERWARE SHEET", *button.center, 13, CYAN, bold=True, anchor_x="center")
-    self.hit(button, "squad_sheet", index, "Open agent sheet, then Cyberware")
+    self.hit(button, "open_cyberware", index, "Open Cyberware body slots")
