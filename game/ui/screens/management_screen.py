@@ -2250,6 +2250,14 @@ class ManagementView(GameView):
                 self.message = f"{char.name} equipped {item.name}."
                 self.game_state.add_event(self.message)
             return
+        if action == "dossier_unequip":
+            if self.expanded_agent_sheet_index is not None:
+                char = self.game_state.characters[self.expanded_agent_sheet_index]
+                removed = char.loadout.equip(str(data), None)
+                if removed is not None:
+                    self.message = f"{char.name} removed {removed.name}."
+                    self.game_state.add_event(self.message)
+            return
         if action == "dossier_cyberware_zone":
             self.dossier_cyberware_zone = str(data)
             self.dossier_cyberware_item = None

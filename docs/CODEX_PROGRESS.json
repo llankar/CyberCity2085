@@ -25,13 +25,15 @@
         "tests/test_character_sheet_visual.py"
       ],
       "tests": [
-        "python -m pytest -q tests/test_operative_dossier.py tests/test_character_sheet_visual.py tests/test_cyberware.py tests/test_agent_equipment.py tests/test_management_hub_ui.py : 63 passed, 1 skipped (capture X11), 5 subtests passed."
+        "python -m pytest -q tests/test_operative_dossier.py tests/test_character_sheet_visual.py tests/test_cyberware.py tests/test_agent_equipment.py tests/test_management_hub_ui.py : 64 passed, 1 skipped (capture X11), 5 subtests passed.",
+        "Persistence/progression/story gate with test_save_system.py, test_agent_progression.py and test_story_mission_resolution_flow.py : 82 passed, 1 skipped, 5 subtests passed."
       ],
       "evidence": [
         "Inspection initiale: la fiche existante projette deja les vraies statistiques, competences, talents et equipements; le Cyberware, les missions, les evenements et la sauvegarde possedent leurs sources de verite existantes.",
         "Les cinq maquettes sont des references de composition uniquement; aucun texte ou nombre fictif ne sera integre comme image de fond.",
         "Premier lot integre: conteneur commun, cinq onglets, Overview reel, Skills existant preserve, Inventory compatible, Cyberware zonal, Journal campagne et notes personnelles retrocompatibles.",
-        "L'ancienne surcouche Cyberware n'est plus dessinee; les anciens appels sont rediriges vers l'onglet integre."
+        "L'ancienne surcouche Cyberware n'est plus dessinee; les anciens appels sont rediriges vers l'onglet integre.",
+        "La barre permanente affiche les cinq ressources reelles; Inventory equipe et retire; la silhouette Cyberware est vectorielle et synchronisee; un test rend les cinq pages."
       ],
       "remaining": [
         "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",

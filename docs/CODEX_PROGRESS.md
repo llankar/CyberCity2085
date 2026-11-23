@@ -13,7 +13,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 - Fichiers : `game/ui/components/character_sheet.py`, `game/ui/components/character_dossier_pages.py`, `game/ui/layouts/character_sheet.py`, `game/ui/screens/management_screen.py`, `game/character.py`, `tests/test_operative_dossier.py`.
 - État : un conteneur plein écran commun conserve l’agent actif et expose `OVERVIEW`, `SKILLS`, `INVENTORY`, `CYBERWARE` et `JOURNAL`. Overview agrège les vraies données ; Skills réutilise la progression existante ; Inventory équipe le catalogue compatible ; Cyberware expose les six zones et dix implants réels par zone ; Journal projette missions, événements et données connues. Les notes personnelles sont persistantes et rétrocompatibles, avec création, modification et suppression confirmée.
 - Compatibilité : l’ancienne surcouche Cyberware n’est plus dessinée ; ses anciens appels ouvrent l’onglet intégré. Les maquettes restent des références visuelles et ne sont jamais utilisées comme fonds contenant de fausses données.
-- Tests : 63 réussis, 1 ignoré (capture Arcade nécessitant X11), 5 sous-tests réussis sur le dossier, l’équipement, le Cyberware et le hub.
+- Tests : gate étendu dossier, équipement, Cyberware, hub, sauvegarde, progression et missions narratives : 82 réussis, 1 ignoré (capture Arcade nécessitant X11), 5 sous-tests réussis. Un test rend réellement les cinq onglets et vérifie leurs actions principales.
 - Travail restant : compléter les détails et interactions avancées, ajouter les assets réellement manquants, exécuter la suite globale, lancer le jeu et effectuer la revue visuelle multi-résolution.
 
 ### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques

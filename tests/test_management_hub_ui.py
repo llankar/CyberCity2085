@@ -1048,6 +1048,28 @@ class ManagementHubUITest(unittest.TestCase):
         view._open_hub_room("intel")
         self.assertEqual(view._room_entry_elapsed, 1.0)
 
+    def test_operative_dossier_renders_all_five_integrated_pages(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        self._seed_interactive_state(view)
+        view._open_agent_sheet(0)
+
+        expected_actions = {
+            "overview": "dossier_overview_inventory",
+            "skills": "sheet_spend_stat",
+            "inventory": "dossier_inventory_slot",
+            "cyberware": "cyberware_zone",
+            "journal": "dossier_journal_section",
+        }
+        for page, action in expected_actions.items():
+            view.dossier_page = page
+            view.on_draw()
+            self.assertTrue(
+                any(hit.action == action for hit in view._modal_hits),
+                f"{page} did not expose {action}",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

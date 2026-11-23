@@ -103,41 +103,27 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             CYAN,
             width=max(1, w * 0.56 - year_x - year.content_width - 18 * u),
         )
-        left = w * 0.58
+        left = w * 0.43
         right = w - 100 * u
-        cw = (right - left - 16 * u) / 2
-        for i, (key, value, color, icon) in enumerate(
-            [
-                ("pending", char.pending_points, CYAN, "shield"),
-                ("talent_points", char.talent_points, GOLD, "layers"),
-            ]
-        ):
+        resources = [
+            ("FUNDS", self.gs.available_funds, GOLD, "credits"),
+            ("CREDITS", self.gs.strategic_resources.get("credits", 0), CYAN, "research"),
+            ("INTEL", self.gs.strategic_resources.get("intel", 0), CYAN, "intel"),
+            ("SALVAGE", self.gs.strategic_resources.get("salvage", 0), CYAN, "settings"),
+            ("INFLUENCE", self.gs.strategic_resources.get("influence", 0), CYAN, "nodes"),
+        ]
+        cw = (right - left - 4 * 7 * u) / 5
+        for i, (key, value, color, icon) in enumerate(resources):
             box = Rect(
-                left + i * (cw + 16 * u),
-                r.bottom + 8 * u,
-                left + i * (cw + 16 * u) + cw,
-                r.top - 8 * u,
+                left + i * (cw + 7 * u),
+                r.bottom + 6 * u,
+                left + i * (cw + 7 * u) + cw,
+                r.top - 6 * u,
             )
-            self.paint.panel(box, color, selected=value > 0)
-            self.icon(icon, box.left + 21 * u, box.center[1], 25, color)
-            self.label(
-                self.tr(key),
-                box.left + 42 * u,
-                box.center[1],
-                14,
-                TEXT,
-                bold=True,
-                width=box.width - 91 * u,
-            )
-            self.label(
-                str(value),
-                box.right - 20 * u,
-                box.center[1],
-                27,
-                color,
-                bold=True,
-                anchor_x="right",
-            )
+            self.icon(icon, box.left + 13 * u, box.center[1], 20, color)
+            self.label(key, box.left + 28 * u, box.center[1] + 10 * u, 8, TEXT, bold=True, width=box.width-31*u)
+            self.label(f"{value:,}", box.left + 28 * u, box.center[1] - 10 * u, 13, color, bold=True, width=box.width-31*u)
+        # Progress points remain visible in the Skills footer and cards.
         close = Rect(w - 64 * u, r.bottom + 8 * u, w - 16 * u, r.top - 8 * u)
         self.paint.panel(close, RED, selected=self.hover == ("sheet_close", None))
         x, y = close.center

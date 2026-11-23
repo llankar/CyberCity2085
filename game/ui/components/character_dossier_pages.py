@@ -191,17 +191,19 @@ def draw_inventory(p, r: Rect):
             y -= 29*u
         equip = Rect(detail.left+16*u, detail.bottom+18*u, detail.right-16*u, detail.bottom+64*u)
         p.paint.panel(equip, GOLD, selected=True)
-        p.label("EQUIP" if not equipped or equipped.id != chosen.id else "EQUIPPED", *equip.center, 13, GOLD, bold=True, anchor_x="center")
+        p.label("EQUIP" if not equipped or equipped.id != chosen.id else "REMOVE", *equip.center, 13, GOLD, bold=True, anchor_x="center")
         if not equipped or equipped.id != chosen.id:
             p.hit(equip, "dossier_equip_item", (selected_slot, chosen.id), "Equip selected item")
+        else:
+            p.hit(equip, "dossier_unequip", selected_slot, "Remove equipped item")
 
 
 def draw_cyberware(p, r: Rect):
     u, c = p.u, p.character
     summary, zones, catalog, detail = _columns(r, (22, 25, 27, 26), 10*u)
     _panel(p, summary, "CYBERWARE MAP", VIOLET)
-    atlas = "assets/ui/cyberware/cyberware_atlas_v2.png"
-    p.image(atlas, Rect(summary.left+12*u, summary.bottom+150*u, summary.right-12*u, summary.top-48*u))
+    figure = Rect(summary.left+20*u, summary.bottom+150*u, summary.right-20*u, summary.top-52*u)
+    _draw_anatomy(p, figure, getattr(p.view, "dossier_cyberware_zone", ZONE_ORDER[0]))
     remaining = humanity_remaining(c.installed_cyberware)
     p.label(f"HUMANITY {remaining} / {MAX_HUMANITY}", summary.left+15*u, summary.bottom+116*u, 16, GOLD, bold=True)
     p.label(f"INSTALLED {len(c.installed_cyberware)} / {len(ZONE_ORDER)}", summary.left+15*u, summary.bottom+82*u, 13, TEXT)
@@ -318,3 +320,31 @@ def draw_journal(p, r: Rect):
     for i, line in enumerate(lines):
         p.label(line, archive.left+16*u, archive.top-(58+i*37)*u, 12, TEXT, bold=True, width=archive.width-32*u)
     p.paragraph("Only information already recorded by the campaign is shown. Undiscovered internal data is never exposed here.", Rect(archive.left+16*u, archive.bottom+20*u, archive.right-16*u, archive.bottom+145*u), 11, MUTED)
+
+
+def _draw_anatomy(p, r: Rect, selected_zone: str):
+    """Resolution-independent holographic body map; no fake data is baked in."""
+    u = p.u
+    x = r.center[0]
+    head_y = r.top - 42*u
+    body_top = head_y - 42*u
+    hip_y = r.bottom + r.height*.38
+    color = (*CYAN, 210)
+    arcade.draw_circle_outline(x, head_y, 28*u, color, 2*u)
+    arcade.draw_line(x, body_top, x, hip_y, color, 4*u)
+    arcade.draw_line(x, body_top-18*u, x-55*u, body_top-105*u, color, 3*u)
+    arcade.draw_line(x, body_top-18*u, x+55*u, body_top-105*u, color, 3*u)
+    arcade.draw_line(x, hip_y, x-37*u, r.bottom+20*u, color, 4*u)
+    arcade.draw_line(x, hip_y, x+37*u, r.bottom+20*u, color, 4*u)
+    points = {
+        "HEAD": (x, head_y+6*u), "EYES": (x, head_y+15*u),
+        "ARMS": (x+51*u, body_top-83*u), "TORSO": (x, body_top-62*u),
+        "CIRCULATORY": (x-11*u, body_top-46*u), "NERVOUS SYSTEM": (x, body_top-15*u),
+    }
+    for zone, (px, py) in points.items():
+        active = zone == selected_zone
+        dot = GOLD if active else VIOLET
+        if active:
+            p.paint.glow(px, py, 52*u, 52*u, dot, 65)
+        arcade.draw_circle_filled(px, py, (8 if active else 5)*u, dot)
+        arcade.draw_circle_outline(px, py, (15 if active else 10)*u, dot, 2*u)
