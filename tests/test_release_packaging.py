@@ -116,6 +116,10 @@ def test_actual_smoke_entry_point_runs_without_arcade_or_a_player_save(tmp_path)
     assert report["status"] == "ok" and report["manual_maps"] == 122
     assert report["mp3_tracks"] >= 7 and report["save_roundtrip"]
     assert report["story_objectives_preserved"] == 15
+    assert report["cyberware_economy"] is True
+    assert report["cyberware_zones"] == [
+        "ARMS", "CIRCULATORY", "EYES", "HEAD", "NERVOUS SYSTEM", "TORSO"
+    ]
     assert not report["game_window_opened"]
     assert report["battle"]["outcome"] == "victory" and report["battle"]["geometry_checked"]
 

@@ -68,6 +68,21 @@ def run_smoke():
     cyberware_atlas = Path("assets/ui/cyberware/cyberware_atlas_v2.png")
     if not cyberware_atlas.is_file() or cyberware_atlas.stat().st_size == 0:
         raise RuntimeError("Missing bundled cyberware atlas")
+    from game.agents.cyberware import CATALOGUE
+    expected_zones = {"HEAD", "EYES", "ARMS", "TORSO", "CIRCULATORY", "NERVOUS SYSTEM"}
+    if {item.zone for item in CATALOGUE} != expected_zones:
+        raise RuntimeError("Incomplete bundled cyberware body-zone catalogue")
+    credit_tiers: dict[int, list[int]] = {}
+    for item in CATALOGUE:
+        if item.humanity_cost < 1 or item.credit_cost <= 0:
+            raise RuntimeError(f"Invalid bundled cyberware economy: {item.id}")
+        credit_tiers.setdefault(item.humanity_cost, []).append(item.credit_cost)
+    ordered_tiers = sorted(credit_tiers)
+    if any(
+        max(credit_tiers[lower]) >= min(credit_tiers[upper])
+        for lower, upper in zip(ordered_tiers, ordered_tiers[1:])
+    ):
+        raise RuntimeError("Cyberware price tiers do not scale with Humanity cost")
     character = Character(
         "Smoke Agent",
         starver_infection_days=2,
@@ -97,6 +112,8 @@ def run_smoke():
             "story_objectives_preserved": len(STORY_MISSIONS),
             "save_roundtrip": True, "cyberware_roundtrip": True,
             "cyberware_atlas": cyberware_atlas.name,
+            "cyberware_zones": sorted(expected_zones),
+            "cyberware_economy": True,
             "battle": battle, "game_window_opened": False,
             "bundled_godot": Path(bundled_godot).name if bundled_godot else None,
             "bundled_tactical_headless_startup": bool(bundled_godot)}
