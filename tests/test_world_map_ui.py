@@ -85,6 +85,47 @@ class WorldMapUITest(unittest.TestCase):
 
         self.assertIn("Select mission", shortcuts)
 
+    def test_back_returns_to_closed_headquarters_base(self):
+        from unittest.mock import patch
+        from game.ui.screens.world_map_view import MissionWorldMapView
+
+        class Window:
+            width, height, shown_view = 1280, 720, None
+            def show_view(self, view):
+                self.shown_view = view
+
+        class Room:
+            is_open = False
+        class Management:
+            def __init__(self, state):
+                self.game_state, self.room_ui = state, Room()
+            def setup(self):
+                pass
+
+        window = Window()
+        world = object.__new__(MissionWorldMapView)
+        world.game_state = object()
+        world.window = window
+        with patch("game.ui.screens.management_screen.ManagementView", Management):
+            world._back_to_management()
+        self.assertIsInstance(world.window.shown_view, Management)
+        self.assertFalse(world.window.shown_view.room_ui.is_open)
+
+    def test_unarmed_warning_keeps_launch_button_name(self):
+        from game.gamestate import GameState
+        from game.recruitment import recruit_agent
+        from game.ui.screens.world_map_view import MissionWorldMapView
+
+        state = GameState()
+        agent = recruit_agent(state.characters, "samurai")
+        agent.loadout.primary_weapon = None
+        state.selected_agent_names = [agent.name]
+        view = object.__new__(MissionWorldMapView)
+        view.game_state = state
+        view._selection_type = "combat"
+        label, _ = view._launch_button_presentation()
+        self.assertEqual(label, "LAUNCH MISSION")
+
 
 if __name__ == "__main__":
     unittest.main()

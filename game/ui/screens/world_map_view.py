@@ -498,7 +498,7 @@ class MissionWorldMapView(GameView):
             launch_right,
             layout.footer_top,
             launch_label,
-            (84, 245, 201) if launch_label.startswith("LAUNCH") else PALETTE["story"],
+            launch_color,
             "launch_mission",
         )
         self._draw_button(
@@ -702,7 +702,7 @@ class MissionWorldMapView(GameView):
             return "ASSIGN AN AGENT FIRST", colors.accent_warning
         tactical = build_tactical_briefing(mission, selected)
         if not tactical.ready:
-            return "CHECK UNARMED AGENTS", colors.accent_warning
+            return "LAUNCH MISSION", colors.accent_warning
         return "LAUNCH MISSION", colors.accent_success
 
     def on_mouse_press(self, x, y, button, modifiers) -> None:
@@ -836,9 +836,7 @@ class MissionWorldMapView(GameView):
 
         view = ManagementView(self.game_state)
         view.setup()
-        view.active_tab = "squad"
         self.window.show_view(view)
-        view._open_hub_room("squad")
 
 
 __all__ = ["MissionWorldMapView", "WorldMapLayout", "build_world_map_layout"]

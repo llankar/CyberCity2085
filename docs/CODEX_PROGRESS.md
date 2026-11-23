@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-23) : WORLD-MAP-RETURN/LABEL DONE. BACK et Échap reconstruisent maintenant ManagementView avec toutes les salles fermées, donc sur l'image générale de la base au lieu d'ouvrir Squad. Le bouton central garde toujours le nom fonctionnel LAUNCH MISSION ; un équipement incomplet change sa couleur et le message d'avertissement, pas son libellé. `tests/test_world_map_ui.py` : 10 réussis. `tests/test_management_hub_ui.py` : 32 réussis et 5 sous-tests réussis. Les deux modules doivent rester séparés sous Windows car leur fixture Arcade partage une fenêtre globale.
+
 - État courant (2026-11-23) : correctif de lisibilité du Research Lab DONE dans la portée UI. Les onglets surdimensionnés qui recouvraient RESEARCH LAB, OPERATIONAL PROFILE et PROGRESS ont été retirés de la ligne supérieure. Deux boutons compacts RESEARCH et BASE + VEHICLE occupent désormais une barre réservée dans la colonne gauche, et la liste est décalée sous eux. Gate ciblé : 51 tests réussis, 5 sous-tests réussis. Revue visuelle Windows de la nouvelle géométrie encore NOT VERIFIED.
 
 - État courant (2026-11-23) : BASE-VEHICLE-UPGRADES-01 IN_PROGRESS. Le bandeau Hangar invisible a été retiré de la World Map. Le Research Lab offre maintenant les onglets RESEARCH PROJECTS et BASE UPGRADES // VEHICLE. Le second gère le Hangar, Trauma Center, Rapid Fabricator, Signal Array et un Nighthawk VTOL avec moteurs vectoriels, Medevac, frappe lourde et berceau blindé. Achats Néo­dollars atomiques et persistance : 51 tests réussis, 5 sous-tests réussis. Les effets tactiques Medevac/frappe et les bonus des trois autres installations restent à brancher réellement avant de déclarer ce lot DONE.
