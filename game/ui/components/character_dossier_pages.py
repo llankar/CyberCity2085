@@ -413,9 +413,9 @@ def _draw_body_marker(p, figure: Rect, zone: str):
         "HEAD": ((0.50, 0.947),),
         "EYES": ((0.50, 0.902),),
         "ARMS": ((0.25, 0.645), (0.75, 0.645)),
-        "TORSO": ((0.50, 0.605),),
+        "TORSO": ((0.50, 0.685),),
         "CIRCULATORY": ((0.50, 0.748),),
-        "NERVOUS SYSTEM": ((0.50, 0.685),),
+        "NERVOUS SYSTEM": ((0.50, 0.605),),
     }
     for px, py in relative.get(zone, ((0.5, 0.5),)):
         x = figure.left + figure.width * px
