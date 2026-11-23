@@ -7,7 +7,8 @@ func run() -> void:
 	var scene = load("res://scenes/combat_mission_ui.tscn").instantiate()
 	scene.handoff_path = "user://combat-feedback-fixture.json"
 	var fixture := FileAccess.open(scene.handoff_path,FileAccess.WRITE)
-	fixture.store_string(JSON.stringify({"mission":{"risk_level":3}, "squad":[{"name":"Tester","role":"samurai","hp":20,"max_hp":20}]}))
+	var asset_base_dir := ProjectSettings.globalize_path("res://../..")
+	fixture.store_string(JSON.stringify({"asset_base_dir":asset_base_dir,"mission":{"risk_level":3}, "squad":[{"name":"Tester","role":"samurai","hp":20,"max_hp":20}]}))
 	fixture.close()
 	root.add_child(scene)
 	await process_frame
@@ -52,6 +53,11 @@ func run() -> void:
 	scene.handoff = {"map":{"path":"assets/maps/city_interior_blacksite_lab.png"},"support_assets":[{"name":"Mantis", "asset_type":"power_armor", "hp":40, "actions":["Move","Rifle Burst"]}]}
 	var allies: Array[Dictionary] = scene._build_player_units()
 	assert(allies.size()==1 and allies[0].role=="power_armor", "power armor remains deployable indoors")
+	scene.handoff = {"squad":[{"name":"Null","role":"psi","hp":20,"max_hp":20,"portrait_path":"assets/ui/portraits/agent_male_01.png"}]}
+	var null_allies: Array[Dictionary] = scene._build_player_units()
+	assert(null_allies.size()==1 and null_allies[0].name=="Null", "Null is a legitimate agent name, not an empty JSON value")
+	scene._load_map_and_portraits()
+	assert(scene.portrait_textures.has("Null"), "Null portrait remains keyed to the displayed agent name")
 	DirAccess.remove_absolute(scene.handoff_path)
 	scene.queue_free()
 	await process_frame

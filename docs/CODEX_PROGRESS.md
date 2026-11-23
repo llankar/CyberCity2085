@@ -658,9 +658,9 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 
 ### GODOT-UI-FOCUS-01 — IN_PROGRESS — Traduire le HUD tactique résiduel et afficher le combat sans clic
 
-- Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
-- Tests / contrôles réellement exécutés : python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py : 13 passed, 1 skipped; Contrat : TURN, PLAYER PHASE, RETREAT, NEXT, END TURN, HP et AP remplacent les derniers libellés français du HUD; Contrat : la fenêtre tactique prête est montrée et activée sans attendre un clic Arcade.
-- Preuves : `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`.
+- Fichiers : `godot/combat_missions_ui/scripts/visual_hud.gd`, `godot/combat_missions_ui/scripts/visual_battlefield.gd`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `godot/combat_missions_ui/tests/combat_feedback_regression.gd`, `game/combat/win32_embed.py`, `game/ui/screens/godot_combat_handoff_view.py`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`, `tests/test_psi_combat_routing.py`.
+- Tests / contrôles réellement exécutés : python -m pytest -q tests/test_english_player_ui.py tests/test_godot_launch_routing.py tests/test_psi_combat_routing.py : 13 passed, 1 skipped; Contrat : TURN, PLAYER PHASE, RETREAT, NEXT, END TURN, HP et AP remplacent les derniers libellés français du HUD; Contrat : la fenêtre tactique prête est montrée et activée sans attendre un clic Arcade; Régression du nom littéral `Null` : 3 tests Python réussis, 1 test hors portée Windows ignoré, puis Godot 4.7.2 emballé headless `COMBAT_FEEDBACK_CHECKS_PASSED`; le nom et la clé de portrait restent `Null`.
+- Preuves : `godot/combat_missions_ui/tests/combat_feedback_regression.gd`, `tests/test_english_player_ui.py`, `tests/test_godot_launch_routing.py`, `tests/test_psi_combat_routing.py`.
 - Travail restant dans cette portée : Validation native Windows du focus automatique à exécuter en lançant une mission réelle..
 - Problème / raison : Le test cross-process natif est ignoré hors environnement graphique compatible..
 

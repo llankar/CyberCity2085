@@ -1955,7 +1955,7 @@ func _build_player_units() -> Array[Dictionary]:
 		var role_def_base: int = 4 + (2 if role == "samurai" else (-1 if role == "psi" else 0))
 		var raw_n  : Variant = agent.get("name", null)
 		var clean  : String  = str(raw_n).strip_edges() if raw_n != null else ""
-		if clean == "" or clean.to_lower() == "null":
+		if clean == "":
 			clean = role.to_upper().substr(0, 6) + "-%d" % (i + 1)
 		# Carry the handoff action list so the HUD can show agent-specific buttons.
 		var raw_actions: Variant = agent.get("available_actions", null)
