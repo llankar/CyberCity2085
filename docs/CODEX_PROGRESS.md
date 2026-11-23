@@ -11,7 +11,7 @@ Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et v�
 ### CYBERWARE-01 — IN_PROGRESS — Feuille Cyberware, Humanité et avantages tactiques
 
 - Fichiers : `game/agents/cyberware.py`, `game/character.py`, `game/combat/godot_bridge.py`, `game/ui/screens/management_screen.py`, `godot/combat_missions_ui/scripts/combat_mission_ui.gd`, `assets/ui/cyberware/cyberware_atlas.png`, `tests/test_cyberware.py`.
-- État : six emplacements corporels ouvrent chacun une liste de deux implants, soit douze choix. Une zone conserve un seul implant ; remplacement, crédits et Humanité sont atomiques. Les paliers TIER 1/2/3 restent visibles et strictement croissants en crédits/Humanité. Les anciennes sauvegardes sont normalisées à un implant par zone. Parité tactique Godot/Arcade conservée.
+- État : six emplacements corporels ouvrent chacun une liste de quatre implants en grille 2×2, soit vingt-quatre choix originaux. Une zone conserve un seul implant ; remplacement, crédits et Humanité sont atomiques. Les paliers TIER 1/2/3 restent visibles et strictement croissants en crédits/Humanité. Les anciennes sauvegardes sont normalisées à un implant par zone. Parité tactique Godot/Arcade conservée.
 - Gate économique/UI/package : 59 réussis, 1 ignoré, 5 sous-tests réussis. Parité tactique : 124 réussis, 2 sous-tests. Gate complet post-changement : 1 238 réussis, 34 ignorés, 14 sous-tests réussis en 267,22 s, avec temporaires sur `E:`.
 - Package : `BUILD 1e878ce6` contient le catalogue zoné et l'économie crédits/Humanité ; PyInstaller et le smoke emballé sont réussis.
 - Candidat courant : `BUILD d7ebe058` contient l'aide Hangar corrigée, les TIER 1/2/3 et le smoke strict des six zones/paliers Cyberware ; PyInstaller et le smoke emballé sont réussis.

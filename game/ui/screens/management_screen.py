@@ -734,11 +734,12 @@ class ManagementView(GameView):
             _border(back.left, back.bottom, back.right, back.top, palette.ACCENT, 1)
             arcade.draw_text("BACK TO BODY SLOTS", (back.left + back.right) // 2, (back.bottom + back.top) // 2, palette.ACCENT, font_size=10, bold=True, anchor_x="center", anchor_y="center")
             self._modal_hits.append(back)
-            card_w = x1 - grid_x - 24
+            card_w = (x1 - grid_x - 24 - gap) // 2
             card_h = 220
             for index, item in enumerate(options):
-                left = grid_x
-                top = grid_top - 34 - index * (card_h + gap)
+                row, col = divmod(index, 2)
+                left = grid_x + col * (card_w + gap)
+                top = grid_top - 34 - row * (card_h + gap)
                 bottom = top - card_h
                 owned = item.id in char.installed_cyberware
                 remaining_after_slot = humanity + (installed_by_zone[selected_zone].humanity_cost if selected_zone in installed_by_zone else 0)

@@ -289,7 +289,7 @@ class ManagementHubUITest(unittest.TestCase):
         view.on_draw()
         self.assertEqual(
             len([hit for hit in view._modal_hits if hit.action == "cyberware_toggle"]),
-            2,
+            4,
         )
         implant = next(hit for hit in view._modal_hits if hit.action == "cyberware_toggle")
         from game.agents.cyberware import BY_ID
