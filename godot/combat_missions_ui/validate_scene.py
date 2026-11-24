@@ -6,9 +6,11 @@ import os
 import sys
 from pathlib import Path
 
+PROJECT_DIR = Path(__file__).resolve().parent
+
 def check_project_structure():
     """Verify all required files exist for the Godot project."""
-    base = Path(__file__).parent / "godot" / "combat_missions_ui"
+    base = PROJECT_DIR
     
     required = {
         "project.godot": "Godot project file",
@@ -44,7 +46,7 @@ def check_project_structure():
 
 def check_assets():
     """Verify shader and audio assets exist."""
-    base = Path(__file__).parent / "godot" / "combat_missions_ui"
+    base = PROJECT_DIR
     
     assets_dir = {
         "shaders": ["crt.gdshader", "circle_portrait.gdshader", "damaged.gdshader", 
@@ -77,7 +79,7 @@ def check_assets():
 def check_handoff_file():
     """Check if handoff file exists and is valid JSON."""
     # Resolve to absolute path from parent directory
-    script_dir = Path(__file__).parent
+    script_dir = PROJECT_DIR
     handoff_path = script_dir / "runtime" / "godot_combat" / "mission_handoff.json"
     
     print("\n=== HANDOFF FILE CHECK ===\n")
@@ -153,7 +155,7 @@ def check_handoff_file():
 
 def diagnose_scene():
     """Try to parse the scene file and check for errors."""
-    scene_path = Path(__file__).parent / "godot" / "combat_missions_ui" / "scenes" / "combat_mission_ui.tscn"
+    scene_path = PROJECT_DIR / "scenes" / "combat_mission_ui.tscn"
     
     print("\n=== Scene File Analysis ===\n")
     

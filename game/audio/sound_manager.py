@@ -22,7 +22,7 @@ _MUSIC_DIR = Path("assets/audio/music")
 
 _SFX_NAMES = [
     "sfx_fire", "sfx_melee", "sfx_psi", "sfx_hit", "sfx_miss",
-    "sfx_death", "sfx_overwatch", "sfx_move", "sfx_turn_player",
+    "sfx_death", "sfx_overwatch", "sfx_heal", "sfx_move", "sfx_turn_player",
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
     "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_fire_sniper", "sfx_city_short",

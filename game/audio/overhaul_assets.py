@@ -14,6 +14,8 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     # own lower pitch and stronger body at playback time.
     "sfx_fire_sniper": ("weapons/fire_pistol_01.wav",),
     "sfx_fire_laser": ("weapons/fire_laser_cc0_01.wav", "weapons/fire_laser_cc0_02.wav"),
+    "sfx_psi": ("technology/shield_cc0_01.wav",),
+    "sfx_heal": ("technology/terminal_cc0_01.wav",),
     "sfx_hit": ("combat/impact_metal_01.wav", "combat/impact_metal_cc0_01.wav"),
     "sfx_hit_metal": (
         "combat/impact_metal_01.wav", "combat/impact_metal_cc0_01.wav",

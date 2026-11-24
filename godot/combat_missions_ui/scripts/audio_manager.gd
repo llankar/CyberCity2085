@@ -10,6 +10,8 @@ const PREVIEW_SFX_MAP: Dictionary = {
     "fire_pistol": ["fire_pistol_01.wav"],
     "fire_sniper": ["fire_pistol_01.wav"],
     "fire_laser": ["fire_laser_cc0_01.wav", "fire_laser_cc0_02.wav"],
+    "psi": ["shield_cc0_01.wav"],
+    "heal": ["terminal_cc0_01.wav"],
     "hit": ["impact_metal_01.wav", "impact_metal_cc0_01.wav"],
     "hit_metal": ["impact_metal_01.wav", "impact_metal_cc0_01.wav", "impact_metal_cc0_02.wav"],
     "hit_glass": ["impact_glass_cc0_01.wav"],
@@ -140,6 +142,10 @@ func _play_event_sfx(event_name: String) -> void:
 	_next_sample_index[event_name] = next_index + 1
 	if event_name == "fire_sniper":
 		_play_sfx(available[next_index], 1.0, 0.78)
+	elif event_name == "psi":
+		_play_sfx(available[next_index], 0.75, 0.82)
+	elif event_name == "heal":
+		_play_sfx(available[next_index], 0.65, 1.08)
 	else:
 		_play_sfx(available[next_index])
 
@@ -215,7 +221,7 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
-		"move", "fire", "fire_pistol", "fire_sniper", "melee", "hit", "death", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "bleed", "reinforce":
+		"move", "fire", "fire_pistol", "fire_sniper", "fire_laser", "psi", "heal", "melee", "hit", "death", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "bleed", "reinforce":
 			_play_event_sfx(event_name)
 		"turn_player":            _play_music(_battle_music)
 		"victory", "defeat":     _play_music("Intro 2.mp3")

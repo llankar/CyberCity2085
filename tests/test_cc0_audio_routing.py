@@ -136,6 +136,34 @@ def test_robot_moves_use_robot_specific_cue_in_both_godot_views():
         assert 'CombatSignals.audio_event.emit("move")' in text
 
 
+def test_godot_tactical_actions_have_semantic_audio_routes():
+    root = Path(__file__).resolve().parents[1]
+    scripts = root / "godot/combat_missions_ui/scripts"
+    audio = (scripts / "audio_manager.gd").read_text(encoding="utf-8")
+    combat = (scripts / "combat_mission_ui.gd").read_text(encoding="utf-8")
+
+    assert '"psi": ["shield_cc0_01.wav"]' in audio
+    assert '"heal": ["terminal_cc0_01.wav"]' in audio
+    assert 'return "melee"' in combat
+    assert 'CombatSignals.audio_event.emit("heal")' in combat
+    assert 'CombatSignals.audio_event.emit("shield")' in combat
+    assert 'CombatSignals.audio_event.emit("explosion_small")' in combat
+    assert 'CombatSignals.audio_event.emit(enemy_audio)' in combat
+    assert '"fire_sniper" if subtype == "sniper"' in combat
+    assert '"fire_pistol" if subtype == "grunt"' in combat
+    assert '"terminal" if action_key in' in combat
+
+
+def test_godot_intentionally_keeps_nonsemantic_events_silent():
+    root = Path(__file__).resolve().parents[1]
+    audio = (root / "godot/combat_missions_ui/scripts/audio_manager.gd").read_text(encoding="utf-8")
+    # No suitable physical recording exists for these cues. They must not fall
+    # back to the UI beep family removed at the user's request.
+    assert '"miss": [' not in audio
+    assert '"turn_enemy": [' not in audio
+    assert '"overwatch": [' not in audio
+
+
 def test_freesound_staging_is_distinct_from_committed_wavs():
     root = Path(__file__).resolve().parents[1]
     import json

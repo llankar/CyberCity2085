@@ -16,6 +16,15 @@
   ],
   "tasks": [
     {
+      "id": "GODOT-ACTION-AUDIO-AUDIT-01",
+      "title": "Auditer et raccorder les actions tactiques Godot aux sons pertinents",
+      "status": "DONE",
+      "files": ["game/audio/overhaul_assets.py", "game/audio/sound_manager.py", "godot/combat_missions_ui/scripts/audio_manager.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/validate_scene.py", "tests/test_cc0_audio_routing.py"],
+      "tests": ["Audio routing: 18 passed.", "Godot combat bridge/spike: 16 passed and 2 subtests passed.", "Godot 4.7.2 headless editor import exited with code 0.", "Scene validator passed and all required WAV files were present."],
+      "evidence": ["Player and enemy weapon reports, melee, PSI, heal, defend, movement, impacts, death, objectives and area explosions have semantic routes.", "Missile salvo now uses explosion audio; melee uses its own sample; enemy fire emits before hit resolution.", "Miss, turn changes, overwatch and selection remain intentionally silent because no suitable sample exists; UI beep fallback remains forbidden."],
+      "remaining": ["Human listening is NOT VERIFIED."]
+    },
+    {
       "id": "GODOT-NO-BEEP-01",
       "title": "Supprimer les retours sonores bip du runtime Godot",
       "status": "DONE",

@@ -1073,6 +1073,7 @@ func _interact_with_objective() -> void:
 	active["objective_contribution"] = int(active.get("objective_contribution", 0)) + 1
 	player_units[active_player_index] = active
 	objective_progress += 1
+	CombatSignals.audio_event.emit("terminal" if action_key in ["HACK", "SABOTAGE", "RETRIEVE", "PLANT", "SEARCH", "REPAIR", "ACTIVATE"] else "door_open")
 
 	if objective_progress >= needed:
 		objective_completed = true
@@ -1302,6 +1303,7 @@ func _execute_action(action_name: String) -> void:
 			player_units[active_player_index] = u
 			_log_event("%s braces: DEF +3." % _active_unit_name())
 			_visual_self_effect("cover")
+			CombatSignals.audio_event.emit("shield")
 		status_line = "Defend toggled."
 		_sync_display()
 		return
@@ -1370,6 +1372,7 @@ func _apply_trauma_patch() -> void:
 	active["hp"] = mini(max_hp, old_hp + heal_amt)
 	player_units[active_player_index] = active
 	_visual_self_effect("heal")
+	CombatSignals.audio_event.emit("heal")
 	var healed := int(active.get("hp", 0)) - old_hp
 	var line := "%s: Trauma Patch +%d HP." % [_active_unit_name(), healed]
 	_log_event(line)
@@ -1426,7 +1429,7 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	var line := "%s: %s — %d enemies hit." % [_active_unit_name(),action,hits]
 	_log_event(line)
 	status_line = line
-	CombatSignals.audio_event.emit("fire")
+	CombatSignals.audio_event.emit("explosion_small")
 	_selected_target_validity()
 	_refresh_initiative()
 	if _elimination_objective_met():
@@ -1503,6 +1506,8 @@ func _log_last_stand(attacker: Dictionary) -> void:
 func _attack_audio_event(attacker: Dictionary, action_name: String, attack_type: String) -> String:
 	if attack_type == "PSI":
 		return "psi"
+	if attack_type == "MELEE":
+		return "melee"
 	if attack_type != "FIRE":
 		return "hit"
 	var normalized_action := action_name.to_lower()
@@ -1819,6 +1824,8 @@ func _enemy_attack(enemy_index: int, target_index: int, subtype: String) -> void
 	var pkey := "p%d" % target_index
 	if _unit_tokens.has(ekey) and _unit_tokens.has(pkey):
 		_visual_attack(ekey, pkey, "PSI" if is_psi else "FIRE")
+	var enemy_audio := "psi" if is_psi else ("fire_sniper" if subtype == "sniper" else ("fire_pistol" if subtype == "grunt" else "fire"))
+	CombatSignals.audio_event.emit(enemy_audio)
 
 	if randf() * 100.0 >= chance:
 		_log_event("%s misses %s." % [str(enemy.get("name","?")), str(target.get("name","?"))])
