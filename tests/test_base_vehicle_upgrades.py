@@ -10,6 +10,7 @@ from game.mission_system import launch_selected_mission
 from game.mission_templates import MissionTemplate
 from game.ui.screens.mission_briefing_view import build_mission_briefing_facts
 from test_unified_mission_resolution import scenario
+from pathlib import Path
 from unittest.mock import patch
 
 
@@ -134,3 +135,10 @@ def test_godot_heavy_strike_usage_reaches_mission_debrief(tmp_path):
     vehicle = state.latest_mission_debrief["deployment_vehicle"]
     assert vehicle["heavy_strike_available"]
     assert vehicle["heavy_strike_used"]
+
+
+def test_nighthawk_uses_existing_local_vtol_art():
+    art = Path("assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_512.png")
+    assert art.is_file() and art.stat().st_size > 0
+    source = Path("game/ui/components/departments/research.py").read_text(encoding="utf-8")
+    assert art.as_posix() in source

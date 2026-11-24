@@ -5,7 +5,6 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "BASE-VEHICLE-UPGRADES-01",
     "WINDOWS-CURRENT-BUILD",
     "UE2-04",
     "AUDIO-PILOT"
@@ -132,9 +131,9 @@
     {
       "id": "BASE-VEHICLE-UPGRADES-01",
       "title": "Onglet Base Upgrades et progression du vehicule de deploiement",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": ["game/management/base_upgrades.py", "game/gamestate.py", "game/battle_outcomes.py", "game/combat_actions.py", "game/combat/godot_resolution.py", "game/combat/mission_resolution.py", "game/ui/components/departments/research.py", "game/ui/screens/management_screen.py", "game/ui/screens/world_map_view.py", "game/views.py", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/mission_results.gd", "tests/test_base_vehicle_upgrades.py"],
-      "tests": ["Base/vehicle targeted gate: 51 passed, 5 subtests passed.", "Research tab readability regression gate: 51 passed, 5 subtests passed.", "Passive upgrade effects plus unified Godot resolution/checkpoints: 57 passed.", "Active vehicle effects, recovery and unified mission resolution gate: 73 passed.", "Godot 4.7.2 headless editor import exited with code 0 and no script or parse error; missing Blender editor configuration is unrelated."],
+      "tests": ["Base/vehicle targeted gate: 51 passed, 5 subtests passed.", "Research tab readability regression gate: 51 passed, 5 subtests passed.", "Passive upgrade effects plus unified Godot resolution/checkpoints: 57 passed.", "Active vehicle effects, recovery and unified mission resolution gate: 73 passed.", "Godot 4.7.2 headless editor import exited with code 0 and no script or parse error; missing Blender editor configuration is unrelated.", "Final base/vehicle plus Management UI gate: 42 passed and 5 subtests passed.", "Native Arcade capture at 1920x1080 inspected from E:/codex-temp/cybercity-nighthawk/base-vehicle-1920x1080.png."],
       "evidence": [
         "Le bandeau Hangar illisible a ete retire de la World Map.",
         "Le Research Lab possede deux onglets: Research Projects et Base Upgrades // Vehicle.",
@@ -143,11 +142,10 @@
         "Correctif lisibilite: les tabs Research et Base + Vehicle vivent maintenant dans une barre locale reservee de la colonne gauche; la liste commence sous cette barre et les titres des trois panneaux ne sont plus recouverts.",
         "Rapid Fabricator applique reellement -10% aux achats et aux prix affiches. Trauma Center retire un jour de recuperation. Signal Array revele l'estimation hostile du briefing. Vector Engines reduit la duree de mission et donne +1 initiative; Armored Cradle donne +2 defense dans Arcade et Godot.",
         "Field Medevac transforme exactement une mort potentielle en blessure critique par mission et publie son utilisation dans le debrief.",
-        "Heavy Strike ajoute une frappe Nighthawk unique a longue portee dans Arcade et une frappe de zone de 14 degats dans Godot; la charge disparait apres utilisation et son etat traverse le protocole de resultat."
+        "Heavy Strike ajoute une frappe Nighthawk unique a longue portee dans Arcade et une frappe de zone de 14 degats dans Godot; la charge disparait apres utilisation et son etat traverse le protocole de resultat.",
+        "Le panneau Deployment Vehicle reutilise l'illustration locale 512x512 du VTOL furtif. Une premiere capture a detecte et permis de corriger l'usage de la miniature 64x64; la capture finale est nette et sans chevauchement."
       ],
-      "remaining": [
-        "Creer ou reutiliser une illustration locale du Nighthawk VTOL et valider visuellement l'onglet Windows."
-      ]
+      "remaining": []
     },
     {
       "id": "ECONOMY-HANGAR-AUGMENTATION-01",

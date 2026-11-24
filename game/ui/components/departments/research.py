@@ -198,9 +198,25 @@ def _draw_base_upgrades(k, left, center, right):
     k.panel(right, "DEPLOYMENT VEHICLE", "assets")
     body = k.body(right)
     k.label("NIGHTHAWK VTOL", body.left+12*u, body.top-28*u, 22, GOLD, bold=True)
+    vehicle_art = Rect(
+        body.left + 12*u,
+        body.top - 250*u,
+        body.right - 12*u,
+        body.top - 48*u,
+    )
+    k.image(
+        "assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_512.png",
+        vehicle_art,
+        cover=False,
+    )
     installed = [x for x in VEHICLE_UPGRADES if x.id in gs.vehicle_upgrade_ids]
     text = "ACTIVE MODULES\n\n" + ("\n".join(f"• {x.name}: {x.effect}" for x in installed) if installed else "No vehicle modules installed.")
-    k.document("vehicle_modules", text, Rect(body.left, body.bottom, body.right, body.top-60*u), 16)
+    k.document(
+        "vehicle_modules",
+        text,
+        Rect(body.left, body.bottom, body.right, vehicle_art.bottom - 10*u),
+        16,
+    )
 
 
 def _draw_mode_tabs(k, area: Rect, mode: str) -> Rect:
