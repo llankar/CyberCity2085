@@ -15,7 +15,7 @@ def draw(k, left, center, right):
         "hangar", assets, k.body(left), 110, selected=v._asset_cursor
     ):
         selected = index == v._asset_cursor
-        k.paint.panel(r, GOLD if selected else CYAN, selected=selected)
+        k.surface(r, GOLD if selected else CYAN, selected=selected)
         k.hit(
             r,
             "asset_select",
@@ -27,7 +27,7 @@ def draw(k, left, center, right):
         )
         k.image(v._asset_portrait_path(asset), portrait)
         # Portrait stays in a dedicated column; text is placed alongside it.
-        k.paint.panel(
+        k.surface(
             Rect(r.left + 91 * u, r.bottom + 5 * u, r.right - 5 * u, r.top - 5 * u),
             GOLD if selected else CYAN,
         )
@@ -84,7 +84,7 @@ def draw(k, left, center, right):
     for offset, (index, asset) in enumerate(ordered[:capacity]):
         top = area.top - offset * 140 * u
         r = Rect(area.left, top - 130 * u, area.right, top)
-        k.paint.panel(r, CYAN)
+        k.surface(r, CYAN)
         k.image(
             v._asset_portrait_path(asset),
             Rect(r.left + 7 * u, r.top - 82 * u, r.left + 81 * u, r.top - 8 * u),
@@ -142,7 +142,7 @@ def profile(k, asset, index, r):
     u = k.u
     gs = k.gs
     art = Rect(r.left, r.top - 198 * u, r.left + r.width * 0.40, r.top)
-    k.paint.panel(art, CYAN)
+    k.surface(art, CYAN)
     k.image(
         k.view._asset_portrait_path(asset),
         Rect(art.left + 4 * u, art.bottom + 4 * u, art.right - 4 * u, art.top - 4 * u),
@@ -185,7 +185,7 @@ def profile(k, asset, index, r):
             r.left + i * (width + 6 * u) + width,
             y,
         )
-        k.paint.panel(box, CYAN)
+        k.surface(box, CYAN)
         k.label(
             k.tr(name),
             box.left + 8 * u,

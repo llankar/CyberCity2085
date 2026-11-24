@@ -95,7 +95,7 @@ def main():
             window.set_size(width, height)
             window.dispatch_events()
             window.flip()
-            for room in ["assets", "command", "city", "research", "intel"]:
+            for room in ["assets", "command", "city", "squad", "research", "intel"]:
                 view._open_hub_room(room)
                 view.on_update(1)
                 draw()
@@ -220,7 +220,7 @@ def main():
         window.set_size(1280, 720)
         window.dispatch_events()
         window.flip()
-        for room in ["assets", "command", "city", "research", "intel"]:
+        for room in ["assets", "command", "city", "squad", "research", "intel"]:
             view._open_hub_room(room)
             capture(room + "-large-en")
         set_text_size("medium")

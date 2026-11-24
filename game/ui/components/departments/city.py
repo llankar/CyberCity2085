@@ -42,7 +42,7 @@ def draw_city(k, left, center, right):
     }
     for key, cost in costs.items():
         r2 = Rect(r.left, y - 126 * u, r.right, y)
-        k.paint.panel(r2, CYAN)
+        k.surface(r2, CYAN)
         k.label(
             k.tr(key),
             r2.left + 14 * u,

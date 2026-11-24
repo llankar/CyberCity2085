@@ -36,7 +36,7 @@ def draw_research(k, left, center, right):
     else:
         k.paragraph(k.word("AUCUNE RECHERCHE ACTIVE", "NO ACTIVE RESEARCH"), queue, 17, MUTED)
     status = Rect(body.left, body.bottom, body.right, queue_bottom-12*u)
-    k.paint.panel(status, CYAN)
+    k.surface(status, CYAN)
     k.label(k.word("ÉTAT DU LABO", "LAB STATUS"), status.left+14*u, status.top-25*u, 18, CYAN, bold=True)
     for i, (label, color) in enumerate(((f"{len(active_rows)} ACTIVE", PURPLE), (f"{len(completed)} COMPLETED", MINT), (f"{len(available)} AVAILABLE", GOLD))):
         k.label(label, status.left+14*u, status.top-(57+i*28)*u, 16, color)
@@ -68,7 +68,7 @@ def draw_research(k, left, center, right):
         return
     project = tree.projects[selected]
     k.image("assets/ui/base_command_center/research_lab.png", Rect(body.left, body.top-155*u, body.right, body.top))
-    k.paint.panel(Rect(body.left, body.top-158*u, body.right, body.top-108*u), PURPLE)
+    k.surface(Rect(body.left, body.top-158*u, body.right, body.top-108*u), PURPLE)
     k.label(project.name, body.left+13*u, body.top-133*u, 23, TEXT, bold=True, width=body.width-26*u)
     y = body.top-176*u
     half = (body.width-10*u)/2

@@ -1559,7 +1559,7 @@ class ManagementView(GameView):
             active  = (i == self.deployment_cursor)
             sel     = char.name in selected_set
             filling = palette.AGENT_CARD_SELECTED if sel else (
-                (54, 68, 44, 230) if active else palette.AGENT_CARD_FILL
+                palette.AGENT_CARD_ACTIVE if active else palette.AGENT_CARD_FILL
             )
             _rect(x0 + 8, cb, x1 - 8, ct, filling)
             border_col = palette.ACTIVE_AGENT_BORDER if active else (
@@ -1730,7 +1730,7 @@ class ManagementView(GameView):
 
             # Slot card
             sl, sb, sr, st = x0 + 8, sy - slot_h, x1 - 8, sy
-            fill = (*slot_col, 40) if item else (8, 18, 24, 200)
+            fill = (*slot_col, 34) if item else (8, 18, 24, 176)
             _rect(sl, sb, sr, st, fill)
             arcade.draw_line(sl, st, sr, st, slot_col if item else palette.PANEL_BORDER_MUTED, 2)
             arcade.draw_line(sl, sb, sr, sb, palette.GRID_LINE, 1)
@@ -1815,7 +1815,7 @@ class ManagementView(GameView):
         mission = _selected_mission(gs)
         info_top = y1 - 34
         info_bottom = y0 + 150
-        _rect(x0 + 10, info_bottom, x1 - 10, info_top, (8, 16, 22, 220))
+        _rect(x0 + 10, info_bottom, x1 - 10, info_top, (8, 16, 22, 182))
         arcade.draw_text("ACTIVE MISSION", x0 + 18, info_top - 18, palette.WARNING, font_size=10, bold=True)
         arcade.draw_text(
             f"{len(gs.mission_templates)} available missions",
@@ -1883,7 +1883,7 @@ class ManagementView(GameView):
 
         dt_top = btn_bottom - 10
         dt_bottom = max(y0 + 12, dt_top - 84)
-        _rect(x0 + 10, dt_bottom, x1 - 10, dt_top, (10, 20, 28, 220))
+        _rect(x0 + 10, dt_bottom, x1 - 10, dt_top, (10, 20, 28, 184))
         arcade.draw_line(x0 + 10, dt_top, x1 - 10, dt_top, palette.ACCENT, 2)
         arcade.draw_text("DOWNTIME [7-9]", x0 + 18, dt_top - 16, palette.ACCENT, font_size=10, bold=True)
         by = dt_top - 40
@@ -1893,7 +1893,7 @@ class ManagementView(GameView):
             row_bottom = row_top - row_h
             if row_bottom <= dt_bottom + 4:
                 break
-            _rect(x0 + 14, row_bottom, x1 - 14, row_top, (8, 16, 22, 210))
+            _rect(x0 + 14, row_bottom, x1 - 14, row_top, (8, 16, 22, 174))
             arcade.draw_text(
                 f"{idx + 7}. {activity.label}",
                 x0 + 20,

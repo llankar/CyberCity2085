@@ -152,7 +152,7 @@ def draw_command(k, left, center, right):
     for directive in DIRECTIVES:
         card = Rect(r.left, y - 172 * u, r.right, y)
         selected = f.selected_directive == directive.id
-        k.paint.panel(card, GOLD if selected else CYAN, selected=selected)
+        k.surface(card, GOLD if selected else CYAN, selected=selected)
         k.label(
             directive.title,
             card.left + 12 * u,

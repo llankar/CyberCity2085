@@ -52,7 +52,7 @@ def draw_research(k, left, center, right):
                 k.view.room_ui.texture_override,
                 Rect(r.left, r.top - 170 * u, r.right, r.top),
             )
-        k.paint.panel(Rect(r.left, r.top - 173 * u, r.right, r.top - 115 * u), PURPLE)
+        k.surface(Rect(r.left, r.top - 173 * u, r.right, r.top - 115 * u), PURPLE)
         k.label(
             p.name,
             r.left + 14 * u,

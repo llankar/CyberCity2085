@@ -182,7 +182,12 @@ class VisualKit:
                     else 20 * self.hover_amount
                 ),
             )
-        self.paint.panel(rect, color, selected=primary or hot)
+        self.paint.panel(
+            rect,
+            color,
+            selected=primary or hot,
+            fill_alpha=getattr(self, "control_fill_alpha", 242),
+        )
         if hot:
             arcade.draw_lrbt_rectangle_filled(
                 rect.left + 4,
@@ -250,6 +255,16 @@ class VisualKit:
             24,
             bold=True,
             width=rect.width - 62 * self.u,
+        )
+
+    def surface(self, rect, color=CYAN, *, selected=False, compact=False):
+        """Draw a content surface using the screen's glass hierarchy."""
+        alpha_name = "compact_fill_alpha" if compact else "card_fill_alpha"
+        self.paint.panel(
+            rect,
+            color,
+            selected=selected,
+            fill_alpha=getattr(self, alpha_name, 242),
         )
 
     def meter(self, rect, fraction, color, segments=6):
@@ -366,7 +381,12 @@ class VisualKit:
         tooltip="",
     ):
         hot = self.hover == (action, data) if action else False
-        self.paint.panel(rect, GOLD if selected else color, selected=selected or hot)
+        self.paint.panel(
+            rect,
+            GOLD if selected else color,
+            selected=selected or hot,
+            fill_alpha=getattr(self, "card_fill_alpha", 242),
+        )
         x = rect.left + 16 * self.u
         if icon:
             self.icon(icon, x + 10 * self.u, rect.top - 24 * self.u, 25, color)
@@ -393,7 +413,9 @@ class VisualKit:
             self.hit(rect, action, data, tooltip or str(title) + "\n" + str(subtitle))
 
     def badge(self, text, rect, color=CYAN):
-        self.paint.panel(rect, color)
+        self.paint.panel(
+            rect, color, fill_alpha=getattr(self, "compact_fill_alpha", 242)
+        )
         self.label(
             text,
             *rect.center,
@@ -405,7 +427,9 @@ class VisualKit:
         )
 
     def stat(self, rect, label, value, icon="chip", color=CYAN, fraction=None):
-        self.paint.panel(rect, color)
+        self.paint.panel(
+            rect, color, fill_alpha=getattr(self, "stat_fill_alpha", 242)
+        )
         self.icon(icon, rect.left + 24 * self.u, rect.top - 25 * self.u, 24, color)
         self.label(
             label,

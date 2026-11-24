@@ -2338,9 +2338,13 @@
   "base_command_center_panel_transparency": {
     "status": "DONE",
     "updated": "2026-11-24",
-    "panel_fill_alpha": 202,
-    "tests": {"passed": 70, "failed": 0, "skipped": 1, "subtests_passed": 5},
-    "visual_windows_review": "NOT VERIFIED"
+    "background_overlay_alpha_range": [118, 130],
+    "panel_fill_alpha_range": [174, 186],
+    "card_fill_alpha_range": [198, 208],
+    "control_fill_alpha_range": [222, 226],
+    "tests": {"passed": 63, "failed": 0, "skipped": 1, "subtests_passed": 5},
+    "native_visual_validator": "PASS",
+    "visual_windows_review": "PASS: F1-F6 at 1280x720, 1920x1080 and 2560x1440"
   },
   "planned_batches": [
     {

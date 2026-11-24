@@ -5,7 +5,7 @@ from pathlib import Path
 
 from PIL import Image
 
-from game.ui.components.departments.deck import ROOM_BACKGROUNDS, ROOMS
+from game.ui.components.departments.deck import ROOM_BACKGROUNDS, ROOM_GLASS, ROOMS
 from game.ui.components.departments.deck import DepartmentDeck
 
 
@@ -45,3 +45,9 @@ def test_lab_2_uses_real_research_categories_and_no_fake_queue_actions():
 def test_department_text_panels_reveal_room_backgrounds():
     deck = DepartmentDeck()
     assert 180 <= deck.panel_fill_alpha <= 215
+    assert deck.panel_fill_alpha < deck.card_fill_alpha < deck.control_fill_alpha
+    assert set(ROOM_GLASS) == set(ROOM_BACKGROUNDS)
+    for panel, card, control, overlay in ROOM_GLASS.values():
+        assert 170 <= panel <= 195
+        assert panel < card < control <= 230
+        assert 110 <= overlay <= 135

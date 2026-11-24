@@ -17,13 +17,31 @@ ROOM_BACKGROUNDS = {
     "intel": "assets/ui/base_command_center/intel_archive.png",
 }
 
+# Each room illustration has a different value range.  These restrained
+# per-room values keep the art visible without letting bright details compete
+# with copy.  Cards remain slightly denser than their parent panes and controls
+# denser again, preserving a clear interaction hierarchy.
+ROOM_GLASS = {
+    "command": (174, 198, 222, 118),
+    "city": (182, 204, 224, 126),
+    "squad": (186, 208, 226, 130),
+    "assets": (184, 206, 226, 128),
+    "research": (180, 204, 224, 124),
+    "intel": (176, 200, 222, 120),
+}
+
 
 class DepartmentDeck(DocumentKit):
     def __init__(self):
         super().__init__()
         # Large department text surfaces reveal the room art while cards and
         # actionable controls keep their stronger default fill for readability.
-        self.panel_fill_alpha = 202
+        self.panel_fill_alpha = 182
+        self.card_fill_alpha = 204
+        self.stat_fill_alpha = 210
+        self.compact_fill_alpha = 214
+        self.control_fill_alpha = 226
+        self.background_overlay_alpha = 126
         self.pages = {}
         self.selection = {}
         self.capacities = {}
@@ -35,6 +53,14 @@ class DepartmentDeck(DocumentKit):
     def draw(self, view, w, h):
         self.gs = view.game_state
         self.room = view.room_ui.active_room_key
+        (
+            self.panel_fill_alpha,
+            self.card_fill_alpha,
+            self.control_fill_alpha,
+            self.background_overlay_alpha,
+        ) = ROOM_GLASS.get(self.room, ROOM_GLASS["command"])
+        self.stat_fill_alpha = min(218, self.card_fill_alpha + 6)
+        self.compact_fill_alpha = min(222, self.card_fill_alpha + 10)
         self.layout = department_layout(
             w, h, (0.30, 0.36, 0.34) if self.room == "command" else (0.29, 0.42, 0.29)
         )
@@ -46,7 +72,7 @@ class DepartmentDeck(DocumentKit):
             w,
             h,
             background or "assets/missions/backgrounds/city/city_01_neon_alley.jpg",
-            overlay_alpha=166,
+            overlay_alpha=self.background_overlay_alpha,
         )
         self.view = view
         self.header()
@@ -65,7 +91,7 @@ class DepartmentDeck(DocumentKit):
     def header(self):
         r = self.layout.header
         u = self.u
-        self.paint.panel(r, CYAN)
+        self.paint.panel(r, CYAN, fill_alpha=self.control_fill_alpha)
         self.icon(self.room, r.left + 30 * u, r.center[1], 38)
         self.label(
             "CYBERCITY 2085",
@@ -164,7 +190,7 @@ class DepartmentDeck(DocumentKit):
     def footer(self):
         r = self.layout.footer
         u = self.u
-        self.paint.panel(r, CYAN)
+        self.paint.panel(r, CYAN, fill_alpha=self.control_fill_alpha)
         gap = 6 * u
         labels = [
             "F1 CORE",
