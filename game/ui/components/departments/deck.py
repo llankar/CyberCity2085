@@ -22,12 +22,12 @@ ROOM_BACKGROUNDS = {
 # with copy.  Cards remain slightly denser than their parent panes and controls
 # denser again, preserving a clear interaction hierarchy.
 ROOM_GLASS = {
-    "command": (174, 198, 222, 118),
-    "city": (182, 204, 224, 126),
-    "squad": (186, 208, 226, 130),
-    "assets": (184, 206, 226, 128),
-    "research": (180, 204, 224, 124),
-    "intel": (176, 200, 222, 120),
+    "command": (148, 168, 189, 100),
+    "city": (155, 173, 190, 107),
+    "squad": (158, 177, 192, 110),
+    "assets": (156, 175, 192, 109),
+    "research": (153, 173, 190, 105),
+    "intel": (150, 170, 189, 102),
 }
 
 
@@ -36,12 +36,12 @@ class DepartmentDeck(DocumentKit):
         super().__init__()
         # Large department text surfaces reveal the room art while cards and
         # actionable controls keep their stronger default fill for readability.
-        self.panel_fill_alpha = 182
-        self.card_fill_alpha = 204
-        self.stat_fill_alpha = 210
-        self.compact_fill_alpha = 214
-        self.control_fill_alpha = 226
-        self.background_overlay_alpha = 126
+        self.panel_fill_alpha = 155
+        self.card_fill_alpha = 173
+        self.stat_fill_alpha = 178
+        self.compact_fill_alpha = 182
+        self.control_fill_alpha = 192
+        self.background_overlay_alpha = 107
         self.pages = {}
         self.selection = {}
         self.capacities = {}
@@ -59,8 +59,8 @@ class DepartmentDeck(DocumentKit):
             self.control_fill_alpha,
             self.background_overlay_alpha,
         ) = ROOM_GLASS.get(self.room, ROOM_GLASS["command"])
-        self.stat_fill_alpha = min(218, self.card_fill_alpha + 6)
-        self.compact_fill_alpha = min(222, self.card_fill_alpha + 10)
+        self.stat_fill_alpha = min(185, self.card_fill_alpha + 5)
+        self.compact_fill_alpha = min(189, self.card_fill_alpha + 9)
         self.layout = department_layout(
             w, h, (0.30, 0.36, 0.34) if self.room == "command" else (0.29, 0.42, 0.29)
         )

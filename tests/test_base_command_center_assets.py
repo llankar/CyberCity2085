@@ -44,10 +44,10 @@ def test_lab_2_uses_real_research_categories_and_no_fake_queue_actions():
 
 def test_department_text_panels_reveal_room_backgrounds():
     deck = DepartmentDeck()
-    assert 180 <= deck.panel_fill_alpha <= 215
+    assert 145 <= deck.panel_fill_alpha <= 165
     assert deck.panel_fill_alpha < deck.card_fill_alpha < deck.control_fill_alpha
     assert set(ROOM_GLASS) == set(ROOM_BACKGROUNDS)
     for panel, card, control, overlay in ROOM_GLASS.values():
-        assert 170 <= panel <= 195
-        assert panel < card < control <= 230
-        assert 110 <= overlay <= 135
+        assert 145 <= panel <= 165
+        assert panel < card < control <= 195
+        assert 95 <= overlay <= 115
