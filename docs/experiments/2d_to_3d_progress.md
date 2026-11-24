@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MPFB-SYSTEM-ASSETS-25 — found direct official files host after
+  download.makehumancommunity.org DNS failure. Started 267 MB CC0 system pack
+  download from https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip
+  into E:/CyberCity2085-3d-lab/downloads/makehuman_system_assets_cc0.zip.
+  File is actively written/locked by downloader; ZIP integrity not yet verified.
+  Do not restart while process is alive. Next: inspect process/file completion,
+  verify ZIP integrity and asset license metadata, then install using MPFB API.
+
 - `IN_PROGRESS` HUMAN-ASSET-PIVOT-24 — user rejects procedural human garments
   as sufficient production method; target is modern tactical character quality.
   v20 shoulder-cap attempt generated and inspected front/back: rejected as
