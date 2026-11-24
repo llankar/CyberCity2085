@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-BOOTS-05 — replaced anatomical foot shells with six
+  separate beveled components (sole, upper, shaft on each foot), weighted to
+  the actual MPFB foot bones. Blender generation succeeded; v3 preview was
+  inspected. Toe anatomy is covered, but the blocky silhouette, shaft fit and
+  articulation remain below acceptance. Output: rook_dressed_v3 on E:.
+  Next: shape rounded toe/ankle loops and verify foot rotations and intersections.
+
 - `IN_PROGRESS` ROOK-GARMENTS-04 — rendered and inspected the first garment
   study. Rejected its jagged jacket cut and unwanted hand geometry. Added
   boundary relaxation, restricted garment extents and separate boot shells.
