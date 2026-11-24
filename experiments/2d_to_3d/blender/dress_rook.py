@@ -97,8 +97,8 @@ jacket_panel('Rook_RaisedCollar', collar_vertices, [(i, i + 1, i + 14, i + 13) f
 for side in ['l', 'r']:
     upper = rig.data.bones['upperarm_' + side]
     lower = rig.data.bones['lowerarm_' + side]
-    centers = [upper.head_local, upper.head_local.lerp(upper.tail_local, 0.5), upper.tail_local, lower.head_local.lerp(lower.tail_local, 0.7)]
-    radii = [0.085, 0.078, 0.065, 0.052]
+    centers = [upper.head_local - (upper.tail_local - upper.head_local).normalized() * 0.045, upper.head_local.lerp(upper.tail_local, 0.5), upper.tail_local, lower.head_local.lerp(lower.tail_local, 0.7)]
+    radii = [0.098, 0.085, 0.071, 0.056]
     axis = (lower.tail_local - upper.head_local).normalized()
     tangent = axis.cross(Vector((0, 1, 0))).normalized()
     bitangent = axis.cross(tangent).normalized()
@@ -168,4 +168,15 @@ for label, position in [('front', (0, -2.8, 1.4)), ('back', (0, 2.8, 1.4)), ('si
     camera.data.lens = 75
     bpy.context.scene.render.filepath = str(output / ('rook_detail_' + label + '.png'))
     bpy.ops.render.render(write_still=True)
+for side, angle in [('l', 0.9), ('r', 0.9)]:
+    bone = rig.pose.bones['lowerarm_' + side]
+    bone.rotation_mode = 'XYZ'
+    bone.rotation_euler.x = angle
+bpy.context.view_layer.update()
+camera.location = (1.8, -2.8, 1.5)
+camera.rotation_euler = (Vector((0, 0, 1.25)) - camera.location).to_track_quat('-Z', 'Y').to_euler()
+bpy.context.scene.render.filepath = str(output / 'rook_elbow_test.png')
+bpy.ops.render.render(write_still=True)
+for side in ['l', 'r']:
+    rig.pose.bones['lowerarm_' + side].rotation_euler = (0, 0, 0)
 print('CYBERCITY_ROOK_GARMENTS_EXPORTED')

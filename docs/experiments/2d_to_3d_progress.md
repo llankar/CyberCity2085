@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-DEFORMATION-09 — inspected v6 back/side views: open
+  shoulders confirmed. Extended sleeve roots inward and increased shoulder
+  radii; generated v7 views plus a 0.9-radian lower-arm pose. Pose render
+  inspected: sleeves follow the arms but show angular elbows and remaining
+  shoulder fit defects. This proves movement only, not accepted animation.
+  Next: add elbow support loops and smooth bone-weight transitions; garment
+  body topology still requires replacement rather than further cut masks.
+
 - `IN_PROGRESS` ROOK-SLEEVES-08 — replaced jagged arm cutouts with separate
   four-ring sleeves aligned to upper/lower arm bones and transferred weights.
   v6 Blender generation and front/back/side detail renders succeeded on E:.
