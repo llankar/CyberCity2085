@@ -42,6 +42,16 @@ EQUIPMENT_RESEARCH_TIERS = {
     "special_gear": ("equipment_tactical_fabricator", "equipment_lastlight_pack"),
 }
 
+WEAPON_RESEARCH_BY_ITEM = {
+    "arc_caster": "weapon_arc_conduction",
+    "combat_shotgun": "weapon_corporate_rail_lattice",
+    "micro_uzi": "weapon_corporate_rail_lattice",
+    "sniper_rifle": "weapon_oracle_killchain",
+    "heavy_pistol": "weapon_oracle_killchain",
+    "plasma_pistol": "weapon_plasma_miniaturization",
+    "gravity_lance": "weapon_gravity_distortion",
+}
+
 
 def equipment_power_score(item: "EquipmentItem") -> int:
     """Return a stable integer score derived only from real tactical effects."""
@@ -624,7 +634,13 @@ def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
                 group = AVAILABILITY_RESEARCH
             research_index = index - starter_count - commercial_count
             tier_index = 1 if research_index >= max(1, research_items // 2) else 0
-            project = EQUIPMENT_RESEARCH_TIERS[family][tier_index]
+            project = (
+                WEAPON_RESEARCH_BY_ITEM.get(item.id)
+                if family in {"primary_weapon", "sidearm"}
+                else EQUIPMENT_RESEARCH_TIERS[family][tier_index]
+            )
+            if group == AVAILABILITY_RESEARCH and not project:
+                raise ValueError(f"No research project mapped for {item.id}")
             classified[item.id] = replace(
                 item,
                 family=family,

@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- WEAPONS-RESEARCH-BRANCH-01 — DONE (2026-11-24). La branche Weapons passe de trois projets génériques à six projets couvrant explicitement les sept armes avancées du catalogue : balistique lourde/compacte, précision, Arc, Plasma et Gravité. Gravity requiert Oracle Killchain et Arc Conduction. Aucun objet fictif ni exemplaire gratuit. 72 tests et 5 sous-tests réussis ; validateur natif PASS, pages Weapons 1/2 et 2/2 inspectées.
+
 - ASSET-BAY-RESEARCH-UNLOCK-LIST-01 — DONE (2026-11-24). Les projets R&D exposent maintenant la liste exhaustive des équipements Research qu'ils autorisent à acheter. Couverture bijective vérifiée : chaque objet avancé appartient à exactement un projet existant, aucun projet n'accorde d'exemplaire gratuit. Les deux présentations Research affichent les noms réels. 65 tests et 5 sous-tests réussis ; validateur natif PASS aux trois résolutions et capture Corporate Rail Lattice inspectée.
 
 - ASSET-BAY-ARMORY-PAGING-01 — DONE (2026-11-24). Le catalogue ne se recale plus à chaque frame sur l'objet sélectionné : les flèches changent réellement de page et le recentrage ne se produit qu'après changement de sélection/famille/tri. Les images utilisent `contain` avec marge, donc les armes longues restent entières. Titres tronqués et libellés d'accès/puissance clarifiés. 69 tests et 5 sous-tests réussis ; validateur natif complet PASS aux trois résolutions, captures 1280×720 et 1920×1061 inspectées.

@@ -172,9 +172,17 @@ def main():
         assert gs.city_budget["armaments"] == old + 10
         view._open_hub_room("research")
         draw()
+        view._department_deck.selection["research_category"] = "weapons"
         view._department_deck.selection["research"] = "weapon_corporate_rail_lattice"
-        capture("research-equipment-unlocks")
+        view._department_deck.pages["research"] = 0
+        capture("research-weapons-page-1")
+        click("department_page", ("research", 1))
+        assert view._department_deck.pages["research"] == 1
+        view._department_deck.selection["research"] = "weapon_gravity_distortion"
+        capture("research-weapons-page-2")
         view._department_deck.selection["research"] = "weapon_smartlink_mk1"
+        view._department_deck.selection["research_category"] = "all"
+        view._department_deck.pages["research"] = 0
         draw()
         action = next(
             h.action for h in view._hits if h.action.startswith("start_research_")

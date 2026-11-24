@@ -29,6 +29,30 @@ class ResearchManagementTest(unittest.TestCase):
         for category in RESEARCH_CATEGORIES:
             self.assertGreaterEqual(len(tree.projects_for_category(category)), 3)
 
+    def test_weapon_branch_covers_every_advanced_weapon_with_meaningful_projects(self):
+        tree = create_starter_research_tree()
+        weapon_projects = tree.projects_for_category("weapons")
+        self.assertEqual(len(weapon_projects), 6)
+        expected = {
+            "arc_caster": "weapon_arc_conduction",
+            "combat_shotgun": "weapon_corporate_rail_lattice",
+            "micro_uzi": "weapon_corporate_rail_lattice",
+            "sniper_rifle": "weapon_oracle_killchain",
+            "heavy_pistol": "weapon_oracle_killchain",
+            "plasma_pistol": "weapon_plasma_miniaturization",
+            "gravity_lance": "weapon_gravity_distortion",
+        }
+        actual = {
+            item_id: project.id
+            for project in weapon_projects
+            for item_id in project.unlocked_equipment_ids
+        }
+        self.assertEqual(actual, expected)
+        self.assertEqual(
+            tree.project("weapon_gravity_distortion").requires,
+            ("weapon_oracle_killchain", "weapon_arc_conduction"),
+        )
+
     def test_every_research_equipment_is_listed_by_exactly_one_real_project(self):
         tree = create_starter_research_tree()
         research_items = {

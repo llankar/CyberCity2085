@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "WEAPONS-RESEARCH-BRANCH-01",
+      "title": "Etendre la recherche Weapons a toutes les armes avancees reelles",
+      "status": "DONE",
+      "files": ["game/management/equipment.py", "game/management/research.py", "tools/check_unified_ui_visual.py", "tests/test_research_management.py"],
+      "tests": ["Research, equipment, Management, Base Command Center, dossier and assignment gate: 72 passed and 5 subtests passed.", "Native unified UI validator passed at three resolutions and traversed both Weapons pages."],
+      "evidence": ["Six Weapons projects cover all seven Research weapons from the 15-weapon catalogue.", "Corporate Rail Lattice unlocks Combat Shotgun and Micro-Uzi; Oracle Killchain unlocks Sniper Rifle and Heavy Pistol.", "Dedicated Arc, Plasma and Gravity projects unlock Arc Caster, Plasma Pistol and Gravity Lance.", "Gravity Distortion requires both Oracle Killchain and Arc Conduction; native pages 1/2 and 2/2 were visually inspected."],
+      "remaining": []
+    },
+    {
       "id": "ASSET-BAY-RESEARCH-UNLOCK-LIST-01",
       "title": "Afficher les equipements debloques par chaque recherche",
       "status": "DONE",
