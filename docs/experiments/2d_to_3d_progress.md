@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-COMPARISON-32 — inspected thumbnails of male suits
+  01/02/03/05/06, work suit and short hair 01/03/04. Selected suit05 + shoes03
+  + short04 for second authored fitting. Blender produced authored_outfit02
+  BLEND and four neutral views on E:; front inspected: coherent jacket folds,
+  pockets, cuffs and footwear, but civilian padded coat/jeans and cropped hair
+  do not reproduce Rook's tactical jacket/undercut. Next: inspect back/profile,
+  find licensed tactical/leather jacket and swept undercut assets, keeping
+  this outfit as authored pipeline comparison rather than accepting it as Rook.
+
 - `IN_PROGRESS` AUTHORED-OUTFIT-31 — inspected male_casualsuit04 MHCLO header:
   explicit CC0 release, supplied diffuse/normal/AO maps. Executed MPFB loader
   with casualsuit04, shoes01, short02 hair, high-poly eyes and middle-aged
