@@ -34,6 +34,15 @@ combines it with the converted game meshes on E:. `verify_einar_hair.py` checks
 the actual GLB and head-space placement. Approximate hair palette, high strand
 triangle count and aliasing remain unaccepted; this is not a final game hairstyle.
 
+`rig_einar_game_study.py` bakes an independent game skeleton from actual authored
+weights and mechanical transforms. Default output is the head-only diagnostic
+`einar_rig01`; `-- --idle` outputs the relaxed Idle study `einar_idle01`.
+`verify_einar_rig.py [--idle]` checks actual skin buffers, joints, weights and
+clip scope. `godot --path experiments/2d_to_3d/godot res://skin_motion_check.tscn -- --idle`
+checks native sampled deformation and loop endpoints. Add `--rigged-human` to
+the `--charge` comparison to load/loop the new human Idle. These are experimental
+animation studies; walking, weapon actions and full visual acceptance remain open.
+
 ## Independent comparison stage
 
 Launch `godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --realtime`.

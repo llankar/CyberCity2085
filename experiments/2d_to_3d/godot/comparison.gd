@@ -59,6 +59,8 @@ func _ready() -> void:
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var charge := "--charge" in OS.get_cmdline_user_args()
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
+	var rigged_human := charge and "--rigged-human" in OS.get_cmdline_user_args()
+	if rigged_human: human_path = root + "einar_idle01/human_rig.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
@@ -118,6 +120,7 @@ func _ready() -> void:
 	play_clip("Idle")
 	selected = 0
 	clip_status = "Human: static fitting model; action clips unavailable"
+	if rigged_human: play_clip("Idle")
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	if "--self-test" in OS.get_cmdline_user_args():
 		var key := InputEventKey.new()
@@ -147,6 +150,11 @@ func _ready() -> void:
 		play_clip("Idle")
 		selected = 0
 		clip_status = "Human: static fitting model; action clips unavailable"
+		if rigged_human:
+			play_clip("Idle")
+			var human_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+			assert(human_player.current_animation == "Idle")
+			print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,human_missing_action robot_clip=", "unavailable" if charge else "Walk")
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
@@ -283,7 +291,9 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable: " + name_value
 		return
 	player.play(name_value)
-	clip_status = "Robot animation: " + name_value
+	if name_value == "Idle" or name_value == "Walk":
+		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
+	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:
 	if hud:

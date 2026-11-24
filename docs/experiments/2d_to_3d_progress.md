@@ -2,6 +2,48 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EINAR-GAME-SKELETON-IDLE-79 — source rig/constraint audit and
+  actual retained skin weights used to build222 baked game joints/one skin for
+  76 textured meshes. Weighted bones sample source pose matrices; rigid parts
+  sample complete authored object transforms, including mechanical constraints.
+  Film controls are not shipped as runtime dependencies. Neutral Blender vertex
+  error0.0000003825m. First glTF export included unrelated facial pose-library
+  actions due exporter default export_anim_single_armature=True; inspected local
+  official exporter option and disabled it. Real GLB now contains exactly one
+  requested clip. Explicit mesh parenting also removed ambiguous armature lookup.
+
+  FittingStressTest artifact: E: phase2/einar_rig01,39,223,776 bytes,222 joints,
+  one diagnostic clip. Native skin sampling verifies head movement31.20mm and
+  zero sampled leg drift; front screenshot inspected. This is not a game action.
+  Source FK probes initially moved nothing: Properties bone IK switches were1.
+  Explicit FK mode0 gives real arm/leg responses (~0.25m/~0.35m in the probes).
+  New relaxed Idle lowers both arms through source controls/constraints and adds
+  subtle cyclic head/arm motion. Not generalized into a fabricated action set.
+
+  Latest Idle artifact E: phase2/einar_idle01/human_rig.blend/.glb,39,514,452 bytes,
+ 76 meshes/222 joints/one skin/one Idle clip. Eight normalized influences maximum
+  exported explicitly; four vertices required truncation beyond8, worst discarded
+  mass0.00889913. Real buffer verifier checks weight sums (max error1.44e-7),
+  range/count, embedded images, skin/joint/clip coverage and neutral error. Native
+  Godot CPU skin-transform sampling verifies3.008mm head motion,0 leg drift and
+  0 head loop gap. It does not replace full deformation/artistic review.
+  Current neutral Idle front screenshot inspected and coherent; hair omitted
+  because previous strand derivative remains visually unaccepted.
+
+  Independent comparison --charge --rigged-human --tactical --sprite-review
+  --self-test loads five subjects, dispatches human Idle, explicitly reports
+  unavailable robot/actions and measures62.208px projection. Native capture
+  charge_idle_sprite_close.png inspected; source silhouette improved over T-pose,
+  but final art/weapon/readability/performance remains NOT VERIFIED. Seven Python
+  tests pass; native diagnostic/Idle skin checks and real-file rig checks pass.
+  Main source controls/rig untouched on disk; no production/save changes or push.
+  Files: audit_einar_rig.py, probe_einar_controls.py, rig_einar_game_study.py,
+  verify_einar_rig.py, godot/skin_motion_check.gd/.tscn, comparison.gd.
+  Next: author/validate actual walking with foot contacts using source IK/FK,
+  then weapon grip/fire/melee/death; attach accepted hair and optimize rig/meshes.
+  Robot glass/actions and full tactical/artistic acceptance remain open.
+  Global objective remains incomplete; only this technical/Idle evidence advanced.
+
 - `IN_PROGRESS` EINAR-AUTHORED-HAIR-78 — audited10 visible authored curve objects
   (beard21,970 guides, mustache5,965, eyebrows2,735, scalp10,299 plus secondary
   layers). First raw evaluated CURVES.data extraction put hair at the feet:
