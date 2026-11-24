@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` GODOT-POSE-43 — applied four-bone stress pose to imported
+  authored rig and rendered. Initial absolute rotation replacement produced
+  invalid limb orientation; changed to composition with imported pose rotation
+  and rerendered. Captures inspected; direct local-axis correspondence with
+  Blender still needs quantified verification, not accepted retargeting.
+  Next: compare imported bone rest bases and export a Blender-authored pose
+  clip to avoid assuming identical local axes between engines.
+
 - `IN_PROGRESS` AUTHORED-POSE-42 — added reproducible Blender stress-pose
   renderer with both elbows bent and left thigh/calf flexed. Native execution
   succeeded; front/profile captures inspected on E:. Authored armor follows

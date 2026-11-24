@@ -22,6 +22,22 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
+	if "--stress-pose" in OS.get_cmdline_user_args():
+		var rigs := model.find_children("*", "Skeleton3D", true, false)
+		if rigs.size() != 1:
+			get_tree().quit(7)
+			return
+		var rig := rigs[0] as Skeleton3D
+		var rotations := {"lowerarm_l": 1.1, "lowerarm_r": 0.9, "thigh_l": -0.65, "calf_l": 0.8}
+		for bone_name in rotations:
+			var bone_index := rig.find_bone(bone_name)
+			if bone_index < 0:
+				push_error("Missing pose bone: " + bone_name)
+				get_tree().quit(8)
+				return
+			rig.set_bone_pose_rotation(bone_index, rig.get_bone_pose_rotation(bone_index) * Quaternion(Vector3.RIGHT, rotations[bone_name]))
+		rig.force_update_all_bone_transforms()
+		print("CYBERCITY_STRESS_POSE_APPLIED bones=4")
 	if not "--raw-textures" in OS.get_cmdline_user_args():
 		var texture_cache: Dictionary = {}
 		var generated := 0
