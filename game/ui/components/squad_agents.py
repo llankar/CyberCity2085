@@ -8,6 +8,9 @@ from game.ui.portraits import portrait_path_for_character
 from game.ui.theme.typography import get_text_size, scale_font_size
 from .squad_style import CYAN, GOLD, MINT, RED, TEXT, MUTED
 
+ROSTER_PANEL_FILL_ALPHA = 150
+ROSTER_CARD_FILL_ALPHA = 182
+
 
 def draw_agents(self, r):
     gs = self.gs
@@ -18,6 +21,7 @@ def draw_agents(self, r):
             "squad", selected=len(gs.selected_agent_names), total=len(gs.characters)
         ),
         "squad",
+        fill_alpha=ROSTER_PANEL_FILL_ALPHA,
     )
     top = r.top - 59 * u
     bottom = r.bottom + 65 * u
@@ -45,7 +49,12 @@ def draw_agents(self, r):
             self.paint.glow(
                 *rect.center, rect.width * 1.03, rect.height * 1.4, GOLD, 55
             )
-        self.paint.panel(rect, color, selected=active or hot)
+        self.paint.panel(
+            rect,
+            color,
+            selected=active or hot,
+            fill_alpha=ROSTER_CARD_FILL_ALPHA if not (active or hot) else 198,
+        )
         ps = min(card_h - 8 * u, 96 * u)
         portrait = Rect(rect.left + 4 * u, b + 4 * u, rect.left + 4 * u + ps, t - 4 * u)
         self.image(portrait_path_for_character(char), portrait)

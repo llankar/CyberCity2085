@@ -15,11 +15,21 @@ from game.ui.theme.typography import get_text_size, scale_font_size
 VIOLET = (200, 130, 255)
 LOCKED = (111, 140, 153)
 DOSSIER_PAGES = ("overview", "skills", "inventory", "cyberware", "journal")
+SHEET_PANEL_FILL_ALPHA = 176
+SHEET_CARD_FILL_ALPHA = 198
+SHEET_CONTROL_FILL_ALPHA = 218
 
 
 class CharacterSheetRenderer(SquadCommandRenderer):
     def __init__(self):
         super().__init__()
+        self.panel_fill_alpha = SHEET_PANEL_FILL_ALPHA
+        self.card_fill_alpha = SHEET_CARD_FILL_ALPHA
+        self.stat_fill_alpha = 204
+        self.compact_fill_alpha = 210
+        self.control_fill_alpha = SHEET_CONTROL_FILL_ALPHA
+        self.sheet_card_fill_alpha = SHEET_CARD_FILL_ALPHA
+        self.sheet_control_fill_alpha = SHEET_CONTROL_FILL_ALPHA
         self.first_rows = {"skills": 0, "talents": 0}
         self.grids = {}
         self.scroll_target = "skills"
@@ -125,13 +135,18 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             self.label(f"{value:,}", box.left + 28 * u, box.center[1] - 10 * u, 13, color, bold=True, width=box.width-31*u)
         # Progress points remain visible in the Skills footer and cards.
         close = Rect(w - 64 * u, r.bottom + 8 * u, w - 16 * u, r.top - 8 * u)
-        self.paint.panel(close, RED, selected=self.hover == ("sheet_close", None))
+        self.paint.panel(
+            close,
+            RED,
+            selected=self.hover == ("sheet_close", None),
+            fill_alpha=self.sheet_control_fill_alpha,
+        )
         x, y = close.center
         arcade.draw_line(x - 11 * u, y - 11 * u, x + 11 * u, y + 11 * u, RED, 3 * u)
         arcade.draw_line(x - 11 * u, y + 11 * u, x + 11 * u, y - 11 * u, RED, 3 * u)
         self.hit(close, "sheet_close", tooltip=self.tr("close"))
         banner = self.layout.banner
-        self.paint.panel(banner, CYAN)
+        self.paint.panel(banner, CYAN, fill_alpha=self.panel_fill_alpha)
         self.icon("target", banner.left + 27 * u, banner.center[1], 30, GOLD)
         tabs_left = banner.left + banner.width * 0.36
         name = self.label(
@@ -164,7 +179,13 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             )
             active = self.page == page
             color = GOLD if active else VIOLET if page == "cyberware" else CYAN
-            self.paint.panel(tab, color, selected=active or self.hover == ("dossier_tab", page))
+            selected = active or self.hover == ("dossier_tab", page)
+            self.paint.panel(
+                tab,
+                color,
+                selected=selected,
+                fill_alpha=self.sheet_control_fill_alpha,
+            )
             self.label(page.upper(), *tab.center, 11, color, bold=True, anchor_x="center", width=tab.width - 8 * u)
             self.hit(
                 tab,
@@ -207,7 +228,7 @@ class CharacterSheetRenderer(SquadCommandRenderer):
     def footer(self):
         r = self.layout.footer
         u = self.u
-        self.paint.panel(r, CYAN)
+        self.paint.panel(r, CYAN, fill_alpha=self.sheet_control_fill_alpha)
         hit = next(
             (
                 hit
@@ -265,7 +286,12 @@ class CharacterSheetRenderer(SquadCommandRenderer):
                 45 + 20 * self.hover_amount,
             )
         frame = VIOLET if color == VIOLET else GOLD if hot or changed else color
-        self.paint.panel(rect, frame, selected=hot or changed)
+        self.paint.panel(
+            rect,
+            frame,
+            selected=hot or changed,
+            fill_alpha=self.sheet_card_fill_alpha,
+        )
         self.hit(rect, action, data, tooltip)
 
     def paragraph(self, text, rect, size=13, color=TEXT, bold=False):

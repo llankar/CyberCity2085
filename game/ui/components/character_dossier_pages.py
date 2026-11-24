@@ -42,8 +42,19 @@ def _cyberware_art(zone: str) -> str:
 
 
 def _panel(p, rect: Rect, title: str, color=CYAN):
-    p.paint.panel(rect, color)
+    _surface(p, rect, color)
     p.label(title, rect.left + 14 * p.u, rect.top - 22 * p.u, 15, color, bold=True, width=rect.width - 28 * p.u)
+
+
+def _surface(p, rect: Rect, color=CYAN, *, selected=False):
+    p.paint.panel(
+        rect,
+        color,
+        selected=selected,
+        fill_alpha=(
+            p.sheet_control_fill_alpha if selected else p.sheet_card_fill_alpha
+        ),
+    )
 
 
 def _columns(r: Rect, weights, gap):
@@ -108,7 +119,7 @@ def draw_overview(p, r: Rect):
     _panel(p, attr, "ATTRIBUTES", CYAN)
     cells = _columns(Rect(attr.left+12*u, attr.bottom+12*u, attr.right-12*u, attr.top-45*u), (1,1,1,1,1), 7*u)
     for box, key in zip(cells, ("str", "agi", "psi", "def", "con")):
-        p.paint.panel(box, VIOLET if key == "psi" else CYAN)
+        _surface(p, box, VIOLET if key == "psi" else CYAN)
         p.label(key.upper(), box.center[0], box.top-24*u, 12, MUTED, anchor_x="center")
         model_key = "defense" if key == "def" else key
         p.label(str(p.data.attributes[model_key]), box.center[0], box.center[1]-8*u, 24, TEXT, bold=True, anchor_x="center")
@@ -117,7 +128,7 @@ def draw_overview(p, r: Rect):
     metrics = list(p.data.derived.items())[:6]
     rcells = _columns(Rect(ready.left+12*u, ready.bottom+12*u, ready.right-12*u, ready.top-45*u), (1,1,1,1,1,1), 6*u)
     for box, (key, value) in zip(rcells, metrics):
-        p.paint.panel(box, CYAN)
+        _surface(p, box, CYAN)
         p.label(key.upper(), box.center[0], box.top-20*u, 9, MUTED, anchor_x="center", width=box.width-4*u)
         p.label(str(value), box.center[0], box.bottom+20*u, 19, TEXT, bold=True, anchor_x="center")
     loadout = Rect(middle.left, middle.bottom, middle.right, ready.bottom-12*u)
@@ -163,7 +174,7 @@ def draw_inventory(p, r: Rect):
     selected_id = getattr(p.view, "dossier_inventory_item", None)
     for row, slot in zip(_rows(Rect(loadout.left+10*u, loadout.bottom+12*u, loadout.right-10*u, loadout.top-45*u), 6, 8*u), EQUIPMENT_SLOTS):
         active = selected_slot == slot
-        p.paint.panel(row, GOLD if active else CYAN, selected=active)
+        _surface(p, row, GOLD if active else CYAN, selected=active)
         item = c.loadout.item_for_slot(slot)
         art = Rect(row.left+7*u, row.bottom+7*u, row.left+82*u, row.top-7*u)
         p.image(equipment_art_path(item, slot), art)
@@ -178,7 +189,7 @@ def draw_inventory(p, r: Rect):
     for row, item in zip(rows, items[:8]):
         active = selected_id == item.id
         equipped = c.loadout.item_for_slot(selected_slot)
-        p.paint.panel(row, GOLD if active else VIOLET if equipped and equipped.id == item.id else CYAN, selected=active)
+        _surface(p, row, GOLD if active else VIOLET if equipped and equipped.id == item.id else CYAN, selected=active)
         thumb = Rect(row.left+5*u, row.bottom+5*u, row.left+62*u, row.top-5*u)
         p.image(equipment_art_path(item, selected_slot), thumb)
         text_x = thumb.right + 8*u
@@ -228,7 +239,7 @@ def draw_inventory(p, r: Rect):
         equip = Rect(detail.left+16*u, detail.bottom+18*u, detail.right-16*u, detail.bottom+64*u)
         can_buy = p.gs.available_funds >= price
         button_color = GOLD if owned or can_buy else RED
-        p.paint.panel(equip, button_color, selected=True)
+        _surface(p, equip, button_color, selected=True)
         label = ("REMOVE" if equipped and equipped.id == chosen.id else "EQUIP" if available else "IN USE") if owned else ("BUY" if can_buy else "NOT ENOUGH FUNDS")
         p.label(label, *equip.center, 13, button_color, bold=True, anchor_x="center")
         if not owned and can_buy:
@@ -261,7 +272,7 @@ def draw_cyberware(p, r: Rect):
     installed_by_zone = {BY_ID[key].zone: BY_ID[key] for key in c.installed_cyberware if key in BY_ID}
     for row, zone in zip(_rows(Rect(zones.left+9*u, zones.bottom+12*u, zones.right-9*u, zones.top-45*u), len(ZONE_ORDER), 5*u), ZONE_ORDER):
         active = zone == selected_zone
-        p.paint.panel(row, GOLD if active else VIOLET, selected=active)
+        _surface(p, row, GOLD if active else VIOLET, selected=active)
         thumb = Rect(row.left+6*u, row.bottom+6*u, row.left+67*u, row.top-6*u)
         p.image(_cyberware_art(zone), thumb)
         text_x = thumb.right + 8*u
@@ -277,7 +288,7 @@ def draw_cyberware(p, r: Rect):
         installed = item.id in c.installed_cyberware
         affordable = item.credit_cost <= p.gs.available_funds and item.humanity_cost <= MAX_HUMANITY
         row_color = GOLD if active else MINT if installed else CYAN if affordable else MUTED
-        p.paint.panel(row, row_color, selected=active)
+        _surface(p, row, row_color, selected=active)
         thumb = Rect(row.left+4*u, row.bottom+4*u, row.left+48*u, row.top-4*u)
         p.image(_cyberware_art(selected_zone), thumb)
         text_x = thumb.right + 7*u
@@ -304,7 +315,7 @@ def draw_cyberware(p, r: Rect):
             y -= 28*u
         p.label(f"CREDITS {chosen.credit_cost:,}   //   HUMANITY -{chosen.humanity_cost}", detail.left+15*u, detail.bottom+88*u, 11, GOLD, bold=True, width=detail.width-30*u)
         action = Rect(detail.left+15*u, detail.bottom+20*u, detail.right-15*u, detail.bottom+66*u)
-        p.paint.panel(action, RED if installed else GOLD, selected=True)
+        _surface(p, action, RED if installed else GOLD, selected=True)
         p.label("REMOVE" if installed else "INSTALL", *action.center, 13, RED if installed else GOLD, bold=True, anchor_x="center")
         p.hit(action, "dossier_cyberware_toggle", chosen.id, "Remove implant" if installed else "Purchase and install implant")
 
@@ -316,7 +327,7 @@ def draw_journal(p, r: Rect):
     sections = (("mission", "MISSION LOG"), ("events", "EVENT TIMELINE"), ("squad", "SQUAD NOTES"), ("personal", "PERSONAL DOSSIER"))
     selected = getattr(p.view, "dossier_journal_section", "mission")
     for row, (key, label) in zip(_rows(Rect(nav.left+10*u, nav.top-280*u, nav.right-10*u, nav.top-48*u), 4, 8*u), sections):
-        p.paint.panel(row, GOLD if key == selected else CYAN, selected=key == selected)
+        _surface(p, row, GOLD if key == selected else CYAN, selected=key == selected)
         p.label(label, *row.center, 11, TEXT, bold=True, anchor_x="center", width=row.width-12*u)
         p.hit(row, "dossier_journal_section", key, f"Open {label}")
     _panel(p, main, dict(sections)[selected], GOLD if selected == "mission" else CYAN)
@@ -348,21 +359,21 @@ def draw_journal(p, r: Rect):
         notes = list(getattr(c, "personal_notes", []))
         editor = Rect(body.left, body.bottom, body.right, body.bottom+92*u)
         if getattr(p.view, "dossier_note_editing", False):
-            p.paint.panel(editor, GOLD, selected=True)
+            _surface(p, editor, GOLD, selected=True)
             text = p.view.dossier_note_buffer or "Type a personal note..."
             p.label(text, editor.left+10*u, editor.top-26*u, 11, TEXT if p.view.dossier_note_buffer else MUTED, width=editor.width-20*u)
             p.label("ENTER SAVE  //  ESC CANCEL", editor.right-10*u, editor.bottom+17*u, 9, GOLD, anchor_x="right")
             p.hit(editor, "dossier_note_save", tooltip="Save note")
         else:
             add = Rect(body.left, body.bottom, body.right, body.bottom+40*u)
-            p.paint.panel(add, GOLD)
+            _surface(p, add, GOLD)
             p.label("+ NEW PERSONAL NOTE", *add.center, 11, GOLD, bold=True, anchor_x="center")
             p.hit(add, "dossier_note_new", tooltip="Create a persistent personal note")
         if not notes and not getattr(p.view, "dossier_note_editing", False):
             p.paragraph("No personal notes recorded. Notes are created from real player input only.", body, 13, MUTED)
         for visible_i, (index, note) in enumerate(list(enumerate(notes))[-8:]):
             row = Rect(body.left, body.top-(visible_i+1)*48*u, body.right, body.top-visible_i*48*u-4*u)
-            p.paint.panel(row, RED if p.view.dossier_note_delete_pending == index else CYAN)
+            _surface(p, row, RED if p.view.dossier_note_delete_pending == index else CYAN)
             p.label(str(note), row.left+9*u, row.center[1], 10, TEXT, width=row.width-72*u)
             p.hit(Rect(row.left, row.bottom, row.right-56*u, row.top), "dossier_note_edit", index, "Edit note")
             p.label("DEL?" if p.view.dossier_note_delete_pending == index else "DEL", row.right-10*u, row.center[1], 9, RED, bold=True, anchor_x="right")

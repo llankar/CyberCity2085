@@ -6,6 +6,16 @@ from game.agents.cyberware import ZONE_ORDER, catalogue_for_zone
 from game.character import Character
 from game.gamestate import GameState
 from game.management.equipment import EQUIPMENT_SLOTS, default_equipment_catalog
+from game.ui.components.character_sheet import (
+    SHEET_CARD_FILL_ALPHA,
+    SHEET_CONTROL_FILL_ALPHA,
+    SHEET_PANEL_FILL_ALPHA,
+)
+
+
+def test_dossier_uses_readable_layered_glass():
+    assert 160 <= SHEET_PANEL_FILL_ALPHA < SHEET_CARD_FILL_ALPHA
+    assert SHEET_CARD_FILL_ALPHA < SHEET_CONTROL_FILL_ALPHA <= 225
 from game.ui.components.character_sheet import DOSSIER_PAGES
 from game.ui.layouts.character_sheet import character_sheet_layout
 

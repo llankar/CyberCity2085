@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-24) : roster d'agents et Character Sheets légèrement éclaircis. Le roster utilise 150/255 pour son cadre, 182 pour les cartes et 198 pour la sélection ; les cinq pages du Dossier utilisent 176/198/218 pour panneaux/cartes/contrôles. Captures natives inspectées et validateur Dossier complet PASS aux quatre résolutions avec progression, talents, rôles, soins, persistance et texte large. Gate : 73 tests, 5 sous-tests, 1 skip.
+
 - État courant (2026-11-24) : panneau `ACTIVE MISSION` de Squad Ops éclairci isolément à 112/255. Le décor est maintenant visible derrière l'ensemble mission/intelligence/repos sans affecter l'opacité du roster ni de l'équipement. Capture native 1920×1080 inspectée ; validateur F1–F6 et trois résolutions PASS ; 64 tests, 5 sous-tests, 1 skip.
 
 - État courant (2026-11-24) : transparence des pages de base augmentée de 15 % à la demande. Les valeurs finales sont : voile 100–110/255, panneau 148–158, carte 168–177 et contrôle 189–192 ; l'ancien écran Squad suit la même réduction. Les captures natives de F1, F3 et F5 ont été inspectées après modification, et le validateur complet a parcouru F1–F6 aux trois résolutions sans mutation. Gate : 81 tests, 5 sous-tests, 1 skip.

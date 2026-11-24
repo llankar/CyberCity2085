@@ -114,7 +114,11 @@ def draw_skills(p, r):
             rect.right - 10 * u,
             rect.bottom + 42 * u,
         )
-        p.paint.panel(plus, GOLD if skill.can_spend else LOCKED)
+        p.paint.panel(
+            plus,
+            GOLD if skill.can_spend else LOCKED,
+            fill_alpha=p.sheet_control_fill_alpha,
+        )
         p.label(
             "+",
             *plus.center,

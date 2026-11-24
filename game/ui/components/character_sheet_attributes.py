@@ -68,7 +68,7 @@ def draw_attributes(p, r):
         button = Rect(
             x - 18 * u, rect.bottom + 10 * u, x + 18 * u, rect.bottom + 43 * u
         )
-        p.paint.panel(button, GOLD if available else CYAN)
+        p.paint.panel(button, GOLD if available else CYAN, fill_alpha=p.sheet_control_fill_alpha)
         p.label(
             "+",
             *button.center,
@@ -93,7 +93,7 @@ def draw_readiness(p, r):
             r.top - 61 * u,
         )
         color = VIOLET if key == "resolve" else CYAN
-        p.paint.panel(rect, color)
+        p.paint.panel(rect, color, fill_alpha=p.sheet_card_fill_alpha)
         x = rect.center[0]
         p.icon(READINESS_ICONS[key], x, rect.top - 24 * u, 26, color)
         p.label(label, x, rect.top - 55 * u, 13, TEXT, anchor_x="center")
@@ -119,7 +119,7 @@ def draw_schematic(p, r):
     c = p.character
     if r.height < 50:
         return
-    p.paint.panel(r, CYAN)
+    p.paint.panel(r, CYAN, fill_alpha=p.panel_fill_alpha)
     for x in range(int(r.left + 8 * u), int(r.right - 5 * u), max(12, int(22 * u))):
         arcade.draw_line(x, r.bottom + 8 * u, x, r.top - 8 * u, (*CYAN, 25), 1)
     for y in range(int(r.bottom + 8 * u), int(r.top - 5 * u), max(12, int(22 * u))):

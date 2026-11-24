@@ -64,6 +64,10 @@ def main():
     try:
         for w, h in [(1280, 720), (1672, 941), (1920, 1080), (2560, 1440)]:
             resize(w, h)
+            view.dossier_page = "overview"
+            draw()
+            arcade.get_image(0, 0, w, h).save(output / f"dossier-overview-{w}x{h}.png")
+            view.dossier_page = "skills"
             draw()
             renderer = view._character_sheet_renderer
             renderer.first_rows = {"skills": 0, "talents": 0}

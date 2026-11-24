@@ -2355,6 +2355,15 @@
     "native_visual_validator": "PASS",
     "visual_windows_review": "PASS: Squad Ops mission panel at 1920x1080"
   },
+  "agent_roster_dossier_glass": {
+    "status": "DONE",
+    "updated": "2026-11-24",
+    "roster_alpha": {"panel": 150, "card": 182, "selected": 198},
+    "dossier_alpha": {"panel": 176, "card": 198, "control": 218},
+    "tests": {"passed": 73, "failed": 0, "skipped": 1, "subtests_passed": 5},
+    "dossier_visual_validator": "PASS: four resolutions, all pages/progression roles and persistence",
+    "visual_windows_review": "PASS: Squad roster and Dossier overview"
+  },
   "planned_batches": [
     {
       "id": "SCALE",

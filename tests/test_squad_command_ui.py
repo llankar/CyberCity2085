@@ -9,6 +9,7 @@ from types import SimpleNamespace
 import pytest
 from game.i18n import t
 from game.ui.components.squad_mission import MISSION_PANEL_FILL_ALPHA
+from game.ui.components.squad_agents import ROSTER_CARD_FILL_ALPHA, ROSTER_PANEL_FILL_ALPHA
 from game.ui.layouts.squad_command import squad_command_layout, visible_roster_range
 
 
@@ -71,6 +72,10 @@ def test_squad_chrome_obeys_campaign_language(language, expected):
 
 def test_active_mission_panel_keeps_squad_ops_background_visible():
     assert 90 <= MISSION_PANEL_FILL_ALPHA <= 125
+
+
+def test_agent_roster_uses_layered_glass():
+    assert 135 <= ROSTER_PANEL_FILL_ALPHA < ROSTER_CARD_FILL_ALPHA <= 200
 
 
 @pytest.mark.skipif(

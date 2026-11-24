@@ -10,7 +10,7 @@ from .squad_style import CYAN, GOLD, MINT, RED, TEXT, MUTED
 def draw_identity(p, r):
     u = p.u
     c = p.character
-    p.paint.panel(r, CYAN, selected=True)
+    p.paint.panel(r, CYAN, selected=True, fill_alpha=p.sheet_card_fill_alpha)
     portrait = Rect(
         r.left + 12 * u, r.bottom + 86 * u, r.left + r.width * 0.49, r.top - 12 * u
     )
@@ -24,7 +24,11 @@ def draw_identity(p, r):
     width = right - x
     p.label(c.name.upper(), x, top, 27, TEXT, bold=True, width=width)
     p.label(p.role_label, x, top - 33 * u, 17, GOLD, bold=True, width=width)
-    p.paint.panel(Rect(x, top - 77 * u, min(right, x + 125 * u), top - 52 * u), CYAN)
+    p.paint.panel(
+        Rect(x, top - 77 * u, min(right, x + 125 * u), top - 52 * u),
+        CYAN,
+        fill_alpha=p.sheet_card_fill_alpha,
+    )
     p.label(
         p.tr("level", level=c.stats.level),
         x + 10 * u,
@@ -65,7 +69,11 @@ def draw_identity(p, r):
     )
     status_rect = Rect(x, r.bottom + 90 * u, right, r.bottom + 118 * u)
     if status_rect.top < y - 9 * u:
-        p.paint.panel(status_rect, MINT if is_deployable(c) else GOLD)
+        p.paint.panel(
+            status_rect,
+            MINT if is_deployable(c) else GOLD,
+            fill_alpha=p.sheet_card_fill_alpha,
+        )
         p.label(
             status,
             *status_rect.center,
