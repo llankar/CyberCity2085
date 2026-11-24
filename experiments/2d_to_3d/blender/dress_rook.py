@@ -185,12 +185,36 @@ for side, sign in [('l', 1), ('r', -1)]:
     boot_piece('Rook_BootUpper_' + side, (x, -0.060, 0.090), (0.060, 0.135, 0.045), bone, (0.022, 0.03, 0.035))
     boot_piece('Rook_BootShaft_' + side, (x, 0.025, 0.185), (0.060, 0.065, 0.105), bone, (0.022, 0.03, 0.035))
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'rook_dressed.blend'))
+export_copies = []
 bpy.ops.object.select_all(action='DESELECT')
-for obj in bpy.context.scene.objects:
-    if obj == rig or (obj.type == 'MESH' and obj.name != 'PreviewFloor' and not obj.hide_render):
-        obj.select_set(True)
+for source in list(bpy.context.scene.objects):
+    if source.type != 'MESH' or source.name == 'PreviewFloor' or source.hide_render:
+        continue
+    obj = source.copy()
+    obj.data = source.data.copy()
+    bpy.context.collection.objects.link(obj)
+    obj.name = source.name + '_Export'
+    # The current phenotype is already baked into mesh coordinates. Export
+    # copies do not need MPFB's authoring shape keys, which block mask baking.
+    obj.shape_key_clear()
+    bpy.context.view_layer.objects.active = obj
+    obj.select_set(True)
+    # glTF export_apply=False preserves skins but ignores non-armature
+    # modifiers: bake those explicitly on disposable copies.
+    for modifier in list(obj.modifiers):
+        if modifier.type != 'ARMATURE':
+            bpy.ops.object.modifier_apply(modifier=modifier.name)
+    obj.select_set(False)
+    export_copies.append(obj)
+rig.select_set(True)
+for obj in export_copies:
+    obj.select_set(True)
 bpy.context.view_layer.objects.active = rig
 bpy.ops.export_scene.gltf(filepath=str(output / 'rook_dressed.glb'), export_format='GLB', use_selection=True, export_apply=False, export_yup=True)
+for obj in export_copies:
+    mesh = obj.data
+    bpy.data.objects.remove(obj, do_unlink=True)
+    bpy.data.meshes.remove(mesh)
 bpy.context.scene.render.filepath = str(output / 'rook_dressed_preview.png')
 bpy.ops.render.render(write_still=True)
 camera = bpy.context.scene.camera

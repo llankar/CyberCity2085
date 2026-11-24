@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` GLB-HELPER-FIX-16 — export uses disposable mesh copies, clears
+  authoring shape keys on copies, applies non-armature modifiers, retains skin
+  and deletes copies afterward. First attempt failed on shape keys; corrected
+  run generated v12 GLB. Native Godot rig/toggle/capture gates pass; inspected
+  capture confirms skirt-like helpers and facial helper artifacts removed.
+  Authoring BLEND retains original keys/modifiers. Remaining visible defects:
+  feet protrude at boot edges, coarse garment fit, missing hair/identity.
+  Next: hide covered body faces safely and add the referenced hairstyle.
+
 - `IN_PROGRESS` GODOT-RENDER-15 — Godot 4.7.2 OpenGL Compatibility rendered v11
   on RTX 5070 Ti and saved godot_preview.png on E: through frame_post_draw.
   Native rig gate passed (53 bones/15 skins); injected B key handler test
