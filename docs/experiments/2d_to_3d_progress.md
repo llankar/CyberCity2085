@@ -2,6 +2,21 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` HUMAN-ASSET-PIVOT-24 — user rejects procedural human garments
+  as sufficient production method; target is modern tactical character quality.
+  v20 shoulder-cap attempt generated and inspected front/back: rejected as
+  pointed, disconnected geometry. Preserve as pipeline study only. Priority
+  shifts to authored MPFB-compatible clothes/hair, meshes and detailed PBR
+  materials; procedural work remains appropriate for rigid assets.
+  Official MakeHuman asset-pack index and MPFB license identify core assets
+  as CC0; third-party asset licenses must be checked individually. Sources:
+  https://static.makehumancommunity.org/assets/assetpacks.html and
+  https://github.com/makehumancommunity/mpfb2/blob/master/LICENSE.md .
+  Asset download pages returned timeout/502; no pack downloaded yet. Added
+  neutral white-light review settings (not rendered yet). Next: acquire official
+  system asset pack on E:, inspect authored clothes/hair/skin, integrate one
+  outfit and render neutral front/profile/back plus Godot combat-scale views.
+
 - `IN_PROGRESS` ROOK-BACK-FIT-23 — jacket ring vertices now use evaluated body
   samples at matching X/Z to place front/back panels outside the surface with
   25 mm clearance. v19 BLEND/GLB/five renders generated on E:. Back inspected:

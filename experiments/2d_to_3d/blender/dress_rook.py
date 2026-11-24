@@ -14,6 +14,12 @@ output.mkdir(parents=True, exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath='E:/CyberCity2085-3d-lab/generated/phase2/rook_mpfb/rook_mpfb.blend')
 body = bpy.data.objects['rook_mpfb']
 rig = body.parent
+# Neutral review lighting exposes fit and surface defects consistently.
+for lamp in [o for o in bpy.context.scene.objects if o.type == 'LIGHT']:
+    lamp.data.color = (1.0, 1.0, 1.0)
+    lamp.data.energy = 450
+bpy.context.scene.world.color = (0.18, 0.18, 0.18)
+bpy.context.scene.view_settings.view_transform = 'AgX'
 
 def garment(name, predicate, color, thickness):
     obj = body.copy()
@@ -145,6 +151,22 @@ for side in ['l', 'r']:
         sleeve.vertex_groups['upperarm_' + side].add(indices, 1 - weight, 'REPLACE')
         sleeve.vertex_groups['lowerarm_' + side].add(indices, weight, 'REPLACE')
     for polygon in sleeve.data.polygons:
+        polygon.use_smooth = True
+    yoke_vertices = []
+    sign = 1 if side == 'l' else -1
+    for ring in range(4):
+        t = ring / 3
+        center = upper.head_local + (upper.tail_local - upper.head_local) * (t * 0.30 - 0.15)
+        radius = 0.105 + 0.012 * math.sin(math.pi * t)
+        for index in range(9):
+            angle = math.pi * index / 8
+            # Shoulder cap covers the upper arc, leaving the armpit flexible.
+            yoke_vertices.append((center.x, center.y + radius * math.cos(angle), center.z + radius * math.sin(angle)))
+    yoke_faces = [(r * 9 + i, r * 9 + i + 1, (r + 1) * 9 + i + 1, (r + 1) * 9 + i) for r in range(3) for i in range(8)]
+    if sign < 0:
+        yoke_faces = [tuple(reversed(face)) for face in yoke_faces]
+    yoke = jacket_panel('Rook_ShoulderYoke_' + side, yoke_vertices, yoke_faces)
+    for polygon in yoke.data.polygons:
         polygon.use_smooth = True
 def boot_piece(name, location, scale, bone, color):
     # Rounded rectangular cross-sections avoid a box silhouette while keeping
