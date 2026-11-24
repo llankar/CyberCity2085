@@ -21,6 +21,9 @@ ROOM_BACKGROUNDS = {
 class DepartmentDeck(DocumentKit):
     def __init__(self):
         super().__init__()
+        # Large department text surfaces reveal the room art while cards and
+        # actionable controls keep their stronger default fill for readability.
+        self.panel_fill_alpha = 202
         self.pages = {}
         self.selection = {}
         self.capacities = {}

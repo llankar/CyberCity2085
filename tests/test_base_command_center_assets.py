@@ -6,6 +6,7 @@ from pathlib import Path
 from PIL import Image
 
 from game.ui.components.departments.deck import ROOM_BACKGROUNDS, ROOMS
+from game.ui.components.departments.deck import DepartmentDeck
 
 
 def test_every_department_has_distinct_local_widescreen_art():
@@ -39,3 +40,8 @@ def test_lab_2_uses_real_research_categories_and_no_fake_queue_actions():
     assert "project.requires" in source
     assert "pause" not in source.lower()
     assert "cancel" not in source.lower()
+
+
+def test_department_text_panels_reveal_room_backgrounds():
+    deck = DepartmentDeck()
+    assert 180 <= deck.panel_fill_alpha <= 215

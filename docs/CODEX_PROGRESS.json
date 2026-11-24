@@ -2335,6 +2335,13 @@
     "disk_bytes_moved": 4481464070,
     "tests": {"passed": 19, "failed": 0, "skipped": 2}
   },
+  "base_command_center_panel_transparency": {
+    "status": "DONE",
+    "updated": "2026-11-24",
+    "panel_fill_alpha": 202,
+    "tests": {"passed": 70, "failed": 0, "skipped": 1, "subtests_passed": 5},
+    "visual_windows_review": "NOT VERIFIED"
+  },
   "planned_batches": [
     {
       "id": "SCALE",

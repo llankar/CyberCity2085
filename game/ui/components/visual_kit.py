@@ -228,7 +228,11 @@ class VisualKit:
         self.hit(rect, action, data, tooltip or label)
 
     def panel(self, rect, title, icon):
-        self.paint.panel(rect, CYAN)
+        self.paint.panel(
+            rect,
+            CYAN,
+            fill_alpha=getattr(self, "panel_fill_alpha", 242),
+        )
         hh = 47 * self.u
         arcade.draw_line(
             rect.left + 12 * self.u,

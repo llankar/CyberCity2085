@@ -186,8 +186,13 @@ class HolographicRenderer:
 
         return polygon, line, outline, finish
 
-    def panel(self, rect, color, *, selected=False):
-        key = (round(rect.width, 3), round(rect.height, 3), tuple(color[:3]), selected)
+    def panel(self, rect, color, *, selected=False, fill_alpha=242):
+        """Draw a cut-corner panel with a caller-controlled translucent fill."""
+        fill_alpha = max(0, min(255, int(fill_alpha)))
+        key = (
+            round(rect.width, 3), round(rect.height, 3), tuple(color[:3]),
+            selected, fill_alpha,
+        )
         mesh = self._panels.get(key)
         if mesh is None:
             polygon, line, outline, finish = self._mesh()
@@ -202,7 +207,7 @@ class HolographicRenderer:
                 (0, h - 8),
                 (0, 8),
             ]
-            polygon(points, (2, 9, 15, 242))
+            polygon(points, (2, 9, 15, fill_alpha))
             for width, alpha in (
                 [(8, 20), (4, 55), (1.6, 235)] if selected else [(3, 22), (1, 170)]
             ):

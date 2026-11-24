@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- BASE-COMMAND-CENTER-PANEL-ALPHA — DONE (2026-11-24). Les panneaux textuels principaux des départements utilisent alpha 202/255 ; cartes et contrôles restent opaques. 70 tests et 5 sous-tests réussis, 1 skip graphique attendu. Validation visuelle Windows des six fonds : NOT VERIFIED.
+
 - SOURCE-ASSET-SPLIT-01 — DONE (2026-11-24). Dépôt privé `llankar/CyberCity2085-SourceAssets` créé et publié (`3a469e4d`) avec 3 291 fichiers auteur sous LFS. Le dépôt jeu ne conserve que les atlas runtime ; les outils découvrent le dépôt frère ou `CYBERCITY_SOURCE_ASSETS`. 19 tests réussis, 2 skips ; sauvegarde utilisateur hors commit.
 - SOURCE-ASSET-SPLIT-01 / clone gate — DONE. `main` publié sur `0fde5c97`. Clone shallow distant sans smudge : `.git` 5,44 MiB, aucun `source_sheets`, HEAD conforme. Les sources restent récupérables dans le dépôt privé séparé.
 
