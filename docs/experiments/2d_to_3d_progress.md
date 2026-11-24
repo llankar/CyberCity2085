@@ -2,6 +2,16 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` LICENSED-TACTICAL-CANDIDATES-34 — recovered official asset-pack
+  manifests through GitHub API (makehuman-static-website/content/Assets/AssetPacks).
+  suits02 explicitly lists CC0 joachip_cyborg_suit and MatCreator Guardian,
+  Helios and Jupiter7 armor. Started only that targeted 183 MB pack on E:
+  downloads/suits02_cc0.zip via curl. No acceptance inferred from manifest;
+  individual files and appearance still need inspection. Hair01 is described
+  as low-poly/stylized and hair02 as higher-poly; further selection remains open.
+  Next: poll curl, CRC/install suits02, inspect armor thumbnails and fit chosen
+  pieces under neutral light. Preserve existing authored outfit comparisons.
+
 - `IN_PROGRESS` AUTHORED-REVIEW-33 — inspected outfit02 neutral back/profile:
   coat and trousers fit coherently, but short04 hair shows scalp holes at the
   crown/back. Not accepted. Official MakeHuman November 2026 notice confirms
