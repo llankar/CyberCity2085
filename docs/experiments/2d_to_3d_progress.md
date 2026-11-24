@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-GARMENTS-04 — rendered and inspected the first garment
+  study. Rejected its jagged jacket cut and unwanted hand geometry. Added
+  boundary relaxation, restricted garment extents and separate boot shells.
+  Blender execution and preview generation succeeded in rook_dressed_v2 on E:.
+  Second visual inspection still rejects the result: sleeve openings remain
+  irregular, boot shells retain toe anatomy, and fit is too tight. No artistic
+  acceptance or animation readiness claimed. Next: replace derived sleeve and
+  boot shells with authored garment topology and soles; add collar/lapels.
+
 - `IN_PROGRESS` ROOK-GARMENTS-03 — portrait inspected; separate trousers,
   undershirt and open jacket shell derived from the preserved MPFB body with
   inherited skin weights and real thickness. Blender CLI generated

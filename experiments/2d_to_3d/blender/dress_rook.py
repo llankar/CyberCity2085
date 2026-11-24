@@ -31,6 +31,16 @@ def garment(name, predicate, color, thickness):
     bmesh.ops.delete(bm, geom=remove, context='VERTS')
     bm.to_mesh(obj.data)
     bm.free()
+    # Relax the cut boundary only; preserve the weighted interior topology.
+    bm = bmesh.new()
+    bm.from_mesh(obj.data)
+    boundary = [v for v in bm.verts if any(e.is_boundary for e in v.link_edges)]
+    for _ in range(5):
+        bmesh.ops.smooth_vert(bm, verts=boundary, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+    bm.to_mesh(obj.data)
+    bm.free()
+    for polygon in obj.data.polygons:
+        polygon.use_smooth = True
     mat = bpy.data.materials.new(name + '_material')
     mat.use_nodes = True
     shader = mat.node_tree.nodes['Principled BSDF']
@@ -43,9 +53,10 @@ def garment(name, predicate, color, thickness):
     solid.offset = 1
     return obj
 
-garment('Rook_Trousers', lambda p: 0.13 < p.z < 0.96, (0.018, 0.025, 0.03), 0.012)
+garment('Rook_Trousers', lambda p: 0.13 < p.z < 1.00 and abs(p.x) < 0.25, (0.018, 0.025, 0.03), 0.018)
 garment('Rook_Undershirt', lambda p: 0.94 < p.z < 1.43 and abs(p.x) < 0.22, (0.008, 0.012, 0.015), 0.009)
-garment('Rook_JacketShell', lambda p: 0.98 < p.z < 1.46 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
+garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.40 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
+garment('Rook_Boots', lambda p: p.z < 0.23, (0.012, 0.018, 0.022), 0.020)
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'rook_dressed.blend'))
 bpy.context.scene.render.filepath = str(output / 'rook_dressed_preview.png')
 bpy.ops.render.render(write_still=True)
