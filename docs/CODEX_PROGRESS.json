@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "NEODOLLAR-SUBPAGE-HEADER-01",
+      "title": "Afficher le symbole Neodollar dans les bandeaux des sous-pages",
+      "status": "DONE",
+      "files": ["game/ui/components/visual_kit.py", "game/ui/components/squad_command.py", "game/ui/components/character_sheet.py", "tests/test_economy_scale.py"],
+      "tests": ["Targeted resource-bar, visual-unification, dossier, character-sheet and Management gate: 78 passed, 1 skipped and 5 subtests passed.", "Native unified UI validator passed at 1280x720, 1920x1080 and 2560x1440."],
+      "evidence": ["The shared resource bar prefixes FUNDS with ₦ while leaving non-currency resources unchanged."],
+      "remaining": []
+    },
+    {
       "id": "NEW-CAMPAIGN-ECONOMY-01",
       "title": "Donner le capital et les recrutements gratuits de debut de campagne",
       "status": "DONE",

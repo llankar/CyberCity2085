@@ -1571,3 +1571,5 @@ Slice 5 TAC-ENEMY-01 is complete and ready for:
 
 - NEW-CAMPAIGN-ECONOMY-01 — DONE (2026-11-24). Capital initial fixé à ₦1 500 pour toutes les difficultés, avec quatre recrutements de roster gratuits persistants puis retour automatique au tarif normal. Compatibilité des anciennes sauvegardes préservée sans attribution rétroactive ; symbole Neodollar double-barre ₦ unifié dans les interfaces actives.
 
+- NEODOLLAR-SUBPAGE-HEADER-01 — DONE (2026-11-24). Symbole ₦ ajouté à la valeur FUNDS des bandeaux partagés des sous-pages, de Squad Ops et de l'Operative Dossier, en cohérence avec l'écran Headquarters.
+

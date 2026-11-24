@@ -127,7 +127,7 @@ class SquadCommandRenderer(VisualKit):
                 width=cell - 42 * self.u,
             )
             self.label(
-                f"{value:,}",
+                ("₦ " if key == "funds" else "") + f"{value:,}",
                 x + 36 * self.u,
                 r.center[1] - 12 * self.u,
                 22,

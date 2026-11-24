@@ -132,7 +132,7 @@ class CharacterSheetRenderer(SquadCommandRenderer):
             )
             self.icon(icon, box.left + 13 * u, box.center[1], 20, color)
             self.label(key, box.left + 28 * u, box.center[1] + 10 * u, 8, TEXT, bold=True, width=box.width-31*u)
-            self.label(f"{value:,}", box.left + 28 * u, box.center[1] - 10 * u, 13, color, bold=True, width=box.width-31*u)
+            self.label(("₦ " if key == "FUNDS" else "") + f"{value:,}", box.left + 28 * u, box.center[1] - 10 * u, 13, color, bold=True, width=box.width-31*u)
         # Progress points remain visible in the Skills footer and cards.
         close = Rect(w - 64 * u, r.bottom + 8 * u, w - 16 * u, r.top - 8 * u)
         self.paint.panel(

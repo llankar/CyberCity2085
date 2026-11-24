@@ -501,7 +501,7 @@ class VisualKit:
                 width=r.width - 50 * self.u,
             )
             self.label(
-                f"{value:,}",
+                ("₦ " if i == 0 else "") + f"{value:,}",
                 r.left + 43 * self.u,
                 r.bottom + 18 * self.u,
                 22,

@@ -4,6 +4,7 @@ import random
 import json
 
 from game.gamestate import GameState
+from game.management.economy import format_neodollars
 from game.management.spec_ops_assets import SpecOpsAsset, asset_catalog
 from game.management.weekly_planning import DIRECTIVES
 from game.management.weekly_planning import build_management_forecast
@@ -19,6 +20,11 @@ def test_new_campaign_starts_with_opening_capital_and_four_free_hires():
     assert state.grant_initial_recruitment() is False
     assert state.available_funds == 1_500
     assert state.free_recruits_remaining == 4
+
+
+def test_neodollar_formatter_uses_the_double_barred_symbol():
+    assert format_neodollars(8_689) == "₦8,689"
+    assert format_neodollars(1_264, signed=True) == "₦+1,264"
 
 
 def test_opening_hires_are_consumed_before_paid_recruitment():

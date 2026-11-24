@@ -1111,3 +1111,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 
 - État courant (2026-11-24) : NEW-CAMPAIGN-ECONOMY-01 DONE. Toute nouvelle campagne démarre à 1 500 Neodollars et reçoit quatre recrutements gratuits, consommés avant les recrutements payants et persistés dans la sauvegarde. Les sauvegardes existantes ne reçoivent pas ce bonus rétroactivement. Le symbole monétaire visible est désormais le double-barre ₦ dans les parcours actifs. Gate ciblé : 48 tests et 5 sous-tests réussis ; validateur natif PASS aux trois résolutions. Suite complète : 1 289 réussis, 36 skips, 5 échecs préexistants indépendants (quatre chemins de planches externes et un contrat texte PSI Godot), 14 sous-tests réussis.
 
+- État courant (2026-11-24) : NEODOLLAR-SUBPAGE-HEADER-01 DONE. Le bandeau de ressources commun des sous-pages, Squad Ops et Operative Dossier préfixe désormais la valeur FUNDS avec le symbole Neodollar ₦, comme le bandeau de la base. Les autres ressources conservent leur affichage numérique sans symbole monétaire.
+
