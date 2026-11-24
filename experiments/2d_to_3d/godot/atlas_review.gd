@@ -10,6 +10,9 @@ var rows: Array = []
 var status: Label
 var looping := true
 var action_name := "walk"
+var facing_map: Array = [0, 1, 2, 3, 4, 5, 6, 7]
+var production_order := false
+var captions: Array[Label] = []
 
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/robot_walk_atlas01/"
@@ -21,6 +24,8 @@ func _ready() -> void:
 				return
 		if argument.begins_with("--atlas-dir="):
 			folder = argument.trim_prefix("--atlas-dir=").trim_suffix("/") + "/"
+		if argument == "--production-order":
+			production_order = true
 	if not folder.begins_with("E:/CyberCity2085-3d-lab/generated/"):
 		get_tree().quit(5)
 		return
@@ -32,6 +37,7 @@ func _ready() -> void:
 	rows = manifest.animations[action_name].rows
 	fps = manifest.animations[action_name].fps
 	looping = manifest.animations[action_name].loop
+	facing_map = manifest.get("facing_to_orbit_view", facing_map)
 	var texture := ImageTexture.create_from_image(image)
 	for index in range(8):
 		var sprite := Sprite2D.new()
@@ -41,12 +47,16 @@ func _ready() -> void:
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		sprite.position = Vector2(160 + (index % 4) * 300, 260 + (index / 4) * 290)
 		sprite.scale = Vector2.ONE * 1.5
+		if manifest.has("anchor_uv"):
+			sprite.centered = false
+			sprite.offset = -Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * 128
 		add_child(sprite)
 		views.append(sprite)
 		var label := Label.new()
 		label.text = "Orbit view %d" % index
 		label.position = sprite.position + Vector2(-45, 105)
 		add_child(label)
+		captions.append(label)
 	status = Label.new()
 	status.position = Vector2(20, 20)
 	status.add_theme_font_size_override("font_size", 20)
@@ -57,7 +67,8 @@ func _ready() -> void:
 			frame_value = sample
 			update_frames()
 			for direction in range(8):
-				assert(views[direction].frame == int(rows[direction][sample]))
+				var row_index: int = facing_map[direction] if production_order else direction
+				assert(views[direction].frame == int(rows[row_index][sample]))
 		frame_value = 0
 		elapsed = 0
 		_process(1.1 / fps)
@@ -75,6 +86,12 @@ func _ready() -> void:
 		key.keycode = KEY_LEFT
 		_unhandled_key_input(key)
 		assert(selected == 0)
+		var old_mode := production_order
+		key.keycode = KEY_M
+		_unhandled_key_input(key)
+		assert(production_order != old_mode)
+		_unhandled_key_input(key)
+		assert(production_order == old_mode)
 		playing = true
 		frame_value = 3
 		elapsed = 0
@@ -95,10 +112,12 @@ func _ready() -> void:
 
 func update_frames() -> void:
 	for direction in range(views.size()):
-		views[direction].frame = int(rows[direction][frame_value])
+		var row_index: int = facing_map[direction] if production_order else direction
+		views[direction].frame = int(rows[row_index][frame_value])
 		views[direction].modulate = Color.WHITE if selected == direction else Color(0.8, 0.8, 0.8)
+		captions[direction].text = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"][direction] if production_order else "Orbit view %d" % direction
 	if status:
-		status.text = "ANIMATED ATLAS REVIEW | authored %s | 8 views x 4 poses\nSpace: pause | Left/Right: select view | frame %d | %.2f fps\nRaw camera orbit indices: production facing and foot anchor NOT VERIFIED" % [action_name, frame_value, fps]
+		status.text = "ANIMATED ATLAS REVIEW | authored %s | 8 views x 4 poses\nSpace: pause | Left/Right: select | M: orbit/projected facing | frame %d | %.2f fps\nProjected facing assumes source forward -Y; artistic acceptance NOT VERIFIED" % [action_name, frame_value, fps]
 
 func _process(delta: float) -> void:
 	if not playing or views.is_empty():
@@ -114,6 +133,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_SPACE:
 			playing = not playing
+		if event.keycode == KEY_M:
+			production_order = not production_order
 		if event.keycode in [KEY_RIGHT, KEY_LEFT]:
 			selected = posmod(selected + (1 if event.keycode == KEY_RIGHT else -1), 8)
 		update_frames()

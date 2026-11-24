@@ -2,6 +2,23 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-ATLAS-ALIGN-70 — all five actions rerendered separately
+  in E: robot_unified_ACTION folders using common5m orthographic scale, camera
+  target(0,0,.9),128px frames; prior experiments preserved. All160 frames pass
+  nonempty/alpha-margin/packing checks. Cross-clip verifier confirms shared anchor
+  (.5,.652639687), reference height .407039225UV and metadata equality within1e-6.
+  Derived facing-to-orbit mapping [4,5,6,7,0,1,2,3] from camera projection of assumed
+  Blender-Y-negative forward, not hand-written labels. Review supports projected
+  E/SE/S/SW/W/NW/N/NE order via M and uses exported ground anchor. Native Death
+  self-test passes frame indexing/timing/pause/view/mode/end behavior; screenshot
+  inspected in robot_unified_Death/godot_review.png. Seven Python tests pass.
+  Visual source-forward/facing acceptance NOT VERIFIED; sparse action sampling,
+  style and final native3D fidelity remain open. Human acquisition/licensing
+  questions remain pending, no integration of unlicensed candidate.
+  Next: qualifying human source, more action samples only after art selection,
+  improve scene/hardsurface identity, final acceptance screenshots. Global open.
+
+
 - `IN_PROGRESS` ROBOT-ATLAS-ACTIONS-69 — independent Godot atlas_review scene
   added with timed playback, pause and eight-view selection. Native self-tests
   pass all32 frame indices, timed advance, pause, selection, loop/nonloop ending.

@@ -59,6 +59,14 @@ for the default Walk atlas. For another action add `--action=Death
 Space pauses; arrows select a raw orbit view. Native tests exercise all frame
 indices, timed advance, pause, view changes and loop/non-loop end behavior.
 
+Latest renders use a common 5m orthographic scale and camera target for every
+action. `verify_robot_clip_alignment.py` checks five `robot_unified_ACTION`
+folders for identical anchors/scale and projected facing mapping. Ground-origin
+anchor is approximately `(0.5,0.65264)`; standing2.4m reference height0.40704UV.
+The review's `--production-order` / M uses camera-projected -Y forward to order
+E,SE,S,SW,W,NW,N,NE. The source-forward assumption still needs visual acceptance.
+Previous differently framed experimental sheets remain preserved on E:.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.
