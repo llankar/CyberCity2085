@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MECH-ORIENTATION-56 — inspected George scene root (no explicit
+  root rotation/scale). Added reversible preview root-X override; -90-degree
+  Idle capture does not restore expected upright appearance (hypothesis fails).
+  Downloaded and inspected pack Preview.jpg to compare intended silhouettes.
+  Do not modify source or accept this converted mirror until animation/rest
+  transforms are verified. Next: compare rest pose versus Idle and import the
+  glTF in Blender; prefer official source if mirror conversion is faulty.
+
 - `IN_PROGRESS` EXISTING-MECH-55 — official Quaternius Animated Mech page
   lists CC0. Acquired textured George glTF from agentkaerf/FreeModels mirror
   plus bundled License.txt (CC0 verified), on E: sources/quaternius_mech.

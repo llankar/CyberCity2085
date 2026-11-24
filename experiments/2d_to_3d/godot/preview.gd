@@ -22,6 +22,9 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--rotate-x="):
+			model.rotation_degrees.x = argument.trim_prefix("--rotate-x=").to_float()
 	var requested_clip := "FittingStressTest"
 	var sample_fraction := 1.0
 	var sample_clip := "--sample-clip" in OS.get_cmdline_user_args()
