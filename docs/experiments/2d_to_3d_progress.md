@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-JACKET-07 — added separate thickened lapels and raised
+  collar with body-derived skin weights. Blender CLI successfully generated
+  rook_dressed_v5 BLEND and preview on E:. Front three-quarter preview inspected;
+  overall garment identity remains below the reference, with sleeve fitting,
+  hair and face work still open. Deformation NOT VERIFIED. Next: replace sleeve
+  cuts with coherent rings and produce close-up/multi-angle views.
+
 - `IN_PROGRESS` ROOK-BOOTS-06 — replaced cube primitives with four rounded
   cross-section rings per component. v4 BLEND and preview generated on E: and
   inspected: toe silhouette is rounder, but ankle fitting and garment overlap

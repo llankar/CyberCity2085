@@ -56,7 +56,42 @@ def garment(name, predicate, color, thickness):
 
 garment('Rook_Trousers', lambda p: 0.13 < p.z < 1.00 and abs(p.x) < 0.25, (0.018, 0.025, 0.03), 0.018)
 garment('Rook_Undershirt', lambda p: 0.94 < p.z < 1.43 and abs(p.x) < 0.22, (0.008, 0.012, 0.015), 0.009)
-garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.40 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
+jacket = garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.40 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
+
+def jacket_panel(name, vertices, faces):
+    mesh = bpy.data.meshes.new(name + '_mesh')
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    obj.data.materials.append(jacket.data.materials[0])
+    # Transfer weights from the body surface, preserving multi-bone deformation.
+    obj.parent = rig
+    for group in body.vertex_groups:
+        obj.vertex_groups.new(name=group.name)
+    for vertex in mesh.vertices:
+        nearest = min(body.data.vertices, key=lambda v: (v.co - vertex.co).length_squared)
+        for weight in nearest.groups:
+            obj.vertex_groups[weight.group].add([vertex.index], weight.weight, 'REPLACE')
+    armature = obj.modifiers.new('Skeleton', 'ARMATURE')
+    armature.object = rig
+    solid = obj.modifiers.new('LeatherThickness', 'SOLIDIFY')
+    solid.thickness = 0.009
+    bevel = obj.modifiers.new('SoftSeams', 'BEVEL')
+    bevel.width = 0.005
+    bevel.segments = 2
+    return obj
+
+for sign, side in [(1, 'l'), (-1, 'r')]:
+    jacket_panel('Rook_Lapel_' + side,
+        [(sign * x, y, z) for x, y, z in [(0.06, -0.09, 1.47), (0.15, -0.105, 1.40), (0.10, -0.145, 1.24), (0.055, -0.13, 1.37)]],
+        [(0, 1, 2, 3)] if sign > 0 else [(3, 2, 1, 0)])
+collar_vertices = []
+for z, radius in [(1.43, 0.092), (1.51, 0.105)]:
+    for index in range(13):
+        angle = math.pi * 1.35 * index / 12 - math.pi * 0.175
+        collar_vertices.append((radius * math.cos(angle), radius * math.sin(angle) + 0.005, z))
+jacket_panel('Rook_RaisedCollar', collar_vertices, [(i, i + 1, i + 14, i + 13) for i in range(12)])
 def boot_piece(name, location, scale, bone, color):
     # Rounded rectangular cross-sections avoid a box silhouette while keeping
     # an editable low-poly surface with coherent rings.
