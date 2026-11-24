@@ -290,7 +290,7 @@ def draw_icon_resource_hud(
         )
         _draw_icon("credits", 40, height - 56, 18, palette.RESOURCE)
         arcade.draw_text("FUNDS", 56, height - 50, palette.MUTED_TEXT, font_size=8, bold=True)
-        arcade.draw_text(f"¥ {available_funds:,}", 56, height - 64, palette.TEXT, font_size=12, bold=True)
+        arcade.draw_text(f"₦ {available_funds:,}", 56, height - 64, palette.TEXT, font_size=12, bold=True)
     keys = (
         ("credits", "CREDITS"),
         ("intel", "INTEL"),

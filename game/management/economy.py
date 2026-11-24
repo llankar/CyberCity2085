@@ -8,6 +8,16 @@ single-, double- and five-digit economies.
 MISSION_BASE_REWARD = 1_200
 MISSION_RISK_REWARD = 100
 
+NEODOLLAR_SYMBOL = "₦"
+NEW_CAMPAIGN_FUNDS = 1_500
+NEW_CAMPAIGN_FREE_RECRUITS = 4
+
+
+def format_neodollars(amount: int, *, signed: bool = False) -> str:
+    """Return the canonical double-barred Neodollar display."""
+    spec = "+," if signed else ","
+    return f"{NEODOLLAR_SYMBOL}{int(amount):{spec}}"
+
 RECRUIT_PRICE_MULTIPLIER = 50
 RECRUIT_PRICE_ROUNDING = 50
 

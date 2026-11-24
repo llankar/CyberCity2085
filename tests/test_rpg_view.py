@@ -418,7 +418,7 @@ class RPGViewMissionLaunchTest(unittest.TestCase):
             for text in drawn_text
             if text not in allowed
             and not text.isdigit()
-            and not text.startswith(("¥", "Ą"))
+            and not text.startswith(("₦", "¥", "Ą"))
         ]
         self.assertEqual(unexpected, [])
 

@@ -335,7 +335,7 @@ class HeadquartersRenderer(SquadCommandRenderer):
                 anchor_x="center",
             )
             self.label(
-                ("¥ " if key == "funds" else "") + f"{value:,}",
+                ("₦ " if key == "funds" else "") + f"{value:,}",
                 r.left + 40 * u,
                 r.bottom + number_h / 2 + 3 * u,
                 23,

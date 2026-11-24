@@ -56,10 +56,10 @@ class NarrativeDeck(UtilityDeck):
             )
             if nxt:
                 text += (
-                    nxt.text + f"\n\n¥{nxt.fund_delta:+} / STRESS {nxt.stress_delta:+}"
+                    nxt.text + f"\n\n₦{nxt.fund_delta:+} / STRESS {nxt.stress_delta:+}"
                 )
         elif v._state == "complete":
-            text += f'\n\n{scene.outcome.upper() if scene.outcome else ""}\n¥{v._total_funds_earned:+} / STRESS {v._total_stress:+}'
+            text += f'\n\n{scene.outcome.upper() if scene.outcome else ""}\n₦{v._total_funds_earned:+} / STRESS {v._total_stress:+}'
         self.document(
             "scene_" + v._scene_id + "_" + v._state,
             text,

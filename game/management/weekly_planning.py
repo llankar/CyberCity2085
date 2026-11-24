@@ -120,7 +120,7 @@ def apply_weekly_directive(game_state: "GameState", directive_id: str) -> tuple[
         chosen = DIRECTIVES_BY_ID.get(game_state.weekly_directive_id)
         return False, f"Week {week} directive already set: {chosen.title if chosen else game_state.weekly_directive_id}."
     if not game_state.spend_funds(directive.cost, "weekly_directive", directive.title):
-        return False, f"{directive.title} requires ¥{directive.cost}."
+        return False, f"{directive.title} requires ₦{directive.cost:,}."
 
     district = game_state.district
     if directive.id == "civil_defense":

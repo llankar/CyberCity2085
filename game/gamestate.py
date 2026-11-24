@@ -91,6 +91,8 @@ class GameState:
     hangar: HangarProgression = field(default_factory=HangarProgression)
     owned_equipment: dict[str, int] = field(default_factory=dict)
     initial_armory_granted: bool = False
+    initial_recruitment_granted: bool = False
+    free_recruits_remaining: int = 0
     base_upgrade_ids: list[str] = field(default_factory=list)
     vehicle_upgrade_ids: list[str] = field(default_factory=list)
 
@@ -240,7 +242,7 @@ class GameState:
         level, name, capacity, cost = upgrade
         if not self.spend_funds(cost, "hangar_upgrade", f"Hangar level {level}: {name}."):
             missing = max(0, cost - self.available_funds)
-            return False, f"Insufficient funds: need ¥{missing:,} more."
+            return False, f"Insufficient funds: need ₦{missing:,} more."
         self.hangar.level = level
         self.add_event(f"Hangar upgraded to {name}; squad capacity is now {capacity}.")
         return True, f"{name} acquired. Squad capacity: {capacity}."
@@ -259,7 +261,7 @@ class GameState:
         if item.id in owned:
             return False, f"{item.name} is already installed."
         if not self.spend_funds(item.cost, "vehicle_upgrade" if vehicle else "base_upgrade", item.name):
-            return False, f"Insufficient funds: {item.name} costs ¥{item.cost:,}."
+            return False, f"Insufficient funds: {item.name} costs ₦{item.cost:,}."
         owned.append(item.id)
         self.add_event(f"Upgrade installed: {item.name}.")
         return True, f"{item.name} installed."
@@ -302,10 +304,10 @@ class GameState:
             return False, f"Research required: {name}."
         price = equipment_purchase_price(item)
         if not self.spend_funds(price, "equipment_purchase", f"Purchased {item.name}."):
-            return False, f"Insufficient funds: {item.name} costs ¥{price:,}."
+            return False, f"Insufficient funds: {item.name} costs ₦{price:,}."
         self.owned_equipment[item.id] = self.owned_equipment.get(item.id, 0) + 1
-        self.add_event(f"Equipment acquired: {item.name} for ¥{price:,}.")
-        return True, f"{item.name} purchased for ¥{price:,}."
+        self.add_event(f"Equipment acquired: {item.name} for ₦{price:,}.")
+        return True, f"{item.name} purchased for ₦{price:,}."
 
     def grant_initial_armory(self) -> bool:
         """Grant six functional kits once, exclusively for a new campaign."""
@@ -318,6 +320,35 @@ class GameState:
         self.initial_armory_granted = True
         self.add_event("Asset Bay commissioned with equipment for six field loadouts.")
         return True
+
+    def grant_initial_recruitment(self) -> bool:
+        """Grant the new-campaign cash floor and four free roster hires once."""
+        if self.initial_recruitment_granted:
+            return False
+        from .management.economy import NEW_CAMPAIGN_FREE_RECRUITS, NEW_CAMPAIGN_FUNDS
+
+        missing = max(0, NEW_CAMPAIGN_FUNDS - self.available_funds)
+        if missing:
+            self.add_funds(missing, "opening_capital", "New campaign operating capital.")
+        self.free_recruits_remaining = NEW_CAMPAIGN_FREE_RECRUITS
+        self.initial_recruitment_granted = True
+        self.add_event(
+            f"Recruitment charter issued: {NEW_CAMPAIGN_FREE_RECRUITS} free hires available."
+        )
+        return True
+
+    def pay_recruitment(self, price: int, recruit_name: str = "Recruit") -> tuple[bool, bool]:
+        """Consume an opening free hire, or pay the normal recruitment price.
+
+        Returns ``(success, was_free)`` so UI callers only present the result;
+        the campaign entitlement remains owned and persisted by the game state.
+        """
+        if self.free_recruits_remaining > 0:
+            self.free_recruits_remaining -= 1
+            self.add_event(f"Opening charter used for {recruit_name}.")
+            return True, True
+        paid = self.spend_funds(price, "recruitment", f"Recruited {recruit_name}.")
+        return paid, False
 
     def allocate_corp_funds(self, key: str, amount: int) -> bool:
         """Attempt to allocate funds from the current corporate ledger."""
@@ -676,6 +707,8 @@ class GameState:
             "hangar": self.hangar.to_dict(),
             "owned_equipment": dict(self.owned_equipment),
             "initial_armory_granted": self.initial_armory_granted,
+            "initial_recruitment_granted": self.initial_recruitment_granted,
+            "free_recruits_remaining": self.free_recruits_remaining,
             "base_upgrade_ids": list(self.base_upgrade_ids),
             "vehicle_upgrade_ids": list(self.vehicle_upgrade_ids),
             "x": self.x,
@@ -860,6 +893,12 @@ class GameState:
         # A loaded save is never a new-campaign creation path. Legacy saves keep
         # identifiable gear only and must not receive the six-kit grant.
         gs.initial_armory_granted = bool(data.get("initial_armory_granted", True))
+        gs.initial_recruitment_granted = bool(
+            data.get("initial_recruitment_granted", True)
+        )
+        gs.free_recruits_remaining = max(
+            0, int(data.get("free_recruits_remaining", 0))
+        )
         gs.base_upgrade_ids = list(dict.fromkeys(data.get("base_upgrade_ids", [])))
         gs.vehicle_upgrade_ids = list(dict.fromkeys(data.get("vehicle_upgrade_ids", [])))
         if "owned_equipment" not in data:

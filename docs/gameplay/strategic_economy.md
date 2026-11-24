@@ -3,6 +3,12 @@
 The economy uses one ordinary successful mission as its reference unit:
 approximately **1,500 funds**, plus passive income earned during elapsed days.
 
+The canonical currency is the **Neodollar**, displayed with the double-barred
+symbol **₦**. Every new campaign begins with exactly **₦1,500** and a one-time
+recruitment charter covering the first **four roster hires**. These free hires
+do not affect Hangar deployment capacity. Existing saves receive neither the
+capital nor free hires retroactively.
+
 ## Funds bands
 
 | System | Current band | Intended cadence |

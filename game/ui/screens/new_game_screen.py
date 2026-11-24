@@ -132,15 +132,10 @@ class NewGameSetupView(arcade.View):
 
         gs = GameState()
         gs.grant_initial_armory()
+        gs.grant_initial_recruitment()
         gs.corp_name = corp
         gs.city_name = city
         gs.base_name = f"{corp} · Forward Base Kilo"
-
-        # Difficulty modifiers (light touch — no new systems)
-        if self._diff == 0:  # Rookie
-            gs.funds.current_funds += 200
-        elif self._diff == 2:  # Legend
-            gs.funds.current_funds = max(10, gs.funds.current_funds - 100)
 
         view = ManagementView(gs)
         view.setup()

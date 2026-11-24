@@ -197,7 +197,7 @@ def draw_inventory(p, r: Rect):
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
         owned = p.gs.owns_equipment(item.id)
         price = equipment_purchase_price(item)
-        p.label(f"{bonuses}  //  {'OWNED' if owned else f'¥{price:,}'}", text_x, row.center[1]-12*u, 9, MINT if owned else GOLD, width=row.right-text_x-8*u)
+        p.label(f"{bonuses}  //  {'OWNED' if owned else f'₦{price:,}'}", text_x, row.center[1]-12*u, 9, MINT if owned else GOLD, width=row.right-text_x-8*u)
         p.hit(row, "dossier_inventory_item", item.id, "Inspect item")
     _panel(p, detail, "ITEM DETAILS // COMPARISON", CYAN)
     chosen = next((item for item in items if item.id == selected_id), None) or (items[0] if items else None)
@@ -212,7 +212,7 @@ def draw_inventory(p, r: Rect):
         price = equipment_purchase_price(chosen)
         owned = p.gs.owns_equipment(chosen.id)
         available = p.gs.can_assign_equipment(chosen.id, c)
-        p.label(f"{equipment_power_band(chosen)}  //  ¥{price:,}  //  {'OWNED' if owned else 'AVAILABLE'}", detail.left+16*u, detail.top-318*u, 10, MINT if owned else GOLD, bold=True)
+        p.label(f"{equipment_power_band(chosen)}  //  ₦{price:,}  //  {'OWNED' if owned else 'AVAILABLE'}", detail.left+16*u, detail.top-318*u, 10, MINT if owned else GOLD, bold=True)
         p.paragraph(chosen.description, Rect(detail.left+16*u, detail.top-397*u, detail.right-16*u, detail.top-330*u), 11, TEXT)
         y = detail.top-410*u
         all_stats = sorted(set(chosen.stat_bonuses) | set(equipped.stat_bonuses if equipped else {}))
@@ -293,7 +293,7 @@ def draw_cyberware(p, r: Rect):
         p.image(_cyberware_art(selected_zone), thumb)
         text_x = thumb.right + 7*u
         p.label(item.name.upper(), text_x, row.center[1]+7*u, 9, TEXT, bold=True, width=row.right-text_x-28*u)
-        p.label(f"¥{item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", text_x, row.center[1]-10*u, 8, GOLD, width=row.right-text_x-28*u)
+        p.label(f"₦{item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", text_x, row.center[1]-10*u, 8, GOLD, width=row.right-text_x-28*u)
         p.hit(row, "dossier_cyberware_item", item.id, "Inspect implant")
         quick = Rect(row.right-28*u, row.bottom+4*u, row.right-4*u, row.top-4*u)
         p.hit(quick, "cyberware_toggle", item.id, "Install or remove this implant")
@@ -313,7 +313,7 @@ def draw_cyberware(p, r: Rect):
         for key, value in chosen.combat_bonuses.items():
             p.label(f"{key.upper()} {value:+d}", detail.left+15*u, y, 13, MINT, bold=True)
             y -= 28*u
-        p.label(f"FUNDS ¥{chosen.credit_cost:,}   //   HUMANITY -{chosen.humanity_cost}", detail.left+15*u, detail.bottom+88*u, 11, GOLD, bold=True, width=detail.width-30*u)
+        p.label(f"FUNDS ₦{chosen.credit_cost:,}   //   HUMANITY -{chosen.humanity_cost}", detail.left+15*u, detail.bottom+88*u, 11, GOLD, bold=True, width=detail.width-30*u)
         action = Rect(detail.left+15*u, detail.bottom+20*u, detail.right-15*u, detail.bottom+66*u)
         _surface(p, action, RED if installed else GOLD, selected=True)
         p.label("REMOVE" if installed else "INSTALL", *action.center, 13, RED if installed else GOLD, bold=True, anchor_x="center")

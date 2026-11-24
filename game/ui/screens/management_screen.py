@@ -4,7 +4,7 @@ Replaces CorpView, CityView, and RPGView with a single XCOM2-style
 tabbed management interface:
 
     ┌──────────────────────────────────────────────────────┐  ←  52px top HUD
-    │ ■ AEGIS CORP  │  DAY 14  │  ¥ 2,450  │  THREAT ███  │
+    │ ■ AEGIS CORP  │  DAY 14  │  ₦ 2,450  │  THREAT ███  │
     ├────────┬─────────────────────────────────────────────┤
     │ COMMAND│                                              │
     │ CITY   │           active tab content                │
@@ -680,7 +680,7 @@ class ManagementView(GameView):
         arcade.draw_text(f"{char.name.upper()} // CYBERWARE", x0 + 22, y1 - 38, palette.TEXT, font_size=18, bold=True)
         humanity = humanity_remaining(char.installed_cyberware)
         arcade.draw_text(f"HUMANITY  {humanity} / 5", x1 - 68, y1 - 38, palette.WARNING if humanity <= 1 else palette.ACCENT, font_size=16, bold=True, anchor_x="right")
-        arcade.draw_text(f"FUNDS  ¥{self.game_state.available_funds:,}", x1 - 68, y1 - 62, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
+        arcade.draw_text(f"FUNDS  ₦{self.game_state.available_funds:,}", x1 - 68, y1 - 62, palette.RESOURCE, font_size=10, bold=True, anchor_x="right")
         arcade.draw_text("Implants are grouped by body zone. Stronger benefits cost more credits and Humanity.", x0 + 22, y1 - 62, palette.MUTED_TEXT, font_size=10)
         close = _HitRegion(x1 - 48, y1 - 54, x1 - 18, y1 - 24, "cyberware_close")
         _rect(close.left, close.bottom, close.right, close.top, (20, 24, 30, 240))
@@ -754,7 +754,7 @@ class ManagementView(GameView):
                 _rect(left, bottom, left + card_w, top, (11, 25, 33, 238))
                 _border(left, bottom, left + card_w, top, border, 1)
                 arcade.draw_text(item.name.upper(), left + 10, top - 20, palette.TEXT, font_size=9, bold=True)
-                arcade.draw_text(f"T{item.power_tier}  //  ¥{item.credit_cost:,}  //  H-{item.humanity_cost}", left + 10, top - 38, palette.WARNING, font_size=8, bold=True)
+                arcade.draw_text(f"T{item.power_tier}  //  ₦{item.credit_cost:,}  //  H-{item.humanity_cost}", left + 10, top - 38, palette.WARNING, font_size=8, bold=True)
                 description = item.description if len(item.description) <= 58 else item.description[:57].rstrip() + "…"
                 arcade.draw_text(description, left + 10, top - 56, palette.MUTED_TEXT, font_size=7, width=card_w - 20)
                 bonus_text = "  ".join(f"+{v} {k.upper()}" for k, v in item.combat_bonuses.items())
@@ -866,7 +866,7 @@ class ManagementView(GameView):
         arcade.draw_text(day_txt, 260, cy, palette.ACCENT, font_size=15, anchor_y="center")
 
         # Funds
-        funds_txt = f"¥ {gs.available_funds:,}"
+        funds_txt = f"₦ {gs.available_funds:,}"
         arcade.draw_text("FUNDS", 400, cy + 8, palette.MUTED_TEXT, font_size=11, anchor_y="center")
         arcade.draw_text(funds_txt, 400, cy - 8, palette.RESOURCE, font_size=14, bold=True, anchor_y="center")
 
@@ -1010,11 +1010,11 @@ class ManagementView(GameView):
             f"{gs.calendar.campaign_date_label}",
             f"Day {gs.calendar.current_day}  |  Week {gs.calendar.current_week}",
             "",
-            f"Funds:      ¥ {gs.available_funds:,}",
-            f"Income:     ¥ {gs.projected_weekly_income:,} / week",
+            f"Funds:      ₦ {gs.available_funds:,}",
+            f"Income:     ₦ {gs.projected_weekly_income:,} / week",
             f"Next payout: Day {gs.next_weekly_income_date}",
-            f"Net forecast: ¥ {forecast.projected_net:+,}",
-            f"Asset upkeep: ¥ {forecast.asset_upkeep:,}",
+            f"Net forecast: ₦ {forecast.projected_net:+,}",
+            f"Asset upkeep: ₦ {forecast.asset_upkeep:,}",
             "",
             f"Research:   {len(gs.active_research)} active",
             f"Security:   {gs.corp_budget.get('security', 0)}",
@@ -1025,7 +1025,7 @@ class ManagementView(GameView):
             if not line:
                 cy -= 8
                 continue
-            col = palette.RESOURCE if "¥" in line else palette.TEXT
+            col = palette.RESOURCE if "₦" in line else palette.TEXT
             arcade.draw_text(line, lx0 + 12, cy, col, font_size=11)
             cy -= 18
         if cy > y0 + 60:
@@ -1103,7 +1103,7 @@ class ManagementView(GameView):
             _rect(rx0 + 10, ry - bh, rx1 - 10, ry, fill)
             arcade.draw_line(rx0 + 10, ry, rx1 - 10, ry, accent, 2)
             arcade.draw_text(
-                f"{directive.title}  ¥{directive.cost}",
+                f"{directive.title}  ₦{directive.cost:,}",
                 rx0 + 18, ry - 18, palette.TEXT, font_size=10, bold=True,
             )
             arcade.draw_text(directive.promise, rx0 + 18, ry - 38, palette.TACTICAL_GREEN, font_size=8)
@@ -1289,7 +1289,7 @@ class ManagementView(GameView):
 
             # Deploy cost badge
             if asset.deploy_cost > 0:
-                arcade.draw_text(f"DEPLOY ¥{asset.deploy_cost}", tx, ct - 50, palette.RESOURCE, font_size=9)
+                arcade.draw_text(f"DEPLOY ₦{asset.deploy_cost:,}", tx, ct - 50, palette.RESOURCE, font_size=9)
 
             # Pilot badge for power armors (shown inline above integrity bar)
             if is_armor:
@@ -1350,7 +1350,7 @@ class ManagementView(GameView):
             itx = dx0 + 14 + sps + 4
             arcade.draw_text(cat_item.name.upper(), itx, cct - 16, palette.TEXT, font_size=12, bold=True)
             arcade.draw_text(
-                f"{'ROBOT' if not is_armor else 'POWER ARMOR'}  |  DEPLOY ¥{cat_item.deploy_cost}/mission",
+                f"{'ROBOT' if not is_armor else 'POWER ARMOR'}  |  DEPLOY ₦{cat_item.deploy_cost:,}/mission",
                 itx, cct - 30, palette.MUTED_TEXT, font_size=8,
             )
             # Weapons preview
@@ -1365,7 +1365,7 @@ class ManagementView(GameView):
             _rect(bx0, by0, bx1, by1, (12, 30, 14, 220) if can_afford else (20, 20, 22, 180))
             arcade.draw_line(bx0, by1, bx1, by1, cat_col, 2)
             arcade.draw_text(
-                f"BUY ¥{acquire_cost}", (bx0 + bx1) // 2, (by0 + by1) // 2,
+                f"BUY ₦{acquire_cost:,}", (bx0 + bx1) // 2, (by0 + by1) // 2,
                 cat_col, font_size=9, bold=True, anchor_x="center", anchor_y="center",
             )
             self._hits.append(_HitRegion(bx0, by0, bx1, by1, "catalog_acquire", ci))
@@ -1405,7 +1405,7 @@ class ManagementView(GameView):
 
             # Deploy cost
             if asset.deploy_cost > 0:
-                arcade.draw_text(f"DEPLOY COST: ¥{asset.deploy_cost} / mission", rx0 + 100, dy, palette.RESOURCE, font_size=10)
+                arcade.draw_text(f"DEPLOY COST: ₦{asset.deploy_cost:,} / mission", rx0 + 100, dy, palette.RESOURCE, font_size=10)
                 dy -= 18
 
             # Divider
@@ -1492,7 +1492,7 @@ class ManagementView(GameView):
             m = asset.maintenance
             arcade.draw_text("MAINTENANCE", rx0 + 14, dy, palette.MUTED_TEXT, font_size=10, bold=True)
             dy -= 16
-            for line in [f"Integrity: {m.integrity}%", f"Repair: ¥{m.repair_cost}", f"Upkeep/day: ¥{m.base_upkeep}"]:
+            for line in [f"Integrity: {m.integrity}%", f"Repair: ₦{m.repair_cost:,}", f"Service: ₦{m.base_upkeep:,}"]:
                 arcade.draw_text(line, rx0 + 20, dy, palette.TEXT, font_size=10)
                 dy -= 14
 
@@ -1506,7 +1506,7 @@ class ManagementView(GameView):
             rep_col  = palette.ACCENT if can_rep else (40, 50, 55)
             _rect(rx0 + 10, btn_y, rx0 + 10 + btn_w, btn_y + btn_h, (8, 20, 28, 220))
             arcade.draw_line(rx0 + 10, btn_y + btn_h, rx0 + 10 + btn_w, btn_y + btn_h, rep_col, 2)
-            arcade.draw_text(f"REPAIR  ¥{rep_cost}", rx0 + 10 + btn_w // 2, btn_y + btn_h // 2, rep_col, font_size=11, bold=True, anchor_x="center", anchor_y="center")
+            arcade.draw_text(f"REPAIR  ₦{rep_cost:,}", rx0 + 10 + btn_w // 2, btn_y + btn_h // 2, rep_col, font_size=11, bold=True, anchor_x="center", anchor_y="center")
             self._hits.append(_HitRegion(rx0 + 10, btn_y, rx0 + 10 + btn_w, btn_y + btn_h, "asset_repair", sel_idx))
 
             dep_sel   = asset.id in gs.selected_asset_ids
@@ -1836,7 +1836,7 @@ class ManagementView(GameView):
                 else {1: "LOW", 2: "LOW", 3: "MED", 4: "HIGH", 5: "CRIT"}.get(mission.risk_level, str(mission.risk_level))
             )
             _badge(risk_label, x0 + 18, info_top - 76, risk_col)
-            arcade.draw_text(f"¥ {mission.fund_reward:,} reward", x0 + 108, info_top - 70, palette.RESOURCE, font_size=11)
+            arcade.draw_text(f"₦ {mission.fund_reward:,} reward", x0 + 108, info_top - 70, palette.RESOURCE, font_size=11)
             dur = getattr(mission, "duration_days", 1)
             arcade.draw_text(f"{dur} day{'s' if dur != 1 else ''}", x0 + 238, info_top - 70, palette.MUTED_TEXT, font_size=11)
             arcade.draw_text(
@@ -1951,7 +1951,7 @@ class ManagementView(GameView):
             _rect(bx0, by0, bx0 + bw, by0 + bh, (8, 20, 30, 220))
             arcade.draw_line(bx0, by0 + bh, bx0 + bw, by0 + bh, palette.ROLE_PSI, 1)
             arcade.draw_text(proj.name[:22], bx0 + 6, by0 + bh - 14, palette.TEXT, font_size=9)
-            arcade.draw_text(f"¥{proj.funds_cost:,}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
+            arcade.draw_text(f"₦{proj.funds_cost:,}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
             self._hits.append(_HitRegion(bx0, by0, bx0 + bw, by0 + bh, f"start_research_{pi}", None))
 
     # ── INTEL tab ─────────────────────────────────────────────────────────────
@@ -2375,7 +2375,7 @@ class ManagementView(GameView):
                 if reason in {"installed", "replaced"}:
                     self.dossier_cyber_scan_until = self._elapsed + 0.6
             elif reason == "funds" and item:
-                self.message = f"Insufficient funds: {item.name} costs ¥{item.credit_cost:,}."
+                self.message = f"Insufficient funds: {item.name} costs ₦{item.credit_cost:,}."
             else:
                 self.message = "Insufficient Humanity."
             return
@@ -2552,7 +2552,8 @@ class ManagementView(GameView):
         if candidate_index >= len(self.pending_recruit_candidates):
             return
         candidate = self.pending_recruit_candidates[candidate_index]
-        if not gs.spend_funds(candidate.price, "recruitment", f"Recruited {candidate.name}."):
+        recruited, free_recruit = gs.pay_recruitment(candidate.price, candidate.name)
+        if not recruited:
             blocked = blocked_recruit_reason(gs.available_funds, candidate.price)
             if blocked:
                 self.message = blocked.to_ui_text()
@@ -2576,10 +2577,10 @@ class ManagementView(GameView):
             assignment = ""
         self._close_recruit_window()
         self.message = (
-            f"{agent.name} joins as {candidate.role} for ¥{candidate.price}; assign reserve gear in Squad Ops."
+            f"{agent.name} joins as {candidate.role} for {'FREE' if free_recruit else f'₦{candidate.price:,}'}; assign reserve gear in Squad Ops."
             f"{assignment}"
         )
-        gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role} (¥{candidate.price})"))
+        gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role} ({'FREE' if free_recruit else f'₦{candidate.price:,}'})"))
 
     def _do_remove_agent(self) -> None:
         gs = self.game_state
@@ -2659,8 +2660,8 @@ class ManagementView(GameView):
             if asset.id in gs.selected_asset_ids and asset.deploy_cost > 0:
                 deploy_total += asset.deploy_cost
         if deploy_total > 0:
-            if not gs.spend_funds(deploy_total, "asset_deploy", f"Asset deployment costs: ¥{deploy_total}"):
-                self.message = f"Insufficient funds for asset deployment costs (¥{deploy_total} needed)."
+            if not gs.spend_funds(deploy_total, "asset_deploy", f"Asset deployment costs: ₦{deploy_total}"):
+                self.message = f"Insufficient funds for asset deployment costs (₦{deploy_total} needed)."
                 self.notifications.warning(self.message)
                 return
 
@@ -2685,9 +2686,9 @@ class ManagementView(GameView):
             return
         if gs.spend_funds(cost, "asset_repair", f"Repaired {asset.name}."):
             asset.maintenance.mark_repaired()
-            gs.add_event(push_action(self.notifications, "asset_repair", True, f"{asset.name} fully repaired — ¥{cost}"))
+            gs.add_event(push_action(self.notifications, "asset_repair", True, f"{asset.name} fully repaired — ₦{cost}"))
         else:
-            gs.add_event(push_action(self.notifications, "asset_repair", False, f"Insufficient funds (need ¥{cost})"))
+            gs.add_event(push_action(self.notifications, "asset_repair", False, f"Insufficient funds (need ₦{cost})"))
 
     def _do_asset_deploy_toggle(self, idx: int) -> None:
         gs = self.game_state
@@ -2711,7 +2712,7 @@ class ManagementView(GameView):
         gs = self.game_state
         cost = 5_000
         if not gs.spend_funds(cost, "asset_acquire", "Acquired new spec-ops asset."):
-            gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ¥{cost} to acquire asset"))
+            gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ₦{cost} to acquire asset"))
             return
         from game.management.spec_ops_assets import CombatRobot, PowerArmorSuit
         idx = len(gs.spec_ops_assets)
@@ -2749,7 +2750,7 @@ class ManagementView(GameView):
             template = items[catalog_idx]
         acquire_cost = getattr(template, '_acquire_cost', 5_000)
         if not gs.spend_funds(acquire_cost, "asset_acquire", f"Purchased {template.name}"):
-            gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ¥{acquire_cost}"))
+            gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ₦{acquire_cost}"))
             return
         # Clone the template with a unique ID
         uid = f"{template.id}_{len(gs.spec_ops_assets):03d}"

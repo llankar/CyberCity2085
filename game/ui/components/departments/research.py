@@ -67,7 +67,7 @@ def draw_research(k, left, center, right):
         k.stat(
             Rect(r.left, y - 90 * u, r.left + half, y),
             k.word("COÛT", "COST"),
-            f"¥{p.funds_cost:,}",
+            f"₦{p.funds_cost:,}",
             "coins",
             color=GOLD,
         )
@@ -177,7 +177,7 @@ def _draw_base_upgrades(k, left, center, right):
         vehicle = item in VEHICLE_UPGRADES
         owned = item.id in (gs.vehicle_upgrade_ids if vehicle else gs.base_upgrade_ids)
         if item.id == "hangar": owned = gs.hangar.is_max_level
-        k.card(card, item.name, "INSTALLED" if owned else ("VEHICLE" if vehicle else "BASE") + f" // ¥{item.cost:,}", action="department_select", data=("base_upgrade", item.id), selected=item.id == selected, color=GOLD if vehicle else CYAN, tooltip=item.description)
+        k.card(card, item.name, "INSTALLED" if owned else ("VEHICLE" if vehicle else "BASE") + f" // ₦{item.cost:,}", action="department_select", data=("base_upgrade", item.id), selected=item.id == selected, color=GOLD if vehicle else CYAN, tooltip=item.description)
     item = next((x for x in choices if x.id == selected), choices[0])
     vehicle = item in VEHICLE_UPGRADES
     k.panel(center, "UPGRADE DETAILS", "chip")
@@ -186,12 +186,12 @@ def _draw_base_upgrades(k, left, center, right):
     k.paragraph(item.description + "\n\n" + item.effect, Rect(body.left+12*u, body.bottom+90*u, body.right-12*u, body.top-65*u), 16, TEXT)
     if item.id == "hangar":
         nxt = gs.hangar.next_upgrade
-        label = "MAX LEVEL" if nxt is None else f"UPGRADE HANGAR // ¥{nxt[3]:,}"
+        label = "MAX LEVEL" if nxt is None else f"UPGRADE HANGAR // ₦{nxt[3]:,}"
         enabled = bool(nxt and gs.can_afford(nxt[3]))
         action, data = "upgrade_hangar", None
     else:
         owned = item.id in (gs.vehicle_upgrade_ids if vehicle else gs.base_upgrade_ids)
-        label = "INSTALLED" if owned else f"INSTALL // ¥{item.cost:,}"
+        label = "INSTALLED" if owned else f"INSTALL // ₦{item.cost:,}"
         enabled = not owned and gs.can_afford(item.cost)
         action, data = "purchase_base_upgrade", (item.id, vehicle)
     k.action(Rect(body.left, body.bottom, body.right, body.bottom+55*u), label, action, data, enabled=enabled, primary=True)

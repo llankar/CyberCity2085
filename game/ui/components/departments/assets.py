@@ -102,7 +102,7 @@ def _draw_armory(k, left, center, right):
         owned = gs.owned_equipment.get(item.id, 0)
         ready = gs.equipment_available_count(item.id)
         k.label(item.name.upper(), x, card.top - 23 * u, 17, TEXT, bold=True, width=card.right - x - 8 * u)
-        k.label(f"{equipment_power_band(item)} // ¥{equipment_purchase_price(item):,}", x, card.top - 48 * u, 13, GOLD, width=card.right - x - 8 * u)
+        k.label(f"{equipment_power_band(item)} // ₦{equipment_purchase_price(item):,}", x, card.top - 48 * u, 13, GOLD, width=card.right - x - 8 * u)
         k.label(f"OWNED {owned} // RESERVE {ready}", x, card.bottom + 18 * u, 13, MINT if ready else MUTED, width=card.right - x - 8 * u)
         k.hit(card, "department_select", ("armory_item", item.id), item.description)
 
@@ -123,7 +123,7 @@ def _draw_armory(k, left, center, right):
     y = art.bottom - 18 * u
     k.label(selected.name.upper(), area.left, y, 24, TEXT, bold=True, width=area.width)
     y -= 30 * u
-    k.label(f"ACCESS {selected.availability_group} // POWER {equipment_power_band(selected)} // ¥{equipment_purchase_price(selected):,}", area.left, y, 13, GOLD, width=area.width)
+    k.label(f"ACCESS {selected.availability_group} // POWER {equipment_power_band(selected)} // ₦{equipment_purchase_price(selected):,}", area.left, y, 13, GOLD, width=area.width)
     y -= 29 * u
     effects = [f"{key.upper()} {value:+}" for key, value in selected.stat_bonuses.items() if value]
     if hasattr(selected, "damage_bonus"):
@@ -137,7 +137,7 @@ def _draw_armory(k, left, center, right):
         detail += "\n\nRESEARCH REQUIRED: " + (project.name if project else selected.research_project_id)
     k.document("armory_detail", detail, Rect(area.left, area.bottom + 62 * u, area.right, y), 16)
     price = equipment_purchase_price(selected)
-    label = "RESEARCH REQUIRED" if locked else f"BUY ONE // ¥{price:,}"
+    label = "RESEARCH REQUIRED" if locked else f"BUY ONE // ₦{price:,}"
     k.action(Rect(area.left, area.bottom, area.right, area.bottom + 50 * u), label, "asset_buy_equipment", selected.id, enabled=not locked and gs.available_funds >= price, primary=not locked and gs.available_funds >= price, tooltip=detail)
 
 
@@ -187,7 +187,7 @@ def _draw_vehicles(k, left, center, right):
             MINT if asset.is_deployable else RED,
         )
         k.label(
-            f"{asset.maintenance.integrity}%  /  ¥{asset.deploy_cost:,}",
+            f"{asset.maintenance.integrity}%  /  ₦{asset.deploy_cost:,}",
             x,
             r.bottom + 12 * u,
             13,
@@ -241,7 +241,7 @@ def _draw_vehicles(k, left, center, right):
             asset.display_role, x, r.top - 44 * u, 14, MUTED, width=r.right - x - 10 * u
         )
         k.label(
-            f'{k.tr("deploy")}  ¥{asset.deploy_cost:,}',
+            f'{k.tr("deploy")}  ₦{asset.deploy_cost:,}',
             x,
             r.top - 68 * u,
             14,
@@ -252,12 +252,12 @@ def _draw_vehicles(k, left, center, right):
             Rect(
                 r.left + 10 * u, r.bottom + 9 * u, r.right - 10 * u, r.bottom + 43 * u
             ),
-            f'{k.tr("buy")}  ¥{cost:,}',
+            f'{k.tr("buy")}  ₦{cost:,}',
             "catalog_acquire_by_id",
             asset.id,
             enabled=gs.available_funds >= cost,
             primary=gs.available_funds >= cost,
-            tooltip=f"{asset.name} / ¥{cost:,} / {asset.display_role}",
+            tooltip=f"{asset.name} / ₦{cost:,} / {asset.display_role}",
         )
     y = area.bottom
     k.action(
@@ -349,7 +349,7 @@ def profile(k, asset, index, r):
     ) or k.tr("empty")
     k.paragraph(weapons, Rect(r.left, y - 67 * u, r.right, y), 15)
     k.label(
-        f'{k.tr("maintenance")}  ¥{asset.maintenance.base_upkeep:,}  //  {k.tr("deploy")} ¥{asset.deploy_cost:,}',
+        f'{k.tr("maintenance")}  ₦{asset.maintenance.base_upkeep:,}  //  {k.tr("deploy")} ₦{asset.deploy_cost:,}',
         r.left,
         y - 82 * u,
         14,
@@ -411,11 +411,11 @@ def profile(k, asset, index, r):
     cost = asset.maintenance.repair_cost
     k.action(
         Rect(buttons.left, buttons.bottom, buttons.left + width, buttons.top),
-        f'{k.tr("repair")} ¥{cost:,}',
+        f'{k.tr("repair")} ₦{cost:,}',
         "asset_repair",
         index,
         enabled=cost > 0 and gs.available_funds >= cost,
-        tooltip=f'{k.tr("repair")} / ¥{cost:,}',
+        tooltip=f'{k.tr("repair")} / ₦{cost:,}',
     )
     selected = asset.id in gs.selected_asset_ids
     k.action(

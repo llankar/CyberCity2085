@@ -10,6 +10,52 @@ from game.management.weekly_planning import build_management_forecast
 from game.recruitment import build_recruitment_candidates
 
 
+def test_new_campaign_starts_with_opening_capital_and_four_free_hires():
+    state = GameState()
+
+    assert state.grant_initial_recruitment() is True
+    assert state.available_funds == 1_500
+    assert state.free_recruits_remaining == 4
+    assert state.grant_initial_recruitment() is False
+    assert state.available_funds == 1_500
+    assert state.free_recruits_remaining == 4
+
+
+def test_opening_hires_are_consumed_before_paid_recruitment():
+    state = GameState()
+    state.grant_initial_recruitment()
+
+    for remaining in range(3, -1, -1):
+        assert state.pay_recruitment(1_300, "Candidate") == (True, True)
+        assert state.free_recruits_remaining == remaining
+        assert state.available_funds == 1_500
+
+    assert state.pay_recruitment(1_300, "Paid Candidate") == (True, False)
+    assert state.available_funds == 200
+
+
+def test_opening_recruitment_round_trip_and_legacy_save_compatibility(tmp_path):
+    state = GameState()
+    state.grant_initial_recruitment()
+    state.pay_recruitment(1_300, "Candidate")
+    path = tmp_path / "opening-recruitment.json"
+    state.save(path)
+
+    restored = GameState.load(path)
+    assert restored.initial_recruitment_granted is True
+    assert restored.free_recruits_remaining == 3
+    assert restored.available_funds == 1_500
+
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    payload.pop("initial_recruitment_granted")
+    payload.pop("free_recruits_remaining")
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    legacy = GameState.load(path)
+    assert legacy.initial_recruitment_granted is True
+    assert legacy.free_recruits_remaining == 0
+    assert legacy.grant_initial_recruitment() is False
+
+
 def test_core_spending_systems_share_the_mission_reward_scale():
     state = GameState()
     rewards = [mission.fund_reward for mission in state.mission_templates]

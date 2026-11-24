@@ -13,7 +13,7 @@ class RecruitmentDeck(UtilityDeck):
         self.start(
             v,
             self.word("RECRUTEMENT / DOSSIERS", "RECRUITMENT / DOSSIERS"),
-            f"¥{v.game_state.available_funds:,}",
+            f"₦{v.game_state.available_funds:,}  //  FREE HIRES {v.game_state.free_recruits_remaining}",
             fractions=(0.32, 0.68),
         )
         u = self.u
@@ -47,9 +47,8 @@ class RecruitmentDeck(UtilityDeck):
                 CYAN,
                 width=r.width - 112 * u,
             )
-            self.label(
-                f"¥{c.price:,}", r.left + 99 * u, r.bottom + 21 * u, 21, GOLD, bold=True
-            )
+            price_label = "FREE" if v.game_state.free_recruits_remaining > 0 else f"₦{c.price:,}"
+            self.label(price_label, r.left + 99 * u, r.bottom + 21 * u, 21, GOLD, bold=True)
             self.hit(r, "recruit_preview", i, c.background)
         self.panel(right, self.word("DOSSIER OPÉRATIF", "OPERATIVE DOSSIER"), "journal")
         r = self.body(right)
@@ -95,10 +94,14 @@ class RecruitmentDeck(UtilityDeck):
             )
             self.action(
                 Rect(r.left, r.bottom, r.right, r.bottom + 52 * u),
-                self.word("RECRUTER", "HIRE") + f"  ¥{c.price:,}",
+                self.word("RECRUTER", "HIRE")
+                + ("  FREE" if v.game_state.free_recruits_remaining > 0 else f"  ₦{c.price:,}"),
                 "recruit_candidate",
                 selected,
-                enabled=v.game_state.available_funds >= c.price,
+                enabled=(
+                    v.game_state.free_recruits_remaining > 0
+                    or v.game_state.available_funds >= c.price
+                ),
                 primary=True,
             )
         self.footer(

@@ -322,18 +322,18 @@ class TextMissionView(GameView):
             gs.spend_funds(
                 -self._total_funds_earned,
                 "text_mission_reward",
-                f"Narrative mission reward: ¥{self._total_funds_earned}",
+                f"Narrative mission reward: ₦{self._total_funds_earned}",
             )
         elif self._total_funds_earned < 0:
             gs.spend_funds(
                 abs(self._total_funds_earned),
                 "text_mission_loss",
-                f"Narrative mission loss: ¥{abs(self._total_funds_earned)}",
+                f"Narrative mission loss: ₦{abs(self._total_funds_earned)}",
             )
         for char in self._deployed_agents():
             char.stress = min(int(getattr(char, "stress", 0)) + self._total_stress, 100)
         outcome = scene.outcome
         gs.add_event(
             f"Narrative mission '{self._mission.title}': {outcome.upper()}"
-            + (f"  ¥{self._total_funds_earned}" if self._total_funds_earned else "")
+            + (f"  ₦{self._total_funds_earned}" if self._total_funds_earned else "")
         )

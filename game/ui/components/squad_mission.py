@@ -101,7 +101,7 @@ def draw_mission(self, r):
             width=width * 0.35,
         )
         self.label(
-            f"¥ {mission.fund_reward:,}",
+            f"₦ {mission.fund_reward:,}",
             left + width * 0.38,
             meta_y,
             15,

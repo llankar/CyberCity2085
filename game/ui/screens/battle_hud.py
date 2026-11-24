@@ -1318,7 +1318,7 @@ def draw_resource_summary(
 
     if available_funds is not None:
         arcade.draw_text(
-            f"FUNDS  ¥ {available_funds:,}",
+            f"FUNDS  ₦ {available_funds:,}",
             left + 10,
             top - 28,
             palette.RESOURCE,

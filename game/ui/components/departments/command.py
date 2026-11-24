@@ -31,7 +31,7 @@ def draw_command(k, left, center, right):
         k.stat(
             Rect(r.left, y - 85 * u, r.right, y),
             title,
-            f"¥{value:+,}" if title == k.tr("net") else f"¥{value:,}",
+            f"₦{value:+,}" if title == k.tr("net") else f"₦{value:,}",
             icon,
             color=GOLD if value < 0 else CYAN,
         )
@@ -191,7 +191,7 @@ def draw_command(k, left, center, right):
                 card.right - 10 * u,
                 card.bottom + 36 * u,
             ),
-            f'¥{directive.cost:,} / {k.tr("selected") if selected else k.word("CHOISIR","CHOOSE")}',
+            f'₦{directive.cost:,} / {k.tr("selected") if selected else k.word("CHOISIR","CHOOSE")}',
             "weekly_directive_" + directive.id,
             enabled=not f.directive_locked and gs.available_funds >= directive.cost,
             selected=selected,

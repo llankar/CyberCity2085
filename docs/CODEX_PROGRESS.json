@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "NEW-CAMPAIGN-ECONOMY-01",
+      "title": "Donner le capital et les recrutements gratuits de debut de campagne",
+      "status": "DONE",
+      "files": ["game/management/economy.py", "game/gamestate.py", "game/ui/screens/new_game_screen.py", "game/ui/screens/management_screen.py", "game/ui/components/utilities/recruitment.py", "tests/test_economy_scale.py", "docs/gameplay/strategic_economy.md"],
+      "tests": ["Targeted economy, equipment and Management recruitment gate: 48 passed and 5 subtests passed.", "Native unified UI validator passed at 1280x720, 1920x1080 and 2560x1440.", "Full suite: 1289 passed, 36 skipped, 5 failed and 14 subtests passed. The five failures are the pre-existing four external source-sheet path tests and one Godot PSI source-text contract; none concerns opening recruitment or Neodollars."],
+      "evidence": ["New campaigns receive exactly 1500 Neodollars and four persisted free roster hires.", "Legacy saves default to an already-consumed charter and receive no retroactive grant.", "The canonical visible Neodollar symbol is the double-barred ₦."],
+      "remaining": ["Long-duration human campaign balance review is NOT VERIFIED."]
+    },
+    {
       "id": "ECONOMY-SCALE-UNIFICATION-01",
       "title": "Unifier prix, revenus et recompenses sur une echelle strategique",
       "status": "DONE",

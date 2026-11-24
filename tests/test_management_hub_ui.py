@@ -522,7 +522,7 @@ class ManagementHubUITest(unittest.TestCase):
 
         drawn_text = {call[0] for call in calls}
         self.assertIn("INFLUENCE", drawn_text)
-        self.assertTrue(any(text.startswith("¥ 2,500") for text in drawn_text))
+        self.assertTrue(any(text.startswith("₦ 2,500") for text in drawn_text))
         funds_call = next(call for call in calls if call[0] == "FUNDS")
         influence_label_call = next(call for call in calls if call[0] == "INFLUENCE")
         influence_value_call = next(call for call in calls if call[0] == "7")
@@ -831,7 +831,7 @@ class ManagementHubUITest(unittest.TestCase):
         )
         self.assertIn(first_candidate.function.upper(), normalized)
         self.assertIn(first_candidate.skill_line().upper(), normalized)
-        self.assertTrue(any(f"¥{first_candidate.price:,}" in text for text in drawn_text))
+        self.assertTrue(any(f"₦{first_candidate.price:,}" in text for text in drawn_text))
         self.assertTrue(
             any(
                 first_candidate.background[:24].upper() in text.upper()

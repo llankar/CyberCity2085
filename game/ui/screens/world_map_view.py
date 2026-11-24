@@ -108,7 +108,7 @@ def _compact_briefing_lines(mission: "MissionTemplate") -> list[str]:
     return [
         f"Risk: {mission.risk_level} ({risk_label(mission.risk_level)})",
         f"Duration: {duration}",
-        f"Reward: ¥{mission.fund_reward}",
+        f"Reward: ₦{mission.fund_reward}",
         f"Emotional: {_shorten(str(emotional), 58)}",
     ]
 
@@ -598,7 +598,7 @@ class MissionWorldMapView(GameView):
             paragraph(mission.title.upper(), 21, (244, 246, 250), 12, True)
             paragraph("SITE // " + site, 11, color, 16, True)
             paragraph(
-                f"RISK {mission.risk_level}   /   {mission.duration_days} DAYS   /   ¥{mission.fund_reward:,}",
+                f"RISK {mission.risk_level}   /   {mission.duration_days} DAYS   /   ₦{mission.fund_reward:,}",
                 12,
                 color,
                 18,
@@ -798,9 +798,9 @@ class MissionWorldMapView(GameView):
             if asset.id in gs.selected_asset_ids and asset.deploy_cost > 0:
                 deploy_total += asset.deploy_cost
         if deploy_total > 0 and not gs.spend_funds(
-            deploy_total, "asset_deploy", f"Asset deployment costs: ¥{deploy_total}"
+            deploy_total, "asset_deploy", f"Asset deployment costs: ₦{deploy_total}"
         ):
-            self._message = f"Insufficient funds for asset deployment costs (¥{deploy_total} needed)."
+            self._message = f"Insufficient funds for asset deployment costs (₦{deploy_total} needed)."
             return
 
         mission = _launch_mission(gs)
