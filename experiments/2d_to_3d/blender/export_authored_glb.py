@@ -16,6 +16,16 @@ for source in list(bpy.context.scene.objects):
     obj.data = source.data.copy()
     bpy.context.collection.objects.link(obj)
     obj.name = source.name + '_Export'
+    for slot in obj.material_slots:
+        if not slot.material or not slot.material.use_nodes:
+            continue
+        slot.material = slot.material.copy()
+        shader = next((n for n in slot.material.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+        if shader and 'short' not in source.name.lower() and 'hair' not in source.name.lower():
+            for link in list(shader.inputs['Alpha'].links):
+                slot.material.node_tree.links.remove(link)
+            shader.inputs['Alpha'].default_value = 1.0
+            shader.inputs['Coat Weight'].default_value = 0.0
     if obj.data.shape_keys:
         mixed = obj.shape_key_add(name='ExportShape', from_mix=True)
         positions = [v.co.copy() for v in mixed.data]

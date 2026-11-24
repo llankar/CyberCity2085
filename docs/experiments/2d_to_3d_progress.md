@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MATERIAL-DIAGNOSIS-38 — inspected GLB JSON: every material
+  exported alphaMode BLEND, including opaque skin/armor. Export copies now
+  disconnect alpha for non-hair surfaces and disable clearcoat. Regenerated
+  GLB and Godot neutral capture; speckle persists (hypothesis insufficient).
+  Do not claim material fix. Original authored materials remain untouched.
+  Next: inspect exported normal/roughness textures and isolate direct-light
+  specular versus shadow artifacts with controlled material/shadow diagnostics.
+
 - `IN_PROGRESS` AUTHORED-GODOT-37 — native Godot 4.7.2 OpenGL loaded authored
   armor GLB and captured neutral 12 m and 3 m orthographic views on E:.
   Both inspected: silhouette readable, but materials show excessive bright
