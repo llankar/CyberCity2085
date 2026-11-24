@@ -2309,6 +2309,23 @@
       "docs/images/entity-scale-production-windows/catalogue-11.jpg"
     ]
   },
+  "base_command_center_2": {
+    "status": "IN_PROGRESS",
+    "updated": "2026-11-24",
+    "completed_tasks": 2,
+    "total_tasks": 8,
+    "done": [
+      "Six distinct local department backgrounds integrated",
+      "R&D Lab 2.0 real-data three-column presentation integrated"
+    ],
+    "tests": {
+      "passed": 40,
+      "failed": 0,
+      "skipped": 1,
+      "not_executed": ["Windows visible 1920x1080 acceptance", "multi-resolution visual review"]
+    },
+    "next": "Capture F5 natively, repair any overflow, then complete F1-F4/F6 visual-functional passes"
+  },
   "planned_batches": [
     {
       "id": "SCALE",
