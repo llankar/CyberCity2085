@@ -19,6 +19,13 @@ camera mode; `--capture=E:/CyberCity2085-3d-lab/generated/phase2/name.png` saves
 a native screenshot after warmup and 120 measured frames. This is a scale stage,
 not yet the requested existing-map tactical scene.
 
+`python experiments/2d_to_3d/prepare_tactical_inputs.py` copies the existing alley
+image and wall metadata to E: and checks their hashes. Add `--tactical` to the
+comparison launch after generating `vtol01` with `blender/create_vtol.py`.
+This prototype loads a textured 2D map floor plus blocked-cell volumes, the two
+actors, a hovering VTOL and a crate. It is not a finished 3D environment or an
+exact production-zoom comparison. Original map/runtime files remain unchanged.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

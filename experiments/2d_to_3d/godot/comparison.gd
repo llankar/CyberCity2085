@@ -62,6 +62,8 @@ func _ready() -> void:
 	add_child(sun)
 	for x in range(-4, 5):
 		for z in range(-3, 4):
+			if "--tactical" in OS.get_cmdline_user_args():
+				continue
 			var tile := MeshInstance3D.new()
 			var box := BoxMesh.new()
 			box.size = Vector3(0.98, 0.04, 0.98)
@@ -76,6 +78,10 @@ func _ready() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 7.8
 	add_child(camera)
+	if "--tactical" in OS.get_cmdline_user_args():
+		load_tactical_map()
+		camera.size = 22
+		target = Vector3(0, 1, 2)
 	update_camera()
 	var layer := CanvasLayer.new()
 	add_child(layer)
@@ -87,7 +93,7 @@ func _ready() -> void:
 	play_clip("Idle")
 	selected = 0
 	clip_status = "Human: static fitting model; action clips unavailable"
-	print("COMPARISON_STAGE_LOADED subjects=2 tile_width_m=1")
+	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	if "--self-test" in OS.get_cmdline_user_args():
 		var key := InputEventKey.new()
 		key.pressed = true
@@ -135,8 +141,62 @@ func _ready() -> void:
 			get_tree().quit(0 if result == OK else 4)
 
 func update_camera() -> void:
-	camera.position = target + Vector3(sin(yaw) * cos(elevation), sin(elevation), cos(yaw) * cos(elevation)) * 10
+	camera.position = target + Vector3(sin(yaw) * cos(elevation), sin(elevation), cos(yaw) * cos(elevation)) * 50
 	camera.look_at(target)
+
+func load_tactical_map() -> void:
+	subjects[0].position = Vector3(-1.5, 0, 1.5)
+	subjects[1].position = Vector3(1.5, 0, 1.5)
+	var folder := "E:/CyberCity2085-3d-lab/sources/tactical_map/"
+	var name_value := "city_exterior_neon_market_alley"
+	var data = JSON.parse_string(FileAccess.get_file_as_string(folder + name_value + ".walls.json"))
+	if not data is Dictionary:
+		push_error("Run prepare_tactical_inputs.py first")
+		get_tree().quit(5)
+		return
+	var image := Image.load_from_file(folder + name_value + ".png")
+	if image == null:
+		get_tree().quit(5)
+		return
+	image.generate_mipmaps()
+	var floor_mesh := MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(data.grid[0], data.grid[1])
+	floor_mesh.mesh = plane
+	floor_mesh.position.y = -0.03
+	var asphalt := StandardMaterial3D.new()
+	asphalt.albedo_texture = ImageTexture.create_from_image(image)
+	asphalt.roughness = 0.95
+	asphalt.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+	floor_mesh.material_override = asphalt
+	add_child(floor_mesh)
+	var occupied: Dictionary = {}
+	for obstacle in data.walls:
+		var tall: bool = "building" in obstacle.id
+		for cell in obstacle.cells:
+			var key := Vector2i(cell[0], cell[1])
+			if occupied.has(key):
+				continue
+			occupied[key] = true
+			var geometry := MeshInstance3D.new()
+			var block := BoxMesh.new()
+			var height := 3.0 if tall else 0.7
+			block.size = Vector3(1, height, 1)
+			geometry.mesh = block
+			geometry.position = Vector3(cell[0] - data.grid[0] / 2.0 + 0.5, height / 2, cell[1] - data.grid[1] / 2.0 + 0.5)
+			var surface := StandardMaterial3D.new()
+			surface.albedo_color = Color(0.12, 0.15, 0.17) if tall else Color(0.28, 0.29, 0.27)
+			surface.roughness = 0.8
+			geometry.material_override = surface
+			add_child(geometry)
+	# No clear landing footprint exists on this alley: show the aircraft hovering.
+	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/vtol01/vtol.glb", Vector3(-6, 4, -4))
+	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/crate_procedural.glb", Vector3(-3, 0, 2))
+	assert(subjects.size() == 4)
+	for subject in subjects.slice(0, 2):
+		var cell := Vector2i(floori(subject.position.x + data.grid[0] / 2.0), floori(subject.position.z + data.grid[1] / 2.0))
+		assert(not occupied.has(cell), "Actor spawned in blocked cell")
+	print("TACTICAL_MAP_LAYOUT_LOADED cells=", occupied.size(), " subjects=", subjects.size(), " visual=2.5D_floor_plus_blocked_cells")
 
 func play_clip(name_value: String) -> void:
 	var players := subjects[selected].find_children("*", "AnimationPlayer", true, false)
@@ -153,6 +213,8 @@ func play_clip(name_value: String) -> void:
 func _process(_delta: float) -> void:
 	if hud:
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human 1.718 m | Right: robot 2.4 m (rest pose)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % ["Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		if "--tactical" in OS.get_cmdline_user_args():
+			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:

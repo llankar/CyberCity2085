@@ -2,6 +2,31 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TACTICAL-STAGE-64 — first existing-map composition now loads
+  human, robot, crate and newly modeled reference-inspired VTOL in native Godot.
+  Original alley PNG/walls copied to E: with SHA256 verification; 627 obstacle
+  cells represented as prototype volumes over textured 2D floor. No production
+  files modified. Actor-center clear-cell assertions and four-subject assertion
+  pass; native selection/robot-animation/camera tests pass. Screenshot inspected:
+  E: generated/phase2/tactical_first.png. 120 frames ~2.000161s (~60fps), limited
+  four-subject scene only. Six Python tests pass. Not a finished 3D environment:
+  block geometry, floor perspective, actor footprint margins and exact sprite
+  zoom comparison remain TODO. Aircraft hovering because no clear landing-sized
+  rectangle exists in this alley's blocked layout. Existing human remains only
+  a technical comparison model; professional-human acquisition still open.
+
+- `IN_PROGRESS` VTOL-MESH-65 — 48-part rigid mechanical study generated from
+  actual project's sources/vehicle.png reference: tapered octagonal closed hull,
+  cockpit facets, twin ducted rotors with individual blades, tail fins, landing
+  struts and cabin windows. BLEND/GLB/neutral render saved on E: phase2/vtol01.
+  Initial wing roots occluded fan disks; corrected and rerendered/inspected.
+  Native Godot load in tactical stage verified. Shape still basic, not artistic
+  acceptance; panel detail, real rotor animation and optimization remain TODO.
+  Prior TripoSR vehicle was visually rejected and remains preserved, unused.
+  Next: qualified authored human acquisition, production zoom/sprite comparison,
+  improve map geometry and mechanical asset fidelity, final screenshots.
+
+
 - `IN_PROGRESS` PROFESSIONAL-HUMAN-61 — user strategy correction adopted:
   stop generic MPFB recoloring, prioritize authored professional-quality humans,
   tactical modular gear and clear redistribution rights. Candidate/licensing
