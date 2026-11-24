@@ -37,6 +37,20 @@ func _ready() -> void:
 			get_tree().quit(3)
 			return
 		print("CYBERCITY_RIG_OK bones=53 meshes=%s skinned=%s" % [meshes.size(), skinned])
+	if "--test-equipment" in OS.get_cmdline_user_args():
+		if equipment_meshes.size() != 6:
+			get_tree().quit(4)
+			return
+		var key := InputEventKey.new()
+		key.keycode = KEY_B
+		key.pressed = true
+		_unhandled_key_input(key)
+		for mesh in equipment_meshes:
+			assert(not mesh.visible)
+		_unhandled_key_input(key)
+		for mesh in equipment_meshes:
+			assert(mesh.visible)
+		print("CYBERCITY_EQUIPMENT_TOGGLE_OK parts=6")
 
 	var environment := WorldEnvironment.new()
 	var env := Environment.new()
@@ -61,6 +75,18 @@ func _ready() -> void:
 	add_child(camera)
 	camera.look_at(Vector3(0.0, 0.45, 0.0))
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--capture="):
+			var output := argument.trim_prefix("--capture=")
+			if not output.begins_with("E:/CyberCity2085-3d-lab/"):
+				get_tree().quit(5)
+				return
+			await RenderingServer.frame_post_draw
+			await RenderingServer.frame_post_draw
+			var result := get_viewport().get_texture().get_image().save_png(output)
+			print("CYBERCITY_CAPTURE_RESULT ", result)
+			get_tree().quit(0 if result == OK else 6)
+			return
 	if DisplayServer.get_name() == "headless":
 		get_tree().quit()
 

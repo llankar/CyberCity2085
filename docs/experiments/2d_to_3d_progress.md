@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` GODOT-RENDER-15 — Godot 4.7.2 OpenGL Compatibility rendered v11
+  on RTX 5070 Ti and saved godot_preview.png on E: through frame_post_draw.
+  Native rig gate passed (53 bones/15 skins); injected B key handler test
+  verified six boot parts hide then restore. Capture inspected; lighting and
+  camera still need refinement, model not artistically accepted. SDL reported
+  a gamepad calibration error unrelated to model import. No desktop automation.
+  Next: improve framing/lighting and compare posed imported skin against Blender.
+
 - `DONE` GLB-STRUCTURE-14 — native Godot 4.7.2 validation of v11 confirms
   exactly one 53-bone skeleton and 15 distinct mesh instances, all with skin
   resources resolving to a Skeleton3D. Added --validate-rig CLI gate (exit 3
