@@ -2,6 +2,19 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-MECH-SCALE-58 — Blender imported licensed George,
+  measured evaluated rest geometry (7.437565 source units), created parent-only
+  scale derivative at 2.4 m and exported BLEND/GLB with original 20 actions.
+  Native Godot derivative Walk imports successfully; inspected screenshot exposes
+  overly tight framing, still open. Added reproducible Blender clip checker:
+  200 integer frames across Idle/Walk/Run/Shoot/Punch/HitRecieve_1/Death evaluated,
+  all vertex coordinates finite. Walk envelope reaches 2.645 m; Death extends
+  2.185 m behind origin. Evidence in E: generated/phase2/george_tactical JSONs.
+  This does not prove foot contact, absence of intersections, or artistic quality.
+  Five focused existing tests passed. Next: use animated bounds for preview framing,
+  create multi-frame visual reviews and compare robot identity at tactical scale.
+
+
 - `DONE` MECH-PREVIEW-57 — corrected camera placement relative to model bounds,
   rather than an absolute human-height camera position. Native Godot Idle,
   Walk, Shoot and Death midpoint captures generated and visually inspected on E:.
