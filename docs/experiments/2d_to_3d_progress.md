@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-GODOT-37 — native Godot 4.7.2 OpenGL loaded authored
+  armor GLB and captured neutral 12 m and 3 m orthographic views on E:.
+  Both inspected: silhouette readable, but materials show excessive bright
+  contrast/speckle versus Blender; not accepted. 12 m view is a controlled
+  tactical-size study, NOT verified equivalence to production combat camera.
+  Next: simplify/bake authored material nodes to glTF PBR and compare with
+  Blender under matched neutral exposure; validate actual combat display scale.
+
 - `IN_PROGRESS` AUTHORED-EXPORT-36 — reviewed armor01 back/profile: coherent
   authored fit; checked Helios MHCLO CC0 (author field unknown) and bodysuit
   CC0/MatCreator headers. Added disposable-copy exporter and successfully

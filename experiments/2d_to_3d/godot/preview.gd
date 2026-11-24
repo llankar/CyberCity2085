@@ -59,6 +59,9 @@ func _ready() -> void:
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color("4edff0")
 	env.ambient_light_energy = 0.35
+	if "--neutral" in OS.get_cmdline_user_args():
+		env.ambient_light_color = Color.WHITE
+		env.background_color = Color(0.18, 0.18, 0.18)
 	environment.environment = env
 	add_child(environment)
 
@@ -74,6 +77,9 @@ func _ready() -> void:
 	camera.position = Vector3(1.8, 1.5, 1.8)
 	add_child(camera)
 	camera.look_at(Vector3(0.0, 0.45, 0.0))
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--ortho-size="):
+			camera.size = maxf(0.5, argument.trim_prefix("--ortho-size=").to_float())
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture="):
