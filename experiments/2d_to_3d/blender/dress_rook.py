@@ -4,6 +4,7 @@ from pathlib import Path
 import bpy
 import bmesh
 import math
+from mathutils import Vector
 
 args = sys.argv[sys.argv.index('--') + 1:]
 output = Path(args[0]).resolve()
@@ -56,7 +57,7 @@ def garment(name, predicate, color, thickness):
 
 garment('Rook_Trousers', lambda p: 0.13 < p.z < 1.00 and abs(p.x) < 0.25, (0.018, 0.025, 0.03), 0.018)
 garment('Rook_Undershirt', lambda p: 0.94 < p.z < 1.43 and abs(p.x) < 0.22, (0.008, 0.012, 0.015), 0.009)
-jacket = garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.40 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
+jacket = garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.205 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
 
 def jacket_panel(name, vertices, faces):
     mesh = bpy.data.meshes.new(name + '_mesh')
@@ -92,6 +93,24 @@ for z, radius in [(1.43, 0.092), (1.51, 0.105)]:
         angle = math.pi * 1.35 * index / 12 - math.pi * 0.175
         collar_vertices.append((radius * math.cos(angle), radius * math.sin(angle) + 0.005, z))
 jacket_panel('Rook_RaisedCollar', collar_vertices, [(i, i + 1, i + 14, i + 13) for i in range(12)])
+
+for side in ['l', 'r']:
+    upper = rig.data.bones['upperarm_' + side]
+    lower = rig.data.bones['lowerarm_' + side]
+    centers = [upper.head_local, upper.head_local.lerp(upper.tail_local, 0.5), upper.tail_local, lower.head_local.lerp(lower.tail_local, 0.7)]
+    radii = [0.085, 0.078, 0.065, 0.052]
+    axis = (lower.tail_local - upper.head_local).normalized()
+    tangent = axis.cross(Vector((0, 1, 0))).normalized()
+    bitangent = axis.cross(tangent).normalized()
+    vertices = []
+    for center, radius in zip(centers, radii):
+        for index in range(16):
+            angle = math.tau * index / 16
+            vertices.append(tuple(center + radius * (math.cos(angle) * tangent + math.sin(angle) * bitangent)))
+    faces = [(ring * 16 + i, ring * 16 + (i + 1) % 16, (ring + 1) * 16 + (i + 1) % 16, (ring + 1) * 16 + i) for ring in range(3) for i in range(16)]
+    sleeve = jacket_panel('Rook_Sleeve_' + side, vertices, faces)
+    for polygon in sleeve.data.polygons:
+        polygon.use_smooth = True
 def boot_piece(name, location, scale, bone, color):
     # Rounded rectangular cross-sections avoid a box silhouette while keeping
     # an editable low-poly surface with coherent rings.
@@ -142,4 +161,11 @@ for side, sign in [('l', 1), ('r', -1)]:
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'rook_dressed.blend'))
 bpy.context.scene.render.filepath = str(output / 'rook_dressed_preview.png')
 bpy.ops.render.render(write_still=True)
+camera = bpy.context.scene.camera
+for label, position in [('front', (0, -2.8, 1.4)), ('back', (0, 2.8, 1.4)), ('side', (2.8, 0, 1.4))]:
+    camera.location = position
+    camera.rotation_euler = (Vector((0, 0, 1.25)) - camera.location).to_track_quat('-Z', 'Y').to_euler()
+    camera.data.lens = 75
+    bpy.context.scene.render.filepath = str(output / ('rook_detail_' + label + '.png'))
+    bpy.ops.render.render(write_still=True)
 print('CYBERCITY_ROOK_GARMENTS_EXPORTED')

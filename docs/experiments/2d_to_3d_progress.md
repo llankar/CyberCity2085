@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-SLEEVES-08 — replaced jagged arm cutouts with separate
+  four-ring sleeves aligned to upper/lower arm bones and transferred weights.
+  v6 Blender generation and front/back/side detail renders succeeded on E:.
+  Front detail inspected; shoulder joins and garment silhouette still need
+  artistic refinement. Back/side review and posed elbow tests NOT VERIFIED.
+  Next: inspect remaining views, fix shoulder intersections and test elbow bend.
+
 - `IN_PROGRESS` ROOK-JACKET-07 — added separate thickened lapels and raised
   collar with body-derived skin weights. Blender CLI successfully generated
   rook_dressed_v5 BLEND and preview on E:. Front three-quarter preview inspected;
