@@ -2,6 +2,16 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-REVIEW-33 — inspected outfit02 neutral back/profile:
+  coat and trousers fit coherently, but short04 hair shows scalp holes at the
+  crown/back. Not accepted. Official MakeHuman November 2026 notice confirms
+  legacy asset browsing is offline while metadata/files and packs remain.
+  Queried Makehuman-2 CC0 repository via GitHub API: community_index.json is
+  literally [] (not a usable inventory). No unsupported third-party asset was
+  downloaded. Next: use official pack manifests or legacy master metadata to
+  find licensed leather/tactical jacket and swept hair; fix hair fit/alpha.
+  Source: https://wwww.makehumancommunity.org/news/2026-11-08-moving-to-discord.html
+
 - `IN_PROGRESS` AUTHORED-COMPARISON-32 — inspected thumbnails of male suits
   01/02/03/05/06, work suit and short hair 01/03/04. Selected suit05 + shoes03
   + short04 for second authored fitting. Blender produced authored_outfit02
