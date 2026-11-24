@@ -166,6 +166,24 @@ func _ready() -> void:
 		var mesh_bounds: AABB = mesh.global_transform * mesh.get_aabb()
 		bounds = mesh_bounds if first_bound else bounds.merge(mesh_bounds)
 		first_bound = false
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--bounds-file="):
+			var evidence = JSON.parse_string(FileAccess.get_file_as_string(argument.trim_prefix("--bounds-file=")))
+			if not evidence is Dictionary or evidence.is_empty():
+				push_error("Invalid animated bounds evidence")
+				get_tree().quit(11)
+				return
+			first_bound = true
+			for clip_data in evidence.values():
+				var envelope = clip_data["world_envelope"]
+				# Blender Z-up to glTF/Godot Y-up, including the flipped depth axis.
+				var low := Vector3(envelope[0][0], envelope[0][2], -envelope[1][1])
+				var high := Vector3(envelope[1][0], envelope[1][2], -envelope[0][1])
+				var clip_bounds := AABB(low, high - low)
+				bounds = clip_bounds if first_bound else bounds.merge(clip_bounds)
+				first_bound = false
+			camera.size = bounds.size.length() * 1.15
+			print("CYBERCITY_ANIMATED_BOUNDS_OK ", bounds)
 	var target := bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0)
 	# Keep the viewing direction independent of imported model height/units.
 	camera.position = target + Vector3(1.8, 1.05, 1.8)

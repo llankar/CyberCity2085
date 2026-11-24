@@ -2,6 +2,19 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` ANIMATED-FRAMING-59 — preview accepts Blender clip envelope JSON,
+  converts Z-up bounds to Godot Y-up and uses a fixed conservative camera framing.
+  Native Godot captures Walk at 0/50% and Death at 100%, all inspected: complete
+  model visible, including fallen pose. Human authored_armor01 neutral screenshot
+  regenerated and inspected. Five focused experiment tests pass. Captures on E:
+  generated/phase2/george_tactical/review_*.png and authored_armor01/
+  human_current_neutral.png. User requested final human/robot screenshots: current
+  previews available, final artistic screenshots still TODO. Neither model meets
+  final visual target; human identity/materials and robot style remain open.
+  Next: improve licensed human outfit/identity and select less stylized robot
+  candidate before final comparison. No full animation artistic approval claimed.
+
+
 - `IN_PROGRESS` AUTHORED-MECH-SCALE-58 — Blender imported licensed George,
   measured evaluated rest geometry (7.437565 source units), created parent-only
   scale derivative at 2.4 m and exported BLEND/GLB with original 20 actions.
