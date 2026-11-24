@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-GARMENTS-03 — portrait inspected; separate trousers,
+  undershirt and open jacket shell derived from the preserved MPFB body with
+  inherited skin weights and real thickness. Blender CLI generated
+  generated/phase2/rook_dressed/rook_dressed.blend and preview on E:.
+  These are fitting studies: silhouette, seams, collar, hair, boots and
+  deformation remain NOT VERIFIED. Next: inspect the preview and refine the
+  jacket geometry against the portrait before exporting or animating.
+
 Continuation objective accepted: modular Rook and Raider, ten human actions,
 articulated robot with five actions, industrial machine, VTOL, interactive
 Godot demonstration, animated eight-direction atlases and measured performance.
