@@ -2,6 +2,47 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CHARGE-GAME-CONVERSION-76 — whole static robot bake finished:
+  120/124 meshes baked; four robot_glass meshes explicitly unresolved/purple.
+  Real GLB verification:269,209 triangles,35,676,008 bytes,480 embedded images,
+  one scene. Native Godot import/capture passed and screenshot inspected at
+  E: phase2/security_pbr_robot01/godot_pbr.png. No rig/actions; glass coverage
+  FAIL, full artistic fidelity NOT VERIFIED. Source-glass audit confirms layered
+  Fresnel/refraction/mixed shaders, so a random Principled replacement was not
+  presented as faithful. UV audit found15 meshes without UV and33 outside0..1;
+  robot bake uses separate packed BakeUV and pinned SourceUV per part.
+  Native adapters preflight:8 supported source materials, robot_glass refused.
+  Emission image color-space handling corrected for FUTURE bakes after this run;
+  existing whole-robot emission gamma/strength and decal alpha remain TODO.
+
+  Human source audit:239 non-render-hidden meshes,64 used materials,414,526 base
+  vertices including hidden variants. First geometry export included hidden proxy
+  objects and Blender attribute errors (FAIL); fixed source visible_get filtering
+  and excluded meshes without polygons. Corrected CLI run exits0;76 visible
+  meshes,235,726 evaluated triangles reduced on copies to92,608. Real GLB verifier
+  passes76 meshes/2,939,640 bytes/no proxies/no rig/actions, native Godot loads.
+  E: phase2/einar_geometry01 retains original-material evaluated BLEND separately
+  from diagnostic gray GLB. Capture inspected; this is NOT an accepted human.
+
+  Authored jacket proof: actual Einar cloth geometry/material baked to1024px
+  diffuse-color/roughness/tangent-normal maps, BLEND/embedded-texture GLB, native
+  Godot screenshot and texture both inspected at E: phase2/einar_jacket01.
+  Detailed fabric/wear retained without palette replacement. Diffuse-pass method
+  is only a cloth study, not a valid metallic-albedo extraction. Seven existing
+  Python tests pass; two real-file GLB verifiers and two native imports pass.
+  No new animation, performance, VRAM-peak or full artistic acceptance evidence.
+  Files: blender/charge_pbr.py, bake_charge_robot.py, check_charge_material_adapters.py,
+  inspect_charge_materials.py, inspect_charge_glass.py, audit_charge_human.py,
+  export_charge_human_geometry.py, bake_einar_jacket.py and two verify_charge_* files.
+  Next: resolve robot glass/emission/alpha; convert remaining human materials and
+  hair, preserve game rig/deformation, replace old candidates in tactical stage,
+  compare source/sprites at20.736px and62.208px, then animate and review.
+  Mandatory global criteria remain open: first convincing dressed/rigged human,
+  Rook/Raider identities, full native animations, new-source tactical comparison,
+  optimization/performance and final human/robot screenshots. Total artistic
+  coverage expectation is not yet quantified; no global PASS or completion.
+  All generated resources remain on E:. Production/save untouched; no push.
+
 - `IN_PROGRESS` CHARGE-PBR-PIECE-75 — representative shin-shell source Worn
   Surface Color/Roughness/Metallic channels baked via emission and tangent-normal
   pass into four512px PNGs. Standard PBR GLB exports and loads in native Godot;

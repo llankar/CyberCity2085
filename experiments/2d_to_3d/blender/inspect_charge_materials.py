@@ -23,5 +23,12 @@ meshes=[{'name':o.name,'vertices':len(o.data.vertices),'hidden_render':o.hide_re
          'uv_layers':[u.name for u in o.data.uv_layers],
          'materials':[s.material.name if s.material else None for s in o.material_slots]}
         for o in bpy.data.objects if o.type=='MESH' and o.name.startswith('GEO-')]
-output.write_text(json.dumps({'materials':materials,'meshes':meshes},indent=2),encoding='utf-8')
+active=[]
+for obj in bpy.context.scene.objects:
+    if obj.type!='MESH': continue
+    uv=obj.data.uv_layers.active
+    coordinates=[tuple(v.uv) for v in uv.data] if uv else []
+    active.append({'name':obj.name,'materials':[s.material.name if s.material else None for s in obj.material_slots],
+                   'uv_bounds':[[min(v[i] for v in coordinates),max(v[i] for v in coordinates)] for i in range(2)] if coordinates else None})
+output.write_text(json.dumps({'materials':materials,'meshes':meshes,'active_meshes':active},indent=2),encoding='utf-8')
 print('CHARGE_MATERIAL_INTERFACES_WRITTEN',len(materials),len(meshes))

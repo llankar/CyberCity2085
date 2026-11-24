@@ -8,6 +8,17 @@ The experiment does not modify the CyberCity 2085 runtime or replace any game
 asset. See `docs/experiments/2d_to_3d_pipeline.md` for status, licensing and
 reproduction instructions.
 
+Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
+Professional Charge source conversion studies are stored on E: only:
+`security_pbr_robot01` (120/124 surfaces, unresolved glass), `einar_geometry01`
+(static diagnostic human), `einar_jacket01` (authored fabric bake proof).
+Run `verify_charge_robot_pbr.py E:/CyberCity2085-3d-lab/generated/phase2/security_pbr_robot01`
+and `verify_charge_human_geometry.py` for real-file structural checks. These do
+not prove artistic quality, rigging or animation acceptance. `audit_charge_human.py`
+requires source/output paths after `--`; export/bake study scripts use explicit
+external E: paths. Source Blender files are preserved, embedded source scripts
+are disabled. All Charge derivatives require the recorded CC BY4 attribution.
+
 ## Independent comparison stage
 
 Launch `godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --realtime`.
