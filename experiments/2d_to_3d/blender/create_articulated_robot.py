@@ -84,6 +84,11 @@ for sign, side in [(1, 'L'), (-1, 'R')]:
     piece('Forearm_' + side, (sign * 0.47, -0.02, 1.08), (0.11, 0.12, 0.17), steel, elbow)
     piece('ForearmShield_' + side, (sign * 0.47, -0.145, 1.08), (0.12, 0.035, 0.17), armor, elbow)
     piece('Hand_' + side, (sign * 0.47, -0.02, 0.86), (0.10, 0.08, 0.08), armor, elbow)
+    for finger in range(3):
+        x = sign * 0.47 + (finger - 1) * 0.055
+        piece('FingerProximal_' + side, (x, -0.025, 0.75), (0.020, 0.030, 0.06), steel, elbow)
+        piece('FingerTip_' + side, (x, -0.055, 0.69), (0.018, 0.035, 0.025), armor, elbow)
+    piece('Thumb_' + side, (sign * 0.58, -0.04, 0.81), (0.025, 0.035, 0.05), steel, elbow)
 piece('ShoulderCannon', (0.45, -0.18, 1.85), (0.075, 0.30, 0.075), steel, torso)
 bearing('CannonBarrel', (0.45, -0.48, 1.85), 0.045, 0.30, torso, axis='Y')
 for index in range(6):
@@ -108,7 +113,20 @@ scene.render.engine = 'BLENDER_EEVEE_NEXT'
 scene.render.resolution_x = scene.render.resolution_y = 768
 scene.render.resolution_percentage = 100
 scene.render.filepath = str(output / 'robot_blockout.png')
+scene.render.fps = 24
+scene.frame_start = 1
+scene.frame_end = 49
+for obj, amplitude in [(torso, 0.25), (head, -0.18)]:
+    obj.rotation_mode = 'XYZ'
+    for frame, angle in [(1, 0), (25, amplitude), (49, 0)]:
+        obj.rotation_euler.z = angle
+        obj.keyframe_insert(data_path='rotation_euler', frame=frame)
+    obj.animation_data.action.name = obj.name + '_AimTest'
+scene.frame_set(1)
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'robot_blockout.blend'))
+bpy.ops.render.render(write_still=True)
+scene.frame_set(25)
+scene.render.filepath = str(output / 'robot_aim_test.png')
 bpy.ops.render.render(write_still=True)
 bpy.ops.object.select_all(action='DESELECT')
 for obj in scene.objects:

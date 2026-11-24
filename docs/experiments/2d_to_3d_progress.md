@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-AIM-48 — added three segmented fingers plus thumb per
+  hand and 49-frame torso/head aiming test at 24 fps. robot_mechanical04
+  BLEND/GLB and neutral aim render generated and inspected. GLB JSON confirms
+  at least two animation clips and no skin: rigid-node animation, not human rig.
+  Not accepted as final attack/idle; locomotion, impact/destruction and artistic
+  fidelity remain open. Next: native Godot clip playback and source-faithful
+  head/chest reshaping, then mechanical gait with grounded feet.
+
 - `IN_PROGRESS` ROBOT-PLATES-47 — tapered ivory armor vertices and added
   inclined pectoral panels, shoulder caps, forearm shields, abdominal plates,
   vents and fasteners. robot_mechanical03 BLEND/GLB/rest and pivot renders
