@@ -1,0 +1,105 @@
+# CyberCity 2085 — experimental 2D to 3D pipeline
+
+Status on 2026-11-24: **IN_PROGRESS — technical proof obtained, artistic
+acceptance not reached**.
+
+This experiment is isolated from the current game runtime. No existing asset,
+map, combat rule or validated animation is replaced. Large and generated data
+lives exclusively in `E:\CyberCity2085-3d-lab`.
+
+## Environment verified
+
+- GPU: NVIDIA GeForce RTX 5070 Ti, 16,303 MiB, driver 621.24.
+- WSL2: Ubuntu 24.04.
+- GPU compute: PyTorch 2.11.0 + CUDA 12.8, compute capability 12.0; a real
+  2048×2048 CUDA matrix multiplication passed.
+- Blender: official portable Blender 4.5.17 LTS under
+  `E:\CyberCity2085-3d-lab\tools`; archive SHA-256
+  `282B9BFC14065D6341C0D70D83992F80BDE09D99E0099BFF260C94BBEC93803D`
+  matched Blender's published checksum. Headless `bpy` check passed.
+- Godot: 4.7.2 stable; experimental GLB load check passed headlessly.
+- ComfyUI: existing installations detected at `E:\comfyui\ComfyUI` and
+  `E:\comfyui2\ComfyUI`; no Image-to-3D node was found during the audit.
+
+## Compatibility and licensing decision
+
+| Candidate | Local compatibility | License finding | Decision |
+| --- | --- | --- | --- |
+| TripoSR | About 6 GB VRAM, Linux/WSL, single image | MIT covers code and pretrained model | Selected for the first proof |
+| TRELLIS | Linux, **at least 16 GB VRAM**; this GPU is exactly at the published minimum | Models and most code MIT, submodules have their own licenses | Deferred until the lightweight path is measured |
+| TripoSG | Linux image-to-mesh path | Root is MIT, but bundled FlashVDM/Hunyuan license explicitly excludes use in the EU | Rejected for this French workstation pending legal clarification |
+
+TripoSR is single-view. It cannot truthfully be described as exploiting the
+available multidirectional character sheets. A separate multi-view candidate
+must therefore pass license and 16 GB compatibility checks before Rook or the
+Raider is accepted.
+
+## Source manifest
+
+The experiment copies, without modifying, these real project resources:
+
+- crate: `assets/units/mission_objective_city_09_safe_deposit_crate_512.png`
+- industrial machine: `assets/units/mission_objective_wasteland_04_scrap_generator_512.png`
+- robot: `assets/units/robot_combat_512.png`
+- Rook: `assets/ui/portraits/agent_male_14.png`
+- Raider Grunt: `assets/units/enemy_raider_grunt_512.png`
+- vehicle: `assets/units/vehicle_aerial_military_04_vtol_stealth_dropship_512.png`
+
+## First measured result: crate
+
+- TripoSR input: 512 px project illustration.
+- Raw result: 139,894 vertices, 175,876 faces, non-watertight mesh, UV texture
+  1024×1024.
+- Peak host RSS: 4,145,420 KiB on the successful textured run.
+- Timings after weights were cached: model initialization 17.8 s, preprocessing
+  2.3 s, inference 24.9 s, mesh extraction 3.3 s, texture baking 39.4 s. OBJ
+  serialization on the Windows-mounted `E:` volume was unusually slow (226.6 s).
+- Blender result: 20,000 faces, normalized to 1 metre, Eevee preview, 2.50 MB
+  `.blend`, 2.15 MB `.glb`.
+- Godot: external GLB loaded by `GLTFDocument` in the independent experiment;
+  headless exit code 0.
+- Visual assessment: recognizable hard-surface volume and usable baked colour,
+  but soft edges, surface noise and imperfect source orientation. **NOT
+  ARTISTICALLY ACCEPTED**.
+
+## Reproduction
+
+The current external lab layout is:
+
+```text
+E:\CyberCity2085-3d-lab\
+  cache\ downloads\ models\ outputs\ repos\ sources\ tmp\ tools\ venvs\ wheels\
+```
+
+TripoSR commit tested: `107cefdc244c39106fa830359024f6a2f1c78871`.
+The upstream texture baker requires the small compatibility patch stored in
+`experiments/2d_to_3d/patches`. `torchmcubes` is built CPU-only because WSL has
+the CUDA runtime but not the full `nvcc` toolkit; neural inference remains on
+the GPU. This adds a few seconds to mesh extraction and avoids a large toolkit
+installation.
+
+Blender processing example:
+
+```powershell
+& E:\CyberCity2085-3d-lab\tools\blender-4.5.17-windows-x64\blender.exe `
+  --background --factory-startup `
+  --python experiments\2d_to_3d\blender\process_mesh.py -- `
+  --input E:\CyberCity2085-3d-lab\outputs\triposr\crate\0\mesh.obj `
+  --output-dir E:\CyberCity2085-3d-lab\outputs\blender\crate `
+  --name crate --target-faces 20000 --size-m 1.0
+```
+
+## Open acceptance work
+
+- Generate and visually assess the other five requested prototypes.
+- Find and verify a genuinely multi-view solution for humanoids.
+- Retopologize an accepted humanoid before rigging; AI topology is not suitable
+  for deformation as-is.
+- Rig and skin one humanoid, then verify idle, walk, shoot, melee and death.
+- Add reproducible eight-direction animation atlas rendering.
+- Measure GPU peak VRAM during inference, Godot frame cost and shadow/material
+  behavior in a visible isometric comparison.
+- Review generated assets and their source rights before any distribution.
+
+No larger migration should be proposed until those items pass visual review.
+
