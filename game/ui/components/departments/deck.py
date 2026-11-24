@@ -8,6 +8,14 @@ from game.ui.theme.visual import CYAN, GOLD, MINT, RED, TEXT, MUTED, PURPLE
 from .copy import word
 
 ROOMS = ("command", "city", "squad", "assets", "research", "intel")
+ROOM_BACKGROUNDS = {
+    "command": "assets/ui/base_command_center/command_core.png",
+    "city": "assets/ui/base_command_center/city_operations.png",
+    "squad": "assets/ui/base_command_center/squad_operations.png",
+    "assets": "assets/ui/base_command_center/asset_bay.png",
+    "research": "assets/ui/base_command_center/research_lab.png",
+    "intel": "assets/ui/base_command_center/intel_archive.png",
+}
 
 
 class DepartmentDeck(DocumentKit):
@@ -27,12 +35,15 @@ class DepartmentDeck(DocumentKit):
         self.layout = department_layout(
             w, h, (0.30, 0.36, 0.34) if self.room == "command" else (0.29, 0.42, 0.29)
         )
-        background = view.room_ui.texture_override
+        # Dedicated art establishes a distinct place for every department.  The
+        # headquarters crop remains a compatibility fallback, never the primary UI.
+        background = ROOM_BACKGROUNDS.get(self.room) or view.room_ui.texture_override
         self.begin(
             view,
             w,
             h,
             background or "assets/missions/backgrounds/city/city_01_neon_alley.jpg",
+            overlay_alpha=166,
         )
         self.view = view
         self.header()

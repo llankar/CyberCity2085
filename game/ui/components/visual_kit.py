@@ -304,7 +304,7 @@ class VisualKit:
                     l, l + width * fill, rect.bottom, rect.top, color
                 )
 
-    def begin(self, view, width, height, background=None):
+    def begin(self, view, width, height, background=None, overlay_alpha=195):
         """Start one shared frame; cache glyphs, textures and measurements."""
         self.view = view
         self.gs = getattr(view, "game_state", None)
@@ -331,7 +331,9 @@ class VisualKit:
                 self.image(background, full)
             else:
                 self.texture(background, full)
-        arcade.draw_lrbt_rectangle_filled(0, width, 0, height, (1, 8, 15, 195))
+        arcade.draw_lrbt_rectangle_filled(
+            0, width, 0, height, (1, 8, 15, max(0, min(255, overlay_alpha)))
+        )
 
     def end(self):
         if self._text_batch is not None:
