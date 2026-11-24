@@ -23,6 +23,9 @@ def main():
         1280, 720, "CyberCity · UI Unification", visible=False, antialiasing=False
     )
     gs, view = fixture()
+    # QA budget: exercise every purchase path without weakening live prices.
+    gs.funds.current_funds = max(gs.available_funds, 200_000)
+    gs.budget_pool = gs.funds.current_funds
     gs.spec_ops_assets = asset_catalog()
     gs.ui_language = "fr"
     gs.spec_ops_assets[0].maintenance.integrity = 75

@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "ECONOMY-SCALE-UNIFICATION-01",
+      "title": "Unifier prix, revenus et recompenses sur une echelle strategique",
+      "status": "DONE",
+      "files": ["game/management/economy.py", "game/management/funds.py", "game/management/corporation.py", "game/management/weekly_planning.py", "game/management/spec_ops_assets.py", "game/mission_templates.py", "game/mission_generation.py", "game/missions/evacuation.py", "game/text_missions/text_mission_library.py", "game/recruitment.py", "game/gamestate.py", "tools/simulate_strategic_economy.py", "tests/test_economy_scale.py", "tests/test_economy_simulation.py", "docs/gameplay/strategic_economy.md"],
+      "tests": ["Final cross-system economy, mission, weekly planning, recruitment, assets, Hangar, resources, Cyberware, dossier, Management, equipment, R&D, guidance and scenario gate: 141 passed and 5 subtests passed.", "Native unified UI validator passed at 1280x720, 1920x1080 and 2560x1440.", "Four-strategy simulation is deterministic and places first Hangar at 13 ordinary missions.", "Full suite before economic fixture repair: 1283 passed, 36 skipped, 8 failed; the three economy/scenario failures then passed in the final targeted gate. Four source-sheet import failures and one Godot PSI source-contract failure remain independent and NOT VERIFIED."],
+      "evidence": ["Ordinary mission median is 1500 funds and displayed rewards now match payout scale.", "Recruit prices are 1300-2000 in the deterministic sample; assets 4500-10000; deployments 150-400; directives 500-700; research 600-6500.", "Post-mission allocation envelopes no longer spend 85 percent of the reward a second time.", "Legacy mission rewards, corporate finance and asset operating costs migrate on load.", "Command forecast combines daily and weekly income and labels asset maintenance as a service cycle."],
+      "remaining": ["Long-duration human campaign balance review is NOT VERIFIED."]
+    },
+    {
       "id": "RESEARCH-ECONOMY-RESCALE-01",
       "title": "Recaler les prix R&D sur l'economie strategique actuelle",
       "status": "DONE",

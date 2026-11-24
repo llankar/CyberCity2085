@@ -26,11 +26,15 @@ def campaign_scenario(mission_id=None):
     """Use the real daily board and normal equipped recruits, with no stat overrides."""
     from game.gamestate import GameState
     from game.recruitment import recruit_agent
+    from game.management.equipment import equip_starter_loadout
     from game.mission_system import ensure_mission_templates
     roster=[]
     for role in ['samurai','sniper','psi','samurai','sniper']:
         recruit_agent(roster,role)
     state=GameState(characters=roster,selected_agent_names=[c.name for c in roster])
+    state.grant_initial_armory()
+    for agent in state.characters:
+        equip_starter_loadout(agent.loadout, agent.role)
     ensure_mission_templates(state)
     eligible=[(i,m) for i,m in enumerate(state.mission_templates) if mission_id is None or m.id==mission_id]
     if not eligible:raise ValueError('Requested mission is absent from the actual daily board')

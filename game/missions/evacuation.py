@@ -39,7 +39,7 @@ def create_evacuation_template(district_name: str, pressure: int = 0) -> Mission
         starting_enemy_count=3,
         objective_type="safe_extraction",
         risk_level=risk_level,
-        fund_reward=55 + max(0, pressure // 10),
+        fund_reward=1_200 + risk_level * 100 + max(0, pressure * 2),
         duration_days=duration_days,
         tags=[
             tag_from_library("civilian_panic"),

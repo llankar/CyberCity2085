@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from .spec_ops_assets import maintenance_cost_for_assets
+from .economy import WEEKLY_DIRECTIVE_COSTS
 
 if TYPE_CHECKING:
     from game.gamestate import GameState
@@ -44,21 +45,21 @@ DIRECTIVES: tuple[WeeklyDirective, ...] = (
     WeeklyDirective(
         id="civil_defense",
         title="FORTIFY THE WARRENS",
-        cost=40,
+        cost=WEEKLY_DIRECTIVE_COSTS["civil_defense"],
         promise="Stability +8, unrest -6, security +5.",
         consequence="Visible patrols raise media heat +2.",
     ),
     WeeklyDirective(
         id="crew_recovery",
         title="BRING THEM HOME",
-        cost=30,
+        cost=WEEKLY_DIRECTIVE_COSTS["crew_recovery"],
         promise="All agents recover 15 stress and 1 recovery day.",
         consequence="The city receives no direct protection this week.",
     ),
     WeeklyDirective(
         id="black_intel",
         title="OWN THE NIGHT",
-        cost=35,
+        cost=WEEKLY_DIRECTIVE_COSTS["black_intel"],
         promise="Gain 4 intel, 2 influence, black ops +5.",
         consequence="Covert activity raises media heat +8.",
     ),
@@ -92,7 +93,10 @@ def build_management_forecast(game_state: "GameState") -> ManagementForecast:
     return ManagementForecast(
         week=calendar.current_week,
         days_to_income=max(0, calendar.next_week_start_day - calendar.current_day),
-        projected_income=game_state.projected_weekly_income,
+        projected_income=(
+            game_state.projected_weekly_income
+            + game_state.compute_budget() * calendar.days_per_week
+        ),
         asset_upkeep=maintenance_cost_for_assets(game_state.spec_ops_assets),
         ready_agents=ready_agents,
         total_agents=len(game_state.characters),

@@ -9,6 +9,7 @@ from game.combat.tactical_identity import (
 from game.deployment import build_tactical_briefing
 from game.mission_templates import MissionTemplate
 from game.recruitment import recruit_agent
+from game.management.equipment import equip_starter_loadout
 from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 
@@ -79,6 +80,7 @@ def test_preflight_briefing_connects_enemy_doctrine_and_agent_kits() -> None:
         enemy_theme="corp_37",
     )
     agent = recruit_agent([], "sniper", "Ghost")
+    equip_starter_loadout(agent.loadout, agent.role)
 
     briefing = build_tactical_briefing(mission, [agent])
 

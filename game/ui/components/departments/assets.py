@@ -187,7 +187,7 @@ def _draw_vehicles(k, left, center, right):
             MINT if asset.is_deployable else RED,
         )
         k.label(
-            f"{asset.maintenance.integrity}%  /  ¥{asset.deploy_cost}",
+            f"{asset.maintenance.integrity}%  /  ¥{asset.deploy_cost:,}",
             x,
             r.bottom + 12 * u,
             13,
@@ -227,7 +227,7 @@ def _draw_vehicles(k, left, center, right):
             Rect(r.left + 7 * u, r.top - 82 * u, r.left + 81 * u, r.top - 8 * u),
         )
         x = r.left + 91 * u
-        cost = getattr(asset, "_acquire_cost", 60)
+        cost = getattr(asset, "_acquire_cost", 5_000)
         k.label(
             asset.name,
             x,
@@ -241,7 +241,7 @@ def _draw_vehicles(k, left, center, right):
             asset.display_role, x, r.top - 44 * u, 14, MUTED, width=r.right - x - 10 * u
         )
         k.label(
-            f'{k.tr("deploy")}  ¥{asset.deploy_cost}',
+            f'{k.tr("deploy")}  ¥{asset.deploy_cost:,}',
             x,
             r.top - 68 * u,
             14,
@@ -252,12 +252,12 @@ def _draw_vehicles(k, left, center, right):
             Rect(
                 r.left + 10 * u, r.bottom + 9 * u, r.right - 10 * u, r.bottom + 43 * u
             ),
-            f'{k.tr("buy")}  ¥{cost}',
+            f'{k.tr("buy")}  ¥{cost:,}',
             "catalog_acquire_by_id",
             asset.id,
             enabled=gs.available_funds >= cost,
             primary=gs.available_funds >= cost,
-            tooltip=f"{asset.name} / ¥{cost} / {asset.display_role}",
+            tooltip=f"{asset.name} / ¥{cost:,} / {asset.display_role}",
         )
     y = area.bottom
     k.action(
@@ -349,7 +349,7 @@ def profile(k, asset, index, r):
     ) or k.tr("empty")
     k.paragraph(weapons, Rect(r.left, y - 67 * u, r.right, y), 15)
     k.label(
-        f'{k.tr("maintenance")}  ¥{asset.maintenance.base_upkeep}  //  {k.tr("deploy")} ¥{asset.deploy_cost}',
+        f'{k.tr("maintenance")}  ¥{asset.maintenance.base_upkeep:,}  //  {k.tr("deploy")} ¥{asset.deploy_cost:,}',
         r.left,
         y - 82 * u,
         14,
@@ -411,11 +411,11 @@ def profile(k, asset, index, r):
     cost = asset.maintenance.repair_cost
     k.action(
         Rect(buttons.left, buttons.bottom, buttons.left + width, buttons.top),
-        f'{k.tr("repair")} ¥{cost}',
+        f'{k.tr("repair")} ¥{cost:,}',
         "asset_repair",
         index,
         enabled=cost > 0 and gs.available_funds >= cost,
-        tooltip=f'{k.tr("repair")} / ¥{cost}',
+        tooltip=f'{k.tr("repair")} / ¥{cost:,}',
     )
     selected = asset.id in gs.selected_asset_ids
     k.action(

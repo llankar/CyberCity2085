@@ -293,7 +293,7 @@ def draw_cyberware(p, r: Rect):
         p.image(_cyberware_art(selected_zone), thumb)
         text_x = thumb.right + 7*u
         p.label(item.name.upper(), text_x, row.center[1]+7*u, 9, TEXT, bold=True, width=row.right-text_x-28*u)
-        p.label(f"CR {item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", text_x, row.center[1]-10*u, 8, GOLD, width=row.right-text_x-28*u)
+        p.label(f"¥{item.credit_cost:,}  //  HUM -{item.humanity_cost}  //  T{item.power_tier}", text_x, row.center[1]-10*u, 8, GOLD, width=row.right-text_x-28*u)
         p.hit(row, "dossier_cyberware_item", item.id, "Inspect implant")
         quick = Rect(row.right-28*u, row.bottom+4*u, row.right-4*u, row.top-4*u)
         p.hit(quick, "cyberware_toggle", item.id, "Install or remove this implant")
@@ -313,7 +313,7 @@ def draw_cyberware(p, r: Rect):
         for key, value in chosen.combat_bonuses.items():
             p.label(f"{key.upper()} {value:+d}", detail.left+15*u, y, 13, MINT, bold=True)
             y -= 28*u
-        p.label(f"CREDITS {chosen.credit_cost:,}   //   HUMANITY -{chosen.humanity_cost}", detail.left+15*u, detail.bottom+88*u, 11, GOLD, bold=True, width=detail.width-30*u)
+        p.label(f"FUNDS ¥{chosen.credit_cost:,}   //   HUMANITY -{chosen.humanity_cost}", detail.left+15*u, detail.bottom+88*u, 11, GOLD, bold=True, width=detail.width-30*u)
         action = Rect(detail.left+15*u, detail.bottom+20*u, detail.right-15*u, detail.bottom+66*u)
         _surface(p, action, RED if installed else GOLD, selected=True)
         p.label("REMOVE" if installed else "INSTALL", *action.center, 13, RED if installed else GOLD, bold=True, anchor_x="center")

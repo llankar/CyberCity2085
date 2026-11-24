@@ -59,7 +59,10 @@ class MissionFundsTest(unittest.TestCase):
             210,
         )
         self.assertEqual(game_state.mission_fund_allocations["corporate_reserves"], 210)
-        self.assertGreater(game_state.available_funds, starting_funds)
+        self.assertEqual(
+            game_state.available_funds,
+            starting_funds + 1_400 + game_state.compute_budget(),
+        )
         self.assertTrue(
             any(
                 transaction.source == "mission_reward"

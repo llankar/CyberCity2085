@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 
 from ..stats import PlayerStats
 from .funds import CorporateFunds
+from .economy import ASSET_ACQUIRE_COSTS
 
 
 @dataclass(frozen=True)
@@ -213,21 +214,37 @@ class SpecOpsAsset:
             asset_cls = CombatRobot
         else:
             asset_cls = cls
+        armor = ArmorRating.from_dict(data.get("armor", {}))
+        maintenance = MaintenanceState.from_dict(data.get("maintenance", {}))
+        deploy_cost = int(data.get("deploy_cost", 0))
+        if deploy_cost <= 20 and maintenance.base_upkeep <= 4:
+            if asset_type == "heavy_armor" or armor.plating >= 5:
+                deploy_cost, repair_rate, upkeep = 400, 25, 100
+            elif asset_type == "support_robot":
+                deploy_cost, repair_rate, upkeep = 150, 12, 35
+            elif armor.plating >= 4:
+                deploy_cost, repair_rate, upkeep = 350, 22, 90
+            elif asset_type == "power_armor":
+                deploy_cost, repair_rate, upkeep = 250, 18, 60
+            else:
+                deploy_cost, repair_rate, upkeep = 200, 15, 50
+            maintenance.repair_cost_per_damage = repair_rate
+            maintenance.base_upkeep = upkeep
         return asset_cls(
             asset_type=asset_type,
             id=str(data.get("id", "asset")),
             name=str(data.get("name", "Spec-Ops Asset")),
-            armor=ArmorRating.from_dict(data.get("armor", {})),
+            armor=armor,
             hardpoints=[
                 WeaponHardpoint.from_dict(hardpoint)
                 for hardpoint in data.get("hardpoints", [])
             ],
             missile_capacity=int(data.get("missile_capacity", 0)),
-            maintenance=MaintenanceState.from_dict(data.get("maintenance", {})),
+            maintenance=maintenance,
             pilot_required=bool(data.get("pilot_required", False)),
             action_points=int(data.get("action_points", 2)),
             pilot_agent_name=data.get("pilot_agent_name") or None,
-            deploy_cost=int(data.get("deploy_cost", 0)),
+            deploy_cost=deploy_cost,
         )
 
 
@@ -260,8 +277,8 @@ def default_spec_ops_assets() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Grenade Launcher", attack_stat="agi", damage_bonus=3, range_cells=4, action_name="Grenade"),
             ],
             missile_capacity=2,
-            deploy_cost=10,
-            maintenance=MaintenanceState(base_upkeep=2),
+            deploy_cost=200,
+            maintenance=MaintenanceState(repair_cost_per_damage=15, base_upkeep=50),
         ),
         CombatRobot(
             id="robot_phantom_01",
@@ -273,8 +290,8 @@ def default_spec_ops_assets() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Sensor Spike", attack_stat="psi", damage_bonus=1, range_cells=3, action_name="Sensor Lock"),
             ],
             missile_capacity=0,
-            deploy_cost=8,
-            maintenance=MaintenanceState(base_upkeep=1),
+            deploy_cost=150,
+            maintenance=MaintenanceState(repair_cost_per_damage=12, base_upkeep=35),
         ),
         PowerArmorSuit(
             id="armor_mantis_01",
@@ -286,8 +303,8 @@ def default_spec_ops_assets() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Servo Fist", attack_stat="str", damage_bonus=3, range_cells=1, action_name="Servo Punch"),
             ],
             missile_capacity=2,
-            deploy_cost=15,
-            maintenance=MaintenanceState(base_upkeep=3),
+            deploy_cost=250,
+            maintenance=MaintenanceState(repair_cost_per_damage=18, base_upkeep=60),
         ),
         PowerArmorSuit(
             id="armor_titan_01",
@@ -299,8 +316,8 @@ def default_spec_ops_assets() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Rocket Pod", attack_stat="agi", damage_bonus=5, range_cells=5, action_name="Rocket Volley"),
             ],
             missile_capacity=4,
-            deploy_cost=20,
-            maintenance=MaintenanceState(base_upkeep=4),
+            deploy_cost=400,
+            maintenance=MaintenanceState(repair_cost_per_damage=25, base_upkeep=100),
         ),
     ]
 
@@ -317,8 +334,8 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Shock Carbine", attack_stat="agi", damage_bonus=2, range_cells=5, action_name="Shock Burst"),
                 WeaponHardpoint("Grenade Launcher", attack_stat="agi", damage_bonus=3, range_cells=4, action_name="Grenade"),
             ],
-            missile_capacity=2, deploy_cost=10,
-            maintenance=MaintenanceState(base_upkeep=2),
+            missile_capacity=2, deploy_cost=200,
+            maintenance=MaintenanceState(repair_cost_per_damage=15, base_upkeep=50),
         ),
         CombatRobot(
             id="cat_robot_phantom",
@@ -329,8 +346,8 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("EMP Carbine", attack_stat="agi", damage_bonus=1, range_cells=7, action_name="EMP Pulse"),
                 WeaponHardpoint("Sensor Spike", attack_stat="psi", damage_bonus=1, range_cells=3, action_name="Sensor Lock"),
             ],
-            missile_capacity=0, deploy_cost=8,
-            maintenance=MaintenanceState(base_upkeep=1),
+            missile_capacity=0, deploy_cost=150,
+            maintenance=MaintenanceState(repair_cost_per_damage=12, base_upkeep=35),
         ),
         CombatRobot(
             id="cat_robot_titan_bot",
@@ -341,8 +358,8 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Railgun", attack_stat="agi", damage_bonus=5, range_cells=10, action_name="Rail Shot"),
                 WeaponHardpoint("Flamethrower", attack_stat="str", damage_bonus=3, range_cells=3, action_name="Fire Spray"),
             ],
-            missile_capacity=3, deploy_cost=18,
-            maintenance=MaintenanceState(base_upkeep=4),
+            missile_capacity=3, deploy_cost=350,
+            maintenance=MaintenanceState(repair_cost_per_damage=22, base_upkeep=90),
         ),
         PowerArmorSuit(
             id="cat_armor_mantis",
@@ -353,8 +370,8 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Assault Rifle", attack_stat="agi", damage_bonus=2, range_cells=8, action_name="Rifle Burst"),
                 WeaponHardpoint("Servo Fist", attack_stat="str", damage_bonus=3, range_cells=1, action_name="Servo Punch"),
             ],
-            missile_capacity=2, deploy_cost=15,
-            maintenance=MaintenanceState(base_upkeep=3),
+            missile_capacity=2, deploy_cost=250,
+            maintenance=MaintenanceState(repair_cost_per_damage=18, base_upkeep=60),
         ),
         PowerArmorSuit(
             id="cat_armor_aegis",
@@ -365,8 +382,8 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Plasma Cannon", attack_stat="agi", damage_bonus=4, range_cells=7, action_name="Plasma Shot"),
                 WeaponHardpoint("Shield Bash", attack_stat="str", damage_bonus=2, range_cells=1, action_name="Shield Bash"),
             ],
-            missile_capacity=3, deploy_cost=18,
-            maintenance=MaintenanceState(base_upkeep=4),
+            missile_capacity=3, deploy_cost=325,
+            maintenance=MaintenanceState(repair_cost_per_damage=22, base_upkeep=85),
         ),
         PowerArmorSuit(
             id="cat_armor_titan",
@@ -377,21 +394,13 @@ def asset_catalog() -> list[SpecOpsAsset]:
                 WeaponHardpoint("Minigun", attack_stat="agi", damage_bonus=4, range_cells=6, action_name="Minigun Spray"),
                 WeaponHardpoint("Rocket Pod", attack_stat="agi", damage_bonus=5, range_cells=5, action_name="Rocket Volley"),
             ],
-            missile_capacity=4, deploy_cost=20,
-            maintenance=MaintenanceState(base_upkeep=4),
+            missile_capacity=4, deploy_cost=400,
+            maintenance=MaintenanceState(repair_cost_per_damage=25, base_upkeep=100),
         ),
     ]
     # Attach acquire costs (used by the UI shop)
-    _ACQUIRE_COSTS = {
-        "cat_robot_k9": 60,
-        "cat_robot_phantom": 45,
-        "cat_robot_titan_bot": 80,
-        "cat_armor_mantis": 55,
-        "cat_armor_aegis": 75,
-        "cat_armor_titan": 90,
-    }
     for item in items:
-        item._acquire_cost = _ACQUIRE_COSTS.get(item.id, 60)
+        item._acquire_cost = ASSET_ACQUIRE_COSTS.get(item.id, 5_000)
     return items
 
 

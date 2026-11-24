@@ -761,7 +761,7 @@ class ManagementHubUITest(unittest.TestCase):
         view = ManagementView(GameState())
         view.window = _FakeWindow()
         view.setup()
-        starting_funds = 500
+        starting_funds = 10_000
         view.game_state.add_funds(starting_funds, "test", "Recruitment test budget")
 
         view._do_recruit_prompt()
@@ -831,7 +831,7 @@ class ManagementHubUITest(unittest.TestCase):
         )
         self.assertIn(first_candidate.function.upper(), normalized)
         self.assertIn(first_candidate.skill_line().upper(), normalized)
-        self.assertTrue(any(f"¥{first_candidate.price}" in text for text in drawn_text))
+        self.assertTrue(any(f"¥{first_candidate.price:,}" in text for text in drawn_text))
         self.assertTrue(
             any(
                 first_candidate.background[:24].upper() in text.upper()

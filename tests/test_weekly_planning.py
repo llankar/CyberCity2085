@@ -6,7 +6,7 @@ from game.management.weekly_planning import apply_weekly_directive, build_manage
 
 def _funded_state() -> GameState:
     state = GameState(characters=[Character("Mara", stress=60, recovery_turns=2)])
-    state.add_funds(200, "test", "weekly planning test")
+    state.add_funds(1_000, "test", "weekly planning test")
     return state
 
 

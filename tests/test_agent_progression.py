@@ -39,20 +39,15 @@ class AgentProgressionTest(unittest.TestCase):
         self.assertEqual(recruit.name, "Sable")
         self.assertEqual(roster[0].name, "Sable")
         self.assertEqual(recruit.talent_points, 1)
-        self.assertIsNotNone(recruit.loadout.primary_weapon)
-        self.assertIsNotNone(recruit.loadout.sidearm)
-        self.assertIsNotNone(recruit.loadout.armor)
-        self.assertIn("Katana Slash", recruit.loadout.combat_actions())
+        self.assertIsNone(recruit.loadout.primary_weapon)
+        self.assertIsNone(recruit.loadout.sidearm)
+        self.assertIsNone(recruit.loadout.armor)
 
-    def test_each_recruit_role_gets_a_distinct_battle_ready_starter_kit(self):
+    def test_recruits_do_not_create_free_equipment(self):
         recruits = [recruit_agent([], role, role.title()) for role in ("samurai", "sniper", "psi", "robot")]
 
-        self.assertTrue(all(agent.loadout.primary_weapon for agent in recruits))
-        self.assertEqual(
-            [agent.loadout.primary_weapon.id for agent in recruits],
-            ["katana", "sniper_rifle", "arc_caster", "plasma_carbine"],
-        )
-        self.assertIsNotNone(recruits[2].loadout.psi_focus)
+        self.assertTrue(all(agent.loadout.primary_weapon is None for agent in recruits))
+        self.assertTrue(all(not agent.loadout.equipped_items() for agent in recruits))
 
     def test_placeholder_roster_labels_are_normalized_to_codename_names(self):
         character = create_character("Agent 1", "samurai")

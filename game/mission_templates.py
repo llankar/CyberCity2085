@@ -239,7 +239,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=2,
-            fund_reward=40,
+            fund_reward=1_400,
             tags=[tag_from_library("neon_blackout")],
             relation_impact="medium",
         ),
@@ -274,7 +274,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=4,
-            fund_reward=70,
+            fund_reward=1_600,
             tags=[tag_from_library("gang_pressure")],
             relation_impact="low",
         ),
@@ -309,7 +309,7 @@ def create_mission_templates(
                 )
             ],
             risk_level=3,
-            fund_reward=60,
+            fund_reward=1_500,
             tags=[tag_from_library("ghost_signal"), tag_from_library("media_swarm")],
         ),
     ]

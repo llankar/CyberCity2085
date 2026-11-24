@@ -43,6 +43,9 @@ def _mk(
     # choice inside recovery (→ partial on success, defeat on failure)
     rc_lbl: str, rc_sk: str, rc_df: int,
 ) -> TextMissionTemplate:
+    # Legacy narrative contracts used a 50-200 scale. Keep their relative risk
+    # while quoting the same strategic funds as every other mission system.
+    reward = max(1_200 + risk * 100, reward * 10)
     return TextMissionTemplate(
         id=mid, title=title, district_type=dtype, background_key=bgkey,
         description=desc, opening_scene_id="open",

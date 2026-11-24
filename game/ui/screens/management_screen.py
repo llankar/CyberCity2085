@@ -1331,7 +1331,7 @@ class ManagementView(GameView):
             ccb = cct - cat_card_h
             if ccb < cat_y0 + 2:
                 break
-            acquire_cost = getattr(cat_item, '_acquire_cost', 60)
+            acquire_cost = getattr(cat_item, '_acquire_cost', 5_000)
             can_afford   = gs.available_funds >= acquire_cost
             is_armor     = cat_item.asset_type in ("power_armor", "heavy_armor")
             cat_col      = palette.AMBER_BORDER if can_afford else (50, 55, 60)
@@ -2709,7 +2709,7 @@ class ManagementView(GameView):
     def _do_asset_acquire(self) -> None:
         """Purchase a new spec-ops asset (alternating robot / power armor)."""
         gs = self.game_state
-        cost = 50
+        cost = 5_000
         if not gs.spend_funds(cost, "asset_acquire", "Acquired new spec-ops asset."):
             gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ¥{cost} to acquire asset"))
             return
@@ -2747,7 +2747,7 @@ class ManagementView(GameView):
             if not 0 <= catalog_idx < len(items):
                 return
             template = items[catalog_idx]
-        acquire_cost = getattr(template, '_acquire_cost', 60)
+        acquire_cost = getattr(template, '_acquire_cost', 5_000)
         if not gs.spend_funds(acquire_cost, "asset_acquire", f"Purchased {template.name}"):
             gs.add_event(push_action(self.notifications, "asset_acquire", False, f"Need ¥{acquire_cost}"))
             return

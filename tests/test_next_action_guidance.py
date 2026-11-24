@@ -27,6 +27,8 @@ class NextActionGuidanceTest(unittest.TestCase):
         gs = GameState()
         available = gs.research_tree.available_projects(set(), set())
         self.assertTrue(available)
+        gs.funds.current_funds = available[0].funds_cost
+        gs.budget_pool = gs.funds.current_funds
         self.assertTrue(gs.start_research(available[0].id))
 
         guidance = compute_next_action(gs, "corp")

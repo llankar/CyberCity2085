@@ -27,6 +27,8 @@ class SpecOpsAssetsTest(unittest.TestCase):
     def test_unlock_path_research_to_available_asset_project(self):
         state = GameState()
         project = state.research_tree.project("power_armor_servo_prayer")
+        state.funds.current_funds = project.funds_cost
+        state.budget_pool = state.funds.current_funds
         self.assertTrue(state.start_research(project.id))
         advance_research_days(state, project.days_required, state.research_tree)
         self.assertIn(project.id, state.completed_research)

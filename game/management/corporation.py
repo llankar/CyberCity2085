@@ -16,10 +16,10 @@ from .funds import CorporateFunds
 class CorporationFinance:
     """Recurring weekly funding profile for the player's corporation."""
 
-    weekly_stipend: int = 75
+    weekly_stipend: int = 750
     city_support_modifier: float = 0.10
     political_pressure_modifier: float = -0.05
-    debt_upkeep: int = 15
+    debt_upkeep: int = 150
 
     def projected_weekly_income(self) -> int:
         """Return the next net weekly payment after modifiers and upkeep."""
@@ -65,11 +65,16 @@ class CorporationFinance:
     def from_dict(cls, data: dict | None) -> "CorporationFinance":
         """Restore finance settings while tolerating older save files."""
         data = data or {}
+        stipend = int(data.get("weekly_stipend", 750))
+        debt = int(data.get("debt_upkeep", 150))
+        if stipend <= 100 and debt <= 20:
+            stipend *= 10
+            debt *= 10
         return cls(
-            weekly_stipend=int(data.get("weekly_stipend", 75)),
+            weekly_stipend=stipend,
             city_support_modifier=float(data.get("city_support_modifier", 0.10)),
             political_pressure_modifier=float(
                 data.get("political_pressure_modifier", -0.05)
             ),
-            debt_upkeep=int(data.get("debt_upkeep", 15)),
+            debt_upkeep=debt,
         )

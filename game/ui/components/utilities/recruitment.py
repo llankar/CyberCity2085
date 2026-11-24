@@ -48,7 +48,7 @@ class RecruitmentDeck(UtilityDeck):
                 width=r.width - 112 * u,
             )
             self.label(
-                f"¥{c.price}", r.left + 99 * u, r.bottom + 21 * u, 21, GOLD, bold=True
+                f"¥{c.price:,}", r.left + 99 * u, r.bottom + 21 * u, 21, GOLD, bold=True
             )
             self.hit(r, "recruit_preview", i, c.background)
         self.panel(right, self.word("DOSSIER OPÉRATIF", "OPERATIVE DOSSIER"), "journal")
@@ -95,7 +95,7 @@ class RecruitmentDeck(UtilityDeck):
             )
             self.action(
                 Rect(r.left, r.bottom, r.right, r.bottom + 52 * u),
-                self.word("RECRUTER", "HIRE") + f"  ¥{c.price}",
+                self.word("RECRUTER", "HIRE") + f"  ¥{c.price:,}",
                 "recruit_candidate",
                 selected,
                 enabled=v.game_state.available_funds >= c.price,

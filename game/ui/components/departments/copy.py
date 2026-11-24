@@ -18,7 +18,7 @@ WORDS = {
     "clear": ("LIBÉRER", "CLEAR"),
     "weapons": ("ARMEMENT", "WEAPONS"),
     "integrity": ("INTÉGRITÉ", "INTEGRITY"),
-    "maintenance": ("ENTRETIEN / JOUR", "UPKEEP / DAY"),
+    "maintenance": ("CYCLE DE SERVICE", "SERVICE CYCLE"),
     "ready": ("PRÊT", "READY"),
     "unavailable": ("INDISPONIBLE", "UNAVAILABLE"),
     "empty": ("Aucune donnée disponible.", "No data available."),

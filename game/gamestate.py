@@ -72,7 +72,7 @@ class GameState:
         }
     )
 
-    # Post-mission cash allocations reserved for named command categories.
+    # Cumulative post-mission planning envelopes used by command reporting.
     mission_fund_allocations: dict = field(
         default_factory=lambda: {key: 0 for key in MISSION_FUND_CATEGORIES}
     )
@@ -410,12 +410,9 @@ class GameState:
             self.mission_fund_allocations[category] = (
                 self.mission_fund_allocations.get(category, 0) + amount
             )
-            if category != "corporate_reserves":
-                self.spend_funds(
-                    amount,
-                    f"mission_{category}",
-                    f"Post-mission allocation from {mission_title}.",
-                )
+            # Allocations are planning envelopes used by the management report,
+            # not a second charge on money that has just been earned. Actual
+            # purchases and upkeep create their own ledger expenses.
 
         summary = ", ".join(
             f"{category.replace('_', ' ')} +{amount}"
@@ -782,6 +779,10 @@ class GameState:
             if active_mission_data
             else None
         )
+        # Migrate legacy boards whose displayed rewards still used the obsolete
+        # double-digit economy. Story rewards already above the floor are kept.
+        for mission in gs.mission_templates + ([gs.active_mission] if gs.active_mission else []):
+            mission.fund_reward = calculate_mission_fund_reward(mission, True)
         gs.selected_mission_index = data.get("selected_mission_index", 0)
         gs.mission_board_generated_day = int(
             data.get("mission_board_generated_day", gs.calendar.current_day)

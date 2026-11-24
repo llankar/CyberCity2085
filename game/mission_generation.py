@@ -126,7 +126,10 @@ def generate_mission_board(game_state: "GameState", board_size: int | None = Non
         mission = MissionTemplate.from_dict(base.to_dict())
         risk_delta = rng.choice([-1, 0, 1]) + pressure_mod
         mission.risk_level = max(1, mission.risk_level + risk_delta)
-        mission.fund_reward = max(20, mission.fund_reward + mission.risk_level * 5)
+        mission.fund_reward = max(
+            1_200 + mission.risk_level * 100,
+            mission.fund_reward + mission.risk_level * 50,
+        )
         mission.starting_enemy_count = max(1, mission.starting_enemy_count + max(0, risk_delta))
         mission.id = f"{mission.id}_d{game_state.calendar.current_day}_s{slot}"
         mission.title = f"{mission.title} {t('mission.board.day_suffix', game_state.ui_language, day=game_state.calendar.current_day)}"
@@ -185,7 +188,7 @@ def _regional_missions(district_name: str) -> list[MissionTemplate]:
             district=district_name, district_pressure={"unrest": 3, "media_heat": 1},
             starting_enemy_count=2 + risk // 2, enemy_theme=theme,
             battle_environment=environment, objective_type=objective_type,
-            risk_level=risk, fund_reward=65 + risk * 20,
+            risk_level=risk, fund_reward=1_200 + risk * 100,
             duration_days=2 if environment == "wasteland" else 1,
             success_consequences=[Consequence(
                 affected_district=district_name, affected_faction=faction, severity=1,

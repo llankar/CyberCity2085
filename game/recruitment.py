@@ -6,6 +6,8 @@ import re
 from dataclasses import dataclass, asdict
 import random
 
+from .management.economy import RECRUIT_PRICE_MULTIPLIER, RECRUIT_PRICE_ROUNDING
+
 from .agents.sheet_schema import build_default_skills, normalize_agent_sheet
 from .character import Character
 from .narrative.personality_traits import assign_personality_traits
@@ -289,8 +291,12 @@ def _candidate_price(role: str, stats: PlayerStats, skills: dict[str, int]) -> i
     stat_total = stats.str + stats.agi + stats.con + stats.cha + stats.psi + stats.defense
     skill_total = sum(int(rank) for rank in skills.values())
     role_bias = {"samurai": 2, "sniper": 3, "psi": 4, "robot": 10}.get(role, 2)
-    price = 6 + stats.level * 3 + stat_total // 4 + skill_total // 2 + role_bias
-    return max(8, price)
+    rating = 6 + stats.level * 3 + stat_total // 4 + skill_total // 2 + role_bias
+    scaled = rating * RECRUIT_PRICE_MULTIPLIER
+    return max(
+        RECRUIT_PRICE_MULTIPLIER * 8,
+        int(round(scaled / RECRUIT_PRICE_ROUNDING) * RECRUIT_PRICE_ROUNDING),
+    )
 
 
 def _candidate_profile(role: str, name: str, rng: random.Random) -> tuple[PlayerStats, dict[str, int], int, str, str, tuple[str, ...], str]:

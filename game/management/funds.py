@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from .economy import MISSION_BASE_REWARD, MISSION_RISK_REWARD
+
 MISSION_FUND_CATEGORIES = (
     "agent_pay_morale",
     "research",
@@ -25,8 +27,8 @@ DEFAULT_MISSION_FUND_SPLIT = {
     "corporate_reserves": 15,
 }
 
-HANGAR_PACING_BASE_REWARD = 1_200
-HANGAR_PACING_RISK_REWARD = 100
+HANGAR_PACING_BASE_REWARD = MISSION_BASE_REWARD
+HANGAR_PACING_RISK_REWARD = MISSION_RISK_REWARD
 
 
 @dataclass(frozen=True)
