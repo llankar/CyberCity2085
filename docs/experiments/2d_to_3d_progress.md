@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-POSE-42 — added reproducible Blender stress-pose
+  renderer with both elbows bent and left thigh/calf flexed. Native execution
+  succeeded; front/profile captures inspected on E:. Authored armor follows
+  rig, but fitting under extreme joint bends still requires close review and
+  comparison after GLB export. No natural animation acceptance inferred.
+  Next: inspect elbow/knee armor contact at closer framing and verify same pose
+  in Godot before authoring any action clips.
+
 - `DONE` EXPERIMENT-TEXTURE-FILTER-41 — experimental GLB preview now generates
   missing mipmaps by default, caches shared images by texture/normal usage and
   renormalizes normal-map mip levels. --raw-textures retains diagnostic bypass.
