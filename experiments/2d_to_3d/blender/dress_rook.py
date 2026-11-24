@@ -177,6 +177,40 @@ def boot_piece(name, location, scale, bone, color):
     modifier.object = rig
     return obj
 
+# Swept sculptural locks: actual mesh tubes, sharing a replaceable hair material.
+hair_material = bpy.data.materials.new('Rook_CopperHair')
+hair_material.use_nodes = True
+hair_shader = hair_material.node_tree.nodes['Principled BSDF']
+hair_shader.inputs['Base Color'].default_value = (0.32, 0.065, 0.008, 1)
+hair_shader.inputs['Roughness'].default_value = 0.52
+for index in range(16):
+    t = index / 15
+    curve = bpy.data.curves.new('Rook_HairLock', 'CURVE')
+    curve.dimensions = '3D'
+    curve.bevel_depth = 0.012
+    curve.bevel_resolution = 2
+    curve.resolution_u = 8
+    spline = curve.splines.new('BEZIER')
+    spline.bezier_points.add(3)
+    points = [(-0.065 + t * 0.11, 0.025, 1.665), (-0.060 + t * 0.105, -0.015, 1.735), (-0.075 + t * 0.095, -0.085, 1.745), (-0.080 + t * 0.065, -0.125, 1.69)]
+    for point, coordinate, radius in zip(spline.bezier_points, points, [0.5, 1.0, 0.85, 0.08]):
+        point.co = (coordinate[0], coordinate[1], coordinate[2] - 0.055)
+        point.radius = radius
+        point.handle_left_type = point.handle_right_type = 'AUTO'
+    obj = bpy.data.objects.new('Rook_HairLock_%02d' % index, curve)
+    bpy.context.collection.objects.link(obj)
+    obj.data.materials.append(hair_material)
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.object.convert(target='MESH')
+    obj = bpy.context.object
+    obj.parent = rig
+    group = obj.vertex_groups.new(name='head')
+    group.add(list(range(len(obj.data.vertices))), 1, 'REPLACE')
+    modifier = obj.modifiers.new('Skeleton', 'ARMATURE')
+    modifier.object = rig
+
 for side, sign in [('l', 1), ('r', -1)]:
     bone = 'foot_' + side
     # Derive lateral alignment from the actual rig rather than assuming body width.

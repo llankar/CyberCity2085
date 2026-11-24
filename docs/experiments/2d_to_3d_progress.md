@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-HAIR-17 — generated 16 mesh locks with copper material
+  and head weights. v13 front inspected: hair floated above scalp and looked
+  comb-like (FAIL artistic). Lowered lock coordinates 55 mm and regenerated
+  v14 BLEND/GLB/renders on E:. v14 artistic inspection remains NOT VERIFIED;
+  needs scalp fitting, varied lock directions and silhouette matching portrait.
+  Next: measure scalp bounds, inspect v14 side/front and reshape the hairstyle.
+
 - `DONE` GLB-HELPER-FIX-16 — export uses disposable mesh copies, clears
   authoring shape keys on copies, applies non-armature modifiers, retains skin
   and deletes copies afterward. First attempt failed on shape keys; corrected
