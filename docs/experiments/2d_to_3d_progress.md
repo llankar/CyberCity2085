@@ -24,6 +24,10 @@ This register is separate from the principal CyberCity 2085 GOAL.
   complete 1.718 m humanoid (19,158 vertices, 18,486 faces) with the built-in
   53-bone game-engine rig and skin weights was exported to Blender/GLB, rendered
   and loaded by Godot 4.7.2. Anatomy is visually coherent.
+- `DONE` HARD-SURFACE-CRATE-02 — a clean 20-part cyberpunk cargo crate was built
+  procedurally from real beveled geometry and PBR/emissive materials. BLEND,
+  GLB and preview are on E:; the GLB loads in Godot 4.7.2. This is materially
+  cleaner and more controllable than the rejected TripoSR crate.
 - `IN_PROGRESS` HUMANOID-ROOK-01 — the valid MPFB body still needs Rook's hair,
   clothing, equipment, materials and attachment points before animation work.
 - `TODO` HUMANOID-ANIM-01 — idle, walk, fire, melee and death start only after
