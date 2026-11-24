@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-OUTFIT-27 — downloader PID 25556 remains active;
+  archive grew to 116,535,296 bytes. Added configurable MPFB outfit loader
+  using add_mhclo_asset for clothes/hair and set_character_skin for materials,
+  retaining rig fitting and neutral review lighting. Python syntax compilation
+  passed for installer and loader; actual fitting NOT EXECUTED until verified
+  asset pack exists. Next: finish download, validate/install, select real assets
+  and run loader. No additional download was started.
+
 - `IN_PROGRESS` MPFB-PACK-INSTALL-26 — downloader PID 25556 verified alive;
   archive grew from 39,239,680 to 67,817,472 bytes during this turn. Added
   Blender installer using official MPFB API with ZIP CRC, path containment and
