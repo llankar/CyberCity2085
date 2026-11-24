@@ -2,6 +2,22 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SPRITE-PIXEL-REVIEW-66 — added reproducible default-alley zoom
+  calibration from current map presentation ratio .015 and wall image dimensions
+  7680x4320, using production top-down overview/close formulas. At1920x1080,
+  human reference is20.736px overview /62.208px close. Copied actual agent_samurai
+  and enemy_corp_samurai_robot_heavy atlases to E:; source SHA256s verified.
+  Native Godot projects 1.718m height to62.207947px /20.736023px (assert <0.1px).
+  Both1920x1080 screenshots rendered and inspected: phase2/
+  sprite_comparison_close.png, sprite_comparison_overview.png. Existing sprites
+  remain more distinctive; no artistic pass for current human or robot.
+  Seven focused tests pass (new formula contract included). Scope: default alley,
+  no handoff overrides; selected robot sprite multiplier1.65 vs2.4m mesh retained.
+  Sprite shaders/rim/shadows not reproduced, so not exact full-render equivalence.
+  Next: acquire qualified authored human, compare again including production
+  readability treatment and multiple views/actions. Global acceptance open.
+
+
 - `IN_PROGRESS` TACTICAL-STAGE-64 — first existing-map composition now loads
   human, robot, crate and newly modeled reference-inspired VTOL in native Godot.
   Original alley PNG/walls copied to E: with SHA256 verification; 627 obstacle

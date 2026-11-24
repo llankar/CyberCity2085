@@ -39,6 +39,10 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 	return true
 
 func _ready() -> void:
+	if "--sprite-review" in OS.get_cmdline_user_args():
+		get_window().content_scale_size = Vector2i(1920, 1080)
+		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
+		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	if not load_subject(root + "authored_tactical01/" + human_file, Vector3(-1.6, 0, 0)):
@@ -89,6 +93,8 @@ func _ready() -> void:
 	hud.position = Vector2(20, 16)
 	hud.add_theme_font_size_override("font_size", 19)
 	layer.add_child(hud)
+	if "--sprite-review" in OS.get_cmdline_user_args():
+		setup_sprite_review(layer)
 	selected = 1
 	play_clip("Idle")
 	selected = 0
@@ -143,6 +149,51 @@ func _ready() -> void:
 func update_camera() -> void:
 	camera.position = target + Vector3(sin(yaw) * cos(elevation), sin(elevation), cos(yaw) * cos(elevation)) * 50
 	camera.look_at(target)
+
+func setup_sprite_review(layer: CanvasLayer) -> void:
+	var folder := "E:/CyberCity2085-3d-lab/sources/sprite_review/"
+	var calibration = JSON.parse_string(FileAccess.get_file_as_string(folder + "calibration.json"))
+	if not calibration is Dictionary or get_viewport().get_visible_rect().size != Vector2(1920, 1080):
+		push_error("Sprite review requires prepared inputs and 1920x1080 viewport")
+		get_tree().quit(6)
+		return
+	var body_px: float = calibration.close_human_px
+	if "--overview" in OS.get_cmdline_user_args():
+		body_px = calibration.overview_human_px
+	var measured := absf(camera.unproject_position(Vector3(0, 1.718, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	camera.size *= measured / body_px
+	var verified := absf(camera.unproject_position(Vector3(0, 1.718, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	assert(absf(verified - body_px) < 0.1)
+	for index in range(2):
+		var key: String = calibration.atlases[index].key
+		var manifest = JSON.parse_string(FileAccess.get_file_as_string(folder + key + ".json"))
+		var atlas := Image.load_from_file(folder + key + ".png")
+		var frame_size := Vector2i(manifest.frame_size[0], manifest.frame_size[1])
+		var frame_index_value: int = manifest.animations.idle.rows[1][0]
+		var columns := atlas.get_width() / frame_size.x
+		var frame := atlas.get_region(Rect2i(Vector2i(frame_index_value % columns, frame_index_value / columns) * frame_size, frame_size))
+		var display_body := body_px * (1.0 if index == 0 else float(calibration.robot_sprite_multiplier))
+		var display_size := Vector2(frame_size) * display_body / (frame_size.y * float(manifest.reference_height_uv))
+		var foot := camera.unproject_position(subjects[index].position)
+		var reference_foot := foot + Vector2(-95 if index == 0 else 95, 0)
+		var picture := TextureRect.new()
+		picture.texture = ImageTexture.create_from_image(frame)
+		picture.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		picture.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+		picture.size = display_size
+		picture.position = reference_foot - Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * display_size
+		layer.add_child(picture)
+		for entry in [[reference_foot, "Sprite 2D"], [foot, "Mesh 3D"]]:
+			var caption := Label.new()
+			caption.text = entry[1]
+			caption.position = entry[0] + Vector2(-35, 12)
+			caption.add_theme_font_size_override("font_size", 14)
+			layer.add_child(caption)
+	var note := Label.new()
+	note.position = Vector2(20, 230)
+	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot retains its actual 2.4 m size\nSprite shader/rim/ground shadows are not reproduced in this review." % body_px
+	layer.add_child(note)
+	print("SPRITE_PIXEL_HEIGHT_VERIFIED expected=", body_px, " projected=", verified)
 
 func load_tactical_map() -> void:
 	subjects[0].position = Vector3(-1.5, 0, 1.5)

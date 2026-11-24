@@ -26,6 +26,16 @@ This prototype loads a textured 2D map floor plus blocked-cell volumes, the two
 actors, a hovering VTOL and a crate. It is not a finished 3D environment or an
 exact production-zoom comparison. Original map/runtime files remain unchanged.
 
+For calibrated pixel-size review, run `prepare_sprite_review.py`, then launch
+comparison.tscn with `-- --realtime --sprite-review` (add `--overview` for the
+overview zoom). This renders a 1920x1080 viewport and verifies the projected
+1.718m reference against the existing alley's default combat formula: 62.208px
+close / 20.736px overview. It displays actual atlas idle frames alongside meshes.
+The robot reference uses the selected normal-robot multiplier 1.65; the 3D robot
+keeps its physical 2.4m height. Production sprite shaders/outlines and mission
+presentation overrides are not included; this is a scale comparison, not an
+identical reproduction of the production renderer.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

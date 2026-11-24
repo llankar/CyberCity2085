@@ -5,6 +5,19 @@ ROOT = Path(__file__).resolve().parents[1]
 LAB = ROOT / "experiments" / "2d_to_3d"
 
 
+def test_sprite_review_uses_current_top_down_zoom_formula():
+    import importlib.util
+    import pytest
+    spec = importlib.util.spec_from_file_location('sprite_review', LAB / 'prepare_sprite_review.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    result = module.combat_heights(1920, 1080, 7680, 4320, .015)
+    assert result['overview_zoom'] == pytest.approx(.18)
+    assert result['close_zoom'] == pytest.approx(.54)
+    assert result['overview_human_px'] == pytest.approx(20.736)
+    assert result['close_human_px'] == pytest.approx(62.208)
+
+
 def test_material_tint_preserves_binary_geometry_chunks():
     import importlib.util
     import json
