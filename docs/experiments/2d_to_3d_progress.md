@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MPFB-PACK-INSTALL-26 — downloader PID 25556 verified alive;
+  archive grew from 39,239,680 to 67,817,472 bytes during this turn. Added
+  Blender installer using official MPFB API with ZIP CRC, path containment and
+  E:-only data/temp checks. Script not executed while archive is locked.
+  Next: poll PID 25556/file completion, execute installer in E: MPFB profile,
+  inspect pack metadata and choose authored outfit/hair/eyes/skin.
+
 - `IN_PROGRESS` MPFB-SYSTEM-ASSETS-25 — found direct official files host after
   download.makehumancommunity.org DNS failure. Started 267 MB CC0 system pack
   download from https://files.makehumancommunity.org/asset_packs/makehuman_system_assets/makehuman_system_assets_cc0.zip
