@@ -2,6 +2,24 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HUMAN-SOURCE-71 — Vincent v1 public Blender Studio
+  source acquired on E:,19,258,697-byte BLEND; official CC BY4 card, hash/credits
+  recorded in3d_asset_selection.md. Neutral front/profile/back JPG renders executed
+  and inspected in phase2/vincent_review. Full character rejected for exaggerated
+  cartoon proportions despite professional authored geometry.2,263-bone old rig
+  raises face-driver warnings in4.5; scripts disabled, animation NOT VERIFIED.
+  PNG output format corrected in review script afterward; PNG rerun not executed.
+  One hair-only integration study created separate BLEND/GLB in authored_hair01,
+  with source credit/license/modification JSON. Native Godot import/capture passes,
+  but initial floating/back-offset fit corrected only partly: scalp/base fit still
+  artistically insufficient. No accepted hairstyle or final human claimed. Source
+  and previous studies preserved. Seven Python tests pass; artistic gate FAIL for
+  this fitting, not a completed human. No new generic armor recoloring performed.
+  Next: coherent licensed tactical human/garment source; existing CC BY candidates
+  need authenticated downloads; current Fajrul source still lacks rights grant.
+  Continue independent rigid-asset/scene work without propagating this trial.
+
+
 - `IN_PROGRESS` ROBOT-ATLAS-ALIGN-70 — all five actions rerendered separately
   in E: robot_unified_ACTION folders using common5m orthographic scale, camera
   target(0,0,.9),128px frames; prior experiments preserved. All160 frames pass

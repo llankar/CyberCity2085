@@ -31,6 +31,19 @@ accessories and full modular armor still need qualified selections.
 
 ## Acquisition and acceptance
 
+[Vincent v1, Blender Studio](https://studio.blender.org/characters/vincent/v1/)
+acquired through its public source link, CC BY4.0 linked on official card.
+19,258,697-byte BLEND, SHA256
+4b616d0f39c1e9b7547218d481c2b3486562005b35594ab8488735d47b2b79c0.
+Credits in source notes: design Matias Mendiola, modeling/texturing Andy Goralczyk,
+rig Juan Pablo Bouza, Blender Studio. Embedded scripts disabled during inspection.
+Neutral front/profile/back renders inspected: professional authored shape/clothing,
+but exaggerated proportions are rejected for the full CyberCity human. Old rig has
+2,263 bones and invalid face-driver warnings in Blender4.5; animation NOT VERIFIED.
+Hair-only fitting study performed on one MPFB body with CC BY attribution and
+modification record. GLB imports, but scalp fit is visually insufficient; not an
+accepted hairstyle or final human. Do not generalize production from this study.
+
 Additional inspected candidate: [Cyberpunk Samurai by Fajrul FN](https://fajrulfn.itch.io/cyberpunk-samurai).
 Official free download acquired solely for inspection on E: (137,811,341 bytes;
 SHA256 E12FE1F308374B443F339B3FCE4C06BB536490BC962877F78A90C1736FDF0A4C).
