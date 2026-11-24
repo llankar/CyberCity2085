@@ -29,7 +29,22 @@ def pivot(name, location, parent=None):
 
 root = pivot('RobotRoot', (0, 0, 0))
 def piece(name, location, size, mat, parent):
-    obj = box(name, location, size, mat, 0.025)
+    if mat == armor and any(token in name for token in ['ChestArmor', 'Thigh_', 'Shin_', 'ForearmShield_']):
+        contour = [(-0.65, -1), (0.65, -1), (1, -0.55), (1, 0.55), (0.65, 1), (-0.65, 1), (-1, 0.55), (-1, -0.55)]
+        vertices = [(x * size[0], y * size[1], z * size[2]) for y in [-1, 1] for x,z in contour]
+        faces = [tuple(reversed(range(8))), tuple(range(8, 16))] + [(i, (i+1)%8, (i+1)%8+8, i+8) for i in range(8)]
+        mesh = bpy.data.meshes.new(name + '_Contour')
+        mesh.from_pydata(vertices, [], faces)
+        mesh.update()
+        obj = bpy.data.objects.new(name, mesh)
+        bpy.context.collection.objects.link(obj)
+        obj.location = location
+        obj.data.materials.append(mat)
+        bevel = obj.modifiers.new('PlateEdge', 'BEVEL')
+        bevel.width = 0.015
+        bevel.segments = 2
+    else:
+        obj = box(name, location, size, mat, 0.025)
     if mat == armor:
         # Shape individual armor plates rather than retaining cuboid blocks.
         for vertex in obj.data.vertices:
@@ -52,6 +67,17 @@ def bearing(name, location, radius, depth, parent, axis='X'):
     bevel = obj.modifiers.new('MachinedEdge', 'BEVEL')
     bevel.width = 0.008
     bevel.segments = 2
+    obj.parent = parent
+    obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    return obj
+
+def rod(name, start, end, radius, parent):
+    delta = Vector(end) - Vector(start)
+    bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=radius, depth=delta.length, location=(Vector(start)+Vector(end))/2)
+    obj = bpy.context.object
+    obj.name = name
+    obj.rotation_euler = delta.to_track_quat('Z', 'Y').to_euler()
+    obj.data.materials.append(steel)
     obj.parent = parent
     obj.matrix_parent_inverse = parent.matrix_world.inverted()
     return obj
@@ -85,6 +111,8 @@ for sign, side in [(1, 'L'), (-1, 'R')]:
     knee = pivot('Knee_' + side, (sign * 0.22, 0, 0.65), hip)
     bearing('KneeBearing_' + side, (sign * 0.22, 0, 0.65), 0.10, 0.28, knee)
     piece('Shin_' + side, (sign * 0.22, 0, 0.42), (0.12, 0.13, 0.23), armor, knee)
+    rod('ShinActuator_' + side, (sign * 0.34, 0.08, 0.59), (sign * 0.34, 0.08, 0.25), 0.025, knee)
+    rod('ThighHydraulic_' + side, (sign * 0.34, 0.08, 1.06), (sign * 0.34, 0.08, 0.73), 0.03, hip)
     piece('Foot_' + side, (sign * 0.22, -0.09, 0.12), (0.14, 0.24, 0.10), steel, knee)
     shoulder = pivot('Shoulder_' + side, (sign * 0.44, 0, 1.67), torso)
     bearing('ShoulderBearing_' + side, (sign * 0.44, 0, 1.67), 0.15, 0.24, shoulder)

@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-CONTOURS-51 — replaced chest/thigh/shin/forearm block
+  plates with extruded eight-point contours, bevels and taper; added four leg
+  actuator rods. robot_mechanical06 BLEND/GLB and three renders generated;
+  neutral rest inspected. More defined shells but reference fidelity remains
+  insufficient. Rods are rigid attached details, not telescoping constraints.
+  Next: constrain hydraulic endpoints and design grounded leg motion; refine
+  proportions/armor thickness against source before final material detailing.
+
 - `IN_PROGRESS` ROBOT-HEAD-50 — native Godot head clip capture verifies corrected
   centered framing (full model visible). Reshaped helmet into lower angular
   housing with recessed split optics, jaw guards and four sensor masts.
