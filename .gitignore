@@ -8,5 +8,6 @@ dist/
 work/
 .pytest_cache/
 **/.godot/
+assets/combat_visual/source_sheets/
 *.import
 *.uid

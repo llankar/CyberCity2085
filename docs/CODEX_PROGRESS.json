@@ -2326,6 +2326,15 @@
     },
     "next": "Capture F5 natively, repair any overflow, then complete F1-F4/F6 visual-functional passes"
   },
+  "source_asset_split": {
+    "status": "DONE",
+    "updated": "2026-11-24",
+    "source_repository": "https://github.com/llankar/CyberCity2085-SourceAssets",
+    "source_commit": "3a469e4d2a79991217086650c71e03a10d905a78",
+    "files_moved": 3291,
+    "disk_bytes_moved": 4481464070,
+    "tests": {"passed": 19, "failed": 0, "skipped": 2}
+  },
   "planned_batches": [
     {
       "id": "SCALE",

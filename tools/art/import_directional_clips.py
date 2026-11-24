@@ -1,9 +1,10 @@
 """Pack reviewed drawn poses. No reflected directions or synthetic walk frames."""
-import argparse,hashlib,json,math,shutil,statistics
+import argparse,hashlib,json,math,os,shutil,statistics
 from pathlib import Path
 from PIL import Image, ImageFilter
 from import_artist_variants import clean_alpha
 ROOT=Path(__file__).resolve().parents[2]
+SOURCE_ROOT=Path(os.environ.get('CYBERCITY_SOURCE_ASSETS', ROOT.parent/'CyberCity2085-SourceAssets')).resolve()
 SIZE=256;BASELINE=244;BODY=216
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -175,7 +176,7 @@ def build(key,config):
     body_height=config.get('body_height', BODY) if isinstance(config,dict) else BODY
     if type(body_height) is not int or not 1 <= body_height <= BODY:
         raise ValueError('body_height must be an integer between 1 and the default body height')
-    directory=ROOT/'assets/combat_visual/source_sheets'/key;directory.mkdir(parents=True,exist_ok=True)
+    directory=SOURCE_ROOT/'assets/combat_visual/source_sheets'/key;directory.mkdir(parents=True,exist_ok=True)
     clips={};provenance=[]
     for item in specs:
         source=Path(item['path']);name=item['clip']+'-'+item['layout']+'-'+str(len(provenance))+'.png';
@@ -371,7 +372,7 @@ def build(key,config):
     required=applicable or clip_order
     missing=[clip for clip in required if clip not in animations]
     coverage='complete' if not missing else 'partial'
-    data=dict(texture=path.relative_to(ROOT).as_posix(),texture_sha256=digest(path),frame_size=[SIZE,SIZE],anchor_uv=[.5,BASELINE/SIZE],reference_height_uv=body_height/SIZE,directions='E,SE,S,SW,W,NW,N,NE',animations=animations,source_image=original.relative_to(ROOT).as_posix(),source_sha256=digest(original),provenance=provenance,required_clips=required,non_applicable_clips=exemptions,coverage=coverage,missing_clips=missing,review_status=review_status)
+    data=dict(texture=path.relative_to(ROOT).as_posix(),texture_sha256=digest(path),frame_size=[SIZE,SIZE],anchor_uv=[.5,BASELINE/SIZE],reference_height_uv=body_height/SIZE,directions='E,SE,S,SW,W,NW,N,NE',animations=animations,source_image=original.relative_to(SOURCE_ROOT).as_posix(),source_sha256=digest(original),provenance=provenance,required_clips=required,non_applicable_clips=exemptions,coverage=coverage,missing_clips=missing,review_status=review_status)
     (out/(key+'.json')).write_text(json.dumps(data,indent=2)+'\n')
     print('DRAWN_CLIPS_PACKED',key,len(files),'frames;',coverage,'action coverage')
 

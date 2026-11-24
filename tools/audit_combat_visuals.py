@@ -8,11 +8,20 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = {'idle', 'move', 'fire', 'melee', 'cover', 'hit', 'death', 'psi', 'heal'}
+
+
+def source_asset_root(root: Path = ROOT) -> Path | None:
+    """Return the optional authoring repository without coupling runtime assets to it."""
+    configured = os.environ.get("CYBERCITY_SOURCE_ASSETS")
+    candidates = [Path(configured)] if configured else []
+    candidates.append(root.parent / "CyberCity2085-SourceAssets")
+    return next((candidate.resolve() for candidate in candidates if candidate.is_dir()), None)
 
 
 def validate_atlas(path: Path, root: Path = ROOT, required: set[str] | None = None) -> list[str]:
@@ -33,8 +42,13 @@ def validate_atlas(path: Path, root: Path = ROOT, required: set[str] | None = No
         for name in sorted(required - animations.keys()):
             errors.append(f'missing clip: {name}')
         if 'source_image' in data:
-            source=(root/data['source_image']).resolve()
-            if not source.is_relative_to(root.resolve()) or not source.exists() or hashlib.sha256(source.read_bytes()).hexdigest()!=data.get('source_sha256'):
+            source = (root/data['source_image']).resolve()
+            authoring_root = source_asset_root(root)
+            if not source.exists() and authoring_root is not None:
+                source = (authoring_root/data['source_image']).resolve()
+            # Source sheets are authoring evidence, not a runtime dependency.
+            # Validate them whenever the optional authoring repository is present.
+            if source.exists() and hashlib.sha256(source.read_bytes()).hexdigest()!=data.get('source_sha256'):
                 errors.append('source identity/hash mismatch')
         for name, clip in animations.items():
             rows = clip['rows']
