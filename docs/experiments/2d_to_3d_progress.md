@@ -14,14 +14,26 @@ This register is separate from the principal CyberCity 2085 GOAL.
 - `DONE` PROTOTYPE-SET-01 — all six true meshes generated, Blender/GLB exports
   created and Godot-loaded. Visual review rejects all six as final art; Rook and
   Raider are not anatomically riggable.
-- `TODO` MULTIVIEW-01 — validate a licensed multi-view humanoid solution.
-- `BLOCKED` HUMANOID-RIG-01 — skeleton, skinning and five requested animations
-  require an anatomically valid multi-view humanoid mesh.
+- `BLOCKED` SPAR3D-01 — SPAR3D and Stable Fast 3D are compatible with the GPU,
+  but their Stability AI Community License must be accepted on Hugging Face and
+  no authenticated token is available. No gated weight was downloaded.
+- `TODO` TRELLIS-01 — requires Linux, compilation and at least 16 GB VRAM; the
+  RTX 5070 Ti is exactly at the documented minimum. Deferred until the lighter
+  alternatives can be compared fairly.
+- `DONE` MPFB-BASE-01 — MPFB 2.0.18 installed in the E: Blender profile. A
+  complete 1.718 m humanoid (19,158 vertices, 18,486 faces) with the built-in
+  53-bone game-engine rig and skin weights was exported to Blender/GLB, rendered
+  and loaded by Godot 4.7.2. Anatomy is visually coherent.
+- `IN_PROGRESS` HUMANOID-ROOK-01 — the valid MPFB body still needs Rook's hair,
+  clothing, equipment, materials and attachment points before animation work.
+- `TODO` HUMANOID-ANIM-01 — idle, walk, fire, melee and death start only after
+  the dressed model passes the anatomy/deformation review.
 - `TODO` GODOT-VISUAL-01 — visible isometric comparison, lighting, shadows and
   performance evidence.
 - `IN_PROGRESS` ATLAS-01 — eight static orientations and PNG atlas verified on
   the crate; animation strips wait for a valid rig.
 
-Evidence is stored under `E:\CyberCity2085-3d-lab\outputs`. These generated
+Phase 1 evidence is stored under `E:\CyberCity2085-3d-lab\outputs`; Phase 2
+evidence is under `E:\CyberCity2085-3d-lab\generated\phase2`. These generated
 resources must not be pushed without explicit authorization.
 

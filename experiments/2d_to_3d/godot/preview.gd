@@ -35,8 +35,8 @@ func _ready() -> void:
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
 	camera.size = 2.4
 	camera.position = Vector3(1.8, 1.5, 1.8)
-	camera.look_at(Vector3(0.0, 0.45, 0.0))
 	add_child(camera)
+	camera.look_at(Vector3(0.0, 0.45, 0.0))
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
 	if DisplayServer.get_name() == "headless":
 		get_tree().quit()
