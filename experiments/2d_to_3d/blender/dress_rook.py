@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import bpy
 import bmesh
+import math
 
 args = sys.argv[sys.argv.index('--') + 1:]
 output = Path(args[0]).resolve()
@@ -57,13 +58,32 @@ garment('Rook_Trousers', lambda p: 0.13 < p.z < 1.00 and abs(p.x) < 0.25, (0.018
 garment('Rook_Undershirt', lambda p: 0.94 < p.z < 1.43 and abs(p.x) < 0.22, (0.008, 0.012, 0.015), 0.009)
 garment('Rook_JacketShell', lambda p: 1.00 < p.z < 1.46 and abs(p.x) < 0.40 and (p.y > -0.055 or abs(p.x) > 0.10), (0.025, 0.09, 0.055), 0.025)
 def boot_piece(name, location, scale, bone, color):
-    bpy.ops.mesh.primitive_cube_add(location=location)
-    obj = bpy.context.object
-    obj.name = name
-    obj.scale = scale
-    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    # Rounded rectangular cross-sections avoid a box silhouette while keeping
+    # an editable low-poly surface with coherent rings.
+    vertices = []
+    faces = []
+    count = 16
+    for level, taper in [(-1.0, 0.85), (-0.7, 1.0), (0.65, 1.0), (1.0, 0.78)]:
+        for index in range(count):
+            angle = math.tau * index / count
+            c, s = math.cos(angle), math.sin(angle)
+            x = math.copysign(abs(c) ** 0.65, c)
+            y = math.copysign(abs(s) ** 0.65, s)
+            vertices.append((location[0] + x * scale[0] * taper, location[1] + y * scale[1] * taper, location[2] + level * scale[2]))
+    for ring in range(3):
+        for index in range(count):
+            nxt = (index + 1) % count
+            faces.append((ring * count + index, ring * count + nxt, (ring + 1) * count + nxt, (ring + 1) * count + index))
+    faces.extend([tuple(reversed(range(count))), tuple(range(3 * count, 4 * count))])
+    mesh = bpy.data.meshes.new(name + '_mesh')
+    mesh.from_pydata(vertices, [], faces)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    for polygon in mesh.polygons:
+        polygon.use_smooth = len(polygon.vertices) == 4
     bevel = obj.modifiers.new('RoundedLeatherEdges', 'BEVEL')
-    bevel.width = 0.022
+    bevel.width = 0.004
     bevel.segments = 3
     mat = bpy.data.materials.new(name + '_material')
     mat.use_nodes = True

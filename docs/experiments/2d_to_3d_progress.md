@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-BOOTS-06 — replaced cube primitives with four rounded
+  cross-section rings per component. v4 BLEND and preview generated on E: and
+  inspected: toe silhouette is rounder, but ankle fitting and garment overlap
+  still need correction. Native bpy assertions passed: six parts, 384 vertices,
+  armature modifiers and normalized single-bone weights on every vertex.
+  Animation deformation and all-angle artistic acceptance remain NOT VERIFIED.
+  Next: correct ankle/pant overlap and author the jacket collar and sleeves.
+
 - `IN_PROGRESS` ROOK-BOOTS-05 — replaced anatomical foot shells with six
   separate beveled components (sole, upper, shaft on each foot), weighted to
   the actual MPFB foot bones. Blender generation succeeded; v3 preview was
