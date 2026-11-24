@@ -2,5 +2,5 @@
 
 from .command import draw_command
 from .city import draw_city
-from .research import draw_research
+from .lab2 import draw_research
 from .intel import draw_intel
