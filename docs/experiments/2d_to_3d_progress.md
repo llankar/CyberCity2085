@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` MPFB-SYSTEM-INSTALL-30 — original downloader completed; ZIP CRC and
+  containment checks passed, official MPFB installation/metadata refresh ran
+  successfully on E:. Catalog includes male casual suits 01–06, work suit,
+  shoes 01–06, short hair 01–04, eyes, eyebrows, lashes, teeth and tongue.
+  No asset fitting or artistic quality inferred from installation. Next:
+  inspect pack licenses/thumbnails, choose outfit and short hair, run authored
+  loader and review neutral views. Previous download waits are now historical.
+
 - `IN_PROGRESS` NEUTRAL-ASSET-REVIEW-29 — same downloader PID 25556 verified
   active at 182,620,160 bytes; helper 40263 ended its timed wait, not the
   download. New wait helper 89513 follows the same process. Outfit loader now
