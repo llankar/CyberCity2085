@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-REVIEW-22 — regenerated v18 with scalp boundary smoothing
+  and inspected front/back/side. Hairline remains stepped: smoothing alone is
+  insufficient. Back view reveals substantial torso/undershirt penetration
+  through jacket and open shoulder joins (FAIL artistic). Blender GLB body
+  bounds/53-bone roundtrip passes at 0.00000060 m error; five lightweight tests
+  pass. These checks do not validate garment quality. Next: measure evaluated
+  back surface and expand/rebuild jacket yoke, then rebuild scalp edge topology.
+
 - `IN_PROGRESS` ROOK-SCALP-21 — separate short-hair scalp derived from evaluated
   body, offset 2.5 mm and weighted to head. v17 BLEND/GLB and renders generated;
   side inspected: improved coverage but visibly jagged hairline and cap-like
