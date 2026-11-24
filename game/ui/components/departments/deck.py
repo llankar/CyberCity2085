@@ -102,11 +102,12 @@ class DepartmentDeck(DocumentKit):
             bold=True,
             width=330 * u,
         )
+        room_title = "ASSET BAY" if self.room == "assets" else self.tr(self.room)
         self.label(
-            self.tr(self.room),
+            room_title,
             r.left + 60 * u,
             r.bottom + 22 * u,
-            29,
+            28,
             TEXT,
             bold=True,
             width=360 * u,

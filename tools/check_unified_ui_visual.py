@@ -97,11 +97,22 @@ def main():
             window.flip()
             for room in ["assets", "command", "city", "squad", "research", "intel"]:
                 view._open_hub_room(room)
+                if room == "assets":
+                    if view._department_deck is None:
+                        draw()
+                    view._department_deck.selection["asset_bay_mode"] = "armory"
                 view.on_update(1)
                 draw()
                 gs.save(f"{tmp}/before.json")
                 before = json.loads(Path(f"{tmp}/before.json").read_text())
                 capture(room)
+                if room == "assets":
+                    pages = view._department_deck.capacities["armory_catalog"][0]
+                    assert pages > 1
+                    click("department_page", ("armory_catalog", 1))
+                    assert view._department_deck.pages["armory_catalog"] == 1
+                    capture("assets-catalog-page-2")
+                    view._department_deck.pages["armory_catalog"] = 0
                 gs.save(f"{tmp}/after.json")
                 assert before == json.loads(
                     Path(f"{tmp}/after.json").read_text()
@@ -112,6 +123,7 @@ def main():
                 ), (room, width, height)
                 assert view._department_deck is not None
             view._open_hub_room("assets")
+            view._department_deck.selection["asset_bay_mode"] = "vehicles"
             view._asset_cursor = 3
             capture("assets-armor")
             assert len([h for h in view._hits if h.action == "assign_pilot"]) >= 4
@@ -119,6 +131,7 @@ def main():
             assert gs.spec_ops_assets[3].pilot_agent_name == gs.characters[0].name
             checks.append([width, height])
         view._open_hub_room("assets")
+        view._department_deck.selection["asset_bay_mode"] = "vehicles"
         view._asset_cursor = 0
         funds = gs.available_funds
         cost = gs.spec_ops_assets[0].maintenance.repair_cost
@@ -222,10 +235,13 @@ def main():
         window.flip()
         for room in ["assets", "command", "city", "squad", "research", "intel"]:
             view._open_hub_room(room)
+            if room == "assets":
+                view._department_deck.selection["asset_bay_mode"] = "armory"
             capture(room + "-large-en")
         set_text_size("medium")
         gs.ui_language = "fr"
         view._open_hub_room("assets")
+        view._department_deck.selection["asset_bay_mode"] = "vehicles"
         view._asset_cursor = 0
         draw()
         disabled = next(h for h in view._hits if h.action == "ui_disabled")

@@ -84,10 +84,20 @@ def _draw_armory(k, left, center, right):
         x = top.left + index * (width + 6 * u)
         k.action(Rect(x, top.bottom, x + width, top.top), key.upper(), "department_select", ("armory_sort", key), selected=sort_mode == key)
     grid = Rect(area.left, area.bottom, area.right, top.bottom - 10 * u)
-    for _, item, card in k.page("armory_catalog", items, grid, 104, selected=next((i for i, x in enumerate(items) if x.id == selected_id), 0)):
+    selected_index = next((i for i, x in enumerate(items) if x.id == selected_id), 0)
+    follow_signature = (family, sort_mode, selected_id)
+    follow_selection = k.selection.get("_armory_catalog_follow") != follow_signature
+    k.selection["_armory_catalog_follow"] = follow_signature
+    for _, item, card in k.page(
+        "armory_catalog",
+        items,
+        grid,
+        104,
+        selected=selected_index if follow_selection else None,
+    ):
         k.surface(card, GOLD if item.id == selected_id else CYAN, selected=item.id == selected_id)
         art = Rect(card.left + 7 * u, card.bottom + 7 * u, card.left + 91 * u, card.top - 7 * u)
-        k.image(equipment_art_path(item, family), art)
+        k.image(equipment_art_path(item, family), art, cover=False)
         x = art.right + 10 * u
         owned = gs.owned_equipment.get(item.id, 0)
         ready = gs.equipment_available_count(item.id)
@@ -96,18 +106,24 @@ def _draw_armory(k, left, center, right):
         k.label(f"OWNED {owned} // RESERVE {ready}", x, card.bottom + 18 * u, 13, MINT if ready else MUTED, width=card.right - x - 8 * u)
         k.hit(card, "department_select", ("armory_item", item.id), item.description)
 
-    k.panel(right, "ITEM DETAILS // PURCHASE", "layers")
+    k.panel(right, "ITEM DETAILS", "layers")
     area = k.body(right)
     if selected is None:
         k.paragraph(k.tr("empty"), area)
         return
     art = Rect(area.left, area.top - 205 * u, area.right, area.top)
     k.surface(art, GOLD)
-    k.image(equipment_art_path(selected, family), Rect(art.left + 8 * u, art.bottom + 8 * u, art.right - 8 * u, art.top - 8 * u))
+    # Equipment thumbnails are deliberately contained rather than cropped: long
+    # rifles and blades must remain completely visible in the detail viewport.
+    k.image(
+        equipment_art_path(selected, family),
+        Rect(art.left + 18 * u, art.bottom + 18 * u, art.right - 18 * u, art.top - 18 * u),
+        cover=False,
+    )
     y = art.bottom - 18 * u
     k.label(selected.name.upper(), area.left, y, 24, TEXT, bold=True, width=area.width)
     y -= 30 * u
-    k.label(f"{selected.availability_group} // {equipment_power_band(selected)} // ¥{equipment_purchase_price(selected):,}", area.left, y, 14, GOLD, width=area.width)
+    k.label(f"ACCESS {selected.availability_group} // POWER {equipment_power_band(selected)} // ¥{equipment_purchase_price(selected):,}", area.left, y, 13, GOLD, width=area.width)
     y -= 29 * u
     effects = [f"{key.upper()} {value:+}" for key, value in selected.stat_bonuses.items() if value]
     if hasattr(selected, "damage_bonus"):

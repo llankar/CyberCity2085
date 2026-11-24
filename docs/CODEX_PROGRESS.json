@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "ASSET-BAY-ARMORY-PAGING-01",
+      "title": "Corriger pagination, cadrage et lisibilite de l'armurerie Asset Bay",
+      "status": "DONE",
+      "files": ["game/ui/components/departments/assets.py", "game/ui/components/departments/deck.py", "tools/check_unified_ui_visual.py", "tests/test_management_hub_ui.py"],
+      "tests": ["Asset Bay/equipment/research/dossier targeted gate: 69 passed and 5 subtests passed.", "Native unified UI validator passed at 1280x720, 1920x1061/1924x1061 and 2560x1440-class window sizes."],
+      "evidence": ["Catalog page 2 remains selected after clicking the next-page control.", "Selection changes recenter once without overriding subsequent manual pagination.", "Equipment art uses contained aspect-ratio rendering with padding in catalog and detail views.", "Native 1280 and 1920 captures were visually inspected; titles and long weapon art remain inside their panels."],
+      "remaining": []
+    },
+    {
       "id": "ASSET-BAY-ARMORY-LOSS-01",
       "title": "Armurerie Asset Bay, recherche et pertes d'equipement",
       "status": "IN_PROGRESS",

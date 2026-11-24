@@ -1012,6 +1012,26 @@ class ManagementHubUITest(unittest.TestCase):
         view._dispatch("asset_buy_equipment", item_id)
         self.assertEqual(view.game_state.owned_equipment[item_id], before + 1)
 
+        deck = view._department_deck
+        self.assertGreater(deck.capacities["armory_catalog"][0], 1)
+        deck.click("department_page", ("armory_catalog", 1))
+        view.on_draw()
+        self.assertEqual(deck.pages["armory_catalog"], 1)
+
+        # Selecting an item recentres once; subsequent page clicks remain free.
+        visible_item = next(
+            hit.data[1]
+            for hit in view._hits
+            if hit.action == "department_select"
+            and isinstance(hit.data, tuple)
+            and hit.data[0] == "armory_item"
+        )
+        deck.click("department_select", ("armory_item", visible_item))
+        view.on_draw()
+        selected_page = deck.pages["armory_catalog"]
+        view.on_draw()
+        self.assertEqual(deck.pages["armory_catalog"], selected_page)
+
         view._department_deck.selection["asset_bay_mode"] = "vehicles"
         view.on_draw()
         self.assertTrue(any(hit.action == "catalog_acquire_by_id" for hit in view._hits))
