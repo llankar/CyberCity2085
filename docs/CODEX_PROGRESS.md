@@ -2,6 +2,8 @@
 
 **CHANTIER GLOBAL INCOMPLET**
 
+- État courant (2026-11-24) : `ASSET-BAY-ARMORY-LOSS-01` IN_PROGRESS. Premier lot intégré : les 42 objets sont classés de façon stable par famille et puissance en Starter/Commercial/Research ; les achats ajoutent de vrais exemplaires ; une nouvelle campagne reçoit une seule fois 24 pièces couvrant six kits fonctionnels ; un recrutement arrive sans équipement gratuit ; une sauvegarde ancienne conserve seulement les objets réellement identifiables et ne reçoit aucun cadeau rétroactif. Gate ciblé : 59 tests et 5 sous-tests réussis. Les pages Asset Bay, recherche par familles, snapshot/pertes/récupération, rapport et simulations A–G restent ouverts.
+
 - État courant (2026-11-24) : roster d'agents et Character Sheets légèrement éclaircis. Le roster utilise 150/255 pour son cadre, 182 pour les cartes et 198 pour la sélection ; les cinq pages du Dossier utilisent 176/198/218 pour panneaux/cartes/contrôles. Captures natives inspectées et validateur Dossier complet PASS aux quatre résolutions avec progression, talents, rôles, soins, persistance et texte large. Gate : 73 tests, 5 sous-tests, 1 skip.
 
 - État courant (2026-11-24) : panneau `ACTIVE MISSION` de Squad Ops éclairci isolément à 112/255. Le décor est maintenant visible derrière l'ensemble mission/intelligence/repos sans affecter l'opacité du roster ni de l'équipement. Capture native 1920×1080 inspectée ; validateur F1–F6 et trois résolutions PASS ; 64 tests, 5 sous-tests, 1 skip.
@@ -37,6 +39,14 @@ Source structurée : `docs/CODEX_PROGRESS.json`. Générer ce document avec la c
 Statuts : `TODO` non commencé ; `IN_PROGRESS` en cours ; `DONE` réalisé et vérifié dans la portée indiquée ; `BLOCKED` bloqué avec raison explicite.
 
 ## Tâches et preuves
+
+### ASSET-BAY-ARMORY-LOSS-01 — IN_PROGRESS — Armurerie, recherche et pertes d'équipement
+
+- Fichiers audités : `game/management/equipment.py`, `game/gamestate.py`, `game/recruitment.py`, `game/management/research.py`, `game/combat/mission_resolution.py`, `game/combat/godot_resolution.py`, `game/combat/return_snapshot.py`, `game/ui/components/departments/assets.py`, `game/ui/components/character_dossier_pages.py`, `tests/test_equipment_economy.py`.
+- État : catalogue réel de 42 objets classé par puissance au sein de chaque famille ; achats multiples quantitatifs ; disponibilité calculée après soustraction des affectations ; recrutement sans objet généré ; dotation de 24 pièces accordée exclusivement par le flux Nouvelle partie et persistée par marqueur.
+- Migration : un chargement sans marqueur est considéré comme une campagne existante ; il ne reçoit jamais les six kits. Si l'ancien fichier ne possède pas de stock, seuls les objets portés sont matérialisés.
+- Tests exécutés : `python -m pytest -q tests/test_equipment_economy.py tests/test_hangar_progression.py tests/test_management_hub_ui.py tests/test_mixed_squad_integration.py tests/test_combat_command_validation.py` — 59 réussis, 5 sous-tests réussis.
+- Travail restant : boutique Asset Bay complète ; projets R&D par famille/palier ; snapshot de déploiement et pertes/récupérations idempotentes Arcade/Godot ; rapport de récupération ; simulations économiques A–G ; validation globale Windows et artistique.
 
 ### OPERATIVE-DOSSIER-20 — IN_PROGRESS — Refonte unifiée Operative Dossier 2.0
 

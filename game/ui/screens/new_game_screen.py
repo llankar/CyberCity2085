@@ -131,6 +131,7 @@ class NewGameSetupView(arcade.View):
         city = self._city.strip() or "Neo-Chrome City"
 
         gs = GameState()
+        gs.grant_initial_armory()
         gs.corp_name = corp
         gs.city_name = city
         gs.base_name = f"{corp} · Forward Base Kilo"

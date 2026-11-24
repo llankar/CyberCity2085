@@ -5,6 +5,7 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
+    "ASSET-BAY-ARMORY-LOSS-01",
     "BASE-VEHICLE-UPGRADES-01",
     "ECONOMY-HANGAR-AUGMENTATION-01",
     "WINDOWS-CURRENT-BUILD",
@@ -15,6 +16,15 @@
     "AUDIO-PILOT"
   ],
   "tasks": [
+    {
+      "id": "ASSET-BAY-ARMORY-LOSS-01",
+      "title": "Armurerie Asset Bay, recherche et pertes d'equipement",
+      "status": "IN_PROGRESS",
+      "files": ["game/management/equipment.py", "game/gamestate.py", "game/recruitment.py", "game/management/research.py", "game/combat/mission_resolution.py", "game/combat/godot_resolution.py", "game/combat/return_snapshot.py", "game/ui/components/departments/assets.py", "game/ui/components/character_dossier_pages.py", "tests/test_equipment_economy.py"],
+      "tests": ["Targeted inventory, Hangar, Management, mixed-squad and combat-command gate: 59 passed and 5 subtests passed."],
+      "evidence": ["The 42 real items are deterministically ranked within six families and classified Starter, Commercial or Research.", "Purchases add one owned copy and availability subtracts copies assigned to other agents.", "New campaigns receive 24 pieces for six functional kits exactly once; loaded legacy campaigns never receive this grant.", "Recruitment creates no equipment, closing the free-kit exploit."],
+      "remaining": ["Build the Asset Bay store and family/tier research unlocks.", "Implement idempotent mission snapshots, survivor recovery, wipe losses and recovery reports for Arcade and Godot.", "Run economic simulations A-G and global Windows/artistic validation."]
+    },
     {
       "id": "HANGAR-DEPLOYMENT-CAPACITY-01",
       "title": "Limiter le deploiement par le Hangar sans limiter le roster",

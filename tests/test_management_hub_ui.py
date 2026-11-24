@@ -857,8 +857,8 @@ class ManagementHubUITest(unittest.TestCase):
             for character in view.game_state.characters
             if character.name == recruited_name
         )
-        self.assertIsNotNone(recruited.loadout.primary_weapon)
-        self.assertIn("starter kit", view.message.lower())
+        self.assertEqual(recruited.loadout.equipped_items(), [])
+        self.assertIn("assign reserve gear", view.message.lower())
         self.assertEqual(
             view.game_state.available_funds, before_funds - recruited_price
         )

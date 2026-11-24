@@ -2553,8 +2553,6 @@ class ManagementView(GameView):
             skills=candidate.skill_ranks,
             sex=candidate.sex,
         )
-        for item in agent.loadout.equipped_items():
-            gs.owned_equipment[item.id] = gs.owned_equipment.get(item.id, 0) + 1
         self.deployment_cursor = len(gs.characters) - 1
         self._cycle_agent_cursor(0)
         if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < gs.squad_capacity:
@@ -2564,7 +2562,7 @@ class ManagementView(GameView):
             assignment = ""
         self._close_recruit_window()
         self.message = (
-            f"{agent.name} joins as {candidate.role} for ¥{candidate.price} with a starter kit."
+            f"{agent.name} joins as {candidate.role} for ¥{candidate.price}; assign reserve gear in Squad Ops."
             f"{assignment}"
         )
         gs.add_event(push_action(self.notifications, "recruitment", True, f"{agent.name} as {candidate.role} (¥{candidate.price})"))

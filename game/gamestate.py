@@ -90,6 +90,7 @@ class GameState:
     characters: List[Character] = field(default_factory=list)
     hangar: HangarProgression = field(default_factory=HangarProgression)
     owned_equipment: dict[str, int] = field(default_factory=dict)
+    initial_armory_granted: bool = False
     base_upgrade_ids: list[str] = field(default_factory=list)
     vehicle_upgrade_ids: list[str] = field(default_factory=list)
 
@@ -292,14 +293,24 @@ class GameState:
         """Atomically purchase one catalogue item into the campaign inventory."""
         from .management.equipment import equipment_purchase_price
 
-        if self.owns_equipment(item.id):
-            return False, f"{item.name} is already owned."
         price = equipment_purchase_price(item)
         if not self.spend_funds(price, "equipment_purchase", f"Purchased {item.name}."):
             return False, f"Insufficient funds: {item.name} costs ¥{price:,}."
         self.owned_equipment[item.id] = self.owned_equipment.get(item.id, 0) + 1
         self.add_event(f"Equipment acquired: {item.name} for ¥{price:,}.")
         return True, f"{item.name} purchased for ¥{price:,}."
+
+    def grant_initial_armory(self) -> bool:
+        """Grant six functional kits once, exclusively for a new campaign."""
+        if self.initial_armory_granted:
+            return False
+        from .management.equipment import initial_armory_stock
+
+        for item_id, quantity in initial_armory_stock(6).items():
+            self.owned_equipment[item_id] = self.owned_equipment.get(item_id, 0) + quantity
+        self.initial_armory_granted = True
+        self.add_event("Asset Bay commissioned with equipment for six field loadouts.")
+        return True
 
     def allocate_corp_funds(self, key: str, amount: int) -> bool:
         """Attempt to allocate funds from the current corporate ledger."""
@@ -660,6 +671,7 @@ class GameState:
             "characters": [c.to_dict() for c in self.characters],
             "hangar": self.hangar.to_dict(),
             "owned_equipment": dict(self.owned_equipment),
+            "initial_armory_granted": self.initial_armory_granted,
             "base_upgrade_ids": list(self.base_upgrade_ids),
             "vehicle_upgrade_ids": list(self.vehicle_upgrade_ids),
             "x": self.x,
@@ -837,6 +849,9 @@ class GameState:
             str(item_id): max(0, int(quantity))
             for item_id, quantity in data.get("owned_equipment", {}).items()
         }
+        # A loaded save is never a new-campaign creation path. Legacy saves keep
+        # identifiable gear only and must not receive the six-kit grant.
+        gs.initial_armory_granted = bool(data.get("initial_armory_granted", True))
         gs.base_upgrade_ids = list(dict.fromkeys(data.get("base_upgrade_ids", [])))
         gs.vehicle_upgrade_ids = list(dict.fromkeys(data.get("vehicle_upgrade_ids", [])))
         if "owned_equipment" not in data:

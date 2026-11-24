@@ -3,6 +3,7 @@ import json
 from game.gamestate import GameState
 from game.deployment import sanitize_selected_agent_names, toggle_agent_selection
 from game.management.hangar_progression import HANGAR_LEVELS, HangarProgression
+from game.management.equipment import equip_starter_loadout
 from game.recruitment import recruit_agent
 
 
@@ -42,7 +43,9 @@ def test_failed_hangar_upgrade_changes_nothing():
 def test_legacy_save_preserves_large_roster_and_owned_loadouts(tmp_path):
     state = GameState()
     for role in ("samurai", "sniper", "psi", "samurai", "sniper", "psi", "samurai"):
-        recruit_agent(state.characters, role)
+        agent = recruit_agent(state.characters, role)
+        # Reproduce a pre-armory save whose agents already carried identifiable gear.
+        equip_starter_loadout(agent.loadout, role)
     state.selected_agent_names = [agent.name for agent in state.characters]
     path = tmp_path / "legacy.json"
     state.save(path)

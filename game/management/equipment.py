@@ -6,7 +6,7 @@ systems decide how those items become tactical stats or actions.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 EQUIPMENT_SLOTS = (
     "primary_weapon",
@@ -24,10 +24,33 @@ STAT_PRICE_WEIGHTS = {
     "con": 130, "hp": 70, "max_hp": 90,
 }
 
+AVAILABILITY_STARTER = "STARTER"
+AVAILABILITY_COMMERCIAL = "COMMERCIAL"
+AVAILABILITY_RESEARCH = "RESEARCH"
+AVAILABILITY_GROUPS = (
+    AVAILABILITY_STARTER,
+    AVAILABILITY_COMMERCIAL,
+    AVAILABILITY_RESEARCH,
+)
+
+
+def equipment_power_score(item: "EquipmentItem") -> int:
+    """Return a stable integer score derived only from real tactical effects."""
+    score = sum(
+        STAT_PRICE_WEIGHTS[key] * max(0, amount)
+        for key, amount in item.stat_bonuses.items()
+    )
+    if isinstance(item, Weapon):
+        score += item.damage_bonus * 230 + item.range_cells * 22
+    if isinstance(item, Armor):
+        score += item.mitigation * 320
+    score += max(0, len([v for v in item.stat_bonuses.values() if v]) - 1) * 90
+    return max(1, score)
+
 
 def equipment_purchase_price(item: "EquipmentItem") -> int:
     """Deterministically value real tactical effects, not a cosmetic rarity tag."""
-    value = 50 + sum(STAT_PRICE_WEIGHTS[key] * max(0, amount) for key, amount in item.stat_bonuses.items())
+    value = 50 + equipment_power_score(item)
     effects = sum(1 for amount in item.stat_bonuses.values() if amount)
     if isinstance(item, Weapon):
         value += item.damage_bonus * 230 + item.range_cells * 22
@@ -37,6 +60,11 @@ def equipment_purchase_price(item: "EquipmentItem") -> int:
         value = int(value * (1.0 + min(0.3, (effects - 1) * 0.1)))
     if any(tag in item.tags for tag in ("heavy", "plasma", "exo", "stealth")):
         value = int(value * 1.12)
+    value = int(value * {
+        AVAILABILITY_STARTER: 0.85,
+        AVAILABILITY_COMMERCIAL: 1.05,
+        AVAILABILITY_RESEARCH: 1.35,
+    }.get(item.availability_group, 1.0))
     return max(50, int(round(value / 10.0) * 10))
 
 
@@ -62,6 +90,9 @@ class EquipmentItem:
     tags: list[str] = field(default_factory=list)
     description: str = ""
     allowed_slots: tuple[str, ...] = ()
+    family: str = ""
+    availability_group: str = AVAILABILITY_COMMERCIAL
+    research_project_id: str = ""
 
     def __post_init__(self) -> None:
         slots = self.allowed_slots or (self.slot,)
@@ -73,9 +104,12 @@ class EquipmentItem:
         invalid_stats = [key for key in self.stat_bonuses if key not in COMBAT_STAT_KEYS]
         if invalid_stats:
             raise ValueError(f"Unknown equipment stat bonus: {invalid_stats[0]}")
+        if self.availability_group not in AVAILABILITY_GROUPS:
+            raise ValueError(f"Unknown equipment availability: {self.availability_group}")
         object.__setattr__(self, "allowed_slots", tuple(slots))
         object.__setattr__(self, "tags", list(self.tags))
         object.__setattr__(self, "stat_bonuses", dict(self.stat_bonuses))
+        object.__setattr__(self, "family", self.family or self.slot)
 
     def can_equip_to(self, slot: str) -> bool:
         """Return whether this item fits the requested loadout slot."""
@@ -91,6 +125,9 @@ class EquipmentItem:
             "tags": list(self.tags),
             "description": self.description,
             "allowed_slots": list(self.allowed_slots),
+            "family": self.family,
+            "availability_group": self.availability_group,
+            "research_project_id": self.research_project_id,
         }
 
     @classmethod
@@ -106,6 +143,9 @@ class EquipmentItem:
                 tags=list(data.get("tags", [])),
                 description=data.get("description", ""),
                 allowed_slots=tuple(data.get("allowed_slots", []) or ()),
+                family=data.get("family", ""),
+                availability_group=data.get("availability_group", AVAILABILITY_COMMERCIAL),
+                research_project_id=data.get("research_project_id", ""),
                 attack_stat=data.get("attack_stat", "agi"),
                 damage_bonus=data.get("damage_bonus", 0),
                 range_cells=data.get("range_cells", 1),
@@ -120,6 +160,9 @@ class EquipmentItem:
                 tags=list(data.get("tags", [])),
                 description=data.get("description", ""),
                 allowed_slots=tuple(data.get("allowed_slots", []) or ()),
+                family=data.get("family", ""),
+                availability_group=data.get("availability_group", AVAILABILITY_COMMERCIAL),
+                research_project_id=data.get("research_project_id", ""),
                 mitigation=data.get("mitigation", 0),
             )
         return cls(
@@ -130,6 +173,9 @@ class EquipmentItem:
             tags=list(data.get("tags", [])),
             description=data.get("description", ""),
             allowed_slots=tuple(data.get("allowed_slots", []) or ()),
+            family=data.get("family", ""),
+            availability_group=data.get("availability_group", AVAILABILITY_COMMERCIAL),
+            research_project_id=data.get("research_project_id", ""),
         )
 
 
@@ -278,7 +324,7 @@ class AgentLoadout:
 
 def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
     """Full tactical equipment catalog — weapons, armor, gadgets, psi-gear."""
-    return {
+    catalog = {
         # ── Primary weapons ──────────────────────────────────────────────────
         "primary_weapon": [
             Weapon(
@@ -550,6 +596,49 @@ def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
             ),
         ],
     }
+    # Every real family is partitioned deterministically by actual power:
+    # 20% starter, 30% commercial and the remaining 50% research-gated.
+    for family, items in catalog.items():
+        ranked = sorted(items, key=lambda item: (equipment_power_score(item), item.id))
+        starter_count = max(1, round(len(ranked) * 0.20))
+        commercial_count = max(1, round(len(ranked) * 0.30))
+        if starter_count + commercial_count >= len(ranked):
+            commercial_count = max(0, len(ranked) - starter_count - 1)
+        classified: dict[str, EquipmentItem] = {}
+        for index, item in enumerate(ranked):
+            if index < starter_count:
+                group = AVAILABILITY_STARTER
+            elif index < starter_count + commercial_count:
+                group = AVAILABILITY_COMMERCIAL
+            else:
+                group = AVAILABILITY_RESEARCH
+            project = f"equipment_{family}_tier_{2 if group == AVAILABILITY_RESEARCH else 1}"
+            classified[item.id] = replace(
+                item,
+                family=family,
+                availability_group=group,
+                research_project_id=project if group == AVAILABILITY_RESEARCH else "",
+            )
+        catalog[family] = [classified[item.id] for item in items]
+    return catalog
+
+
+def initial_armory_stock(loadout_count: int = 6) -> dict[str, int]:
+    """Build one deterministic new-campaign stock grant for functional squads."""
+    catalog = default_equipment_catalog()
+    stock: dict[str, int] = {}
+    functional_slots = ("primary_weapon", "sidearm", "armor", "utility_item")
+    for slot in functional_slots:
+        choices = [
+            item for item in catalog[slot]
+            if item.availability_group == AVAILABILITY_STARTER
+        ]
+        if not choices:
+            raise ValueError(f"No starter equipment exists for {slot}")
+        for index in range(max(0, int(loadout_count))):
+            item_id = choices[index % len(choices)].id
+            stock[item_id] = stock.get(item_id, 0) + 1
+    return stock
 
 
 STARTER_LOADOUT_IDS: dict[str, dict[str, str]] = {
