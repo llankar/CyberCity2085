@@ -45,7 +45,7 @@ for obj in derived:
     for slot in obj.material_slots:
         slot.material=diagnostic
 bpy.ops.export_scene.gltf(filepath=str(output/'security_geometry.glb'),export_format='GLB',
-                        use_selection=True,export_animations=False,export_apply=True,
+                        use_selection=True,use_active_scene=True,export_animations=False,export_apply=True,
                         export_materials='EXPORT')
 report={'source':str(source),'meshes':len(derived),'triangles':triangles,
         'license':'https://creativecommons.org/licenses/by/4.0/',

@@ -91,6 +91,14 @@ coverage with the Blender report. The BLEND retains film materials for baking;
 the GLB deliberately uses a simple lit material after a profiled recursive
 shader-export bottleneck. This is not the final textured or animated robot.
 
+`blender/bake_charge_piece.py -- OUTPUT_FOLDER` tests source Worn Surface group
+Color/Roughness/Metallic plus tangent-normal baking on the shin shell. Four512px
+PNG maps become three embedded glTF textures through standard PBR nodes.
+`verify_charge_pbr_piece.py OUTPUT_FOLDER` checks map sizes, connections, embedded
+images and exactly one exported mesh/scene. Explicit `use_active_scene=True`
+prevents selected objects from other stored scenes leaking into the export.
+Layered film shader fidelity and the complete robot still need review/conversion.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

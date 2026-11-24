@@ -2,6 +2,22 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CHARGE-PBR-PIECE-75 — representative shin-shell source Worn
+  Surface Color/Roughness/Metallic channels baked via emission and tangent-normal
+  pass into four512px PNGs. Standard PBR GLB exports and loads in native Godot;
+  capture inspected in E: security_pbr_piece01/godot_pbr.png. Real-file verifier
+  passes1mesh/1scene/3 embedded images and connected base/metal-rough/normal maps.
+  First export leaked selected objects from another stored scene and reentered
+  the film-shader traversal; log proved wrong mesh was being processed. Stopped
+  owned process, fixed explicit use_active_scene=True, rerun finished in0.034s
+  export time. Added same scope flag to geometry bridge (that path not rerun).
+  Seven Python tests pass. Scope strictly one shell, not whole robot/rig/actions;
+  film layered dirt/paint fidelity remains NOT VERIFIED. Source materials retained
+  in earlier derivative for broader baking. No production changes or push.
+  Next: generalize validated material interfaces with safe UV packing per part/
+  material, complete robot bake, optimize and preserve articulation, then human.
+
+
 - `IN_PROGRESS` CHARGE-GEOMETRY-BRIDGE-74 — inspected23 source material
   interfaces/214 GEO objects, then created evaluated static security-bot derivative
   on E: security_geometry01. Original-material direct glTF export showed deep
