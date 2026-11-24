@@ -91,13 +91,13 @@ def hydraulic(name, start, end, parent_a, parent_b):
     shaft.name = name + '_Shaft'
     # Put origin at one endpoint, so local +Z tracks the second anchor.
     for vertex in shaft.data.vertices:
-        vertex.co.z += delta.length / 2
+        old_y, old_z = vertex.co.y, vertex.co.z
+        vertex.co.y = old_z + delta.length / 2
+        vertex.co.z = -old_y
+    shaft['rest_length'] = delta.length
     shaft.data.materials.append(steel)
     copy = shaft.constraints.new('COPY_LOCATION')
     copy.target = anchor_a
-    track = shaft.constraints.new('DAMPED_TRACK')
-    track.target = anchor_b
-    track.track_axis = 'TRACK_Z'
     stretch = shaft.constraints.new('STRETCH_TO')
     stretch.target = anchor_b
     stretch.rest_length = delta.length
@@ -198,6 +198,16 @@ bpy.ops.export_scene.gltf(filepath=str(output / 'robot_blockout.glb'), export_fo
 for name, angle in [('Knee_L', 0.6), ('Elbow_R', 0.9)]:
     bpy.data.objects[name].rotation_euler.x = angle
 bpy.context.view_layer.update()
+for side in ['L', 'R']:
+    shaft = bpy.data.objects['KneeHydraulic_' + side + '_Shaft']
+    evaluated = shaft.evaluated_get(bpy.context.evaluated_depsgraph_get())
+    origin = evaluated.matrix_world @ Vector((0, 0, 0))
+    tip = evaluated.matrix_world @ Vector((0, shaft['rest_length'], 0))
+    a = bpy.data.objects['KneeHydraulic_' + side + '_AnchorA'].matrix_world.translation
+    b = bpy.data.objects['KneeHydraulic_' + side + '_AnchorB'].matrix_world.translation
+    error = max((origin-a).length, (tip-b).length)
+    assert error < 0.0001, (side, error)
+    print('HYDRAULIC_ENDPOINT_PASS', side, error)
 scene.render.filepath = str(output / 'robot_pivot_test.png')
 bpy.ops.render.render(write_still=True)
 print('ARTICULATED_ROBOT_BLOCKOUT_EXPORTED')

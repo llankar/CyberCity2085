@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` HYDRAULIC-AXIS-53 — corrected shaft geometry to local Y to match
+  STRETCH_TO and removed conflicting Z tracking. Native Blender endpoint
+  assertions pass for both knee actuators in bent test (reported error 0 m,
+  tolerance 0.1 mm). robot_mechanical08 generated; bent render inspected.
+  This validates Blender endpoint constraints only. Next: bake constrained
+  transforms into exported mechanical clips and verify endpoint continuity in
+  Godot; complete piston sleeves and robot artistic work remain open.
+
 - `IN_PROGRESS` ROBOT-HYDRAULIC-52 — added paired attachment empties and
   constrained knee actuator shafts using location/track/stretch constraints.
   robot_mechanical07 generated with rest/aim/pivot renders; pivot image
