@@ -67,7 +67,7 @@ def draw_research(k, left, center, right):
         k.stat(
             Rect(r.left, y - 90 * u, r.left + half, y),
             k.word("COÛT", "COST"),
-            f"¥{p.funds_cost}",
+            f"¥{p.funds_cost:,}",
             "coins",
             color=GOLD,
         )

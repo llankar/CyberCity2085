@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "RESEARCH-ECONOMY-RESCALE-01",
+      "title": "Recaler les prix R&D sur l'economie strategique actuelle",
+      "status": "DONE",
+      "files": ["game/management/research.py", "game/ui/components/departments/research.py", "game/ui/components/departments/lab2.py", "game/ui/screens/research_lab.py", "game/ui/screens/management_screen.py", "tools/check_unified_ui_visual.py", "tests/test_research_management.py", "tests/test_management_hub_ui.py", "docs/CODEX_PROGRESS.md", "docs/CODEX_PROGRESS.json", "docs/tactical_backlog.md"],
+      "tests": ["Research, equipment, economy simulation, Management and base asset gate: 60 passed and 5 subtests passed.", "Native unified UI validator passed at 1280x720, 1920x1080 and 2560x1440."],
+      "evidence": ["All 24 research projects now cost 600 to 6500 funds instead of the obsolete 20 to 95 range.", "The Weapons branch progresses from Smartlink Mk I at 800 funds to Gravity Distortion Lance at 6500 funds.", "Research prices use thousands separators in every active UI path.", "Native Gravity Distortion capture visibly renders the 6500-fund prototype price without overflow."],
+      "remaining": []
+    },
+    {
       "id": "WEAPONS-RESEARCH-BRANCH-01",
       "title": "Etendre la recherche Weapons a toutes les armes avancees reelles",
       "status": "DONE",

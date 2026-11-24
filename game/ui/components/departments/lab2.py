@@ -72,7 +72,7 @@ def draw_research(k, left, center, right):
     k.label(project.name, body.left+13*u, body.top-133*u, 23, TEXT, bold=True, width=body.width-26*u)
     y = body.top-176*u
     half = (body.width-10*u)/2
-    k.stat(Rect(body.left, y-78*u, body.left+half, y), k.word("COÛT", "COST"), f"¥{project.funds_cost}", "coins", color=GOLD)
+    k.stat(Rect(body.left, y-78*u, body.left+half, y), k.word("COÛT", "COST"), f"¥{project.funds_cost:,}", "coins", color=GOLD)
     k.stat(Rect(body.left+half+10*u, y-78*u, body.right, y), k.word("DURÉE", "DURATION"), f"{project.days_required} d", "clock", color=PURPLE)
     effects = [f"{name.replace('_', ' ').upper()} {value:+}" for name, value in project.stat_modifiers.items()]
     effects += [flag.replace(".", " / ").upper() for flag in project.unlock_flags]

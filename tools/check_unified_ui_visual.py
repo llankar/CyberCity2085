@@ -171,6 +171,10 @@ def main():
         click("city_upgrade_armaments")
         assert gs.city_budget["armaments"] == old + 10
         view._open_hub_room("research")
+        # Keep the native interaction fixture solvent after research costs were
+        # aligned with the strategic economy. This is QA state only.
+        gs.funds.current_funds = max(gs.available_funds, 100_000)
+        gs.budget_pool = gs.funds.current_funds
         draw()
         view._department_deck.selection["research_category"] = "weapons"
         view._department_deck.selection["research"] = "weapon_corporate_rail_lattice"

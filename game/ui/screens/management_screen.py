@@ -1951,7 +1951,7 @@ class ManagementView(GameView):
             _rect(bx0, by0, bx0 + bw, by0 + bh, (8, 20, 30, 220))
             arcade.draw_line(bx0, by0 + bh, bx0 + bw, by0 + bh, palette.ROLE_PSI, 1)
             arcade.draw_text(proj.name[:22], bx0 + 6, by0 + bh - 14, palette.TEXT, font_size=9)
-            arcade.draw_text(f"¥{proj.funds_cost}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
+            arcade.draw_text(f"¥{proj.funds_cost:,}", bx0 + 6, by0 + 4, palette.RESOURCE, font_size=8)
             self._hits.append(_HitRegion(bx0, by0, bx0 + bw, by0 + bh, f"start_research_{pi}", None))
 
     # ── INTEL tab ─────────────────────────────────────────────────────────────

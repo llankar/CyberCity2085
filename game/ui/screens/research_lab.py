@@ -6,7 +6,7 @@ from ...management.research import ResearchProject, ResearchTree, create_starter
 
 
 def _project_label(project: ResearchProject) -> str:
-    return f"{project.name} ({project.days_required}d, ¥{project.funds_cost})"
+    return f"{project.name} ({project.days_required}d, ¥{project.funds_cost:,})"
 
 
 def _build_research_tree_lines(

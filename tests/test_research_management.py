@@ -29,6 +29,21 @@ class ResearchManagementTest(unittest.TestCase):
         for category in RESEARCH_CATEGORIES:
             self.assertGreaterEqual(len(tree.projects_for_category(category)), 3)
 
+    def test_research_costs_use_the_current_strategic_economy_scale(self):
+        tree = create_starter_research_tree()
+
+        # Ordinary victories now pay at least roughly 1,300-2,000 funds.  Entry
+        # research must remain approachable while late prototypes compete with
+        # equipment purchases and long-term Hangar expansion.
+        self.assertGreaterEqual(min(p.funds_cost for p in tree.projects.values()), 600)
+        self.assertGreaterEqual(max(p.funds_cost for p in tree.projects.values()), 5_000)
+        self.assertEqual(tree.project("weapon_smartlink_mk1").funds_cost, 800)
+        self.assertEqual(tree.project("weapon_corporate_rail_lattice").funds_cost, 2_000)
+        self.assertEqual(tree.project("weapon_oracle_killchain").funds_cost, 4_000)
+        self.assertEqual(tree.project("weapon_arc_conduction").funds_cost, 1_800)
+        self.assertEqual(tree.project("weapon_plasma_miniaturization").funds_cost, 3_200)
+        self.assertEqual(tree.project("weapon_gravity_distortion").funds_cost, 6_500)
+
     def test_weapon_branch_covers_every_advanced_weapon_with_meaningful_projects(self):
         tree = create_starter_research_tree()
         weapon_projects = tree.projects_for_category("weapons")
@@ -91,6 +106,8 @@ class ResearchManagementTest(unittest.TestCase):
     def test_starting_research_pays_cost_and_queues_project(self):
         game_state = GameState()
         project = game_state.research_tree.project("weapon_smartlink_mk1")
+        game_state.funds.current_funds = project.funds_cost + 500
+        game_state.budget_pool = game_state.funds.current_funds
         starting_funds = game_state.available_funds
 
         started = game_state.start_research(project.id)
@@ -120,6 +137,8 @@ class ResearchManagementTest(unittest.TestCase):
     def test_calendar_advances_active_research_and_unlocks_upgrade(self):
         game_state = GameState()
         project = game_state.research_tree.project("equipment_field_mender")
+        game_state.funds.current_funds = project.funds_cost
+        game_state.budget_pool = game_state.funds.current_funds
         self.assertTrue(game_state.start_research(project.id))
 
         game_state.advance_days(project.days_required, "research test")
@@ -135,6 +154,8 @@ class ResearchManagementTest(unittest.TestCase):
     def test_completed_research_serializes_through_game_state_save(self):
         game_state = GameState()
         project = game_state.research_tree.project("vehicle_silent_wheels")
+        game_state.funds.current_funds = project.funds_cost
+        game_state.budget_pool = game_state.funds.current_funds
         game_state.start_research(project.id)
         game_state.advance_days(project.days_required, "save test")
 
