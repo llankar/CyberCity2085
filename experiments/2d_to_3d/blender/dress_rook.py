@@ -97,8 +97,8 @@ jacket_panel('Rook_RaisedCollar', collar_vertices, [(i, i + 1, i + 14, i + 13) f
 for side in ['l', 'r']:
     upper = rig.data.bones['upperarm_' + side]
     lower = rig.data.bones['lowerarm_' + side]
-    centers = [upper.head_local - (upper.tail_local - upper.head_local).normalized() * 0.045, upper.head_local.lerp(upper.tail_local, 0.5), upper.tail_local, lower.head_local.lerp(lower.tail_local, 0.7)]
-    radii = [0.098, 0.085, 0.071, 0.056]
+    centers = [upper.head_local - (upper.tail_local - upper.head_local).normalized() * 0.045, upper.head_local.lerp(upper.tail_local, 0.5), upper.head_local.lerp(upper.tail_local, 0.85), upper.tail_local, lower.head_local.lerp(lower.tail_local, 0.15), lower.head_local.lerp(lower.tail_local, 0.4), lower.head_local.lerp(lower.tail_local, 0.7)]
+    radii = [0.098, 0.085, 0.075, 0.071, 0.068, 0.062, 0.056]
     axis = (lower.tail_local - upper.head_local).normalized()
     tangent = axis.cross(Vector((0, 1, 0))).normalized()
     bitangent = axis.cross(tangent).normalized()
@@ -107,8 +107,17 @@ for side in ['l', 'r']:
         for index in range(16):
             angle = math.tau * index / 16
             vertices.append(tuple(center + radius * (math.cos(angle) * tangent + math.sin(angle) * bitangent)))
-    faces = [(ring * 16 + i, ring * 16 + (i + 1) % 16, (ring + 1) * 16 + (i + 1) % 16, (ring + 1) * 16 + i) for ring in range(3) for i in range(16)]
+    faces = [(ring * 16 + i, ring * 16 + (i + 1) % 16, (ring + 1) * 16 + (i + 1) % 16, (ring + 1) * 16 + i) for ring in range(len(centers) - 1) for i in range(16)]
     sleeve = jacket_panel('Rook_Sleeve_' + side, vertices, faces)
+    # Retain the inherited shoulder blend; use explicit normalized elbow blends.
+    lower_weights = [0.0, 0.0, 0.15, 0.5, 0.85, 1.0, 1.0]
+    for ring in range(1, len(centers)):
+        indices = list(range(ring * 16, (ring + 1) * 16))
+        for group in sleeve.vertex_groups:
+            group.remove(indices)
+        weight = lower_weights[ring]
+        sleeve.vertex_groups['upperarm_' + side].add(indices, 1 - weight, 'REPLACE')
+        sleeve.vertex_groups['lowerarm_' + side].add(indices, weight, 'REPLACE')
     for polygon in sleeve.data.polygons:
         polygon.use_smooth = True
 def boot_piece(name, location, scale, bone, color):
