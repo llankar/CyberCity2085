@@ -2,6 +2,31 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EINAR-AUTHORED-HAIR-78 — audited10 visible authored curve objects
+  (beard21,970 guides, mustache5,965, eyebrows2,735, scalp10,299 plus secondary
+  layers). First raw evaluated CURVES.data extraction put hair at the feet:
+  visual FAIL, not accepted. Direct new_from_object(CURVES) then failed; a mesh
+  carrier with ObjectInfo/CurveToMesh worked but revealed that the saved static
+  derivative did not preserve source hair attachment evaluation. Corrected by
+  evaluating the fresh original authoring scene, then loading only the76 game
+  meshes into a new derivative scene. Camera-dependent helper drivers muted in
+  memory; embedded scripts remain disabled. Corrected CLI exits0.
+
+  Four main authored hair layers converted through deterministic strand thinning,
+  six samples/strand and triangular profiles:123,810 extra triangles. Real GLB
+  verifier passes80 meshes/359,536 triangles/38,829,820 bytes/embedded images,
+  all hair bounds in source head region1.2<Z<2.1m. Native front capture inspected
+  at E: phase2/einar_hair01/godot_front.png: beard now attached to face, but coarse
+  bright/aliasing strands and approximate palette are NOT artistically accepted.
+  No film hair shader fidelity, hair LOD, head skinning or actions. Keep original
+  Einar source untouched and this derivative experimental. Seven Python tests pass.
+  Files: audit_einar_hair.py, export_einar_hair.py, verify_einar_hair.py.
+  Next: improve strand/card density and antialiasing with source palette, export
+  game skeleton from audited25 weighted meshes plus51 rigid attachment chains,
+  validate neutral/body poses and real actions. Robot glass still unresolved.
+  Other global requirements remain open as listed above; no production/save
+  modifications or push. Previous goal turn and this turn both made real progress.
+
 - `IN_PROGRESS` EINAR-MATERIALS-TACTICAL-77 — authored dielectric bake expanded
   from the jacket to30 visible skin/cloth/boot/glove/satchel/eye meshes. First
   mechanical conversion added29 meshes, then explicit group-interface lifting

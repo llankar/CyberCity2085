@@ -28,6 +28,12 @@ and optionally `--overview` for measured current-game pixel-height comparison.
 These sources have no action clips; the check verifies their absence explicitly.
 `preview.gd --view=front|side|back` selects neutral orthographic inspection angles.
 
+`audit_einar_hair.py` inventories the original film curves. `export_einar_hair.py`
+creates a separate static strand-mesh study from the fresh original scene and
+combines it with the converted game meshes on E:. `verify_einar_hair.py` checks
+the actual GLB and head-space placement. Approximate hair palette, high strand
+triangle count and aliasing remain unaccepted; this is not a final game hairstyle.
+
 ## Independent comparison stage
 
 Launch `godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --realtime`.
