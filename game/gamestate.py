@@ -266,6 +266,28 @@ class GameState:
         self.add_event(f"Upgrade installed: {item.name}.")
         return True, f"{item.name} installed."
 
+    def has_base_upgrade(self, upgrade_id: str) -> bool:
+        return str(upgrade_id) in self.base_upgrade_ids
+
+    def has_vehicle_upgrade(self, upgrade_id: str) -> bool:
+        return str(upgrade_id) in self.vehicle_upgrade_ids
+
+    def equipment_price(self, item) -> int:
+        """Return the real campaign price after installed infrastructure effects."""
+        from .management.equipment import equipment_purchase_price
+
+        price = equipment_purchase_price(item)
+        if self.has_base_upgrade("rapid_fabricator"):
+            price = max(1, int(round(price * 0.90 / 10.0) * 10))
+        return price
+
+    def deployment_combat_bonuses(self) -> dict[str, int]:
+        """Expose purchased Nighthawk insertion bonuses to either combat client."""
+        return {
+            "initiative": 1 if self.has_vehicle_upgrade("vector_engines") else 0,
+            "defense": 2 if self.has_vehicle_upgrade("armored_cradle") else 0,
+        }
+
     def owns_equipment(self, item_id: str) -> bool:
         key = str(item_id)
         if self.owned_equipment.get(key, 0) > 0:
@@ -293,7 +315,7 @@ class GameState:
 
     def purchase_equipment(self, item) -> tuple[bool, str]:
         """Atomically purchase one catalogue item into the campaign inventory."""
-        from .management.equipment import AVAILABILITY_RESEARCH, equipment_purchase_price
+        from .management.equipment import AVAILABILITY_RESEARCH
 
         if (
             item.availability_group == AVAILABILITY_RESEARCH
@@ -302,7 +324,7 @@ class GameState:
             project = self.research_tree.project(item.research_project_id)
             name = project.name if project is not None else item.research_project_id
             return False, f"Research required: {name}."
-        price = equipment_purchase_price(item)
+        price = self.equipment_price(item)
         if not self.spend_funds(price, "equipment_purchase", f"Purchased {item.name}."):
             return False, f"Insufficient funds: {item.name} costs ₦{price:,}."
         self.owned_equipment[item.id] = self.owned_equipment.get(item.id, 0) + 1

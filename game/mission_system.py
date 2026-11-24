@@ -75,6 +75,8 @@ def launch_selected_mission(game_state: GameState) -> MissionTemplate:
         raise ValueError(f"Mission unavailable: {selected.title}")
     mission = MissionTemplate.from_dict(selected.to_dict())
     mission.enemy_theme = mission_enemy_theme(mission)
+    if game_state.has_vehicle_upgrade("vector_engines"):
+        mission.duration_days = max(1, mission.duration_days - 1)
     game_state.active_mission = mission
     game_state.apply_active_mission_pressure()
     return mission

@@ -60,6 +60,16 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         victory,
         self.triggered_complication,
     )
+    # Mission return can be imported by a game process that was launched before
+    # a development hot-update added GameState helpers. Read persisted state
+    # directly here so an in-flight Godot result can still return safely.
+    if "trauma_center" in getattr(self.game_state, "base_upgrade_ids", []):
+        for character in surviving_participants:
+            if character.recovery_turns > 0:
+                character.recovery_turns -= 1
+                self.game_state.add_event(
+                    f"Trauma Center reduced {character.name}'s recovery by one day."
+                )
     self.game_state.latest_agent_aftermath = aftermath_lines[-4:]
     performance_by_agent = {}
     combat_state = getattr(self, "combat_state", None)

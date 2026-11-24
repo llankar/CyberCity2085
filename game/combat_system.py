@@ -125,6 +125,7 @@ def create_player_units(
     selected_agent_names: list[str] | None = None,
     assets: list[SpecOpsAsset] | None = None,
     selected_asset_ids: list[str] | None = None,
+    deployment_bonuses: dict[str, int] | None = None,
 ) -> list[Unit]:
     """Create battle units from selected deployable agents and support assets.
 
@@ -132,6 +133,7 @@ def create_player_units(
     roster path for tests and direct combat setup. Passing an empty agent list
     intentionally creates no agent units; selected assets may still be supplied.
     """
+    deployment_bonuses = deployment_bonuses or {}
     if selected_agent_names is None:
         deployable_characters = deployable_agents(characters)
         deployable_assets = []
@@ -165,6 +167,7 @@ def create_player_units(
 
         cyberware = combat_bonuses(char.installed_cyberware)
         stats = equipped_player_stats(char)
+        stats.defense += int(deployment_bonuses.get("defense", 0))
         pos   = _PLAYER_SPAWN[len(player_units) % len(_PLAYER_SPAWN)]
         player_units.append(
             Unit(
@@ -179,7 +182,7 @@ def create_player_units(
                 tactical_aim_bonus=cyberware.get("aim", 0),
                 tactical_melee_bonus=cyberware.get("melee_power", 0),
                 tactical_crit_bonus=cyberware.get("crit", 0),
-                initiative_bonus=cyberware.get("initiative", 0),
+                initiative_bonus=cyberware.get("initiative", 0) + int(deployment_bonuses.get("initiative", 0)),
                 available_actions=char.loadout.combat_actions(),
                 equipment_summary=char.loadout.summary_lines(),
             )
@@ -187,6 +190,7 @@ def create_player_units(
     for asset in deployable_assets:
         pos   = _PLAYER_SPAWN[len(player_units) % len(_PLAYER_SPAWN)]
         stats = asset.combat_stats()
+        stats.defense += int(deployment_bonuses.get("defense", 0))
         pilot_char = pilot_chars.get(getattr(asset, "pilot_agent_name", "") or "")
         u = Unit(
             position=pos,
@@ -197,6 +201,7 @@ def create_player_units(
             attack_range=asset.primary_range,
             action_points=asset.action_points,
             base_action_points=asset.action_points,
+            initiative_bonus=int(deployment_bonuses.get("initiative", 0)),
             available_actions=asset.combat_actions,
             equipment_summary=[
                 *(hp.name for hp in asset.hardpoints),

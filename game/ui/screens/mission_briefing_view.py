@@ -115,6 +115,8 @@ def build_mission_briefing_facts(
         )
     except Exception:
         map_thumbnail = "mission-matched tactical map"
+    signal_array = game_state.has_base_upgrade("signal_array")
+    hostile_count = max(0, int(getattr(mission, "starting_enemy_count", 0)))
     return {
         "title": mission.title,
         "objective": mission.objective_text,
@@ -142,6 +144,11 @@ def build_mission_briefing_facts(
         ],
         "selected_support_assets": [asset.name for asset in assets],
         "reward_preview": reward_preview(mission, assets),
+        "mission_intel_level": 1 if signal_array else 0,
+        "hostile_estimate": (
+            f"{hostile_count} hostiles // {mission.target_faction} doctrine"
+            if signal_array else "Limited — install Strategic Signal Array"
+        ),
         "actions": ["DEPLOY", "ABORT"],
     }
 

@@ -4,6 +4,8 @@
 
 - ASSET-BAY-ARMORY-LOSS-01 — DONE (2026-11-24). Snapshot de départ immuable, récupération du matériel des morts lorsqu'un agent revient, perte limitée au matériel déployé lors d'un échec avec wipe permanent, réserve et recherches préservées, rapport visible au débrief, rejeu Godot idempotent. Le résolveur étant partagé, Arcade suit la même règle. Gate ciblé : 67 tests réussis.
 
+- BASE-VEHICLE-UPGRADES-01 — IN_PROGRESS (2026-11-24). Rapid Fabricator, Trauma Center, Signal Array, Vector Engines et Armored Cradle ont désormais leurs effets métier réels et partagés lorsque nécessaire entre Arcade/Godot. Un retour Godot lancé depuis une ancienne classe `GameState` ne plante plus sur le helper Trauma Center. Gate ciblé : 57 tests réussis. Prochaine action : Field Medevac Suite, puis Heavy Strike Hardpoint.
+
 - GODOT-FOG-OF-WAR-01 — DONE (2026-11-24). Vision joueur/IA limitée à 15 cases et bloquée par la LOS ; brouillard noir pour l'inconnu, voile atténué pour l'exploré, contacts ennemis absents du rendu/ciblage/initiative/HUD tant qu'ils ne sont pas vus. Cybereyes Mk I/II/III : +1/+2/+3 cases avec identifiants historiques préservés. L'IA sans contact effectue une recherche sans lire les coordonnées du joueur. Gate ciblé Python + Godot natif : 14 tests réussis. Revue artistique visible : NOT VERIFIED.
 
 - WEAPONS-RESEARCH-BRANCH-01 — DONE (2026-11-24). La branche Weapons passe de trois projets génériques à six projets couvrant explicitement les sept armes avancées du catalogue : balistique lourde/compacte, précision, Arc, Plasma et Gravité. Gravity requiert Oracle Killchain et Arc Conduction. Aucun objet fictif ni exemplaire gratuit. 72 tests et 5 sous-tests réussis ; validateur natif PASS, pages Weapons 1/2 et 2/2 inspectées.

@@ -96,10 +96,11 @@ def _map_payload(mission: MissionTemplate) -> dict[str, Any]:
     }
 
 
-def _agent_payload(character) -> dict[str, Any]:
+def _agent_payload(character, deployment_bonuses: dict[str, int] | None = None) -> dict[str, Any]:
     from .agent_moments import last_stand_dialogue
     from game.agents.cyberware import combat_bonuses, humanity_remaining
 
+    deployment_bonuses = deployment_bonuses or {}
     stats = character.stats
     portrait_path = portrait_path_for_character(character)
     sheet_attrs = {
@@ -136,8 +137,8 @@ def _agent_payload(character) -> dict[str, Any]:
         "available_actions": character.loadout.combat_actions(),
         "last_stand_dialogue": last_stand_dialogue(character),
         "aim":         derived["aim"],
-        "defense":     derived["defense"],
-        "initiative":  derived["initiative"],
+        "defense":     derived["defense"] + int(deployment_bonuses.get("defense", 0)),
+        "initiative":  derived["initiative"] + int(deployment_bonuses.get("initiative", 0)),
         "melee_power": derived["melee_power"],
         "action_points": 4 + cyberware_bonuses.get("action_points", 0),
         "vision_range": 15 + cyberware_bonuses.get("vision_range", 0),
@@ -281,7 +282,7 @@ def build_godot_combat_payload(
         },
         "mission": _mission_payload(mission),
         "map": map_payload,
-        "squad": [_agent_payload(character) for character in selected_agents],
+        "squad": [_agent_payload(character, game_state.deployment_combat_bonuses()) for character in selected_agents],
         "support_assets": [_asset_payload(asset) for asset in selected_assets],
         "combat_ui": {
             "grid_size": 32,
@@ -295,6 +296,7 @@ def build_godot_combat_payload(
                 "overwatch",
             ],
             "fallback": "arcade_battle_view",
+            "deployment_upgrades": list(game_state.vehicle_upgrade_ids),
         },
         "narrative_priorities": [
             "emergent_storytelling",

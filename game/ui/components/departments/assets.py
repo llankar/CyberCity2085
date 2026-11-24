@@ -6,7 +6,6 @@ from game.management.equipment import (
     default_equipment_catalog,
     equipment_power_band,
     equipment_power_score,
-    equipment_purchase_price,
 )
 from game.ui.components.equipment_art import equipment_art_path
 from game.ui.layouts.world_map_beacons import Rect
@@ -42,7 +41,7 @@ def _draw_armory(k, left, center, right):
     items = list(catalog[family])
     sort_mode = k.selection.get("armory_sort", "power")
     if sort_mode == "price":
-        items.sort(key=lambda item: (equipment_purchase_price(item), item.name))
+        items.sort(key=lambda item: (gs.equipment_price(item), item.name))
     elif sort_mode == "owned":
         items.sort(key=lambda item: (-gs.owned_equipment.get(item.id, 0), item.name))
     else:
@@ -102,7 +101,7 @@ def _draw_armory(k, left, center, right):
         owned = gs.owned_equipment.get(item.id, 0)
         ready = gs.equipment_available_count(item.id)
         k.label(item.name.upper(), x, card.top - 23 * u, 17, TEXT, bold=True, width=card.right - x - 8 * u)
-        k.label(f"{equipment_power_band(item)} // ₦{equipment_purchase_price(item):,}", x, card.top - 48 * u, 13, GOLD, width=card.right - x - 8 * u)
+        k.label(f"{equipment_power_band(item)} // ₦{gs.equipment_price(item):,}", x, card.top - 48 * u, 13, GOLD, width=card.right - x - 8 * u)
         k.label(f"OWNED {owned} // RESERVE {ready}", x, card.bottom + 18 * u, 13, MINT if ready else MUTED, width=card.right - x - 8 * u)
         k.hit(card, "department_select", ("armory_item", item.id), item.description)
 
@@ -123,7 +122,7 @@ def _draw_armory(k, left, center, right):
     y = art.bottom - 18 * u
     k.label(selected.name.upper(), area.left, y, 24, TEXT, bold=True, width=area.width)
     y -= 30 * u
-    k.label(f"ACCESS {selected.availability_group} // POWER {equipment_power_band(selected)} // ₦{equipment_purchase_price(selected):,}", area.left, y, 13, GOLD, width=area.width)
+    k.label(f"ACCESS {selected.availability_group} // POWER {equipment_power_band(selected)} // ₦{gs.equipment_price(selected):,}", area.left, y, 13, GOLD, width=area.width)
     y -= 29 * u
     effects = [f"{key.upper()} {value:+}" for key, value in selected.stat_bonuses.items() if value]
     if hasattr(selected, "damage_bonus"):
@@ -136,7 +135,7 @@ def _draw_armory(k, left, center, right):
         project = gs.research_tree.project(selected.research_project_id)
         detail += "\n\nRESEARCH REQUIRED: " + (project.name if project else selected.research_project_id)
     k.document("armory_detail", detail, Rect(area.left, area.bottom + 62 * u, area.right, y), 16)
-    price = equipment_purchase_price(selected)
+    price = gs.equipment_price(selected)
     label = "RESEARCH REQUIRED" if locked else f"BUY ONE // ₦{price:,}"
     k.action(Rect(area.left, area.bottom, area.right, area.bottom + 50 * u), label, "asset_buy_equipment", selected.id, enabled=not locked and gs.available_funds >= price, primary=not locked and gs.available_funds >= price, tooltip=detail)
 

@@ -18,7 +18,7 @@ from game.agents.cyberware import (
     humanity_remaining,
     is_eligible_role,
 )
-from game.management.equipment import EQUIPMENT_SLOTS, Armor, Weapon, equipment_power_band, equipment_purchase_price
+from game.management.equipment import EQUIPMENT_SLOTS, Armor, Weapon, equipment_power_band
 from game.ui.layouts.world_map_beacons import Rect
 from game.ui.portraits import portrait_path_for_character
 
@@ -196,7 +196,7 @@ def draw_inventory(p, r: Rect):
         p.label(item.name.upper(), text_x, row.center[1]+8*u, 11, TEXT, bold=True, width=row.right-text_x-8*u)
         bonuses = "  ".join(f"{k.upper()} {v:+d}" for k,v in item.stat_bonuses.items()) or "NO ATTRIBUTE BONUS"
         owned = p.gs.owns_equipment(item.id)
-        price = equipment_purchase_price(item)
+        price = p.gs.equipment_price(item)
         p.label(f"{bonuses}  //  {'OWNED' if owned else f'₦{price:,}'}", text_x, row.center[1]-12*u, 9, MINT if owned else GOLD, width=row.right-text_x-8*u)
         p.hit(row, "dossier_inventory_item", item.id, "Inspect item")
     _panel(p, detail, "ITEM DETAILS // COMPARISON", CYAN)
@@ -209,7 +209,7 @@ def draw_inventory(p, r: Rect):
         p.label(chosen.name.upper(), detail.left+16*u, detail.top-270*u, 20, TEXT, bold=True, width=detail.width-32*u)
         kind = "WEAPON" if isinstance(chosen, Weapon) else "ARMOR" if isinstance(chosen, Armor) else "GEAR"
         p.label(kind, detail.left+16*u, detail.top-299*u, 11, VIOLET, bold=True)
-        price = equipment_purchase_price(chosen)
+        price = p.gs.equipment_price(chosen)
         owned = p.gs.owns_equipment(chosen.id)
         available = p.gs.can_assign_equipment(chosen.id, c)
         p.label(f"{equipment_power_band(chosen)}  //  ₦{price:,}  //  {'OWNED' if owned else 'AVAILABLE'}", detail.left+16*u, detail.top-318*u, 10, MINT if owned else GOLD, bold=True)

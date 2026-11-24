@@ -1759,6 +1759,7 @@ class BattleView(GameView):
             self.game_state.selected_agent_names,
             self.game_state.spec_ops_assets,
             self.game_state.selected_asset_ids,
+            self.game_state.deployment_combat_bonuses(),
         )
         self.defeated_player_units = []
         self.enemy_units, self.initial_enemy_count = create_enemy_units(
