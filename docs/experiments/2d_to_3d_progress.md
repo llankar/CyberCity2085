@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-PLATES-47 — tapered ivory armor vertices and added
+  inclined pectoral panels, shoulder caps, forearm shields, abdominal plates,
+  vents and fasteners. robot_mechanical03 BLEND/GLB/rest and pivot renders
+  generated on E:; rest image inspected. Mechanical layering improved, but
+  silhouette remains too boxy versus reference and is NOT artistically accepted.
+  Next: reshape head/chest and lower-leg armor, add fingers and hydraulics,
+  then verify mechanical animation tracks in Godot.
+
 - `IN_PROGRESS` ROBOT-JOINTS-46 — added eight cylindrical mechanical bearings
   and cannon barrel; regenerated robot_mechanical02 BLEND/GLB and neutral
   rest/pivot-test renders. Bent knee/elbow capture inspected: rigid components

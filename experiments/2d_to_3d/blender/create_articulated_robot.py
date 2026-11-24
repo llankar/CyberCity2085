@@ -30,6 +30,14 @@ def pivot(name, location, parent=None):
 root = pivot('RobotRoot', (0, 0, 0))
 def piece(name, location, size, mat, parent):
     obj = box(name, location, size, mat, 0.025)
+    if mat == armor:
+        # Shape individual armor plates rather than retaining cuboid blocks.
+        for vertex in obj.data.vertices:
+            height = vertex.co.z / max(size[2], 0.001)
+            vertex.co.x *= 0.80 if height < 0 else 1.0
+            if vertex.co.y < 0:
+                vertex.co.y += abs(height) * size[1] * 0.18
+        obj.data.update()
     obj.parent = parent
     obj.matrix_parent_inverse = parent.matrix_world.inverted()
     return obj
@@ -50,6 +58,10 @@ def bearing(name, location, radius, depth, parent, axis='X'):
 
 torso = pivot('TorsoYaw', (0, 0, 1.45), root)
 piece('ChestArmor', (0, 0, 1.50), (0.33, 0.19, 0.28), armor, torso)
+for sign in [-1, 1]:
+    panel = piece('PectoralPlate', (sign * 0.20, -0.205, 1.60), (0.135, 0.045, 0.16), armor, torso)
+    panel.rotation_euler.y = sign * -0.18
+    piece('AbdominalPlate', (sign * 0.13, -0.18, 1.28), (0.11, 0.045, 0.07), steel, torso)
 piece('ChestCore', (0, -0.205, 1.50), (0.10, 0.025, 0.12), steel, torso)
 piece('CoreLight', (0, -0.235, 1.50), (0.018, 0.012, 0.08), red, torso)
 head = pivot('HeadYaw', (0, 0, 1.94), torso)
@@ -66,12 +78,19 @@ for sign, side in [(1, 'L'), (-1, 'R')]:
     shoulder = pivot('Shoulder_' + side, (sign * 0.44, 0, 1.67), torso)
     bearing('ShoulderBearing_' + side, (sign * 0.44, 0, 1.67), 0.15, 0.24, shoulder)
     piece('UpperArm_' + side, (sign * 0.47, 0, 1.48), (0.13, 0.14, 0.21), armor, shoulder)
+    piece('ShoulderCap_' + side, (sign * 0.46, 0, 1.74), (0.18, 0.18, 0.09), armor, shoulder)
     elbow = pivot('Elbow_' + side, (sign * 0.47, 0, 1.24), shoulder)
     bearing('ElbowBearing_' + side, (sign * 0.47, 0, 1.24), 0.09, 0.25, elbow)
     piece('Forearm_' + side, (sign * 0.47, -0.02, 1.08), (0.11, 0.12, 0.17), steel, elbow)
+    piece('ForearmShield_' + side, (sign * 0.47, -0.145, 1.08), (0.12, 0.035, 0.17), armor, elbow)
     piece('Hand_' + side, (sign * 0.47, -0.02, 0.86), (0.10, 0.08, 0.08), armor, elbow)
 piece('ShoulderCannon', (0.45, -0.18, 1.85), (0.075, 0.30, 0.075), steel, torso)
 bearing('CannonBarrel', (0.45, -0.48, 1.85), 0.045, 0.30, torso, axis='Y')
+for index in range(6):
+    piece('ChestVent_%02d' % index, (-0.12 + index * 0.048, -0.21, 1.37), (0.014, 0.018, 0.045), steel, torso)
+for sign in [-1, 1]:
+    for z in [1.42, 1.65]:
+        bearing('ArmorFastener', (sign * 0.25, -0.255, z), 0.016, 0.015, torso, axis='Y')
 scene = bpy.context.scene
 scene.world = bpy.data.worlds.new('NeutralWorld')
 scene.world.color = (0.18, 0.18, 0.18)
