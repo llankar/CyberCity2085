@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-HEAD-50 — native Godot head clip capture verifies corrected
+  centered framing (full model visible). Reshaped helmet into lower angular
+  housing with recessed split optics, jaw guards and four sensor masts.
+  robot_mechanical05 BLEND/GLB and three renders generated; rest inspected.
+  Closer sensor identity, but overall boxy silhouette still fails reference art.
+  Next: reshape chest and leg shells using custom plate contours; add hydraulics
+  and test grounded gait. Human fidelity and other prototype subjects remain open.
+
 - `IN_PROGRESS` ROBOT-GODOT-49 — Godot native run samples TorsoYaw_AimTest
   at mid-clip, captures articulated rigid model; inspected capture confirms
   transport but old camera target clips head. Added mesh-bounds-centered target

@@ -65,8 +65,19 @@ for sign in [-1, 1]:
 piece('ChestCore', (0, -0.205, 1.50), (0.10, 0.025, 0.12), steel, torso)
 piece('CoreLight', (0, -0.235, 1.50), (0.018, 0.012, 0.08), red, torso)
 head = pivot('HeadYaw', (0, 0, 1.94), torso)
-piece('HeadArmor', (0, 0, 1.94), (0.20, 0.17, 0.13), armor, head)
-piece('RedVisor', (0, -0.18, 1.95), (0.16, 0.018, 0.035), red, head)
+helmet = piece('HeadArmor', (0, 0, 1.94), (0.22, 0.18, 0.10), armor, head)
+for vertex in helmet.data.vertices:
+    if vertex.co.z > 0 and vertex.co.y < 0:
+        vertex.co.z -= 0.035
+    if vertex.co.z < 0:
+        vertex.co.x *= 0.8
+helmet.data.update()
+piece('VisorRecess', (0, -0.185, 1.94), (0.18, 0.025, 0.045), steel, head)
+for sign in [-1, 1]:
+    piece('RedOptic', (sign * 0.085, -0.215, 1.945), (0.075, 0.012, 0.025), red, head)
+    piece('JawGuard', (sign * 0.13, -0.13, 1.86), (0.045, 0.07, 0.035), armor, head)
+    for y in [-0.01, 0.11]:
+        piece('SensorMast', (sign * 0.14, y, 2.07), (0.015, 0.018, 0.06), steel, head)
 for sign, side in [(1, 'L'), (-1, 'R')]:
     hip = pivot('Hip_' + side, (sign * 0.22, 0, 1.12), root)
     bearing('HipBearing_' + side, (sign * 0.22, 0, 1.12), 0.12, 0.26, hip)
