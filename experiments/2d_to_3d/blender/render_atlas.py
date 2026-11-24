@@ -17,6 +17,7 @@ def arguments() -> argparse.Namespace:
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--name", required=True)
     parser.add_argument("--size", type=int, default=256)
+    parser.add_argument("--multipart", action="store_true", help="Render all meshes except PreviewFloor")
     args = sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
     return parser.parse_args(args)
 
@@ -31,7 +32,9 @@ def main() -> None:
     if subject is None or subject.type != "MESH":
         raise RuntimeError(f"Mesh object not found: {args.name}")
     for obj in bpy.context.scene.objects:
-        if obj.type == "MESH" and obj != subject:
+        if obj.type == "MESH" and obj != subject and not args.multipart:
+            obj.hide_render = True
+        if obj.name == "PreviewFloor":
             obj.hide_render = True
 
     scene = bpy.context.scene
@@ -53,8 +56,9 @@ def main() -> None:
     for index in range(8):
         angle = math.tau * index / 8.0
         subject.rotation_euler = original_rotation
-        subject.rotation_euler.z += angle
-        camera.location = Vector((distance, -distance, distance * 0.8))
+        if not args.multipart:
+            subject.rotation_euler.z += angle
+        camera.location = Vector((distance * (math.cos(angle) + math.sin(angle)), distance * (math.sin(angle) - math.cos(angle)), distance * 0.8)) if args.multipart else Vector((distance, -distance, distance * 0.8))
         camera.rotation_euler = (target - camera.location).to_track_quat("-Z", "Y").to_euler()
         frame = output / f"{args.name}_{index:02d}.png"
         scene.render.filepath = str(frame)

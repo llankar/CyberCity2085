@@ -2,6 +2,19 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+Continuation objective accepted: modular Rook and Raider, ten human actions,
+articulated robot with five actions, industrial machine, VTOL, interactive
+Godot demonstration, animated eight-direction atlases and measured performance.
+All remain TODO or IN_PROGRESS until visual acceptance; optional gated AI
+access does not block procedural work. Next action: inspect Rook references
+and build modular clothing on the preserved MPFB body.
+
+- `DONE` ATLAS-MULTIPART-02 — renderer now supports a multipart subject through
+  camera orbit without removing its separate components. Eight 256 px frames
+  and a 2048 x 256 RGBA atlas generated successfully from the procedural crate
+  under E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/atlas.
+  Artistic framing review remains NOT VERIFIED.
+
 - `DONE` ENV-01 — RTX 5070 Ti, WSL2, E: capacity and ComfyUI audited.
 - `DONE` BLENDER-01 — portable Blender 4.5.17 LTS downloaded to E:, checksum
   verified, CLI and bpy executed successfully.
