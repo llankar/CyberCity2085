@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-OUTFIT-31 — inspected male_casualsuit04 MHCLO header:
+  explicit CC0 release, supplied diffuse/normal/AO maps. Executed MPFB loader
+  with casualsuit04, shoes01, short02 hair, high-poly eyes and middle-aged
+  Caucasian male skin. Blender generated authored_outfit01 BLEND plus neutral
+  front/back/profile and perspective renders on E:. Front inspected: genuine
+  textured authored garment geometry now provides a materially better baseline,
+  but civilian outfit is not Rook's final identity. Next: inspect remaining
+  views and compare other official male outfits/short hair before adaptation.
+
 - `DONE` MPFB-SYSTEM-INSTALL-30 — original downloader completed; ZIP CRC and
   containment checks passed, official MPFB installation/metadata refresh ran
   successfully on E:. Catalog includes male casual suits 01–06, work suit,
