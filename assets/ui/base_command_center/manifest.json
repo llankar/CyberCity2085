@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "generated": "2026-11-24",
+  "generator": "OpenAI built-in imagegen",
+  "license_scope": "CyberCity 2085 local game asset",
+  "assets": {
+    "command": "command_core.png",
+    "city": "city_operations.png",
+    "squad": "squad_operations.png",
+    "assets": "asset_bay.png",
+    "research": "research_lab.png",
+    "intel": "intel_archive.png"
+  },
+  "constraints": [
+    "background art only",
+    "no embedded interface text",
+    "offline local runtime"
+  ]
+}
