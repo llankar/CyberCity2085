@@ -8,6 +8,20 @@ if folder.drive.upper() != 'E:':
     raise ValueError('External output required')
 bpy.ops.wm.open_mainfile(filepath=str(folder / 'authored_outfit.blend'))
 rig = bpy.data.objects['rook_mpfb'].parent
+pose_clip = '--pose-clip' in sys.argv
+if pose_clip:
+    bpy.context.scene.render.fps = 24
+    bpy.context.scene.frame_start = 1
+    bpy.context.scene.frame_end = 25
+    rotations = {'lowerarm_l': 1.1, 'lowerarm_r': 0.9, 'thigh_l': -0.65, 'calf_l': 0.8}
+    for name, angle in rotations.items():
+        bone = rig.pose.bones[name]
+        bone.rotation_mode = 'XYZ'
+        for frame, value in [(1, 0), (25, angle)]:
+            bone.rotation_euler = (value, 0, 0)
+            bone.keyframe_insert(data_path='rotation_euler', frame=frame)
+    rig.animation_data.action.name = 'FittingStressTest'
+    bpy.context.scene.frame_set(1)
 copies = []
 for source in list(bpy.context.scene.objects):
     if source.type != 'MESH' or source.name == 'PreviewFloor' or source.hide_render:
@@ -45,5 +59,6 @@ bpy.ops.object.select_all(action='DESELECT')
 for obj in copies + [rig]:
     obj.select_set(True)
 bpy.context.view_layer.objects.active = rig
-bpy.ops.export_scene.gltf(filepath=str(folder / 'authored_outfit.glb'), export_format='GLB', use_selection=True, export_apply=False)
+filename = 'authored_pose_test.glb' if pose_clip else 'authored_outfit.glb'
+bpy.ops.export_scene.gltf(filepath=str(folder / filename), export_format='GLB', use_selection=True, export_apply=False, export_animations=True)
 print('AUTHORED_GLB_EXPORTED meshes=%s' % len(copies))

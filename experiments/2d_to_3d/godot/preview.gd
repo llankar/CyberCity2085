@@ -22,6 +22,26 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
+	if "--sample-clip" in OS.get_cmdline_user_args():
+		var players := model.find_children("*", "AnimationPlayer", true, false)
+		if players.is_empty():
+			push_error("No imported animation player")
+			get_tree().quit(9)
+			return
+		var player := players[0] as AnimationPlayer
+		var clips := player.get_animation_list()
+		var selected := ""
+		for clip in clips:
+			if "FittingStressTest" in clip:
+				selected = clip
+		if selected.is_empty():
+			push_error("Fitting clip missing")
+			get_tree().quit(10)
+			return
+		player.play(selected)
+		player.seek(player.get_animation(selected).length, true)
+		player.pause()
+		print("CYBERCITY_IMPORTED_CLIP_SAMPLED ", selected)
 	if "--stress-pose" in OS.get_cmdline_user_args():
 		var rigs := model.find_children("*", "Skeleton3D", true, false)
 		if rigs.size() != 1:

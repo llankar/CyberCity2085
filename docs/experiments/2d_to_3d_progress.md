@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` IMPORTED-POSE-CLIP-44 — Blender exported separate authored_pose_test.glb
+  with FittingStressTest (24 fps, frames 1–25). Godot finds AnimationPlayer,
+  samples imported clip end and captures successfully; image inspected. This
+  verifies animation transport for the fitting pose, not natural action quality
+  or full retargeting. Static authored GLB/source remain preserved. Next: close
+  joint-contact comparison and obtain suitable licensed natural action clips.
+
 - `IN_PROGRESS` GODOT-POSE-43 — applied four-bone stress pose to imported
   authored rig and rendered. Initial absolute rotation replacement produced
   invalid limb orientation; changed to composition with imported pose rotation
