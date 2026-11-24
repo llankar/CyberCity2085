@@ -22,6 +22,21 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
+	if "--mipmap-diagnostic" in OS.get_cmdline_user_args():
+		for mesh in model.find_children("*", "MeshInstance3D", true, false):
+			for surface in range(mesh.mesh.get_surface_count()):
+				var source_material: Material = mesh.get_active_material(surface)
+				if source_material is StandardMaterial3D:
+					var filtered := source_material.duplicate() as StandardMaterial3D
+					filtered.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
+					for slot in [BaseMaterial3D.TEXTURE_ALBEDO, BaseMaterial3D.TEXTURE_NORMAL, BaseMaterial3D.TEXTURE_METALLIC, BaseMaterial3D.TEXTURE_ROUGHNESS]:
+						var texture := filtered.get_texture(slot)
+						if texture:
+							var pixels := texture.get_image()
+							if pixels and not pixels.has_mipmaps():
+								pixels.generate_mipmaps()
+								filtered.set_texture(slot, ImageTexture.create_from_image(pixels))
+					mesh.set_surface_override_material(surface, filtered)
 	if "--unlit-diagnostic" in OS.get_cmdline_user_args():
 		for mesh in model.find_children("*", "MeshInstance3D", true, false):
 			for surface in range(mesh.mesh.get_surface_count()):

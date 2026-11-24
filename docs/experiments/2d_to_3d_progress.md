@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TEXTURE-FILTER-40 — inspected GLB sampler (linear/mipmap
+  requested) and images. Added runtime mipmap/anisotropic diagnostic for
+  GLTFDocument-loaded textures. Native Godot capture with generated mipmaps
+  inspected: bodysuit/hair speckle substantially reduced versus prior capture.
+  This isolates missing runtime mip levels as a contributor, not geometry fix.
+  Armor contrast and material fidelity remain open. Next: make texture setup
+  reusable/cached, verify map channels and compare matched Blender exposure.
+
 - `IN_PROGRESS` MATERIAL-ISOLATION-39 — no-shadow capture still shows speckle.
   Added unlit diagnostic; first run hit GDScript type inference error, corrected
   with explicit Material type. Native rerun generated unlit capture, inspected.
