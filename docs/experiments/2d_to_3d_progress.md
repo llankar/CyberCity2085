@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-BACK-FIT-23 — jacket ring vertices now use evaluated body
+  samples at matching X/Z to place front/back panels outside the surface with
+  25 mm clearance. v19 BLEND/GLB/five renders generated on E:. Back inspected:
+  the large exposed back patches seen in v18 are covered. Shoulder seams remain
+  open/uneven; no all-pose collision guarantee. Next: build shoulder yoke joins
+  and check front/side and elbow pose for new fitting defects.
+
 - `IN_PROGRESS` ROOK-REVIEW-22 — regenerated v18 with scalp boundary smoothing
   and inspected front/back/side. Hairline remains stepped: smoothing alone is
   insufficient. Back view reveals substantial torso/undershirt penetration

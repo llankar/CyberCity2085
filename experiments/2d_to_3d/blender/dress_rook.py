@@ -90,11 +90,20 @@ jacket.hide_viewport = True
 levels = [(1.00, 0.185, 0.125), (1.12, 0.17, 0.125), (1.28, 0.245, 0.125), (1.40, 0.235, 0.115), (1.45, 0.18, 0.12)]
 torso_vertices = []
 segments = 24
+body_eval = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
+body_surface = body_eval.to_mesh()
+surface_points = [v.co.copy() for v in body_surface.vertices]
+body_eval.to_mesh_clear()
 for z, width, depth in levels:
     for index in range(segments + 1):
         angle = -math.pi / 2 + 0.30 + (math.tau - 0.60) * index / segments
         c, s = math.cos(angle), math.sin(angle)
-        torso_vertices.append((width * math.copysign(abs(c) ** 0.75, c), -0.055 + depth * math.copysign(abs(s) ** 0.75, s), z))
+        x = width * math.copysign(abs(c) ** 0.75, c)
+        y = -0.055 + depth * math.copysign(abs(s) ** 0.75, s)
+        candidates = [p.y for p in surface_points if abs(p.x - x) < 0.03 and abs(p.z-z) < 0.035]
+        if candidates:
+            y = max(y, max(candidates) + 0.025) if s > 0 else min(y, min(candidates) - 0.025)
+        torso_vertices.append((x, y, z))
 torso_faces = [(ring * (segments + 1) + i, ring * (segments + 1) + i + 1, (ring + 1) * (segments + 1) + i + 1, (ring + 1) * (segments + 1) + i) for ring in range(len(levels) - 1) for i in range(segments)]
 torso = jacket_panel('Rook_JacketTorso', torso_vertices, torso_faces)
 for polygon in torso.data.polygons:
