@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EXISTING-MECH-55 — official Quaternius Animated Mech page
+  lists CC0. Acquired textured George glTF from agentkaerf/FreeModels mirror
+  plus bundled License.txt (CC0 verified), on E: sources/quaternius_mech.
+  Mirror provenance recorded; original author remains Quaternius. Inspected
+  glTF animation inventory and sampled Idle in native Godot; capture inspected.
+  Stylized existing animated asset is a comparison candidate, not accepted
+  as source-faithful CyberCity robot. Next: evaluate Shoot/Walk/Death clips,
+  normalize scale and compare quality against procedural robot under neutral light.
+
 - `IN_PROGRESS` ROBOT-CONSTRAINT-BAKE-54 — separate script loads constrained
   source, keys knee fitting motion and bakes visual object transforms over
   49 frames, clearing constraints only in derived test source. Exports
