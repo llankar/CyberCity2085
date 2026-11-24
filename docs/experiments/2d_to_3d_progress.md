@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-CONSTRAINT-BAKE-54 — separate script loads constrained
+  source, keys knee fitting motion and bakes visual object transforms over
+  49 frames, clearing constraints only in derived test source. Exports
+  robot_baked_test BLEND/GLB on E:. First SCENE export split channels into
+  separate clips; changed to ACTIVE_ACTIONS merged export and reran.
+  Native Godot endpoint/clip verification remains NOT VERIFIED. Next: verify
+  combined animation channels and sample knee/shaft endpoints in Godot.
+
 - `DONE` HYDRAULIC-AXIS-53 — corrected shaft geometry to local Y to match
   STRETCH_TO and removed conflicting Z tracking. Native Blender endpoint
   assertions pass for both knee actuators in bent test (reported error 0 m,
