@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-TORSO-11 — replaced rendered body-cut jacket with a
+  separate open quad torso (five rings, 24 segments) using transferred body
+  weights and leather thickness. v9 BLEND and five previews generated on E:;
+  front inspected. Boundary is regular, but upper torso/shoulder fitting and
+  undershirt still require refinement. No artistic acceptance claimed.
+  Next: shape armholes and shoulder yoke, replace undershirt cut boundary.
+
 - `IN_PROGRESS` ROOK-DEFORMATION-10 — increased each sleeve from four to seven
   rings; explicit upper/lower-arm weight progression 0/0/0.15/0.5/0.85/1/1.
   v8 Blender generation completed with five renders; bent-arm preview inspected.

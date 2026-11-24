@@ -83,6 +83,22 @@ def jacket_panel(name, vertices, faces):
     bevel.segments = 2
     return obj
 
+# Replace the body-derived jacket with an open, regular quad surface.
+# Keep its material as the common garment material for modular panels.
+jacket.hide_render = True
+jacket.hide_viewport = True
+levels = [(1.00, 0.175, 0.115), (1.12, 0.17, 0.12), (1.28, 0.205, 0.145), (1.40, 0.22, 0.13), (1.45, 0.18, 0.105)]
+torso_vertices = []
+segments = 24
+for z, width, depth in levels:
+    for index in range(segments + 1):
+        angle = -math.pi / 2 + 0.30 + (math.tau - 0.60) * index / segments
+        torso_vertices.append((width * math.cos(angle), depth * math.sin(angle), z))
+torso_faces = [(ring * (segments + 1) + i, ring * (segments + 1) + i + 1, (ring + 1) * (segments + 1) + i + 1, (ring + 1) * (segments + 1) + i) for ring in range(len(levels) - 1) for i in range(segments)]
+torso = jacket_panel('Rook_JacketTorso', torso_vertices, torso_faces)
+for polygon in torso.data.polygons:
+    polygon.use_smooth = True
+
 for sign, side in [(1, 'l'), (-1, 'r')]:
     jacket_panel('Rook_Lapel_' + side,
         [(sign * x, y, z) for x, y, z in [(0.06, -0.09, 1.47), (0.15, -0.105, 1.40), (0.10, -0.145, 1.24), (0.055, -0.13, 1.37)]],
