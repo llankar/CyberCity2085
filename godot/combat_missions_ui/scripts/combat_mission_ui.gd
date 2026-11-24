@@ -67,6 +67,7 @@ const _AUDScript = preload("res://scripts/audio_manager.gd")
 const _RESScript = preload("res://scripts/mission_results.gd")
 const _TOKScript = preload("res://scripts/unit_token.gd")
 const _ENCScript = preload("res://scripts/encounter_generator.gd")
+const _FOGScript = preload("res://scripts/fog_of_war.gd")
 
 # ─── Component refs (untyped to avoid class-name scope errors) ────────────────
 var _battlefield                 = null   # Battlefield
@@ -133,6 +134,8 @@ var initiative_entries: Array[Dictionary] = []
 var overwatch_indices: Array[int] = []
 var defend_indices   : Array[int] = []
 var cover_nodes      : Array[Dictionary] = []
+var _player_visible_cells: Dictionary = {}
+var _explored_cells: Dictionary = {}
 
 # ─── IPC to Python ────────────────────────────────────────────────────────────
 var ipc_pipe_path  : String = ""   # Unix pipe path for IPC signal to Python
@@ -141,6 +144,7 @@ var ipc_pipe_path  : String = ""   # Unix pipe path for IPC signal to Python
 const _ZOOM_MIN        := 0.10
 const _ZOOM_MAX        := 3.0
 const _REFERENCE_TILE_WIDTH := 280.0
+const BASE_VISION_RANGE := 15
 const _DRAG_THRESHOLD  := 8.0   # pixels moved before a click becomes a pan
 var _camera       : Camera2D  = null
 var _map_root     : Node2D    = null
@@ -368,6 +372,7 @@ func _connect_signals() -> void:
 
 func _sync_display() -> void:
 	if battle_ended: return
+	_update_player_visibility()
 	_queue_tactical_checkpoint()
 	_refresh_initiative()
 
@@ -430,16 +435,17 @@ func _sync_display() -> void:
 		var tok = _unit_tokens[key]
 		if not is_instance_valid(tok): _unit_tokens.erase(key); continue
 		var u   := enemy_units[j] as Dictionary
+		var currently_visible := _is_enemy_visible_to_player(j)
 		tok.update_data(u)
 		tok.set_active(false)
-		tok.set_targeted(j == selected_target_index \
+		tok.set_targeted(currently_visible and j == selected_target_index \
 						  and _action_type(selected_action) in ["FIRE", "MELEE", "PSI", "FIRE_AOE"] \
 						  and turn_side == "player")
-		tok.visible = int(u.get("hp", 0)) > 0 or (visual_mode and tok._death)
+		tok.visible = currently_visible and (int(u.get("hp", 0)) > 0 or (visual_mode and tok._death))
 
 	_update_visual_context()
 	_hud.show_log = show_combat_log
-	_hud.update_state(player_units, enemy_units, initiative_entries,
+	_hud.update_state(player_units, _visible_enemy_units_for_hud(), initiative_entries,
 					  active_player_index, selected_action,
 					  turn_side, turn_number, combat_log,
 					  portrait_textures, status_line)
@@ -1026,7 +1032,11 @@ func _on_cell_clicked(cell: Vector2i, require_exact_target: bool = false) -> voi
 			status_line = "No live target on this cell."
 			_sync_display()
 	elif atype == "FIRE_AOE":
-		_apply_missile_salvo(cell)
+		if _player_visible_cells.has(cell):
+			_apply_missile_salvo(cell)
+		else:
+			status_line = "Target area is hidden by fog of war."
+			_sync_display()
 	elif atype == "PSI_HEAL":
 		_apply_psi_focus()
 	elif atype == "HEAL":
@@ -1148,13 +1158,12 @@ func _seed_combat_state() -> void:
 	battle_started      = false
 	overwatch_indices   = []
 	defend_indices      = []
+	_player_visible_cells = {}
+	_explored_cells = {}
 	deploy_rect         = Rect2()
 	_refresh_initiative()
 	if enemy_units.size() > 0:
-		combat_log.append("Enemy contacts detected: %d." % enemy_units.size())
-	var assassination_target := _assassination_target_index()
-	if assassination_target >= 0:
-		combat_log.append("Priority target: %s." % enemy_units[assassination_target].get("name", "Unknown"))
+		combat_log.append("Hostile presence suspected. Advance to establish contact.")
 	combat_log.append("Press Enter or click DEPLOY to begin.")
 
 func _overview_zoom() -> float:
@@ -1217,7 +1226,7 @@ func _start_combat(source: String) -> void:
 	# Force HUD to fill the viewport — Controls inside a CanvasLayer don't
 	# have their anchors resolved before _ready() returns, so size may be wrong.
 	_fit_hud_viewport()
-	_hud.update_state(player_units, enemy_units, initiative_entries,
+	_hud.update_state(player_units, _visible_enemy_units_for_hud(), initiative_entries,
 					  active_player_index, selected_action,
 					  turn_side, turn_number, combat_log,
 					  portrait_textures, status_line)
@@ -1521,6 +1530,10 @@ func _attack_audio_event(attacker: Dictionary, action_name: String, attack_type:
 
 func _attack_enemy(target_index: int, action_name: String) -> void:
 	if target_index < 0 or target_index >= enemy_units.size(): return
+	if not _is_enemy_visible_to_player(target_index):
+		status_line = "No visible hostile at that position."
+		_sync_display()
+		return
 	var target := enemy_units[target_index] as Dictionary
 	if int(target.get("hp", 0)) <= 0: return
 	var attacker := player_units[active_player_index] as Dictionary
@@ -1719,10 +1732,29 @@ func _action_ap_cost(action: String) -> int:
 func _enemy_act(enemy_index: int) -> void:
 	var enemy   := enemy_units[enemy_index] as Dictionary
 	var subtype := str(enemy.get("enemy_subtype", "grunt")).to_lower()
-	var ti: int  = _nearest_player_to(enemy)
-	if ti < 0: return
 	var ap: int = int(enemy.get("ap", 2))
 	var rng: int = _subtype_attack_range(subtype)
+	var ti: int = _nearest_visible_player_to(enemy)
+	# Search without using hidden player coordinates. Enemies reserve one AP so
+	# discovery during movement can still lead to an attack this turn.
+	if ti < 0:
+		var start := _cell_position(enemy)
+		var search_goal := Vector2i(GRID_COLS / 2, GRID_ROWS / 2)
+		var route: Array[Vector2i] = _battlefield.find_path(start, search_goal)
+		var search_steps := mini(maxi(0, ap - 1), maxi(0, route.size() - 1))
+		if search_steps > 0:
+			var destination := route[search_steps]
+			if not _is_cell_occupied(destination, -1, enemy_index):
+				enemy["position"] = destination
+				ap -= search_steps
+				var search_key := "e%d" % enemy_index
+				if _unit_tokens.has(search_key):
+					_visual_move_token(search_key, start, destination, enemy)
+		ti = _nearest_visible_player_to(enemy)
+		if ti < 0:
+			enemy["ap"] = 0
+			enemy_units[enemy_index] = enemy
+			return
 
 	# ── Move phase — BFS to best reachable cell ───────────────────────────────
 	var ep   := _cell_position(enemy)
@@ -1761,7 +1793,7 @@ func _enemy_act(enemy_index: int) -> void:
 				_visual_move_token(ekey, _battlefield.world_to_cell(_unit_tokens[ekey].position), best_cell, enemy)
 
 	# ── Attack phase ──────────────────────────────────────────────────────────
-	if dist <= rng and ap > 0 and _battlefield.has_los(ep, tp, []):
+	if dist <= rng and ap > 0 and _unit_can_see(enemy, player_units[ti] as Dictionary):
 		_enemy_attack(enemy_index, ti, subtype)
 		ap -= 1
 
@@ -2005,6 +2037,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"aim":               int(agent.get("aim", 5)),
 			"psi":               int(agent.get("psi", 5)),
 			"melee_power":       int(agent.get("melee_power", 0)),
+			"vision_range":      maxi(BASE_VISION_RANGE, int(agent.get("vision_range", BASE_VISION_RANGE))),
 			"position":          Vector2i(1, row),
 			"kind":              "player",
 			"status_effects":    [],
@@ -2045,6 +2078,7 @@ func _build_player_units() -> Array[Dictionary]:
 			"initiative":        int(asset.get("initiative", 16 - row_index)),
 			"aim":               int(asset.get("aim", 5)),
 			"melee_power":       int(asset.get("melee_power", 0)),
+			"vision_range":      BASE_VISION_RANGE,
 			"position":          Vector2i(1, row),
 			"kind":              "player",
 			"status_effects":    [],
@@ -2101,8 +2135,9 @@ func _refresh_initiative() -> void:
 	var all_units: Array[Dictionary] = []
 	for u: Dictionary in player_units:
 		if int(u.get("hp", 0)) > 0: all_units.append(u)
-	for e: Dictionary in enemy_units:
-		if int(e.get("hp", 0)) > 0: all_units.append(e)
+	for enemy_index in range(enemy_units.size()):
+		var e := enemy_units[enemy_index] as Dictionary
+		if int(e.get("hp", 0)) > 0 and _is_enemy_visible_to_player(enemy_index): all_units.append(e)
 	all_units.sort_custom(Callable(self, "_compare_unit_initiative"))
 	for i in range(mini(8, all_units.size())):
 		var unit: Dictionary = all_units[i]
@@ -2128,6 +2163,53 @@ func _unit_short_label(unit: Dictionary) -> String:
 
 # ─── Query helpers ────────────────────────────────────────────────────────────
 
+func _vision_range(unit: Dictionary) -> int:
+	return _FOGScript.vision_range(unit)
+
+func _unit_can_see(observer: Dictionary, target: Dictionary) -> bool:
+	return _FOGScript.can_see(observer, target, func(origin: Vector2i, destination: Vector2i):
+		return _battlefield.has_los(origin, destination, []))
+
+func _update_player_visibility() -> void:
+	_player_visible_cells = _FOGScript.visible_cells(player_units, GRID_COLS, GRID_ROWS,
+		func(origin: Vector2i, destination: Vector2i):
+			return _battlefield.has_los(origin, destination, []))
+	for cell: Vector2i in _player_visible_cells:
+		_explored_cells[cell] = true
+	_battlefield.set_fog(_player_visible_cells, _explored_cells)
+	for prop: Node2D in _visual_obstacles:
+		var prop_cell: Vector2i = prop.tactical_cell
+		prop.visible = visual_quality > 0 and _explored_cells.has(prop_cell)
+		prop.modulate = Color(1, 1, 1, 1.0 if _player_visible_cells.has(prop_cell) else 0.42)
+
+func _is_enemy_visible_to_player(enemy_index: int) -> bool:
+	if enemy_index < 0 or enemy_index >= enemy_units.size():
+		return false
+	var enemy := enemy_units[enemy_index] as Dictionary
+	return _player_visible_cells.has(_cell_position(enemy))
+
+func _visible_enemy_units_for_hud() -> Array[Dictionary]:
+	var visible: Array[Dictionary] = []
+	for index in range(enemy_units.size()):
+		if _is_enemy_visible_to_player(index):
+			visible.append(enemy_units[index])
+	return visible
+
+func _nearest_visible_player_to(enemy: Dictionary) -> int:
+	var ep := _cell_position(enemy)
+	var best := -1
+	var best_distance := 99999
+	for index in range(player_units.size()):
+		var player := player_units[index] as Dictionary
+		if not _unit_can_see(enemy, player):
+			continue
+		var position := _cell_position(player)
+		var distance := absi(ep.x - position.x) + absi(ep.y - position.y)
+		if distance < best_distance:
+			best_distance = distance
+			best = index
+	return best
+
 func _current_active_player() -> Dictionary:
 	if active_player_index < 0 or active_player_index >= player_units.size():
 		return {}
@@ -2137,27 +2219,29 @@ func _current_target() -> Dictionary:
 	if enemy_units.is_empty(): return {}
 	if selected_target_index < 0 or selected_target_index >= enemy_units.size():
 		selected_target_index = 0
-	if int(enemy_units[selected_target_index].get("hp", 0)) <= 0:
+	if int(enemy_units[selected_target_index].get("hp", 0)) <= 0 or not _is_enemy_visible_to_player(selected_target_index):
 		for i in range(enemy_units.size()):
-			if int(enemy_units[i].get("hp", 0)) > 0:
+			if int(enemy_units[i].get("hp", 0)) > 0 and _is_enemy_visible_to_player(i):
 				selected_target_index = i
 				break
-	if int(enemy_units[selected_target_index].get("hp", 0)) <= 0:
+	if int(enemy_units[selected_target_index].get("hp", 0)) <= 0 or not _is_enemy_visible_to_player(selected_target_index):
 		return {}
 	return enemy_units[selected_target_index] as Dictionary
 
 func _selected_target_validity() -> void:
 	if enemy_units.is_empty(): selected_target_index = 0; return
 	if selected_target_index < 0 or selected_target_index >= enemy_units.size() \
-			or int(enemy_units[selected_target_index].get("hp", 0)) <= 0:
+			or int(enemy_units[selected_target_index].get("hp", 0)) <= 0 \
+			or not _is_enemy_visible_to_player(selected_target_index):
 		for i in range(enemy_units.size()):
-			if int(enemy_units[i].get("hp", 0)) > 0:
+			if int(enemy_units[i].get("hp", 0)) > 0 and _is_enemy_visible_to_player(i):
 				selected_target_index = i
 				return
 
 func _enemy_at_cell(cell: Vector2i) -> int:
 	for i in range(enemy_units.size()):
 		if int(enemy_units[i].get("hp", 0)) > 0 \
+				and _is_enemy_visible_to_player(i) \
 				and _cell_position(enemy_units[i]) == cell:
 			return i
 	return -1

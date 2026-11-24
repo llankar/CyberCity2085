@@ -17,6 +17,16 @@
   ],
   "tasks": [
     {
+      "id": "GODOT-FOG-OF-WAR-01",
+      "title": "Ajouter un brouillard de guerre tactique partage par le joueur et l IA",
+      "status": "DONE",
+      "files": ["game/agents/cyberware.py", "game/combat/godot_bridge.py", "godot/combat_missions_ui/scripts/fog_of_war.gd", "godot/combat_missions_ui/scripts/battlefield.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/visual_obstacle.gd", "godot/combat_missions_ui/tests/fog_of_war_regression.gd", "tests/test_cyberware.py", "tests/test_godot_fog_of_war.py"],
+      "tests": ["Targeted Python and native Godot fog gate: 14 passed."],
+      "evidence": ["Player and enemy vision is limited to 15 Manhattan cells and requires unobstructed LOS.", "Opaque obstacles keep cells behind them hidden.", "Stable cyberware IDs smart_eye, predator_optics and omniscient_optics now expose Cybereyes Mk I, II and III bonuses of +1, +2 and +3 vision without breaking saves.", "Hidden enemies are absent from tokens, targeting, initiative and HUD enemy count; unaware AI searches instead of firing at player coordinates."],
+      "remaining": ["Visible artistic review of fog opacity and explored-cell readability is NOT VERIFIED."],
+      "next_action": "Perform a human visible combat pass for fog contrast when the next Windows acceptance session is available."
+    },
+    {
       "id": "NEODOLLAR-SUBPAGE-HEADER-01",
       "title": "Afficher le symbole Neodollar dans les bandeaux des sous-pages",
       "status": "DONE",

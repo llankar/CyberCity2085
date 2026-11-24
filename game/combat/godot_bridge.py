@@ -140,6 +140,7 @@ def _agent_payload(character) -> dict[str, Any]:
         "initiative":  derived["initiative"],
         "melee_power": derived["melee_power"],
         "action_points": 4 + cyberware_bonuses.get("action_points", 0),
+        "vision_range": 15 + cyberware_bonuses.get("vision_range", 0),
         "humanity": humanity_remaining(getattr(character, "installed_cyberware", [])),
         "cyberware": list(getattr(character, "installed_cyberware", [])),
         "size_scale":  3.5 if is_robot else (1.15 if str(character.role).lower() in {"power_armor", "heavy_armor"} else 1.0),

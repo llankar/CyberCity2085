@@ -40,6 +40,8 @@ var _astar      := AStar2D.new()
 var _blocked    : Array[Vector2i] = []
 var _wall_cells : Array[Vector2i] = []
 var _opaque_cells : Array[Vector2i] = []
+var fog_visible_cells: Dictionary = {}
+var fog_explored_cells: Dictionary = {}
 var pan_lock    : bool = false   # set by CombatRoot while camera pan is active
 var debug_walls_visible: bool = true  # Temporary test overlay; F8 toggles visuals only.
 
@@ -286,6 +288,11 @@ func has_los(from_cell: Vector2i, to_cell: Vector2i,
 			return false
 	return true
 
+func set_fog(visible_cells: Dictionary, explored_cells: Dictionary) -> void:
+	fog_visible_cells = visible_cells.duplicate()
+	fog_explored_cells = explored_cells.duplicate()
+	queue_redraw()
+
 # ── Input ─────────────────────────────────────────────────────────────────────
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -328,9 +335,19 @@ func _draw() -> void:
 	_draw_grid_overlay()
 	_draw_vignette()
 	_draw_cover_nodes()
+	_draw_fog_of_war()
 	_draw_objective()
 	_draw_path_preview()
 	_draw_hover()
+
+func _draw_fog_of_war() -> void:
+	for y in range(GRID_ROWS):
+		for x in range(GRID_COLS):
+			var cell := Vector2i(x, y)
+			if fog_visible_cells.has(cell):
+				continue
+			var alpha := 0.58 if fog_explored_cells.has(cell) else 0.94
+			draw_colored_polygon(_iso_corners(cell), Color(0.005, 0.012, 0.025, alpha))
 
 # ── Map ───────────────────────────────────────────────────────────────────────
 

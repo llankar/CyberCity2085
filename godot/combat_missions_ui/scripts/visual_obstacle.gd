@@ -19,12 +19,14 @@ var _fade_alpha := .16
 var _contact_shapes: Array[PackedVector2Array]=[]
 var _ground_patches: Array[Dictionary]=[]
 var _sprite: Dictionary = {}
+var tactical_cell := Vector2i(-1, -1)
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 
 func configure(wall: Dictionary, board, texture: Texture2D, depth = null) -> void:
+	tactical_cell = wall.get("cell", Vector2i(-1, -1)) as Vector2i
 	_baked_only=false;_contact_shapes.clear();_ground_patches.clear();_sprite.clear()
 	map_texture=texture
 	parts.clear();floor.clear();_occluders.clear()

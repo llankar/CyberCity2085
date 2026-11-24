@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- GODOT-FOG-OF-WAR-01 — DONE (2026-11-24). Vision joueur/IA limitée à 15 cases et bloquée par la LOS ; brouillard noir pour l'inconnu, voile atténué pour l'exploré, contacts ennemis absents du rendu/ciblage/initiative/HUD tant qu'ils ne sont pas vus. Cybereyes Mk I/II/III : +1/+2/+3 cases avec identifiants historiques préservés. L'IA sans contact effectue une recherche sans lire les coordonnées du joueur. Gate ciblé Python + Godot natif : 14 tests réussis. Revue artistique visible : NOT VERIFIED.
+
 - WEAPONS-RESEARCH-BRANCH-01 — DONE (2026-11-24). La branche Weapons passe de trois projets génériques à six projets couvrant explicitement les sept armes avancées du catalogue : balistique lourde/compacte, précision, Arc, Plasma et Gravité. Gravity requiert Oracle Killchain et Arc Conduction. Aucun objet fictif ni exemplaire gratuit. 72 tests et 5 sous-tests réussis ; validateur natif PASS, pages Weapons 1/2 et 2/2 inspectées.
 
 - ASSET-BAY-RESEARCH-UNLOCK-LIST-01 — DONE (2026-11-24). Les projets R&D exposent maintenant la liste exhaustive des équipements Research qu'ils autorisent à acheter. Couverture bijective vérifiée : chaque objet avancé appartient à exactement un projet existant, aucun projet n'accorde d'exemplaire gratuit. Les deux présentations Research affichent les noms réels. 65 tests et 5 sous-tests réussis ; validateur natif PASS aux trois résolutions et capture Corporate Rail Lattice inspectée.

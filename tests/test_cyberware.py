@@ -148,3 +148,12 @@ def test_arcade_subdermal_implant_applies_hp_and_defense():
     ])[0]
     assert armored.stats.max_hp == plain.stats.max_hp + 4
     assert armored.stats.defense == plain.stats.defense + 2
+
+
+def test_cybereyes_tiers_extend_tactical_vision_by_one_two_and_three_cells():
+    assert BY_ID["smart_eye"].name == "Cybereyes Mk I"
+    assert BY_ID["smart_eye"].combat_bonuses["vision_range"] == 1
+    assert BY_ID["predator_optics"].name == "Cybereyes Mk II"
+    assert BY_ID["predator_optics"].combat_bonuses["vision_range"] == 2
+    assert BY_ID["omniscient_optics"].name == "Cybereyes Mk III"
+    assert BY_ID["omniscient_optics"].combat_bonuses["vision_range"] == 3
