@@ -22,7 +22,16 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
-	if "--sample-clip" in OS.get_cmdline_user_args():
+	var requested_clip := "FittingStressTest"
+	var sample_fraction := 1.0
+	var sample_clip := "--sample-clip" in OS.get_cmdline_user_args()
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--clip="):
+			requested_clip = argument.trim_prefix("--clip=")
+			sample_clip = true
+		if argument.begins_with("--clip-fraction="):
+			sample_fraction = clampf(argument.trim_prefix("--clip-fraction=").to_float(), 0.0, 1.0)
+	if sample_clip:
 		var players := model.find_children("*", "AnimationPlayer", true, false)
 		if players.is_empty():
 			push_error("No imported animation player")
@@ -32,14 +41,14 @@ func _ready() -> void:
 		var clips := player.get_animation_list()
 		var selected := ""
 		for clip in clips:
-			if "FittingStressTest" in clip:
+			if requested_clip in clip:
 				selected = clip
 		if selected.is_empty():
 			push_error("Fitting clip missing")
 			get_tree().quit(10)
 			return
 		player.play(selected)
-		player.seek(player.get_animation(selected).length, true)
+		player.seek(player.get_animation(selected).length * sample_fraction, true)
 		player.pause()
 		print("CYBERCITY_IMPORTED_CLIP_SAMPLED ", selected)
 	if "--stress-pose" in OS.get_cmdline_user_args():
@@ -147,7 +156,13 @@ func _ready() -> void:
 	camera.size = 2.4
 	camera.position = Vector3(1.8, 1.5, 1.8)
 	add_child(camera)
-	camera.look_at(Vector3(0.0, 0.45, 0.0))
+	var bounds := AABB()
+	var first_bound := true
+	for mesh in model.find_children("*", "MeshInstance3D", true, false):
+		var mesh_bounds: AABB = mesh.global_transform * mesh.get_aabb()
+		bounds = mesh_bounds if first_bound else bounds.merge(mesh_bounds)
+		first_bound = false
+	camera.look_at(bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0))
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--ortho-size="):
 			camera.size = maxf(0.5, argument.trim_prefix("--ortho-size=").to_float())

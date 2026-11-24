@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-GODOT-49 — Godot native run samples TorsoYaw_AimTest
+  at mid-clip, captures articulated rigid model; inspected capture confirms
+  transport but old camera target clips head. Added mesh-bounds-centered target
+  afterward (not rendered yet). Clip selection/fraction now configurable.
+  Artistic robot still coarse; no finished attack or locomotion claimed.
+  Next: rerender framing correction, sample head clip, then reshape silhouette.
+
 - `IN_PROGRESS` ROBOT-AIM-48 — added three segmented fingers plus thumb per
   hand and 49-frame torso/head aiming test at 24 fps. robot_mechanical04
   BLEND/GLB and neutral aim render generated and inspected. GLB JSON confirms
