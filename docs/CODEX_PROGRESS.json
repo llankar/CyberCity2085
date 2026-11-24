@@ -2217,9 +2217,9 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-    "latest_batch": "ASSET-BAY-ARMORY-LOSS-01 completed: immutable departure loadouts, survivor recovery, permanent failed-wipe losses, reserve/research preservation, idempotent Godot replay and debrief reporting. Targeted gate: 67 passed. Owner-closed visual, Hangar, Dossier, Cyberware, economy and integration work was removed from active selection.",
-    "next_action": "Continue BASE-VEHICLE-UPGRADES-01 by auditing and implementing the first purchased upgrade that still lacks a real runtime effect. Keep human-only Windows, controller and audio checks documented while progressing other executable work.",
-  "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
+    "latest_batch": "BASE-VEHICLE-UPGRADES-01 completed: passive base and vehicle bonuses, one-use Field Medevac, one-use Nighthawk Heavy Strike in Arcade/Godot, debrief state and a verified local 512x512 VTOL illustration. Targeted gates: 73 passed, then 42 passed and 5 subtests; Godot parse/import passed.",
+    "next_action": "Build the current committed Windows candidate on E: and run only the documented packaged smoke. Keep physical multi-monitor DPI, controller and audio listening explicitly human-only or blocked by unavailable hardware/licensing evidence.",
+  "checkpoint": "47541196",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
       "front": "53f496a57b73443bef5bd3498dfff4e459c218a50d11187f6efe2dda25fbab68",
