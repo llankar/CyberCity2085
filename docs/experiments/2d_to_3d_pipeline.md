@@ -51,6 +51,10 @@ The experiment copies, without modifying, these real project resources:
 - Raw result: 139,894 vertices, 175,876 faces, non-watertight mesh, UV texture
   1024×1024.
 - Peak host RSS: 4,145,420 KiB on the successful textured run.
+- A separate cached 128-resolution, non-textured inference measured 1,429 MiB
+  idle and 3,808 MiB peak total GPU use through `nvidia-smi`, a 2,379 MiB
+  delta. This is evidence for that exact mode only, not a claim about peak
+  texture-baking usage.
 - Timings after weights were cached: model initialization 17.8 s, preprocessing
   2.3 s, inference 24.9 s, mesh extraction 3.3 s, texture baking 39.4 s. OBJ
   serialization on the Windows-mounted `E:` volume was unusually slow (226.6 s).
@@ -61,6 +65,39 @@ The experiment copies, without modifying, these real project resources:
 - Visual assessment: recognizable hard-surface volume and usable baked colour,
   but soft edges, surface noise and imperfect source orientation. **NOT
   ARTISTICALLY ACCEPTED**.
+
+## Six-object prototype result
+
+All six requested sources now have real Blender and GLB files. Every GLB loaded
+through the independent Godot 4.7.2 scene with exit code 0.
+
+| Asset | Raw faces | Optimized faces | GLB bytes | Visual decision |
+| --- | ---: | ---: | ---: | --- |
+| Crate | 175,876 | 20,000 | 2,155,040 | recognizable, soft/noisy; reject for final art |
+| Industrial machine | 249,824 | 19,996 | 2,589,964 | severe surface noise; reject |
+| Robot | 157,298 | 34,999 | 2,872,904 | collapsed anatomy; reject |
+| Rook | 141,060 | 29,999 | 2,428,112 | portrait reconstructed as a bust/blob; not riggable |
+| Raider Grunt | 64,020 | 29,999 | 2,262,444 | collapsed lateral form; not riggable |
+| Vehicle | 86,980 | 30,000 | 2,418,656 | recognizable silhouette, melted details; reject |
+
+The five-object batch took 18 minutes 36 seconds with 4,142,528 KiB peak host
+RSS. Warm neural inference took 0.36–0.39 seconds per later image, while OBJ
+serialization took 81–324 seconds per object. This confirms that the current
+text OBJ stage on the mounted E: volume is the main throughput bottleneck.
+
+The humanoid rigging test stops at its mandatory anatomy gate: neither generated
+humanoid has a complete separable body or plausible joints. Adding a skeleton,
+weights and five animations would create misleading placeholder data, not a
+valid rigging test. `HUMANOID-RIG-01` is therefore **BLOCKED** until a licensed
+multi-view reconstruction produces acceptable anatomy.
+
+## 3D-to-sprite alternative
+
+`experiments/2d_to_3d/blender/render_atlas.py` renders eight transparent
+isometric directions from one Blender source and assembles them into a single
+horizontal PNG atlas. The crate proof generated eight 256×256 frames and one
+2048×256 atlas successfully. Static orientation rendering is verified; animated
+atlas rendering remains blocked by the absence of an acceptable rigged model.
 
 ## Reproduction
 
@@ -91,15 +128,30 @@ Blender processing example:
 
 ## Open acceptance work
 
-- Generate and visually assess the other five requested prototypes.
 - Find and verify a genuinely multi-view solution for humanoids.
 - Retopologize an accepted humanoid before rigging; AI topology is not suitable
   for deformation as-is.
 - Rig and skin one humanoid, then verify idle, walk, shoot, melee and death.
-- Add reproducible eight-direction animation atlas rendering.
+- Extend the verified eight-direction static atlas renderer to action/frame
+  strips once a valid rig exists.
 - Measure GPU peak VRAM during inference, Godot frame cost and shadow/material
   behavior in a visible isometric comparison.
 - Review generated assets and their source rights before any distribution.
 
 No larger migration should be proposed until those items pass visual review.
+
+## Primary references
+
+- Blender downloads and LTS releases: https://www.blender.org/download/ and
+  https://www.blender.org/releases/4-5/
+- TripoSR official repository and MIT statement:
+  https://github.com/VAST-AI-Research/TripoSR
+- TRELLIS requirements and licensing notes:
+  https://github.com/microsoft/TRELLIS/blob/main/README.md
+- TripoSG official repository and root license:
+  https://github.com/VAST-AI-Research/TripoSG and
+  https://github.com/VAST-AI-Research/TripoSG/blob/main/LICENSE
+- TripoSG bundled FlashVDM/Hunyuan license containing the EU territorial
+  exclusion: https://github.com/VAST-AI-Research/TripoSG/blob/main/triposg/LICENSE
+- PyTorch CUDA installation matrix: https://pytorch.org/get-started/locally/
 
