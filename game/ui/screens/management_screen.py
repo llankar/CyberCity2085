@@ -265,7 +265,8 @@ class ManagementView(GameView):
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters, self.game_state.selected_agent_names,
+            self.game_state.squad_capacity,
         )
 
         # Give seed funds if empty
@@ -2527,10 +2528,6 @@ class ManagementView(GameView):
     def _do_recruit_prompt(self) -> None:
         """Open the recruit chooser with a small list of named agents."""
         gs = self.game_state
-        if not gs.can_recruit():
-            self.message = f"Roster capacity reached ({len(gs.characters)}/{gs.squad_capacity}). Upgrade the Hangar."
-            self.notifications.warning(self.message)
-            return
         self._close_agent_sheet()
         self.pending_recruit_candidates = build_recruitment_candidates(gs.characters)
         self.recruit_window_open = True
@@ -2538,10 +2535,6 @@ class ManagementView(GameView):
 
     def _do_recruit_candidate(self, candidate_index: int) -> None:
         gs = self.game_state
-        if not gs.can_recruit():
-            self.message = f"Roster capacity reached ({len(gs.characters)}/{gs.squad_capacity}). Upgrade the Hangar."
-            self.notifications.warning(self.message)
-            return
         if candidate_index >= len(self.pending_recruit_candidates):
             return
         candidate = self.pending_recruit_candidates[candidate_index]
@@ -2564,7 +2557,7 @@ class ManagementView(GameView):
             gs.owned_equipment[item.id] = gs.owned_equipment.get(item.id, 0) + 1
         self.deployment_cursor = len(gs.characters) - 1
         self._cycle_agent_cursor(0)
-        if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < 4:
+        if agent.name not in gs.selected_agent_names and len(gs.selected_agent_names) < gs.squad_capacity:
             gs.selected_agent_names.append(agent.name)
             assignment = " Auto-assigned to the active squad."
         else:
@@ -2613,7 +2606,9 @@ class ManagementView(GameView):
 
     def _do_launch_mission(self) -> None:
         gs = self.game_state
-        gs.selected_agent_names = sanitize_selected_agent_names(gs.characters, gs.selected_agent_names)
+        gs.selected_agent_names = sanitize_selected_agent_names(
+            gs.characters, gs.selected_agent_names, gs.squad_capacity
+        )
         selected_squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
         selected_mission = _selected_mission(gs)
 
@@ -2938,7 +2933,8 @@ class ManagementView(GameView):
 
         ensure_mission_templates(self.game_state)
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters, self.game_state.selected_agent_names,
+            self.game_state.squad_capacity,
         )
 
         if self.game_state.available_funds <= 0:

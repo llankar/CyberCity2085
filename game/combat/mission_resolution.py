@@ -45,7 +45,8 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
             unit.character._mission_xp_gained = xp_award
             unit.character.gain_xp(xp_award)
     self.game_state.selected_agent_names = sanitize_selected_agent_names(
-        self.game_state.characters, self.game_state.selected_agent_names
+        self.game_state.characters, self.game_state.selected_agent_names,
+        self.game_state.squad_capacity,
     )
     resource_awards=self.game_state.award_mission_resources(self.mission, victory, defeated)
     self.resolve_mission_outcome(victory)

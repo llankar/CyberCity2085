@@ -1,6 +1,7 @@
 import json
 
 from game.gamestate import GameState
+from game.deployment import sanitize_selected_agent_names, toggle_agent_selection
 from game.management.hangar_progression import HANGAR_LEVELS, HangarProgression
 from game.recruitment import recruit_agent
 
@@ -42,6 +43,7 @@ def test_legacy_save_preserves_large_roster_and_owned_loadouts(tmp_path):
     state = GameState()
     for role in ("samurai", "sniper", "psi", "samurai", "sniper", "psi", "samurai"):
         recruit_agent(state.characters, role)
+    state.selected_agent_names = [agent.name for agent in state.characters]
     path = tmp_path / "legacy.json"
     state.save(path)
     data = json.loads(path.read_text(encoding="utf-8"))
@@ -50,8 +52,36 @@ def test_legacy_save_preserves_large_roster_and_owned_loadouts(tmp_path):
     path.write_text(json.dumps(data), encoding="utf-8")
     restored = GameState.load(path)
     assert len(restored.characters) == 7
-    assert restored.hangar.level == 3 and restored.squad_capacity == 7
+    assert restored.hangar.level == 1 and restored.squad_capacity == 5
+    assert restored.selected_agent_names == [agent.name for agent in restored.characters[:5]]
     assert sum(restored.owned_equipment.values()) >= 7
+
+
+def test_recruitment_is_not_limited_by_hangar_squad_capacity():
+    state = GameState(hangar=HangarProgression(1))
+    for index in range(state.squad_capacity + 4):
+        recruit_agent(state.characters, "samurai", f"Spare-{index}")
+    assert len(state.characters) == 9
+    assert state.can_recruit() is True
+    assert state.squad_capacity == 5
+
+
+def test_hangar_capacity_limits_selected_mission_squad_not_roster():
+    state = GameState(hangar=HangarProgression(1))
+    for index in range(9):
+        recruit_agent(state.characters, "samurai", f"Reserve-{index}")
+    all_names = [agent.name for agent in state.characters]
+
+    selected = sanitize_selected_agent_names(
+        state.characters, all_names, state.squad_capacity
+    )
+    assert selected == all_names[:5]
+    selected, message = toggle_agent_selection(
+        state.characters, selected, 5, state.squad_capacity
+    )
+    assert selected == all_names[:5]
+    assert "Squad capacity reached (5)" in message
+    assert len(state.characters) == 9
 
 
 def test_hangar_roundtrip(tmp_path):

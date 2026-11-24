@@ -46,7 +46,6 @@ class HangarProgression:
     def from_dict(cls, data: dict | None, roster_size: int = 0) -> "HangarProgression":
         if data:
             return cls(data.get("level", 1))
-        # Legacy saves keep every operative. Their Hangar is migrated to the
-        # lowest legitimate level able to contain that already-owned roster.
-        migrated_level = min(4, max(1, roster_size - 4))
-        return cls(migrated_level)
+        # A legacy roster may be larger than its deployable squad. Recruitment
+        # never upgrades or blocks the Hangar; missing progression starts at L1.
+        return cls(1)

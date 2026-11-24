@@ -16,6 +16,15 @@
   ],
   "tasks": [
     {
+      "id": "HANGAR-DEPLOYMENT-CAPACITY-01",
+      "title": "Limiter le deploiement par le Hangar sans limiter le roster",
+      "status": "DONE",
+      "files": ["game/gamestate.py", "game/deployment.py", "game/management/hangar_progression.py", "game/ui/screens/management_screen.py", "game/ui/screens/world_map_view.py", "game/views.py", "game/combat/mission_resolution.py", "tests/test_hangar_progression.py"],
+      "tests": ["Isolated Hangar, management, World Map, Godot bridge, recovery, progression and legacy recruitment gates: 75 passed and 7 subtests passed.", "A mixed run including all test_rpg_view.py produced 10 Arcade fixture failures without an active window; the relevant legacy recruitment test passed in isolation."],
+      "evidence": ["Hangar levels limit selected mission agents to 5, 6, 7 or 8.", "Recruitment remains available above squad capacity and excess operatives stay in reserve.", "Legacy saves preserve the full roster, default a missing Hangar to level 1 and trim only oversized mission selection."],
+      "remaining": ["Visible Windows validation is NOT VERIFIED."]
+    },
+    {
       "id": "GODOT-ACTION-AUDIO-AUDIT-01",
       "title": "Auditer et raccorder les actions tactiques Godot aux sons pertinents",
       "status": "DONE",

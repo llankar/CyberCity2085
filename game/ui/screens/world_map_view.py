@@ -754,7 +754,7 @@ class MissionWorldMapView(GameView):
             return
         gs = self.game_state
         gs.selected_agent_names = sanitize_selected_agent_names(
-            gs.characters, gs.selected_agent_names
+            gs.characters, gs.selected_agent_names, gs.squad_capacity
         )
         selected_squad = selected_deployable_agents(
             gs.characters, gs.selected_agent_names
@@ -815,7 +815,7 @@ class MissionWorldMapView(GameView):
             return
         gs = self.game_state
         gs.selected_agent_names = sanitize_selected_agent_names(
-            gs.characters, gs.selected_agent_names
+            gs.characters, gs.selected_agent_names, gs.squad_capacity
         )
         squad = selected_deployable_agents(gs.characters, gs.selected_agent_names)
         if not squad:

@@ -27,14 +27,17 @@ def selected_deployable_agents(
 
 
 def sanitize_selected_agent_names(
-    characters: list[Character], selected_agent_names: list[str]
+    characters: list[Character], selected_agent_names: list[str],
+    capacity: int | None = None,
 ) -> list[str]:
-    """Drop unavailable or no-longer-rostered agents from deployment selection."""
+    """Drop invalid selections and optionally enforce Hangar deployment capacity."""
     deployable_names = {character.name for character in deployable_agents(characters)}
     sanitized: list[str] = []
     for name in selected_agent_names:
         if name in deployable_names and name not in sanitized:
             sanitized.append(name)
+            if capacity is not None and len(sanitized) >= max(0, int(capacity)):
+                break
     return sanitized
 
 
@@ -45,12 +48,12 @@ def toggle_agent_selection(
     """Toggle a roster slot and return the updated selection plus a readable result."""
     if index < 0 or index >= len(characters):
         return (
-            sanitize_selected_agent_names(characters, selected_agent_names),
+            sanitize_selected_agent_names(characters, selected_agent_names, capacity),
             "No agent selected.",
         )
 
     character = characters[index]
-    sanitized = sanitize_selected_agent_names(characters, selected_agent_names)
+    sanitized = sanitize_selected_agent_names(characters, selected_agent_names, capacity)
     if not is_deployable(character):
         return sanitized, f"{character.name} is unavailable for deployment."
 

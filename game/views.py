@@ -978,7 +978,8 @@ class RPGView(GameView):
         self.focus_model = build_view_focus_model("squad", 1280, 720)
         self.help_overlay = HelpOverlayState()
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters, self.game_state.selected_agent_names,
+            self.game_state.squad_capacity,
         )
         selected_agents = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
@@ -996,7 +997,8 @@ class RPGView(GameView):
 
     def selected_deployment(self) -> list[Character]:
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters, self.game_state.selected_agent_names,
+            self.game_state.squad_capacity,
         )
         selected_agents = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names
@@ -1743,7 +1745,8 @@ class BattleView(GameView):
         self._cam_pan_x = 0.0
         self._cam_pan_y = 0.0
         self.game_state.selected_agent_names = sanitize_selected_agent_names(
-            self.game_state.characters, self.game_state.selected_agent_names
+            self.game_state.characters, self.game_state.selected_agent_names,
+            self.game_state.squad_capacity,
         )
         selected_squad = selected_deployable_agents(
             self.game_state.characters, self.game_state.selected_agent_names

@@ -245,7 +245,8 @@ class GameState:
         return True, f"{name} acquired. Squad capacity: {capacity}."
 
     def can_recruit(self) -> bool:
-        return len(self.characters) < self.squad_capacity
+        """Recruitment is intentionally independent from deployment capacity."""
+        return True
 
     def purchase_base_upgrade(self, upgrade_id: str, vehicle: bool = False) -> tuple[bool, str]:
         from .management.base_upgrades import BASE_UPGRADES, VEHICLE_UPGRADES
@@ -852,7 +853,7 @@ class GameState:
             ]
 
         gs.selected_agent_names = sanitize_selected_agent_names(
-            gs.characters, gs.selected_agent_names
+            gs.characters, gs.selected_agent_names, gs.squad_capacity
         )
         selected_agents = [
             character
