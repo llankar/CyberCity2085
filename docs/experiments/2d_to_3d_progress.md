@@ -2,6 +2,12 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MATERIAL-ISOLATION-39 — no-shadow capture still shows speckle.
+  Added unlit diagnostic; first run hit GDScript type inference error, corrected
+  with explicit Material type. Native rerun generated unlit capture, inspected.
+  Diagnostic switches are not artistic fixes. Next: compare source texture
+  maps and direct PBR export against these controlled captures.
+
 - `IN_PROGRESS` MATERIAL-DIAGNOSIS-38 — inspected GLB JSON: every material
   exported alphaMode BLEND, including opaque skin/armor. Export copies now
   disconnect alpha for non-hair surfaces and disable clearcoat. Regenerated

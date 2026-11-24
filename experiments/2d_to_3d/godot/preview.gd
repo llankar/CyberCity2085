@@ -22,6 +22,14 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
+	if "--unlit-diagnostic" in OS.get_cmdline_user_args():
+		for mesh in model.find_children("*", "MeshInstance3D", true, false):
+			for surface in range(mesh.mesh.get_surface_count()):
+				var material: Material = mesh.get_active_material(surface)
+				if material is StandardMaterial3D:
+					var diagnostic := material.duplicate() as StandardMaterial3D
+					diagnostic.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+					mesh.set_surface_override_material(surface, diagnostic)
 	for mesh in model.find_children("*", "MeshInstance3D", true, false):
 		if "Boot" in mesh.name:
 			equipment_meshes.append(mesh)
@@ -69,6 +77,8 @@ func _ready() -> void:
 	light.rotation_degrees = Vector3(-55.0, -35.0, 0.0)
 	light.light_energy = 1.4
 	light.shadow_enabled = true
+	if "--no-shadows" in OS.get_cmdline_user_args():
+		light.shadow_enabled = false
 	add_child(light)
 
 	var camera := Camera3D.new()
