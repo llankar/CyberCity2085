@@ -8,6 +8,10 @@ import numpy as np
 from mathutils import Vector
 
 output = Path(sys.argv[sys.argv.index('--') + 1]).resolve()
+action_name = next((arg.split('=',1)[1] for arg in sys.argv if arg.startswith('--action=')), 'Walk')
+if action_name not in {'Idle','Walk','Shoot','HitRecieve_1','Death'}:
+    raise ValueError('Unsupported experimental action')
+stem = action_name.lower()
 if output.drive.upper() != 'E:':
     raise ValueError('Experimental atlas must remain on E:')
 output.mkdir(parents=True,exist_ok=True)
@@ -16,7 +20,8 @@ scene=bpy.context.scene
 rig=next(o for o in scene.objects if o.type=='ARMATURE')
 for track in rig.animation_data.nla_tracks:
     track.mute=True
-action=bpy.data.actions['Walk']
+action=bpy.data.actions[action_name]
+loop = action_name in {'Idle','Walk'}
 rig.animation_data.action=action
 scene.render.engine='BLENDER_EEVEE_NEXT'
 scene.render.resolution_x=scene.render.resolution_y=128
@@ -34,8 +39,12 @@ bpy.ops.object.camera_add()
 camera=bpy.context.object
 camera.data.type='ORTHO'
 camera.data.ortho_scale=3.6
+if action_name == 'Death':
+    camera.data.ortho_scale=5.0
 scene.camera=camera
 target=Vector((0,0,1.25))
+if action_name == 'Death':
+    target=Vector((0,-.65,.9))
 sheet=np.zeros((4*128,8*128,4),dtype=np.float32)
 rows=[]
 first,last=action.frame_range
@@ -45,9 +54,9 @@ for direction in range(8):
     camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
     indices=[]
     for sample in range(4):
-        frame=first+(last-first)*sample/4
+        frame=first+(last-first)*sample/(4 if loop else 3)
         scene.frame_set(int(frame),subframe=frame-int(frame))
-        path=output/f'walk_d{direction}_f{sample}.png'
+        path=output/f'{stem}_d{direction}_f{sample}.png'
         scene.render.filepath=str(path)
         bpy.ops.render.render(write_still=True)
         image=bpy.data.images.load(str(path),check_existing=False)
@@ -61,13 +70,13 @@ for direction in range(8):
     rows.append(indices)
 atlas=bpy.data.images.new('robot_walk_atlas',width=1024,height=512,alpha=True)
 atlas.pixels.foreach_set(sheet.reshape(-1))
-atlas.filepath_raw=str(output/'robot_walk_atlas.png')
+atlas.filepath_raw=str(output/f'robot_{stem}_atlas.png')
 atlas.file_format='PNG'
 atlas.save()
-manifest={'texture':'robot_walk_atlas.png','frame_size':[128,128],
-          'animations':{'walk':{'rows':rows,'fps':4/(max(.001,(last-first)/scene.render.fps)), 'loop':True}},
+manifest={'texture':f'robot_{stem}_atlas.png','frame_size':[128,128],
+          'animations':{stem:{'rows':rows,'fps':(4 if loop else 3)/(max(.001,(last-first)/scene.render.fps)), 'loop':loop}},
           'camera_views':'Eight orbit viewpoints, mapping to production facing NOT VERIFIED',
-          'source_action':'Walk','source':'Quaternius George, CC0',
+          'source_action':action_name,'source':'Quaternius George, CC0',
           'status':'Experimental alternative pipeline proof, not production animation asset'}
-(output/'robot_walk_atlas.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
+(output/f'robot_{stem}_atlas.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 print('ANIMATED_ATLAS_RENDERED directions=8 frames_per_direction=4 total=32')

@@ -47,6 +47,18 @@ all 32 frames, margins, distinct poses and exact packing (one-channel-unit
 tolerance). Production direction mapping, frame density, anchor calibration
 and artistic quality remain unverified; no production asset is replaced.
 
+The renderer also accepts `--action=Idle`, `Shoot`, `HitRecieve_1` or `Death`.
+Pass the action name as the verifier's second argument. One-shot clips include
+their final pose; duplicate return-to-rest endpoints are valid and reported.
+Death uses a wider frame to contain the fallen model; consistent cross-action
+scale/anchors remain unfinished.
+
+Launch `godot --path experiments/2d_to_3d/godot res://atlas_review.tscn -- --self-test`
+for the default Walk atlas. For another action add `--action=Death
+--atlas-dir=E:/CyberCity2085-3d-lab/generated/phase2/robot_atlas_Death`.
+Space pauses; arrows select a raw orbit view. Native tests exercise all frame
+indices, timed advance, pause, view changes and loop/non-loop end behavior.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

@@ -2,6 +2,23 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-ATLAS-ACTIONS-69 — independent Godot atlas_review scene
+  added with timed playback, pause and eight-view selection. Native self-tests
+  pass all32 frame indices, timed advance, pause, selection, loop/nonloop ending.
+  Expanded Blender atlas proof to Idle/Walk/Shoot/HitRecieve_1/Death,160 frames
+  across five32-frame sheets on E:. Four additional action sheets rendered and
+  verified; Shoot/Hit legitimately return to initial pose (3 distinct samples
+  per view), Idle/Walk/Death4 distinct. Initial Death cropping FAIL corrected by
+  larger5m framing, rerendered and alpha-margin/packing checks passed. Shoot/Hit/
+  Death sheets and Walk Godot review inspected. All five native review launches
+  passed across this batch, screenshots saved in their E: atlas folders.
+  Seven Python tests pass. Artistic approval NOT VERIFIED; four samples are sparse,
+  Death has different scale/framing, production anchors/facing not yet calibrated.
+  This proves five-action animated export/playback only, not production readiness.
+  Next: unified clip framing/anchors, denser action samples as needed, qualified
+  human acquisition, final 3D asset fidelity and scene screenshots. Global open.
+
+
 - `IN_PROGRESS` AUTHORED-CANDIDATE-67 — official free Cyberpunk Samurai archive
   by Fajrul FN acquired on E: for license/technical inspection, 137,811,341 bytes,
   hash recorded in 3d_asset_selection.md. 36 files, modular jacket/head/hair/
