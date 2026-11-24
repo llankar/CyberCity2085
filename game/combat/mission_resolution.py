@@ -23,6 +23,10 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
     processed_character_ids = set()
     surviving_participants = []
     all_player_units = list(self.player_units) + list(self.defeated_player_units)
+    from .equipment_recovery import resolve_equipment_custody, snapshot_unit_equipment
+    equipment_snapshot = getattr(self, "equipment_snapshot", None)
+    if equipment_snapshot is None:
+        equipment_snapshot = snapshot_unit_equipment(all_player_units)
     for unit in all_player_units:
         if unit.stats is not None:
             unit.extraction_max_hp = unit.stats.max_hp
@@ -155,6 +159,20 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         "mission_payout": mission_payout,
         "net_funds_change": self.game_state.available_funds - funds_before,
     }
+    equipment_report = resolve_equipment_custody(
+        self.game_state, equipment_snapshot, victory
+    )
+    self.game_state.latest_mission_debrief["equipment_recovery"] = equipment_report
+    if equipment_report["status"] == "lost":
+        lost_count = sum(equipment_report["lost"].values())
+        self.game_state.add_event(
+            f"Asset Bay: total squad loss; {lost_count} deployed equipment items were lost."
+        )
+    elif equipment_report["status"] == "recovered":
+        recovered_count = sum(equipment_report["recovered"].values())
+        self.game_state.add_event(
+            f"Asset Bay: surviving agents recovered {recovered_count} items from casualties."
+        )
     outcomes = []
     for unit in all_player_units:
         if not unit.spec_ops_asset or not unit.stats:

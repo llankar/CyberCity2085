@@ -45,9 +45,14 @@ def create_session(game_state, mission, handoff_path):
     superseded=[key for key,value in game_state.combat_sessions.items() if value.get('status')=='pending']
     for previous in game_state.combat_sessions.values():
         if previous.get('status')=='pending':previous['status']='superseded'
+    from .equipment_recovery import snapshot_deployed_equipment
+    equipment_snapshot = snapshot_deployed_equipment(
+        game_state.characters, [entry['name'] for entry in payload['squad']]
+    )
     game_state.combat_sessions[session_id]=dict(mission_id=mission.id,status='pending',
         session=session,superseded_sessions=superseded,expected_agents=payload['squad'],expected_support=payload['support_assets'],
-        mission=mission.to_dict(),checkpoints={phase:str((directory/('campaign_'+phase+'.json')).resolve()) for phase in ['before','after']})
+        mission=mission.to_dict(),equipment_snapshot=equipment_snapshot,
+        checkpoints={phase:str((directory/('campaign_'+phase+'.json')).resolve()) for phase in ['before','after']})
     if resume is not None:
         game_state.combat_sessions[session_id]['resumed_from_session']=resume['source_session_id']
     try:

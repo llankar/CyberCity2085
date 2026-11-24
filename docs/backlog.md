@@ -1,3 +1,5 @@
+> Active-scope note (2026-11-24): map/art/animation/atlas/calibration, Combat Visual, Hangar, Operative Dossier, Cyberware, general economy and Arcade/Godot integration entries below are retained as history and are owner-closed. They must not be selected as unfinished work unless a concrete regression is reported.
+
 ## Source-faithful obstacle faces (November 17, 2026)
 
 Windows release checks: [release_checklist.md](release_checklist.md).

@@ -106,6 +106,11 @@ class BattleDebriefSummaryTest(unittest.TestCase):
                     "text": "Relationship: Vera and Rook gained +1 bond after the rescue.",
                 }
             ],
+            "equipment_recovery": {
+                "status": "recovered",
+                "recovered": {"pulse_rifle": 1},
+                "lost": {},
+            },
         }
         agent_stats = [
             AgentDebriefStat(
@@ -133,6 +138,7 @@ class BattleDebriefSummaryTest(unittest.TestCase):
         self.assertEqual(summary["outcome"], "victory")
         self.assertEqual(summary["tactical_moments"], ["Vera fell during the extraction."])
         self.assertIn("Credits: +120", summary["rewards"])
+        self.assertEqual(summary["equipment_recovery"], ["Recovered: Pulse Rifle x1"])
         self.assertEqual(summary["agent_rows"][0]["kills"], 2)
         self.assertEqual(summary["agent_rows"][0]["nickname"], "Breaker")
         self.assertIn("elite_breaker", summary["agent_rows"][0]["reputation"])

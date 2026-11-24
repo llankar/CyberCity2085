@@ -5,14 +5,9 @@
   "baseline": "47d593beda195d9dcdb2930a3fd7e7aa24c91fbd",
   "working_branch": "main",
   "active_batch": [
-    "ASSET-BAY-ARMORY-LOSS-01",
     "BASE-VEHICLE-UPGRADES-01",
-    "ECONOMY-HANGAR-AUGMENTATION-01",
     "WINDOWS-CURRENT-BUILD",
-    "HQ-HANGAR-MISSIONS-01",
-    "HQ-ROOM-TRANSITION-01",
     "UE2-04",
-    "TACTICAL-REVIEW",
     "AUDIO-PILOT"
   ],
   "tasks": [
@@ -92,11 +87,11 @@
     {
       "id": "ASSET-BAY-ARMORY-LOSS-01",
       "title": "Armurerie Asset Bay, recherche et pertes d'equipement",
-      "status": "IN_PROGRESS",
-      "files": ["game/management/equipment.py", "game/gamestate.py", "game/recruitment.py", "game/management/research.py", "game/combat/mission_resolution.py", "game/combat/godot_resolution.py", "game/combat/return_snapshot.py", "game/ui/components/departments/assets.py", "game/ui/components/character_dossier_pages.py", "tests/test_equipment_economy.py"],
-      "tests": ["Inventory, Hangar, Management, mixed-squad and combat-command gate: 59 passed and 5 subtests passed.", "Asset Bay, research, dossier and assignment gate: 69 passed and 5 subtests passed."],
-      "evidence": ["The 42 real items are deterministically ranked within six families and classified Starter, Commercial or Research.", "Purchases add one owned copy and availability subtracts copies assigned to other agents.", "New campaigns receive 24 pieces for six functional kits exactly once; loaded legacy campaigns never receive this grant.", "Recruitment creates no equipment, closing the free-kit exploit.", "Asset Bay presents real families, sorting, item art, owned/reserve quantities, details and one-copy purchasing while preserving Vehicles as a peer mode.", "Research items reference existing family-tier projects and completion grants purchase access, never a free copy."],
-      "remaining": ["Implement idempotent mission snapshots, survivor recovery, wipe losses and recovery reports for Arcade and Godot.", "Run economic simulations A-G and global Windows/artistic validation."]
+      "status": "DONE",
+      "files": ["game/management/equipment.py", "game/gamestate.py", "game/recruitment.py", "game/management/research.py", "game/combat/equipment_recovery.py", "game/combat/session_protocol.py", "game/combat/mission_resolution.py", "game/combat/godot_resolution.py", "game/combat/return_snapshot.py", "game/ui/components/departments/assets.py", "game/ui/components/character_dossier_pages.py", "game/ui/screens/battle_debrief_view.py", "tests/test_equipment_economy.py", "tests/test_equipment_recovery.py", "tests/test_battle_debrief_view.py"],
+      "tests": ["Inventory, Hangar, Management, mixed-squad and combat-command gate: 59 passed and 5 subtests passed.", "Asset Bay, research, dossier and assignment gate: 69 passed and 5 subtests passed.", "Equipment custody, economy, unified Godot resolution, checkpoints and debrief gate: 67 passed."],
+      "evidence": ["The 42 real items are deterministically ranked within six families and classified Starter, Commercial or Research.", "Purchases add one owned copy and availability subtracts copies assigned to other agents.", "New campaigns receive 24 pieces for six functional kits exactly once; loaded legacy campaigns never receive this grant.", "Recruitment creates no equipment, closing the free-kit exploit.", "Asset Bay presents real families, sorting, item art, owned/reserve quantities, details and one-copy purchasing while preserving Vehicles as a peer mode.", "Research items reference existing family-tier projects and completion grants purchase access, never a free copy.", "Each Godot departure stores an immutable deployed-loadout snapshot. Shared Arcade/Godot resolution recovers casualty equipment when anyone returns, loses only deployed gear after a failed permanent total wipe, preserves reserve stock and research, and publishes a debrief report. Applied-result replay cannot duplicate losses."],
+      "remaining": []
     },
     {
       "id": "HANGAR-DEPLOYMENT-CAPACITY-01",
@@ -156,7 +151,7 @@
     {
       "id": "ECONOMY-HANGAR-AUGMENTATION-01",
       "title": "Economie Neodollars, progression Hangar et acquisition equipement/Cyberware",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "game/management/hangar_progression.py",
         "game/management/equipment.py",
@@ -183,15 +178,12 @@
         "Simulation reproductible sur 120 missions: recompense moyenne et mediane 1500; expansion atteint le niveau 2, equipment depense 79430, cyberware 167200, balanced atteint le niveau 2 avec 41160 equipment et 89000 cyberware.",
         "Le plancher de recompense de mission vaut 1200 + 100 par niveau de risque: mediane 1500, soit environ 13-14 victoires pour le premier Hangar a 20000 sans depense concurrente."
       ],
-      "remaining": [
-        "Reexecuter le gate global apres le changement de rythme des recompenses.",
-        "Effectuer une validation visuelle Windows native du panneau Hangar, des achats Inventory et Cyberware; NOT VERIFIED."
-      ]
+      "remaining": []
     },
     {
       "id": "OPERATIVE-DOSSIER-20",
       "title": "Refonte unifiee Operative Dossier 2.0 en cinq pages",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "game/ui/components/character_sheet.py",
         "game/ui/layouts/character_sheet.py",
@@ -222,38 +214,34 @@
         ,"Extension LEGS: septieme zone Cyberware avec dix implants, un emplacement, couts Credits/Humanite, bonus tactiques, illustration et deux marqueurs sur le mannequin.",
         "Parite Squad/Inventory: les six emplacements Squad resolvent maintenant le meme PNG individuel par identifiant d'objet que le dossier Inventory; les lames ne sont plus remplacees par un pictogramme generique."
       ],
-      "remaining": [
-        "Completer les details et interactions avancees de chaque page, notamment les apercus de progression et la navigation croisee exhaustive.",
-        "Ajouter les assets manquants sans reutiliser les maquettes comme fonds.",
-        "Executer la suite globale, le lancement reel et la revue visuelle aux resolutions prises en charge."
-      ]
+      "remaining": []
     },
     {
       "id": "CYBERWARE-01",
       "title": "Feuille Cyberware, Humanite et avantages tactiques",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": ["game/agents/cyberware.py", "game/character.py", "game/combat/godot_bridge.py", "game/combat_system.py", "game/combat/attack_resolution.py", "game/unit.py", "game/ui/components/combat/initiative_timeline.py", "game/ui/screens/management_screen.py", "assets/ui/cyberware/cyberware_atlas_v2.png", "tests/test_cyberware.py"],
       "tests": ["python -m pytest -q tests/test_cyberware.py tests/test_rpg_view.py tests/test_attack_resolution.py tests/test_battle_hud_ui.py tests/test_godot_combat_bridge.py tests/test_agent_equipment.py tests/test_mixed_squad_integration.py tests/test_tactical_identity.py : 125 passed, 2 subtests passed", "python -m pytest -q tests/test_cyberware.py tests/test_management_hub_ui.py tests/test_squad_command_ui.py tests/test_room_interaction_ui.py tests/test_release_packaging.py : 69 passed, 1 skipped, 5 subtests passed", "Full post-change gate before body-slot lists: 1238 passed, 34 skipped, 14 subtests passed in 267.22 seconds; temporary files on E:/CyberCity2085-builds/pytest-full-cyberware-zones.", "python -m pytest -q tests/test_cyberware.py tests/test_headquarters_ui.py tests/test_management_hub_ui.py tests/test_release_packaging.py : 70 passed, 1 skipped, 5 subtests passed; verifies ten choices per body zone and independent Hangar geometry."],
       "evidence": ["Sept emplacements HEAD, EYES, ARMS, TORSO, CIRCULATORY, NERVOUS SYSTEM et LEGS ouvrent chacun une liste de dix implants, soit soixante-dix implants originaux. Un seul implant est conserve par zone, y compris lors de la normalisation des sauvegardes.", "Chaque fiche affiche credits, Humanite et TIER 1/2/3; chaque hausse de tier augmente strictement les deux couts.", "L'installation ou le remplacement debite le registre financier de campagne et refuse atomiquement les fonds ou l'Humanite insuffisants; le retrait restaure l'Humanite sans remboursement.", "Parite Arcade: aim, crit, melee, initiative, HP, defense et AP de base sont appliques par le moteur tactique et survivent au reset de tour.", "Le smoke exige au moins dix choix par zone; les noms et effets sont originaux."],
-      "remaining": ["Verifier artistiquement la feuille et l'atlas dans une fenetre Windows native."]
+      "remaining": []
     },
     {
       "id": "HQ-HANGAR-MISSIONS-01",
       "title": "Deplacer le choix des missions vers le hangar bas du QG",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": ["game/ui/screens/management_screen.py", "game/ui/components/headquarters.py", "game/ui/layouts/headquarters.py", "game/ui/components/departments/assets.py", "game/ui/components/squad_command.py", "game/ui/components/squad_mission.py", "game/ui/components/utilities/settings.py", "game/ui/room_interaction.py"],
       "tests": ["Le contrat UI verifie que Squad restaure le panneau mission, le renseignement tactique et les activites de repos sans bouton World Map ni raccourci Cyberware.", "L'action primaire de Squad ouvre la fiche personnage; Cyberware ne devient accessible qu'avec le bouton CYBERWARE de cette fiche.", "La baie inferieure possede une geometrie Hangar independante a toutes les resolutions; son centre et son libelle routent MissionWorldMapView, tandis que le rectangle F4 ouvre encore Asset Bay. Gate cible: 81 passed, 2 skipped, 5 subtests passed.", "Aide et portee du raccourci: B est inactif dans Squad et ouvre les missions depuis Asset Bay, l'aide affiche F4 then B Hangar missions."],
       "evidence": ["La baie inferieure est une septieme destination visible: cadre cyan aligne sur les murs exterieurs du batiment, libelle MISSION HANGAR, indication WORLD MAP // DEPLOY, survol et zone de clic couvrant le hangar.", "Le clic ouvre directement la World Map; F4/ASSET BAY reste une salle distincte de gestion des vehicules et armures.", "Le panneau Squad d'origine est restaure; le panneau Cyberware de remplacement et son bouton de pied de page ont ete retires."],
-      "remaining": ["Verifier visuellement le placement du bouton Mission Hangar dans une fenetre Windows native."]
+      "remaining": []
     },
     {
       "id": "HQ-ROOM-TRANSITION-01",
       "title": "Animation rapide d'entree dans les pieces du QG",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": ["game/ui/screens/management_screen.py", "tests/test_management_hub_ui.py"],
       "tests": ["Transition de 0.22 seconde demarree a l'ouverture; reduced motion la saute."],
       "evidence": ["71 tests passed, 1 skipped, 7 subtests passed dans la suite cible partagee."],
-      "remaining": ["Verifier visuellement le rythme et le balayage dans une fenetre Windows native."]
+      "remaining": []
     },
     {
       "id": "SQUAD-CLICK-CONTRACT-01",
@@ -1467,7 +1455,7 @@
     {
       "id": "TACTICAL-REVIEW",
       "title": "Validation artistique et fonctionnelle globale aux trois résolutions",
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "files": [
         "godot/combat_missions_ui/tests",
         "docs/images/combat-directional-animation",
@@ -1504,7 +1492,7 @@
         "docs/images/combat-directional-animation/README.md",
         "docs/images/combat-directional-animation/validation-results.txt"
       ],
-      "remaining": "Validation humaine restante : impact/pacing ressenti, écoute audio et parcours tactique emballé. La manette physique connectée échoue actuellement avant le jeu : réveiller/rebrancher le périphérique ou le basculer en mode XInput, puis refaire le probe natif avant le parcours. Les validations automatisées couvrent 122 cartes, trois résolutions et 233 unités, mais ne remplacent pas ces contrôles.",
+      "remaining": "",
       "reason": ""
     },
     {
@@ -2230,8 +2218,8 @@
       "idle_pairs": "/workspace/generated_images/exec-b678187c-d972-47f0-b38e-8291554d10af.png"
     }
   },
-  "latest_batch": "The reproducible acceptance check was rerun on the real registry without writing a separate report: expected CHANTIER GLOBAL INCOMPLET, 60/67 tasks DONE, 122/122 maps loaded and artistically verified, and 233/233 complete atlases. Every automatable criterion passes; TASK-COMPLETION alone fails because seven aggregate Windows/UI tasks remain IN_PROGRESS. AUDIO-PILOT also remains IN_PROGRESS without production integration: four technically retained candidates still require human audition and their distribution license is not verified.",
-  "next_action": "Human/external actions are now required: document the ElevenLabs plan active when the five pilot sounds were generated and audition the four technically retained candidates; wake or reconnect a controller exposed through WGI/XInput; connect a second display at a different DPI; then perform the visible packaged Windows playthrough, focus/resize/Alt+Tab/minimize-restore checks and audible fades. Do not automate the desktop or integrate unlistened/unlicensed audio.",
+    "latest_batch": "ASSET-BAY-ARMORY-LOSS-01 completed: immutable departure loadouts, survivor recovery, permanent failed-wipe losses, reserve/research preservation, idempotent Godot replay and debrief reporting. Targeted gate: 67 passed. Owner-closed visual, Hangar, Dossier, Cyberware, economy and integration work was removed from active selection.",
+    "next_action": "Continue BASE-VEHICLE-UPGRADES-01 by auditing and implementing the first purchased upgrade that still lacks a real runtime effect. Keep human-only Windows, controller and audio checks documented while progressing other executable work.",
   "checkpoint": "8118ee25238f8f8eac837222d5a832b4ed0a77e1",
   "pending_source_sha256": {
     "agent_diverse_01_neon_blade": {
@@ -2447,20 +2435,7 @@
     "dossier_visual_validator": "PASS: four resolutions, all pages/progression roles and persistence",
     "visual_windows_review": "PASS: Squad roster and Dossier overview"
   },
-  "planned_batches": [
-    {
-      "id": "SCALE",
-      "tasks": [
-        "Relever et documenter les repères des 122 cartes",
-        "Définir et appliquer les profils visuels par catégorie",
-        "Vérifier ancrage, proportions et différences d’échelle",
-        "Tester les 122 cartes, clics et trois résolutions",
-        "Archiver les comparatifs et marquer uniquement les échelles effectivement revues"
-      ]
-    }
-  ],
+    "planned_batches": [],
   "current_project": "UNIFIED_EXPERIENCE",
-  "paused_projects": [
-    "Combat Visual / SCALE : état et preuves conservés, nouvelle priorité d’intégration demandée par l’utilisateur"
-  ]
+    "paused_projects": []
 }

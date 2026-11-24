@@ -1,5 +1,7 @@
 # CyberCity 2085 — Release Plan
 
+> Scope update — 2026-11-24: maps, visual atlases, Combat Visual, Hangar, Operative Dossier, Cyberware, the general economy and the established Arcade/Godot integration are accepted and closed. Historical acceptance gaps for those areas no longer gate the final package; only concrete regressions may reopen them.
+
 ## Release target
 
 Build the Windows distribution with `tools/build_windows.ps1 -GodotExecutable <path-to-Godot.exe>`. The bundle contains the standalone Godot executable under `bin/godot` and the tactical project under `godot`.

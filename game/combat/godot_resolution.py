@@ -51,6 +51,7 @@ def resolve_godot_result(game_state,mission,result,session_id):
     context=SimpleNamespace(game_state=shadow,mission=deepcopy(mission),player_units=units,
         defeated_player_units=[],enemy_units=[],initial_enemy_count=result['initial_enemy_count'],
         triggered_complication=None,window=None,
+        equipment_snapshot=deepcopy(record.get('equipment_snapshot')),
         combat_state=SimpleNamespace(mission=mission, logs=[], tactical_flags={
             'agent_moments': moments,
             'objective_contributions': objective_contributions,

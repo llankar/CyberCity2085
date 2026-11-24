@@ -168,6 +168,24 @@ def build_battle_debrief_summary(
         ])
     objective_text=("Objective completed" if external.get("objective_completed") is True else
                     "Objective not completed" if external.get("objective_completed") is False else "Objective completion not reported")
+    equipment_lines = []
+    equipment_report = debrief_raw.get("equipment_recovery", {}) if isinstance(debrief_raw, dict) else {}
+    if isinstance(equipment_report, dict):
+        from game.management.equipment import default_equipment_catalog
+
+        names = {
+            item.id: item.name
+            for items in default_equipment_catalog().values()
+            for item in items
+        }
+        for label, key in (("Recovered", "recovered"), ("Lost", "lost")):
+            quantities = equipment_report.get(key, {})
+            if isinstance(quantities, dict):
+                equipment_lines.extend(
+                    f"{label}: {names.get(item_id, item_id.replace('_', ' ').title())} x{quantity}"
+                    for item_id, quantity in sorted(quantities.items())
+                    if isinstance(quantity, int) and quantity > 0
+                )
     return {
         "objective_result": objective_text if external else (
             "All objectives completed" if victory else "Mission objectives failed"
@@ -196,6 +214,7 @@ def build_battle_debrief_summary(
         "narrative_consequences": narrative_lines[:10],
         "tactical_moments": tactical_moments,
         "relationship_changes": relationship_changes,
+        "equipment_recovery": equipment_lines,
         "continue_action": "ManagementView",
     }
 
@@ -232,6 +251,7 @@ def build_consequence_summary_lines(
     lines = []
     summary = build_battle_debrief_summary(game_state, victory, mission, agent_stats, triggered_complication)
     section("RESOURCES / FUNDS", summary["rewards"])
+    section("ASSET BAY RECOVERY", summary["equipment_recovery"])
     district = getattr(game_state, "district", None)
     if district is not None:
         section("DISTRICT STATUS", [

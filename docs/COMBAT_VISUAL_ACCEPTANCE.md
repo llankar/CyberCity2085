@@ -1,5 +1,7 @@
 # Combat Visual — critères d’acceptation globaux
 
+> **Archive clôturée — 2026-11-24.** Combat Visual, ses cartes, ressources, atlas et calibrations sont acceptés par le propriétaire et ne font plus partie des critères de terminaison actifs. Les commandes et preuves ci-dessous sont conservées pour audit historique uniquement ; elles ne doivent plus être relancées automatiquement ni rouvrir le chantier sans régression concrète.
+
 **Une fin de lot ne termine jamais le chantier.** Le résultat calculé et les preuves se trouvent dans [le bilan reproductible](reports/combat_visual_acceptance.md) et [son JSON](reports/combat_visual_acceptance.json). Le [registre persistant](CODEX_PROGRESS.md) décrit chaque tâche et sa portée.
 
 ## Vérification reproductible
