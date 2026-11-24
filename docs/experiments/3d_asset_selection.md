@@ -31,6 +31,20 @@ accessories and full modular armor still need qualified selections.
 
 ## Acquisition and acceptance
 
+Additional inspected candidate: [Cyberpunk Samurai by Fajrul FN](https://fajrulfn.itch.io/cyberpunk-samurai).
+Official free download acquired solely for inspection on E: (137,811,341 bytes;
+SHA256 E12FE1F308374B443F339B3FCE4C06BB536490BC962877F78A90C1736FDF0A4C).
+Archive has 36 files, modular body/clothing/gear, 18 declared PBR textures and
+Blender/FBX sources. Blender inventory executed with embedded scripts disabled:
+221-bone rig, separate jacket/head/hair/hands/legs/bag/weapons, 15 image blocks.
+No license file, no Blender text block, no explicit adaptation/distribution grant
+found on the page. Same creator has a paid Fab listing; its terms are not assumed
+to cover the itch download. Status: RIGHTS NOT VERIFIED, quarantined from demo
+and distribution. Do not export/adapt or claim this as the accepted human.
+
+SCARLET PROXY excluded pending clarification: page mixes CC BY / CC BY-SA labels
+and additional social-account requirements. Free availability alone is insufficient.
+
 Use official download/API flows. Never extract protected viewer payloads to bypass
 authentication. No paid purchase authorized. Authentication is a source-specific
 blocker, not a blocker for the whole experiment.

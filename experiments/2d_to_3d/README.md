@@ -36,6 +36,17 @@ keeps its physical 2.4m height. Production sprite shaders/outlines and mission
 presentation overrides are not included; this is a scale comparison, not an
 identical reproduction of the production renderer.
 
+## Animated 3D-to-2D proof
+
+Run Blender in background with `blender/render_robot_walk_atlas.py --
+E:/CyberCity2085-3d-lab/generated/phase2/robot_walk_atlas01`, then run
+`python experiments/2d_to_3d/verify_robot_atlas.py E:/CyberCity2085-3d-lab/generated/phase2/robot_walk_atlas01`.
+The preserved Quaternius George source produces a transparent 1024x512 atlas:
+eight orbit views, four authored Walk samples per view. The verifier checks
+all 32 frames, margins, distinct poses and exact packing (one-channel-unit
+tolerance). Production direction mapping, frame density, anchor calibration
+and artistic quality remain unverified; no production asset is replaced.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

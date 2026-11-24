@@ -2,6 +2,28 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-CANDIDATE-67 — official free Cyberpunk Samurai archive
+  by Fajrul FN acquired on E: for license/technical inspection, 137,811,341 bytes,
+  hash recorded in 3d_asset_selection.md. 36 files, modular jacket/head/hair/
+  hands/bag/legs/weapons, 221-bone Blender rig,15 image blocks. Inspected with
+  embedded scripts disabled. No license text found in archive/page/Blender;
+  no adaptation/export/demo use. RIGHTS NOT VERIFIED. Existing Sketchfab CC BY
+  candidates still require authentication (no configured API token). Optional
+  user question pending for already-downloaded local candidate paths. This does
+  not block robot/mechanical/atlas work. No outreach or purchase performed.
+
+- `IN_PROGRESS` ANIMATED-ATLAS-68 — native Blender rendered Quaternius George
+  Walk in8 orbit viewpoints x4 action samples (32 PNGs), transparent128px frames,
+  packed1024x512 atlas and experimental metadata on E: phase2/robot_walk_atlas01.
+  Atlas visually inspected; reproducible verifier passes32 nonempty uncropped
+  frames,4 distinct poses/view and packing equality within1 channel value.
+  Seven focused Python tests pass. This establishes animated3D-to2D production
+  tooling, not artistic/facing acceptance. Production direction mapping, anchor,
+  more samples/actions and native atlas playback remain TODO. Licensed source
+  preserved; no game assets replaced. Next: qualified authored human acquisition,
+  atlas playback/mapping, refine rigid assets and scene, final screenshots.
+
+
 - `IN_PROGRESS` SPRITE-PIXEL-REVIEW-66 — added reproducible default-alley zoom
   calibration from current map presentation ratio .015 and wall image dimensions
   7680x4320, using production top-down overview/close formulas. At1920x1080,
