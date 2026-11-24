@@ -658,11 +658,8 @@ class ManagementHubUITest(unittest.TestCase):
                 "squad_sheet",
             ),
             "assets": (
-                "asset_select",
-                "asset_repair",
-                "asset_deploy_toggle",
-                "catalog_acquire",
-                "catalog_scroll",
+                "department_select",
+                "open_mission_map",
             ),
             "research": ("start_research_",),
         }
@@ -1000,6 +997,24 @@ class ManagementHubUITest(unittest.TestCase):
         open_map = next(hit for hit in view._hits if hit.action == "open_mission_map")
         view.on_mouse_press((open_map.left + open_map.right) // 2, (open_map.bottom + open_map.top) // 2, 0, 0)
         self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
+
+    def test_asset_bay_armory_exposes_real_purchase_and_vehicle_peer_mode(self):
+        view = ManagementView(GameState())
+        view.window = _FakeWindow()
+        view.setup()
+        view.game_state.funds.current_funds = 100_000
+        view._open_hub_room("assets")
+        view.on_draw()
+        purchases = [hit for hit in view._hits if hit.action == "asset_buy_equipment"]
+        self.assertTrue(purchases)
+        item_id = str(purchases[0].data)
+        before = view.game_state.owned_equipment.get(item_id, 0)
+        view._dispatch("asset_buy_equipment", item_id)
+        self.assertEqual(view.game_state.owned_equipment[item_id], before + 1)
+
+        view._department_deck.selection["asset_bay_mode"] = "vehicles"
+        view.on_draw()
+        self.assertTrue(any(hit.action == "catalog_acquire_by_id" for hit in view._hits))
 
     def test_primary_room_actions_keep_missions_in_hangar(self):
         view = ManagementView(GameState())

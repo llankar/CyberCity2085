@@ -21,9 +21,9 @@
       "title": "Armurerie Asset Bay, recherche et pertes d'equipement",
       "status": "IN_PROGRESS",
       "files": ["game/management/equipment.py", "game/gamestate.py", "game/recruitment.py", "game/management/research.py", "game/combat/mission_resolution.py", "game/combat/godot_resolution.py", "game/combat/return_snapshot.py", "game/ui/components/departments/assets.py", "game/ui/components/character_dossier_pages.py", "tests/test_equipment_economy.py"],
-      "tests": ["Targeted inventory, Hangar, Management, mixed-squad and combat-command gate: 59 passed and 5 subtests passed."],
-      "evidence": ["The 42 real items are deterministically ranked within six families and classified Starter, Commercial or Research.", "Purchases add one owned copy and availability subtracts copies assigned to other agents.", "New campaigns receive 24 pieces for six functional kits exactly once; loaded legacy campaigns never receive this grant.", "Recruitment creates no equipment, closing the free-kit exploit."],
-      "remaining": ["Build the Asset Bay store and family/tier research unlocks.", "Implement idempotent mission snapshots, survivor recovery, wipe losses and recovery reports for Arcade and Godot.", "Run economic simulations A-G and global Windows/artistic validation."]
+      "tests": ["Inventory, Hangar, Management, mixed-squad and combat-command gate: 59 passed and 5 subtests passed.", "Asset Bay, research, dossier and assignment gate: 69 passed and 5 subtests passed."],
+      "evidence": ["The 42 real items are deterministically ranked within six families and classified Starter, Commercial or Research.", "Purchases add one owned copy and availability subtracts copies assigned to other agents.", "New campaigns receive 24 pieces for six functional kits exactly once; loaded legacy campaigns never receive this grant.", "Recruitment creates no equipment, closing the free-kit exploit.", "Asset Bay presents real families, sorting, item art, owned/reserve quantities, details and one-copy purchasing while preserving Vehicles as a peer mode.", "Research items reference existing family-tier projects and completion grants purchase access, never a free copy."],
+      "remaining": ["Implement idempotent mission snapshots, survivor recovery, wipe losses and recovery reports for Arcade and Godot.", "Run economic simulations A-G and global Windows/artistic validation."]
     },
     {
       "id": "HANGAR-DEPLOYMENT-CAPACITY-01",

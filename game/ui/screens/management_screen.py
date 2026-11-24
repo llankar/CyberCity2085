@@ -2256,6 +2256,20 @@ class ManagementView(GameView):
             if item is not None:
                 _, self.message = self.game_state.purchase_equipment(item)
             return
+        if action == "asset_buy_equipment":
+            item_id = str(data)
+            item = next(
+                (
+                    entry
+                    for entries in self.equipment_catalog.values()
+                    for entry in entries
+                    if entry.id == item_id
+                ),
+                None,
+            )
+            if item is not None:
+                _, self.message = self.game_state.purchase_equipment(item)
+            return
         if action == "dossier_equip_item":
             slot, item_id = data
             item = next(

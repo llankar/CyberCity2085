@@ -87,3 +87,19 @@ def test_recruitment_never_generates_free_equipment():
     roster = []
     recruit = recruit_agent(roster, "samurai", "Reserve")
     assert recruit.loadout.equipped_items() == []
+
+
+def test_research_items_require_their_real_family_project():
+    item = next(
+        item
+        for item in default_equipment_catalog()["primary_weapon"]
+        if item.availability_group == AVAILABILITY_RESEARCH
+    )
+    state = GameState()
+    state.funds.current_funds = equipment_purchase_price(item)
+    ok, message = state.purchase_equipment(item)
+    assert not ok and "Research required" in message
+    assert item.research_project_id in state.research_tree.projects
+    state.completed_research.append(item.research_project_id)
+    ok, _ = state.purchase_equipment(item)
+    assert ok and state.owned_equipment[item.id] == 1

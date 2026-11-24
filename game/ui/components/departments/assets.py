@@ -1,18 +1,139 @@
 """Asset Bay cards and profile; acquisition/repair/pilot rules stay in controllers."""
 
 from game.management.spec_ops_assets import asset_catalog
+from game.management.equipment import (
+    AVAILABILITY_RESEARCH,
+    default_equipment_catalog,
+    equipment_power_band,
+    equipment_power_score,
+    equipment_purchase_price,
+)
+from game.ui.components.equipment_art import equipment_art_path
 from game.ui.layouts.world_map_beacons import Rect
 from game.ui.theme.visual import CYAN, GOLD, MINT, RED, TEXT, MUTED
 
 
 def draw(k, left, center, right):
+    """Draw the Asset Bay armory by default, with vehicles kept as a peer mode."""
+    mode = k.selection.get("asset_bay_mode", "armory")
+    if mode == "vehicles":
+        _draw_vehicles(k, left, center, right)
+    else:
+        _draw_armory(k, left, center, right)
+
+
+def _mode_tabs(k, area, mode):
+    u = k.u
+    row = Rect(area.left, area.top - 42 * u, area.right, area.top)
+    gap = 7 * u
+    half = (row.width - gap) / 2
+    k.action(Rect(row.left, row.bottom, row.left + half, row.top), "ARMORY", "department_select", ("asset_bay_mode", "armory"), selected=mode == "armory", primary=mode == "armory")
+    k.action(Rect(row.left + half + gap, row.bottom, row.right, row.top), "VEHICLES", "department_select", ("asset_bay_mode", "vehicles"), selected=mode == "vehicles")
+    return Rect(area.left, area.bottom, area.right, row.bottom - 9 * u)
+
+
+def _draw_armory(k, left, center, right):
+    gs, u = k.gs, k.u
+    catalog = default_equipment_catalog()
+    families = list(catalog)
+    family = k.selection.get("armory_family", families[0])
+    if family not in catalog:
+        family = families[0]
+    items = list(catalog[family])
+    sort_mode = k.selection.get("armory_sort", "power")
+    if sort_mode == "price":
+        items.sort(key=lambda item: (equipment_purchase_price(item), item.name))
+    elif sort_mode == "owned":
+        items.sort(key=lambda item: (-gs.owned_equipment.get(item.id, 0), item.name))
+    else:
+        items.sort(key=lambda item: (equipment_power_score(item), item.name))
+    selected_id = k.selection.get("armory_item", items[0].id if items else "")
+    if selected_id not in {item.id for item in items}:
+        selected_id = items[0].id if items else ""
+        k.selection["armory_item"] = selected_id
+    selected = next((item for item in items if item.id == selected_id), None)
+
+    k.panel(left, "ASSET BAY // ARMORY", "layers")
+    area = _mode_tabs(k, k.body(left), "armory")
+    mission = Rect(area.left, area.top - 39 * u, area.right, area.top)
+    k.action(mission, "MISSION HANGAR // CHOOSE MISSION", "open_mission_map", primary=True, tooltip="Open mission selection from the hangar")
+    area = Rect(area.left, area.bottom, area.right, mission.bottom - 8 * u)
+    cols = 2
+    gap = 6 * u
+    tab_h = 33 * u
+    tab_w = (area.width - gap) / cols
+    for index, name in enumerate(families):
+        row, col = divmod(index, cols)
+        top = area.top - row * (tab_h + gap)
+        x = area.left + col * (tab_w + gap)
+        k.action(Rect(x, top - tab_h, x + tab_w, top), name.replace("_", " ").upper(), "department_select", ("armory_family", name), selected=name == family)
+    rows = (len(families) + cols - 1) // cols
+    list_area = Rect(area.left, area.bottom, area.right, area.top - rows * (tab_h + gap) - 8 * u)
+    for _, item, card in k.page("armory", items, list_area, 75):
+        owned = gs.owned_equipment.get(item.id, 0)
+        assigned = owned - gs.equipment_available_count(item.id)
+        locked = item.availability_group == AVAILABILITY_RESEARCH and item.research_project_id not in gs.completed_research
+        state = "LOCKED" if locked else f"OWN {owned} / READY {max(0, owned-assigned)}"
+        k.card(card, item.name, f"{item.availability_group} // {state}", action="department_select", data=("armory_item", item.id), selected=item.id == selected_id, color=GOLD if item.id == selected_id else CYAN, tooltip=item.description)
+
+    k.panel(center, f"CATALOG // {family.replace('_', ' ').upper()}", "coins")
+    area = k.body(center)
+    top = Rect(area.left, area.top - 37 * u, area.right, area.top)
+    width = (top.width - 12 * u) / 3
+    for index, key in enumerate(("power", "price", "owned")):
+        x = top.left + index * (width + 6 * u)
+        k.action(Rect(x, top.bottom, x + width, top.top), key.upper(), "department_select", ("armory_sort", key), selected=sort_mode == key)
+    grid = Rect(area.left, area.bottom, area.right, top.bottom - 10 * u)
+    for _, item, card in k.page("armory_catalog", items, grid, 104, selected=next((i for i, x in enumerate(items) if x.id == selected_id), 0)):
+        k.surface(card, GOLD if item.id == selected_id else CYAN, selected=item.id == selected_id)
+        art = Rect(card.left + 7 * u, card.bottom + 7 * u, card.left + 91 * u, card.top - 7 * u)
+        k.image(equipment_art_path(item, family), art)
+        x = art.right + 10 * u
+        owned = gs.owned_equipment.get(item.id, 0)
+        ready = gs.equipment_available_count(item.id)
+        k.label(item.name.upper(), x, card.top - 23 * u, 17, TEXT, bold=True, width=card.right - x - 8 * u)
+        k.label(f"{equipment_power_band(item)} // ¥{equipment_purchase_price(item):,}", x, card.top - 48 * u, 13, GOLD, width=card.right - x - 8 * u)
+        k.label(f"OWNED {owned} // RESERVE {ready}", x, card.bottom + 18 * u, 13, MINT if ready else MUTED, width=card.right - x - 8 * u)
+        k.hit(card, "department_select", ("armory_item", item.id), item.description)
+
+    k.panel(right, "ITEM DETAILS // PURCHASE", "layers")
+    area = k.body(right)
+    if selected is None:
+        k.paragraph(k.tr("empty"), area)
+        return
+    art = Rect(area.left, area.top - 205 * u, area.right, area.top)
+    k.surface(art, GOLD)
+    k.image(equipment_art_path(selected, family), Rect(art.left + 8 * u, art.bottom + 8 * u, art.right - 8 * u, art.top - 8 * u))
+    y = art.bottom - 18 * u
+    k.label(selected.name.upper(), area.left, y, 24, TEXT, bold=True, width=area.width)
+    y -= 30 * u
+    k.label(f"{selected.availability_group} // {equipment_power_band(selected)} // ¥{equipment_purchase_price(selected):,}", area.left, y, 14, GOLD, width=area.width)
+    y -= 29 * u
+    effects = [f"{key.upper()} {value:+}" for key, value in selected.stat_bonuses.items() if value]
+    if hasattr(selected, "damage_bonus"):
+        effects += [f"DMG +{selected.damage_bonus}", f"RANGE {selected.range_cells}"]
+    if hasattr(selected, "mitigation"):
+        effects += [f"MITIGATION +{selected.mitigation}"]
+    detail = selected.description + "\n\n" + " // ".join(effects)
+    locked = selected.availability_group == AVAILABILITY_RESEARCH and selected.research_project_id not in gs.completed_research
+    if locked:
+        project = gs.research_tree.project(selected.research_project_id)
+        detail += "\n\nRESEARCH REQUIRED: " + (project.name if project else selected.research_project_id)
+    k.document("armory_detail", detail, Rect(area.left, area.bottom + 62 * u, area.right, y), 16)
+    price = equipment_purchase_price(selected)
+    label = "RESEARCH REQUIRED" if locked else f"BUY ONE // ¥{price:,}"
+    k.action(Rect(area.left, area.bottom, area.right, area.bottom + 50 * u), label, "asset_buy_equipment", selected.id, enabled=not locked and gs.available_funds >= price, primary=not locked and gs.available_funds >= price, tooltip=detail)
+
+
+def _draw_vehicles(k, left, center, right):
     gs = k.gs
     v = k.view
     u = k.u
     assets = gs.spec_ops_assets
     k.panel(left, f'{k.tr("hangar")}  {len(assets)}', "assets")
+    vehicle_body = _mode_tabs(k, k.body(left), "vehicles")
     for index, asset, r in k.page(
-        "hangar", assets, k.body(left), 110, selected=v._asset_cursor
+        "hangar", assets, vehicle_body, 110, selected=v._asset_cursor
     ):
         selected = index == v._asset_cursor
         k.surface(r, GOLD if selected else CYAN, selected=selected)

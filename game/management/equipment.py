@@ -33,6 +33,15 @@ AVAILABILITY_GROUPS = (
     AVAILABILITY_RESEARCH,
 )
 
+EQUIPMENT_RESEARCH_TIERS = {
+    "primary_weapon": ("weapon_corporate_rail_lattice", "weapon_oracle_killchain"),
+    "sidearm": ("weapon_corporate_rail_lattice", "weapon_oracle_killchain"),
+    "armor": ("armor_aegis_weave", "armor_memorial_plating"),
+    "utility_item": ("equipment_tactical_fabricator", "equipment_lastlight_pack"),
+    "psi_focus": ("psy_choir_firebreak", "psy_memory_anchor_ritual"),
+    "special_gear": ("equipment_tactical_fabricator", "equipment_lastlight_pack"),
+}
+
 
 def equipment_power_score(item: "EquipmentItem") -> int:
     """Return a stable integer score derived only from real tactical effects."""
@@ -605,6 +614,7 @@ def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
         if starter_count + commercial_count >= len(ranked):
             commercial_count = max(0, len(ranked) - starter_count - 1)
         classified: dict[str, EquipmentItem] = {}
+        research_items = max(1, len(ranked) - starter_count - commercial_count)
         for index, item in enumerate(ranked):
             if index < starter_count:
                 group = AVAILABILITY_STARTER
@@ -612,7 +622,9 @@ def default_equipment_catalog() -> dict[str, list[EquipmentItem]]:
                 group = AVAILABILITY_COMMERCIAL
             else:
                 group = AVAILABILITY_RESEARCH
-            project = f"equipment_{family}_tier_{2 if group == AVAILABILITY_RESEARCH else 1}"
+            research_index = index - starter_count - commercial_count
+            tier_index = 1 if research_index >= max(1, research_items // 2) else 0
+            project = EQUIPMENT_RESEARCH_TIERS[family][tier_index]
             classified[item.id] = replace(
                 item,
                 family=family,

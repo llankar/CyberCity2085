@@ -291,8 +291,15 @@ class GameState:
 
     def purchase_equipment(self, item) -> tuple[bool, str]:
         """Atomically purchase one catalogue item into the campaign inventory."""
-        from .management.equipment import equipment_purchase_price
+        from .management.equipment import AVAILABILITY_RESEARCH, equipment_purchase_price
 
+        if (
+            item.availability_group == AVAILABILITY_RESEARCH
+            and item.research_project_id not in self.completed_research
+        ):
+            project = self.research_tree.project(item.research_project_id)
+            name = project.name if project is not None else item.research_project_id
+            return False, f"Research required: {name}."
         price = equipment_purchase_price(item)
         if not self.spend_funds(price, "equipment_purchase", f"Purchased {item.name}."):
             return False, f"Insufficient funds: {item.name} costs ¥{price:,}."
