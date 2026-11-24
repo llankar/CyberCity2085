@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` EXPERIMENT-TEXTURE-FILTER-41 — experimental GLB preview now generates
+  missing mipmaps by default, caches shared images by texture/normal usage and
+  renormalizes normal-map mip levels. --raw-textures retains diagnostic bypass.
+  Native Godot run passes with seven generated image chains; filtered 12 m
+  capture saved on E: and inspected. This addresses texture aliasing only;
+  materials/artistic quality and production-scale equivalence remain open.
+  Next: compare matched neutral Blender/Godot materials and pose authored armor.
+
 - `IN_PROGRESS` TEXTURE-FILTER-40 — inspected GLB sampler (linear/mipmap
   requested) and images. Added runtime mipmap/anisotropic diagnostic for
   GLTFDocument-loaded textures. Native Godot capture with generated mipmaps

@@ -22,7 +22,9 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state)
 	add_child(model)
-	if "--mipmap-diagnostic" in OS.get_cmdline_user_args():
+	if not "--raw-textures" in OS.get_cmdline_user_args():
+		var texture_cache: Dictionary = {}
+		var generated := 0
 		for mesh in model.find_children("*", "MeshInstance3D", true, false):
 			for surface in range(mesh.mesh.get_surface_count()):
 				var source_material: Material = mesh.get_active_material(surface)
@@ -32,11 +34,19 @@ func _ready() -> void:
 					for slot in [BaseMaterial3D.TEXTURE_ALBEDO, BaseMaterial3D.TEXTURE_NORMAL, BaseMaterial3D.TEXTURE_METALLIC, BaseMaterial3D.TEXTURE_ROUGHNESS]:
 						var texture := filtered.get_texture(slot)
 						if texture:
+							var cache_key := "%s:%s" % [texture.get_instance_id(), slot == BaseMaterial3D.TEXTURE_NORMAL]
+							if texture_cache.has(cache_key):
+								filtered.set_texture(slot, texture_cache[cache_key])
+								continue
 							var pixels := texture.get_image()
 							if pixels and not pixels.has_mipmaps():
-								pixels.generate_mipmaps()
-								filtered.set_texture(slot, ImageTexture.create_from_image(pixels))
+								pixels.generate_mipmaps(slot == BaseMaterial3D.TEXTURE_NORMAL)
+								var mip_texture := ImageTexture.create_from_image(pixels)
+								texture_cache[cache_key] = mip_texture
+								filtered.set_texture(slot, mip_texture)
+								generated += 1
 					mesh.set_surface_override_material(surface, filtered)
+		print("CYBERCITY_TEXTURE_SETUP_OK generated=", generated)
 	if "--unlit-diagnostic" in OS.get_cmdline_user_args():
 		for mesh in model.find_children("*", "MeshInstance3D", true, false):
 			for surface in range(mesh.mesh.get_surface_count()):
