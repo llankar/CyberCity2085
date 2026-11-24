@@ -84,6 +84,13 @@ The first render attempt was stopped after14GB OS working set; lowering bound
 subdivision then failed Surface Deform vertex counts. Preserve the author rig
 and bake an evaluated derivative instead of editing its bound topology.
 
+`blender/export_charge_geometry.py -- SECURITY_SOURCE.blend OUTPUT_FOLDER`
+creates a separate evaluated static BLEND and a neutral-material GLB diagnostic.
+`verify_charge_geometry.py OUTPUT_FOLDER` compares actual GLB mesh/triangle
+coverage with the Blender report. The BLEND retains film materials for baking;
+the GLB deliberately uses a simple lit material after a profiled recursive
+shader-export bottleneck. This is not the final textured or animated robot.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.

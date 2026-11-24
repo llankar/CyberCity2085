@@ -2,6 +2,22 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CHARGE-GEOMETRY-BRIDGE-74 — inspected23 source material
+  interfaces/214 GEO objects, then created evaluated static security-bot derivative
+  on E: security_geometry01. Original-material direct glTF export showed deep
+  recursive shader traversal in exporter specular.py/search_node_tree.py; py-spy
+  stack evidence saved on E: tmp/security_export_shader_stack.txt. Owned job
+  intentionally stopped after this diagnosis (not merely observation timeout).
+  Profiler installed on E: only. Retained original film materials in derived BLEND,
+  exported separate simple-lit neutral GLB diagnostic. Native Godot import/capture
+  inspected; real GLB verifier confirms124 meshes/269,209 triangles/8,319,684 bytes.
+  No skins/actions exported; materials are explicitly diagnostic, not final PBR.
+  Seven Python tests pass. Original source/rig preserved; no production changes.
+  Next: bake source materials into game textures, optimize evaluated mesh and
+  preserve articulated/deform structure in a new export; verify native actions,
+  then human derivative. No artistic or global completion claimed.
+
+
 - `IN_PROGRESS` CHARGE-PROFESSIONAL-SOURCES-73 — acquired official public Einar
   and Security Bot ZIPs under explicit CC BY4 (official cards plus embedded
   ReadMe.txt), stored on E: with hashes/provenance.579.8MB/76.2MB archives CRC
