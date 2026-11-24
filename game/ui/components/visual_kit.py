@@ -232,11 +232,15 @@ class VisualKit:
             )
         self.hit(rect, action, data, tooltip or label)
 
-    def panel(self, rect, title, icon):
+    def panel(self, rect, title, icon, *, fill_alpha=None):
         self.paint.panel(
             rect,
             CYAN,
-            fill_alpha=getattr(self, "panel_fill_alpha", 242),
+            fill_alpha=(
+                getattr(self, "panel_fill_alpha", 242)
+                if fill_alpha is None
+                else fill_alpha
+            ),
         )
         hh = 47 * self.u
         arcade.draw_line(

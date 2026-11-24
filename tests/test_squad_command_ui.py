@@ -8,6 +8,7 @@ import sys
 from types import SimpleNamespace
 import pytest
 from game.i18n import t
+from game.ui.components.squad_mission import MISSION_PANEL_FILL_ALPHA
 from game.ui.layouts.squad_command import squad_command_layout, visible_roster_range
 
 
@@ -66,6 +67,10 @@ def test_squad_chrome_obeys_campaign_language(language, expected):
         assert not t("squad.slot." + slot, language).startswith("squad.")
     for key in ("shore_leave", "sim_drills", "group_therapy"):
         assert not t("squad.activity." + key, language).startswith("squad.")
+
+
+def test_active_mission_panel_keeps_squad_ops_background_visible():
+    assert 90 <= MISSION_PANEL_FILL_ALPHA <= 125
 
 
 @pytest.mark.skipif(

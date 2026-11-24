@@ -11,6 +11,8 @@ from game.ui.theme.typography import scale_font_size
 from game.ui.screens.world_map import infer_world_map_site, mission_site_name
 from .squad_style import CYAN, GOLD, RED, TEXT, MUTED
 
+MISSION_PANEL_FILL_ALPHA = 112
+
 
 def mission_art_path(mission):
     """Use actual existing scene art, deterministically matched to mission context."""
@@ -51,7 +53,14 @@ def draw_mission(self, r):
     u = self.u
     gs = self.gs
     mission = selected_mission(gs)
-    self.panel(r, self.tr("active_mission"), "target")
+    # Mission copy spans a large surface: use lighter glass than roster and
+    # equipment cards so the Squad Ops room remains visible behind it.
+    self.panel(
+        r,
+        self.tr("active_mission"),
+        "target",
+        fill_alpha=MISSION_PANEL_FILL_ALPHA,
+    )
     top = r.top - 58 * u
     left = r.left + 16 * u
     right = r.right - 16 * u

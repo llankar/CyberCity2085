@@ -2347,6 +2347,14 @@
     "native_visual_validator": "PASS",
     "visual_windows_review": "PASS: F1-F6 at 1280x720, 1920x1080 and 2560x1440"
   },
+  "squad_ops_mission_glass": {
+    "status": "DONE",
+    "updated": "2026-11-24",
+    "mission_panel_fill_alpha": 112,
+    "tests": {"passed": 64, "failed": 0, "skipped": 1, "subtests_passed": 5},
+    "native_visual_validator": "PASS",
+    "visual_windows_review": "PASS: Squad Ops mission panel at 1920x1080"
+  },
   "planned_batches": [
     {
       "id": "SCALE",
