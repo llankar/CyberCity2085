@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-MECHANICAL-45 — built first rigid mechanical blockout
+  from reference with independent torso/head/hip/knee/shoulder/elbow pivots,
+  ivory armor, red visor/core and shoulder cannon. Blender generated BLEND/GLB
+  and neutral render on E: robot_mechanical01; render inspected. This is only
+  volume/hierarchy study: blocky geometry and sparse detailing fail final art
+  target. No robot animation accepted. Next: verify pivot rotations, replace
+  joint gaps with mechanical bearings and shape armor to the source silhouette.
+
 - `DONE` IMPORTED-POSE-CLIP-44 — Blender exported separate authored_pose_test.glb
   with FittingStressTest (24 fps, frames 1–25). Godot finds AnimationPlayer,
   samples imported clip end and captures successfully; image inspected. This
