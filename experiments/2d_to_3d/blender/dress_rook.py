@@ -192,9 +192,10 @@ for index in range(16):
     curve.resolution_u = 8
     spline = curve.splines.new('BEZIER')
     spline.bezier_points.add(3)
-    points = [(-0.065 + t * 0.11, 0.025, 1.665), (-0.060 + t * 0.105, -0.015, 1.735), (-0.075 + t * 0.095, -0.085, 1.745), (-0.080 + t * 0.065, -0.125, 1.69)]
+    arch = math.sin(math.pi * t)
+    points = [(-0.060 + t * 0.12, 0.018, 1.615 + 0.025 * arch), (-0.055 + t * 0.11, -0.015, 1.66 + 0.035 * arch), (-0.070 + t * 0.10, -0.09, 1.67 + 0.025 * arch), (-0.075 + t * 0.075, -0.142, 1.61 + 0.025 * arch)]
     for point, coordinate, radius in zip(spline.bezier_points, points, [0.5, 1.0, 0.85, 0.08]):
-        point.co = (coordinate[0], coordinate[1], coordinate[2] - 0.055)
+        point.co = coordinate
         point.radius = radius
         point.handle_left_type = point.handle_right_type = 'AUTO'
     obj = bpy.data.objects.new('Rook_HairLock_%02d' % index, curve)

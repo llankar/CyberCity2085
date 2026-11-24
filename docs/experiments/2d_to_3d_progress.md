@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-HAIR-18 — inspected v14 front/side: locks mostly buried
+  in scalp after uniform lowering. Measured actual scalp top at 1.6674 m,
+  Y extent -0.1473..0.0361 m; rebuilt paths with curved height variation and
+  swept tips around these dimensions. v15 generated; front inspected. Hair
+  is visible on scalp, but remains stylized parallel locks, not accepted Rook
+  resemblance. Next: add short shaved-side scalp and vary lock width/direction.
+
 - `IN_PROGRESS` ROOK-HAIR-17 — generated 16 mesh locks with copper material
   and head weights. v13 front inspected: hair floated above scalp and looked
   comb-like (FAIL artistic). Lowered lock coordinates 55 mm and regenerated
