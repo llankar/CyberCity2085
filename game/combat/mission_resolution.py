@@ -27,6 +27,10 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
     equipment_snapshot = getattr(self, "equipment_snapshot", None)
     if equipment_snapshot is None:
         equipment_snapshot = snapshot_unit_equipment(all_player_units)
+    self._field_medevac_available = (
+        "field_medevac" in getattr(self.game_state, "vehicle_upgrade_ids", [])
+    )
+    self._field_medevac_used = False
     for unit in all_player_units:
         if unit.stats is not None:
             unit.extraction_max_hp = unit.stats.max_hp
@@ -173,6 +177,14 @@ def resolve_campaign_battle(self, victory: bool, *, defeated_override=None):
         self.game_state, equipment_snapshot, victory
     )
     self.game_state.latest_mission_debrief["equipment_recovery"] = equipment_report
+    self.game_state.latest_mission_debrief["deployment_vehicle"] = {
+        "field_medevac_available": self._field_medevac_available,
+        "field_medevac_used": self._field_medevac_used,
+        "heavy_strike_available": "heavy_strike" in getattr(
+            self.game_state, "vehicle_upgrade_ids", []
+        ),
+        "heavy_strike_used": bool(getattr(self, "_heavy_strike_used", False)),
+    }
     if equipment_report["status"] == "lost":
         lost_count = sum(equipment_report["lost"].values())
         self.game_state.add_event(

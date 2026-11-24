@@ -51,6 +51,7 @@ const _ACTION_DEFS: Dictionary = {
 	"Psi Focus":     {"type": "PSI_HEAL", "range": 0, "damage": 0, "heal": 0, "ap": 1, "stress_relief": 25},
 	"Trauma Patch":  {"type": "HEAL",     "range": 0, "damage": 0, "heal": 12,"ap": 1},
 	"Missile Salvo": {"type": "FIRE_AOE", "range": 24, "damage": 10, "heal": 0, "ap": 2, "aoe_radius": 2},
+	"VTOL Heavy Strike": {"type": "FIRE_AOE", "range": 999, "damage": 14, "heal": 0, "ap": 0, "aoe_radius": 2},
 }
 const GRID_COLS := 40
 const GRID_ROWS := 28
@@ -111,6 +112,8 @@ var battle_ended  : bool  = false
 var initial_enemy_count: int=0
 var elapsed_time  : float = 0.0
 var selected_action: String = "MOVE"
+var heavy_strike_available: bool = false
+var heavy_strike_used: bool = false
 var pending_end_turn_confirmation: bool = false
 var pending_retreat_confirmation: bool = false
 var show_combat_log: bool = false
@@ -1398,6 +1401,10 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 	if active.is_empty(): return
 	var ap := int(active.get("ap", 0))
 	var action := selected_action if _action_type(selected_action)=="FIRE_AOE" else "Missile Salvo"
+	if action == "VTOL Heavy Strike" and (not heavy_strike_available or heavy_strike_used):
+		status_line = "Nighthawk heavy strike already expended."
+		_sync_display()
+		return
 	var origin := _cell_position(active)
 	var distance := absi(origin.x-center_cell.x)+absi(origin.y-center_cell.y)
 	var reach := _action_range(action)
@@ -1412,6 +1419,12 @@ func _apply_missile_salvo(center_cell: Vector2i) -> void:
 		return
 	_spend_player_ap(active, ap_cost)
 	player_units[active_player_index] = active
+	if action == "VTOL Heavy Strike":
+		heavy_strike_used = true
+		for unit: Dictionary in player_units:
+			var actions: Array = unit.get("available_actions", [])
+			actions.erase("VTOL Heavy Strike")
+			unit["available_actions"] = actions
 	if visual_mode:
 		_visual_fx.burst("explosion", Vector2.ZERO, _battlefield.cell_to_world(center_cell))
 	var base_dmg   := _action_damage(action)
@@ -1959,6 +1972,7 @@ func _end_combat(outcome: String, failure_message: String = "") -> void:
 		"turn_number":    turn_number,
 		"casualties":     casualties,
 		"enemies_killed": enemies_killed,
+		"heavy_strike_used": heavy_strike_used,
 		"fund_reward":    enemies_killed * 150 + (500 if outcome == "victory" else 0),
 	}
 	_banner.show_banner("ended", turn_number)
@@ -1992,6 +2006,8 @@ func _build_player_units() -> Array[Dictionary]:
 	var assets_raw: Variant = handoff.get("support_assets", [])
 	var support_assets: Array = assets_raw as Array if typeof(assets_raw) == TYPE_ARRAY else []
 	var units: Array[Dictionary] = []
+	var deployment_upgrades: Array = handoff.get("combat_ui", {}).get("deployment_upgrades", [])
+	heavy_strike_available = "heavy_strike" in deployment_upgrades
 	if squad.is_empty() and support_assets.is_empty():
 		units.append({"name": "ECHO",   "role": "samurai", "hp": 30, "max_hp": 30,
 					  "stress": 20, "ap": 4, "defense": 5, "initiative": 18,
@@ -2024,6 +2040,8 @@ func _build_player_units() -> Array[Dictionary]:
 				"sniper": agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
 				"psi":    agent_actions = ["Move", "Defend", "Mind Spike", "Psi Focus", "Pistol Shot"]
 				_:        agent_actions = ["Move", "Defend", "Rifle Burst", "Pistol Shot", "Overwatch"]
+		if heavy_strike_available and not heavy_strike_used:
+			agent_actions.append("VTOL Heavy Strike")
 		units.append({
 			"name":              clean,
 			"campaign_name":     str(raw_n) if raw_n != null else clean,

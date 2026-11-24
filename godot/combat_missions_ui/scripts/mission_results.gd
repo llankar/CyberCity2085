@@ -168,6 +168,7 @@ func _payload(phase: String) -> Dictionary:
 		"initial_enemy_count":int(_result.get("initial_enemy_count",0)),"enemies_spawned_total":int(_result.get("enemies_spawned_total",_result.get("initial_enemy_count",0))),"enemies_killed":int(_result.get("enemies_killed",0)),
 		"agents":_result.get("agents",[]),"support":_result.get("support",[]),
 		"objective_completed":_result.get("objective_completed",false),"objective_progress":_result.get("objective_progress",0),
+		"heavy_strike_used":_result.get("heavy_strike_used",false),
 		"music_playback":_result.get("music_playback",{})}
 
 func _publish(path: String,payload: Dictionary) -> bool:

@@ -25,9 +25,17 @@ def resolve_defeated_agent_outcome(
     *,
     remove_character: Callable[[Character], None],
     record_event: Callable[[str], None],
+    prevent_death: bool = False,
 ) -> str:
     """Apply and record a vertical-slice outcome for a downed agent."""
     outcome = random.choice(DEFEATED_AGENT_OUTCOMES)
+    medevac_used = outcome == "killed" and prevent_death
+    if medevac_used:
+        outcome = "critically injured"
+        character.history.append(
+            "Field Medevac intercepted a fatal casualty and extracted the operative."
+        )
+        record_event(f"Nighthawk Field Medevac saved {character.name} from death.")
     if outcome == "killed":
         character.history.append("Killed in action during a failed tactical engagement.")
         remove_character(character)
@@ -68,4 +76,4 @@ def resolve_defeated_agent_outcome(
         character.trauma.append("Combat shock")
         character.history.append("Extracted alive but traumatized after being downed in battle.")
         record_event(f"{character.name} was extracted with lasting trauma.")
-    return outcome
+    return "field medevac" if medevac_used else outcome

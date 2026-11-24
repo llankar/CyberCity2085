@@ -1,8 +1,10 @@
 from game.gamestate import GameState
 from game.character import Character
-from game.combat.godot_bridge import build_godot_combat_payload
+from game.combat.godot_bridge import build_godot_combat_payload, write_godot_combat_handoff
 from game.combat.godot_resolution import resolve_godot_result
+from game.combat.session_protocol import create_session
 from game.combat_system import create_player_units
+from game.combat_actions import available_combat_actions
 from game.management.equipment import default_equipment_catalog, equipment_purchase_price
 from game.mission_system import launch_selected_mission
 from game.mission_templates import MissionTemplate
@@ -84,3 +86,51 @@ def test_trauma_center_removes_one_additional_recovery_day(tmp_path):
     with patch("game.battle_outcomes.random.choice", return_value="critically injured"):
         resolve_godot_result(state, mission, result, session["session_id"])
     assert state.characters[0].recovery_turns == 1
+
+
+def test_field_medevac_prevents_exactly_one_fatality_per_mission(tmp_path):
+    state, mission, _, result = scenario(tmp_path)
+    second = Character("Rook", role="samurai")
+    state.characters.append(second)
+    state.selected_agent_names.append(second.name)
+    state.vehicle_upgrade_ids.append("field_medevac")
+    path = write_godot_combat_handoff(
+        state, mission, handoff_path=tmp_path / "medevac-handoff.json"
+    )
+    _, session = create_session(state, mission, path)
+    result["session_id"] = session["session_id"]
+    result["outcome"] = "defeat"
+    result["agents"][0]["hp"] = 0
+    result["agents"].append({
+        "name": second.name, "hp": 0, "max_hp": second.stats.max_hp,
+    })
+
+    with patch("game.battle_outcomes.random.choice", return_value="killed"):
+        resolve_godot_result(state, mission, result, session["session_id"])
+
+    assert [character.name for character in state.characters] == ["Vera"]
+    assert any("Field Medevac" in line for line in state.characters[0].history)
+    vehicle = state.latest_mission_debrief["deployment_vehicle"]
+    assert vehicle["field_medevac_available"] and vehicle["field_medevac_used"]
+
+
+def test_heavy_strike_is_exposed_only_while_vehicle_charge_is_available():
+    agent = Character("Rook", role="samurai")
+    unit = create_player_units([agent])[0]
+    normal = {action.key for action in available_combat_actions(unit)}
+    supported = {
+        action.key
+        for action in available_combat_actions(unit, heavy_strike_available=True)
+    }
+    assert "heavy_strike" not in normal
+    assert "heavy_strike" in supported
+
+
+def test_godot_heavy_strike_usage_reaches_mission_debrief(tmp_path):
+    state, mission, session, result = scenario(tmp_path)
+    state.vehicle_upgrade_ids.append("heavy_strike")
+    result["heavy_strike_used"] = True
+    resolve_godot_result(state, mission, result, session["session_id"])
+    vehicle = state.latest_mission_debrief["deployment_vehicle"]
+    assert vehicle["heavy_strike_available"]
+    assert vehicle["heavy_strike_used"]

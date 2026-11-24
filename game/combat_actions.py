@@ -122,7 +122,9 @@ def unit_can_overwatch(unit: Unit) -> bool:
     )
 
 
-def available_combat_actions(unit: Unit | None) -> list[CombatAction]:
+def available_combat_actions(
+    unit: Unit | None, *, heavy_strike_available: bool = False
+) -> list[CombatAction]:
     """Build ordered, contextual combat actions for the selected unit."""
     if unit is None or unit.health <= 0:
         return []
@@ -138,6 +140,8 @@ def available_combat_actions(unit: Unit | None) -> list[CombatAction]:
         actions.append(CombatAction("first_aid", "First Aid", "combat_aid", "A"))
     if unit_can_use_missiles(unit):
         actions.append(CombatAction("missiles", "Missiles", "combat_missile", "M"))
+    if heavy_strike_available:
+        actions.append(CombatAction("heavy_strike", "VTOL Strike", "combat_missile", "V"))
     if unit_can_overwatch(unit):
         actions.append(CombatAction("overwatch", "Overwatch", "combat_overwatch", "O"))
     actions.extend(

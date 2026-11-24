@@ -1761,6 +1761,8 @@ class BattleView(GameView):
             self.game_state.selected_asset_ids,
             self.game_state.deployment_combat_bonuses(),
         )
+        self._heavy_strike_available = self.game_state.has_vehicle_upgrade("heavy_strike")
+        self._heavy_strike_used = False
         self.defeated_player_units = []
         self.enemy_units, self.initial_enemy_count = create_enemy_units(
             self.mission, selected_squad
@@ -2237,11 +2239,17 @@ class BattleView(GameView):
         character = unit.character
         if not character:
             return
-        resolve_defeated_agent_outcome(
+        outcome = resolve_defeated_agent_outcome(
             character,
             remove_character=self.remove_character_from_roster,
             record_event=self.game_state.add_event,
+            prevent_death=(
+                getattr(self, "_field_medevac_available", False)
+                and not getattr(self, "_field_medevac_used", False)
+            ),
         )
+        if outcome == "field medevac":
+            self._field_medevac_used = True
 
     def remove_character_from_roster(self, character: Character) -> None:
         """Remove a character only when a battle outcome confirms death."""
@@ -2655,7 +2663,12 @@ class BattleView(GameView):
                 warning = preview.warning or line_of_fire_warning(active_unit, target, self.player_units)
             self.combat_action_buttons = draw_combat_action_bar(
                 w, h,
-                available_combat_actions(active_unit),
+                available_combat_actions(
+                    active_unit,
+                    heavy_strike_available=(
+                        self._heavy_strike_available and not self._heavy_strike_used
+                    ),
+                ),
                 f"{unit_name} [{role_label}]",
                 active_unit.action_points,
                 f"{self.message}  {action_hint}",
@@ -2716,6 +2729,9 @@ class BattleView(GameView):
         elif attack_key == "missiles":
             range_cells = max(1, player.attack_range)
             pending = "missiles"
+        elif attack_key == "heavy_strike":
+            range_cells = 999
+            pending = "heavy_strike"
         else:
             range_cells = 10
             pending = "psi"
@@ -2767,12 +2783,47 @@ class BattleView(GameView):
             self._set_action_aftermath(action_label="FIRST AID", status_applied=result.message)
             self.check_active_player()
 
+    def _apply_heavy_strike(self, target: Unit) -> None:
+        """Resolve the Nighthawk's single deployment strike."""
+        damage = min(target.health, 14)
+        target.health = max(0, target.health - 14)
+        target._damage_taken = getattr(target, "_damage_taken", 0) + damage
+        self._heavy_strike_used = True
+        self.selecting_target = False
+        self.target_candidates = []
+        self.pending_attack = None
+        self.message = f"Nighthawk heavy strike deals {damage} damage."
+        self.combat_log_messages.append(self.message)
+        self._add_damage_popup(target, damage)
+        self._spawn_particles(*target.position, count=26, color=(255, 145, 35))
+        self._flash_unit(target, color=(255, 210, 90))
+        self._add_screen_shake(15)
+        self._snd().play("sfx_fire")
+        if target.health <= 0:
+            self._snd().play("sfx_death")
+            if target.sprite:
+                target.sprite.kill()
+            if target in self.enemy_units:
+                self.enemy_units.remove(target)
+            if not self.enemy_units:
+                self.end_battle(True)
+                return
+        self.check_active_player()
+
     def _perform_combat_action(self, action_key: str) -> bool:
         """Perform a clicked or keyed combat action for the active player unit."""
         if self.turn != "player" or not self.player_units:
             return False
         player = self.player_units[self.active_index]
-        available = {action.key for action in available_combat_actions(player)}
+        available = {
+            action.key
+            for action in available_combat_actions(
+                player,
+                heavy_strike_available=(
+                    self._heavy_strike_available and not self._heavy_strike_used
+                ),
+            )
+        }
         if action_key not in available:
             return False
         if action_key != "end_turn":
@@ -2806,6 +2857,10 @@ class BattleView(GameView):
         if action_key == "missiles":
             self._begin_target_action(player, "missiles")
             self.message = "Missile target lock acquired."
+            return True
+        if action_key == "heavy_strike":
+            self._begin_target_action(player, "heavy_strike")
+            self.message = "Nighthawk heavy strike ready. Select a visible hostile."
             return True
         if action_key == "overwatch":
             self.selecting_overwatch_orientation = True
@@ -2955,6 +3010,9 @@ class BattleView(GameView):
                 target = self.target_candidates[self.selected_target_idx]
                 if self.pending_attack == "first_aid":
                     self._treat_selected_ally(player, target)
+                    return
+                if self.pending_attack == "heavy_strike":
+                    self._apply_heavy_strike(target)
                     return
                 if not getattr(target, "visible", True):
                     self.message = "Target lost in fog."
@@ -3257,7 +3315,13 @@ class BattleView(GameView):
             if button != getattr(arcade, "MOUSE_BUTTON_LEFT", 1):
                 return
             buttons = self.combat_action_buttons or layout_combat_action_buttons(
-                self.window.width, available_combat_actions(active_unit)
+                self.window.width,
+                available_combat_actions(
+                    active_unit,
+                    heavy_strike_available=(
+                        self._heavy_strike_available and not self._heavy_strike_used
+                    ),
+                ),
             )
             action = combat_action_at_point(buttons, x, y)
             if action is not None:

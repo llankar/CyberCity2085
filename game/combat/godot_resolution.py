@@ -57,12 +57,27 @@ def resolve_godot_result(game_state,mission,result,session_id):
             'objective_contributions': objective_contributions,
         }))
     record_losses(context.combat_state, units)
-    context.resolve_defeated_player_unit=lambda u:resolve_defeated_agent_outcome(u.character,
-        remove_character=shadow.record_agent_death,record_event=shadow.add_event)
+    def resolve_defeated_player_unit(unit):
+        outcome = resolve_defeated_agent_outcome(
+            unit.character,
+            remove_character=shadow.record_agent_death,
+            record_event=shadow.add_event,
+            prevent_death=(
+                getattr(context, '_field_medevac_available', False)
+                and not getattr(context, '_field_medevac_used', False)
+            ),
+        )
+        if outcome == "field medevac":
+            context._field_medevac_used = True
+        return outcome
+    context.resolve_defeated_player_unit = resolve_defeated_player_unit
     def resolve_outcome(victory):
         context.triggered_complication=resolve_mission_outcome(shadow,context.mission,victory,None)
     context.resolve_mission_outcome=resolve_outcome
     survivors,units=resolve_campaign_battle(context,result['outcome']=='victory',defeated_override=result['enemies_killed'])
+    shadow.latest_mission_debrief.setdefault('deployment_vehicle', {})['heavy_strike_used'] = bool(
+        result.get('heavy_strike_used', False)
+    )
     shadow.latest_mission_debrief['external_combat']={k:deepcopy(result[k]) for k in
         ['outcome','turn_reached','enemies_killed','objective_completed','objective_progress'] if k in result}
     shadow.latest_mission_debrief['mission_outcome']=result['outcome']
