@@ -60,7 +60,7 @@ func _ready() -> void:
 	var charge := "--charge" in OS.get_cmdline_user_args()
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var rigged_human := charge and "--rigged-human" in OS.get_cmdline_user_args()
-	if rigged_human: human_path = root + "einar_idle01/human_rig.glb"
+	if rigged_human: human_path = root + "einar_motion01/human_motion.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
@@ -145,6 +145,11 @@ func _ready() -> void:
 		_unhandled_input(key)
 		assert(selected == 0)
 		play_clip("Walk")
+		if rigged_human:
+			var walking_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+			assert(walking_player.current_animation == "Walk")
+			print("CHARGE_HUMAN_WALK_DISPATCH_OK")
+			play_clip("Shoot")
 		assert("unavailable" in clip_status)
 		selected = 1
 		play_clip("Idle")
@@ -156,6 +161,7 @@ func _ready() -> void:
 			assert(human_player.current_animation == "Idle")
 			print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,human_missing_action robot_clip=", "unavailable" if charge else "Walk")
+	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame

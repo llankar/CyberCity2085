@@ -9,10 +9,13 @@ import sys
 from pathlib import Path
 import bpy
 from mathutils import Quaternion, Vector
+sys.path.insert(0,str(Path(__file__).parent))
+from rigid_surface_fit import fit_surface
 
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-idle='--idle' in sys.argv
-folder=root/('einar_idle01' if idle else 'einar_rig01'); folder.mkdir(parents=True,exist_ok=True)
+walk='--walk' in sys.argv
+idle='--idle' in sys.argv or walk
+folder=root/('einar_walk01' if walk else 'einar_idle01' if idle else 'einar_rig01'); folder.mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath='E:/CyberCity2085-3d-lab/sources/charge_studio/einar_release_v1.blend',use_scripts=False)
 source_scene=bpy.context.scene
 for obj in bpy.data.objects:
@@ -45,7 +48,8 @@ for obj in objects:
     # transform, including all hydraulic/constraint chains during each sample.
     rigid_key=('rigid',original.name)
     if not used or any(not vertex for vertex in weights):
-        bindings[rigid_key]={'kind':'object','object':original,'baseline':original.matrix_world.copy()}
+        bindings[rigid_key]={'kind':'object','object':original,'baseline':original.matrix_world.copy(),
+                             'surface_baseline':[tuple(v.co) for v in obj.data.vertices]}
         weights=[vertex if vertex else [(rigid_key,1.0)] for vertex in weights]
     normalized=[]
     for vertex in weights:
@@ -92,7 +96,7 @@ for obj,weights in mesh_records:
 assert neutral_error<.0001,neutral_error
 
 game.animation_data_create()
-clip='Idle' if idle else 'FittingStressTest'
+clip='Walk' if walk else 'Idle' if idle else 'FittingStressTest'
 action=bpy.data.actions.new(clip); game.animation_data.action=action
 source=bpy.data.objects['RIG-einar']; control=source.pose.bones['FK-Head']
 control.rotation_mode='QUATERNION'; initial=control.rotation_quaternion.copy()
@@ -105,36 +109,85 @@ if idle:
         arm=source.pose.bones[name]; arm.rotation_mode='QUATERNION'
         arms.append((arm,arm.rotation_quaternion.copy(),arm.matrix.to_quaternion().inverted() @ Vector((0,1,0)),angle))
 max_source_delta=0.0
-for frame in range(1,50):
+surface_errors={}
+foot_goal_error=0.0
+frames=33 if walk else 49
+feet=[]; torso=None
+if walk:
+    for name,offset in [('IK-MSTR-Foot.L',0.0),('IK-MSTR-Foot.R',.5)]:
+        foot=source.pose.bones[name]; feet.append((foot,foot.matrix.copy(),offset))
+    torso=source.pose.bones['MSTR-Spine_Torso']; torso_base=torso.matrix.copy()
+    swing_axes={arm.name:arm.matrix.to_quaternion().inverted() @ Vector((1,0,0)) for arm,base,axis,angle in arms}
+for frame in range(1,frames+1):
     bpy.context.window.scene=source_scene; source_scene.frame_set(frame)
-    phase=math.sin((frame-1)*math.tau/48)
+    cycle=(frame-1)/(frames-1)
+    phase=math.sin(cycle*math.tau)
     control.rotation_quaternion=initial @ Quaternion((0,1,0),(.025 if idle else .26)*phase)
     for arm,base,axis,angle in arms:
-        arm.rotation_quaternion=base @ Quaternion(axis,angle*(1+.012*phase))
+        lower=Quaternion(axis,angle*(1+.012*phase))
+        if walk:
+            swing=Quaternion(swing_axes[arm.name],(.18 if arm.name.endswith('.R') else -.18)*math.cos(cycle*math.tau))
+            arm.rotation_quaternion=base @ swing @ lower
+        else: arm.rotation_quaternion=base @ lower
+    if walk:
+        body=torso_base.copy(); body.translation.z+=-.04+.008*math.cos(cycle*math.tau*2)
+        torso.matrix=body
+        # Pose-space setters must see the newly evaluated parent transforms.
+        source.update_tag(refresh={'OBJECT'}); bpy.context.view_layer.update()
+        foot_targets=[]
+        for foot,base,offset in feet:
+            position=(cycle+offset)%1.0
+            target=base.copy()
+            if position<=.5:
+                target.translation.y+=-.175+.7*position
+            else:
+                swing_phase=(position-.5)*2
+                # Smooth lift, constant-velocity stance:0.7m virtual root travel/cycle.
+                target.translation.y+=.175-.35*swing_phase
+                target.translation.z+=.085*math.sin(math.pi*swing_phase)
+            foot.matrix=target
+            foot_targets.append((foot,target.translation.copy()))
     if idle: source.update_tag(refresh={'OBJECT'})
     bpy.context.view_layer.update()
+    if walk:
+        for foot,target in foot_targets: foot_goal_error=max(foot_goal_error,(foot.matrix.translation-target).length)
+    source_graph=bpy.context.evaluated_depsgraph_get()
     for binding in bindings.values():
         obj=binding['object']
-        matrix=obj.matrix_world @ obj.pose.bones[binding['bone']].matrix if binding['kind']=='bone' else obj.matrix_world.copy()
-        delta=matrix @ binding['baseline'].inverted()
+        if binding['kind']=='bone':
+            matrix=obj.matrix_world @ obj.pose.bones[binding['bone']].matrix
+            delta=matrix @ binding['baseline'].inverted()
+        else:
+            evaluated=obj.evaluated_get(source_graph)
+            mesh=evaluated.to_mesh(preserve_all_data_layers=True,depsgraph=source_graph)
+            try:
+                points=[tuple(evaluated.matrix_world @ v.co) for v in mesh.vertices]
+                delta,error=fit_surface(binding['surface_baseline'],points)
+                surface_errors[obj.name]=max(surface_errors.get(obj.name,0),error)
+            finally: evaluated.to_mesh_clear()
         if binding.get('bone')=='DEF-Head': max_source_delta=max(max_source_delta,abs(delta.to_quaternion().angle))
         pose=game.pose.bones[binding['joint']]; pose.rotation_mode='QUATERNION'
         pose.matrix=delta @ binding['rest']
         for path in ['location','rotation_quaternion','scale']: pose.keyframe_insert(data_path=path,frame=frame,group=pose.name)
 assert max_source_delta>(.005 if idle else .05),('Source head control did not move',max_source_delta)
 control.rotation_quaternion=initial
-bpy.context.window.scene=game_scene; game_scene.frame_start=1; game_scene.frame_end=49; game_scene.frame_set(1)
+bpy.context.window.scene=game_scene; game_scene.frame_start=1; game_scene.frame_end=frames; game_scene.frame_set(1)
 game.select_set(True); bpy.context.view_layer.objects.active=game
 bpy.ops.wm.save_as_mainfile(filepath=str(folder/'human_rig.blend'))
 bpy.ops.export_scene.gltf(filepath=str(folder/'human_rig.glb'),export_format='GLB',use_selection=True,
                         use_active_scene=True,export_animations=True,export_animation_mode='ACTIONS',
-                        export_anim_single_armature=False,export_all_influences=True)
+                        export_anim_single_armature=False,export_all_influences=True,
+                        export_anim_slide_to_zero=True)
 report={'meshes':len(objects),'joints':len(bindings),'neutral_max_vertex_error':neutral_error,
-        'source_head_rotation_radians':max_source_delta,'clip':clip,'frames':49,'loop_intended':idle,
+        'source_head_rotation_radians':max_source_delta,'clip':clip,'frames':frames,'loop_intended':idle,
+        'virtual_root_travel_m':.7 if walk else 0,
+        'duration_s':(frames-1)/(game_scene.render.fps/game_scene.render.fps_base),
         'weight_optimization':weight_stats,
+        'rigid_surface_max_residual_m':surface_errors,
+        'source_foot_master_goal_error_m':foot_goal_error,
         'joints_map':[{ 'joint':b['joint'],'source':list(key),'kind':b['kind']} for key,b in bindings.items()],
         'credit':coverage['credit'],'license':coverage['license'],
-        'limitations':['Relaxed idle study only; no gameplay action acceptance' if idle else 'Head fitting diagnostic only; no gameplay action acceptance',
+        'limitations':['In-place walk study; foot contacts and artistic quality require native review' if walk else 'Relaxed idle study only; no gameplay action acceptance' if idle else 'Head fitting diagnostic only; no gameplay action acceptance',
                        'Baked flat joints require sampled source motion',
                        'Static corrective shapes; no dynamic film surface-deform recreation',
                        'Hair is not included; rigid attachments require visual motion review']}

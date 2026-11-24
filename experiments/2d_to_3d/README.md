@@ -43,6 +43,16 @@ checks native sampled deformation and loop endpoints. Add `--rigged-human` to
 the `--charge` comparison to load/loop the new human Idle. These are experimental
 animation studies; walking, weapon actions and full visual acceptance remain open.
 
+`rig_einar_game_study.py -- --walk` adds an IK-foot in-place walk study.
+`rigid_surface_fit.py` preserves authored rigid/surface-deformed attachments and
+reports any nonrigid residual. `combine_einar_motion.py` packages Idle/Walk into
+one external `einar_motion01/human_motion.glb` used by `--rigged-human`.
+Run `verify_einar_rig.py --bundle`, then the native `skin_motion_check.tscn`
+with `-- --bundle --idle` or `-- --bundle --walk`. Walk contact checks sample
+both complete stance intervals with0.7m virtual root travel/cycle; actual map
+locomotion is not implemented. `--walk-preview` on the comparison loops Walk.
+Validated contacts and loop timing do not imply artistic or full action coverage.
+
 ## Independent comparison stage
 
 Launch `godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --realtime`.

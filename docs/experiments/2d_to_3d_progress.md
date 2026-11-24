@@ -2,6 +2,49 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EINAR-WALK-CONTACTS-80 (2026-11-25) — actual in-place walk
+  authored through source foot IK, lowered torso and counter-swinging FK arms.
+  First native gate failed0.21m stance drift: original soles deform through a
+  surface modifier, so sampling object transforms alone had left them static.
+  Added evaluated-surface rigid fitting (Kabsch), with explicit per-part residual
+  reporting. Native geometric tests pass known rotation/translation, planar
+  surface, nonrigid residual and invalid input cases. Worst source walk residual
+  ~0.000150m on right sole; most rigid parts below2 micrometers. Not a claim that
+  every dynamic corrective surface is reproduced by the game skeleton.
+
+  Remaining6.562mm contact failure traced to glTF's default one-frame start offset:
+  native clip length differed from the intended32-frame interval. Explicit
+  export_anim_slide_to_zero=True fixed this; imported duration now asserted
+  against source report. Source IK master goal error~7.5e-9m. Foot clearance is
+  tested against the actual experimental floor atY=-0.03m, not an inventedY=0.
+  Latest Walk GLB39,480,332 bytes;76 meshes/222 joints/one skin/eight influences,
+  duration1.333333s. Native17 samples/stance/foot, sampled sole vertices: maximum
+  compensated drift0.000000816m left/0.000002498m right; floor clearance~4.754mm;
+  head loop gap0.000000239m. Compensation assumes0.7m actor travel per cycle
+  (+Z in Godot); the clip itself stays in place. Real locomotion integration is
+  not claimed. Neutral body/weights and loop checks pass; side phases0/.25/.5
+  captures generated and inspected on E: phase2/einar_walk01. These show coherent
+  source-clothing/mechanical motion, not final animation artistic acceptance.
+
+  Idle regenerated with surface fitting and zero-based timing. Combined single
+  mesh set/skin with two compatible clips at E: phase2/einar_motion01:
+  human_motion.blend/.glb,39,820,980 bytes. Real buffer gate passes76 meshes,
+  222 joints, normalized eight-weight maximum, exact Idle2.0s/Walk1.333333s,
+  embedded textures and only the two requested clips. Native bundle Idle and Walk
+  skin/contact gates pass. Comparison --charge --rigged-human now dispatches both
+  clips with keys1/2; unavailable Shoot still explicitly refused. Five-subject
+  tactical62.208px capture charge_walk_sprite_close.png inspected. CPU frame-loop
+  timing remains NOT a GPU/FPS acceptance benchmark. Seven Python tests pass.
+
+  Files: rig_einar_game_study.py, rigid_surface_fit.py,
+  check_rigid_surface_fit.py, probe_einar_walk.py, combine_einar_motion.py,
+  verify_einar_rig.py, skin_motion_check.gd and comparison.gd. Original licensed
+  source and production/runtime/save untouched. No push or release. Global art
+  acceptance, Rook/Raider identities, remaining humanoid actions/weapon grips,
+  robot materials/actions, optimization and final comparison remain open.
+  Next: evaluate licensed authored/mocap actions and weapon assets before fire/
+  melee/death authoring; continue robot glass/rig conversion and stage batching.
+
 - `IN_PROGRESS` EINAR-GAME-SKELETON-IDLE-79 — source rig/constraint audit and
   actual retained skin weights used to build222 baked game joints/one skin for
   76 textured meshes. Weighted bones sample source pose matrices; rigid parts
