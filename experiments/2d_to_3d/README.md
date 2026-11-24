@@ -26,6 +26,11 @@ This prototype loads a textured 2D map floor plus blocked-cell volumes, the two
 actors, a hovering VTOL and a crate. It is not a finished 3D environment or an
 exact production-zoom comparison. Original map/runtime files remain unchanged.
 
+The tactical stage also requires `generator01`: run Blender with
+`blender/create_industrial_generator.py -- E:/CyberCity2085-3d-lab/generated/phase2/generator01`.
+Its BLEND keeps75 editable rigid parts; its GLB is a merged one-mesh/six-material
+derivative. This geometric study lacks the reference's weathering/PBR texture detail.
+
 For calibrated pixel-size review, run `prepare_sprite_review.py`, then launch
 comparison.tscn with `-- --realtime --sprite-review` (add `--overview` for the
 overview zoom). This renders a 1920x1080 viewport and verifies the projected

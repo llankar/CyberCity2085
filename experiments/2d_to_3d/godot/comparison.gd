@@ -243,7 +243,8 @@ func load_tactical_map() -> void:
 	# No clear landing footprint exists on this alley: show the aircraft hovering.
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/vtol01/vtol.glb", Vector3(-6, 4, -4))
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/crate_procedural.glb", Vector3(-3, 0, 2))
-	assert(subjects.size() == 4)
+	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/generator01/generator.glb", Vector3(4.5, 0, 1.5))
+	assert(subjects.size() == 5)
 	for subject in subjects.slice(0, 2):
 		var cell := Vector2i(floori(subject.position.x + data.grid[0] / 2.0), floori(subject.position.z + data.grid[1] / 2.0))
 		assert(not occupied.has(cell), "Actor spawned in blocked cell")

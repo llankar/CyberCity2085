@@ -2,6 +2,23 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` INDUSTRIAL-GENERATOR-72 — modeled actual sources/
+  industrial_machine.png reference into75 editable rigid parts: enamel vented
+  housing, stacked finned rotary cores, bearings, cage, tubing, skid and control
+  pod. Separate BLEND/GLB and neutral Blender/Godot captures on E: generator01,
+  all inspected. GLB derivative merges copies after modifier baking into1mesh /
+  6 material surfaces (asserted from real GLB); editable source parts preserved.
+  Native standalone import passes. Added as5th subject to existing-map tactical
+  stage; five-subject and actor-center-clear assertions/native controls pass.
+  Stage capture E: phase2/tactical_generator.png inspected;120 frames2.000102s
+  (~60fps) before merged-derivative optimization, not stress/uncapped evidence.
+  Seven Python tests pass. Reference identity improved over rejected TripoSR;
+  artistic acceptance still open: clean/simplified finish, no weathering/PBR maps,
+  source proportions/detail require further review. Not production replacement.
+  Next: qualified human acquisition, mechanical detail/materials and scene
+  geometry; final human/robot screenshots and full acceptance remain TODO.
+
+
 - `IN_PROGRESS` AUTHORED-HUMAN-SOURCE-71 — Vincent v1 public Blender Studio
   source acquired on E:,19,258,697-byte BLEND; official CC BY4 card, hash/credits
   recorded in3d_asset_selection.md. Neutral front/profile/back JPG renders executed
