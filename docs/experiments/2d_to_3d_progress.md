@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PHENOTYPE-EXPORT-19 — identified raw/evaluated scalp mismatch:
+  1.6674 versus 1.7182 m. Hair now projects onto evaluated scalp samples.
+  Export copies preserve mixed shape-key coordinates before removing keys,
+  fixing phenotype loss in the previous helper-mask export path. v16 generation
+  succeeded; front inspected with hair now above scalp. Hairstyle still too
+  regular and silhouette not accepted. Next: Godot comparison of v16 morphology,
+  varied lock direction and short-side hair geometry.
+
 - `IN_PROGRESS` ROOK-HAIR-18 — inspected v14 front/side: locks mostly buried
   in scalp after uniform lowering. Measured actual scalp top at 1.6674 m,
   Y extent -0.1473..0.0361 m; rebuilt paths with curved height variation and

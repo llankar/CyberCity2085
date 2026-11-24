@@ -183,6 +183,10 @@ hair_material.use_nodes = True
 hair_shader = hair_material.node_tree.nodes['Principled BSDF']
 hair_shader.inputs['Base Color'].default_value = (0.32, 0.065, 0.008, 1)
 hair_shader.inputs['Roughness'].default_value = 0.52
+evaluated_body = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
+evaluated_mesh = evaluated_body.to_mesh()
+scalp = [v.co.copy() for v in evaluated_mesh.vertices if v.co.z > 1.60]
+evaluated_body.to_mesh_clear()
 for index in range(16):
     t = index / 15
     curve = bpy.data.curves.new('Rook_HairLock', 'CURVE')
@@ -195,7 +199,10 @@ for index in range(16):
     arch = math.sin(math.pi * t)
     points = [(-0.060 + t * 0.12, 0.018, 1.615 + 0.025 * arch), (-0.055 + t * 0.11, -0.015, 1.66 + 0.035 * arch), (-0.070 + t * 0.10, -0.09, 1.67 + 0.025 * arch), (-0.075 + t * 0.075, -0.142, 1.61 + 0.025 * arch)]
     for point, coordinate, radius in zip(spline.bezier_points, points, [0.5, 1.0, 0.85, 0.08]):
-        point.co = coordinate
+        x, y, z = coordinate
+        candidates = [v.z for v in scalp if abs(v.x - x) < 0.018 and abs(v.y - y) < 0.018]
+        surface = max(candidates) if candidates else min(scalp, key=lambda v: (v.x-x)**2 + (v.y-y)**2).z
+        point.co = (x, y, surface + 0.008 + (0.025 * arch if radius > 0.5 else 0))
         point.radius = radius
         point.handle_left_type = point.handle_right_type = 'AUTO'
     obj = bpy.data.objects.new('Rook_HairLock_%02d' % index, curve)
@@ -231,7 +238,12 @@ for source in list(bpy.context.scene.objects):
     obj.name = source.name + '_Export'
     # The current phenotype is already baked into mesh coordinates. Export
     # copies do not need MPFB's authoring shape keys, which block mask baking.
-    obj.shape_key_clear()
+    if obj.data.shape_keys:
+        mixed = obj.shape_key_add(name='ExportCurrentPhenotype', from_mix=True)
+        positions = [point.co.copy() for point in mixed.data]
+        obj.shape_key_clear()
+        for vertex, position in zip(obj.data.vertices, positions):
+            vertex.co = position
     bpy.context.view_layer.objects.active = obj
     obj.select_set(True)
     # glTF export_apply=False preserves skins but ignores non-armature
