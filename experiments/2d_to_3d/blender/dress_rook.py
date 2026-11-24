@@ -186,7 +186,31 @@ hair_shader.inputs['Roughness'].default_value = 0.52
 evaluated_body = body.evaluated_get(bpy.context.evaluated_depsgraph_get())
 evaluated_mesh = evaluated_body.to_mesh()
 scalp = [v.co.copy() for v in evaluated_mesh.vertices if v.co.z > 1.60]
+cap_mesh = evaluated_mesh.copy()
 evaluated_body.to_mesh_clear()
+bm = bmesh.new()
+bm.from_mesh(cap_mesh)
+remove = [v for v in bm.verts if not (v.co.z > 1.665 or (v.co.z > 1.605 and v.co.y > -0.065))]
+bmesh.ops.delete(bm, geom=remove, context='VERTS')
+boundary = [v for v in bm.verts if any(edge.is_boundary for edge in v.link_edges)]
+for _ in range(4):
+    bmesh.ops.smooth_vert(bm, verts=boundary, factor=0.5, use_axis_x=True, use_axis_y=True, use_axis_z=True)
+bm.normal_update()
+for vertex in bm.verts:
+    vertex.co += vertex.normal * 0.0025
+bm.to_mesh(cap_mesh)
+bm.free()
+cap_mesh.materials.clear()
+cap_mesh.materials.append(hair_material)
+cap = bpy.data.objects.new('Rook_ShortHairScalp', cap_mesh)
+bpy.context.collection.objects.link(cap)
+cap.parent = rig
+group = cap.vertex_groups.new(name='head')
+group.add(list(range(len(cap_mesh.vertices))), 1, 'REPLACE')
+armature = cap.modifiers.new('Skeleton', 'ARMATURE')
+armature.object = rig
+for polygon in cap_mesh.polygons:
+    polygon.use_smooth = True
 for index in range(16):
     t = index / 15
     curve = bpy.data.curves.new('Rook_HairLock', 'CURVE')

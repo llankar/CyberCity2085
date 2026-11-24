@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-SCALP-21 — separate short-hair scalp derived from evaluated
+  body, offset 2.5 mm and weighted to head. v17 BLEND/GLB and renders generated;
+  side inspected: improved coverage but visibly jagged hairline and cap-like
+  silhouette. Added boundary smoothing afterward (NOT EXECUTED yet).
+  Next: regenerate smoothed scalp, verify hairline from all angles, then refine
+  face/eyes and jacket details. Overall character remains below artistic target.
+
 - `DONE` PHENOTYPE-ROUNDTRIP-20 — reproducible Blender script compares the
   evaluated authoring body bounds to reimported GLB world bounds and checks
   the 53-bone armature modifier. v16 passes with 0.00000060 m max bound error.
