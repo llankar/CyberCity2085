@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` PHENOTYPE-ROUNDTRIP-20 — reproducible Blender script compares the
+  evaluated authoring body bounds to reimported GLB world bounds and checks
+  the 53-bone armature modifier. v16 passes with 0.00000060 m max bound error.
+  Godot native render/rig/toggle gates pass: 31 meshes, 31 skins, six boot parts.
+  Capture inspected; this proves body extent preservation, not vertex-level
+  deformation equivalence. Hair and garment artistic acceptance remain open.
+  Next: short-side scalp geometry, face identity and complete multi-angle review.
+
 - `IN_PROGRESS` PHENOTYPE-EXPORT-19 — identified raw/evaluated scalp mismatch:
   1.6674 versus 1.7182 m. Hair now projects onto evaluated scalp samples.
   Export copies preserve mixed shape-key coordinates before removing keys,
