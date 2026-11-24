@@ -6,7 +6,11 @@ This register is separate from the principal CyberCity 2085 GOAL.
   on RTX 5070 Ti and saved godot_preview.png on E: through frame_post_draw.
   Native rig gate passed (53 bones/15 skins); injected B key handler test
   verified six boot parts hide then restore. Capture inspected; lighting and
-  camera still need refinement, model not artistically accepted. SDL reported
+  camera still need refinement. FAIL: body helper geometry appears in GLB
+  (skirt-like surface and facial artifacts); clothing modifiers are also not
+  faithfully exported. Structural PASS does not imply usable rendering. Next
+  priority: bake helper masks on export copies while retaining skin modifiers.
+  Model not artistically accepted. SDL reported
   a gamepad calibration error unrelated to model import. No desktop automation.
   Next: improve framing/lighting and compare posed imported skin against Blender.
 
