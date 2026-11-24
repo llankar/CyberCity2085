@@ -3,6 +3,7 @@ import argparse
 import sys
 from pathlib import Path
 import bpy
+from mathutils import Vector
 from bl_ext.blender_org.mpfb.services.humanservice import HumanService
 
 parser = argparse.ArgumentParser()
@@ -10,11 +11,12 @@ parser.add_argument('--output-dir', required=True)
 parser.add_argument('--clothes', action='append', default=[])
 parser.add_argument('--hair')
 parser.add_argument('--skin')
+parser.add_argument('--eyes')
 args = parser.parse_args(sys.argv[sys.argv.index('--') + 1:])
 output = Path(args.output_dir).resolve()
 if output.drive.upper() != 'E:':
     raise ValueError('Generated assets must remain on E:')
-for asset in args.clothes + [p for p in [args.hair, args.skin] if p]:
+for asset in args.clothes + [p for p in [args.hair, args.skin, args.eyes] if p]:
     if not Path(asset).is_file():
         raise FileNotFoundError(asset)
 output.mkdir(parents=True, exist_ok=True)
@@ -26,6 +28,8 @@ if args.hair:
     HumanService.add_mhclo_asset(args.hair, body, asset_type='Hair', subdiv_levels=1, material_type='MAKESKIN')
 if args.skin:
     HumanService.set_character_skin(args.skin, body, skin_type='MAKESKIN')
+if args.eyes:
+    HumanService.add_mhclo_asset(args.eyes, body, asset_type='Eyes', subdiv_levels=1, material_type='MAKESKIN')
 for lamp in [obj for obj in bpy.context.scene.objects if obj.type == 'LIGHT']:
     lamp.data.color = (1, 1, 1)
     lamp.data.energy = 450
@@ -33,4 +37,12 @@ bpy.context.scene.world.color = (0.18, 0.18, 0.18)
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'authored_outfit.blend'))
 bpy.context.scene.render.filepath = str(output / 'authored_outfit_preview.png')
 bpy.ops.render.render(write_still=True)
+camera = bpy.context.scene.camera
+for label, position in [('front', (0, -3.2, 1.0)), ('back', (0, 3.2, 1.0)), ('side', (3.2, 0, 1.0))]:
+    camera.location = position
+    camera.rotation_euler = (Vector((0, 0, 0.9)) - camera.location).to_track_quat('-Z', 'Y').to_euler()
+    camera.data.type = 'ORTHO'
+    camera.data.ortho_scale = 2.05
+    bpy.context.scene.render.filepath = str(output / ('neutral_' + label + '.png'))
+    bpy.ops.render.render(write_still=True)
 print('MPFB_AUTHORED_OUTFIT_SAVED')

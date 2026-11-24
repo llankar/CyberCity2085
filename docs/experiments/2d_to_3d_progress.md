@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` NEUTRAL-ASSET-REVIEW-29 — same downloader PID 25556 verified
+  active at 182,620,160 bytes; helper 40263 ended its timed wait, not the
+  download. New wait helper 89513 follows the same process. Outfit loader now
+  accepts authored eye assets and emits neutral orthographic front/back/side
+  views at fixed 2.05 m framing. Syntax compilation passed; rendering awaits
+  pack completion. Next: poll downloader and verify/install completed archive.
+
 - `IN_PROGRESS` ASSET-DOWNLOAD-WAIT-28 — verified live downloader PID 25556;
   file grew from 137,650,176 to 155,131,904 bytes. Wait helper session 40263
   observes the same process; no restart. Inspected MPFB's official Load Pack
