@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` GLB-STRUCTURE-14 — native Godot 4.7.2 validation of v11 confirms
+  exactly one 53-bone skeleton and 15 distinct mesh instances, all with skin
+  resources resolving to a Skeleton3D. Added --validate-rig CLI gate (exit 3
+  on mismatch) and B key to toggle boot components in the experimental preview.
+  Structural gate passed; interactive B key and deformation appearance remain
+  NOT VERIFIED. Next: visible comparison and equipment interaction test.
+
 - `IN_PROGRESS` ROOK-GLB-13 — repositioned lapels toward the measured front
   surface and exported visible body/garment components plus rig as GLB.
   v11 BLEND, GLB and five renders generated on E:. Godot 4.7.2 headless loads
