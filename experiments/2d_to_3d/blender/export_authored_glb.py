@@ -1,5 +1,6 @@
 """Export a fitted authored outfit without destroying its Blender source."""
 import sys
+import json
 from pathlib import Path
 import bpy
 
@@ -61,4 +62,9 @@ for obj in copies + [rig]:
 bpy.context.view_layer.objects.active = rig
 filename = 'authored_pose_test.glb' if pose_clip else 'authored_outfit.glb'
 bpy.ops.export_scene.gltf(filepath=str(folder / filename), export_format='GLB', use_selection=True, export_apply=False, export_animations=True)
+if (folder / 'material_factors.json').is_file():
+    sys.path.insert(0, str(Path(__file__).parent))
+    from glb_material_factors import apply_material_factors
+    print('GLTF_MATERIAL_FACTORS', apply_material_factors(folder / filename,
+          json.loads((folder / 'material_factors.json').read_text(encoding='utf-8'))))
 print('AUTHORED_GLB_EXPORTED meshes=%s' % len(copies))

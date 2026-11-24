@@ -2,6 +2,24 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` HUMAN-MATERIAL-60 — preserved authored_armor01 and generated
+  authored_tactical01 BLEND/GLB on E:. Neutral Godot screenshot inspected:
+  dark desaturated armor and copper hair now survive export. Blender MixRGB tint
+  was initially lost by glTF exporter (observed white screenshot); corrected with
+  explicit standard baseColorFactor in derived GLB JSON, preserving binary chunks.
+  New in-memory roundtrip test verifies factors, chunk preservation and GLB length.
+  Six focused tests pass. Screenshot: generated/phase2/authored_tactical01/
+  human_neutral.png. This is a palette study, NOT final Rook geometry/art acceptance.
+  Authored jacket, swept undercut, face identity and natural action clips remain TODO.
+  Official MakeHuman system pose pack CC0 acquired (801 KiB), CRC validated and
+  installed on E:. Manifest contains static poses, not locomotion animations;
+  no animation coverage credit. Source: makehumancommunity/makehuman-static-website
+  content/Assets/AssetPacks/makehuman_system_poses.md. Avoid destructive BVH pose
+  importer on final rig: MPFB documents that it changes bone roll values.
+  Next: authored tactical clothing/hairstyle acquisition and nondestructive
+  animation retargeting; user-requested final screenshots remain TODO.
+
+
 - `DONE` ANIMATED-FRAMING-59 — preview accepts Blender clip envelope JSON,
   converts Z-up bounds to Godot Y-up and uses a fixed conservative camera framing.
   Native Godot captures Walk at 0/50% and Death at 100%, all inspected: complete
