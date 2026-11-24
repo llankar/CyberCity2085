@@ -2,6 +2,26 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CHARGE-PROFESSIONAL-SOURCES-73 — acquired official public Einar
+  and Security Bot ZIPs under explicit CC BY4 (official cards plus embedded
+  ReadMe.txt), stored on E: with hashes/provenance.579.8MB/76.2MB archives CRC
+  tested, extraction containment checked, sources preserved. Einar inventory:
+  main799-bone rig, garments/gloves/bag/boots/mechanical arm,64 image blocks;
+  bot206-bone rig,13 image blocks. Neutral front/profile/back renders executed
+  and all six inspected: E: phase2/einar_review and security_review. Authored
+  detail is a stronger source candidate than generic MPFB/procedural human.
+  Not Rook identity or final artistic acceptance; Godot/animation still TODO.
+  First Einar review stopped intentionally after14.2GB OS working set. Lowered
+  subdivision caused observed Surface Deform binding FAIL; corrected by keeping
+  original topology and muting/disabling film displacement in review memory only.
+  Corrected Einar review finished: Blender reported peak4771MB, observed OS9.5GB,
+  sampled total GPU4531MiB/16303MiB (not per-process or peak VRAM). Bot review
+  finished peak1104MB Blender, sampled OS3.4GB. Seven Python tests pass.
+  Next: evaluated export derivative, bake film materials to game PBR textures,
+  preserve rig controls/deform separation, optimize and verify native Godot
+  lighting/scale/action playback. No source modification, production change/push.
+
+
 - `IN_PROGRESS` INDUSTRIAL-GENERATOR-72 — modeled actual sources/
   industrial_machine.png reference into75 editable rigid parts: enamel vented
   housing, stacked finned rotary cores, bearings, cage, tubing, skid and control

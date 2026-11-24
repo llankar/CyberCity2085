@@ -31,6 +31,25 @@ accessories and full modular armor still need qualified selections.
 
 ## Acquisition and acceptance
 
+Priority acquired sources: [Einar](https://studio.blender.org/characters/einar/v1/)
+and [Charge Security Bot](https://studio.blender.org/characters/security-bot/v1/),
+Blender Studio. Official pages and embedded ReadMe.txt explicitly CC BY4.0;
+credit Blender Foundation / studio.blender.org and identify modifications.
+Original public ZIPs retained on E:, CRC tested, extraction paths checked.
+Einar:579,834,421 bytes, SHA256
+3cbb5a1dd9ffd3ca39edab420a83ea7f7db337b435a78ef27a0c87ff3e6977f7;
+Security Bot:76,209,409 bytes, SHA256
+2eae6929ab4bbc61e2dc948a12deb0453523c20b310a64d6dcb9994950a99089.
+Einar main rig799 bones plus satchel rigs,64 image blocks, authored garments,
+gloves, detailed head/hair and mechanical arm. Security Bot main rig206 bones,
+13 image blocks and detailed mechanical/paint meshes. Inventory is technical
+evidence only: neither source is game-ready or artistically accepted for Rook.
+Film procedural displacement and bound-topology dependencies require evaluated
+mesh/material baking and an independent optimized rig/export derivative.
+Do not reduce subdivision on the live bound rig: observed Surface Deform vertex
+count failures. Sources remain unchanged and embedded scripts remain disabled
+during initial inspection. Neutral render/native game roundtrip still in progress.
+
 [Vincent v1, Blender Studio](https://studio.blender.org/characters/vincent/v1/)
 acquired through its public source link, CC BY4.0 linked on official card.
 19,258,697-byte BLEND, SHA256

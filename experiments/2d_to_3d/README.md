@@ -72,6 +72,18 @@ The review's `--production-order` / M uses camera-projected -Y forward to order
 E,SE,S,SW,W,NW,N,NE. The source-forward assumption still needs visual acceptance.
 Previous differently framed experimental sheets remain preserved on E:.
 
+## Charge source review
+
+Official Einar and Security Bot ZIPs are retained on E: with provenance JSON,
+hashes and their embedded CC BY4 ReadMe. See the asset selection register.
+Run Blender with embedded scripts disabled and `blender/review_charge_asset.py
+-- SOURCE.blend OUTPUT_FOLDER` for neutral front/profile/back review. The script
+preserves bound subdivision topology and disables film procedural displacement
+only in memory. These are source-asset reviews, not optimized Godot exports.
+The first render attempt was stopped after14GB OS working set; lowering bound
+subdivision then failed Surface Deform vertex counts. Preserve the author rig
+and bake an evaluated derivative instead of editing its bound topology.
+
 The dense authored human is preserved. `export_authored_glb.py -- FOLDER
 --realtime` produces a separate simplified GLB; `--pose-clip` adds only a fitting
 test, not a gameplay action. Geometry and deformations need artistic review.
