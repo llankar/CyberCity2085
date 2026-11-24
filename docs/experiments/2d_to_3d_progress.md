@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ASSET-DOWNLOAD-WAIT-28 — verified live downloader PID 25556;
+  file grew from 137,650,176 to 155,131,904 bytes. Wait helper session 40263
+  observes the same process; no restart. Inspected MPFB's official Load Pack
+  operator and aligned installer with update_all_asset_lists after extraction.
+  Robot source reviewed: biped mechanical frame, shoulder cannon, red visor,
+  rigid segmented armor; appropriate for independent mechanical pivots.
+  Next: finish CRC/installation and inspect authored human assets; robot work
+  remains TODO. No completed artistic asset is claimed from this wait.
+
 - `IN_PROGRESS` AUTHORED-OUTFIT-27 — downloader PID 25556 remains active;
   archive grew to 116,535,296 bytes. Added configurable MPFB outfit loader
   using add_mhclo_asset for clothes/hair and set_character_skin for materials,

@@ -28,5 +28,6 @@ error = AssetService.fix_and_extract_asset_pack_zip(str(archive), str(target))
 if error:
     raise RuntimeError(error)
 AssetService.rescan_pack_metadata()
+AssetService.update_all_asset_lists()
 print('MPFB_PACK_INSTALLED', target)
 print(json.dumps([str(path.relative_to(target)) for path in target.rglob('*.mhclo')], indent=2))
