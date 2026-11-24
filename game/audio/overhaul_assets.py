@@ -9,6 +9,10 @@ PREFERRED_SFX: dict[str, tuple[str, ...]] = {
     "sfx_fire": ("weapons/fire_assault_01.wav",),
     "sfx_fire_assault": ("weapons/fire_assault_01.wav",),
     "sfx_fire_pistol": ("weapons/fire_pistol_01.wav",),
+    # No dedicated sniper recording is installed yet. Reuse the single-shot
+    # pistol source rather than the assault burst; Godot gives this event its
+    # own lower pitch and stronger body at playback time.
+    "sfx_fire_sniper": ("weapons/fire_pistol_01.wav",),
     "sfx_fire_laser": ("weapons/fire_laser_cc0_01.wav", "weapons/fire_laser_cc0_02.wav"),
     "sfx_hit": ("combat/impact_metal_01.wav", "combat/impact_metal_cc0_01.wav"),
     "sfx_hit_metal": (

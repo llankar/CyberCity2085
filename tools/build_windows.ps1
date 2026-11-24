@@ -1,8 +1,10 @@
 param(
     [string]$OutputDirectory = "dist",
     [string]$GodotExecutable = $env:CYBERCITY_PACKAGE_GODOT,
+    [string]$InnoCompiler,
     [string]$ScratchRoot,
-    [switch]$SkipTests
+    [switch]$SkipTests,
+    [switch]$SkipInstaller
 )
 
 $ErrorActionPreference = "Stop"
@@ -65,3 +67,25 @@ if ($SmokeProcess.ExitCode -ne 0 -or -not (Test-Path -LiteralPath $SmokeReport))
 $Smoke = Get-Content -LiteralPath $SmokeReport -Raw | ConvertFrom-Json
 if ($Smoke.status -ne "ok") { throw "Packaged headless smoke reported failure." }
 Write-Host "Build and headless smoke ready: $Executable"
+
+if (-not $SkipInstaller) {
+    if (-not $InnoCompiler) {
+        $InnoCandidates = @(
+            (Join-Path ${env:ProgramFiles(x86)} "Inno Setup 6\ISCC.exe"),
+            (Join-Path $env:ProgramFiles "Inno Setup 6\ISCC.exe"),
+            (Join-Path $env:LOCALAPPDATA "Programs\Inno Setup 6\ISCC.exe")
+        )
+        $InnoCompiler = $InnoCandidates | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) } | Select-Object -First 1
+    }
+    if (-not $InnoCompiler -or -not (Test-Path -LiteralPath $InnoCompiler -PathType Leaf)) {
+        throw "Inno Setup 6 is required to create the autonomous installer. Pass -InnoCompiler or use -SkipInstaller explicitly."
+    }
+    $InstallerOutput = Join-Path $BuildOutput "installer"
+    New-Item -Path $InstallerOutput -ItemType Directory -Force | Out-Null
+    $BuildVersion = (git rev-parse --short=8 HEAD).Trim()
+    & $InnoCompiler "/DSourceDir=$(Join-Path $BuildOutput 'CyberCity2085')" "/DOutputDir=$InstallerOutput" "/DBuildVersion=$BuildVersion" (Join-Path $ProjectRoot "installer\CyberCity2085.iss")
+    if ($LASTEXITCODE -ne 0) { throw "Windows installer compilation failed." }
+    $Installer = Join-Path $InstallerOutput "CyberCity2085-Setup.exe"
+    if (-not (Test-Path -LiteralPath $Installer -PathType Leaf)) { throw "Installer output is missing: $Installer" }
+    Write-Host "Autonomous installer ready: $Installer"
+}

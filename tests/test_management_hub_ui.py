@@ -346,9 +346,14 @@ class ManagementHubUITest(unittest.TestCase):
         view.setup()
         self._seed_interactive_state(view)
         from game.ui.layouts.headquarters import headquarters_layout
-        hangar = headquarters_layout(view.window.width, view.window.height).hangar
+        from game.ui.theme.typography import get_text_size
+        scale = 1.3 if get_text_size() == "large" else 1.0
+        legacy = view._headquarters.legacy if view._headquarters is not None else False
+        hangar = headquarters_layout(view.window.width, view.window.height, legacy, scale).hangar
 
-        view.on_mouse_press(hangar.left + 1, hangar.bottom + 1, 0, 0)
+        # Use the visual center: in large-text mode the footer deliberately grows
+        # a few pixels over the Hangar's lowest edge.
+        view.on_mouse_press(*hangar.center, 0, 0)
 
         self.assertEqual(view.window.shown_view.__class__.__name__, "MissionWorldMapView")
         self.assertFalse(view.room_ui.is_open)

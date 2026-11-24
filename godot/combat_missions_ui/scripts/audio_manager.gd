@@ -8,6 +8,7 @@ class_name AudioManager
 const PREVIEW_SFX_MAP: Dictionary = {
     "fire": ["fire_assault_01.wav"],
     "fire_pistol": ["fire_pistol_01.wav"],
+    "fire_sniper": ["fire_pistol_01.wav"],
     "fire_laser": ["fire_laser_cc0_01.wav", "fire_laser_cc0_02.wav"],
     "hit": ["impact_metal_01.wav", "impact_metal_cc0_01.wav"],
     "hit_metal": ["impact_metal_01.wav", "impact_metal_cc0_01.wav", "impact_metal_cc0_02.wav"],
@@ -22,9 +23,6 @@ const PREVIEW_SFX_MAP: Dictionary = {
     "shield": ["shield_cc0_01.wav"],
     "terminal": ["terminal_cc0_01.wav"],
     "door_open": ["door_open_cc0_01.wav"],
-    "ui_click": ["ui_click_01.wav"],
-    "ui_confirm": ["ui_click_01.wav"],
-    "ui_refuse": ["ui_click_01.wav"],
 	"death": ["impact_organic_cc0_01.wav"],
 	"deploy": ["door_open_cc0_01.wav"],
 	"reinforce": ["door_open_cc0_01.wav"],
@@ -110,7 +108,7 @@ func _load_stream(filename: String) -> void:
 		var wav := AudioStreamWAV.load_from_file(path)
 		if wav != null: _streams[filename] = wav
 
-func _play_sfx(filename: String, volume_scale: float = 1.0) -> void:
+func _play_sfx(filename: String, volume_scale: float = 1.0, pitch_scale: float = 1.0) -> void:
 	if not _enabled or not _streams.has(filename):
 		return
 	# Use an idle channel before stealing the oldest active channel.
@@ -123,6 +121,7 @@ func _play_sfx(filename: String, volume_scale: float = 1.0) -> void:
 		player = _sfx_players[_pool_idx % POOL_SIZE]
 		_pool_idx += 1
 	player.volume_linear = clampf(_sfx_volume_linear * volume_scale, 0.0, 1.0)
+	player.pitch_scale = pitch_scale
 	player.stream = _streams[filename] as AudioStream
 	player.play()
 
@@ -139,7 +138,10 @@ func _play_event_sfx(event_name: String) -> void:
 	# Cycle through known-real WAVs, no instant repetition when 2+ exist.
 	var next_index: int = int(_next_sample_index.get(event_name, 0)) % available.size()
 	_next_sample_index[event_name] = next_index + 1
-	_play_sfx(available[next_index])
+	if event_name == "fire_sniper":
+		_play_sfx(available[next_index], 1.0, 0.78)
+	else:
+		_play_sfx(available[next_index])
 
 
 func _set_ambience_profile(profile: String) -> void:
@@ -213,7 +215,7 @@ func configure_soundtrack(settings: Dictionary, asset_root: String = "", music_o
 
 func _on_audio_event(event_name: String) -> void:
 	match event_name:
-		"move", "fire", "fire_pistol", "melee", "hit", "death", "ui_click", "ui_confirm", "ui_refuse", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "bleed", "reinforce":
+		"move", "fire", "fire_pistol", "fire_sniper", "melee", "hit", "death", "fire_laser", "hit_metal", "hit_glass", "hit_organic", "move_concrete", "move_metal", "move_robot", "shield", "terminal", "door_open", "explosion_small", "deploy", "bleed", "reinforce":
 			_play_event_sfx(event_name)
 		"turn_player":            _play_music(_battle_music)
 		"victory", "defeat":     _play_music("Intro 2.mp3")

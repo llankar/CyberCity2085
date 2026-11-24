@@ -49,7 +49,7 @@ def check_assets():
     assets_dir = {
         "shaders": ["crt.gdshader", "circle_portrait.gdshader", "damaged.gdshader", 
                     "standee_portrait.gdshader", "neon_glow.gdshader", "holo.gdshader"],
-        "audio": ["ui_confirm_cc0_01.wav", "Neon Street Warfare.mp3", "impact_metal_cc0_01.wav", "impact_organic_cc0_01.wav"]
+        "audio": ["Neon Street Warfare.mp3", "impact_metal_cc0_01.wav", "impact_organic_cc0_01.wav"]
     }
     
     print("\n=== Asset Validation ===\n")

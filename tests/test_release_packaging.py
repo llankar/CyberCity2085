@@ -43,6 +43,19 @@ def test_release_spec_bundles_required_runtime_directories():
     assert 'contents_directory="."' in spec
 
 
+def test_windows_build_creates_a_single_autonomous_installer_by_default():
+    script = (ROOT / "tools/build_windows.ps1").read_text(encoding="utf-8")
+    installer = (ROOT / "installer/CyberCity2085.iss").read_text(encoding="utf-8")
+    assert "CyberCity2085-Setup.exe" in script
+    assert "Inno Setup 6 is required" in script
+    assert "recursesubdirs createallsubdirs" in installer
+    assert "CyberCity2085.exe" in installer
+    assert "PrivilegesRequired=lowest" in installer
+    assert "DiskSpanning=yes" in installer
+    assert "DiskSliceSize=2100000000" in installer
+    assert "{localappdata}\\Programs\\CyberCity2085" in installer
+
+
 def test_package_includes_atlases_and_map_art_without_authoring_sheets(tmp_path):
     from tools.packaging_helpers import runtime_asset_data
 

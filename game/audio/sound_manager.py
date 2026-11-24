@@ -25,7 +25,7 @@ _SFX_NAMES = [
     "sfx_death", "sfx_overwatch", "sfx_move", "sfx_turn_player",
     "sfx_turn_enemy", "sfx_victory", "sfx_defeat", "sfx_ui_click",
     "sfx_deploy", "sfx_reinforce", "sfx_stun", "sfx_bleed",
-    "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_city_short",
+    "sfx_intel_reveal", "sfx_act_advance", "sfx_fire_pistol", "sfx_fire_sniper", "sfx_city_short",
     "sfx_fire_laser", "sfx_hit_metal", "sfx_hit_glass", "sfx_hit_organic",
     "sfx_move_concrete", "sfx_move_metal", "sfx_move_robot",
     "sfx_shield", "sfx_terminal", "sfx_door_open", "sfx_explosion_small",

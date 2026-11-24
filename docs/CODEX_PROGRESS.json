@@ -16,6 +16,24 @@
   ],
   "tasks": [
     {
+      "id": "GODOT-NO-BEEP-01",
+      "title": "Supprimer les retours sonores bip du runtime Godot",
+      "status": "DONE",
+      "files": ["godot/combat_missions_ui/scripts/audio_manager.gd", "godot/combat_missions_ui/scripts/combat_mission_ui.gd", "godot/combat_missions_ui/scripts/hud_controller.gd", "godot/combat_missions_ui/validate_scene.py", "tests/test_cc0_audio_routing.py"],
+      "tests": ["11 focused audio tests passed.", "Godot 4.6.3 headless editor import exited with code 0.", "Recursive Godot search found no bip, beep, ui_click, ui_confirm or ui_refuse reference."],
+      "evidence": ["Agent switching, HUD actions and objective interactions no longer emit the removed UI sound family.", "Sniper fire uses an existing single-shot sample at pitch 0.78 and fires before hit resolution, including misses."],
+      "remaining": ["Human listening is NOT VERIFIED."]
+    },
+    {
+      "id": "WINDOWS-STANDALONE-INSTALLER-01",
+      "title": "Installeur Windows autonome sans dependance utilisateur",
+      "status": "DONE",
+      "files": ["installer/CyberCity2085.iss", "tools/build_windows.ps1", "tests/test_release_packaging.py"],
+      "tests": ["Full suite: 1265 passed, 36 skipped, 14 subtests passed.", "Corrected frozen package smoke passed with 122 maps, 7 MP3 tracks, 15 objectives and bundled Godot 4.6.3.", "Final audio and packaging gate: 24 passed.", "Silent install on E: succeeded and the installed executable smoke reported status ok."],
+      "evidence": ["Installer includes the complete PyInstaller directory recursively and installs per user without administrator privileges.", "Python, Arcade, Godot and local assets are bundled; the target machine does not need separate runtime installation.", "The approximately 6 GB payload is shipped as Setup plus three local data slices because Windows limits a single Setup executable to 4.2 GB.", "Setup SHA-256: 2AB708B760A6673A9223D9A332CBBEF84E06831EA3545CCA32337E1C9D05FD00."],
+      "remaining": ["Visible Windows acceptance and human audio listening are NOT VERIFIED."]
+    },
+    {
       "id": "BASE-VEHICLE-UPGRADES-01",
       "title": "Onglet Base Upgrades et progression du vehicule de deploiement",
       "status": "IN_PROGRESS",

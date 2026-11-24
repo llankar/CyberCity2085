@@ -212,10 +212,6 @@ func close_gamepad_actions(activate: bool = false) -> void:
 
 func _on_action_pressed(action: String) -> void:
 	CombatSignals.action_pressed.emit(action)
-	# System commands can require a second confirmation. Keeping them silent
-	# avoids stacked click/beep feedback at agent and player-turn boundaries.
-	if action not in _SYSTEM_ACTIONS:
-		CombatSignals.audio_event.emit("ui_click")
 
 # ── Input (portrait hover) ────────────────────────────────────────────────────
 

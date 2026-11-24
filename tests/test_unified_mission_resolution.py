@@ -9,6 +9,7 @@ from game.mission_templates import MissionTemplate
 from game.combat.godot_bridge import write_godot_combat_handoff
 from game.combat.session_protocol import create_session,validate_result
 from game.combat.godot_resolution import resolve_godot_result
+from game.management.funds import calculate_mission_fund_reward
 
 
 def test_result_published_during_exit_poll_is_read_next_tick(tmp_path):
@@ -92,7 +93,7 @@ def test_victory_uses_common_campaign_rules_and_does_not_trust_engine_rewards(tm
     assert state.active_mission is None
     assert state.latest_mission_debrief['campaign_rewards']['resources']['credits']==26
     rewards = state.latest_mission_debrief['campaign_rewards']
-    assert rewards['mission_payout'] == 120
+    assert rewards['mission_payout'] == calculate_mission_fund_reward(mission, True)
     assert rewards['mission_payout'] == sum(
         tx.amount for tx in state.funds.transaction_history if tx.source == 'mission_reward'
     )

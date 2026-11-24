@@ -1080,7 +1080,6 @@ func _interact_with_objective() -> void:
 				str(active.get("name", "Agent")), label]
 		status_line = line
 		_log_event(line)
-		CombatSignals.audio_event.emit("ui_click")
 		_sync_display()
 		_complete_mission()
 	else:
@@ -1089,7 +1088,6 @@ func _interact_with_objective() -> void:
 				objective_progress, needed]
 		status_line = line
 		_log_event(line)
-		CombatSignals.audio_event.emit("ui_click")
 		_sync_display()
 
 func _cycle_active_unit() -> void:
@@ -1379,7 +1377,6 @@ func _apply_trauma_patch() -> void:
 	var pkey := "p%d" % active_player_index
 	if _unit_tokens.has(pkey) and is_instance_valid(_unit_tokens[pkey]):
 		_unit_tokens[pkey].update_data(active)
-	CombatSignals.audio_event.emit("ui_click")
 	_sync_display()
 	if int(active.get("ap", 0)) == 0:
 		_auto_advance_unit()
@@ -1503,6 +1500,20 @@ func _log_last_stand(attacker: Dictionary) -> void:
 	attacker["last_stand_hp"] = hp
 	_log_event('%s: "%s"' % [str(attacker.get("name", "Agent")), line])
 
+func _attack_audio_event(attacker: Dictionary, action_name: String, attack_type: String) -> String:
+	if attack_type == "PSI":
+		return "psi"
+	if attack_type != "FIRE":
+		return "hit"
+	var normalized_action := action_name.to_lower()
+	if str(attacker.get("role", "")).to_lower() == "sniper" or "precision" in normalized_action or "sniper" in normalized_action:
+		return "fire_sniper"
+	if "pistol" in normalized_action:
+		return "fire_pistol"
+	if "laser" in normalized_action or "plasma" in normalized_action:
+		return "fire_laser"
+	return "fire"
+
 func _attack_enemy(target_index: int, action_name: String) -> void:
 	if target_index < 0 or target_index >= enemy_units.size(): return
 	var target := enemy_units[target_index] as Dictionary
@@ -1543,6 +1554,10 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 	var akey := "p%d" % active_player_index
 	if _unit_tokens.has(akey) and _unit_tokens.has(ekey):
 		_visual_attack(akey, ekey, _action_type(action_name), action_name)
+	# The weapon report happens when the shot leaves the barrel, independently
+	# of the later hit roll. This keeps missed sniper shots audible too.
+	if atype == "FIRE":
+		CombatSignals.audio_event.emit(_attack_audio_event(attacker, action_name, atype))
 
 	if not hit:
 		_log_event("%s misses %s. (%d%%)" % [
@@ -1570,7 +1585,8 @@ func _attack_enemy(target_index: int, action_name: String) -> void:
 		if int(target.get("hp", 0)) <= 0:
 			_unit_tokens[ekey].play_death()
 
-	CombatSignals.audio_event.emit("psi" if atype == "PSI" else ("fire" if atype == "FIRE" else "hit"))
+	if atype != "FIRE":
+		CombatSignals.audio_event.emit(_attack_audio_event(attacker, action_name, atype))
 	CombatSignals.unit_attacked.emit(
 		active_player_index, false, target_index, true, damage, true)
 	if int(target.get("hp", 0)) <= 0:

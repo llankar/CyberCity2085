@@ -65,6 +65,24 @@ def test_combat_clicks_and_generic_movement_only_use_recorded_samples(tmp_path):
     assert preview_sfx_paths("sfx_turn_enemy", root=root) == ()
 
 
+def test_sniper_uses_single_shot_sample_and_distinct_godot_event(tmp_path):
+    root = tmp_path / "overhaul"
+    make_pcm(root / "weapons/fire_pistol_01.wav")
+    assert [path.name for path in preview_sfx_paths("sfx_fire_sniper", root=root)] == [
+        "fire_pistol_01.wav"
+    ]
+    project = Path(__file__).resolve().parents[1] / "godot/combat_missions_ui/scripts"
+    audio = (project / "audio_manager.gd").read_text(encoding="utf-8")
+    combat = (project / "combat_mission_ui.gd").read_text(encoding="utf-8")
+    assert '"fire_sniper": ["fire_pistol_01.wav"]' in audio
+    assert 'event_name == "fire_sniper"' in audio and "0.78" in audio
+    assert 'return "fire_sniper"' in combat
+    assert "_attack_audio_event(attacker, action_name, atype)" in combat
+    before_miss = combat.split("if not hit:", 1)[0]
+    assert 'if atype == "FIRE":' in before_miss
+    assert 'CombatSignals.audio_event.emit(_attack_audio_event(attacker, action_name, atype))' in before_miss
+
+
 def test_ambience_is_optional_separate_from_music(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert preview_city_ambience_path() is None
@@ -82,17 +100,17 @@ def test_static_godot_audio_contract_uses_only_new_bank():
     assert 'Neon Street Warfare.mp3' in gd and "Intro 2.mp3" in gd
     assert "sfx_fire.wav" not in gd and "music_battle.wav" not in gd
     assert '"move": ["step_concrete_01.wav"]' in gd
-    assert '"ui_click": ["ui_click_01.wav"]' in gd
+    assert '"ui_click"' not in gd and '"ui_confirm"' not in gd and '"ui_refuse"' not in gd
+    assert '"fire_sniper"' in gd
     assert '"turn_player":            _play_music(_battle_music)' in gd
     assert '"ambience_profile"' in bridge
 
 
-def test_system_turn_commands_do_not_emit_click_audio():
+def test_godot_hud_does_not_emit_click_audio():
     root = Path(__file__).resolve().parents[1]
     hud = (root / "godot/combat_missions_ui/scripts/hud_controller.gd").read_text()
     handler = hud.split("func _on_action_pressed(action: String) -> void:", 1)[1].split("func ", 1)[0]
-    assert "if action not in _SYSTEM_ACTIONS:" in handler
-    assert 'CombatSignals.audio_event.emit("ui_click")' in handler
+    assert 'CombatSignals.audio_event.emit("ui_click")' not in handler
 
 
 def test_zero_ap_auto_advance_is_silent():
