@@ -2,6 +2,13 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-JOINTS-46 — added eight cylindrical mechanical bearings
+  and cannon barrel; regenerated robot_mechanical02 BLEND/GLB and neutral
+  rest/pivot-test renders. Bent knee/elbow capture inspected: rigid components
+  follow their pivots without mesh skinning. Still a coarse blockout, not
+  source-faithful final art or a validated animation set. Next: taper/chamfer
+  armor silhouette, add exposed mechanics and export real mechanical clips.
+
 - `IN_PROGRESS` ROBOT-MECHANICAL-45 — built first rigid mechanical blockout
   from reference with independent torso/head/hip/knee/shoulder/elbow pivots,
   ivory armor, red visor/core and shoulder cannon. Blender generated BLEND/GLB

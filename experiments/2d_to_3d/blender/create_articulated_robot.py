@@ -2,6 +2,7 @@
 import sys
 from pathlib import Path
 import bpy
+import math
 from mathutils import Vector
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -33,6 +34,20 @@ def piece(name, location, size, mat, parent):
     obj.matrix_parent_inverse = parent.matrix_world.inverted()
     return obj
 
+def bearing(name, location, radius, depth, parent, axis='X'):
+    bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=radius, depth=depth, location=location)
+    obj = bpy.context.object
+    obj.name = name
+    obj.rotation_euler = (0, math.pi / 2, 0) if axis == 'X' else (math.pi / 2, 0, 0)
+    bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
+    obj.data.materials.append(steel)
+    bevel = obj.modifiers.new('MachinedEdge', 'BEVEL')
+    bevel.width = 0.008
+    bevel.segments = 2
+    obj.parent = parent
+    obj.matrix_parent_inverse = parent.matrix_world.inverted()
+    return obj
+
 torso = pivot('TorsoYaw', (0, 0, 1.45), root)
 piece('ChestArmor', (0, 0, 1.50), (0.33, 0.19, 0.28), armor, torso)
 piece('ChestCore', (0, -0.205, 1.50), (0.10, 0.025, 0.12), steel, torso)
@@ -42,16 +57,21 @@ piece('HeadArmor', (0, 0, 1.94), (0.20, 0.17, 0.13), armor, head)
 piece('RedVisor', (0, -0.18, 1.95), (0.16, 0.018, 0.035), red, head)
 for sign, side in [(1, 'L'), (-1, 'R')]:
     hip = pivot('Hip_' + side, (sign * 0.22, 0, 1.12), root)
+    bearing('HipBearing_' + side, (sign * 0.22, 0, 1.12), 0.12, 0.26, hip)
     piece('Thigh_' + side, (sign * 0.22, 0, 0.91), (0.13, 0.14, 0.23), armor, hip)
     knee = pivot('Knee_' + side, (sign * 0.22, 0, 0.65), hip)
+    bearing('KneeBearing_' + side, (sign * 0.22, 0, 0.65), 0.10, 0.28, knee)
     piece('Shin_' + side, (sign * 0.22, 0, 0.42), (0.12, 0.13, 0.23), armor, knee)
     piece('Foot_' + side, (sign * 0.22, -0.09, 0.12), (0.14, 0.24, 0.10), steel, knee)
     shoulder = pivot('Shoulder_' + side, (sign * 0.44, 0, 1.67), torso)
+    bearing('ShoulderBearing_' + side, (sign * 0.44, 0, 1.67), 0.15, 0.24, shoulder)
     piece('UpperArm_' + side, (sign * 0.47, 0, 1.48), (0.13, 0.14, 0.21), armor, shoulder)
     elbow = pivot('Elbow_' + side, (sign * 0.47, 0, 1.24), shoulder)
+    bearing('ElbowBearing_' + side, (sign * 0.47, 0, 1.24), 0.09, 0.25, elbow)
     piece('Forearm_' + side, (sign * 0.47, -0.02, 1.08), (0.11, 0.12, 0.17), steel, elbow)
     piece('Hand_' + side, (sign * 0.47, -0.02, 0.86), (0.10, 0.08, 0.08), armor, elbow)
 piece('ShoulderCannon', (0.45, -0.18, 1.85), (0.075, 0.30, 0.075), steel, torso)
+bearing('CannonBarrel', (0.45, -0.48, 1.85), 0.045, 0.30, torso, axis='Y')
 scene = bpy.context.scene
 scene.world = bpy.data.worlds.new('NeutralWorld')
 scene.world.color = (0.18, 0.18, 0.18)
@@ -75,4 +95,9 @@ bpy.ops.object.select_all(action='DESELECT')
 for obj in scene.objects:
     obj.select_set(obj.type in {'MESH', 'EMPTY'})
 bpy.ops.export_scene.gltf(filepath=str(output / 'robot_blockout.glb'), export_format='GLB', use_selection=True, export_apply=True)
+for name, angle in [('Knee_L', 0.6), ('Elbow_R', 0.9)]:
+    bpy.data.objects[name].rotation_euler.x = angle
+bpy.context.view_layer.update()
+scene.render.filepath = str(output / 'robot_pivot_test.png')
+bpy.ops.render.render(write_still=True)
 print('ARTICULATED_ROBOT_BLOCKOUT_EXPORTED')
