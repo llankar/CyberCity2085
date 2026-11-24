@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-EXPORT-36 — reviewed armor01 back/profile: coherent
+  authored fit; checked Helios MHCLO CC0 (author field unknown) and bodysuit
+  CC0/MatCreator headers. Added disposable-copy exporter and successfully
+  generated authored_outfit.glb with five mesh objects, skinning and textures.
+  Export warnings: multiple image samplers and >4 skin influences. Godot
+  material/deformation review NOT VERIFIED. Next: native Godot capture and
+  tactical-scale framing, then posed comparison before accepting materials.
+
 - `IN_PROGRESS` AUTHORED-ARMOR-35 — suits02 download complete (192,511,027
   bytes), CRC/install passed. Inspected cyborg/Guardian/Helios thumbnails;
   Guardian header explicitly says MatCreator/CC0. Fitted MC-BodySuit-2021 plus
