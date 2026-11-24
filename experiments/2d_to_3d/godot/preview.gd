@@ -44,8 +44,9 @@ func _ready() -> void:
 		var clips := player.get_animation_list()
 		var selected := ""
 		for clip in clips:
-			if requested_clip in clip:
+			if clip == requested_clip or clip.get_file() == requested_clip:
 				selected = clip
+				break
 		if selected.is_empty():
 			push_error("Fitting clip missing")
 			get_tree().quit(10)
@@ -165,7 +166,10 @@ func _ready() -> void:
 		var mesh_bounds: AABB = mesh.global_transform * mesh.get_aabb()
 		bounds = mesh_bounds if first_bound else bounds.merge(mesh_bounds)
 		first_bound = false
-	camera.look_at(bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0))
+	var target := bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0)
+	# Keep the viewing direction independent of imported model height/units.
+	camera.position = target + Vector3(1.8, 1.05, 1.8)
+	camera.look_at(target)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--ortho-size="):
 			camera.size = maxf(0.5, argument.trim_prefix("--ortho-size=").to_float())

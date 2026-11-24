@@ -2,6 +2,20 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` MECH-PREVIEW-57 — corrected camera placement relative to model bounds,
+  rather than an absolute human-height camera position. Native Godot Idle,
+  Walk, Shoot and Death midpoint captures generated and visually inspected on E:.
+  The earlier apparent orientation failure was partly a camera framing problem;
+  no source-axis correction is justified by that capture. Also fixed exact clip
+  lookup: Walk previously matched Walk_Tall. Native rerun reports Walk exactly.
+  Five focused experiment tests passed. These are sampled poses, not a verified
+  full animation/deformation sequence. George is an authored textured animated
+  candidate, but stylized silhouette/materials do not meet final CyberCity art.
+  Next: normalize a derived copy to tactical scale, review complete clips and
+  compare against the project robot reference; retain original licensed source.
+  Global prototype acceptance remains IN_PROGRESS; no runtime changes or push.
+
+
 - `IN_PROGRESS` MECH-ORIENTATION-56 — inspected George scene root (no explicit
   root rotation/scale). Added reversible preview root-X override; -90-degree
   Idle capture does not restore expected upright appearance (hypothesis fails).
