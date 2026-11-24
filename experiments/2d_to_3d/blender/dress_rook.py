@@ -102,7 +102,7 @@ for polygon in torso.data.polygons:
 
 for sign, side in [(1, 'l'), (-1, 'r')]:
     jacket_panel('Rook_Lapel_' + side,
-        [(sign * x, y, z) for x, y, z in [(0.06, -0.09, 1.47), (0.15, -0.105, 1.40), (0.10, -0.145, 1.24), (0.055, -0.13, 1.37)]],
+        [(sign * x, y, z) for x, y, z in [(0.06, -0.145, 1.47), (0.15, -0.175, 1.40), (0.10, -0.185, 1.24), (0.055, -0.18, 1.37)]],
         [(0, 1, 2, 3)] if sign > 0 else [(3, 2, 1, 0)])
 collar_vertices = []
 for z, radius in [(1.43, 0.092), (1.51, 0.105)]:
@@ -185,6 +185,12 @@ for side, sign in [('l', 1), ('r', -1)]:
     boot_piece('Rook_BootUpper_' + side, (x, -0.060, 0.090), (0.060, 0.135, 0.045), bone, (0.022, 0.03, 0.035))
     boot_piece('Rook_BootShaft_' + side, (x, 0.025, 0.185), (0.060, 0.065, 0.105), bone, (0.022, 0.03, 0.035))
 bpy.ops.wm.save_as_mainfile(filepath=str(output / 'rook_dressed.blend'))
+bpy.ops.object.select_all(action='DESELECT')
+for obj in bpy.context.scene.objects:
+    if obj == rig or (obj.type == 'MESH' and obj.name != 'PreviewFloor' and not obj.hide_render):
+        obj.select_set(True)
+bpy.context.view_layer.objects.active = rig
+bpy.ops.export_scene.gltf(filepath=str(output / 'rook_dressed.glb'), export_format='GLB', use_selection=True, export_apply=False, export_yup=True)
 bpy.context.scene.render.filepath = str(output / 'rook_dressed_preview.png')
 bpy.ops.render.render(write_still=True)
 camera = bpy.context.scene.camera

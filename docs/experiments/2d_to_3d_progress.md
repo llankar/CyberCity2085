@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-GLB-13 — repositioned lapels toward the measured front
+  surface and exported visible body/garment components plus rig as GLB.
+  v11 BLEND, GLB and five renders generated on E:. Godot 4.7.2 headless loads
+  the dressed GLB with exit 0. Export warns that weights beyond four influences
+  are truncated/normalized; posed Blender/Godot comparison remains required.
+  This is technical import evidence only, not visual or animation acceptance.
+  Next: inspect v11 all angles and compare skin deformation after GLB import.
+
 - `IN_PROGRESS` ROOK-FIT-12 — measured actual body sections with bpy; torso
   is offset toward negative Y (front reaches -0.162 m at z=1.12). Corrected
   jacket center, depth and chest width instead of assuming a centered ellipse.
