@@ -76,6 +76,18 @@ def draw_research(k, left, center, right):
     k.stat(Rect(body.left+half+10*u, y-78*u, body.right, y), k.word("DURÉE", "DURATION"), f"{project.days_required} d", "clock", color=PURPLE)
     effects = [f"{name.replace('_', ' ').upper()} {value:+}" for name, value in project.stat_modifiers.items()]
     effects += [flag.replace(".", " / ").upper() for flag in project.unlock_flags]
+    if project.unlocked_equipment_ids:
+        from game.management.equipment import default_equipment_catalog
+        equipment_names = {
+            item.id: item.name
+            for items in default_equipment_catalog().values()
+            for item in items
+        }
+        effects += [
+            k.word("ACHAT DÉBLOQUÉ : ", "PURCHASE UNLOCKED: ")
+            + equipment_names.get(item_id, item_id)
+            for item_id in project.unlocked_equipment_ids
+        ]
     prerequisites = [tree.projects[x].name if x in tree.projects else x for x in project.requires]
     missing = [tree.projects[x].name for x in project.requires if x not in completed and x in tree.projects]
     detail = project.description + "\n\n" + project.category.upper()

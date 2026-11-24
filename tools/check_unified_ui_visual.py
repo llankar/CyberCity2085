@@ -172,6 +172,10 @@ def main():
         assert gs.city_budget["armaments"] == old + 10
         view._open_hub_room("research")
         draw()
+        view._department_deck.selection["research"] = "weapon_corporate_rail_lattice"
+        capture("research-equipment-unlocks")
+        view._department_deck.selection["research"] = "weapon_smartlink_mk1"
+        draw()
         action = next(
             h.action for h in view._hits if h.action.startswith("start_research_")
         )

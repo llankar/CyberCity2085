@@ -1,5 +1,7 @@
 # Tactical Combat Retrofit Backlog
 
+- ASSET-BAY-RESEARCH-UNLOCK-LIST-01 — DONE (2026-11-24). Les projets R&D exposent maintenant la liste exhaustive des équipements Research qu'ils autorisent à acheter. Couverture bijective vérifiée : chaque objet avancé appartient à exactement un projet existant, aucun projet n'accorde d'exemplaire gratuit. Les deux présentations Research affichent les noms réels. 65 tests et 5 sous-tests réussis ; validateur natif PASS aux trois résolutions et capture Corporate Rail Lattice inspectée.
+
 - ASSET-BAY-ARMORY-PAGING-01 — DONE (2026-11-24). Le catalogue ne se recale plus à chaque frame sur l'objet sélectionné : les flèches changent réellement de page et le recentrage ne se produit qu'après changement de sélection/famille/tri. Les images utilisent `contain` avec marge, donc les armes longues restent entières. Titres tronqués et libellés d'accès/puissance clarifiés. 69 tests et 5 sous-tests réussis ; validateur natif complet PASS aux trois résolutions, captures 1280×720 et 1920×1061 inspectées.
 
 - ASSET-BAY-ARMORY-LOSS-01 — IN_PROGRESS (2026-11-24). Deux lots intégrés : stock quantitatif/classification/dotation/migration/recrutement, puis armurerie Asset Bay graphique à familles, tris, PNG, quantités et achats. Les objets Research sont liés aux vrais paliers Weapons/Armor/Equipment/Psy et la recherche ne donne aucun objet. Gates : 59 puis 69 tests, avec 5 sous-tests chacun. Snapshot/pertes/récupération, rapport, parité Arcade/Godot, simulations A–G et validation Windows restent ouverts.

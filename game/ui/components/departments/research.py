@@ -91,6 +91,18 @@ def draw_research(k, left, center, right):
             + "\n"
             + ", ".join(p.unlock_flags)
         )
+        if p.unlocked_equipment_ids:
+            from game.management.equipment import default_equipment_catalog
+            equipment_names = {
+                item.id: item.name
+                for items in default_equipment_catalog().values()
+                for item in items
+            }
+            detail += "\n" + k.word("ÉQUIPEMENTS DÉBLOQUÉS : ", "EQUIPMENT UNLOCKED: ")
+            detail += ", ".join(
+                equipment_names.get(item_id, item_id)
+                for item_id in p.unlocked_equipment_ids
+            )
         if p.requires:
             detail += (
                 "\n"

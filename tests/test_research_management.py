@@ -6,6 +6,7 @@ from pathlib import Path
 
 from game.gamestate import GameState
 from game.management.research import RESEARCH_CATEGORIES, create_starter_research_tree
+from game.management.equipment import AVAILABILITY_RESEARCH, default_equipment_catalog
 from game.ui.research_lab import build_research_lab_lines
 from game.ui.room_interaction import actions_for_room
 
@@ -27,6 +28,41 @@ class ResearchManagementTest(unittest.TestCase):
         self.assertGreaterEqual(len(tree.projects), 20)
         for category in RESEARCH_CATEGORIES:
             self.assertGreaterEqual(len(tree.projects_for_category(category)), 3)
+
+    def test_every_research_equipment_is_listed_by_exactly_one_real_project(self):
+        tree = create_starter_research_tree()
+        research_items = {
+            item.id: item.research_project_id
+            for items in default_equipment_catalog().values()
+            for item in items
+            if item.availability_group == AVAILABILITY_RESEARCH
+        }
+        listed = {}
+        for project in tree.projects.values():
+            for item_id in project.unlocked_equipment_ids:
+                self.assertNotIn(item_id, listed)
+                listed[item_id] = project.id
+        self.assertEqual(listed, research_items)
+
+    def test_research_completion_unlocks_purchase_right_but_grants_no_item(self):
+        state = GameState()
+        project = next(
+            project
+            for project in state.research_tree.projects.values()
+            if project.unlocked_equipment_ids
+        )
+        before = dict(state.owned_equipment)
+        state.completed_research.append(project.id)
+        self.assertEqual(state.owned_equipment, before)
+        item_id = project.unlocked_equipment_ids[0]
+        item = next(
+            item
+            for items in default_equipment_catalog().values()
+            for item in items
+            if item.id == item_id
+        )
+        state.funds.current_funds = 100_000
+        self.assertTrue(state.purchase_equipment(item)[0])
 
     def test_starting_research_pays_cost_and_queues_project(self):
         game_state = GameState()

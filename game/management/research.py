@@ -7,7 +7,7 @@ modifiers that other systems can read without coupling to a large tech system.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -36,6 +36,7 @@ class ResearchProject:
     days_required: int
     description: str = ""
     unlock_flags: tuple[str, ...] = ()
+    unlocked_equipment_ids: tuple[str, ...] = ()
     stat_modifiers: dict[str, int] = field(default_factory=dict)
     requires: tuple[str, ...] = ()
 
@@ -57,6 +58,7 @@ class ResearchProject:
             "days_required": self.days_required,
             "description": self.description,
             "unlock_flags": list(self.unlock_flags),
+            "unlocked_equipment_ids": list(self.unlocked_equipment_ids),
             "stat_modifiers": dict(self.stat_modifiers),
             "requires": list(self.requires),
         }
@@ -366,7 +368,25 @@ def create_starter_research_tree() -> ResearchTree:
             stat_modifiers={"power_armor_response": 1},
         ),
     ]
-    return ResearchTree({project.id: project for project in starter_projects})
+    projects = {project.id: project for project in starter_projects}
+    # Keep the equipment catalogue as the source of truth.  Research projects
+    # explicitly expose every item they unlock so the R&D UI can communicate
+    # the purchase rights before the player commits funds and campaign days.
+    from .equipment import AVAILABILITY_RESEARCH, default_equipment_catalog
+
+    unlocks: dict[str, list[str]] = {}
+    for items in default_equipment_catalog().values():
+        for item in items:
+            if item.availability_group == AVAILABILITY_RESEARCH:
+                unlocks.setdefault(item.research_project_id, []).append(item.id)
+    for project_id, item_ids in unlocks.items():
+        if project_id not in projects:
+            raise ValueError(f"Equipment references unknown research project: {project_id}")
+        projects[project_id] = replace(
+            projects[project_id],
+            unlocked_equipment_ids=tuple(sorted(item_ids)),
+        )
+    return ResearchTree(projects)
 
 
 def active_research_ids(game_state: "GameState") -> set[str]:

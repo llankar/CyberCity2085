@@ -17,6 +17,15 @@
   ],
   "tasks": [
     {
+      "id": "ASSET-BAY-RESEARCH-UNLOCK-LIST-01",
+      "title": "Afficher les equipements debloques par chaque recherche",
+      "status": "DONE",
+      "files": ["game/management/research.py", "game/ui/components/departments/lab2.py", "game/ui/components/departments/research.py", "tools/check_unified_ui_visual.py", "tests/test_research_management.py"],
+      "tests": ["Research, equipment, Management, Base Command Center and dossier gate: 65 passed and 5 subtests passed.", "Native unified UI validator passed at three resolutions after selecting Corporate Rail Lattice."],
+      "evidence": ["Every Research equipment ID is listed by exactly one existing research project.", "Completing research changes purchase eligibility but does not mutate owned equipment.", "Both research detail presentations render real equipment names.", "Corporate Rail Lattice native capture visibly lists Arc Caster, Combat Shotgun and Micro-Uzi across the paginated detail reader."],
+      "remaining": []
+    },
+    {
       "id": "ASSET-BAY-ARMORY-PAGING-01",
       "title": "Corriger pagination, cadrage et lisibilite de l'armurerie Asset Bay",
       "status": "DONE",
