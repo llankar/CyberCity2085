@@ -2,11 +2,46 @@
 import bpy
 
 
+def scaled_emission(tree, shader):
+    """Bake radiance color, including the authored emission strength."""
+    node=tree.nodes.new('ShaderNodeVectorMath'); node.operation='SCALE'
+    color=shader.inputs['Emission Color']; strength=shader.inputs['Emission Strength']
+    if color.links: tree.links.new(color.links[0].from_socket,node.inputs[0])
+    else: node.inputs[0].default_value=color.default_value[:3]
+    if strength.links: tree.links.new(strength.links[0].from_socket,node.inputs['Scale'])
+    else: node.inputs['Scale'].default_value=strength.default_value
+    return node.outputs['Vector']
+
+
 def channels(material):
     nodes=material.node_tree.nodes
-    group=next((n for n in nodes if n.type=='GROUP' and n.node_tree.name.startswith('SH-secbot.')),None)
+    group=next((n for n in nodes if n.type=='GROUP' and n.node_tree.name.startswith(('SH-secbot.','SH-metal_base','SH-metal_road_sign'))),None)
     if group and all(name in group.outputs for name in ['Color','Roughness','Metallic']):
         return {key:group.outputs[name] for key,name in [('BaseColor','Color'),('Roughness','Roughness'),('Metallic','Metallic')]} | {'Alpha':1.0,'Emission':(0,0,0,1)}
+    group=next((n for n in nodes if n.type=='GROUP' and n.node_tree.name.startswith(('SH-cable.','SH-rubber_pads.','SH-RubberHose.','SH-metal_road_sign.'))),None)
+    if group:
+        tree=group.node_tree
+        output=next(n for n in tree.nodes if n.type=='GROUP_OUTPUT' and n.is_active_output)
+        links=output.inputs['BSDF'].links
+        if len(links)!=1 or links[0].from_node.type!='BSDF_PRINCIPLED':
+            raise ValueError('Group no longer has inspected direct Principled route: '+tree.name)
+        shader=links[0].from_node
+        target='GameBake_Emission'
+        if target not in group.outputs:
+            tree.interface.new_socket(name=target,in_out='OUTPUT',socket_type='NodeSocketColor')
+            tree.links.new(scaled_emission(tree,shader),output.inputs[target])
+        result={'Emission':group.outputs[target]}
+        for key,name in [('BaseColor','Base Color'),('Roughness','Roughness'),('Metallic','Metallic'),('Alpha','Alpha')]:
+            target='GameBake_'+key
+            if target not in group.outputs:
+                socket=shader.inputs[name]
+                tree.interface.new_socket(name=target,in_out='OUTPUT',socket_type='NodeSocketColor' if key=='BaseColor' else 'NodeSocketFloat')
+                if socket.links:
+                    tree.links.new(socket.links[0].from_socket,output.inputs[target])
+                else:
+                    output.inputs[target].default_value=socket.default_value
+            result[key]=group.outputs[target]
+        return result
     group=next((n for n in nodes if n.type=='GROUP' and n.node_tree.name.startswith('SH-decal')),None)
     if group:
         return {'BaseColor':group.outputs['Color'],'Roughness':group.outputs['Roughness'],
@@ -15,8 +50,8 @@ def channels(material):
     if len(shaders)!=1:
         raise ValueError('Unresolved layered/transmission shader: '+material.name)
     shader=shaders[0]
-    result={}
-    for key,name in [('BaseColor','Base Color'),('Roughness','Roughness'),('Metallic','Metallic'),('Alpha','Alpha'),('Emission','Emission Color')]:
+    result={'Emission':scaled_emission(material.node_tree,shader)}
+    for key,name in [('BaseColor','Base Color'),('Roughness','Roughness'),('Metallic','Metallic'),('Alpha','Alpha')]:
         socket=shader.inputs[name]
         result[key]=socket.links[0].from_socket if socket.links else socket.default_value
     return result

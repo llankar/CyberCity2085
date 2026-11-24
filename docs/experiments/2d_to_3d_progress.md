@@ -2,6 +2,47 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EINAR-MATERIALS-TACTICAL-77 — authored dielectric bake expanded
+  from the jacket to30 visible skin/cloth/boot/glove/satchel/eye meshes. First
+  mechanical conversion added29 meshes, then explicit group-interface lifting
+  and emission-strength multiplication raised coverage to76/76. Last five
+  road-sign/finger surfaces completed with --resume; no entire-job restart.
+  Native material tests pass:8 robot interfaces/refused glass; synthetic cable
+  tests verify lifted color, emission strength3, cached outputs and changed-route
+  refusal. Initial library restore failed because Blender mutated its requested
+  object-name list; immutable tuple/copy fixed it before baking.
+
+  E: phase2/einar_pbr01/human_pbr.blend/.glb,274 embedded images,235,726 triangles,
+  35,302,928 GLB bytes. Real-file verify_einar_dielectrics.py --mechanics passes
+  76 meshes/one scene/offline textures, zero unresolved adapters. This proves
+  adapter coverage only: film refraction/cornea, subsurface, hair, emission HDR,
+  detailed appearance and deformation are NOT accepted. Neutral native Godot
+  front/side/back captures all executed/inspected: godot_front/side/back.png.
+  Source beard/hair absent; source game skeleton/action clips not yet exported.
+  Skinning audit confirms25 evaluated meshes retain vertex weights,51 are rigid;
+  source rig/group names and constraint attachment mechanisms recorded on E:.
+
+  Independent comparison.gd --charge loads these human/robot derivatives beside
+  VTOL/crate/generator on the existing alley (5 subjects/627 obstacle cells).
+  Native selection/camera/unavailable-action checks pass. Measured mesh heights
+  are1.855504m human/1.949876m robot; no copied2.4m label. Actual1920x1080 sprite
+  comparison matches62.208px and20.736px reference heights to<0.1px; captures
+  charge_sprite_close.png/overview.png on E:. Close/tactical images inspected;
+  overview capture generated, artistic review still pending. Existing sprites
+  remain more immediately readable; T-pose and thin robot silhouette inadequate.
+  Original animated-George comparison regression still dispatches Walk correctly.
+  Frame-loop timing logs are CPU-loop samples, NOT a verified GPU/FPS benchmark.
+  HUD overlap corrected and close capture rerun. Seven Python tests pass.
+
+  Files: charge_dielectric.py, bake_einar_dielectrics.py, bake_einar_mechanics.py,
+  charge_pbr.py, inspect_charge_materials.py, audit_einar_skinning.py,
+  check_charge_group_channels.py, verify_einar_dielectrics.py, comparison.gd,
+  preview.gd (--view=front/side/back). No production/source/save changes or push.
+  Next: convert authored curve hair/beard, export a game skeleton preserving the
+  audited weights/rigid attachments, validate deformations and real actions;
+  fix robot glass/emission, optimize/batch stage geometry, redo tactical art review.
+  Global scope remains incomplete; no humanoid artistic/animation criterion DONE.
+
 - `IN_PROGRESS` CHARGE-GAME-CONVERSION-76 — whole static robot bake finished:
   120/124 meshes baked; four robot_glass meshes explicitly unresolved/purple.
   Real GLB verification:269,209 triangles,35,676,008 bytes,480 embedded images,

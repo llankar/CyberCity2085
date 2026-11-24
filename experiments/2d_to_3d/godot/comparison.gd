@@ -11,6 +11,18 @@ var target := Vector3(0, 1.0, 0)
 var orbiting := false
 var orbit_mode := false
 var clip_status := "Human: static fitting model; action clips unavailable"
+var human_height := 1.718
+var robot_height := 2.4
+
+func subject_height(subject: Node3D) -> float:
+	var bounds := AABB()
+	var first := true
+	for mesh in subject.find_children("*", "MeshInstance3D", true, false):
+		var box: AABB = mesh.global_transform * mesh.get_aabb()
+		bounds = box if first else bounds.merge(box)
+		first = false
+	assert(not first and bounds.size.y > 0.5)
+	return bounds.size.y
 
 func load_subject(path: String, position_value: Vector3) -> bool:
 	var document := GLTFDocument.new()
@@ -45,12 +57,19 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
-	if not load_subject(root + "authored_tactical01/" + human_file, Vector3(-1.6, 0, 0)):
+	var charge := "--charge" in OS.get_cmdline_user_args()
+	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
+	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
+	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
-	if not load_subject(root + "george_tactical/george_tactical.glb", Vector3(1.6, 0, 0)):
+	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
+	if charge:
+		human_height = subject_height(subjects[0])
+		robot_height = subject_height(subjects[1])
+		print("CHARGE_STATIC_SUBJECTS_LOADED human_height=", human_height, " robot_height=", robot_height)
 	var world := WorldEnvironment.new()
 	world.environment = Environment.new()
 	world.environment.background_mode = Environment.BG_COLOR
@@ -108,8 +127,12 @@ func _ready() -> void:
 		assert(selected == 1)
 		key.keycode = KEY_2
 		_unhandled_input(key)
-		var player := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-		assert(player.current_animation == "Walk")
+		if charge:
+			assert("unavailable" in clip_status)
+			assert(subjects[1].find_children("*", "AnimationPlayer", true, false).is_empty())
+		else:
+			var player := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+			assert(player.current_animation == "Walk")
 		key.keycode = KEY_C
 		_unhandled_input(key)
 		assert(orbit_mode)
@@ -124,7 +147,7 @@ func _ready() -> void:
 		play_clip("Idle")
 		selected = 0
 		clip_status = "Human: static fitting model; action clips unavailable"
-		print("COMPARISON_INPUT_TEST_OK selection,robot_clip,camera_mode,human_missing_action")
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,human_missing_action robot_clip=", "unavailable" if charge else "Walk")
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame
@@ -160,9 +183,9 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 	var body_px: float = calibration.close_human_px
 	if "--overview" in OS.get_cmdline_user_args():
 		body_px = calibration.overview_human_px
-	var measured := absf(camera.unproject_position(Vector3(0, 1.718, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	var measured := absf(camera.unproject_position(Vector3(0, human_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
 	camera.size *= measured / body_px
-	var verified := absf(camera.unproject_position(Vector3(0, 1.718, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	var verified := absf(camera.unproject_position(Vector3(0, human_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
 	assert(absf(verified - body_px) < 0.1)
 	for index in range(2):
 		var key: String = calibration.atlases[index].key
@@ -190,8 +213,8 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 			caption.add_theme_font_size_override("font_size", 14)
 			layer.add_child(caption)
 	var note := Label.new()
-	note.position = Vector2(20, 230)
-	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot retains its actual 2.4 m size\nSprite shader/rim/ground shadows are not reproduced in this review." % body_px
+	note.position = Vector2(20, 270)
+	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot actual height %.3f m\nSprite shader/rim/ground shadows are not reproduced in this review." % [body_px, robot_height]
 	layer.add_child(note)
 	print("SPRITE_PIXEL_HEIGHT_VERIFIED expected=", body_px, " projected=", verified)
 
@@ -253,7 +276,7 @@ func load_tactical_map() -> void:
 func play_clip(name_value: String) -> void:
 	var players := subjects[selected].find_children("*", "AnimationPlayer", true, false)
 	if players.is_empty():
-		clip_status = "Human: requested action unavailable (not simulated)"
+		clip_status = "Requested action unavailable (not simulated)"
 		return
 	var player := players[0] as AnimationPlayer
 	if not player.has_animation(name_value):
@@ -264,7 +287,7 @@ func play_clip(name_value: String) -> void:
 
 func _process(_delta: float) -> void:
 	if hud:
-		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human 1.718 m | Right: robot 2.4 m (rest pose)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % ["Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (rest pose)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 

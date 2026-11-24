@@ -16,6 +16,10 @@ for material in bpy.data.materials:
         if node.type in {'BSDF_PRINCIPLED','GROUP','OUTPUT_MATERIAL'}:
             nodes.append({'name':node.name,'type':node.type,
                           'group':node.node_tree.name if node.type=='GROUP' else None,
+                          'group_bsdf_sources': [link.from_node.type+':'+link.from_node.name
+                              for inner in node.node_tree.nodes if inner.type=='GROUP_OUTPUT'
+                              for socket in inner.inputs if socket.name=='BSDF' for link in socket.links]
+                              if node.type=='GROUP' else [],
                           'inputs':[s.name for s in node.inputs],
                           'outputs':[s.name for s in node.outputs]})
     materials.append({'name':material.name,'nodes':nodes})

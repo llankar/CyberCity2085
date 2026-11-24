@@ -19,6 +19,15 @@ requires source/output paths after `--`; export/bake study scripts use explicit
 external E: paths. Source Blender files are preserved, embedded source scripts
 are disabled. All Charge derivatives require the recorded CC BY4 attribution.
 
+Latest human material study: `bake_einar_dielectrics.py`, then
+`bake_einar_mechanics.py` (optional `-- --resume` only for unresolved parts).
+`verify_einar_dielectrics.py --mechanics` checks the combined export on E:.
+`godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --charge --tactical --self-test`
+loads the five-subject scene with the new static sources. Add `--sprite-review`
+and optionally `--overview` for measured current-game pixel-height comparison.
+These sources have no action clips; the check verifies their absence explicitly.
+`preview.gd --view=front|side|back` selects neutral orthographic inspection angles.
+
 ## Independent comparison stage
 
 Launch `godot --path experiments/2d_to_3d/godot res://comparison.tscn -- --realtime`.

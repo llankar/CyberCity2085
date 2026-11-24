@@ -187,6 +187,16 @@ func _ready() -> void:
 	var target := bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0)
 	# Keep the viewing direction independent of imported model height/units.
 	camera.position = target + Vector3(1.8, 1.05, 1.8)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--view="):
+			match argument.trim_prefix("--view="):
+				"front": camera.position = target + Vector3(0, 0, 3)
+				"side": camera.position = target + Vector3(3, 0, 0)
+				"back": camera.position = target + Vector3(0, 0, -3)
+				_:
+					push_error("Unknown neutral view")
+					get_tree().quit(7)
+					return
 	camera.look_at(target)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--ortho-size="):
