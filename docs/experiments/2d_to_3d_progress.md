@@ -2,6 +2,15 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-ARMOR-35 — suits02 download complete (192,511,027
+  bytes), CRC/install passed. Inspected cyborg/Guardian/Helios thumbnails;
+  Guardian header explicitly says MatCreator/CC0. Fitted MC-BodySuit-2021 plus
+  Helios armor via MPFB to preserved body. authored_armor01 BLEND and four
+  neutral renders generated on E:, front inspected. Authored modular armor
+  baseline exists, but is not Rook's reference outfit or artistically accepted.
+  Next: inspect back/profile, per-file licenses/materials and deformation,
+  then assess tactical-scale export and more appropriate jacket candidates.
+
 - `IN_PROGRESS` LICENSED-TACTICAL-CANDIDATES-34 — recovered official asset-pack
   manifests through GitHub API (makehuman-static-website/content/Assets/AssetPacks).
   suits02 explicitly lists CC0 joachip_cyborg_suit and MatCreator Guardian,
