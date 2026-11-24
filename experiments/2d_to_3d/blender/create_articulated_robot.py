@@ -82,6 +82,29 @@ def rod(name, start, end, radius, parent):
     obj.matrix_parent_inverse = parent.matrix_world.inverted()
     return obj
 
+def hydraulic(name, start, end, parent_a, parent_b):
+    anchor_a = pivot(name + '_AnchorA', start, parent_a)
+    anchor_b = pivot(name + '_AnchorB', end, parent_b)
+    delta = Vector(end) - Vector(start)
+    bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=0.027, depth=delta.length)
+    shaft = bpy.context.object
+    shaft.name = name + '_Shaft'
+    # Put origin at one endpoint, so local +Z tracks the second anchor.
+    for vertex in shaft.data.vertices:
+        vertex.co.z += delta.length / 2
+    shaft.data.materials.append(steel)
+    copy = shaft.constraints.new('COPY_LOCATION')
+    copy.target = anchor_a
+    track = shaft.constraints.new('DAMPED_TRACK')
+    track.target = anchor_b
+    track.track_axis = 'TRACK_Z'
+    stretch = shaft.constraints.new('STRETCH_TO')
+    stretch.target = anchor_b
+    stretch.rest_length = delta.length
+    stretch.volume = 'NO_VOLUME'
+    stretch.keep_axis = 'PLANE_Z'
+    return shaft
+
 torso = pivot('TorsoYaw', (0, 0, 1.45), root)
 piece('ChestArmor', (0, 0, 1.50), (0.33, 0.19, 0.28), armor, torso)
 for sign in [-1, 1]:
@@ -113,6 +136,7 @@ for sign, side in [(1, 'L'), (-1, 'R')]:
     piece('Shin_' + side, (sign * 0.22, 0, 0.42), (0.12, 0.13, 0.23), armor, knee)
     rod('ShinActuator_' + side, (sign * 0.34, 0.08, 0.59), (sign * 0.34, 0.08, 0.25), 0.025, knee)
     rod('ThighHydraulic_' + side, (sign * 0.34, 0.08, 1.06), (sign * 0.34, 0.08, 0.73), 0.03, hip)
+    hydraulic('KneeHydraulic_' + side, (sign * 0.35, 0.11, 0.88), (sign * 0.35, 0.11, 0.40), hip, knee)
     piece('Foot_' + side, (sign * 0.22, -0.09, 0.12), (0.14, 0.24, 0.10), steel, knee)
     shoulder = pivot('Shoulder_' + side, (sign * 0.44, 0, 1.67), torso)
     bearing('ShoulderBearing_' + side, (sign * 0.44, 0, 1.67), 0.15, 0.24, shoulder)

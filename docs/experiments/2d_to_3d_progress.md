@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-HYDRAULIC-52 — added paired attachment empties and
+  constrained knee actuator shafts using location/track/stretch constraints.
+  robot_mechanical07 generated with rest/aim/pivot renders; pivot image
+  inspected. Constraint endpoint accuracy and axis convention are NOT VERIFIED;
+  GLB export does not prove live Blender constraints survive. Next: quantify
+  shaft endpoints in bent pose, correct track/stretch axes, bake transforms for
+  mechanical clips before Godot verification. No completed hydraulics claimed.
+
 - `IN_PROGRESS` ROBOT-CONTOURS-51 — replaced chest/thigh/shin/forearm block
   plates with extruded eight-point contours, bevels and taper; added four leg
   actuator rods. robot_mechanical06 BLEND/GLB and three renders generated;
