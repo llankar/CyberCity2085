@@ -2,6 +2,14 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-FIT-12 — measured actual body sections with bpy; torso
+  is offset toward negative Y (front reaches -0.162 m at z=1.12). Corrected
+  jacket center, depth and chest width instead of assuming a centered ellipse.
+  v10 BLEND/five renders generated on E:; front inspected: panels now cover
+  the torso more consistently. Shoulder joins, collar/lapel placement and
+  undershirt boundary remain below acceptance. Next: tailor shoulder yoke and
+  reposition lapels onto the measured front surface, then inspect all angles.
+
 - `IN_PROGRESS` ROOK-TORSO-11 — replaced rendered body-cut jacket with a
   separate open quad torso (five rings, 24 segments) using transferred body
   weights and leather thickness. v9 BLEND and five previews generated on E:;
