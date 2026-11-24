@@ -10,6 +10,7 @@ if folder.drive.upper() != 'E:':
 bpy.ops.wm.open_mainfile(filepath=str(folder / 'authored_outfit.blend'))
 rig = bpy.data.objects['rook_mpfb'].parent
 pose_clip = '--pose-clip' in sys.argv
+realtime = '--realtime' in sys.argv
 if pose_clip:
     bpy.context.scene.render.fps = 24
     bpy.context.scene.frame_start = 1
@@ -55,12 +56,31 @@ for source in list(bpy.context.scene.objects):
             if modifier.type == 'SUBSURF':
                 modifier.levels = 1
             bpy.ops.object.modifier_apply(modifier=modifier.name)
+    if realtime:
+        obj.data.calc_loop_triangles()
+        triangles = len(obj.data.loop_triangles)
+        budget = 12000
+        if 'armor' in source.name.lower():
+            budget = 30000
+        elif 'short' in source.name.lower():
+            budget = 6000
+        elif 'high-poly' in source.name.lower():
+            budget = 2000
+        if triangles > budget:
+            simplify = obj.modifiers.new('RealtimeDerivative', 'DECIMATE')
+            simplify.ratio = budget / triangles
+            simplify.use_collapse_triangulate = True
+            bpy.ops.object.modifier_apply(modifier=simplify.name)
+        obj.data.calc_loop_triangles()
+        print('REALTIME_MESH', source.name, triangles, '->', len(obj.data.loop_triangles))
     copies.append(obj)
 bpy.ops.object.select_all(action='DESELECT')
 for obj in copies + [rig]:
     obj.select_set(True)
 bpy.context.view_layer.objects.active = rig
 filename = 'authored_pose_test.glb' if pose_clip else 'authored_outfit.glb'
+if realtime:
+    filename = filename.replace('.glb', '_realtime.glb')
 bpy.ops.export_scene.gltf(filepath=str(folder / filename), export_format='GLB', use_selection=True, export_apply=False, export_animations=True)
 if (folder / 'material_factors.json').is_file():
     sys.path.insert(0, str(Path(__file__).parent))

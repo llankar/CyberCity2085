@@ -2,6 +2,35 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-HUMAN-61 — user strategy correction adopted:
+  stop generic MPFB recoloring, prioritize authored professional-quality humans,
+  tactical modular gear and clear redistribution rights. Candidate/licensing
+  register added in docs/experiments/3d_asset_selection.md. Two original cyberpunk
+  candidates verified through public Sketchfab metadata API: CC BY4 commercial use,
+  24,500/51,704 faces, 1/0 animations. Official downloads return HTTP401; files not
+  acquired or artistically approved. Other gear/PBR candidates and exclusions
+  documented. Existing-map tactical scene and exact sprite zoom comparison TODO.
+  Continue other experimental tasks; do not substitute the scale stage for them.
+
+- `DONE` COMPARISON-STAGE-62 — independent comparison.tscn/gd loads human+robot
+  on 1m tiles, neutral lighting, shadows, isometric/orbit controls, selection and
+  real robot action dispatch; human missing actions explicitly reported. Native
+  self-test passed selection, Walk, camera mode and missing-human-action checks.
+  120 frames after warmup: 2.000034s (~60fps), RTX5070Ti/OpenGL, two subjects only;
+  not a stress test or uncapped GPU throughput measure. Screenshot inspected:
+  E: generated/phase2/comparison_realtime.png. Current sprites not compared yet.
+
+- `IN_PROGRESS` HUMAN-REALTIME-63 — preserved dense source; separate --realtime
+  export reduces 827,976 to 61,998 triangles. Static and four-bone fitting-pose
+  Godot captures inspected; silhouette broadly retained, no full deformation
+  acceptance. Rendering counter in comparison: ~1.67M ->141,776 primitives
+  including passes/scene (not unique triangle count). Six focused tests pass.
+  Captures on E: authored_tactical01/human_realtime_neutral.png and
+  human_realtime_pose.png. This optimization does not resolve insufficient art.
+  Next: acquired authored human and real actions, complete tactical scene,
+  production-resolution sprite comparison, final screenshots. Global IN_PROGRESS.
+
+
 - `IN_PROGRESS` HUMAN-MATERIAL-60 — preserved authored_armor01 and generated
   authored_tactical01 BLEND/GLB on E:. Neutral Godot screenshot inspected:
   dark desaturated armor and copper hair now survive export. Blender MixRGB tint
