@@ -83,12 +83,13 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
+	var unvanquished_study := "--unvanquished-study" in OS.get_cmdline_user_args()
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
 	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
-	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study
+	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study or unvanquished_study
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
 	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
@@ -109,6 +110,9 @@ func _ready() -> void:
 		assert(not rocketbox and not rigged_human and not action_human, "Choose one human source")
 		human_path = root + ("nathan_eyes01/human.glb" if "--nathan-eyes-study" in OS.get_cmdline_user_args() else "renderpeople_nathan01/human.glb")
 		rigged_human = true
+	if unvanquished_study:
+		assert(not rocketbox and not rigged_human and not action_human and not nathan_study, "Choose one human source")
+		human_path = root + "unvanquished_human01/human_armor.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()

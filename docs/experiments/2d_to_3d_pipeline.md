@@ -408,3 +408,20 @@ Original textured geometry, skin and Walk bytes preserved; new eye material does
 not establish accepted character quality. Same-lighting source/refined closeups on E.
 References: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_clearcoat
 and https://github.com/godotengine/godot/blob/4.7/modules/gltf/gltf_document.cpp .
+
+## Batch105: authored tactical wardrobe source
+
+```powershell
+python experiments/2d_to_3d/acquire_unvanquished_human.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_unvanquished_human.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/convert_unvanquished_human.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://authored_armor_check.tscn -QuitAfter 300
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1400 -SceneArguments @('--unvanquished-study','--robot-action-bundle','--vtol-motion-study','--tactical','--sprite-review','--self-test')
+```
+
+Acquisition requires explicit shipped model/armor author/license rows, not global
+project policy or upcoming model credits. Originals/primary legalcode/hash manifest
+on E. Derivative is neutral authored21part armor/body with122bone source skin,
+under CC BY-SA3.0. Legacy spec maps not yet physically converted; material/style
+acceptance and source segmented/HandDelta animation assembly remain open. No
+production changes or Nathan combination. Static qualification has no fake clips.

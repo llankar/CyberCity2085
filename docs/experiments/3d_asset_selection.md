@@ -209,3 +209,23 @@ Source credits remain embedded/accompanying. This advances mechanical integratio
 not final robot identity/readability or humanoid artistic acceptance. Live native
 action switching and original/bundle sampled fidelity PASS; Blender re-export,
 source-specific atlas and final action artistry remain open.
+
+## Authored sci-fi tactical wardrobe acquired (batch105)
+
+[Official shipped-media credits](https://wiki.unvanquished.net/wiki/Credits/Media)
+identify Unvanquished Male/Light Armour/Medium Armour as Angelo with armor texture
+touchups by Stannum and medium variation by Viech, CC BY-SA3.0.
+[Specific source repository](https://github.com/UnvanquishedAssets/res-players_src.dpkdir/tree/bbf9e8f276b3cf3f4b3fab217f2c947d2dd25515/models/players/human_male)
+pinned and15files45.36MB acquired with Git blob/SHA checks, not full repo. CC deed
+and compatible-license primary pages reviewed; retain attribution/ShareAlike.
+No Nathan combination or production integration at this stage.
+
+Actual122bone source rig, fifteen genuinely authored modular armor meshes, body/
+head/eyes/teeth. Source diffuse/normal maps2K (head1K), specular maps retained but
+not misrepresented as PBR. Neutral21mesh/9640triangle derivative loads in Godot and
+matches source-rest samples<.052mm, actual62.208px comparison captured. Candidate
+looks more coherent than failed jacket fit, but source face/style/PBR and actual
+actions need qualification; no accepted Rook. Original42actions exist in Blend,
+none exported yet. Source game uses Segmented/HandDelta modifiers and explicit
+hand bone list; inspect before treating raw action clips as complete character
+performance. No further generic MPFB armor recoloring.

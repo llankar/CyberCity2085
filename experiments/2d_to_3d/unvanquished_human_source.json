@@ -1,0 +1,84 @@
+{
+  "repository": "UnvanquishedAssets/res-players_src.dpkdir",
+  "commit": "bbf9e8f276b3cf3f4b3fab217f2c947d2dd25515",
+  "prefix": "models/players/human_male/",
+  "license": "CC-BY-SA-3.0",
+  "license_source": "https://wiki.unvanquished.net/wiki/Credits/Media",
+  "files": [
+    {
+      "path": "models/players/human_male/README.md",
+      "size": 508,
+      "git_blob": "39c664df299efe524160c6ae1c81c68463b20b21"
+    },
+    {
+      "path": "models/players/human_male/animations.txt",
+      "size": 813,
+      "git_blob": "824fe9b75ad4d0167d32b595481177389f269eed"
+    },
+    {
+      "path": "models/players/human_male/armor.png",
+      "size": 7562587,
+      "git_blob": "47855a8166c5153bdc360e38b97b7178b4310bfa"
+    },
+    {
+      "path": "models/players/human_male/armor_n.png",
+      "size": 5146299,
+      "git_blob": "fb737c91aba0b82cedc6588ec2e34559cbed9f4c"
+    },
+    {
+      "path": "models/players/human_male/armor_s.png",
+      "size": 6995561,
+      "git_blob": "9fdbe1cfd7f8b43c75b20544df704a0a237a4aec"
+    },
+    {
+      "path": "models/players/human_male/base.png",
+      "size": 6838734,
+      "git_blob": "7ecefd1a6f6edf5f5cfdb8325ea00a3fc8dff8d4"
+    },
+    {
+      "path": "models/players/human_male/base_n.png",
+      "size": 6932792,
+      "git_blob": "ccb50697cf9aa86f222e7306e0914272961b2cd6"
+    },
+    {
+      "path": "models/players/human_male/base_s.png",
+      "size": 9158055,
+      "git_blob": "f864982d7e7cfa0e54f55c78ee626edac0aaf940"
+    },
+    {
+      "path": "models/players/human_male/body_default.skin",
+      "size": 845,
+      "git_blob": "121a02bdb7602aebe9e0b666a7cf810a6132f4c6"
+    },
+    {
+      "path": "models/players/human_male/body_light.skin",
+      "size": 1099,
+      "git_blob": "6c28167d89269f720522dc0b581dbce9bd570323"
+    },
+    {
+      "path": "models/players/human_male/body_medium.skin",
+      "size": 1211,
+      "git_blob": "c1983503044ad5bd1fde8177a47782f09ac5bac7"
+    },
+    {
+      "path": "models/players/human_male/head.jpg",
+      "size": 365665,
+      "git_blob": "8caae61643b6667ef793bc315232708aa44bbe43"
+    },
+    {
+      "path": "models/players/human_male/head_n.jpg",
+      "size": 137224,
+      "git_blob": "5c6f2d0c3144e2585dc6af13f563bbb48d29bf45"
+    },
+    {
+      "path": "models/players/human_male/head_s.jpg",
+      "size": 189358,
+      "git_blob": "7d8042bea06936dd32af95cf5fb1d000dba397be"
+    },
+    {
+      "path": "models/players/human_male/human_male.blend",
+      "size": 2025641,
+      "git_blob": "1334840123967a2ad980357a945d133978fde26b"
+    }
+  ]
+}

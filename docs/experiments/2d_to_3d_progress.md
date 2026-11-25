@@ -2,6 +2,64 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-TACTICAL-WARDROBE-SOURCE-105 (2026-11-25). Prior turn104
+  progress verified from checkpointbebd1e50, actual principal/experimental registers
+  and worktree. Returned to explicit professional clothing/armor sourcing rather
+  than more eye/light tweaks. Official Unvanquished shipped Male/Light Armour/
+  Medium Armour credits specify Angelo, armor texture touchups Stannum, medium
+  variation Viech, CC BY-SA3.0. Actual publisher HTML and CC legalcode saved on E.
+  CC primary deed/compatible-license pages consulted: adaptation/commercial use
+  requires attribution/ShareAlike; no relicensing or mixing Nathan performed here.
+
+  Located actual source repo via official registry submodule (initial guessed
+  mdl-human repo404, not repeated). Pinned res-players_src.dpkdir commit
+  bbf9e8f276b3cf3f4b3fab217f2c947d2dd25515. Downloaded ONLY15reviewed files45,356,392
+  bytes:2MBBlend, source diffuse/normal/spec maps, bare head maps, skins/README/
+  animation list. No full313MBrepo clone, IQE23MB, helmet maps or external weapons.
+  Per-file Git blob/size/SHA checks PASS, source metadata pinned in checked-in JSON.
+  Grant parser initially FAILed because later upcoming-model Male/RXMT row overrode
+  shipped Male/Angelo. Corrected to shipped In game rows, retained exact author/
+  license requirements; regression test ensures upcoming row cannot override grant.
+  Six new provenance cases; focused23Python PASS,0failed,0skipped (source/acquisition/
+  Nathan), actual native functional gates below separate. No automatic license assumption.
+
+  Actual source .blend opens with scripts disabled: one122bone rig,42actions,
+  authored15armor pieces + body/head/eyes/teeth =21rendered human meshes. Includes
+  chest/shoulders/wrists/groin/thighs/knees/shins/shoes, proper source body fit.
+  Excluded helmet, guide plane and unrelated embedded weapon objects/data from
+  derivative. Original source untouched. Neutral A-rest height13.811447source units
+  scaled .1339468634 to1.85m, source-X forward rotatedZ+90 to-Y. Max4source influences
+  per vertex (no weight truncation). Six original diffuse/normal images applied:
+ 2048-square body/armor and1024head. Legacy specular maps acquired/preserved but NOT
+  falsely used as roughness/metallic; roughness constants/material convention
+  remain approximation, normal-map handedness/art review incomplete. No recolor.
+
+  E: phase2/unvanquished_human01/human_armor.blend41,460,767bytes / GLB27,417,396bytes;
+  source audit,conversion_report,static_surface_reference,native_static_check,
+  CREDITS and front/side/back/tactical_close PNGs.1skin/122bones/21meshes/9,640tris/
+ 6images. Native full-part neutral sampled correspondence PASS max51.766um and
+  UNV_NATIVE_AUTHORED_ARMOR_REST_OK, fresh matchingSHA JSON. Static model exports
+  ZEROanimations intentionally;42source actions retained in Blend, not claimed
+  already integrated. No invented animation availability.
+
+  Actual --unvanquished-study with robotbundle/animatedVTOL tactical selftest PASS,
+  five subjects/627cells and62.208008px human calibration. Neutral front/profile/back
+  and tactical comparison inspected: much more coherent authored armored body than
+  failed fitted shirt; source head/hair and yellow/black armor remain candidate,
+  no final Rook identity/modern XCOM2 quality acceptance. Some original narrow body
+  proportions and legacy surfaces still need artistic judgement. No generalized
+  character production. Native actor action controls honestly unavailable here.
+
+  Bounded source tasks3/4DONE (specific license/pinned acquisition, neutral derivative,
+  native views/scale/fidelity); native animation/PBR/style qualification IN_PROGRESS.
+  Human identities accepted0/2, final cyberpunk outfits0, source-specific robot
+ 5action/eightview atlases and vehicle3motion studies retained. Native subjects5/6,
+  one partial floor/block map, finalized maps0. Next: source-authored human actions
+  with documented segmented/HandDelta convention (character.cfg) and grip, then
+  armor identity adaptation. No Nathan/SA combined derivative before compatibility
+  is explicitly handled. No production/user save changes, campaign tests, push or
+  release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PROFESSIONAL-SCAN-EYE-MATERIAL-104 (2026-11-25). Prior turn103
   progress verified from checkpoint00d94d53, actual worktree and main/experimental
   registers read. Returned to human quality without MPFB recoloring or primitive
