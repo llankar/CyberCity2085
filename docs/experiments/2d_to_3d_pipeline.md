@@ -318,3 +318,23 @@ preserves neutral corner correspondence onto underlying rings and sampled morphs
 Prefix inspection script reproduces the cause. Death is a flat-ground mechanical
 shutdown study, not inter-part collision/debris/gameplay acceptance. All5robot clips
 currently separate studies; unified skeletal animation bundle remains next.
+
+## Batch100: one real five-action robot model
+
+```powershell
+python experiments/2d_to_3d/bundle_robot_actions.py
+python experiments/2d_to_3d/verify_einar_action_bundle.py --robot-bundle
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/import_einar_action_bundle.py -ScriptArguments @('--robot-bundle')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://bundle_action_check.tscn -QuitAfter 2000 -SceneArguments @('--robot-bundle')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1500 -SceneArguments @('--nathan-study','--robot-action-bundle','--tactical','--sprite-review','--self-test')
+```
+
+Outputs security_bundle01/robot_actions.glb and packed editable Blend; require fresh
+verification/native_bundle_check/source hashes and ROBOT_NATIVE_ACTION_BUNDLE_OK.
+Reuses existing Einar bundler/verifier/importer with opt-in robot configuration;
+default Einar regeneration was verified byte-identical. Explicit sparse expansion
+validates glTF override indices and views before copying; strict reader unchanged.
+All union corrective weights are driven/reset in every clip. Same native model
+supports Idle/Walk/Melee/Hit/Death; missing Shoot is not synthesized. Foot contacts
+and flat-floor shutdown scope remain as recorded; no final robot art acceptance.
+Blender re-export and robot atlas generation remain open.

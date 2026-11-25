@@ -200,3 +200,12 @@ hair/face anatomy than earlier hybrid, but gray eyes, absent PBR detail maps and
 civilian clothes are visible limitations. Not an accepted Rook, no human production
 expansion. Inspect/adapt this source before more investment in old broken scalp.
 Evidence, exact source pin and remaining acceptance in experimental register95.
+
+## Mechanical action integration (batch100)
+
+StudioCHARGE Security Bot now has one native-verified124joint/124mesh GLB and packed
+Blender companion carrying five real mechanical Idle/Walk/Melee/Hit/Death studies.
+Source credits remain embedded/accompanying. This advances mechanical integration,
+not final robot identity/readability or humanoid artistic acceptance. Live native
+action switching and original/bundle sampled fidelity PASS; Blender re-export,
+source-specific atlas and final action artistry remain open.

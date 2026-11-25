@@ -2,20 +2,28 @@
 import hashlib
 import json
 import struct
+import sys
 from pathlib import Path
 from glb_document import Glb
 
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-folder=root/'einar_bundle02'
+robot='--robot-bundle' in sys.argv
+folder=root/('security_bundle01' if robot else 'einar_bundle02')
+filename='robot_actions.glb' if robot else 'human_actions.glb'
+expected_meshes=124 if robot else 76
+expected_joints=124 if robot else 222
+expected_images=496 if robot else 274
+expected_triangles=269209 if robot else 235726
+expected_clips={'Idle','Walk','Melee','Hit','Death'} if robot else {'Idle','Walk','Pistol_Shoot','Punch_Cross','Death01'}
 report=json.loads((folder/'bundle_report.json').read_text())
-glb=Glb(folder/'human_actions.glb'); data=glb.doc
+glb=Glb(folder/filename); data=glb.doc
 assert len(data['scenes'])==1 and len(data['skins'])==1
-assert len(data['meshes'])==76 and len(data['skins'][0]['joints'])==222
-assert {animation['name'] for animation in data['animations']}=={'Idle','Walk','Pistol_Shoot','Punch_Cross','Death01'}
-assert all('bufferView' in image for image in data['images']) and len(data['images'])==274
-assert sum(data['accessors'][p['indices']]['count']//3 for m in data['meshes'] for p in m['primitives'])==235726
+assert len(data['meshes'])==expected_meshes and len(data['skins'][0]['joints'])==expected_joints
+assert {animation['name'] for animation in data['animations']}==expected_clips
+assert all('bufferView' in image for image in data['images']) and len(data['images'])==expected_images
+assert sum(data['accessors'][p['indices']]['count']//3 for m in data['meshes'] for p in m['primitives'])==expected_triangles
 for source in report['sources']:
-    assert hashlib.sha256((root/source['folder']/'human_rig.glb').read_bytes()).hexdigest()==source['sha256']
+    assert hashlib.sha256((root/source['folder']/source.get('file','human_rig.glb')).read_bytes()).hexdigest()==source['sha256']
 max_weight_error=0.0
 for mesh in data['meshes']:
     count=report['union_targets'].get(mesh['name'],0)
@@ -40,8 +48,8 @@ for animation in data['animations']:
         assert data['accessors'][sampler['output']]['count']==data['accessors'][sampler['input']]['count']*report['union_targets'][mesh['name']]
         driven.add(mesh['name'])
     assert driven==report['union_targets'].keys(),'Every clip must drive all union corrections'
-result={'meshes':76,'joints':222,'skins':1,'triangles':235726,'images':274,
+result={'meshes':expected_meshes,'joints':expected_joints,'skins':1,'triangles':expected_triangles,'images':expected_images,
         'clips':report['clips'],'max_weight_sum_error':max_weight_error,
-        'bytes':(folder/'human_actions.glb').stat().st_size,'artistic_acceptance':'NOT VERIFIED'}
+        'bytes':(folder/filename).stat().st_size,'artistic_acceptance':'NOT VERIFIED'}
 (folder/'verification.json').write_text(json.dumps(result,indent=2),encoding='utf-8')
-print('EINAR_ACTION_BUNDLE_VERIFIED',json.dumps(result))
+print('ROBOT_ACTION_BUNDLE_VERIFIED' if robot else 'EINAR_ACTION_BUNDLE_VERIFIED',json.dumps(result))

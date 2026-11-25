@@ -30,23 +30,27 @@ func transform_error(first: Transform3D, second: Transform3D) -> float:
 
 func _ready() -> void:
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var folder := root + "einar_bundle02/"
+	var robot := "--robot-bundle" in OS.get_cmdline_user_args()
+	var folder := root + ("security_bundle01/" if robot else "einar_bundle02/")
+	var filename := "robot_actions.glb" if robot else "human_actions.glb"
+	var expected_meshes := 124 if robot else 76
+	var expected_joints := 124 if robot else 222
 	var metadata = JSON.parse_string(FileAccess.get_file_as_string(folder + "bundle_report.json"))
-	var bundle := load_model(folder + "human_actions.glb")
+	var bundle := load_model(folder + filename)
 	var targets := meshes(bundle)
 	var skeleton := bundle.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var player := bundle.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-	assert(targets.size() == 76 and skeleton.get_bone_count() == 222)
+	assert(targets.size() == expected_meshes and skeleton.get_bone_count() == expected_joints)
 	var probe := preload("res://skin_motion_check.gd").new()
 	var report := {}
 	var idle_points := {}
 	var selected_meshes: Array[String] = []
 	for name_value in targets:
-		if "satchel_strap" in name_value or "boot_sole" in name_value or "strap_shoulder" in name_value or "einar_head" in name_value or "pants_main" in name_value:
+		if (robot and ("cable_tube" in name_value or "head_cover" in name_value or "heel" in name_value or "toes" in name_value or "shin" in name_value)) or "satchel_strap" in name_value or "boot_sole" in name_value or "strap_shoulder" in name_value or "einar_head" in name_value or "pants_main" in name_value:
 			selected_meshes.append(name_value)
 	assert(selected_meshes.size() >= 8)
 	for source in metadata.sources:
-		var model := load_model(root + str(source.folder) + "/human_rig.glb")
+		var model := load_model(root + str(source.folder) + "/" + str(source.get("file", "human_rig.glb")))
 		var originals := meshes(model)
 		var source_skeleton := model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 		var source_player := model.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
@@ -69,7 +73,7 @@ func _ready() -> void:
 			skeleton.force_update_all_bone_transforms(); source_skeleton.force_update_all_bone_transforms()
 			var current := skin_transforms(skeleton, targets.values()[0])
 			var wanted := skin_transforms(source_skeleton, originals.values()[0])
-			assert(current.size() == 222 and wanted.size() == 222)
+			assert(current.size() == expected_joints and wanted.size() == expected_joints)
 			for joint in current:
 				var error := transform_error(current[joint], wanted[joint])
 				if error > worst_transform:
@@ -89,7 +93,8 @@ func _ready() -> void:
 		model.free()
 		states.pop_back()
 	# Death corrections must not survive an ordinary animation change to Idle.
-	player.play("Death01"); player.seek(player.get_animation("Death01").length, true)
+	var death_clip := "Death" if robot else "Death01"
+	player.play(death_clip); player.seek(player.get_animation(death_clip).length, true)
 	skeleton.force_update_all_bone_transforms()
 	player.play("Idle"); player.advance(0); player.seek(0, true)
 	skeleton.force_update_all_bone_transforms()
@@ -102,6 +107,6 @@ func _ready() -> void:
 	probe.free()
 	var output := FileAccess.open(folder + "native_bundle_check.json", FileAccess.WRITE)
 	assert(output != null)
-	output.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(folder + "human_actions.glb"), "clips": report, "death_to_idle_reset_error_m": reset_error, "scope": "Native original/bundle skin transforms and sampled vertex correspondence; not artistic acceptance"}, "  "))
-	print("EINAR_NATIVE_ACTION_BUNDLE_OK reset=", reset_error)
+	output.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(folder + filename), "clips": report, "death_to_idle_reset_error_m": reset_error, "meshes": expected_meshes, "joints": expected_joints, "selected_surface_meshes": selected_meshes, "scope": "Native original/bundle skin transforms and sampled vertex correspondence; not artistic acceptance"}, "  "))
+	print("ROBOT_NATIVE_ACTION_BUNDLE_OK reset=" if robot else "EINAR_NATIVE_ACTION_BUNDLE_OK reset=", reset_error)
 	get_tree().quit(0)

@@ -110,19 +110,21 @@ func _ready() -> void:
 	var robot_melee := charge and "--robot-melee-study" in OS.get_cmdline_user_args()
 	var robot_hit := charge and "--robot-hit-study" in OS.get_cmdline_user_args()
 	var robot_shutdown := charge and "--robot-shutdown-study" in OS.get_cmdline_user_args()
-	assert(int(robot_idle)+int(robot_walk)+int(robot_melee)+int(robot_hit)+int(robot_shutdown) <= 1, "Choose one mechanical action study")
+	var robot_bundle := charge and "--robot-action-bundle" in OS.get_cmdline_user_args()
+	assert(int(robot_idle)+int(robot_walk)+int(robot_melee)+int(robot_hit)+int(robot_shutdown)+int(robot_bundle) <= 1, "Choose one mechanical action study")
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
 	if robot_walk: robot_path = root + "security_walk01/robot_walk.glb"
 	if robot_melee: robot_path = root + "security_melee01/robot_melee.glb"
 	if robot_hit: robot_path = root + "security_hit01/robot_hit.glb"
 	if robot_shutdown: robot_path = root + "security_death01/robot_death.glb"
+	if robot_bundle: robot_path = root + "security_bundle01/robot_actions.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
 	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
-	if robot_walk: subjects[1].set_meta("forward_motion_study", true)
+	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
 		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
@@ -201,7 +203,15 @@ func _ready() -> void:
 		assert(selected == 1)
 		key.keycode = KEY_2
 		_unhandled_input(key)
-		if robot_shutdown:
+		if robot_bundle:
+			verify_robot_forward_walk()
+			var mechanics := preload("res://mechanical_action_check.gd").new()
+			mechanics.verify_strike(subjects[1])
+			assert(mechanics.verify_hit(subjects[1]).size() == 5)
+			assert(mechanics.verify_shutdown(subjects[1]).has("height_initial_m"))
+			play_clip("Shoot")
+			assert("unavailable" in clip_status)
+		elif robot_shutdown:
 			assert("unavailable" in clip_status)
 			var shutdown_check := preload("res://mechanical_action_check.gd").new().verify_shutdown(subjects[1])
 			assert(shutdown_check.has("height_initial_m"))
@@ -267,7 +277,7 @@ func _ready() -> void:
 				print("NATHAN_AUTHORED_WALK_ONLY_OK no_fictitious_idle_or_combat_actions")
 			else: print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
-		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk")))))
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Idle/Walk/Melee/Hit/Death" if robot_bundle else ("Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
@@ -516,7 +526,7 @@ func play_clip(name_value: String) -> void:
 	player.play(name_value)
 	if selected == 0 and human_weapon: human_weapon.visible = name_value == "Pistol_Shoot"
 	if name_value == "Idle" or name_value == "Walk":
-		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
+		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:

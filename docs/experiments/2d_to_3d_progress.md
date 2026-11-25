@@ -2,6 +2,61 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SHARED-MECHANICAL-ACTION-BUNDLE-100 (2026-11-25). Prior turn99
+  classified progress from checkpointd89cd708, actual worktree and principal/
+  experimental registers read. Audited real five mechanical source GLBs:124meshes,
+ 249nodes each; POSITION/indices/UV/weights/joint indices byte-identical. Reused
+  existing Einar bundler with bounded source/output parameters instead of creating
+  parallel animation architecture. Original default retained. Source files untouched.
+
+  Initial merge FAIL: strict accessor reader refused source sparse corrective data.
+  Added explicit expanded_values with zero/authored base, packed view bounds,
+  allowed index types, strictly increasing in-range indices and count checks.
+  values() remains strict. copy_accessor densifies only when explicitly copying.
+  Six new tests cover sparse bases/copy/strict refusal, duplicates/order/out-of-range
+  and override overrun. Final focused37Python PASS,0failed,0skipped across bundle/
+  shutdown/hit/strike/gait modules. Actual default Einar regeneration into separate
+  E: regression folder yields BYTE-IDENTICAL GLB SHA256
+ 3f1ba1e7da8f2fcd3d5bd3be1f8a07faf565f3950a9093874a17d23e8f81865e,
+  so existing Einar output not overwritten and default behavior preserved.
+
+  E: phase2/security_bundle01/robot_actions.glb145,473,632bytes and editable packed
+  robot_actions.blend150,337,772bytes now contain real Idle2s/Walk1.2s/Melee1s/Hit.8s/
+  Death2s, ONE skin/124joints/124meshes/269,209triangles/496images. Five union-corrected
+  cable meshes: head203targets, each lower/upper leg123targets. Every clip drives
+  every union target, clearing other actions; no different base normals or rest
+  rebase needed. Native action change works on same model without reloading.
+  CREDITS and source SHA256s in GLB asset extras, companion notice and Blender text;
+  original StudioCHARGE/Blender Foundation CC BY4 grant retained. No humanoid stand-in.
+
+  Actual native original/bundle gate PASS for all five clips: all124skin transforms
+  at17fractions/clip,17selected surface meshes at9fractions/clip (stride8) exactly0
+  error; Death->Idle sampled reset0. Fresh native_bundle_check tied to GLB hash,
+  positive ROBOT_NATIVE_ACTION_BUNDLE_OK, selected meshes recorded, final rerun PASS.
+  Static verifier confirms source hashes, triangle/image/skin counts, exact durations,
+  normalized weights(error0), and every clip driving all union corrections. Blender
+  import checks all six animated owners (rig+five cable shape-key sets) have five
+  NLA tracks,124bones/124render meshes and496packedimages. Imported bone control
+  helper excluded from rendered mesh count. Blender re-export roundtrip NOT VERIFIED.
+
+  Independent --robot-action-bundle stage supports1Idle/2Walk/4Death/5Melee/6Hit;
+  Shoot explicitly unavailable. Forward Walk stays nonloop and does not teleport;
+  Idle loops. Actual sourceWalk+bundle stage selftest PASS including foot travel.6m,
+  hand strike.730687m/recovery, native full-foot Hit and full124mesh shutdown checks.
+  Camera/selection and62.208008px human calibration PASS; five subjects/627cells,
+  tactical_close PNG inspected. Image retains partial map gray block volumes, dark
+  slim robot vs large sprite and civilian human; no artistic acceptance inferred.
+  Scene120frame timing~60FPS is startup observation, not performance/VRAM validation.
+
+  Bounded bundle tasks3/3DONE (shared GLB, editable Blend, native switching/evidence).
+  Global mechanical production remainsIN_PROGRESS: atlas from this source, loop/
+  locomotion controller, optimization and final artistic action acceptanceTODO.
+  Accepted human identities0/2, modular combat outfits0, native subjects5/6, one
+  partial floor/block map, artistically finalized maps0. Next: robot atlas through
+  same native/Blender source, vehicle articulation, then professional human outfit/
+  eye/action work. No production changes, user save edits, campaign tests, push or
+  release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-MECHANICAL-SHUTDOWN-99 (2026-11-25). Prior turn98
   progress verified from actual checkpointffcc3eb2, principal/experimental register
   and worktree read. Continued explicit robot action deliverable, no production or

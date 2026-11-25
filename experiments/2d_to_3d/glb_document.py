@@ -41,9 +41,44 @@ class Glb:
             raise ValueError('Accessor outside view')
         return b''.join(self.bin[start+i*stride:start+i*stride+width] for i in range(accessor['count']))
 
+    def expanded_values(self,index):
+        """Explicitly expand validated glTF sparse overrides, retaining strict values()."""
+        accessor=self.doc['accessors'][index]
+        if 'sparse' not in accessor:return self.values(index)
+        count=accessor['count']
+        width=COMPONENT_BYTES[accessor['componentType']]*COMPONENTS[accessor['type']]
+        if count<1:raise ValueError('Invalid sparse base count')
+        result=bytearray(count*width)
+        if 'bufferView' in accessor:
+            view=self.doc['bufferViews'][accessor['bufferView']]
+            stride=view.get('byteStride',width);offset=accessor.get('byteOffset',0)
+            if stride<width or offset<0 or offset+(count-1)*stride+width>view['byteLength']:
+                raise ValueError('Sparse base outside view')
+            start=view.get('byteOffset',0)+offset
+            for row in range(count):result[row*width:(row+1)*width]=self.bin[start+row*stride:start+row*stride+width]
+        sparse=accessor['sparse'];amount=sparse['count']
+        if not 1<=amount<=count:raise ValueError('Invalid sparse count')
+        indices=sparse['indices'];kind=indices['componentType']
+        if kind not in (5121,5123,5125):raise ValueError('Invalid sparse index type')
+        def span(description,size):
+            view=self.doc['bufferViews'][description['bufferView']]
+            offset=description.get('byteOffset',0)
+            if offset<0 or offset+size>view['byteLength'] or 'byteStride' in view:
+                raise ValueError('Sparse overrides outside packed view')
+            start=view.get('byteOffset',0)+offset
+            return self.bin[start:start+size]
+        raw_indices=span(indices,amount*COMPONENT_BYTES[kind])
+        ids=struct.unpack('<'+{5121:'B',5123:'H',5125:'I'}[kind]*amount,raw_indices)
+        if ids[-1]>=count or any(a>=b for a,b in zip(ids,ids[1:])):
+            raise ValueError('Sparse indices must increase within accessor')
+        values=span(sparse['values'],amount*width)
+        for row,target in enumerate(ids):result[target*width:(target+1)*width]=values[row*width:(row+1)*width]
+        return bytes(result)
+
     def copy_accessor(self,source,index):
         accessor=copy.deepcopy(source.doc['accessors'][index])
-        raw=source.values(index)
+        raw=source.expanded_values(index)
+        accessor.pop('sparse',None)
         self.bin.extend(b'\0'*(-len(self.bin)%4))
         view={'buffer':0,'byteOffset':len(self.bin),'byteLength':len(raw)}
         self.bin.extend(raw)

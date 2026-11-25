@@ -76,3 +76,42 @@ def test_quaternion_sign_change_keeps_shortest_rotation(modules):
     _,pose,_=modules
     result=pose.sample([0,1],[[0,0,0,1],[0,0,0,-1]],.5,quaternion=True)
     assert np.allclose(result,[0,0,0,1])
+
+
+def sparse_fixture(path,ids=(1,3),with_base=False):
+    binary=bytearray(struct.pack('<4f',10,20,30,40) if with_base else b'')
+    views=[]
+    if with_base:views.append({'buffer':0,'byteOffset':0,'byteLength':16})
+    start=len(binary);binary.extend(bytes(ids));binary.extend(b'\0'*(-len(binary)%4))
+    index_view=len(views);views.append({'buffer':0,'byteOffset':start,'byteLength':len(ids)})
+    value_view=len(views);views.append({'buffer':0,'byteOffset':len(binary),'byteLength':8});binary.extend(struct.pack('<2f',5,7))
+    accessor={'componentType':5126,'count':4,'type':'SCALAR','sparse':{'count':2,'indices':{'bufferView':index_view,'componentType':5121},'values':{'bufferView':value_view}}}
+    if with_base:accessor['bufferView']=0
+    doc={'asset':{'version':'2.0'},'buffers':[{'byteLength':len(binary)}],'bufferViews':views,'accessors':[accessor]}
+    encoded=json.dumps(doc).encode();encoded+=b' '*(-len(encoded)%4)
+    path.write_bytes(struct.pack('<III',0x46546c67,2,28+len(encoded)+len(binary))+struct.pack('<II',len(encoded),0x4e4f534a)+encoded+struct.pack('<II',len(binary),0x004e4942)+binary)
+
+@pytest.mark.parametrize('with_base',[False,True])
+def test_sparse_copy_expands_zero_or_authored_base(modules,tmp_path,with_base):
+    reader,_,_=modules
+    path=tmp_path/'sparse.glb';sparse_fixture(path,with_base=with_base)
+    source=reader.Glb(path)
+    with pytest.raises(ValueError,match='explicit expansion'):source.values(0)
+    expected=(10,5,30,7) if with_base else (0,5,0,7)
+    assert struct.unpack('<4f',source.expanded_values(0))==expected
+    target=reader.Glb(path);index=target.copy_accessor(source,0)
+    assert 'sparse' not in target.doc['accessors'][index]
+    assert struct.unpack('<4f',target.values(index))==expected
+
+@pytest.mark.parametrize('ids',[(1,1),(3,1),(1,4)])
+def test_sparse_invalid_indices_rejected(modules,tmp_path,ids):
+    reader,_,_=modules
+    path=tmp_path/'invalid_sparse.glb';sparse_fixture(path,ids)
+    with pytest.raises(ValueError,match='indices'):reader.Glb(path).expanded_values(0)
+
+
+def test_sparse_overrun_rejected(modules,tmp_path):
+    reader,_,_=modules
+    path=tmp_path/'sparse.glb';sparse_fixture(path)
+    source=reader.Glb(path);source.doc['accessors'][0]['sparse']['values']['byteOffset']=4
+    with pytest.raises(ValueError,match='outside'):source.expanded_values(0)

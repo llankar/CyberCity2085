@@ -36,8 +36,15 @@ def unpack_floats(glb,index):
     return struct.unpack('<'+'f'*(len(raw)//4),raw)
 
 
-def bundle():
-    sources=[Glb(ROOT/name/'human_rig.glb') for name in SOURCES]
+def bundle(*, root_path=ROOT, sources_spec=None, output_folder='einar_bundle02', output_name='human_actions.glb', credits=None, limitations=None):
+    root_path=Path(root_path)
+    source_files=list(sources_spec) if sources_spec is not None else [(name,'human_rig.glb') for name in SOURCES]
+    if len(source_files)<2 or any(Path(folder).name!=folder or Path(filename).name!=filename for folder,filename in source_files):
+        raise ValueError('Bounded local source folders/files required')
+    if Path(output_folder).name!=output_folder or Path(output_name).name!=output_name:
+        raise ValueError('Local output folder/file required')
+    source_labels=[folder for folder,filename in source_files]
+    sources=[Glb(root_path/folder/filename) for folder,filename in source_files]
     base=sources[0]
     original_animations=[copy.deepcopy(g.doc['animations']) for g in sources]
     mesh_maps=[{m['name']:index for index,m in enumerate(g.doc['meshes'])} for g in sources]
@@ -85,10 +92,10 @@ def bundle():
                 assert len(primitive.get('targets',[]))==count
                 for target in primitive.get('targets',[]):
                     targets[p].append({key:accessor(source,index) for key,index in target.items()})
-            target_names.extend(f'{SOURCES[source]}_{i:03d}' for i in range(count))
+            target_names.extend(f'{source_labels[source]}_{i:03d}' for i in range(count))
             constant=None
             if any(correction):
-                constant=len(target_names); target_names.append(SOURCES[source]+'_base_normal')
+                constant=len(target_names); target_names.append(source_labels[source]+'_base_normal')
                 normal_offsets[f'{source}:{name}']=max(abs(x) for part in correction for values in part.values() for x in values)
                 for p,part in enumerate(correction):
                     # glTF permits NORMAL-only targets; other primitives get zero normals.
@@ -159,19 +166,22 @@ def bundle():
                 'target':{'node':nodes[0],'path':'weights'}})
             animation['samplers'].append({'input':time,'output':output,'interpolation':'LINEAR'})
         base.doc['animations'].append(animation)
-    folder=ROOT/'einar_bundle02'; folder.mkdir(exist_ok=True)
+    folder=root_path/output_folder; folder.mkdir(exist_ok=True)
     credit=[{'asset':'Einar','author':'Blender Foundation','license':'CC BY4.0',
              'url':'https://studio.blender.org/characters/einar/v1/'},
             {'asset':'Universal Animation Library Standard','author':'Quaternius','license':'CC0 1.0',
              'url':'https://quaternius.com/packs/universalanimationlibrary.html'}]
+    if credits is not None: credit=credits
     base.doc['asset'].setdefault('extras',{})['credits']=credit
-    base.save(folder/'human_actions.glb')
+    base.save(folder/output_name)
     report={'clips':durations,'meshes':len(base.doc['meshes']),'joints':len(base.doc['skins'][0]['joints']),
         'union_targets':union,'normal_base_offsets':normal_offsets,'joint_trs_recomposition_errors':rebase_errors,'credits':credit,
-        'sources':[{'folder':name,'sha256':hashlib.sha256((ROOT/name/'human_rig.glb').read_bytes()).hexdigest()} for name in SOURCES],
-        'limitations':['Five motion studies, not artistic acceptance','No weapon/hair included','Sampled morph size unoptimized']}
+        'sources':[{'folder':name,'file':filename,'sha256':hashlib.sha256((root_path/name/filename).read_bytes()).hexdigest()} for name,filename in source_files],
+        'limitations':limitations if limitations is not None else ['Five motion studies, not artistic acceptance','No weapon/hair included','Sampled morph size unoptimized']}
     (folder/'bundle_report.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
-    print('EINAR_ACTION_BUNDLE_CREATED',json.dumps({'clips':durations,'targets':union,'bytes':(folder/'human_actions.glb').stat().st_size}))
+    print('EINAR_ACTION_BUNDLE_CREATED',json.dumps({'clips':durations,'targets':union,'bytes':(folder/output_name).stat().st_size}))
+
+    return report
 
 
 if __name__=='__main__': bundle()
