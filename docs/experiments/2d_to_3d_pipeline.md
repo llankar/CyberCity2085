@@ -787,3 +787,23 @@ Files are source_CLIP.png/log and compact_CLIP.png/log in security_compact134.
 All five pairs decode to identical pixels. Full comparison scene can opt in with
 --robot-action-bundle --compact-robot-study; default source stays unchanged.
 
+### Vehicle fitted-panel/PBR study135
+
+Original paint maps (not downloaded/licensed third-party textures) and eight
+fitted aft hull plates are separate from the unchanged48mesh articulated source.
+PNG maps, packed editableBLEND, embedded GLB and notices live on E:vtol_finish135.
+Final vehicle art, landing-bay clearance and performance remain unaccepted.
+
+```powershell
+python experiments/2d_to_3d/vehicle_paint.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/finish_vtol_panels.py
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://vehicle_action_check.tscn -QuitAfter 600 -SceneArguments @('--vtol-finish-study')
+```
+
+Comparison scene opt-in: --vtol-motion-study --vtol-finish-study with existing
+tactical/facades flags. For whole-vehicle neutral review, main.tscn accepts
+--model=E:/CyberCity2085-3d-lab/generated/phase2/vtol_finish135/vtol_actions.glb
+--neutral --focus-height=1 --ortho-size=12. The default portrait-sized camera
+is unsuitable for this8m vehicle. Actual native_motion_check.json is GLB-hash
+bound; rerun it after every export, even when generated paint maps are identical.
+

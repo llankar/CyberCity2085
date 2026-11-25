@@ -649,7 +649,10 @@ func load_tactical_map() -> void:
 	else:print("TACTICAL_OBSTACLE_BATCHES_OK instances=",batch_instances," batches=2")
 	# No clear landing footprint exists on this alley: show the aircraft hovering.
 	var animated_vehicle := "--vtol-motion-study" in OS.get_cmdline_user_args()
-	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/" + ("vtol_motion01/vtol_actions.glb" if animated_vehicle else "vtol01/vtol.glb"), Vector3(-6, 4, -4))
+	var vehicle_path := "vtol_motion01/vtol_actions.glb" if animated_vehicle else "vtol01/vtol.glb"
+	if animated_vehicle and "--vtol-finish-study" in OS.get_cmdline_user_args():
+		vehicle_path = "vtol_finish135/vtol_actions.glb"
+	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/" + vehicle_path, Vector3(-6, 4, -4))
 	if animated_vehicle:
 		vehicle_actor = subjects[-1]
 		play_vehicle_clip("Rotor_Spin")

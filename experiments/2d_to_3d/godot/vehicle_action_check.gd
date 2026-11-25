@@ -2,6 +2,8 @@ extends Node3D
 ## Real rigid vehicle surfaces and animation resets; not flight/collision acceptance.
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/vtol_motion01/"
+	var finish_study := "--vtol-finish-study" in OS.get_cmdline_user_args()
+	if finish_study: folder = "E:/CyberCity2085-3d-lab/generated/phase2/vtol_finish135/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"vtol_actions.glb",state)==OK)
@@ -11,7 +13,7 @@ func _ready() -> void:
 	assert(player.get_animation_list().size()==3)
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_")]=mesh
-	assert(meshes.size()==48)
+	assert(meshes.size()==(56 if finish_study else 48))
 	var references = JSON.parse_string(FileAccess.get_file_as_string(folder+"source_surface_reference.json"))
 	var errors := {}
 	for clip in ["Rotor_Spin","Gear_Retract","Gear_Extend"]:

@@ -2,6 +2,36 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` VEHICLE-FINISH-135 (2026-11-25). Continued4ef1fa01; previous
+  batch made verified progress (lossless robot packaging/native pixel evidence).
+  `DONE` original deterministic1024px basecolor/roughness/metallic textures,
+  generated locally without third-party inputs; editable packed images and PNGs
+  retained in E:vtol_finish135. Eight actual hull-fitted aft plates with thickness,
+  inset seams and bevels;48original mesh geometry/parent/transforms protected by
+  exact signatures. No human primitive clothes, no source/production replacement.
+  First16plate variant covered cockpit: REJECTED after native review. Final8aft
+  plates preserve cockpit glazing. This is partial mechanical surface improvement,
+  not final Nighthawk art. Hull nose/ducts remain coarse and largely gray.
+  `DONE` BLEND1523390bytes/GLB556524bytes/CREDITS/finish_report.json. GLB SHA
+  85fbf3e1c12e1a3640ee6d8f7378f0b78b870d252b5fd30bfeb0c19e12f8f74f.
+  Original motion source remains unchanged. Native vehicle_action_check with
+  --vtol-finish-study:56meshes/3clips/27source poses PASS, moving-surface error
+  max10.130micrometers, shoe travel0.770746m/reset0.0. Check rerun after final
+  rebuild because GLB hash changed; no byte-deterministic rebuild claim.
+  `DONE` six targeted tests PASS0fail0skip (2paint,4compaction), actual XML
+  tmp/pytest135-final.xml. Native neutral_full.png and tactical.png inspected.
+  Initial default-close camera cropped vehicle; full neutral ortho12 now captures
+  whole silhouette. Tactical optional selector --vtol-finish-study preserves
+  default vehicle. Native five-subject/input/action checks PASS. Existing SDL
+  warning persists. No new FPS/VRAM benchmark; current610drawcalls are not an
+  optimization claim. Source NLA articulated parts are not collision-tested.
+  `TODO` NEXT: improve remaining coarse vehicle geometry/material coverage,
+  audit robot alpha export separately; humanoid final face/neck/grip/style remain
+  open before second-human expansion. Do not regenerate129atlas as133 evidence.
+  Required humanclips5/5technical,0/5artistic; finalRook0/1; finalhumans0/2;
+  scene5/6subjects; mapnative1/1/artistic0/1;133atlas NOT GENERATED. No production,
+  mainGOAL, push or release changes. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` MECHANICAL-EXPORT-134 (2026-11-25). Continued86444a32.
   `DONE` lossless buffer compaction of real BlenderStudio CHARGE robot derivative:
   145473632 ->116109208bytes (-29364424,20.2%);828 duplicate bufferView payloads
