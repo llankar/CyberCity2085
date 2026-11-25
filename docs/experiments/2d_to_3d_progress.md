@@ -1,6 +1,48 @@
-﻿# Experimental 2D to 3D progress
+# Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+
+- `IN_PROGRESS` OPEN-POINTS-166 checkpoint supplement (2026-11-25).
+  `DONE` TripoSG Rook actual inference using combat sprite, not portrait:
+  query-projection dtype hook (497 calls) resolves reproducible Float/Half FAIL;
+  global autocast stall preserved as INCOMPLETE, not repeated. Actual 50-step
+  inference PASS, 976038 raw triangles, 52.097s cached acquisition/loading scope,
+  torch allocated5659671040/reserved6595543040 bytes. Source revision and hashes
+  recorded in E:generated/phase2/triposg166/rook_combat/result.json. Exactly two
+  duplicate-index faces explain Blender976036; optimized39989, native Godot and
+  cross-artifact verifier PASS. Four neutral views inspected: improved folds,
+  still soft face, fused hand/weapon, static untextured mesh; artistic target FAIL.
+  `DONE` first Hunyuan combat robot inference: local existing u2net removes RGB
+  background, original and prepared hashes retained. 1071052 raw triangles,
+  58.498s inference/loading scope; torch allocated4869660160/reserved5416943616B.
+  Six duplicate-index faces exactly explain Blender1071046, optimized39996.
+  Native Godot import plus cross-artifact verifier PASS. Four neutral views
+  inspected: recognizable cannon/backpack and separated limbs, rounded hard
+  surfaces, soft hands, unresolved thin appendages; no textures or rig yet.
+  Files E:generated/phase2/hunyuan166/robot/{result,verified,geometry_import_audit}.json
+  and review_upright/{model.blend,optimized.blend,optimized.glb,four PNG views}.
+  `DONE` geometry-derived normal-map diagnostic on TripoSG Rook: actual CPU
+  high-to-low tangent bake1024px,39989triangles, no albedo/PBR invention. GLB
+  3554b73ab11dc04f5031d4f7444ead52fe44242df8152363ba009aaf7bc94a2b,
+  normal eab236e088d4f00b5d197e89392fb16e1dc1e23cd91b7d76f8e929483a27e014.
+  Embedded image/UV audit PASS and native Godot normal-enabled material PASS.
+  New same-camera/material/light A/B render executed and inspected: normals
+  recover some folds but cannot repair anatomy or fused equipment. Blender
+  export warned mesh may be invalid: usability beyond native import remains
+  NOT VERIFIED, investigate mesh validation before adopting derived resource.
+  Diagnostic remains neutral gray, NOT generated colour textures or final art.
+  Evidence normal_bake166/{bake,material_audit,godot}.json and review/*.png.
+  `DONE` corrected authored helmet transfer on shared human rig: genuine module,
+  15 Blender deformed samples, max bind error4.898296e-7m; native80bones/5clips/
+  15poses PASS. Neutral corrected placement reviewed; detailed penetration and
+  interchangeable jackets/boots remain NOT VERIFIED. Earlier floating result
+  retained explicitly as FAIL. Files modularity166/helmet_transfer_restfixed.*.
+  Next TODO: diagnose normal-bake export warning; obtain real colour textures
+  without masking geometry defects; first TripoSG robot comparison; modular
+  garments/contact tests; full tactical map and ten unique textured bodies.
+  Existing successful inference/rig/cohort tests are not rerun unchanged.
+  No production changes, no push, no new release. CHANTIER GLOBAL INCOMPLET.
+
 
 - `IN_PROGRESS` OPEN-POINTS-166 (2026-11-25).
   User requests continuation of remaining AI, textures, modular humans,
@@ -58,6 +100,37 @@ This register is separate from the principal CyberCity 2085 GOAL.
   no ten-unique-texture-set claim. Known preexisting SDL stick-calibration warning
   remains; no controller or production changes made. Actual files modularity166/
   cohort_benchmark.json,gpu166.json,cohort_verified.json,cohort_close/overview.png.
+  `DONE` one genuine helmet module289vertices from existing authored component
+  AuthoredProp_5028. Initial15pose binding PASS did NOT prove rest placement:
+  neutral renders revealed floating helmet, preserved helmet_review/ as fitFAIL.
+  Corrected evaluated world matrices and donor rig; new rest-anchor gate first
+  caught173m unit mismatch, final target head-to-module-center0.1431m and15pose
+  maximum deformed-vertex binding error0.490micrometers PASS10micrometer gate.
+  Actual corrected GLB8b43a8342adf21ac20bae03dfaa2f5a765a0473b4aed3ba3143c58b90f672882,
+  helmet_transfer_restfixed.blend/json and helmet_review_restfixed/ four views
+  plus low isometric. Inspected front/profile/isometric: helmet now on head,
+  no longer floating; detailed contact fit still not certified. Actual native
+  helmet-only/rest-fixed check PASS80bones/5clips/15distinct finite poses and
+  module Skin bound to that exact Skeleton3D. Original failed fit kept separately.
+  `DONE` audit_materials166.py3GLBs PASS:7/15/10embedded images,3/5/4materials,
+  real base-colour/normal maps and UV0 on every primitive; image decode verified.
+  No external image URI. This is not a PBR roughness/specular calibration claim.
+  `DONE` new same-design native AI/Rook-input scale comparison: model/sourceSHA
+  verified, actual1920x1080 captures close62.208008px and overview20.736023px.
+  Initial inverted camera-size ratio failed the explicit0.1px gate, corrected;
+  AI_COMBAT_SCALE_CAPTURE_PASS and combat_scale.json under hunyuan166/rook_combat.
+  Close inspected: source colour/detail is not reproduced by white geometry;
+  no textured/readability art acceptance. Existing cohort captures not rerun.
+  `FAIL` first TripoSG standard decoder: diffusion finished but query projection
+  Float/Half mismatch prevented mesh. result.fp16_fail.json preserved. Global
+  autocast attempt stalled at visible40/50; two owned-process py-spy snapshots
+  show same transformer skip_linear, GPU idle. No universal driver-cause claim.
+  Stopped only owned process401; result.autocast_stall.json records INCOMPLETE.
+  `IN_PROGRESS` localized decoder-query cast retry, no global AMP; keeps original
+  denoiser precision. Adds final-latent checkpoint/decode-only path so a later
+  decoder fix need not rerun successful diffusion. Current log
+  tmp/triposg166-rook-querycast.log. Required8GB weights already cached on E:.
+  Diagnostic py-spy0.4.1 installed only E:tools/py-spy; no desktop automation.
   `TODO` genuine garment interchange, anatomical/cloth/contact close inspection,
   PBR interpretation/art review, alternate AI robot and TripoSG generation.
   Existing kernels/guard/contact/TripoSR checks not rerun. No new human art

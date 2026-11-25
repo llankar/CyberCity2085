@@ -52,7 +52,15 @@ def main():
             hf_hub_download(report["model"], f"{report['subfolder']}/{name}", local_dir=local)
         pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(
             report["model"], subfolder=report["subfolder"])
-        mesh = pipeline(image=Image.open(source), num_inference_steps=50,
+        image = Image.open(source)
+        if image.mode != "RGBA" or image.getchannel("A").getextrema() == (255, 255):
+            from rembg import new_session, remove
+            image = remove(image, session=new_session("u2net"))
+            assert image.getchannel("A").getbbox() is not None
+            image.save(output / "prepared.png")
+            report["background_preparation"] = "existing local u2net"
+            report["prepared_sha256"] = hashlib.sha256((output / "prepared.png").read_bytes()).hexdigest()
+        mesh = pipeline(image=image, num_inference_steps=50,
                         octree_resolution=384,
                         generator=torch.Generator(device="cuda").manual_seed(1))[0]
         if len(mesh.vertices) < 4 or len(mesh.faces) < 4:

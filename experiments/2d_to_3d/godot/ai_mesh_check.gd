@@ -4,6 +4,7 @@ extends Node
 func _ready() -> void:
 	var model := ""
 	var evidence := ""
+	var require_normal := "--require-normal-map" in OS.get_cmdline_user_args()
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--model="):
 			model = argument.trim_prefix("--model=")
@@ -25,6 +26,7 @@ func _ready() -> void:
 	var count := 0
 	var triangles := 0
 	var materials := 0
+	var normal_maps := 0
 	for node in scene.find_children("*", "MeshInstance3D", true, false):
 		var mesh: Mesh = node.mesh
 		if mesh == null:
@@ -34,13 +36,21 @@ func _ready() -> void:
 		for surface in mesh.get_surface_count():
 			if mesh.surface_get_material(surface) != null:
 				materials += 1
+				var material := mesh.surface_get_material(surface) as BaseMaterial3D
+				if material != null and material.normal_enabled and material.get_texture(BaseMaterial3D.TEXTURE_NORMAL) != null:
+					normal_maps += 1
 	if count == 0 or triangles < 4:
 		push_error("Imported GLB has no usable mesh")
+		get_tree().quit(1)
+		return
+	if require_normal and normal_maps == 0:
+		push_error("Required generated normal map not active in Godot")
 		get_tree().quit(1)
 		return
 	var report := {"status": "PASS", "engine": Engine.get_version_info().string,
 		"source": model, "source_sha256": FileAccess.get_sha256(model),
 		"mesh_objects": count, "triangles": triangles, "material_surfaces": materials,
+		"normal_mapped_surfaces": normal_maps,
 		"artistic_acceptance": "NOT VERIFIED"}
 	var file := FileAccess.open(evidence, FileAccess.WRITE)
 	if file == null:

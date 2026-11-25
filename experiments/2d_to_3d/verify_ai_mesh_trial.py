@@ -17,7 +17,15 @@ def verify(folder, source_z_up=True):
     native = json.loads((review_dir / "godot.json").read_text())
     assert result["status"] == native["status"] == "PASS"
     assert result["glb_sha256"] == review["source_sha256"] == sha(folder / "mesh.glb")
-    assert result["triangles"] == review["triangles"]
+    expected_triangles = result["triangles"]
+    audit_path = folder / "geometry_import_audit.json"
+    if audit_path.exists():
+        audit = json.loads(audit_path.read_text())
+        assert audit["source_sha256"] == result["glb_sha256"]
+        assert audit["raw_triangles"] == expected_triangles
+        assert audit["expected_import_triangles"] == expected_triangles - audit["duplicate_index_faces"]
+        expected_triangles = audit["expected_import_triangles"]
+    assert expected_triangles == review["triangles"]
     assert review["source_z_up_correction"] == source_z_up
     assert review["optimized_triangles"] == native["triangles"]
     assert review["optimized_glb_sha256"] == native["source_sha256"] == sha(review_dir / "optimized.glb")

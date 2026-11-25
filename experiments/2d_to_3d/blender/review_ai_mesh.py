@@ -16,6 +16,7 @@ def main():
     parser.add_argument("--output", required=True)
     parser.add_argument("--target-triangles", type=int, default=20000)
     parser.add_argument("--source-z-up", action="store_true")
+    parser.add_argument("--normal-ab", action="store_true")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
     source = Path(args.input).resolve()
     output = Path(args.output).resolve()
@@ -87,6 +88,21 @@ def main():
         scene.render.filepath = str(path)
         bpy.ops.render.render(write_still=True)
         report["renders"][name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    if args.normal_ab:
+        nodes = [node for mat in bpy.data.materials if mat.use_nodes
+                 for node in mat.node_tree.nodes if node.type == "NORMAL_MAP"]
+        if not nodes:
+            raise RuntimeError("Normal-map A/B requires an imported normal map")
+        strengths = [node.inputs["Strength"].default_value for node in nodes]
+        for node in nodes:
+            node.inputs["Strength"].default_value = 0
+        path = output / "isometric_normal_disabled.png"
+        scene.render.filepath = str(path)
+        bpy.ops.render.render(write_still=True)
+        report["renders"]["isometric_normal_disabled"] = hashlib.sha256(path.read_bytes()).hexdigest()
+        for node, strength in zip(nodes, strengths):
+            node.inputs["Strength"].default_value = strength
+        report["normal_ab"] = "Identical geometry, material and lighting; only normal strength disabled"
     bpy.ops.wm.save_as_mainfile(filepath=str(output / "model.blend"))
     ratio = min(1.0, args.target_triangles / report["triangles"])
     for obj in meshes:

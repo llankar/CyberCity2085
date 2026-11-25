@@ -8,6 +8,12 @@ func fail(message: String) -> void:
 
 func _ready() -> void:
 	var manifest = JSON.parse_string(FileAccess.get_file_as_string(FOLDER + "exports.json"))
+	var helmet_only := "--helmet-only" in OS.get_cmdline_user_args()
+	var rest_fixed := "--rest-fixed" in OS.get_cmdline_user_args()
+	if helmet_only:
+		var suffix := "_restfixed" if rest_fixed else ""
+		var proof = JSON.parse_string(FileAccess.get_file_as_string(FOLDER + "helmet_transfer" + suffix + ".json"))
+		manifest.exports = [{"file": FOLDER + "body_0_helmet" + suffix + ".glb", "sha256": proof.output_sha256}]
 	var results: Array = []
 	for item in manifest.exports:
 		if FileAccess.get_sha256(item.file) != item.sha256:
@@ -25,6 +31,10 @@ func _ready() -> void:
 			fail("Expected genuine animated skeleton"); return
 		var player := players[0] as AnimationPlayer
 		var skeleton := skeletons[0] as Skeleton3D
+		if helmet_only:
+			var modules := actor.find_children("HelmetModule166", "MeshInstance3D", true, false)
+			if modules.size() != 1 or modules[0].skin == null or modules[0].get_node_or_null(modules[0].skeleton) != skeleton:
+				fail("Transferred helmet lost its actual skeleton binding"); return
 		if skeleton.get_bone_count() < 80:
 			fail("Lost skeleton bones"); return
 		var clips: Array = []
@@ -51,7 +61,8 @@ func _ready() -> void:
 		results.append({"file": item.file, "sha256": item.sha256,
 			"bones": skeleton.get_bone_count(), "clips": clips,
 			"sampled_poses": signatures.size(), "distinct_poses": unique.size()})
-	var file := FileAccess.open(FOLDER + "native_shared_actions.json", FileAccess.WRITE)
+	var file_name := "native_helmet_restfixed.json" if rest_fixed else ("native_helmet.json" if helmet_only else "native_shared_actions.json")
+	var file := FileAccess.open(FOLDER + file_name, FileAccess.WRITE)
 	file.store_string(JSON.stringify({"status": "PASS", "bodies": results,
 		"scope": "Native clips/bones/finite moving poses; no wardrobe or artistic acceptance"}, "  "))
 	file.close()
