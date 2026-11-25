@@ -13,9 +13,11 @@ var action_name := "walk"
 var facing_map: Array = [0, 1, 2, 3, 4, 5, 6, 7]
 var production_order := false
 var captions: Array[Label] = []
+var has_facing_map := false
 
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/robot_walk_atlas01/"
+	var manifest_name := ""
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--action="):
 			action_name = argument.trim_prefix("--action=").to_lower()
@@ -26,18 +28,30 @@ func _ready() -> void:
 			folder = argument.trim_prefix("--atlas-dir=").trim_suffix("/") + "/"
 		if argument == "--production-order":
 			production_order = true
+		if argument.begins_with("--manifest="):
+			manifest_name = argument.trim_prefix("--manifest=")
+			if manifest_name.get_file() != manifest_name or not manifest_name.ends_with(".json"):
+				get_tree().quit(5)
+				return
 	if not folder.begins_with("E:/CyberCity2085-3d-lab/generated/"):
 		get_tree().quit(5)
 		return
-	var manifest = JSON.parse_string(FileAccess.get_file_as_string(folder + "robot_" + action_name + "_atlas.json"))
-	var image := Image.load_from_file(folder + "robot_" + action_name + "_atlas.png")
-	if not manifest is Dictionary or image == null:
+	if manifest_name.is_empty(): manifest_name = "robot_" + action_name + "_atlas.json"
+	var manifest = JSON.parse_string(FileAccess.get_file_as_string(folder + manifest_name))
+	if not manifest is Dictionary or not manifest.has("texture") or str(manifest.texture).get_file() != str(manifest.texture):
 		get_tree().quit(2)
 		return
+	var image := Image.load_from_file(folder + manifest.texture)
+	if image == null:
+		get_tree().quit(2)
+		return
+	if not manifest.animations.has(action_name): action_name = str(manifest.animations.keys()[0])
 	rows = manifest.animations[action_name].rows
 	fps = manifest.animations[action_name].fps
 	looping = manifest.animations[action_name].loop
 	facing_map = manifest.get("facing_to_orbit_view", facing_map)
+	has_facing_map = manifest.has("facing_to_orbit_view")
+	if not has_facing_map: production_order = false
 	var texture := ImageTexture.create_from_image(image)
 	for index in range(8):
 		var sprite := Sprite2D.new()
@@ -49,7 +63,7 @@ func _ready() -> void:
 		sprite.scale = Vector2.ONE * 1.5
 		if manifest.has("anchor_uv"):
 			sprite.centered = false
-			sprite.offset = -Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * 128
+			sprite.offset = -Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * Vector2(manifest.frame_size[0], manifest.frame_size[1])
 		add_child(sprite)
 		views.append(sprite)
 		var label := Label.new()
@@ -89,7 +103,7 @@ func _ready() -> void:
 		var old_mode := production_order
 		key.keycode = KEY_M
 		_unhandled_key_input(key)
-		assert(production_order != old_mode)
+		assert(production_order != old_mode if has_facing_map else production_order == old_mode)
 		_unhandled_key_input(key)
 		assert(production_order == old_mode)
 		playing = true
@@ -117,7 +131,8 @@ func update_frames() -> void:
 		views[direction].modulate = Color.WHITE if selected == direction else Color(0.8, 0.8, 0.8)
 		captions[direction].text = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"][direction] if production_order else "Orbit view %d" % direction
 	if status:
-		status.text = "ANIMATED ATLAS REVIEW | authored %s | 8 views x 4 poses\nSpace: pause | Left/Right: select | M: orbit/projected facing | frame %d | %.2f fps\nProjected facing assumes source forward -Y; artistic acceptance NOT VERIFIED" % [action_name, frame_value, fps]
+		var mapping_note := "M: orbit/projected facing; assumes source forward -Y" if has_facing_map else "Facing correspondence unavailable; orbit views only"
+		status.text = "ANIMATED ATLAS REVIEW | authored %s | 8 views x 4 poses\nSpace: pause | Left/Right: select | frame %d | %.2f fps\n%s | artistic acceptance NOT VERIFIED" % [action_name, frame_value, fps, mapping_note]
 
 func _process(delta: float) -> void:
 	if not playing or views.is_empty():
@@ -133,7 +148,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_SPACE:
 			playing = not playing
-		if event.keycode == KEY_M:
+		if event.keycode == KEY_M and has_facing_map:
 			production_order = not production_order
 		if event.keycode in [KEY_RIGHT, KEY_LEFT]:
 			selected = posmod(selected + (1 if event.keycode == KEY_RIGHT else -1), 8)

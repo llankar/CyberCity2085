@@ -76,7 +76,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
-	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args()
+	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args()
+	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
 	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
@@ -89,6 +90,9 @@ func _ready() -> void:
 	if rocketbox:
 		assert(not rigged_human and not action_human, "Choose one human source")
 		human_path = root + "rocketbox_military03/character_dielectric.glb"
+		if rocketbox_motion:
+			human_path = root + "rocketbox_military03/motion01/human_motion.glb"
+			rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
@@ -194,21 +198,21 @@ func _ready() -> void:
 			assert(walking_player.current_animation == "Walk")
 			print("CHARGE_HUMAN_WALK_DISPATCH_OK")
 			play_clip("Shoot")
-		if action_human or bundled_human:
+		if action_human or bundled_human or rocketbox_motion:
 			play_clip("Shoot")
 			var action_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			assert(action_player.current_animation == "Pistol_Shoot")
 			if bundled_human: assert(human_weapon.visible)
 			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
 		else: assert("unavailable" in clip_status)
-		if bundled_human:
+		if bundled_human or rocketbox_motion:
 			var bundle_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			play_clip("Melee")
 			assert(bundle_player.current_animation == "Punch_Cross")
-			assert(not human_weapon.visible)
+			if human_weapon: assert(not human_weapon.visible)
 			play_clip("Death")
 			assert(bundle_player.current_animation == "Death01")
-			assert(not human_weapon.visible)
+			if human_weapon: assert(not human_weapon.visible)
 			print("CHARGE_HUMAN_FIVE_ACTION_DISPATCH_OK")
 		selected = 1
 		play_clip("Idle")

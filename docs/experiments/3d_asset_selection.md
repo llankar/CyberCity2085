@@ -13,7 +13,10 @@ maps:144,278,814bytes total with license. Actual authored vest/pouches/gloves/bo
 80-bone rig,175 facial targets,15,517tris. Native neutral front/profile/back and
 62.208px tactical comparison inspected. Legacy specular workflow; explicit
 metallic0 candidate is not a final PBR conversion. Soldier identity/camouflage
-not accepted as Rook. No animations validated yet. Files remain exclusively E:.
+not accepted as Rook. Batch86 retargets five actual CC0 UAL actions;45 native
+surface samples verify export fidelity, not grip/contact or artistic quality.
+Five eight-view/four-frame PNG sheets also pass pixel/native playback gates.
+Files remain exclusively E:.
 Acquisition manifest, hashes, native evidence and failures recorded in batch85.
 
 ## Candidate register

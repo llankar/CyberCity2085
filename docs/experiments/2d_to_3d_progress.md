@@ -3,6 +3,79 @@
 This register is separate from the principal CyberCity 2085 GOAL.
 
 
+- `IN_PROGRESS` TACTICAL-SOURCE-MOTION-ATLAS-86 (2026-11-25) ? continued batch85
+  automatically, using actual MIT Rocketbox geometry/rig and licensed CC0
+  Quaternius UAL Standard motion, no primitive clothing or MPFB armor retint.
+  Anatomical child vectors calibrate source T-pose vs target A-pose: upper arms
+  ~43.98deg, forearms~50.26deg;52 mapped Biped controls including all30 finger
+  segments. Full80-bone local location/quaternion/scale tracks retained per clip.
+  Idle2.5s, Walk1.333333s, Pistol_Shoot.633333s, Punch_Cross1s, Death012.4s.
+  Master Blend contains real rig,175 facial targets,packed15 textures and five
+  NLA actions; separate GLB79,890,972bytes,Blend278,317,195bytes. Both source MIT
+  and motion CC0 notices embedded and adjacent; source commit pinned. Master
+  sources untouched. Full source appearance remains soldier, not Rook identity.
+
+  First native surface comparison FAIL on melee between baked frames. Corrected
+  quaternion hemisphere continuity and explicit linear baked F-curves rather than
+  relying on Blender's Bezier default. Fresh independently evaluated Blender skin
+  references45 times (5 clips x9),25 sampled source points each; native full skin
+  nearest-vertex distance maxima: Idle22.522um, Walk23.475um, Shoot22.459um,
+  Melee20.093um, Death47.062um. Threshold unchanged1mm. Native80bone/175morph
+  gate PASS; Death->Idle reset0m, final GLB SHA256
+  aecb4b71b7682ee0e6c14df11388ba7dded5a35c8dca45c56e98c3d14bf0b397.
+  This verifies export deformation, not artistic action quality or source motion
+  adaptation quality. Hand grip/weapon attachment and ground contact remain TODO.
+  Neutral actual Idle/front/back, Walk/profile, Shoot/profile, Melee/front,
+  Death/profile inspected. Preview bounds now also use real skinned positions;
+  --hide-material + --focus-height reveal actual unhelmeted source head, not an
+  invented face. Source short hair/face present; sunglasses/outfit still not final.
+
+  Alternative pipeline produced five genuine Blender-rendered PNG sheets,
+  eight orientations x4 frames/action =160 frames. First128px frame FAIL clipped
+  six fallen-body views. Corrected192px transparent padding while keeping
+  projected standing height62.208px and elevation.6rad, not shrinking the actor.
+  Final sheets1536x768RGBA; per-source/frame-pixel comparison<=2levels, alpha
+  coverage/nonclipping and observed motion in every orbit view PASS160/160.
+  Production-facing correspondence NOT VERIFIED and disabled in reviewer when
+  no mapping exists. Generic manifest playback supports real frame dimensions;
+  five native sheet playback/pause/view-selection/loop-end gates PASS, existing
+  George atlas regression PASS. Sprite-row layout is experimental and not installed.
+
+  Independent native stage --rocketbox-motion-study --robot-idle-study --tactical
+  --sprite-review --self-test --msaa4 PASS: five human clips dispatched, robot Idle,
+  five subjects,627 blocked cells/two obstacle batches, human1.850357175m,
+  robot1.949875712m, projected human62.207947px. Existing alley layout/floor only;
+  gray prototype obstacle volumes are not finished map art. Five-second native
+  post-draw sample1,694frames/5.002625s (~338.62/s),p95interval3.371ms,562drawcalls,
+  engine-reported video allocation832,299,424bytes, render texture1920x1080/window
+  1280x720. Most sample is Idle, not GPU execution timing/full-combat/total VRAM
+  peak. Initial900-frame quit guard ended before the benchmark; discarded and
+  rerun to explicit benchmark+capture completion. Persistent SDL calibration
+  warning remains; not called warning-free. Fresh human/robot/tactical captures
+  retained; robot is still too dark/thin versus the current sprite at native zoom.
+
+  Evidence E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03/motion01:
+  retarget_report, surface_reference, native_motion_check, native_benchmark,
+  neutral captures, head_unhelmeted, robot_review_front, tactical_comparison;
+  atlas/*.png/*.json plus verification.json and native_*_review screenshots.
+  Python final gate23passed,0failed/skipped in four experiment modules. An initial
+  synthetic swapped-tile test used colors only1level apart within the deliberate
+  2level PNG tolerance; corrected fixture separation, then all23passed. No claim
+  that first run passed. No production suite/runtime/save/main GOAL changes.
+
+  DONE this batch6/6 bounded technical tasks: licensed retarget, portable export,
+  independent source/native deformation gate, real eight-view atlas pipeline,
+  native sprite playback, measured tactical comparison. Global remains open:
+  accepted final Rook/Raider identities0/2; robot only Idle, other robot actions
+  and final art NOT VERIFIED. Six initial prototypes are not six artistically
+  accepted assets. Native map evidence covers one experimental alley layout;
+  other production maps are untouched, not claimed verified. TODO next: source
+  gear segmentation/fit and professional Rook face/hair/outfit selection, correct
+  pistol/support grip, foot contact, robot actions/readability, source-aware
+  material/morph/texture optimization and Blender re-export roundtrip. No human
+  production generalized, no push/release. CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` LICENSED-TACTICAL-CANDIDATE-85 (2026-11-25) ? strategy moved to
   an actual authored game character rather than more MPFB recoloring. Reviewed
   official Microsoft Rocketbox previews, selected Military_Male_03 for real vest,

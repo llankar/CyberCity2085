@@ -10,6 +10,18 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Licensed motion/atlas study (batch86): run blender/retarget_rocketbox_motion.py,
+then blender/sample_rocketbox_motion.py through run_blender.ps1. Native
+rocketbox_motion_check.tscn must print ROCKETBOX_NATIVE_FIVE_MOTIONS_OK; exit0
+alone does not prove assertions passed. render_rocketbox_atlas.py creates five
+192px-frame sheets with eight views/four samples, preserving62.208px human scale.
+verify_rocketbox_atlas.py validates actual PNGs. atlas_review.tscn --atlas-dir=E:/...
+--manifest=Death01_atlas.json --self-test plays any experimental sheet; missing
+facing maps remain unavailable. comparison.tscn --rocketbox-motion-study selects
+all five real human actions. Weapon/grip/contact and final Rook identity pending.
+Preview --hide-material=sm004_helmet --focus-height=1.65 --ortho-size=.65 inspects
+actual head under source helmet; it does not alter the master mesh or textures.
+
 Licensed tactical source (batch85): acquire_rocketbox_candidate.py downloads only
 one pinned MIT Rocketbox character and verifies reviewed blob hashes/sizes.
 Run blender/inspect_rocketbox_character.py then blender/export_rocketbox_candidate.py

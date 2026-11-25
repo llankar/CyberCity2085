@@ -112,6 +112,17 @@ func _ready() -> void:
 					var diagnostic := material.duplicate() as StandardMaterial3D
 					diagnostic.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 					mesh.set_surface_override_material(surface, diagnostic)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--hide-material="):
+			var hidden_name := argument.trim_prefix("--hide-material=")
+			for mesh in model.find_children("*", "MeshInstance3D", true, false):
+				for surface in range(mesh.mesh.get_surface_count()):
+					var material := mesh.get_active_material(surface) as StandardMaterial3D
+					if material and material.resource_name == hidden_name:
+						var hidden := material.duplicate() as StandardMaterial3D
+						hidden.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+						hidden.albedo_color.a = 0
+						mesh.set_surface_override_material(surface, hidden)
 	for mesh in model.find_children("*", "MeshInstance3D", true, false):
 		if "Boot" in mesh.name:
 			equipment_meshes.append(mesh)
@@ -170,10 +181,19 @@ func _ready() -> void:
 	add_child(camera)
 	var bounds := AABB()
 	var first_bound := true
+	var skin_probe := preload("res://skin_motion_check.gd").new()
 	for mesh in model.find_children("*", "MeshInstance3D", true, false):
+		if mesh.skin != null and mesh.get_node_or_null(mesh.skeleton) is Skeleton3D:
+			var skeleton := mesh.get_node(mesh.skeleton) as Skeleton3D
+			skeleton.force_update_all_bone_transforms()
+			for point in skin_probe.skinned_points(mesh, skeleton, 1):
+				bounds = AABB(point, Vector3.ZERO) if first_bound else bounds.expand(point)
+				first_bound = false
+			continue
 		var mesh_bounds: AABB = mesh.global_transform * mesh.get_aabb()
 		bounds = mesh_bounds if first_bound else bounds.merge(mesh_bounds)
 		first_bound = false
+	skin_probe.free()
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--bounds-file="):
 			var evidence = JSON.parse_string(FileAccess.get_file_as_string(argument.trim_prefix("--bounds-file=")))
@@ -193,6 +213,8 @@ func _ready() -> void:
 			camera.size = bounds.size.length() * 1.15
 			print("CYBERCITY_ANIMATED_BOUNDS_OK ", bounds)
 	var target := bounds.get_center() if not first_bound else Vector3(0.0, 0.45, 0.0)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--focus-height="): target.y = argument.trim_prefix("--focus-height=").to_float()
 	# Keep the viewing direction independent of imported model height/units.
 	camera.position = target + Vector3(1.8, 1.05, 1.8)
 	for argument in OS.get_cmdline_user_args():
