@@ -2,6 +2,34 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MECHANICAL-EXPORT-134 (2026-11-25). Continued86444a32.
+  `DONE` lossless buffer compaction of real BlenderStudio CHARGE robot derivative:
+  145473632 ->116109208bytes (-29364424,20.2%);828 duplicate bufferView payloads
+  share aligned storage. All referenced bytes and JSON metadata except binary
+  offsets/length are asserted exact.124meshes/five clips/materials retained.
+  Source GLB and editableBLEND unchanged; copied source CREDITS to derivative.
+  E:security_compact134/robot_actions.glb SHA
+  75a895b65ba7cf4d8ab93253bfaecb61a2b22e4f0fefba5ef85ee6650da946f5.
+  `DONE` compact_glb.py, verify_compact_robot.py, optional --compact-robot-study
+  scene selector; four targeted pytest PASS0failed0skipped (tmp/pytest134.xml).
+  Five actual Godot midpoint samples Idle/Walk/Melee/Hit/Death each loaded from
+  both original and compact GLBs: ten captures, decoded RGB pixels EXACT.
+  native_compaction_validation.json binds both GLB and screenshot SHA256 values.
+  First verifier attempt failed PowerShell UTF16 log decoding; corrected BOM
+  handling, rerun PASS. No earlier failure represented as a successful check.
+  `DONE` independent tactical scene with133human/compactrobot/VTOL/furniture/map:
+  robot five actions, human six-action dispatch, VTOL controls, camera/input,
+  actual627cell facades and62.208038px human reference PASS. tactical.png and
+  robot_neutral.png inspected. Robot remains thin/dark next to existing sprite;
+  gray vehicle/facade materials remain artistically unfinished. Existing SDL
+  calibration warning persists. Short timing is not a new FPS/VRAM benchmark.
+  `TODO` NEXT: audit robot alpha/material export and genuine PBR vehicle finish;
+  preserve motion/source licenses. No new model download or humanoid expansion.
+  Counts unchanged: human5/5required clips technical,0/5artistic; finalRook0/1,
+  finalhumans0/2;129atlas5/5technical,133atlas NOT GENERATED; scene5/6subjects;
+  mapnative1/1/artistic0/1. All mandatory final art/performance criteria remain
+  open. No production/mainGOAL/build/push changes. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PORTRAIT-UNDERCUT-133 (2026-11-25). Continued92f97b0c; previous
   turn concrete wrist ownership evidence changed next action (not a confirmed
   empty wrist gap). `DONE` actual Rook portrait agent_male_14.png inspected again:

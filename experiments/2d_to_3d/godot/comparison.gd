@@ -173,6 +173,8 @@ func _ready() -> void:
 	if robot_hit: robot_path = root + "security_hit01/robot_hit.glb"
 	if robot_shutdown: robot_path = root + "security_death01/robot_death.glb"
 	if robot_bundle: robot_path = root + "security_bundle01/robot_actions.glb"
+	if robot_bundle and "--compact-robot-study" in OS.get_cmdline_user_args():
+		robot_path = root + "security_compact134/robot_actions.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return

@@ -768,3 +768,22 @@ with --undercut-study is deliberately rejected until matching atlas generation
 is performed. Native314pose bounds are technical evidence; haircut likeness and
 whole-character final art remain separate from that test.
 
+### Lossless robot packaging study134
+
+`compact_glb.py` repacks aligned embedded bufferViews and shares byte-identical
+payloads. It preserves indices, geometry, animation, UVs, materials and image
+bytes; unknown binary extensions are rejected. Source Blender remains in
+security_bundle01. The derivative and notices live only on E:security_compact134.
+This reduces disk/download size20.2%, not proven VRAM or draw-call cost.
+
+```powershell
+python experiments/2d_to_3d/compact_glb.py E:/CyberCity2085-3d-lab/generated/phase2/security_bundle01/robot_actions.glb E:/CyberCity2085-3d-lab/generated/phase2/security_compact134/robot_actions.glb
+python experiments/2d_to_3d/verify_compact_robot.py
+```
+
+Verifier requires ten prior native captures: source/compact each for
+Idle,Walk,Melee,Hit,Death at fraction0.5 using main.tscn --neutral --view=front.
+Files are source_CLIP.png/log and compact_CLIP.png/log in security_compact134.
+All five pairs decode to identical pixels. Full comparison scene can opt in with
+--robot-action-bundle --compact-robot-study; default source stays unchanged.
+
