@@ -2,6 +2,63 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SCANNED-HEAD-AUTHORED-ARMOR-109 (2026-11-25). Continued actual
+  checkpoint927662b3. Real Renderpeople scanned head/neck assembled with authored
+  15piece armor/body. Original geometry/photographic UV/JPEG, no primitive hair or
+  human clothes, no generation/MPFB recolor. Original sources unchanged. REST
+  anatomies both face Blender-Y; authored poses turn root180deg (posed107 correct).
+  Bind-space eye-midpoint/head-width fit scale1.0964134. Neck/head weights max2;
+  old head/eyes/teeth removed only from derivative game scene. Facial expression,
+  eye/blink bindings NOT retained; not a completed face rig.
+
+  First name-substring extraction FAILed visual review: omitted mouth groups,
+  6234faces/3577vertices. Corrected by complete neck-bone descendants, final
+  6630head triangles/3765vertices. Six new anatomical helper cases PASS incl mouth,
+  misleading names, cycles/missing parents; focused total26Python PASS0failed0skip.
+  Independent verify_scanned_head.py: all selected-source triangles/winding match,
+  UV error0, max position component error.247416micrometres; original JPEG bytes
+  EXACT. All16body/armor mesh payloads and six animation tracks EXACT SOURCE.
+  Initial5e-5normal criterion FAIL: actual Blender custom-normal storage error
+  .000119051 and GLB max.000128925 measured; explicit2e-4component tolerance used,
+  not false exact-normal preservation or geometric workaround.
+
+  E: scanned_armor_head01/human_actions.blend119,635,470bytes /GLB47,565,184bytes;
+  17meshes/122bones/14,296triangles/3materials/5images. GLB SHA
+  399b35189c62bee2b5202e2381aed66f52f577c47047a5c235667deb8e4f66ad.
+  Native --scanned-head-study PASS six durations/17meshes, max sampled skin.269581mm,
+  Death->Idle0m. Neutral face/profile/back inspected: no obvious neck hole. Crouch
+  closeup initially misframed at1.55m (NOT verification); corrected to actual head
+  height1.03m and inspected: collar covers cut neck in this pose. Not exhaustive
+  contact/collision proof. Face/hair remains Nathan, not accepted Rook identity.
+
+  Assembly contribution BY-SA4 under original SA3section4(b)/CC primary compatibility;
+  underlying armorSA3/headBY4 notices retained in Blend/GLB/CREDITS. Official pages
+  read through web tool; urllib archival403, actual tool response saved on E: as
+  license_web_snapshot.json, NOT publisher HTML. No game code relicensing/push.
+  Nathan NoAI respected: traditional DCC only. No paid/massive new download.
+
+  Native comparison --scanned-head-study --robot-action-bundle --vtol-motion-study
+  --tactical --self-test --sprite-review PASS: five subjects/627prototype cells,
+  human1.872654m projected62.208px. Stage PNG inspected; sprites still stronger,
+  robot dark/slender, map gray volumes unfinished. Five-second rendered benchmark:
+  300frames/59.8159fps/p95interval16.718ms,586drawcalls, enginevideo1,690,916,512bytes.
+  Texture1920x1080/window1280x720; VSync capped, no uncapped/hardware guarantee.
+  GPU24samples with live Godot PIDs: global1452..3543MiB, not exclusive allocation
+  or guaranteed peak. Actual JSON/PNG retained E:. No production/campaign tests.
+
+  Embedded Blender ignored cache env and had emitted helper bytecodes on D:.
+  Lab-only wrapper now sets sys.pycache_prefix on E: before script, no system-env
+  exposure. Bounded experimental bytecodes moved to E:legacy-script-bytecode, no
+  deletion. Actual check_python_cache.py PASS verifies imported helper cache on E:.
+  User save untouched, no build/push, SDL warning persists.
+
+  `DONE` head assembly structural/native/neutral-view proof only. `TODO` next:
+  genuine authored Rook hairstyle/identity, coherent PBR/contact and corrected
+  firing pose, retaining this first candidate. Do not start Raider/generalize.
+  Accepted final humans0/2, native map1/1 but artistically finalized0/1, scene5/6;
+  full action/contact set, environment and robot optimization remain open.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-HAND-WEAPON-108 (2026-11-25). Prior107 is concrete progress:
   native saved-Blend roundtrip and measured facing, not a wait/status-only turn.
   Actual worktree inspected: user save remains dirty and untouched. Reused body,

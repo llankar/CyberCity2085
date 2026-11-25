@@ -51,6 +51,32 @@ the actual existing CC0 pistol using finger landmarks, writes equipped Blend/GLB
 nine times. Neutral closeup shows raised arm obscures face and unfinished contact:
 artistic FAIL, not accepted armed gameplay. Full original source rig remains intact.
 
+## Scanned head with authored armor (batch109)
+
+Run `blender/audit_scanned_head_fit.py`, then `blender/assemble_scanned_head.py`
+through the Blender wrapper. Input Nathan and authored action Blend files remain
+unchanged. Head selection follows ALL neck descendants (including mouth), not a
+name-substring list. Fit in REST bind space: both anatomies face Blender-Y; source
+animation can turn root180degrees. Body/armor and six source actions are retained.
+New assembly contribution BY-SA4; original SA3/BY4 notices remain in source/exports.
+New facial expressions/blinks are not implemented by the neck/head rebind.
+
+Run `python verify_scanned_head.py` from this directory, then native
+`authored_motion_check.tscn --scanned-head-study`. Require fresh matching-SHA
+source_preservation_check/native_motion_check JSON, complete head topology/UV/photo,
+unchanged body tracks and actual native positive marker. Normal storage component
+error is explicitly bounded, not claimed exact. Art/contact are separate.
+
+Use comparison.tscn --scanned-head-study --robot-action-bundle --vtol-motion-study
+--tactical --self-test --sprite-review for actual62.208px tactical review. Head is
+Nathan, not accepted Rook; no Raider/general production. Neutral main.tscn views
+back/side/front correspond to face/profile/back at the authored Idle0 pose.
+
+Embedded Blender ignores Python cache environment variables unless opted into
+system environment. The wrapper explicitly sets sys.pycache_prefix on E: instead;
+`blender/check_python_cache.py` verifies an actual imported module cache on E:.
+No desktop automation or production runtime changes.
+
 ## Mechanical forward walk study (batch91)
 
 Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments

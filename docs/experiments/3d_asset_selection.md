@@ -4,6 +4,19 @@ Status: IN_PROGRESS, 2026-11-24. No production changes. No further generic MPFB
 armor recoloring. First convincing human must pass before character production
 is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
+Batch109 now assembles the acquired Renderpeople scanned head with actual
+Unvanquished authored armor in a separate editable Blend/GLB on E:. Original
+photographic JPEG/UV and all selected head triangles are checked independently;
+16body meshes and six source body-animation tracks remain exact. Original notices
+retained; assembly contribution BY-SA4 (original armor BY-SA3, scanned head BY4).
+[CC compatibility](https://creativecommons.org/compatible-licenses/) and
+[SA3section4(b)](https://creativecommons.org/licenses/by-sa/3.0/legalcode.en)
+were consulted; no game-code license change or external distribution.
+This improves actual head geometry/texture, not lighting. Still Nathan identity,
+not Rook; facial expressions/blinks, correct hair and firing contacts unaccepted.
+The independent stage and neutral face/profile/back/crouch renders are reviewed,
+but first final humanoid acceptance remains0/1. Full evidence in progress register.
+
 ## Acquired game-authored tactical candidate (batch85)
 
 Batch94: first actual authored garment fitted/skinned to this existing rig, with

@@ -4,6 +4,9 @@ func _ready() -> void:
 	if "--saved-blend-roundtrip" in OS.get_cmdline_user_args():folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_roundtrip01/"
 	var weapon_study := "--weapon-study" in OS.get_cmdline_user_args()
 	if weapon_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_weapon01/"
+	var scanned_head := "--scanned-head-study" in OS.get_cmdline_user_args()
+	if scanned_head:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_head01/"
+	assert(not (weapon_study and scanned_head),"Choose one study")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human_actions.glb",state)==OK)
@@ -14,7 +17,7 @@ func _ready() -> void:
 	assert(skeleton.get_bone_count()==122)
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_")]=mesh
-	assert(meshes.size()==21)
+	assert(meshes.size()==(17 if scanned_head else 21))
 	var reference = JSON.parse_string(FileAccess.get_file_as_string(folder+"source_surface_reference.json"))
 	assert(reference.size()==(1 if weapon_study else 6))
 	var durations := {"Idle":400.0/60,"Walk":70.0/60,"Run":90.0/120,"Attack":16.0/60,"Death":40.0/60,"Crouch":10.0/60}
@@ -57,8 +60,8 @@ func _ready() -> void:
 	probe.free()
 	var file := FileAccess.open(folder+"native_motion_check.json",FileAccess.WRITE)
 	assert(file!=null)
-	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(folder+"human_actions.glb"),"meshes":21,"bones":122,"surface_errors_m":errors,"death_idle_reset_m":null if weapon_study else reset_error,"clip_restart_m":reset_error,"durations_s":durations,"scope":"Composed Blender skin export fidelity only; source-game parity and grip not accepted" if weapon_study else "Six source body clips; grip, weapon composition and final art not accepted"},"  "))
-	print("UNV_NATIVE_AUTHORED_MOTION_OK clips=",reference.size()," meshes=21 bones=122")
+	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(folder+"human_actions.glb"),"meshes":meshes.size(),"bones":122,"surface_errors_m":errors,"death_idle_reset_m":null if weapon_study else reset_error,"clip_restart_m":reset_error,"durations_s":durations,"scope":"Assembled Blender skin export fidelity only; face expression and artistic fit not accepted" if scanned_head else ("Composed Blender skin export fidelity only; source-game parity and grip not accepted" if weapon_study else "Six source body clips; grip, weapon composition and final art not accepted")},"  "))
+	print("UNV_NATIVE_AUTHORED_MOTION_OK clips=",reference.size()," meshes=",meshes.size()," bones=122")
 	get_tree().quit(0)
 
 

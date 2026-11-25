@@ -19,6 +19,7 @@ $env:PYTHONPYCACHEPREFIX = Join-Path $labRoot 'cache\python'
 $env:BLENDER_USER_CONFIG = Join-Path $labRoot 'blender-user\config'
 $env:BLENDER_USER_SCRIPTS = Join-Path $labRoot 'blender-user\scripts'
 $env:BLENDER_USER_EXTENSIONS = Join-Path $labRoot 'blender-user\extensions'
+$cacheSetup = "import sys; sys.pycache_prefix = 'E:/CyberCity2085-3d-lab/cache/python'"
 $ErrorActionPreference = 'Continue'
-& (Join-Path $labRoot 'tools\blender-4.5.17-windows-x64\blender.exe') --background --disable-autoexec --python-exit-code 1 --python $scriptPath -- @ScriptArguments
+& (Join-Path $labRoot 'tools\blender-4.5.17-windows-x64\blender.exe') --background --disable-autoexec --python-exit-code 1 --python-expr $cacheSetup --python $scriptPath -- @ScriptArguments
 exit $LASTEXITCODE
