@@ -29,6 +29,12 @@ This register is separate from the principal CyberCity 2085 GOAL.
   missing nvvm/cicc resolved; cached C++ objects reused. Initial import FAIL
   libc10.so, fixed torch-first/library path. Actual new32px GPU projection PASS;
   pipeline import running, no texture inference claim or old CUDA benchmarks.
+  Continuation2026-11-26: actual Paint pipeline import PASS,32selected model files
+  acquired10.998GB on E:, redundant7.3GB UNet BIN omitted. First colour runner
+  stopped before model loading on optional prepared.png absence; original robot
+  input retained (already RGBA), fallback corrected and input checked before
+  imports/downloads. No geometry regeneration or kernel smoke-test repetition;
+  changed actual colour attempt running. Final movie contact sheet inspected.
 
 
 - `IN_PROGRESS` COLOUR-FIRST-168 (2026-11-25). User explicitly requests personal

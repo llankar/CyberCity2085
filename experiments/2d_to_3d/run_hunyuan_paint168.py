@@ -15,14 +15,15 @@ def main():
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
+    source=LAB/'generated/phase2/hunyuan166/robot/review_upright/optimized.glb'
+    reference=LAB/'generated/phase2/hunyuan166/robot/prepared.png'
+    if not reference.exists(): reference=LAB/'sources/robot.png'
+    assert source.is_file() and reference.is_file(),'Missing actual mesh/reference'
     import torch
     import custom_rasterizer as cr
-    # Only test the newly compiled projection kernel, not old CUDA benchmarks.
-    positions=torch.tensor([[[-.5,-.5,0,1],[.5,-.5,0,1],[0,.5,0,1]]],device='cuda',dtype=torch.float32)
-    triangles=torch.tensor([[0,1,2]],device='cuda',dtype=torch.int32)
-    indices,bary=cr.rasterize(positions,triangles,[32,32])
-    assert (indices>0).any() and torch.isfinite(bary).all()
-    print('PAINT_PROJECTION_KERNEL_READY',flush=True)
+    # The32px projection check already passed in paint168-robot-first.log.
+    # Actual texture generation is the next useful exercise of this kernel.
+    print('PAINT_PROJECTION_KERNEL_REUSED',flush=True)
     from hy3dgen.texgen.pipelines import Hunyuan3DPaintPipeline,Hunyuan3DTexGenConfig
     from huggingface_hub import snapshot_download
     import trimesh
@@ -39,8 +40,6 @@ def main():
     print('PAINT_WEIGHT_PLAN',len(selected),total,flush=True)
     local=LAB/'models/hy3dgen'/repo
     snapshot_download(repo,revision=revision,allow_patterns=[f['path'] for f in selected],local_dir=local,max_workers=2)
-    source=LAB/'generated/phase2/hunyuan166/robot/review_upright/optimized.glb'
-    reference=LAB/'generated/phase2/hunyuan166/robot/prepared.png'
     report={'status':'FAIL','model':repo,'revision':revision,'source':str(source),
         'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'reference_sha256':hashlib.sha256(reference.read_bytes()).hexdigest(),
