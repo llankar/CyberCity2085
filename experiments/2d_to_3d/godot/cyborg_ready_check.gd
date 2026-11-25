@@ -27,13 +27,15 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var head_study := "--head-fit-study" in OS.get_cmdline_user_args()
+	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args()
+	var head_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
 	var material_study := "--rook-material-study" in OS.get_cmdline_user_args()
 	var actions := "--actions-study" in OS.get_cmdline_user_args() or material_study or head_study
 	var fire := "--fire-study" in OS.get_cmdline_user_args() or actions
 	var clip := "PistolFireStudy" if fire else "CombatReadyStudy"
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rook_material01/" if material_study else ("cyborg_actions01/" if actions else ("cyborg_fire01/" if fire else "cyborg_pistol01/")))
 	if head_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_head_fit126/"
+	if quiff_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_hair127/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)
@@ -46,7 +48,7 @@ func _ready() -> void:
 	var probe := preload("res://skin_motion_check.gd").new()
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false): meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
-	assert(meshes.size()==(12 if head_study else 11))
+	assert(meshes.size()==(13 if quiff_study else (12 if head_study else 11)))
 	var references = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	assert(references.size()==(6 if actions else (19 if fire else 9)))
 	var sets: Dictionary = references if actions else {clip:references}

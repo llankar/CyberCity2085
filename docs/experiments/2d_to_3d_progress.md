@@ -2,6 +2,49 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ACTUAL-QUIFF-127 (2026-11-25). Continued6d81cbbb, prior turn
+  concrete head-fit/deformation progress. `DONE` real2077face/1733vertex source
+  quiff extracted from CC0 cyberpunk mesh, preserving existing copper UV/material;
+  no primitive cap. Library-unlinked source.matrix_world initially classified
+ 49321faces incorrectly; count assertion stopped export. Corrected using the
+  actual common actor rest transform, restoring exact2077source faces. Posterior
+  fit moves hair only, maximum23.224mm; frontY/height preserved, width reduced5%,
+  posteriorY20%. Four new finite/continuity/anterior-preservation tests included.
+  E:generated/phase2/rook_hair127 contains BLEND/GLB/CREDITS, actual neutral
+  front/profile/back and tactical captures. Head/face geometry not deformed.
+  SHA7e4b6401bc3570cc6e7b3a2efc1a20402b71683fd9850400664e7b6401aba197.
+
+  `DONE` NATIVE-QUIFF-127: reusable measure_actor_reference.py measures actual
+  meshes at established six-clip202sample times. Native --quiff-study verifies
+ 13meshes/25bones, maximum bounds error87.577µm, slide19.999865mm and reset67.979µm.
+  Actual stage six-action, robot/VTOL and input checks PASS, fresh tactical.png
+  capture-result0 inspected beside actual sprites at62.208008px calibration.
+  Forty-four unique Python tests PASS/0fail/0skip, E:tmp/pytest127.xml. No current
+  full VRAM/performance acceptance inferred from short render timing. Hairline
+  and jagged back tips still need refinement; visual direction closer to Rook,
+  not full artistic approval. Original sourceRun5.290713mm penetration unchanged.
+
+  `DONE` NECK-HYPOTHESES-127, both REJECTED as final art. Audit of actual neck
+  cut boundaries finds20closed head-edge vertices, but many disconnected/open
+  boundaries in AI-derived body: automatic clean bridge assumption is false.
+  Diagnostic scripts and native captures retained separately on E:. Texture
+  projection first rejected111.628mm distance; final bounded attempt transfers
+ 155faces, rejects6distant faces, maximum45.712mm. Geometry unchanged, band remains.
+  Separate20quad extension from actual head boundary preserves all1522original
+  head vertices, adds20vertices; native inspection shows stretched color stripes.
+  Neither rook_neck127 nor rook_neck_geometry127 is selected by comparison scene.
+  Do not advertise either as seam fix or promote them over head-fit baseline.
+
+  `TODO` NEXT: explicit neck patch retopology/UV continuity with original shirt
+  opening, not more color thresholds or stretched boundary UVs. Current quiff
+  candidate retains earlier neck ring; collar contact/finger contacts remain open.
+  Need animated close-up art review, current scene VRAM/performance, human atlas
+  remaining4sets and remaining experimental subjects. No second human until first
+  convincing Rook. Counts: required clips5/5technical,0/5artistic; acceptedRook0/1,
+  humanatlas1/5sets; finalhumans0/2; scene5/6subjects; mapnative1/1/artistic0/1.
+  Total tasks is evolving; batch is not global completion. SDL/sampler warnings
+  remain. CHANTIER GLOBAL INCOMPLET. No production/mainGOAL edits, build or push.
+
 - `IN_PROGRESS` FIRST-HEAD-ASSEMBLY-126 (2026-11-25). Continued5ae99e0b;
   previous turn was concrete asset qualification progress. `DONE` measured real
   rest head/neck landmarks on dressed actor, retained in E:rook_head_fit126/
