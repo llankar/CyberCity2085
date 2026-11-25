@@ -9,6 +9,18 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+Rigid environment116: after `prepare_tactical_inputs.py`, run
+`run_blender.ps1 -Script blender/build_tactical_facades.py`. This generates
+E:tactical_facades01/facades.blend and facades.glb from the original627cell map
+footprint. Direct batched mesh buffers keep seven render meshes; no mass per-cube
+Blender operators. `facade_check.tscn` verifies actual native GLB ray coverage
+and roof height over all1120source cell centres, independent of report counts.
+Comparison accepts optional `--facades-study` alongside the existing tactical,
+contact, robot/VTOL and sprite-review flags. Original gray-volume mode remains
+available without the flag. The floor is still the original image reference,
+materials use constant PBR factors, and ornament clearance/art remain separate
+from the body-cell coverage check. No production collision/LOS/navigation change.
+
 Contact review115: use preview `main.tscn` with existing neutral/model options
 and `--contact-review=E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_contact01/contact_review01`.
 This captures four actual camera axes at17Shoot times and hashes the loaded model.

@@ -2,6 +2,47 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TACTICAL-FACADES-116 (2026-11-25). Continued2b6b6d34; independent
+  rigid environment work while first human artistic gate remains open. Actual
+  existing alley cell sourceSHA75bfdf85db78854fba5843f65d70b31d906dff96a6e53eb2ebffe22e337ed68a
+  drives closed stepped-cell volume,652service panels and22rooftop ventilation
+  housings. E:tactical_facades01/facades.blend2,928,198B and facades.glb3,636,704B;
+  seven meshes/64292triangles/seven materials/zero embedded images. GLB SHA
+  c14a137ae53105c1feb043b554c43b60ec8f3ca08f649312c59f37de519e1e3f is byte-identical
+  across two completed builds. Real geometry, not a facade screenshot plane.
+
+  Initial per-cube Blender-operator builder was deliberately stopped after
+  confirmed owned Blender PID30632/command path,347CPU seconds and no result;
+  not restarted merely because a tool observation timed out. Direct per-material
+  mesh buffers replace thousands of operators; actual complete rebuild about2.35s
+  end-to-end in observed wrapper call. Source/prod files unchanged.
+  Investigated ambientCG MetalPlates0061K/CC0 primary license, but actual download
+  redirect403: no retry/bypass or imported PBR map. Constant PBR factors are
+  original procedural materials; do not claim authored surface texture detail.
+
+  `DONE` native scoped geometry coverage: actual exported body triangulated as
+  a lab-only test collider, rays over ALL1120cell centres find627occupied roofs
+  and493free cells, maximum roof-height error1.144409micrometres. Report hashes
+  actual GLB and source. Excludes decorative frames (up to73mm projection), full
+  continuous clearance, gameplay navigation and artistic acceptance. Independent
+  source-surface tests cover holes, adjacent cells, mixed heights, paired closed
+  edges and signed-volume/winding; nine tests PASS. Focused Python68PASS0fail0skip,
+  E:tmp/pytest-116-all.xml. No production campaign tests or new GPU VRAM profile.
+
+  Actual comparison stage --facades-study native load/controls/robot five clips/
+  human seven clips/pistol visibility/VTOL controls/sprite zoom PASS. Inspected
+  tactical_scene.png: industrial surfaces improve prior gray volumes; roofs and
+  repeated service-panel look remain coarse, floor still2D reference, VTOL hover
+  unresolved. Artist map0/1. FPS label now warms from first actual process frame,
+  avoiding stale loading-frame FPS1; short120-frame .389049s is not a sustained
+  benchmark. Old volume mode remains available and original batch marker retained.
+  Original mode controls and actual PNG capture also rerun PASS without facade flag.
+  `TODO` next: first-human offhand/hair/wardrobe artistic gate; environment
+  per-obstacle visual variety and authored PBR details, then sustained native
+  performance/VRAM comparison. First human0/1; finalhumans0/2; native map1/1,
+  stage5/6subjects; mandatory full animation/art coverage incomplete. No push,
+  release or production change. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` HUMAN-CONTACT-REVIEW-115 (2026-11-25). Continued b7f603c7.
   Actual native renderer captures17Shoot times from four camera axes (68original
   PNGs) in E:scanned_armor_contact01/contact_review01. Manifest records model SHA;

@@ -15,7 +15,7 @@ var human_height := 1.718
 var robot_height := 2.4
 var vehicle_actor: Node3D
 var human_weapon: Node3D
-var render_ready_usec := 0
+var first_process_usec := 0
 
 func subject_height(subject: Node3D) -> float:
 	var bounds := AABB()
@@ -219,7 +219,6 @@ func _ready() -> void:
 	if rigged_human: play_clip("Walk" if nathan_study else "Idle")
 	if action_human: play_clip("Shoot")
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
-	render_ready_usec = Time.get_ticks_usec()
 	if "--self-test" in OS.get_cmdline_user_args():
 		if vehicle_actor != null:
 			for entry in [[KEY_8,"Gear_Retract"],[KEY_9,"Gear_Extend"],[KEY_7,"Rotor_Spin"]]:
@@ -505,7 +504,11 @@ func load_tactical_map() -> void:
 			var height := 3.0 if tall else 0.7
 			batches[tall].append(Transform3D(Basis.IDENTITY, Vector3(cell[0] - data.grid[0] / 2.0 + 0.5, height / 2, cell[1] - data.grid[1] / 2.0 + 0.5)))
 	var batch_instances := 0
-	for tall in batches:
+	var facades := "--facades-study" in OS.get_cmdline_user_args()
+	if facades:
+		preload("res://tactical_facade_loader.gd").load_model(self,folder+name_value+".walls.json",occupied.size())
+		batch_instances=occupied.size()
+	for tall in ([] if facades else batches.keys()):
 		var geometry := MultiMeshInstance3D.new()
 		var block := BoxMesh.new()
 		block.size = Vector3(1, 3.0 if tall else 0.7, 1)
@@ -522,7 +525,8 @@ func load_tactical_map() -> void:
 		add_child(geometry)
 		batch_instances += instances.instance_count
 	assert(batch_instances == occupied.size())
-	print("TACTICAL_OBSTACLE_BATCHES_OK instances=", batch_instances, " batches=2")
+	if facades:print("TACTICAL_FACADE_STAGE_OK cells=",batch_instances)
+	else:print("TACTICAL_OBSTACLE_BATCHES_OK instances=",batch_instances," batches=2")
 	# No clear landing footprint exists on this alley: show the aircraft hovering.
 	var animated_vehicle := "--vtol-motion-study" in OS.get_cmdline_user_args()
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/" + ("vtol_motion01/vtol_actions.glb" if animated_vehicle else "vtol01/vtol.glb"), Vector3(-6, 4, -4))
@@ -582,8 +586,9 @@ func play_clip(name_value: String) -> void:
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:
+	if first_process_usec==0:first_process_usec=Time.get_ticks_usec()
 	if hud:
-		var fps_value := str(Engine.get_frames_per_second()) if render_ready_usec > 0 and Time.get_ticks_usec()-render_ready_usec > 1000000 else "warming up"
+		var fps_value := str(Engine.get_frames_per_second()) if Time.get_ticks_usec()-first_process_usec > 2000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
 		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored human study: U Run | A Attack | K Crouch | weapon grip NOT accepted"
@@ -592,6 +597,7 @@ func _process(_delta: float) -> void:
 		if "--scanned-shoot-study" in OS.get_cmdline_user_args():hud.text += "\nFiring fit study: 3 real pistol | U Run | A Attack | K Crouch | contact NOT final"
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
+			if "--facades-study" in OS.get_cmdline_user_args():hud.text=hud.text.replace("prototype obstacle volumes","3D industrial facade study")
 
 func play_vehicle_clip(clip: String) -> void:
 	assert(vehicle_actor != null)
