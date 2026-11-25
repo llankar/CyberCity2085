@@ -23,6 +23,13 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state, 30, false, false)
 	add_child(model)
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--model-scale="):
+			var unit_scale := argument.trim_prefix("--model-scale=").to_float()
+			assert(unit_scale > 0 and unit_scale <= 1000)
+			model.scale *= unit_scale
+		if argument.begins_with("--model-vertical-offset="):
+			model.position.y = argument.trim_prefix("--model-vertical-offset=").to_float()
 	if "--attach-pistol" in OS.get_cmdline_user_args(): preload("res://pistol_attachment.gd").attach(model)
 	if "--attach-rocketbox-pistol" in OS.get_cmdline_user_args(): preload("res://rocketbox_pistol_attachment.gd").attach(model)
 	if "--rocketbox-hair" in OS.get_cmdline_user_args(): preload("res://rocketbox_hair_attachment.gd").attach(model)
@@ -52,13 +59,14 @@ func _ready() -> void:
 			return
 		var player := players[0] as AnimationPlayer
 		var clips := player.get_animation_list()
+		print("CYBERCITY_IMPORTED_CLIPS ", clips)
 		var selected := ""
 		for clip in clips:
 			if clip == requested_clip or clip.get_file() == requested_clip:
 				selected = clip
 				break
 		if selected.is_empty():
-			push_error("Fitting clip missing")
+			push_error("Requested clip missing; available: " + str(clips))
 			get_tree().quit(10)
 			return
 		player.play(selected)

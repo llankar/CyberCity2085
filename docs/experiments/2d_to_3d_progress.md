@@ -2,6 +2,68 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-SCANNED-HUMAN-95 (2026-11-25). Qualified and acquired
+  Renderpeople Nathan Animated003, exact Sketchfab UID143a2b1ea5eb4385ae90a73657aca3bc.
+  Current primary author/license metadata verifies Renderpeople / CC BY4. This
+  specific publication is distinct from the website commercial free-package terms.
+  NoAI restriction retained: traditional DCC/game study only, no generative use.
+  Protected website download was not bypassed. Objaverse metadata lookup contained
+  neither Nathan nor Eric; no model payload fetched from that index. Four source
+  files acquired from public replica mehulkapadia5/open-theft-auto, pinned commit
+  b37e7f3070501dd90353c250e9ad90dffdf4c8b2; 20,053,344bytes total, Git blob/SHA256
+  checked. No unrelated repository content acquired. Source notices preserved.
+
+  DONE bounded acquisition/import/native scene tasks (3/4); artistic adaptation
+  IN_PROGRESS. Real scan has authored face, solid hair, jeans/shoes/Tshirt,89joints,
+  21,506triangles, one8192-square JPEG and ONE authored Walk (67/30seconds).
+  No fictional Idle or combat clips. Blender initially exposed a second mesh:
+  importer-created bone control Icosphere. Strict import failed; correction excludes
+  only referenced bone custom shapes from character transforms/export, not anatomy.
+  Source centimeter scale normalized .01; ground offset+.01304978m, height1.86913m.
+  Blender24,159,973bytes / GLB19,754,728bytes, original JPEG embedded byte-for-byte.
+
+  E:/CyberCity2085-3d-lab/generated/phase2/renderpeople_nathan01 contains sources
+  report, credits, Blend/GLB, native_surface_check, source_preservation_check,
+  neutral front/back/profile/head/walk and tactical PNGs, benchmark and GPU samples.
+  Source/export surface gate9times: max51.895um. Verifier passes finite normalized
+  four-influence weights, active joints<89, normals, triangles, duration, attribution
+  and exact8K texture bytes. Equal-pose direct source/export walk screenshots differ
+  in241/921600pixels, max27/255, meanRGBA .000081109: near-identical observation,
+  NOT pixel-exact acceptance. Source default posed vs exported stopped T-pose is
+  not an equal-pose comparison. Gray eyes are visible in the source too; no complete
+  PBR maps, cyberpunk outfit, Rook identity or artistic acceptance claimed.
+
+  Native --nathan-study --robot-melee-study --tactical --sprite-review --self-test
+  passes actual source Walk, robot strike, selection/camera and5subject/627cell
+  independent stage; human projected62.208008px vs62.208target. New source Walk
+  is paused at a reproducible frame for capture. Existing wardrobe/five-human-clips
+  plus robot strike regression rerun PASS. Existing map still partial floor/blocks,
+  Raider absent pending first convincing human. Accepted humans0/2, final modular
+  outfits0, artistically final maps0. Source head closeup inspected: substantially
+  better face/hair base, gray eyes/materials and civilian outfit remain inadequate.
+
+  Actual5s paused-pose native benchmark:2620frames/5.000665s=523.9303frames/s,
+  p95 postdraw2.193ms, max554drawcalls, engine-reported video1,005,772,648bytes.
+  Not GPU execution timing or full animated combat. NVIDIA24samples/400ms: baseline
+  1368MiB, live-Godot GPU-wide1390..2597MiB; includes desktop/other applications,
+  not exclusive process VRAM or guaranteed peak. Driver621.24, RTX5070Ti16303MiB.
+
+  Corrected lab shader/log cache physical location: exact Godot lab userdata folder
+  on C had30files/18,769,019bytes. While no Godot process running, copied to
+  E:/CyberCity2085-3d-lab/godot-userdata, verified every SHA256/count, then replaced
+  only owned lab source directory by junction. configure_godot_cache.ps1 validates
+  exact source and E destination, preserves mismatches; launcher reuses it. Native
+  scene/regression runs after migration pass. Other Godot projects/saves unchanged.
+
+  Tests actually executed:59Python PASS,0failed,0skipped (10experimental modules),
+  including8new source provenance/local URI safety cases. Re-run verifier after
+  active-joint bound check PASS. No production/campaign tests, push or release.
+  Next TODO: inspect anatomical/eye/material structure and adapt actual licensed
+  wardrobe/gear to this89joint source; qualify neutral views and combat-size art
+  before producing Raider. Robot impact/destruction, vehicle articulation, final
+  environment and new-human animation/atlas coverage remain TODO/NOT VERIFIED.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SHARED-RIG-WARDROBE-FIT-94 (2026-11-25). Continued from checkpoint
  4e0ef2d0 using the real licensed garment, not MPFB primitive armor. Read-only
   rest-joint audit: Neck1.52084m, shoulders+/- .21037m/z1.42811m, wrists+/- .58765m/

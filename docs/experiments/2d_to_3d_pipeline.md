@@ -237,3 +237,28 @@ No larger migration should be proposed until those items pass visual review.
   exclusion: https://github.com/VAST-AI-Research/TripoSG/blob/main/triposg/LICENSE
 - PyTorch CUDA installation matrix: https://pytorch.org/get-started/locally/
 
+
+## Batch95: original-resolution professional scan study
+
+Acquisition is bounded to four provenance-pinned Nathan files, with fresh official
+author/license validation and cache hashes. No bulk library installation.
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+python experiments/2d_to_3d/acquire_nathan_candidate.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/inspect_nathan_candidate.py
+python experiments/2d_to_3d/verify_nathan_candidate.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 3000 -SceneArguments @('--nathan-study','--robot-melee-study','--tactical','--sprite-review','--self-test')
+```
+
+The native source/export comparison must hold identical authored Walk poses; default
+source standing and stopped export T-bind pose are different. Real8K JPEG bytes
+are preserved. Native sampled skin errors and pixel differences are observations,
+not a substitute for eye/material/outfit/identity artistic review. Only original
+Walk exists on Nathan; no inferred human combat action set.
+
+run_godot.ps1 now configures a lab-only userdata junction to physical E storage,
+including shader cache/logs. Existing lab folder migration requires no live Godot,
+exact source/target containment and every file hash verified before replacement.
+No production userdata or driver-global shader cache changes. GPU sampler records
+GPU-wide memory with live PIDs; it does not claim exclusive model allocation.

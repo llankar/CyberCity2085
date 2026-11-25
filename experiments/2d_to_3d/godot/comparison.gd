@@ -77,12 +77,13 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
+	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args()
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
 	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
-	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox
+	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
 	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
@@ -99,6 +100,10 @@ func _ready() -> void:
 			rigged_human = true
 	if head_study: human_path = root + "rocketbox_hair08/character01/human.glb"
 	if wardrobe_study: human_path = root + "wardrobe_fit01/human.glb"
+	if nathan_study:
+		assert(not rocketbox and not rigged_human and not action_human, "Choose one human source")
+		human_path = root + "renderpeople_nathan01/human.glb"
+		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -114,6 +119,7 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	if robot_walk: subjects[1].set_meta("forward_motion_study", true)
+	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
 		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
 		human_weapon.visible = false
@@ -179,7 +185,7 @@ func _ready() -> void:
 		print("CHARGE_ROBOT_IDLE_DISPATCH_OK")
 	selected = 0
 	clip_status = "Human: static fitting model; action clips unavailable"
-	if rigged_human: play_clip("Idle")
+	if rigged_human: play_clip("Walk" if nathan_study else "Idle")
 	if action_human: play_clip("Shoot")
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	render_ready_usec = Time.get_ticks_usec()
@@ -240,10 +246,14 @@ func _ready() -> void:
 		selected = 0
 		clip_status = "Human: static fitting model; action clips unavailable"
 		if rigged_human:
-			play_clip("Idle")
+			play_clip("Walk" if nathan_study else "Idle")
 			var human_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-			assert(human_player.current_animation == "Idle")
-			print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
+			assert(human_player.current_animation == ("Walk" if nathan_study else "Idle"))
+			if nathan_study:
+				assert(human_player.get_animation_list().size() == 1)
+				assert(human_player.get_animation("Walk").loop_mode == Animation.LOOP_NONE)
+				print("NATHAN_AUTHORED_WALK_ONLY_OK no_fictitious_idle_or_combat_actions")
+			else: print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk")))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
@@ -265,6 +275,13 @@ func _ready() -> void:
 		striker.pause()
 		selected = 0
 		clip_status = "Human animation: Idle | Robot: paused open-hand strike study"
+	if nathan_study:
+		selected = 0
+		play_clip("Walk")
+		var authored_walk := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		authored_walk.seek(authored_walk.get_animation("Walk").length * .5, true)
+		authored_walk.pause()
+		clip_status = "Human: source-authored Walk pose | no cyberpunk wardrobe or accepted Rook identity"
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame

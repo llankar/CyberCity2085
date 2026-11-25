@@ -185,3 +185,18 @@ from a marketplace description or a successful import.
   close and20.736px overview. Artistic equivalence FAIL; not accepted characters.
 - TODO: final human and robot screenshots after actual artistic review.
 - Preserve robot/hardsurface experiments; production game and main GOAL untouched.
+
+## Professional scanned candidate acquired (batch95)
+
+Renderpeople Nathan Animated003: current primary CC BY4 author publication
+https://sketchfab.com/3d-models/nathan-animated-003-walking-3d-man-143a2b1ea5eb4385ae90a73657aca3bc
+verified against API and embedded author notice. Four pinned public replica files,
+20.05MB, original8K photograph texture,89joint skin and one Walk. No protected
+website download, purchase, AI use or unrelated replica content. Keep attribution
+and source modifications in distributed derivative notices. NoAI tag respected.
+
+Native source fidelity and real tactical-scale load verified. Better solid scanned
+hair/face anatomy than earlier hybrid, but gray eyes, absent PBR detail maps and
+civilian clothes are visible limitations. Not an accepted Rook, no human production
+expansion. Inspect/adapt this source before more investment in old broken scalp.
+Evidence, exact source pin and remaining acceptance in experimental register95.
