@@ -2,6 +2,40 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` FACE-MATERIAL-DIAGNOSTIC-156 (2026-11-25).
+  Previous155 turn was progress: actual six-view source/optimized comparison.
+  `DONE` actual neutral close face diagnostic from unchanged150, plus normal-off
+  and metal-off controls under identical camera/light/pose. Original normal map
+  amplifies high-frequency skin artifacts; disabling metal changes cybernetic
+  lines and is not selected. Body metallic map mean blue3.896/255; do not label
+  the whole face accidentally metallic. `DONE` separate strength0.35 candidate
+  in editable human_face035.blend and human_face035.glb, original150 unchanged.
+  Real source geometry/UV/weights/animation/images unchanged; binary payload exact.
+  Six native captures inspected: source front, normal-off, metal-off, candidate
+  front/side/back. Skin shading less harsh, actual sculpted quiff still looks too
+  solid, cybernetic seams and face identity still differ from Rook reference.
+  Candidate remains diagnostic, NOT final accepted art or a geometry replacement.
+  Script blender/review_face_normals156.py saves original credits and changes;
+  verify_face156.py verifies exact binary and only Body normal scale change,
+  allowing canonical buffer byteLength to include existing two padding bytes.
+  First verifier correctly exposed that serialization difference; explicit
+  padding-only normalization fixed it. Final actual verifier PASS,3targeted tests
+  PASS0fail0skip (unrelated material/geometry changes rejected).
+  E:generated/phase2/face_review156 contains BLEND/GLBs, sixPNG, face_material.json,
+  verification.json; tmp/face156*.log and tests156-final.xml retain evidence.
+  No native288pose rerun: binary exact, actual seven clips imported and sampled
+  for captures; final motion/art acceptance remains unchanged, not newly claimed.
+  `TODO` source-based hair cards and final face/outfit. Current new hair search:
+  Blendkit Male Hairs Cards8793ab19-831a-43d6-94ee-98fb5bb17bef and Male Hair
+  Cards2a7a00ee-7631-48a6-829b-2b139fa82c06 are Full Plan/Royalty Free on primary
+  pages, no protected download/purchase. Gumroad Allen Hair requires each buyer
+  purchase for commercial use, unsuitable as a freely redistributable fallback.
+  No new hair acquired or licence compatibility invented. Next inspect a genuinely
+  free authored hair-card source, then fit geometry to the actual scalp, not a
+  procedural hairstyle or recolored armor. First-human art still open, no Raider
+  generalization. Scene5/6subjects; human6/10conditional motion families; existing
+  map native1/1, final3Dmap art0/1. CHANTIER GLOBAL INCOMPLET. No production/push.
+
 - `IN_PROGRESS` CURRENT-HUMAN-TEXTURE-REVIEW-155 (2026-11-25).
   Previous turn154 classified progress: actual current texture variant and native
   pose evidence. `DONE` six native neutral full-body renders, source150 versus
