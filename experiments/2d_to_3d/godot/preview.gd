@@ -118,6 +118,15 @@ func _ready() -> void:
 								generated += 1
 					mesh.set_surface_override_material(surface, filtered)
 		print("CYBERCITY_TEXTURE_SETUP_OK generated=", generated)
+	if "--geometry-normals-only" in OS.get_cmdline_user_args():
+		for mesh in model.find_children("*", "MeshInstance3D", true, false):
+			for surface in range(mesh.mesh.get_surface_count()):
+				var material := mesh.get_active_material(surface) as StandardMaterial3D
+				if material:
+					var diagnostic := material.duplicate() as StandardMaterial3D
+					diagnostic.normal_enabled = false
+					mesh.set_surface_override_material(surface, diagnostic)
+		print("GEOMETRY_NORMALS_DIAGNOSTIC no_texture_normal_maps")
 	if "--unlit-diagnostic" in OS.get_cmdline_user_args():
 		for mesh in model.find_children("*", "MeshInstance3D", true, false):
 			for surface in range(mesh.mesh.get_surface_count()):

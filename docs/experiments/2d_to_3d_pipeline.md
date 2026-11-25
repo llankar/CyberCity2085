@@ -606,6 +606,15 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch124 material study: run_blender.ps1 `-Script blender/rook_material_study.py`.
+No new asset download. Uses actual game Rook portrait as direction; bakes existing
+source colors through Blender, retains source mesh/UV and PBR normal/rough maps.
+Native checker/comparison both accept --rook-material-study. First-head quality
+is still unaccepted. preview main.tscn optional --geometry-normals-only is a
+diagnostic; it does not alter any asset. review_cyborg_normals.py creates a separate
+E:rook_normals01 diagnostic with unchanged positions; inspected result did not
+resolve the head defects and must not be treated as an accepted fix.
+
 Batch123 full first-character action study: run_blender.ps1 with
 `blender/retarget_cyborg_actions.py` after batch121. Existing licensed Quaternius
 UAL files on E: are required; no new download. Output cyborg_actions01 contains

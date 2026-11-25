@@ -27,10 +27,11 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var actions := "--actions-study" in OS.get_cmdline_user_args()
+	var material_study := "--rook-material-study" in OS.get_cmdline_user_args()
+	var actions := "--actions-study" in OS.get_cmdline_user_args() or material_study
 	var fire := "--fire-study" in OS.get_cmdline_user_args() or actions
 	var clip := "PistolFireStudy" if fire else "CombatReadyStudy"
-	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/"+("cyborg_actions01/" if actions else ("cyborg_fire01/" if fire else "cyborg_pistol01/"))
+	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rook_material01/" if material_study else ("cyborg_actions01/" if actions else ("cyborg_fire01/" if fire else "cyborg_pistol01/")))
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)

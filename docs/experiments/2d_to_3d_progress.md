@@ -2,6 +2,50 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-MATERIAL-124 (2026-11-25). Continuedcfe57a49, first actor
+  only. Resolved actual game portrait through portrait_path_for_agent(Rook,
+  samurai,male): assets/ui/portraits/agent_male_14.png. Inspected this real orange
+  quiff/green-jacket portrait and actual agent_samurai_512.png armored combat
+  reference; these are distinct references, not identical outfit silhouettes.
+  `DONE` material study on the genuinely acquired complete cyberpunk mesh:
+  copper hair/green cloth preserve source PBR normals/roughness/UV/geometry.
+  Traditional Blender CPU emission bake2048²;2,077hair and15,827jacket faces.
+  Five region tests guard bright skin, eyebrows, shirt, orange hardware, legs
+  and malformed inputs. Not another primitive/generic MPFB armor recolor.
+
+  `DONE` GEOMETRY-PRESERVATION-124: positions/UVs asserted unchanged in Blender;
+  material variant exported and independently compared to prior202pose/11mesh
+  deformed references. Native maximum bounds error88.503366µm; source6clips,
+ 20mm slide and ready reset preserved. All output/textures remain E: under
+  generated/phase2/rook_material01. GLB SHA
+  7fb327d3c4545735fe65aabd60c5850d8c61d0c9726295dcc31e713d8bda5f64.
+  New --rook-material-study scene flag passes six-action/Idle-loop controls,
+  robot/VTOL regression and62.208008px calibration; tactical_rook.png captured.
+  Thirty-three combined unique Python tests PASS/0fail/0skip, JUnit E:tmp/pytest124.xml.
+
+  `IN_PROGRESS` FIRST-HUMAN-ART: neutral front/profile and enlarged face viewed.
+  Color direction is closer to portrait, but this is not final Rook approval.
+  Close face/neck exhibits surface/shading defects. Actual300k source versus60k
+  neutral controls demonstrate collapse worsens some details; source300k also
+  has defects. Unlit diagnostic looks smoother, but is not a proposed fix.
+  Removing normal textures under unchanged lighting does not remove defects.
+  Separate rook_normals01 derivative clears custom split normals/smooths geometry
+  with unchanged positions: native capture executed, inspected, no convincing
+  improvement. This hypothesis is rejected as an art fix; do not promote it.
+  Original photographed Nathan control also captured for honest source comparison.
+  Neither simply disabling shading nor rebaking colors resolves head quality.
+
+  `TODO` NEXT-HEAD-QUALITY: prioritize proper facial topology/high-detail head
+  preservation or a genuinely licensed professional anatomical/scan head, before
+  further clothing recolors or second-character production. Check source grant
+  before acquisition; evaluate native neutral close front/profile/back, not just
+  publisher preview. Support contacts/wrist seam and sourceRun5.29mm floor issue
+  remain open. Current strong outfit/rig can be retained independently of head.
+  Required human clips5/5technical,0/5artistic; first acceptedRook0/1, humanatlas
+ 1/5required sets, finalhumans0/2, scene5/6subjects, mapnative1/1/artistic0/1.
+  Full scene performance/VRAM/art gates remain open. SDL/material sampler warnings
+  persist. CHANTIER GLOBAL INCOMPLET. No production/mainGOAL edits, build or push.
+
 - `IN_PROGRESS` CYBORG-MELEE-DEATH-123 (2026-11-25). Previous turn was progress:
   true equipped geometry, firing and eight-view atlas committed. Continuedf75a47a0.
   `DONE` ACTUAL-LICENSED-MOTION-123: existing Quaternius UAL Standard CC0

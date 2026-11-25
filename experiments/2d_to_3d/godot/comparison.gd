@@ -83,7 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var cyborg_actions := "--cyborg-actions-study" in OS.get_cmdline_user_args()
+	var rook_study := "--rook-material-study" in OS.get_cmdline_user_args()
+	var cyborg_actions := "--cyborg-actions-study" in OS.get_cmdline_user_args() or rook_study
 	var cyborg_fire := "--cyborg-fire-study" in OS.get_cmdline_user_args() or cyborg_actions
 	var cyborg_pistol := "--cyborg-pistol-study" in OS.get_cmdline_user_args() or cyborg_fire
 	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args() or cyborg_pistol
@@ -138,6 +139,7 @@ func _ready() -> void:
 		if cyborg_pistol: human_path = root + "cyborg_pistol01/human.glb"
 		if cyborg_fire: human_path = root + "cyborg_fire01/human.glb"
 		if cyborg_actions: human_path = root + "cyborg_actions01/human.glb"
+		if rook_study: human_path = root + "rook_material01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
