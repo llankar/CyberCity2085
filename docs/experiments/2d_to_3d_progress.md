@@ -2,6 +2,32 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-CLOTH-REGULARIZATION-97 (2026-11-25). Previous turn96
+  classified progress (real bind/export and measured fit evidence, checkpoint3476fa4d).
+  Read actual worktree and principal/experimental registers. Kept original candidate
+  and sources intact; no MPFB recoloring. Added displacement-only mesh-neighbor
+  smoothing, preserving authored topology rather than smoothing original garment
+  details. Six tests verify isolated vertices/uniform translation, no overshoot,
+  reduction of correction discontinuity, input preservation, rigid equivariance
+  and malformed mesh rejection. New source measured-joint polyharmonic interpolator
+  with affine tail gets two tests: exact measured constraints/affine reproduction,
+  rejection of planar/duplicate constraints. Original segment implementation retained.
+
+  Actual two bounded fit experiments exported and loaded natively: E: phase2/
+  nathan_wardrobe02 is60iteration correction smoothing; nathan_wardrobe03 is26actual
+  source/target joint-depth landmarks, no hand-built primitive garment. Neutral front
+  PNGs inspected. Smoothing improves smoothness but reopens Tshirt/shoulder clipping;
+  landmark fit reduces maximum projection gap89.19->73.94mm but still leaves shoulder
+  distortions. Both artistic FAIL, not final clothing. Rest binding stays.377um,
+  minimum retained source skin98.680%. Native glTF load/texture/capture markers PASS;
+  full sampled deformation of these rejected variants NOT VERIFIED (not falsely
+  inherited from01). No more production expansion from these failed shoulder fits.
+  Tested fitting machinery DONE; acceptable outfit remains IN_PROGRESS. New clips0,
+  accepted human identities0/2, final modular outfits0. Next human action: suitable
+  authored garment/rest-pose topology or skilled shoulder re-fit, plus eye/material/
+  tactical gear qualification; don't accumulate small lighting/palette changes.
+  No production changes, push, release or campaign tests. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PROFESSIONAL-SCAN-WARDROBE-96 (2026-11-25). Previous turn95
   classified progress: qualified source and checkpoint687b48d7. Read actual git/
   principal/experimental registers before continuing; user save remains untouched.

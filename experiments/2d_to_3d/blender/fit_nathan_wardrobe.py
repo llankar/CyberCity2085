@@ -8,9 +8,13 @@ from mathutils import Matrix, Vector
 from mathutils.bvhtree import BVHTree
 sys.path.insert(0,str(Path(__file__).parent.parent))
 from wardrobe_skinning import surface_weights
-from garment_alignment import segment_transform
+from garment_alignment import segment_transform, landmark_warp
+from cloth_clearance import smooth_fit_offsets
+import numpy as np
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-out=root/'nathan_wardrobe01';out.mkdir(exist_ok=True)
+smooth_fit='--smooth-fit' in sys.argv
+landmark_fit='--landmark-fit' in sys.argv
+out=root/('nathan_wardrobe03' if landmark_fit else ('nathan_wardrobe02' if smooth_fit else 'nathan_wardrobe01'));out.mkdir(exist_ok=True)
 # Read the previous real garment's bind geometry and actual weighted joint frames.
 bpy.ops.wm.open_mainfile(filepath=str(root/'wardrobe_fit01/human.blend'),use_scripts=False)
 oldrig=bpy.data.objects['Bip01'];oldrig.data.pose_position='REST';bpy.context.view_layer.update()
@@ -46,6 +50,14 @@ assert set(k for weights in oldweights for k in weights)<=set(transforms),set(k 
 jacket.parent=None;jacket.matrix_world=Matrix.Identity(4);jacket.modifiers.clear();jacket.vertex_groups.clear()
 for vertex,point,weights in zip(jacket.data.vertices,oldpoints,oldweights):
     vertex.co=sum(((transforms[name] @ point)*weight for name,weight in weights.items()),Vector())
+if landmark_fit:
+    source_anchors=[];target_anchors=[]
+    for name in mapping:
+        for depth in (-.08,.08):
+            source_anchors.append(list(oldheads[name]+Vector((0,depth,0))))
+            target_anchors.append(list(newheads[name]+Vector((0,depth,0))))
+    warped=landmark_warp([list(p) for p in oldpoints],source_anchors,target_anchors)
+    for v,point in zip(jacket.data.vertices,warped):v.co=point
 # Bind to existing source skin by barycentric nearest-surface transfer.
 points=[body.matrix_world @ v.co for v in body.data.vertices]
 body.data.calc_loop_triangles()
@@ -55,6 +67,7 @@ triangles=[tuple(t.vertices) for t in body.data.loop_triangles if all(sum(weight
 surface=BVHTree.FromPolygons(points,triangles,all_triangles=True)
 groups={n:jacket.vertex_groups.new(name=n) for n in allowed}
 maxgap=0.;retained=1.;pushed=0;maxpush=0.
+fit_points=[v.co.copy() for v in jacket.data.vertices]
 for v in jacket.data.vertices:
     near,normal,index,gap=surface.find_nearest(v.co);assert near is not None and gap<.25,(v.index,gap)
     maxgap=max(maxgap,gap);ids=triangles[index]
@@ -63,6 +76,10 @@ for v in jacket.data.vertices:
         shift=.014-signed;v.co+=normal*shift;pushed+=1;maxpush=max(maxpush,shift)
     values,kept=surface_weights(near,[points[i] for i in ids],[weights[i] for i in ids]);retained=min(retained,kept)
     for n,w in values.items():groups[n].add([v.index],w,'REPLACE')
+if smooth_fit:
+    offsets=[list(v.co-point) for v,point in zip(jacket.data.vertices,fit_points)]
+    corrected=smooth_fit_offsets([list(p) for p in fit_points],[list(e.vertices) for e in jacket.data.edges],offsets,iterations=60,strength=.65)
+    for v,point,delta in zip(jacket.data.vertices,fit_points,corrected):v.co=point+Vector(delta)
 # Custom corner normals belonged to the old A-pose; reset after actual geometry fit.
 jacket.data.normals_split_custom_set([(0.,0.,0.)]*len(jacket.data.loops))
 for face in jacket.data.polygons:face.use_smooth=True
@@ -89,5 +106,5 @@ for step in range(9):
     reference.append({'time_s':frame/30,'points':[list(evaluated.matrix_world @ mesh.vertices[i].co) for i in range(0,len(mesh.vertices),max(1,len(mesh.vertices)//40))]});evaluated.to_mesh_clear()
 (out/'surface_reference.json').write_text(json.dumps({jacket.name:reference}))
 (out/'CREDITS.txt').write_text(notice,encoding='utf8')
-(out/'fit_report.json').write_text(json.dumps({'joint_mapping':mapping,'maximum_projection_gap_m':maxgap,'minimum_retained_weight':retained,'rest_binding_error_m':error,'garment_vertices':len(jacket.data.vertices),'projected_clearance_m':.014,'clearance_adjusted_vertices':pushed,'maximum_clearance_adjustment_m':maxpush,'limitations':['Source Tshirt retained; fit/penetration needs visible review','One original Walk only','No accepted Rook identity']},indent=2))
+(out/'fit_report.json').write_text(json.dumps({'joint_mapping':mapping,'maximum_projection_gap_m':maxgap,'minimum_retained_weight':retained,'rest_binding_error_m':error,'garment_vertices':len(jacket.data.vertices),'rest_fit_method':'polyharmonic_joint_landmarks' if landmark_fit else 'weighted_segment_similarity','smooth_offset_iterations':60 if smooth_fit else 0,'projected_clearance_m':.014,'clearance_adjusted_vertices':pushed,'maximum_clearance_adjustment_m':maxpush,'limitations':['Source Tshirt retained; fit/penetration needs visible review','One original Walk only','No accepted Rook identity']},indent=2))
 print('NATHAN_AUTHORED_GARMENT_BOUND',maxgap,retained,error,flush=True)

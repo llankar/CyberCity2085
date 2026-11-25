@@ -277,3 +277,12 @@ actual surface. Skin/export verification passes but shoulder fit remains visibly
 FAIL: local normal clearance pushes distort cloth. Do not accept or generalize it.
 The source has separate eye surfaces and face joints; no nude modular anatomy or
 missing detailed PBR maps assumed.
+
+## Batch97: bounded cloth fitting alternatives (art FAIL)
+
+`fit_nathan_wardrobe.py --smooth-fit` retains original authored geometry and smooths
+only clearance displacement, output nathan_wardrobe02. `--landmark-fit` interpolates
+measured old/new joint positions with depth anchors, output03. Both variants loaded
+in Godot and front captures inspected; shoulders remain inadequate. Do not promote
+either or infer deformation acceptance from previously checked01. Tests cover
+mathematical invariants and failures, not clothing artistry.

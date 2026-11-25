@@ -17,3 +17,17 @@ def test_alignment_preserves_measured_endpoints_and_has_no_shear(target):
 @pytest.mark.parametrize('bad',[(0,0,0),(float('nan'),0,1),(1,2)])
 def test_bad_joint_measurements_rejected(bad):
     with pytest.raises(ValueError):module.segment_transform((0,0,0),(1,0,0),(0,0,0),bad)
+
+def test_landmark_warp_interpolates_and_reproduces_affine_deformation():
+    source=np.array([[0,0,0],[1,0,0],[0,1,0],[0,0,1],[1,1,1]],float)
+    linear=np.array([[1,.2,0],[0,1,0],[0,0,2.]])
+    target=source@linear.T+[2,3,4]
+    probes=np.array([[.2,.3,.7],[-1,2,3.]])
+    np.testing.assert_allclose(module.landmark_warp(source,source,target),target,atol=1e-12)
+    np.testing.assert_allclose(module.landmark_warp(probes,source,target),probes@linear.T+[2,3,4],atol=1e-12)
+
+def test_landmark_warp_rejects_planar_and_duplicate_constraints():
+    planar=np.array([[0,0,0],[1,0,0],[0,1,0],[1,1,0]],float)
+    with pytest.raises(ValueError):module.landmark_warp(planar,planar,planar)
+    source=np.array([[0,0,0],[1,0,0],[0,1,0],[0,0,1],[0,0,1]],float)
+    with pytest.raises(ValueError):module.landmark_warp(source,source,source)
