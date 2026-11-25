@@ -2,6 +2,21 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` COMBAT-MOTION-146 (2026-11-25). Continued immediately after145
+  checkpoint. `DONE` actual source FK-controller inventory via
+  blender/audit_amjviz_controls146.py; Blender executed successfully, no source
+  modification. Evidence amjviz_combat146/control_audit.json: real torso/hips/chest,
+  spine_fk, neck/head, upper_arm_fk/forearm_fk/hand_fk and thigh_fk/shin_fk/foot_fk/
+  toe_fk controls exist. Limb-parent IK_FK defaults0 (IK), and no invalid drivers
+  were reported with embedded source UI scripts disabled. Do not assume direct
+  rotation of constrained deform bones is a correct retarget method. `TODO` next:
+  drive actual source FK controls with already licensed UAL combat motion (switch
+  limb IK_FK explicitly), transfer evaluated world poses to the verified262bone
+  game rig with rest-axis compensation, preserve existing game walk/run, and fit
+  the real licensed FireWarden pistol. Inspect first shooting pose before expanding
+  to full clips/melee/death. No combat clip yet generated or accepted in146.
+  Global criteria and counts remain as145 below. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` AUTHOR-GAME-RIG-145 (2026-11-25). Previous144 was progress:
   actual strict tests rejected inaccurate Rigify re-export and retained evidence.
   `DONE` original/reset deform-bone head/tail measurements and native comparison
