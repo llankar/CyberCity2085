@@ -2,6 +2,28 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` NECK-BOUNDARY-142 (2026-11-25). Read-only source audit confirms
+  the original MIT neck itself ends high at the nape; this is not merely a lost
+  face from our crop. Actual closed lower boundary:20edges/20vertices, maximum
+  height1.576846m. `DONE` tested harmonic boundary helper (4pytest PASS,0failed,
+  0skipped; E:/CyberCity2085-3d-lab/tmp/pytest142.xml). Independent Blender candidate
+  changed79existing neck vertices vertically, preserved topology/UVs and protected
+  upper face; lower weights use existing Spine02/neck/Head. Actual export succeeded.
+  `FAIL` artistic side review: candidate closes the rear opening but produces an
+  excessively extended nape and stretched texture. Do not promote candidate142 or
+  generate its atlas. Native side screenshot inspected at
+  E:/CyberCity2085-3d-lab/generated/phase2/rook_neck_boundary142/side.png.
+  Initial CLI preview invocation rejected PowerShell parameters; corrected array
+  invocation produced the actual screenshot. Animation314pose gate NOT EXECUTED
+  for this rejected candidate; no current performance/VRAM claim. Previous141
+  technical evidence remains scoped to141. Next: inspect original MIT upper-body
+  anatomical coverage and construct a properly proportioned shoulder/neck junction
+  using genuine anatomical mesh, avoiding a long downward-stretched scalp surface.
+  No production/source asset modification or push. Required human clips5/5
+  technical,0/5 artistic; final Rook0/1, final humans0/2; tactical subjects5/6;
+  map native1/1, artistic0/1; current atlas NOT GENERATED.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` AUTHORED-JACKET-141 (2026-11-25). Continuedb4e4c2a4; previous
   true MIT pouch integration and contact correction are progress. `DONE` actual
   existing CC0 Diesel source garment inventory: separate jacket1028vertices/
