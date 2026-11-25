@@ -41,6 +41,16 @@ Godot-Z. Existing preview --view=back is camera-negativeZ and shows its face.
 Use --neutral for white ambient/gray background instead of default cyan preview.
 Generic camera-axis labels are not anatomical labels; no model rotation needed.
 
+Authored weapon composition experiment108: pinned source character.cfg must exist
+on E: (SHA recorded in progress). `bake_unvanquished_actions.py --weapon-study`
+creates a separate one-clip unvanquished_weapon01; default six-clip output remains
+byte-identical. `authored_motion_check.tscn --weapon-study` verifies composed Blender
+skin export, not source engine parity. `blender/fit_unvanquished_pistol.py` binds
+the actual existing CC0 pistol using finger landmarks, writes equipped Blend/GLB.
+`rocketbox_pistol_check.tscn --unvanquished-study` checks all nine weapon parts at
+nine times. Neutral closeup shows raised arm obscures face and unfinished contact:
+artistic FAIL, not accepted armed gameplay. Full original source rig remains intact.
+
 ## Mechanical forward walk study (batch91)
 
 Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments

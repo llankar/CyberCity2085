@@ -2,6 +2,55 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HAND-WEAPON-108 (2026-11-25). Prior107 is concrete progress:
+  native saved-Blend roundtrip and measured facing, not a wait/status-only turn.
+  Actual worktree inspected: user save remains dirty and untouched. Reused body,
+  no production edits or push. Acquired pinned1368byte character.cfg on E: SHA
+  24a8f7a6dbb897942b7f779231c98937340b9a8d8b3b2da22271547b8a84a19e,
+  source commitbbf9e8f276b3cf3f4b3fab217f2c947d2dd25515. Parsed41 hand bones.
+  Only64KB diagnostic prefix of existing23MBIQE read/saved on E:, not a full asset
+  download: confirms122joint hierarchy including control bones. Not full-file hash
+  verification or a new runtime source. Existing FireWarden pistol grant retained.
+
+  Independent pose_delta.py implements local translation difference and ordered
+  base-relative unit-quaternion composition. Eight new tests PASS incl base->target,
+  no-op/body preservation, noncommuting rotations, invalid/nonfinite inputs. Final
+  targeted20Python PASS,0failed/0skipped (pose/ranges/existing grip geometry).
+  Optional bake_unvanquished_actions.py --weapon-study uses source stand1 and
+  blaster_delta1 on configured hand bones of real blaster_attack0..8@60fps. One
+  Pistol_Attack_Study .133333s; no fake complete action set. E: unvanquished_weapon01
+  actual Blend/GLB/reference/credits. Native --weapon-study PASS122bones/21meshes,
+  nine sampledtimes, composed Blender/export skin error79.5913micrometres, restart0.
+  This reference is composed Blender geometry, NOT original engine parity.
+
+  fit_unvanquished_pistol.py reuses actual nine-part CC0 FireWarden prop and measured
+  middle/ring/pinky bone-circle frame. Portable armed Blend/GLB written only to
+  unvanquished_weapon01/pistol_fit01, all meshes bound to actual hand.R joint.
+  Extended existing rocketbox_pistol_check --unvanquished-study:30meshes/122bones,
+  one real clip, full nine-part vertices at nine times/nonzero actor placement,
+  bidirectional native weapon error1.64427micrometres, positiveUNV_COMBINED_PISTOL_OK,
+  matchingSHAa48da3d653aeda67c8929969202de3efa3e7d8f250363a9cafe64f184838c33e.
+  Neutral side/hand_closeup PNG actually inspected: pistol follows right hand but
+  shooting arm blocks face, wrist/barrel high, support fingers not contacting weapon.
+  Artistic firing pose/contact FAIL; do not advertise this as accepted Shoot.
+  No copied GPL engine implementation, no new skeletal system or placeholder prop.
+
+  Corrected saved weapon-study track selection (Idle absent, use actual first clip).
+  Preview keeps120fps for both authored-body and equipped study paths. Regression:
+  actual default six-clip bake rerun -> original GLB SHA BYTE IDENTICAL
+  1e4d8b0a06899e4968391a421cdee1f52ad3ce1a07551edcac290af737070614;
+  native six-clip gate PASS. Existing Rocketbox combined pistol native regression
+  PASS0.801898micrometres. No production/campaign/build tests; SDL warning persists.
+
+  `TODO` next: improve the single candidate's actual head/identity and pose, not
+  proliferate technical animation checks. Investigate scanned Nathan head with
+  authored armor: original CC BY4 and BY-SA3 notices must remain, derivative may
+  use BY-SA4 under CC primary compatibility/SA3section4(b), checked this turn.
+  No mix/relicensing performed yet. Inspect neck topology/skin/texture fidelity
+  before composition; reject bad seams. Arm/contact study remains unaccepted.
+  Accepted final humans0/2; scene5/6; finalized experimental maps0/1.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-HUMAN-REVIEW-ROUNDTRIP-107 (2026-11-25). Continued local
   checkpoint7eee9db5. Actual audit_authored_facing.py evaluates eye surface centroid
   against head bounds at original clip start, not guessed source axes. Idle forward
