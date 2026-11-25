@@ -2,6 +2,64 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HUMAN-RUNTIME-144 (2026-11-25). Previous143 was progress:
+  acquired a genuine integrated cyberpunk source and verified native independent
+  scene, source rigs, licensing and first art review. Current batch does NOT replace
+  that reviewed source selector or production. `DONE` read-only actual Rigify audit:
+ 706bones/160deform, source24fps, eight maximum influences; first Armature modifier
+  has no target (no-op), second targets rig. Four stashed source actions are muted,
+  influence0 in the original; names/frame intervals recorded, not invented clips.
+  `DONE` candidate deform-only export160bones with original anatomy/UV/materials
+  and all four clips; editable BLEND and raw GLB retained exclusively on E:.
+  Actual source pose bounds measured at92key/half-key samples. Initial native gate
+  `FAIL` up to297.202mm: exported NLA clocks retain start offsets (.75s ready,
+ 1/24s walk/run), while initial references were relative to each source clip start.
+  Initial failed bounds retained as failed_unshifted_bounds.json; the first failed
+  assert left its native process alive, stopped only the matching experiment PID.
+  `DONE` animation_time_origin.py appends per-clip shifted inputs without mutating
+  shared clock or pose accessors. Three pytest PASS/0fail/0skip, including shared
+  input isolation, exact pose payload preservation and invalid-time rejection;
+  tmp/pytest144-final.xml. These tests do not prove artistic deformation quality.
+  `DONE` prepare_amjviz_runtime144.py preserves every original geometry/skin/pose
+  accessor byte-for-byte, reuses exact26compressed image payloads and seven named
+  PBR materials from the author's Godot source, prunes orphan PNG views. Actual
+  raw382,910,372B ->28,459,100B. This is reuse of the already reviewed compressed
+  author textures, NOT a claim of lossless PNG recompression. Current candidate
+  SHA752b757e0be8529cf64318e6734ea38d6ba32bb3d0d0a96ae4430710efa6bf60.
+  `FAIL` corrected-clock full92pose gate:63.568mm versus original reference.
+  Additional source-state audit: clearing pose transforms between clips (as source
+  page instructs) changes Run bounds up to53.860mm; no change to the other clips.
+  Separate reset reference retained; candidate against correct reset baseline still
+  `FAIL`:35.129mm overall,8.819mm Run integer keys,9.364mm ready,8.100mm walk.
+  `DONE` full706bone diagnostic exported separately/amjviz_full144 with same
+  preserved author texture route (31,108,540B). Native92samples `FAIL`62.954mm
+  against original baseline. Thus simply restoring omitted control bones does not
+  resolve the mismatch; do not blame reduction alone or promote either candidate.
+  `DONE` actual B-Bone audit: many spine/limb/finger bones use8/10segments.
+  Linear-only diagnostic reduces ready error9.364mm ->0.636mm but still fails;
+  combined reset+linear diagnostic `FAIL`:34.041mm maximum,7.744mm Run integer
+  key error,4.635mm walk integer key error. B-Bones explain part, NOT all, of the
+  discrepancy. Their separate reference/result JSON files are not substitutes for
+  original authored acceptance. Native checker keeps500micrometer gate unchanged,
+  reports real nonzero exit on final mismatch; newest diagnostic records source
+  reference SHA and current GLB SHA. Failure cleanup still reports3object/1resource
+  leaks; not claimed leak-free. SDL warning persists.
+  `DONE` read-only segmented-skin feasibility on62,757real vertices:668expanded
+  segment joints, up to9influences,1,636vertices exceed Godot's eight-influence
+  route; naive dropping can lose5.09453% weight. Do not silently prune or call it
+  equivalent. First audit failed only while reading API documentation from the
+  class; corrected instance API inspection rerun successfully.
+  `TODO` next: compare native/source deform-bone head/tail transforms at the actual
+  worst Run/Walk key times with reset source pose, to isolate curve interpolation,
+  inherited TRS/shear and remaining skin deformation separately. Then bake a real
+  game deformation rig/correctives with measured error and preserved contacts.
+  Do not add combat clips on a silently inaccurate bake. No new atlas, cohort,
+  artistic approval, sustained FPS/VRAM measurement or production change.
+  Required first-human actions remain source ready/walk2/5available (run extra),
+ 0/5final art; older separate141technical5/5 unchanged. Final Rook0/1; final humans
+ 0/2; mapnative1/1/artistic0/1; tactical subjects5/6; new atlas NOT GENERATED.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` AUTHORED-HUMAN-SOURCE-143 (2026-11-25). Previous142 was progress:
   actual geometry/export/side review rejected a stretched nape. `DONE` original
   MIT/Diesel anatomical material inventory; original MIT body is uniform, not a

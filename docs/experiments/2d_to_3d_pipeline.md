@@ -9,6 +9,34 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Coherent authored human source (batch143)
 
+Runtime bake144 is a rejected/unverified candidate, not the reviewed source143.
+It reduces706to160bones and keeps original authored image payloads, but the strict
+92pose native deformation check FAILS. Preserve that failure rather than selecting
+it as the scene default. Reproduce targeted diagnostics on E::
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_amjviz_rig144.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/export_amjviz_runtime144.py
+python experiments/2d_to_3d/prepare_amjviz_runtime144.py
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_runtime_check.tscn
+```
+
+The raw export is unshifted_export.glb; prepared human.glb retains pose accessor
+bytes while shifting each clip's time origin and restoring exact author Godot
+compressed images/materials. Re-running preparation reads the explicit raw file,
+not a previously processed candidate. Both scripts accept --all-bones-diagnostic
+to use the separate amjviz_full144 folder (not a source-fidelity fix).
+Blender export script --reset-reference and/or --linear-diagnostic are read-only
+reference measurements, exiting before export. Pass matching flags to the native
+checker: these alternate references are diagnostic, not permission to accept an
+altered source. Combined flags have a separate reset_linear result. Final native
+gate failures return1. Positive process exit alone never proves a pose check.
+Source requires resetting transforms between clips; substantial residual errors
+remain even after doing so. B-Bone curves explain only part. Next investigate
+actual bone head/tail transforms, interpolation and inherited affine transforms
+before building segmented/corrective deformation. A direct segment split needs
+up to9vertex influences; blindly truncating to8can discard5.1%of weight.
+
 The incompatible Diesel neck patch is a rejected diagnostic. The new first-human
 source study uses the complete AmJViZ CyberPunk Rigged character, retaining its
 actual integrated anatomy, clothing, PBR textures and original Rigify animation.
