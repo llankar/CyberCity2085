@@ -10,6 +10,15 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Measured prop study (batch88): inspect_rocketbox_grip.py then
+fit_rocketbox_pistol.py through run_blender.ps1 creates actual equipped Blend/GLB
+and independent prop surface references on E:. rocketbox_pistol_check.tscn must
+print ROCKETBOX_PISTOL_BIND_OK; --combined-model instead verifies the actual
+portable skinned prop and requires ROCKETBOX_COMBINED_PISTOL_OK. Both compare
+nine times including nonzero actor placement. Use --attach-rocketbox-pistol in
+preview, or --rocketbox-motion-study --shoot-preview in comparison. Contact and
+stowed source pistol surface remain unaccepted; a binding PASS is not grip art QA.
+
 Authored component audit (batch87): blender/audit_rocketbox_components.py then
 blender/extract_rocketbox_accessories.py preserve genuine disconnected source
 props, not invented modular clothes. rocketbox_accessory_check.tscn compares

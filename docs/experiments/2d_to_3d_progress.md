@@ -3,6 +3,67 @@
 This register is separate from the principal CyberCity 2085 GOAL.
 
 
+- `IN_PROGRESS` MEASURED-HUMAN-PISTOL-88 (2026-11-25) - previous goal turn
+  classified PROGRESS: authoritative source integration, actual five-clip motion,
+  native evidence and authored gear extraction/checkpoints85-87. This turn
+  continued the missing weapon fitting, not production or generic MPFB retint.
+  Measured actual Rocketbox firing-pose wrist/forearm and three curled-finger
+  bone chains. Circumcenters estimate handle center(-.128950,-.457005,1.407012)m.
+  Existing licensed FireWarden CC0 pistol reused, nine real mesh parts/palette.
+  Known source grip anchor(0,-.012,.052)m remains a fitting hypothesis; finger
+  bones are not a skin-contact/collision solver. No trigger/support grip PASS.
+
+  Pure fit math rejects collinear/collapsed/parallel landmarks. First up-priority
+  frame tilted barrel away from forearm; actual side render exposed it. Revised
+  forward-priority frame preserves measured forearm aim and treats finger curl
+  line as an orthogonalized up hint. Added explicit regression for oblique curl.
+  First native wrist-local conversion FAIL111.421mm due imported FBX/glTF bone
+  local basis. Actual native reference-pose calibration derives ONE constant
+  mount, then all subsequent times use real BoneAttachment3D. Nine-time complete
+  bidirectional vertex-set comparison PASS3.282047um with nonzero actor offset.
+  First successful comparison emitted empty AnimationPlayer position error;
+  guarded access corrected it, final gate has no such animation error. Persistent
+  unrelated SDL calibration warning remains, not called warning-free.
+
+  Real equipped portable source also created: human_pistol.blend278,684,667bytes,
+  human_pistol.glb79,660,580bytes. Body plus nine genuinely wrist-skinned prop
+  meshes,80 joints,175 facial targets, Pistol_Shoot.633333s scene clip/241 channels.
+  Blender bind-space vertices preserve source armature world scale, no textured
+  billboard. MIT notice, UAL CC0 and prop CC0/source identities retained. Original
+  master five-clip/source assets unchanged. Native portable skin vs independent
+  Blender prop surface comparison PASS.801899um at nine times. Runtime and
+  portable source both verified separately; exact visual/contact fit not assumed.
+
+  Preview --attach-rocketbox-pistol and comparison --rocketbox-motion-study now
+  show actual gun; comparison hides it for Idle/Walk/Melee/Death and shows it on
+  Shoot. Existing five-action/camera/input tests and62.207947px scale PASS after
+  attachment; --shoot-preview captures the operation at native sprite zoom.
+  Actual neutral side close-up inspected: barrel alignment improved, gloves,
+  support-hand/index placement still need work. Source stowed pistol surface is
+  still present in source body; draw/stow-specific source surface treatment TODO,
+  not silently claimed solved. Portable side and tactical screenshot captured.
+
+  Evidence E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03/motion01:
+  grip_landmarks.json; pistol_fit01/fit_report.json, weapon_surface_reference.json,
+  native_check.json, native_combined_check.json, human_pistol.blend/.glb,
+  grip_side.png, portable_shoot_side.png, tactical_shoot.png. Native positive
+  ROCKETBOX_PISTOL_BIND_OK and ROCKETBOX_COMBINED_PISTOL_OK observed. Python final
+ 28passed,0failed/skipped across five experiment modules, including five actual
+  grip geometry contracts. No production tests rerun; production/save/main GOAL
+  untouched. Git checkpoint local only, no push/release.
+
+  DONE this batch4/4 bounded technical tasks: measured fitting, constant native
+  wrist mount, portable equipped source, source/native render/math checks. Global
+  final human identities0/2 and accepted full actor action sets unchanged. Next:
+  professional Rook wardrobe/face/hair integration rather than more minor gun
+  technical work; refine actual contacts/stowed source surface, robot actions/art,
+  source-aware optimization and Blender re-export roundtrip remain open. Further
+  primary-source search found no accepted replacement this turn: Scarlet Proxy
+  page has conflicting BY/BY-SA and additional social conditions; not acquired.
+  AI/procedural catalog results are not professional-art acceptance evidence.
+  CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` AUTHORED-ACCESSORY-SELECTION-87 (2026-11-25) ? continued source
   selection/integration instead of multiplying generic human variants. Official
   GitHub connector supplied pinned Adults tree metadata. Downloaded ONLY21 male

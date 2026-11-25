@@ -105,6 +105,9 @@ func _ready() -> void:
 	if bundled_human:
 		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
 		human_weapon.visible = false
+	if rocketbox_motion:
+		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0])
+		human_weapon.visible = false
 	if "--authored-groom" in OS.get_cmdline_user_args():
 		assert(bundled_human, "Authored groom study requires the shared character rig")
 		preload("res://groom_attachment.gd").attach(subjects[0], "einar_groom02_layered_lod")
@@ -202,7 +205,7 @@ func _ready() -> void:
 			play_clip("Shoot")
 			var action_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			assert(action_player.current_animation == "Pistol_Shoot")
-			if bundled_human: assert(human_weapon.visible)
+			if human_weapon: assert(human_weapon.visible)
 			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
 		else: assert("unavailable" in clip_status)
 		if bundled_human or rocketbox_motion:
@@ -226,6 +229,7 @@ func _ready() -> void:
 		if action_human: play_clip("Shoot")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "unavailable" if charge else "Walk")
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
+	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame
