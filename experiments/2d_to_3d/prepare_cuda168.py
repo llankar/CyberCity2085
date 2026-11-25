@@ -7,7 +7,7 @@ import urllib.request
 
 ROOT=Path('E:/CyberCity2085-3d-lab')
 BASE='https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/'
-WANTED={'cuda-nvcc-12-8','cuda-crt-12-8','cuda-cudart-12-8','cuda-cudart-dev-12-8',
+WANTED={'cuda-nvcc-12-8','cuda-nvvm-12-8','cuda-crt-12-8','cuda-cudart-12-8','cuda-cudart-dev-12-8',
         'cuda-cccl-12-8','cuda-driver-dev-12-8'}
 
 def main():

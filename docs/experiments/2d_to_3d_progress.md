@@ -2,6 +2,35 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TACTICAL-SHOWCASE-169 (2026-11-25). Latest owner priority:
+  one continuous combat showcase, not repeated engine/rig validation.
+  `DONE` combat169.tscn reuses167 actors/actions: two agents/two raiders/bot,
+  continuous paths, facing/speed-scaled gait, following rings, local HP/healing,
+  gun flashes/tracers/impact reactions, melee, cyberpsychic arcs, bot debris,
+  real Poly Haven medical case. Existing WAVs loaded spatially, no new sounds.
+  `DONE` first native FullHD30fps AVI902frames, actual audio,30.07s; Movie Maker
+  offline capture~60s, not a claim of30fps real-time recording. Prior PNG attempt
+  and incorrect720p initial output retained, not delivery evidence.
+  `DONE` target cover check: first candidate had0blockedshots (FAIL), added actual
+  crate mesh AABB; changed native take has1blockedshot. Low camera and smooth
+  building fades executed143building/frame occlusions. These are staged local
+  encounter mechanics, not campaign AI or new production tactical rules.
+  `DONE` one-map environment: same627cell volumes,9separate building groups,
+  three PBR wall/roof surfaces, windows/doors/signs, Kenney authored roof props,
+  Poly Haven pipes/lamps/medical case. Latest authored shutter/cables/compressor
+  pass built, final native capture and encoding DONE; clean shots inspected.
+  Scripts acquire_environment169,blender/showcase_environment169,combat169,
+  combat_effects169,run_movie169,package_combat169. E:phase2/showcase169/combat169.
+  `DONE` final package checks:902frames1920x1080/30fps, real48kHz stereo audio,
+  MP4/GIF/gallery on E:. Native clean shots inspected; audio confirmed non-silent,
+  max-18.8dB before9dB delivery gain. Docs tactical_showcase169.md.
+  `TODO` residual contacts, clipping and material coherence; no final art claim.
+  No production/campaign tests or push. Hunyuan Paint rasterizer built after
+  missing nvvm/cicc resolved; cached C++ objects reused. Initial import FAIL
+  libc10.so, fixed torch-first/library path. Actual new32px GPU projection PASS;
+  pipeline import running, no texture inference claim or old CUDA benchmarks.
+
+
 - `IN_PROGRESS` COLOUR-FIRST-168 (2026-11-25). User explicitly requests personal
   experiments without licensing work; preserved notices, no distribution/push.
   `DONE` unarmed textured T-pose reference from retained Rook: actual Blender

@@ -23,4 +23,4 @@ done
 "$UV" pip install --python "$python" xatlas ninja pybind11 setuptools wheel
 "$UV" pip install --python "$python" --no-build-isolation --no-deps "$LAB/repos/Hunyuan3D-2/hy3dgen/texgen/custom_rasterizer"
 cd "$LAB/repos/Hunyuan3D-2"
-"$python" -u -c 'import custom_rasterizer; from hy3dgen.texgen import Hunyuan3DPaintPipeline; print("HUNYUAN_PAINT_IMPORT_READY",flush=True)'
+"$python" -u -c 'import torch; import custom_rasterizer; from hy3dgen.texgen import Hunyuan3DPaintPipeline; print("HUNYUAN_PAINT_IMPORT_READY",flush=True)'
