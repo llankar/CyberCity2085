@@ -8,12 +8,14 @@ folder=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146')
 base_folder=folder
 hair_study='--hair-study' in sys.argv
 support_study='--support-study' in sys.argv
-wardrobe_study='--wardrobe150-study' in sys.argv
+motion_study='--motion-extension159' in sys.argv
+wardrobe_study='--wardrobe150-study' in sys.argv or motion_study
 assert sum([hair_study,support_study,wardrobe_study])<=1
 if hair_study:folder=folder.parent/'amjviz_hair148'
 if support_study:folder=folder.parent/'amjviz_grip149'
 if wardrobe_study:folder=folder.parent/'amjviz_wardrobe150'
-blend_path=folder/('human.blend' if hair_study else 'human_actions.blend')
+if motion_study:folder=folder.parent/'motion_extension159'
+blend_path=folder/('human.blend' if hair_study or motion_study else 'human_actions.blend')
 bpy.ops.wm.open_mainfile(filepath=str(blend_path),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')
 base=Matrix(json.loads((base_folder/'bake_report.json').read_text())['base_game_world'])

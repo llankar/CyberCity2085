@@ -5,19 +5,21 @@ func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
+	var motion_study := "--motion-extension159" in OS.get_cmdline_user_args()
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
-	var wardrobe_study := current_budget or "--wardrobe150-study" in OS.get_cmdline_user_args()
+	var wardrobe_study := motion_study or current_budget or "--wardrobe150-study" in OS.get_cmdline_user_args()
 	assert(int(hair_study)+int(support_study)+int(wardrobe_study)<=1)
 	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
 	if support_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_grip149/"
 	if wardrobe_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/"
+	if motion_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/motion_extension159/"
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
 	if "--texture-budget-study" in OS.get_cmdline_user_args():
 		assert(not(hair_study or support_study or wardrobe_study),"Choose one geometry reference")
 		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget147_1024/"
 	if current_budget:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget154_1024/"
-	var model_path := folder+("human.glb" if hair_study else "human_actions.glb")
+	var model_path := folder+("human.glb" if hair_study or motion_study else "human_actions.glb")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(model_path,state)==OK)
@@ -25,7 +27,7 @@ func _ready() -> void:
 	add_child(model)
 	var player := model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 	var rig := model.find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
-	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==7)
+	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==(9 if motion_study else 7))
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
 	assert(meshes.size()==(11 if hair_study or support_study or wardrobe_study else 10))
@@ -38,14 +40,15 @@ func _ready() -> void:
 		assert(player.has_animation(clip))
 		var error := 0.0
 		var floor_value := INF
+		var maximum_floor := -INF
 		var final_height := 0.0
 		for sample in reference.clips[clip]:
 			player.play(clip);player.seek(sample.time_s,true);player.pause();rig.force_update_all_bone_transforms()
 			var result: Dictionary = checker.compare_sample(meshes,rig,probe,sample.mesh_bounds_blender,reference.body_name)
-			error=maxf(error,result.error);worst=maxf(worst,result.error);floor_value=minf(floor_value,result.body_floor)
+			error=maxf(error,result.error);worst=maxf(worst,result.error);floor_value=minf(floor_value,result.body_floor);maximum_floor=maxf(maximum_floor,result.body_floor)
 			final_height=result.body_height;count+=1
 			await get_tree().process_frame
-		clips[clip]={"error_m":error,"floor_m":floor_value,"final_body_height_m":final_height,"samples":reference.clips[clip].size()}
+		clips[clip]={"error_m":error,"floor_m":floor_value,"maximum_floor_m":maximum_floor,"final_body_height_m":final_height,"samples":reference.clips[clip].size()}
 		print("AMJVIZ_COMBAT_NATIVE_CLIP ",clip," ",clips[clip])
 	var reset_sample: Dictionary = reference.clips["Hard stand"][0]
 	player.play("DeathStudy");player.seek(player.current_animation_length,true);player.pause()
@@ -64,5 +67,9 @@ func _ready() -> void:
 	for clip in ["Walk (1_24)","Run (1_18)","ShootStudy","MeleeStudy","DeathStudy"]:
 		assert(clips[clip].floor_m>=-.0005,"New combat clip penetrates floor")
 	assert(clips.DeathStudy.final_body_height_m>.15 and clips.DeathStudy.final_body_height_m<.9,"Death did not settle horizontally")
+	if motion_study:
+		assert(clips.CoverStudy.floor_m>=-.0005 and clips.HitStudy.floor_m>=-.0005)
+		assert(clips.CoverStudy.maximum_floor_m<.005 and clips.HitStudy.maximum_floor_m<.005,"New motion floats above floor")
+		assert(clips.CoverStudy.final_body_height_m<clips["Hard stand"].final_body_height_m*.85,"Cover not visibly crouched")
 	print("AMJVIZ_COMBAT_NATIVE_EXPORT_PASS samples=",count," error_m=",worst)
 	get_tree().quit()

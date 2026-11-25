@@ -90,11 +90,13 @@ func _ready() -> void:
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
+	var motion_study := "--motion-extension159" in OS.get_cmdline_user_args()
+	assert(not motion_study or not (current_atlas_review or generated_review),"New motions have no matching atlas")
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
 	assert(not current_budget or not current_atlas_review,"Budget variant requires separate atlas review")
 	var modular_study := "--modular-equipment-study" in OS.get_cmdline_user_args()
-	assert(not modular_study or (not current_budget and not current_atlas_review and not generated_review), "Module study has no matching rendered atlas")
-	var wardrobe150_study := current_budget or modular_study or "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
+	assert(not modular_study or (not motion_study and not current_budget and not current_atlas_review and not generated_review), "Module study has no matching rendered atlas")
+	var wardrobe150_study := motion_study or current_budget or modular_study or "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
 	assert(int(texture_budget)+int(hair_study)+int(support_study)+int(wardrobe150_study)<=1,"Choose one private human variant")
 	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget or hair_study or support_study or wardrobe150_study
 	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
@@ -195,6 +197,7 @@ func _ready() -> void:
 		if support_study:human_path=root+"amjviz_grip149/human_actions.glb"
 		if wardrobe150_study:human_path=root+"amjviz_wardrobe150/human_actions.glb"
 		if current_budget:human_path=root+"amjviz_budget154_1024/human_actions.glb"
+		if motion_study:human_path=root+"motion_extension159/human.glb"
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
@@ -246,6 +249,10 @@ func _ready() -> void:
 				human_embedded_weapon.append(mesh)
 				mesh.visible=false
 		assert(human_embedded_weapon.size()==9)
+	if motion_study:
+		var extended_aliases:Dictionary=subjects[0].get_meta("action_aliases")
+		extended_aliases.merge({"Hit":"HitStudy","Cover":"CoverStudy"})
+		subjects[0].set_meta("action_aliases",extended_aliases)
 	if modular_study:
 		sidearm_modules = preload("res://equipment_modules153.gd").new()
 		sidearm_modules.configure(subjects[0], root+"amjviz_wardrobe150/human_actions.glb")
@@ -342,6 +349,14 @@ func _ready() -> void:
 		_unhandled_input(swap_key)
 		assert(sidearm_modules.selected=="firewarden")
 		print("MODULE_STAGE_INPUT153_PASS human_swap,robot_guard,restore")
+	if motion_study:
+		selected=0
+		var extension_key:=InputEventKey.new();extension_key.pressed=true
+		for entry in [[KEY_6,"HitStudy"],[KEY_K,"CoverStudy"]]:
+			extension_key.keycode=entry[0];_unhandled_input(extension_key)
+			assert(subjects[0].find_children("*","AnimationPlayer",true,false)[0].current_animation==entry[1])
+		play_clip("Idle")
+		print("MOTION159_STAGE_KEYS_PASS hit,cover,idle")
 	if "--self-test" in OS.get_cmdline_user_args():
 		if vehicle_actor != null:
 			for entry in [[KEY_8,"Gear_Retract"],[KEY_9,"Gear_Extend"],[KEY_7,"Rotor_Spin"]]:
@@ -485,8 +500,10 @@ func _ready() -> void:
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Idle/Walk/Melee/Hit/Death" if robot_bundle else ("Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if amjviz_combat:
-		for requested in ["Shoot","Melee","Death"]:
-			var flag := {"Shoot":"--shoot-preview","Melee":"--melee-preview","Death":"--death-preview"}
+		var preview_actions:Array=["Shoot","Melee","Death"]
+		if motion_study:preview_actions.append_array(["Cover","Hit"])
+		for requested in preview_actions:
+			var flag := {"Shoot":"--shoot-preview","Melee":"--melee-preview","Death":"--death-preview","Cover":"--cover-preview","Hit":"--hit-preview"}
 			if flag[requested] in OS.get_cmdline_user_args():
 				play_clip(requested)
 				var preview := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
@@ -832,6 +849,7 @@ func _process(_delta: float) -> void:
 	if hud:
 		var fps_value := str(Engine.get_frames_per_second()) if Time.get_ticks_usec()-first_process_usec > 2000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		if "--motion-extension159" in OS.get_cmdline_user_args():hud.text += "\n6: authored hit | K: crouched cover study (no tactical rule change)"
 		if sidearm_modules!=null:hud.text += "\nE: swap actual sidearm | 3: draw | module: "+sidearm_modules.selected
 		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
 		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored human study: U Run | A Attack | K Crouch | weapon grip NOT accepted"
@@ -866,6 +884,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee", KEY_6: "Hit"}
 		if "--unvanquished-motion-study" in OS.get_cmdline_user_args() or "--scanned-head-study" in OS.get_cmdline_user_args() or "--scanned-hair-study" in OS.get_cmdline_user_args() or "--scanned-shoot-study" in OS.get_cmdline_user_args():
 			actions.merge({KEY_U:"Run",KEY_A:"Attack",KEY_K:"Crouch"})
+		if "--motion-extension159" in OS.get_cmdline_user_args():actions[KEY_K]="Cover"
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])
 	if event is InputEventMouseButton:

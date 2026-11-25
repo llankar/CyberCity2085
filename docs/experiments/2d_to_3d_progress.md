@@ -2,6 +2,55 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-MOTION-EXTENSION-159 (2026-11-25).
+  Previous158 turn classified progress: three actual hair studies rejected with
+  native evidence; final human art remains open. Continued another explicit GOAL
+  requirement without generalizing characters. `DONE` inspect existing licensed
+  Quaternius UAL library (CC0 notice actually read); no new download. Retargeted
+  Hit_Chest into HitStudy(0.333333s/41samples120Hz) and Crouch_Idle_Loop into
+  CoverStudy(2.933333s/353samples120Hz), using existing authored FK/game-rig solver.
+  No repair clip mislabeled as healing. CoverStudy is only a crouched idle study,
+  not complete tactical cover/enter/exit/lean behavior or final animation art.
+  Separate current156body BLEND/GLB in E:generated/phase2/motion_extension159;
+  nine clips/262bones, source materials/geometry retained. Source identities and
+  CC0+original private body/prop licences recorded in CREDITS, not public assets.
+  `DONE` original seven animation channel input/output accessor bytes exactly
+  preserved, verified before and after grounding. New source transfer max errors
+  1.823micrometres Hit and1.434micrometres crouch. First export had10.5cm floating
+  crouch despite source-export fidelity PASS: stronger floor criterion added.
+  ground_motion_extension159.py measures actual deformed body at every new key,
+  adjusts only new clip root Z: Hit-5.017..-8.767mm, crouch-104.683..-105.874mm.
+  Ungrounded BLEND/GLB/native/reference retained separately for failure evidence.
+  `DONE` final Blender/native447bounds poses at48Hz across9clips PASS max
+  88.83180271micrometres, unchanged0.5mm gate. New floor gates reject penetration
+  and floating>5mm: Hit0.998617..1.000522mm, crouch0.996381..0.997238mm; standing
+  body height1.771253m versus crouch0.983338m. Floor/motion art still separate.
+  `DONE` --motion-extension159 optional independent tactical stage uses actual
+  new actor; key6Hit, K crouch and Idle dispatch tested. --cover-preview/--hit-preview
+  capture corresponding frozen poses. Unmatched atlas/module variants rejected;
+  default production/runtime and existing study routes remain separate.
+  Actual preview exposed filename-dependent visibility/import cadence: new folder
+  incorrectly drew embedded pistol outside ShootStudy. preview.gd now recognizes
+  combat asset from imported animation metadata, samples120Hz and hides all9parts
+  for Hit/Cover. Source150ShootStudy actual regression render retains9drawn parts.
+  Six final neutral midpoint front/side/back captures rerendered and inspected:
+  recognizable crouch/flinch, no gross dislocation; full timing/contact and final
+  clothing/face/hair quality NOT VERIFIED. Tactical capture inspected with crouch,
+  robot,vehicle,crate,machine and existing map; HUD remains crowded/prototype roofs.
+  Actual verifier --native-proof PASS links source BLEND/native reference/GLB SHA,
+ 447native samples and six actual PNG hashes in acceptance159.json. Five targeted
+  Python tests PASS0fail0skip, tmp/tests159-complete.xml; native/stage/preview logs
+  tmp/motion159*.log; no production tests or new isolated GPU memory benchmark.
+  Reproduction: extend_amjviz_motion159.py, ground_motion_extension159.py,
+  measure_amjviz_actions146.py --motion-extension159, native amjviz_actions_check
+  --motion-extension159, verify_motion_extension159.py --native-proof.
+  `TODO` heal, conditional PSI, final cover entry/exit/aim/contact; first-human
+  art/scalp/garments and all previous global criteria remain open. Eight technical
+  motion families now demonstrated including unaccepted crouch study (nine clips
+  includes T_pose); do not count them as eight artistically completed families.
+  Scene5/6subjects, map native1/1/final3Dart0/1; Raider deferred until first human
+  convincing. CHANTIER GLOBAL INCOMPLET. No production edits/build/push.
+
 - `IN_PROGRESS` AUTHORED-HAIR-RESTYLING-158 (2026-11-25).
   Previous157 classified progress: actual licensed hair cards and root-object
   export fix, no final hair acceptance. `DONE` inspected current repository and
