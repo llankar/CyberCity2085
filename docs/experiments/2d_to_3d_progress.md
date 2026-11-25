@@ -2,6 +2,33 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-ATLAS-FACING-PROJECTION-102 (2026-11-25). Prior turn101
+  progress verified from checkpointac3be2af and actual main/experimental registers/
+  worktree. Read-only production unit_visual.gd:85 establishes screen atan2 with
+  facing_y_scale2 and sectors E,SE,S,SW,W,NW,N,NE. No runtime or production asset edits.
+  New measured projection mapping uses actual Blender cameras matching .6rad orbit
+  elevations/orthographic calibration. Forward comes from measured signed Walk
+  displacement, not guessed portrait orientation. Actual world_to_camera_view
+  vectors invert into unique facing->orbit[4,5,6,7,0,1,2,3]. All5manifests enriched.
+
+  Script records source BlendSHA, eight camera positions/projected vectors per clip,
+  source forward and existing sector convention in E: security_bundle01/atlas/
+  facing_projection_check.json. All170existing PNG hashes before/after identical;
+  no new160frame render needed. Pure facing_lookup rejects missing/duplicate/zero/
+  nonfinite projections, tests rotated orbit order and actual expected sectors.
+  Five new tests; final focused18PASS,0failed,0skipped across facing/sampling/pixel
+  modules. Actual160PNG verifier rerun PASS. Native Walk --production-order selftest
+  PASS32frame indices, animation/pause/view selection and M orbit/facing toggle;
+  fresh walk_facing_review.png inspected with labels E..NE. Other clips share exact
+  verified projection correspondence, not individually rerun natively in this mode.
+
+  Bounded mathematical/native facing tasks3/3DONE; subjective full robot artwork
+  acceptance remainsNOT VERIFIED. Same5*8*4 atlas coverage160, accepted human0/2,
+  final modular outfits0, native subjects5/6, one partial floor/block map, finalized
+  maps0. Next: vehicle articulation with real moving components; human professional
+  wardrobe/eye/action work, full scene and Blender re-export remainTODO. No production
+  or user save edits, campaign tests, push or release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-ROBOT-EIGHT-VIEW-ATLASES-101 (2026-11-25). Previous
   turn100 progress verified from checkpointd2f2beca, actual worktree and principal/
   experimental registers read. Reused existing Rocketbox atlas renderer/verifier

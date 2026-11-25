@@ -356,3 +356,16 @@ action names fail rather than silently doing nothing. Source model hashes retain
 Render calibration uses the current professional-human study height, so physical
 1.95m robot is64.895px against62.208px human. Orbit views/final art remain unaccepted
 until facing and artistic review; do not replace production sprites.
+
+## Batch102: measured robot atlas facing sectors
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/map_robot_atlas_facings.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://atlas_review.tscn -QuitAfter 300 -SceneArguments @('--atlas-dir=E:/CyberCity2085-3d-lab/generated/phase2/security_bundle01/atlas','--manifest=Walk_atlas.json','--action=walk','--production-order','--self-test')
+```
+
+Postprocess after a new atlas render: measures matching camera projections with
+actual Walk source forward, retains all PNG pixels and enriches five manifests.
+Uses existing screen sectors/facing_y_scale2. Source Blend and PNG SHA256 evidence
+is external on E. Mathematical/native facing PASS does not establish final robot
+identity, materials or full artistic animation acceptance.
