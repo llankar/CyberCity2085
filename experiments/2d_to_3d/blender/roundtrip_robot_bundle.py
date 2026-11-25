@@ -3,10 +3,13 @@ import hashlib
 import json
 import shutil
 import sys
+from bisect import bisect_right
+import numpy as np
 from pathlib import Path
 import bpy
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from glb_document import Glb
+from quaternion_sampling import slerp
 
 root = Path('E:/CyberCity2085-3d-lab/generated/phase2')
 source = root / 'security_bundle01'
@@ -41,6 +44,8 @@ for obj in meshes:
     obj.name = source_names[obj.data.name]
 owners = [rig, *[obj.data.shape_keys for obj in meshes if obj.data.shape_keys]]
 tracks = {}
+resampled_actions = set()
+resampled_paths = 0
 for owner in owners:
     animation = owner.animation_data
     if not animation:
@@ -63,6 +68,41 @@ for owner in owners:
         # Source Idle knots are24Hz, the other clips30Hz. Sampling at their
         # common multiple preserves piecewise-linear corrective motion.
         strip.scale *= 4
+        action = strip.action
+        if action in resampled_actions:
+            continue
+        resampled_actions.add(action)
+        for layer in action.layers:
+            for action_strip in layer.strips:
+                for bag in action_strip.channelbags:
+                    paths = {}
+                    for curve in bag.fcurves:
+                        if curve.data_path.endswith('rotation_quaternion'):
+                            paths.setdefault(curve.data_path, {})[curve.array_index] = curve
+                    for path, curves in paths.items():
+                        assert set(curves) == {0,1,2,3}
+                        knots = sorted({float(key.co.x) for curve in curves.values() for key in curve.keyframe_points})
+                        rotations = [np.array([curves[i].evaluate(time) for i in range(4)]) for time in knots]
+                        rotations = [q / np.linalg.norm(q) for q in rotations]
+                        modes = {key.interpolation for curve in curves.values() for key in list(curve.keyframe_points)[:-1]}
+                        if modes == {'CONSTANT'}:
+                            assert all(abs(float(q @ rotations[0])) > 1-1e-7 for q in rotations), (action.name,path,'Varying STEP rotation')
+                            continue
+                        assert modes <= {'LINEAR'}, (action.name, path, modes)
+                        times = sorted(set(knots) | {knots[0] + i / 4 for i in range(int(round((knots[-1]-knots[0])*4))+1)})
+                        samples = []
+                        for time in times:
+                            index = max(0, min(len(knots)-1, bisect_right(knots,time)-1))
+                            q = rotations[-1] if index == len(knots)-1 else slerp(rotations[index], rotations[index+1], (time-knots[index])/(knots[index+1]-knots[index]))
+                            samples.append(q)
+                        for component, curve in curves.items():
+                            curve.keyframe_points.clear()
+                            curve.keyframe_points.add(len(times))
+                            for key, time, q in zip(curve.keyframe_points, times, samples):
+                                key.co = (time, float(q[component]))
+                                key.interpolation = 'LINEAR'
+                            curve.update()
+                        resampled_paths += 1
 for obj in scene.objects:
     obj.select_set(obj == rig or obj in meshes)
 bpy.context.view_layer.objects.active = rig
@@ -81,5 +121,6 @@ for name in ['bundle_report.json', 'CREDITS.txt']:
     'source_glb_sha256': digest(source / 'robot_actions.glb'),
     'roundtrip_glb_sha256': digest(out / 'robot_actions.glb'),
     'tracks_by_owner': tracks, 'meshes': len(meshes),
+    'slerp_resampled_quaternion_paths': resampled_paths,
     'scope': 'Re-export only; native deformation comparison required'}, indent=2))
 print('ROBOT_SAVED_BLEND_REEXPORTED', len(tracks), flush=True)

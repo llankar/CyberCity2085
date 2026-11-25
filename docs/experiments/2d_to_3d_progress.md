@@ -2,6 +2,30 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` ROBOT-SAVED-BLEND-ROUNDTRIP-113 technical scoped gate (2026-11-25).
+  Resolved112 Melee J036 discrepancy without relaxing thresholds: Blender
+  component-linear quaternion curves do not reproduce glTF spherical rotation
+  between source keys. Re-sample320 actual quaternion paths by shortest-arc
+  SLERP at quarter source frames, preserve original knot values/orientations,
+  track timing and duration. Static CONSTANT paths require identical orientation;
+  varying STEP or unsupported interpolation fails rather than silently smoothing.
+  Actual original packed Blend remains unchanged (SHA541a87865e9bf3bdc7119c026d66e0baea93bbaeea767b43ef10ea76e8687958).
+  E:security_roundtrip01/robot_actions.glb212,488,084B now SHA
+  2aabab5513e2a5fe6bae268db0ef3c903ba6fa2ffc5c29089ff3d0bc36bc94da.
+
+  Actual native five-clip gate PASS, fresh JSON passed=true and matching SHA:
+  maximum skin-basis component error6.974582e-7; sampled bidirectional surface
+  errors Idle .211293,Walk .270283,Melee .266601,Hit .399910,Death .932313
+  micrometres. Death-to-Idle reset .029802micrometres. Gate covers124 joints,
+  17transform times/clip and selected surfaces at9times/clip; not every continuous
+  pose, contact, collision or artistic acceptance. Original bundle unaffected.
+  Ten new quaternion tests PASS (constant angular speed incl140-degree quarter
+  rotations, antipodal shortest arc, endpoints, invalid data). Focused suite38
+  PASS0fail0skip, E:tmp/pytest-113-all.xml. Failed112 evidence remains historical,
+  not a claim current output is still failing. Export keeps source credits.
+  `IN_PROGRESS` human firing contacts/identity remain next; no Raider cohort,
+  production change, asset push or release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` ROBOT-SAVED-BLEND-ROUNDTRIP-112 (2026-11-25). Continuedff577a26.
   Actual packed security_bundle01/robot_actions.blend opened and re-exported,
   not regenerated from source rig. Source Blend SHA541a87865e9bf3bdc7119c026d66e0baea93bbaeea767b43ef10ea76e8687958

@@ -23,6 +23,14 @@ bundle gate remains intact. Native thresholds stay .0001 for skin transforms
 and .0005m for sampled surfaces. Failure evidence must remain explicit; saving
 and loading a Blend does not establish faithful animation roundtripping.
 
+Resolved by113: before export, re-sample quaternion F-curves using shortest-arc
+SLERP at quarter source frames. Blender's component-linear interpolation would
+otherwise differ from glTF spherical interpolation even with120Hz export. Static
+CONSTANT tracks must be uniform; unsupported varying STEP is rejected. Source
+Blend stays unchanged. Actual native five-clip gate now passes; see113 register
+for hashed output, measured errors and exact scope. Artistic robot acceptance
+remains separate from this reproducibility check.
+
 Batch111 continuation: run `run_blender.ps1 -Script blender/build_scanned_shoot.py`
 after the scanned head/hair studies, then
 `run_blender.ps1 -Script blender/fit_unvanquished_pistol.py -ScriptArguments @('--scanned-shoot')`.
