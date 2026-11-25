@@ -27,7 +27,8 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args()
+	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args()
+	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
 	var head_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
 	var material_study := "--rook-material-study" in OS.get_cmdline_user_args()
 	var actions := "--actions-study" in OS.get_cmdline_user_args() or material_study or head_study
@@ -36,6 +37,7 @@ func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rook_material01/" if material_study else ("cyborg_actions01/" if actions else ("cyborg_fire01/" if fire else "cyborg_pistol01/")))
 	if head_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_head_fit126/"
 	if quiff_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_hair127/"
+	if neck_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_neck_uv128/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)

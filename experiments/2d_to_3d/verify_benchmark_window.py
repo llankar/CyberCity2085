@@ -3,6 +3,7 @@ from datetime import datetime
 import hashlib
 import json
 import math
+import argparse
 from pathlib import Path
 
 
@@ -37,21 +38,28 @@ def summarize(benchmark,window):
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--folder',default='tactical_facades01')
+    parser.add_argument('--batch',type=int,default=117)
+    args=parser.parse_args()
     root = Path('E:/CyberCity2085-3d-lab/generated/phase2')
-    folder = root/'tactical_facades01'
-    benchmark = json.loads((folder/'benchmark117.json').read_text())
-    window = json.loads((folder/'gpu117.json').read_text(encoding='utf-8-sig'))
+    folder = (root/args.folder).resolve()
+    assert folder.is_relative_to(root.resolve()) and args.batch>0
+    benchmark_path=folder/f'benchmark{args.batch}.json'
+    gpu_path=folder/f'gpu{args.batch}.json'
+    benchmark = json.loads(benchmark_path.read_text())
+    window = json.loads(gpu_path.read_text(encoding='utf-8-sig'))
     for path_key,hash_key in [('human','human_glb_sha256'),('robot','robot_glb_sha256')]:
         path = Path(benchmark[path_key])
         assert path.resolve().is_relative_to(root.resolve())
         assert hashlib.sha256(path.read_bytes()).hexdigest() == benchmark[hash_key]
-    assert hashlib.sha256((folder/'facades.glb').read_bytes()).hexdigest() == benchmark['facade_glb_sha256']
+    assert hashlib.sha256((root/'tactical_facades01/facades.glb').read_bytes()).hexdigest() == benchmark['facade_glb_sha256']
     assert benchmark['logical_viewport_size'] == [1920.,1080.]
     assert benchmark['render_texture_size'] == [1920.,1080.]
     result = summarize(benchmark,window)
-    result['source_benchmark_sha256'] = hashlib.sha256((folder/'benchmark117.json').read_bytes()).hexdigest()
-    result['source_gpu_window_sha256'] = hashlib.sha256((folder/'gpu117.json').read_bytes()).hexdigest()
-    (folder/'verified_benchmark117.json').write_text(json.dumps(result,indent=2))
+    result['source_benchmark_sha256'] = hashlib.sha256(benchmark_path.read_bytes()).hexdigest()
+    result['source_gpu_window_sha256'] = hashlib.sha256(gpu_path.read_bytes()).hexdigest()
+    (folder/f'verified_benchmark{args.batch}.json').write_text(json.dumps(result,indent=2))
     print('NATIVE_BENCHMARK_GPU_WINDOW_VERIFIED',json.dumps(result))
 
 

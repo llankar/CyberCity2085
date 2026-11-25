@@ -2,19 +2,31 @@
 import hashlib
 import json
 import shutil
+import argparse
+import sys
 from pathlib import Path
 import bpy
 import numpy as np
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 from mathutils.geometry import barycentric_transform
+sys.path.insert(0,str(Path(__file__).parent.parent))
+from reviewed_selection import face_selection
 
+parser=argparse.ArgumentParser()
+parser.add_argument('--reviewed-selection',action='store_true')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-source=root/'rook_head_fit126';out=root/'rook_neck127';out.mkdir(exist_ok=True)
+source=root/('rook_hair127' if args.reviewed_selection else 'rook_head_fit126')
+out=root/('rook_neck_uv128' if args.reviewed_selection else 'rook_neck127');out.mkdir(exist_ok=True)
+reviewed=None
 bpy.ops.wm.open_mainfile(filepath=str(source/'human.blend'),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')
 rig.data.pose_position='REST';bpy.context.view_layer.update()
 body=bpy.data.objects['char1'];head=bpy.data.objects['MIT_HeadFitStudy']
+if args.reviewed_selection:
+    selection=json.loads((root/'neck_selection128/selection.json').read_text())
+    reviewed=face_selection(selection,hashlib.sha256((source/'human.glb').read_bytes()).hexdigest(),len(body.data.polygons))
 positions=[tuple(v.co) for v in body.data.vertices]
 image=next(n.image for n in body.data.materials[0].node_tree.nodes if n.type=='TEX_IMAGE' and n.image and n.image.name.startswith('RookBodyBaseColor'))
 width,height=image.size;pixels=np.empty(width*height*4,dtype=np.float32)
@@ -28,10 +40,11 @@ source_uv=head.data.uv_layers.active.data;target_uv=body.data.uv_layers.active.d
 selected=[];distances=[];rejected=[]
 for face in body.data.polygons:
     coords=[body.matrix_world@body.data.vertices[i].co for i in face.vertices]
-    if not all(1.465<p.z<1.57 and abs(p.x)<.09 for p in coords):continue
+    if reviewed is not None and face.index not in reviewed:continue
+    if reviewed is None and not all(1.465<p.z<1.57 and abs(p.x)<.09 for p in coords):continue
     uv=sum((target_uv[i].uv for i in face.loop_indices),Vector((0,0)))/len(face.loop_indices)
     r,g,b=pixels[int(uv.y*height)%height,int(uv.x*width)%width,:3]
-    if not(r>.3 and g>.12 and b>.07 and r>g*1.15 and b<r*.9):continue
+    if reviewed is None and not(r>.3 and g>.12 and b>.07 and r>g*1.15 and b<r*.9):continue
     matches=[tree.find_nearest(position) for position in coords]
     if any(index is None or distance>=.07 for closest,normal,index,distance in matches):
         rejected.append(face.index);continue

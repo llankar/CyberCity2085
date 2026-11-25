@@ -2,6 +2,48 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` REVIEWED-NECK-128 (2026-11-25). Continued62daf1fd, previous turn
+  concrete quiff integration/failed-hypothesis evidence. `DONE` isolated retained
+  skin through a native magenta diagnostic:196faces cover the visible pale band
+  without collar selection. Earlier all-vertices height gate missed lower faces;
+  this explains partial155face transfer. Reviewed IDs bound to sourceGLB SHA and
+  validated for uniqueness/type/range before reuse. No destructive geometry edit.
+  Actual MIT head-neck photographic UV/material transferred to all196faces,
+  maximum nearest-surface distance45.712mm; zero rejected faces. Original head,
+  hair and all body positions retained. E:rook_neck_uv128 holds BLEND/GLB/credits,
+  report, actual neutral front/profile/back, four sampled animation close-ups and
+  tactical.png. SHA4b70c08e1dc7545d68cf5ac31db77541a31b84a35e5aee80748dae23ed93b0d0.
+  Bright pale band removed in native front review; not a watertight neck proof.
+
+  `DONE` TECHNICAL-128: --neck-uv-study selects independent candidate; native
+ 202poses/13meshes/25bones comparison passes87.577µm bounds, slide19.999865mm and
+  reset67.979µm retained.51targeted Python tests PASS/0fail/0skip (seven new exact
+  source/topology selection guards), plus7benchmark-validator tests PASS:58unique
+  tests in two invocations. JUnit E:tmp/pytest128.xml and pytest128-benchmark.xml.
+  SourceRun5.290713mm penetration remains OPEN. No production/mainGOAL changes.
+
+  `DONE` MEASURED-SCENE-128: actual current five-subject alley scene benchmark
+  over5.001513seconds/1438drawnframes:287.513renderedfps,p95postdrawinterval4.3ms,
+  maximum594drawcalls, engine-reported video899725631bytes. Native logical/render
+ 1920x1080, OSwindow1280x720.72GPU-wide samples requested at250ms;14timestamp-
+  correlated live-Godot samples inside render interval,2581..2659MiB global used,
+  PIDs15508/29828. Actual asset hashes and time/fps arithmetic verified by reusable
+  CLI --folder rook_neck_uv128 --batch128. E:benchmark128.json/gpu128.json/
+  verified_benchmark128.json. Not exclusive process VRAM, GPUexecution timing,
+  full allocation peak, production performance or a before/after comparison.
+
+  `IN_PROGRESS` ART-128: neutral angles inspected, plus actual Walk0.5/Fire0.444444/
+  Melee0.5/Death1 close-ups. Side walk/fire neck reads continuously; chin-down
+  melee still shows angular neck folds/transition and glove/wrist contact issues.
+  Death close-up crops extremities; do not claim complete whole-pose art review.
+  Static band correction does not close geometry/skinning/facial/hand art gates.
+  `TODO` NEXT: inspect/adjust neck skin weights at chin-down pose and sourceRun
+  floor, preserving existing outfit/head UV. Then complete remaining human atlas
+  actions and comparative review. No second human until first convincing model.
+  Counts unchanged:5/5required human clips technical,0/5artistic; acceptedRook0/1,
+  humanatlas1/5sets; finalhumans0/2; scene5/6subjects; mapnative1/1/artistic0/1.
+  SDL/sampler warnings remain. CHANTIER GLOBAL INCOMPLET. No build or push.
+
 - `IN_PROGRESS` ACTUAL-QUIFF-127 (2026-11-25). Continued6d81cbbb, prior turn
   concrete head-fit/deformation progress. `DONE` real2077face/1733vertex source
   quiff extracted from CC0 cyberpunk mesh, preserving existing copper UV/material;
