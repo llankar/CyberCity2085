@@ -606,6 +606,17 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch123 full first-character action study: run_blender.ps1 with
+`blender/retarget_cyborg_actions.py` after batch121. Existing licensed Quaternius
+UAL files on E: are required; no new download. Output cyborg_actions01 contains
+all six actual clips plus freshly sampled source references. Native checker
+`res://cyborg_ready_check.tscn` takes --actions-study; require the positive
+CYBORG_ACTIONS_NATIVE_GEOMETRY_PASS marker and hash-matched native_actions_validation.json.
+The floor envelope probes quarter-keys in Blender; native comparison samples
+half-keys for melee/death. Neither is a continuous physics/contact proof.
+Comparison accepts --cyborg-actions-study and --melee-preview/--death-preview.
+SourceRun's small sole penetration and first-character art remain open.
+
 Batch122 atlas: existing render_rocketbox_atlas.py now accepts
 `--cyborg-fire-study --action=PistolFireStudy --samples=10` through run_blender.ps1
 ScriptArguments. Verify using `python experiments/2d_to_3d/verify_rocketbox_atlas.py

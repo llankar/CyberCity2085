@@ -83,7 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var cyborg_fire := "--cyborg-fire-study" in OS.get_cmdline_user_args()
+	var cyborg_actions := "--cyborg-actions-study" in OS.get_cmdline_user_args()
+	var cyborg_fire := "--cyborg-fire-study" in OS.get_cmdline_user_args() or cyborg_actions
 	var cyborg_pistol := "--cyborg-pistol-study" in OS.get_cmdline_user_args() or cyborg_fire
 	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args() or cyborg_pistol
 	var cyborg_study := "--grab3d-cyborg-study" in OS.get_cmdline_user_args() or cyborg_lod
@@ -136,6 +137,7 @@ func _ready() -> void:
 		if cyborg_lod: human_path = root + "grab3d_cyborg_lod01/human.glb"
 		if cyborg_pistol: human_path = root + "cyborg_pistol01/human.glb"
 		if cyborg_fire: human_path = root + "cyborg_fire01/human.glb"
+		if cyborg_actions: human_path = root + "cyborg_actions01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -159,6 +161,7 @@ func _ready() -> void:
 	if cyborg_study: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run"})
 	if cyborg_pistol: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy"})
 	if cyborg_fire: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy"})
+	if cyborg_actions: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy", "Melee":"MeleeStudy", "Death":"DeathStudy"})
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -315,11 +318,21 @@ func _ready() -> void:
 			play_clip("Shoot")
 			if cyborg_fire:assert(cyborg_player.current_animation=="PistolFireStudy")
 			else:assert("unavailable" in clip_status)
+			if cyborg_actions:
+				play_clip("Melee")
+				assert(cyborg_player.current_animation=="MeleeStudy")
+				play_clip("Death")
+				assert(cyborg_player.current_animation=="DeathStudy")
+			if cyborg_pistol:
+				play_clip("Idle")
+				assert(cyborg_player.current_animation=="CombatReadyStudy")
+				assert(cyborg_player.get_animation("CombatReadyStudy").loop_mode==Animation.LOOP_LINEAR)
 			cyborg_player.stop()
 			var cyborg_skeleton := subjects[0].find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
 			cyborg_skeleton.reset_bone_poses()
 			cyborg_skeleton.force_update_all_bone_transforms()
 			print("CYBORG_FIRE_ACTION_DISPATCH_OK walk,run,ready,fire" if cyborg_fire else "CYBORG_SOURCE_ACTION_DISPATCH_OK walk,run;shoot_unavailable")
+			if cyborg_actions:print("CYBORG_SIX_ACTION_DISPATCH_OK ready,walk,run,fire,melee,death")
 		else: assert("unavailable" in clip_status)
 		if unvanquished_motion:
 			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
@@ -362,6 +375,13 @@ func _ready() -> void:
 			var fire_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 			fire_player.seek(8.0/24,true)
 			fire_player.pause()
+		if cyborg_actions:
+			for requested in ["Melee","Death"]:
+				if ("--melee-preview" if requested=="Melee" else "--death-preview") in OS.get_cmdline_user_args():
+					play_clip(requested)
+					var preview_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+					preview_player.seek(preview_player.current_animation_length*(.5 if requested=="Melee" else 1.),true)
+					preview_player.pause()
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
 		selected = 1
@@ -631,6 +651,8 @@ func play_clip(name_value: String) -> void:
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
 	if not source_aliases.is_empty() and name_value in ["walk","run"]:
+		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
+	if source_aliases.has("Idle") and name_value==source_aliases["Idle"]:
 		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 

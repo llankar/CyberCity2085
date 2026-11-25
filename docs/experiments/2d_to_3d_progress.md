@@ -2,6 +2,60 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CYBORG-MELEE-DEATH-123 (2026-11-25). Previous turn was progress:
+  true equipped geometry, firing and eight-view atlas committed. Continuedf75a47a0.
+  `DONE` ACTUAL-LICENSED-MOTION-123: existing Quaternius UAL Standard CC0
+  Punch_Cross and Death01 retargeted onto first equipped cyberpunk actor, using
+  anatomical joint-head frames, A/T-pose calibration and22mapped body joints.
+  No bone-display tails used. Original source files retained. True Blender/GLB
+  contains Ready/Walk/Run/Fire/Melee/Death,25bones/11meshes. Melee1s/25keys;
+  sourceDeath2.400000095s resampled to2.416666667s/59keys, not identical duration.
+  Same actor only: no Raider/cohort generalization or production integration.
+
+  `DONE` FLOOR-ENVELOPE-123: raw death penetrated245.579mm and melee15.613mm.
+  Whole-body vertical clearance correction preserves geometry/limb proportions.
+  Constant1mm and later6mm key-only guards both failed inter-key floor tests.
+  Replaced with actual quarter-key probes and conservative endpoint envelope:
+  additional correction up to0.634850mm melee/8.741601mm death. No rigid-body,
+  planted-foot, continuous collision or surface-contact simulation claim.
+  Raw report preserved under E:cyborg_actions01/raw_retarget123.json.
+
+  `DONE` NATIVE-SIX-CLIP-123: all202sampled poses/11deformed mesh bounds compare
+  against Blender in Godot4.7.2, maximum88.468281µm. New melee49/death117 samples
+  include every half-key; remaining four clips9samples each. Native minimum floor
+  +0.999789mm melee/+0.998684mm death. Final body height414.633mm verifies actual
+  horizontal settlement. Initial body-height check used mesh-data name cyborg
+  instead of actual node char1 and failed; fixed actual node identity, not limit.
+  Fire slide19.999865mm and fire-to-ready position reset67.978988µm retained.
+  Initial copied Fire Bezier interpolation diverged6.559972mm between integer
+  keys although old integer-only gate passed. Normalized key interpolation in
+  combined derivative to LINEAR, then reran all202poses successfully. Old source
+  files/atlas unchanged. Failure diagnostic retained as
+  E:cyborg_actions01/native_bounds_bezier_failure123.json.
+
+  E:generated/phase2/cyborg_actions01/human.blend and human.glb with notices;
+  GLB SHA05f28f6f69e7d3a6846799c862fb24e5af44f5b55ddcd3d68a9dcb5a7bec86f9.
+  native_actions_validation.json is actual executed proof, not artistic approval.
+  Updated comparison --cyborg-actions-study aliases six actual clips; Idle loop,
+  dispatch, robot/VTOL controls and62.208008px scale self-tests PASS. Current
+  ready/front, death/profile and tactical_death PNGs captured; tactical capture
+  inspected at actual sprite scale. Fire-only old checker regression also PASS.
+  Twenty-eight unique combined Python tests PASS/0fail/0skip, including six new
+  envelope tests; JUnit E:tmp/pytest123combined.xml. SDL calibration and material
+  sampler warnings persist; assertion-aborted earlier QA runs logged cleanup
+  warnings, not asserted as runtime leak-free validation.
+
+  `TODO` FIRST-HUMAN-ART: next prioritize Rook identity/material/groom adaptation
+  and hand seam/support contacts on this stronger real asset, not further MPFB
+  recolors. Optional sourceRun has observed5.290713mm floor penetration: open,
+  not hidden by six-clip parity PASS (strict floor gate covers melee/death).
+  Final first-human close/neutral/combat art approval still0/1. Required humanoid
+  Idle/Walk/Shoot/Melee/Death technical clips5/5, artistic acceptance0/5; current
+  first-human atlas sets1/5 (Fire), remaining four still TODO. Finalhumans0/2;
+  scene subjects5/6requested, mapnative1/1/artistic0/1. Robot/vehicle final art,
+  first-human performance/VRAM acceptance and full asset coverage remain open.
+  CHANTIER GLOBAL INCOMPLET. No push, release, mainGOAL or production changes.
+
 - `IN_PROGRESS` CYBORG-ATLAS-122 (2026-11-25). Continuede8218efe. Same first
   candidate, no cohort generalization. `DONE` eight-view firing atlas rendered
   from actual cyborg_fire01/human.blend with the existing Blender atlas tool;
