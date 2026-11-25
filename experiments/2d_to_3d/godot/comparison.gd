@@ -108,10 +108,12 @@ func _ready() -> void:
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
 	var robot_melee := charge and "--robot-melee-study" in OS.get_cmdline_user_args()
-	assert(int(robot_idle)+int(robot_walk)+int(robot_melee) <= 1, "Choose one mechanical action study")
+	var robot_hit := charge and "--robot-hit-study" in OS.get_cmdline_user_args()
+	assert(int(robot_idle)+int(robot_walk)+int(robot_melee)+int(robot_hit) <= 1, "Choose one mechanical action study")
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
 	if robot_walk: robot_path = root + "security_walk01/robot_walk.glb"
 	if robot_melee: robot_path = root + "security_melee01/robot_melee.glb"
+	if robot_hit: robot_path = root + "security_hit01/robot_hit.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
@@ -197,7 +199,11 @@ func _ready() -> void:
 		assert(selected == 1)
 		key.keycode = KEY_2
 		_unhandled_input(key)
-		if robot_melee:
+		if robot_hit:
+			assert("unavailable" in clip_status)
+			var hit_evidence := preload("res://mechanical_action_check.gd").new().verify_hit(subjects[1])
+			assert(hit_evidence.size() == 5)
+		elif robot_melee:
 			assert("unavailable" in clip_status)
 			preload("res://mechanical_action_check.gd").new().verify_strike(subjects[1])
 		elif robot_walk:
@@ -255,7 +261,7 @@ func _ready() -> void:
 				print("NATHAN_AUTHORED_WALK_ONLY_OK no_fictitious_idle_or_combat_actions")
 			else: print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
-		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk")))
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
@@ -275,6 +281,14 @@ func _ready() -> void:
 		striker.pause()
 		selected = 0
 		clip_status = "Human animation: Idle | Robot: paused open-hand strike study"
+	if robot_hit:
+		selected = 1
+		play_clip("Hit")
+		var struck := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		struck.seek(0.2, true)
+		struck.pause()
+		selected = 0
+		clip_status = "Robot: paused planted Hit recoil study"
 	if nathan_study:
 		selected = 0
 		play_clip("Walk")
@@ -494,7 +508,7 @@ func play_clip(name_value: String) -> void:
 func _process(_delta: float) -> void:
 	if hud:
 		var fps_value := str(Engine.get_frames_per_second()) if render_ready_usec > 0 and Time.get_ticks_usec()-render_ready_usec > 1000000 else "warming up"
-		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 
@@ -508,7 +522,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				yaw = 0.65
 				elevation = 0.6
 				update_camera()
-		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee"}
+		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee", KEY_6: "Hit"}
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])
 	if event is InputEventMouseButton:

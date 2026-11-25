@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-MECHANICAL-HIT-98 (2026-11-25). Continued other explicit
+  experimental deliverable after rejected human shoulder alternatives. Genuine
+  StudioCHARGE CC BY4 mechanical source206bone rig, existing124part PBR derivative,
+  no new humanoid substitute. Added .8s Hit recoil: .2s peak, root8cm back/2cm lower,
+  root tilt.08rad/head counter tilt.12rad, authored foot IK held on measured world
+  targets. Source untouched. Existing cable arrays frozen in derivative as before;
+  five25sample corrective cable morph sets retain source deformation. Real124joint
+  game export,25frames/30Hz, no damage/gameplay effects or destruction claim.
+
+  Source all corresponding heel/toe vertices drift<=.04471um, full124part return0.
+  E: phase2/security_hit01/robot_hit.blend132,568,026bytes / robot_hit.glb59,140,080bytes,
+  rig report, coverage/license, surface reference, native_surface_check,
+  hit_native_action, neutral hit_side and tactical_close PNGs. Native source surface
+  check14surfaces*25times max.369um; positive EINAR_NATIVE_SURFACE_GATE_OK. New
+  independent actual native geometry check: four full foot surfaces displacement0,
+  head maximum224.607mm, final recovery0. Initial native action check FAIL because
+  broad heel name also selected authored heel_damper meshes. Corrected exact intended
+  set by excluding dampers, kept four-foot requirement. Caller now requires five
+  evidence entries before JSON/success, preventing helper assertion from yielding
+  misleading generic success. Rerun has MECHANICAL_HIT_NATIVE_OK + fresh matching
+  SHA256 JSON. First failed empty actionJSON is not acceptance evidence.
+
+  Added --robot-hit-study to independent comparison stage and key6 Hit; missing
+  clips remain explicitly unavailable. Actual Nathan Walk+robotHit stage selftest
+  PASS, selection/camera/action availability and calibrated62.208008px human, existing
+  partial map627cells/five subjects. Reproducible hit pose paused at.2s for capture.
+  Old robotMelee/Nathan stage regression rerun PASS (hand reaches.730687m and returns).
+  Neutral side and native tactical screenshot inspected: recoil visible, no accepted
+  final Wraith design; source robot still slender/dark vs large colored 2D sprite.
+  Five native subjects/expected six, no Raider; one map loads partial floor/block
+  geometry, artistically finalized maps0. Screenshot render timing120frames is
+  startup observation only, not full combat performance/VRAM acceptance.
+
+  Tests actually executed final focused suite45PASS,0failed,0skipped across seven
+  modules (cloth clearance,alignment,skinning,robot hit/strike/gait,Nathan provenance).
+  Six new recoil tests cover bounded peak/recovery, stage velocity continuity and
+  nonfinite rejection. Native checks above actual runs, no campaign/production tests.
+  Bounded hit tasks3/3DONE (source bake,native geometry/stage checks,captures); global
+  mechanical action set IN_PROGRESS: Idle/forwardWalk/openHandMelee/Hit studies
+  exist, destruction remainsTODO, no seamless loop/full combat art acceptance.
+  Human accepted0/2; modular combat outfits0. Next independent task robot destruction
+  with authored mechanical articulation/settled contacts, then vehicle articulation;
+  human professional outfit/eyes/combat clips and final scene/atlases remain open.
+  No production changes, push or release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-CLOTH-REGULARIZATION-97 (2026-11-25). Previous turn96
   classified progress (real bind/export and measured fit evidence, checkpoint3476fa4d).
   Read actual worktree and principal/experimental registers. Kept original candidate

@@ -11,13 +11,15 @@ from authored_scene import load_authored_scene
 from rigid_surface_fit import fit_surface
 from robot_gait import gait
 from robot_strike import strike_offset
+from robot_hit import recoil_amount
 
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
 walk='--walk' in sys.argv
 melee='--melee' in sys.argv
-assert not (walk and melee),'Choose one action'
-clip='Walk' if walk else ('Melee' if melee else 'Idle')
-fps=30 if walk or melee else 24
+hit='--hit' in sys.argv
+assert sum([walk,melee,hit])<=1,'Choose one action'
+clip='Walk' if walk else ('Melee' if melee else ('Hit' if hit else 'Idle'))
+fps=30 if walk or melee or hit else 24
 stem='robot_'+clip.lower()
 folder=root/('security_'+clip.lower()+'01'); folder.mkdir(parents=True,exist_ok=True)
 source_scene=load_authored_scene(Path('E:/CyberCity2085-3d-lab/sources/charge_studio/security_bot_v1/security_bot_release_v1.blend'))
@@ -29,7 +31,7 @@ with bpy.data.libraries.load(str(root/'security_pbr_robot02/robot_pbr.blend'),li
 objects=list(loaded.objects)
 assert len(objects)==124
 frozen_arrays={}
-if walk or melee:
+if walk or melee or hit:
     # Film cables use FIT_CURVE arrays, whose ring count changes with bending.
     # Freeze the neutral count in the derivative; keep original source untouched.
     bpy.context.window.scene=source_scene
@@ -80,12 +82,18 @@ hand=rig.pose.bones['IK-Wrist.L']
 hand_world=rig.matrix_world @ hand.matrix.copy()
 strike_targets=[]
 foot_targets=[]; target_error=0.
-frames=37 if walk else (31 if melee else 49)
+frames=37 if walk else (31 if melee else (25 if hit else 49))
 samples={name:[] for name in names}; residuals={name:0.0 for name in names}
 max_neutral_error=0.0; head_motion=0.0
 for frame in range(1,frames+1):
     bpy.context.window.scene=source_scene; source_scene.frame_set(frame)
     control.rotation_quaternion=initial @ Quaternion((0,1,0),.12*math.sin((frame-1)/(frames-1)*math.tau))
+    if hit:
+        amount=recoil_amount((frame-1)/fps)
+        control.rotation_quaternion=initial @ Quaternion((1,0,0),.12*amount)
+        root_control.matrix=rig.matrix_world.inverted() @ Matrix.Translation((0,.08*amount,-.02*amount)) @ root_world @ Matrix.Rotation(-.08*amount,4,'X')
+        rig.update_tag(refresh={'OBJECT'});bpy.context.view_layer.update()
+        for foot,target in zip(feet,foot_world):foot.matrix=rig.matrix_world.inverted() @ target
     if walk:
         time_s=(frame-1)/fps
         travel=gait(time_s)[0]
@@ -139,7 +147,7 @@ for frame in range(1,frames+1):
 if not walk: assert max_neutral_error<.0001,('Neutral source mismatch',max_neutral_error)
 if walk: assert target_error<.0001,('IK controls failed to reach targets',target_error)
 return_error=max(max((Vector(a)-Vector(b)).length for a,b in zip(samples[name][0][1],samples[name][-1][1])) for name in names)
-if melee: assert return_error<.0001,('Strike failed to return to neutral',return_error)
+if melee or hit: assert return_error<.0001,('Action failed to return to neutral',return_error)
 strike_surface_displacement=0.
 if melee:
     points=samples['GEO-hand_joint.L_Evaluated']
@@ -148,6 +156,13 @@ if melee:
 assert head_motion>.03,('Head control failed',head_motion)
 bpy.context.window.scene=scene
 reference={}; corrections={}; contact={}
+if hit:
+    for side in ['L','R']:
+        for part in ['toes','heel']:
+            name=f'GEO-{part}.{side}_Evaluated'
+            worst=max(max((Vector(a)-Vector(b)).length for a,b in zip(samples[name][0][1],points)) for _,points in samples[name])
+            assert worst<.0001,('Hit foot slipped',name,worst)
+            contact[name]={'max_stance_vertex_drift_m':worst,'scope':'All corresponding source foot vertices at30Hz hit poses'}
 if walk:
     for side,side_index in [('L',0),('R',1)]:
         for part in ['toes','heel']:
@@ -181,7 +196,7 @@ for obj in objects:
                     for curve in bag.fcurves:
                         for key in curve.keyframe_points: key.interpolation='LINEAR'
         corrections[name]=residuals[name]
-    if name in corrections or 'head_cover' in name or 'shin.' in name or (walk and any(k in name for k in ['toes.','heel.'])) or (melee and any(k in name for k in ['hand_joint.','index1.','thumb1.'])):
+    if name in corrections or 'head_cover' in name or 'shin.' in name or ((walk or hit) and any(k in name for k in ['toes.','heel.'])) or (melee and any(k in name for k in ['hand_joint.','index1.','thumb1.'])):
         reference[name]=[{'time_s':index/fps,'points':[points[i] for i in range(0,len(points),8)]}
                          for index,(delta,points) in enumerate(samples[name])]
 scene.frame_start=1; scene.frame_end=frames; scene.frame_set(1)
@@ -190,7 +205,7 @@ bpy.ops.export_scene.gltf(filepath=str(folder/(stem+'.glb')),export_format='GLB'
     use_active_scene=True,export_animations=True,export_animation_mode='SCENE',
     export_anim_scene_split_object=False,export_anim_single_armature=False,export_anim_slide_to_zero=True)
 (folder/'surface_reference.json').write_text(json.dumps(reference),encoding='utf-8')
-coverage['rig_actions']='Forward mechanical IK walk study' if walk else ('Mechanical open-hand strike study' if melee else 'Idle head scan study only')
+coverage['rig_actions']='Planted mechanical hit recoil study' if hit else 'Forward mechanical IK walk study' if walk else ('Mechanical open-hand strike study' if melee else 'Idle head scan study only')
 (folder/'coverage.json').write_text(json.dumps(coverage,indent=2),encoding='utf-8')
 (folder/'foot_targets.json').write_text(json.dumps(foot_targets),encoding='utf-8')
 (folder/'strike_targets.json').write_text(json.dumps(strike_targets),encoding='utf-8')
@@ -204,5 +219,5 @@ coverage['rig_actions']='Forward mechanical IK walk study' if walk else ('Mechan
     'strike_hand_max_vertex_displacement_m':strike_surface_displacement,
     'rigid_surface_max_residual_m':residuals,'surface_corrections':corrections,
     'credit':coverage['credit'],'license':coverage['license'],
-    'limitations':['Single forward walk study, not a seamless gameplay loop' if walk else ('Open-hand strike only; no fist closure, target impact or gameplay effects' if melee else 'Head scan idle only, not a gameplay action set'),'Opaque visor approximation','Source cables use sampled corrective morphs where required','Artistic and performance acceptance not verified']},indent=2),encoding='utf-8')
+    'limitations':['Hit recoil only; no damage gameplay/impact VFX or destruction' if hit else 'Single forward walk study, not a seamless gameplay loop' if walk else ('Open-hand strike only; no fist closure, target impact or gameplay effects' if melee else 'Head scan idle only, not a gameplay action set'),'Opaque visor approximation','Source cables use sampled corrective morphs where required','Artistic and performance acceptance not verified']},indent=2),encoding='utf-8')
 print('SECURITY_ROBOT_EXPORTED',clip,head_motion,max_neutral_error,len(corrections),flush=True)

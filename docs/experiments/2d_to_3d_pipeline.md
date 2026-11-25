@@ -286,3 +286,18 @@ measured old/new joint positions with depth anchors, output03. Both variants loa
 in Godot and front captures inspected; shoulders remain inadequate. Do not promote
 either or infer deformation acceptance from previously checked01. Tests cover
 mathematical invariants and failures, not clothing artistry.
+
+## Batch98: authored mechanical Hit study
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments @('--hit')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://surface_motion_check.tscn -QuitAfter 500 -SceneArguments @('--folder=E:/CyberCity2085-3d-lab/generated/phase2/security_hit01','--model-file=robot_hit.glb','--mechanical-hit-check')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 800 -SceneArguments @('--nathan-study','--robot-hit-study','--tactical','--sprite-review','--self-test')
+```
+
+Require both MECHANICAL_HIT_NATIVE_OK and EINAR_NATIVE_SURFACE_GATE_OK, no script
+assertion, fresh native JSON tied to GLB hash. Process exit0 alone is insufficient.
+Actual full native heel/toe geometry must remain planted, head recoil>5cm and all
+checked geometry recover<.1mm. This .8s articulated study is separate from gameplay
+damage/destruction or final robot art. Independent lab keyboard6 selects real Hit
+only when present; it does not alias absent human actions.

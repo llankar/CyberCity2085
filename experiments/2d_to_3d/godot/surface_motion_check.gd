@@ -50,5 +50,11 @@ func _ready() -> void:
 	var output := FileAccess.open(root + "native_surface_check.json", FileAccess.WRITE)
 	assert(output != null)
 	output.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(root + model_file), "clip": clip, "surfaces": evidence, "scope": "Sampled nearest surface distance at authored frame times; not artistic acceptance"}, "  "))
+	if "--mechanical-hit-check" in OS.get_cmdline_user_args():
+		var action_evidence := preload("res://mechanical_action_check.gd").new().verify_hit(model)
+		assert(action_evidence.size() == 5, "Hit geometry verification did not finish")
+		var action_file := FileAccess.open(root + "hit_native_action.json", FileAccess.WRITE)
+		assert(action_file != null)
+		action_file.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(root + model_file), "geometry": action_evidence}, "  "))
 	print("EINAR_NATIVE_SURFACE_GATE_OK")
 	get_tree().quit(0)
