@@ -18,7 +18,17 @@ var human_weapon: Node3D
 func subject_height(subject: Node3D) -> float:
 	var bounds := AABB()
 	var first := true
+	var probe := preload("res://skin_motion_check.gd").new()
 	for mesh in subject.find_children("*", "MeshInstance3D", true, false):
+		if mesh.skin != null and mesh.get_node_or_null(mesh.skeleton) is Skeleton3D:
+			var skeleton := mesh.get_node(mesh.skeleton) as Skeleton3D
+			skeleton.force_update_all_bone_transforms()
+			# Skin bind matrices can cancel FBX node scale/rotation. Mesh global
+			# transform alone is not the rendered position of a skinned vertex.
+			for point in probe.skinned_points(mesh, skeleton, 1):
+				bounds = AABB(point, Vector3.ZERO) if first else bounds.expand(point)
+				first = false
+			continue
 		# Mesh AABBs include the union of possible morph displacements, which is
 		# not the actor's reference height and changes when clips are bundled.
 		for surface in range(mesh.mesh.get_surface_count()):
@@ -27,6 +37,7 @@ func subject_height(subject: Node3D) -> float:
 				var point: Vector3 = mesh.global_transform * vertex
 				bounds = AABB(point, Vector3.ZERO) if first else bounds.expand(point)
 				first = false
+	probe.free()
 	assert(not first and bounds.size.y > 0.5)
 	return bounds.size.y
 
@@ -65,7 +76,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
-	var charge := "--charge" in OS.get_cmdline_user_args()
+	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args()
+	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
 	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
@@ -74,6 +86,9 @@ func _ready() -> void:
 	var action_human := charge and "--human-action-study" in OS.get_cmdline_user_args()
 	assert(not (bundled_human and action_human), "Choose one human study")
 	if action_human: human_path = root + "einar_pistol_fit01_surfaces/human_pistol.glb"
+	if rocketbox:
+		assert(not rigged_human and not action_human, "Choose one human source")
+		human_path = root + "rocketbox_military03/character_dielectric.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"

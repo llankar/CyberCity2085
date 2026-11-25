@@ -1,0 +1,94 @@
+{
+  "repository": "microsoft/Microsoft-Rocketbox",
+  "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+  "license": "MIT",
+  "license_url": "https://github.com/microsoft/Microsoft-Rocketbox/blob/master/LICENSE.md",
+  "asset": "Military_Male_03",
+  "files": [
+    {
+      "path": "LICENSE.md",
+      "size": 1066,
+      "git_blob": "9bcfb3ece5301a55d3a41bbd00a029ab27d61d13"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Export/Military_Male_03_facial.fbx",
+      "size": 2719328,
+      "git_blob": "d6ec2ba2573e4c43aae7b6025b915809dae54a54"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_body_color_acu.tga",
+      "size": 12582956,
+      "git_blob": "5b28385c8d8895aaef0f320123e1f44743e0d622"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_body_normal.tga",
+      "size": 12582956,
+      "git_blob": "03695edf6c7b6016310d592e0fa47875005b883c"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_body_specular.tga",
+      "size": 12582956,
+      "git_blob": "756c745dd624425de76ba4ec166d586c40cdb9a5"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_equipment_color_acu.tga",
+      "size": 6291500,
+      "git_blob": "3397fa998e528d8fbc820444e0d3e7d5251ba33f"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_equipment_normal.tga",
+      "size": 6291500,
+      "git_blob": "45a0e24a2d8faa24ca9309a7efdc773786827c29"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_equipment_specular.tga",
+      "size": 6291500,
+      "git_blob": "55b6006b5f5fe3a61366bf4d0b052f6eb51bf6a4"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_head_color.tga",
+      "size": 12582956,
+      "git_blob": "942bfed6a177c6fb59463c9fd5b1d52b2c19ba8e"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_head_normal.tga",
+      "size": 12582956,
+      "git_blob": "45bd59f83d4e9d9bc3bc97d37a96c9d4c60cc17f"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_head_specular.tga",
+      "size": 12582956,
+      "git_blob": "86b327e9560fa9f7452413e29fd6bb0b9a1a966e"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_helmet_color_acu.tga",
+      "size": 12582956,
+      "git_blob": "fb8dc59d067073552a6e1197358567c6d9300986"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_helmet_normal.tga",
+      "size": 12582956,
+      "git_blob": "3d62f98809818cf5a06222e0328becc90e014841"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_helmet_specular.tga",
+      "size": 12582956,
+      "git_blob": "091f544adbc0ae2d084e55877f76f56b6880770a"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_pistol_color.tga",
+      "size": 3145772,
+      "git_blob": "6ed39b6c5c123201e3b3ccec07b5961239e514d8"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_pistol_normal.tga",
+      "size": 3145772,
+      "git_blob": "7f8a9849b722865d9af8cec68b54547b39b33b88"
+    },
+    {
+      "path": "Assets/Avatars/Professions/Military_Male_03/Textures/sm004_pistol_specular.tga",
+      "size": 3145772,
+      "git_blob": "ba9280a098cffaefa035349fd0a8250315fa2607"
+    }
+  ]
+}

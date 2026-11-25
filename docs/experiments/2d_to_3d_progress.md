@@ -2,6 +2,57 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+
+- `IN_PROGRESS` LICENSED-TACTICAL-CANDIDATE-85 (2026-11-25) ? strategy moved to
+  an actual authored game character rather than more MPFB recoloring. Reviewed
+  official Microsoft Rocketbox previews, selected Military_Male_03 for real vest,
+  pouches, gloves, boots, knee pads and a younger face. Pinned official commit
+  0943055db6ec570bcef9f2c8b41c9e5467c808f9; LICENSE.md is MIT, copyright2020
+  Microsoft, permitting adaptation/distribution with notice. Manifest pins every
+  Git blob/size; acquisition verifies SHA1 Git blobs and records SHA256, rejects
+  other asset paths/oversize/corrupted payloads. Acquired only one facial FBX,
+  15 TGA textures and notice:17 files/144,278,814 bytes on E:. Seven source previews
+  retained separately. No whole-library clone. Jacob candidate is a fox rather
+  than human; Blender Studio human research download is402 paid, not acquired.
+
+  Blender import PASS: one mesh7,928 source vertices/15,517 triangles,80-bone rig,
+  176 keys including Basis, four weights maximum, five materials,15 packed images,
+  1.8503574m height. Fixed texture paths to original local TGA names. Legacy FBX
+  reflected all skin/fabric as metallic1; separate declared dielectric candidate
+  sets metallic0, retaining source roughness/specular/normal routing. Not a full
+  authored PBR conversion: mixed metal masks/normal handedness remain unaccepted.
+  Imported_source.blend retained unchanged; character_dielectric.blend + GLB
+  79,490,856 bytes retain full MIT notice (text block, GLB extras and LICENSE.md).
+  Source FBX Short user-property and unused vertex-color export warnings recorded.
+
+  Native Godot PASS: one skin/80bones,5 surfaces/15,517tris,175 facial morphs,
+  ten albedo/normal textures, finite weights and actual skinned height1.850357175m.
+  Neutral front/profile/back screenshots inspected: real authored equipment and
+  usable soldier anatomy, but helmet/camouflage/face are NOT final Rook identity.
+  Facial morph count is not expression/artistic validation. No motion clips yet.
+  Independent comparison --rocketbox-study shows this real asset with robot Idle,
+  VTOL, crate, generator and existing alley2D floor +627 prototype obstacle cells.
+  Actual skinned bounds fixed a comparison bug: raw node transform can include
+  FBX .01 scale canceled by skin binds. First naive comparison FAIL(height0 after
+  assertion); discarded. Corrected comparison PASS projected62.207947px at native
+  1920x1080, input/camera/action-unavailability tests and inspected screenshot.
+  Still prototype map volumes, no final environment art or human motion claim.
+
+  Evidence E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03:
+  import_audit.json, export_report.json, native_check.json, front/side/back.png,
+  tactical_comparison.png; source acquisition.json + preview_provenance.json.
+  Native log rocketbox_native_check/tactical.log retain positive markers; persistent
+  SDL gamepad calibration warning is unrelated and not suppressed. Python gate:
+  20 passed,0 failed/skipped (three experiment modules), including corruption/path
+  rejection. No production tests/runtime/save modification, no push/release.
+  DONE this batch: licensed bounded acquisition, real FBX/GLB/Blend integration,
+  skin-aware native scale correction and rendered candidate comparison. TODO next:
+  retarget actual licensed motion, inspect head without helmet and separable gear,
+  improve Rook-specific professional face/hair/outfit assembly; no generalization.
+  Global accepted final human identities0/2, complete accepted actor action sets0/2.
+  All other batch84 open artistic/animation/atlas/roundtrip tasks remain open.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-GROOM-PALETTE-84 (2026-11-25) — resumed actual human art
   integration rather than further generic armor recoloring. Inspected licensed
   Einar groom/material: four primary parts use the same authored node graph,

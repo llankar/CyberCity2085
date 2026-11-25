@@ -4,6 +4,18 @@ Status: IN_PROGRESS, 2026-11-24. No production changes. No further generic MPFB
 armor recoloring. First convincing human must pass before character production
 is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
+## Acquired game-authored tactical candidate (batch85)
+
+[Microsoft Rocketbox](https://github.com/microsoft/Microsoft-Rocketbox), pinned
+commit0943055db6ec570bcef9f2c8b41c9e5467c808f9, official LICENSE.md MIT. Full notice
+preserved in sources/derivatives. Military_Male_03 facial FBX plus15 original TGA
+maps:144,278,814bytes total with license. Actual authored vest/pouches/gloves/boots,
+80-bone rig,175 facial targets,15,517tris. Native neutral front/profile/back and
+62.208px tactical comparison inspected. Legacy specular workflow; explicit
+metallic0 candidate is not a final PBR conversion. Soldier identity/camouflage
+not accepted as Rook. No animations validated yet. Files remain exclusively E:.
+Acquisition manifest, hashes, native evidence and failures recorded in batch85.
+
 ## Candidate register
 
 Additional acquired motion/prop sources (2026-11-25):

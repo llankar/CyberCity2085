@@ -10,6 +10,14 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Licensed tactical source (batch85): acquire_rocketbox_candidate.py downloads only
+one pinned MIT Rocketbox character and verifies reviewed blob hashes/sizes.
+Run blender/inspect_rocketbox_character.py then blender/export_rocketbox_candidate.py
+through run_blender.ps1. Native rocketbox_check.tscn requires
+ROCKETBOX_NATIVE_ASSET_OK. comparison.tscn --rocketbox-study --robot-idle-study
+--tactical --sprite-review --self-test compares the candidate at production zoom.
+No human animation or final Rook art claim; all source/output files stay on E:.
+
 Authored groom studies (batch84): inspect_einar_hair_materials.py audits actual
 source shading. Run convert_einar_authored_groom.py through run_blender.ps1 with
 --full-density --layered-palette for the retained full reference, or
