@@ -9,17 +9,25 @@ from cell_surfaces import surfaces
 LAB=Path('E:/CyberCity2085-3d-lab')
 SRC=LAB/'sources/environment169'
 parser=argparse.ArgumentParser();parser.add_argument('--authored-facades',action='store_true')
+parser.add_argument('--refined-stage',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
-OUT=LAB/'generated/phase2'/('showcase170' if args.authored_facades else 'showcase169');OUT.mkdir(exist_ok=True)
+OUT=LAB/'generated/phase2'/('showcase171' if args.refined_stage else 'showcase170' if args.authored_facades else 'showcase169');OUT.mkdir(exist_ok=True)
 data=json.loads((LAB/'sources/tactical_map/city_exterior_neon_market_alley.walls.json').read_text())
 heights={tuple(cell):3 if 'building' in wall['id'] else .7 for wall in data['walls'] for cell in wall['cells']}
 bpy.ops.wm.read_factory_settings(use_empty=True)
 
-def pbr(name):
+def pbr(name,tint=None):
     mat=bpy.data.materials.new(name);mat.use_nodes=True
     nodes=mat.node_tree.nodes;links=mat.node_tree.links;shader=nodes.get('Principled BSDF')
     for key in ['diff','rough','nor_gl']:
         tex=nodes.new('ShaderNodeTexImage');tex.image=bpy.data.images.load(str(SRC/name/(key+'.jpg')))
+        if key=='diff' and tint is not None:
+            import numpy as np
+            source_image=tex.image;tex.image=source_image.copy()
+            pixels=np.empty(len(tex.image.pixels),dtype=np.float32);tex.image.pixels.foreach_get(pixels)
+            pixels.reshape(-1,4)[:,:3]*=tint
+            tex.image.pixels.foreach_set(pixels);tex.image.update()
+            tex.image.filepath_raw=str(OUT/'roof_concrete.png');tex.image.file_format='PNG';tex.image.save()
         if key!='diff':tex.image.colorspace_settings.name='Non-Color'
         if key=='nor_gl':
             normal=nodes.new('ShaderNodeNormalMap');normal.inputs['Strength'].default_value=.65
@@ -29,6 +37,7 @@ def pbr(name):
     return mat
 
 walls=[pbr('brick_wall_001'),pbr('concrete_wall_001'),pbr('blue_metal_plate')]
+roof_concrete=pbr('concrete_wall_001',.12) if args.refined_stage else None
 def flat(name,color,emit=0):
     mat=bpy.data.materials.new(name);mat.use_nodes=True;s=mat.node_tree.nodes.get('Principled BSDF')
     s.inputs['Base Color'].default_value=(*color,1);s.inputs['Roughness'].default_value=.55
@@ -56,7 +65,7 @@ for filename in ['chimney-medium','detail-tank','solar-panel-flat','water-tower'
     templates.append(objs)
 
 modules=None
-if args.authored_facades:
+if args.authored_facades or args.refined_stage:
     sys.path.insert(0,str(Path(__file__).parent))
     from facade_modules170 import FacadeModules
     modules=FacadeModules(SRC)
@@ -74,7 +83,7 @@ for index,obstacle in enumerate(data['walls']):
         polygons.append(tuple(range(start,start+4)));kinds.append(kind)
     mesh=bpy.data.meshes.new(obstacle['id']);mesh.from_pydata(vertices,[],polygons);mesh.update()
     body=bpy.data.objects.new('PBR_Facade_'+obstacle['id'],mesh);bpy.context.collection.objects.link(body);body.parent=parent
-    body.data.materials.append(walls[index%3]);body.data.materials.append(walls[2])
+    body.data.materials.append(walls[index%3]);body.data.materials.append(roof_concrete if args.refined_stage and index%3 else walls[2])
     uv=mesh.uv_layers.new(name='MetricFacadeUV')
     for poly,kind in zip(mesh.polygons,kinds):
         poly.material_index=int(kind!='wall')
@@ -105,7 +114,7 @@ for index,obstacle in enumerate(data['walls']):
     cell=sorted(cells)[len(cells)//2];point=world((cell[0]+.5,cell[1]+.5,height))
     roof_points.append((point,parent))
     if modules:modules.roof(point,parent,index)
-    for original in templates[index%len(templates)]:
+    for original in ([] if args.refined_stage else templates[index%len(templates)]):
         obj=original.copy();obj.data=original.data;bpy.context.collection.objects.link(obj)
         obj.hide_render=False;obj.hide_viewport=False;obj.parent=parent
         obj.location+=point;obj.scale*=1.3

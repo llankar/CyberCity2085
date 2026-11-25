@@ -1,6 +1,8 @@
 extends "res://demo167.gd"
 ## Continuous staged encounter. Independent of production rules and campaigns.
-var delivery_folder := ROOT+("combat170/" if "--architecture170" in OS.get_cmdline_user_args() else "combat169/")
+var refined := "--refined-stage" in OS.get_cmdline_user_args()
+var medical_case: Node3D
+var delivery_folder := ROOT+("combat171/" if "--refined-stage" in OS.get_cmdline_user_args() else "combat170/" if "--architecture170" in OS.get_cmdline_user_args() else "combat169/")
 var rings: Array[MeshInstance3D] = []
 var effects
 var played: Array[String] = []
@@ -35,7 +37,7 @@ func build_environment() -> void:
 	var image := Image.load_from_file("E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png");image.generate_mipmaps()
 	var mat := StandardMaterial3D.new();mat.albedo_texture=ImageTexture.create_from_image(image);mat.roughness=.9
 	floor.material_override=mat;add_child(floor)
-	var environment_path := "showcase170/environment.glb" if "--architecture170" in OS.get_cmdline_user_args() else "showcase169/environment.glb"
+	var environment_path := "showcase171/environment.glb" if refined else "showcase170/environment.glb" if "--architecture170" in OS.get_cmdline_user_args() else "showcase169/environment.glb"
 	var environment := load_glb(environment_path,Vector3.ZERO)
 	for group in environment.find_children("Occludable_*","Node3D",true,false):
 		var bounds := AABB();var first := true;var materials: Array[StandardMaterial3D] = []
@@ -83,6 +85,10 @@ func _ready() -> void:
 	assert(doc.append_from_file("E:/CyberCity2085-3d-lab/sources/environment169/medical_box/medical_box_1k.gltf",state)==OK)
 	var medical := doc.generate_scene(state) as Node3D;add_child(medical);medical.name="AuthoredMedicalCase"
 	medical.position=Vector3(0,.02,1.7);medical.scale=Vector3.ONE*.7
+	medical_case=medical
+	if refined:
+		medical_case.visible=false
+		medical_case.position=Vector3(-.05,.02,1.95)
 	for lamp_position in [Vector3(-3,3,1),Vector3(4,3,1)]:
 		var lamp := OmniLight3D.new();lamp.position=lamp_position;lamp.omni_range=7;lamp.light_energy=.6;lamp.light_color=Color(.5,.15,.8);add_child(lamp)
 	print("COMBAT169_READY five units / continuous timeline / authored PBR environment")
@@ -151,7 +157,9 @@ func _process(delta: float) -> void:
 	if t>=14.5 and t<16.2:
 		clip(0,"MeleeStudy");face(0,actors[1].position)
 	if t>=16.2 and t<22:clip(0,"Hard stand")
-	if t>=22:clip(0,"CoverStudy")
+	if t>=22:
+		clip(0,"CoverStudy")
+		if refined:face(0,Vector3(-.5,0,1.7))
 	travel(1,Vector3(4,0,1.5),Vector3(1.5,0,1.5),3,6,"Walk",t)
 	if t<3:clip(1,"Idle")
 	if t>=6 and t<7.2:clip(1,"Pistol_Shoot");face(1,actors[0].position)
@@ -168,6 +176,7 @@ func _process(delta: float) -> void:
 	if t>=22:
 		clip(3,"MedicalAidPrototype",false);face(3,actors[0].position)
 		health[0]=mini(100,76+int((t-22)*5))
+		if refined:medical_case.visible=true
 	travel(4,Vector3(6,0,3.5),Vector3(6,0,1.5),6,9,"Walk",t)
 	if t<6 or t>=9:clip(4,"Idle")
 	while event_index<EVENTS.size():
@@ -186,7 +195,7 @@ func _process(delta: float) -> void:
 	raider_pistol.visible=t>=6 and t<12
 	var yaw := deg_to_rad(35+20*sin(t*.12))
 	var target := Vector3(-.5,.3,1)
-	var vertical := lerpf(23,12,smoothstep(21,26,t))
+	var vertical := lerpf(23,5 if refined else 12,smoothstep(21,26,t))
 	camera.position=target+Vector3(sin(yaw)*28,vertical,cos(yaw)*28);camera.look_at(target)
 	camera.size=23-3*sin(t*.10)
 	for building in buildings:

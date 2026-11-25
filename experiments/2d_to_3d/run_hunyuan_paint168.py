@@ -1,5 +1,6 @@
 """First colour-texture trial on the existing Hunyuan robot; never regenerates shape."""
 from pathlib import Path
+import argparse
 import hashlib
 import json
 import os
@@ -11,13 +12,15 @@ LAB=Path('/mnt/e/CyberCity2085-3d-lab')
 sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
 
 def main():
-    output=LAB/'generated/phase2/paint168/robot_official'
+    parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat'],default='robot')
+    subject=parser.parse_args().subject
+    output=LAB/('generated/phase2/paint168/robot_official' if subject=='robot' else 'generated/phase2/paint171/rook_official')
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
-    source=LAB/'generated/phase2/hunyuan166/robot/review_upright/optimized.glb'
-    reference=LAB/'generated/phase2/hunyuan166/robot/prepared.png'
-    if not reference.exists(): reference=LAB/'sources/robot.png'
+    source=LAB/'generated/phase2/hunyuan166'/subject/'review_upright/optimized.glb'
+    reference=LAB/'generated/phase2/hunyuan166'/subject/'prepared.png'
+    if not reference.exists(): reference=LAB/('sources/robot.png' if subject=='robot' else 'sources/rook_combat/00_E.png')
     assert source.is_file() and reference.is_file(),'Missing actual mesh/reference'
     import torch
     import custom_rasterizer as cr
@@ -58,7 +61,7 @@ def main():
     report={'status':'FAIL','model':repo,'revision':revision,'source':str(source),
         'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'reference_sha256':hashlib.sha256(reference.read_bytes()).hexdigest(),
-        'scope':'Generated colour texture on existing robot; not rigging or final art acceptance'}
+        'subject':subject,'scope':'Generated colour texture on existing mesh; not rigging or final art acceptance'}
     start=time.perf_counter()
     torch.cuda.reset_peak_memory_stats()
     try:

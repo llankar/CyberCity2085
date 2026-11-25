@@ -2,6 +2,26 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` STAGE-171 (2026-11-26). Previous turn made progress: delivered
+  native170 movie and actual Hunyuan colour inference. New isolated refined-stage
+  variant preserves169/170. Removed low-detail white roof kit accessories from
+  this variant, retains authored vents/pipes/compressors and varies concrete/metal
+  roof surfaces. Patient faces medic; real medical case appears beside treatment
+  only after22s, rather than lying in the gunfight throughout. Same627cells and
+  nine building groups. Blender export executed successfully. Native FullHD
+  Initial capture FAIL: zero occlusions after removal of tall props exposed
+  reliance on their building AABBs. Lower final camera now demonstrates166actual
+  building/frame occlusions. First concrete roof was visibly overbright; derived
+  dark roof texture uses source PBR and preserves original maps. Failed and white
+  roof takes retained on E:. Final native capture DONE:902frames1080p30,70s offline,166occlusions,
+  1blockedshot. Clean0750 inspected: dark roofs and actual facade fade visible.
+  MP4/GIF/gallery package PASS. Medical action still requires contact refinement.
+  Rook colour trial now parameterized using existing optimized mesh and original
+  combat RGBA reference, cached Paint weights, no shape generation or new models.
+  Launched after GPU capture, live WSL session73886; no inference PASS claimed.
+  Evidence E:tmp/paint171-rook.log. Files: environment
+  builder, combat169.gd, run_movie169.ps1. No production/campaign work or push.
+
 - `IN_PROGRESS` ARCHITECTURE-170 (2026-11-26). Continue requested visible combat
   showcase; preceding turn was progress (native movie/media/scene), not a stall.
   Acquired~41.7MB of authored Poly Haven factory/apartment facade, airduct and

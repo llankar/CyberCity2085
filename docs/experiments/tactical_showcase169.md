@@ -83,3 +83,18 @@ python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-la
 
 CHANTIER GLOBAL INCOMPLET : cette livraison montre le combat, sans prétendre
 que la migration3D ou la qualité artistique finale sont acceptées.
+
+## Refined stage171
+
+The optional `--refined-stage` Blender pass writes `showcase171`, preserving
+169/170. It keeps authored PBR vents and compressors, removes the mismatched
+white low-detail roof kit props, and mixes dark concrete with blue metal roofs.
+The source PBR images remain intact; the derived roof colour image stays on E:.
+`run_movie169.ps1 -Refined` selects that environment and writes `combat171`.
+The patient turns toward the medic and the real medical case appears during
+treatment. Hand-to-patient anatomical contact is still not artistically accepted.
+
+Initial171 movie had no occlusion: removing the tall props reduced the building
+bounds. The packaging check rejected it. A lower final camera demonstrates actual
+building occlusion; failed and overbright roof takes are retained separately.
+No campaign or production runtime is involved.
