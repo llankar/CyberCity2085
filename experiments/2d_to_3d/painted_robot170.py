@@ -3,10 +3,12 @@
 Colour is Hunyuan-generated. Metal/roughness are manual settings, not AI maps.
 """
 from pathlib import Path
-import hashlib,json
+import hashlib,json,argparse
 from glb_document import Glb
 
-folder=Path('E:/CyberCity2085-3d-lab/generated/phase2/paint168/robot_official')
+parser=argparse.ArgumentParser();parser.add_argument('--folder',default='E:/CyberCity2085-3d-lab/generated/phase2/paint168/robot_official')
+folder=Path(parser.parse_args().folder).resolve()
+assert folder.is_relative_to(Path('E:/CyberCity2085-3d-lab').resolve())
 source=folder/'mesh.glb';target=folder/'painted_material.glb'
 model=Glb(source)
 for material in model.doc['materials']:

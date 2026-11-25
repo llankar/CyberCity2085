@@ -2,6 +2,27 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` COLOUR-172 trial (2026-11-26), not global completion. Previous turn
+  progressed with171 scene/material delivery and a verified live colour job.
+  Resumed exact WSL PID408/session73886; no duplicate inference. Official cached
+  Paint pipeline produced Rook1024colour texture and39998triangle GLB,145.44s
+  loading/inference excluding cold imports; torch peak allocated11.03GB and
+  reserved14.34GB. Actual result/hash on E:phase2/paint171/rook_official.
+  WSL wrapper exited1 due native stderr handling despite terminal PASS result;
+  independent GLB hash/material delivery and native rendering verified outputs.
+  Neutral front/profile/back/isometric renders inspected. Coherent coat/face
+  and blue/orange accents improve over grey geometry. Native62/21pixel views
+  captured, close view inspected. Rifle/hand fusion and bent pose remain: NOT
+  animation-ready, no production replacement. Original animated cast retained.
+  Derived manual painted material, local GLB/BLEND/texture and two-candidate
+  visual gallery delivered on E:phase2/paint171/index.html. Existing renderer
+  and scale tools now accept this folder/subject; no old engine/rig tests rerun.
+  Actual checks: Paint inference, Blender four views/material render, native
+  Godot scale capture, artifact hash and gallery packaging. No campaign or push.
+  Next TODO: improve the staged tactical cast's treatment contact and remaining
+  environment coherence; neural humanoid requires unarmed open-pose geometry
+  before rigging. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` STAGE-171 (2026-11-26). Previous turn made progress: delivered
   native170 movie and actual Hunyuan colour inference. New isolated refined-stage
   variant preserves169/170. Removed low-detail white roof kit accessories from

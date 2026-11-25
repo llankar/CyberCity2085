@@ -1,19 +1,22 @@
 extends Node3D
 var coloured_robot := "--coloured-robot" in OS.get_cmdline_user_args()
+var coloured_rook := "--coloured-rook" in OS.get_cmdline_user_args()
 var folder := "E:/CyberCity2085-3d-lab/generated/phase2/paint168/robot_official/" if coloured_robot else "E:/CyberCity2085-3d-lab/generated/phase2/hunyuan166/rook_combat/"
 
 func _ready() -> void:
+	if coloured_rook:folder="E:/CyberCity2085-3d-lab/generated/phase2/paint171/rook_official/"
+	var colour := coloured_robot or coloured_rook
 	get_window().size = Vector2i(1920, 1080)
-	var model := folder + ("mesh.glb" if coloured_robot else "review_upright/optimized.glb")
+	var model := folder + ("mesh.glb" if colour else "review_upright/optimized.glb")
 	var source := "E:/CyberCity2085-3d-lab/sources/robot.png" if coloured_robot else "E:/CyberCity2085-3d-lab/sources/rook_combat/00_E.png"
 	var generation = JSON.parse_string(FileAccess.get_file_as_string(folder + "result.json"))
-	var native = {"source_sha256":generation.glb_sha256} if coloured_robot else JSON.parse_string(FileAccess.get_file_as_string(folder + "review_upright/godot.json"))
-	var painted := coloured_robot and "--painted-material" in OS.get_cmdline_user_args()
+	var native = {"source_sha256":generation.glb_sha256} if colour else JSON.parse_string(FileAccess.get_file_as_string(folder + "review_upright/godot.json"))
+	var painted := colour and "--painted-material" in OS.get_cmdline_user_args()
 	if painted:
 		var derived=JSON.parse_string(FileAccess.get_file_as_string(folder+"painted_material.json"))
 		assert(derived.source_sha256==generation.glb_sha256)
 		model=folder+"painted_material.glb";native.source_sha256=derived.glb_sha256
-	var source_hash: String = generation.reference_sha256 if coloured_robot else generation.source_sha256
+	var source_hash: String = generation.reference_sha256 if colour else generation.source_sha256
 	if FileAccess.get_sha256(model) != native.source_sha256 or FileAccess.get_sha256(source) != source_hash:
 		get_tree().quit(1); return
 	var doc := GLTFDocument.new()
@@ -56,26 +59,26 @@ func _ready() -> void:
 	var note := Label.new()
 	note.position = Vector2(20, 20)
 	note.text = "Actual Rook combat input / Hunyuan geometry from that exact image\nNo generated texture, rig or animation. Neutral diagnostic; not production art."
-	if coloured_robot:note.text="Combat robot — original2D / Hunyuan colour texture (static mesh)"
+	if colour:note.text=("Combat robot" if coloured_robot else "Rook combat")+" / original 2D and Hunyuan colour (static mesh)"
 	layer.add_child(note)
 	var reference := TextureRect.new()
 	reference.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	var source_image := Image.load_from_file(source)
-	if coloured_robot:source_image=source_image.get_region(source_image.get_used_rect())
+	if colour:source_image=source_image.get_region(source_image.get_used_rect())
 	reference.texture = ImageTexture.create_from_image(source_image)
 	layer.add_child(reference)
 	var report := {"model_sha256": native.source_sha256, "source_sha256": source_hash,
-		"body_height_m": body_height, "measurements": [], "scope": "Same source design at game zoom; static coloured mesh" if coloured_robot else "Same source design at calibrated zoom; static untextured geometry only"}
+		"body_height_m": body_height, "measurements": [], "scope": "Same source design at game zoom; static coloured mesh" if colour else "Same source design at calibrated zoom; static untextured geometry only"}
 	for item in [["close", 62.208], ["overview", 20.736]]:
 		await RenderingServer.frame_post_draw
 		var measured := absf(camera.unproject_position(Vector3(0, 1.8, 0)).y - camera.unproject_position(Vector3.ZERO).y)
 		camera.size *= measured / float(item[1])
 		var projected := absf(camera.unproject_position(Vector3(0, 1.8, 0)).y - camera.unproject_position(Vector3.ZERO).y)
-		if not coloured_robot and absf(projected-float(item[1])) > .1:
+		if not colour and absf(projected-float(item[1])) > .1:
 			get_tree().quit(1); return
 		reference.size = Vector2.ONE * (float(item[1]) / .84375)
 		reference.position = camera.unproject_position(Vector3.ZERO) + Vector2(-150, 0) - reference.size * Vector2(.5, .953125)
-		if coloured_robot:
+		if colour:
 			var pixels:=float(item[1])*body_height/1.8
 			reference.size=Vector2(pixels*source_image.get_width()/source_image.get_height(),pixels)
 			reference.position=camera.unproject_position(Vector3.ZERO)+Vector2(-150,0)-reference.size*Vector2(.5,1)
