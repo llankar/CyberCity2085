@@ -2,6 +2,59 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MECHANICAL-STAGE-STRIKE-92 (2026-11-25). Prior turn classified
+  PROGRESS: actual walk sources/export/contact evidence and checkpointf4d22d3e.
+  Continued without touching production/main GOAL/save or downloading large AI
+  models. Added native scene switches --robot-walk-study and --robot-melee-study;
+  mutually exclusive with the prior Idle study. Forward walk explicitly nonloop:
+  actual native foot travels.6m and holds last pose without teleporting to start.
+  All five subjects use existing experimental alley/map/props;627blocked cells,
+  two obstacle batches. This is still 2.5D painted floor/prototype block volumes,
+  NOT an artistically finished 3D map.
+
+  Real sprite comparisons executed at1920x1080 render viewport (1280x720 window).
+  Close projected human62.207947px vs62.208target; overview20.736px. Screenshots
+  security_walk01/tactical_close.png and tactical_overview.png. Close inspected:
+  human identity still wrong; slender dark robot~1.95m reads worse than Wraith
+  sprite (sprite multiplier1.65), not compensated by hidden scaling/light changes.
+  Five-second native overview benchmark:2499frames/5.001422s,499.658frames/s,
+  p95post-draw2.241ms,562drawcalls,engine video781,845,111bytes. Paused robot pose
+  and human Idle; not animation/combat/GPU execution/total VRAM peak validation.
+
+  Source mechanical strike via --melee: actual authored left wrist IK, staged
+  preparation, extension/open-hand orientation, recovery;31frames/1s at30Hz.
+  First profile exposed hanging wrist; explicit world orientation corrected,
+  new profile inspected. Left hand actual source surface moves>.6m, all124source
+  meshes return exactly to start. Native hand first vertex reaches.730687m and
+  returns within.1mm; MECHANICAL_STRIKE_STAGE_OK. Full native source fidelity
+  gate EINAR_NATIVE_SURFACE_GATE_OK also passes actual hand/finger/head/cable/
+  shin samples31times. Art remains a single-arm strike study: no fist closure,
+  target collision, hit reaction, destruction or gameplay effects claimed.
+  Sources on E: generated/phase2/security_melee01/robot_melee.blend/.glb,
+  surface_reference,rig_report,strike_targets,native_surface_check,strike_side.png,
+  tactical_close.png. Existing Idle scene/input/five human action regressions
+  executed PASS, positive CHARGE_ROBOT_IDLE_DISPATCH_OK and input markers.
+
+  Human sourcing continued: Renderpeople current official terms2.5/4.1b permit
+  free-model game use,4.2b/4.3b restrict raw/derivative asset redistribution.
+  Public download page now requires Turnstile; not bypassed,zero3Dpayloads
+  acquired. Local primary HTML/review on E: sources/renderpeople_review. Blender
+  Studio Snowv4 official CC BY4 card/104,748byte preview reviewed on E: snow_review;
+  visibly cartoon proportions/hair, not selected for Rook,no full model download.
+  Optional budget preference remains unanswered; no payment/approval assumed.
+
+  Tests actually executed:41Python passed,0failed,0skipped across seven isolated
+  modules; seven new strike cases check preparation/reach/recovery, velocity at
+  boundaries and nonloop time limits. Three native scopes: forward stage,
+  articulated strike+source surfaces, prior Idle/input regression. SDL calibration
+  warning remains. No production tests or artistic PASS claimed.
+  DONE3/3 bounded technical tasks: native forward stage, genuine rig strike,
+  source/scene/regression evidence. Global accepted humans0/2, finished robot
+  action/art set NOT VERIFIED. Next TODO: improve qualified authored wardrobe
+  using genuine PBR resources; retain prototype/artistic rejections; complete
+  impact/destruction/locomotion quality rather than counting bone motion as final.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` MECHANICAL-WALK-91 (2026-11-25). Continued independent robot
   work while first convincing human/wardrobe remains unresolved. No production,
   principal GOAL or user-save changes. Source remains Blender Studio Security Bot,

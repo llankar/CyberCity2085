@@ -98,13 +98,19 @@ func _ready() -> void:
 	if head_study: human_path = root + "rocketbox_hair08/character01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
+	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
+	var robot_melee := charge and "--robot-melee-study" in OS.get_cmdline_user_args()
+	assert(int(robot_idle)+int(robot_walk)+int(robot_melee) <= 1, "Choose one mechanical action study")
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
+	if robot_walk: robot_path = root + "security_walk01/robot_walk.glb"
+	if robot_melee: robot_path = root + "security_melee01/robot_melee.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
 	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
+	if robot_walk: subjects[1].set_meta("forward_motion_study", true)
 	if bundled_human:
 		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
 		human_weapon.visible = false
@@ -181,7 +187,12 @@ func _ready() -> void:
 		assert(selected == 1)
 		key.keycode = KEY_2
 		_unhandled_input(key)
-		if charge:
+		if robot_melee:
+			assert("unavailable" in clip_status)
+			preload("res://mechanical_action_check.gd").new().verify_strike(subjects[1])
+		elif robot_walk:
+			verify_robot_forward_walk()
+		elif charge:
 			assert("unavailable" in clip_status)
 			var robot_players := subjects[1].find_children("*", "AnimationPlayer", true, false)
 			if robot_idle:
@@ -230,9 +241,26 @@ func _ready() -> void:
 			assert(human_player.current_animation == "Idle")
 			print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
-		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "unavailable" if charge else "Walk")
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk")))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
+	if robot_walk:
+		selected = 1
+		play_clip("Walk")
+		var walker := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		# A reproducible pose for native sprite-scale review, not a seamless loop.
+		walker.seek(0.96, true)
+		walker.pause()
+		selected = 0
+		clip_status = "Human animation: Idle | Robot: paused forward Walk study"
+	if robot_melee:
+		selected = 1
+		play_clip("Melee")
+		var striker := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		striker.seek(0.5, true)
+		striker.pause()
+		selected = 0
+		clip_status = "Human animation: Idle | Robot: paused open-hand strike study"
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame
@@ -398,6 +426,33 @@ func load_tactical_map() -> void:
 		assert(not occupied.has(cell), "Actor spawned in blocked cell")
 	print("TACTICAL_MAP_LAYOUT_LOADED cells=", occupied.size(), " subjects=", subjects.size(), " visual=2.5D_floor_plus_blocked_cells")
 
+func verify_robot_forward_walk() -> void:
+	var actor := subjects[1]
+	var player := actor.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+	assert(player.current_animation == "Walk")
+	var animation := player.get_animation("Walk")
+	assert(animation.loop_mode == Animation.LOOP_NONE)
+	var skeleton := actor.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
+	var foot: MeshInstance3D
+	for candidate in actor.find_children("*", "MeshInstance3D", true, false):
+		if str(candidate.name).replace(".", "_") == "GEO_toes_L_Evaluated" or str(candidate.name).replace(".", "_") == "GEO-toes_L_Evaluated": foot = candidate
+	assert(foot != null, "Actual articulated foot mesh required")
+	var probe := preload("res://skin_motion_check.gd").new()
+	player.seek(0, true)
+	skeleton.force_update_all_bone_transforms()
+	var first: Vector3 = probe.skinned_points(foot, skeleton, 1)[0]
+	player.seek(animation.length, true)
+	skeleton.force_update_all_bone_transforms()
+	var last: Vector3 = probe.skinned_points(foot, skeleton, 1)[0]
+	var displacement := last - first
+	assert(displacement.distance_to(Vector3(0, 0, 0.6)) < 0.0001)
+	player.advance(0.2)
+	skeleton.force_update_all_bone_transforms()
+	var held: Vector3 = probe.skinned_points(foot, skeleton, 1)[0]
+	assert(last.distance_to(held) < 0.0001, "Forward pass must not teleport to its first pose")
+	probe.free()
+	print("MECHANICAL_FORWARD_STAGE_OK displacement=", displacement, " loop=none")
+
 func play_clip(name_value: String) -> void:
 	var players := subjects[selected].find_children("*", "AnimationPlayer", true, false)
 	if players.is_empty():
@@ -412,7 +467,7 @@ func play_clip(name_value: String) -> void:
 	player.play(name_value)
 	if selected == 0 and human_weapon: human_weapon.visible = name_value == "Pistol_Shoot"
 	if name_value == "Idle" or name_value == "Walk":
-		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
+		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:

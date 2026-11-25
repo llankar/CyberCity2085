@@ -31,6 +31,18 @@ This supplies accessory geometry, not fitted modular armor/boots/gloves.
 
 ## Candidate register
 
+Batch92: [Renderpeople free rigged scans](https://renderpeople.com/free-3d-people/)
+reviewed with [current primary terms](https://renderpeople.com/general-terms-and-conditions/).
+Game rendering explicitly covered by4.1b, free models same terms2.5. Raw/modified
+asset transfer/extraction restricted4.2b/4.3b; not an open asset redistribution
+license. Free male business outfit not accepted Rook wardrobe. Official download
+requires interactive Turnstile; no bypass and no 3D payload downloaded. Evidence
+on E: sources/renderpeople_review. Source-specific access issue, not global block.
+
+[Snowv4](https://studio.blender.org/characters/snow/v4/), official Blender Studio
+CC BY4, preview104,748bytes inspected. Cartoon head/eyes and stylized hair do not
+match this Rook direction; not selected, full model not downloaded. E: snow_review.
+
 
 Batch90: [Trebejo_Nixon_Jacket by Nixontrebejo](https://sketchfab.com/3d-models/1a5ef5dbcd304f3a984848cd26de890f),
 primary CC BY4/commercial permission verified; one862,576byte public licensed
@@ -149,8 +161,10 @@ from a marketplace description or a successful import.
 ## Next work
 
 - IN_PROGRESS: acquire/inspect first qualified authored human; no mass production.
-- TODO: complete experimental tactical scene with existing map, human, robot,
-  vehicle and furniture. Current comparison stage is not this deliverable.
-- TODO: reproduce production viewport/zoom and create sprite/mesh comparison.
+- IN_PROGRESS: comparison scene now loads existing alley, human, robot, VTOL,
+  crate and generator; native five-subject/layout gates executed. Painted floor
+  and prototype blocked-cell volumes remain; not a final 3D environment.
+- DONE technical calibration: native1920x1080 sprite/mesh comparisons at62.208px
+  close and20.736px overview. Artistic equivalence FAIL; not accepted characters.
 - TODO: final human and robot screenshots after actual artistic review.
 - Preserve robot/hardsurface experiments; production game and main GOAL untouched.

@@ -26,6 +26,26 @@ Review main.tscn with --model pointing to that GLB, --neutral, --clip=Walk and
 baked per mechanical joint. Do not add it to gameplay or force seamless looping.
 Artistic acceptance, arm swing and full robot action coverage remain TODO.
 
+## Mechanical strike and tactical review (batch92)
+
+`run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments
+@('--melee')` produces security_melee01 on E: with one actual authored mechanical
+left-hand strike/recovery clip. Target phases live in robot_strike.py; the source
+wrist is explicitly oriented with the reach. This is not a complete combat action
+or a fist/contact solver. Source hand displacement and all-source return are
+asserted during export, then surface_motion_check.tscn verifies native deformation
+against surface_reference.json as for Walk (model-file=robot_melee.glb).
+
+`run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 3000 -SceneArguments
+@('--rocketbox-motion-study','--robot-melee-study','--tactical','--sprite-review',
+'--self-test','--capture=E:/CyberCity2085-3d-lab/generated/phase2/security_melee01/tactical_close.png')`
+checks actual articulated reach/recovery, five human clips, selection and camera.
+Use --robot-walk-study for the nonloop forward clip; --robot-idle-study retains
+the prior source Idle. These flags are mutually exclusive. Forward native foot
+displacement and hold-at-end are asserted rather than looping world motion.
+Add --overview for20.736px human reference; default close reference62.208px.
+Animations can be selected by keys; capture studies pause their requested pose.
+
 ## Environment verified
 
 - GPU: NVIDIA GeForce RTX 5070 Ti, 16,303 MiB, driver 621.24.
