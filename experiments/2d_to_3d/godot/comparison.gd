@@ -83,7 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args()
+	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args()
+	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args() or run_study
 	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
 	var head_fit_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
 	var rook_study := "--rook-material-study" in OS.get_cmdline_user_args() or head_fit_study
@@ -146,6 +147,7 @@ func _ready() -> void:
 		if head_fit_study: human_path = root + "rook_head_fit126/human.glb"
 		if quiff_study: human_path = root + "rook_hair127/human.glb"
 		if neck_study: human_path = root + "rook_neck_uv128/human.glb"
+		if run_study: human_path = root + "rook_run129/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()

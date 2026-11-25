@@ -27,7 +27,8 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args()
+	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args()
+	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args() or run_study
 	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
 	var head_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
 	var material_study := "--rook-material-study" in OS.get_cmdline_user_args()
@@ -38,6 +39,7 @@ func _ready() -> void:
 	if head_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_head_fit126/"
 	if quiff_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_hair127/"
 	if neck_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_neck_uv128/"
+	if run_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_run129/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)
@@ -77,7 +79,7 @@ func _ready() -> void:
 			floors[selected_clip]=minf(floors[selected_clip],measured.floor)
 			if selected_clip=="DeathStudy":final_death_height=measured.body_height
 			count+=1
-		if selected_clip in ["MeleeStudy","DeathStudy"]:assert(floors[selected_clip]>=-.0001,"Retargeted mesh penetrates floor: %s"%floors[selected_clip])
+		if selected_clip in ["MeleeStudy","DeathStudy"] or (run_study and selected_clip=="run"):assert(floors[selected_clip]>=-.0001,"Retargeted mesh penetrates floor: %s"%floors[selected_clip])
 		print("CYBORG_CLIP_NATIVE_BOUNDS ",selected_clip," floor_m=",floors[selected_clip]," error=",clip_errors[selected_clip])
 	if actions:assert(final_death_height>.15 and final_death_height<.9,"Death did not settle horizontally")
 	var diagnostic := FileAccess.open(folder+"native_bounds_diagnostic.json",FileAccess.WRITE)

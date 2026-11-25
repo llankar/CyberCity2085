@@ -2,6 +2,50 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` RUN-CLEARANCE-129 (2026-11-25). Continued0dedd36d; previous turn
+  concrete reviewed UV correction and current-scene measurement progress.
+  `DONE` finer original sourceRun audit: integer-key minimum-3.204864mm, but
+ 121eighth-key samples reveal-11.645541mm. Earlier nine-sample-5.290713mm value
+  understated penetration between keys. Separate derivative corrects pelvis
+  vertical translation only,16keys/15intervals; existing limb rotations, meshes,
+  UVs and other five clips retained. Maximum added vertical lift13.415041mm;
+  zero added lift at both loop ends. Periodic endpoint envelope guarantees no
+  newly introduced loop-height jump without reducing sampled clearance.
+  Blender121samples minimum+1.000027mm. Not planted-foot correction, collision
+  simulation or continuous-floor proof. Packed assets E:rook_run129, source128
+  retained. SHA9f05d285aaab34ff3f67ebd986b55454baece9b9b8aa1fa4d40d0e938d29f833.
+
+  `DONE` NATIVE-RUN-129: reusable dense-run reference measures13actual meshes,
+  six clips/314poses (121Run plus other193). Godot strict floor gate extended
+  to this correctedRun only; actual minimum+1.000590mm, maximum bounds mismatch
+ 389.080µm within existing500µm limit. Integer-key mismatch73.211µm; dense
+  interpolation is less exact than sparse earlier checks, not hidden by a new
+  tolerance. Actual slide19.999865mm/reset67.979µm retained. Final endpoint-envelope
+  rebuild produced identical GLB SHA, so existing native proof remains applicable.
+  Native side Run0.5 capture inspected; whole gait contact/art still NOT VERIFIED.
+  Actual stage six-action/robot/VTOL/input checks PASS; fresh tactical.png captured
+  and inspected beside original sprites at62.208008px. No current129performance
+  measurement inferred from previous128benchmark or short render timing.
+
+  `DONE` NECK-WEIGHT-HYPOTHESIS-129, REJECTED as art improvement. Separate129
+  derivative synchronizes smooth neck/Head weights on116retained-body and1522head
+  vertices, retaining geometry/UV. Native chin-down Melee0.5 capture inspected:
+  no meaningful visible improvement over128, so not selected in comparison scene.
+  Stored E:rook_neck_weights129 for diagnosis, not accepted as neck seam fix.
+  Do not discard original head/outfit or mask residual folds with lighting.
+
+  Validation:56unique targeted Python tests PASS/0fail/0skip, E:tmp/
+  pytest129-final.xml. Five new tests cover smooth-weight endpoints/normalization
+  and periodic-clearance endpoint preservation/rejection. Blender positive exports
+  and actual314pose Godot report verified. SDL and material-sampler warnings remain.
+  `TODO` NEXT: complete first-actor eight-direction Idle/Walk/Melee/Death atlas
+  pipeline beyond existing Fire example, then review actual tactical-size playback;
+  retain art gates for neck folds, hair tips, wrist/finger contact and original
+  outfit detail. No second human until first convincing Rook. Global counts:
+  required5/5human clips technical,0/5artistic; acceptedRook0/1; humanatlas1/5sets;
+  finalhumans0/2; scene5/6subjects; mapnative1/1/artistic0/1. No production/mainGOAL
+  edits, build or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` REVIEWED-NECK-128 (2026-11-25). Continued62daf1fd, previous turn
   concrete quiff integration/failed-hypothesis evidence. `DONE` isolated retained
   skin through a native magenta diagnostic:196faces cover the visible pale band

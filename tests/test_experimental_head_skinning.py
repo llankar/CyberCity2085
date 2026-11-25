@@ -20,3 +20,19 @@ def test_neck_to_skull_transition_is_normalized_bounded_and_monotonic():
 @pytest.mark.parametrize('height',[float('nan'),float('inf')])
 def test_nonfinite_rest_height_rejected(height):
     with pytest.raises(ValueError):head.neck_skull_weights(height)
+
+
+def test_smooth_transition_preserves_normalization_and_skull_rigidity():
+    previous=0
+    for i in range(201):
+        neck,skull=head.smooth_neck_skull_weights(1.4+i*.002)
+        assert 0<=neck<=1 and previous<=skull<=1
+        assert neck+skull==pytest.approx(1)
+        previous=skull
+    assert head.smooth_neck_skull_weights(1.56)==(0,1)
+    assert head.smooth_neck_skull_weights(1.47)==(1,0)
+
+
+def test_smooth_transition_has_flat_endpoint_slopes():
+    assert head.smooth_neck_skull_weights(1.475+1e-6)[1]<1e-8
+    assert 1-head.smooth_neck_skull_weights(1.555-1e-6)[1]<1e-8

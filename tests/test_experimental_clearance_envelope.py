@@ -20,3 +20,16 @@ def test_endpoint_lifts_cover_every_interpolated_interval_without_summing_neighb
 @pytest.mark.parametrize('values',[[],[-.001],[float('nan')],[float('inf')],['.01']])
 def test_invalid_deficits_rejected(values):
     with pytest.raises(ValueError):envelope.endpoint_lifts(values)
+
+
+def test_periodic_clearance_adds_no_new_loop_height_jump_or_reduces_clearance():
+    keys=[.001,0,.003];deficits=[.004,.002]
+    result=envelope.periodic_endpoint_lifts(keys,deficits)
+    assert keys[0]+result[0]==pytest.approx(keys[-1]+result[-1])
+    base=envelope.endpoint_lifts(deficits)
+    assert all(a>=b for a,b in zip(result,base))
+
+
+@pytest.mark.parametrize('keys',[[0],[0,float('nan'),0]])
+def test_periodic_invalid_keys_rejected(keys):
+    with pytest.raises(ValueError):envelope.periodic_endpoint_lifts(keys,[0,0])
