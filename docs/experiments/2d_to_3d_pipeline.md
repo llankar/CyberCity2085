@@ -807,3 +807,19 @@ tactical/facades flags. For whole-vehicle neutral review, main.tscn accepts
 is unsuitable for this8m vehicle. Actual native_motion_check.json is GLB-hash
 bound; rerun it after every export, even when generated paint maps are identical.
 
+### Read-only robot alpha audit136
+
+```powershell
+python experiments/2d_to_3d/audit_robot_alpha.py
+```
+
+Outputs E:security_alpha136/alpha_audit.json plus first-material UV footprint
+and sourceRGBA diagnostic images. It reads actual basecolor TEXCOORD_1 and
+interleaved vertex/index buffers. Wrapped UV or transformed texture inputs are
+rejected rather than silently mapped incorrectly.41/124conservative triangle
+footprints contain nonopaque texels; only3expanded two-texel margins are opaque.
+No entire basecolor image is opaque. This is not exact native GPU raster/mipmap
+coverage, not proof of visible holes and not permission to strip all BLEND modes.
+No derivative GLB is written. Next material change must inspect authored source
+alpha and actual native filtered edges, preserving legitimate translucency.
+

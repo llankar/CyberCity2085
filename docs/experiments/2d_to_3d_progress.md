@@ -2,6 +2,33 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-ALPHA-136 (2026-11-25). Continued78ca7964; previous
+  batch progress verified fitted vehicle panels/native retained articulation.
+  `DONE` read-only audit of actual compact134robot, source SHA
+  75a895b65ba7cf4d8ab93253bfaecb61a2b22e4f0fefba5ef85ee6650da946f5.
+ 124materials all BLEND;496images (480at256px,16at512px); actual basecolor
+  textures use TEXCOORD_1, not default TEXCOORD_0. Interleaved accessors honor
+  bufferView/accessor offsets and byteStride; repeat UV outside[0,1] rejected.
+  PIL conservative triangle-footprint audit:41materials contain alpha<255 in
+  rasterized footprint,83do not; only3retain opaque alpha across two-texel
+  expanded margins.0whole basecolor images fully opaque. These counts do NOT
+  establish actual rendered holes: raster boundary coverage/filtering differ
+  from GPU. Nor do83opaque footprints justify OPAQUE across mip levels.
+  `DONE` E:security_alpha136/alpha_audit.json, first_material_footprint.png and
+  first_material_rgba.png generated; source bytes checked unchanged after audit.
+  Decision: do not globally strip transparency as a claimed lossless optimization.
+  Existing134compact export remains candidate; no material/mesh/animation changed.
+  Nine targeted tests PASS0fail0skip (3alpha,4compaction,2paint), actual JUnit
+  tmp/pytest136-final.xml. No new native render, VRAM/FPS or artistic acceptance
+  claimed for this read-only batch. It changes next action from blind alpha-mode
+  rewrite to source-material and UV/bake-padding review under native filtering.
+  `TODO` NEXT: inspect source material alpha and regenerate correctly padded PBR
+  only if evidence shows an export error; keep real translucent materials intact.
+  Whole-character face/neck/grip/style and vehicle coarse nose/ducts still open.
+  Required humanclips5/5technical,0/5artistic; finalRook0/1; finalhumans0/2;
+  scene5/6subjects; mapnative1/1/artistic0/1;133atlas NOT GENERATED. Production,
+  mainGOAL, saves, builds and remote pushes untouched. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` VEHICLE-FINISH-135 (2026-11-25). Continued4ef1fa01; previous
   batch made verified progress (lossless robot packaging/native pixel evidence).
   `DONE` original deterministic1024px basecolor/roughness/metallic textures,
