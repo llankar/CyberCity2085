@@ -23,6 +23,9 @@ func _ready() -> void:
 		return
 	var model := document.generate_scene(state, 30, false, false)
 	add_child(model)
+	if "--gltf-uniform-clearcoat" in OS.get_cmdline_user_args():
+		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,model)
+		print("UNIFORM_GLTF_CLEARCOAT_APPLIED ",coats.size())
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--model-scale="):
 			var unit_scale := argument.trim_prefix("--model-scale=").to_float()
@@ -245,7 +248,7 @@ func _ready() -> void:
 	camera.look_at(target)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--ortho-size="):
-			camera.size = maxf(0.5, argument.trim_prefix("--ortho-size=").to_float())
+			camera.size = clampf(argument.trim_prefix("--ortho-size=").to_float(), 0.05, 1000.0)
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture="):

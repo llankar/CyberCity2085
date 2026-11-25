@@ -53,6 +53,10 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 	# Rest-valued tracks reset prior action poses and must survive import.
 	var subject := document.generate_scene(state, 30, false, false)
 	add_child(subject)
+	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
+		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,subject)
+		assert(coats.size()==1)
+		print("NATHAN_EYE_COAT_STAGE_APPLIED")
 	subject.position = position_value
 	subjects.append(subject)
 	for mesh in subject.find_children("*", "MeshInstance3D", true, false):
@@ -78,7 +82,7 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args()
+	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
@@ -103,7 +107,7 @@ func _ready() -> void:
 	if wardrobe_study: human_path = root + "wardrobe_fit01/human.glb"
 	if nathan_study:
 		assert(not rocketbox and not rigged_human and not action_human, "Choose one human source")
-		human_path = root + "renderpeople_nathan01/human.glb"
+		human_path = root + ("nathan_eyes01/human.glb" if "--nathan-eyes-study" in OS.get_cmdline_user_args() else "renderpeople_nathan01/human.glb")
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()

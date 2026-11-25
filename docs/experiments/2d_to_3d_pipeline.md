@@ -386,3 +386,25 @@ native_motion_check and VTOL_NATIVE_ARTICULATION_OK, not process exit0 alone.
 Large standalone preview can use --camera-distance=14 --ortho-size=11. Gear stow
 has no authored bays/collision acceptance; rotor speed is slowed mechanical
 inspection. No production vehicle or flight/gameplay changes.
+
+## Batch104: source-faithful eye material diagnosis
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_nathan_eyes.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/refine_nathan_eye_material.py
+python experiments/2d_to_3d/verify_nathan_eye_material.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://surface_motion_check.tscn -QuitAfter 300 -SceneArguments @('--folder=E:/CyberCity2085-3d-lab/generated/phase2/nathan_eyes01','--model-file=human.glb')
+./experiments/2d_to_3d/run_godot.ps1 -RenderingMethod forward_plus -Scene res://eye_material_check.tscn -QuitAfter 200
+```
+
+Uniform clearcoat extension is present in the GLB but native4.7.2 imports left its
+feature disabled in both tested renderers. eye_material_check applies the explicit
+lab-only uniform_clearcoat bridge then verifies properties; reports distinguish
+native import from bridged result. Native preview needs --gltf-uniform-clearcoat
+for that bridge; --nathan-eyes-study stage applies it only to this derivative.
+Textured clearcoat variants are refused. Scalar roughness imported natively.
+Actual source iris/sclera already detailed/blue-gray, no missing-eye texture claim.
+Original textured geometry, skin and Walk bytes preserved; new eye material does
+not establish accepted character quality. Same-lighting source/refined closeups on E.
+References: https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_materials_clearcoat
+and https://github.com/godotengine/godot/blob/4.7/modules/gltf/gltf_document.cpp .

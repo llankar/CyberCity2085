@@ -2,6 +2,62 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-SCAN-EYE-MATERIAL-104 (2026-11-25). Prior turn103
+  progress verified from checkpoint00d94d53, actual worktree and main/experimental
+  registers read. Returned to human quality without MPFB recoloring or primitive
+  clothing. Read-only eye UV audit finds four authored eye islands454vertices/
+ 840faces with real iris/sclera UVs. Diagnostic source texture crops inspected:
+  original8K photograph already has detailed blue-gray irises and dark pupils.
+  Gray color is not a missing-texture bug; do not claim anatomical repair from
+  material work. Source scan face/hair/wardrobe still below accepted Rook target.
+
+  Created material-only derivative using those real eye surfaces and unchanged8K
+  JPEG: eye roughness.18/coat.65/coat roughness.035, original body roughness.996432
+  retained. Source geometry/UVs not recolored or remeshed. New structural functional
+  verifier actually PASS: all21,506textured triangle corners POSITION/NORMAL/UV/
+  fourjointindices/fourweights exactly source (cyclic winding/multiplicity),89joint
+  names/order/inverse binds and every authored Walk channel/input/output exactly
+  source; original photographic image bytes EXACT_SOURCE. Native ninepose source
+  surface gate PASS max51.895um as original. Regeneration executed: GLB BYTE-IDENTICAL
+  SHA2569834a8e3b58a347c5f805795913f772b200b47bc304e8b44544e6e4c0abd00f2.
+
+  Initial native material gate FAIL: native import leaves clearcoat_enabled=false
+  in BOTH OpenGLCompatibility and VulkanForward+, despite valid exported uniform
+  KHR_materials_clearcoat factors. Roughness imported correctly. Added explicitly
+  opt-in lab-only uniform extension bridge using GLTFState JSON, preserving texture/
+  original materials, validating scalar ranges and refusing textured coat variants.
+  Original importer limitation recorded, not silently countedPASS. Actual bridged
+  material checks PASS in both renderers with matchingSHA reports: eyes.18/.65/.035,
+  bodyunchanged,8192-square textures. This proves imported/material properties, not
+  shader-identical rendering or universal support for arbitrary glTF extensions.
+  Primary references consulted: Khronos KHR_materials_clearcoat specification and
+  Godot4.7 gltf_document.cpp; observed native behavior is the acceptance evidence.
+
+  E: phase2/nathan_eyes01/human.blend24,189,284bytes / human.glb19,756,632bytes,
+  eye_uv_audit/material/source_preservation/native_surface reports, renderer-specific
+  native_material_check, original/refined neutral closeups and tactical_close PNGs.
+  Closeups inspected under same neutral lighting: modest response change confined
+  to eyes; no convincing full-human artistic acceptance. Smaller ortho framing.3m
+  is diagnostic only. Optional launcher RenderingMethod allows actual same-engine
+  Forward+ CLI study; default/production renderer unchanged. No new engine/assets.
+
+  --nathan-eyes-study stage loads derivative + lab bridge, one true Walk only.
+  Actual sourceWalk+fiveclip robot+animatedVTOL stage selftest PASS,89joint human
+  source motion,5subjects/627cells,62.208008pxcalibration and vehicle keys retained.
+  No artificial human combat action set.20existing focusedPython cases PASS,0failed,
+ 0skipped (GLB/bundle/provenance), plus NEW structural/native material functional
+  gates above actually executed. No production/campaign tests, user save edits,
+  push or release. No AI training/generative image/mesh use of source.
+
+  Bounded eye tasks3/4DONE (audit/derivative, source fidelity/native motion, actual
+  material import/bridge/preview); full-human artistry remainsIN_PROGRESS. Human
+  accepted0/2, modular combat outfits0; robot5clips/eightview atlases, vehicle3motion
+  studies; native subjects5/6, one partial floor/block map, finalized maps0. Next:
+  acquire/adapt better professional tactical wardrobe/armor and full human actions;
+  no more small material/lighting tweaks as substitute for garment/identity quality.
+  True tactical environment, vehicle bays/contact and Blender re-export remainTODO.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` VTOL-MECHANICAL-ARTICULATION-103 (2026-11-25). Continued explicit
   independent vehicle deliverable after checkpointeb452e6c facing work. Existing
   vtol01/vtol.blend procedural mechanical study retained unchanged (sourceSHA checked).
