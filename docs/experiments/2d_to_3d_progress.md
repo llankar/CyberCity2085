@@ -2,6 +2,36 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` VISUAL-DELIVERY-167 (2026-11-25). Owner reprioritization:
+  complete visible prototypes first; old modularity/micrometric TODOs secondary.
+  `DONE` independent demo167.tscn: textured Rook/AmJViZ, Raider/Rocketbox and
+  animated Security Bot, animated VTOL, crate, generator, existing alley/facades.
+  `DONE` native1920x1080 capture406frames/27.07s, MP4 and GIF; close-view MP4,
+  four actual textured actor/vehicle crops. E:generated/phase2/demo167_final/.
+  `DONE` reused spell motion for PSI; kneeling/medical-case adaptation provisional.
+  New support_actions167.py reuses FK retargeter at24fps; scene imports only two
+  new actions, retaining original body and old animation resources unchanged.
+  `DONE` visual review: ready/fire/PSI/medical/death captures and character crops
+  inspected. Corrected machine-on-roof, robot placement and texture shimmer;
+  recording fixed to force rendered frames after first occlusion gaps (preserved).
+  `DONE` six-second integrated scene-only timing,302samples after warmup:
+  p95frameinterval16.667ms at60fps cap; not GPU timing or campaign performance.
+  Essential native import/animation/capture checks only; no campaign or old gates.
+  Historical license check (superseded for private experiment by user): local official2.0
+  LICENSE explicitly excludes EU/UK/Korea; France compatibility not established.
+  Paint native CUDA rasterizer/compiler also absent, no weight download initiated.
+  No Hunyuan asset in delivered private scene. Prior generated resources preserved.
+  Notices: AmJViZ Royalty Free private use only, Rocketbox MIT, UAL CC0, bot CC BY4.
+  `DONE` actual21px overview captured and inspected; silhouettes persist, fine detail lost.
+  `IN_PROGRESS` user explicitly deprioritizes licensing for personal/non-distributed use;
+  retain notices without treating distribution clearance as a private-test blocker.
+  `TODO` refine visible locomotion/phase transitions, medical recipient/contact,
+  compare all candidates at21px; true colour-textured A/T AI candidate after rights
+  and Paint prerequisites resolved. No final artistic acceptance or global PASS.
+  Docs visual_demo167.md; native evidence/media delivery.json,performance.json.
+  No production edits, no push/build; existing dirty save preserved.
+
+
 - `IN_PROGRESS` OPEN-POINTS-166 checkpoint supplement (2026-11-25).
   `DONE` TripoSG Rook actual inference using combat sprite, not portrait:
   query-projection dtype hook (497 calls) resolves reproducible Float/Half FAIL;
