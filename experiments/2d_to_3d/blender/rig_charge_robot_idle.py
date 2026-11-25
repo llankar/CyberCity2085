@@ -4,14 +4,19 @@ import math
 import sys
 from pathlib import Path
 import bpy
-from mathutils import Quaternion, Vector
+from mathutils import Matrix, Quaternion, Vector
 
 sys.path.insert(0,str(Path(__file__).parent))
 from authored_scene import load_authored_scene
 from rigid_surface_fit import fit_surface
+from robot_gait import gait
 
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-folder=root/'security_idle01'; folder.mkdir(parents=True,exist_ok=True)
+walk='--walk' in sys.argv
+clip='Walk' if walk else 'Idle'
+fps=30 if walk else 24
+stem='robot_walk' if walk else 'robot_idle'
+folder=root/('security_walk01' if walk else 'security_idle01'); folder.mkdir(parents=True,exist_ok=True)
 source_scene=load_authored_scene(Path('E:/CyberCity2085-3d-lab/sources/charge_studio/security_bot_v1/security_bot_release_v1.blend'))
 coverage=json.loads((root/'security_pbr_robot02/coverage.json').read_text())
 names=tuple(coverage['baked'])
@@ -20,7 +25,30 @@ with bpy.data.libraries.load(str(root/'security_pbr_robot02/robot_pbr.blend'),li
     loaded.objects=list(names)
 objects=list(loaded.objects)
 assert len(objects)==124
-scene=bpy.data.scenes.new('Idle'); scene.render.fps=24
+frozen_arrays={}
+if walk:
+    # Film cables use FIT_CURVE arrays, whose ring count changes with bending.
+    # Freeze the neutral count in the derivative; keep original source untouched.
+    bpy.context.window.scene=source_scene
+    for obj in objects:
+        source=sources[obj.name]
+        arrays=[m for m in source.modifiers if m.type=='ARRAY' and m.fit_type!='FIXED_COUNT']
+        if not arrays: continue
+        assert len(arrays)==1,source.name
+        modifier=arrays[0]; modifier.fit_type='FIXED_COUNT'
+        def vertex_count(count):
+            modifier.count=count; source.update_tag(refresh={'OBJECT'}); bpy.context.view_layer.update()
+            evaluated=source.evaluated_get(bpy.context.evaluated_depsgraph_get())
+            mesh=evaluated.to_mesh()
+            try: return len(mesh.vertices)
+            finally: evaluated.to_mesh_clear()
+        first=vertex_count(1); step=vertex_count(2)-first
+        expected=len(obj.data.vertices)
+        assert step>0 and (expected-first)%step==0,(source.name,first,step,expected)
+        count=1+(expected-first)//step
+        assert vertex_count(count)==expected
+        frozen_arrays[source.name]=count
+scene=bpy.data.scenes.new(clip); scene.render.fps=fps
 bpy.context.window.scene=scene
 data=bpy.data.armatures.new('SecurityBakedSkeleton')
 game=bpy.data.objects.new('SecurityGameRig',data); scene.collection.objects.link(game)
@@ -37,15 +65,41 @@ for index,obj in enumerate(objects):
     group.add(list(range(len(obj.data.vertices))),1,'REPLACE')
     modifier=obj.modifiers.new('MechanicalSkin','ARMATURE'); modifier.object=game
     obj.select_set(True)
-game.animation_data_create(); game.animation_data.action=bpy.data.actions.new('Idle')
+game.animation_data_create(); game.animation_data.action=bpy.data.actions.new(clip)
 rig=bpy.data.objects['RIG-security_bot']; control=rig.pose.bones['Head']
 initial=control.matrix_basis.to_quaternion(); control.rotation_mode='QUATERNION'
-frames=49; samples={name:[] for name in names}; residuals={name:0.0 for name in names}
+bpy.context.window.scene=source_scene; source_scene.frame_set(1); bpy.context.view_layer.update()
+root_control=rig.pose.bones['Root']
+root_world=rig.matrix_world @ root_control.matrix.copy()
+feet=[rig.pose.bones['IK-Foot.'+side] for side in ['L','R']]
+foot_world=[rig.matrix_world @ foot.matrix.copy() for foot in feet]
+foot_targets=[]; target_error=0.
+frames=37 if walk else 49
+samples={name:[] for name in names}; residuals={name:0.0 for name in names}
 max_neutral_error=0.0; head_motion=0.0
 for frame in range(1,frames+1):
     bpy.context.window.scene=source_scene; source_scene.frame_set(frame)
     control.rotation_quaternion=initial @ Quaternion((0,1,0),.12*math.sin((frame-1)/(frames-1)*math.tau))
+    if walk:
+        time_s=(frame-1)/fps
+        travel=gait(time_s)[0]
+        root_control.matrix=rig.matrix_world.inverted() @ Matrix.Translation((0,travel,0)) @ root_world
+        rig.update_tag(refresh={'OBJECT'}); bpy.context.view_layer.update()
+        targets=[]
+        for side,foot in enumerate(feet):
+            travel,relative,height,stance=gait(time_s,side)
+            target=Matrix.Translation((0,travel+relative,height)) @ foot_world[side]
+            foot.matrix=rig.matrix_world.inverted() @ target
+            targets.append((target,stance))
     rig.update_tag(refresh={'OBJECT'}); bpy.context.view_layer.update()
+    if walk:
+        measured=[]
+        for foot,(target,stance) in zip(feet,targets):
+            actual=(rig.matrix_world @ foot.matrix).translation
+            error=(actual-target.translation).length
+            target_error=max(target_error,error)
+            measured.append({'world':list(actual),'stance':stance,'target_error_m':error})
+        foot_targets.append({'time_s':time_s,'feet':measured})
     graph=bpy.context.evaluated_depsgraph_get()
     for index,obj in enumerate(objects):
         name=names[index]; source=sources[name]; evaluated=source.evaluated_get(graph)
@@ -53,6 +107,7 @@ for frame in range(1,frames+1):
         try: points=[tuple(evaluated.matrix_world @ vertex.co) for vertex in mesh.vertices]
         finally: evaluated.to_mesh_clear()
         baseline=[tuple(v.co) for v in obj.data.vertices]
+        assert len(baseline)==len(points),('Topology changed',name,frame,len(baseline),len(points))
         delta,error=fit_surface(baseline,points)
         if frame==1:
             max_neutral_error=max(max_neutral_error,max((Vector(a)-Vector(b)).length for a,b in zip(baseline,points)))
@@ -62,10 +117,27 @@ for frame in range(1,frames+1):
         pose.matrix=delta @ pose.bone.matrix_local
         for path in ['location','rotation_quaternion','scale']: pose.keyframe_insert(path,frame=frame)
         if 'head_cover' in name: head_motion=max(head_motion,abs(delta.to_quaternion().angle))
-assert max_neutral_error<.0001,('Neutral source mismatch',max_neutral_error)
+if not walk: assert max_neutral_error<.0001,('Neutral source mismatch',max_neutral_error)
+if walk: assert target_error<.0001,('IK controls failed to reach targets',target_error)
 assert head_motion>.03,('Head control failed',head_motion)
 bpy.context.window.scene=scene
-reference={}; corrections={}
+reference={}; corrections={}; contact={}
+if walk:
+    for side,side_index in [('L',0),('R',1)]:
+        for part in ['toes','heel']:
+            name=f'GEO-{part}.{side}_Evaluated'
+            worst=0.; anchor=None; airborne=[]
+            for index,(_,points) in enumerate(samples[name]):
+                stance=foot_targets[index]['feet'][side_index]['stance']
+                if stance:
+                    if anchor is None: anchor=points
+                    worst=max(worst,max((Vector(a)-Vector(b)).length for a,b in zip(anchor,points)))
+                else:
+                    anchor=None; airborne.append(points)
+            displacement=max((Vector(a)-Vector(b)).length for a,b in zip(samples[name][0][1],samples[name][-1][1]))
+            assert worst<.0001 and displacement>.5 and airborne,(name,worst,displacement)
+            contact[name]={'max_stance_vertex_drift_m':worst,'forward_surface_displacement_m':displacement,
+                           'scope':'All corresponding source foot vertices at 30Hz; excludes continuous-time contact/collision validation'}
 for obj in objects:
     name=obj.name
     if residuals[name]>.001:
@@ -83,20 +155,25 @@ for obj in objects:
                     for curve in bag.fcurves:
                         for key in curve.keyframe_points: key.interpolation='LINEAR'
         corrections[name]=residuals[name]
-    if name in corrections or 'head_cover' in name or 'shin.' in name:
-        reference[name]=[{'time_s':index/24,'points':[points[i] for i in range(0,len(points),8)]}
+    if name in corrections or 'head_cover' in name or 'shin.' in name or (walk and any(k in name for k in ['toes.','heel.'])):
+        reference[name]=[{'time_s':index/fps,'points':[points[i] for i in range(0,len(points),8)]}
                          for index,(delta,points) in enumerate(samples[name])]
 scene.frame_start=1; scene.frame_end=frames; scene.frame_set(1)
-bpy.ops.wm.save_as_mainfile(filepath=str(folder/'robot_idle.blend'))
-bpy.ops.export_scene.gltf(filepath=str(folder/'robot_idle.glb'),export_format='GLB',use_selection=True,
+bpy.ops.wm.save_as_mainfile(filepath=str(folder/(stem+'.blend')))
+bpy.ops.export_scene.gltf(filepath=str(folder/(stem+'.glb')),export_format='GLB',use_selection=True,
     use_active_scene=True,export_animations=True,export_animation_mode='SCENE',
     export_anim_scene_split_object=False,export_anim_single_armature=False,export_anim_slide_to_zero=True)
 (folder/'surface_reference.json').write_text(json.dumps(reference),encoding='utf-8')
-coverage['rig_actions']='Idle head scan study only'
+coverage['rig_actions']='Forward mechanical IK walk study' if walk else 'Idle head scan study only'
 (folder/'coverage.json').write_text(json.dumps(coverage,indent=2),encoding='utf-8')
-(folder/'rig_report.json').write_text(json.dumps({'meshes':124,'joints':124,'clip':'Idle','duration_s':2,
-    'neutral_max_vertex_error':max_neutral_error,'source_head_rotation_radians':head_motion,
+(folder/'foot_targets.json').write_text(json.dumps(foot_targets),encoding='utf-8')
+(folder/'rig_report.json').write_text(json.dumps({'meshes':124,'joints':124,'clip':clip,'duration_s':(frames-1)/fps,
+    'ik_target_max_error_m':target_error,'motion_storage':'World motion baked per mechanical joint; no separate gameplay root track',
+    'fixed_neutral_array_counts':frozen_arrays,
+    'first_pose_vertex_delta_m':max_neutral_error,
+    'neutral_max_vertex_error':None if walk else max_neutral_error,'source_head_rotation_radians':head_motion,
+    'source_foot_contacts':contact,
     'rigid_surface_max_residual_m':residuals,'surface_corrections':corrections,
     'credit':coverage['credit'],'license':coverage['license'],
-    'limitations':['Head scan idle only, not a gameplay action set','Opaque visor approximation','Source cables use sampled corrective morphs where required','Artistic and performance acceptance not verified']},indent=2),encoding='utf-8')
-print('SECURITY_ROBOT_IDLE_EXPORTED',head_motion,max_neutral_error,len(corrections),flush=True)
+    'limitations':['Single forward walk study, not a seamless gameplay loop' if walk else 'Head scan idle only, not a gameplay action set','Opaque visor approximation','Source cables use sampled corrective morphs where required','Artistic and performance acceptance not verified']},indent=2),encoding='utf-8')
+print('SECURITY_ROBOT_EXPORTED',clip,head_motion,max_neutral_error,len(corrections),flush=True)

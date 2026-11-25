@@ -2,6 +2,49 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MECHANICAL-WALK-91 (2026-11-25). Continued independent robot
+  work while first convincing human/wardrobe remains unresolved. No production,
+  principal GOAL or user-save changes. Source remains Blender Studio Security Bot,
+  CC BY4, original unchanged. Shared rig exporter now accepts --walk; default Idle
+  route retained. Genuine source mechanical IK feet and Root drive 1.2s forward
+  stride, 37 samples at30Hz, .6m displacement and .10m swing target clearance.
+  No humanoid retargeting or replacement primitive geometry.
+
+  Initial export FAIL: source FIT_CURVE cable arrays changed vertex counts
+  (left upper2208->2248). Strict topology guard caught it. Read-only cable audit
+  identifies authored Array/Curve/Subsurf stack. Derivative fixes six array counts
+  at neutral topology (legs55/28 each, head58,torso26), preserving original source.
+  Five genuinely bending cables require sampled corrective morphs; leg residuals
+  before correction up to38.81mm, not represented as rigid cable success.
+  Full foot vertices checked during each separate stance interval: toes and heels
+  both sides show zero sampled world drift. All move~.6m across complete clip;
+  prevents a stationary-foot false positive. IK target max error1.67e-8m.
+  First frame differs .189968m from neutral bake because it is a stepping pose;
+  explicitly NOT a failed or claimed neutral-equality test.
+
+  Actual Blender sources generated on E: generated/phase2/security_walk01/
+  robot_walk.blend/.glb, surface_reference, rig_report,foot_targets,cable_audit.
+  Native surface check positive EINAR_NATIVE_SURFACE_GATE_OK (historical shared
+  marker), actual head/shins/feet/corrected cables,14surfaces/37times, worst
+  sampled distance0.363um; no assertion-only
+  exit-code assumption. Neutral side snapshot walk_side.png inspected: articulated
+  stride and intact limbs; front screenshot walk_front.png also inspected.
+  GLB68,685,736bytes/Blender134,976,186bytes. Dark film robot lacks tactical readability/art
+  acceptance. World translation baked per joint, no extracted gameplay root track.
+  This single forward pass is NOT a seamless looping locomotion clip; no claim of
+  arm swing, continuous-time contacts, collision safety or finished action set.
+  Source film driver/material and exporter sampler warnings remain recorded.
+
+  Python regression executed:34passed,0failed,0skipped across six experimental
+  modules; four new gait tests cover world stance stability, clearance, landing
+  velocity continuity and invalid parameters. No production tests claimed.
+  DONE technical tasks3/3: mechanical source gait, stable cable derivative,
+  measured Blender/native export. Global humans0/2 artistically accepted; robot
+  attack/hit/destruction, finished locomotion/art, human professional wardrobe,
+  native tactical/animation acceptance remain TODO. Next: inspect front/back and
+  native combat-scale gait readability, then remaining actual mechanical actions.
+  CHANTIER GLOBAL INCOMPLET.
+
 
 - `IN_PROGRESS` LICENSED-GARMENT-CODEC-90 (2026-11-25) - continued actual source
   selection and standalone garment inspection; no more recoloring MPFB armor.

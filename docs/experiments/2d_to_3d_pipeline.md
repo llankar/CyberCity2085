@@ -7,6 +7,25 @@ This experiment is isolated from the current game runtime. No existing asset,
 map, combat rule or validated animation is replaced. Large and generated data
 lives exclusively in `E:\CyberCity2085-3d-lab`.
 
+## Mechanical forward walk study (batch91)
+
+Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments
+@('--walk')` from the experiment directory. It writes security_walk01 on E:;
+without the flag it retains the existing Idle producer. Foot IK uses authored
+mechanical controls, not human animation retargeting. Variable-length cable
+arrays are fixed to their neutral segment counts in the derivative and bending
+cables receive actual sampled surface corrections. Full source foot vertices
+must remain stable during each stance interval and travel across the full clip.
+
+Verify using `run_godot.ps1 -Scene res://surface_motion_check.tscn -QuitAfter 900
+-SceneArguments @('--folder=E:/CyberCity2085-3d-lab/generated/phase2/security_walk01',
+'--model-file=robot_walk.glb')`. Require fresh native_surface_check.json and the
+positive EINAR_NATIVE_SURFACE_GATE_OK marker; name is historical shared tooling.
+Review main.tscn with --model pointing to that GLB, --neutral, --clip=Walk and
+--clip-fraction=.8. It is a forward nonloop study; world translation is currently
+baked per mechanical joint. Do not add it to gameplay or force seamless looping.
+Artistic acceptance, arm swing and full robot action coverage remain TODO.
+
 ## Environment verified
 
 - GPU: NVIDIA GeForce RTX 5070 Ti, 16,303 MiB, driver 621.24.
