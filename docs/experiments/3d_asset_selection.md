@@ -6,6 +6,21 @@ is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
 ## Candidate register
 
+Additional acquired motion/prop sources (2026-11-25):
+
+- [Quaternius Universal Animation Library Standard](https://quaternius.com/packs/universalanimationlibrary.html),
+  free43-clip portion, CC0 verified against archive License.txt and README.
+  Authored Einar retarget is experimental, with explicitly tracked absent digits.
+- [FireWarden Lowpoly Pistol](https://opengameart.org/content/lowpoly-pistol),
+  original fictional design, CC0 on author page. Local ZIP CRC/hash and palette
+  atlas checked. A modest licensed fitting prop, not final XCOM-level weapon art.
+- Quaternius Animated Guns public source Blender files returned quota HTML;
+  quarantined and not integrated. No claim of successful acquisition.
+
+See progress batch81 for exact archive hashes, converted outputs, failures and
+native evidence. Residual morph correction preserves sampled authored film
+surface deformation at measurable memory cost; it is not artistic acceptance.
+
 | Resource | Source and declared license | Evidence / decision |
 | --- | --- | --- |
 | Cyberpunk character, 4d_Bob | https://sketchfab.com/3d-models/019f4b3fd3c74ed0bc6c8dbe9cd50d51 ; CC BY 4.0 | Public API verified commercial use/attribution, downloadable, 24,500 faces, one animation. Author says rig was made for posing and may need replacement. Acquisition BLOCKED: download endpoint HTTP 401 without authentication. Artistic/rig validation NOT VERIFIED. Priority candidate. |

@@ -2,6 +2,75 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-ACTIONS-SURFACES-81 (2026-11-25) — acquired the free
+  Quaternius Universal Animation Library Standard through its normal itch.io
+  download flow. Official page and archive License.txt/README explicitly CC0.
+  ZIP15,904,933 bytes, SHA256
+  cc73fc4e495b82958207316596317a3f40b9fa38065bde1027937452da537724.
+  Safe extraction/CRC on E:,43 actual actions/65 source bones; paid library not
+  acquired. Authored Einar FK retarget maps48 controls, intentionally excludes
+  the absent left mechanical ring finger; constrained spine/toe controls solved
+  separately. Native Blender pose gate passed maximum global control error
+  1.74846e-7 rad on the mapped globally solved controls. This is not a full
+  deformation or artistic gate. Source film drivers referencing depsgraph.scene
+  removed only in loaded derivative before scene activation; source unchanged.
+
+  Pistol_Shoot0.633333s, Punch_Cross1.0s and Death012.4s exported with222 joints,
+  76 meshes, eight normalized weights. Initial evaluated-surface rigid fitting
+  FAIL for source Surface Deform straps/soles: worst residuals82.11/172.39/137.15mm.
+  Corrected derivatives use per-frame residual morphs before rigid skinning,
+  only on wholly rigid-bound pieces; mixed bindings are explicitly refused.
+  Native Godot morph+skin comparison samples every authored frame and source
+  vertices every8, nearest imported surface vertex (not identity correspondence).
+  PASS: four corrected pieces/20 frames for pistol, six/31 for punch, six/73 for
+  death; worst distances0.000000349/0.000000576/0.000001005m respectively.
+  Corrective sampling does not prove between-frame fidelity, normals, all
+  weighted surface deformation or gameplay contacts. Blend/GLB and reference/
+  native hash evidence on E: phase2/einar_ual_{Pistol_Shoot,Punch_Cross,Death01}01_surfaces.
+  GLB sizes43,922,748/47,115,600/57,718,556 bytes: morph cost is real and requires
+  optimization before runtime use. Structural verifier passes all three.
+
+  CC0 FireWarden Lowpoly Pistol acquired from original OpenGameArt page;
+  archive186,627 bytes SHA256
+  8c6cecf861b672d610e169e0eecd3ca2696e311d107387ecacd03a2f3f12e6c7.
+  Original palette material converted to Principled on derivative only; nine
+  selected parts attached to actual right-wrist joint. Corrected equipped study
+  einar_pistol_fit01_surfaces:85 meshes, one skin,44,028,376 bytes. Structural and
+  native primary attachment/proximity/axis gates pass six times, nearest sampled
+  glove distance<=9.336mm. Mechanical support hand, trigger fit and prop art NOT
+  accepted. Original Quaternius public Drive gun downloads hit quota and returned
+  HTML; responses quarantined, not used as Blender files or bypassed.
+
+  Independent comparison --charge --human-action-study --tactical --sprite-review
+  loads actual corrected armed human, static robot, VTOL, crate, generator and
+  existing alley floor with627 prototype obstacle volumes. Mouse/keyboard/action
+  dispatch self-test PASS; native capture charge_pistol_sprite_close.png inspected
+  at1920x1080, human projection62.208008px vs62.208 target. Robot remains static
+  and visually inferior to sprite; four purple unresolved glass pieces remain.
+  Human side/front and terminal death side captures inspected: coherent dressed
+  source, incomplete hair/beard/support grip, no death-ground acceptance. Neutral
+  robot current front screenshot saved; no artistic PASS. CPU120-frame average
+  is NOT sustained GPU/FPS acceptance (HUD startup FPS1 also visible).
+
+  Seven Python regression tests PASS. Native CLI exit codes and positive success
+  markers checked; Godot assertions can otherwise exit0 on timeout. Initial native
+  surface test failed on sanitized dot/underscore names, corrected exact normalized
+  lookup then rerun PASS. First scene export used scene title as clip name; fixed
+  scene naming/re-export and verified exact clip IDs. SDL calibration warning and
+  original Blender attribute/material warnings persist; no claim of warning-free
+  source conversion. All large inputs/outputs/temp/cache E:, no production changes,
+  no push/release. CLI wrappers run embedded source scripts disabled.
+
+  DONE in this batch: licensed acquisition, control retarget, three individual
+  corrected action exports, native surface gates and equipped source-scale capture.
+  TODO: combine differing-FPS clips plus morph actions without lost channels;
+  optimize morphs/geometry/material draw calls; final humanoid hair/identity/grips,
+  grounded actions/remaining actions; robot glass/emission/rig/actions; tactical
+  environment art/performance; shared-model animated atlas; final art comparison.
+  First convincing Rook/Raider remains NOT VERIFIED; no character production
+  generalization. Next batch: robot glass/emission conversion and rig sampling,
+  then multi-clip/morph packaging. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` EINAR-WALK-CONTACTS-80 (2026-11-25) — actual in-place walk
   authored through source foot IK, lowered torso and counter-swinging FK arms.
   First native gate failed0.21m stance drift: original soles deform through a

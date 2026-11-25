@@ -61,6 +61,8 @@ func _ready() -> void:
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var rigged_human := charge and "--rigged-human" in OS.get_cmdline_user_args()
 	if rigged_human: human_path = root + "einar_motion01/human_motion.glb"
+	var action_human := charge and "--human-action-study" in OS.get_cmdline_user_args()
+	if action_human: human_path = root + "einar_pistol_fit01_surfaces/human_pistol.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
@@ -121,6 +123,7 @@ func _ready() -> void:
 	selected = 0
 	clip_status = "Human: static fitting model; action clips unavailable"
 	if rigged_human: play_clip("Idle")
+	if action_human: play_clip("Shoot")
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	if "--self-test" in OS.get_cmdline_user_args():
 		var key := InputEventKey.new()
@@ -150,7 +153,12 @@ func _ready() -> void:
 			assert(walking_player.current_animation == "Walk")
 			print("CHARGE_HUMAN_WALK_DISPATCH_OK")
 			play_clip("Shoot")
-		assert("unavailable" in clip_status)
+		if action_human:
+			play_clip("Shoot")
+			var action_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+			assert(action_player.current_animation == "Pistol_Shoot")
+			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
+		else: assert("unavailable" in clip_status)
 		selected = 1
 		play_clip("Idle")
 		selected = 0
@@ -160,7 +168,8 @@ func _ready() -> void:
 			var human_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			assert(human_player.current_animation == "Idle")
 			print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
-		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,human_missing_action robot_clip=", "unavailable" if charge else "Walk")
+		if action_human: play_clip("Shoot")
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "unavailable" if charge else "Walk")
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
@@ -293,6 +302,7 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable (not simulated)"
 		return
 	var player := players[0] as AnimationPlayer
+	if name_value == "Shoot" and player.has_animation("Pistol_Shoot"): name_value = "Pistol_Shoot"
 	if not player.has_animation(name_value):
 		clip_status = "Requested action unavailable: " + name_value
 		return

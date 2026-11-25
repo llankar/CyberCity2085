@@ -1,16 +1,26 @@
 extends Node3D
 ## Native skin evaluation gate for the authored head diagnostic, not animation art.
 
-func skinned_points(mesh: MeshInstance3D, skeleton: Skeleton3D) -> PackedVector3Array:
+func skinned_points(mesh: MeshInstance3D, skeleton: Skeleton3D, sample_stride: int = 8) -> PackedVector3Array:
 	var result := PackedVector3Array()
 	for surface in range(mesh.mesh.get_surface_count()):
 		var arrays := mesh.mesh.surface_get_arrays(surface)
 		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+		var shapes := mesh.mesh.surface_get_blend_shape_arrays(surface)
+		for shape_index in range(shapes.size()):
+			var value := mesh.get_blend_shape_value(shape_index)
+			if is_zero_approx(value): continue
+			var positions: PackedVector3Array = shapes[shape_index][Mesh.ARRAY_VERTEX]
+			for index in range(vertices.size()):
+				var delta := positions[index]
+				if mesh.mesh.blend_shape_mode == Mesh.BLEND_SHAPE_MODE_NORMALIZED:
+					delta -= arrays[Mesh.ARRAY_VERTEX][index]
+				vertices[index] += delta * value
 		var joints: PackedInt32Array = arrays[Mesh.ARRAY_BONES]
 		var weights: PackedFloat32Array = arrays[Mesh.ARRAY_WEIGHTS]
 		var stride := joints.size() / vertices.size()
 		assert(stride == 4 or stride == 8)
-		for vertex in range(0, vertices.size(), 8):
+		for vertex in range(0, vertices.size(), sample_stride):
 			var point := Vector3.ZERO
 			for influence in range(stride):
 				var weight := weights[vertex * stride + influence]

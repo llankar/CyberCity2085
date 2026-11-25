@@ -9,6 +9,23 @@ asset. See `docs/experiments/2d_to_3d_pipeline.md` for status, licensing and
 reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
+
+Latest individual authored motion studies (batch81) use Quaternius UAL Standard
+CC0 with Einar CC BY4.0. Reproduce through `run_blender.ps1 -Script
+blender/rig_einar_game_study.py -ScriptArguments '--ual=Pistol_Shoot','--surface-corrections'`
+(or Punch_Cross / Death01). Verify actual files with `verify_einar_rig.py
+--ual=Pistol_Shoot --surface-corrections`, then `run_godot.ps1 -Scene
+res://surface_motion_check.tscn -QuitAfter 300`. Other clips use SceneArguments
+`--folder=E:/CyberCity2085-3d-lab/generated/phase2/einar_ual_CLIP01_surfaces`.
+Require positive EINAR_NATIVE_SURFACE_GATE_OK as well as native exit0.
+`equip_einar_pistol.py --surface-corrections` creates the separate licensed
+armed derivative; verify with --equipped --surface-corrections and native
+pistol_fit_check.tscn --surface-corrections. These tests do not accept exact grip
+or art. `comparison.tscn -- --charge --human-action-study --tactical --sprite-review
+--self-test` reviews this single-action study alongside the existing sprites.
+Idle/Walk and the other action studies are not yet bundled with its morphs.
+CLI wrappers keep temporary/profile/cache files on E: and disable embedded
+Blender Python execution. All output remains external, no production replacement.
 Professional Charge source conversion studies are stored on E: only:
 `security_pbr_robot01` (120/124 surfaces, unresolved glass), `einar_geometry01`
 (static diagnostic human), `einar_jacket01` (authored fabric bake proof).
