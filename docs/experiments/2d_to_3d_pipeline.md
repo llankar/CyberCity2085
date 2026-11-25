@@ -338,3 +338,21 @@ All union corrective weights are driven/reset in every clip. Same native model
 supports Idle/Walk/Melee/Hit/Death; missing Shoot is not synthesized. Foot contacts
 and flat-floor shutdown scope remain as recorded; no final robot art acceptance.
 Blender re-export and robot atlas generation remain open.
+
+## Batch101: eight-view atlas from the same mechanical model
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/inspect_robot_action_timing.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/render_rocketbox_atlas.py -ScriptArguments @('--robot-bundle')
+python experiments/2d_to_3d/verify_rocketbox_atlas.py --robot-bundle
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://atlas_review.tscn -QuitAfter 300 -SceneArguments @('--atlas-dir=E:/CyberCity2085-3d-lab/generated/phase2/security_bundle01/atlas','--manifest=Walk_atlas.json','--action=walk','--self-test')
+```
+
+Five sheets /160transparent frames, actual imported scene strips start1 rather
+than0. Source duration and all rig/morph strip ranges must agree. Signed root travel
+is measured from actual source foot endpoints before compensating in atlas space;
+Walk remains nonloop. --action=Walk can rerender a bounded single action; unsupported
+action names fail rather than silently doing nothing. Source model hashes retained.
+Render calibration uses the current professional-human study height, so physical
+1.95m robot is64.895px against62.208px human. Orbit views/final art remain unaccepted
+until facing and artistic review; do not replace production sprites.

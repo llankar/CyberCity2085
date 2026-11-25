@@ -2,6 +2,61 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-ROBOT-EIGHT-VIEW-ATLASES-101 (2026-11-25). Previous
+  turn100 progress verified from checkpointd2f2beca, actual worktree and principal/
+  experimental registers read. Reused existing Rocketbox atlas renderer/verifier
+  with opt-in robot source; old human rendering branch retained. Source is the same
+  packed124joint/124mesh security_bundle01/robot_actions.blend, all six animated
+  owners (rig+five cable shape sets) switch together. No primitives/source replacement.
+
+  Initial160render attempt completed but NOT accepted: recentering sign was guessed
+  incorrectly. Measured foot displacement then exposed an additional timing issue:
+  imported Blender NLA strips start at scene frame1, actions internally at0. Read-only
+  inspect_robot_action_timing confirms Idle/Death1..61, Walk1..37, Melee1..31, Hit1..25.
+  First Walk-only corrected attempt intentionally FAILed actual endpoint check
+  (-.59172Y/+4.68mmZ at wrong final frame36). Corrected renderer derives scene range
+  from real strips, validates duration/owner synchronization, samples actual1..end
+  times. Actual Walk full-cycle displacement(29.8nm,-.599999905m,11.2nm) measured from
+  evaluated foot geometry. Removes this signed vector over clip duration for in-place
+  atlas, preserving rig/skin deformation and source files. All160affected frames then
+  regenerated correctly once; first attempt is not completion evidence.
+
+  New pure atlas_sample_frames + six tests cover imported strip offsets, correct
+  seconds/endpoints, loop duplicate-end avoidance and invalid intervals. Four new
+  pixel-contract tests cover robot physical scale, nonloop Walk/root-motion metadata,
+  wrong forward sign and source timing fields. Final focused25Python PASS,0failed,
+ 0skipped across sampling/pixel/bundle modules. Existing actual Rocketbox160PNG
+  verifier rerun PASS, no old frames regenerated. Default old frame sampling stays
+  numerically equivalent, full old Blender re-render NOT VERIFIED/not required here.
+
+  E: phase2/security_bundle01/atlas now has five1536x768RGBA sheets,160individual
+ 192x192PNGs (8views*4poses*5clips), JSON source hashes/timing/anchors and pixel proof.
+  Human calibration1.869130611m ->62.208px gives physical robot1.949875712m ->64.89535px;
+  padding widened by existing renderer, no clipping. All160sheet/source frames match
+  <=2channel levels, nonempty alpha, transparent border and observed motion PASS.
+  Idle loops2s; Walk1.2/Melee1/Hit.8/Death2s hold final pose rather than fake loops.
+  PNGs incl early native Death review total4,434,463bytes before four further review
+  captures; final bytes not used as a performance claim. No source model changes.
+
+  Native atlas_review five real runs PASS32frame indexing, playback/pause, view keys
+  and correct loop/hold behavior, fresh captures for Idle/Walk/Melee/Hit/Death. Native
+  Walk and Death review images inspected: eight actual orbit directions visible,
+  dark slim robot detail remains below current colorful sprite/art target. Projection
+  to production facing NOT VERIFIED; scene viewer explicitly says orbit-only. No
+  final Wraith artistic or production atlas acceptance. GPU sampler opt-in process
+  names now records Blender too, keeping Godot IDs separately:24actual live-Blender
+  samples globalGPU1661..2439MiB, not exclusive model VRAM or guaranteed peak. EEVEE
+  log ~.4-.5s/frame and max~557MiB Blender-reported RAM are scoped observations.
+
+  Bounded atlas tasks3/4DONE (render/source timing, pixel proof, native playback);
+  facing/art acceptance IN_PROGRESS. Robot5clips*8views*4frames rendered, human
+  accepted identities0/2, final modular outfits0, native3Dsubjects5/6, one partial
+  floor/block map, artistically finalized maps0. Next: derive/verify actual facing
+  correspondence, then vehicle articulation and remaining professional human outfit/
+  eyes/actions; Blender model re-export and final tactical scene remainTODO.
+  No production/user save changes, campaign tests, push or release.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SHARED-MECHANICAL-ACTION-BUNDLE-100 (2026-11-25). Prior turn99
   classified progress from checkpointd89cd708, actual worktree and principal/
   experimental registers read. Audited real five mechanical source GLBs:124meshes,

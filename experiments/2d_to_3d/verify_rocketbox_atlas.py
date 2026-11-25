@@ -1,14 +1,15 @@
 """Validate real PNG framing, frame layout and observed motion; not artistic QA."""
 import hashlib
 import json
+import sys
 from pathlib import Path
 import numpy as np
 from PIL import Image
 
 
-def verify(root):
+def verify(root,robot=False):
     evidence={}
-    for clip in ['Idle','Walk','Pistol_Shoot','Punch_Cross','Death01']:
+    for clip in (['Idle','Walk','Melee','Hit','Death'] if robot else ['Idle','Walk','Pistol_Shoot','Punch_Cross','Death01']):
         manifest=json.loads((root/(clip+'_atlas.json')).read_text())
         image=np.array(Image.open(root/manifest['texture']).convert('RGBA'))
         width,height=manifest['frame_size']
@@ -16,7 +17,17 @@ def verify(root):
         assert image.shape==(4*height,8*width,4)
         animation=next(iter(manifest['animations'].values()))
         assert sorted(index for row in animation['rows'] for index in row)==list(range(32))
-        assert all(abs(value-62.208)<.001 for value in manifest['reference_height_px'])
+        expected=62.208*1.949875712/1.869130611 if robot else 62.208
+        assert all(abs(value-expected)<.001 for value in manifest['reference_height_px'])
+        if robot:
+            expected_duration={'Idle':2.,'Walk':1.2,'Melee':1.,'Hit':.8,'Death':2.}[clip]
+            expected_times=[expected_duration*i/(4 if clip=='Idle' else 3) for i in range(4)]
+            assert np.max(np.abs(np.array(manifest['sample_times_s'])-np.array(expected_times)))<.00001
+            assert manifest['source_strip_frames'][0]==1.
+            assert np.max(np.abs(np.array(manifest['sample_scene_frames'])-(1.+np.array(expected_times)*30)))<.00001
+            assert animation['loop']==(clip=='Idle')
+            assert abs(manifest['walk_root_motion_removed_m']-(.6 if clip=='Walk' else 0.))<.00001
+            assert np.max(np.abs(np.array(manifest['walk_root_motion_removed_vector_m'])-np.array([0.,-.6,0.] if clip=='Walk' else [0.,0.,0.])))<.00001
         motion=[]
         for direction,row in enumerate(animation['rows']):
             hashes=[]
@@ -38,4 +49,5 @@ def verify(root):
 
 
 if __name__=='__main__':
-    verify(Path('E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03/motion01/atlas'))
+    robot='--robot-bundle' in sys.argv
+    verify(Path('E:/CyberCity2085-3d-lab/generated/phase2')/('security_bundle01/atlas' if robot else 'rocketbox_military03/motion01/atlas'),robot=robot)

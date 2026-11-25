@@ -52,3 +52,52 @@ def test_scrambled_sheet_rejected(atlas):
     sheet[:192,:192]=sheet[:192,192:384].copy()
     Image.fromarray(sheet).save(path)
     with pytest.raises(AssertionError,match='Sheet/source mismatch'): module.verify(atlas)
+
+@pytest.fixture
+def robot_atlas(atlas):
+    mapping={'Idle':'Idle','Walk':'Walk','Pistol_Shoot':'Melee','Punch_Cross':'Hit','Death01':'Death'}
+    for old,new in mapping.items():
+        path=atlas/(old+'_atlas.json');data=json.loads(path.read_text())
+        data['animations']={new.lower():{'rows':next(iter(data['animations'].values()))['rows'],'loop':new=='Idle'}}
+        data['reference_height_px']=[62.208*1.949875712/1.869130611]*8
+        data['walk_root_motion_removed_m']=.6 if new=='Walk' else 0.
+        data['walk_root_motion_removed_vector_m']=[0.,-.6,0.] if new=='Walk' else [0.,0.,0.]
+        duration={'Idle':2.,'Walk':1.2,'Melee':1.,'Hit':.8,'Death':2.}[new]
+        data['sample_times_s']=[duration*i/(4 if new=='Idle' else 3) for i in range(4)]
+        data['source_strip_frames']=[1.,1.+duration*30]
+        data['sample_scene_frames']=[1.+t*30 for t in data['sample_times_s']]
+        data['texture']=new+'_atlas.png'
+        if old!=new:
+            (atlas/(old+'_atlas.png')).rename(atlas/data['texture'])
+            for direction in range(8):
+                for sample in range(4):
+                    (atlas/f'{old}_d{direction}_f{sample}.png').rename(atlas/f'{new}_d{direction}_f{sample}.png')
+        (atlas/(new+'_atlas.json')).write_text(json.dumps(data))
+    return atlas
+
+
+def test_actual_scale_robot_manifest_and_nonloop_motion_contract(robot_atlas):
+    module.verify(robot_atlas,robot=True)
+    assert set(json.loads((robot_atlas/'verification.json').read_text())['clips'])=={'Idle','Walk','Melee','Hit','Death'}
+
+
+def test_robot_walk_cannot_silently_loop_or_keep_translation(robot_atlas):
+    path=robot_atlas/'Walk_atlas.json';data=json.loads(path.read_text())
+    data['animations']['walk']['loop']=True;path.write_text(json.dumps(data))
+    with pytest.raises(AssertionError):module.verify(robot_atlas,robot=True)
+    data['animations']['walk']['loop']=False;data['walk_root_motion_removed_m']=0
+    path.write_text(json.dumps(data))
+    with pytest.raises(AssertionError):module.verify(robot_atlas,robot=True)
+
+
+def test_wrong_robot_pixel_scale_rejected(robot_atlas):
+    path=robot_atlas/'Idle_atlas.json';data=json.loads(path.read_text())
+    data['reference_height_px']=[62.208]*8;path.write_text(json.dumps(data))
+    with pytest.raises(AssertionError):module.verify(robot_atlas,robot=True)
+
+
+def test_wrong_forward_translation_direction_is_rejected(robot_atlas):
+    path=robot_atlas/'Walk_atlas.json';data=json.loads(path.read_text())
+    data['walk_root_motion_removed_vector_m']=[0.,.6,0.]
+    path.write_text(json.dumps(data))
+    with pytest.raises(AssertionError):module.verify(robot_atlas,robot=True)

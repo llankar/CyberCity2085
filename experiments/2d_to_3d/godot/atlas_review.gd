@@ -21,7 +21,7 @@ func _ready() -> void:
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--action="):
 			action_name = argument.trim_prefix("--action=").to_lower()
-			if action_name not in ["idle", "walk", "shoot", "hitrecieve_1", "death"]:
+			if action_name not in ["idle", "walk", "shoot", "hitrecieve_1", "death", "melee", "hit"]:
 				get_tree().quit(5)
 				return
 		if argument.begins_with("--atlas-dir="):
