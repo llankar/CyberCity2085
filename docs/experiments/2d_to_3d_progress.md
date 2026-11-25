@@ -2,6 +2,41 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HAIR-CARDS-157 (2026-11-25).
+  Previous156 turn classified progress: real face material diagnostic and source
+  binary protection. `DONE` one genuinely free authored hair-card source acquired:
+  Salman Ramezani, Short hair card, Blendkit4793aff4-5e46-4902-a329-314731ebde09,
+  version0a91297d-d3c1-43a6-9d38-d1f00c352f00, Royalty Free NOT CC0.
+  Source BLEND1,852,981bytes SHA679054e71464c47084e389aef1818caca0e6b686059f1833085c38243b6b0e94;
+  Godot GLB1,068,488bytes SHA0d758f3f7abdf396877f2bee0f1bc301219ea81937548d9d530d964843f07c9c.
+  acquire_hair_cards157.ps1 pins free/license/version/size/SHA and actually
+  reverified existing files. Source publisher/licence/FAQ/metadata on E: sources/
+  blenderkit_hair157; no raw asset redistribution or upload authorized/performed.
+  `DONE` real Blender audit: two meshes5788+3633vertices,3952+2603faces, actual
+  UV hair cards/cap. Native source GLB has two MASK/double-sided materials and
+  two embedded PBR/alpha images; source render inspected, not just thumbnail.
+  `DONE` first actual fitted variant on intact156body, original1702face sculpted
+  quiff removed as separate object, genuine author cards scaled/fit to head and
+  weighted to existing DEF-spine.006. Protected body vertices/weights exact in
+  Blender. Editable human.blend, human.glb and CREDITS retained on E:hair_cards157.
+  Initial native test FAIL: Hard stand body offset60.158mm, other clips matched.
+  Export omitted three root-object channels; restored existing150 convention
+  export_optimize_animation_keep_anim_object=True, without loosening0.5mm gate.
+  Final native new hair_cards_check157 test PASS21poses/7clips, body bounds error
+  0.0m against unchanged156 source, all262bones and same seven clip names.
+  Proof native_body.json matches finalGLBcc703e74bcb27bfd1a9257228d416256c91004927850ae0043c92bdcd4a180b4.
+  Failure log retained; final log tmp/hair157-body-final.log. No full120Hz/hair
+  collision/contact/atlas or performance acceptance claimed. No Python tests
+  executed this batch; actual native test added and executed.
+  Final native neutral front/side/back captures rerendered after fix and actually
+  inspected: strand silhouette substantially better than solid quiff, but still
+  fringe/bowl-like rather than swept-up Rook; scalp/card roots need review.
+  Candidate NOT promoted, source150/156 preserved. `TODO` shape actual source
+  cards into raised swept-back quiff with scalp-root fit, copper color and real
+  gameplay-scale comparison before art acceptance. No new character cohort.
+  Scene5/6subjects, human6/10conditional families, map native1/1/art0/1 unchanged.
+  CHANTIER GLOBAL INCOMPLET; no production runtime, release, build or push.
+
 - `IN_PROGRESS` FACE-MATERIAL-DIAGNOSTIC-156 (2026-11-25).
   Previous155 turn was progress: actual six-view source/optimized comparison.
   `DONE` actual neutral close face diagnostic from unchanged150, plus normal-off

@@ -1,5 +1,8 @@
 # Experimental human asset selection
 
+Batch157: [Short hair card by Salman Ramezani](https://www.blendkit.com/asset-gallery-detail/4793aff4-5e46-4902-a329-314731ebde09/) acquired from the verified free API, version0a91297d-d3c1-43a6-9d38-d1f00c352f00. Royalty Free under the [publisher licence](https://www.blendkit.com/docs/licenses/) and [FAQ](https://www.blendkit.com/docs/licenses/licensing-faq/), NOT CC0; private source/derivatives on E:, no raw source pack redistribution. Actual two-mesh alpha-card source imported and fitted, neutral native captures inspected. Improved strands but fringe silhouette is not yet Rook, no artistic acceptance. Native21pose body preservation gate passes after restoring root-object export channels. Source BLEND1.85MB/GLB1.07MB; no bulk download.
+
+
 Batch119: actual [Grab3D Cyborg](https://grab3d.com/models/characters/cyborg/)
 and its [license](https://grab3d.com/dl/cyborg/LICENSE.txt) inspected. Explicit
 CC0 waiver and AI-assisted Meshy origin with publisher Blender cleanup. Only one
