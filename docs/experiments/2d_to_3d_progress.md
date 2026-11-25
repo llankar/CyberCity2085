@@ -2,6 +2,54 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SUPPORT-HAND-149 (2026-11-25). Previous148 progressed genuine
+  hair geometry/native validation. Re-inspected licensed existing Trebejo garment
+  (closed shirt cut, not a convincing Rook replacement) and Diesel/Unvanquished
+  inventories; no new human assembled. New primary sourcing review found
+  [Kasit Studio Vest Parent](https://www.blendkit.com/asset-gallery-detail/0d678d13-4dbe-462c-8962-7e8707bb6187/)
+  requires Full Plan; no paid download/purchase attempted. Free casual vest is not
+  tactical wardrobe. Sketchfab Tactical Vest Pack primary fetch403, not acquired
+  and no license grant assumed from search snippets. No broad asset download.
+  `DONE` actual bilateral posed arm/finger inventory landmarks.json. Existing
+  two_bone_ik.elbow_target strict API retained with all eight existing tests;
+  added finite-landmark/current-bend-side wrapper solve(), reach clamping and
+  unambiguous fallback pole. Four new tests cover reachable lengths, reach clamp,
+  straight-limb fallback and invalid inputs. No old experimental caller broken.
+  Actual source FK upper_arm/forearm/hand controls adjusted by length-preserving
+  analytical IK, then existing rest-axis transfer to262bone game rig. Target
+  hand-relative world offset is a fitting choice, NOT a skin-contact guarantee.
+  `DONE` static source149pose: upper289.309mm/lower263.564mm retained, wrist moves
+  99.078mm at midpoint; target error74.5nanometers on FK control, not skin.
+  Initial native static check FAIL due hidden Icosphere helper included in Bpy
+  reference but excluded by exporter. Fixed reference/selection to real rigged
+  meshes; native11mesh/262bone export PASS55.570micrometers, unchanged500um gate.
+  Actual side/front and support_close.png inspected: support hand now reaches
+  the firing hand, improving the low floating/cupping silhouette. Detailed finger
+  wrap, palm penetration, thumb alignment and tactical grip art remain open.
+  `DONE` separate curl diagnostic tries bounded local finger bends; nearest-tip
+  goals remain17..79mm away. It is NOT a successful grasp solver and is excluded
+  from the animated candidate. curl_close.png/front/side actually inspected;
+  no artistic success claimed from a lower landmark objective.
+  `DONE` full source FK arm correction baked77poses at120Hz, preserving other six
+  clips, body/hair/weapon geometry and PBR. Wrist displacement93.685..104.102mm,
+  maximum FK target error0.305um. Private amjviz_grip149/human_actions.blend/GLB;
+  GLB SHA240a40a744d7e041b9c2b1d9715e235767a75e0974f888a97ec08f38cf119dfb.
+  Fresh Bpy/native288pose gate PASS88.832um across seven clips, floor/settled death/
+  reset PASS. Numerical scope is sampled bounds, not per-vertex or contact art.
+  --support-study native/stage route PASS actual selection, all human/robot/VTOL
+  action dispatch and gun visibility; tactical.png at real62.208px reference
+  inspected with existing sprites/map. Candidate retains4K textures; no149sustained
+  benchmark/VRAM figures.147memory reduction must not be attributed to149.
+  Final targeted Python35PASS/0fail/0skip, tmp/pytest149-preserved.xml(includes
+  eight original IK cases plus four new ones and previous23helper tests). Native
+  and Blender checks above separate. No production or long campaign tests run.
+  `TODO` next: genuine Rook wardrobe geometry/neckline adaptation, retain complete
+  anatomy and multiview review; improve finger/palm contacts before art approval.
+  Only then combine current geometry with147texture budget and new atlas study.
+  Human mandatory motions technical5/5/art0/5, scene5/6; native map1/1/art0/1;
+  Raider deferred. No production changes/assets push/release; user save untouched.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` AUTHORED-QUIFF-148 (2026-11-25). Continued after147checkpoint;
   actual source inventory locates intact head/scalp under separate Hair2 material.
   First audit FAIL due object-name assumption Body_low; corrected by selecting

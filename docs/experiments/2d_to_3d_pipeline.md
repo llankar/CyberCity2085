@@ -1059,6 +1059,24 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Support-hand149 uses the original FK controls and existing analytical IK helper;
+it preserves upper/lower-arm lengths, not a stretched wrist translation.
+`& experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_amjviz_grip149.py`
+records posed landmarks. `fit_amjviz_support149.py` (same wrapper) first creates
+static shoot_support.BLEND/GLB. Static export gate: run_godot.ps1 with
+`-Scene res://amjviz_pose_check.tscn -SceneArguments @('--support-study')`.
+Optional --curl-study produces a separate unaccepted finger diagnostic only;
+it cannot be combined with --animated. Do not call its landmark metric contact.
+For full arm-corrected source use fit_amjviz_support149.py with
+`-ScriptArguments @('--animated')`; original six other clips stay in148source.
+Then measure_amjviz_actions146.py with `@('--support-study')` and the native
+amjviz_actions_check.tscn with the same flag for fresh288pose references/checks.
+Use --support-study instead of --amjviz-combat-study in the stage command below.
+Private outputs: amjviz_grip149/human_actions.blend and human_actions.glb on E:.
+Neutral close-up: preview main.tscn, --model=E:/.../shoot_support.glb, --neutral,
+--view=side, --focus-height=1.45, --ortho-size=.65. Camera distance alone does not
+zoom an orthographic camera. Source licenses and unchanged originals retained.
+
 Real hair geometry148 diagnostic, separate from147texture budget:
 `run_blender.ps1 -Script blender/audit_amjviz_hair148.py`, then
 `run_blender.ps1 -Script blender/fit_amjviz_quiff148.py`. Both live under

@@ -7,7 +7,10 @@ from mathutils import Matrix
 folder=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146')
 base_folder=folder
 hair_study='--hair-study' in sys.argv
+support_study='--support-study' in sys.argv
+assert not(hair_study and support_study)
 if hair_study:folder=folder.parent/'amjviz_hair148'
+if support_study:folder=folder.parent/'amjviz_grip149'
 blend_path=folder/('human.blend' if hair_study else 'human_actions.blend')
 bpy.ops.wm.open_mainfile(filepath=str(blend_path),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')

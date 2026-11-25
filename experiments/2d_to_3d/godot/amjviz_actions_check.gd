@@ -4,11 +4,14 @@ extends Node3D
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
+	var support_study := "--support-study" in OS.get_cmdline_user_args()
+	assert(not(hair_study and support_study))
 	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
+	if support_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_grip149/"
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
 	if "--texture-budget-study" in OS.get_cmdline_user_args():
-		assert(not hair_study,"Choose one geometry reference")
+		assert(not(hair_study or support_study),"Choose one geometry reference")
 		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget147_1024/"
 	var model_path := folder+("human.glb" if hair_study else "human_actions.glb")
 	var document := GLTFDocument.new()
@@ -21,7 +24,7 @@ func _ready() -> void:
 	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==7)
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
-	assert(meshes.size()==(11 if hair_study else 10))
+	assert(meshes.size()==(11 if hair_study or support_study else 10))
 	var probe := preload("res://skin_motion_check.gd").new()
 	var checker := preload("res://cyborg_ready_check.gd").new()
 	var worst := 0.0

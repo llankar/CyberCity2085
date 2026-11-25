@@ -39,7 +39,7 @@ def load():
         order=sorted(mapping,key=lambda n:len(driver.pose.bones[n].parent_recursive)))
 
 
-def solve(c,clip,frame):
+def solve(c,clip,frame,adjust_controls=None):
     action=c.clips[clip];c.motion.animation_data.action=action
     if action.slots:c.motion.animation_data.action_slot=action.slots[0]
     for bone in c.driver.pose.bones:bone.matrix_basis=Matrix.Identity(4)
@@ -54,6 +54,9 @@ def solve(c,clip,frame):
         desired.translation=c.driver.matrix_world@bone.matrix.translation
         if name=='torso':desired.translation=c.control_rest[name].translation+(current.translation-c.source_rest[other].translation)*c.scale
         bone.matrix=inverse@desired
+        c.driver.update_tag(refresh={'OBJECT'});bpy.context.view_layer.update()
+    if adjust_controls:
+        adjust_controls(c)
         c.driver.update_tag(refresh={'OBJECT'});bpy.context.view_layer.update()
     evaluated=c.driver.evaluated_get(bpy.context.evaluated_depsgraph_get())
     desired={n:c.game.matrix_world.inverted()@evaluated.matrix_world@evaluated.pose.bones[n].matrix@c.driver_rest[n].inverted()@c.game_rest[n]
