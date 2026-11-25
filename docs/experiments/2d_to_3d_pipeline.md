@@ -606,6 +606,16 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch122 atlas: existing render_rocketbox_atlas.py now accepts
+`--cyborg-fire-study --action=PistolFireStudy --samples=10` through run_blender.ps1
+ScriptArguments. Verify using `python experiments/2d_to_3d/verify_rocketbox_atlas.py
+--cyborg-fire-study`. Native `res://atlas_review.tscn` with
+`--atlas-dir=E:/CyberCity2085-3d-lab/generated/phase2/cyborg_fire01/atlas`
+`--manifest=PistolFireStudy_atlas.json --self-test --frame=4` reviews actual peak.
+Capture must remain inside that atlas folder. Default robot/old human four-sample
+behavior remains available. All PNG/JSON/credits remain on E:; no production
+atlas overwrite, facing-map or artistic acceptance is implied.
+
 Batch121 firing: run_blender.ps1 `-Script blender/build_cyborg_fire.py` after
 batch120. Run native checker `res://cyborg_ready_check.tscn -- --fire-study`
 through run_godot.ps1 SceneArguments. Require CYBORG_FIRE_NATIVE_GEOMETRY_PASS

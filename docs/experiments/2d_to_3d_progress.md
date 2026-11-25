@@ -2,6 +2,42 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CYBORG-ATLAS-122 (2026-11-25). Continuede8218efe. Same first
+  candidate, no cohort generalization. `DONE` eight-view firing atlas rendered
+  from actual cyborg_fire01/human.blend with the existing Blender atlas tool;
+  optional --cyborg-fire-study and --samples=10 preserve old four-frame defaults.
+  Eight orbit views x10samples =80RGBA192² frames,1536x1920sheet,12fps/.75s.
+  Samples0,2,...,18 include real recoil peak at8; four default samples would miss
+  it. Camera calibration remains62.208px for1.799927473m human at elevation.6.
+  No production-facing mapping invented; orbit correspondence NOT VERIFIED.
+
+  `DONE` ATLAS-PIXEL-122: all80individual frames compared against packed sheet,
+  ≤2pixel-value tolerance, nonempty alpha/margins and source Blend hash verified.
+  Recoil peak differs from both adjacent samples in all8views at this resolution.
+  Each view has6..8distinct rendered poses;10temporal samples does not mean10
+  unique poses. Sheet SHA70d0f96164975642e29a32a34cb23d87ec7cfe34e92f6c43beda9dc35161c9e8.
+  Native Godot atlas viewer now derives frame count/texture subdivisions from
+  metadata:80frame indices, pause, direction selection, nonloop last-frame hold
+  and peak-frame screenshot PASS. native_review.png and original sheet inspected.
+  Original robot160frames Python verification and32frame native Idle controls/
+  screenshot regression PASS. First robot capture used outside-folder path and
+  was correctly rejected; rerun with valid path capture0. No source atlas replaced.
+
+  Fourteen targeted Python tests PASS/0fail/0skip (sampling incl. recoil peak,
+  single-shot profile/invalids), JUnit E:tmp/pytest122.xml. Actual Blender render
+  session92382 completed with ACTION_ATLAS_RENDER_COMPLETE; actual native atlas
+  captures have positive PLAYBACK_TEST_OK and CAPTURE0 markers. SDL gamepad error
+  persists. No unmeasured new VRAM/performance claim.
+
+  `TODO` FIRST-HUMAN-ART/DEFORMATION: inspect support finger contacts and wrist
+  seam in close views, adapt Rook identity using this stronger source, then
+  complete missing melee/death clips and their eight-view atlases. Technical
+  coverage of required humanoid Idle/Walk/Shoot/Melee/Death is3/5 (plus extraRun),
+  artistically accepted0/5; new firing atlas1/5required action sets only. First
+  acceptedRook0/1, finalhumans0/2, native map1/1/artistic0/1. Independent robot
+  and VTOL studies retained; full comparative art/performance acceptance remains
+  open. CHANTIER GLOBAL INCOMPLET. No production changes, push or release.
+
 - `IN_PROGRESS` CYBORG-FIRE-121 (2026-11-25). Continued1e4b54bd within the same
   work session. `DONE` authored0.75s PistolFireStudy on the actual equipped model:
   lift from low-ready to aiming height, single4deg recoil,25mm wrist recoil,
