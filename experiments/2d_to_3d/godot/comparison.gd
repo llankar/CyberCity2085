@@ -381,6 +381,8 @@ func _ready() -> void:
 		assert(destination.begins_with(root) and destination.ends_with(".json"))
 		await get_tree().create_timer(1.0).timeout
 		var begin := Time.get_ticks_usec()
+		var begin_utc := Time.get_unix_time_from_system()
+		print("COMPARISON_BENCHMARK_BEGIN unix_s=",begin_utc)
 		var begin_drawn := Engine.get_frames_drawn()
 		var samples: Array[float] = []
 		var max_draw_calls := 0.0
@@ -399,6 +401,13 @@ func _ready() -> void:
 		samples.sort()
 		var texture_size := get_viewport().get_texture().get_size()
 		var evidence := {"window_size": [get_window().size.x, get_window().size.y], "render_texture_size": [texture_size.x, texture_size.y], "logical_viewport_size": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "seconds": seconds, "rendered_frames": drawn, "rendered_frames_per_s": drawn / seconds, "frame_post_draw_interval_p95_ms": samples[int((samples.size() - 1) * 0.95)], "max_draw_calls": max_draw_calls, "engine_reported_video_bytes": max_video_bytes, "scope": "Five-second native rendered-frame interval; no GPU execution timing, no full VRAM peak or production benchmark", "human": human_path, "robot": robot_path}
+		evidence["begin_utc_unix_s"]=begin_utc
+		evidence["end_utc_unix_s"]=Time.get_unix_time_from_system()
+		evidence["human_glb_sha256"]=FileAccess.get_sha256(human_path)
+		evidence["robot_glb_sha256"]=FileAccess.get_sha256(robot_path)
+		evidence["arguments"]=Array(OS.get_cmdline_user_args())
+		evidence["godot_version"]=Engine.get_version_info().string
+		if "--facades-study" in OS.get_cmdline_user_args():evidence["facade_glb_sha256"]=FileAccess.get_sha256(root+"tactical_facades01/facades.glb")
 		var output := FileAccess.open(destination, FileAccess.WRITE)
 		assert(output != null)
 		output.store_string(JSON.stringify(evidence, "  "))

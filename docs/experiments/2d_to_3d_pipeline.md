@@ -9,6 +9,21 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+New first-human alternative117: `acquire_diesel_candidate.py` follows the author's
+normal zero-price direct-download flow for one reviewed GLB. Rejects server errors,
+quarantine and oversized/non-GLB payloads; does not bypass gates or purchase.
+`run_blender.ps1 -Script blender/prepare_diesel_candidate.py` packs an editable
+source-preserving candidate on E:. It is a source T-pose, not invented animation.
+
+Sustained review-stage measurement117: comparison `--benchmark-output=<E:phase2
+path.json>` records a five-second native drawn-frame interval, source GLB hashes,
+UTC bounds, flags and actual viewport/window. Run `sample_gpu_memory.ps1` concurrently
+with configurable SampleCount/IntervalMilliseconds; defaults remain24/400ms.
+`verify_benchmark_window.py` checks current117scene hashes and rejects absent live
+GPU overlap or inconsistent clocks/frame counts. GPU measurements are global,
+never exclusive process attribution or a guaranteed peak. Artistic acceptance
+and actual production combat performance remain separate.
+
 Rigid environment116: after `prepare_tactical_inputs.py`, run
 `run_blender.ps1 -Script blender/build_tactical_facades.py`. This generates
 E:tactical_facades01/facades.blend and facades.glb from the original627cell map

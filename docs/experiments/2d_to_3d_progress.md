@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-HUMAN-REVIEW-117 (2026-11-25). Continuedf80d8a18.
+  Reassessed actual art rather than endlessly polishing contact micron errors.
+  Renderpeople current free pack preview is business clothing, not Rook's outfit;
+  public download landing requires a human Turnstile check. No bypass/download.
+  Current site terms are a restricted commercial realtime license, not CC0/BY;
+  do not apply them retroactively to earlier independently CC-BY Nathan source.
+  Original Nixon jacket source material OPAQUE vs derived BLEND confirmed;
+  isolated GLB diagnostic restores opacity with unchanged geometry/lighting but
+  visible fit/self-shadow defects remain. Not a new accepted body or completed fix.
+
+  Actual new complete authored alternative acquired: Diesel by THEUNSEENVULGA,
+  primary itch page explicitly CC0/personal-commercial/modification permission,
+  hand-painted, no generative AI; source asks not to resell unchanged assets or
+  claim authorship. Normal anonymous free-download button/CSRF flow, no account,
+  payment, email, quarantine bypass or protected-file workaround. Only GLB
+  10,515,216B acquired, SHA9fbb438e8221f96e1f25da90c731f474bf031970a75ba132c87e1aeaf784745e;
+  all original files/credit/publication evidence on E:sources/diesel_character.
+  Eleven authored meshes18272triangles,65Mixamo-compatible joints,eight embedded
+  images/three materials, NO source animations. Separate actual editable packed
+  Blend/GLB E:diesel_candidate01; re-exportSHA6792dac8a7ee9e6c05ae57782e784573db9793bd531558e9ce280818cfbbed6f.
+  Native neutral front inspected: coherent open-jacket/boots silhouette closer
+  to intended outfit, but face/hair stylized and jacket highlights uneven.
+  Not final modern-XCOM quality or accepted Rook. No character cohort expansion.
+
+- `DONE` NATIVE-PERFORMANCE-WINDOW-117 scoped measurement. Actual complete scene
+  --contact-study/robot five-action bundle/VTOL/facades/sprite zoom benchmark runs
+  5.000724s:1475drawn frames,294.957fps,95th-percentile post-draw interval4.355ms,
+  max618draw calls, engine-reported video bytes1,704,571,159. Render texture and
+  logical viewport1920x1080, actual OS window1280x720. Not production combat,
+  GPU execution timing, full scenario coverage or artistic acceptance.
+  Benchmark now hashes actual human/robot/facade GLBs, arguments and Godot version,
+  and records UTC render bounds. GPU sampler configurable without changing default
+  behavior; actual72samples overlap render interval14times with live Godot IDs
+  7828/31052. Observed device-wide used memory3512..3535MiB within that interval,
+  NOT exclusive process allocation or guaranteed allocation peak. Verifier checks
+  current source hashes, viewport, frame/rate consistency and chronological live
+  overlap, rejecting outside/no-process/stale or invalid records. E:facades01 actual
+  benchmark117/gpu117/verified_benchmark117 JSON and PNG; complete source path is
+  E:generated/phase2/tactical_facades01. Seven new benchmark and five acquisition
+  envelope tests PASS; targeted80Python PASS0fail0skip, E:tmp/pytest-117-all.xml.
+  `TODO` next: first-human art evaluation using genuine new outfit assets; retain
+  current bodies as comparisons, no retarget/generalization before neutral art
+  direction improves. Full human0/2/firstRook0/1, native map1/1/art0/1, stage5/6.
+  No production changes, push or release. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` TACTICAL-FACADES-116 (2026-11-25). Continued2b6b6d34; independent
   rigid environment work while first human artistic gate remains open. Actual
   existing alley cell sourceSHA75bfdf85db78854fba5843f65d70b31d906dff96a6e53eb2ebffe22e337ed68a

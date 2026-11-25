@@ -4,6 +4,23 @@ Status: IN_PROGRESS, 2026-11-24. No production changes. No further generic MPFB
 armor recoloring. First convincing human must pass before character production
 is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
+Research117: [Diesel by THEUNSEENVULGA](https://theunseenvulga.itch.io/3d-charater-riggeddiesel)
+is a newly inspected complete authored outfit alternative. Publisher explicitly
+grants CC0 commercial modification, identifies hand-painted work and no generative
+AI; also asks not to resell the unchanged asset or claim authorship. One10.5MBGLB
+acquired through the normal free button; original retained on E:. Actual18272
+triangles/11meshes/65joint rig/eight images, no animations. Packed Blender/GLB
+and neutral Godot screenshot exist; face remains stylized and clothing highlights
+need review. Do not label the author's thumbnail or source presence final art.
+
+[Renderpeople free pack](https://renderpeople.com/free-3d-people/) was inspected
+via actual publisher preview: business shirt/vest/blazer, not a suitable Rook
+garment substitute. Download page now requires a human security check; no bypass.
+[Current terms](https://renderpeople.com/general-terms-and-conditions/) permit
+commercial realtime games but restrict raw-data transfer/disclosure; this is not
+a CC0/BY grant. Earlier Nathan source uses its separately documented original
+CC-BY grant. No new restricted Renderpeople pack downloaded.
+
 Research115 (2026-11-25): actual neutral/rear review still rejects Maxwell cap
 as final Rook hair. Existing Einar authored groom preview inspected: beanie/beard
 silhouette does not solve the raised-quiff requirement. No new asset downloaded.
