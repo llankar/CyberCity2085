@@ -18,8 +18,12 @@ def main():
     if str(lab) != "/mnt/e/CyberCity2085-3d-lab":
         raise ValueError("Experimental files must remain on E:")
     source = lab / f"sources/{args.subject}.png"
+    trial = args.subject
+    if args.subject == "rook":
+        source = lab / "sources/rook_combat/00_E.png"
+        trial = "rook_combat"
     digest = hashlib.sha256(source.read_bytes()).hexdigest()
-    output = lab / f"generated/phase2/hunyuan164/{args.subject}"
+    output = lab / f"generated/phase2/hunyuan166/{trial}"
     output.mkdir(parents=True, exist_ok=True)
     evidence = output / "result.json"
     if evidence.exists():

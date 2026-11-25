@@ -2,6 +2,67 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` OPEN-POINTS-166 (2026-11-25).
+  User requests continuation of remaining AI, textures, modular humans,
+  deformation and gameplay-scale/performance checks. Production/main GOAL
+  untouched; experimental work only, no push/build, dirty slot_1.json preserved.
+  `IN_PROGRESS` Hunyuan mini first actual combat-sprite trial: runner now selects
+  Rook's actual sources/rook_combat/00_E.png, never portrait. Separate hunyuan166/
+  output preserves TRELLIS results. Initial import FAIL missing cv2, corrected
+  only missing OpenCV package and setup manifest; retry IMPORT_PASS observed.
+  Required config/safetensors downloaded on E:, no duplicate ckpt. Actual
+  Hunyuan mini inference PASS308512vertices/617032triangles,159.967s including
+  acquisition/loading, allocated4869660160B/reserved5416943616B PyTorch peaks.
+  RawGLB3177bb6eff25dafc043b12185eb9f5c999b9cea59d8cd616b416c2527c75a9e7.
+  Native GLB already Y-up: no TRELLIS axis correction. Actual Blender4neutral
+  views plus low isometric, BLEND/optimizedBLEND and39998triangle optimizedGLB
+ 0e033319202e8e4cad334356a82c827034c1fb63d12115ce7271bbaa56b7fd78.
+  Actual Godot import and new cross-artifact verifier PASS. All four raw views
+  inspected: no giant lower-leg plane, better basic silhouette, simplified face/
+  coat/weapon, remaining tiny floaters and fused components. Geometry study only,
+  no textures/rig or final-art acceptance. E:generated/phase2/hunyuan166/rook_combat.
+  `DONE` TripoSG isolated E:venv prepared with modern cached CUDA packages.
+  Optional diso import moved lazily inside unused flash decoder, standard
+  hierarchical extraction unchanged; no CUDA toolkit/compiler download.
+  setup_triposg.sh --prepare-only completed; first standard pipeline import
+  currently running in tmp/triposg166-rook.log, no inference result yet.
+  `DONE` new two-body compatibility test: original Microsoft Rocketbox
+  Male_Adult_08 and Military_Male_03_facial sources,80/80same bone names,
+  zero parent mismatches, maximum rest-matrix delta0.000114441 source units.
+  Exact source SHA in generated/phase2/modularity166/rig_pair.json. Initial audit
+  path FAIL (FBXs are under Export/), corrected without touching originals.
+  `DONE` actual same five existing action datablocks sampled at3times on both
+  meshes:30deformed-vertex samples finite and bounded, both move distinctly.
+  shared_actions.json and actual BLEND, not a generated animation substitute.
+  Missing body textures discovered at export: earlier Male08 acquisition was
+  intentionally head-only. Acquired only3missing m014_body color/normal/specular
+  maps,37.75MB, pinned repository0943055... . Exact size/Git-blob verification
+  PASS; texture_completion166.json preserves provenance. No prior maps redownload.
+  Initial export also exposed unsaved zero-user actions; original action library
+  reloaded, persistence fixed. Final export_sources.blend has shared NLA tracks.
+  Actual body_0.glb5258af0359c9ca5eefcc20a4ecd0eab9cfbba0e64e2e75456e5a8ce4e18141de
+  and body_1.glb5c60f98ceb191d52f5a5f8abdca16cf06a195f79c87550d734c8b751e160ab43.
+  `DONE` native Godot4.7.2 pair check: both80bones/5clips, each15distinct finite
+  native poses. Actual logs shared-native166.log; native_shared_actions.json.
+  Reuses existing clips; does not rerun original source motion test suites.
+  `DONE` new native cohort diagnostic:2/8/16 animated instances of2distinct
+  authored bodies, OpenGL compatibility, three actual5s frame-post-draw windows.
+  p95interval0.713/1.176/1.786ms, max draw calls20/68/132. These are submission
+  intervals, not GPU execution timing or production mission FPS guarantees.
+  Actual 1920x1080 PNGs at close/overview1.8m calibration62.208/20.736px,
+  inspected: both textured body silhouettes visible, tiny detail reduced at
+  overview, actual Rook sprite shown separately with different-design disclaimer.
+  New verify_cohort166.py PASS hashes/viewports/calibration/interval arithmetic
+  and9timestamped live-Godot GPU-wide samples per window: observed range1847-
+ 1945MiB, not exclusive process VRAM or a guaranteed peak. No new map in stage,
+  no ten-unique-texture-set claim. Known preexisting SDL stick-calibration warning
+  remains; no controller or production changes made. Actual files modularity166/
+  cohort_benchmark.json,gpu166.json,cohort_verified.json,cohort_close/overview.png.
+  `TODO` genuine garment interchange, anatomical/cloth/contact close inspection,
+  PBR interpretation/art review, alternate AI robot and TripoSG generation.
+  Existing kernels/guard/contact/TripoSR checks not rerun. No new human art
+  acceptance inferred from skeleton, bounds or import tests. CHANTIER GLOBAL INCOMPLET.
+
 - `DONE` COMBAT-IMAGE-TO-3D-TRIALS-165 (2026-11-25), bounded technical trials only.
   User prioritizes human/combat robot, then explicitly requests Rook's actual
   Godot combat image rather than portrait. Portrait inference NOT EXECUTED.

@@ -10,7 +10,7 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def verify(folder):
+def verify(folder, source_z_up=True):
     result = json.loads((folder / "result.json").read_text())
     review_dir = folder / "review_upright"
     review = json.loads((review_dir / "review.json").read_text())
@@ -18,7 +18,7 @@ def verify(folder):
     assert result["status"] == native["status"] == "PASS"
     assert result["glb_sha256"] == review["source_sha256"] == sha(folder / "mesh.glb")
     assert result["triangles"] == review["triangles"]
-    assert review["source_z_up_correction"] is True
+    assert review["source_z_up_correction"] == source_z_up
     assert review["optimized_triangles"] == native["triangles"]
     assert review["optimized_glb_sha256"] == native["source_sha256"] == sha(review_dir / "optimized.glb")
     for name, digest in review["renders"].items():
@@ -39,8 +39,9 @@ def verify(folder):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("trial", choices=["robot", "rook_combat"])
+    parser.add_argument("--model", choices=["trellis164", "hunyuan166", "triposg166"], default="trellis164")
     args = parser.parse_args()
-    folder = Path("E:/CyberCity2085-3d-lab/generated/phase2/trellis164") / args.trial
-    report = verify(folder)
+    folder = Path("E:/CyberCity2085-3d-lab/generated/phase2") / args.model / args.trial
+    report = verify(folder, source_z_up=args.model == "trellis164")
     (folder / "verified.json").write_text(json.dumps(report, indent=2))
     print(json.dumps(report, indent=2))
