@@ -7,7 +7,7 @@ func load_model(path: String) -> Node3D:
 	var state := GLTFState.new()
 	assert(document.append_from_file(path, state) == OK)
 	states.append(state)
-	var model := document.generate_scene(state, 30, false, false)
+	var model := document.generate_scene(state, 120 if "--saved-blend-roundtrip" in OS.get_cmdline_user_args() else 30, false, false)
 	add_child(model)
 	return model
 
@@ -28,10 +28,39 @@ func skin_transforms(skeleton: Skeleton3D, mesh: MeshInstance3D) -> Dictionary:
 func transform_error(first: Transform3D, second: Transform3D) -> float:
 	return maxf(first.origin.distance_to(second.origin), maxf(first.basis.x.distance_to(second.basis.x), maxf(first.basis.y.distance_to(second.basis.y), first.basis.z.distance_to(second.basis.z))))
 
+func surface_error(points: PackedVector3Array, reference: PackedVector3Array) -> float:
+	# Re-export may split seam vertices. Compare sampled points against the entire
+	# opposite cloud in both directions, with a bounded half-millimetre search.
+	var bins := {}
+	for point in reference:
+		var key := Vector3i((point / .0005).floor())
+		if not bins.has(key): bins[key] = []
+		bins[key].append(point)
+	var worst := 0.0
+	for index in range(0, points.size(), 8):
+		var point := points[index]
+		var key := Vector3i((point / .0005).floor())
+		var nearest := INF
+		for x in range(-1, 2):
+			for y in range(-1, 2):
+				for z in range(-1, 2):
+					for candidate in bins.get(key + Vector3i(x,y,z), []):
+						nearest = minf(nearest, point.distance_to(candidate))
+		worst = maxf(worst, nearest)
+	return worst
+
 func _ready() -> void:
+	var fixture := PackedVector3Array([Vector3.ZERO, Vector3.ONE])
+	assert(surface_error(fixture, PackedVector3Array([Vector3.ONE, Vector3.ZERO, Vector3.ZERO])) == 0)
+	assert(is_inf(surface_error(fixture, PackedVector3Array([Vector3(.002,0,0)]))))
+	assert(surface_error(PackedVector3Array([Vector3(.0002,0,0)]), fixture) < .0005)
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var robot := "--robot-bundle" in OS.get_cmdline_user_args()
+	var roundtrip := "--saved-blend-roundtrip" in OS.get_cmdline_user_args()
 	var folder := root + ("security_bundle01/" if robot else "einar_bundle02/")
+	if "--saved-blend-roundtrip" in OS.get_cmdline_user_args():
+		assert(robot, "Roundtrip study currently scopes the robot only")
+		folder = root + "security_roundtrip01/"
 	var filename := "robot_actions.glb" if robot else "human_actions.glb"
 	var expected_meshes := 124 if robot else 76
 	var expected_joints := 124 if robot else 222
@@ -43,6 +72,7 @@ func _ready() -> void:
 	assert(targets.size() == expected_meshes and skeleton.get_bone_count() == expected_joints)
 	var probe := preload("res://skin_motion_check.gd").new()
 	var report := {}
+	var failures: Array[String] = []
 	var idle_points := {}
 	var selected_meshes: Array[String] = []
 	for name_value in targets:
@@ -81,14 +111,18 @@ func _ready() -> void:
 					worst_joint = {"joint": joint, "fraction": fraction, "actual": str(current[joint]), "expected": str(wanted[joint]), "clip": player.current_animation}
 			if sample % 2 != 0: continue
 			for name_value in selected_meshes:
-				var points := probe.skinned_points(targets[name_value], skeleton)
-				var expected := probe.skinned_points(originals[name_value], source_skeleton)
-				assert(points.size() == expected.size(), name_value)
-				for index in range(points.size()): worst_surface = maxf(worst_surface, points[index].distance_to(expected[index]))
+				var points := probe.skinned_points(targets[name_value], skeleton, 1 if roundtrip else 8)
+				var expected := probe.skinned_points(originals[name_value], source_skeleton, 1 if roundtrip else 8)
+				if roundtrip:
+					worst_surface = maxf(worst_surface, maxf(surface_error(points, expected), surface_error(expected, points)))
+				else:
+					assert(points.size() == expected.size(), name_value)
+					for index in range(points.size()): worst_surface = maxf(worst_surface, points[index].distance_to(expected[index]))
 				if clip == "Idle" and sample == 0: idle_points[name_value] = expected
 		print("BUNDLE_CLIP_COMPARE ", clip, " transform=", worst_transform, " surface=", worst_surface)
 		if worst_transform > 0.0001: print("BUNDLE_TRANSFORM_DIAGNOSTIC ", JSON.stringify(worst_joint))
-		assert(worst_transform < 0.0001 and worst_surface < 0.0005, "Bundled action differs from individual source")
+		if worst_transform >= .0001 or worst_surface >= .0005:
+			failures.append(str(clip) + ": transform or surface threshold exceeded")
 		report[clip] = {"duration_s": duration, "max_skin_transform_error": worst_transform, "max_sampled_vertex_error_m": worst_surface, "transform_samples": 17, "surface_samples": 9}
 		model.free()
 		states.pop_back()
@@ -100,13 +134,17 @@ func _ready() -> void:
 	skeleton.force_update_all_bone_transforms()
 	var reset_error := 0.0
 	for name_value in idle_points:
-		var points := probe.skinned_points(targets[name_value], skeleton)
+		var points := probe.skinned_points(targets[name_value], skeleton, 1 if roundtrip else 8)
 		var expected: PackedVector3Array = idle_points[name_value]
-		for index in range(points.size()): reset_error = maxf(reset_error, points[index].distance_to(expected[index]))
-	assert(reset_error < 0.0005, "Stale corrections after Death to Idle")
+		if roundtrip: reset_error = maxf(reset_error, maxf(surface_error(points, expected), surface_error(expected, points)))
+		else:
+			for index in range(points.size()): reset_error = maxf(reset_error, points[index].distance_to(expected[index]))
+	if reset_error >= .0005: failures.append("Stale corrections after Death to Idle")
 	probe.free()
 	var output := FileAccess.open(folder + "native_bundle_check.json", FileAccess.WRITE)
 	assert(output != null)
-	output.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(folder + filename), "clips": report, "death_to_idle_reset_error_m": reset_error, "meshes": expected_meshes, "joints": expected_joints, "selected_surface_meshes": selected_meshes, "scope": "Native original/bundle skin transforms and sampled vertex correspondence; not artistic acceptance"}, "  "))
+	output.store_string(JSON.stringify({"passed": failures.is_empty(), "failures": failures, "glb_sha256": FileAccess.get_sha256(folder + filename), "clips": report, "death_to_idle_reset_error_m": reset_error, "meshes": expected_meshes, "joints": expected_joints, "selected_surface_meshes": selected_meshes, "scope": "Native original/bundle skin transforms and sampled vertex correspondence; not artistic acceptance"}, "  "))
+	output.close()
+	assert(failures.is_empty(), str(failures))
 	print("ROBOT_NATIVE_ACTION_BUNDLE_OK reset=" if robot else "EINAR_NATIVE_ACTION_BUNDLE_OK reset=", reset_error)
 	get_tree().quit(0)

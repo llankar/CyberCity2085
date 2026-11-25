@@ -2,6 +2,40 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-SAVED-BLEND-ROUNDTRIP-112 (2026-11-25). Continuedff577a26.
+  Actual packed security_bundle01/robot_actions.blend opened and re-exported,
+  not regenerated from source rig. Source Blend SHA541a87865e9bf3bdc7119c026d66e0baea93bbaeea767b43ef10ea76e8687958
+  remains unchanged. Output E:security_roundtrip01/robot_actions.glb212,485,072B,
+  SHA d395e14c1082d2f13a018987d7419d558cc83770eab02cdb6c5ccd4b65a1b0c7.
+  Six animated owners retain five source tracks;124meshes/269209triangles/
+  496images retained. Portable re-export is not byte-identical to source.
+
+  First native FAIL exposed imported one-frame offset. Whole-strip movement
+  frame_start_ui fixes duration without stretching (frame_start alone extended
+  strip). Imported object/mesh names differ; exact source GLB mesh identity
+  map restores node names after clearing import-only collisions. Re-export
+  splits seam vertices; opt-in native test uses sampled bidirectional nearest
+  surface clouds, not false index identity. Three executed fixture assertions
+  cover reordered/duplicate vertices, small displacement and rejected2mm gap.
+  Original bundle index-based comparison remains unchanged.
+
+  30Hz export native FAIL: Idle527.070micrometre surface error >500micrometre
+  gate.120Hz is common multiple of actual24/30Hz sources, fixes sampled surfaces:
+  Idle .211293,Walk .376973,Melee .266586,Hit .399910,Death .860891 micrometres.
+  All five real clips now examined, but native overall FAIL remains: Melee
+  J036 basis error .000555951 at fraction .375 exceeds unchanged .0001 transform
+  criterion. Other clips meet both thresholds. Fresh native_bundle_check.json
+  records passed=false, explicit failure and current GLB SHA; full logs on E:.
+  Existing original-bundle native regression actually rerun: all five clips
+  transform/surface error0, Death-to-Idle reset0, positive gate marker PASS.
+  No artistic acceptance follows from these surface measurements.
+  `TODO` next: inspect original/imported J036 quaternion interpolation at .375s
+  and affected rigid part, preserve five motions and resolve measured discrepancy
+  before marking roundtrip DONE. Human contact/identity gate still open; overall
+  first human0/1, finalhumans0/2, native map1/1, artistic map0/1, stage5/6 subjects.
+  Full goal task total is not fixed: historical batch counts are not completion
+  percentage. CHANTIER GLOBAL INCOMPLET. No production change, push or release.
+
 - `IN_PROGRESS` SCANNED-HUMAN-SHOOT-111 (2026-11-25). Same authored armor,
   photographed head and Maxwell hair candidate now retains all six original
   body clips and adds a separate Shoot study. A constant 19.752309-degree

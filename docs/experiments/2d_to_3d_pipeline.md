@@ -9,6 +9,20 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+Robot saved-file roundtrip study112: `run_blender.ps1 -Script
+blender/roundtrip_robot_bundle.py` opens the actual packed security_bundle01
+Blend and writes only E:security_roundtrip01. All six animated owners must have
+the same five NLA tracks. Move the entire imported strip with frame_start_ui
+to remove its one-frame offset; frame_start alone extends it. Restore exact
+source mesh node names through source GLB mesh identities, without guessed
+suffix stripping. Export at120Hz (common multiple of source24/30Hz) and compare
+with `bundle_action_check.tscn --robot-bundle --saved-blend-roundtrip`.
+Re-export may split seam vertices, so this opt-in gate compares sampled surface
+points against full opposite clouds in both directions. Original index-based
+bundle gate remains intact. Native thresholds stay .0001 for skin transforms
+and .0005m for sampled surfaces. Failure evidence must remain explicit; saving
+and loading a Blend does not establish faithful animation roundtripping.
+
 Batch111 continuation: run `run_blender.ps1 -Script blender/build_scanned_shoot.py`
 after the scanned head/hair studies, then
 `run_blender.ps1 -Script blender/fit_unvanquished_pistol.py -ScriptArguments @('--scanned-shoot')`.
