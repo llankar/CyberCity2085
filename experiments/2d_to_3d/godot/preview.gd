@@ -21,7 +21,7 @@ func _ready() -> void:
 		push_error("Could not load experimental GLB: %s (%s)" % [model_path, error])
 		get_tree().quit(2)
 		return
-	var authored_human := (model_path.contains("/unvanquished_") or model_path.contains("/scanned_armor_head01/") or model_path.contains("/scanned_armor_hair01/")) and (model_path.ends_with("/human_actions.glb") or model_path.ends_with("/human_pistol.glb"))
+	var authored_human := (model_path.contains("/unvanquished_") or model_path.contains("/scanned_armor_head01/") or model_path.contains("/scanned_armor_hair01/") or model_path.contains("/scanned_armor_shoot01/")) and (model_path.ends_with("/human_actions.glb") or model_path.ends_with("/human_pistol.glb"))
 	var model := document.generate_scene(state, 120 if authored_human else 30, false, false)
 	add_child(model)
 	if "--gltf-uniform-clearcoat" in OS.get_cmdline_user_args():

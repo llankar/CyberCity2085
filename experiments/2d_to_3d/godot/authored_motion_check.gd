@@ -4,10 +4,12 @@ func _ready() -> void:
 	if "--saved-blend-roundtrip" in OS.get_cmdline_user_args():folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_roundtrip01/"
 	var weapon_study := "--weapon-study" in OS.get_cmdline_user_args()
 	if weapon_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_weapon01/"
-	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args()
+	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args()
+	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args() or scanned_shoot
 	var scanned_head := "--scanned-head-study" in OS.get_cmdline_user_args() or scanned_hair
 	if scanned_head:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_head01/"
 	if scanned_hair:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_hair01/"
+	if scanned_shoot:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_shoot01/"
 	assert(not (weapon_study and scanned_head),"Choose one study")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
@@ -26,9 +28,10 @@ func _ready() -> void:
 		assert(absf(hair_material.alpha_scissor_threshold-.35)<0.0001 and hair_material.cull_mode==BaseMaterial3D.CULL_DISABLED)
 		assert(not hair_material.emission_enabled,"No legacy self-lit hair")
 	var reference = JSON.parse_string(FileAccess.get_file_as_string(folder+"source_surface_reference.json"))
-	assert(reference.size()==(1 if weapon_study else 6))
+	assert(reference.size()==(7 if scanned_shoot else (1 if weapon_study else 6)))
 	var durations := {"Idle":400.0/60,"Walk":70.0/60,"Run":90.0/120,"Attack":16.0/60,"Death":40.0/60,"Crouch":10.0/60}
 	if weapon_study:durations={"Pistol_Attack_Study":8.0/60}
+	if scanned_shoot:durations["Shoot"]=8.0/60
 	var probe := preload("res://skin_motion_check.gd").new()
 	var errors := {}
 	for clip in reference:

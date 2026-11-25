@@ -2,6 +2,46 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SCANNED-HUMAN-SHOOT-111 (2026-11-25). Same authored armor,
+  photographed head and Maxwell hair candidate now retains all six original
+  body clips and adds a separate Shoot study. A constant 19.752309-degree
+  upper-arm correction levels nominal aim while preserving authored angular
+  recoil (maximum vertical direction component .0745544). Per-frame leveling
+  was rejected because it flattened recoil. No production resource changed.
+  Output: E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_shoot01;
+  editable packed Blend, body GLB, source surface samples, credits and reports.
+  Body SHA256:
+  6b878a2126a58b820a2b12bcaf2282d0e4eae22a5c7bc797f4c1d35e40c83084.
+  E: aim_report.json records seven durations; Shoot is .133333 seconds.
+
+  `DONE` technical checks within this study: native seven-clip/18-mesh/122-bone
+  load and sampled skin gate; source six clips, scanned head geometry/UV/photo
+  and Maxwell topology/UV/texture preservation checks. Actual pistol is a
+  separate nine-part CC0 asset, attached to the actual imported hand bone.
+  Combined Shoot-only export: 27 meshes, native surface error 1.760104 micrometres.
+  Runtime attachment: 17 sample times, nonzero actor placement, bidirectional
+  surface error 3.707486 micrometres; contact_acceptance remains false.
+  Initial equipped export incorrectly included muted NLA clips; explicit
+  derivative-only removal fixed that. Retained Shoot was initially muted,
+  causing .605312 m mismatch; explicitly unmuting it fixed the actual gate.
+  Original body retains all seven clips. Existing Rocketbox combined/runtime
+  and original Unvanquished combined regressions PASS (errors .801898,
+  3.282046 and 1.644267 micrometres respectively).
+
+  `DONE` native independent tactical stage dispatch: real pistol shown for
+  Shoot and hidden for Walk; seven body clips; robot five-action checks and
+  VTOL three controls. Five subjects, existing alley footprint with627 gray
+  obstacle cells, 62.208-pixel human reference. Short120-frame timing .406337s
+  is not a sustained benchmark. Inspected actual tactical_shoot.png and neutral
+  hand_closeup.png: face visible, but right index extended, left hand detached
+  from grip, hair/armor/identity still do not meet Rook art target. NOT accepted.
+  Tests executed:28 Python tests PASS,0 fail,0 skip; JUnit on E:tmp/pytest-111.xml.
+  Human acceptance0/2, independent stage5/6 subjects; native map1/1,
+  artistically finalized map0/1. Full action-set coverage remains incomplete.
+  `TODO` next: correct and inspect finger/trigger and offhand contacts, then
+  neutral front/profile/back and combat-zoom comparison. Do not start Raider
+  production before first human artistic acceptance. No push or release.
+
 - `IN_PROGRESS` AUTHORED-HAIR-SOURCE-FIT-110 (2026-11-25). Continued871acd95.
   Returned to actual Rook portrait on E: (orange raised quiff/undercut), not a new
   generic character. Reviewed primary MakeHuman hair catalogs and three actual

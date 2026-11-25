@@ -9,6 +9,22 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+Batch111 continuation: run `run_blender.ps1 -Script blender/build_scanned_shoot.py`
+after the scanned head/hair studies, then
+`run_blender.ps1 -Script blender/fit_unvanquished_pistol.py -ScriptArguments @('--scanned-shoot')`.
+Generated files stay on E: under `scanned_armor_shoot01`. Body has seven clips;
+the equipped derivative deliberately contains only Shoot. Never infer exporter
+filtering from NLA mute alone. Validate `authored_motion_check.tscn` with
+`--scanned-shoot-study`, then `rocketbox_pistol_check.tscn` with the same flag,
+both without and with `--runtime-attachment`. The latter checks17 actual times
+against source prop vertices under a nonzero actor placement. Independent stage:
+`comparison.tscn --scanned-shoot-study --robot-action-bundle --vtol-motion-study
+--tactical --self-test --sprite-review --shoot-preview`. Check positive markers
+and fresh hashed JSON, not only process exit status. Source geometry verifiers
+`verify_scanned_head.py --shoot-study` and `verify_maxwell_hair.py --shoot-study`
+must preserve the original six actions and source surfaces. This is a firing
+fit study, not accepted trigger/offhand contact or final Rook artwork.
+
 Run `run_blender.ps1 -Script blender/bake_unvanquished_actions.py` only after105
 source acquisition/conversion. It preserves source author export timing, bakes
 evaluated constrained body poses to a separate shared game rig, retains source

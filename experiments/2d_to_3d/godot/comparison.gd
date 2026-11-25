@@ -51,7 +51,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		push_error("Missing comparison subject: " + path)
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
-	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb")
+	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb")
 	var subject := document.generate_scene(state, 120 if authored_human else 30, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
@@ -84,7 +84,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
-	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args()
+	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args()
+	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args() or scanned_shoot
 	var scanned_head := "--scanned-head-study" in OS.get_cmdline_user_args() or scanned_hair
 	var unvanquished_motion := "--unvanquished-motion-study" in OS.get_cmdline_user_args() or scanned_head
 	var unvanquished_study := "--unvanquished-study" in OS.get_cmdline_user_args() or unvanquished_motion
@@ -122,6 +123,7 @@ func _ready() -> void:
 			rigged_human = true
 		if scanned_head:human_path=root+"scanned_armor_head01/human_actions.glb"
 		if scanned_hair:human_path=root+"scanned_armor_hair01/human_actions.glb"
+		if scanned_shoot:human_path=root+"scanned_armor_shoot01/human_actions.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -149,6 +151,9 @@ func _ready() -> void:
 		human_weapon.visible = false
 	if rocketbox_motion:
 		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0])
+		human_weapon.visible = false
+	if scanned_shoot:
+		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0],true)
 		human_weapon.visible = false
 	if "--authored-groom" in OS.get_cmdline_user_args():
 		assert(bundled_human, "Authored groom study requires the shared character rig")
@@ -279,14 +284,22 @@ func _ready() -> void:
 			assert(action_player.current_animation == "Pistol_Shoot")
 			if human_weapon: assert(human_weapon.visible)
 			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
+		elif scanned_shoot:
+			var shooting_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			assert(shooting_player.current_animation=="Shoot" and human_weapon.visible)
+			play_clip("Walk")
+			assert(not human_weapon.visible)
+			play_clip("Shoot")
+			assert(human_weapon.visible)
+			print("SCANNED_SHOOT_PROP_DISPATCH_OK real_prop_visibility")
 		else: assert("unavailable" in clip_status)
 		if unvanquished_motion:
 			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 			for authored_clip in ["Run","Attack","Crouch","Death"]:
 				play_clip(authored_clip)
 				assert(authored_player.current_animation==authored_clip)
-			assert(authored_player.get_animation_list().size()==6)
-			print("UNV_SIX_AUTHORED_BODY_CLIPS_DISPATCH_OK no_fictitious_shoot_or_melee")
+			assert(authored_player.get_animation_list().size()==(7 if scanned_shoot else 6))
+			print("SCANNED_SEVEN_BODY_CLIPS_OK" if scanned_shoot else "UNV_SIX_AUTHORED_BODY_CLIPS_DISPATCH_OK no_fictitious_shoot_or_melee")
 		if bundled_human or rocketbox_motion:
 			var bundle_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			play_clip("Melee")
@@ -561,7 +574,7 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable: " + name_value
 		return
 	player.play(name_value)
-	if selected == 0 and human_weapon: human_weapon.visible = name_value == "Pistol_Shoot"
+	if selected == 0 and human_weapon: human_weapon.visible = name_value in ["Pistol_Shoot","Shoot"]
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
@@ -574,6 +587,7 @@ func _process(_delta: float) -> void:
 		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored human study: U Run | A Attack | K Crouch | weapon grip NOT accepted"
 		if "--scanned-head-study" in OS.get_cmdline_user_args():hud.text += "\nScanned head assembly: U Run | A Attack | K Crouch | identity and face rig NOT accepted"
 		if "--scanned-hair-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored Maxwell hair: U Run | A Attack | K Crouch | fit and identity NOT accepted"
+		if "--scanned-shoot-study" in OS.get_cmdline_user_args():hud.text += "\nFiring fit study: 3 real pistol | U Run | A Attack | K Crouch | contact NOT final"
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 
@@ -597,7 +611,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var vehicle_actions := {KEY_7:"Rotor_Spin",KEY_8:"Gear_Retract",KEY_9:"Gear_Extend"}
 		if vehicle_actor != null and vehicle_actions.has(event.keycode):play_vehicle_clip(vehicle_actions[event.keycode])
 		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee", KEY_6: "Hit"}
-		if "--unvanquished-motion-study" in OS.get_cmdline_user_args() or "--scanned-head-study" in OS.get_cmdline_user_args() or "--scanned-hair-study" in OS.get_cmdline_user_args():
+		if "--unvanquished-motion-study" in OS.get_cmdline_user_args() or "--scanned-head-study" in OS.get_cmdline_user_args() or "--scanned-hair-study" in OS.get_cmdline_user_args() or "--scanned-shoot-study" in OS.get_cmdline_user_args():
 			actions.merge({KEY_U:"Run",KEY_A:"Attack",KEY_K:"Crouch"})
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])

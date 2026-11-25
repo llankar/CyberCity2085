@@ -6,7 +6,8 @@ import numpy as np
 from anatomical_groups import descendants
 from glb_document import Glb,COMPONENTS
 
-root=Path('E:/CyberCity2085-3d-lab/generated/phase2');folder=root/('scanned_armor_hair01' if '--hair-study' in sys.argv else 'scanned_armor_head01')
+root=Path('E:/CyberCity2085-3d-lab/generated/phase2');shoot_study='--shoot-study' in sys.argv
+folder=root/('scanned_armor_shoot01' if shoot_study else ('scanned_armor_hair01' if '--hair-study' in sys.argv else 'scanned_armor_head01'))
 source=Glb(root/'renderpeople_nathan01/human.glb');armor=Glb(root/'unvanquished_motion01/human_actions.glb');target=Glb(folder/'human_actions.glb')
 def array(g,index):
  a=g.doc['accessors'][index]
@@ -59,13 +60,17 @@ def tracks(g):
    key=(animation['name'],g.doc['nodes'][channel['target']['node']]['name'],channel['target']['path'])
    result[key]=(g.values(sampler['input']),g.values(sampler['output']),sampler.get('interpolation','LINEAR'))
  return result
-assert tracks(armor)==tracks(target),'Source body animation tracks changed'
+target_tracks=tracks(target)
+if shoot_study:
+ assert {a['name'] for a in target.doc['animations']}=={a['name'] for a in armor.doc['animations']}|{'Shoot'}
+ target_tracks={key:value for key,value in target_tracks.items() if key[0]!='Shoot'}
+assert tracks(armor)==target_tracks,'Source six body animation tracks changed'
 image_hashes=[]
 for image in target.doc['images']:
  view=target.doc['bufferViews'][image['bufferView']];start=view.get('byteOffset',0)
  image_hashes.append(hashlib.sha256(target.bin[start:start+view['byteLength']]).hexdigest())
 assert 'de30242833486227760b8b69590e9ef93b82754046191b82187ed80feef8849f' in image_hashes,'Original photographic JPEG changed'
-result={'glb_sha256':hashlib.sha256((folder/'human_actions.glb').read_bytes()).hexdigest(),'head_source_triangles':sum(expected.values()),'head_topology':'EXACT_SELECTED_SOURCE','maximum_position_component_error_m':float(max(worst[:3])),'maximum_normal_component_error':float(max(worst[3:6])),'maximum_uv_component_error':float(max(worst[6:])),'original_photo_jpeg_bytes':'EXACT_SOURCE','unchanged_body_meshes':16,'animation_tracks':'EXACT_SOURCE','scope':'Structural fidelity only; neck seam, expression and Rook artistic acceptance separate'}
+result={'glb_sha256':hashlib.sha256((folder/'human_actions.glb').read_bytes()).hexdigest(),'head_source_triangles':sum(expected.values()),'head_topology':'EXACT_SELECTED_SOURCE','maximum_position_component_error_m':float(max(worst[:3])),'maximum_normal_component_error':float(max(worst[3:6])),'maximum_uv_component_error':float(max(worst[6:])),'original_photo_jpeg_bytes':'EXACT_SOURCE','unchanged_body_meshes':16,'animation_tracks':'SIX_EXACT_SOURCE_PLUS_SHOOT_STUDY' if shoot_study else 'EXACT_SOURCE','scope':'Structural fidelity only; neck seam, expression and Rook artistic acceptance separate'}
 (folder/'source_preservation_check.json').write_text(json.dumps(result,indent=2))
 print('SCANNED_HEAD_SOURCE_PRESERVATION_OK',json.dumps(result))
 
