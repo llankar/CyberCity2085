@@ -1059,6 +1059,28 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Current150 neutral motion review151: preview main.tscn with150GLB, --clip=Hard stand,
+--neutral, --ortho-size=2.4 and
+--motion-review=E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/motion_review151.
+Produces120actual poses across five clips/four views/six fractions, preserving a
+completed manifest rather than overwriting it. Assemble/verify source hashes with
+`python experiments/2d_to_3d/review_contact_captures.py --motion151`.
+Five sheets require real visual inspection; command success is not art acceptance.
+
+Blender sparse first-human atlas pilot:
+`& experiments/2d_to_3d/run_blender.ps1 -Script blender/render_rocketbox_atlas.py -ScriptArguments @('--wardrobe150-pilot','--samples=4')`.
+Outputs150/atlas_pilot151,160real renders and five canonical action manifests.
+No previous129atlas/source is reused. Individual actions can be selected using
+--action=ShootStudy, Hard stand, Walk (1_24), MeleeStudy or DeathStudy in the array.
+Actual orbit projection measures source-forward/facings and foot anchor.
+Native atlas_review.tscn accepts --atlas-dir=E:/.../atlas_pilot151,
+--manifest=ShootStudy_atlas.json, --action=shoot, --combat-scale,
+--production-order, --self-test and --capture=E:/.../atlas_pilot151/shoot_native.png.
+Repeat for idle/walk/melee/death using the corresponding source-named manifests.
+`python experiments/2d_to_3d/verify_rocketbox_atlas.py --wardrobe150-pilot --native-proof`
+checks current source/CREDITS, PNG packing/margins/time calibration and all five
+real native proof hashes. Sparse pilot is not a native24fps/final-art claim.
+
 Rook wardrobe150 derivative:
 `& experiments/2d_to_3d/run_blender.ps1 -Script blender/adapt_amjviz_wardrobe150.py`.
 Requires149editable combat source. Removes only the real modular Neck guard's

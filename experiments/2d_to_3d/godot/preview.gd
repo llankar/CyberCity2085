@@ -265,6 +265,39 @@ func _ready() -> void:
 			camera.size = clampf(argument.trim_prefix("--ortho-size=").to_float(), 0.05, 1000.0)
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
 	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--motion-review="):
+			var folder := argument.trim_prefix("--motion-review=")
+			assert(folder.begins_with("E:/CyberCity2085-3d-lab/") and model_path.contains("/amjviz_wardrobe150/"))
+			assert(not FileAccess.file_exists(folder+"/captures.json"),"Preserve an existing completed review")
+			DirAccess.make_dir_recursive_absolute(folder)
+			var player := model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			var views := {"front":Vector3(0,0,3),"right":Vector3(3,0,0),"back":Vector3(0,0,-3),"left":Vector3(-3,0,0)}
+			var clips := ["Hard stand","Walk (1_24)","ShootStudy","MeleeStudy","DeathStudy"]
+			var captures := []
+			for clip in clips:
+				assert(player.has_animation(clip))
+				for mesh in model.find_children("*","MeshInstance3D",true,false):
+					if str(mesh.name).begins_with("EquippedPistol_"):mesh.visible=clip=="ShootStudy"
+				for view in views:
+					camera.position=target+views[view];camera.look_at(target)
+					for sample in range(6):
+						var fraction := sample/5.0
+						var time := player.get_animation(clip).length*fraction
+						player.play(clip);player.seek(time,true);player.pause()
+						for rig in model.find_children("*","Skeleton3D",true,false):rig.force_update_all_bone_transforms()
+						await RenderingServer.frame_post_draw
+						await RenderingServer.frame_post_draw
+						var file := "%s/%s_%s_%02d.png"%[folder,clip.replace(" ","_"),view,sample]
+						assert(get_viewport().get_texture().get_image().save_png(file)==OK)
+						captures.append({"clip":clip,"view":view,"fraction":fraction,"time_s":time,"file":file,"sha256":FileAccess.get_sha256(file)})
+				print("NATIVE_MOTION_REVIEW_CLIP_CAPTURED ",clip)
+			var output := FileAccess.open(folder+"/captures.json",FileAccess.WRITE)
+			assert(output!=null)
+			output.store_string(JSON.stringify({"model":model_path,"model_sha256":FileAccess.get_sha256(model_path),"captures":captures,
+				"scope":"Five required motions, four orthographic views and six actual native sampled poses; no continuous-motion/contact or automatic art acceptance"},"  "))
+			output.close();print("NATIVE_MOTION_REVIEW_CAPTURED frames=120 clips=5 views=4 times=6")
+			get_tree().quit();return
+	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--contact-review="):
 			var folder := argument.trim_prefix("--contact-review=")
 			assert(folder.begins_with("E:/CyberCity2085-3d-lab/"))

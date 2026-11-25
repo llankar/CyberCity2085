@@ -5,6 +5,68 @@ import sys
 from pathlib import Path
 import numpy as np
 from PIL import Image
+from atlas_sampling import atlas_sample_frames
+from atlas_facing import facing_lookup
+
+
+def verify_wardrobe_pilot(root,native=False):
+    """Verify current sparse pilot; do not apply old129 native-cadence claims."""
+    clips={'Hard stand':'idle','Walk (1_24)':'walk','ShootStudy':'shoot','MeleeStudy':'melee','DeathStudy':'death'}
+    source_hash=hashlib.sha256((root.parent/'human_actions.blend').read_bytes()).hexdigest()
+    credits_hash=hashlib.sha256((root/'CREDITS.txt').read_bytes()).hexdigest()
+    results={}
+    for clip,label in clips.items():
+        manifest=json.loads((root/(clip+'_atlas.json')).read_text())
+        assert manifest['source_model_sha256']==source_hash
+        assert manifest['credits_sha256']==credits_hash and manifest['credits_file']=='CREDITS.txt'
+        assert manifest['source_clip']==clip and manifest['frame_size']==[192,192]
+        assert manifest['static_pose']==(label=='idle')
+        animation=manifest['animations'][label];rows=animation['rows']
+        assert len(rows)==8 and all(len(row)==4 for row in rows)
+        assert sorted(i for row in rows for i in row)==list(range(32))
+        loop=label in ('idle','walk');assert animation['loop']==loop
+        first,last=manifest['source_strip_frames']
+        frames=atlas_sample_frames(first,last,loop=loop,count=4)
+        assert np.allclose(manifest['sample_scene_frames'],frames,rtol=0,atol=1e-8)
+        assert np.allclose(manifest['sample_times_s'],(np.array(frames)-first)/120,rtol=0,atol=1e-8)
+        expected_fps=1. if label=='idle' else (4 if loop else 3)/((last-first)/120)
+        assert abs(animation['fps']-expected_fps)<1e-6
+        assert np.allclose(manifest['reference_height_px'],62.208,rtol=0,atol=.001)
+        assert manifest['calibration_human_height_m']==manifest['reference_height_m']==1.8
+        assert manifest['source_forward_world']==[0,-1,0]
+        assert manifest['facing_to_orbit_view']==facing_lookup(manifest['projected_forward_vectors'])
+        anchors=np.array(manifest['anchors_by_orbit_view'])
+        assert anchors.shape==(8,2) and np.max(abs(anchors-np.array(manifest['anchor_uv'])))<1e-6
+        sheet=np.array(Image.open(root/manifest['texture']).convert('RGBA'))
+        assert sheet.shape==(768,1536,4)
+        distinct=[]
+        for direction,row in enumerate(rows):
+            hashes=set()
+            for sample,index in enumerate(row):
+                x,y=index%8,index//8;frame=sheet[y*192:(y+1)*192,x*192:(x+1)*192]
+                rendered=np.array(Image.open(root/f'{clip}_d{direction}_f{sample}.png').convert('RGBA'))
+                assert np.max(abs(frame.astype(int)-rendered.astype(int)))<=2,'Packing changed rendered pixels'
+                alpha=frame[:,:,3]
+                assert np.count_nonzero(alpha>16)>100
+                assert max(alpha[0].max(),alpha[-1].max(),alpha[:,0].max(),alpha[:,-1].max())<8,'Clipped actor'
+                hashes.add(hashlib.sha256(frame.tobytes()).hexdigest())
+            assert len(hashes)>1 or label=='idle','Dynamic clip has no observed motion'
+            distinct.append(len(hashes))
+        results[label]={'frames':32,'distinct_frames_by_view':distinct,
+                        'png_sha256':hashlib.sha256((root/manifest['texture']).read_bytes()).hexdigest()}
+        if native:
+            proof=json.loads((root/f'native_{label}_validation.json').read_text())
+            assert proof['status']=='PASS' and proof['action']==label and proof['frame_index_tests']==32
+            assert proof['display_scale']==1 and proof['production_order']
+            assert proof['loop']==loop and abs(proof['fps']-expected_fps)<1e-6
+            assert proof['manifest_sha256']==hashlib.sha256((root/(clip+'_atlas.json')).read_bytes()).hexdigest()
+            assert proof['atlas_png_sha256']==results[label]['png_sha256']
+            results[label]['native_frame_index_tests']=32
+    report={'frames':160,'clips':results,'source_blend_sha256':source_hash,'native_proof_verified':native,
+            'hash_uniqueness_is_not_artistic_motion_proof':True,
+            'scope':'Sparse four-pose/eight-facing first-human pilot; pixel packing, framing, clocks and projection mapping, not fluid animation or final art'}
+    (root/'pilot_verification.json').write_text(json.dumps(report,indent=2))
+    print('WARDROBE_PILOT_ATLAS_PIXELS_PASS frames=160 clips=5 directions=8')
 
 
 def verify(root,robot=False,cyborg=False,rook=False,native=False):
@@ -90,6 +152,9 @@ def verify(root,robot=False,cyborg=False,rook=False,native=False):
 
 
 if __name__=='__main__':
+    if '--wardrobe150-pilot' in sys.argv:
+        verify_wardrobe_pilot(Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/atlas_pilot151'),native='--native-proof' in sys.argv)
+        raise SystemExit(0)
     robot='--robot-bundle' in sys.argv
     cyborg='--cyborg-fire-study' in sys.argv
     rook='--rook-run-study' in sys.argv

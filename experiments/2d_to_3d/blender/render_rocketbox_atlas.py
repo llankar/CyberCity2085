@@ -9,16 +9,19 @@ from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 sys.path.insert(0,str(Path(__file__).parent.parent))
 from atlas_sampling import atlas_sample_frames
+from atlas_facing import facing_lookup
 
 robot='--robot-bundle' in sys.argv
+amjviz='--wardrobe150-pilot' in sys.argv
 rook='--rook-run-study' in sys.argv
-cyborg='--cyborg-fire-study' in sys.argv or rook
+cyborg='--cyborg-fire-study' in sys.argv or rook or amjviz
 assert not(robot and cyborg),'Choose one atlas source'
 sample_count=int(next((a.split('=',1)[1] for a in sys.argv if a.startswith('--samples=')),'0' if rook else '4'))
 assert (rook and sample_count==0) or 2<=sample_count<=64,'Choose2..64 samples per direction'
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')/('rook_run129' if rook else ('security_bundle01' if robot else ('cyborg_fire01' if cyborg else 'rocketbox_military03/motion01')))
 source_file='robot_actions.blend' if robot else ('human.blend' if cyborg else 'human_motion.blend')
-output=root/'atlas'; output.mkdir(exist_ok=True)
+if amjviz:root=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150');source_file='human_actions.blend'
+output=root/('atlas_pilot151' if amjviz else 'atlas'); output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(root/source_file),use_scripts=False)
 scene=bpy.context.scene
 rig=next(o for o in scene.objects if o.type=='ARMATURE') if cyborg else bpy.data.objects['SecurityGameRig' if robot else 'Bip01']
@@ -33,6 +36,7 @@ if requested is not None and requested not in details:raise ValueError('Requeste
 reference_height=1.949875712 if robot else 1.8503574
 calibration_height=1.869130611 if robot else 1.8503574
 if cyborg:reference_height=calibration_height=1.79992747306824
+if amjviz:reference_height=calibration_height=1.8
 expected_reference_pixels=62.208*reference_height/calibration_height
 owners=[*scene.objects,*[o.data.shape_keys for o in scene.objects if o.type=='MESH' and o.data.shape_keys]]
 scene.render.engine='BLENDER_EEVEE_NEXT'
@@ -50,6 +54,7 @@ camera.data.type='ORTHO'; elevation=.6
 camera.data.ortho_scale=size*calibration_height*math.cos(elevation)/62.208
 target=Vector((0,0,.9))
 for clip,info in details.items():
+    if amjviz and clip not in {'Hard stand','Walk (1_24)','ShootStudy','MeleeStudy','DeathStudy'}:continue
     if requested is not None and clip!=requested:continue
     if rook and requested is None and clip=='run':continue
     if robot:
@@ -59,7 +64,10 @@ for clip,info in details.items():
                 for track in owner.animation_data.nla_tracks:track.mute=track.name!=clip
     else:
         for track in rig.animation_data.nla_tracks:track.mute=track.name!=clip
-    loop=clip=='Idle' if robot else clip in {'Idle','Walk','CombatReadyStudy','walk','run'}
+    loop=clip=='Idle' if robot else clip in {'Idle','Walk','CombatReadyStudy','walk','run','Hard stand','Walk (1_24)'}
+    if amjviz:
+        for obj in scene.objects:
+            if obj.name.startswith('EquippedPistol_'):obj.hide_render=clip!='ShootStudy'
     first_frame=0.;last_frame=info['frames']-1
     if robot or cyborg:
         strip=next(t for t in rig.animation_data.nla_tracks if t.name==clip).strips[0]
@@ -84,7 +92,7 @@ for clip,info in details.items():
                 endpoints.append(evaluated.matrix_world @ mesh.vertices[0].co);evaluated.to_mesh_clear()
             root_displacement=endpoints[1]-endpoints[0]
             assert (root_displacement-Vector((0,-.6,0))).length<.00001,('Unexpected authored forward travel',root_displacement)
-    sheet=np.zeros((count*size,8*size,4),dtype=np.float32); rows=[]; anchors=[]; heights=[]
+    sheet=np.zeros((count*size,8*size,4),dtype=np.float32); rows=[]; anchors=[]; heights=[];forwards=[]
     for direction in range(8):
         angle=direction*math.tau/8
         camera.location=target+Vector((8*math.cos(angle),8*math.sin(angle),8*math.tan(elevation)))
@@ -93,6 +101,8 @@ for clip,info in details.items():
         foot=world_to_camera_view(scene,camera,Vector((0,0,0)))
         head=world_to_camera_view(scene,camera,Vector((0,0,reference_height)))
         anchors.append([foot.x,1-foot.y]); heights.append(abs(head.y-foot.y)*size)
+        forward=world_to_camera_view(scene,camera,Vector((0,-1,0)))
+        forwards.append([forward.x-foot.x,foot.y-forward.y])
         assert abs(heights[-1]-expected_reference_pixels)<.001
         indices=[]
         for sample in range(count):
@@ -119,6 +129,20 @@ for clip,info in details.items():
         'reference_height_m':reference_height,'calibration_human_height_m':calibration_height,'calibration_human_pixels':62.208,
         'walk_root_motion_removed_m':root_displacement.length if robot else 0.,'walk_root_motion_removed_vector_m':list(root_displacement),'source_model_sha256':__import__('hashlib').sha256((root/source_file).read_bytes()).hexdigest(),
         'camera_views':'Eight orbit views; production facing correspondence NOT VERIFIED'},indent=2),encoding='utf-8')
+    if amjviz:
+        path=output/(clip+'_atlas.json');manifest=json.loads(path.read_text())
+        label={'Hard stand':'idle','Walk (1_24)':'walk','ShootStudy':'shoot','MeleeStudy':'melee','DeathStudy':'death'}[clip]
+        animation=manifest['animations'].pop(clip.lower());manifest['animations']={label:animation}
+        if clip=='Hard stand':animation['fps']=1.
+        manifest.update({'source':'AmJViZ royalty-free + licensed CC0 quiff/UAL/pistol; private derivative, see CREDITS.txt',
+            'status':'Single-human four-sample atlas pilot; not a fluid final animation set or production resource',
+            'source_clip':clip,'static_pose':clip=='Hard stand','source_forward_world':[0,-1,0],
+            'facing_y_scale':2.,'projected_forward_vectors':forwards,
+            'facing_to_orbit_view':facing_lookup(forwards),'camera_views':'Measured projection of actual -Y source forward; inspect rendered facings',
+            'credits_file':'CREDITS.txt','credits_sha256':__import__('hashlib').sha256((root/'CREDITS.txt').read_bytes()).hexdigest()})
+        assert max(abs(a[i]-anchors[0][i]) for a in anchors for i in range(2))<1e-6
+        manifest['anchor_uv']=anchors[0]
+        path.write_text(json.dumps(manifest,indent=2))
     if cyborg:(output/'CREDITS.txt').write_text((root/'CREDITS.txt').read_text(),encoding='utf8')
     print('ROCKETBOX_ACTION_ATLAS_RENDERED',clip,8*count,flush=True)
 print('ACTION_ATLAS_RENDER_COMPLETE',requested or 'all',flush=True)

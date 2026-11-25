@@ -2,6 +2,44 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MOTION-REVIEW / ATLAS-PILOT-151 (2026-11-25). Previous150 made
+  concrete wardrobe/rig/native progress. `DONE` actual native neutral render review
+  of five mandatory motions, four views and six times each:120PNG captures with
+  model/frame hashes in150/motion_review151/captures.json. Five assembled sheets
+  actually inspected: ready posture, walk, shoot, punch and death preserve gross
+  body/clothing/neck silhouette at sampled times; death settles coherently, gun
+  only visible during shooting. This is not continuous/contact or close-finger
+  acceptance. review_contact_captures.py validates complete unique coverage,
+  consistent view clocks and source/image hashes; eight new rejection/coverage
+  tests preserve original five contact-review tests.
+  `DONE` first-current-human atlas pilot justified by that sampled coherence,
+  not generalized human production. Reused Blender eight-orbit renderer with
+  explicit --wardrobe150-pilot; five actions x8directions x4poses=160actual renders.
+  Transparent192px frames calibrated1.8m=62.208px, elevation.6rad. Actual authored
+  source-forward-Y projections give E/SE/S/SW/W/NW/N/NE lookup4,5,6,7,0,1,2,3;
+  measured common foot anchor retained. Packed PNG equals individual renders
+  within2levels, nonempty alpha/margins PASS. Source BLEND/CREDITS hashes verified.
+  Pilot fps derives exact source durations; idle is explicitly a static posture
+  played at1fps, not invented breathing. Four samples are NOT a fluid final set.
+  Source150 unchanged, no atlas129reuse. New source-private atlas_pilot151 holds
+  all PNGs/manifests/CREDITS. Shader/light differences with Godot remain visible.
+  `DONE` five actual atlas_review native playback gates at combat scale1.0,
+ 160frame-index tests, pause/direction/mapping/loop/final-frame controls PASS.
+  Fresh verifier initially FAIL because an image array shadowed native-proof
+  bool; renamed rendered, full pixel+native verification rerun PASS. Actual
+  shoot_native.png and death_native.png inspected; shoot sheet also inspected.
+  pilot_verification.json records current source/atlas hashes and linked native
+  proofs. Hash uniqueness alone is NOT motion proof(idle raster hashes vary).
+  Targeted combined65PASS/0fail/0skip in tmp/pytest151-combined.xml. Original
+  contact-review mode preserved. No production edits, pushes or releases.
+  `TODO` next: replace sparse first-human pilot with approximately24fps exact-
+  duration eight-direction action sheets for this same source; inspect resulting
+  playback/contact quality and integrate only into independent comparison scene.
+  Do not expand to Raider yet. Final motion/contact/likeness acceptance remains
+  open; sampled silhouette review5/5, final art0/5; scene5/6, mapnative1/1/art0/1.
+  Current full-cadence atlas NOT GENERATED; current texture budget/benchmark still
+  pending integration. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` ROOK-WARDROBE-150 (2026-11-25). Continued after149checkpoint.
   Actual material-isolation renders identify the tall brown guard as a modular
   Neck accessory, not the anatomical neck. Diagnostics kept under149folder;
