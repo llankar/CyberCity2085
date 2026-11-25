@@ -2,6 +2,45 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SOURCE-OPACITY-137 (2026-11-25). Continued7c0dad12. Previous
+  audit was progress: footprint/margin evidence ruled out blind alpha removal.
+  `DONE` actual Blender geometry/source adapter trace mapped124objects to baked
+  material names via saved PBR source.118objects have constant-one adapter alpha;
+ 4others are the already documented opaque game visor approximation (not native
+  film refraction).2dynamic lettering/barcode decals retain unknown alpha.
+  Source files SHA-protected/unchanged; no scripts/autoexec from film source run.
+  E:security_alpha137/source_alpha.json records object/material/route evidence.
+  This establishes intended opacity for122materials, not lossless RGB equivalence.
+  `DONE` security_opaque137 editableBLEND/GLB/CREDITS/opacity_report.json:122BLEND
+  modes restored toOPAQUE,part_122/part_123 lettering leftBLEND. All binary bytes
+  (geometry,UVs,textures,weights,animations) and non-alpha JSON EXACT compared to
+  compact134. Direct JSON patch avoids known Blender roundtrip resampling; saved
+  editableBLEND disconnects alpha textures only on matching122materials. Original
+  sourceBlend and GLB untouched. NewGLB SHA
+  39a02cee8aefc90c7045aeb2f8f894c4f4cc6bb4f8b95f1d86e85131fccaf8d4.
+  `DONE` actual Godot5midpoint captures Idle/Walk/Melee/Hit/Death, source-labelled
+  logs and SHA-bound native_opacity_validation.json. Intended changed pixels vs
+  compact134:4146/7321/4059/8433/3300 respectively; no pixel-identical claim.
+  Actual Idle and Melee reviewed; robot silhouette still thin/dark relative to2D.
+  Optional --source-opacity-study independent scene passes robot5actions,human6
+  dispatch,VTOL controls,selection/camera and five-subject627cell layout checks.
+  `DONE` measured current scene1520frames/5.002008s=303.877963fps,p95postdraw4.032ms,
+  max610drawcalls,enginevideo941669183bytes; actual1920x1080render/1280x720window.
+ 72GPU observations requested;13overlap benchmark UTC interval with live Godot
+  PIDs4016/32440,globalGPU2600..2693MiB. Verified benchmark137.json/gpu137.json
+  via reproducible CLI; vehicle hash now included with human/robot/facade hashes.
+  Not exclusive processVRAM, guaranteed peak, GPU execution time or an FPS gain.
+ 19targeted pytest PASS0fail0skip (3newopacity,3alpha,4compaction,2paint,7window).
+  E:tmp/pytest137-final.xml. Existing SDL warning persists. No new full314human
+  pose test needed/executed: human133unchanged; no artistic acceptance implied.
+  `TODO` NEXT: return to whole-character artistic finish (face/neck/grip and
+  tactical readability), without MPFB armor recoloring or second-human expansion.
+  Robot source-opacity candidate can be used for next controlled render study;
+  defaults remain historical source. Vehicle coarse nose/duct geometry open.
+  Requiredhumanclips5/5technical,0/5artistic;finalRook0/1;finalhumans0/2;
+  scene5/6subjects;mapnative1/1/artistic0/1;133atlas NOT GENERATED. No production,
+  mainGOAL,saves,remote push or build changes. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` ROBOT-ALPHA-136 (2026-11-25). Continued78ca7964; previous
   batch progress verified fitted vehicle panels/native retained articulation.
   `DONE` read-only audit of actual compact134robot, source SHA

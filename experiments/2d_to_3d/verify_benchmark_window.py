@@ -54,6 +54,10 @@ def main():
         assert path.resolve().is_relative_to(root.resolve())
         assert hashlib.sha256(path.read_bytes()).hexdigest() == benchmark[hash_key]
     assert hashlib.sha256((root/'tactical_facades01/facades.glb').read_bytes()).hexdigest() == benchmark['facade_glb_sha256']
+    if 'vehicle' in benchmark:
+        vehicle = Path(benchmark['vehicle']).resolve()
+        assert vehicle.is_relative_to(root.resolve())
+        assert hashlib.sha256(vehicle.read_bytes()).hexdigest() == benchmark['vehicle_glb_sha256']
     assert benchmark['logical_viewport_size'] == [1920.,1080.]
     assert benchmark['render_texture_size'] == [1920.,1080.]
     result = summarize(benchmark,window)

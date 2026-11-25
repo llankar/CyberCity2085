@@ -823,3 +823,29 @@ coverage, not proof of visible holes and not permission to strip all BLEND modes
 No derivative GLB is written. Next material change must inspect authored source
 alpha and actual native filtered edges, preserving legitimate translucency.
 
+### Source-proven robot opacity137
+
+Source tracing resolves118constant-one adapter-alpha objects,4documented opaque
+visor approximations and2dynamic lettering decals. This is stronger evidence
+than footprint rasterization alone. The137derivative restores122opaque modes
+and retains both decalsBLEND. It changes rendering intentionally; binary geometry,
+UVs,weights,animation and original image data are unchanged. Source BLEND remains
+untouched and editable derivative disconnects only those122alpha inputs.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_robot_source_alpha.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/restore_robot_source_opacity.py
+python experiments/2d_to_3d/verify_robot_opacity.py
+python experiments/2d_to_3d/verify_benchmark_window.py --folder security_opaque137 --batch 137
+```
+
+Native verifier requires prior main.tscn captures for five clips (Idle,Walk,Melee,
+Hit,Death), --neutral --view=front --clip-fraction=0.5. Save CLIP.png/log under
+E:security_opaque137. It compares SHA-bound source GLBs and actual compact134
+baseline images. Comparison scene opts in with --robot-action-bundle
+--source-opacity-study; current vehicle uses --vtol-motion-study
+--vtol-finish-study. Add --benchmark-output=E:/CyberCity2085-3d-lab/generated/phase2/security_opaque137/benchmark137.json
+and concurrent sample_gpu_memory.ps1 outputgpu137.json to reproduce current
+five-second timestamp-correlated measurement. Current303.878fps/global2600..2693
+MiB observations are neither an optimization gain nor production acceptance.
+

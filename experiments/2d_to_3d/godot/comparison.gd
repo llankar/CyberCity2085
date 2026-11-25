@@ -175,6 +175,8 @@ func _ready() -> void:
 	if robot_bundle: robot_path = root + "security_bundle01/robot_actions.glb"
 	if robot_bundle and "--compact-robot-study" in OS.get_cmdline_user_args():
 		robot_path = root + "security_compact134/robot_actions.glb"
+	if robot_bundle and "--source-opacity-study" in OS.get_cmdline_user_args():
+		robot_path = root + "security_opaque137/robot_actions.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
@@ -511,6 +513,9 @@ func _ready() -> void:
 		evidence["end_utc_unix_s"]=Time.get_unix_time_from_system()
 		evidence["human_glb_sha256"]=FileAccess.get_sha256(human_path)
 		evidence["robot_glb_sha256"]=FileAccess.get_sha256(robot_path)
+		if is_instance_valid(vehicle_actor) and vehicle_actor.has_meta("source_glb"):
+			evidence["vehicle"]=vehicle_actor.get_meta("source_glb")
+			evidence["vehicle_glb_sha256"]=FileAccess.get_sha256(evidence["vehicle"])
 		evidence["arguments"]=Array(OS.get_cmdline_user_args())
 		evidence["godot_version"]=Engine.get_version_info().string
 		if "--facades-study" in OS.get_cmdline_user_args():evidence["facade_glb_sha256"]=FileAccess.get_sha256(root+"tactical_facades01/facades.glb")
@@ -655,6 +660,7 @@ func load_tactical_map() -> void:
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/" + vehicle_path, Vector3(-6, 4, -4))
 	if animated_vehicle:
 		vehicle_actor = subjects[-1]
+		vehicle_actor.set_meta("source_glb", "E:/CyberCity2085-3d-lab/generated/phase2/" + vehicle_path)
 		play_vehicle_clip("Rotor_Spin")
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/crate_procedural.glb", Vector3(-3, 0, 2))
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/generator01/generator.glb", Vector3(4.5, 0, 1.5))
