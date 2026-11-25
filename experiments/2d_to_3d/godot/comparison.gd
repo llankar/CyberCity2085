@@ -14,6 +14,7 @@ var clip_status := "Human: static fitting model; action clips unavailable"
 var human_height := 1.718
 var robot_height := 2.4
 var vehicle_actor: Node3D
+var cover_controller
 var sidearm_modules
 var human_weapon: Node3D
 var human_embedded_weapon: Array[MeshInstance3D] = []
@@ -90,7 +91,8 @@ func _ready() -> void:
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var motion_study := "--motion-extension159" in OS.get_cmdline_user_args()
+	var transition_study := "--cover-transitions160" in OS.get_cmdline_user_args()
+	var motion_study := transition_study or "--motion-extension159" in OS.get_cmdline_user_args()
 	assert(not motion_study or not (current_atlas_review or generated_review),"New motions have no matching atlas")
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
 	assert(not current_budget or not current_atlas_review,"Budget variant requires separate atlas review")
@@ -197,7 +199,7 @@ func _ready() -> void:
 		if support_study:human_path=root+"amjviz_grip149/human_actions.glb"
 		if wardrobe150_study:human_path=root+"amjviz_wardrobe150/human_actions.glb"
 		if current_budget:human_path=root+"amjviz_budget154_1024/human_actions.glb"
-		if motion_study:human_path=root+"motion_extension159/human.glb"
+		if motion_study:human_path=root+("cover_transitions160/human.glb" if transition_study else "motion_extension159/human.glb")
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
@@ -253,6 +255,9 @@ func _ready() -> void:
 		var extended_aliases:Dictionary=subjects[0].get_meta("action_aliases")
 		extended_aliases.merge({"Hit":"HitStudy","Cover":"CoverStudy"})
 		subjects[0].set_meta("action_aliases",extended_aliases)
+	if transition_study:
+		cover_controller=preload("res://cover_sequence160.gd").new()
+		cover_controller.configure(subjects[0],func(clip):clip_status="Human animation: "+clip)
 	if modular_study:
 		sidearm_modules = preload("res://equipment_modules153.gd").new()
 		sidearm_modules.configure(subjects[0], root+"amjviz_wardrobe150/human_actions.glb")
@@ -349,7 +354,7 @@ func _ready() -> void:
 		_unhandled_input(swap_key)
 		assert(sidearm_modules.selected=="firewarden")
 		print("MODULE_STAGE_INPUT153_PASS human_swap,robot_guard,restore")
-	if motion_study:
+	if motion_study and not transition_study:
 		selected=0
 		var extension_key:=InputEventKey.new();extension_key.pressed=true
 		for entry in [[KEY_6,"HitStudy"],[KEY_K,"CoverStudy"]]:
@@ -498,6 +503,23 @@ func _ready() -> void:
 			else: print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Idle/Walk/Melee/Hit/Death" if robot_bundle else ("Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))))
+	if transition_study and "--self-test" in OS.get_cmdline_user_args():
+		selected=0;play_clip("Idle")
+		var cover_key:=InputEventKey.new();cover_key.pressed=true;cover_key.keycode=KEY_K
+		_unhandled_input(cover_key)
+		assert(cover_controller.player.assigned_animation=="CoverEnterStudy")
+		_unhandled_input(cover_key)
+		assert(cover_controller.history==["CoverEnterStudy"])
+		await get_tree().create_timer(.75).timeout
+		assert(cover_controller.player.assigned_animation=="CoverStudy")
+		selected=1;_unhandled_input(cover_key)
+		assert(cover_controller.player.assigned_animation=="CoverStudy")
+		selected=0;_unhandled_input(cover_key)
+		assert(cover_controller.player.assigned_animation=="CoverExitStudy")
+		await get_tree().create_timer(.75).timeout
+		assert(cover_controller.player.assigned_animation=="Hard stand")
+		assert(cover_controller.history==["CoverEnterStudy","CoverStudy","CoverExitStudy","Hard stand"])
+		print("COVER160_ACTUAL_SEQUENCE_PASS enter,loop,exit,idle,repeat_guard,robot_guard")
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if amjviz_combat:
 		var preview_actions:Array=["Shoot","Melee","Death"]
@@ -849,6 +871,7 @@ func _process(_delta: float) -> void:
 	if hud:
 		var fps_value := str(Engine.get_frames_per_second()) if Time.get_ticks_usec()-first_process_usec > 2000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		if cover_controller!=null:hud.text += "\nK: enter/exit crouched cover from idle | repeated transition presses ignored"
 		if "--motion-extension159" in OS.get_cmdline_user_args():hud.text += "\n6: authored hit | K: crouched cover study (no tactical rule change)"
 		if sidearm_modules!=null:hud.text += "\nE: swap actual sidearm | 3: draw | module: "+sidearm_modules.selected
 		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
@@ -869,6 +892,9 @@ func play_vehicle_clip(clip: String) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_K and selected==0 and cover_controller!=null:
+			cover_controller.toggle()
+			return
 		if event.keycode == KEY_E and selected==0 and sidearm_modules!=null:
 			sidearm_modules.next(sidearm_modules.animation_player.assigned_animation)
 		if event.keycode == KEY_TAB:

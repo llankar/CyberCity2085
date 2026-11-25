@@ -5,14 +5,15 @@ func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var motion_study := "--motion-extension159" in OS.get_cmdline_user_args()
+	var transition_study := "--cover-transitions160" in OS.get_cmdline_user_args()
+	var motion_study := transition_study or "--motion-extension159" in OS.get_cmdline_user_args()
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
 	var wardrobe_study := motion_study or current_budget or "--wardrobe150-study" in OS.get_cmdline_user_args()
 	assert(int(hair_study)+int(support_study)+int(wardrobe_study)<=1)
 	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
 	if support_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_grip149/"
 	if wardrobe_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/"
-	if motion_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/motion_extension159/"
+	if motion_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/"+("cover_transitions160/" if transition_study else "motion_extension159/")
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
 	if "--texture-budget-study" in OS.get_cmdline_user_args():
@@ -27,7 +28,7 @@ func _ready() -> void:
 	add_child(model)
 	var player := model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 	var rig := model.find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
-	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==(9 if motion_study else 7))
+	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==(11 if transition_study else (9 if motion_study else 7)))
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
 	assert(meshes.size()==(11 if hair_study or support_study or wardrobe_study else 10))
@@ -55,11 +56,19 @@ func _ready() -> void:
 	player.play("Hard stand");player.seek(reset_sample.time_s,true);player.pause();rig.force_update_all_bone_transforms()
 	var reset: Dictionary = checker.compare_sample(meshes,rig,probe,reset_sample.mesh_bounds_blender,reference.body_name)
 	worst=maxf(worst,reset.error)
+	var endpoint_error:=0.
+	if transition_study:
+		var body_mesh:MeshInstance3D=meshes[reference.body_name]
+		for pair in [["CoverEnterStudy",false,"Hard stand",false],["CoverEnterStudy",true,"CoverStudy",false],["CoverExitStudy",false,"CoverStudy",true],["CoverExitStudy",true,"Hard stand",false]]:
+			var a:=endpoint_box(player,rig,body_mesh,probe,pair[0],pair[1])
+			var b:=endpoint_box(player,rig,body_mesh,probe,pair[2],pair[3])
+			endpoint_error=maxf(endpoint_error,maxf(a.position.distance_to(b.position),a.end.distance_to(b.end)))
+		assert(endpoint_error<.0005,"Cover endpoint pose jump")
 	probe.free();checker.free()
 	var file := FileAccess.open(folder+"native_actions.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(model_path),
 		"reference_sha256":reference_hash,"clips":clips,
-		"maximum_error_m":worst,"samples":count,"sample_cadence_hz":48,"death_to_idle_reset_error_m":reset.error,
+		"maximum_error_m":worst,"cover_endpoint_error_m":endpoint_error,"samples":count,"sample_cadence_hz":48,"death_to_idle_reset_error_m":reset.error,
 		"scope":"Actual evaluated body/weapon bounds at source key/midpoint cadence; not full120Hz, artistic/contact or original Rigify fidelity"},"  "))
 	file.close()
 	if worst>=.0005:
@@ -71,5 +80,15 @@ func _ready() -> void:
 		assert(clips.CoverStudy.floor_m>=-.0005 and clips.HitStudy.floor_m>=-.0005)
 		assert(clips.CoverStudy.maximum_floor_m<.005 and clips.HitStudy.maximum_floor_m<.005,"New motion floats above floor")
 		assert(clips.CoverStudy.final_body_height_m<clips["Hard stand"].final_body_height_m*.85,"Cover not visibly crouched")
+	if transition_study:
+		for label in ["CoverEnterStudy","CoverExitStudy"]:
+			assert(clips[label].floor_m>=-.0005 and clips[label].maximum_floor_m<.005,"Transition floats/penetrates")
 	print("AMJVIZ_COMBAT_NATIVE_EXPORT_PASS samples=",count," error_m=",worst)
 	get_tree().quit()
+
+func endpoint_box(player:AnimationPlayer,rig:Skeleton3D,mesh:MeshInstance3D,probe,clip:String,last:bool) -> AABB:
+	player.play(clip);player.seek(player.current_animation_length if last else 0.,true);player.pause();rig.force_update_all_bone_transforms()
+	var points:PackedVector3Array=probe.skinned_points(mesh,rig,8)
+	assert(not points.is_empty());var box:=AABB(points[0],Vector3.ZERO)
+	for point in points:box=box.expand(point)
+	return box

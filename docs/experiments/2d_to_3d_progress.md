@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` COVER-TRANSITIONS-160 (2026-11-25).
+  Previous159 turn classified progress: grounded authored hit/crouch plus447pose
+  validation. `DONE` two separate0.6s/73key120Hz clips CoverEnterStudy/CoverExitStudy
+  blend actual existing Hard stand and grounded CoverStudy endpoint poses. No
+  primitive geometry/new wardrobe or tactical-rule change. Actual deformed body
+  grounds intermediate keys (max root offset92.243mm); endpoints retain source
+  poses rather than adding an artificial discontinuity. Source9clip input/output
+  accessor bytes exactly preserved, actual verifier PASS. Private E: BLEND/GLB,
+  CREDITS and transitions.json; no new downloads or model generalization.
+  `DONE` native11clip/262bone507bounds samples at48Hz PASS, max88.83180271um
+  within unchanged0.5mm gate. Four actual native body-bound endpoint comparisons
+  PASS max0.381655951um. New transition floor minimum-0.188069mm (original standing
+  endpoint), maximum1.003281mm; reject penetration<-0.5mm and floating>5mm.
+  Source first blend torso/knee/foot contact is not artistic acceptance.
+  `DONE` small independent cover_sequence160.gd controller: K from idle plays
+  actual enter, animation_finished starts crouch loop, K plays exit then idle.
+  Ignores repeated presses during transition and K with robot selected. No game
+  production state/control modified. Optional --cover-transitions160 stage mode
+  loads correct11clip variant, blocks unmatched generated atlas/module studies.
+  Native elapsed-animation input test PASS enter/loop/exit/idle and both guards.
+  First stage test FAIL at legacy159instant-K assertion; it assumed immediate
+  crouch. Fixed by keeping old159test in its own mode, exercising real160sequence
+  including0.75s waits. Only the exact owned failed-stage Godot PIDs were stopped
+  after inspecting their full command lines. Failure/final logs retained.
+  Six actual native neutral midpoint front/profile/back renders inspected:
+  coherent broad silhouette, no gross exploded joints. Intermediate footsteps
+  may slide; full120Hz foot-lock/contact and final cover aim/lean NOT VERIFIED.
+  Thus sequence is technical progress, not finalized tactical cover art. Source
+  Rook hair/face/wardrobe still below requested artistic target.
+  `DONE` verify_motion_extension159.py --cover-transitions160 --native-proof:
+  confirms source9exact clips,507native samples, current BLEND/reference/GLB,
+  endpoint threshold and six1280x720PNG hashes. acceptance160.json on E:.
+  Five targeted Python tests PASS0fail0skip, tmp/tests160.xml. New actual native
+  gates and elapsed stage sequence tests pass; no production tests/perf benchmark.
+  Evidence generated/phase2/cover_transitions160 plus tmp/cover160*.log. Reproduce
+  build_cover_transitions160.py; measure_amjviz_actions146.py --cover-transitions160;
+  native amjviz_actions_check and optional comparison --cover-transitions160;
+  verifier --cover-transitions160 --native-proof. All assets/cache remain E:.
+  `TODO` true foot locking/full motion contact, weapon/lean cover variants, heal,
+  conditional PSI; first-human art and modular garments; Raider still deferred.
+  Eight technical families including unaccepted cover study,11clips includes
+  T_pose and transitions; do not inflate completed-family count from clip count.
+  Scene5/6physical subjects, map native1/1/final3Dart0/1 unchanged. No global
+  acceptance or production replacement. CHANTIER GLOBAL INCOMPLET; no build/push.
+
 - `IN_PROGRESS` AUTHORED-MOTION-EXTENSION-159 (2026-11-25).
   Previous158 turn classified progress: three actual hair studies rejected with
   native evidence; final human art remains open. Continued another explicit GOAL
