@@ -2,6 +2,52 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PORTRAIT-UNDERCUT-133 (2026-11-25). Continued92f97b0c; previous
+  turn concrete wrist ownership evidence changed next action (not a confirmed
+  empty wrist gap). `DONE` actual Rook portrait agent_male_14.png inspected again:
+  swept copper top, shaved temples/nape. Existing source quiff trimmed by three
+  continuous undercut planes,2077->1702faces/1479vertices; no primitive cap.1365
+  original vertices retained before root fitting. Initial straight rear edge
+  overhung scalp;310root-band vertices fitted to real scalp, maximum22.689mm;
+  front crest retained. All non-hair positions/UV protected by exact hashes.
+  Actual source notices and portrait hash retained. E:rook_undercut133 contains
+  editableBLEND/GLB/CREDITS/report. SHA5c864a8194f75f3b44bb7eb3626281bed00a9e11c66c0bb4ff56d7250a6997e3.
+
+  `DONE` BINDING-133: first cut failed normalized-weight assertion. Inspection
+  revealed25inherited body groups including Head.001, contradicting the earlier
+  assumption that the127hair object had only one rigid group. Clear inherited
+  groups on this derivative and explicitly assign Head1, including cut vertices.
+  Historical129assets retained; do not rewrite their old evidence. Final weight
+  assertions and protected non-hair hashes PASS. Read-only hash-check rebuild
+  produced identical final GLB, preserving applicability of native evidence.
+
+  `DONE` NATIVE-133: actual13meshes/25bones/6clips/314poses PASS; maximum bounds
+  error389.080µm within unchanged500µm limit (denseRun), minimumRun+1.000590mm,
+  slide19.999865mm/reset67.979µm retained. Native full scene robot/VTOL/input and
+  six-action dispatch PASS. New --undercut-study source selector; old129generated
+  atlas combination explicitly rejected. Expected-negative native guard tested
+  with exact diagnostic and no stage-load marker; not mistaken for normal exit0
+  success. Log E:incompatible_atlas_guard.log.30targeted Python PASS/0fail/0skip,
+  E:tmp/pytest133.xml, including four new plane/finite-input tests.
+
+  `IN_PROGRESS` ART-133: actual neutral front/profile/back, chin-down Melee and
+  full uncropped side Death captured and inspected; new nape/temple silhouette
+  closer to portrait and rear tips removed. Root-fit profile/back inspected after
+  first overhang correction. Actual tactical.png inspected at62.208038px scale.
+  Face, torso, original glove and animation clips preserved; this is a scoped
+  haircut improvement, not full Rook/animation art acceptance. Neck shading,
+  facial likeness and overall outfit detail still require final review. No new
+  performance/VRAM claims from short render timing. SDL/sampler warnings remain.
+
+  `TODO` NEXT: retain133as the improved haircut candidate; inspect first-person
+  whole-character material/pose finish before any second human or atlas rerender.
+  Also progress independent mechanical deliverables: audit current vehicle/robot
+  materials and use genuinely licensed local PBR resources for the experimental
+  scene, preserving validated mechanical motion. No production migration yet.
+  Counts: required human5/5clips technical,0/5artistic;129atlas5/5technical,
+ 133atlas NOT GENERATED; acceptedRook0/1; finalhumans0/2; scene5/6subjects;
+  mapnative1/1/artistic0/1. No mainGOAL edit/build/push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` WRIST-OWNERSHIP-132 (2026-11-25). Continued95ae85a9; previous
   turn concrete synchronized comparison implementation/evidence. `DONE` actual
   Ready0 wrist/elbow vertex audit excludes nearby left-hand vertices using real

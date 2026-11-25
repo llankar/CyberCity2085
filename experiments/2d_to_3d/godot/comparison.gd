@@ -82,6 +82,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
+	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args()
+	assert(not(generated_review and undercut_study),"Generated atlas129 does not represent candidate133; rerender before synchronized comparison")
 	if generated_review:
 		assert("--sprite-review" in OS.get_cmdline_user_args())
 		yaw=PI/4
@@ -91,7 +93,7 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args() or generated_review
+	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args() or generated_review or undercut_study
 	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args() or run_study
 	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
 	var head_fit_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
@@ -156,6 +158,7 @@ func _ready() -> void:
 		if quiff_study: human_path = root + "rook_hair127/human.glb"
 		if neck_study: human_path = root + "rook_neck_uv128/human.glb"
 		if run_study: human_path = root + "rook_run129/human.glb"
+		if undercut_study: human_path = root + "rook_undercut133/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()

@@ -748,3 +748,23 @@ real AnimationPlayer.advance cases, missing actions, fixed-elevation restriction
 and close/overview scaling. Hash-bound proof and frozen-state JSON remain in the
 E: atlas folder. Native screenshots are reviewed separately from those assertions.
 
+## Portrait-driven undercut candidate (batch133)
+
+`blender/trim_rook_undercut.py` derives rook_undercut133 from rook_run129 on E:.
+It clips the genuine source quiff at the nape/temples, fits only a narrow root
+band to the actual scalp and explicitly binds remaining/cut vertices to Head.
+All non-hair geometry/UV hashes are asserted unchanged. Original portrait
+agent_male_14.png is a reference only; it is not pasted into the model.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/trim_rook_undercut.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_actor_reference.py -ScriptArguments @('--folder','rook_undercut133','--dense-run')
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://cyborg_ready_check.tscn -QuitAfter 1200 -SceneArguments @('--undercut-study')
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1500 -SceneArguments @('--undercut-study','--robot-action-bundle','--vtol-motion-study','--tactical','--facades-study','--sprite-review','--self-test','--capture=E:/CyberCity2085-3d-lab/generated/phase2/rook_undercut133/tactical.png')
+```
+
+The129atlas still depicts the older hair. Combining --generated-atlas-review
+with --undercut-study is deliberately rejected until matching atlas generation
+is performed. Native314pose bounds are technical evidence; haircut likeness and
+whole-character final art remain separate from that test.
+
