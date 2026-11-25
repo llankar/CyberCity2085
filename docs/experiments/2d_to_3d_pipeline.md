@@ -369,3 +369,20 @@ actual Walk source forward, retains all PNG pixels and enriches five manifests.
 Uses existing screen sectors/facing_y_scale2. Source Blend and PNG SHA256 evidence
 is external on E. Mathematical/native facing PASS does not establish final robot
 identity, materials or full artistic animation acceptance.
+
+## Batch103: actual VTOL moving components
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/animate_vtol.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://vehicle_action_check.tscn -QuitAfter 300
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1200 -SceneArguments @('--nathan-study','--robot-action-bundle','--vtol-motion-study','--tactical','--sprite-review','--self-test')
+```
+
+Outputs vtol_motion01, original vtol01 unchanged.48meshes/six pivots/three real
+clips, keys7/8/9 in lab only. Explicit constant transform tracks are mandatory for
+object animation resets; default glTF optimization omitted neutral gear channels
+and was rejected by source/native geometry checks. Require fresh matched-hash
+native_motion_check and VTOL_NATIVE_ARTICULATION_OK, not process exit0 alone.
+Large standalone preview can use --camera-distance=14 --ortho-size=11. Gear stow
+has no authored bays/collision acceptance; rotor speed is slowed mechanical
+inspection. No production vehicle or flight/gameplay changes.

@@ -2,6 +2,57 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` VTOL-MECHANICAL-ARTICULATION-103 (2026-11-25). Continued explicit
+  independent vehicle deliverable after checkpointeb452e6c facing work. Existing
+  vtol01/vtol.blend procedural mechanical study retained unchanged (sourceSHA checked).
+  New48mesh derivative adds six real pivots: two counter-rotating hubs+20blades and
+  four hinged strut/shoe pairs,30moving mesh parts. Separate Rotor_Spin2s and
+  Gear_Retract/Gear_Extend1s actions, all six controllers explicitly keyed/reset.
+ 120RPM is deliberately slowed inspection, not flight dynamics or realistic thrust.
+
+  Initial source/native gate FAIL exposed pivot neutral transform mismatch. Fixed
+  explicit parent inverse/basis, with per-object matrix equality checks preserving
+  original placement. Second gate FAIL found constant gear rotation omitted by
+  glTF object-animation optimization (Rotor_Spin inherited stowed rest). Inspected
+  actual Blender export RNA, retained constant object channels and disabled size
+  optimization. Fresh export/native gate PASS, max sampled source surface error
+ 10.130um across27poses/24moving blade+shoe surfaces; actual four-shoe origin travel
+ 770.746mm and retract->rotor neutral reset0. Rigid source/natively animated meshes,
+  not billboard effects. Model has3real clips,6pivot nodes,48meshes; no fake skeleton.
+
+  E: phase2/vtol_motion01/vtol_actions.blend1,402,514bytes and GLB470,128bytes,
+  source_surface_reference, motion_report, matchingSHA native_motion_check and
+  deployed/stowed/tactical_close PNGs. Credits/experimental provenance in Blend text
+  and GLB copyright. No new external downloads. Source references/neutral assembly
+  and existing model file remain untouched. Native preview new optional camera
+  distance14m avoids near clipping of8m vehicle; default behavior unchanged. Actual
+  deployed/stowed neutral screenshots inspected, moving shoes disappear into hull
+  as designed, but no landing bay cutouts/collision approval/final hull PBR detail.
+
+  Independent --vtol-motion-study replaces only lab scene's static aircraft with
+  animated derivative. Keys7rotors/8retract/9extend work; Rotor_Spin loops with
+  complete4revolutions, gear clips hold final pose. Actual sourceWalk+five-clip robot
+  +vehicle stage selftest PASS (VTOL_STAGE_ACTION_KEYS_OK), existing camera/selection/
+  robot action/62.208008px human checks PASS. Final native capture inspected after
+  moving sprite-review note down40px to prevent new HUD line overlap. Aircraft
+  still hovering because existing alley has no clear landing footprint. No claim of
+  landing simulation, flight support gameplay, realistic speed or final Nighthawk art.
+
+  Tests actually executed final focused36Python PASS,0failed,0skipped across vehicle/
+  facing/sampling/pixel/bundle modules; six new vehicle cases cover counterrotation,
+  avoiding10blade/30Hz aliasing, retract/extend time reversal and invalid controls.
+  Source/native failures above preserved in narrative, not counted as PASS. SDL
+  calibration warning remains; no campaign/production tests. Source/generated models,
+  shaders, logs and captures on E, no user save/production changes/push/release.
+
+  Bounded motion tasks3/4DONE (derivative/export, native geometry/reset, scene controls/
+  captures); landing-bay/contact/art acceptance IN_PROGRESS. Human accepted0/2,
+  final modular combat outfits0; robot5real actions with8view atlases, vehicle3motion
+  studies; native subjects5/6, one partial floor/block map, finalized artistic maps0.
+  Next: professional human wardrobe/eyes/actions and true tactical environment,
+  vehicle bay/detail/clear landing site and Blender re-export checks remainTODO.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` ROBOT-ATLAS-FACING-PROJECTION-102 (2026-11-25). Prior turn101
   progress verified from checkpointac3be2af and actual main/experimental registers/
   worktree. Read-only production unit_visual.gd:85 establishes screen atan2 with

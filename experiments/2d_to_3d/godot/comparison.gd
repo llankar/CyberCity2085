@@ -13,6 +13,7 @@ var orbit_mode := false
 var clip_status := "Human: static fitting model; action clips unavailable"
 var human_height := 1.718
 var robot_height := 2.4
+var vehicle_actor: Node3D
 var human_weapon: Node3D
 var render_ready_usec := 0
 
@@ -196,6 +197,14 @@ func _ready() -> void:
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	render_ready_usec = Time.get_ticks_usec()
 	if "--self-test" in OS.get_cmdline_user_args():
+		if vehicle_actor != null:
+			for entry in [[KEY_8,"Gear_Retract"],[KEY_9,"Gear_Extend"],[KEY_7,"Rotor_Spin"]]:
+				var vehicle_key := InputEventKey.new()
+				vehicle_key.pressed = true
+				vehicle_key.keycode = entry[0]
+				_unhandled_input(vehicle_key)
+				assert(vehicle_actor.find_children("*","AnimationPlayer",true,false)[0].current_animation == entry[1])
+			print("VTOL_STAGE_ACTION_KEYS_OK rotor,retract,extend")
 		var key := InputEventKey.new()
 		key.pressed = true
 		key.keycode = KEY_TAB
@@ -414,7 +423,7 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 			caption.add_theme_font_size_override("font_size", 14)
 			layer.add_child(caption)
 	var note := Label.new()
-	note.position = Vector2(20, 270)
+	note.position = Vector2(20, 310 if "--vtol-motion-study" in OS.get_cmdline_user_args() else 270)
 	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot actual height %.3f m\nSprite shader/rim/ground shadows are not reproduced in this review." % [body_px, robot_height]
 	layer.add_child(note)
 	print("SPRITE_PIXEL_HEIGHT_VERIFIED expected=", body_px, " projected=", verified)
@@ -476,7 +485,11 @@ func load_tactical_map() -> void:
 	assert(batch_instances == occupied.size())
 	print("TACTICAL_OBSTACLE_BATCHES_OK instances=", batch_instances, " batches=2")
 	# No clear landing footprint exists on this alley: show the aircraft hovering.
-	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/vtol01/vtol.glb", Vector3(-6, 4, -4))
+	var animated_vehicle := "--vtol-motion-study" in OS.get_cmdline_user_args()
+	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/" + ("vtol_motion01/vtol_actions.glb" if animated_vehicle else "vtol01/vtol.glb"), Vector3(-6, 4, -4))
+	if animated_vehicle:
+		vehicle_actor = subjects[-1]
+		play_vehicle_clip("Rotor_Spin")
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/crate_procedural.glb", Vector3(-3, 0, 2))
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/generator01/generator.glb", Vector3(4.5, 0, 1.5))
 	assert(subjects.size() == 5)
@@ -533,8 +546,16 @@ func _process(_delta: float) -> void:
 	if hud:
 		var fps_value := str(Engine.get_frames_per_second()) if render_ready_usec > 0 and Time.get_ticks_usec()-render_ready_usec > 1000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
+
+func play_vehicle_clip(clip: String) -> void:
+	assert(vehicle_actor != null)
+	var player := vehicle_actor.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+	assert(player.has_animation(clip))
+	player.get_animation(clip).loop_mode = Animation.LOOP_LINEAR if clip == "Rotor_Spin" else Animation.LOOP_NONE
+	player.play(clip)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -546,6 +567,8 @@ func _unhandled_input(event: InputEvent) -> void:
 				yaw = 0.65
 				elevation = 0.6
 				update_camera()
+		var vehicle_actions := {KEY_7:"Rotor_Spin",KEY_8:"Gear_Retract",KEY_9:"Gear_Extend"}
+		if vehicle_actor != null and vehicle_actions.has(event.keycode):play_vehicle_clip(vehicle_actions[event.keycode])
 		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee", KEY_6: "Hit"}
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])

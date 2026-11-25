@@ -237,6 +237,11 @@ func _ready() -> void:
 					push_error("Unknown neutral view")
 					get_tree().quit(7)
 					return
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--camera-distance="):
+			var distance := argument.trim_prefix("--camera-distance=").to_float()
+			assert(is_finite(distance) and distance > 0.1 and distance <= 1000.0)
+			camera.position = target + (camera.position-target).normalized()*distance
 	camera.look_at(target)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--ortho-size="):
