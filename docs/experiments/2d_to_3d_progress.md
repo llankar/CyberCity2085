@@ -2,6 +2,40 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` HUMAN-CONTACT-REVIEW-115 (2026-11-25). Continued b7f603c7.
+  Actual native renderer captures17Shoot times from four camera axes (68original
+  PNGs) in E:scanned_armor_contact01/contact_review01. Manifest records model SHA;
+  four labelled review sheets assembled without substituting synthetic artwork.
+  Inspected all four sheets plus opposite-profile full-size pose: arms remain
+  joined, no visible elbow flip; offhand still cups below the weapon rather than
+  forming a fully authored two-hand wrap. Hair remains a bulky red cap from rear.
+  Before changes, archived114 body/equipped Blend/GLB/reports in baseline114.zip
+  on E: (201,914,745bytes); source111 remains unchanged.
+
+  Actual evaluated glove/gun audit now covers177 selected vertices per hand,
+  all17frames, nine weapon surfaces. Only three parts close after1micrometre seam
+  weld (magazine/two cartridges); six open parts cannot support reliable inside
+  classification. Three actual cube ray-parity fixture assertions PASS. Results
+  retain4-5 right and2-4 left closed-part penetrations >1mm; not collision PASS.
+  Initial unconstrained index bend reached104degrees on distal segment. Simply
+  clamping CCD left10.48mm target error and was rejected. Replaced with bounded
+  planar three-segment IK and target on measured front trigger edge. Source key
+  lengths preserved, fit rejects targets requiring stretch/excess bend. Actual
+  all17frames now satisfy rig-design95/75degree bounds (about89.70/70.81); these
+  are geometric rig bounds, not a complete anatomical hinge/pressure validation.
+
+  Current body GLB SHA463e788d8da4acd265b583d8ebad70b8bac305794a330df687f3fed4b135216d.
+  Native7clip18mesh122bone fidelity PASS, body reset0; real prop combined
+  1.757074micrometres/runtime4.187624micrometres PASS17times. Head/hair/source-six
+  action preservation verifiers PASS. Fresh68captures and hashed manifest generated
+  after bounded fit. Python targeted59PASS0fail0skip; E:tmp/pytest-115-all.xml.
+  No full production tests or new VRAM benchmark claimed. Source assets unmodified.
+  `TODO` first-human artistic gate: offhand wrap/visible glove intersections,
+  hairstyle silhouette/strand detail and wardrobe/face identity. Do not conflate
+  scoped native checks with first convincing Rook acceptance0/1. Global human0/2,
+  map native1/1/art0/1, stage5/6; full animation/art coverage remains incomplete.
+  No push/release/production edit. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SCANNED-HUMAN-CONTACT-114 (2026-11-25). Continues e10b99ec;
   actual source111 body, seven clips and real CC0 nine-part pistol retained.
   E:scanned_armor_contact01 contains packed editable Blend121,574,397B and

@@ -1,12 +1,12 @@
 """Measured contact study on the existing candidate; never edit upstream files."""
 import json
-import math
 import sys
 from pathlib import Path
 import bpy
 from mathutils import Matrix, Vector
 sys.path.insert(0,str(Path(__file__).parent.parent))
 from two_bone_ik import elbow_target
+from finger_ik import segment_directions
 
 root = Path('E:/CyberCity2085-3d-lab/generated/phase2')
 source = root/'scanned_armor_shoot01'
@@ -23,7 +23,7 @@ fit = json.loads((source/'pistol_fit01/fit_report.json').read_text())
 relative = Matrix(fit['relative_blender'])
 landmarks = json.loads((source/'grip_landmarks.json').read_text())
 trigger = landmarks['pistol_parts']['EquippedPistol_trigger']
-trigger_touch = Vector((trigger['max'][0]+.004, trigger['center'][1], trigger['center'][2]))
+trigger_touch = Vector((trigger['max'][0]+.004, trigger['max'][1], trigger['center'][2]))
 trigger_local = Matrix(fit['world_placement_blender']).inverted() @ trigger_touch
 poses = []
 for frame in range(0,17,2):
@@ -39,25 +39,19 @@ def point(name, tail=False):
     return rig.matrix_world @ (bone.tail if tail else bone.head)
 
 
-def ccd(chain, endpoint, target, tail=False):
-    for _ in range(256):
-        if (point(endpoint,tail)-target).length < .0005:
-            break
-        for name in chain:
-            pivot = point(name)
-            current = point(endpoint,tail)-pivot
-            desired = target-pivot
-            if min(current.length,desired.length) < 1e-8:
-                continue
-            rotation = current.rotation_difference(desired)
-            if rotation.angle > math.radians(20):
-                rotation.angle = math.radians(20)
-            bone = rig.pose.bones[name]
-            world = rig.matrix_world @ bone.matrix
-            world = Matrix.Translation(pivot) @ rotation.to_matrix().to_4x4() @ Matrix.Translation(-pivot) @ world
-            bone.matrix = rig.matrix_world.inverted() @ world
-            bpy.context.view_layer.update()
-    return (point(endpoint,tail)-target).length
+def fit_index(target):
+    names = ['finger_index.0'+str(i)+'.R' for i in (1,2,3)]
+    vectors = [point(name,True)-point(name) for name in names]
+    directions = segment_directions([v.length for v in vectors],target-point(names[0]),vectors[0].cross(vectors[1]))
+    for name,direction in zip(names,directions):
+        pivot = point(name)
+        current = point(name,True)-pivot
+        rotation = current.rotation_difference(Vector(direction))
+        bone = rig.pose.bones[name]
+        world = rig.matrix_world @ bone.matrix
+        bone.matrix = rig.matrix_world.inverted() @ Matrix.Translation(pivot) @ rotation.to_matrix().to_4x4() @ Matrix.Translation(-pivot) @ world
+        bpy.context.view_layer.update()
+    return (point(names[-1],True)-target).length
 
 
 def rotate_joint(name, desired, endpoint):
@@ -101,11 +95,9 @@ for frame, pose in zip(range(0,17,2), poses):
     right_error = solve_arm('R',point('hand.R')+backward*.065)
     prop = rig.matrix_world @ rig.pose.bones['hand.R'].matrix @ relative
     target = prop @ trigger_local
-    trigger_error = ccd(['finger_index.03.R','finger_index.02.R','finger_index.01.R'], 'finger_index.03.R', target, True)
+    trigger_error = fit_index(target)
     # Move the offhand palm towards the outside of the actual grip, retaining
     # its source orientation. This is a fit study, not a collision solver.
-    hand = rig.pose.bones['hand.L']
-    original_hand = rig.matrix_world @ hand.matrix
     palm = sum((point('finger_'+digit+'.01.L') for digit in ['index','middle','ring','pinky']), Vector())/4
     grip = prop @ Vector((0,-.012,.052))
     right = prop.to_3x3().col[0].normalized()

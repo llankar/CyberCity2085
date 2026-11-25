@@ -252,6 +252,38 @@ func _ready() -> void:
 			camera.size = clampf(argument.trim_prefix("--ortho-size=").to_float(), 0.05, 1000.0)
 	print("CYBERCITY_GODOT_GLTF_OK ", model_path)
 	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--contact-review="):
+			var folder := argument.trim_prefix("--contact-review=")
+			assert(folder.begins_with("E:/CyberCity2085-3d-lab/"))
+			assert(model_path.contains("/scanned_armor_contact01/"))
+			DirAccess.make_dir_recursive_absolute(folder)
+			var player := model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			assert(player.has_animation("Shoot"))
+			var duration := player.get_animation("Shoot").length
+			var views := {"posX":Vector3(3,0,0),"negX":Vector3(-3,0,0),"posZ":Vector3(0,0,3),"negZ":Vector3(0,0,-3)}
+			var captures := []
+			for view in views:
+				camera.position = target + views[view]
+				camera.look_at(target)
+				for sample in range(17):
+					var time := duration * sample/16.0
+					player.play("Shoot")
+					player.seek(time,true)
+					player.pause()
+					for rig in model.find_children("*","Skeleton3D",true,false):rig.force_update_all_bone_transforms()
+					await RenderingServer.frame_post_draw
+					await RenderingServer.frame_post_draw
+					var file := "%s/%s_%02d.png" % [folder,view,sample]
+					assert(get_viewport().get_texture().get_image().save_png(file)==OK)
+					captures.append({"file":file,"camera_axis":view,"time_s":time,"fraction":sample/16.0})
+			var manifest := FileAccess.open(folder+"/captures.json",FileAccess.WRITE)
+			assert(manifest!=null)
+			manifest.store_string(JSON.stringify({"model_sha256":FileAccess.get_sha256(model_path),"clip":"Shoot","captures":captures,"scope":"Actual native rendered poses; no automatic artistic acceptance"},"  "))
+			manifest.close()
+			print("SCANNED_CONTACT_REVIEW_CAPTURED frames=68 views=4 times=17")
+			get_tree().quit(0)
+			return
+	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture="):
 			var output := argument.trim_prefix("--capture=")
 			if not output.begins_with("E:/CyberCity2085-3d-lab/"):

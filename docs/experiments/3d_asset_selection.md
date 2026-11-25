@@ -4,6 +4,20 @@ Status: IN_PROGRESS, 2026-11-24. No production changes. No further generic MPFB
 armor recoloring. First convincing human must pass before character production
 is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
+Research115 (2026-11-25): actual neutral/rear review still rejects Maxwell cap
+as final Rook hair. Existing Einar authored groom preview inspected: beanie/beard
+silhouette does not solve the raised-quiff requirement. No new asset downloaded.
+Primary [MakeHuman catalog](https://static.makehumancommunity.org/assets/assetpacks/)
+distinguishes stylized Hair01 and authored Hair02/03; no blanket professional-quality
+claim. [BlendSwap](https://blendswap.com/about) currently requires an account for
+downloads; do not fetch protected files or equate all licenses with CC0.
+[Oscar Creativo free cyberpunk model](https://sketchfab.com/3d-models/character-cyberpunk-free-3d-by-oscar-creativo-45469e72f0e04bd5bfbca71696dda0aa)
+publisher search result explicitly lists BY-NC, so rejected for distribution path.
+Other Sketchfab cyberpunk candidates remain unqualified: primary opens403, no
+download or rights assumption from a search title. Snow v2/v4 primary opens402;
+no attempt to bypass access or acquire gated files. Free/rigged labels alone are
+not evidence of commercial adaptation rights, source topology or Rook suitability.
+
 Batch109 now assembles the acquired Renderpeople scanned head with actual
 Unvanquished authored armor in a separate editable Blend/GLB on E:. Original
 photographic JPEG/UV and all selected head triangles are checked independently;

@@ -9,6 +9,17 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+Contact review115: use preview `main.tscn` with existing neutral/model options
+and `--contact-review=E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_contact01/contact_review01`.
+This captures four actual camera axes at17Shoot times and hashes the loaded model.
+`review_contact_captures.py` validates complete distinct coverage/current SHA
+and assembles four sheets, preserving originals. `blender/audit_scanned_contacts.py`
+measures evaluated selected hand vertices against actual weapon triangles and
+reports limited closed-part ray parity, not general collision freedom.
+The fitter now uses bounded planar index IK (95/75degree rig-design bounds) and
+front trigger-edge target; a simple capped CCD attempt was rejected for10mm error.
+These bounds do not prove full finger anatomy, skin contact or professional art.
+
 Contact study114: first run `run_blender.ps1 -Script blender/inspect_scanned_grip.py`
 on the111 equipped source, then `run_blender.ps1 -Script blender/fit_scanned_contacts.py`.
 The latter creates a new seven-clip candidate under E:scanned_armor_contact01;
