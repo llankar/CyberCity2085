@@ -58,6 +58,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 	return true
 
 func _ready() -> void:
+	if "--msaa4" in OS.get_cmdline_user_args(): get_viewport().msaa_3d = Viewport.MSAA_4X
 	if "--sprite-review" in OS.get_cmdline_user_args():
 		get_window().content_scale_size = Vector2i(1920, 1080)
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
@@ -85,6 +86,9 @@ func _ready() -> void:
 	if bundled_human:
 		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
 		human_weapon.visible = false
+	if "--authored-groom" in OS.get_cmdline_user_args():
+		assert(bundled_human, "Authored groom study requires the shared character rig")
+		preload("res://groom_attachment.gd").attach(subjects[0], "einar_groom02_layered_lod")
 	if charge:
 		human_height = subject_height(subjects[0])
 		robot_height = subject_height(subjects[1])

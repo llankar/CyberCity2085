@@ -9,6 +9,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 
 func _ready() -> void:
+	if "--msaa4" in OS.get_cmdline_user_args(): get_viewport().msaa_3d = Viewport.MSAA_4X
 	var model_path := "E:/CyberCity2085-3d-lab/outputs/blender/crate/crate.glb"
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--model="):
@@ -23,6 +24,12 @@ func _ready() -> void:
 	var model := document.generate_scene(state, 30, false, false)
 	add_child(model)
 	if "--attach-pistol" in OS.get_cmdline_user_args(): preload("res://pistol_attachment.gd").attach(model)
+	if "--attach-groom" in OS.get_cmdline_user_args():
+		var groom_folder := "einar_groom_full02" if "--full-groom" in OS.get_cmdline_user_args() else "einar_groom02"
+		if "--layered-groom" in OS.get_cmdline_user_args(): groom_folder += "_layered"
+		if "--occluded-groom" in OS.get_cmdline_user_args(): groom_folder = "einar_groom_occlusion03"
+		if "--lod-groom" in OS.get_cmdline_user_args(): groom_folder = "einar_groom02_layered_lod"
+		preload("res://groom_attachment.gd").attach(model, groom_folder)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--rotate-x="):
 			model.rotation_degrees.x = argument.trim_prefix("--rotate-x=").to_float()

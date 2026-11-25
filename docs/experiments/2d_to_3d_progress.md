@@ -2,6 +2,73 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-GROOM-PALETTE-84 (2026-11-25) — resumed actual human art
+  integration rather than further generic armor recoloring. Inspected licensed
+  Einar groom/material: four primary parts use the same authored node graph,
+  primary Principled palette plus brown diffuse and film blood branch. Converted
+  actual groom curves/radii/taper; replaced unavailable mesh Hair Info fields with
+  captured curve attributes, baked source clean palette into float vertex colors.
+  Deterministic random seed137 preserves palette distribution, not exact per-fiber
+  film random identity. Optional clean diffuse color blend/specular attenuation
+  approximate the inspected mixed shader; blood FX/full light transport omitted.
+
+  Initial space guard FAIL: carrier was at origin while constrained source matrix
+  updated only during graph evaluation. Now reads ORIGINAL local groom geometry
+  and applies evaluated source transform afterwards; all parts pass1.2<Z<2.1m
+  head-space gate. Source natural diameters0..0.00016m retained; old prototype had
+  constant1mm-diameter fibers. Initial reduced natural-width render had too little
+  density. Full four-part reference40,969 curves/1,229,070 triangles preserved on
+  E: einar_groom_full02 and einar_groom_full02_layered. Layered GLB111,634,352 bytes.
+  Short-range AO variant einar_groom_occlusion03 uses original head + full groom,
+  .015m/16 samples, vertex-color AO,135,849,032 bytes; roots/tips vary0..1.
+  AO bake initially hit stale Blender custom-data RNA wrappers after adding a
+  color layer; re-resolving attributes fixed it. No source asset edited.
+
+  Critical native material FAIL found after several over-white captures: GLTF
+  runtime import contained real COLOR_0 arrays, but StandardMaterial's
+  vertex_color_use_as_albedo was false. Explicit groom material copies now enable
+  it, with vertex_color_is_srgb=false for linear glTF colors. Native palette gate
+  PASS four actual nonempty/noncollapsed color arrays and renderer material flags.
+  All earlier white-beard captures before palette_fixed_* are diagnostic failures,
+  not accepted color evidence. Palette-fixed front/profile/back captures inspected.
+  Material correction, not retinting a white generic beard or changing lights.
+
+  LOD candidate einar_groom02_layered_lod samples4,127 curves/123,810 triangles,
+  preserving taper/palette and explicitly widens radius by sqrt(stride) to partly
+  compensate reduced density. Not exact full-density geometry or final hair cards.
+  GLB10,927,876 bytes, four mesh parts, float vertex colors; standalone Blend retained.
+  Original full-density comparison and AO variant remain separate. Structural
+  verifier PASS on LOD/full-layered/AO geometry, counts, head-space, palette variance
+  and actual buffers. Head BoneAttachment uses real J100_DEF-Head metadata. Native
+  binding gate PASS45 times (five clips x9), four parts, nonzero actor placement,
+  transform error0 and proper palette flags; body/groom hashes recorded. No lip/jaw
+  expression deformation claim. Neutral front/profile/back LOD captures inspected;
+  body uses real five-clip rig, not static posed proxy. Full film shader fidelity,
+  temporal shimmer and artistic LOD acceptance remain NOT VERIFIED.
+
+  Independent scene --authored-groom --msaa4 adds the LOD only with shared human
+  study. Five actions, weapon visibility, robot Idle, camera/input,627-cell map and
+  62.208038px projection PASS. Native1920x1080 render texture, five-second sample:
+  1,256 frames/5.002875s (~251.06/s), p95 post-draw interval4.746ms,730 draw calls,
+  Godot-reported video allocation1,368,635,305 bytes. Window1280x720. Most interval
+  is human Idle/robot Idle; not GPU execution timing/full-combat or total VRAM peak.
+  Tactical screenshot inspected alongside existing sprites: first-character
+  identity/readability still not approved, source Einar is not final Rook/Raider.
+  No character production generalization. Thirteen Python regression tests PASS;
+  native source/material/scene checks PASS in their recorded scope. No production
+  suite run because production remains untouched. SDL calibration warning persists.
+
+  Files: inspect_einar_hair_materials, convert_einar_authored_groom,
+  bake_groom_occlusion, verify_einar_groom, groom attachment/material/motion native
+  checks, preview/comparison. All bulky geometry/colors/captures on E:, main GOAL,
+  runtime and user's save unchanged; no push/release. DONE this batch: source groom
+  conversion, genuine palette routing fix, head binding and measured LOD candidate.
+  TODO next: hair-card/LOD temporal review, actual Rook/Raider face/hair/outfit
+  identities, support grip and remaining actions; source-aware mesh/material/morph
+  optimization; Blender export roundtrip; textured tactical environment and shared
+  atlas. Accepted final identities0/2 and complete actor action sets0/2 unchanged.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SHARED-HUMAN-ACTIONS-83 (2026-11-25) — one real GLB now shares
   76 meshes/235,726 triangles/222 joints/one skin/274 embedded images across five
   clips: Idle2s, Walk1.333333s, Pistol_Shoot0.633333s, Punch_Cross1s, Death012.4s.

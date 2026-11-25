@@ -10,6 +10,21 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Authored groom studies (batch84): inspect_einar_hair_materials.py audits actual
+source shading. Run convert_einar_authored_groom.py through run_blender.ps1 with
+--full-density --layered-palette for the retained full reference, or
+--layered-palette --width-compensation for the separate reduced candidate.
+bake_groom_occlusion.py creates a further separate AO reference on E:.
+verify_einar_groom.py [FOLDER_NAME] checks actual geometry/palette buffers.
+Native groom_material_check.tscn requires AUTHORED_GROOM_PALETTE_GATE_OK;
+groom_motion_check.tscn requires AUTHORED_GROOM_HEAD_BINDING_OK. No jaw rig claim.
+Runtime groom materials explicitly enable linear vertex colors; default imported
+material flags had otherwise rendered the groom white despite valid COLOR_0.
+
+Preview flags: --attach-groom --lod-groom --msaa4, or --full-groom --layered-groom,
+or --occluded-groom. Add --authored-groom --msaa4 to the shared human comparison.
+These source-derived groom/LOD candidates are not final Rook hair or accepted art.
+
 Shared five-clip study (batch83): run `bundle_einar_actions.py`, then
 `verify_einar_action_bundle.py`. Native `bundle_action_check.tscn` compares the
 actual shared skin/morphs against original per-clip GLBs, including Death->Idle
