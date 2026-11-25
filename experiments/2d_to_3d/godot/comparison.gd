@@ -82,9 +82,10 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
-	var single_neck_study := "--single-neck-study" in OS.get_cmdline_user_args()
+	var skin_normal_study := "--skin-normal-study" in OS.get_cmdline_user_args()
+	var single_neck_study := "--single-neck-study" in OS.get_cmdline_user_args() or skin_normal_study
 	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args() or single_neck_study
-	assert(not(generated_review and undercut_study),"Generated atlas129 does not represent candidate133/138; rerender before synchronized comparison")
+	assert(not(generated_review and undercut_study),"Generated atlas129 does not represent candidate133/138/139; rerender before synchronized comparison")
 	if generated_review:
 		assert("--sprite-review" in OS.get_cmdline_user_args())
 		yaw=PI/4
@@ -161,6 +162,7 @@ func _ready() -> void:
 		if run_study: human_path = root + "rook_run129/human.glb"
 		if undercut_study: human_path = root + "rook_undercut133/human.glb"
 		if single_neck_study: human_path = root + "rook_single_neck138/human.glb"
+		if skin_normal_study: human_path = root + "rook_normal_strength139/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -185,6 +187,20 @@ func _ready() -> void:
 	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
+	if skin_normal_study:
+		var skin_surfaces := 0
+		for mesh in subjects[0].find_children("*", "MeshInstance3D", true, false):
+			for surface in range(mesh.mesh.get_surface_count()):
+				var mat := mesh.get_active_material(surface) as StandardMaterial3D
+				if mat and mat.resource_name == "sm004_head":
+					assert(mat.normal_enabled and mat.normal_texture != null)
+					assert(absf(mat.normal_scale - .35) < .000001)
+					assert(mat.normal_texture.get_size() == Vector2(2048, 2048))
+					skin_surfaces += 1
+		assert(skin_surfaces == 1)
+		var skin_proof := FileAccess.open(root + "rook_normal_strength139/native_skin_material.json", FileAccess.WRITE)
+		skin_proof.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(human_path),"normal_scale":.35,"original_normal_texture_dimensions":[2048,2048],"matched_surfaces":skin_surfaces,"scope":"Actual imported skin material; not final artistic approval"},"  "))
+		print("ORIGINAL_SKIN_NORMAL_NATIVE_SCALE_OK scale=0.35 surfaces=1")
 	if cyborg_study: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run"})
 	if cyborg_pistol: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy"})
 	if cyborg_fire: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy"})

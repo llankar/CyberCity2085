@@ -2,6 +2,46 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SKIN-MATERIAL-139 (2026-11-25). Continued9563b666; previous
+  turn made actual neck geometry/UV/314pose progress. `DONE` source material
+  audit shows original MIT head2048color/normal/specular textures already used;
+  normal image Non-Color, NormalMap TANGENT/strength1, roughness0.8585786,metal0.
+  Actual embedded normal PNG decodes pixel-identically to source TGA (RGB means
+ 128.678863/128.215571/254.983401); no lost normal image or sRGB source node bug
+  established. E:rook_skin139 has actual material graph JSON/source normal PNG,
+  native no-normal front/side and raw-texture side diagnostics. Removing normal
+  map suppresses temple blotch; disabling mip generation does not remove it.
+  This is diagnostic evidence, not permission to replace source skin by flat color.
+  `DONE` controlled Blender tangentsFalse/True exports from identical138scene.
+  Control0vs explicit6primitives carry TANGENT. Actual native side captures are
+  pixel-identical (0changedpixels), SHA-bound native_comparison.json plus exports
+  and logs E:rook_tangents139. Explicit tangent export NOT adopted as a fix.
+  Primary glTF MikkTSpace guidance consulted; does not establish source normal
+  handedness. No arbitrary Y-channel flip or imported-engine bug claim made.
+  `DONE` separate artistic material calibration candidate: actual source normal
+  texture retained at35percent intensity, same photo/specular data/mesh/UV/weights/
+  animation. Full binary GLB and all non-scale JSON EXACT vs138. EditableBLEND
+  sets corresponding NormalMap strength.35, CREDITS/source data preserved on E:
+  rook_normal_strength139. GLB SHA
+  ad42f32a80aa502f6e0d555e03ef5be3f7e56c2b4899932a1f35e35b6e41331d.
+  Native front/side reviewed: reduced coarse temple contrast, original geometry
+  unchanged. This is calibration, not a proven convention/import correction.
+  `DONE` actual Godot material check: one matching skin surface,normal enabled,
+ 2048x2048 original texture,scale.35. native_skin_material.json source-hash bound.
+  Native314poses/13meshes/25bones/6clips PASS under unchanged500micrometer gate,
+  max389.080micrometers,Runfloor+1.000590mm,slide/reset retained. Independent scene
+  actual six human actions/robot137/VTOL135/map/input checks PASS; tactical.png
+  reviewed at62.208038px. Old129atlas mixing rejected in native negative test.
+ 31targeted pytest PASS0fail0skip (3newskin,3neck,5weights,4hairline,4quiff,12sampling),
+  tmp/pytest139-final.xml. No new performance/VRAM measure;137benchmark is still
+  specifically133human. Existing SDL warning persists. `TODO` NEXT: improve
+  first-human authored geometry/face/outfit detail and likeness; do not spend
+  repeated batches on intensity variants or call this modern-character quality.
+ 139atlas NOT GENERATED;129atlas5/5technical remains prior alternative only.
+  Requiredhumanclips5/5technical,0/5artistic;finalRook0/1;finalhumans0/2;
+  scene5/6subjects;mapnative1/1/artistic0/1. No production/mainGOAL/save changes,
+  no build or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SINGLE-NECK-138 (2026-11-25). Continued60b32440; previous turn
   made verified source-opacity/render/measurement progress. Returned to first
   human art. `DONE` actual133neutral head side/Melee reviewed: pointed neck folds

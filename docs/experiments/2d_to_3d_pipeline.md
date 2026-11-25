@@ -875,3 +875,30 @@ review. Current screenshots reside in that candidate folder. Optional comparison
 flag --single-neck-study inherits the133hair/129Run chain and rejects old129atlas
 mixing. No matching138atlas or final human artistic acceptance exists yet.
 
+### Skin material audit and controlled calibration139
+
+The actual source head normal image is already present and pixel-identical to
+the original2048TGA; Blender uses Non-Color/tangent normal wiring. No missing
+source PBR map was discovered. Native no-normal and raw-texture controls isolate
+the temple blotch to normal-map shading, not mip generation. Explicit tangents
+False/True yield pixel-identical native controls, so tangent export is not a fix.
+[glTF tangent guidance](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#meshes-overview)
+describes tangent construction but does not identify this asset's source handedness.
+No green-channel flip is justified by that document alone.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_rook_skin.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/export_rook_tangents.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/study_rook_skin_normal.py
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://cyborg_ready_check.tscn -QuitAfter 1200 -SceneArguments @('--skin-normal-study')
+```
+
+Separate candidate E:rook_normal_strength139 keeps the original image at normal
+intensity0.35. This is artistic calibration, not a normal convention/import fix.
+The GLB binary is unchanged; only sm004_head.normalTexture.scale differs. Editable
+BLEND applies the same intensity. Native scene opt-in --skin-normal-study verifies
+the actual imported enabled normal texture,2048dimensions and.35scale, saving
+native_skin_material.json. It inherits the138neck and forbids129atlas mixing.
+314native poses pass, but face likeness and modern-quality geometry/clothing
+remain unaccepted. Do not confuse reduced normal contrast with a new detailed mesh.
+
