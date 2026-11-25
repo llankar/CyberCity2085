@@ -10,6 +10,10 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Local AI continuation164: see `docs/experiments/image_to_3d_164.md` for the
+sequential E:-only WSL setup, actual Blackwell kernel evidence, known Flash3
+failure, CUTLASS workaround and guarded nonduplicate mesh experiments.
+
 
 Licensed garment compatibility (batch90): acquire_trebejo_jacket.py verifies
 original CC BY4 against primary metadata before one bounded public-redistributor

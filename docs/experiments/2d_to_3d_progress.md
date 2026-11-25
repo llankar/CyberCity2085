@@ -2,6 +2,42 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` LOCAL-IMAGE-TO-3D-164 (2026-11-25).
+  User requests only missing local AI setup/trials, then personal-use technical
+  focus without more licence work. Broader GOAL remains paused; no production
+  code/save changes, build, publication or push. Prior six TripoSR GLB files
+  verified present and SHA recorded in E:tmp/image3d164-prior-evidence.json;
+  existing real inference/Blender/Godot evidence reused, no six-trial rerun.
+  `DONE` isolated WSL Python3.11.18 / torch2.7.1+cu128 / xformers0.0.31 /
+  spconv-cu126 / kaolin0.18 environment on E:. Original TRELLIS cloned revision
+  193e0502b5cb3eb5997ec457d5340e95d09b158e plus FlexiCubes815e075a... .
+  `DONE` real sm120 matmul, explicit CUTLASS attention, Native sparseconv PASS,
+  tmp/trellis164-gpu-probe.json. Initial automatic xformers Flash3 failed CUDA
+  invalid argument; failure log preserved, changed-backend retry justified.
+  Initial concurrent dependency startup encountered incomplete torch import;
+  setup must be sequential, not run that way again. No success inferred from it.
+  Pipeline import failed missing libusb. Native Ubuntu library extracted into
+  E:tools/trellis-native, no apt/system installation. New runner guards kernel
+  results before weight acquisition and reuses only matching source/output SHA.
+  `DONE`2new guard tests PASS0fail0skip, E:tmp/tests164.xml. They are not image
+  quality or inference tests. New setup/probe/runner scripts under experiments/
+  2d_to_3d; full commands and limitations docs/experiments/image_to_3d_164.md.
+  Native-library fix let runner reach model/DINO weight loading. Windows then
+  reported virtual-memory exhaustion800705af and WSL restarted; no mesh evidence.
+  Created previously absent user.wslconfig limiting RAM12GB/swap12GB on E:;
+  verified with free-h. No concurrent heavy imports/inference going forward.
+  Hunyuan packages installed in separate E:venv with shared CUDA wheel cache,
+  import NOT VERIFIED because interrupted. TripoSG/Hunyuan code revisions in
+  docs164; no model download for either yet. Shell LF attributes now explicit.
+  `IN_PROGRESS` first TRELLIS crate trial after memory correction, cached weights,
+  E:tmp/trellis164-crate-memoryfix.log. No successful generation rerun.
+  `TODO` actual generation, neutral Blender render, native Godot verification;
+  then human comparison and remaining candidate technical trials. No TRELLIS
+  model or art acceptance claimed yet. SPAR3D/SF3D existing authentication
+  blocker unchanged, no repeated gated requests. TRELLIS.2 not downloaded
+  (published24GB minimum). TripoSG public code acquired, no weights yet.
+  CHANTIER GLOBAL INCOMPLET; same5/6scene subjects and1/1native/0final3Dart map.
+
 - `IN_PROGRESS` TACTICAL-VISUAL-REVIEW-163 (2026-11-25).
   Previous162 classified progress: sole skin correction and scoped contact PASS;
   first-human artistic acceptance still open. `DONE` independent compact review
