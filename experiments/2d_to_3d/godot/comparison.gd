@@ -83,6 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
+	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args()
+	var cyborg_study := "--grab3d-cyborg-study" in OS.get_cmdline_user_args() or cyborg_lod
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
 	var contact := "--contact-study" in OS.get_cmdline_user_args()
 	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args() or contact
@@ -95,7 +97,7 @@ func _ready() -> void:
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
 	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
-	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study or unvanquished_study
+	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study or unvanquished_study or cyborg_study
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
 	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
@@ -126,6 +128,10 @@ func _ready() -> void:
 		if scanned_hair:human_path=root+"scanned_armor_hair01/human_actions.glb"
 		if scanned_shoot:human_path=root+"scanned_armor_shoot01/human_actions.glb"
 		if contact:human_path=root+"scanned_armor_contact01/human_actions.glb"
+	if cyborg_study:
+		assert(not rocketbox and not nathan_study and not unvanquished_study and not rigged_human and not action_human, "Choose one human source")
+		human_path = root + "grab3d_cyborg01/human.glb"
+		if cyborg_lod: human_path = root + "grab3d_cyborg_lod01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -146,6 +152,7 @@ func _ready() -> void:
 	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
+	if cyborg_study: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run"})
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -218,6 +225,7 @@ func _ready() -> void:
 	clip_status = "Human: static fitting model; action clips unavailable"
 	if rigged_human: play_clip("Walk" if nathan_study else "Idle")
 	if action_human: play_clip("Shoot")
+	if cyborg_study: clip_status = "Human: source walk/run available; other actions unavailable"
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
 	if "--self-test" in OS.get_cmdline_user_args():
 		if vehicle_actor != null:
@@ -293,6 +301,18 @@ func _ready() -> void:
 			play_clip("Shoot")
 			assert(human_weapon.visible)
 			print("SCANNED_SHOOT_PROP_DISPATCH_OK real_prop_visibility")
+		elif cyborg_study:
+			var cyborg_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			assert(cyborg_player.current_animation=="walk")
+			play_clip("Run")
+			assert(cyborg_player.current_animation=="run")
+			play_clip("Shoot")
+			assert("unavailable" in clip_status)
+			cyborg_player.stop()
+			var cyborg_skeleton := subjects[0].find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
+			cyborg_skeleton.reset_bone_poses()
+			cyborg_skeleton.force_update_all_bone_transforms()
+			print("CYBORG_SOURCE_ACTION_DISPATCH_OK walk,run;shoot_unavailable")
 		else: assert("unavailable" in clip_status)
 		if unvanquished_motion:
 			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
@@ -326,6 +346,9 @@ func _ready() -> void:
 		if action_human: play_clip("Shoot")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Idle/Walk/Melee/Hit/Death" if robot_bundle else ("Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
+	if cyborg_study:
+		clip_status = "Human: reference pose; source walk/run available; no combat actions"
+		if "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
 		selected = 1
@@ -583,6 +606,8 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable (not simulated)"
 		return
 	var player := players[0] as AnimationPlayer
+	var source_aliases: Dictionary = subjects[selected].get_meta("action_aliases", {})
+	if source_aliases.has(name_value): name_value = source_aliases[name_value]
 	var aliases := {"Shoot": "Pistol_Shoot", "Melee": "Punch_Cross", "Death": "Death01"}
 	if aliases.has(name_value) and player.has_animation(aliases[name_value]): name_value = aliases[name_value]
 	if not player.has_animation(name_value):
@@ -592,6 +617,8 @@ func play_clip(name_value: String) -> void:
 	if selected == 0 and human_weapon: human_weapon.visible = name_value in ["Pistol_Shoot","Shoot"]
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
+	if not source_aliases.is_empty() and name_value in ["walk","run"]:
+		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:

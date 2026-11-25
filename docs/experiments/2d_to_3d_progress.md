@@ -2,6 +2,64 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CYBERPUNK-CANDIDATE-119 (2026-11-25). Previous turn classified
+  progress: committed actual source-retention checks and neutral captures, not
+  artistic completion. Continued7d37b5ec. Close neutral face capture confirms
+  objectionable faceting/eye appearance of the old hybrid. Do not spend another
+  batch recoloring its jacket or presenting it as accepted Rook.
+
+  `DONE` NEW-SOURCE-119: inspected actual publisher page, LICENSE.txt and
+  manifest.json for Grab3D Cyborg. Explicit CC0 waiver, commercial game use and
+  AI-assisted Meshy base with publisher Blender cleanup disclosed. One public
+  rigged GLB acquired,14,361,172 bytes, SHA
+  bb57437835d9f0937783367630ee19804b8a8a4cf107d85aa5926c9c5e5aa5bf.
+  Actual file differs from static marketing specs: one mesh,300,000 triangles,
+  24-bone rig, walk/run only, three embedded2048² images,1.8m height. Original
+  retained on E:; editable packed Blend plus byte-identical native GLB created.
+  Source license/provenance and AI disclosure retained; not claimed hand-authored.
+
+  `DONE` REALTIME-LOD-119: separate Blender/GLB on E: under
+  generated/phase2/grab3d_cyborg_lod01,59,999 triangles,55,579 vertices,24bones.
+  Normalized four-influence skin; maximum removed weight0.01449903 (288 affected
+  vertices). Source textures retained. Source GLB unchanged. Current derived SHA
+  08edd7576d8b944fd1497c202b4722a2cb77a25beae1756421ca0aa5b6ff840e.
+  First export incorrectly changed imported24fps to30fps and retained NLA start1;
+  native duration gate FAIL exposed acceleration. Fixed preserving24fps and
+  NLA frame_start_ui0. Initial overly strict pose gate also FAIL; current bounded
+  LOD gate documents2mm position/.003 basis-axis tolerances rather than claiming
+  exact interpolation. Actual34poses across both clips/24bones PASS, maximum
+  joint-position error1.763885mm. Surface fidelity/deformations not proven by this.
+  Initial checker accidentally entered another Node's _ready tests; replaced
+  helper instantiation with isolated load/transform functions before final gate.
+
+  `DONE` NATIVE-REVIEW-119: source and LOD import into Godot4.7.2; neutral front,
+  back and walk-profile captures inspected. Complete jacket, belt/pouches, hair,
+  backpack, prosthetic arm/leg are materially more convincing than prior MPFB
+  recolors. LOD scene retains robot,VTOL,crate,generator and existing alley627
+  obstacle cells. Actual1920x1080 comparison projects human height62.208008px
+  versus target62.208px with real sprite alongside; all scene action controls
+  PASS, walk/run dispatch available, unavailable Shoot explicitly tested.
+  Candidate screenshots are evidence, not automatic Rook approval. New optional
+  --grab3d-cyborg-study/--grab3d-cyborg-lod leave defaults intact.
+
+  Tests:9Python PASS/0fail/0skip (bounded acquisition, changed license/origin
+  rejection before download, valid/invalid GLB envelopes), JUnit E:tmp/pytest119.xml.
+  Native pose gate and current LOD scene controls PASS with positive markers.
+  Previous contact actor scene control regression also PASS (seven body clips,
+  real prop dispatch, robot/VTOL actions and captured frame). Candidate source
+  actions explicitly restored to bind pose after self-test; stop alone retains
+  last skeleton pose and had produced a misleading reference-pose caption.
+  Existing SDL gamepad calibration error persists. Exporter sampler warning
+  persists; no claim of warning-free operation. No new VRAM benchmark this batch.
+
+  `TODO` ROOK-IDENTITY-119: candidate is a reference-quality improvement, not
+  Rook: black hair/orange prosthetics and no combat idle/shoot/melee/death yet;
+  24-bone source has no articulated finger rig. Next: inspect run/deformation
+  extremes and combat-scale silhouette, then adapt first character/weapon grip
+  with licensed modular assets. Do not generalize Raider/cohort production yet.
+  First accepted Rook0/1, final humans0/2, map native1/1/artistic0/1; robot final
+  style and full action/atlas deliverables remain open. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PROFESSIONAL-HUMAN-REVIEW-118 (2026-11-25). Continued3154c5bc.
   Tested the original CC-BY photographed Nathan head on the complete CC0 Diesel
   outfit, preserving the authored jacket, shirt, pants and boots without cloth

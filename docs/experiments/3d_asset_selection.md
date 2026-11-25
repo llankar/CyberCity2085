@@ -1,5 +1,15 @@
 # Experimental human asset selection
 
+Batch119: actual [Grab3D Cyborg](https://grab3d.com/models/characters/cyborg/)
+and its [license](https://grab3d.com/dl/cyborg/LICENSE.txt) inspected. Explicit
+CC0 waiver and AI-assisted Meshy origin with publisher Blender cleanup. Only one
+14.36MB riggedGLB downloaded, not the full library. Actual rigged variant300ktris,
+24bones,2K PBR and walk/run differs from800k/4K static version marketing.
+Packed Blender and60k-triangle derived LOD exist on E:, native Godot neutral and
+tactical captures inspected. Stronger complete outfit candidate than prior
+MPFB recolors; not accepted Rook identity and no combat/finger action rig yet.
+Keep source attribution/origin notice despite CC0 not requiring attribution.
+
 Status: IN_PROGRESS, 2026-11-24. No production changes. No further generic MPFB
 armor recoloring. First convincing human must pass before character production
 is generalized. MPFB anatomy remains optional, not the artistic ceiling.

@@ -606,6 +606,17 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch119 alternative: run `python experiments/2d_to_3d/acquire_grab3d_cyborg.py`
+once for the reviewed public CC0/AI-assisted source. Then use run_blender.ps1
+with `blender/prepare_grab3d_cyborg.py` and `blender/optimize_grab3d_cyborg.py`.
+Native gate: run_godot.ps1 `-Scene res://cyborg_lod_check.tscn -QuitAfter 180`;
+require CYBORG_LOD_NATIVE_POSES_PASS and fresh native_pose_retention.json.
+Comparison scene accepts --grab3d-cyborg-lod, --robot-action-bundle,
+--vtol-motion-study, --tactical, --facades-study, --sprite-review, --self-test.
+Use --capture=E:/CyberCity2085-3d-lab/generated/phase2/grab3d_cyborg_lod01/tactical_scene.png.
+This source only has walk/run; no simulated combat actions. Keep source24fps
+and normalize NLA strip origin when re-exporting; changing FPS speeds up motion.
+
 Run `run_blender.ps1 -Script blender/inspect_diesel_anatomy.py`, then
 `blender/assemble_diesel_scanned_head.py` and `blender/verify_diesel_head_fit.py`
 through the same wrapper. Existing acquired Diesel and Nathan sources are
