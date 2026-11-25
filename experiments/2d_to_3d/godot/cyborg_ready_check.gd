@@ -27,7 +27,8 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args()
+	var single_neck_study := "--single-neck-study" in OS.get_cmdline_user_args()
+	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args() or single_neck_study
 	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args() or undercut_study
 	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args() or run_study
 	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
@@ -42,6 +43,7 @@ func _ready() -> void:
 	if neck_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_neck_uv128/"
 	if run_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_run129/"
 	if undercut_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_undercut133/"
+	if single_neck_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_single_neck138/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)

@@ -849,3 +849,29 @@ and concurrent sample_gpu_memory.ps1 outputgpu137.json to reproduce current
 five-second timestamp-correlated measurement. Current303.878fps/global2600..2693
 MiB observations are neither an optimization gain nor production acceptance.
 
+### Actual single-neck geometry candidate138
+
+Neutral clay confirmed that pointed Melee neck artifacts survive removal of skin
+textures. Removing the retained body skin layer in a separate diagnostic removes
+the points but exposes a lower gap. Candidate138 removes those196faces and extends
+the existing MIT head's lower neck into the collar (45mm max), preserving photoUVs,
+weights and upper facial anatomy. No primitive neck or replacement clothes.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/diagnose_rook_neck.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_single_rook_neck.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/validate_single_rook_neck.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_actor_reference.py -ScriptArguments @('--folder','rook_single_neck138','--dense-run')
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://cyborg_ready_check.tscn -QuitAfter 1200 -SceneArguments @('--single-neck-study')
+```
+
+Actual mesh invariants and314native poses pass.175orphan vertices must be removed:
+otherwise Blender bounds include unreferenced geometry omitted by glTF and Death
+fails by14mm. Do not weaken the500micrometer gate to accommodate that failure.
+For native head views use main.tscn, model E:rook_single_neck138/human.glb,
+--neutral --view=front|side|back --focus-height=1.6 --ortho-size=.6,
+CombatReadyStudy at0 or MeleeStudy at0.5. Death uses side/ortho2.5 for whole-body
+review. Current screenshots reside in that candidate folder. Optional comparison
+flag --single-neck-study inherits the133hair/129Run chain and rejects old129atlas
+mixing. No matching138atlas or final human artistic acceptance exists yet.
+

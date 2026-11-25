@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SINGLE-NECK-138 (2026-11-25). Continued60b32440; previous turn
+  made verified source-opacity/render/measurement progress. Returned to first
+  human art. `DONE` actual133neutral head side/Melee reviewed: pointed neck folds
+  remain. Primary neutral-clay diagnostic retains these folds without photo or
+  normal map; all196body-skin faces and2982head faces were smooth already. Second
+  ownership diagnostic removes196body-skin faces only and removes visible points,
+  exposing a lower neck gap. These are diagnostic exports, not accepted clothes
+  or a lighting workaround. E:rook_neck_diagnostic138 contains both actual GLBs,
+  native captures and measured rest bounds. Exact triangle collision not claimed.
+  `DONE` separate138candidate: remove196retained body neck faces; extend actual
+  MIT head lower neck up to45mm into existing collar, original photograph UVs and
+  head topology retained.36requested vertex edits become34actual float32 position
+  changes; all upper facial positions,head weights and UVs unchanged. No primitive
+  neck or new clothing. Full savedBLEND/GLB/CREDITS/fit_report on E:rook_single_neck138.
+  `DONE` source invariant validation: retained body vertex positions/weights and
+  face UVs exact;12other mesh data hashes unchanged (includes helper); actual
+  removed196faces.175newly orphaned vertices removed without moving retained
+  geometry. First build assertion exposed FACES deleting vertices; changed to
+  FACES_ONLY then explicitly cleaned unused vertices. First native314pose run
+  FAIL Death bounds13.993mm because Blender measured orphan vertices absent in
+  glTF. Cleaned source/reference, reran unchanged500micrometer gate: PASS314poses,
+ 13meshes/25bones/6clips,max389.080micrometers, Runfloor+1.000590mm, slide19.999865mm,
+  reset67.979micrometers. Final GLB SHA
+  39645530a0e9f49322108b9354592fadfca6188e65ee671e18e2816487e88510.
+  Native JSON and source_geometry_validation.json bind exact candidate hashes.
+  Fit report's no-full-proof limitation is export-time; subsequent native proof
+  exists separately. No failed attempts represented as PASS.
+  `DONE` current candidate neutral front/side/back, Melee midpoint and whole-body
+  Death midpoint captured/reviewed in Godot. Neck front no longer shows original
+  overlapping points; extended skin photo slightly stretched, final face likeness,
+  grip and outfit refinement still open. Native tactical.png reviewed at actual
+ 62.208038px reference; independent scene robot137/VTOL135/furniture/627cellmap and
+  six human action/input checks PASS. New --single-neck-study optional selector;
+  mixing with129generated atlas explicitly rejected in actual negative native
+  test (message observed, no stage-load marker). Default production untouched.
+ 28targeted tests PASS0fail0skip (3neck,5headweights,4hairline,4quiff,12sampling),
+  tmp/pytest138-final.xml. No new benchmark/VRAM measurement;137benchmark remains
+  specifically133human. SDL warning and failed-check cleanup leaks remain recorded,
+  no leak-free claim. `TODO` NEXT: retain138as neck candidate, continue first-human
+  face/texture/anatomy and tactical readability review against modern-quality bar;
+  no second-human expansion until convincing. Atlas138 NOT GENERATED (129remains
+  technical alternative). Required humanclips5/5technical,0/5artistic; finalRook0/1;
+  finalhumans0/2;scene5/6subjects;mapnative1/1/artistic0/1. No production/mainGOAL,
+  save edits,push or build. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SOURCE-OPACITY-137 (2026-11-25). Continued7c0dad12. Previous
   audit was progress: footprint/margin evidence ruled out blind alpha removal.
   `DONE` actual Blender geometry/source adapter trace mapped124objects to baked
