@@ -98,3 +98,27 @@ Initial171 movie had no occlusion: removing the tall props reduced the building
 bounds. The packaging check rejected it. A lower final camera demonstrates actual
 building occlusion; failed and overbright roof takes are retained separately.
 No campaign or production runtime is involved.
+
+## Treatment contact173
+
+`contact173.tscn` extends the retained encounter. A local arm IK adjustment follows
+the patient's real left upper arm after treatment begins. The kneeling animation
+and actual medical case remain in use; no full-body animation is replaced.
+The close-up at `E:/CyberCity2085-3d-lab/generated/phase2/contact173/treatment.png`
+was rendered natively and inspected, with visible hand contact and no major
+deformation in that pose. Full-sequence transition acceptance remains separate.
+
+```powershell
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://contact173.tscn -QuitAfter 200 -RenderingMethod gl_compatibility -SceneArguments @('--refined-stage','--contact-preview')
+& experiments/2d_to_3d/run_movie169.ps1 -MedicalContact
+python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/contact173_final
+```
+
+The final treatment variant also topples and grounds the destroyed robot body,
+retaining the authored Death clip, fragments and sound. Earlier captures remain
+in contact173; the final movie is written separately to contact173_final.
+
+Native final capture executed:902frames1920x1080/30fps,69s offline rendering,
+166building/frame occlusions and one shot blocked by cover. Packaging guards
+PASS; clean0630 wreck and medical close-up inspected. Video/gallery on E: in
+contact173_final. This is staged visual evidence, not production AI acceptance.

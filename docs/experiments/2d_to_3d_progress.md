@@ -2,6 +2,27 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` TREATMENT-173 staged variant (2026-11-26). Prior turn progressed with actual
+  textured Rook, four-angle/native review and GLB gallery. New independent
+  contact173 scene extends retained171 encounter; SkeletonIK3D adjusts only the
+  medic right arm after22s toward the patient's actual upper-arm transform.
+  Original kneeling animation, body and medical case retained. Actual native
+  close-up captured and inspected: visible contact, no major deformation in this
+  pose; wrist-target distance~5.5cm is evidence, not a microscopic acceptance gate.
+  E:phase2/contact173/treatment.png,contact.json; tmp/contact173-preview.log.
+  First full30s native movie/package PASS:902frames1080p30,166occlusions,
+  1blockedshot. Clean0750 inspected at game scale. Review of0630 exposed bot
+  still upright after destruction: added visible whole-body topple and grounded
+  persistent wreck, preserving authored Death, sparks/fragments/audio. Final
+  take on E:contact173_final running via run_movie169.ps1 -MedicalContact;
+  Final native capture/package PASS:902frames1080p30,69s offline,
+  166occlusions and1blockedshot. Clean0630 inspected: fallen bot visible;
+  clean0750 and treatment close-up inspected for contact. Earlier take retained.
+  E:contact173_final/encounter_1080p30.mp4 and index.html. Hand transition
+  is supported by retained kneeling/IK, not a new authored medical animation.
+  Remaining global TODO: architecture/style coherence, refined effects and an
+  unarmed neural humanoid suitable for rigging. CHANTIER GLOBAL INCOMPLET. No old rig gates, campaign, production edits or push.
+
 - `DONE` COLOUR-172 trial (2026-11-26), not global completion. Previous turn
   progressed with171 scene/material delivery and a verified live colour job.
   Resumed exact WSL PID408/session73886; no duplicate inference. Official cached
