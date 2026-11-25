@@ -2,6 +2,41 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HAIR-RESTYLING-158 (2026-11-25).
+  Previous157 classified progress: actual licensed hair cards and root-object
+  export fix, no final hair acceptance. `DONE` inspected current repository and
+  source157. Three real Blender/GLB/native studies, no new assets downloaded:
+  (1) distance-to-scalp weighted vertex displacement, hair_sweep158: rejected
+  after actual neutral front/profile inspection, broken jagged ribbons;
+  (2) component-anchor rotation, hair_sweep158_cards:109+101 actual connected
+  components audited; source UVs/body vertices+weights unchanged. Rejected after
+  neutral front/profile inspection: spiky strands/open scalp, not raised quiff;
+  (3) entire coiffure180degree reversal about head, hair_reverse158: front initially
+  promising but actual neutral side/back reveals rear scalp gap and poor roots.
+  REJECTED for artistic promotion. Do not confuse tests with visual acceptance.
+  Editable BLEND/GLB/credits/fit metadata and actual captures on E: for all three;
+  original157/150/156 retained. No replacement in production/default stage.
+  `DONE` reusable native body checker variant flags --hair-sweep158,
+  --hair-sweep158-cards and --hair-reverse158:21body poses/7clips each PASS,
+  unchanged0.5mm gate and all bounds error0.0m. Final reverse GLB SHA
+  cf2e166f3b0be591b76a09819ebb93867a3e8b763f5d5c479a62dcd65709a5f5
+  rechecked after metadata/source regeneration against native_body.json.
+  This proves sampled body preservation only, not hair collisions/root contact.
+  Failures are ARTISTIC FAIL despite native PASS. No Python unit suite executed;
+  restyling script syntax compiled, generated local pyc removed and caches remain E:.
+  Files: blender/audit_hair_components158.py, restyle_hair_cards158.py;
+  godot/hair_cards_check157.gd. Reproduce current component study with normal
+  Blender wrapper; --reverse-style produces retained reverse study. First rejected
+  per-vertex algorithm is historical evidence, not current recipe. Logs
+  tmp/hair158*.log and generated*/native_body.json retain actual test scope.
+  `TODO` source-based card root layout/implantation on actual scalp, coherent
+  swept-up quiff, copper material and gameplay-scale art comparison. Naive global
+  card deformation/reversal is now excluded as final technique; need actual
+  per-strand root/layout editing, not another lighting or recoloring workaround.
+  Missing human motion families, modular garments/face and eventual Raider remain
+  open; scene5/6subjects, human6/10conditional families, map native1/1/art0/1.
+  CHANTIER GLOBAL INCOMPLET. No production edits/build/push or new cohort.
+
 - `IN_PROGRESS` AUTHORED-HAIR-CARDS-157 (2026-11-25).
   Previous156 turn classified progress: real face material diagnostic and source
   binary protection. `DONE` one genuinely free authored hair-card source acquired:

@@ -2,8 +2,9 @@ extends Node3D
 ## Actual candidate body preservation across source clips; not hair artistic approval.
 func _ready() -> void:
 	var root:="E:/CyberCity2085-3d-lab/generated/phase2/"
+	var candidate_folder:="hair_reverse158" if "--hair-reverse158" in OS.get_cmdline_user_args() else "hair_sweep158_cards" if "--hair-sweep158-cards" in OS.get_cmdline_user_args() else "hair_sweep158" if "--hair-sweep158" in OS.get_cmdline_user_args() else "hair_cards157"
 	var actors:Array[Node3D]=[]
-	for path in [root+"face_review156/human_face035.glb",root+"hair_cards157/human.glb"]:
+	for path in [root+"face_review156/human_face035.glb",root+candidate_folder+"/human.glb"]:
 		var doc:=GLTFDocument.new();var state:=GLTFState.new()
 		assert(doc.append_from_file(path,state)==OK)
 		var model:=doc.generate_scene(state,120,false,false);add_child(model);actors.append(model)
@@ -29,6 +30,6 @@ func _ready() -> void:
 			print("HAIR_BODY_SAMPLE ",clip," fraction=",fraction," boxes=",bounds)
 			await get_tree().process_frame
 	assert(worst<.0005,"Body changed while fitting hair")
-	var output:=FileAccess.open(root+"hair_cards157/native_body.json",FileAccess.WRITE)
-	output.store_string(JSON.stringify({"samples":cases,"body_bounds_max_error_m":worst,"glb_sha256":FileAccess.get_sha256(root+"hair_cards157/human.glb"),"scope":"21 sampled body bounds, not full hair deformation/contact/art"},"  "));output.close();probe.free()
+	var output:=FileAccess.open(root+candidate_folder+"/native_body.json",FileAccess.WRITE)
+	output.store_string(JSON.stringify({"samples":cases,"body_bounds_max_error_m":worst,"glb_sha256":FileAccess.get_sha256(root+candidate_folder+"/human.glb"),"scope":"21 sampled body bounds, not full hair deformation/contact/art"},"  "));output.close();probe.free()
 	print("HAIR157_NATIVE_BODY_PASS samples=",cases," error_m=",worst);get_tree().quit()
