@@ -1,6 +1,58 @@
-# Experimental 2D to 3D progress
+﻿# Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+
+- `IN_PROGRESS` AUTHORED-HUMAN-MOTION-106 (2026-11-25). Continued checkpoint105,
+  actual principal register/worktree and external objective read; production and
+  user save untouched. Reused actual licensed authored Unvanquished armor/body.
+  New authored_action_ranges parser uses the original name:start:end:fps table;
+  seven parser cases, final focused30Python PASS, zero failed/skipped. Raw action ranges extend
+  beyond authored exports: die0..400 is intentionally trimmed to0..40, Walk0..89
+  to0..70, Run keeps120fps. Six source clips only: Idle6.666667s, Walk1.166667s,
+  Run.75s, Attack.266667s, Death.666667s, Crouch.166667s. No invented Shoot/Melee.
+
+  Constraint-free122bone shared game rig /21meshes baked in separate source/game
+  scenes, every bone location/quaternion/scale keyed each original source frame,
+  source poses reset between clips; authored originals retained in packedBlend.
+  Initial constraint collection clear() API FAIL corrected to explicit removal.
+  Exact visual-matrix bake FAIL on two eyelid bones: source constrained shear
+  cannot be represented by ordinary TRS. Kept the actual dimensionless matrix
+  error .121207 in report; did NOT call this exact preservation. Sampled evaluated
+  skin instead, maximum1.3391mm in Blender; initial1mm criterion FAIL on Run head.
+  Adopted explicit2mm sampled-surface tolerance (about.067px at measured combat
+  scale), not an artistic pass. Source surface evidence covers nine times/clip,
+  about12vertices/mesh; NOT every vertex or every possible time.
+
+  Native first30fps import FAIL Walk2.846mm; retaining120fps for this source fixes
+  resampling. Fresh native_motion_check matches GLB SHA
+  1e4d8b0a06899e4968391a421cdee1f52ad3ce1a07551edcac290af737070614:
+  six real durations,21meshes/122bones; maximum sampled native error1.27053mm,
+  Death->Idle sampled skin reset0m. Positive UNV_NATIVE_AUTHORED_MOTION_OK.
+  E: unvanquished_motion01/human_actions.blend100,246,822bytes /GLB29,079,264bytes,
+  actual source references/reports/credits. CC BY-SA3.0 retained. No relicensing.
+
+  Native main.tscn previews actual Idle; front camera axis shows back of authored
+  animation, opposite axis shows face. Do not interpret camera flag as verified
+  anatomical orientation. Existing neutral material/light retained. Visually
+  coherent fitted armor but legacy face/style still below requested Rook target.
+  comparison.tscn --unvanquished-motion-study --robot-action-bundle
+  --vtol-motion-study --tactical --self-test --sprite-review passes actual native
+  six body-action dispatch and robot five-action/reset checks. Real existing alley
+  floor and627gray prototype cells; human/robot/VTOL/crate/machine loaded (5/6).
+  62.208px projected human height verified;120settled frames ~60fps vsync capped,
+  NOT uncapped performance guarantee. tactical_motion.png inspected: sprites still
+  stylistically stronger; robot very dark/slender, gray map/VTOL unfinished.
+  SDL gamepad warning persists. Missing preview.tscn attempt FAIL; correct existing
+  main.tscn used. No production/campaign/build/push checks run.
+
+  `DONE` technical six-source-clip export/native sampled correspondence only.
+  `TODO` next: verify actual source forward from authored head/foot geometry and
+  clip root transforms; apply explicit lab-only orientation, inspect face/profile/
+  back and action poses, then integrate original segmented HandDelta weapon poses
+  with a correctly licensed weapon before accepting grip. First Rook art remains
+  0/1, accepted humans0/2; Raider deliberately not started. Mandatory full human
+  action set, modern identity/wardrobe/PBR, final environment, optimized robot and
+  Blender roundtrip remain open. CHANTIER GLOBAL INCOMPLET.
 
 - `IN_PROGRESS` AUTHORED-TACTICAL-WARDROBE-SOURCE-105 (2026-11-25). Prior turn104
   progress verified from checkpointbebd1e50, actual principal/experimental registers
@@ -2333,4 +2385,5 @@ and build modular clothing on the preserved MPFB body.
 Phase 1 evidence is stored under `E:\CyberCity2085-3d-lab\outputs`; Phase 2
 evidence is under `E:\CyberCity2085-3d-lab\generated\phase2`. These generated
 resources must not be pushed without explicit authorization.
+
 

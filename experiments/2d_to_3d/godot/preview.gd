@@ -21,7 +21,7 @@ func _ready() -> void:
 		push_error("Could not load experimental GLB: %s (%s)" % [model_path, error])
 		get_tree().quit(2)
 		return
-	var model := document.generate_scene(state, 30, false, false)
+	var model := document.generate_scene(state, 120 if model_path.ends_with("unvanquished_motion01/human_actions.glb") else 30, false, false)
 	add_child(model)
 	if "--gltf-uniform-clearcoat" in OS.get_cmdline_user_args():
 		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,model)

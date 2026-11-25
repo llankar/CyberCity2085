@@ -51,7 +51,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		push_error("Missing comparison subject: " + path)
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
-	var subject := document.generate_scene(state, 30, false, false)
+	var subject := document.generate_scene(state, 120 if path.ends_with("unvanquished_motion01/human_actions.glb") else 30, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
 		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,subject)
@@ -83,7 +83,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
-	var unvanquished_study := "--unvanquished-study" in OS.get_cmdline_user_args()
+	var unvanquished_motion := "--unvanquished-motion-study" in OS.get_cmdline_user_args()
+	var unvanquished_study := "--unvanquished-study" in OS.get_cmdline_user_args() or unvanquished_motion
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
@@ -113,6 +114,9 @@ func _ready() -> void:
 	if unvanquished_study:
 		assert(not rocketbox and not rigged_human and not action_human and not nathan_study, "Choose one human source")
 		human_path = root + "unvanquished_human01/human_armor.glb"
+		if unvanquished_motion:
+			human_path = root + "unvanquished_motion01/human_actions.glb"
+			rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -271,6 +275,13 @@ func _ready() -> void:
 			if human_weapon: assert(human_weapon.visible)
 			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
 		else: assert("unavailable" in clip_status)
+		if unvanquished_motion:
+			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			for authored_clip in ["Run","Attack","Crouch","Death"]:
+				play_clip(authored_clip)
+				assert(authored_player.current_animation==authored_clip)
+			assert(authored_player.get_animation_list().size()==6)
+			print("UNV_SIX_AUTHORED_BODY_CLIPS_DISPATCH_OK no_fictitious_shoot_or_melee")
 		if bundled_human or rocketbox_motion:
 			var bundle_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			play_clip("Melee")
@@ -555,6 +566,7 @@ func _process(_delta: float) -> void:
 		var fps_value := str(Engine.get_frames_per_second()) if render_ready_usec > 0 and Time.get_ticks_usec()-render_ready_usec > 1000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
+		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored human study: U Run | A Attack | K Crouch | weapon grip NOT accepted"
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 
@@ -578,6 +590,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		var vehicle_actions := {KEY_7:"Rotor_Spin",KEY_8:"Gear_Retract",KEY_9:"Gear_Extend"}
 		if vehicle_actor != null and vehicle_actions.has(event.keycode):play_vehicle_clip(vehicle_actions[event.keycode])
 		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee", KEY_6: "Hit"}
+		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():
+			actions.merge({KEY_U:"Run",KEY_A:"Attack",KEY_K:"Crouch"})
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])
 	if event is InputEventMouseButton:

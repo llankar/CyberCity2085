@@ -7,6 +7,29 @@ This experiment is isolated from the current game runtime. No existing asset,
 map, combat rule or validated animation is replaced. Large and generated data
 lives exclusively in `E:\CyberCity2085-3d-lab`.
 
+## Authored armor body-action study (batch106)
+
+Run `run_blender.ps1 -Script blender/bake_unvanquished_actions.py` only after105
+source acquisition/conversion. It preserves source author export timing, bakes
+evaluated constrained body poses to a separate shared game rig, retains source
+actions in the packed Blender file and writes six clips on E: unvanquished_motion01.
+No artificial Shoot/Melee/Cover/Heal/PSI. Facial constrained shear is approximated
+by TRS: inspect the recorded matrix error separately from sampled skin error;
+2mm sampled skin is a technical tolerance, never artistic acceptance.
+
+Run `run_godot.ps1 -Scene res://authored_motion_check.tscn -QuitAfter300` (PowerShell
+argument is `-QuitAfter 300`). Require fresh matching-SHA native_motion_check.json
+and UNV_NATIVE_AUTHORED_MOTION_OK, not merely exit0. Native import must retain120fps;
+30fps resampling failed the source surface gate. Durations and Death->Idle reset
+are checked. Samples cover nine times per clip, not exhaustive collision proof.
+
+Optional independent comparison flags: `--unvanquished-motion-study
+--robot-action-bundle --vtol-motion-study --tactical --self-test --sprite-review`.
+Human keys U/A/K expose source Run/Attack/Crouch; Attack is not advertised as a
+finished armed Shoot. Original hand/torso game composition and grip remain open.
+Preview uses existing main.tscn; positive/negativeZ camera labels are camera axes,
+not anatomical orientation proof. No production runtime integration.
+
 ## Mechanical forward walk study (batch91)
 
 Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments
