@@ -28,6 +28,9 @@ This register is separate from the principal CyberCity 2085 GOAL.
   session92382 completed with ACTION_ATLAS_RENDER_COMPLETE; actual native atlas
   captures have positive PLAYBACK_TEST_OK and CAPTURE0 markers. SDL gamepad error
   persists. No unmeasured new VRAM/performance claim.
+  Final combined current suite:22unique targeted tests PASS/0fail/0skip (IK,
+  shot timing and atlas sampling), E:tmp/pytest122combined.xml; do not sum the
+  overlapping batch suites as additional unique tests.
 
   `TODO` FIRST-HUMAN-ART/DEFORMATION: inspect support finger contacts and wrist
   seam in close views, adapt Rook identity using this stronger source, then
