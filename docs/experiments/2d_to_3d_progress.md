@@ -2,6 +2,57 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SOLE-SKIN-162 (2026-11-25).
+  Previous161 turn classified progress: measured stepped transitions, explicit
+ 5mm point-contact FAIL retained. `DONE` audit now records concrete worst-contact
+  vertex/frame/anchor/position/weights. Source witness left55866 has24.036%shin,
+  right44192 has18.688%shin: source sole motion contains shin-driven deformation.
+  `DONE` isolated minimal skin variant. Only434left+433right vertices in existing
+  bottom12mm/foot-toe>0.5selection changed.30%of existing shin influence moved to
+  existing foot/toe in their original ratio. Total weights preserved, every other
+  vertex's weights exactly preserved, geometry/topology/UV hash unchanged
+  dd44e3d6c6160ca8207886ec1f2614f897acca6fdf7e5e28b05034d277fce66a.
+  No new mesh, primitive footwear, image or asset download. Current161 remains.
+  `DONE` actual120Hz867selected-sole audit: individual own-contact point maximum
+  4.113mm entry/4.191mm exit, PASS unchanged5mm criterion (previous5.473/5.588mm).
+  Continuous support PASS maximum lowest-sole height1.245mm. Contact centroid
+  max0.983..1.401mm. All tracked sole vertices while ANY sole point contacts have
+  max5.236mm, a separate metric including lifted/deforming points; retained, not
+  hidden. This is selected Blender sole geometry QA, NOT all boot vertices or
+  native per-vertex artistic contact acceptance. verify_sole_contact161.py
+  --sole-skin162 returns PASS with source161comparison and current BLEND hashes.
+  `DONE` all11original animation input/output channel bytes exact. Sole skin changes
+  legitimately alter posed boot surfaces; do not claim old deformed boots identical.
+  Final native507body/weapon bounds samples/11clips PASS max88.83180271um under
+  unchanged0.5mm export gate. Endpoint pairs max0.651957748um. Transition floor
+  -0.062448..1.224308mm, and crouch/hit floor criteria PASS. The507sample gate
+  verifies source/export fidelity; it does NOT prove complete contact on all11clips.
+  In particular existing ShootStudy clearance remains about5.859mm and was not
+  subjected to the new transition floating gate. This corrects overbroad commentary
+  about all old clips passing a floating criterion. Full motion contact remains open.
+  `DONE` independent --sole-skin162 stage passes real elapsed enter/loop/exit/idle,
+  repeat-key and robot-selection guards. Source/default production unchanged.
+  Six neutral midpoint front/side/back captures plus close boots actually inspected:
+  contours/laces/soles coherent, no obvious new boundary crack; full dynamic cloth,
+  weapon cover, body likeness and final art NOT VERIFIED. Native tactical PNG also
+  retained. No new isolated performance/VRAM or production tests.
+  `DONE`22targeted Python PASS0fail0skip (new weight normalization/ratio/other-group,
+  missing foot influence and negative/NaN/Inf rejection, contact/IK/signatures),
+  tmp/tests162.xml. Both native-proof and separate contact verifier actually PASS.
+  E:generated/phase2/sole_skin162 holds packed human.blend/human.glb/CREDITS,
+  skin_changes.json, source-linked native_reference/actions, contact assessment,
+  acceptance162.json and captures. GLB SHA
+  6bb0e08d83b32089dede10287dfbf3fd305f5fc723e33453995983b5e8813fce.
+  Reproduce correct_sole_skin162.py, audit_sole_contact161.py --sole-skin162,
+  measure_amjviz_actions146.py --sole-skin162, native checker/comparison flag,
+  verify_motion_extension159.py --sole-skin162 --native-proof and separate sole
+  verifier --sole-skin162. Scripts/weights utility/tests documented in commit.
+  `TODO` full/native contact coverage beyond selected sole/two clips, final cover
+  arm/weapon/lean, heal/conditional PSI; first-human artistic hair/face/wardrobe/
+  modules before Raider cohort. Eight technical families incl unaccepted cover,
+ 11clips inclT_pose/transitions, scene5/6subjects, map native1/1/final3Dart0/1.
+  CHANTIER GLOBAL INCOMPLET. No production edits/build/release/push.
+
 - `IN_PROGRESS` FOOT-CONTACT-161 (2026-11-25).
   Previous160 turn classified progress: real grounded transitions and sequence;
   grounding did not prove horizontal foot locking. `DONE` actual120Hz sole audit
