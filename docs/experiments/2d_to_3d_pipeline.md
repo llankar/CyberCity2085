@@ -301,3 +301,20 @@ Actual full native heel/toe geometry must remain planted, head recoil>5cm and al
 checked geometry recover<.1mm. This .8s articulated study is separate from gameplay
 damage/destruction or final robot art. Independent lab keyboard6 selects real Hit
 only when present; it does not alias absent human actions.
+
+## Batch99: articulated mechanical shutdown
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments @('--shutdown')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://surface_motion_check.tscn -QuitAfter 800 -SceneArguments @('--folder=E:/CyberCity2085-3d-lab/generated/phase2/security_death01','--model-file=robot_death.glb','--mechanical-shutdown-check')
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1000 -SceneArguments @('--nathan-study','--robot-shutdown-study','--tactical','--sprite-review','--self-test')
+```
+
+Require fresh matched GLB hash evidence and positive MECHANICAL_SHUTDOWN_NATIVE_OK
+plus surface gate, no assertion. Source cage first buckles through actual rig/IK,
+then falls to a measured flat-floor contact; no original resources modified. Cable
+Array merging changes at compressed poses: derivative disables proximity merge,
+preserves neutral corner correspondence onto underlying rings and sampled morphs.
+Prefix inspection script reproduces the cause. Death is a flat-ground mechanical
+shutdown study, not inter-part collision/debris/gameplay acceptance. All5robot clips
+currently separate studies; unified skeletal animation bundle remains next.

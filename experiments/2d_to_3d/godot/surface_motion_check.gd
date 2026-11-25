@@ -56,5 +56,11 @@ func _ready() -> void:
 		var action_file := FileAccess.open(root + "hit_native_action.json", FileAccess.WRITE)
 		assert(action_file != null)
 		action_file.store_string(JSON.stringify({"glb_sha256": FileAccess.get_sha256(root + model_file), "geometry": action_evidence}, "  "))
+	if "--mechanical-shutdown-check" in OS.get_cmdline_user_args():
+		var shutdown_evidence := preload("res://mechanical_action_check.gd").new().verify_shutdown(model)
+		assert(shutdown_evidence.has("height_initial_m"), "Shutdown geometry verification did not finish")
+		var shutdown_file := FileAccess.open(root + "shutdown_native_action.json", FileAccess.WRITE)
+		assert(shutdown_file != null)
+		shutdown_file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(root+model_file),"geometry":shutdown_evidence},"  "))
 	print("EINAR_NATIVE_SURFACE_GATE_OK")
 	get_tree().quit(0)

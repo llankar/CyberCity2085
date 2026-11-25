@@ -2,6 +2,55 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-MECHANICAL-SHUTDOWN-99 (2026-11-25). Prior turn98
+  progress verified from actual checkpointffcc3eb2, principal/experimental register
+  and worktree read. Continued explicit robot action deliverable, no production or
+  user save changes. New Death study2seconds/61frames30Hz: original rig lowers Root
+ 40cm with authored foot IK, head tilts .2rad; articulated buckle then rotates back
+ 90degrees, flat-ground lift measured from actual geometry, hold after1.3s. Not a
+  humanoid animation substitute or detached primitive assembly.124actual mechanical
+  meshes/joints and five61sample cable correction sets retained.
+
+  Initial unit run12PASS/2FAIL: test wrongly required zero velocity of every channel
+  at every other channel's stage boundary. Corrected to compare left/right velocity
+  continuity; final focused suite53PASS,0failed,0skipped across eight experimental
+  modules, including8new shutdown cases. Initial bake FAIL at frame7: lower-leg cable
+ 1128->912vertices despite fixed Array28. Initial AutoSmooth hypothesis rejected:
+  disabling it still failed. Read-only prefix audit proves first change is ARRAY
+  merging, before Curve/Subdivision. In derivative only, disabled proximity welding
+  and AutoSmooth on six cables, mapped baked neutral corners to stable underlying
+  rings with KDTree distance<10um checks. No original source edits. All61poses then
+  export with stable correspondence. inspector script/evidence retained on E.
+
+  E: phase2/security_death01/robot_death.blend139,792,506bytes / robot_death.glb
+ 85,547,168bytes; source rig/ground reports, coverage/CREDITS, surface references,
+  native_surface_check, shutdown_native_action, neutral death_side and tactical_close
+  PNGs. Source all124surfaces/61poses minimumZ -12.35nm (rounding), final held drift0.
+  Native sampled source-surface check14surfaces*61times max1.002um PASS, plus full
+  geometry checks124meshes at0/.4/1.25/1.6/2s: initial height1.949876m, buckle1.554187m,
+  final height.591319m/span1.546401m, ground abs<.1mm, held geometry drift.246um.
+  Fresh GLB SHA256 JSON and both MECHANICAL_SHUTDOWN_NATIVE_OK and
+  EINAR_NATIVE_SURFACE_GATE_OK present, no assertion. These do not establish
+  continuous-time collision, inter-part collision, debris/explosion or gameplay.
+
+  Independent comparison --robot-shutdown-study loads actual Death; key4 selects
+  it, missing clips remain unavailable. Native5subject/627cell sourceWalk+Death
+  selection/camera/calibration selftest PASS, projected human62.208008px. Native
+  sourceWalk+Hit regression rerun PASS. Neutral side corpse and tactical image
+  inspected: articulated knees/crouch then back-rest pose visible, no accepted final
+  robot identity/material/readability claim.120frame startup timing~60FPS is an
+  observation, not a new full performance/VRAM validation. Original source notices
+  retained in accompanying CREDITS/coverage. No push/release/campaign tests.
+
+  Bounded shutdown tasks3/3DONE (bake/correspondence, native geometry/scene, captures).
+  Global robot action set IN_PROGRESS: five separate Idle/Walk/Melee/Hit/Death
+  studies exist but unified action switching on one rig, seamless locomotion and
+  artistic action acceptance remainTODO. Accepted human identities0/2, modular
+  combat outfits0, native subjects5/6, one partial floor/block map loaded, finalized
+  maps0. Next: audit/unify real robot clips without losing corrective cable surfaces;
+  vehicle articulation and human licensed outfit/eyes/actions remain separate TODOs.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-MECHANICAL-HIT-98 (2026-11-25). Continued other explicit
   experimental deliverable after rejected human shoulder alternatives. Genuine
   StudioCHARGE CC BY4 mechanical source206bone rig, existing124part PBR derivative,

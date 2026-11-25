@@ -109,11 +109,13 @@ func _ready() -> void:
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
 	var robot_melee := charge and "--robot-melee-study" in OS.get_cmdline_user_args()
 	var robot_hit := charge and "--robot-hit-study" in OS.get_cmdline_user_args()
-	assert(int(robot_idle)+int(robot_walk)+int(robot_melee)+int(robot_hit) <= 1, "Choose one mechanical action study")
+	var robot_shutdown := charge and "--robot-shutdown-study" in OS.get_cmdline_user_args()
+	assert(int(robot_idle)+int(robot_walk)+int(robot_melee)+int(robot_hit)+int(robot_shutdown) <= 1, "Choose one mechanical action study")
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
 	if robot_walk: robot_path = root + "security_walk01/robot_walk.glb"
 	if robot_melee: robot_path = root + "security_melee01/robot_melee.glb"
 	if robot_hit: robot_path = root + "security_hit01/robot_hit.glb"
+	if robot_shutdown: robot_path = root + "security_death01/robot_death.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
@@ -199,7 +201,11 @@ func _ready() -> void:
 		assert(selected == 1)
 		key.keycode = KEY_2
 		_unhandled_input(key)
-		if robot_hit:
+		if robot_shutdown:
+			assert("unavailable" in clip_status)
+			var shutdown_check := preload("res://mechanical_action_check.gd").new().verify_shutdown(subjects[1])
+			assert(shutdown_check.has("height_initial_m"))
+		elif robot_hit:
 			assert("unavailable" in clip_status)
 			var hit_evidence := preload("res://mechanical_action_check.gd").new().verify_hit(subjects[1])
 			assert(hit_evidence.size() == 5)
@@ -261,7 +267,7 @@ func _ready() -> void:
 				print("NATHAN_AUTHORED_WALK_ONLY_OK no_fictitious_idle_or_combat_actions")
 			else: print("CHARGE_HUMAN_IDLE_DISPATCH_OK")
 		if action_human: play_clip("Shoot")
-		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))
+		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk")))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
@@ -289,6 +295,14 @@ func _ready() -> void:
 		struck.pause()
 		selected = 0
 		clip_status = "Robot: paused planted Hit recoil study"
+	if robot_shutdown:
+		selected = 1
+		play_clip("Death")
+		var shutdown_player := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		shutdown_player.seek(2.0, true)
+		shutdown_player.pause()
+		selected = 0
+		clip_status = "Robot: settled mechanical shutdown study"
 	if nathan_study:
 		selected = 0
 		play_clip("Walk")
