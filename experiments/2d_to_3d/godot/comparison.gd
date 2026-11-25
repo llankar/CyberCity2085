@@ -16,6 +16,9 @@ var robot_height := 2.4
 var vehicle_actor: Node3D
 var human_weapon: Node3D
 var first_process_usec := 0
+var generated_overlay
+var human_sprite_reference: TextureRect
+var human_sprite_caption: Label
 
 func subject_height(subject: Node3D) -> float:
 	var bounds := AABB()
@@ -52,7 +55,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
 	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb") or path.ends_with("scanned_armor_contact01/human_actions.glb")
-	var subject := document.generate_scene(state, 120 if authored_human else 30, false, false)
+	var import_fps := 24 if path.ends_with("rook_run129/human.glb") else (120 if authored_human else 30)
+	var subject := document.generate_scene(state, import_fps, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
 		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,subject)
@@ -77,13 +81,17 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 	return true
 
 func _ready() -> void:
+	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
+	if generated_review:
+		assert("--sprite-review" in OS.get_cmdline_user_args())
+		yaw=PI/4
 	if "--msaa4" in OS.get_cmdline_user_args(): get_viewport().msaa_3d = Viewport.MSAA_4X
 	if "--sprite-review" in OS.get_cmdline_user_args():
 		get_window().content_scale_size = Vector2i(1920, 1080)
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args()
+	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args() or generated_review
 	var neck_study := "--neck-uv-study" in OS.get_cmdline_user_args() or run_study
 	var quiff_study := "--quiff-study" in OS.get_cmdline_user_args() or neck_study
 	var head_fit_study := "--head-fit-study" in OS.get_cmdline_user_args() or quiff_study
@@ -234,6 +242,10 @@ func _ready() -> void:
 	layer.add_child(hud)
 	if "--sprite-review" in OS.get_cmdline_user_args():
 		setup_sprite_review(layer)
+	if generated_review:
+		generated_overlay=preload("res://generated_atlas_comparison.gd").new()
+		layer.add_child(generated_overlay)
+		generated_overlay.configure(camera,subjects[0],human_sprite_reference,human_sprite_caption,human_height)
 	selected = 1
 	play_clip("Idle")
 	if robot_idle:
@@ -433,6 +445,29 @@ func _ready() -> void:
 		authored_walk.seek(authored_walk.get_animation("Walk").length * .5, true)
 		authored_walk.pause()
 		clip_status = "Human: source-authored Walk pose | no cyberpunk wardrobe or accepted Rook identity"
+	if generated_review and "--self-test" in OS.get_cmdline_user_args():
+		yaw=PI/4;elevation=.6;update_camera()
+		preload("res://generated_atlas_sync_check.gd").new().run_checks(self,generated_overlay)
+	if generated_review:
+		var compare_action:=""
+		var compare_time:=0.
+		for argument in OS.get_cmdline_user_args():
+			if argument.begins_with("--compare-action="):compare_action=argument.trim_prefix("--compare-action=")
+			if argument.begins_with("--compare-time="):
+				var value:=argument.trim_prefix("--compare-time=")
+				assert(value.is_valid_float());compare_time=value.to_float()
+		if not compare_action.is_empty():
+			assert(generated_overlay.player.has_animation(compare_action))
+			assert(is_finite(compare_time) and compare_time>=0 and compare_time<=generated_overlay.player.get_animation(compare_action).length)
+			selected=0;play_clip(compare_action)
+			generated_overlay.player.seek(compare_time,true);generated_overlay.player.pause();generated_overlay.refresh()
+			print("GENERATED_ATLAS_FROZEN_COMPARISON ",JSON.stringify(generated_overlay.state))
+			assert(compare_action.get_file()==compare_action)
+			var snapshot: Dictionary=generated_overlay.state.duplicate()
+			snapshot["model_glb_sha256"]=FileAccess.get_sha256(generated_overlay.folder+"../human.glb")
+			snapshot["scope"]="Frozen animation/camera state; PNG capture result and artistic inspection are separate"
+			var snapshot_file:=FileAccess.open(generated_overlay.folder+"frozen_"+compare_action.to_lower()+"_comparison131.json",FileAccess.WRITE)
+			assert(snapshot_file!=null);snapshot_file.store_string(JSON.stringify(snapshot,"  "));snapshot_file.close()
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame
@@ -529,12 +564,17 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 		picture.size = display_size
 		picture.position = reference_foot - Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * display_size
 		layer.add_child(picture)
+		if index==0 and "--generated-atlas-review" in OS.get_cmdline_user_args():
+			human_sprite_reference=picture
+			picture.set_meta("reference_manifest",manifest)
+			picture.set_meta("reference_full_texture",ImageTexture.create_from_image(atlas))
 		for entry in [[reference_foot, "Sprite 2D"], [foot, "Mesh 3D"]]:
 			var caption := Label.new()
 			caption.text = entry[1]
 			caption.position = entry[0] + Vector2(-35, 12)
 			caption.add_theme_font_size_override("font_size", 14)
 			layer.add_child(caption)
+			if index==0 and entry[1]=="Sprite 2D":human_sprite_caption=caption
 	var note := Label.new()
 	note.position = Vector2(20, 310 if "--vtol-motion-study" in OS.get_cmdline_user_args() else 270)
 	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot actual height %.3f m\nSprite shader/rim/ground shadows are not reproduced in this review." % [body_px, robot_height]

@@ -721,3 +721,30 @@ peak and the five current native manifest/PNG hashes. It proves the technical
 atlas alternative on the first actor. It does not approve contact, hairline,
 anatomical fidelity, material quality or use in the production game.
 
+## Synchronized tactical comparison (batch131)
+
+Use the actual scene with the current generated atlas overlay:
+
+```powershell
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://comparison.tscn -QuitAfter 1800 -SceneArguments @('--generated-atlas-review','--robot-action-bundle','--vtol-motion-study','--tactical','--facades-study','--sprite-review','--self-test','--compare-action=PistolFireStudy','--compare-time=0.3333333333333333','--capture=E:/CyberCity2085-3d-lab/generated/phase2/rook_run129/atlas/synchronized_fire131.png')
+```
+
+Without compare-action/time, the existing1..5human controls drive the actual
+AnimationPlayer. The helper reads its clock; generated24fps and original sprite
+cadence remain distinct. Original Samurai has no shoot animation, so the original
+picture is hidden and its missing clip labelled during Fire. Unsupported generated
+Run is also hidden. No substitute action or normalized playback speed is invented.
+The overlay is a comparison reference, not a sixth physical actor or Raider model.
+
+The default comparison camera is snapped to one atlas view at elevation0.6;
+eight-view facing is quantized during orbit. Other elevations/perspective cannot
+be represented by these images and hide the overlays explicitly. Zoom recomputes
+their scale/foot anchors from actual camera projection, including close62.208px
+and overview20.736px. The existing production sprite rim/ground-shadow shader is
+still not reproduced; do not infer identical lighting/materials from this review.
+
+The native self-test covers120camera/action/time cases, original cadence, three
+real AnimationPlayer.advance cases, missing actions, fixed-elevation restrictions
+and close/overview scaling. Hash-bound proof and frozen-state JSON remain in the
+E: atlas folder. Native screenshots are reviewed separately from those assertions.
+

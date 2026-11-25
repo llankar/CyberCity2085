@@ -2,6 +2,50 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SYNCHRONIZED-COMPARISON-131 (2026-11-25). Continued5bdc838b;
+  previous turn concrete1400frame/five-action atlas production and native evidence.
+  `DONE` independent modular generated_atlas_comparison.gd overlay added beside
+  original2D and real3D in existing alley. Optional --generated-atlas-review loads
+  exact current source/proof hashes; does not alter production. Actual AnimationPlayer
+  clock drives generated frames and available original animations at each source's
+  own fps. Original Samurai idle/move/melee/death retained; missing shoot explicitly
+  hidden/labelled, not replaced. Unsupported generatedRun also hidden. Current129
+  GLB import now uses native24fps rather than generic30fps for this source only.
+
+  `DONE` CAMERA-131: true camera projection selects eight-view facing and scales
+  both2D references with zoom. Default camera aligns to exact atlas view; free yaw
+  is quantized. Nonmatching elevation/perspective hides comparison, because fixed
+  elevation0.6atlas cannot reproduce it. Generated image is a Canvas comparison
+  overlay, not a new grounded/depth-tested character or sixth required model.
+  Existing sprite rim/ground-shadow shader remains absent. Labels adjusted after
+  first native screenshot overlapped original/mesh captions. Capture arguments
+  --compare-action/--compare-time freeze actual3D and generated source together.
+
+  `DONE` NATIVE-TEST-131: actual120cases (8camera angles x5actions x3times),
+ 24explicit missing-original-Fire cases, three AnimationPlayer.advance checks
+  (elapsed frame, loop wrap, death hold), original native cadence, unsupportedRun,
+  fixed-elevation rejection and close62.208/overview20.736px scales PASS. Test
+  file generated_atlas_sync_check.gd is separate from overlay. Existing self-test
+  mutates camera yaw; restored exact review camera before sync checks/capture.
+  E:rook_run129/atlas/synchronized_comparison131.json binds model/5manifest hashes;
+  frozen_pistolfirestudy_comparison131.json records sourceframe8 at0.333333s,
+  facing3/orbit7/atlasindex141. Actual synchronized_tactical131.png and final
+  synchronized_fire131.png captured and inspected. Native capture-result0 and
+  all existing robot/VTOL/input dispatch markers observed. SDL warning persists.
+
+  Python regressions:17facing/sampling tests PASS/0fail/0skip, E:tmp/pytest131.xml;
+  1400PNG/source/native-proof verifier PASS. No new render, atlas, model, VRAM or
+  complete performance acceptance inferred from short scene frame timings.
+  `IN_PROGRESS` ART: synchronized views show the functional alternative at actual
+  combat size, but do not promote current body/neck/hair/hand finish to modern
+  tactical-game quality. `TODO` NEXT: fix genuine glove/wrist contact using source
+  hand/forearm geometry and inspect Idle/Fire/Melee/Death under neutral light;
+  retain current source and atlas evidence until that new candidate is verified.
+  No second human/generalized production until first convincing Rook. Counts:
+  requiredhuman5/5clips technical,0/5artistic; atlas5/5technical,0/5final-art;
+  acceptedRook0/1; finalhumans0/2; scene5/6subjects; mapnative1/1/artistic0/1.
+  No mainGOAL change, build or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` FIRST-ACTOR-ATLAS-130 (2026-11-25). Continuedf916c1d0, previous
   turn concrete dense-run clearance correction. `DONE` full five-action alternate
   PNG pipeline on current equipped first actor, no second human production:
