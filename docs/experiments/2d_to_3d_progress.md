@@ -2,6 +2,69 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HUMAN-SOURCE-143 (2026-11-25). Previous142 was progress:
+  actual geometry/export/side review rejected a stretched nape. `DONE` original
+  MIT/Diesel anatomical material inventory; original MIT body is uniform, not a
+  hidden bare shoulder replacement. `FAIL` separate genuine Diesel neck patch:
+  first spatial crop included jaw fragments; bone-weight exclusion removes those,
+  but head/neck proportions and lower fragment coverage still fail native side
+  review. Files remain diagnostic in rook_anatomy143, not promoted.
+  `DONE` changed first-human route to a coherent authored full character, rather
+  than spending another batch adjusting incompatible body/head garments. Acquired
+  AmJViZ CyberPunk Rigged character, free asset version
+  3faea5ca-a58d-46c5-adc3-5ed1ef39dc44, base
+  ebd01e7e-ebd8-4c74-88f0-6c0e3ccc0806. Public API initially returned404 for baseID;
+  correct versionID supplied metadata. Initial download403 explicitly required
+  scene_uuid; documented normal API parameter resolved it without login/token or
+  bypass. Only selected Godot GLB28,357,000B and original BLEND493,590,799B acquired
+  after metadata/thumbnail/license review; all files exclusively on E:.
+  `DONE` acquire_amjviz_source.ps1 rerun verifies both SHA256 without redownload.
+  GLB SHA1b32cef27e37065117214bc8c670db8aeb46f64f318fe715e5d8034c76108e4d;
+  BLEND SHA331e5ef80c495dc11ac637c87a29d46bdf424ab7bc1cbed898151bb13489df94.
+  License is Royalty Free, NOT CC0: higher-level commercial/game use allowed with
+  no directly/easily extractable distributed assets; raw resale/asset-pack
+  distribution prohibited. Original files/private experiments must not be pushed
+  or publicly distributed as raw BLEND/GLB. Primary license/FAQ pages saved on E:;
+  inspect_amjviz_source.py writes attribution/restrictions in CREDITS.txt.
+  `DONE` actual source opened in Blender4.5.17 with embedded rig_ui script disabled:
+  rig706bones/160deform, Character62,757vertices/54,329faces, seven source materials,
+  46file images present/packed, no missing external texture. Original source intact.
+  GLB actual1mesh/7primitives/77,614UV-split vertices/706skin joints,152weighted,
+  26embedded images, EXT_texture_webp loaded natively. Numeric weights PASS,
+  maximum normalization error2.3841858e-7. Four actual source clips: Hard stand,
+  Walk (1_24), Run (1_18), T_pose. No fictional combat clips.
+  `DONE` independent --amjviz-study selector, source aliases, mutually exclusive
+  human source and old-atlas guard. Native scene self-test PASS after fixing the
+  adapter's initial literal-Walk assertion (source uses Walk (1_24)). Real idle,
+  walk/run dispatch and unavailable Shoot/Melee/Death verified. Existing robot
+  action/VTOL key tests, selection/camera,627occupied map cells and five physical
+  subjects PASS. Height1.812331m; exact established1.8m human pixel reference
+ 62.208px verified. Negative atlas129 mix rejects before stage loading (expected
+  assertion; Godot exit0 alone is not PASS). No production runtime modifications.
+  `DONE` inspected actual native neutral front/full/face, walking side and tactical
+  capture. Coherent neckline and substantially more detailed authored clothing
+  make this a better source candidate. NOT final Rook: identity, face/hair finish,
+  material fidelity, deformation/contact and full combat set remain unaccepted.
+  Robot137 neutral front rerendered/inspected unchanged; dark/slender appearance
+  remains an art limitation. Actual back capture inspected: integrated jacket,
+  trousers/boots and covered neckline coherent, no final animation/contact claim.
+  E:/CyberCity2085-3d-lab/generated/phase2/rook_anatomy143/
+  contains amjviz_front.png, amjviz_face.png, amjviz_walk_side.png,
+  amjviz_back.png, amjviz_tactical.png and robot_front.png.
+  Tests:4pytest PASS/0fail/0skip (tmp/pytest143.xml), actual GLB inventory PASS,
+  Blender source inspection PASS, native stage/positive markers PASS and negative
+  guard expected rejection. No314pose gate, sustained current FPS/VRAM benchmark,
+  generated atlas or full current combat animation acceptance. Render timing over
+ 120frames is only smoke output, not a benchmark. SDL warning persists.
+  Backlog: `TODO` bake/optimize the genuine Rigify deformation skeleton while
+  preserving authored walk/run; integrate licensed combat motions/weapon contacts
+  for Shoot/Melee/Death; establish Rook identity and neutral artistic acceptance
+  before expanding humans. Keep earlier142/143neck patches rejected. Required
+  new-source human actions2/5 available (ready/walk; run extra),0/5artistically
+  finalized; earlier separate candidate141 retains5/5technical only. Final Rook0/1,
+  final humans0/2, scene5/6subjects, mapnative1/1/artistic0/1; new atlas NOT GENERATED.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` NECK-BOUNDARY-142 (2026-11-25). Read-only source audit confirms
   the original MIT neck itself ends high at the nape; this is not merely a lost
   face from our crop. Actual closed lower boundary:20edges/20vertices, maximum

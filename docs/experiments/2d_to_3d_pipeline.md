@@ -7,6 +7,42 @@ This experiment is isolated from the current game runtime. No existing asset,
 map, combat rule or validated animation is replaced. Large and generated data
 lives exclusively in `E:\CyberCity2085-3d-lab`.
 
+## Coherent authored human source (batch143)
+
+The incompatible Diesel neck patch is a rejected diagnostic. The new first-human
+source study uses the complete AmJViZ CyberPunk Rigged character, retaining its
+actual integrated anatomy, clothing, PBR textures and original Rigify animation.
+It is not yet final Rook and does not contain shoot/melee/death clips.
+
+Source and license:
+https://www.blendkit.com/asset-gallery-detail/ebd01e7e-ebd8-4c74-88f0-6c0e3ccc0806/
+https://www.blendkit.com/docs/licenses/licensing-faq/
+Royalty Free, not CC0: private source files and raw scenes must not be pushed or
+redistributed as an asset pack. Games require assets not directly/easily
+extractable; rendering to sprites is another explicitly supported output route.
+
+Reproduce without desktop automation:
+
+```powershell
+& experiments/2d_to_3d/acquire_amjviz_source.ps1 -IncludeBlenderSource
+$env:PYTHONDONTWRITEBYTECODE='1'
+python experiments/2d_to_3d/inspect_amjviz_source.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/inspect_amjviz_blend143.py
+& experiments/2d_to_3d/run_godot.ps1 -QuitAfter 180 -SceneArguments @(
+ '--amjviz-study','--robot-action-bundle','--source-opacity-study',
+ '--vtol-motion-study','--vtol-finish-study','--tactical','--facades-study',
+ '--sprite-review','--self-test',
+ '--capture=E:/CyberCity2085-3d-lab/generated/phase2/rook_anatomy143/amjviz_tactical.png')
+```
+
+Native smoke must print AMJVIZ_SOURCE_DISPATCH_OK, COMPARISON_INPUT_TEST_OK and
+COMPARISON_CAPTURE 0 without unexpected assertions. Combining --amjviz-study with
+--generated-atlas-review must reject: the old atlas is a different human. Source
+hashes/inventory/credits live on E: and in the experimental progress register.
+No current-source314pose or sustained-performance proof yet. Next work is genuine
+Rigify deformation baking/optimization and complete combat animation integration,
+then neutral art/contact review and only then new atlases/cohort expansion.
+
 ## Authored armor body-action study (batch106)
 
 New first-human alternative117: `acquire_diesel_candidate.py` follows the author's

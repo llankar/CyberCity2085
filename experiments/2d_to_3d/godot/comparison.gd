@@ -82,6 +82,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
+	var amjviz_study := "--amjviz-study" in OS.get_cmdline_user_args()
+	assert(not(amjviz_study and generated_review), "Atlas129 is not the AmJViZ character")
 	var jacket_study := "--authored-jacket-study" in OS.get_cmdline_user_args()
 	var pouch_study := "--pouch-study" in OS.get_cmdline_user_args() or jacket_study
 	var skin_normal_study := "--skin-normal-study" in OS.get_cmdline_user_args() or pouch_study
@@ -119,7 +121,7 @@ func _ready() -> void:
 	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
 	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
-	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study or unvanquished_study or cyborg_study
+	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox or nathan_study or unvanquished_study or cyborg_study or amjviz_study
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
 	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
 	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
@@ -167,6 +169,10 @@ func _ready() -> void:
 		if skin_normal_study: human_path = root + "rook_normal_strength139/human.glb"
 		if pouch_study: human_path = root + "rook_pouches140/human.glb"
 		if jacket_study: human_path = root + "rook_diesel_replacement141/human.glb"
+	if amjviz_study:
+		assert(not(rocketbox or nathan_study or unvanquished_study or cyborg_study or bundled_human or action_human), "Choose one human source")
+		human_path = "E:/CyberCity2085-3d-lab/sources/blenderkit_cyberpunk143/source_godot.glb"
+		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -209,6 +215,7 @@ func _ready() -> void:
 	if cyborg_pistol: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy"})
 	if cyborg_fire: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy"})
 	if cyborg_actions: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy", "Melee":"MeleeStudy", "Death":"DeathStudy"})
+	if amjviz_study: subjects[0].set_meta("action_aliases", {"Walk":"Walk (1_24)", "Run":"Run (1_18)", "Idle":"Hard stand"})
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -344,7 +351,7 @@ func _ready() -> void:
 		play_clip("Walk")
 		if rigged_human:
 			var walking_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-			assert(walking_player.current_animation == "Walk")
+			assert(walking_player.current_animation == ("Walk (1_24)" if amjviz_study else "Walk"))
 			print("CHARGE_HUMAN_WALK_DISPATCH_OK")
 			play_clip("Shoot")
 		if action_human or bundled_human or rocketbox_motion:
@@ -361,6 +368,15 @@ func _ready() -> void:
 			play_clip("Shoot")
 			assert(human_weapon.visible)
 			print("SCANNED_SHOOT_PROP_DISPATCH_OK real_prop_visibility")
+		elif amjviz_study:
+			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			assert(authored_player.current_animation == "Walk (1_24)")
+			play_clip("Run")
+			assert(authored_player.current_animation == "Run (1_18)")
+			for unavailable in ["Shoot","Melee","Death"]:
+				play_clip(unavailable)
+				assert("unavailable" in clip_status)
+			print("AMJVIZ_SOURCE_DISPATCH_OK idle,walk,run;combat_unavailable")
 		elif cyborg_study:
 			var cyborg_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 			assert(cyborg_player.current_animation=="walk")
@@ -408,7 +424,7 @@ func _ready() -> void:
 		if rigged_human:
 			play_clip("Walk" if nathan_study else "Idle")
 			var human_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-			assert(human_player.current_animation == ("Walk" if nathan_study else "Idle"))
+			assert(human_player.current_animation == ("Hard stand" if amjviz_study else ("Walk" if nathan_study else "Idle")))
 			if nathan_study:
 				assert(human_player.get_animation_list().size() == 1)
 				assert(human_player.get_animation("Walk").loop_mode == Animation.LOOP_NONE)
