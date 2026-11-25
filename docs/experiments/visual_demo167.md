@@ -46,12 +46,11 @@ brute et extraction facile des assets non permises. Démonstration privée seule
 Rocketbox : MIT, notice Microsoft conservée ; Quaternius : CC0 ; Security Bot :
 CC BY 4.0, attribution Blender Foundation conservée dans ses CREDITS.
 
-Le LICENSE local Hunyuan3D-2 porte une restriction territoriale explicite UE,
-Royaume-Uni et Corée du Sud. La compatibilité pour une intégration/distribution
-depuis la France n'est donc pas acquise. Aucun modèle Hunyuan n'est distribué
-ni intégré dans cette scène. L'étape Paint nécessite aussi son rasterizer CUDA
-compilé, absent de l'environnement actuel ; aucune grosse acquisition de poids
-Paint n'est lancée avant résolution de ces deux points.
+Le propriétaire demande explicitement de poursuivre les essais personnels sans
+consacrer le chantier aux questions de distribution. Les notices restent
+conservées ; les anciens constats de licence ne bloquent pas ces essais privés.
+L'étape Paint est maintenant en préparation avec son rasterizer CUDA sur E:.
+Aucune distribution des modèles expérimentaux n'est effectuée.
 
 ## Limites à garder visibles
 

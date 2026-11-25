@@ -2,6 +2,20 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` COLOUR-FIRST-168 (2026-11-25). User explicitly requests personal
+  experiments without licensing work; preserved notices, no distribution/push.
+  `DONE` unarmed textured T-pose reference from retained Rook: actual Blender
+  front/side/back PNG and BLEND on E:phase2/reference168, three views inspected.
+  `DONE` private demo167 gallery index.html links actual MP4/GIF/PNG deliverables.
+  `IN_PROGRESS` Paint native rasterizer: CUDA12.8 compiler components39MB only,
+  E:tools/cuda168, no system install; ninja/xatlas/pybind in existing E:venv.
+  First compile FAIL missing cusparse.h; include existing PyTorch NVIDIA headers,
+  changed retry compiling. No duplicate AI weight download before import/kernel.
+  Next: run_hunyuan_paint168.sh on existing40k Hunyuan robot, colour1024 atlas,
+  inspect native colour result; then unarmed human candidate. Shape not rerun.
+  Prepared runner NOT VERIFIED until actual execution; no art acceptance implied.
+
+
 - `IN_PROGRESS` VISUAL-DELIVERY-167 (2026-11-25). Owner reprioritization:
   complete visible prototypes first; old modularity/micrometric TODOs secondary.
   `DONE` independent demo167.tscn: textured Rook/AmJViZ, Raider/Rocketbox and
