@@ -30,6 +30,17 @@ finished armed Shoot. Original hand/torso game composition and grip remain open.
 Preview uses existing main.tscn; positive/negativeZ camera labels are camera axes,
 not anatomical orientation proof. No production runtime integration.
 
+Saved Blender reproducibility: run `blender/roundtrip_authored_human.py` through
+the Blender wrapper, then authored_motion_check.tscn with --saved-blend-roundtrip.
+The actual saved Blend is reexported and hash-checked unchanged. Batch107 GLB is
+byte-identical; durations, source skin samples and reset pass natively too.
+This does not establish art acceptance or reproducibility of other source rigs.
+
+`blender/audit_authored_facing.py` measures this posed eye/head forward, roughly
+Godot-Z. Existing preview --view=back is camera-negativeZ and shows its face.
+Use --neutral for white ambient/gray background instead of default cyan preview.
+Generic camera-axis labels are not anatomical labels; no model rotation needed.
+
 ## Mechanical forward walk study (batch91)
 
 Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments

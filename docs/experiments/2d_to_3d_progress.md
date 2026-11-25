@@ -2,6 +2,45 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HUMAN-REVIEW-ROUNDTRIP-107 (2026-11-25). Continued local
+  checkpoint7eee9db5. Actual audit_authored_facing.py evaluates eye surface centroid
+  against head bounds at original clip start, not guessed source axes. Idle forward
+  Blender(.07317,.99732,0), Godot(.07317,0,-.99732); Attack(.00443,0,-.99999).
+  Walk/Run/Crouch likewise point toward negativeGodotZ (head yaw retained).
+  Earlier105 source-X/Blender-Y facing assumption was WRONG: posed authored human
+  faces approximately Blender+Y/Godot-Z. No asset transform changed to hide error.
+  Preview view=back is negativeZ camera and therefore anatomical face here.
+
+  Existing --neutral flag used (white ambient/gray background), not blue default
+  preview. Actual E: unvanquished_motion01/human_neutral_face.png,
+  human_neutral_side.png, human_neutral_front.png (last is anatomical back), plus
+  security_bundle01/robot_neutral_face.png. All four captures returned0. Face and
+  robot inspected; source armor coherent, modern Rook face/hair/style NOT accepted;
+  white mechanical shell/black internals unlike Wraith sprite. No geometry or
+  material edit, no generated beauty image. Initial106 previews were blue ambient,
+  not neutral acceptance images. Source axes now measured, not guessed.
+
+  `DONE` editable Blender roundtrip: roundtrip_authored_human.py opens the saved
+  Blend with scripts disabled, activates game scene/unmutes six NLA tracks and
+  reexports to unvanquished_roundtrip01 on E:, without rebuilding from acquisition.
+  GLB SHA1e4d8b0a06899e4968391a421cdee1f52ad3ce1a07551edcac290af737070614
+  BYTE IDENTICAL to original29MBGLB. SourceBlend SHA
+  ce53b155c30fc95a158bad671507b8239420a5928cf9d26b98d23c4883f1e039 unchanged.
+  Extended native authored_motion_check --saved-blend-roundtrip PASS: six durations,
+  122bones/21meshes, nine sampledtimes/clip, max1.27053mm skin error, Death->Idle0m.
+  Fresh matchingSHA native_motion_check.json and positive marker. Real Blender
+  source inspection/export ran; no production/campaign tests.
+
+  Official Unvanquished cg_animdelta.cpp and cg_segmented_skeleton.cpp inspected
+  through GitHub connector: weapon delta relative to stand applies to configured
+  hand bones; legs composed separately. Engine source GPL2-or-later is distinct
+  from asset CC BY-SA3.0. NO engine implementation copied/relicensed. Static
+  rifle_delta alone is not completed composition. `TODO` next: isolate source pose
+  composition and fit real licensed weapon, check hand contacts and action views.
+  Accepted final humans0/2, full scene subjects5/6, artistically finalized maps0/1.
+  Modern Rook identity, Raider, complete human action set, environment and robot
+  optimization remain open. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-HUMAN-MOTION-106 (2026-11-25). Continued checkpoint105,
   actual principal register/worktree and external objective read; production and
   user save untouched. Reused actual licensed authored Unvanquished armor/body.

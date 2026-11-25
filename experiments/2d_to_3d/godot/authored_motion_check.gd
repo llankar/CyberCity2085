@@ -1,6 +1,7 @@
 extends Node3D
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_motion01/"
+	if "--saved-blend-roundtrip" in OS.get_cmdline_user_args():folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_roundtrip01/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human_actions.glb",state)==OK)
