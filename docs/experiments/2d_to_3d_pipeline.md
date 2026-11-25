@@ -1059,6 +1059,23 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Real hair geometry148 diagnostic, separate from147texture budget:
+`run_blender.ps1 -Script blender/audit_amjviz_hair148.py`, then
+`run_blender.ps1 -Script blender/fit_amjviz_quiff148.py`. Both live under
+experiments/2d_to_3d; use the full repository-relative wrapper path as below.
+Requires existing146BLEND/GLB and isolated ActualCopperQuiff from133private source.
+The fit removes only Hair2 material faces and verifies nonhair face/UV coordinates;
+uses real scalp BVH for the lower hairline, existing head bone, source copper UV.
+CC0 Grab3D quiff publisher's AI-assisted provenance is retained alongside the
+AmJViZ royalty-free license. No old head/hand components are reused.
+Fresh reference:
+`& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_amjviz_actions146.py -ScriptArguments @('--hair-study')`.
+Native check:
+`& experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_actions_check.tscn -SceneArguments @('--hair-study')`.
+Use --hair-study instead of --amjviz-combat-study for the tactical command below;
+do not mix --texture-budget-study. Preview148file is amjviz_hair148/human.glb.
+The fit remains an unaccepted Rook art diagnostic, not a final character cohort.
+
 Texture-only optional147: `python experiments/2d_to_3d/texture_budget.py --maximum 1024`
 uses current146GLB and writes private amjviz_budget147_1024 on E:, never overwrites
 146. Requires Pillow and NumPy. It retains exact accessor payloads, material slots,

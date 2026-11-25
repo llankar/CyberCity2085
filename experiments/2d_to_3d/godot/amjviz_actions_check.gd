@@ -3,13 +3,17 @@ extends Node3D
 
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
+	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
+	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
 	if "--texture-budget-study" in OS.get_cmdline_user_args():
+		assert(not hair_study,"Choose one geometry reference")
 		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget147_1024/"
+	var model_path := folder+("human.glb" if hair_study else "human_actions.glb")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
-	assert(document.append_from_file(folder+"human_actions.glb",state)==OK)
+	assert(document.append_from_file(model_path,state)==OK)
 	var model := document.generate_scene(state,120,false,false)
 	add_child(model)
 	var player := model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
@@ -17,7 +21,7 @@ func _ready() -> void:
 	assert(rig.get_bone_count()==262 and player.get_animation_list().size()==7)
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false):meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
-	assert(meshes.size()==10)
+	assert(meshes.size()==(11 if hair_study else 10))
 	var probe := preload("res://skin_motion_check.gd").new()
 	var checker := preload("res://cyborg_ready_check.gd").new()
 	var worst := 0.0
@@ -43,7 +47,7 @@ func _ready() -> void:
 	worst=maxf(worst,reset.error)
 	probe.free();checker.free()
 	var file := FileAccess.open(folder+"native_actions.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(folder+"human_actions.glb"),
+	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(model_path),
 		"reference_sha256":reference_hash,"clips":clips,
 		"maximum_error_m":worst,"samples":count,"sample_cadence_hz":48,"death_to_idle_reset_error_m":reset.error,
 		"scope":"Actual evaluated body/weapon bounds at source key/midpoint cadence; not full120Hz, artistic/contact or original Rigify fidelity"},"  "))

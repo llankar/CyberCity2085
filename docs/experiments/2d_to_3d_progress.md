@@ -2,6 +2,42 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-QUIFF-148 (2026-11-25). Continued after147checkpoint;
+  actual source inventory locates intact head/scalp under separate Hair2 material.
+  First audit FAIL due object-name assumption Body_low; corrected by selecting
+  actual largest Character mesh, successful geometry_audit.json. `DONE` private
+  fit_amjviz_quiff148.py replaces only10,658old hair faces with the real1,702face/
+  1,479vertex CC0 Grab3D quiff already acquired. Source publisher explicitly says
+  Meshy AI-assisted base/Blender cleanup; this is disclosed in CREDITS, not a
+  claim of exclusively hand-authored hair. Existing UV/copper texture retained.
+ 253root vertices conform to actual upper scalp, maximum5.123mm correction after
+  measured affine placement. No primitive hair cap, new head/neck or body topology
+  patch. Nonhair face coordinates/active UV hash exact before/after deletion;
+  source146BLEND/GLB unchanged. Rigid existing DEF-spine.006 binding.
+  Current derived human.blend/human.glb and textures/CREDITS on E:amjviz_hair148;
+  GLB SHA10890c02d587f1c2a25b4086b678af03b5f187ab1d1f7ae28dd7e4400fbd9dc4.
+  `DONE` neutral front.png,side.png,back.png actually inspected: recognizable
+  copper swept-up silhouette, intact sides/back anatomy and source cybernetic
+  scalp; improved Rook direction but not accepted likeness. Hairline blending,
+  facial identity, jacket silhouette/gloss and support-hand contact remain open.
+  Actual total height1.843m includes taller hair; body geometry not enlarged.
+  `DONE` fresh Bpy reference for11meshes/262bones/sevenclips and native288pose
+  check PASS88.832micrometers, unchanged500micrometer gate; reset45.709um and
+  floor/settled death checks PASS. This is sampled bounds, not vertex/contact or
+  original Rigify fidelity. Generic reference/checker gains explicit --hair-study;
+  original146/147 routes retained. `DONE` independent stage --hair-study actual
+  selection/action/robot/vehicle self-test PASS and inspected tactical.png with
+  existing2Dsprites/map. Hair study retains full4K source maps;147memory figures
+  do NOT describe148. No new148 sustained benchmark/VRAM/atlas generated.
+  Python suite23PASS from147 remains applicable to unchanged shared Python
+  helpers; new Blender scripts actually executed with source-preservation asserts,
+  fresh native integration check and render review above. No new unit test added
+  for fixed art placement constants. `TODO` next: adapt licensed tactical wardrobe
+  toward Rook with real garment geometry and improve shooting hand contact;
+  retain source anatomy and neutral multiview review. Merge texture budget only
+  after current art fit is stable. Human mandatory motions technical5/5/art0/5,
+  scene5/6; native map1/1/art0/1; Raider deferred. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` TEXTURE-BUDGET-147 (2026-11-25). Previous146 made concrete
   progress(native clips, scene, neutral review and measured current memory).
   `DONE` actual texture audit:26human images at4096square plus256square pistol

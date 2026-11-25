@@ -1,16 +1,20 @@
 """Measure all seven real clips at original source key/midpoint cadence (48 Hz)."""
-import hashlib,json,math
+import hashlib,json,math,sys
 from pathlib import Path
 import bpy
 from mathutils import Matrix
 
 folder=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146')
-bpy.ops.wm.open_mainfile(filepath=str(folder/'human_actions.blend'),use_scripts=False)
+base_folder=folder
+hair_study='--hair-study' in sys.argv
+if hair_study:folder=folder.parent/'amjviz_hair148'
+blend_path=folder/('human.blend' if hair_study else 'human_actions.blend')
+bpy.ops.wm.open_mainfile(filepath=str(blend_path),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')
-base=Matrix(json.loads((folder/'bake_report.json').read_text())['base_game_world'])
+base=Matrix(json.loads((base_folder/'bake_report.json').read_text())['base_game_world'])
 rig.animation_data.action=None
 meshes=[o for o in scene.objects if o.type=='MESH' and any(m.type=='ARMATURE' and m.object==rig for m in o.modifiers)]
-body=next(o for o in meshes if not o.name.startswith('EquippedPistol_'));references={}
+body=max(meshes,key=lambda o:len(o.data.vertices));references={}
 for track in rig.animation_data.nla_tracks:
     for other in rig.animation_data.nla_tracks:other.mute=other!=track
     for bone in rig.pose.bones:bone.matrix_basis=Matrix.Identity(4)
@@ -31,5 +35,5 @@ for track in rig.animation_data.nla_tracks:
     print('AMJVIZ_ACTION_REFERENCE',track.name,len(samples),flush=True)
 (folder/'native_reference.json').write_text(json.dumps({'clips':references,'fps':scene.render.fps,
     'body_name':body.name.replace('.','_').replace(' ','_'),'sample_cadence_hz':48,
-    'blend_sha256':hashlib.sha256((folder/'human_actions.blend').read_bytes()).hexdigest()},indent=2))
+    'blend_sha256':hashlib.sha256(blend_path.read_bytes()).hexdigest()},indent=2))
 print('AMJVIZ_ACTION_REFERENCES_READY',sum(len(s) for s in references.values()),flush=True)

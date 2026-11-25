@@ -56,7 +56,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
 	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb") or path.ends_with("scanned_armor_contact01/human_actions.glb")
-	var import_fps := 24 if path.ends_with("rook_run129/human.glb") else (120 if authored_human or path.contains("/amjviz_actions146/") or path.contains("/amjviz_budget147_") else 30)
+	var import_fps := 24 if path.ends_with("rook_run129/human.glb") else (120 if authored_human or path.contains("/amjviz_actions146/") or path.contains("/amjviz_budget147_") or path.contains("/amjviz_hair148/") else 30)
 	var subject := document.generate_scene(state, import_fps, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
@@ -84,7 +84,9 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
-	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget
+	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
+	assert(not(texture_budget and hair_study),"Choose one private human variant")
+	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget or hair_study
 	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
 	var amjviz_study := "--amjviz-study" in OS.get_cmdline_user_args() or amjviz_pruned
 	assert(not(amjviz_study and generated_review), "Atlas129 is not the AmJViZ character")
@@ -179,6 +181,7 @@ func _ready() -> void:
 		if amjviz_pruned:human_path=root+"amjviz_pruned145/human.glb"
 		if amjviz_combat:human_path=root+"amjviz_actions146/human_actions.glb"
 		if texture_budget:human_path=root+"amjviz_budget147_1024/human_actions.glb"
+		if hair_study:human_path=root+"amjviz_hair148/human.glb"
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
