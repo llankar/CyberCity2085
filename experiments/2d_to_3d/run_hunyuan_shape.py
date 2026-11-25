@@ -1,0 +1,75 @@
+"""One new Hunyuan mini shape trial; no texture-model bulk acquisition."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import sys
+import time
+
+from run_trellis_mesh import verified_existing_mesh
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt", "vehicle", "industrial_machine"])
+    args = parser.parse_args()
+    lab = Path(os.environ["LAB"]).resolve()
+    if str(lab) != "/mnt/e/CyberCity2085-3d-lab":
+        raise ValueError("Experimental files must remain on E:")
+    source = lab / f"sources/{args.subject}.png"
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    output = lab / f"generated/phase2/hunyuan164/{args.subject}"
+    output.mkdir(parents=True, exist_ok=True)
+    evidence = output / "result.json"
+    if evidence.exists():
+        if verified_existing_mesh(json.loads(evidence.read_text()), digest, output / "mesh.glb"):
+            print("REUSED_VERIFIED_MESH", evidence)
+            return
+        raise RuntimeError("Preserve previous trial; diagnose it before retry")
+    sys.path.insert(0, str(lab / "repos/Hunyuan3D-2"))
+    import torch
+    import trimesh
+    from PIL import Image
+    from hy3dgen.shapegen import Hunyuan3DDiTFlowMatchingPipeline
+    from huggingface_hub import hf_hub_download
+    print("HUNYUAN_SHAPE_IMPORT_PASS", flush=True)
+    report = {"status": "FAIL", "source_sha256": digest, "seed": 1,
+              "subject": args.subject, "model": "tencent/Hunyuan3D-2mini",
+              "subfolder": "hunyuan3d-dit-v2-mini", "steps": 50,
+              "octree_resolution": 384, "texture_generation": False}
+    start = time.perf_counter()
+    torch.cuda.reset_peak_memory_stats()
+    try:
+        # Upstream snapshot_download fetches both ckpt and safetensors (duplicates).
+        # Materialize only the actual variant before invoking the normal loader.
+        local = Path(os.environ["HY3DGEN_MODELS"]) / report["model"]
+        for name in ("config.yaml", "model.fp16.safetensors"):
+            hf_hub_download(report["model"], f"{report['subfolder']}/{name}", local_dir=local)
+        pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(
+            report["model"], subfolder=report["subfolder"])
+        mesh = pipeline(image=Image.open(source), num_inference_steps=50,
+                        octree_resolution=384,
+                        generator=torch.Generator(device="cuda").manual_seed(1))[0]
+        if len(mesh.vertices) < 4 or len(mesh.faces) < 4:
+            raise RuntimeError("Invalid generated mesh")
+        path = output / "mesh.glb"
+        mesh.export(path)
+        reloaded = trimesh.load(path, force="mesh")
+        assert len(reloaded.faces) == len(mesh.faces)
+        report.update(status="PASS", vertices=len(mesh.vertices), triangles=len(mesh.faces),
+                      glb_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+                      artistic_acceptance="NOT VERIFIED")
+    except Exception as exc:
+        report["error"] = repr(exc)
+        raise
+    finally:
+        report["elapsed_seconds"] = time.perf_counter() - start
+        report["torch_peak_allocated_bytes"] = torch.cuda.max_memory_allocated()
+        report["torch_peak_reserved_bytes"] = torch.cuda.max_memory_reserved()
+        evidence.write_text(json.dumps(report, indent=2))
+        print(json.dumps(report, indent=2), flush=True)
+
+
+if __name__ == "__main__":
+    main()

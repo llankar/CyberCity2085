@@ -25,6 +25,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt",
                                              "vehicle", "industrial_machine"])
+    parser.add_argument("--combat-reference", action="store_true")
     args = parser.parse_args()
     lab = Path(os.environ["LAB"]).resolve()
     if str(lab) != "/mnt/e/CyberCity2085-3d-lab":
@@ -33,8 +34,18 @@ def main():
     if not gpu_checks_pass(checks):
         raise RuntimeError("Real GPU dependency probes must pass before model download")
     source = lab / "sources" / f"{args.subject}.png"
-    source_sha = hashlib.sha256(source.read_bytes()).hexdigest()
-    output = lab / "generated/phase2/trellis164" / args.subject
+    sources = [source]
+    trial = args.subject
+    if args.combat_reference:
+        if args.subject != "rook":
+            raise ValueError("Combat reference selection is currently qualified for Rook only")
+        sources = sorted((lab / "sources/rook_combat").glob("*.png"))
+        if len(sources) != 4:
+            raise RuntimeError("Four verified Godot combat views required")
+        trial = "rook_combat"
+    source_sha = hashlib.sha256(source.read_bytes()).hexdigest() if len(sources) == 1 else hashlib.sha256(
+        b"".join(p.name.encode() + hashlib.sha256(p.read_bytes()).digest() for p in sources)).hexdigest()
+    output = lab / "generated/phase2/trellis164" / trial
     output.mkdir(parents=True, exist_ok=True)
     evidence = output / "result.json"
     if evidence.exists():
@@ -77,11 +88,17 @@ def main():
     torch.cuda.reset_peak_memory_stats()
     report = {"subject": args.subject, "source_sha256": source_sha,
               "formats": ["mesh"], "seed": 1, "status": "FAIL"}
+    report["references"] = [{"file": str(p), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+                            for p in sources]
     try:
         pipeline = TrellisImageTo3DPipeline.from_pretrained(str(local))
         pipeline.cuda()
         with torch.inference_mode():
-            generated = pipeline.run(Image.open(source), seed=1, formats=["mesh"])
+            if len(sources) == 1:
+                generated = pipeline.run(Image.open(source), seed=1, formats=["mesh"])
+            else:
+                generated = pipeline.run_multi_image([Image.open(p) for p in sources],
+                                                     seed=1, formats=["mesh"])
         mesh = generated["mesh"][0]
         vertices = mesh.vertices.detach().cpu().numpy()
         faces = mesh.faces.detach().cpu().numpy()

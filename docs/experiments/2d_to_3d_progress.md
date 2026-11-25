@@ -2,6 +2,59 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` COMBAT-IMAGE-TO-3D-TRIALS-165 (2026-11-25), bounded technical trials only.
+  User prioritizes human/combat robot, then explicitly requests Rook's actual
+  Godot combat image rather than portrait. Portrait inference NOT EXECUTED.
+  `DONE` first crate TRELLIS mesh/Blender reduction/native Godot import (docs164).
+  `DONE` robot actual sources/robot.png hash matches assets/units/robot_combat_512.png
+  807328e31bec966b88d136db69d557282ca3323b05608649ac62dc62cd3010f9.
+  One real generation:337356vertices/674710triangles,123.143s including cached
+  model loading; rawGLB240b9ee73b20b55fba788c7e3210a6913eb48cc5929538b80eed552643940b12.
+  Actual PyTorch allocated peak11337717248B/reserved16036921344B, not whole-GPU
+  telemetry. White geometry output, no texture/rig/animation claim. Initial
+  neutral renders revealed Z-up geometry exported as Y-up GLB: preserved as
+  review/ (orientation FAIL). New explicit --source-z-up correction only in
+  Blender processing, raw model unchanged, no inference rerun. review_upright/
+  contains4neutralangles, low-poly isometric, raw/optimizedBLEND and39996triangle
+  GLB7b93c0ab2554bc967ab3201742a0f80f54d0387f47f5cbbbe13a4c13758bc6b7.
+  Actual four-angle inspection: recognizable cannon/limbs/torso, residual soft
+  irregular surfaces and simplified details. Not accepted as final art.
+  Actual Godot4.7.2 native import PASS1mesh/1material/39996triangles. New
+  verify_ai_mesh_trial.py robot PASS: source/result/renderSHA, counts, fivePNG
+  dimensions, twoBLEND and native optimizedSHA agree. No old TripoSR/motion reruns.
+  `DONE` real Godot String.hash resolution Rook->agent_diverse_14, matching
+  production name-preserving payload and asset key mapping. Source is actual
+  agent_diverse_14_armored_vanguard atlas37d210dd045b4676e3784a1c080a3120c1dc1cf6bdf6f93bcb2e8c8e3ddc80a3,
+  not legacy agent_samurai fallback. Extracted4real idle frames E/S/W/SE, no
+  repaint/upscale/invented viewpoints. Exact RGBA roundtrip assertions PASS,
+  source provenance under E:sources/rook_combat. Godot facing labels retained
+  rather than pretending they are Blender camera orientations.
+  `DONE` Rook combat multiview TRELLIS inference, four genuine game images,
+  E:tmp/trellis164-rook-combat.log. Output rook_combat/, never portrait rook/.
+ 190252vertices/378602triangles,77.113s including cached model loading,
+  rawGLB499946bbe368b221276fc380b5012f26f225d32dab7aa1f8413622382db87815.
+  PyTorch allocated10227725312B/reserved12425625600B. Actual Blender4.5.17
+  source/optimizedBLEND, four neutral views plus reduced isometric generated.
+  Godot4.7.2 native import PASS40000triangles, optimizedGLB
+ 4767971792b515b26a36f2ce4075c945bd38f6ce5ca37b4736c6171a443b98db.
+  verify_ai_mesh_trial.py rook_combat PASS. Actual four-angle inspection FAIL
+  as usable human art: a broad hallucinated plane intersects the lower legs;
+  face/clothing/weapon also lose source detail. Preserve this failure visibly;
+  do not crop it out, replace the reference, or claim production readiness.
+  Existing WSL U2NET cache moved from home to E: with old path symlink, original
+  retained as u2net.preexisting-wsl.onnx; future U2NET_HOME explicitly E:.
+  Bounded requested trials2/2 generated and GLB-reloaded, neutral PNGs10/10,
+  native optimized imports2/2, cross-artifact verifiers2/2 PASS. Three earlier
+  Blackwell kernels and two guard tests reused, not rerun. No new combat-zoom
+  comparison, GPU performance benchmark, textures, skeleton or animations.
+  Syntax compilation executed on5new/changed Python tools, PASS; bytecode on E:.
+  Godot resolver/import scripts executed natively; Hunyuan runner syntax only,
+  its inference remains NOT EXECUTED. Production dirty slot_1.json not touched.
+  `TODO` qualify a better human reconstruction (alternative model/actual
+  geometry cleanup), colour/material generation and gameplay-scale acceptance.
+  Hunyuan/TripoSG candidate trials remain pending; broader experimental GOAL
+  paused, production intact, no build/push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` LOCAL-IMAGE-TO-3D-164 (2026-11-25).
   User requests only missing local AI setup/trials, then personal-use technical
   focus without more licence work. Broader GOAL remains paused; no production
