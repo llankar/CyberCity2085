@@ -2,6 +2,72 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-HAIR-SOURCE-FIT-110 (2026-11-25). Continued871acd95.
+  Returned to actual Rook portrait on E: (orange raised quiff/undercut), not a new
+  generic character. Reviewed primary MakeHuman hair catalogs and three actual
+  author thumbnails on E:; selected Elvaerwyn Maxwell authored swept/spiked hair.
+  Old asset web repository now retired; two guessed GitHub paths404, new download
+  homepage DNS failed, hair02 web-tool timeouts resolved by actual publisher HTML
+  through urllib. No repeated protected/robots-denied resource requests.
+
+  Actual publisher hair02 pack72,283,345bytes/ETag44ef4d1-6160e77b9a38e supports206
+  ranges. Full download deliberately STOPPED after10,485,760bytes (verified Python
+  parent command/PID26476, terminal session6088 exit1), not restarted after timeout.
+  After selective success, incomplete part removed; E:aborted_full_download.json
+  retains size/hash/reason. New bounded remote ZIP directory/selected-member reader
+  caches ranges E:, checks206/Content-Range/ETag, directory bounds and ZIP CRC.
+  Only five Maxwell files plus publisher metadata acquired:837,770uncompressed bytes.
+  Per-file SHA/CRC in E:sources/makehuman_maxwell_hair/acquisition.json; no full ZIP
+  SHA claim. Fourteen new range/grant tests PASS; focused29Python PASS0fail0skip
+  (range/grant/anatomical/existing acquisition). Acquirer rerun successfully offline
+  from cached ranges/files with idempotent CRC and source grant checks.
+
+  Source OBJ/MHCLO explicitly Elvaerwyn/CC_by; publisher pack/catalog CC-BY.
+  Publisher CC-BY FAQ defines this label by referencing BY4.0; archived HTML and
+  qualified_grant preserve distinction between short source label and platform
+  version basis. Original files/credit retained, commercial game adaptation grant
+  reviewed; original-source/upstream metadata empty. No silent blanket CC0 claim.
+  CREDITS carried into combined Blend/GLB; contribution stays SA4, originals retain
+  original notices. Traditional DCC only, Nathan NoAI respected.
+
+  Actual hair765vertices/1468triangles/1024RGBA map, not primitives. OBJ imported
+  in Blender; source axes verified. Uniform.11282246 fit, rigid head joint skin.
+  First bounds-only fit visually FAILed (floating above scalp); first_fit_face/
+  first_fit_side PNG preserved. Corrected from actual profile by world(0,-.01,-.045)m
+  offset and generated smooth normals (OBJ lacks authored normals). No topology,
+  UV, pixel repaint or source geometry replacement. Uses lit alpha MASK.35,
+  double-sided, roughness.7; legacy shadeless/red-emission not adopted. Blender
+  exports MASK natively; no portable metadata override needed.
+
+  E:scanned_armor_hair01 editableBlend120,465,396bytes /GLB48,260,816bytes,
+  18meshes/122bones/15,764triangles/4materials/6images. FinalSHA
+  24a0f02f6343cf8611ddb91a1d7e27d653bc666ad595fa56b5a9cc3b080bf3dd.
+  verify_maxwell_hair actual PASS all1468source triangles/winding, UVcomponent
+  error4.4632e-8, positioncomponent.165299micrometres, original PNG bytes/RGBA exact,
+  head-only influence and lit MASK material. Independent head/body verifier PASS:
+  complete6630head triangles, JPEG/UV exact and all16body meshes/six motion tracks
+  unchanged. Native eighteen-mesh/six-clip gate PASS, actual alpha-scissor/double-
+  sided/no-emission material checked, sampled skin max.269581mm, Death->Idle0m.
+
+  Corrected neutral face/profile/back captures inspected: much closer raised red
+  silhouette, no initial floating cap, but burgundy rather than Rook orange,
+  scanned brown hair/beard still differs and scalp fitting not collision-solved.
+  Not XCOM2/Rook final artistic acceptance. Actual independent --scanned-hair-study
+  --robot-action-bundle --vtol-motion-study --tactical --self-test --sprite-review
+  PASS: five subjects/627gray cells,62.208px projection, six-body/five-robot dispatch
+  and vehicle controls. tactical_comparison.png saved. Observed120render frames
+  .42146s (~284.72fps) is a short interval only, NOT a sustained performance or
+  VSync guarantee; previous109five-second benchmark remains scoped to no-hair asset.
+  No production/campaign/build/push; user save untouched; SDL warning persists.
+
+  `TODO` next: fix actual firing pose (108arm obscures face), consolidate corrected
+  Shoot onto this one head/hair candidate and fit the real pistol before further
+  cosmetics or Raider. Use FK upper-arm correction/world aiming direction, inspect
+  finger/trigger contact; existing source6clips remain intact. Current human art
+ 0/2 accepted, scene5/6, native map1/1/art-final0/1. Full actions, facial rig, proper
+  costume/PBR, environment and robot optimization remain open.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SCANNED-HEAD-AUTHORED-ARMOR-109 (2026-11-25). Continued actual
   checkpoint927662b3. Real Renderpeople scanned head/neck assembled with authored
   15piece armor/body. Original geometry/photographic UV/JPEG, no primitive hair or

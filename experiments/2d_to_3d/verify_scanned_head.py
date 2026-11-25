@@ -1,12 +1,12 @@
 """Independent GLB checks: complete ancestral head subset, UV/image and body motion."""
-import hashlib,json
+import hashlib,json,sys
 from pathlib import Path
 from collections import Counter
 import numpy as np
 from anatomical_groups import descendants
 from glb_document import Glb,COMPONENTS
 
-root=Path('E:/CyberCity2085-3d-lab/generated/phase2');folder=root/'scanned_armor_head01'
+root=Path('E:/CyberCity2085-3d-lab/generated/phase2');folder=root/('scanned_armor_hair01' if '--hair-study' in sys.argv else 'scanned_armor_head01')
 source=Glb(root/'renderpeople_nathan01/human.glb');armor=Glb(root/'unvanquished_motion01/human_actions.glb');target=Glb(folder/'human_actions.glb')
 def array(g,index):
  a=g.doc['accessors'][index]
@@ -27,7 +27,7 @@ eligible=(positions[:,1]>1.54)&(head_weight.sum(axis=1)>.5)
 source_indices=array(source,sp['indices']).reshape(-1,3)
 selected=source_indices[eligible[source_indices].all(axis=1)]
 selected_ids=np.unique(selected)
-report=json.loads((folder/'assembly_report.json').read_text());transform=np.array(report['head_bind_transform_blender'])
+report=json.loads((root/'scanned_armor_head01/assembly_report.json').read_text());transform=np.array(report['head_bind_transform_blender'])
 blender=np.column_stack((positions[:,0],-positions[:,2],positions[:,1],np.ones(len(positions))))@transform.T
 mapped=np.column_stack((blender[:,0],blender[:,2],-blender[:,1]))
 features=np.column_stack((mapped,array(source,attrs['NORMAL']),array(source,attrs['TEXCOORD_0'])))
@@ -46,7 +46,7 @@ expected=Counter(canonical([source_to_unique[i] for i in face]) for face in sele
 observed=Counter(canonical([assigned[i] for i in face]) for face in array(target,tp['indices']).reshape(-1,3))
 assert expected==observed,'Authored head triangles missing, reversed or added'
 for node in target.doc['nodes']:
- if 'mesh' not in node or node['name']=='Game_ScannedHead':continue
+ if 'mesh' not in node or node['name'] in ['Game_ScannedHead','Game_MaxwellHair']:continue
  a=primitive(armor,node['name']);b=primitive(target,node['name'])
  for name in ['POSITION','NORMAL','TEXCOORD_0','JOINTS_0','WEIGHTS_0']:
   assert armor.values(a['attributes'][name])==target.values(b['attributes'][name]),('Body changed',node['name'],name)

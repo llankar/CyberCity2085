@@ -17,6 +17,17 @@ not Rook; facial expressions/blinks, correct hair and firing contacts unaccepted
 The independent stage and neutral face/profile/back/crouch renders are reviewed,
 but first final humanoid acceptance remains0/1. Full evidence in progress register.
 
+Batch110 acquires actual **Maxwell Hair by Elvaerwyn**, selected from the primary
+[Hair02 catalog](https://static.makehumancommunity.org/assets/assetpacks/hair02.html)
+after thumbnail review. Source OBJ/MHCLO grant CC_by, pack metadata says CC-BY;
+the publisher [CC-BY asset FAQ](https://static.makehumancommunity.org/oldsite/faq/what_do_i_need_to_do_when_i_use_a_ccby_asset.html)
+references CC BY4.0. This version basis is recorded explicitly, not assumed from
+the core CC0 license. Only selected765vertex/1468triangle hair, map and metadata
+are acquired through bounded ranges; source files/credits preserved on E:.
+It is fitted onto the same first candidate and verified in native Godot, not a
+new character cohort. Initial floating cap failed visual review and was corrected.
+Rook-orange identity, hair/skin contact and full professional PBR remain unaccepted.
+
 ## Acquired game-authored tactical candidate (batch85)
 
 Batch94: first actual authored garment fitted/skinned to this existing rig, with

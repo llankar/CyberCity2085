@@ -77,6 +77,27 @@ system environment. The wrapper explicitly sets sys.pycache_prefix on E: instead
 `blender/check_python_cache.py` verifies an actual imported module cache on E:.
 No desktop automation or production runtime changes.
 
+## Authored Maxwell hair (batch110)
+
+Run `python inspect_hair_archive.py` then `python acquire_maxwell_hair.py` from
+this experiment directory. HTTP ranges pin publisher archive size/ETag and fetch
+only reviewed members; standard ZIP CRC and recorded per-file SHA are checked.
+Publisher source headers/pack metadata and CC-BY FAQ qualify the asset, preserving
+the short-label vs version-basis distinction. All downloaded ranges/sources are E:.
+
+Run `blender/fit_maxwell_hair.py` through the Blender wrapper. Uses real authored
+765vertex hair on the existing scanned head, not generated primitive clumps. The
+profile-calibrated fit and smooth normals are documented; source triangles/UV/map
+remain intact. Native lit alpha MASK material exports directly without patching.
+Run `python verify_maxwell_hair.py`, `python verify_scanned_head.py --hair-study`,
+then authored_motion_check.tscn --scanned-hair-study. Require fresh matchingSHA
+evidence; material/skin fidelity is not scalp-contact/art acceptance.
+
+The comparison scene accepts --scanned-hair-study with existing robot/vehicle/
+tactical/self-test/sprite-review flags. Neutral main.tscn views back/side/front
+at Idle0 correspond to anatomical face/profile/back. First floating-fit PNGs are
+kept separately; current identity, wardrobe and firing pose remain unfinished.
+
 ## Mechanical forward walk study (batch91)
 
 Run `run_blender.ps1 -Script blender/rig_charge_robot_idle.py -ScriptArguments
