@@ -21,6 +21,20 @@ def segment_transform(source_head, source_child, target_head, target_child):
     return result.tolist()
 
 
+def axial_segment_transform(source_head,source_child,target_head,target_child,radial_scale=1.):
+    """Match segment length independently of garment circumference."""
+    if not np.isfinite(radial_scale) or radial_scale<=0:
+        raise ValueError('Positive finite garment circumference scale required')
+    a,b,c,d=(np.asarray(p,dtype=float) for p in (source_head,source_child,target_head,target_child))
+    uniform=np.asarray(segment_transform(a,b,c,d))
+    source_length=np.linalg.norm(b-a);axial_scale=np.linalg.norm(d-c)/source_length
+    direction=(b-a)/source_length
+    rotation=uniform[:3,:3]/axial_scale
+    local=radial_scale*np.eye(3)+(axial_scale-radial_scale)*np.outer(direction,direction)
+    result=np.eye(4);result[:3,:3]=rotation@local;result[:3,3]=c-result[:3,:3]@a
+    return result.tolist()
+
+
 def landmark_warp(points, source_landmarks, target_landmarks):
     """3D polyharmonic interpolation with affine tail, for measured rest fitting."""
     p,s,t=(np.asarray(a,dtype=float) for a in (points,source_landmarks,target_landmarks))

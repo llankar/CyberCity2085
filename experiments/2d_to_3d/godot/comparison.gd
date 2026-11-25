@@ -82,11 +82,12 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
-	var pouch_study := "--pouch-study" in OS.get_cmdline_user_args()
+	var jacket_study := "--authored-jacket-study" in OS.get_cmdline_user_args()
+	var pouch_study := "--pouch-study" in OS.get_cmdline_user_args() or jacket_study
 	var skin_normal_study := "--skin-normal-study" in OS.get_cmdline_user_args() or pouch_study
 	var single_neck_study := "--single-neck-study" in OS.get_cmdline_user_args() or skin_normal_study
 	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args() or single_neck_study
-	assert(not(generated_review and undercut_study),"Generated atlas129 does not represent candidate133/138/139/140; rerender before synchronized comparison")
+	assert(not(generated_review and undercut_study),"Generated atlas129 does not represent candidate133/138/139/140/141; rerender before synchronized comparison")
 	if generated_review:
 		assert("--sprite-review" in OS.get_cmdline_user_args())
 		yaw=PI/4
@@ -165,6 +166,7 @@ func _ready() -> void:
 		if single_neck_study: human_path = root + "rook_single_neck138/human.glb"
 		if skin_normal_study: human_path = root + "rook_normal_strength139/human.glb"
 		if pouch_study: human_path = root + "rook_pouches140/human.glb"
+		if jacket_study: human_path = root + "rook_diesel_replacement141/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()

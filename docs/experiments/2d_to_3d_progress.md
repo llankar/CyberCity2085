@@ -2,6 +2,55 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-JACKET-141 (2026-11-25). Continuedb4e4c2a4; previous
+  true MIT pouch integration and contact correction are progress. `DONE` actual
+  existing CC0 Diesel source garment inventory: separate jacket1028vertices/
+ 1676faces with authored skin/UVs; no new download or primitive clothes. Earlier
+  Diesel rejection concerned its stylized head/failed Nathan head fit, not garment
+  modularity. Source jacket alone adapted onto current25bone actor; left sleeve
+ 326faces removed to expose existing cyberarm. Remaining841vertices/1350faces.
+  `FAIL` first uniform per-bone rest fit made giant sleeves (Hips scale3.099,
+  Spine2scale1.864). Saved uniform_failed_* GLB/report/native image. `DONE` measured
+  axial_segment_transform separates length from circumference; shared Hips-to-Neck
+  torso alignment avoids incompatible spine segmentation, measured shoulder width
+  scale0.873503. Rest binding error0.359micrometers. No nearest-surface projection.
+  Overlay diagnostic retains old body; separate replacement candidate removes
+ 15827annotated old-cloth faces+290additional collar faces. Actual isolated garment
+  image confirms remaining tiny floating fragments are old body, not new jacket.
+  Component analysis welds positions only for analysis (UV seam vertices otherwise
+  inflated component count1780->160); four inspected upper fragments/7faces removed
+  with face-position hash guard. Existing source actor140 remains unchanged.
+  `DONE` E:rook_diesel_replacement141 fullBLEND/GLB/CREDITS/reports and neutral
+  front/side/back/Melee/tactical captures. Source notices preserved. Final GLB SHA
+  6b44dc67cd33261588327c3a15726a004ab4019e1cdc84ea59b190551f934e57.
+  First native test FAIL63.923mm bounds:20wire/unreferenced char1vertices omitted
+  by glTF but included in Blender. Cleaned, regenerated references, unchanged500
+  micrometer gate PASS314poses/16meshes/25bones/6clips,max391.065micrometers;
+  floor/slide/reset retained, settled body height0.360245m. Failed log/diagnostic
+  and wire trial retained. Three-stage untrimmed->selection->clean rebuild returns
+  byte-identical finalGLB; rebuild_validation.json verifies old native proof applies.
+ 23targeted pytest PASS0fail0skip (3new axial,20existing),tmp/pytest141-final.xml.
+  Native scene six-action/robot137/VTOL135/input/map and skin.35 checks PASS;
+ 129atlas mismatch explicitly rejected in native negative test. No new benchmark.
+  `FAIL` ART/COVERAGE: actual side/back reveal an open posterior neck connection,
+  and full outfit fit remains unaccepted. Do not raise collar/change lighting to
+  hide missing anatomy, or call numerical bounds artistic acceptance.18pose contact
+  audit (54subject/body+54mutual comparisons) reports27131body crossing pairs and
+ 1438mutual; those are triangle-pair counts, not penetration depth or proof that
+  every crossing is visible. Original authored Diesel body/jacket baseline itself
+  has480crossing pairs in ONErest pose, so raw counts are not directly comparable.
+  Alpha/hidden surfaces,coplanar,containment,other props and unsampled times remain
+  NOT VERIFIED. Native visible neck gap independently establishes coverage FAIL.
+  `TODO` NEXT: inspect actual MIT head lower boundary and recover a continuous
+  anatomical neck from licensed source geometry before further material work.
+  Then evaluate jacket/body/pouch visible contact and cuff coverage.141 stays a
+  diagnostic candidate, not a promoted finished human;140preserved. Do not expand
+  Raider/cohort or hide geometry defects with recoloring/PBR/lighting. Candidate
+ 141atlas NOT GENERATED; requiredhumanclips5/5technical,0/5artistic;finalRook0/1;
+  finalhumans0/2;scene5/6subjects;mapnative1/1/artistic0/1. Existing SDL warning and
+  failed-check cleanup warnings recorded; no leak-free claim. No production,
+  mainGOAL,save changes,build or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-EQUIPMENT-140 (2026-11-25). Continued2be4aad0; prior
   skin material candidate and controlled negative tangent experiment are progress.
   `DONE` inspected existing MIT Rocketbox disconnected equipment instead of new

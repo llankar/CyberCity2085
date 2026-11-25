@@ -931,3 +931,38 @@ tactical screenshots are in the candidate directory. Scene opt-in --pouch-study
 inherits139skin/138neck, preserves source notices and forbids129atlas mixing.
 No140atlas or second human is generated before first-character art is convincing.
 
+### Authored jacket adaptation141 — diagnostic, not accepted
+
+The existing Diesel CC0 jacket is real separate garment geometry with source skin
+weights. Per-bone uniform scaling caused3x circumference on differing spine
+segments. Axial fitting plus a shared torso landmark map preserves circumference
+independently. No closest-body projection or primitive garment was introduced.
+Overlay and replacement are separate derivatives, original actor140is preserved.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/inspect_diesel_garments.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_diesel_rook_jacket.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_diesel_rook_jacket.py -ScriptArguments @('--replace-old-cloth')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/inspect_replacement_remnants.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_diesel_rook_jacket.py -ScriptArguments @('--replace-old-cloth','--clean-remnants')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_actor_reference.py -ScriptArguments @('--folder','rook_diesel_replacement141','--dense-run')
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://cyborg_ready_check.tscn -QuitAfter 1200 -SceneArguments @('--authored-jacket-study')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/check_rook_pouch_contacts.py -ScriptArguments @('--folder','rook_diesel_replacement141','--include-jacket')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/check_diesel_source_contacts.py
+```
+
+Follow the untrimmed/selection/clean order: remnant face IDs are guarded by ordered
+renderable face positions, independent of unreferenced vertex numbering. Four
+inspected fragments remove7faces after15827old cloth and290additional collar
+faces.20unreferenced vertices must also be removed; otherwise Blender-vs-GLB bounds
+fail by64mm. Final314native poses pass within unchanged500micrometers. Exact final
+GLB reproduction was verified. This proves technical roundtrip, not artist quality.
+
+Native profile/back reveal an open posterior neck connection: coverage FAIL.
+18pose contact results are geometric crossing-pair counts, not visual acceptance;
+the original source itself has480pairs in one rest pose. Neither shader changes
+nor a raised collar should conceal this missing anatomy. Current141BLEND/GLB,
+failed trials and native screenshots remain on E: for inspection. Scene opt-in
+--authored-jacket-study is diagnostic; no141atlas or production replacement exists.
+Next repair must inspect licensed head/neck boundary topology and visible layering.
+

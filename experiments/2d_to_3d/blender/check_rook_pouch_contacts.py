@@ -1,16 +1,21 @@
 """Sample actual deformed pouch/body triangle crossings, not a full collision proof."""
-import hashlib,json,sys
+import argparse,hashlib,json,sys
 from pathlib import Path
 import bpy
 from mathutils.bvhtree import BVHTree
 
 sys.path.insert(0,str(Path(__file__).parent.parent))
 from triangle_contact import segment_hit
-root=Path('E:/CyberCity2085-3d-lab/generated/phase2/rook_pouches140')
+parser=argparse.ArgumentParser();parser.add_argument('--folder',default='rook_pouches140')
+parser.add_argument('--include-jacket',action='store_true')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+labroot=Path('E:/CyberCity2085-3d-lab/generated/phase2').resolve();root=(labroot/args.folder).resolve()
+assert root.is_relative_to(labroot) and root!=labroot
 bpy.ops.wm.open_mainfile(filepath=str(root/'human.blend'),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')
 body=bpy.data.objects['char1'];pouches=[o for o in scene.objects if o.name.startswith('MIT_Pouch_')]
 assert len(pouches)==2
+if args.include_jacket:pouches.append(bpy.data.objects['AuthoredDieselJacketStudy'])
 
 def geometry(obj):
     evaluated=obj.evaluated_get(bpy.context.evaluated_depsgraph_get());mesh=evaluated.to_mesh();mesh.calc_loop_triangles()
@@ -44,11 +49,14 @@ for track in rig.animation_data.nla_tracks:
         for pouch in pouches:
             rows.append({'clip':track.name,'fraction':fraction,'pouch':pouch.name,
                          **compare(body_geometry,pouch_geometry[pouch.name])})
-        mutual.append({'clip':track.name,'fraction':fraction,
-                       **compare(pouch_geometry[pouches[0].name],pouch_geometry[pouches[1].name])})
+        for first in range(len(pouches)):
+            for second in range(first+1,len(pouches)):
+                mutual.append({'clip':track.name,'fraction':fraction,'objects':[pouches[first].name,pouches[second].name],
+                               **compare(pouch_geometry[pouches[first].name],pouch_geometry[pouches[second].name])})
         print('POUCH_CONTACT_SAMPLE',track.name,fraction,flush=True)
 (root/'contact_samples.json').write_text(json.dumps({'glb_sha256':hashlib.sha256((root/'human.glb').read_bytes()).hexdigest(),
     'samples':rows,'mutual_pouch_samples':mutual,'determinant_epsilon':1e-12,
-    'scope':'18actual deformed poses,2pouches against char1 and each other; coplanar cases/containment/other props and between-sample collisions NOT VERIFIED'},indent=2))
+    'subjects':[obj.name for obj in pouches],
+    'scope':'18actual deformed poses,listed subjects against char1 and each other; coplanar cases/containment/other props and between-sample collisions NOT VERIFIED'},indent=2))
 print('POUCH_TRIANGLE_CONTACT_AUDIT',len(rows),'crossing_pairs',sum(r['crossing_pairs'] for r in rows),
       'mutual_crossing_pairs',sum(r['crossing_pairs'] for r in mutual),flush=True)
