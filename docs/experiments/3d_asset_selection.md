@@ -31,6 +31,18 @@ This supplies accessory geometry, not fitted modular armor/boots/gloves.
 
 ## Candidate register
 
+
+Batch90: [Trebejo_Nixon_Jacket by Nixontrebejo](https://sketchfab.com/3d-models/1a5ef5dbcd304f3a984848cd26de890f),
+primary CC BY4/commercial permission verified; one862,576byte public licensed
+redistributor GLB acquired with credits. Meshopt/WebP source failed native import;
+converted without image/geometry quality reduction, then real Blender/Godot
+counts/textures/units checked. Standalone18,400triangles/three1024px maps, no rig.
+Albedo has baked/faceted highlights in neutral review; current material look is
+not accepted Rook wardrobe. No automatic fitting batch recommended for this look.
+Mika Jacket Final primary404, no acquisition; known4d_Bob/Aleksei IDs absent from
+this older public catalog. 90s Robot primary original-author/CC BY verified, only
+preview examined this batch. See progress90 for exact hashes, errors and tooling.
+
 Batch89: partial MIT Male_Adult_08 source acquired (55.04MB), authored head/hair
 with source weights/custom normals integrated onto the existing rig. Actual five
 clip native surface checks pass, but visible hair cards and generic young face

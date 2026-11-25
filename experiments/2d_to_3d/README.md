@@ -10,6 +10,17 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+
+Licensed garment compatibility (batch90): acquire_trebejo_jacket.py verifies
+original CC BY4 against primary metadata before one bounded public-redistributor
+GLB acquisition. setup_gltf_codec.ps1 installs pinned conversion-only Node SDK
+under E: with E: npm cache/temp. node decode_trebejo_jacket.mjs decodes Meshopt,
+expands quantization, normalizes normals, converts WebP->PNG with exact RGBA
+checks and preserves credits. Then run blender/prepare_trebejo_jacket.py through
+run_blender.ps1; trebejo_jacket_check.tscn requires TREBEJO_NATIVE_GARMENT_OK.
+Standalone only, no fit/skin claim. Original baked-highlight albedo remains below
+Rook art acceptance; do not confuse codec compatibility with professional quality.
+
 Authored head/hair study (batch89): acquire_rocketbox_candidate.py
 rocketbox_hair08.json fetches one bounded partial source (head/opacity maps only).
 Run inspect_rocketbox_hair08.py, extract_fit_rocketbox_hair08.py --with-head and

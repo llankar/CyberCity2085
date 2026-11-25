@@ -3,6 +3,78 @@
 This register is separate from the principal CyberCity 2085 GOAL.
 
 
+- `IN_PROGRESS` LICENSED-GARMENT-CODEC-90 (2026-11-25) - continued actual source
+  selection and standalone garment inspection; no more recoloring MPFB armor.
+  Reviewed public paprika3d documentation/client to discover documented public
+  assets.keeno.dev search/asset routes. GitHub connector could not read3.08MB
+  client; bounded public raw source read on E:, never executed or installed its
+  renderer/MCP. No new scene engine/browser/Windows automation. Public library
+  is a CC BY/CC0 redistributor; original author/license independently checked via
+  public Sketchfab metadata, not an authenticated Sketchfab download bypass.
+
+  Cyberpunk/wardrobe/tactical queries and thumbnails retained on E:. Known4d_Bob
+  and Aleksei priority IDs absent in this older catalog (404); no full models
+  acquired for them. Mika Jacket Final current primary404, not acquired. Original
+  90s Robot author describes own Unity2017 Neon challenge work and current CC BY4
+  verified, but only preview/metadata inspected, no robot model acquired this lot.
+  Obvious irrelevant vehicles/generic scans not chosen as humanoid assets.
+
+  Acquired ONE standalone authored Trebejo_Nixon_Jacket by Nixontrebejo,
+  UID1a5ef5dbcd304f3a984848cd26de890f: current primary license explicitly CC BY4,
+  commercial use allowed with attribution; original is downloadable,18,400faces/
+  9,375author vertices, no animations. Public optimized derivative862,576bytes,
+  SHA2565702deb7dd27c2346fab64500fa1fa42161c51ae85372def6dcd32c1944551f1.
+  Original unchanged on E: sources/trebejo_jacket, both original/provider metadata
+  and full attribution/source/license links preserved. No unverified reuse based
+  only on an aggregator label; no purchase or model mass download.
+
+  First native import FAIL(code2, GLTF43) for required EXT_meshopt_compression,
+  EXT_texture_webp/KHR_mesh_quantization. Added offline format converter instead
+  of changing Godot/runtime or abandoning actual asset. Node26.12.1 verified;
+  minimal SDK on E: tools/gltf_codec, npm cache/temp E: only. Pinned actual packages
+  core/extensions/functions4.5.1,meshoptimizer1.3.0,sharp.35.5 (20packages), MIT SDK/
+  meshoptimizer and Apache2 Sharp. Setup script executed PASS; no global install.
+  SDK reads original hash-checked GLB, decodes Meshopt, expands quantization,
+  normalizes decoded normal vectors and converts WebP to PNG without resize or
+  pixel change. All three decoded RGBA buffers compare EXACT before/after PNG;
+  scene bound max change2.4396984e-8 raw units. Removes codec-only extensions and
+  keeps source attribution/modification metadata. No original resolution recovery
+  claim; source redistributor already uses1024px compressed maps.
+
+  Actual Blender import/export PASS:18,400tris/55,200decoded corner vertices,
+  one garment mesh,3packed1024x1024PBR maps. Catalog unit normalization yields
+  width1.207334m/depth.303943m/height.700001m, no rig/fitting. Portable jacket.blend
+  4,005,278bytes/jacket.glb2,955,436bytes; raw decoded GLB3,839,176bytes. Native gate
+  TREBEJO_NATIVE_GARMENT_OK PASS counts/UVs, albedo/normal/metal/rough slots, three
+  texture identities/dimensions and actual world height. Neutral front screenshot
+  inspected; embedded albedo and metal/rough maps extracted byte-for-byte for
+  inspection, no image editing. Source albedo visibly contains baked/faceted
+  highlight bands; sampled metallic median0, roughness~.298. Not simply an all-
+  metal import error. DO NOT treat this look as final Rook wardrobe or spend time
+  on a full fitting/rigging batch without addressing artistic source quality.
+  Genuine source garment topology remains potentially reusable. No artist PASS
+  from format conversion or texture hashes.
+
+  Evidence E: sources/paprika_source_inspection/*.json/previews, trebejo_jacket/
+  primary_metadata/provenance/CREDITS/jacket_source.glb; generated phase2/
+  trebejo_jacket/decode_report,blender_import_report,native_check,front.png,
+  three portable sources; converter package-lock/reviewed_versions on E:.
+  New actual codec/source assertions and native structural gate executed PASS.
+  Existing30 Python tests remain their batch89 scope; not falsely claimed to test
+  this Node decoder. Persistent SDL calibration warning/export sampler warning
+  retained. No production/main GOAL/save changes; no push/release.
+
+  DONE3/3 bounded technical tasks: verified licensed bounded source, reproducible
+  non-destructive codec conversion, real offline Blender/Godot garment sources.
+  Global final human identities0/2 remain unaccepted; modular fitted wardrobe,
+  convincing first character, robot action/art work and full final acceptance
+  remain open. Optional budget preference pending, no answer/payment assumed.
+  Next: better professional wardrobe source or genuine PBR rework of useful
+  topology; retain artistic rejection of card-strip hairstyle. Other independent
+  mechanical/environment work remains available, not blocked by this preference.
+  CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` AUTHORED-HEAD-HAIR-89 (2026-11-25) - followed batch88 with a real
   licensed source for a more suitable raised hairstyle, not procedural hair
   cones or generic armor recoloring. Official Rocketbox Male_Adult_08 nonfacial
