@@ -2,6 +2,32 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` COMBAT-MOTION-146 / neutral review and current benchmark.
+  `DONE` native shoot_front.png, shoot_side.png, shoot_back.png and
+  death_side_review.png generated and actually inspected under neutral light.
+  Body/clothing remain connected; shooting support-hand contact is not convincing,
+  jacket reads overly glossy and Rook likeness is absent. Death settles horizontal
+  with a bent knee; one inspected frame cannot establish full contact acceptance.
+  Robot unchanged, existing rook_anatomy143/robot_front.png re-inspected. No art
+  sign-off. `DONE` current independent scene benchmark:1920x1080 logical/render
+  target(actual OS window1280x720), five subjects, existing facades/map/sprites,
+  all native selection/action self-tests PASS.1354drawn frames/5.003567s=270.607fps,
+  post-draw interval p95=4.968ms, maximum594draw calls, engine video counter
+  3,561,112,398B. GPU telemetry14samples inside the native UTC interval with live
+  Godot PIDs: global device memory5078..5086MiB. This includes other GPU users;
+  it is NOT exclusive process VRAM, guaranteed peak or GPU execution timing.
+  Evidence amjviz_actions146/benchmark146.json, gpu146.json,
+  verified_benchmark146.json(current actor/map/vehicle hashes verified), inspected
+  benchmark_tactical.png. Earlier two-actor720p run retained with explicit
+  two-actors-720p suffix and excluded from this tactical result. Seven benchmark
+  verifier tests PASS/0failed/0skipped, tmp/pytest146-benchmark.xml; combined
+  current unit-test scope20passed total(13+7), zero failures/skips. No campaign
+  simulation, production benchmark or peak load test. `TODO` next: investigate
+  current candidate texture memory and produce a reversible experimental texture
+  budget variant, preserving original PBR/normal/roughness fidelity for comparison;
+  then genuine Rook identity and hand/contact refinement. Keep Raider deferred,
+  current atlas ungenerated and all art criteria open. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` COMBAT-MOTION-146 / integrated checkpoint (2026-11-25).
   Supersedes the initial inventory-only146 entry below. `DONE` real source FK
   retarget through torso/limb/finger controls, IK_FK=1, evaluated rest-axis

@@ -1072,7 +1072,7 @@ FireWarden sources present, execute in this order:
 & experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_amjviz_pistol146.py -ScriptArguments @('--animated','--index-pad-fit')
 & experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_amjviz_actions146.py
 & experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_actions_check.tscn
-& experiments/2d_to_3d/run_godot.ps1 -SceneArguments @('--amjviz-combat-study','--robot-action-bundle','--source-opacity-study','--vtol-motion-study','--vtol-finish-study')
+& experiments/2d_to_3d/run_godot.ps1 -SceneArguments @('--amjviz-combat-study','--robot-action-bundle','--source-opacity-study','--vtol-motion-study','--vtol-finish-study','--tactical','--facades-study','--sprite-review','--self-test')
 ```
 
 The source FK controller solver uses limb IK_FK=1 and evaluated rest-axis corrected
@@ -1092,7 +1092,12 @@ during ShootStudy, matching the tactical demonstration. No drop/holster mechanic
 is implied. The fitted index landmark is not a grasp/contact solver.
 
 Native numerical acceptance is not original nonlinear Rigify fidelity or artistic
-acceptance. No new atlas or sustained current-candidate GPU benchmark exists yet.
+acceptance. No new atlas exists. Current five-second benchmark evidence is
+amjviz_actions146/benchmark146.json, gpu146.json and verified_benchmark146.json;
+run verify_benchmark_window.py --folder amjviz_actions146 --batch146 (use
+`--batch 146` as two CLI tokens). It checks current asset hashes, rendered1920x1080
+target and live-Godot timestamp overlap. See the progress register for measured
+values and limits; global GPU memory must not be called exclusive actor VRAM.
 Rook likeness, final cloth/hand contacts and complete neutral multi-view action
 review remain open. Do not expand humanoid production or regenerate old atlases.
 
