@@ -2,6 +2,42 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ARCHITECTURE-170 (2026-11-26). Continue requested visible combat
+  showcase; preceding turn was progress (native movie/media/scene), not a stall.
+  Acquired~41.7MB of authored Poly Haven factory/apartment facade, airduct and
+  fire-escape sets on E:. New optional --authored-facades pass preserves169 and
+  writes showcase170. Actual GLB/BLEND204facade/cornice/insert placements, same
+ 627cells/9building groups. First native preview revealed missing separate window
+  inserts; corrected composite assembly using matching authored components.
+  Revised native preview inspected: mullions/glass, doors/cornices and roof vents
+  visible. No pose/old-engine gates repeated. A stable pipe08 valve component
+  replaces nondeterministic set selection. Files facade_modules170.py, builder,
+  --architecture170 scene option, -Architectural movie wrapper, package --folder.
+  `DONE` native full movie902frames1920x1080/30fps, actual stereo audio;
+  package_combat169 --folder combat170 PASS. One shot blocked by cover,144
+  building/frame occlusions; clean0254/0750 inspected. Offline capture72s,
+  not a real-time FPS claim. MP4/GIF/gallery on E:phase2/combat170.
+  Residual repeated roofs, mixed prop styles and treatment contact remain TODO.
+  Paint strict safetensors loader FAIL: extraIP-adapter parameters not accepted by
+  official module, no relaxed load or discarded keys. Prior redundant-BIN
+  assumption disproved: official7.3GB BIN now required, loading memory-mapped with
+  strict keys and half network, separate paint168/robot_official trial. Original
+  failure and module source preserved. Official BIN strict loader PASS: actual
+  1024colour texture on39996triangle robot,94.48s loading/inference (excludes
+  cold imports/download), torch peak allocated11.03GB/reserved14.34GB.
+  Raw generated GLB plus texture and source checksums on E:paint168/robot_official.
+  Four neutral Blender angles and native game-scale captures inspected. Original
+  glTF omitted metallicFactor (default1); derived material explicitly0.15metal/
+  0.58roughness improves legibility, no invented PBR texture claim. Saved
+  painted_robot.blend/painted_material.glb/painted_isometric.png. Not rigged;
+  softer than source sprite, animated SecurityBot retained.
+  Tests actually executed: new Blender environment/render, native170 movie and
+  packaging guards, official Paint inference, two new native robot scale views.
+  Old rig/engine gates and campaign tests NOT EXECUTED intentionally.
+  Next: harmonize roof/prop styles and medical contact; humanoid colour trial
+  remains TODO. No production modification or push. CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` TACTICAL-SHOWCASE-169 (2026-11-25). Latest owner priority:
   one continuous combat showcase, not repeated engine/rig validation.
   `DONE` combat169.tscn reuses167 actors/actions: two agents/two raiders/bot,

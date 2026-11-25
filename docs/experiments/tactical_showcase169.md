@@ -66,5 +66,20 @@ prototype ; certains volumes et panneaux sont encore simples. Les contacts du
 soin et les fragments de destruction peuvent être améliorés. Le travail Hunyuan
 couleur continue séparément et ne bloque pas la démonstration existante.
 
+## Variante de façades du26novembre
+
+Les composants architecturaux Poly Haven sont assemblés dans une variante
+séparée, `showcase170` :204panneaux, fenêtres/vitres, portes et corniches,
+avec conduits de toiture. Les neuf emprises de bâtiments et627cellules sont
+conservées. Un premier aperçu natif a révélé les fenêtres absentes (composants
+séparés des panneaux) ; les inserts ont été ajoutés et le nouvel aperçu inspecté.
+La vidéo169 demeure conservée. Native170 delivery DONE: 902 frames,1920x1080/30fps, stereo audio,30.07s. Offline rendering72s; cover blocked1shot,144building/frame occlusions. Clean0254/0750 inspected. Repeated roofs, mixed prop styles and medical contact remain open.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/showcase_environment169.py -ScriptArguments @('--authored-facades')
+& experiments/2d_to_3d/run_movie169.ps1 -Architectural
+python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/combat170
+```
+
 CHANTIER GLOBAL INCOMPLET : cette livraison montre le combat, sans prétendre
 que la migration3D ou la qualité artistique finale sont acceptées.

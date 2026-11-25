@@ -11,7 +11,7 @@ LAB=Path('/mnt/e/CyberCity2085-3d-lab')
 sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
 
 def main():
-    output=LAB/'generated/phase2/paint168/robot'
+    output=LAB/'generated/phase2/paint168/robot_official'
     output.mkdir(parents=True,exist_ok=True)
     if (output/'result.json').exists():
         raise RuntimeError('Preserve prior result; diagnose before changed retry')
@@ -29,17 +29,32 @@ def main():
     import trimesh
     from PIL import Image
     print('PAINT_PIPELINE_IMPORT_READY',flush=True)
-    # One safe UNet copy; retain BIN only for components without safetensors.
+    # The published safetensors contains IP-adapter weights absent from the
+    # official loader architecture. Use its required BIN, retaining strict=True.
     repo='tencent/Hunyuan3D-2'
     meta=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo))
     revision=meta['sha']
     files=json.load(urllib.request.urlopen('https://huggingface.co/api/models/'+repo+'/tree/'+revision+'?recursive=true&limit=1000'))
-    selected=[f for f in files if f['type']=='file' and f['path'].startswith(('hunyuan3d-delight-v2-0/','hunyuan3d-paint-v2-0-turbo/')) and f['path']!='hunyuan3d-paint-v2-0-turbo/unet/diffusion_pytorch_model.bin']
+    selected=[f for f in files if f['type']=='file' and f['path'].startswith(('hunyuan3d-delight-v2-0/','hunyuan3d-paint-v2-0-turbo/')) and f['path']!='hunyuan3d-paint-v2-0-turbo/unet/diffusion_pytorch_model.safetensors']
     total=sum(f.get('size',0) for f in selected)
-    assert total<12_000_000_000
+    assert total<15_000_000_000
     print('PAINT_WEIGHT_PLAN',len(selected),total,flush=True)
     local=LAB/'models/hy3dgen'/repo
     snapshot_download(repo,revision=revision,allow_patterns=[f['path'] for f in selected],local_dir=local,max_workers=2)
+    # Preserve the official state dictionary and strict key matching. Cast the
+    # empty network first and memory-map the BIN to stay within WSL RAM limits.
+    module=local/'hunyuan3d-paint-v2-0-turbo/unet/modules.py'
+    code=module.read_text()
+    if 'CC2085_SAFE_LOADER' in code:
+        code=(LAB/'generated/phase2/paint168/robot/modules.upstream.py').read_text()
+    needle="        unet_ckpt = torch.load(unet_ckpt_path, map_location='cpu', weights_only=True)"
+    if 'CC2085_MEMORY_LOADER' not in code:
+        assert code.count(needle)==1,'Upstream loader changed; inspect before patching'
+        (output/'modules.upstream.py').write_text(code)
+        replacement='''        # CC2085_MEMORY_LOADER: official BIN, strict keys unchanged.
+        unet = unet.to(torch_dtype)
+        unet_ckpt = torch.load(unet_ckpt_path, map_location='cpu', weights_only=True, mmap=True)'''
+        module.write_text(code.replace(needle,replacement))
     report={'status':'FAIL','model':repo,'revision':revision,'source':str(source),
         'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'reference_sha256':hashlib.sha256(reference.read_bytes()).hexdigest(),

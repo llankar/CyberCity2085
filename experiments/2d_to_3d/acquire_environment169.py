@@ -14,7 +14,8 @@ def get(url):
 
 def main():
     ROOT.mkdir(exist_ok=True)
-    for name in ['medical_box','modular_industrial_pipes_01','street_lamp_01','modular_electric_cables','old_military_compressor','rollershutter_door']:
+    for name in ['medical_box','modular_industrial_pipes_01','street_lamp_01','modular_electric_cables','old_military_compressor','rollershutter_door',
+                 'modular_factory_facade','modular_urban_apartments_facade','modular_airduct_rectangular_01','modular_fire_escape']:
         meta=ROOT/(name+'.json')
         if not meta.exists():meta.write_bytes(get('https://api.polyhaven.com/files/'+name))
         data=json.loads(meta.read_text(encoding='utf8'))

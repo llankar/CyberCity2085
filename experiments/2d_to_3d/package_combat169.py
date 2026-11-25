@@ -1,6 +1,6 @@
 """Encode the native Full HD movie and its recorded game sounds for review."""
 from pathlib import Path
-import json,subprocess,shutil
+import json,subprocess,shutil,argparse
 
 OUT=Path('E:/CyberCity2085-3d-lab/generated/phase2/combat169')
 TOOLS=Path('C:/Users/llank/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-9.1-full_build/bin')
@@ -8,6 +8,10 @@ TOOLS=Path('C:/Users/llank/AppData/Local/Microsoft/WinGet/Packages/Gyan.FFmpeg_M
 def run(*args):subprocess.run([str(TOOLS/'ffmpeg.exe'),'-y','-loglevel','error',*map(str,args)],check=True)
 
 def main():
+    global OUT
+    parser=argparse.ArgumentParser();parser.add_argument('--folder',default=str(OUT))
+    OUT=Path(parser.parse_args().folder).resolve()
+    assert OUT.is_relative_to(Path('E:/CyberCity2085-3d-lab').resolve())
     state=json.loads((OUT/'encounter.json').read_text())
     assert state['blocked_shots']>=1,'Cover has not stopped a shot'
     assert state.get('occlusion_frames',0)>0,'Camera occlusion not demonstrated'

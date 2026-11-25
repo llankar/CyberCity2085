@@ -1,6 +1,6 @@
 """One cyberpunk showcase: exact old footprints, varied PBR facades and authored roof props."""
 from pathlib import Path
-import sys,json,math
+import sys,json,math,argparse
 import bpy
 from mathutils import Vector
 sys.path.insert(0,str(Path(__file__).parent.parent))
@@ -8,7 +8,9 @@ from cell_surfaces import surfaces
 
 LAB=Path('E:/CyberCity2085-3d-lab')
 SRC=LAB/'sources/environment169'
-OUT=LAB/'generated/phase2/showcase169';OUT.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser();parser.add_argument('--authored-facades',action='store_true')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+OUT=LAB/'generated/phase2'/('showcase170' if args.authored_facades else 'showcase169');OUT.mkdir(exist_ok=True)
 data=json.loads((LAB/'sources/tactical_map/city_exterior_neon_market_alley.walls.json').read_text())
 heights={tuple(cell):3 if 'building' in wall['id'] else .7 for wall in data['walls'] for cell in wall['cells']}
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -53,6 +55,12 @@ for filename in ['chimney-medium','detail-tank','solar-panel-flat','water-tower'
         obj.hide_render=True;obj.hide_viewport=True
     templates.append(objs)
 
+modules=None
+if args.authored_facades:
+    sys.path.insert(0,str(Path(__file__).parent))
+    from facade_modules170 import FacadeModules
+    modules=FacadeModules(SRC)
+
 seen=set();groups=0;roof_points=[];door_points=[]
 for index,obstacle in enumerate(data['walls']):
     cells={tuple(c) for c in obstacle['cells']}-seen;seen.update(cells)
@@ -83,7 +91,7 @@ for index,obstacle in enumerate(data['walls']):
         verts=[world(p) for p in points];normal=-(verts[1]-verts[0]).cross(verts[2]-verts[0]).normalized()
         center=sum(verts,Vector())/4
         count+=1
-        if count%3==0:
+        if count%3==0 and not modules:
             frame=box('Window frame',center+normal*.035,(.74,.07,1.05),trim,parent,normal)
             box('Recessed glazing',center+normal*.08,(.60,.035,.88),glass[(index+count)%2],parent,normal)
             box('Window mullion',center+normal*.11,(.025,.03,.9),trim,parent,normal)
@@ -92,9 +100,11 @@ for index,obstacle in enumerate(data['walls']):
             box('Service doorway',center+normal*.045,(.82,.08,1.9),trim,parent,normal)
             box('Door status strip',center+normal*.10+Vector((0,0,.7)),(.58,.04,.035),neon[index%2],parent,normal)
             door_points.append((center+normal*.13,normal,parent))
+    if modules:modules.decorate(parent,parts,index,world)
     # Authored kit components, constrained to existing roof cells.
     cell=sorted(cells)[len(cells)//2];point=world((cell[0]+.5,cell[1]+.5,height))
     roof_points.append((point,parent))
+    if modules:modules.roof(point,parent,index)
     for original in templates[index%len(templates)]:
         obj=original.copy();obj.data=original.data;bpy.context.collection.objects.link(obj)
         obj.hide_render=False;obj.hide_viewport=False;obj.parent=parent
@@ -114,8 +124,10 @@ for name,positions in [('modular_industrial_pipes_01',[(-5,1,3),(4,-3,3)]),('str
     bpy.ops.import_scene.gltf(filepath=str(SRC/name/(name+'_1k.gltf')))
     meshes=[o for o in set(bpy.data.objects)-before if o.type=='MESH']
     if name.startswith('modular'):
-        for obj in meshes[1:]:bpy.data.objects.remove(obj,do_unlink=True)
-        meshes=meshes[:1]
+        chosen=next(o for o in meshes if o.name=='modular_industrial_pipes_01_pipe08')
+        for obj in meshes:
+            if obj!=chosen:bpy.data.objects.remove(obj,do_unlink=True)
+        meshes=[chosen]
     for index,point in enumerate(positions):
         if name.startswith('modular'):
             point=(point[0],point[1],heights.get((math.floor(point[0]+20),math.floor(14-point[1])),0))
@@ -159,5 +171,6 @@ bpy.ops.object.select_all(action='SELECT')
 bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'environment.blend'))
 bpy.ops.export_scene.gltf(filepath=str(OUT/'environment.glb'),export_format='GLB',use_selection=True)
 (OUT/'environment.json').write_text(json.dumps({'source_cells':len(seen),'buildings':groups,
+    'authored_facade_modules':modules.placements if modules else 0,
     'scope':'One map: unchanged627cell footprints, cosmetic PBR facades and authored roof props'},indent=2))
 print('SHOWCASE_ENVIRONMENT_READY',len(seen),groups,flush=True)

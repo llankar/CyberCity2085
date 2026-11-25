@@ -1,6 +1,6 @@
 extends "res://demo167.gd"
 ## Continuous staged encounter. Independent of production rules and campaigns.
-const DELIVERY := ROOT+"combat169/"
+var delivery_folder := ROOT+("combat170/" if "--architecture170" in OS.get_cmdline_user_args() else "combat169/")
 var rings: Array[MeshInstance3D] = []
 var effects
 var played: Array[String] = []
@@ -35,7 +35,8 @@ func build_environment() -> void:
 	var image := Image.load_from_file("E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png");image.generate_mipmaps()
 	var mat := StandardMaterial3D.new();mat.albedo_texture=ImageTexture.create_from_image(image);mat.roughness=.9
 	floor.material_override=mat;add_child(floor)
-	var environment := load_glb("showcase169/environment.glb",Vector3.ZERO)
+	var environment_path := "showcase170/environment.glb" if "--architecture170" in OS.get_cmdline_user_args() else "showcase169/environment.glb"
+	var environment := load_glb(environment_path,Vector3.ZERO)
 	for group in environment.find_children("Occludable_*","Node3D",true,false):
 		var bounds := AABB();var first := true;var materials: Array[StandardMaterial3D] = []
 		for mesh in group.find_children("*","MeshInstance3D",true,false):
@@ -53,7 +54,7 @@ func make_hud() -> void:
 
 func _ready() -> void:
 	super._ready()
-	DirAccess.make_dir_recursive_absolute(DELIVERY+"frames")
+	DirAccess.make_dir_recursive_absolute(delivery_folder+"frames")
 	Engine.max_fps=30 if record else 60
 	if OS.has_feature("movie"):Engine.max_fps=0
 	for node in get_children():
@@ -203,16 +204,16 @@ func _process(delta: float) -> void:
 	time_value+=dt;frame+=1;capturing=true
 	if record:RenderingServer.force_draw(false)
 	if t>=30:
-		FileAccess.open(DELIVERY+"audio.json",FileAccess.WRITE).store_string(JSON.stringify(effects.audio_events))
-		FileAccess.open(DELIVERY+"encounter.json",FileAccess.WRITE).store_string(JSON.stringify({"blocked_shots":blocked_shots,"occlusion_frames":occlusion_frames,"health":health,"frames":frame,"scope":"Staged local encounter, not production tactical AI"}))
+		FileAccess.open(delivery_folder+"audio.json",FileAccess.WRITE).store_string(JSON.stringify(effects.audio_events))
+		FileAccess.open(delivery_folder+"encounter.json",FileAccess.WRITE).store_string(JSON.stringify({"blocked_shots":blocked_shots,"occlusion_frames":occlusion_frames,"health":health,"frames":frame,"scope":"Staged local encounter, not production tactical AI"}))
 		print("COMBAT169_CAPTURE_FINISHED frames=",frame);get_tree().quit()
 
 func capture() -> void:
 	if not capturing:return
 	capturing=false
-	if record:get_viewport().get_texture().get_image().save_png(DELIVERY+"frames/%04d.png"%frame)
+	if record:get_viewport().get_texture().get_image().save_png(delivery_folder+"frames/%04d.png"%frame)
 	elif frame==120:
-		get_viewport().get_texture().get_image().save_png(DELIVERY+"preview.png")
+		get_viewport().get_texture().get_image().save_png(delivery_folder+"preview.png")
 		if "--quick" in OS.get_cmdline_user_args():get_tree().quit()
 	if OS.has_feature("movie") and frame in [30,254,460,590,630,750]:
-		get_viewport().get_texture().get_image().save_png(DELIVERY+"clean_%04d.png"%frame)
+		get_viewport().get_texture().get_image().save_png(delivery_folder+"clean_%04d.png"%frame)
