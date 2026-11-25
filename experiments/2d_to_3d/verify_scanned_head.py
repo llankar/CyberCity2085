@@ -6,8 +6,8 @@ import numpy as np
 from anatomical_groups import descendants
 from glb_document import Glb,COMPONENTS
 
-root=Path('E:/CyberCity2085-3d-lab/generated/phase2');shoot_study='--shoot-study' in sys.argv
-folder=root/('scanned_armor_shoot01' if shoot_study else ('scanned_armor_hair01' if '--hair-study' in sys.argv else 'scanned_armor_head01'))
+root=Path('E:/CyberCity2085-3d-lab/generated/phase2');shoot_study='--shoot-study' in sys.argv or '--contact-study' in sys.argv
+folder=root/('scanned_armor_contact01' if '--contact-study' in sys.argv else ('scanned_armor_shoot01' if shoot_study else ('scanned_armor_hair01' if '--hair-study' in sys.argv else 'scanned_armor_head01')))
 source=Glb(root/'renderpeople_nathan01/human.glb');armor=Glb(root/'unvanquished_motion01/human_actions.glb');target=Glb(folder/'human_actions.glb')
 def array(g,index):
  a=g.doc['accessors'][index]

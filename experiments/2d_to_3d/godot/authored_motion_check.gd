@@ -4,12 +4,14 @@ func _ready() -> void:
 	if "--saved-blend-roundtrip" in OS.get_cmdline_user_args():folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_roundtrip01/"
 	var weapon_study := "--weapon-study" in OS.get_cmdline_user_args()
 	if weapon_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_weapon01/"
-	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args()
+	var contact := "--contact-study" in OS.get_cmdline_user_args()
+	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args() or contact
 	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args() or scanned_shoot
 	var scanned_head := "--scanned-head-study" in OS.get_cmdline_user_args() or scanned_hair
 	if scanned_head:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_head01/"
 	if scanned_hair:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_hair01/"
 	if scanned_shoot:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_shoot01/"
+	if contact:folder="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_contact01/"
 	assert(not (weapon_study and scanned_head),"Choose one study")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()

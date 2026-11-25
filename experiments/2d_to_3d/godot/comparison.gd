@@ -51,7 +51,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		push_error("Missing comparison subject: " + path)
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
-	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb")
+	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb") or path.ends_with("scanned_armor_contact01/human_actions.glb")
 	var subject := document.generate_scene(state, 120 if authored_human else 30, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
@@ -84,7 +84,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
-	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args()
+	var contact := "--contact-study" in OS.get_cmdline_user_args()
+	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args() or contact
 	var scanned_hair := "--scanned-hair-study" in OS.get_cmdline_user_args() or scanned_shoot
 	var scanned_head := "--scanned-head-study" in OS.get_cmdline_user_args() or scanned_hair
 	var unvanquished_motion := "--unvanquished-motion-study" in OS.get_cmdline_user_args() or scanned_head
@@ -124,6 +125,7 @@ func _ready() -> void:
 		if scanned_head:human_path=root+"scanned_armor_head01/human_actions.glb"
 		if scanned_hair:human_path=root+"scanned_armor_hair01/human_actions.glb"
 		if scanned_shoot:human_path=root+"scanned_armor_shoot01/human_actions.glb"
+		if contact:human_path=root+"scanned_armor_contact01/human_actions.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -153,7 +155,7 @@ func _ready() -> void:
 		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0])
 		human_weapon.visible = false
 	if scanned_shoot:
-		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0],true)
+		human_weapon = preload("res://rocketbox_pistol_attachment.gd").attach(subjects[0],true,contact)
 		human_weapon.visible = false
 	if "--authored-groom" in OS.get_cmdline_user_args():
 		assert(bundled_human, "Authored groom study requires the shared character rig")

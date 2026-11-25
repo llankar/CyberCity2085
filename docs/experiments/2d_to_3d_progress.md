@@ -2,6 +2,47 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SCANNED-HUMAN-CONTACT-114 (2026-11-25). Continues e10b99ec;
+  actual source111 body, seven clips and real CC0 nine-part pistol retained.
+  E:scanned_armor_contact01 contains packed editable Blend121,574,397B and
+  body GLB48,372,332B SHA75ae14fb5ffaef79bd26b8635e8e80dc917ba610c4009bb56951f41ae44a791d.
+  Source111 GLB remains SHA6b878a2126a58b820a2b12bcaf2282d0e4eae22a5c7bc797f4c1d35e40c83084.
+  First real grip inspection measures all actual finger bones and trigger mesh
+  bounds. CCD bends index toward measured trigger-side target; first offhand
+  CCD fit could not reach (up to38.9mm residual). Actual target distance .5648m
+  exceeded .5259m arm length. Do not stretch anatomy or label it solved.
+
+  A measured65mm weapon retraction plus analytic two-segment arm IK now puts
+  both hands within reach, downward elbow pole and source wrist orientations
+  retained. Only Shoot changes; six body clips/16 body meshes, complete6630
+  scanned head triangles/UV/photo JPEG and1468 hair triangles/UV/PNG independently
+  verified unchanged. Actual9source-key poses: max index-tip bone target error
+  .309843mm, left wrist .163404micrometres, palm-centroid .362561micrometres;
+  max measured left-arm segment-length error .130603micrometres. These are bone
+  targets, NOT skin contact, pressure, anatomical limits or collision acceptance.
+  The fitted pistol initially followed the now-bent forearm and tilted upward;
+  corrected by preserving source111 wrist-local mount. Real current side/front
+  captures inspected after correction: face visible, gun level and hands joined.
+  Remaining glove intersections/joint limits and intermediate contact need review;
+  hair shape, skin/armor identity and modern Rook likeness still unaccepted.
+
+  Actual native seven-clip18mesh122bone fidelity gate PASS,17Shoot samples,
+  Death-to-Idle/reset0. Combined real prop17times PASS1.757074micrometres;
+  runtime attachment PASS4.187624micrometres under nonzero actor placement.
+  Independent stage native controls/dispatch/sprite-review PASS (five subjects,
+  actual627-cell alley layout, human reference62.208px, existing robot five clips
+  and VTOL three controls). Tactical screenshot inspected;2D floor/gray obstacle
+  volumes and vehicle hover remain unfinished art. Short120frames .389706s is
+  not a sustained benchmark. No new VRAM profiling claim.
+  Eight new IK geometry tests PASS; focused46Python PASS0fail0skip, E:pytest-114-all.xml
+  under tmp. Sources/credits kept on E:, no production changes or push.
+  `TODO` next: inspect contact through all17times and opposite profile/back,
+  enforce/review finger joint limits and actual glove/weapon surface contact;
+  then Rook hair/face/wardrobe artistic gate. No second human cohort before that.
+  First human0/1, finalhumans0/2; stage5/6subjects, native map1/1, artistic map0/1.
+  Global mandatory action/asset coverage remains incomplete; overall task total
+  is not fixed. CHANTIER GLOBAL INCOMPLET.
+
 - `DONE` ROBOT-SAVED-BLEND-ROUNDTRIP-113 technical scoped gate (2026-11-25).
   Resolved112 Melee J036 discrepancy without relaxing thresholds: Blender
   component-linear quaternion curves do not reproduce glTF spherical rotation

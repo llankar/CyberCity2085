@@ -7,8 +7,9 @@ sys.path.insert(0,str(Path(__file__).parent.parent))
 from grip_geometry import circle_center,grip_frame
 
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')
-scanned_shoot='--scanned-shoot' in sys.argv
-source=root/('scanned_armor_shoot01' if scanned_shoot else 'unvanquished_weapon01');out=source/'pistol_fit01';out.mkdir(exist_ok=True)
+contact_study='--contact-study' in sys.argv
+scanned_shoot='--scanned-shoot' in sys.argv or contact_study
+source=root/('scanned_armor_contact01' if contact_study else ('scanned_armor_shoot01' if scanned_shoot else 'unvanquished_weapon01'));out=source/'pistol_fit01';out.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(source/'human_actions.blend'),use_scripts=False)
 scene=bpy.data.scenes['AuthoredGameActions'];bpy.context.window.scene=scene
 rig=bpy.data.objects['AuthoredGameRig'];scene.frame_set(8);bpy.context.view_layer.update()
@@ -23,6 +24,13 @@ grip,basis=grip_frame(centers,position('forearm.R'),position('hand.R'))
 anchor=Vector((0,-.012,.052))
 placement=Matrix(basis.tolist()).to_4x4();placement.translation=Vector(grip)-placement.to_3x3()@anchor
 relative=(rig.matrix_world@rig.pose.bones['hand.R'].matrix).inverted()@placement
+if contact_study:
+ # The arm is now bent; forearm direction no longer equals barrel direction.
+ # Preserve the measured wrist-local grip used to solve the trigger contacts.
+ original_fit=json.loads((root/'scanned_armor_shoot01/pistol_fit01/fit_report.json').read_text())
+ relative=Matrix(original_fit['relative_blender'])
+ placement=rig.matrix_world@rig.pose.bones['hand.R'].matrix@relative
+ grip=placement@anchor
 conversion=Matrix(((1,0,0,0),(0,0,1,0),(0,-1,0,0),(0,0,0,1)))
 placement_yup=conversion@placement@conversion.inverted()
 with bpy.data.libraries.load(str(root/'firewarden_pistol01/pistol.blend'),link=False) as (available,loaded):

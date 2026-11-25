@@ -6,7 +6,7 @@ import numpy as np
 from PIL import Image
 from glb_document import Glb,COMPONENTS
 
-root=Path('E:/CyberCity2085-3d-lab');folder=root/('generated/phase2/scanned_armor_shoot01' if '--shoot-study' in sys.argv else 'generated/phase2/scanned_armor_hair01');source=root/'sources/makehuman_maxwell_hair'
+root=Path('E:/CyberCity2085-3d-lab');folder=root/('generated/phase2/scanned_armor_contact01' if '--contact-study' in sys.argv else ('generated/phase2/scanned_armor_shoot01' if '--shoot-study' in sys.argv else 'generated/phase2/scanned_armor_hair01'));source=root/'sources/makehuman_maxwell_hair'
 g=Glb(folder/'human_actions.glb');report=json.loads((root/'generated/phase2/scanned_armor_hair01/hair_fit_report.json').read_text())
 positions=[];uv=[];faces=[]
 for line in (source/'maxwell_hair_mh.obj').read_text().splitlines():

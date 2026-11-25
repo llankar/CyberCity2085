@@ -1,8 +1,9 @@
 extends RefCounted
 ## Actual licensed prop, mounted with a measured source-wrist local transform.
-static func attach(model: Node3D,scanned_shoot: bool=false) -> Node3D:
+static func attach(model: Node3D,scanned_shoot: bool=false,contact_study: bool=false) -> Node3D:
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var folder := "scanned_armor_shoot01/" if scanned_shoot else "rocketbox_military03/motion01/"
+	if contact_study:folder="scanned_armor_contact01/"
 	var metadata = JSON.parse_string(FileAccess.get_file_as_string(root+folder+"pistol_fit01/fit_report.json"))
 	assert(metadata is Dictionary)
 	var skeleton := model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D

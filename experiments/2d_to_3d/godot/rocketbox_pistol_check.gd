@@ -1,11 +1,13 @@
 extends Node3D
 func _ready() -> void:
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03/motion01/"
-	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args()
+	var contact := "--contact-study" in OS.get_cmdline_user_args()
+	var scanned_shoot := "--scanned-shoot-study" in OS.get_cmdline_user_args() or contact
 	var runtime_attachment := "--runtime-attachment" in OS.get_cmdline_user_args()
 	var authored_study := "--unvanquished-study" in OS.get_cmdline_user_args() or scanned_shoot
 	if authored_study:root="E:/CyberCity2085-3d-lab/generated/phase2/unvanquished_weapon01/"
 	if scanned_shoot:root="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_shoot01/"
+	if contact:root="E:/CyberCity2085-3d-lab/generated/phase2/scanned_armor_contact01/"
 	var reference = JSON.parse_string(FileAccess.get_file_as_string(root+"pistol_fit01/weapon_surface_reference.json"))
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
@@ -14,7 +16,7 @@ func _ready() -> void:
 	var model := doc.generate_scene(state,120 if authored_study else 30,false,false)
 	add_child(model); model.position = Vector3(.7,0,-1.3)
 	var prop: Node3D
-	if not combined: prop = preload("res://rocketbox_pistol_attachment.gd").attach(model,scanned_shoot)
+	if not combined: prop = preload("res://rocketbox_pistol_attachment.gd").attach(model,scanned_shoot,contact)
 	var rig := model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
 	var player := model.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 	var meshes := model.find_children("EquippedPistol_*", "MeshInstance3D", true, false) if combined else prop.find_children("*", "MeshInstance3D", true, false)

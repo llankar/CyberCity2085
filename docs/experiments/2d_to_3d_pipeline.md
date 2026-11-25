@@ -9,6 +9,18 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Authored armor body-action study (batch106)
 
+Contact study114: first run `run_blender.ps1 -Script blender/inspect_scanned_grip.py`
+on the111 equipped source, then `run_blender.ps1 -Script blender/fit_scanned_contacts.py`.
+The latter creates a new seven-clip candidate under E:scanned_armor_contact01;
+analytic arm IK rejects unreachable targets, preserves lengths, and retracts
+the weapon65mm so the offhand can reach. Index CCD is an explicit fit study,
+not a joint-limit or collision solver. Run the existing pistol fitter with
+`--contact-study`; it MUST retain the original wrist-local grip, because the
+bent forearm no longer defines barrel aim. Native authored-motion check,
+pistol combined/runtime checks and comparison stage accept `--contact-study`.
+Source head/hair verifiers use the same flag. Preserve their scoped results;
+native import fidelity does not prove anatomical/artistic acceptance.
+
 Robot saved-file roundtrip study112: `run_blender.ps1 -Script
 blender/roundtrip_robot_bundle.py` opens the actual packed security_bundle01
 Blend and writes only E:security_roundtrip01. All six animated owners must have
