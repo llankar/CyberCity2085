@@ -2,6 +2,63 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-WARDROBE-PBR-93 (2026-11-25). Continued after local
+  checkpoint54e7d717, not after another generic MPFB recolor. Revisited the actual
+  licensed Trebejo garment topology: decoded55,200corners weld to9,375positions,
+ 18,400triangles, ONE connected component. No claim of separate button/zip meshes.
+  Audit changes only an in-memory copy; original source unchanged on E:.
+
+  Acquired ONE genuine photometric PBR surface, Leather037/ambientCG by Lennart
+  Demes. Current primary asset/license pages explicitly CC0-1.0, including raw
+  commercial redistribution. Reviewed2K-PNG57,088,064byte archive, capped64MB,
+  pinned SHA256055968fef7b4f1b401f30e9fa952e1b0ade2dfb27c82f297cef8e75eb67e3dc7.
+  CRC/extraction-size checks; only Color/NormalGL/Roughness extracted. Source,
+  provenance, credits and all cache/temp exclusively E:. No AI weights or model
+  library downloads. Subsequent real cached-source/hash check executed PASS.
+
+  Built real material derivatives in Blender: source painted albedo replaced,
+  existing garment folds/panels retained. Variant01 retains authored corner/seam
+  normals with explicitly approximate weak leather normal perturbation. Variant02
+  recalculates smooth corner normals and uses leather normal only. This is an
+  authored garment with real PBR maps, not a body silhouette or primitive jacket.
+  Painted decorative details are lost; no invented geometric button completion.
+  Eight UV repeats are NOT a calibrated physical grain-size claim.
+
+  Initial reuse of generic smart-project bake unnecessarily fragmented garment
+  UVs. Added opt-in preserve_source_uv to existing experimental bake helper,
+  leaving prior default unchanged. Final derivatives copy original UV layout.
+  Strict GLB check compares ALL18,400triangles: every position/UV corner tuple,
+  multiplicity and cyclic winding exactly matches original source, while allowing
+  harmless index reorder. Embedded-only textures, finite unit normals and source
+  CC BY4 author/license metadata checked. Variant01 native51,301render vertices;
+  variant02 native12,226, same18,400triangles/.7000007m height. Normal recalculation
+  does not alter geometry or UVs. Original author credits plus CC0 surface credits
+  preserved in packed Blender sources, GLB extras/copyright and localCREDITS.
+
+  Both Blender/GLB material variants generated on E: generated/phase2/
+  trebejo_leather01 and trebejo_leather02, six2K bake PNGs, retexture_report,
+  geometry_uv_check, native_check. Fresh-normal front/profile/back inspected in
+  Godot under unchanged neutral light. Painted white/faceted highlights removed;
+  collar/pockets/folds visible. Still only standalone study, not final Rook art.
+  Speckled dark patches remain in default preview. No-shadow diagnostic removes
+  these patches, identifying a shadow contribution; that diagnostic is not used
+  as artistic acceptance. Tested shorter directional shadow range had no useful
+  visible improvement and was reverted; no lighting tweak claimed as a fix.
+
+  Tests executed:46Python passed,0failed,0skipped across eight isolated modules.
+  Five acquisition cases verify unrequested traversal entry never extracted,
+  corrupt cache rejection, reviewed redirect restriction, stream cap/partial
+  cleanup and valid-ZIP/unreviewed-hash rejection. Full real geometry/UV verifiers
+  pass BOTH variants. Native TREBEJO_NATIVE_GARMENT_OK positive for both2K
+  derivatives and original1K garment regression. Default film bakes not rerun;
+  no production tests/artist PASS claimed. Persistent SDL/sampler warnings remain.
+  DONE3/3 bounded technical tasks: topology audit, licensed PBR rework, portable
+  geometry/material validation. Accepted humans0/2; fitted/skinned wardrobe0,
+  final shadow/render/art and remaining action coverage TODO. Next: fit a qualified
+  authored garment to the first human prototype, verify actual cuffs/shoulders,
+  deformation/collision and native combat-scale appearance before generalizing.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` MECHANICAL-STAGE-STRIKE-92 (2026-11-25). Prior turn classified
   PROGRESS: actual walk sources/export/contact evidence and checkpointf4d22d3e.
   Continued without touching production/main GOAL/save or downloading large AI

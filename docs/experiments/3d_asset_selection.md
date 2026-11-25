@@ -31,6 +31,17 @@ This supplies accessory geometry, not fitted modular armor/boots/gloves.
 
 ## Candidate register
 
+Batch93 material rework: actual Trebejo garment is one connected9,375vertex/
+18,400triangle surface (no separate buttons). [Leather037](https://ambientcg.com/view?id=Leather037)
+photometric PBR maps acquired as one pinned57.09MB2K archive under ambientCG's
+[CC0 license](https://docs.ambientcg.com/license/). Three source maps retained
+on E:; not a new character/AI model. New material variants preserve every source
+triangle/UV corner exactly, no silhouette geometry. Fresh-normal derivative
+native12,226render vertices; source-normal variant51,301. Full topology/material
+checks PASS. Neutral front/profile/back inspected; NOT final wardrobe acceptance:
+painted decorative details lost, no fitting/rigging and shadow artifacts remain.
+Original Trebejo sourceCC BY4 and new surfaceCC0 credits retained separately.
+
 Batch92: [Renderpeople free rigged scans](https://renderpeople.com/free-3d-people/)
 reviewed with [current primary terms](https://renderpeople.com/general-terms-and-conditions/).
 Game rendering explicitly covered by4.1b, free models same terms2.5. Raw/modified

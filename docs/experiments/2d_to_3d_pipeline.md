@@ -46,6 +46,29 @@ displacement and hold-at-end are asserted rather than looping world motion.
 Add --overview for20.736px human reference; default close reference62.208px.
 Animations can be selected by keys; capture studies pause their requested pose.
 
+## Authored garment PBR study (batch93)
+
+Run `python acquire_jacket_leather.py` for ONE pinned2K CC0 Leather037 archive.
+All downloads/caches/generated resources remain E:. Size/hash/redirect limits
+are checked; extraction whitelists three maps, never extractall. A cached archive
+and its maps must still match their reviewed hashes. `blender/audit_trebejo_jacket.py`
+inventories true garment connectivity on an in-memory copy only.
+
+`run_blender.ps1 -Script blender/retexture_trebejo_leather.py` bakes a source-seam
+normal variant; add `-ScriptArguments @('--fresh-normal')` for recalculated smooth
+normals/new leather normal. Outputs trebejo_leather01/02 respectively, original
+garment remains unchanged. Existing bake helper now has opt-in preserve_source_uv;
+old callers keep smart projection. New garment copies authored UVs for its bake.
+
+`python verify_garment_retexture.py trebejo_leather02` verifies every original
+position/UV triangle corner exactly, cyclic winding/multiplicity, embedded images,
+unit normals and original attribution. Also run for trebejo_leather01. Native
+`run_godot.ps1 -Scene res://trebejo_jacket_check.tscn -QuitAfter 600 -SceneArguments
+@('--fresh-normal')` checks2K PBR material/geometry (.7m,18,400tris); --leather checks
+variant01, no flag checks original1K source. Require fresh JSON/positive marker.
+Use main.tscn --neutral --view=front/side/back with model path for actual renders.
+These are standalone garments; no fitted/skinned character or art PASS implied.
+
 ## Environment verified
 
 - GPU: NVIDIA GeForce RTX 5070 Ti, 16,303 MiB, driver 621.24.

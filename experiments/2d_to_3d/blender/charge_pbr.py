@@ -72,18 +72,23 @@ def pin_source_uv(tree,seen):
                 tree.links.new(uv.outputs[0],link.to_socket)
 
 
-def bake_object(obj,folder,prefix,size=256):
+def bake_object(obj,folder,prefix,size=256,preserve_source_uv=False):
     # Preflight every material before changing this object.
     for slot in obj.material_slots: channels(slot.material)
     if obj.data.uv_layers.active:
         obj.data.uv_layers.active.name='SourceUV'
     else:
+        if preserve_source_uv: raise ValueError('Authored UVs required for UV-preserving bake')
         obj.data.uv_layers.new(name='SourceUV')
+    source_uv=obj.data.uv_layers.active
     bake_uv=obj.data.uv_layers.new(name='BakeUV')
     obj.data.uv_layers.active=bake_uv; bake_uv.active_render=True
-    bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
-    bpy.ops.uv.smart_project(island_margin=.025)
-    bpy.ops.object.mode_set(mode='OBJECT')
+    if preserve_source_uv:
+        for first,second in zip(source_uv.data,bake_uv.data): second.uv=first.uv
+    else:
+        bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
+        bpy.ops.uv.smart_project(island_margin=.025)
+        bpy.ops.object.mode_set(mode='OBJECT')
     adapters=[]
     for slot in obj.material_slots:
         slot.material=slot.material.copy(); material=slot.material
