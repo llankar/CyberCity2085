@@ -606,6 +606,17 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch120 equipped candidate: use run_blender.ps1 with
+`blender/inspect_cyborg_combat_anatomy.py`, `blender/build_cyborg_ready_pose.py`,
+then `blender/assemble_cyborg_gloved_pistol.py`. All outputs remain on E:.
+Native gate `res://cyborg_ready_check.tscn` compares actual deformed mesh bounds
+against freshly generated native_reference.json; require positive
+CYBORG_READY_NATIVE_GEOMETRY_PASS and hash-matched native_ready_validation.json.
+Comparison scene --cyborg-pistol-study selects this study and dispatches its ready
+clip as Idle; Shoot stays unavailable. Body walk/run retained. The selected real
+CC BY-SA3 hand geometry changes the derivative's redistribution notice from the
+upstream CC0-only body. No new source files are downloaded by these DCC scripts.
+
 Batch119 alternative: run `python experiments/2d_to_3d/acquire_grab3d_cyborg.py`
 once for the reviewed public CC0/AI-assisted source. Then use run_blender.ps1
 with `blender/prepare_grab3d_cyborg.py` and `blender/optimize_grab3d_cyborg.py`.

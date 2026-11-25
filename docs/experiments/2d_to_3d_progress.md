@@ -2,6 +2,47 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CYBORG-COMBAT-POSE-120 (2026-11-25). Previous turn progress:
+  acquired actual CC0 cyberpunk source, made60kLOD and verified source actions.
+  Continuedb8847f47. First dressed actor only; Raider/cohort not generalized.
+
+  `DONE` READY-POSE-120: real24-bone source receives two-second49-keyframe
+  CombatReadyStudy with analytic non-stretch arm IK and3mm breathing. Both arm
+  lengths and wrist targets verified in Blender, maximum error0.298396µm.
+  Initial global-pose matrix reset caused170mm drift; reset matrix_basis instead
+  and rerun successful. Anatomical tool records actual joint heads/matrices;
+  synthetic Blender display-bone tails are deliberately not treated as joints.
+
+  `DONE` AUTHORED-HAND-WEAPON-120: actual posed Unvanquished right-hand fragment
+  (206vertices/190faces, Angelo/Stannum/Viech CC BY-SA3) and all nine FireWarden
+  CC0 pistol parts reused, not primitive geometry. Removed961 original open-hand
+  faces in derivative only. Borrowed evaluated dependency-graph wrist transform
+  required: raw linked-scene transform gave7.46x scale mismatch and blank bounds
+  captures, fixed before acceptance. Source firearm frame converted to target-Y
+  forward/Zup; uniform hand/weapon scale.95. No backwards barrel retained.
+  Copied hand shape is rigid on wrist: no animated trigger-finger claim.
+  Combined adaptation CC BY-SA3 with source CC0/BY-SA notices; no Nathan/Maxwell
+  geometry/images included, orphan source body/head purged, credits packed.
+  E:generated/phase2/cyborg_pistol01 contains true editable Blend/GLB/credits.
+  GLB SHA aa9060403c8138808a8b8c1dfef9dfb77e79204c1817f3e0881a7837e15153a9.
+
+  `DONE` NATIVE-POSE-GATE-120: new cyborg_ready_check.tscn executed Godot4.7.2,
+  actual deformed bounds of11meshes across9poses agree with Blender, maximum
+  corner error26.669764µm. This checks geometry placement, not detailed contact.
+  Source walk/run and new ready clip import. Current front/profile/hand-closeup
+  and tactical stage captures inspected. Left support hand lowered30mm after
+  earlier variants crossed gun or floated too low; precise surface-contact
+  acceptance remains TODO. Idle dispatch added only behind --cyborg-pistol-study;
+  scene control self-test PASS, calibrated62.208008px human and five stage actors.
+  Eight analyticIK Python tests PASS/0fail/0skip, JUnit E:tmp/pytest120.xml.
+  Existing SDL calibration error and exporter sampler warning persist.
+
+  `TODO` FIRE-ANIMATION-121: next author actual recoil/return on this equipped
+  first character and test native poses; no Shoot clip currently exists.
+  Rook hair/face/outfit identity, hand seam/contact review and full human action
+  set remain open. First accepted Rook0/1, finalhuman0/2; mapnative1/1/artistic0/1.
+  No production changes/push/build. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` CYBERPUNK-CANDIDATE-119 (2026-11-25). Previous turn classified
   progress: committed actual source-retention checks and neutral captures, not
   artistic completion. Continued7d37b5ec. Close neutral face capture confirms

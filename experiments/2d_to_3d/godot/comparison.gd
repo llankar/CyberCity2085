@@ -83,7 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args()
+	var cyborg_pistol := "--cyborg-pistol-study" in OS.get_cmdline_user_args()
+	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args() or cyborg_pistol
 	var cyborg_study := "--grab3d-cyborg-study" in OS.get_cmdline_user_args() or cyborg_lod
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
 	var contact := "--contact-study" in OS.get_cmdline_user_args()
@@ -132,6 +133,7 @@ func _ready() -> void:
 		assert(not rocketbox and not nathan_study and not unvanquished_study and not rigged_human and not action_human, "Choose one human source")
 		human_path = root + "grab3d_cyborg01/human.glb"
 		if cyborg_lod: human_path = root + "grab3d_cyborg_lod01/human.glb"
+		if cyborg_pistol: human_path = root + "cyborg_pistol01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -153,6 +155,7 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	if cyborg_study: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run"})
+	if cyborg_pistol: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy"})
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -348,6 +351,7 @@ func _ready() -> void:
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if cyborg_study:
 		clip_status = "Human: reference pose; source walk/run available; no combat actions"
+		if cyborg_pistol: play_clip("Idle")
 		if "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
