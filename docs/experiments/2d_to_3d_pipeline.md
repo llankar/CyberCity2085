@@ -1057,3 +1057,42 @@ failed trials and native screenshots remain on E: for inspection. Scene opt-in
 --authored-jacket-study is diagnostic; no141atlas or production replacement exists.
 Next repair must inspect licensed head/neck boundary topology and visible layering.
 
+### Current authored game-rig combat study146
+
+The141 anatomy experiments above are rejected diagnostics, not the current human.
+Current146 uses the real licensed AmJViZ character, original PBR and pruned262-bone
+game rig145. No production replacement. Keep licensed source files and all output
+under E:/CyberCity2085-3d-lab; do not redistribute the royalty-free source pack.
+From the repository root in PowerShell, with145 human.blend and licensed UAL and
+FireWarden sources present, execute in this order:
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/bake_amjviz_combat146.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/ground_amjviz_locomotion146.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_amjviz_pistol146.py -ScriptArguments @('--animated','--index-pad-fit')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_amjviz_actions146.py
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_actions_check.tscn
+& experiments/2d_to_3d/run_godot.ps1 -SceneArguments @('--amjviz-combat-study','--robot-action-bundle','--source-opacity-study','--vtol-motion-study','--vtol-finish-study')
+```
+
+The source FK controller solver uses limb IK_FK=1 and evaluated rest-axis corrected
+world poses, not direct rotation of constrained deform bones. New actions bake at
+120Hz. Original locomotion bone curves are retained; upward-only root correction
+prevents authored boot penetration. Export must keep constant object animation
+tracks; otherwise Death root displacement leaks into Idle despite valid per-clip
+bounds. Native checker tests all seven clips at48Hz source-key/midpoint cadence
+(288poses), the floor, settled death height and death-to-idle reset. Require the
+positive AMJVIZ_COMBAT_NATIVE_EXPORT_PASS marker and current hashes in
+generated/phase2/amjviz_actions146/native_actions.json, not exit0 alone.
+
+Independent preview: main.tscn with --model=E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/human_actions.glb,
+--clip=ShootStudy (or MeleeStudy/DeathStudy), --clip-fraction=.5, --neutral,
+--view=front/side/back and --capture=E:/.../capture.png. Gun meshes appear only
+during ShootStudy, matching the tactical demonstration. No drop/holster mechanic
+is implied. The fitted index landmark is not a grasp/contact solver.
+
+Native numerical acceptance is not original nonlinear Rigify fidelity or artistic
+acceptance. No new atlas or sustained current-candidate GPU benchmark exists yet.
+Rook likeness, final cloth/hand contacts and complete neutral multi-view action
+review remain open. Do not expand humanoid production or regenerate old atlases.
+

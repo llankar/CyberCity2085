@@ -2,6 +2,48 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` COMBAT-MOTION-146 / integrated checkpoint (2026-11-25).
+  Supersedes the initial inventory-only146 entry below. `DONE` real source FK
+  retarget through torso/limb/finger controls, IK_FK=1, evaluated rest-axis
+  compensated transfer to the262-bone game rig. Licensed CC0 UAL supplies
+  ShootStudy(.6333s), MeleeStudy(1s), DeathStudy(2.4s):487 baked poses at120Hz.
+  Existing ready/walk/run/T_pose retained; seven clips total. Body PBR restored
+  from the authored game GLB without changing geometry/animation payloads.
+  `DONE` genuine nine-part CC0 FireWarden pistol, rigid hand skinning and measured
+  finger landmarks. Index-pad variant moves the weapon38.157mm toward the actual
+  posed fingertip/trigger. This is NOT a contact/penetration solver; support hand,
+  recoil, clothing collisions and muzzle alignment still need artistic review.
+  `DONE` static native ten-mesh/262-bone bounds check55.906micrometers. Initial
+  static export incorrectly produced T-pose: fixed with export_current_frame and
+  disabling rest-position export. Animated export retains rest-position binding.
+  `DONE` final native288 sampled poses across seven clips, maximum bounds error
+  67.929micrometers, unchanged500micrometer gate. Source reference cadence48Hz,
+  NOT every120Hz baked frame and NOT original nonlinear Rigify equivalence.
+  First death-to-idle transition FAIL60.159mm: exporter discarded constant object
+  tracks. keep_anim_object=True now preserves root channels, reset PASS57.596um.
+  Original walk/run boot penetration corrected by upward-only whole-actor root
+  placement(max33.690/15.737mm); authored bone curves unchanged. Final floor gate
+  PASS. Native evidence amjviz_actions146/native_actions.json, GLB SHA256
+  947785e7c1202f981d02b6399fb948bd36b20a79a76f111347558db694445628.
+  `DONE` optional --amjviz-combat-study independent stage: native input self-test
+  PASS ready/walk/run/shoot/melee/death, nine gun parts visible only during shoot,
+  robot and VTOL actions retained. Tactical1920x1080/tactical_shoot.png and neutral
+  melee_front.png actually inspected. Melee silhouette is coherent, but this
+  brown-jacket/black-hair candidate is still NOT final Rook. Neutral front/profile/
+  back review of all new actions and final contact review remain TODO.
+  Tests:13passed/0failed/0skipped in tmp/pytest146-final2.xml(material restoration,
+  grip geometry, pruning, source clocks). Earlier targeted material-only2PASS and
+  combined10PASS retained. No production tests or long campaign simulation run.
+  Art acceptance0/5 mandatory human motions; technical sampled coverage5/5.
+  Physical scene5/6 subjects(Raider deferred), native existing map1/1, artistically
+  finalized map0/1; new candidate atlas NOT GENERATED, current sustained performance
+  and VRAM NOT MEASURED. Previous137 measurements cannot validate146.
+  Private BLEND/GLB/textures/captures remain on E:, royalty-free human sources
+  cannot be redistributed as an extractable asset pack. No production edits,
+  push or release. `TODO` next: neutral shoot/profile/back/death contact review,
+  then genuine Rook identity/wardrobe adaptation before any additional humanoid.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` COMBAT-MOTION-146 (2026-11-25). Continued immediately after145
   checkpoint. `DONE` actual source FK-controller inventory via
   blender/audit_amjviz_controls146.py; Blender executed successfully, no source

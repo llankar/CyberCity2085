@@ -15,6 +15,7 @@ var human_height := 1.718
 var robot_height := 2.4
 var vehicle_actor: Node3D
 var human_weapon: Node3D
+var human_embedded_weapon: Array[MeshInstance3D] = []
 var first_process_usec := 0
 var generated_overlay
 var human_sprite_reference: TextureRect
@@ -55,7 +56,7 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 		return false
 	# Rest-valued tracks reset prior action poses and must survive import.
 	var authored_human := path.ends_with("unvanquished_motion01/human_actions.glb") or path.ends_with("scanned_armor_head01/human_actions.glb") or path.ends_with("scanned_armor_hair01/human_actions.glb") or path.ends_with("scanned_armor_shoot01/human_actions.glb") or path.ends_with("scanned_armor_contact01/human_actions.glb")
-	var import_fps := 24 if path.ends_with("rook_run129/human.glb") else (120 if authored_human else 30)
+	var import_fps := 24 if path.ends_with("rook_run129/human.glb") else (120 if authored_human or path.contains("/amjviz_actions146/") else 30)
 	var subject := document.generate_scene(state, import_fps, false, false)
 	add_child(subject)
 	if "--nathan-eyes-study" in OS.get_cmdline_user_args() and path.ends_with("nathan_eyes01/human.glb"):
@@ -82,7 +83,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
-	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args()
+	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args()
+	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
 	var amjviz_study := "--amjviz-study" in OS.get_cmdline_user_args() or amjviz_pruned
 	assert(not(amjviz_study and generated_review), "Atlas129 is not the AmJViZ character")
 	var jacket_study := "--authored-jacket-study" in OS.get_cmdline_user_args()
@@ -174,6 +176,7 @@ func _ready() -> void:
 		assert(not(rocketbox or nathan_study or unvanquished_study or cyborg_study or bundled_human or action_human), "Choose one human source")
 		human_path = "E:/CyberCity2085-3d-lab/sources/blenderkit_cyberpunk143/source_godot.glb"
 		if amjviz_pruned:human_path=root+"amjviz_pruned145/human.glb"
+		if amjviz_combat:human_path=root+"amjviz_actions146/human_actions.glb"
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
@@ -218,6 +221,13 @@ func _ready() -> void:
 	if cyborg_fire: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy"})
 	if cyborg_actions: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy", "Melee":"MeleeStudy", "Death":"DeathStudy"})
 	if amjviz_study: subjects[0].set_meta("action_aliases", {"Walk":"Walk (1_24)", "Run":"Run (1_18)", "Idle":"Hard stand"})
+	if amjviz_combat:
+		subjects[0].set_meta("action_aliases", {"Walk":"Walk (1_24)","Run":"Run (1_18)","Idle":"Hard stand","Shoot":"ShootStudy","Melee":"MeleeStudy","Death":"DeathStudy"})
+		for mesh in subjects[0].find_children("*","MeshInstance3D",true,false):
+			if str(mesh.name).begins_with("EquippedPistol_"):
+				human_embedded_weapon.append(mesh)
+				mesh.visible=false
+		assert(human_embedded_weapon.size()==9)
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -372,13 +382,16 @@ func _ready() -> void:
 			print("SCANNED_SHOOT_PROP_DISPATCH_OK real_prop_visibility")
 		elif amjviz_study:
 			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
-			assert(authored_player.current_animation == "Walk (1_24)")
+			assert(authored_player.current_animation == ("ShootStudy" if amjviz_combat else "Walk (1_24)"))
 			play_clip("Run")
 			assert(authored_player.current_animation == "Run (1_18)")
-			for unavailable in ["Shoot","Melee","Death"]:
-				play_clip(unavailable)
-				assert("unavailable" in clip_status)
-			print("AMJVIZ_SOURCE_DISPATCH_OK idle,walk,run;combat_unavailable")
+			for requested in ["Shoot","Melee","Death"]:
+				play_clip(requested)
+				if amjviz_combat:
+					assert(authored_player.current_animation==requested+"Study")
+					for part in human_embedded_weapon:assert(part.visible==(requested=="Shoot"))
+				else:assert("unavailable" in clip_status)
+			print("AMJVIZ_COMBAT_DISPATCH_OK ready,walk,run,shoot,melee,death;weapon_visibility" if amjviz_combat else "AMJVIZ_SOURCE_DISPATCH_OK idle,walk,run;combat_unavailable")
 		elif cyborg_study:
 			var cyborg_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 			assert(cyborg_player.current_animation=="walk")
@@ -435,6 +448,13 @@ func _ready() -> void:
 		if action_human: play_clip("Shoot")
 		print("COMPARISON_INPUT_TEST_OK selection,camera_mode,explicit_action_availability robot_clip=", "Idle/Walk/Melee/Hit/Death" if robot_bundle else ("Death" if robot_shutdown else ("Hit" if robot_hit else ("Melee" if robot_melee else ("Walk_nonloop" if robot_walk else ("unavailable" if charge else "Walk"))))))
 	if rigged_human and "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
+	if amjviz_combat:
+		for requested in ["Shoot","Melee","Death"]:
+			var flag := {"Shoot":"--shoot-preview","Melee":"--melee-preview","Death":"--death-preview"}
+			if flag[requested] in OS.get_cmdline_user_args():
+				play_clip(requested)
+				var preview := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+				preview.seek(preview.current_animation_length*(1.0 if requested=="Death" else .5),true);preview.pause()
 	if cyborg_study:
 		clip_status = "Human: reference pose; source walk/run available; no combat actions"
 		if cyborg_pistol: play_clip("Idle")
@@ -751,10 +771,14 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable: " + name_value
 		return
 	player.play(name_value)
+	if selected==0:
+		for part in human_embedded_weapon:part.visible=name_value=="ShootStudy"
 	if selected == 0 and human_weapon: human_weapon.visible = name_value in ["Pistol_Shoot","Shoot"]
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
 	if not source_aliases.is_empty() and name_value in ["walk","run"]:
+		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
+	if name_value in [source_aliases.get("Walk",""),source_aliases.get("Run","")]:
 		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
 	if source_aliases.has("Idle") and name_value==source_aliases["Idle"]:
 		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR

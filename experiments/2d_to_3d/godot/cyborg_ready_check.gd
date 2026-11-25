@@ -1,10 +1,11 @@
 extends Node3D
 ## Actual deformed mesh bounds versus Blender, including all nine pistol parts.
 
-func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: Dictionary) -> Dictionary:
+func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: Dictionary,body_name: String = "char1") -> Dictionary:
 	var worst := 0.0
 	var floor_value := INF
 	var body_height := 0.0
+	var body_floor := INF
 	for name_value in boxes:
 		assert(meshes.has(name_value),name_value)
 		var mesh: MeshInstance3D = meshes[name_value]
@@ -13,7 +14,9 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 		var actual := AABB(points[0],Vector3.ZERO)
 		for point in points:actual=actual.expand(point)
 		floor_value=minf(floor_value,actual.position.y)
-		if name_value=="char1":body_height=actual.size.y
+		if name_value==body_name:
+			body_height=actual.size.y
+			body_floor=actual.position.y
 		var expected := AABB()
 		var first := true
 		var box: Array = boxes[name_value]
@@ -24,7 +27,7 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 					expected=AABB(corner,Vector3.ZERO) if first else expected.expand(corner)
 					first=false
 		worst=maxf(worst,maxf(actual.position.distance_to(expected.position),actual.end.distance_to(expected.end)))
-	return {"error":worst,"floor":floor_value,"body_height":body_height}
+	return {"error":worst,"floor":floor_value,"body_height":body_height,"body_floor":body_floor}
 
 func _ready() -> void:
 	var jacket_study := "--authored-jacket-study" in OS.get_cmdline_user_args()
