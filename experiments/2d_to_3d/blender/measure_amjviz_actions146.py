@@ -8,14 +8,15 @@ folder=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146')
 base_folder=folder
 hair_study='--hair-study' in sys.argv
 support_study='--support-study' in sys.argv
-transition_study='--cover-transitions160' in sys.argv
+foot_study='--foot-lock161' in sys.argv
+transition_study='--cover-transitions160' in sys.argv or foot_study
 motion_study='--motion-extension159' in sys.argv or transition_study
 wardrobe_study='--wardrobe150-study' in sys.argv or motion_study
 assert sum([hair_study,support_study,wardrobe_study])<=1
 if hair_study:folder=folder.parent/'amjviz_hair148'
 if support_study:folder=folder.parent/'amjviz_grip149'
 if wardrobe_study:folder=folder.parent/'amjviz_wardrobe150'
-if motion_study:folder=folder.parent/('cover_transitions160' if transition_study else 'motion_extension159')
+if motion_study:folder=folder.parent/('foot_contact161' if foot_study else ('cover_transitions160' if transition_study else 'motion_extension159'))
 blend_path=folder/('human.blend' if hair_study or motion_study else 'human_actions.blend')
 bpy.ops.wm.open_mainfile(filepath=str(blend_path),use_scripts=False)
 scene=bpy.context.scene;rig=next(o for o in scene.objects if o.type=='ARMATURE')

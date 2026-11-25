@@ -5,7 +5,8 @@ func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var transition_study := "--cover-transitions160" in OS.get_cmdline_user_args()
+	var foot_study := "--foot-lock161" in OS.get_cmdline_user_args()
+	var transition_study := foot_study or "--cover-transitions160" in OS.get_cmdline_user_args()
 	var motion_study := transition_study or "--motion-extension159" in OS.get_cmdline_user_args()
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
 	var wardrobe_study := motion_study or current_budget or "--wardrobe150-study" in OS.get_cmdline_user_args()
@@ -13,7 +14,7 @@ func _ready() -> void:
 	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
 	if support_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_grip149/"
 	if wardrobe_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/"
-	if motion_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/"+("cover_transitions160/" if transition_study else "motion_extension159/")
+	if motion_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/"+("foot_contact161/" if foot_study else ("cover_transitions160/" if transition_study else "motion_extension159/"))
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
 	if "--texture-budget-study" in OS.get_cmdline_user_args():

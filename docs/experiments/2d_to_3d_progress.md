@@ -2,6 +2,56 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` FOOT-CONTACT-161 (2026-11-25).
+  Previous160 turn classified progress: real grounded transitions and sequence;
+  grounding did not prove horizontal foot locking. `DONE` actual120Hz sole audit
+  on source160, fixed434left/433right sole vertices weighted>0.5tofoot/toe and
+  within12mm of rest sole bottom. Original continuous-contact centroid drift:
+  left145.444mm/right276.144mm. Raw trajectories/threshold/selection/SHA recorded,
+  not inferred from bone positions alone. Source leg hierarchy audited: two real
+  thigh and two shin segments followed by foot/toe on each side.
+  `DONE` isolated161candidate: analytical two-link placement preserves current
+  leg link lengths (max solver error58.6nanometres, no ankle target clamping),
+  two6cm step arcs while holding the other ankle/foot orientation. Source geometry,
+  UV/skin weights retained; only two transition clips replaced. Source9other clip
+  animation channel bytes remain exactly identical. No downloads or new characters.
+  First same-order exit candidate left both feet airborne: REJECTED; actual contact
+  report retained. Correct exit lowers already raised right foot first, then left;
+  entry steps left then right. At least one tracked sole remains within1.156mm
+  of floor at all73samples/clip. Delaying foot rotation until airborne was tested;
+  it did NOT substantially reduce residual sole deformation. Do not claim that fix
+  solved point contact. No skin repaint or geometry change introduced to hide it.
+  Final contact centroid drift1.425..2.023mm, but all tracked sole-point drift while
+  any part contacts ground5.476..7.466mm. A separate per-vertex own-contact metric
+  (vertex itself within5mm of ground) remains5.473mm entry/5.588mm exit.
+  `FAIL` strict5mm individual-contact criterion for both clips. Continuous support
+  criterion PASS. verify_sole_contact161.py deliberately reports failure/nonzero;
+  source/candidate reports and contact_assessment.json retain exact definitions.
+  Candidate remains a separate IN_PROGRESS study, NOT accepted fully locked feet.
+  `DONE` final native507sample/11clip export bounds PASS max88.83180271um;
+  four endpoint comparisons max0.651957748um, unchanged0.5mm gate. Native transition
+  floor minimum-0.188612mm/max1.138mm, within penetration/floating gates. Actual
+  elapsed cover sequence/input/repeat/robot-selection tests PASS in optional
+  --foot-lock161 stage. This is NOT native per-vertex sole-contact proof.
+  Ten actual neutral captures inspected: front/profile/back midpoints plus profile
+  quarter/three-quarter step poses. Broad joint shapes coherent, visible lift;
+  full dynamic foot/cloth contact and final art NOT VERIFIED. Source160/default
+  studies unchanged. All BLEND/GLB/credits/proofs/captures in E:foot_contact161.
+  `DONE` verifier --foot-lock161 --native-proof links source9clips, current source
+  BLEND/reference/GLB and six midpoint captures. acceptance161.json explicitly
+  includes the separate contact FAIL, not a blanket green check.17targeted Python
+  tests PASS0fail0skip (sole QA/2link IK/motion signatures), tmp/tests161-final.xml.
+  Reproduce inspect_leg_chains161.py, audit_sole_contact161.py (source or --candidate),
+  correct_cover_steps161.py, measure_amjviz_actions146.py --foot-lock161, native
+  checker/comparison --foot-lock161, both independent motion/contact verifiers.
+  Historical bad-order/early-rotation reports and tmp/foot161*.log retained.
+  `TODO` remove residual contact-point drift without weakening5mm criterion;
+  first inspect sole skin influence behavior and actual planted contact before
+  altering weights. Cover arm/weapon/lean, heal, conditional PSI, first-human
+  hair/face/wardrobe/modules remain open; Raider deferred. Eight technical families
+  (cover still unaccepted),11clips inclT_pose/transitions, scene5/6subjects, map
+  native1/1/final3Dart0/1. CHANTIER GLOBAL INCOMPLET. No production/build/push.
+
 - `IN_PROGRESS` COVER-TRANSITIONS-160 (2026-11-25).
   Previous159 turn classified progress: grounded authored hit/crouch plus447pose
   validation. `DONE` two separate0.6s/73key120Hz clips CoverEnterStudy/CoverExitStudy

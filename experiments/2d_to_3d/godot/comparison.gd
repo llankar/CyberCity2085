@@ -91,7 +91,8 @@ func _ready() -> void:
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var transition_study := "--cover-transitions160" in OS.get_cmdline_user_args()
+	var foot_study := "--foot-lock161" in OS.get_cmdline_user_args()
+	var transition_study := foot_study or "--cover-transitions160" in OS.get_cmdline_user_args()
 	var motion_study := transition_study or "--motion-extension159" in OS.get_cmdline_user_args()
 	assert(not motion_study or not (current_atlas_review or generated_review),"New motions have no matching atlas")
 	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
@@ -199,7 +200,7 @@ func _ready() -> void:
 		if support_study:human_path=root+"amjviz_grip149/human_actions.glb"
 		if wardrobe150_study:human_path=root+"amjviz_wardrobe150/human_actions.glb"
 		if current_budget:human_path=root+"amjviz_budget154_1024/human_actions.glb"
-		if motion_study:human_path=root+("cover_transitions160/human.glb" if transition_study else "motion_extension159/human.glb")
+		if motion_study:human_path=root+("foot_contact161/human.glb" if foot_study else ("cover_transitions160/human.glb" if transition_study else "motion_extension159/human.glb"))
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
