@@ -2,6 +2,40 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CYBORG-FIRE-121 (2026-11-25). Continued1e4b54bd within the same
+  work session. `DONE` authored0.75s PistolFireStudy on the actual equipped model:
+  lift from low-ready to aiming height, single4deg recoil,25mm wrist recoil,
+ 20mm independent slide-bone travel, return. Original CC0 walk/run and ready
+  study retained; new25th bone only controls the actual nine-part pistol's slide.
+  Source/body/clothing geometry not procedurally replaced or recolored.
+
+  `DONE` NATIVE-FIRE-121: native19poses/11meshes bounding-box parity PASS,
+  maximum26.669764µm. Actual native slide travel19.999865mm; peak-fire to ready
+  position reset error67.978988µm across25bones. Added constant reset tracks for
+  the new slide control in old clips. Bounds/reset tests do not prove anatomical
+  limits, exact surface contact or identical full bone orientations.
+  GLB SHA048c2fe6fe85cabe1141bfa70fd4c03ea8c601ea794fb3803bc06fcc26c8f09a.
+  Actual E:generated/phase2/cyborg_fire01 contains Blend/GLB/credits/references,
+  native_fire_validation.json, neutral aim/front and recoil/profile captures.
+
+  `DONE` SCENE-FIRE-121: --cyborg-fire-study dispatches Ready/Walk/Run/Fire on
+  independent tactical stage; --shoot-preview captures actual recoil pose.
+  Native controls, robot/VTOL actions and62.208008px sprite-scale check PASS;
+  captured tactical_fire.png inspected. Initial scene patch hit a robot test
+  branch and produced parser error (undefined cyborg_player); corrected to
+  source-specific branch and rerun with positive markers/capture0.
+  Fifteen Python tests PASS/0fail/0skip (single recoil peak, timing boundaries,
+  invalid inputs and analyticIK), JUnit E:tmp/pytest121.xml. Existing SDL gamepad
+  error and exporter sampler warning persist. No new VRAM benchmark claimed.
+
+  `TODO` FIRST-HUMAN-ART: support fingers/poignet seam still need proper close
+  surface inspection. Original rigid closed right hand has no animated trigger
+  finger. Face/hair/outfit still not accepted Rook; melee/death absent. Next:
+  render a first eight-view firing atlas from this same Blender model with enough
+  samples to capture actual recoil peak, then compare at real combat size.
+  First acceptedRook0/1, finalhuman0/2, mapnative1/1/artistic0/1. No production
+  runtime changes, build or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` CYBORG-COMBAT-POSE-120 (2026-11-25). Previous turn progress:
   acquired actual CC0 cyberpunk source, made60kLOD and verified source actions.
   Continuedb8847f47. First dressed actor only; Raider/cohort not generalized.

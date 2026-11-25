@@ -83,7 +83,8 @@ func _ready() -> void:
 		get_window().content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
-	var cyborg_pistol := "--cyborg-pistol-study" in OS.get_cmdline_user_args()
+	var cyborg_fire := "--cyborg-fire-study" in OS.get_cmdline_user_args()
+	var cyborg_pistol := "--cyborg-pistol-study" in OS.get_cmdline_user_args() or cyborg_fire
 	var cyborg_lod := "--grab3d-cyborg-lod" in OS.get_cmdline_user_args() or cyborg_pistol
 	var cyborg_study := "--grab3d-cyborg-study" in OS.get_cmdline_user_args() or cyborg_lod
 	var nathan_study := "--nathan-study" in OS.get_cmdline_user_args() or "--nathan-eyes-study" in OS.get_cmdline_user_args()
@@ -134,6 +135,7 @@ func _ready() -> void:
 		human_path = root + "grab3d_cyborg01/human.glb"
 		if cyborg_lod: human_path = root + "grab3d_cyborg_lod01/human.glb"
 		if cyborg_pistol: human_path = root + "cyborg_pistol01/human.glb"
+		if cyborg_fire: human_path = root + "cyborg_fire01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -156,6 +158,7 @@ func _ready() -> void:
 		return
 	if cyborg_study: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run"})
 	if cyborg_pistol: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy"})
+	if cyborg_fire: subjects[0].set_meta("action_aliases", {"Walk":"walk", "Run":"run", "Idle":"CombatReadyStudy", "Shoot":"PistolFireStudy"})
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -310,12 +313,13 @@ func _ready() -> void:
 			play_clip("Run")
 			assert(cyborg_player.current_animation=="run")
 			play_clip("Shoot")
-			assert("unavailable" in clip_status)
+			if cyborg_fire:assert(cyborg_player.current_animation=="PistolFireStudy")
+			else:assert("unavailable" in clip_status)
 			cyborg_player.stop()
 			var cyborg_skeleton := subjects[0].find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
 			cyborg_skeleton.reset_bone_poses()
 			cyborg_skeleton.force_update_all_bone_transforms()
-			print("CYBORG_SOURCE_ACTION_DISPATCH_OK walk,run;shoot_unavailable")
+			print("CYBORG_FIRE_ACTION_DISPATCH_OK walk,run,ready,fire" if cyborg_fire else "CYBORG_SOURCE_ACTION_DISPATCH_OK walk,run;shoot_unavailable")
 		else: assert("unavailable" in clip_status)
 		if unvanquished_motion:
 			var authored_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
@@ -353,6 +357,11 @@ func _ready() -> void:
 		clip_status = "Human: reference pose; source walk/run available; no combat actions"
 		if cyborg_pistol: play_clip("Idle")
 		if "--walk-preview" in OS.get_cmdline_user_args(): play_clip("Walk")
+		if cyborg_fire and "--shoot-preview" in OS.get_cmdline_user_args():
+			play_clip("Shoot")
+			var fire_player := subjects[0].find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+			fire_player.seek(8.0/24,true)
+			fire_player.pause()
 	if rigged_human and "--shoot-preview" in OS.get_cmdline_user_args(): play_clip("Shoot")
 	if robot_walk:
 		selected = 1

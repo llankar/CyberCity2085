@@ -606,6 +606,14 @@ acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
 # Batch118: complete-outfit scanned-head diagnostic
 
+Batch121 firing: run_blender.ps1 `-Script blender/build_cyborg_fire.py` after
+batch120. Run native checker `res://cyborg_ready_check.tscn -- --fire-study`
+through run_godot.ps1 SceneArguments. Require CYBORG_FIRE_NATIVE_GEOMETRY_PASS
+and fresh hash-matched native_fire_validation.json, including measured20mm slide
+travel and peak-fire-to-ready reset. New scene flag --cyborg-fire-study aliases
+Shoot to PistolFireStudy; --shoot-preview freezes its actual recoil peak.
+No trigger-finger, full-contact or final art approval is implied.
+
 Batch120 equipped candidate: use run_blender.ps1 with
 `blender/inspect_cyborg_combat_anatomy.py`, `blender/build_cyborg_ready_pose.py`,
 then `blender/assemble_cyborg_gloved_pistol.py`. All outputs remain on E:.
