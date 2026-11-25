@@ -1059,6 +1059,18 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Texture-only optional147: `python experiments/2d_to_3d/texture_budget.py --maximum 1024`
+uses current146GLB and writes private amjviz_budget147_1024 on E:, never overwrites
+146. Requires Pillow and NumPy. It retains exact accessor payloads, material slots,
+UVs, rig and clips; resamples color in linear light, packed data directly and
+renormalizes normals. Role conflicts fail explicitly. Native checker147:
+`& experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_actions_check.tscn -SceneArguments @('--texture-budget-study')`.
+For stage comparison replace --amjviz-combat-study with --texture-budget-study in
+the command below. Keep tactical/facades/sprite-review flags: without them this is
+a two-actor720p preview, not the five-subject combat-scale measurement.
+Current147 is a GLB texture-budget derivative;146 editable BLEND remains the
+full-resolution source. No separate147BLEND or new atlas has been exported.
+
 The141 anatomy experiments above are rejected diagnostics, not the current human.
 Current146 uses the real licensed AmJViZ character, original PBR and pruned262-bone
 game rig145. No production replacement. Keep licensed source files and all output

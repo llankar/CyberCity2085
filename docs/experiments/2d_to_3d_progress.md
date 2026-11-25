@@ -2,6 +2,43 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TEXTURE-BUDGET-147 (2026-11-25). Previous146 made concrete
+  progress(native clips, scene, neutral review and measured current memory).
+  `DONE` actual texture audit:26human images at4096square plus256square pistol
+  palette. texture_budget.py makes a private reversible1024maximum variant,
+  linear-light premultiplied-alpha color filtering, renormalized tangent normals,
+  linear packed-data filtering, lossless WebP/PNG; preserves material bindings,
+  geometry/skin/animation accessor bytes exactly. Original source remains intact.
+  Embedded GLB35,709,848->33,718,920B; image RGBA8base storage estimate
+  1,745,092,608->109,314,048B(estimate only, not measured VRAM). Current variant
+  amjviz_budget147_1024/human_actions.glb SHA256
+  bce712307f70757d8b0e163b2b175edd4da775ba8c2f755ee6f8324fc3097d9a.
+  Source license/CREDITS retained; no raw source redistribution or production use.
+  `DONE` --texture-budget-study opt-in independent preview/stage/native checker,
+  retaining120Hz import and correct gun visibility. Actual288pose native check
+  PASS at67.929micrometers with original146Bpy reference; floor/settled death/reset
+  pass. `DONE` native self-tests and same five-subject1920x1080render-target scene
+  benchmark1452frames/5.000547s=290.368fps, p95post-draw4.348ms,594draw calls.
+  Engine video counter788,611,374B vs1463,561,112,398B(77.9%lower).
+  Actual14timestamp-overlapping GPU-wide samples2402..2436MiB, live Godot PIDs;
+  verify_benchmark_window.py PASS with current actor/map/vehicle hashes.
+  These short sequential samples do not prove a sustained FPS uplift or exclusive
+  process VRAM; no repeated statistical benchmark, stress/production test or peak.
+  `DONE` actual tactical.png and neutral shoot_side.png inspected against146:
+  overall clothing/hair silhouette and combat readability retained; fine surface
+  detail softens in close-up. Glossy jacket/contact/identity issues remain visible
+  and are not concealed by this optimization. Other neutral views for147 NOT VERIFIED.
+  Three new tests cover linear-light midpoint, normal normalization/alpha and GLB
+  preservation/reload/shared-role rejection. Combined23PASS/0fail/0skip in
+  tmp/pytest147-final.xml. Evidence texture_budget.json,native_actions.json,
+  benchmark147.json,gpu147.json,verified_benchmark147.json under147folder on E:.
+  `TODO` next: real Rook identity/hair adaptation using licensed mesh, maintain
+  source anatomy and inspect neutral front/profile/back; fix support-hand contact.
+  Five mandatory human motions sampled technically5/5, final art0/5; scene5/6,
+  native map1/1/art0/1. First-human art criterion open, Raider deferred, atlas for
+  current candidate NOT GENERATED. Full task inventory total unchanged/NOT VERIFIED
+  as a new completion count. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` COMBAT-MOTION-146 / neutral review and current benchmark.
   `DONE` native shoot_front.png, shoot_side.png, shoot_back.png and
   death_side_review.png generated and actually inspected under neutral light.

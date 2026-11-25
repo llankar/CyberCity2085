@@ -22,7 +22,8 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	var authored_human := (model_path.contains("/unvanquished_") or model_path.contains("/scanned_armor_head01/") or model_path.contains("/scanned_armor_hair01/") or model_path.contains("/scanned_armor_shoot01/") or model_path.contains("/scanned_armor_contact01/")) and (model_path.ends_with("/human_actions.glb") or model_path.ends_with("/human_pistol.glb"))
-	var model := document.generate_scene(state, 120 if authored_human or model_path.contains("/amjviz_actions146/") else 30, false, false)
+	var combat_study := model_path.contains("/amjviz_actions146/") or model_path.contains("/amjviz_budget147_")
+	var model := document.generate_scene(state, 120 if authored_human or combat_study else 30, false, false)
 	add_child(model)
 	if "--gltf-uniform-clearcoat" in OS.get_cmdline_user_args():
 		var coats := preload("res://uniform_clearcoat.gd").new().apply_uniform_coats(state,model)
@@ -77,7 +78,7 @@ func _ready() -> void:
 		player.seek(player.get_animation(selected).length * sample_fraction, true)
 		player.pause()
 		print("CYBERCITY_IMPORTED_CLIP_SAMPLED ", selected)
-	if model_path.contains("/amjviz_actions146/"):
+	if combat_study:
 		for mesh in model.find_children("*","MeshInstance3D",true,false):
 			if str(mesh.name).begins_with("EquippedPistol_"):mesh.visible=requested_clip=="ShootStudy"
 	if "--stress-pose" in OS.get_cmdline_user_args():

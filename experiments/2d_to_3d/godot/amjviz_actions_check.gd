@@ -4,6 +4,9 @@ extends Node3D
 func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
+	var reference_hash := FileAccess.get_sha256(folder+"native_reference.json")
+	if "--texture-budget-study" in OS.get_cmdline_user_args():
+		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget147_1024/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human_actions.glb",state)==OK)
@@ -41,7 +44,7 @@ func _ready() -> void:
 	probe.free();checker.free()
 	var file := FileAccess.open(folder+"native_actions.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"glb_sha256":FileAccess.get_sha256(folder+"human_actions.glb"),
-		"reference_sha256":FileAccess.get_sha256(folder+"native_reference.json"),"clips":clips,
+		"reference_sha256":reference_hash,"clips":clips,
 		"maximum_error_m":worst,"samples":count,"sample_cadence_hz":48,"death_to_idle_reset_error_m":reset.error,
 		"scope":"Actual evaluated body/weapon bounds at source key/midpoint cadence; not full120Hz, artistic/contact or original Rigify fidelity"},"  "))
 	file.close()
