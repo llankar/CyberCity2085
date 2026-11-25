@@ -3,19 +3,24 @@ extends Node3D
 func _ready() -> void:
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_military03/motion01/"
 	var head_study := "--head-study" in OS.get_cmdline_user_args()
+	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
+	assert(not (head_study and wardrobe_study))
 	if head_study: root = "E:/CyberCity2085-3d-lab/generated/phase2/rocketbox_hair08/character01/"
-	var reference = JSON.parse_string(FileAccess.get_file_as_string(root + ("head_surface_reference.json" if head_study else "surface_reference.json")))
+	if wardrobe_study: root = "E:/CyberCity2085-3d-lab/generated/phase2/wardrobe_fit01/"
+	var reference_file := "garment_surface_reference.json" if wardrobe_study else ("head_surface_reference.json" if head_study else "surface_reference.json")
+	var reference = JSON.parse_string(FileAccess.get_file_as_string(root + reference_file))
 	assert(reference is Dictionary and reference.size() == 5)
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
-	var filename := "human.glb" if head_study else "human_motion.glb"
+	var filename := "human.glb" if head_study or wardrobe_study else "human_motion.glb"
 	assert(doc.append_from_file(root + filename, state) == OK)
 	var model := doc.generate_scene(state, 30, false, false)
 	add_child(model)
 	var rig := model.find_children("*", "Skeleton3D", true, false)[0] as Skeleton3D
-	var mesh := model.find_children("AuthoredHeadHair" if head_study else "*", "MeshInstance3D", true, false)[0] as MeshInstance3D
+	var mesh_name := "AuthoredLeatherJacket_PBRStudy" if wardrobe_study else ("AuthoredHeadHair" if head_study else "*")
+	var mesh := model.find_children(mesh_name, "MeshInstance3D", true, false)[0] as MeshInstance3D
 	var player := model.find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
-	assert(rig.get_bone_count() == 80 and mesh.mesh.get_blend_shape_count() == (0 if head_study else 175))
+	assert(rig.get_bone_count() == 80 and mesh.mesh.get_blend_shape_count() == (0 if head_study or wardrobe_study else 175))
 	var probe := preload("res://skin_motion_check.gd").new()
 	var evidence := {}
 	var neutral := PackedVector3Array()
@@ -46,5 +51,5 @@ func _ready() -> void:
 	probe.free()
 	var file := FileAccess.open(root + "native_motion_check.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"sha256":FileAccess.get_sha256(root+filename),"clips":evidence,"death_idle_reset_m":error,"artistic_acceptance":false},"  "))
-	print("ROCKETBOX_NATIVE_HEAD_MOTIONS_OK" if head_study else "ROCKETBOX_NATIVE_FIVE_MOTIONS_OK")
+	print("AUTHORED_WARDROBE_NATIVE_MOTIONS_OK" if wardrobe_study else ("ROCKETBOX_NATIVE_HEAD_MOTIONS_OK" if head_study else "ROCKETBOX_NATIVE_FIVE_MOTIONS_OK"))
 	get_tree().quit(0)

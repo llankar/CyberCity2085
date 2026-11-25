@@ -6,6 +6,12 @@ is generalized. MPFB anatomy remains optional, not the artistic ceiling.
 
 ## Acquired game-authored tactical candidate (batch85)
 
+Batch94: first actual authored garment fitted/skinned to this existing rig, with
+five motion export checks. Binding/export fidelity PASS; visual hip/pants overlap
+and inherited scalp/hair FAIL final fit/identity. Keep as a technical fitting study,
+not an accepted Rook or a reason to generalize character production. Details and
+exact evidence in the experimental progress register.
+
 [Microsoft Rocketbox](https://github.com/microsoft/Microsoft-Rocketbox), pinned
 commit0943055db6ec570bcef9f2c8b41c9e5467c808f9, official LICENSE.md MIT. Full notice
 preserved in sources/derivatives. Military_Male_03 facial FBX plus15 original TGA

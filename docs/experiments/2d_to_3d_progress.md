@@ -2,6 +2,69 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SHARED-RIG-WARDROBE-FIT-94 (2026-11-25). Continued from checkpoint
+ 4e0ef2d0 using the real licensed garment, not MPFB primitive armor. Read-only
+  rest-joint audit: Neck1.52084m, shoulders+/- .21037m/z1.42811m, wrists+/- .58765m/
+  z1.04557m. Rest garment scale1.02/1.15/1 and offset(0,.015,.84584)m; authored hem
+  extended8cm, cuffs smoothly alignedY-8cm/Z-4cm. Original sources untouched.
+
+  Reused existing80-bone rig/five CC0 motions and MIT weighted head. New garment
+  weights projected barycentrically onto actual source body triangles, restricted
+  to existing pelvis/spine/neck/clavicle/arm/hand bones. Four-influence limit retains
+  essentially100% of allowed weights; max rest bind error.259um, max projected-body
+  distance8.8136cm. New pure surface_weights helper/tests reject degenerate faces,
+  invalid/outside projections and invalid weights; report any truncation loss.
+  All5retargeted clips exported, no new human animation production or new skeleton.
+
+  First visible waist gap was not accepted. Retaining crossing old uniform faces
+  then exposed a camo band over the coat. Extended real garment hem and changed
+  source-upper-clothing mask using pelvis-relative height. Covered7,559original
+  polygons alpha-hidden (not deleted); original helmet/head hidden as before.
+  A floating old neck guard seen in profile is now covered too. Wrists/hem improve,
+  but actual hip/pants overlap remains: visible review FAIL for final fit, not DONE.
+
+  E: generated/phase2/wardrobe_fit01/human.blend342,164,920bytes / human.glb
+ 97,552,648bytes; fit_report,landmark_audit,garment_surface_reference,
+  native_motion_check,intersection_audit,front/back/walk_side/shoot_side/death_side/
+  tactical_close PNGs. Both original MIT and garmentCC BY4/surfaceCC0 notices
+  retained. Original character/garment/production resources remain unchanged.
+
+  Actual native garment gate:45times across Idle/Walk/Pistol_Shoot/Punch_Cross/
+  Death01; max sampled nearest surface error43.809um, complete cloth Death->Idle
+  reset0. Positive AUTHORED_WARDROBE_NATIVE_MOTIONS_OK, old head-mode regression
+  ROCKETBOX_NATIVE_HEAD_MOTIONS_OK also rerun PASS. Independent tactical stage
+  loads five subjects,627cells; synthetic selection/camera/five clips/robot strike
+  checks PASS, projected human62.208008px vs62.208target. HUD labels first rendered
+  second as warming up, avoiding misleading FPS1 inherited from blocking import;
+  no new full performance claim. Native screenshot captured on final sources.
+
+  Deformation export fidelity is NOT garment collision acceptance. Actual Blender
+  BVH audit over45poses finds10,569overlap PAIRS with opaque visible original body,
+  zero with opaque new head. Pairs repeat across frames/triangles, not10,569unique
+  defects. Hidden original clothes and partial-alpha hair excluded; no continuous/
+  cloth-self collision guarantee. Hip/pants collisions visible, especially in Idle;
+  requires mesh-fit correction or a more suitable body. Inherited scalp/hair still
+  visibly below target (back-view holes), no artistic Rook acceptance.
+
+  Tests actually executed:51Python PASS,0failed,0skipped across nine modules;
+  five new skinning cases check true barycentric weights, rigid/unit equivariance,
+  influence-loss reporting, bad geometry and invalid weights. Native gates above
+  PASS only their documented scopes. Collision/art FAIL remains open. No campaign,
+  production tests, push, release or desktop automation.
+  Bounded tasks3/4: source fitting/skinning tools, native motion fidelity and scene
+  integration DONE; collision/art fit IN_PROGRESS. Accepted human identities0/2,
+  final modular outfits0; scene native5/6subjects (Raider awaits first good human),
+  one existing map loaded as partial floor/blocks, zero final artistic maps.
+  Next: fix hip fit without visible holes; also qualify better professional body
+  source before investing more in rejected head/hair. Discovered current official
+  Renderpeople Sketchfab Eric/Nathan CC BY4 grants, independent of website package
+  terms; both live primary metadata verified. Eric absent public optimized catalog;
+  Nathan public derivative available but only1K. Original Objaverse19.8MBbounded
+  metadata index lacks both UIDs, no models downloaded there. Pinned public GitHub
+  Nathan re-distributor has full8K baseColor/89joint rig/one authored walk, not normal
+  map/PBR completeness. License and metadata checked; model payload still pending.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-WARDROBE-PBR-93 (2026-11-25). Continued after local
   checkpoint54e7d717, not after another generic MPFB recolor. Revisited the actual
   licensed Trebejo garment topology: decoded55,200corners weld to9,375positions,

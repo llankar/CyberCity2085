@@ -14,6 +14,7 @@ var clip_status := "Human: static fitting model; action clips unavailable"
 var human_height := 1.718
 var robot_height := 2.4
 var human_weapon: Node3D
+var render_ready_usec := 0
 
 func subject_height(subject: Node3D) -> float:
 	var bounds := AABB()
@@ -77,7 +78,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
-	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args()
+	var wardrobe_study := "--wardrobe-study" in OS.get_cmdline_user_args()
+	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args() or wardrobe_study
 	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
 	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox
@@ -96,6 +98,7 @@ func _ready() -> void:
 			human_path = root + "rocketbox_military03/motion01/human_motion.glb"
 			rigged_human = true
 	if head_study: human_path = root + "rocketbox_hair08/character01/human.glb"
+	if wardrobe_study: human_path = root + "wardrobe_fit01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	var robot_walk := charge and "--robot-walk-study" in OS.get_cmdline_user_args()
@@ -179,6 +182,7 @@ func _ready() -> void:
 	if rigged_human: play_clip("Idle")
 	if action_human: play_clip("Shoot")
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
+	render_ready_usec = Time.get_ticks_usec()
 	if "--self-test" in OS.get_cmdline_user_args():
 		var key := InputEventKey.new()
 		key.pressed = true
@@ -472,7 +476,8 @@ func play_clip(name_value: String) -> void:
 
 func _process(_delta: float) -> void:
 	if hud:
-		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		var fps_value := str(Engine.get_frames_per_second()) if render_ready_usec > 0 and Time.get_ticks_usec()-render_ready_usec > 1000000 else "warming up"
+		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 

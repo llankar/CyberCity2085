@@ -69,6 +69,26 @@ variant01, no flag checks original1K source. Require fresh JSON/positive marker.
 Use main.tscn --neutral --view=front/side/back with model path for actual renders.
 These are standalone garments; no fitted/skinned character or art PASS implied.
 
+## First shared-rig garment fitting study (batch94)
+
+Run `run_blender.ps1 -Script blender/inspect_wardrobe_fit.py` for actual existing
+rest landmarks, then `-Script blender/fit_authored_wardrobe.py` to generate
+wardrobe_fit01/human.blend/.glb. It reuses the existing80-bone/five-action character,
+fits the authored garment and transfers source triangle skin weights with
+wardrobe_skinning.py. Original files remain unchanged. Source upper uniform is
+alpha-hidden under the replacement; not a solved clothing/collision system.
+
+`run_godot.ps1 -Scene res://rocketbox_motion_check.tscn -QuitAfter 3000
+-SceneArguments @('--wardrobe-study')` verifies45sampled surfaces and complete
+Death->Idle cloth reset. `-Script blender/check_wardrobe_intersections.py` runs
+the separate Blender opaque-surface BVH diagnostic; its positive script execution
+does NOT imply no collision. Current10,569overlap pairs require hip/pants correction.
+Partial-alpha hair and continuous/self collisions are outside that audit.
+
+Comparison scene --wardrobe-study loads this first human study; use --tactical
+--sprite-review --self-test and a source robot flag for the calibrated stage.
+Do not call this accepted Rook art or generate the Raider from it yet.
+
 ## Environment verified
 
 - GPU: NVIDIA GeForce RTX 5070 Ti, 16,303 MiB, driver 621.24.
