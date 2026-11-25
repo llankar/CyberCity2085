@@ -3,6 +3,49 @@
 This register is separate from the principal CyberCity 2085 GOAL.
 
 
+- `IN_PROGRESS` AUTHORED-ACCESSORY-SELECTION-87 (2026-11-25) ? continued source
+  selection/integration instead of multiplying generic human variants. Official
+  GitHub connector supplied pinned Adults tree metadata. Downloaded ONLY21 male
+  preview PNGs,9,704,937bytes total, checked original Git blob hashes and retained
+  per-file SHA256/provenance under E: sources/rocketbox/adult_preview*.json.
+  All21 previews inspected. Male_Adult_04 has an actual black zip jacket/hood,
+  Male_Adult_12 a denim jacket; other candidates are ordinary shirts/knitwear/
+  casual or traditional outfits. None is accepted as Rook's cyberpunk outfit.
+  No corresponding complete civilian FBX/model/texture packs downloaded.
+
+  Real Military_Male_03 topology audited:65 connected components. Largest4,330
+  vertices spans body/head/clothes/boots/gloves; these are NOT separate modular
+  garments. Avoided claiming all requested modular armor/clothes are solved.
+  Extracted only34 disconnected authored props >=20vertices from equipment,
+  helmet and pistol materials plus actual glasses component7249. Retained real
+  UVs/materials and unchanged rest-space geometry, no primitive substitute.
+  5,500 triangles total, static accessories.glb30,471,284bytes and packed editable
+  accessories.blend162,379,015bytes on E:, full MIT notice retained. Suggested
+  mount bones are metadata for future fitting, not an installed working rig.
+  Main garment segmentation/fit remains TODO; props remain in original rest-space
+  assembly, not individually pivoted finished inventory assets.
+
+  Source component vertex/face counts and UV gates PASS in actual Blender.
+  Native imported34 mesh parts/5,500tris with albedo/UV coverage; all component
+  bounds compared to independent original world-space inventory, max error
+  2.101111um PASS. First native gate had a GDScript Variant inference parse FAIL;
+  explicit mesh cast fixed it. Next ID lookup FAIL from JSON float string keys;
+  integer-normalized IDs fixed it. Final positive
+  ROCKETBOX_ACCESSORY_SOURCE_BOUNDS_OK observed, native_check.json saved.
+  No artistic/pivot/skin fit acceptance from this structural check.
+
+  Evidence: component_audit.json; accessories01/extraction_report.json,
+  native_check.json, portable sources; adult_preview_manifest/provenance.json.
+  Existing23 Python passes from batch86 remain their recorded scope; not rerun
+  for these separate bpy/native tools. New native structural gate executed PASS.
+  Persistent SDL warning retained. DONE3/3 bounded tasks: visual preview review,
+  true connectivity audit, verified authored prop extraction. Global open human
+  identities0/2 and unfinished robot action/art coverage unchanged. Next: select
+  better licensed cyberpunk wardrobe/hair/face, fit/skin actual accessories with
+  correct pivots and contact, improve first actor art before generalizing. No
+  production/main GOAL/save changes, no push/release. CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` TACTICAL-SOURCE-MOTION-ATLAS-86 (2026-11-25) ? continued batch85
   automatically, using actual MIT Rocketbox geometry/rig and licensed CC0
   Quaternius UAL Standard motion, no primitive clothing or MPFB armor retint.

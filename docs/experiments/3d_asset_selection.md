@@ -19,6 +19,16 @@ Five eight-view/four-frame PNG sheets also pass pixel/native playback gates.
 Files remain exclusively E:.
 Acquisition manifest, hashes, native evidence and failures recorded in batch85.
 
+## Wardrobe/modularity audit (batch87)
+
+All21 official male adult previews inspected (9.70MB, hashes on E:). Adult04
+black zip jacket/hood and Adult12 denim jacket are possible wardrobe references,
+not accepted cyberpunk Rook assets. No complete civilian model acquired.
+Military03 is not fully modular: largest connected body includes gloves/boots/
+clothing/head. Actual65-component audit extracted34 disconnected authored props
+(5,500tris) retaining UVs/materials, native source bounds verified within2.11um.
+This supplies accessory geometry, not fitted modular armor/boots/gloves.
+
 ## Candidate register
 
 Additional acquired motion/prop sources (2026-11-25):

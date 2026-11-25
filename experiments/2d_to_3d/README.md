@@ -10,6 +10,13 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Authored component audit (batch87): blender/audit_rocketbox_components.py then
+blender/extract_rocketbox_accessories.py preserve genuine disconnected source
+props, not invented modular clothes. rocketbox_accessory_check.tscn compares
+native bounds to original component evidence; require
+ROCKETBOX_ACCESSORY_SOURCE_BOUNDS_OK. Static parts still need proper pivots,
+fit and mounts; main body/clothes/boots/gloves are connected, not separate kits.
+
 Licensed motion/atlas study (batch86): run blender/retarget_rocketbox_motion.py,
 then blender/sample_rocketbox_motion.py through run_blender.ps1. Native
 rocketbox_motion_check.tscn must print ROCKETBOX_NATIVE_FIVE_MOTIONS_OK; exit0
