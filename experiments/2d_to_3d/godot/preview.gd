@@ -22,7 +22,7 @@ func _ready() -> void:
 		get_tree().quit(2)
 		return
 	var authored_human := (model_path.contains("/unvanquished_") or model_path.contains("/scanned_armor_head01/") or model_path.contains("/scanned_armor_hair01/") or model_path.contains("/scanned_armor_shoot01/") or model_path.contains("/scanned_armor_contact01/")) and (model_path.ends_with("/human_actions.glb") or model_path.ends_with("/human_pistol.glb"))
-	var combat_study := model_path.contains("/amjviz_actions146/") or model_path.contains("/amjviz_budget147_") or model_path.contains("/amjviz_hair148/") or (model_path.contains("/amjviz_grip149/") and model_path.ends_with("human_actions.glb"))
+	var combat_study := (model_path.contains("/amjviz_") and model_path.ends_with("human_actions.glb")) or model_path.contains("/amjviz_hair148/")
 	var model := document.generate_scene(state, 120 if authored_human or combat_study else 30, false, false)
 	add_child(model)
 	if "--gltf-uniform-clearcoat" in OS.get_cmdline_user_args():

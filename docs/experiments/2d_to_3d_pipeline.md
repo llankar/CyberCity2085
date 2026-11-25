@@ -1059,6 +1059,19 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Rook wardrobe150 derivative:
+`& experiments/2d_to_3d/run_blender.ps1 -Script blender/adapt_amjviz_wardrobe150.py`.
+Requires149editable combat source. Removes only the real modular Neck guard's
+364faces, retaining authored inner jacket collar and anatomy. Green/low-metal PBR
+variation is stored in Blender nodes and compiled GLB factors; original textures,
+UVs, pockets/folds and source geometry outside the guard remain. Source licenses
+retained; private outputs amjviz_wardrobe150/human_actions.BLEND/GLB on E:.
+Use --wardrobe150-study with measure_amjviz_actions146.py, native action checker
+and tactical stage in place of --support-study. Preview model path is150GLB above.
+First integration parse failure/name collision is corrected; require positive
+COMPARISON_INPUT_TEST_OK and capture0, not mere process launch/exit.
+This is not a full animation-contact/likeness acceptance or a production update.
+
 Support-hand149 uses the original FK controls and existing analytical IK helper;
 it preserves upper/lower-arm lengths, not a stretched wrist translation.
 `& experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_amjviz_grip149.py`

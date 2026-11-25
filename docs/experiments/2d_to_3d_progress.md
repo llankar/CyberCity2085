@@ -2,6 +2,45 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROOK-WARDROBE-150 (2026-11-25). Continued after149checkpoint.
+  Actual material-isolation renders identify the tall brown guard as a modular
+  Neck accessory, not the anatomical neck. Diagnostics kept under149folder;
+  hiding Jacket alone reveals its separate guard, hiding Neck reveals intact
+  skin and the original lower inner jacket collar. No diagnostic alpha mask is
+  used by the new model. `DONE` adapt_amjviz_wardrobe150.py genuinely deletes only
+ 364reviewed guard faces and newly unused vertices; all remaining face coordinates/
+  active UV hash exact61730560b407faad3f78ccdaa45d0a25f6908f6e85786af60bdf90c7254dd630.
+  No new primitive clothing or neck patch. Retains licensed authored jacket folds,
+  pockets, seams, original albedo/normal/roughness maps and skin/clip rig. Applies
+  dark-green base factor(.12,.55,.32,1) and metallic factor.05 using real Blender
+  shader nodes and corresponding compiled glTF factors; this follows geometric
+  accessory removal/hair/arm integration, not another generic MPFB recolor.
+  `DONE` private editable human_actions.blend and human_actions.glb with embedded
+  textures/CREDITS, output amjviz_wardrobe150 on E:. GLB34,798,368B, SHA256
+  b9063e9f283a2bcef1e1111426018eefbc1e38d82d3af3c20e695ed64c0f36b1.
+  Actual front.png/side.png/back.png inspected under neutral lighting: neck skin
+  remains covered/connected at the inner collar in these views, face is clearer,
+  green/copper silhouette closer to portrait agent_male_14. Not a universal neck
+  contact or final likeness claim; no hidden production sprite change.
+  `DONE` fresh Bpy/native288pose check across sevenclips11meshes262bones,
+  maximum88.832um PASS unchanged500um gate, floor/death/reset PASS. Source149
+  corrected shooting arm retained. Targeted Python35PASS/0fail/0skip,
+  tmp/pytest150.xml. Actual independent stage initially FAIL duplicate local
+  wardrobe_study name conflicted with legacy93route; renamed wardrobe150_study.
+  Fresh stage --wardrobe150-study self-test PASS selection/camera/human and robot/
+  VTOL keys/gun visibility, capture0 in wardrobe150-stage-final.log. Actual
+  tactical.png inspected at real62.208px human reference beside source sprites.
+  Short120frame timing is smoke only, NOT a current sustained benchmark.150still
+  uses4Kmaps;147VRAM figures do not apply. Original source derivatives preserved.
+  `TODO` next: review current five required motions over multiple neutral poses/
+  views and combat scale, especially cuffs/hands/neck during melee/death. Base a
+  first-human art decision on that evidence before generating a limited current
+  eight-direction atlas pilot or expanding to Raider. Then merge proven texture
+  budget into the selected model and repeat current memory measurement. Final
+  likeness/contact/motion art remains open, mandatory technical motions5/5/art0/5;
+  scene5/6, native map1/1/art0/1, current atlas NOT GENERATED. No production edits,
+  pushes/releases or main GOAL changes. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` SUPPORT-HAND-149 (2026-11-25). Previous148 progressed genuine
   hair geometry/native validation. Re-inspected licensed existing Trebejo garment
   (closed shirt cut, not a convincing Rook replacement) and Diesel/Unvanquished
