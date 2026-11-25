@@ -1,8 +1,11 @@
 extends Node3D
 
 var equipment_meshes: Array[Node3D] = []
+var module_controller
 
 func _unhandled_key_input(event: InputEvent) -> void:
+	if module_controller!=null and event is InputEventKey and event.pressed and not event.echo and event.keycode==KEY_E:
+		module_controller.next(module_controller.animation_player.assigned_animation)
 	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_B:
 		for mesh in equipment_meshes:
 			mesh.visible = not mesh.visible
@@ -81,6 +84,11 @@ func _ready() -> void:
 	if combat_study:
 		for mesh in model.find_children("*","MeshInstance3D",true,false):
 			if str(mesh.name).begins_with("EquippedPistol_"):mesh.visible=requested_clip=="ShootStudy"
+	for argument in OS.get_cmdline_user_args():
+		if argument.begins_with("--equipment-module="):
+			module_controller=preload("res://equipment_modules153.gd").new()
+			module_controller.configure(model,model_path)
+			module_controller.choose(argument.trim_prefix("--equipment-module="),requested_clip)
 	if "--stress-pose" in OS.get_cmdline_user_args():
 		var rigs := model.find_children("*", "Skeleton3D", true, false)
 		if rigs.size() != 1:

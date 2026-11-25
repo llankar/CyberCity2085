@@ -14,6 +14,7 @@ var clip_status := "Human: static fitting model; action clips unavailable"
 var human_height := 1.718
 var robot_height := 2.4
 var vehicle_actor: Node3D
+var sidearm_modules
 var human_weapon: Node3D
 var human_embedded_weapon: Array[MeshInstance3D] = []
 var first_process_usec := 0
@@ -89,7 +90,9 @@ func _ready() -> void:
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var wardrobe150_study := "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
+	var modular_study := "--modular-equipment-study" in OS.get_cmdline_user_args()
+	assert(not modular_study or (not current_atlas_review and not generated_review), "Module study has no matching rendered atlas")
+	var wardrobe150_study := modular_study or "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
 	assert(int(texture_budget)+int(hair_study)+int(support_study)+int(wardrobe150_study)<=1,"Choose one private human variant")
 	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget or hair_study or support_study or wardrobe150_study
 	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
@@ -240,6 +243,9 @@ func _ready() -> void:
 				human_embedded_weapon.append(mesh)
 				mesh.visible=false
 		assert(human_embedded_weapon.size()==9)
+	if modular_study:
+		sidearm_modules = preload("res://equipment_modules153.gd").new()
+		sidearm_modules.configure(subjects[0], root+"amjviz_wardrobe150/human_actions.glb")
 	if robot_walk or robot_bundle: subjects[1].set_meta("forward_motion_study", true)
 	if nathan_study: subjects[0].set_meta("forward_motion_study", true)
 	if bundled_human:
@@ -318,6 +324,21 @@ func _ready() -> void:
 	if action_human: play_clip("Shoot")
 	if cyborg_study: clip_status = "Human: source walk/run available; other actions unavailable"
 	print("COMPARISON_STAGE_LOADED subjects=", subjects.size(), " tile_width_m=1")
+	if modular_study:
+		selected=0
+		play_clip("Shoot")
+		var swap_key:=InputEventKey.new()
+		swap_key.pressed=true
+		swap_key.keycode=KEY_E
+		_unhandled_input(swap_key)
+		assert(sidearm_modules.selected=="p320")
+		selected=1
+		_unhandled_input(swap_key)
+		assert(sidearm_modules.selected=="p320")
+		selected=0
+		_unhandled_input(swap_key)
+		assert(sidearm_modules.selected=="firewarden")
+		print("MODULE_STAGE_INPUT153_PASS human_swap,robot_guard,restore")
 	if "--self-test" in OS.get_cmdline_user_args():
 		if vehicle_actor != null:
 			for entry in [[KEY_8,"Gear_Retract"],[KEY_9,"Gear_Extend"],[KEY_7,"Rotor_Spin"]]:
@@ -401,7 +422,7 @@ func _ready() -> void:
 				play_clip(requested)
 				if amjviz_combat:
 					assert(authored_player.current_animation==requested+"Study")
-					for part in human_embedded_weapon:assert(part.visible==(requested=="Shoot"))
+					for part in human_embedded_weapon:assert(part.visible==((requested=="Shoot") and sidearm_modules==null))
 				else:assert("unavailable" in clip_status)
 			print("AMJVIZ_COMBAT_DISPATCH_OK ready,walk,run,shoot,melee,death;weapon_visibility" if amjviz_combat else "AMJVIZ_SOURCE_DISPATCH_OK idle,walk,run;combat_unavailable")
 		elif cyborg_study:
@@ -791,6 +812,7 @@ func play_clip(name_value: String) -> void:
 	player.play(name_value)
 	if selected==0:
 		for part in human_embedded_weapon:part.visible=name_value=="ShootStudy"
+	if selected==0 and sidearm_modules!=null:sidearm_modules.refresh(name_value)
 	if selected == 0 and human_weapon: human_weapon.visible = name_value in ["Pistol_Shoot","Shoot"]
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_NONE if name_value == "Walk" and subjects[selected].get_meta("forward_motion_study", false) else Animation.LOOP_LINEAR
@@ -807,6 +829,7 @@ func _process(_delta: float) -> void:
 	if hud:
 		var fps_value := str(Engine.get_frames_per_second()) if Time.get_ticks_usec()-first_process_usec > 2000000 else "warming up"
 		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee  6 Hit\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %s | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, fps_value, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		if sidearm_modules!=null:hud.text += "\nE: swap actual sidearm | 3: draw | module: "+sidearm_modules.selected
 		if vehicle_actor != null:hud.text += "\nVTOL inspection: 7 rotors | 8 retract gear | 9 extend gear (no flight physics)"
 		if "--unvanquished-motion-study" in OS.get_cmdline_user_args():hud.text += "\nAuthored human study: U Run | A Attack | K Crouch | weapon grip NOT accepted"
 		if "--scanned-head-study" in OS.get_cmdline_user_args():hud.text += "\nScanned head assembly: U Run | A Attack | K Crouch | identity and face rig NOT accepted"
@@ -825,6 +848,8 @@ func play_vehicle_clip(clip: String) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_E and selected==0 and sidearm_modules!=null:
+			sidearm_modules.next(sidearm_modules.animation_player.assigned_animation)
 		if event.keycode == KEY_TAB:
 			selected = 1 - selected
 		if event.keycode == KEY_C:

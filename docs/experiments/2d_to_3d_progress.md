@@ -2,6 +2,46 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` MODULAR-EQUIPMENT-153 (2026-11-25). Professional authored
+  human150 retained; no further MPFB recolor. `DONE` actual component audit:
+  removing the coat would expose missing back/arms; the inner shirt is only a
+  front panel. No false complete body/wardrobe compatibility claim.
+  `DONE` one professional P320 source acquired from Blendkit, Zuhaib Khoso,
+  base78f8c399-3f03-4ea8-b58f-da40b42c6b7f. Royalty Free, NOT CC0;
+  private E: sources and licence pages retained. No raw asset redistribution.
+  Pinned source BLEND/GLB sizes and SHA checked by acquire_p320_source.ps1.
+  Normalized real mesh retains PBR and actual trigger landmark; corrected
+  Blender linked-object evaluation before extracting reference placement.
+  `DONE` independent BoneAttachment module controller, real FireWarden/P320
+  swap without body/skeleton/animation recreation. Native21poses/42swaps PASS,
+  original nine-part bounds max2.108micrometres, unchanged0.5mm gate.
+  Paused clip/time preserved using assigned_animation (current_animation empties
+  on pause). No body resource or node-count changes during swaps.
+  `DONE` optional --modular-equipment-study tactical route; E swaps human props,
+  robot selection ignores E. Native stage input/action checks PASS, log
+  E:/CyberCity2085-3d-lab/tmp/module-stage153.log. Rejects unmatched atlas review;
+  atlas152 still represents FireWarden, not the new P320. Preview supports
+  --equipment-module=p320. No invented canonical game item mapping for P320.
+  Files: acquire script; blender/audit_amjviz_components153.py, audit_p320153.py,
+  prepare_weapon_modules153.py; godot/equipment_modules153.gd,
+  equipment_modules_check153.gd/.tscn, preview.gd and comparison.gd.
+  Evidence: E:/CyberCity2085-3d-lab/generated/phase2/amjviz_modules153/
+  native_modules.json, modules.json, p320.blend/glb, p320_grip_side.png.
+  Close side render inspected: grip now aligned; complete all-view/finger contact
+  and final Rook identity NOT VERIFIED. Targeted Python49PASS/0fail/0skip,
+  E:tmp/pytest153.xml. No current150/153 GPU memory benchmark or production tests.
+  `TODO` complete true interchangeable garments/body coverage, final human art,
+  cover/hit/heal and conditional PSI, Raider deferred until first human accepted.
+  Scene physical subjects5/6; existing-map native loading1/1, final map art0/1.
+  Human six motion families technically available; full goal has ten conditional
+  families. Robot five clips unchanged. No production edits, build or push.
+  Tactical tactical.png captured and inspected: five physical subjects visible,
+  HUD overcrowded, coarse facade roofs remain below target art.
+  Next: improve actual source-based human art
+  and full contact review; then integrate current texture budget variant.
+  CHANTIER GLOBAL INCOMPLET; batch evidence does not close the experimental GOAL.
+
+
 - `IN_PROGRESS` EXACT-DURATION-ATLAS-152 (2026-11-25). Continued after151pilot;
   no generalized human cohort. `DONE` duration-derived near24fps rendering from
   the same150editable Blender source, all eight measured directions. Actual
