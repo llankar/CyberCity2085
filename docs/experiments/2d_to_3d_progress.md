@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` WRIST-OWNERSHIP-132 (2026-11-25). Continued95ae85a9; previous
+  turn concrete synchronized comparison implementation/evidence. `DONE` actual
+  Ready0 wrist/elbow vertex audit excludes nearby left-hand vertices using real
+  RightHand/RightForeArm groups. Original authored glove206vertices/190faces ends
+ 3.809mm distal to wrist; retained body vertices span across it. Those ranges are
+  vertex landmarks, not an empty-gap or surface-contact measurement.
+
+  `DONE` AUTHORED-FIT-HYPOTHESES-132, all REJECTED as art improvement. Recovered
+  two real adjacent Unvanquished forearm rings,271faces/287vertices, preserving
+  original206hand vertices within0.307µm and original UV/material. First selection
+  guard caught pistol objects; explicitly excluded weapon meshes before recovery.
+  Neutral native Fire/Melee exposes oversized flap; aligning added faces to target
+  forearm still fails visual finish. Separate existing-glove-base trial changes
+ 18base vertices while188palm/finger vertices stay exact and UV unchanged. Two-
+  bone inverse skin fit creates171.306mm rest excursion and a visible Melee spike;
+  rejected. Rigid-hand variant limits change to38.230mm and avoids spike but does
+  not materially improve the bright band. Measured Ready hand/forearm deformation
+  rotation difference132.114degrees; no unsupported claim that this alone proves
+  the entire rig defective. All trial BLEND/GLB/reports/captures stay separately on
+  E:rook_cuff132, rook_glove_base132, rook_glove_rigid132. None selected by scene.
+
+  `DONE` DIAGNOSIS-CORRECTION-132: native emission ownership captures mark actual
+  retained body magenta and authored glove cyan, without changing geometry. In
+  inspected Melee0.5 wrist ROI[480,375,520,435], all500bright pixels belong to real
+  geometry:475body,25glove. This visible band is not background/empty space in
+  that view. Earlier repeated wording implying a confirmed wrist hole was too
+  strong. Do not keep inventing geometry to fill exposed source skin. This does
+  not establish general watertightness, finger contact, collision or all-angle
+  anatomy. Reproducible verify_wrist_ownership.py binds both PNG hashes and writes
+  E:rook_wrist132/band_ownership_pixel_check.json. Native source/candidate captures
+  inspected under unchanged neutral lighting; no light/color masking adopted.
+
+  Validation:31targeted Python tests PASS/0fail/0skip, E:tmp/pytest132-final.xml;
+  nine new bounded-influence/ownership/crop tests. Blender source preservation
+  assertions and actual native clip load/capture markers executed. Full314pose
+  validation on rejected fits NOT EXECUTED because art already fails. Current
+ 129source and1400frame atlas remain unchanged; no production/mainGOAL edits.
+  `TODO` NEXT: refine genuine quiff nape/temple geometry against Rook portrait and
+  neutral all-angle/tactical-scale views. Retain natural wrist exposure; separately
+  assess actual grip/fingers without treating every bright band as missing mesh.
+  Do not regenerate atlases until an art candidate improves. No second human yet.
+  Counts unchanged: human5/5required clips technical,0/5artistic; atlas5/5technical,
+ 0/5final-art; acceptedRook0/1; finalhumans0/2; scene5/6subjects; mapnative1/1,
+  artistic0/1. SDL/sampler warnings persist. No build/push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SYNCHRONIZED-COMPARISON-131 (2026-11-25). Continued5bdc838b;
   previous turn concrete1400frame/five-action atlas production and native evidence.
   `DONE` independent modular generated_atlas_comparison.gd overlay added beside
