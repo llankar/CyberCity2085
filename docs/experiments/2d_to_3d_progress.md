@@ -2,6 +2,48 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` FIRST-HEAD-ASSEMBLY-126 (2026-11-25). Continued5ae99e0b;
+  previous turn was concrete asset qualification progress. `DONE` measured real
+  rest head/neck landmarks on dressed actor, retained in E:rook_head_fit126/
+  landmarks.json. Separate derivative replaces3342old head faces with original
+  MIT head/eyes using uniform0.95scale and explicit translation, original UVs,
+ 1522head vertices/2982triangles. No anatomical projection or primitive head.
+  Added normalized neck/Head weights to the existing25bone actor; preserved six
+  NLA clips, glove and actual pistol/slide. PackedBLEND/GLB/CREDITS remain on E:.
+
+  `DONE` TECHNICAL-NATIVE-126: first bounds run failed because Blender custom-shape
+  helper Icosphere was included in reference but not GLB; corrected helper
+  selection rather than weakening gate. Export armature-parent warning corrected
+  by actual parenting. Native202poses/12meshes comparison passes maximum87.577µm;
+  slide19.999865mm and fire-to-ready67.979µm retained. Report now records actual
+  mesh count instead of hardcoded11. Run floor penetration5.290713mm remains OPEN;
+  strict floor gate covers new melee/death, not sourceRun. Forty unique Python
+  tests PASS/0fail/0skip, E:tmp/pytest126.xml (three new skinning tests).
+
+  `DONE` EXPERIMENTAL-SCENE-126: --head-fit-study selects candidate in independent
+  comparison scene; actual six-action/robot/VTOL dispatch checks executed. Native
+  tactical.png captured separately after short self-test quit budget prevented
+  first capture; no missing capture claimed PASS. Projection62.207977px against
+ 62.208px calibration. Existing alley627blocked cells, five subjects, original
+  sprites alongside3D; floor remains2D. No production navigation or map change.
+
+  `IN_PROGRESS` ART-126: native neutral front/profile/back inspected; face has real
+  open eyes, no old source facial collapse, but generic short hair and visible
+  skin ring at collar fail Rook finish. A source-color neck-cut trial produced
+  holes; saved rejected_color_cut_holes.png then removed heuristic and rebuilt
+  original candidate. initial_neck_overlap.png preserves baseline. Do not promote
+  rejected cut or hide seam with lighting. Need explicit neck boundary-loop fit,
+  texture continuity and genuine copper-quiff geometry, followed by animated
+  close-ups and tactical review. No facial/eye articulation added. No full-scene
+  current VRAM benchmark, new atlas set or second human acceptance this batch.
+  Global counts unchanged: required human5/5technical,0/5artistic; Rook0/1,
+  humanatlas1/5sets, finalhumans0/2; scene5/6subjects; mapnative1/1/artistic0/1.
+  SDL calibration and sampler warnings remain. CHANTIER GLOBAL INCOMPLET.
+  Additional native review: six named pose PNGs actually sampled and inspected
+  (Ready0,Walk/Run0.5,Fire0.444444,Melee0.5,Death1). Head follows these poses;
+  this does not prove continuous neck contact or artistic animation acceptance.
+  Final derivative GLB SHA46de314a9d9838252948600a5494aa1cf635611d07ecf02d413acb74d866d88c.
+
 - `IN_PROGRESS` LICENSED-HEAD-125 (2026-11-25). Continued68a91a6f. No production
   changes or asset publication. `DONE` acquired one pinned Lee Perry-Smith scan
   from keijiro/InfiniteScan revision150b6c46ebb6a011b93ed2e0fee9b612df78281b:

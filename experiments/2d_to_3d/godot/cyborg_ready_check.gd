@@ -27,11 +27,13 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
+	var head_study := "--head-fit-study" in OS.get_cmdline_user_args()
 	var material_study := "--rook-material-study" in OS.get_cmdline_user_args()
-	var actions := "--actions-study" in OS.get_cmdline_user_args() or material_study
+	var actions := "--actions-study" in OS.get_cmdline_user_args() or material_study or head_study
 	var fire := "--fire-study" in OS.get_cmdline_user_args() or actions
 	var clip := "PistolFireStudy" if fire else "CombatReadyStudy"
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rook_material01/" if material_study else ("cyborg_actions01/" if actions else ("cyborg_fire01/" if fire else "cyborg_pistol01/")))
+	if head_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_head_fit126/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)
@@ -44,7 +46,7 @@ func _ready() -> void:
 	var probe := preload("res://skin_motion_check.gd").new()
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false): meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
-	assert(meshes.size()==11)
+	assert(meshes.size()==(12 if head_study else 11))
 	var references = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	assert(references.size()==(6 if actions else (19 if fire else 9)))
 	var sets: Dictionary = references if actions else {clip:references}
@@ -98,7 +100,7 @@ func _ready() -> void:
 		skeleton.force_update_all_bone_transforms()
 		for bone in range(25):reset_error=maxf(reset_error,start[bone].origin.distance_to(skeleton.get_bone_global_pose(bone).origin))
 		assert(reset_error<.0001,"Fire-to-ready reset failed: %s"%reset_error)
-	var report := {"status":"PASS","meshes":11,"sampled_poses":count,"minimum_mesh_floor_by_clip_m":floors,"final_death_body_height_m":final_death_height,"maximum_bounds_corner_error_m":worst,"fire_to_ready_position_reset_error_m":reset_error,"actual_slide_travel_m":slide_travel,"glb_sha256":FileAccess.get_sha256(folder+"human.glb"),"scope":"Actual deformed bounding boxes only; not surface contact, seam or artistic approval"}
+	var report := {"status":"PASS","meshes":meshes.size(),"sampled_poses":count,"minimum_mesh_floor_by_clip_m":floors,"final_death_body_height_m":final_death_height,"maximum_bounds_corner_error_m":worst,"fire_to_ready_position_reset_error_m":reset_error,"actual_slide_travel_m":slide_travel,"glb_sha256":FileAccess.get_sha256(folder+"human.glb"),"scope":"Actual deformed bounding boxes only; not surface contact, seam or artistic approval"}
 	var output := FileAccess.open(folder+("native_actions_validation.json" if actions else ("native_fire_validation.json" if fire else "native_ready_validation.json")),FileAccess.WRITE)
 	assert(output!=null)
 	output.store_string(JSON.stringify(report,"  "))
