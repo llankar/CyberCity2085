@@ -2,6 +2,41 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-HUMAN-REVIEW-118 (2026-11-25). Continued3154c5bc.
+  Tested the original CC-BY photographed Nathan head on the complete CC0 Diesel
+  outfit, preserving the authored jacket, shirt, pants and boots without cloth
+  warping or recoloring. Actual bind eye centres and head width determine one
+  uniform fit (scale1.2150588117); 2,206 original body head/neck faces and six
+  separate original facial/hair objects removed in this derivative only.
+  New reusable scanned_head_geometry.py retains complete 6,630 source faces.
+  Source assets remain unchanged; combined CREDITS are packed in the Blend.
+
+  `DONE` SOURCE-RETENTION-118: verify_diesel_head_fit.py executed in Blender4.5.17
+  against separately reopened original sources and saved derivative. Exact head
+  positions after recorded fit, original UVs, packed JPEG bytes and all four
+  outfit meshes/UVs match; 65-bone rig and six visible meshes verified.
+  Initial verifier incorrectly counted non-render custom bone-shape meshes;
+  corrected to exclude actual rig helpers and rerun PASS. This is a real Blender
+  assertion check, not a claim of animation or artistic acceptance.
+
+  `DONE` NEUTRAL-VIEWS-118: native Godot4.7.2 imported actual GLB and captured
+  front, side and back PNGs under E:/CyberCity2085-3d-lab/generated/phase2/
+  diesel_scanned_head01. Side/back runs exited0 with GLTF_OK/CAPTURE_RESULT0;
+  all three PNGs visually inspected. Existing SDL gamepad calibration error
+  persists. GLB SHA dfc7933059b1506cf748c8284ce5e09fc67d399c8f0e1d9320c1ed578fe589a5.
+
+  `TODO` ART-GATE-118: candidate is NOT accepted Rook. Visible facial/eye shading
+  defects and coarse hand-painted outfit materials remain; coherent complete
+  clothing alone is insufficient. No new animations, Raider production or
+  production integration performed. Next: diagnose face under close neutral
+  views against original source and evaluate genuinely higher-quality complete
+  licensed outfits rather than repeatedly displacing/recoloring this clothing.
+  Independent tactical scene/robot/vehicle experiments remain available; do not
+  replace their current actor with this unaccepted candidate.
+  Global acceptance: convincing first Rook0/1; final human cohort0/2; independent
+  map native1/1, artistic0/1. Full action/deformation coverage and final side-by-side
+  combat-scale human acceptance remain open. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PROFESSIONAL-HUMAN-REVIEW-117 (2026-11-25). Continuedf80d8a18.
   Reassessed actual art rather than endlessly polishing contact micron errors.
   Renderpeople current free pack preview is business clothing, not Rook's outfit;

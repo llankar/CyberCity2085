@@ -604,3 +604,15 @@ on E. Derivative is neutral authored21part armor/body with122bone source skin,
 under CC BY-SA3.0. Legacy spec maps not yet physically converted; material/style
 acceptance and source segmented/HandDelta animation assembly remain open. No
 production changes or Nathan combination. Static qualification has no fake clips.
+# Batch118: complete-outfit scanned-head diagnostic
+
+Run `run_blender.ps1 -Script blender/inspect_diesel_anatomy.py`, then
+`blender/assemble_diesel_scanned_head.py` and `blender/verify_diesel_head_fit.py`
+through the same wrapper. Existing acquired Diesel and Nathan sources are
+required on E:. Output is `generated/phase2/diesel_scanned_head01` on E: only.
+Godot main.tscn accepts `--model=<that folder>/human.glb --neutral
+--view=front|side|back --capture=<that folder>/neutral_<view>.png`.
+This candidate preserves real source geometry and licenses but fails the current
+Rook artistic target. Do not infer animation or final art acceptance from the
+source-retention assertion check. No new animation clips are present.
+
