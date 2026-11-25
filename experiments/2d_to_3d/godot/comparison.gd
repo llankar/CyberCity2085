@@ -1,6 +1,7 @@
 extends Node3D
 ## Independent scale-review stage. External files remain outside the game runtime.
 
+var review_controls
 var camera: Camera3D
 var hud: Label
 var subjects: Array[Node3D] = []
@@ -615,6 +616,10 @@ func _ready() -> void:
 			snapshot["scope"]="Frozen animation/camera state; PNG capture result and artistic inspection are separate"
 			var snapshot_file:=FileAccess.open(generated_overlay.folder+"frozen_"+compare_action.to_lower()+("_comparison152.json" if current_atlas_review else "_comparison131.json"),FileAccess.WRITE)
 			assert(snapshot_file!=null);snapshot_file.store_string(JSON.stringify(snapshot,"  "));snapshot_file.close()
+	review_controls=preload("res://review_camera163.gd").new()
+	review_controls.configure(self,{"human":human_path,"robot":robot_path})
+	if "--self-test" in OS.get_cmdline_user_args():review_controls.verify_inputs()
+	review_controls.apply_args()
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
 		await get_tree().process_frame
@@ -674,6 +679,7 @@ func _ready() -> void:
 			await RenderingServer.frame_post_draw
 			await RenderingServer.frame_post_draw
 			var result := get_viewport().get_texture().get_image().save_png(path)
+			if result==OK and review_controls!=null:review_controls.write_capture_proof(path)
 			print("COMPARISON_CAPTURE ", result)
 			get_tree().quit(0 if result == OK else 4)
 
@@ -731,6 +737,7 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot actual height %.3f m\nSprite shader/rim/ground shadows are not reproduced in this review." % [body_px, robot_height]
 	if "--wardrobe-atlas-review" in OS.get_cmdline_user_args():
 		note.text="SPRITE REVIEW: physical1.8m reference %.3fpx | current hair height %.3fm retained\nOriginal sprite/3D/Blender atlas lighting differs; not pixel-identical art."%[body_px,human_height]
+	if "--clean-capture" in OS.get_cmdline_user_args():note.text += "\nScale references: Samurai / Heavy corporate robot; different character designs."
 	layer.add_child(note)
 	print("SPRITE_PIXEL_HEIGHT_VERIFIED expected=", body_px, " projected=", verified)
 
@@ -894,6 +901,10 @@ func play_vehicle_clip(clip: String) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and not event.echo:
+		if review_controls!=null:
+			if event.keycode==KEY_F:review_controls.frame("human" if selected==0 else "robot");return
+			if event.keycode==KEY_G:review_controls.restore();return
+			if event.keycode==KEY_H:review_controls.toggle_hud();return
 		if event.keycode == KEY_K and selected==0 and cover_controller!=null:
 			cover_controller.toggle()
 			return

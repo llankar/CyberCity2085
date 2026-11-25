@@ -2,6 +2,53 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` TACTICAL-VISUAL-REVIEW-163 (2026-11-25).
+  Previous162 classified progress: sole skin correction and scoped contact PASS;
+  first-human artistic acceptance still open. `DONE` independent compact review
+  controls, without changing geometry/materials/lighting/animation/rules. F frames
+  selected actor, G restores original target/zoom/yaw/elevation/orbit state, H toggles
+  primary diagnostics. Actual native input tests PASS focus human/robot, full view
+  restore and double HUD toggle; cover elapsed-sequence/repeat/robot guards remain
+  PASS. Optional --review-frame=human|robot|pair and --clean-capture; calibrated
+  sprite review disallows reframing, preserving source camera/pixel comparison.
+  `DONE` five real native PNGs captured and actually inspected: human,robot,pair
+ 1280x720, calibrated_close/calibrated_overview1920x1080. Large diagnostic HUD
+  hidden, compact NOT FINAL ART caption retained; calibration notes remain visible.
+  Model hashes unchanged: sole_skin162 human6bb0e08d... and security_opaque137
+  robot39a02cee... (full hashes in per-PNG sidecars). Runtime direct framing,
+  no generated mockup/cropping/compositing/lighting disguise. Private sources intact.
+  Actual projected human reference height62.208px close and20.736px overview,
+  within original0.1px calibration tolerance. These are different from enlarged
+  inspection shots; never present the latter as gameplay-scale art acceptance.
+  Source references are agent_samurai and enemy_corp_samurai_robot_heavy, with
+  original heavy-robot sprite multiplier1.65. They are different character/design
+  references, not identical versions of Rook/Wraith. Explicit note added on both
+  comparison PNGs; do not derive a same-character likeness conclusion from them.
+  `DONE` verify_visual_review163.py checks actual five PNG dimensions/SHA, source
+  model paths/SHA, render size, diagnostics state, camera framing, calibrated pixel
+  heights and both original sprite atlas SHA plus manifest/calibration hashes.
+  Actual verifier PASS;3new targeted tests PASS0fail0skip, tmp/tests163-final.xml
+  (valid capture, changed pixels and changed model rejected). Initial real verifier
+  FAIL was exact float equality on Camera3D4.2; corrected representation tolerance
+ 1e-5 for serialized zoom only, unchanged0.1pixel scientific calibration gate.
+  E:generated/phase2/review163 has all PNG/per-PNG JSON, verified_review.json and
+  combined source CREDITS (robot Blender Foundation Security Bot Rig, CC BY4.0).
+  tmp/review163*.log records actual controls/render executions. No new507pose
+  rerun or GPU benchmark because source models unchanged; ordinary frame timings
+  are not claimed as performance acceptance. No desktop automation/build/push.
+  Reproduce comparison --sole-skin162 --robot-action-bundle --source-opacity-study
+  --tactical --facades-study with --review-frame=human|robot|pair --clean-capture
+  --capture=E:/.../review163/NAME.png; use --sprite-review plus optional --overview
+  instead of --review-frame for calibrated captures. Then run verifier.
+  `TODO` art review remains NOT VERIFIED as a final acceptance: human silhouette/
+  face/hair/gear still need work; robot differs substantially from heavy reference,
+  prototype roofs/vehicle remain coarse. Next inspect actual sources/rook.png
+  beside review163/human.png and qualify an authored garment/hair/gear correction,
+  rather than generalizing more humans or hiding geometry with lighting. Heal,
+  conditional PSI, weapon cover, complete modular wardrobe/face remain open.
+  Eight technical motion families/11clips not artistically finalized; scene5/6
+  subjects, map native1/1/final3Dart0/1. CHANTIER GLOBAL INCOMPLET; production intact.
+
 - `IN_PROGRESS` SOLE-SKIN-162 (2026-11-25).
   Previous161 turn classified progress: measured stepped transitions, explicit
  5mm point-contact FAIL retained. `DONE` audit now records concrete worst-contact
