@@ -2,6 +2,51 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHORED-EQUIPMENT-140 (2026-11-25). Continued2be4aad0; prior
+  skin material candidate and controlled negative tangent experiment are progress.
+  `DONE` inspected existing MIT Rocketbox disconnected equipment instead of new
+  downloads or primitive clothes. Four real components exported to E:rook_equipment140
+  with source hash/report/fullMITnotice; actual6135pouch rendered and reviewed.
+  Source6135/5978 are genuine UV-textured tactical fabric pouches,145/135vertices,
+ 286/264faces. Original source photo/materials retained. No new equipment gameplay.
+  `DONE` first rigidSpine mount technically passes314bounds but FAILS sampled
+  body contact707noncoplanar triangle pairs. Hips-only variant fails458pairs at
+  other poses. Failed GLB/BLEND/report/contact snapshots retained under spine_*
+  and hips_* on E:rook_pouches140; neither promoted as a collision-free fit.
+  Initial append matrix stale caused100x source units; explicit view-layer update
+  before source-world transform fixes actual scale, no arbitrary downscale.
+  `DONE` final candidate transfers actual torso surface skin weights barycentrically,
+  reusing wardrobe_skinning.py. Four-influence limit failed unchanged99percent
+  retention guard; eight-slot export retains full source weight mass (minimum
+ 0.9999999999999998), up to6real existing bones, no skeleton invention. Body/face/
+  hair/weapon rest geometry and UV hashes protected (14meshes including helper).
+  Pouch UVs exact; nine front torso rays set rear plane4mm ahead of sampled support.
+  Does not establish general attachment clearance. Existing source clothing not
+  replaced or recolored. Current savedBLEND214118654bytes/GLB40106264bytes plus
+  CREDITS and fit_report. Final GLB SHA
+  713fc03397712da8a376ce7daaad36c304f7c446817e98a226bdaeafefaf2672.
+  `DONE` exact finite segment/triangle kernel tests and actual18deformed poses:
+ 36pouch/body comparisons+18mutual comparisons,0noncoplanar crossing pairs.
+  Contact report source-hash bound, determinant epsilon1e-12. Coplanar cases,
+  containment,other separate props and between-sample collisions NOT VERIFIED.
+  `DONE` final native314poses/15meshes/25bones/6clips PASS, max389.080micrometers
+  within unchanged500gate; Runfloor+1.000590mm,slide19.999865mm/reset67.979micrometers.
+  Actual Godot8weight arrays handled by existing probe. Native current ready/Melee/
+  wholeDeath captures reviewed: pouches follow flexible waist cloth rather than
+  intersecting as rigid mounts. Pale military camo is source palette, not final
+  cyberpunk styling. tactical.png reviewed at62.208038px reference; scene human6
+  action/robot137/VTOL135/map/input checks PASS. Skin normal.35 preserved and native
+  check source-hash bound. Optional --pouch-study;129atlas mixing rejected by real
+  native negative test. Defaults unchanged.17targeted pytest PASS0fail0skip (6new:
+ 2mount,3triangle,1eight-slot retention;11existing), tmp/pytest140-final2.xml.
+  Existing SDL warning persists. No new FPS/VRAM benchmark or full artistic pass.
+  `TODO` NEXT: first-human base garment/face likeness still below target; use
+  authored source geometry for further substantive clothing work, not a sequence
+  of recolor variants or second-human expansion.140atlas NOT GENERATED. Required
+  humanclips5/5technical,0/5artistic;finalRook0/1;finalhumans0/2;scene5/6subjects;
+  mapnative1/1/artistic0/1. No production/mainGOAL/save changes,build or push.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` SKIN-MATERIAL-139 (2026-11-25). Continued9563b666; previous
   turn made actual neck geometry/UV/314pose progress. `DONE` source material
   audit shows original MIT head2048color/normal/specular textures already used;

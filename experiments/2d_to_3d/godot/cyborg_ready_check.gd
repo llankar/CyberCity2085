@@ -27,7 +27,8 @@ func compare_sample(meshes: Dictionary,skeleton: Skeleton3D,probe: Node,boxes: D
 	return {"error":worst,"floor":floor_value,"body_height":body_height}
 
 func _ready() -> void:
-	var skin_normal_study := "--skin-normal-study" in OS.get_cmdline_user_args()
+	var pouch_study := "--pouch-study" in OS.get_cmdline_user_args()
+	var skin_normal_study := "--skin-normal-study" in OS.get_cmdline_user_args() or pouch_study
 	var single_neck_study := "--single-neck-study" in OS.get_cmdline_user_args() or skin_normal_study
 	var undercut_study := "--undercut-study" in OS.get_cmdline_user_args() or single_neck_study
 	var run_study := "--run-clearance-study" in OS.get_cmdline_user_args() or undercut_study
@@ -46,6 +47,7 @@ func _ready() -> void:
 	if undercut_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_undercut133/"
 	if single_neck_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_single_neck138/"
 	if skin_normal_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_normal_strength139/"
+	if pouch_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/rook_pouches140/"
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()
 	assert(document.append_from_file(folder+"human.glb",state)==OK)
@@ -58,7 +60,7 @@ func _ready() -> void:
 	var probe := preload("res://skin_motion_check.gd").new()
 	var meshes := {}
 	for mesh in model.find_children("*","MeshInstance3D",true,false): meshes[str(mesh.name).replace(".","_").replace(" ","_")]=mesh
-	assert(meshes.size()==(13 if quiff_study else (12 if head_study else 11)))
+	assert(meshes.size()==(15 if pouch_study else (13 if quiff_study else (12 if head_study else 11))))
 	var references = JSON.parse_string(FileAccess.get_file_as_string(folder+"native_reference.json"))
 	assert(references.size()==(6 if actions else (19 if fire else 9)))
 	var sets: Dictionary = references if actions else {clip:references}

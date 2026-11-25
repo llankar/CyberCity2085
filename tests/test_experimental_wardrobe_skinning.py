@@ -39,3 +39,12 @@ def test_degenerate_face_and_outside_projection_are_rejected():
 
 def test_invalid_weight_cannot_silently_enter_export():
     with pytest.raises(ValueError,match='Invalid source'):module.surface_weights([0,0,0],triangle,[{'hip':float('nan')},{'hip':1},{'hip':1}])
+
+
+def test_eight_slot_export_keeps_six_real_influences_instead_of_lowering_retention_gate():
+    source=[{'a':.5,'b':.5},{'c':.5,'d':.5},{'e':.5,'f':.5}]
+    trimmed,loss=module.surface_weights([1/3,1/3,0],triangle,source,limit=4)
+    full,retained=module.surface_weights([1/3,1/3,0],triangle,source,limit=8)
+    assert len(trimmed)==4 and loss==pytest.approx(2/3)
+    assert len(full)==6 and retained==pytest.approx(1)
+    assert sum(full.values())==pytest.approx(1)

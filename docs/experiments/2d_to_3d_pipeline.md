@@ -902,3 +902,32 @@ native_skin_material.json. It inherits the138neck and forbids129atlas mixing.
 314native poses pass, but face likeness and modern-quality geometry/clothing
 remain unaccepted. Do not confuse reduced normal contrast with a new detailed mesh.
 
+### Genuine tactical equipment integration140
+
+Existing Microsoft Rocketbox MIT components6135/5978 provide actual modeled
+fabric pouches and original textured UVs. Four isolated source components can be
+reviewed in E:rook_equipment140 before fitting; full source notice is retained.
+The current candidate adds two meshes/550faces to the first actor, not another
+character or a gameplay item system. Source body/face/hair/weapon geometry stays
+unchanged. E:rook_pouches140 contains full editableBLEND/GLB/CREDITS and reports.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/review_rook_pouches.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_rook_pouches.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/check_rook_pouch_contacts.py
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/measure_actor_reference.py -ScriptArguments @('--folder','rook_pouches140','--dense-run')
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://cyborg_ready_check.tscn -QuitAfter 1200 -SceneArguments @('--pouch-study')
+```
+
+RigidSpine/Hips trials failed actual triangle-contact checks and are preserved
+as rejected studies. Final binding transfers actual torso weights via existing
+surface_weights; eight-slot export retains six real influences without reducing
+the99percent retention guard. Full weight mass retained on these vertices.
+Contact audit samples18poses:36body comparisons and18pouch/pouch comparisons,
+zero noncoplanar crossings. Coplanar,containment,other-prop and unsampled contacts
+remain unverified.314native bounds confirm15meshes/25bones/6clips within500micrometers.
+Neither test is full artistic acceptance. Current native ready/Melee/Death and
+tactical screenshots are in the candidate directory. Scene opt-in --pouch-study
+inherits139skin/138neck, preserves source notices and forbids129atlas mixing.
+No140atlas or second human is generated before first-character art is convincing.
+
