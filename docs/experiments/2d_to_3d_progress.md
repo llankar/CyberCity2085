@@ -2,6 +2,54 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` EXACT-DURATION-ATLAS-152 (2026-11-25). Continued after151pilot;
+  no generalized human cohort. `DONE` duration-derived near24fps rendering from
+  the same150editable Blender source, all eight measured directions. Actual
+  atlas_full152 holds1,016real transparent192px frames: idle2x8(static), walk24x8,
+  shoot17x8, melee25x8, death59x8. Walk/melee24fps, shoot25.2631579fps,
+  death24.1666667fps retain exact source end times(.633333/1/2.4s) rather than
+  omitting a fractional endpoint or claiming every source clip is integral24fps.
+  Idle remains a static posture at1fps. Nine new sampling tests retain old cases.
+  All alpha margins/individual PNG packing/physical1.8m=62.208px projection,
+  anchors, source BLEND and CREDITS hashes verified. Native atlas_review actually
+  executes1,016frame-index tests across all five action sheets at scale1.0,
+  mapped facings/pause/loop/final-frame controls PASS. atlas_verification.json
+  records current source and linked native proofs, not just an export manifest.
+  `DONE` optional --wardrobe-atlas-review independent three-way comparison:
+  original2D sprite, current150GLB, and its actual newly rendered atlas. Legacy
+ 129route preserved; stale old atlas cannot be selected for150. Uses physical1.8m
+  reference(the actual1.843m hair-inclusive actor is not silently normalized).
+  Respects source Walk start5/120=.0416667s when deriving atlas phase; original
+  sprite keeps2fps idle/8fps move/action cadence, missing original shoot remains
+  explicit. Initial sync FAIL expected original idle frame1 exactly at.75s but
+  source loop wrapped to0; corrected boundary expectation and added.6s idle check
+  proving original frame1. Full native120camera/action/time cases PASS plus live
+  clock advance, unsupported Run/elevation hiding, close/overview scales and
+ 24explicit missing-original-shoot cases. Fresh positive log and current hashes
+  in synchronized_comparison152.json verified against current PNG/manifests/GLB.
+  Actual final three_way_walk.png inspected at the real combat zoom: silhouette
+  and phase coherent, Blender/Godot/source-sprite lighting/style differ. Generated
+  atlas is a labeled screen comparison overlay, not a claim of world occlusion or
+  production integration. Loop comparison follows source AnimationPlayer phase,
+  not an independent unwrapped global simulation clock. Other full atlas views
+  are numerically/pixel verified, not all1,016frames individually art-approved.
+  Final helper suite74PASS/0fail/0skip, tmp/pytest152-final.xml; pixel/native/sync
+  verification separately executed after last verifier edit. No game/campaign tests.
+  `TODO` full-scope clarification after rereading the experimental GOAL attachment:
+  older5/5counts only cover initial core motions. Expanded GOAL names TEN human
+  families(idle,walk,run,shoot,melee,cover,hit,death,heal,conditionalPSI). Current
+  source provides six technically(idle/walk/run/shoot/melee/death), not ten. Cover,
+  hit and heal remain TODO; PSI applicability to eligible operatives is NOT VERIFIED,
+  not silently removed. Final likeness/contact/art acceptance remains open.
+  `TODO` next: inspect current source body/garment component boundaries for genuine
+  modular equipment replacement without exposing absent under-clothing anatomy;
+  then complete applicable missing motion families using licensed UAL and actual
+  props. Raider remains deferred until first-human art is convincing. Keep full
+  requested six-subject scene5/6, native map1/1/art0/1; source robot/VTOL unchanged.
+  Full current atlas pipeline is now demonstrated; source150texture-budget merge,
+  current memory/stress measurements and final art remain open. Private resources
+  all on E:, no production edits/main GOAL changes/push/release. **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` MOTION-REVIEW / ATLAS-PILOT-151 (2026-11-25). Previous150 made
   concrete wardrobe/rig/native progress. `DONE` actual native neutral render review
   of five mandatory motions, four views and six times each:120PNG captures with

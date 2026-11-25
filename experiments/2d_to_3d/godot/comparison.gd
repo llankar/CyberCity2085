@@ -83,10 +83,13 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
+	var current_atlas_review := "--wardrobe-atlas-review" in OS.get_cmdline_user_args()
+	assert(not(current_atlas_review and generated_review),"Choose the atlas for the actual source")
+	if current_atlas_review:assert("--sprite-review" in OS.get_cmdline_user_args())
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var wardrobe150_study := "--wardrobe150-study" in OS.get_cmdline_user_args()
+	var wardrobe150_study := "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
 	assert(int(texture_budget)+int(hair_study)+int(support_study)+int(wardrobe150_study)<=1,"Choose one private human variant")
 	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget or hair_study or support_study or wardrobe150_study
 	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
@@ -299,10 +302,10 @@ func _ready() -> void:
 	layer.add_child(hud)
 	if "--sprite-review" in OS.get_cmdline_user_args():
 		setup_sprite_review(layer)
-	if generated_review:
+	if generated_review or current_atlas_review:
 		generated_overlay=preload("res://generated_atlas_comparison.gd").new()
 		layer.add_child(generated_overlay)
-		generated_overlay.configure(camera,subjects[0],human_sprite_reference,human_sprite_caption,human_height)
+		generated_overlay.configure(camera,subjects[0],human_sprite_reference,human_sprite_caption,1.8 if current_atlas_review else human_height,current_atlas_review)
 	selected = 1
 	play_clip("Idle")
 	if robot_idle:
@@ -524,7 +527,10 @@ func _ready() -> void:
 	if generated_review and "--self-test" in OS.get_cmdline_user_args():
 		yaw=PI/4;elevation=.6;update_camera()
 		preload("res://generated_atlas_sync_check.gd").new().run_checks(self,generated_overlay)
-	if generated_review:
+	if current_atlas_review and "--self-test" in OS.get_cmdline_user_args():
+		yaw=PI/4;elevation=.6;update_camera()
+		preload("res://wardrobe_atlas_sync_check.gd").new().run_checks(self,generated_overlay)
+	if generated_review or current_atlas_review:
 		var compare_action:=""
 		var compare_time:=0.
 		for argument in OS.get_cmdline_user_args():
@@ -540,9 +546,9 @@ func _ready() -> void:
 			print("GENERATED_ATLAS_FROZEN_COMPARISON ",JSON.stringify(generated_overlay.state))
 			assert(compare_action.get_file()==compare_action)
 			var snapshot: Dictionary=generated_overlay.state.duplicate()
-			snapshot["model_glb_sha256"]=FileAccess.get_sha256(generated_overlay.folder+"../human.glb")
+			snapshot["model_glb_sha256"]=FileAccess.get_sha256(generated_overlay.model_path)
 			snapshot["scope"]="Frozen animation/camera state; PNG capture result and artistic inspection are separate"
-			var snapshot_file:=FileAccess.open(generated_overlay.folder+"frozen_"+compare_action.to_lower()+"_comparison131.json",FileAccess.WRITE)
+			var snapshot_file:=FileAccess.open(generated_overlay.folder+"frozen_"+compare_action.to_lower()+("_comparison152.json" if current_atlas_review else "_comparison131.json"),FileAccess.WRITE)
 			assert(snapshot_file!=null);snapshot_file.store_string(JSON.stringify(snapshot,"  "));snapshot_file.close()
 	# Let asset upload/shader setup settle before collecting timing evidence.
 	for frame in range(30):
@@ -620,9 +626,10 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 	var body_px: float = calibration.close_human_px
 	if "--overview" in OS.get_cmdline_user_args():
 		body_px = calibration.overview_human_px
-	var measured := absf(camera.unproject_position(Vector3(0, human_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	var calibration_height:=1.8 if "--wardrobe-atlas-review" in OS.get_cmdline_user_args() else human_height
+	var measured := absf(camera.unproject_position(Vector3(0, calibration_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
 	camera.size *= measured / body_px
-	var verified := absf(camera.unproject_position(Vector3(0, human_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
+	var verified := absf(camera.unproject_position(Vector3(0, calibration_height, 0)).y - camera.unproject_position(Vector3.ZERO).y)
 	assert(absf(verified - body_px) < 0.1)
 	for index in range(2):
 		var key: String = calibration.atlases[index].key
@@ -643,7 +650,7 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 		picture.size = display_size
 		picture.position = reference_foot - Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * display_size
 		layer.add_child(picture)
-		if index==0 and "--generated-atlas-review" in OS.get_cmdline_user_args():
+		if index==0 and ("--generated-atlas-review" in OS.get_cmdline_user_args() or "--wardrobe-atlas-review" in OS.get_cmdline_user_args()):
 			human_sprite_reference=picture
 			picture.set_meta("reference_manifest",manifest)
 			picture.set_meta("reference_full_texture",ImageTexture.create_from_image(atlas))
@@ -657,6 +664,8 @@ func setup_sprite_review(layer: CanvasLayer) -> void:
 	var note := Label.new()
 	note.position = Vector2(20, 310 if "--vtol-motion-study" in OS.get_cmdline_user_args() else 270)
 	note.text = "SPRITE REVIEW: default alley calibration | human reference %.3f px | robot sprite x1.65\n3D human projected height verified; robot actual height %.3f m\nSprite shader/rim/ground shadows are not reproduced in this review." % [body_px, robot_height]
+	if "--wardrobe-atlas-review" in OS.get_cmdline_user_args():
+		note.text="SPRITE REVIEW: physical1.8m reference %.3fpx | current hair height %.3fm retained\nOriginal sprite/3D/Blender atlas lighting differs; not pixel-identical art."%[body_px,human_height]
 	layer.add_child(note)
 	print("SPRITE_PIXEL_HEIGHT_VERIFIED expected=", body_px, " projected=", verified)
 

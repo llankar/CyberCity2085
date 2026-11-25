@@ -17,9 +17,19 @@ var manifests := {}
 var textures := {}
 var reference_height := 1.8
 var state := {}
+var current_wardrobe := false
+var original_actions := {}
+var atlas_actions := {}
+var model_path := ""
 const ORIGINAL_ACTIONS = {"CombatReadyStudy":"idle","walk":"move","PistolFireStudy":"shoot","MeleeStudy":"melee","DeathStudy":"death"}
 
-func configure(view: Camera3D,model: Node3D,old_picture: TextureRect,old_caption: Label,height: float) -> void:
+func configure(view: Camera3D,model: Node3D,old_picture: TextureRect,old_caption: Label,height: float,wardrobe152: bool=false) -> void:
+	current_wardrobe=wardrobe152;original_actions=ORIGINAL_ACTIONS.duplicate()
+	if current_wardrobe:
+		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/atlas_full152/"
+		original_actions={"Hard stand":"idle","Walk (1_24)":"move","ShootStudy":"shoot","MeleeStudy":"melee","DeathStudy":"death"}
+		atlas_actions={"Hard stand":"idle","Walk (1_24)":"walk","ShootStudy":"shoot","MeleeStudy":"melee","DeathStudy":"death"}
+	model_path=folder+("../human_actions.glb" if current_wardrobe else "../human.glb")
 	camera=view;actor=model;original=old_picture;original_caption=old_caption;reference_height=height
 	player=actor.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 	original_manifest=original.get_meta("reference_manifest")
@@ -31,12 +41,14 @@ func configure(view: Camera3D,model: Node3D,old_picture: TextureRect,old_caption
 	caption.add_theme_font_size_override("font_size",14)
 	note.position=Vector2(20,390);note.add_theme_font_size_override("font_size",16)
 	process_priority=100
-	var proof=JSON.parse_string(FileAccess.get_file_as_string(folder+"../native_actions_validation.json"))
-	assert(proof.status=="PASS" and proof.glb_sha256==FileAccess.get_sha256(folder+"../human.glb"))
-	for clip in ORIGINAL_ACTIONS:
+	var proof=JSON.parse_string(FileAccess.get_file_as_string(folder+("../native_actions.json" if current_wardrobe else "../native_actions_validation.json")))
+	assert(proof.glb_sha256==FileAccess.get_sha256(model_path))
+	if current_wardrobe:assert(proof.maximum_error_m<.0005 and proof.samples==288)
+	else:assert(proof.status=="PASS")
+	for clip in original_actions:
 		var name_value: String=clip+"_atlas.json"
 		var manifest=JSON.parse_string(FileAccess.get_file_as_string(folder+name_value))
-		assert(manifest.source_model_sha256==FileAccess.get_sha256(folder+"../human.blend"))
+		assert(manifest.source_model_sha256==FileAccess.get_sha256(folder+("../human_actions.blend" if current_wardrobe else "../human.blend")))
 		assert(str(manifest.texture).get_file()==str(manifest.texture))
 		manifests[clip]=manifest
 		var image:=Image.load_from_file(folder+manifest.texture)
@@ -70,8 +82,10 @@ func refresh() -> void:
 		note.text="Comparison unavailable for action "+clip if view_supported else "Comparison hidden: atlas elevation is fixed at0.600; live camera %.3f"%actual_elevation
 		return
 	var manifest: Dictionary=manifests[clip]
-	var animation: Dictionary=manifest.animations[clip.to_lower()]
-	var sample:=frame_at_time(animation,seconds)
+	var animation: Dictionary=manifest.animations[atlas_actions.get(clip,clip.to_lower())]
+	var source_origin:=float(manifest.source_strip_frames[0])/120. if current_wardrobe else 0.
+	var atlas_seconds:=maxf(0.,seconds-source_origin)
+	var sample:=0 if manifest.get("static_pose",false) else frame_at_time(animation,atlas_seconds)
 	var orbit: int=manifest.facing_to_orbit_view[facing]
 	var index: int=animation.rows[orbit][sample]
 	var frame_size:=Vector2(manifest.frame_size[0],manifest.frame_size[1])
@@ -81,8 +95,8 @@ func refresh() -> void:
 	var anchor: Array=manifest.anchors_by_orbit_view[orbit]
 	picture.position=foot+Vector2(0,120)-Vector2(anchor[0],anchor[1])*picture.size
 	caption.text="Generated 2D\n"+clip
-	state.merge({"sample":sample,"orbit":orbit,"atlas_index":index},true)
-	var old_clip: String=ORIGINAL_ACTIONS[clip]
+	state.merge({"sample":sample,"orbit":orbit,"atlas_index":index,"atlas_seconds":atlas_seconds,"source_origin_s":source_origin},true)
+	var old_clip: String=original_actions[clip]
 	if original_manifest.animations.has(old_clip):
 		var old_animation: Dictionary=original_manifest.animations[old_clip]
 		var old_sample:=frame_at_time(old_animation,seconds)

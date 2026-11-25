@@ -8,20 +8,22 @@ import numpy as np
 from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 sys.path.insert(0,str(Path(__file__).parent.parent))
-from atlas_sampling import atlas_sample_frames
+from atlas_sampling import atlas_sample_frames,realtime_sample_count
 from atlas_facing import facing_lookup
 
 robot='--robot-bundle' in sys.argv
-amjviz='--wardrobe150-pilot' in sys.argv
+full_wardrobe='--wardrobe150-full' in sys.argv
+amjviz='--wardrobe150-pilot' in sys.argv or full_wardrobe
 rook='--rook-run-study' in sys.argv
 cyborg='--cyborg-fire-study' in sys.argv or rook or amjviz
 assert not(robot and cyborg),'Choose one atlas source'
-sample_count=int(next((a.split('=',1)[1] for a in sys.argv if a.startswith('--samples=')),'0' if rook else '4'))
-assert (rook and sample_count==0) or 2<=sample_count<=64,'Choose2..64 samples per direction'
+sample_count=int(next((a.split('=',1)[1] for a in sys.argv if a.startswith('--samples=')),'0' if rook or full_wardrobe else '4'))
+assert ((rook or full_wardrobe) and sample_count==0) or 2<=sample_count<=64,'Choose2..64 samples per direction'
+assert not full_wardrobe or sample_count==0,'Full wardrobe uses duration-derived sampling'
 root=Path('E:/CyberCity2085-3d-lab/generated/phase2')/('rook_run129' if rook else ('security_bundle01' if robot else ('cyborg_fire01' if cyborg else 'rocketbox_military03/motion01')))
 source_file='robot_actions.blend' if robot else ('human.blend' if cyborg else 'human_motion.blend')
 if amjviz:root=Path('E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150');source_file='human_actions.blend'
-output=root/('atlas_pilot151' if amjviz else 'atlas'); output.mkdir(exist_ok=True)
+output=root/(('atlas_full152' if full_wardrobe else 'atlas_pilot151') if amjviz else 'atlas'); output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(root/source_file),use_scripts=False)
 scene=bpy.context.scene
 rig=next(o for o in scene.objects if o.type=='ARMATURE') if cyborg else bpy.data.objects['SecurityGameRig' if robot else 'Bip01']
@@ -78,6 +80,7 @@ for clip,info in details.items():
                 owner_strip=next(t for t in owner.animation_data.nla_tracks if t.name==clip).strips[0]
                 assert abs(owner_strip.frame_start-first_frame)<.00001 and abs(owner_strip.frame_end-last_frame)<.00001
     count=sample_count or (round(last_frame-first_frame)+(0 if loop else 1))
+    if full_wardrobe:count=realtime_sample_count(info['duration_s'],loop=loop,static_pose=clip=='Hard stand')
     assert 2<=count<=64
     sample_frames=atlas_sample_frames(first_frame,last_frame,loop=loop,count=count)
     root_displacement=Vector((0,0,0))
@@ -135,8 +138,10 @@ for clip,info in details.items():
         animation=manifest['animations'].pop(clip.lower());manifest['animations']={label:animation}
         if clip=='Hard stand':animation['fps']=1.
         manifest.update({'source':'AmJViZ royalty-free + licensed CC0 quiff/UAL/pistol; private derivative, see CREDITS.txt',
-            'status':'Single-human four-sample atlas pilot; not a fluid final animation set or production resource',
+            'status':'Single-human exact-duration near24fps study; final artistic/production acceptance pending' if full_wardrobe else 'Single-human four-sample atlas pilot; not a fluid final animation set or production resource',
+            'sampling_mode':'exact_duration_minimum24fps' if full_wardrobe else 'four_pose_pilot',
             'source_clip':clip,'static_pose':clip=='Hard stand','source_forward_world':[0,-1,0],
+            'source_scene_fps':scene.render.fps,'source_start_s':first_frame/scene.render.fps,
             'facing_y_scale':2.,'projected_forward_vectors':forwards,
             'facing_to_orbit_view':facing_lookup(forwards),'camera_views':'Measured projection of actual -Y source forward; inspect rendered facings',
             'credits_file':'CREDITS.txt','credits_sha256':__import__('hashlib').sha256((root/'CREDITS.txt').read_bytes()).hexdigest()})

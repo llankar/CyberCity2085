@@ -4,6 +4,26 @@ import pytest
 p=Path(__file__).parents[1]/'experiments/2d_to_3d/atlas_sampling.py'
 spec=importlib.util.spec_from_file_location('atlas_sampling',p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 
+
+@pytest.mark.parametrize('duration,loop,expected',[(23/24,True,23),(76/120,False,17),(1.,False,25),(2.4,False,59)])
+def test_realtime_resampling_retains_exact_duration(duration,loop,expected):
+    count=m.realtime_sample_count(duration,loop=loop)
+    assert count==expected
+    frames=m.atlas_sample_frames(5,5+duration*120,loop=loop,count=count)
+    fps=(count if loop else count-1)/duration
+    assert fps>=24-1e-8
+    assert frames[0]==5
+    assert frames[-1]<5+duration*120 if loop else frames[-1]==pytest.approx(5+duration*120)
+
+
+def test_static_posture_is_not_invented_high_frequency_motion():
+    assert m.realtime_sample_count(.00004,static_pose=True)==2
+
+
+@pytest.mark.parametrize('duration,rate',[(0,24),(-1,24),(float('nan'),24),(1,0)])
+def test_invalid_realtime_sampling_rejected(duration,rate):
+    with pytest.raises(ValueError):m.realtime_sample_count(duration,minimum_fps=rate)
+
 def test_imported_strip_offset_preserves_real_start_end_and_time():
     frames=m.atlas_sample_frames(1,37)
     assert frames==[1,13,25,37]

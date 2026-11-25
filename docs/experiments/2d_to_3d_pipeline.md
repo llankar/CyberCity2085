@@ -1059,6 +1059,33 @@ Next repair must inspect licensed head/neck boundary topology and visible layeri
 
 ### Current authored game-rig combat study146
 
+Full first-human eight-direction study152:
+`& experiments/2d_to_3d/run_blender.ps1 -Script blender/render_rocketbox_atlas.py -ScriptArguments @('--wardrobe150-full')`.
+Output atlas_full152 beside150source. Sampling derives approximately24fps with
+exact endpoint/duration; nonintegral durations use25.263/24.167fps, not false24fps.
+Static idle is two equivalent poses at1fps, no invented breathing. Actual1,016frames
+across five action sheets; production resources and old129atlas remain untouched.
+Native atlas_review.tscn commands from151 apply with atlas_full152 and each current
+manifest; --self-test checks every frame plus playback controls. Then run:
+`python experiments/2d_to_3d/verify_rocketbox_atlas.py --wardrobe150-full --native-proof`.
+
+Three-way current-source comparison: comparison.tscn with --wardrobe-atlas-review,
+--robot-action-bundle --source-opacity-study --vtol-motion-study --vtol-finish-study
+--tactical --facades-study --sprite-review --self-test, optionally
+`--compare-action=Walk (1_24)` and `--compare-time=0.5416666667`, plus
+--capture=E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/atlas_full152/three_way_walk.png.
+Pass each argument as one PowerShell array element. The overlay accounts for
+source scene-clock origin5/120s, tests original2/8fps sprite cadence, preserves
+explicit unavailable original shooting, and uses physical1.8m reference at62.208px.
+Actual hero hair-inclusive1.843m is retained. Comparison is a screen review overlay,
+not a production world-occlusion implementation or an unwrapped global action clock.
+`python experiments/2d_to_3d/verify_rocketbox_atlas.py --wardrobe150-full --native-proof --synchronized-proof`
+rechecks current source/PNG/manifest/native/sync hashes. Require positive
+WARDROBE_ATLAS_SYNCHRONIZATION_PASS; an assertion can otherwise leave Godot running
+or produce an exit0/capture without successful integration. Lighting/art remain
+separate inspection criteria. Expanded GOAL also needs cover/hit/heal and applicable
+PSI, modular equipment and second human; five core atlas actions do not close it.
+
 Current150 neutral motion review151: preview main.tscn with150GLB, --clip=Hard stand,
 --neutral, --ortho-size=2.4 and
 --motion-review=E:/CyberCity2085-3d-lab/generated/phase2/amjviz_wardrobe150/motion_review151.
