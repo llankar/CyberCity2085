@@ -64,6 +64,8 @@ func _ready() -> void:
 	var action_human := charge and "--human-action-study" in OS.get_cmdline_user_args()
 	if action_human: human_path = root + "einar_pistol_fit01_surfaces/human_pistol.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
+	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
+	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"
 	if not load_subject(human_path, Vector3(-1.6, 0, 0)):
 		get_tree().quit(2)
 		return
@@ -120,6 +122,10 @@ func _ready() -> void:
 		setup_sprite_review(layer)
 	selected = 1
 	play_clip("Idle")
+	if robot_idle:
+		var idle_player := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+		assert(idle_player.current_animation == "Idle")
+		print("CHARGE_ROBOT_IDLE_DISPATCH_OK")
 	selected = 0
 	clip_status = "Human: static fitting model; action clips unavailable"
 	if rigged_human: play_clip("Idle")
@@ -135,7 +141,10 @@ func _ready() -> void:
 		_unhandled_input(key)
 		if charge:
 			assert("unavailable" in clip_status)
-			assert(subjects[1].find_children("*", "AnimationPlayer", true, false).is_empty())
+			var robot_players := subjects[1].find_children("*", "AnimationPlayer", true, false)
+			if robot_idle:
+				assert(robot_players.size() == 1 and robot_players[0].has_animation("Idle"))
+			else: assert(robot_players.is_empty())
 		else:
 			var player := subjects[1].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			assert(player.current_animation == "Walk")
@@ -179,6 +188,35 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var elapsed := (Time.get_ticks_usec() - started) / 1000000.0
 	print("COMPARISON_RENDER_TIMING frames=120 seconds=", elapsed, " average_fps=", 120.0 / elapsed)
+	for argument in OS.get_cmdline_user_args():
+		if not argument.begins_with("--benchmark-output="): continue
+		var destination := argument.trim_prefix("--benchmark-output=")
+		assert(destination.begins_with(root) and destination.ends_with(".json"))
+		await get_tree().create_timer(1.0).timeout
+		var begin := Time.get_ticks_usec()
+		var begin_drawn := Engine.get_frames_drawn()
+		var samples: Array[float] = []
+		var max_draw_calls := 0.0
+		var max_video_bytes := 0.0
+		var previous := begin
+		while Time.get_ticks_usec() - begin < 5000000:
+			await RenderingServer.frame_post_draw
+			var now := Time.get_ticks_usec()
+			samples.append((now - previous) / 1000.0)
+			previous = now
+			max_draw_calls = maxf(max_draw_calls, Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME))
+			max_video_bytes = maxf(max_video_bytes, Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED))
+		var seconds := (Time.get_ticks_usec() - begin) / 1000000.0
+		var drawn := Engine.get_frames_drawn() - begin_drawn
+		assert(drawn > 0 and not samples.is_empty())
+		samples.sort()
+		var texture_size := get_viewport().get_texture().get_size()
+		var evidence := {"window_size": [get_window().size.x, get_window().size.y], "render_texture_size": [texture_size.x, texture_size.y], "logical_viewport_size": [get_viewport().get_visible_rect().size.x, get_viewport().get_visible_rect().size.y], "seconds": seconds, "rendered_frames": drawn, "rendered_frames_per_s": drawn / seconds, "frame_post_draw_interval_p95_ms": samples[int((samples.size() - 1) * 0.95)], "max_draw_calls": max_draw_calls, "engine_reported_video_bytes": max_video_bytes, "scope": "Five-second native rendered-frame interval; no GPU execution timing, no full VRAM peak or production benchmark", "human": human_path, "robot": robot_path}
+		var output := FileAccess.open(destination, FileAccess.WRITE)
+		assert(output != null)
+		output.store_string(JSON.stringify(evidence, "  "))
+		output.close()
+		print("COMPARISON_NATIVE_BENCHMARK_OK ", JSON.stringify(evidence))
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--capture="):
 			var path := argument.trim_prefix("--capture=")
@@ -268,6 +306,7 @@ func load_tactical_map() -> void:
 	floor_mesh.material_override = asphalt
 	add_child(floor_mesh)
 	var occupied: Dictionary = {}
+	var batches: Dictionary = {true: [], false: []}
 	for obstacle in data.walls:
 		var tall: bool = "building" in obstacle.id
 		for cell in obstacle.cells:
@@ -275,17 +314,27 @@ func load_tactical_map() -> void:
 			if occupied.has(key):
 				continue
 			occupied[key] = true
-			var geometry := MeshInstance3D.new()
-			var block := BoxMesh.new()
 			var height := 3.0 if tall else 0.7
-			block.size = Vector3(1, height, 1)
-			geometry.mesh = block
-			geometry.position = Vector3(cell[0] - data.grid[0] / 2.0 + 0.5, height / 2, cell[1] - data.grid[1] / 2.0 + 0.5)
-			var surface := StandardMaterial3D.new()
-			surface.albedo_color = Color(0.12, 0.15, 0.17) if tall else Color(0.28, 0.29, 0.27)
-			surface.roughness = 0.8
-			geometry.material_override = surface
-			add_child(geometry)
+			batches[tall].append(Transform3D(Basis.IDENTITY, Vector3(cell[0] - data.grid[0] / 2.0 + 0.5, height / 2, cell[1] - data.grid[1] / 2.0 + 0.5)))
+	var batch_instances := 0
+	for tall in batches:
+		var geometry := MultiMeshInstance3D.new()
+		var block := BoxMesh.new()
+		block.size = Vector3(1, 3.0 if tall else 0.7, 1)
+		var instances := MultiMesh.new()
+		instances.transform_format = MultiMesh.TRANSFORM_3D
+		instances.mesh = block
+		instances.instance_count = batches[tall].size()
+		for index in range(instances.instance_count): instances.set_instance_transform(index, batches[tall][index])
+		geometry.multimesh = instances
+		var surface := StandardMaterial3D.new()
+		surface.albedo_color = Color(0.12, 0.15, 0.17) if tall else Color(0.28, 0.29, 0.27)
+		surface.roughness = 0.8
+		geometry.material_override = surface
+		add_child(geometry)
+		batch_instances += instances.instance_count
+	assert(batch_instances == occupied.size())
+	print("TACTICAL_OBSTACLE_BATCHES_OK instances=", batch_instances, " batches=2")
 	# No clear landing footprint exists on this alley: show the aircraft hovering.
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/vtol01/vtol.glb", Vector3(-6, 4, -4))
 	load_subject("E:/CyberCity2085-3d-lab/generated/phase2/crate_procedural/crate_procedural.glb", Vector3(-3, 0, 2))
@@ -313,7 +362,7 @@ func play_clip(name_value: String) -> void:
 
 func _process(_delta: float) -> void:
 	if hud:
-		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (rest pose)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 

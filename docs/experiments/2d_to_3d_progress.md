@@ -2,6 +2,65 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` ROBOT-VISOR-RIG-STAGE-82 (2026-11-25) — film robot glass adapted
+  explicitly, not silently declared equivalent. First glossy-color bake produced
+  an excessively white head and was rejected after native capture. Latest variant
+  uses authored diffuse tint plus authored glossy roughness/normal routes, opaque
+  dielectric/clearcoat, omitting layered refraction. security_pbr_robot02 now has
+  124/124 textured surfaces,496 embedded images,269,209 triangles,36,998,108-byte
+  GLB. Four diagnostic purple surfaces removed. Structural coverage PASS is not
+  source shader fidelity; original120 bakes still retain earlier emission treatment.
+
+  Original source rig audited:206 bones,124 meshes;107 with no vertex groups and
+  17 with one group. New independent124-joint mechanical skeleton samples evaluated
+  source surfaces/constraints rather than inventing mechanical linkages. Actual
+  Head control yaw+/-0.12rad,49 frames/2s Idle scan. First native gate FAIL0.65151m
+  on shin from missing edit-bone rest basis; corrected delta*rest pose then rebuilt.
+  Also fixed Blender library loading mutating the passed list into object refs.
+  Neutral source mismatch1.202e-7m. One cable needs residual morphs (otherwise
+  2.707mm max rigid-fit error). Latest security_idle01/robot_idle.blend/.glb:
+  124 meshes/124 joints/one skin/one Idle,51,094,860 bytes. Actual normalized skin
+  buffers, exact clip duration and embedded materials verified. Native reference
+  gate PASS six surfaces x49 source times: four shin/shell pieces<=0.061micrometer,
+  head65.782micrometers, cable16.630micrometers sampled nearest-surface distance.
+  Only a head-scan Idle, not walk/fire/death or a complete robot action set.
+
+  Added explicit --robot-idle-study option to the independent comparison. Robot
+  Idle dispatch, human Pistol_Shoot dispatch, selection/camera controls and627-cell
+  map/five-subject stage PASS. Regressions: prior Charge Idle/Walk stage PASS and
+  original two-subject George stage PASS, with positive markers and native exit0.
+  Seven Python tests PASS. Obstacles now use two MultiMesh batches, exact627
+  transforms/occupancy retained; screenshot draw calls1992 before/740 after (not
+  an isolated matched GPU benchmark). Neutral front/profile/back captures for
+  armed Einar and new robot generated and inspected. Human support grip, missing
+  beard/hair, identity/clothing art and robot dark-surface readability remain open.
+  Scene still has prototype untextured obstacle volumes and hovering VTOL.
+
+  Five-second frame_post_draw measurement after warmup:1617 rendered frames in
+  5.001573s (~323.30/s), interval p95=3.499ms,740 draw calls, Godot-reported video
+  allocation1,278,827,200 bytes. Render texture/logical viewport1920x1080; OS window
+  1280x720 (do not confuse physical window size with offscreen render size).
+  Human is at end of its one-shot pistol clip while robot Idle loops during most
+  samples. Evidence animated_pair_benchmark.json and
+  charge_animated_pair_benchmark.png on E: phase2. This is a short native scene
+  measurement, NOT GPU execution timing, total GPU VRAM peak, full combat load or
+  production performance acceptance. Source Blender invalid geometry-node driver
+  warnings and native SDL calibration warning remain recorded, not hidden.
+
+  Files: adapt_charge_robot_visor.py, audit_charge_robot_rig.py,
+  rig_charge_robot_idle.py, authored_scene.py, verify_charge_robot_pbr.py,
+  surface_motion_check.gd, comparison.gd. No production/runtime/save edits,
+  no push/release. All models/materials/captures external E:. DONE in this batch:
+  explicit visor candidate, head-scan rig, native sampling, obstacle batching and
+  short native benchmark. TODO next: compatible multi-clip morph packaging,
+  human identity/hair/grip acceptance, remaining humanoid/robot actions, mesh/
+  material/morph optimization, textured environment and final atlas comparison.
+  Six prototype categories have technical studies; accepted final Rook/Raider
+  identities0/2, newly accepted complete humanoid/robot action sets0/2. Existing
+  map layout loaded1 in this experiment; expected multi-map coverage unspecified,
+  artistically finalized experimental maps0. Full acceptance NOT VERIFIED.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` AUTHORED-ACTIONS-SURFACES-81 (2026-11-25) — acquired the free
   Quaternius Universal Animation Library Standard through its normal itch.io
   download flow. Official page and archive License.txt/README explicitly CC0.

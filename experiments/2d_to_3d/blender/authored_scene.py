@@ -5,10 +5,14 @@ import bpy
 
 def load_einar_scene():
     source=Path('E:/CyberCity2085-3d-lab/sources/charge_studio/einar_release_v1.blend')
+    return load_authored_scene(source)
+
+
+def load_authored_scene(source):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     with bpy.data.libraries.load(str(source),link=False) as (available,loaded):
         if len(available.scenes)!=1:
-            raise ValueError('Expected one authored Einar scene: '+repr(available.scenes))
+            raise ValueError('Expected one authored scene: '+repr(available.scenes))
         loaded.scenes=list(available.scenes)
     scene=loaded.scenes[0]
     # Film-only camera/turntable drivers access the enclosing scene in Python.

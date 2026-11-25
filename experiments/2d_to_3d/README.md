@@ -26,6 +26,19 @@ or art. `comparison.tscn -- --charge --human-action-study --tactical --sprite-re
 Idle/Walk and the other action studies are not yet bundled with its morphs.
 CLI wrappers keep temporary/profile/cache files on E: and disable embedded
 Blender Python execution. All output remains external, no production replacement.
+
+Robot follow-up: run `adapt_charge_robot_visor.py`, then
+`rig_charge_robot_idle.py` through run_blender.ps1. The first creates an explicit
+opaque visor approximation; the second bakes authored mechanical motion into
+security_idle01/robot_idle.blend/.glb (head-scan Idle only). Check with
+`verify_charge_robot_pbr.py E:/CyberCity2085-3d-lab/generated/phase2/security_idle01
+--rigged`, then surface_motion_check.tscn SceneArguments
+`--folder=E:/CyberCity2085-3d-lab/generated/phase2/security_idle01`,`--model-file=robot_idle.glb`.
+Positive EINAR_NATIVE_SURFACE_GATE_OK is the shared historical surface-gate
+marker, also used by the robot. Add --robot-idle-study to the comparison above.
+Optional --benchmark-output=E:/CyberCity2085-3d-lab/generated/phase2/FILE.json
+records a five-second rendered-frame interval, scene draw calls and engine video
+allocation. This is not GPU execution timing or production performance acceptance.
 Professional Charge source conversion studies are stored on E: only:
 `security_pbr_robot01` (120/124 surfaces, unresolved glass), `einar_geometry01`
 (static diagnostic human), `einar_jacket01` (authored fabric bake proof).
