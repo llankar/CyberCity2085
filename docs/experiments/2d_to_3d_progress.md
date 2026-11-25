@@ -2,6 +2,45 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` PROFESSIONAL-SCAN-WARDROBE-96 (2026-11-25). Previous turn95
+  classified progress: qualified source and checkpoint687b48d7. Read actual git/
+  principal/experimental registers before continuing; user save remains untouched.
+  Read-only anatomical audit on E finds33topological islands, actual eye front/back
+  surfaces and eye/eyelid/jaw joints. One phototexture/material, no hidden complete
+  anatomical body asserted under clothes. Neck1.55493m, wrists+.71969/-.73863m at
+  z1.53774/1.53528m; old garment fitted to A-pose, professional source T-pose.
+
+  DONE measured-segment rest alignment and actual barycentric rebind of existing
+  authored CC BY jacket/CC0leather onto89joint Renderpeople source. New pure
+  segment_transform preserves endpoints, positive determinant/uniform scale without
+  shear, including antiparallel cases; rejects degenerate/nonfinite/malformed joints.
+  Seven new tests plus existing13cases actually PASS (20total,0failed,0skipped).
+  Initial Blender script sum(int,Vector) failed; fixed explicit Vector seed.
+  First native fit shows Tshirt clipping heavily. Local outward clearance14mm
+  projection improves coverage; rest bind error.377um, max nearest-body gap89.19mm,
+  retained skin weights>=98.755%. Old A-pose custom normals reset after deformation.
+
+  Native export source-surface check actually PASS,9Walk times max49.170um with
+  positive EINAR_NATIVE_SURFACE_GATE_OK and freshJSON; rerun after tested segment
+  implementation replacement PASS. One real original Walk only, no new combat
+  animation claim. Original source files unchanged; notices combined in Blend/GLB.
+  Outputs E:/CyberCity2085-3d-lab/generated/phase2/nathan_wardrobe01 include anatomy
+  audit, fit report, Blend/GLB, credits, surface reference/native check and neutral
+  front/walk-side/walk-back PNGs. Geometry fit before pure-helper extraction differs
+  only at float-rounding level; screenshot review scope recorded explicitly.
+
+  Native neutral front/profile/back inspected: shoulder/sleeve surface irregularities,
+  local remaining poke-through and over-shiny leather remain artistic FAIL. Real
+  scanned anatomy/hair remains better candidate, not an accepted Rook. Do not treat
+  faithful native deformation as correct cloth fit. No final art screenshots claimed.
+  Bounded tasks2/3 DONE (anatomy audit and verified skin/export), artistic fit remains
+  IN_PROGRESS. Accepted human identities0/2, final modular outfits0, native scene
+  still5/6subjects/onepartial existing map, final artistic maps0. No production changes,
+  campaign tests, push or release. Next TODO: improve actual garment shoulder topology/
+  clearance smoothly rather than per-vertex normal pushes; qualify eye/material
+  repair and tactical gear. Robot impact/destruction and vehicle articulation remain
+  realizable independent TODOs. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` PROFESSIONAL-SCANNED-HUMAN-95 (2026-11-25). Qualified and acquired
   Renderpeople Nathan Animated003, exact Sketchfab UID143a2b1ea5eb4385ae90a73657aca3bc.
   Current primary author/license metadata verifies Renderpeople / CC BY4. This

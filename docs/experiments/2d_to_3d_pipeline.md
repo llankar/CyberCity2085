@@ -262,3 +262,18 @@ including shader cache/logs. Existing lab folder migration requires no live Godo
 exact source/target containment and every file hash verified before replacement.
 No production userdata or driver-global shader cache changes. GPU sampler records
 GPU-wide memory with live PIDs; it does not claim exclusive model allocation.
+
+## Batch96: measured rest-pose wardrobe fitting
+
+```powershell
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/audit_nathan_anatomy.py
+./experiments/2d_to_3d/run_blender.ps1 -Script blender/fit_nathan_wardrobe.py
+./experiments/2d_to_3d/run_godot.ps1 -Scene res://surface_motion_check.tscn -QuitAfter 300 -SceneArguments @('--folder=E:/CyberCity2085-3d-lab/generated/phase2/nathan_wardrobe01','--model-file=human.glb')
+```
+
+Actual garment comes from existing licensed wardrobe study. Similarity transforms
+align measured A/T bone segments, then weights transfer from professional scan's
+actual surface. Skin/export verification passes but shoulder fit remains visibly
+FAIL: local normal clearance pushes distort cloth. Do not accept or generalize it.
+The source has separate eye surfaces and face joints; no nude modular anatomy or
+missing detailed PBR maps assumed.
