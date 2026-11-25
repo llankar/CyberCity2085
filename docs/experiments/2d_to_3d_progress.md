@@ -2,6 +2,40 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` LICENSED-HEAD-125 (2026-11-25). Continued68a91a6f. No production
+  changes or asset publication. `DONE` acquired one pinned Lee Perry-Smith scan
+  from keijiro/InfiniteScan revision150b6c46ebb6a011b93ed2e0fee9b612df78281b:
+  explicit CC BY3 grant covers models/images; source notice and SHA256 provenance
+  saved under E:sources/infinite_scan_head. Four files10,039,028bytes, not a model
+  library download. Windows TLS validation retained. Actual FBX import8844vertices,
+ 17684triangles, original4096px photograph/UV, uniform45cm bust normalization;
+  packed BLEND/GLB under E:generated/phase2/lee_perry_head01. Bump acquired but not
+  applied. Native neutral front/profile/back inspected: anatomy useful, eyes shut;
+  not accepted as Rook or transplanted onto the body.
+
+  `DONE` actual Microsoft Rocketbox MIT head/eye review using already acquired
+  Military Male03 source. Initial extraction removed370frame faces but left two
+  separate64face sunglass lenses. Native front/profile exposed this mistake;
+  corrected by measured component signatures, retaining actual126face eyeballs.
+  Final unframed/unlensed head has2982triangles; original skin UV/material retained.
+  E:generated/phase2/rocketbox_head_review125 contains editable BLEND/GLB, MIT notice,
+  report and neutral captures. This is a useful open-eyed candidate, not a finished
+  modern-quality character. Neck cut, old facial topology, hair/likeness, skin
+  material and animated fit still require work. No eye rig retained in isolated
+  review export. Earlier claim that64face components were eyelashes was wrong:
+  they were the two opaque sunglass lenses, confirmed by removal/native rendering.
+
+  Validation:37unique Python tests PASS/0fail/0skip, E:tmp/pytest125-final.xml;
+  normalization4 plus existing IK/fire/atlas/envelope/material33. Blender positive
+  export markers and native GLB/capture-result0 observed. SDL calibration warning
+  remains. No new deformation, tactical-scale, VRAM or performance acceptance.
+  `TODO` NEXT: fit genuine open-eyed head to existing dressed actor, preserving
+  anatomy/source UV and notices; verify neck seam/front/profile/back and six clips
+  before tactical-scale comparison. No second human production before first gate.
+  Global counts unchanged: required clips5/5technical,0/5artistic; acceptedRook0/1,
+  humanatlas1/5sets, finalhumans0/2, scene5/6subjects, mapnative1/1/artistic0/1.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` ROOK-MATERIAL-124 (2026-11-25). Continuedcfe57a49, first actor
   only. Resolved actual game portrait through portrait_path_for_agent(Rook,
   samurai,male): assets/ui/portraits/agent_male_14.png. Inspected this real orange
