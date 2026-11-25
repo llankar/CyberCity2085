@@ -13,14 +13,20 @@ var orbit_mode := false
 var clip_status := "Human: static fitting model; action clips unavailable"
 var human_height := 1.718
 var robot_height := 2.4
+var human_weapon: Node3D
 
 func subject_height(subject: Node3D) -> float:
 	var bounds := AABB()
 	var first := true
 	for mesh in subject.find_children("*", "MeshInstance3D", true, false):
-		var box: AABB = mesh.global_transform * mesh.get_aabb()
-		bounds = box if first else bounds.merge(box)
-		first = false
+		# Mesh AABBs include the union of possible morph displacements, which is
+		# not the actor's reference height and changes when clips are bundled.
+		for surface in range(mesh.mesh.get_surface_count()):
+			var vertices: PackedVector3Array = mesh.mesh.surface_get_arrays(surface)[Mesh.ARRAY_VERTEX]
+			for vertex in vertices:
+				var point: Vector3 = mesh.global_transform * vertex
+				bounds = AABB(point, Vector3.ZERO) if first else bounds.expand(point)
+				first = false
 	assert(not first and bounds.size.y > 0.5)
 	return bounds.size.y
 
@@ -30,7 +36,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 	if document.append_from_file(path, state) != OK:
 		push_error("Missing comparison subject: " + path)
 		return false
-	var subject := document.generate_scene(state)
+	# Rest-valued tracks reset prior action poses and must survive import.
+	var subject := document.generate_scene(state, 30, false, false)
 	add_child(subject)
 	subject.position = position_value
 	subjects.append(subject)
@@ -59,9 +66,12 @@ func _ready() -> void:
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
 	var charge := "--charge" in OS.get_cmdline_user_args()
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
-	var rigged_human := charge and "--rigged-human" in OS.get_cmdline_user_args()
+	var bundled_human := charge and "--human-bundle-study" in OS.get_cmdline_user_args()
+	var rigged_human := charge and ("--rigged-human" in OS.get_cmdline_user_args() or bundled_human)
 	if rigged_human: human_path = root + "einar_motion01/human_motion.glb"
+	if bundled_human: human_path = root + "einar_bundle02/human_actions.glb"
 	var action_human := charge and "--human-action-study" in OS.get_cmdline_user_args()
+	assert(not (bundled_human and action_human), "Choose one human study")
 	if action_human: human_path = root + "einar_pistol_fit01_surfaces/human_pistol.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
@@ -72,6 +82,9 @@ func _ready() -> void:
 	if not load_subject(robot_path, Vector3(1.6, 0, 0)):
 		get_tree().quit(2)
 		return
+	if bundled_human:
+		human_weapon = preload("res://pistol_attachment.gd").attach(subjects[0])
+		human_weapon.visible = false
 	if charge:
 		human_height = subject_height(subjects[0])
 		robot_height = subject_height(subjects[1])
@@ -162,12 +175,22 @@ func _ready() -> void:
 			assert(walking_player.current_animation == "Walk")
 			print("CHARGE_HUMAN_WALK_DISPATCH_OK")
 			play_clip("Shoot")
-		if action_human:
+		if action_human or bundled_human:
 			play_clip("Shoot")
 			var action_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
 			assert(action_player.current_animation == "Pistol_Shoot")
+			if bundled_human: assert(human_weapon.visible)
 			print("CHARGE_HUMAN_PISTOL_DISPATCH_OK")
 		else: assert("unavailable" in clip_status)
+		if bundled_human:
+			var bundle_player := subjects[0].find_children("*", "AnimationPlayer", true, false)[0] as AnimationPlayer
+			play_clip("Melee")
+			assert(bundle_player.current_animation == "Punch_Cross")
+			assert(not human_weapon.visible)
+			play_clip("Death")
+			assert(bundle_player.current_animation == "Death01")
+			assert(not human_weapon.visible)
+			print("CHARGE_HUMAN_FIVE_ACTION_DISPATCH_OK")
 		selected = 1
 		play_clip("Idle")
 		selected = 0
@@ -351,18 +374,20 @@ func play_clip(name_value: String) -> void:
 		clip_status = "Requested action unavailable (not simulated)"
 		return
 	var player := players[0] as AnimationPlayer
-	if name_value == "Shoot" and player.has_animation("Pistol_Shoot"): name_value = "Pistol_Shoot"
+	var aliases := {"Shoot": "Pistol_Shoot", "Melee": "Punch_Cross", "Death": "Death01"}
+	if aliases.has(name_value) and player.has_animation(aliases[name_value]): name_value = aliases[name_value]
 	if not player.has_animation(name_value):
 		clip_status = "Requested action unavailable: " + name_value
 		return
 	player.play(name_value)
+	if selected == 0 and human_weapon: human_weapon.visible = name_value == "Pistol_Shoot"
 	if name_value == "Idle" or name_value == "Walk":
 		player.get_animation(name_value).loop_mode = Animation.LOOP_LINEAR
 	clip_status = ("Human animation: " if selected == 0 else "Robot animation: ") + name_value
 
 func _process(_delta: float) -> void:
 	if hud:
-		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
+		hud.text = "EXPERIMENTAL SCALE REVIEW | 1 m tiles | NOT FINAL ART\nLeft: human %.3f m | Right: robot %.3f m (measured mesh heights)\nSelected: %s | %s\nTAB / click: select | 1 Idle  2 Walk  3 Shoot  4 Death  5 Melee\nC: isometric / orbit | RMB drag: orbit | Wheel: zoom\nFPS %d | draw calls %d | rendered primitives %d" % [human_height, robot_height, "Human" if selected == 0 else "Robot", clip_status, Engine.get_frames_per_second(), Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME), Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME)]
 		if "--tactical" in OS.get_cmdline_user_args():
 			hud.text += "\nExisting alley layout + 2D floor / prototype obstacle volumes\nVTOL hovering: no clear landing footprint | art NOT accepted"
 
@@ -376,7 +401,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				yaw = 0.65
 				elevation = 0.6
 				update_camera()
-		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death"}
+		var actions := {KEY_1: "Idle", KEY_2: "Walk", KEY_3: "Shoot", KEY_4: "Death", KEY_5: "Melee"}
 		if actions.has(event.keycode):
 			play_clip(actions[event.keycode])
 	if event is InputEventMouseButton:

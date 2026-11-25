@@ -10,6 +10,24 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Shared five-clip study (batch83): run `bundle_einar_actions.py`, then
+`verify_einar_action_bundle.py`. Native `bundle_action_check.tscn` compares the
+actual shared skin/morphs against original per-clip GLBs, including Death->Idle
+reset; require EINAR_NATIVE_ACTION_BUNDLE_OK. `import_einar_action_bundle.py`
+through run_blender.ps1 creates packed editable human_actions.blend on E: beside
+human_actions.glb. No Blender re-export roundtrip acceptance yet. The bundler
+requires installed NumPy/SciPy and refuses incompatible geometry/shear/variable
+STEP rebases rather than altering source semantics. It reuses the modern rest
+basis and preserves source clip seconds. Geometry/material/target size unoptimized.
+
+Use comparison.tscn with --charge --human-bundle-study --robot-idle-study
+--tactical --sprite-review --self-test. Keys1..5 select Idle/Walk/Shoot/Death/Melee.
+The separate licensed pistol follows the measured wrist, visible only for Shoot;
+runtime_pistol_check.tscn checks complete vertex sets against prior fitted prop.
+Preview accepts --attach-pistol. Experimental GLTF loaders retain immutable tracks:
+removing rest-valued tracks otherwise leaves old finger poses after action changes.
+The shared character file itself is unarmed and still lacks final hair/identity.
+
 Latest individual authored motion studies (batch81) use Quaternius UAL Standard
 CC0 with Einar CC BY4.0. Reproduce through `run_blender.ps1 -Script
 blender/rig_einar_game_study.py -ScriptArguments '--ual=Pistol_Shoot','--surface-corrections'`

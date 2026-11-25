@@ -20,8 +20,9 @@ func _ready() -> void:
 		push_error("Could not load experimental GLB: %s (%s)" % [model_path, error])
 		get_tree().quit(2)
 		return
-	var model := document.generate_scene(state)
+	var model := document.generate_scene(state, 30, false, false)
 	add_child(model)
+	if "--attach-pistol" in OS.get_cmdline_user_args(): preload("res://pistol_attachment.gd").attach(model)
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--rotate-x="):
 			model.rotation_degrees.x = argument.trim_prefix("--rotate-x=").to_float()

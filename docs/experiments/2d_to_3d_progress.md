@@ -2,6 +2,80 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` SHARED-HUMAN-ACTIONS-83 (2026-11-25) — one real GLB now shares
+  76 meshes/235,726 triangles/222 joints/one skin/274 embedded images across five
+  clips: Idle2s, Walk1.333333s, Pistol_Shoot0.633333s, Punch_Cross1s, Death012.4s.
+  E: phase2/einar_bundle02/human_actions.glb71,898,692 bytes; editable companion
+  human_actions.blend124,994,575 bytes. Original single-clip/source files retained.
+  Packed Blender import verified222 bones/76 body meshes, seven animated owners
+  (rig + six shape-key sets), each with all five NLA track names,30fps, Idle
+  selected and274 packed images. Importer's Icosphere is a referenced bone-shape
+  helper, hidden for rendering; not counted as a body mesh. Blender re-export
+  roundtrip remains NOT VERIFIED. The shared file has no embedded weapon/hair.
+
+  Initial compatibility audit: identical vertex/index/skin-weight buffers except
+  12 normal components of left sole, max9.93684e-5 component difference. Preserved
+  via explicit constant normal-only morphs. Rest bases also differed substantially
+  between older Idle/Walk and current source loader; direct bone-track copy refused.
+  Flat-joint rebasing enforces newPose*baseBind=oldPose*oldBind. Modern pistol rest
+  is common basis, preserving recent clips' original STEP tracks; only Idle/Walk
+  rebased, max TRS recomposition residual1.72659e-7. No fps guessing: GLB seconds
+  retained directly. Varying STEP/shear are explicitly refused by the rebase path,
+  rather than silently changing interpolation. Union morphs126/124/124/104/104/124
+  across six pieces, all driven by every clip to prevent state carryover. Size and
+  target count remain unoptimized.
+
+  Native first combined test FAIL: Idle retained finger poses from Pistol. Numeric
+  GLB skin products agreed (~1.73e-7), but Godot default removed rest-valued constant
+  tracks. Explicit generate_scene(state,30,false,false) fixed it; now preserved by
+  experimental preview/comparison loaders. Official API reference:
+  https://docs.godotengine.org/en/stable/classes/class_gltfdocument.html#class-gltfdocument-method-generate-scene
+  Final original/bundle comparison PASS:222 skin transforms x17 times per clip;
+  selected head/pants/strap/sole vertex correspondence x9 times. Max sampled vertex
+  delta0.257micrometer; max transform metric9.91135e-5 on Walk (mixed translation/
+  basis-vector metric, not a distance claim). Modern three clips exactly match in
+  this gate. Death->Idle reset max sampled vertex error0.239micrometer. Evidence
+  native_bundle_check.json binds proof to actual GLB SHA256.
+
+  Actual GPU captures with common fixed camera inspected and numerically compared:
+  pistol phase.25 original/bundle differ94 of921,600 pixels; death phase.75 differ29.
+  Maximum RGB channel difference1/255 for both; no visible deformation difference.
+  Evidence gpu_pixel_comparison.json and paired PNGs on E:. This proves these two
+  rendered samples, not global artistic quality or every frame/material.
+
+  Licensed separate pistol attaches to common wrist through BoneAttachment3D and
+  recorded measured grip/rest basis. Full vertex-set bidirectional comparison of
+  nine parts at six times PASS <=3.187micrometers against prior skinned fitted prop.
+  Initial arbitrary vertex-index comparison failed43.93mm because baking normals/
+  transforms reordered split vertices; replaced with complete bidirectional point
+  sets, not a looser threshold. Native syntax issue typed time float then rerun.
+  Existing trigger/support-hand fit remains artistically unaccepted. Comparison
+  --human-bundle-study offers keys1..5 Idle/Walk/Shoot/Death/Melee; weapon visibility
+  true only for Shoot, explicitly tested. --attach-pistol previews the same binding.
+
+  Five-action dispatch/selection/camera/map stage PASS. Reference height now comes
+  from actual base vertices rather than morph-union AABB:1.855504m instead of
+  inflated1.878544m; native1920x1080 projection62.208038px vs62.208 target. Source
+  map remains627 cells/two batches/five subjects; robot Idle option retained.
+  Armed front and tactical Idle captures inspected. Six new behavioural buffer/
+  pose/morph unit tests plus seven existing experimental tests:13 PASS,0 failed,
+  0 skipped in final run. All intermediate failures above retained as resolved
+  diagnostics; no reliance on native exit0 alone. Positive native markers required.
+  Prior two-clip Charge stage and original George stage regression self-tests also
+  PASS after loader/height changes; both produced native success/capture markers.
+
+  DONE this batch: shared five-clip GLB, packed Blender companion, rebase/reset/
+  GPU correspondence gates and independent weapon attachment. Files: glb_document,
+  gltf_pose, bundle_einar_actions, inspect_einar_clip_compatibility,
+  verify_einar_action_bundle, import_einar_action_bundle, native bundle/pistol gates,
+  preview/comparison and tests/test_experimental_action_bundle.py. No production
+  runtime/save changes, no push/release. Main GOAL untouched; bulky data on E:.
+  TODO next: actual human hair/face/clothing identity review, support grip; optimize
+  union morphs/meshes/materials; source-compatible remaining humanoid/robot actions;
+  Blender export roundtrip; textured tactical environment, animation atlas and full
+  acceptance. First convincing Rook/Raider identities remain0/2 artistically accepted;
+  full actor action sets0/2 accepted. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` ROBOT-VISOR-RIG-STAGE-82 (2026-11-25) — film robot glass adapted
   explicitly, not silently declared equivalent. First glossy-color bake produced
   an excessively white head and was rejected after native capture. Latest variant
