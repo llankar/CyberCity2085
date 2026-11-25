@@ -23,3 +23,11 @@ def test_ten_fire_samples_include_recoil_peak_and_preserve_duration():
 @pytest.mark.parametrize('first,last,count',[(1,1,4),(2,1,4),(0,float('inf'),4),(0,1,1)])
 def test_invalid_clip_intervals_rejected(first,last,count):
     with pytest.raises(ValueError):m.atlas_sample_frames(first,last,count=count)
+
+
+@pytest.mark.parametrize('last,loop,count',[(48,True,48),(24,True,24),(18,False,19),(24,False,25),(58,False,59)])
+def test_full_cadence_action_sheets_preserve_native_keys_and_loop_endpoint(last,loop,count):
+    frames=m.atlas_sample_frames(0,last,loop=loop,count=count)
+    assert frames==list(range(last+(0 if loop else 1)))
+    if not loop:assert frames[-1]==last
+    else:assert frames[-1]<last

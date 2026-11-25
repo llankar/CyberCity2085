@@ -2,6 +2,52 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` FIRST-ACTOR-ATLAS-130 (2026-11-25). Continuedf916c1d0, previous
+  turn concrete dense-run clearance correction. `DONE` full five-action alternate
+  PNG pipeline on current equipped first actor, no second human production:
+  Ready48/Walk24/Fire19/Melee25/Death59frames per each of8directions,1400actual
+  samples. Native24fps keys retained, no duplicated loop endpoint, nonloop final
+  death and actualFireframe8recoil retained.192pxRGBAframes; largest1536x11328sheet.
+  Existing renderer extended with --rook-run-study; legacy four-frame robot and
+  ten-frame Fire defaults preserved. All large outputs on E:rook_run129/atlas,
+ 1423files/38,994,102bytes including manifests/proofs/captures. Original Blender
+  source retained. No production resource or runtime replacement.
+
+  `DONE` FACING/PROVENANCE-130: actual Head/headfront rest landmarks prove-Y
+  anatomical forward. Actual Blender camera projections plus existing y_scale2
+  sectors yield [4,5,6,7,0,1,2,3]. Mapping enriched manifests while1405source PNG
+  hashes remained unchanged. Complete body/head/hand/weapon/motion notices and
+  attribution hash retained in CREDITS.txt/manifests. No assumed source-facing
+  table or new production conventions. Raw orbit views remain selectable.
+
+  `DONE` NATIVE-ATLAS-130: all five clips loaded in Godot4.7.2 at display_scale1,
+  all1400frame indices checked, actual play/pause/direction/toggle and loop/last
+  frame controls pass. Fresh native screenshots for five clips inspected at
+  combat pixel scale; E:atlas/native_*_validation.json records actual manifest/
+  atlas hashes, sizes, fps and controls. Final --native-proof verifier binds
+  all five current proofs, checks1400sheet/source crops (<=2channel levels),
+  transparency/no clipping, cadence, sourceBlendhash, credits and recoil visibility.
+  Idle has25..34distinct pixel frames/view despite48samples, Death52..56/59;
+  these are1400samples, not1400unique poses. Fine breathing can be subpixel.
+
+  Tests:61targeted Python PASS/0fail/0skip plus5facing tests PASS,66unique total;
+  E:tmp/pytest130.xml and pytest130-facing.xml. Five new cadence tests cover full
+  native sampling. Legacy Fire80PNG/robot160PNG checks PASS and native robotIdle
+ 32frame playback regression PASS. No production campaign/CombatVisual gates run.
+  SDL calibration warning persists. Atlas review frame limit64 handles full
+  death59; default enlargement1.5 remains for older review commands.
+
+  `IN_PROGRESS` ART-130: atlas workflow complete technically5/5 on first actor;
+  it does not close art gates. Small-size silhouettes/actions readable in reviewed
+  native snapshots, but hair tips/neck folds/wrist-finger contact and source mesh
+  finish remain open; automated frame/alpha checks do not prove modern-game art.
+  `TODO` NEXT: place generated atlas alongside original2D/actual3D in the same
+  independent tactical camera and synchronize action/time/facing for direct
+  comparison; refine identified art defects before accepting/generating Raider.
+  Counts: required human5/5clips technical,0/5artistic; humanatlas5/5sets technical,
+ 0/5final-art; acceptedRook0/1; finalhumans0/2; scene5/6subjects; mapnative1/1,
+  artistic0/1. No build, push or mainGOAL edits. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` RUN-CLEARANCE-129 (2026-11-25). Continued0dedd36d; previous turn
   concrete reviewed UV correction and current-scene measurement progress.
   `DONE` finer original sourceRun audit: integer-key minimum-3.204864mm, but

@@ -676,3 +676,48 @@ This candidate preserves real source geometry and licenses but fails the current
 Rook artistic target. Do not infer animation or final art acceptance from the
 source-retention assertion check. No new animation clips are present.
 
+## First equipped actor: full-cadence atlas experiment (batch130)
+
+The current independent source is E:/CyberCity2085-3d-lab/generated/phase2/
+rook_run129/human.blend, not the older Diesel/MPFB or first Fire-only studies.
+It combines the acquired body/hair, MIT head, BY-SA3 glove, CC0 pistol and actual
+licensed motion; keep the complete CREDITS.txt with all derived outputs.
+This source remains a prototype, not final Rook art or a production replacement.
+
+From the repository in PowerShell:
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/render_rocketbox_atlas.py -ScriptArguments @('--rook-run-study')
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/map_robot_atlas_facings.py -ScriptArguments @('--rook-run-study')
+python experiments/2d_to_3d/verify_rocketbox_atlas.py --rook-run-study
+```
+
+This renders five actions at native24fps in eight views into the source folder's
+atlas subdirectory: Ready48,Walk24,Fire19,Melee25,Death59frames/view,1400samples
+total. Loop endpoints are not duplicated; nonloops retain their final pose and
+Fire includes recoil at sourceframe8. RGBA frames are192x192; projected reference
+height remains62.208px. Largest sheet1536x11328. PNGs are derived from actual mesh
+renders, not pasted 2D art. The facing map is measured from actual Head/headfront
+rest landmarks and camera projections using the existing facing_y_scale2 sectors.
+No production scene, sprite, animation or rule is changed.
+
+For each clip replace the manifest/action arguments below, using lower-case
+action identifiers. The native test writes hash-bound evidence in the atlas
+folder; --combat-scale displays at1.0 instead of the review enlargement1.5.
+
+```powershell
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://atlas_review.tscn -QuitAfter 150 -SceneArguments @('--atlas-dir=E:/CyberCity2085-3d-lab/generated/phase2/rook_run129/atlas','--manifest=DeathStudy_atlas.json','--action=deathstudy','--combat-scale','--production-order','--self-test','--frame=58','--capture=E:/CyberCity2085-3d-lab/generated/phase2/rook_run129/atlas/native_DeathStudy.png')
+```
+
+After native checks for CombatReadyStudy,walk,PistolFireStudy,MeleeStudy,DeathStudy:
+
+```powershell
+python experiments/2d_to_3d/verify_rocketbox_atlas.py --rook-run-study --native-proof
+```
+
+The final verifier checks every source/sheet crop, alpha borders, sample times,
+24fps, source Blender hash, attribution file hash, facing permutation, recoil
+peak and the five current native manifest/PNG hashes. It proves the technical
+atlas alternative on the first actor. It does not approve contact, hairline,
+anatomical fidelity, material quality or use in the production game.
+

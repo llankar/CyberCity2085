@@ -15,14 +15,16 @@ var production_order := false
 var captions: Array[Label] = []
 var has_facing_map := false
 var frame_count := 4
+var display_scale := 1.5
 
 func _ready() -> void:
+	if "--combat-scale" in OS.get_cmdline_user_args():display_scale=1.0
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/robot_walk_atlas01/"
 	var manifest_name := ""
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--action="):
 			action_name = argument.trim_prefix("--action=").to_lower()
-			if action_name not in ["idle", "walk", "shoot", "hitrecieve_1", "death", "melee", "hit", "pistolfirestudy"]:
+			if action_name not in ["idle", "walk", "shoot", "hitrecieve_1", "death", "melee", "hit", "pistolfirestudy", "combatreadystudy", "meleestudy", "deathstudy", "run"]:
 				get_tree().quit(5)
 				return
 		if argument.begins_with("--atlas-dir="):
@@ -50,7 +52,7 @@ func _ready() -> void:
 	rows = manifest.animations[action_name].rows
 	assert(rows.size()==8)
 	frame_count=rows[0].size()
-	assert(frame_count>=2 and frame_count<=32)
+	assert(frame_count>=2 and frame_count<=64)
 	for row in rows:assert(row.size()==frame_count)
 	fps = manifest.animations[action_name].fps
 	looping = manifest.animations[action_name].loop
@@ -66,7 +68,7 @@ func _ready() -> void:
 		sprite.vframes = int(image.get_height()/int(manifest.frame_size[1]))
 		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
 		sprite.position = Vector2(160 + (index % 4) * 300, 260 + (index / 4) * 290)
-		sprite.scale = Vector2.ONE * 1.5
+		sprite.scale = Vector2.ONE * display_scale
 		if manifest.has("anchor_uv"):
 			sprite.centered = false
 			sprite.offset = -Vector2(manifest.anchor_uv[0], manifest.anchor_uv[1]) * Vector2(manifest.frame_size[0], manifest.frame_size[1])
@@ -117,7 +119,12 @@ func _ready() -> void:
 		elapsed = 0
 		_process(1.1 / fps)
 		assert(frame_value == (0 if looping else frame_count-1))
-		print("ATLAS_PLAYBACK_TEST_OK frames=",8*frame_count," pause=true view_selection=true")
+		print("ATLAS_PLAYBACK_TEST_OK frames=",8*frame_count," pause=true view_selection=true display_scale=",display_scale)
+		var evidence := {"status":"PASS","action":action_name,"frame_index_tests":8*frame_count,"fps":fps,"loop":looping,"display_scale":display_scale,"production_order":production_order,"facing_to_orbit_view":facing_map,"manifest_sha256":FileAccess.get_sha256(folder+manifest_name),"atlas_png_sha256":FileAccess.get_sha256(folder+manifest.texture),"texture_size":[image.get_width(),image.get_height()],"scope":"Actual native frame selection, pause, facing selection, loop/last-frame controls; not artistic acceptance"}
+		var evidence_file := FileAccess.open(folder+"native_"+action_name+"_validation.json",FileAccess.WRITE)
+		assert(evidence_file!=null)
+		evidence_file.store_string(JSON.stringify(evidence,"  "))
+		evidence_file.close()
 	for argument in OS.get_cmdline_user_args():
 		if argument.begins_with("--frame="):
 			frame_value=argument.trim_prefix("--frame=").to_int()
@@ -142,7 +149,7 @@ func update_frames() -> void:
 		views[direction].modulate = Color.WHITE if selected == direction else Color(0.8, 0.8, 0.8)
 		captions[direction].text = ["E", "SE", "S", "SW", "W", "NW", "N", "NE"][direction] if production_order else "Orbit view %d" % direction
 	if status:
-		var mapping_note := "M: orbit/projected facing; assumes source forward -Y" if has_facing_map else "Facing correspondence unavailable; orbit views only"
+		var mapping_note := "M: orbit/projected facing; measured source forward -Y" if has_facing_map else "Facing correspondence unavailable; orbit views only"
 		status.text = "ANIMATED ATLAS REVIEW | authored %s | 8 views x %d poses\nSpace: pause | Left/Right: select | frame %d | %.2f fps\n%s | artistic acceptance NOT VERIFIED" % [action_name, frame_count, frame_value, fps, mapping_note]
 
 func _process(delta: float) -> void:
