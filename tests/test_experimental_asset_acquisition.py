@@ -26,3 +26,8 @@ def test_paths_cannot_escape_reviewed_candidate(tmp_path,path):
 def test_license_and_original_texture_layout_preserved(tmp_path):
     assert module.destination_for(tmp_path,'LICENSE.md',PREFIX)==tmp_path/'LICENSE.md'
     assert module.destination_for(tmp_path,PREFIX+'Textures/body.tga',PREFIX)==tmp_path/'Textures/body.tga'
+
+
+@pytest.mark.parametrize('manifest',['../../external.json','download_everything.json'])
+def test_unreviewed_manifest_rejected_before_network(manifest):
+    with pytest.raises(ValueError,match='Unreviewed'): module.acquire(manifest)

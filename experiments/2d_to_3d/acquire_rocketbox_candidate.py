@@ -1,6 +1,7 @@
 """Fetch one explicitly reviewed MIT candidate, pinned by Git commit/blob IDs."""
 import hashlib
 import json
+import sys
 from pathlib import Path, PurePosixPath
 import requests
 
@@ -27,14 +28,20 @@ def destination_for(root, source_path, prefix):
     return destination
 
 
-def acquire():
-    manifest=json.loads((Path(__file__).parent/'manifests/rocketbox_military03.json').read_text())
-    assert manifest['license']=='MIT' and manifest['asset']=='Military_Male_03'
-    root=Path('E:/CyberCity2085-3d-lab/sources/rocketbox/Military_Male_03').resolve()
+def acquire(manifest_name='rocketbox_military03.json'):
+    reviewed={'rocketbox_military03.json':('Military_Male_03','Professions',160_000_000),
+              'rocketbox_hair08.json':('Male_Adult_08','Adults',64_000_000)}
+    if manifest_name not in reviewed: raise ValueError('Unreviewed acquisition manifest')
+    asset,category,limit=reviewed[manifest_name]
+    manifest=json.loads((Path(__file__).parent/'manifests'/manifest_name).read_text())
+    assert manifest['license']=='MIT' and manifest['asset']==asset
+    assert manifest['repository']=='microsoft/Microsoft-Rocketbox'
+    assert manifest['commit']=='0943055db6ec570bcef9f2c8b41c9e5467c808f9'
+    root=Path('E:/CyberCity2085-3d-lab/sources/rocketbox',asset).resolve()
     root.mkdir(parents=True,exist_ok=True)
     total=sum(file['size'] for file in manifest['files'])
-    assert total<160_000_000,'Review larger acquisition before download'
-    prefix='Assets/Avatars/Professions/Military_Male_03/'
+    assert total<limit,'Review larger acquisition before download'
+    prefix=f'Assets/Avatars/{category}/{asset}/'
     report=[]
     for file in manifest['files']:
         path=PurePosixPath(file['path'])
@@ -63,4 +70,4 @@ def acquire():
     print('ROCKETBOX_CANDIDATE_ACQUIRED',len(report),total,flush=True)
 
 
-if __name__=='__main__': acquire()
+if __name__=='__main__': acquire(sys.argv[1] if len(sys.argv)>1 else 'rocketbox_military03.json')

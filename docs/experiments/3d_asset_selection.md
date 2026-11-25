@@ -31,6 +31,13 @@ This supplies accessory geometry, not fitted modular armor/boots/gloves.
 
 ## Candidate register
 
+Batch89: partial MIT Male_Adult_08 source acquired (55.04MB), authored head/hair
+with source weights/custom normals integrated onto the existing rig. Actual five
+clip native surface checks pass, but visible hair cards and generic young face
+remain below Rook art acceptance. Hair-only extraction visibly failed. Do not
+generalize character production from these structural results. Paid Hayq/PEPOLA
+store previews reviewed only; no model bought/downloaded or budget assumed.
+
 Additional acquired motion/prop sources (2026-11-25):
 
 - [Quaternius Universal Animation Library Standard](https://quaternius.com/packs/universalanimationlibrary.html),

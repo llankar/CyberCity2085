@@ -3,6 +3,78 @@
 This register is separate from the principal CyberCity 2085 GOAL.
 
 
+- `IN_PROGRESS` AUTHORED-HEAD-HAIR-89 (2026-11-25) - followed batch88 with a real
+  licensed source for a more suitable raised hairstyle, not procedural hair
+  cones or generic armor recoloring. Official Rocketbox Male_Adult_08 nonfacial
+  FBX508,784bytes plus only three head TGA maps/one opacity TGA and MIT notice:
+  six files55,035,978bytes on E:. Body textures deliberately not acquired. New
+  whitelist manifest pins commit/blob/size, cap64MB; existing candidate remains
+  cap160MB. Every acquired file hash verified. Unknown manifest/path rejection
+  tests execute before network. No entire character library downloaded.
+
+  Actual source import3,907verts/7,364tris. First extracted opacity hair-only
+  354verts/302tris rendered visible card gaps: artistic FAIL, retained only as
+  diagnostic (preview --rocketbox-hair), not recommended Rook hair. Added real
+  source head/scalp with cards:1,905verts/3,342tris, real UVs, head PBR normal/
+  specular and opacity color maps. Interocular fit measured from real source and
+  target eye bones gives scale~1; no invented scalp primitive or fake texture.
+  Texture alpha0..1 is actually present and used, GLB hair material MASK.4,
+  double-sided. Original source colors retained. Original source custom corner
+  normals captured/preserved on selected geometry; no lighting substitution.
+
+  First head extraction material indices were reset by clearing mesh slots;
+  explicit post-slot face remap fixed two actual primitives. First skin transfer
+  normalized-weight gate FAIL: copied mesh carried deform groups already, and
+  recreated names acquired .001 duplicates, giving all1,905 vertices weight sum2.
+  Clearing copied groups before explicit original-index weight transfer fixed
+  the cause; no tolerance relaxation. Source80 named groups transferred to real
+  shared Biped rig, original body head/helmet alpha-hidden. Not rigidly attaching
+  whole neck to head; genuine neck/head/facial bone weights remain. No facial
+  expression animation claim. Temporary report read after source object removal
+  raised RNA error; source property captured beforehand. All final producer runs
+  completed, no first-failure PASS claim.
+
+  Portable five-action assembled human.blend333,479,364bytes and human.glb
+  97,869,492bytes on E: rocketbox_hair08/character01, with full MIT notices and
+  UAL CC0 identity. Native actual replacement-head surfaces vs independently
+  evaluated Blender skin45 times PASS: Idle22.450um,Walk23.645um,Shoot22.554um,
+  Melee20.044um,Death46.736um, reset0m. Positive
+  ROCKETBOX_NATIVE_HEAD_MOTIONS_OK and hash evidence saved. Original five-clip
+  body motion gate rerun PASS after shared probe extension. Native front/profile/
+  back head, front body and death captures inspected. Full source head fixes
+  missing anatomical base, but visible hair-card strips/gaps and youthful generic
+  face remain artistically insufficient for Rook. This candidate is NOT accepted
+  as the requested modern tactical-game character; no production generalized.
+
+  Independent --rocketbox-head-study includes actual equipped firing study,
+  robot Idle, vehicle/props and existing alley. All five human actions/input and
+  camera tests PASS. Scale measurement now excludes wholly alpha-hidden material
+  surfaces and hidden attached props (verification probes default still include
+  all geometry): visible candidate height1.8281883m, projected62.208008px, not
+  invisible helmet1.850357m. Native stage screenshot inspected; existing map still
+  prototype floor+blocked volumes, not final art. No new full performance claim.
+
+  Evidence: E: sources/rocketbox/Male_Adult_08/acquisition.json; generated phase2/
+  rocketbox_hair08/import_audit.json, fitted_head_hair_report.json, source Blend/
+  GLB, character01/assembly_report/head_surface_reference/native_motion_check,
+  neutral captures and tactical_comparison. Source opacity PNG extracted byte-for-
+  byte from embedded GLB for inspection, no image alteration. Final Python gate
+  30passed,0failed/skipped in five experiment modules. SDK/runtime smoke SDL warning
+  persists. No production/main GOAL/save changes or push/release.
+
+  DONE bounded technical work: pinned partial acquisition, genuine source
+  head/hair/weight/normal integration, portable five-clip export, source/native
+  verification. Artistic acceptance0/2 human identities unchanged. Next action:
+  improve source selection/wardrobe, not repeatedly tweak this inadequate card
+  hairstyle. Optional budget preference asked asynchronously, no answer assumed
+  and no purchase authorized/performed. Free sourcing continues independently.
+  Two paid storefront previews inspected only, no model acquired: Hayq15.99USD
+  stylized hero and PEPOLA72.60USD masked male (standard license sales cap); neither
+  selected/approved. Public free catalog access discovered without installing its
+  renderer/MCP; one licensed standalone jacket being inspected in next batch90.
+  CHANTIER GLOBAL INCOMPLET.
+
+
 - `IN_PROGRESS` MEASURED-HUMAN-PISTOL-88 (2026-11-25) - previous goal turn
   classified PROGRESS: authoritative source integration, actual five-clip motion,
   native evidence and authored gear extraction/checkpoints85-87. This turn

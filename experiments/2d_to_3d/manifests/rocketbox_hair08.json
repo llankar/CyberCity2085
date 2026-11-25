@@ -1,0 +1,39 @@
+{
+  "repository": "microsoft/Microsoft-Rocketbox",
+  "commit": "0943055db6ec570bcef9f2c8b41c9e5467c808f9",
+  "license": "MIT",
+  "asset": "Male_Adult_08",
+  "purpose": "Partial source: nonfacial mesh and head/opacity textures only, for authored hair inspection",
+  "files": [
+    {
+      "path": "LICENSE.md",
+      "size": 1066,
+      "git_blob": "9bcfb3ece5301a55d3a41bbd00a029ab27d61d13"
+    },
+    {
+      "path": "Assets/Avatars/Adults/Male_Adult_08/Export/Male_Adult_08.fbx",
+      "size": 508784,
+      "git_blob": "2e6936c594c9c65b44916839340be3b4eecd2202"
+    },
+    {
+      "path": "Assets/Avatars/Adults/Male_Adult_08/Textures/m014_head_color.tga",
+      "size": 12582956,
+      "git_blob": "66e3ac3c72cfdbd661e36dd9fd98ac611f21a6e4"
+    },
+    {
+      "path": "Assets/Avatars/Adults/Male_Adult_08/Textures/m014_head_normal.tga",
+      "size": 12582956,
+      "git_blob": "02be43d9b025eee79fd53de048d335ccd97be6be"
+    },
+    {
+      "path": "Assets/Avatars/Adults/Male_Adult_08/Textures/m014_head_specular.tga",
+      "size": 12582956,
+      "git_blob": "0d7fbed1d18aa408a1fcd50fb2aa2babe4da40a1"
+    },
+    {
+      "path": "Assets/Avatars/Adults/Male_Adult_08/Textures/m014_opacity_color.tga",
+      "size": 16777260,
+      "git_blob": "e008b9abf4901a2f23f32cb9d1e2bc7ef5a60587"
+    }
+  ]
+}

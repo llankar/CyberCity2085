@@ -1,9 +1,12 @@
 extends Node3D
 ## Native skin evaluation gate for the authored head diagnostic, not animation art.
 
-func skinned_points(mesh: MeshInstance3D, skeleton: Skeleton3D, sample_stride: int = 8) -> PackedVector3Array:
+func skinned_points(mesh: MeshInstance3D, skeleton: Skeleton3D, sample_stride: int = 8, visible_only: bool = false) -> PackedVector3Array:
 	var result := PackedVector3Array()
 	for surface in range(mesh.mesh.get_surface_count()):
+		if visible_only:
+			var material := mesh.get_active_material(surface) as StandardMaterial3D
+			if material and material.transparency != BaseMaterial3D.TRANSPARENCY_DISABLED and material.albedo_color.a <= 0: continue
 		var arrays := mesh.mesh.surface_get_arrays(surface)
 		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 		var shapes := mesh.mesh.surface_get_blend_shape_arrays(surface)

@@ -20,12 +20,13 @@ func subject_height(subject: Node3D) -> float:
 	var first := true
 	var probe := preload("res://skin_motion_check.gd").new()
 	for mesh in subject.find_children("*", "MeshInstance3D", true, false):
+		if not mesh.is_visible_in_tree(): continue
 		if mesh.skin != null and mesh.get_node_or_null(mesh.skeleton) is Skeleton3D:
 			var skeleton := mesh.get_node(mesh.skeleton) as Skeleton3D
 			skeleton.force_update_all_bone_transforms()
 			# Skin bind matrices can cancel FBX node scale/rotation. Mesh global
 			# transform alone is not the rendered position of a skinned vertex.
-			for point in probe.skinned_points(mesh, skeleton, 1):
+			for point in probe.skinned_points(mesh, skeleton, 1, true):
 				bounds = AABB(point, Vector3.ZERO) if first else bounds.expand(point)
 				first = false
 			continue
@@ -76,7 +77,8 @@ func _ready() -> void:
 		await get_tree().process_frame
 	var root := "E:/CyberCity2085-3d-lab/generated/phase2/"
 	var human_file := "authored_outfit_realtime.glb" if "--realtime" in OS.get_cmdline_user_args() else "authored_outfit.glb"
-	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args()
+	var head_study := "--rocketbox-head-study" in OS.get_cmdline_user_args()
+	var rocketbox_motion := "--rocketbox-motion-study" in OS.get_cmdline_user_args() or head_study
 	var rocketbox := "--rocketbox-study" in OS.get_cmdline_user_args() or rocketbox_motion
 	var charge := "--charge" in OS.get_cmdline_user_args() or rocketbox
 	var human_path := root + "einar_pbr01/human_pbr.glb" if charge else root + "authored_tactical01/" + human_file
@@ -93,6 +95,7 @@ func _ready() -> void:
 		if rocketbox_motion:
 			human_path = root + "rocketbox_military03/motion01/human_motion.glb"
 			rigged_human = true
+	if head_study: human_path = root + "rocketbox_hair08/character01/human.glb"
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
 	if robot_idle: robot_path = root + "security_idle01/robot_idle.glb"

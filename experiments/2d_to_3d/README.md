@@ -10,6 +10,16 @@ reproduction instructions.
 
 Current progress is authoritative in `docs/experiments/2d_to_3d_progress.md`.
 
+Authored head/hair study (batch89): acquire_rocketbox_candidate.py
+rocketbox_hair08.json fetches one bounded partial source (head/opacity maps only).
+Run inspect_rocketbox_hair08.py, extract_fit_rocketbox_hair08.py --with-head and
+assemble_rocketbox_head08.py through run_blender.ps1. The source head retains real
+weights/custom normals; original head/helmet remain alpha-hidden. Native
+rocketbox_motion_check.tscn --head-study requires ROCKETBOX_NATIVE_HEAD_MOTIONS_OK.
+comparison --rocketbox-head-study selects it. Hair-only --rocketbox-hair preview
+is a rejected diagnostic; full head/card appearance also remains below Rook art
+acceptance. No new generic character production. Source files/credits on E:.
+
 Measured prop study (batch88): inspect_rocketbox_grip.py then
 fit_rocketbox_pistol.py through run_blender.ps1 creates actual equipped Blend/GLB
 and independent prop surface references on E:. rocketbox_pistol_check.tscn must

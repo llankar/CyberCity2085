@@ -25,6 +25,7 @@ func _ready() -> void:
 	add_child(model)
 	if "--attach-pistol" in OS.get_cmdline_user_args(): preload("res://pistol_attachment.gd").attach(model)
 	if "--attach-rocketbox-pistol" in OS.get_cmdline_user_args(): preload("res://rocketbox_pistol_attachment.gd").attach(model)
+	if "--rocketbox-hair" in OS.get_cmdline_user_args(): preload("res://rocketbox_hair_attachment.gd").attach(model)
 	if "--attach-groom" in OS.get_cmdline_user_args():
 		var groom_folder := "einar_groom_full02" if "--full-groom" in OS.get_cmdline_user_args() else "einar_groom02"
 		if "--layered-groom" in OS.get_cmdline_user_args(): groom_folder += "_layered"
@@ -187,7 +188,7 @@ func _ready() -> void:
 		if mesh.skin != null and mesh.get_node_or_null(mesh.skeleton) is Skeleton3D:
 			var skeleton := mesh.get_node(mesh.skeleton) as Skeleton3D
 			skeleton.force_update_all_bone_transforms()
-			for point in skin_probe.skinned_points(mesh, skeleton, 1):
+			for point in skin_probe.skinned_points(mesh, skeleton, 1, true):
 				bounds = AABB(point, Vector3.ZERO) if first_bound else bounds.expand(point)
 				first_bound = false
 			continue
