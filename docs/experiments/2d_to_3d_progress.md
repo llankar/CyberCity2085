@@ -2,6 +2,36 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CURRENT-HUMAN-TEXTURE-REVIEW-155 (2026-11-25).
+  Previous turn154 classified progress: actual current texture variant and native
+  pose evidence. `DONE` six native neutral full-body renders, source150 versus
+  budget154 at identical front/side/back, Hard stand fraction0, orthographic2.05,
+  1280x720. All six images actually inspected: silhouette, folds, straps and
+  material coverage preserved at this framing; fine surface detail softened.
+  Rook face/hair/outfit still artistically insufficient; this does not accept
+  likeness, close face detail or garment interchangeability. No lighting disguise.
+  `DONE` two sequential source/variant tactical probes, same robot/map hashes,
+  Godot4.7.2,1280x720,571draw calls. Engine video bytes2,703,847,849 versus
+  703,164,841 (reduction2,000,683,008bytes). Source306.08fps/p953.910ms;
+  budget258.79fps/p955.902ms over five seconds each. NO demonstrated frame-time
+  improvement; single runs/order/background applications are uncontrolled.
+  No exclusive GPU VRAM/long-run performance claim. Both variants retained.
+  Reproduction: review_current_textures155.ps1; verifier
+  verify_current_textures155.py checks six image dimensions/hashes, live GLB
+  hashes, scene equivalence keys, render size, duration and nonoverlapping times.
+  Actual verifier PASS; six targeted tests PASS0fail0skip, including changed GLB
+  and overlapping benchmark rejection. Fixtures are synthetic test data, not art.
+  Evidence E:generated/phase2/texture_review155/review_evidence.json plus eight
+  real PNGs and two benchmark JSONs; E:tmp/tests155.xml, isolated155_*.log.
+  `TODO` final human identity, face closeup/contact, genuine complete garment/body
+  modules, cover/hit/heal, conditional PSI and eventual Raider. Physical scene
+  subjects5/6; human six motion families of ten conditional families, robot five
+  clips unchanged; existing map loading1/1, final3Dmap art0/1. Total final artistic
+  resource coverage remains NOT VERIFIED; no global acceptance claimed.
+  Next: prioritize actual human face/hair/outfit fidelity and neutral close review,
+  rather than optimizing unaccepted geometry further. No production edits/push.
+  CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` CURRENT-HUMAN-TEXTURE-BUDGET-154 (2026-11-25).
   `DONE` --wardrobe150 option in texture_budget.py creates a separate1024px
   texture-only variant of actual150, preserving original BLEND/GLB. Linear-light
