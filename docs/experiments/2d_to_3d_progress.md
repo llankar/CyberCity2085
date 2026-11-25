@@ -2,6 +2,67 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` AUTHOR-GAME-RIG-145 (2026-11-25). Previous144 was progress:
+  actual strict tests rejected inaccurate Rigify re-export and retained evidence.
+  `DONE` original/reset deform-bone head/tail measurements and native comparison
+  on all160bones/92samples. T-pose endpoint discrepancy below0.60micrometers,
+  but ready finger heads differ5.419mm; Run toe head42.150mm between keys and
+ 9.601mm at keys; Walk toe tail15.387mm between keys. Results in
+  amjviz_runtime144/bone_reference145.json and bone_diagnostic145.json. This
+  demonstrates motion/TRS differences as well as nonlinear skin effects; no
+  claim that 144's Rigify500micrometer gate is repaired. It remains FAIL.
+  `DONE` separate source-author game-asset route, using the already reviewed
+  original Godot GLB instead of another Blender Rigify re-export. This preserves
+  the author's actual game deformation; it is NOT exact original Blender B-Bone
+  fidelity. prune_dead_joints.py retains every positive-weight joint, its complete
+  ancestry and all ordinary scene nodes, remaps JOINTS/inverse binds, removes only
+  unrelated joint branches/channels. All original geometry/skin-weight/animation
+  accessor payloads remain byte-identical; source untouched. Runtime skin706->262
+  joints,709->265nodes,152positive-weight joints unchanged,5,328unneeded animation
+  channels removed. Original seven materials/26images/source clocks retained.
+  Output E:/CyberCity2085-3d-lab/generated/phase2/amjviz_pruned145/human.glb,
+ 28,172,068B, SHA1af6aedb8973b1cd4363f51c979583f0ad4b9258bcca6dc6f18eb55141707083.
+  Source SHA1b32cef27e37065117214bc8c670db8aeb46f64f318fe715e5d8034c76108e4d.
+  `DONE` three new unit tests: keep an unweighted ancestor and its animation;
+  exact inverse-bind row selection/pose payload retention; shared JOINTS accessor
+  with different weight masks cannot alias; unknown additional skin rejected.
+  Cached JOINTS rewrite keyed by both joint/weight accessor, not joints alone.
+  Final targeted suite6PASS/0fail/0skip with clock helper tests, tmp/pytest145-final.xml.
+  `DONE` actual native source-game equivalence: every deformed vertex at88actual
+  source key/midpoint times across Hard stand/Run/T_pose/Walk,6,830,032vertex
+  comparisons, maximum error0.0m. Gate1micrometer, positive marker and current
+  source/candidate hashes in native_equivalence.json. This proves the pruning
+  against the author's game GLB, not original Rigify, art or contact acceptance.
+  First successful checker leaked its detached probe; explicit probe.free() added,
+  complete native88sample rerun PASS with no leak/resource warnings in final log.
+  SDL calibration warning remains; no broad runtime leak-free claim.
+  `DONE` import_amjviz_game145.py opens this exact-equivalent game source in Blender
+  without source scripts, saves private editable human.blend (~49MB),262linear
+  bones, zero constraints, four retained source actions and26packed file images,
+  no missing external textures. Original high-level493MBRigify source preserved.
+  This is an editable authored game rig, not a primitive anatomical replacement.
+  `DONE` independent optional --amjviz-pruned-study inherits source aliases/old-atlas
+  guard. Actual stage self-test PASS: idle/walk/run dispatch, unavailable combat
+  actions, robot/VTOL keys, selection/camera,627blocked map cells and five physical
+  subjects. Native1920x1080 tactical.png inspected beside actual sprite references;
+  reference1.8m=62.208px retained, actual source height1.812331m. No final artistic
+  approval. Actual neutral human_front.png also generated/inspected in the source
+  Hard stand pose. Negative --amjviz-pruned-study/--generated-atlas-review test
+  explicitly rejects before stage loading; expected debug assertion, not process
+  exit0 treated as success. No final artistic
+  approval or sustained performance/VRAM claim;120frame timing is smoke only.
+  License remains restricted Royalty Free: private raw BLEND/GLB/textures are not
+  publishable asset-pack deliverables; retain notices and no experimental push.
+  `TODO` next: use this genuine262bone game rig to integrate licensed shooting,
+  melee and death motions plus an actual weapon/contact fit, preserving source
+  walk/run. Then adapt Rook identity and review neutral front/profile/back and
+  actual combat zoom before expanding humans or regenerating atlases. Do not
+  replace the unresolved Rigify fidelity metric with this different PASS.
+  First-human mandatory source actions ready/walk2/5available (run extra),0/5final
+  art; finalRook0/1, finalhumans0/2; mapnative1/1/artistic0/1; scene5/6subjects;
+  current atlas NOT GENERATED. No production change or push.
+  **CHANTIER GLOBAL INCOMPLET**.
+
 - `IN_PROGRESS` AUTHORED-HUMAN-RUNTIME-144 (2026-11-25). Previous143 was progress:
   acquired a genuine integrated cyberpunk source and verified native independent
   scene, source rigs, licensing and first art review. Current batch does NOT replace

@@ -82,7 +82,8 @@ func load_subject(path: String, position_value: Vector3) -> bool:
 
 func _ready() -> void:
 	var generated_review := "--generated-atlas-review" in OS.get_cmdline_user_args()
-	var amjviz_study := "--amjviz-study" in OS.get_cmdline_user_args()
+	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args()
+	var amjviz_study := "--amjviz-study" in OS.get_cmdline_user_args() or amjviz_pruned
 	assert(not(amjviz_study and generated_review), "Atlas129 is not the AmJViZ character")
 	var jacket_study := "--authored-jacket-study" in OS.get_cmdline_user_args()
 	var pouch_study := "--pouch-study" in OS.get_cmdline_user_args() or jacket_study
@@ -172,6 +173,7 @@ func _ready() -> void:
 	if amjviz_study:
 		assert(not(rocketbox or nathan_study or unvanquished_study or cyborg_study or bundled_human or action_human), "Choose one human source")
 		human_path = "E:/CyberCity2085-3d-lab/sources/blenderkit_cyberpunk143/source_godot.glb"
+		if amjviz_pruned:human_path=root+"amjviz_pruned145/human.glb"
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()

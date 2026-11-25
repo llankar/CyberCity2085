@@ -9,6 +9,33 @@ lives exclusively in `E:\CyberCity2085-3d-lab`.
 
 ## Coherent authored human source (batch143)
 
+Preferred current game-source study145 keeps the author's actual Godot GLB
+deformation instead of re-exporting the high-level Rigify source. It removes
+unused joint branches while retaining all weighted ancestors.706->262skin joints,
+all four source clips unchanged, exact0.0m native difference in6,830,032vertex
+comparisons at88source key/midpoint times. This separate PASS does not repair or
+supersede the original Blender Rigify fidelity FAIL recorded below.
+
+```powershell
+$env:PYTHONDONTWRITEBYTECODE='1'
+python experiments/2d_to_3d/prune_dead_joints.py
+& experiments/2d_to_3d/run_godot.ps1 -Scene res://amjviz_pruning_check.tscn
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/import_amjviz_game145.py
+& experiments/2d_to_3d/run_godot.ps1 -QuitAfter 180 -SceneArguments @(
+ '--amjviz-pruned-study','--robot-action-bundle','--source-opacity-study',
+ '--vtol-motion-study','--vtol-finish-study','--tactical','--facades-study',
+ '--sprite-review','--self-test',
+ '--capture=E:/CyberCity2085-3d-lab/generated/phase2/amjviz_pruned145/tactical.png')
+```
+
+Require AMJVIZ_PRUNED_NATIVE_EQUIVALENCE_PASS, matching current source/output
+hashes in native_equivalence.json and the usual stage positive markers. Output
+human.glb is28.2MB; human.blend is an editable262linear-bone game source with all
+26file images packed and four original actions. These remain private Royalty Free
+assets on E:, not files to push/distribute publicly as a raw model/scene pack.
+Shoot/melee/death and final Rook identity are still TODO. No current FPS/VRAM
+benchmark or new atlas is implied by this model reduction.
+
 Runtime bake144 is a rejected/unverified candidate, not the reviewed source143.
 It reduces706to160bones and keeps original authored image payloads, but the strict
 92pose native deformation check FAILS. Preserve that failure rather than selecting
