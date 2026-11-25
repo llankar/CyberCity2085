@@ -95,10 +95,12 @@ def budget(source, maximum):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--maximum', type=int, default=1024)
+    parser.add_argument('--wardrobe150', action='store_true', help='Optimize the actual current authored human, retaining the original')
     args = parser.parse_args()
     root = Path('E:/CyberCity2085-3d-lab/generated/phase2')
-    source_path = root / 'amjviz_actions146/human_actions.glb'
-    out = root / f'amjviz_budget147_{args.maximum}'; out.mkdir(exist_ok=True)
+    source_folder = root / ('amjviz_wardrobe150' if args.wardrobe150 else 'amjviz_actions146')
+    source_path = source_folder / 'human_actions.glb'
+    out = root / (f'amjviz_budget154_{args.maximum}' if args.wardrobe150 else f'amjviz_budget147_{args.maximum}'); out.mkdir(exist_ok=True)
     target, images = budget(Glb(source_path), args.maximum)
     destination = out / 'human_actions.glb'; target.save(destination)
     report = {'source_sha256': hashlib.sha256(source_path.read_bytes()).hexdigest(),
@@ -107,7 +109,7 @@ def main():
               'maximum': args.maximum, 'images': images, 'accessor_bytes_exact': True,
               'scope': 'Texture-only private variant; native import and visual comparison still required'}
     (out / 'texture_budget.json').write_text(json.dumps(report, indent=2))
-    (out / 'CREDITS.txt').write_bytes((root / 'amjviz_actions146/CREDITS_equipped.txt').read_bytes())
+    (out / 'CREDITS.txt').write_bytes((source_folder / ('CREDITS.txt' if args.wardrobe150 else 'CREDITS_equipped.txt')).read_bytes())
     print('TEXTURE_BUDGET_VARIANT_READY', destination)
 
 

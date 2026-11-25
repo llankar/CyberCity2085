@@ -2,6 +2,33 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` CURRENT-HUMAN-TEXTURE-BUDGET-154 (2026-11-25).
+  `DONE` --wardrobe150 option in texture_budget.py creates a separate1024px
+  texture-only variant of actual150, preserving original BLEND/GLB. Linear-light
+  color filtering, renormalized normals, packed-data filtering reused; accessor
+  payloads exactly preserved. File34,798,368 to33,244,596bytes; runtime image
+  allocation reduction is distinct from compressed file reduction. CREDITS copied.
+  Source SHA b9063e9f283a2bcef1e1111426018eefbc1e38d82d3af3c20e695ed64c0f36b1;
+  output d9c8de62d6c9c6bb95019c690517242cfb2ff1e9dfd3cbcb9203e0441bd80269.
+  `DONE` --wardrobe-budget154 native action checker compares against actual150
+  Blender reference:288samples/7clips PASS, max88.83180271micrometres,
+  unchanged0.5mm gate, floor/death/idle reset assertions pass. Optional tactical
+  route loads actual new variant; blocks unmatched atlas/module combinations.
+  Native rendered capture tactical.png inspected: human,robot,vehicle,crate,
+  machine present; no obvious missing materials at overview scale. Close texture
+  art comparison NOT VERIFIED. Three targeted filtering tests PASS0fail0skip.
+  E:generated/phase2/amjviz_budget154_1024 contains texture_budget.json,
+  native_actions.json, benchmark.json, tactical.png; tmp/native154.log and
+  tmp/tests154.xml hold execution evidence. Five-second1280x720 rendered probe:
+  703,164,841 engine-reported video bytes,571draw calls,300.21frames/s,
+  p954.109ms. Native checker ran concurrently, so this is a smoke measurement,
+  NOT an isolated performance comparison or exclusive/peak VRAM claim.
+  `TODO` neutral close texture comparison, isolated source/variant memory and
+  frame-time comparison, current-variant modular-source hash compatibility.
+  Original150 and private licence sources retained, production unchanged.
+  Next global work remains first-human art/contact and missing motion families;
+  no Raider production until convincing first human. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` MODULAR-EQUIPMENT-153 (2026-11-25). Professional authored
   human150 retained; no further MPFB recolor. `DONE` actual component audit:
   removing the coat would expose missing back/arms; the inner shirt is only a

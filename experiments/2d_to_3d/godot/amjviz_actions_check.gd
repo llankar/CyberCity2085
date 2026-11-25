@@ -5,7 +5,8 @@ func _ready() -> void:
 	var folder := "E:/CyberCity2085-3d-lab/generated/phase2/amjviz_actions146/"
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
-	var wardrobe_study := "--wardrobe150-study" in OS.get_cmdline_user_args()
+	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
+	var wardrobe_study := current_budget or "--wardrobe150-study" in OS.get_cmdline_user_args()
 	assert(int(hair_study)+int(support_study)+int(wardrobe_study)<=1)
 	if hair_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_hair148/"
 	if support_study:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_grip149/"
@@ -15,6 +16,7 @@ func _ready() -> void:
 	if "--texture-budget-study" in OS.get_cmdline_user_args():
 		assert(not(hair_study or support_study or wardrobe_study),"Choose one geometry reference")
 		folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget147_1024/"
+	if current_budget:folder="E:/CyberCity2085-3d-lab/generated/phase2/amjviz_budget154_1024/"
 	var model_path := folder+("human.glb" if hair_study else "human_actions.glb")
 	var document := GLTFDocument.new()
 	var state := GLTFState.new()

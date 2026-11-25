@@ -90,9 +90,11 @@ func _ready() -> void:
 	var texture_budget := "--texture-budget-study" in OS.get_cmdline_user_args()
 	var hair_study := "--hair-study" in OS.get_cmdline_user_args()
 	var support_study := "--support-study" in OS.get_cmdline_user_args()
+	var current_budget := "--wardrobe-budget154" in OS.get_cmdline_user_args()
+	assert(not current_budget or not current_atlas_review,"Budget variant requires separate atlas review")
 	var modular_study := "--modular-equipment-study" in OS.get_cmdline_user_args()
-	assert(not modular_study or (not current_atlas_review and not generated_review), "Module study has no matching rendered atlas")
-	var wardrobe150_study := modular_study or "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
+	assert(not modular_study or (not current_budget and not current_atlas_review and not generated_review), "Module study has no matching rendered atlas")
+	var wardrobe150_study := current_budget or modular_study or "--wardrobe150-study" in OS.get_cmdline_user_args() or current_atlas_review
 	assert(int(texture_budget)+int(hair_study)+int(support_study)+int(wardrobe150_study)<=1,"Choose one private human variant")
 	var amjviz_combat := "--amjviz-combat-study" in OS.get_cmdline_user_args() or texture_budget or hair_study or support_study or wardrobe150_study
 	var amjviz_pruned := "--amjviz-pruned-study" in OS.get_cmdline_user_args() or amjviz_combat
@@ -192,6 +194,7 @@ func _ready() -> void:
 		if hair_study:human_path=root+"amjviz_hair148/human.glb"
 		if support_study:human_path=root+"amjviz_grip149/human_actions.glb"
 		if wardrobe150_study:human_path=root+"amjviz_wardrobe150/human_actions.glb"
+		if current_budget:human_path=root+"amjviz_budget154_1024/human_actions.glb"
 		rigged_human = true
 	var robot_path := root + "security_pbr_robot01/robot_pbr.glb" if charge else root + "george_tactical/george_tactical.glb"
 	var robot_idle := charge and "--robot-idle-study" in OS.get_cmdline_user_args()
