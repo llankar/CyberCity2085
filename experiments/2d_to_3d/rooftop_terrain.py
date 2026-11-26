@@ -1,10 +1,11 @@
 """Prepare rooftop deck, street and canyon boundary geometry from original surveys."""
 import argparse
 import json
+import math
 from pathlib import Path
 
 from shapely import constrained_delaunay_triangles, union_all
-from shapely.geometry import Polygon, box
+from shapely.geometry import Point, Polygon, box
 
 MAPS = Path(__file__).resolve().parents[2] / "assets/maps"
 OUTPUT = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
@@ -24,8 +25,18 @@ def terrain(survey):
 
     seam = deck.boundary.intersection(streets.boundary)
     lines = seam.geoms if hasattr(seam, "geoms") else [seam]
-    edges = [[a,b] for line in lines if line.geom_type == "LineString"
-             for a,b in zip(line.coords, list(line.coords)[1:])]
+    edges = []
+    for line in lines:
+        if line.geom_type != "LineString":
+            continue
+        for a,b in zip(line.coords, list(line.coords)[1:]):
+            dx,dy = b[0]-a[0], b[1]-a[1]
+            length = math.hypot(dx,dy)
+            midpoint = ((a[0]+b[0])/2, (a[1]+b[1])/2)
+            left = Point(midpoint[0]-.001*dy/length, midpoint[1]+.001*dx/length)
+            # Canvas Y points down. The canyon side becomes the right-hand
+            # facade normal once mapped into Blender coordinates.
+            edges.append([a,b] if streets.covers(left) else [b,a])
     return {"deck": triangles(deck), "street": triangles(streets), "edges": edges}
 
 

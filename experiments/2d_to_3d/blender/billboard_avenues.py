@@ -34,7 +34,7 @@ def textured_material(name, image, roughness):
     return material
 
 
-def build_rooftop_ground(out, floor, grid, canvas):
+def build_rooftop_ground(out, floor, grid, canvas, library):
     terrain = json.loads((out / "rooftop_terrain.json").read_text())
     gw,gh = grid
     cw,ch = canvas
@@ -71,6 +71,33 @@ def build_rooftop_ground(out, floor, grid, canvas):
     retaining = make_material("Canyon retaining concrete", (.046,.062,.078,1), .15,.86)
     mesh.materials.append(retaining)
     bpy.context.collection.objects.link(bpy.data.objects.new("Rooftop canyon retaining walls",mesh))
+    facade = bpy.data.objects.new("Canyon facade details", None)
+    bpy.context.collection.objects.link(facade)
+    rail = make_material("Facade floor divisions", (.027,.039,.050,1), .51,.57)
+    window_asset = library / "urban_facade280/window.glb"
+    for a,b in terrain["edges"]:
+        ax,ay,_ = vertex(a,0)
+        bx,by,_ = vertex(b,0)
+        dx,dy = bx-ax,by-ay
+        length = math.hypot(dx,dy)
+        if length < .85:
+            continue
+        nx,ny = dy/length,-dx/length
+        yaw = math.atan2(dy,dx)
+        for height in (-2.46,-1.18):
+            band = box("Canyon floor division", ((ax+bx)/2+nx*.037,(ay+by)/2+ny*.037,height),
+                       (length/2,.044,.038), rail, .008)
+            band.rotation_euler.z = yaw
+            band.parent = facade
+        if length < 1.65:
+            continue
+        bays = max(1, int(length/1.85))
+        for index in range(bays):
+            fraction = (index+.5)/bays
+            x,y = ax+fraction*dx+nx*.035,ay+fraction*dy+ny*.035
+            for height in (-2.22,-.98):
+                place(window_asset, facade, (x,y,height), (min(1.38,length/bays*.73),.22,.72),
+                      yaw=yaw, merge=True)
 
 
 def build(name):
@@ -380,7 +407,7 @@ def build(name):
 
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
     if name in ROOFTOPS:
-        build_rooftop_ground(out, floor, (gw,gh), (cw,ch))
+        build_rooftop_ground(out, floor, (gw,gh), (cw,ch), library)
     else:
         bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
         bpy.context.object.scale = (gw/2, gh/2, 1)

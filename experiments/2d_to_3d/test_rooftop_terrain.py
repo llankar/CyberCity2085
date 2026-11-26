@@ -1,8 +1,9 @@
 import json
+import math
 
 import pytest
 from shapely import union_all
-from shapely.geometry import LineString, Polygon
+from shapely.geometry import LineString, Point, Polygon
 
 from rooftop_terrain import MAPS, ROOFTOPS, terrain
 
@@ -21,3 +22,7 @@ def test_rooftop_deck_has_no_faces_across_surveyed_voids(map_name):
     assert deck.area + street.area == pytest.approx(width * height)
     walls = union_all([LineString(edge) for edge in geometry["edges"]])
     assert walls.length == pytest.approx(deck.boundary.intersection(street.boundary).length)
+    for (ax, ay), (bx, by) in geometry["edges"]:
+        dx, dy = bx-ax, by-ay
+        length = math.hypot(dx, dy)
+        assert street.contains(Point((ax+bx)/2-.001*dy/length, (ay+by)/2+.001*dx/length))
