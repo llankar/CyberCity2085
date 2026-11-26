@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "wasteland304"
+output = phase / "wasteland320"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "wasteland297/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -19,12 +19,24 @@ bpy.context.preferences.filepaths.save_version = 0
 concrete = bpy.data.materials["Ruin weathered concrete"]
 count = 0
 mapped_faces = 0
+widened_walls = 0
 for obj in bpy.context.scene.objects:
     if obj.type != "MESH" or not any(tag in obj.name for tag in (" fractured slab", " broken wall")):
         continue
     mesh = bmesh.new()
     mesh.from_mesh(obj.data)
     bmesh.ops.recalc_face_normals(mesh, faces=list(mesh.faces))
+    if (" broken wall" in obj.name and obj.parent and "ruin" in obj.parent.name
+            and obj.dimensions.z > 1.25):
+        face = max((face for face in mesh.faces if abs(face.normal.z) < .15),
+                   key=lambda face: face.calc_area())
+        axis = Vector((face.normal.x, face.normal.y, 0)).normalized()
+        points = [vertex.co.dot(axis) for vertex in mesh.verts]
+        midpoint = (min(points)+max(points))/2
+        # thicken the existing wall around its centerline
+        for vertex in mesh.verts:
+            vertex.co += axis * ((vertex.co.dot(axis)-midpoint)*.95)
+        widened_walls += 1
     mesh.to_mesh(obj.data)
     mesh.free()
     bevel = obj.modifiers.new("Fracture edge wear", "BEVEL")
@@ -54,7 +66,8 @@ for obj in bpy.context.scene.objects:
             uv.data[loop].uv = (point.dot(axis)/1.5, point.dot(vertical)/1.5)
         mapped_faces += 1
     count += 1
-assert count > 0 and mapped_faces > 0
+assert count > 0 and mapped_faces > 0 and widened_walls > 0
+print("ASHFIELD320_THICKENED", widened_walls)
 # Use the original triangular slab top to keep roof pieces inside each ruin.
 roof_material = bpy.data.materials.new("Ashfield oxidized roof sheets")
 roof_material.use_nodes = True
@@ -118,7 +131,7 @@ for wall in structural_walls:
     post.parent = wall.parent
 
 assert structural_walls
-print("ASHFIELD304_UPRIGHTS", len(structural_walls))
+print("ASHFIELD320_UPRIGHTS", len(structural_walls))
 floor = bpy.data.materials["Original ashfield ground"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
 texture.image = bpy.data.images.load(str(phase / "wasteland301/floor.png"))
@@ -128,4 +141,4 @@ for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"),
                           export_format="GLB", use_selection=True, export_apply=True)
-print("ASHFIELD304_EXPORTED", count, mapped_faces)
+print("ASHFIELD320_EXPORTED", count, mapped_faces)

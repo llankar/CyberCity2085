@@ -14,7 +14,7 @@ func _ready() -> void:
   selected_folders[2]="lab291"
   selected_folders[3]="factory278"
   selected_folders[4]="metro293"
-  selected_folders[5]="wasteland304"
+  selected_folders[5]="wasteland320"
  tour_index=int(get_tree().get_meta("environment_tour_index",0))
  for argument in OS.get_cmdline_user_args():
   if argument.begins_with("--tour-map="):
@@ -27,7 +27,7 @@ func _ready() -> void:
  if selected_folders[tour_index]=="market308":
   use_market_ground=true
   market_ground_filename="floor.png"
- if selected_folders[tour_index]=="wasteland304":
+ if selected_folders[tour_index]=="wasteland320":
   review_ambient_color=Color(.84,.75,.65)
   review_ambient_energy=.54
   review_key_energy=.78
