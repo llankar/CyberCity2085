@@ -11,7 +11,7 @@ from library_placement import place
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "residential314"
+output = phase / "residential315"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "residential284/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -53,6 +53,21 @@ for shell in list(bpy.context.scene.objects):
               yaw=math.atan2(tangent.y, tangent.x))
         count += 1
 assert count
+fan = phase.parents[1] / "environment-library/assets/roof_twin_fan/optimized.glb"
+roof_count = 0
+for shell in list(bpy.context.scene.objects):
+    if shell.type != "MESH" or not shell.name.endswith(" shell") or not shell.parent:
+        continue
+    roofs = [face for face in shell.data.polygons if face.normal.z > .95 and face.area >= 7]
+    if not roofs:
+        continue
+    roof = max(roofs, key=lambda item: item.area)
+    center = shell.matrix_world @ roof.center
+    place(fan, shell.parent, tuple(center), (1.55, .8, .42))
+    roof_count += 1
+assert roof_count
+print("RESIDENTIAL315_ROOF_FANS", roof_count)
+
 housing = make_material("Entry lamp housing", (.04,.05,.055,1), .6, .48)
 diffuser = make_material("Entry lamp warm diffuser", (.75,.39,.16,1), .1, .38, 1.4)
 entrances = [obj for obj in bpy.context.scene.objects
@@ -75,7 +90,7 @@ for entry in entrances:
         obj.parent = entry.parent
         obj.matrix_parent_inverse = entry.parent.matrix_world.inverted()
 assert entrances
-print("RESIDENTIAL314_ENTRIES", len(entrances))
+print("RESIDENTIAL315_ENTRIES", len(entrances))
 
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
@@ -84,4 +99,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("RESIDENTIAL314_EXPORTED", count, facades)
+print("RESIDENTIAL315_EXPORTED", count, facades)
