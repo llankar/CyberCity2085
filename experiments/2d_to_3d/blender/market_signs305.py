@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market308"
+output = phase / "market321"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -39,6 +39,30 @@ for index, group in enumerate(groups):
     x0, x1 = min(v.x for v in corners), max(v.x for v in corners)
     y0, y1 = min(v.y for v in corners), max(v.y for v in corners)
     top = max(v.z for v in corners)
+    bottom = min(v.z for v in corners)
+    # Move supported pieces together with the lowered deck.
+    reduction = (top-bottom)*.38
+    supported = []
+    for child in group.children:
+        if child == mesh:
+            continue
+        geometry = [node for node in (child, *child.children_recursive) if node.type == "MESH"]
+        if geometry and min((node.matrix_world @ Vector(point)).z
+                            for node in geometry for point in node.bound_box) >= top-.10:
+            supported.append(child)
+    if supported:
+        mesh.data = mesh.data.copy()
+        world = mesh.matrix_world.copy()
+        inverse = world.inverted()
+        for vertex in mesh.data.vertices:
+            point = world @ vertex.co
+            point.z = bottom + (point.z-bottom)*.62
+            vertex.co = inverse @ point
+        for child in supported:
+            transform = child.matrix_world.copy()
+            transform.translation.z -= reduction
+            child.matrix_world = transform
+        top -= reduction
     x = (x0+x1)/2
     y = y0+(y1-y0)*.12
     h = min(.58, (x1-x0)*.18)
@@ -75,4 +99,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET308_EXPORTED", count)
+print("MARKET321_EXPORTED", count)
