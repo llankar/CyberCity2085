@@ -1,9 +1,13 @@
 """Replace the illustrated wreck footprints with nearby intact Ashfield terrain."""
 import json
 from pathlib import Path
+import argparse
 
-from PIL import Image, ImageChops, ImageDraw
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--version", choices=("297", "301"), default="301")
+args = parser.parse_args()
 repo = Path(__file__).resolve().parents[2]
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
 survey = json.loads((repo / "assets/maps/wasteland_outdoor_02_ashfield_ruins.wall-traces.json").read_text())
@@ -23,10 +27,16 @@ for item in survey["walls"]:
     sx, sy = donors[item["id"]]
     sx, sy = round(sx*w/cw), round(sy*h/ch)
     patch = base.crop((sx, sy, sx+right-left, sy+bottom-top))
-    result.paste(patch, (left, top))
+    # Fade only the inner rim so neighbouring terrain remains exact.
+    alpha = Image.new("L", patch.size)
+    rim = max(2, round(min(patch.size)*.045))
+    ImageDraw.Draw(alpha).rectangle(
+        (rim, rim, patch.width-rim-1, patch.height-rim-1), fill=255)
+    alpha = alpha.filter(ImageFilter.GaussianBlur(rim*.43))
+    result.paste(patch, (left, top), alpha)
     draw.rectangle((left, top, right-1, bottom-1), fill=1)
 difference = ImageChops.difference(base, result)
 assert Image.composite(Image.new("RGB", base.size), difference, mask).getbbox() is None
-output = phase / "wasteland297"
+output = phase / ("wasteland" + args.version)
 output.mkdir(exist_ok=True)
 result.save(output / "floor.png")

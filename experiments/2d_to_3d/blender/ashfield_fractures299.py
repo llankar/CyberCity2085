@@ -6,7 +6,7 @@ import bpy
 from mathutils import Vector
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "wasteland300"
+output = phase / "wasteland301"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "wasteland297/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -50,10 +50,13 @@ for obj in bpy.context.scene.objects:
         mapped_faces += 1
     count += 1
 assert count > 0 and mapped_faces > 0
+floor = bpy.data.materials["Original ashfield ground"]
+texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
+texture.image = bpy.data.images.load(str(output / "floor.png"))
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
     obj.select_set(obj.type == "MESH" or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"),
                           export_format="GLB", use_selection=True, export_apply=True)
-print("ASHFIELD300_EXPORTED", count, mapped_faces)
+print("ASHFIELD301_EXPORTED", count, mapped_faces)
