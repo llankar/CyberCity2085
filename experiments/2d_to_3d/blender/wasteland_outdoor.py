@@ -16,6 +16,19 @@ class WastelandOutdoors:
         self.cw, self.ch = canvas
         self.city = city
         self.stone = make_material("Fractured concrete", (.19,.14,.097,1), .09,.93)
+        self.aggregate = make_material("Exposed concrete aggregate", (.28,.215,.151,1), .04,.96)
+        concrete_path = library.parents[1] / "sources/environment169/concrete_wall_001"
+        nodes = self.aggregate.node_tree.nodes
+        links = self.aggregate.node_tree.links
+        shader = nodes.get("Principled BSDF")
+        diffuse = nodes.new("ShaderNodeTexImage")
+        diffuse.image = bpy.data.images.load(str(concrete_path / "diff.jpg"), check_existing=True)
+        links.new(diffuse.outputs["Color"], shader.inputs["Base Color"])
+        roughness = nodes.new("ShaderNodeTexImage")
+        roughness.image = bpy.data.images.load(str(concrete_path / "rough.jpg"), check_existing=True)
+        roughness.image.colorspace_settings.name = "Non-Color"
+        links.new(roughness.outputs["Color"], shader.inputs["Roughness"])
+        self.seam = make_material("Dark fractured concrete edge", (.095,.073,.052,1), .04,.95)
         self.steel = make_material("Corroded steel", (.13,.073,.042,1), .62,.69)
         self.dark = make_material("Weathered undercarriage", (.046,.039,.032,1), .4,.82)
         self.canvas = make_material("Weathered sandbags", (.21,.17,.11,1), 0,.94)
@@ -45,12 +58,30 @@ class WastelandOutdoors:
             height = 1.3 if "span" in name or "ramp" in name else .68
             if "planter" in name:
                 height = .24
-            vertices = [(x,y,0) for x,y in points] + [(x,y,height+.19*(i%4)) for i,(x,y) in enumerate(points)]
-            faces = [tuple(reversed(range(n))), tuple(range(n,2*n))]
-            faces.extend((i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n))
+            crest = [height + .19*(i%4) for i in range(n)]
+            vertices = [(x,y,0) for x,y in points]
+            vertices.extend((x,y,crest[i]*(.64+.08*(i%3))) for i,(x,y) in enumerate(points))
+            vertices.extend((x,y,crest[i]) for i,(x,y) in enumerate(points))
+            faces = [tuple(reversed(range(n))), tuple(range(2*n,3*n))]
+            for layer in (0, n):
+                for i in range(n):
+                    j = (i+1)%n
+                    faces.append((layer+i,layer+j,layer+j+n,layer+i+n))
             mesh = bpy.data.meshes.new(name)
             mesh.from_pydata(vertices, [], faces)
-            mesh.materials.append(self.stone)
+            mesh.update()
+            uv = mesh.uv_layers.new()
+            for face in mesh.polygons:
+                dominant = max(range(3), key=lambda axis: abs(face.normal[axis]))
+                axes = [axis for axis in range(3) if axis != dominant]
+                for loop in face.loop_indices:
+                    point = mesh.vertices[mesh.loops[loop].vertex_index].co
+                    uv.data[loop].uv = tuple(point[axis] / 2 for axis in axes)
+            for material in (self.stone, self.aggregate, self.seam):
+                mesh.materials.append(material)
+            mesh.polygons[1].material_index = 1
+            for i in range(n):
+                mesh.polygons[2+n+i].material_index = 2 if i%3 == 0 else 1
             fragment = bpy.data.objects.new(name, mesh)
             bpy.context.collection.objects.link(fragment)
             fragment.parent = group

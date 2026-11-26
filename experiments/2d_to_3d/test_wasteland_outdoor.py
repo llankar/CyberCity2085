@@ -28,3 +28,17 @@ def test_generated_models_include_every_surveyed_group(family, first_map):
         surveyed = json.loads(survey_path.read_text())["walls"]
         assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
         assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name
+
+def test_collapsed_span_export_includes_textured_fracture_faces():
+    path = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/"
+                "wasteland_city_03_collapsed_overpass/environment.glb")
+    if not path.is_file():
+        pytest.skip("Run the local Overpass Blender batch first")
+    with path.open("rb") as model:
+        _, _, _, size, _ = struct.unpack("<4sIII4s", model.read(20))
+        data = json.loads(model.read(size))
+    aggregate = next(i for i, material in enumerate(data["materials"])
+                     if material["name"] == "Exposed concrete aggregate")
+    assert "baseColorTexture" in data["materials"][aggregate]["pbrMetallicRoughness"]
+    assert any(primitive.get("material") == aggregate and "TEXCOORD_0" in primitive["attributes"]
+               for mesh in data["meshes"] for primitive in mesh["primitives"])
