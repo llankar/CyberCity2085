@@ -6540,3 +6540,6 @@ Floor repair now supports exact polygon masks for irregular residential/ruin out
 
 ## Batch253 - IN_PROGRESS residential first assembly
 13 source building/extension outlines, authentic roof UVs and acquired door/window meshes exported in packed BLEND/GLB. Native182meshes exited0; screenshot inspected. Initial pale facade export corrected with explicit toned PBR albedo; no lighting-only concealment. Heights/elevations are inferred; original flat rooftop/street props remain. prepare_residential253.py reproduces E: inputs. Two outdoor export/source-hash checks and two floor-mask tests actually PASS. No production/save changes.
+
+## Batch254 - IN_PROGRESS ashfield ruins
+12 original rubble/ruin/wall groups receive fractured slabs, interrupted wall remnants and exposed reinforcement. Source-projected slab art and weathered concrete variant retained; native192meshes exited0/screenshot inspected. Original wrecks remain2D. Hunyuan wreck_e source trial generated565656triangles (69s,4.87GB allocated/5.42GB reserved), optimized20k but rejected after neutral view: near-planar 0.024m thickness. No paint run. Do not repeat unchanged top-down reference strategy. Next: better wreck assets/reference method, richer walls/props and actual combat adapter. CHANTIER GLOBAL INCOMPLET.
