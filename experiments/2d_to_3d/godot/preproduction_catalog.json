@@ -140,8 +140,10 @@
     "map": "city_industrial_security_checkpoint",
     "family": "security",
     "reuse": "service walls, equipment and barriers",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://city_industrial_security_checkpoint.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_04_bunker_command_post",
@@ -230,14 +232,18 @@
   {
     "map": "city_industrial_service_tunnel",
     "family": "industrial",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_industrial_service_tunnel.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "city_interior_command_deck",
     "family": "interior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_interior_command_deck.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "city_interior_control_center",
@@ -384,8 +390,10 @@
   {
     "map": "cybercity_inner_12_maintenance_tunnel",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_inner_12_maintenance_tunnel.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "cybercity_inner_13_warehouse_floor",
@@ -710,8 +718,10 @@
   {
     "map": "wasteland_inner_05_looted_vault",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_05_looted_vault.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_06_abandoned_safehouse",
@@ -724,14 +734,18 @@
   {
     "map": "wasteland_inner_06_maintenance_depot",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_06_maintenance_depot.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_07_apartment_shelter",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_07_apartment_shelter.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_07_collapsed_tunnel",
@@ -742,8 +756,10 @@
   {
     "map": "wasteland_inner_08_data_relay_room",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_08_data_relay_room.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_08_ruined_clinic",
@@ -756,8 +772,10 @@
   {
     "map": "wasteland_inner_09_bunker_command_post",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_09_bunker_command_post.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_09_underground_market",
@@ -776,32 +794,42 @@
   {
     "map": "wasteland_inner_10_looted_vault",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_10_looted_vault.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_11_emergency_medbay",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_11_emergency_medbay.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_11_maintenance_depot",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_11_maintenance_depot.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_12_apartment_shelter",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_12_apartment_shelter.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_13_data_relay_room",
     "family": "inner",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_inner_13_data_relay_room.tscn",
+    "scope": "partial: surveyed partitions and selected industrial or interior fixtures"
   },
   {
     "map": "wasteland_inner_14_underground_market",

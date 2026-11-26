@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 
 import bpy
+from mathutils import Vector
 
 HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(HERE), str(HERE.parent)]
@@ -49,6 +50,26 @@ def build(name):
             continue
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if kind == "pipe":
+            radius = row["width"] * gw/cw/2
+            points = [Vector((px*gw/cw-gw/2, gh/2-py*gh/ch, radius+.07))
+                      for px,py in row["points"]]
+            for start,end in zip(points,points[1:]):
+                axis = end-start
+                bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=radius,
+                                                    depth=axis.length, location=(start+end)/2)
+                segment = bpy.context.object
+                segment.name = identifier
+                segment.rotation_euler = axis.to_track_quat("Z","Y").to_euler()
+                segment.data.materials.append(steel)
+                segment.parent = group
+            for point in points:
+                bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=radius, location=point)
+                joint = bpy.context.object
+                joint.name = identifier + " elbow"
+                joint.data.materials.append(steel)
+                joint.parent = group
+            continue
         if kind == "partition":
             outline = manifest["outlines"][identifier]
             outline = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px,py in outline]
@@ -115,6 +136,9 @@ def build(name):
             box(identifier+" rail", (x,y,.72), (w*.31,.024,.028), trim).parent = group
             box(identifier+" indicator", (x+w*.33,y,.984),
                 (w*.10,d*.17,.025), screen).parent = group
+        elif kind == "barrier":
+            box(identifier, (x,y,.24), (w*.49,d*.49,.24), steel).parent = group
+            box(identifier+" coping", (x,y,.49), (w*.48,d*.48,.025), trim).parent = group
         elif kind == "cabinet":
             box(identifier, (x,y,.78), (w*.46,d*.44,.78), steel).parent = group
             for level in (.42,.73,1.04,1.35):

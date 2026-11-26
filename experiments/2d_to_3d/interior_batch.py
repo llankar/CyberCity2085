@@ -37,6 +37,20 @@ INTERIORS = (
     "wasteland_inner_15_detention_block",
     "city_industrial_data_vault",
     "cybercity_inner_15_data_vault",
+    "city_industrial_security_checkpoint",
+    "city_industrial_service_tunnel",
+    "city_interior_command_deck",
+    "cybercity_inner_12_maintenance_tunnel",
+    "wasteland_inner_05_looted_vault",
+    "wasteland_inner_06_maintenance_depot",
+    "wasteland_inner_07_apartment_shelter",
+    "wasteland_inner_08_data_relay_room",
+    "wasteland_inner_09_bunker_command_post",
+    "wasteland_inner_10_looted_vault",
+    "wasteland_inner_11_emergency_medbay",
+    "wasteland_inner_11_maintenance_depot",
+    "wasteland_inner_12_apartment_shelter",
+    "wasteland_inner_13_data_relay_room",
 )
 
 
@@ -45,8 +59,13 @@ def fixtures(name):
     selected = {}
     for row in survey["walls"]:
         identifier = row["id"]
-        if "points" in row and row.get("blocks_sight", True):
-            selected[identifier] = "partition"
+        if identifier.startswith("outside_") or row.get("collision") is False:
+            continue
+        if "points" in row:
+            if "_pipe" in identifier:
+                selected[identifier] = "pipe"
+            elif row.get("blocks_sight", True):
+                selected[identifier] = "partition"
             continue
         if not any(key in row for key in ("rect", "polygon")):
             continue
@@ -54,9 +73,9 @@ def fixtures(name):
             selected[identifier] = "wall"
         elif "bed" in identifier or identifier == "operating_table":
             selected[identifier] = "bed"
-        elif "pods" in identifier or identifier in {"central_chamber", "central_cryo", "core", "vault_core"}:
+        elif "pods" in identifier or identifier.endswith("_core") or identifier.startswith("core_") or identifier in {"central_chamber", "central_cryo", "core"}:
             selected[identifier] = "pod"
-        elif "crate" in identifier:
+        elif any(part in identifier for part in ("crate", "_cargo", "_boxes")):
             selected[identifier] = "crate"
         elif "server" in identifier or "cabinet" in identifier:
             selected[identifier] = "cabinet"
@@ -66,15 +85,19 @@ def fixtures(name):
             selected[identifier] = "sofa"
         elif "planter" in identifier or identifier.startswith("reception_plant"):
             selected[identifier] = "planter"
-        elif identifier.startswith(("gate_", "turnstile_")):
+        elif identifier.startswith(("gate_", "turnstile_", "scanner_")):
             selected[identifier] = "gate"
+        elif identifier.startswith(("security_booth_", "guardroom_")):
+            selected[identifier] = "cabinet"
+        elif "barrier" in identifier:
+            selected[identifier] = "barrier"
         elif identifier.endswith("_fountain"):
             selected[identifier] = "fountain"
         elif any(part in identifier for part in ("desk", "table", "kitchen", "bench", "coffee", "bar_", "_bar")) or identifier == "reception":
             selected[identifier] = "table"
         elif "shelf" in identifier or "rack" in identifier:
             selected[identifier] = "rack"
-        elif "machine" in identifier or "scan" in identifier:
+        elif any(part in identifier for part in ("machine", "scan", "generator", "conduit", "_pipe")):
             selected[identifier] = "machine"
     return survey, selected
 
