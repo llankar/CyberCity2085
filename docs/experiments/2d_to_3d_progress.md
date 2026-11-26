@@ -2,6 +2,27 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` VTOL-178 visible finish trial (2026-11-26). Prior turn progressed with limited neural
+  weight continuity and native media. New mechanical finish preserves original135
+  files and rotor/gear pivots. Actual source inspection found32inward lateral
+  hull faces; recalculated outward normals. Reused local blue-metal PBR on hull,
+  rotor housings, fins and shoes. Added90frame/fastener/louvre/turbine components,
+  fin thickness and8glazing panels inset into actual forward hull faces. Original
+  floating cockpit sheets replaced only in the new asset; rear engines moved
+  outside the aft hull. Front/rear neutral renders inspected: coherent fitted
+  canopy and visible twin exhausts. E:phase2/vtol178 GLB/packed BLEND/textures.
+  Source finish_vtol178.py; scene loader and -VehicleFinish select it separately
+  with retained177 cast/city. Native import confirms Gear_Extend/Gear_Retract/
+  Rotor_Spin; new scene sets rotor loop explicitly. First nonloop take retained.
+  Final native902frame1920x1080/30fps movie and package PASS,69s offline render,
+  168occlusions and1blockedshot, six-unit encounter state preserved. Clean0254
+  inspected in Godot scene; neutral front/rear inspected. E:phase2/vehicle178
+  MP4/GIF/gallery includes new VTOL sources/views. Gear clips present but their
+  native playback/clearance was not retested. No old mechanical precision gates.
+  Next substantial action: improve scene-level impact/destruction readability
+  using existing effects/assets, preserving this finish and character work. No new downloads/AI/campaign/production
+  modification/push. Landing clearance and final vehicle art NOT VERIFIED.
+
 - `DONE` WEIGHT-177 limited trial (2026-11-26). Prior turn progressed: equipped neural
   cast and six-unit native encounter delivered. One regional weight-continuity
   trial addresses triangular underarm/coat folds without AI, geometry/material

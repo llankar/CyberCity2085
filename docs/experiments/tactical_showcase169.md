@@ -131,3 +131,28 @@ Native902frame FullHD30 movie and package guards PASS; clean0254 inspected.
 Reproduce with builder `--city-details`, `run_movie169.ps1 -CityDetails`, then
 package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/city174.
 This preserves the treatment/contact/collapse variant and all previous outputs.
+
+## VTOL finish178
+
+The retained procedural aircraft now uses the existing local blue-metal PBR on
+its main hull, rotor housings, fins and shoes.32inward lateral hull faces were
+corrected. Eight cockpit panes follow actual fuselage faces; frames, fasteners,
+louvres and aft turbine hardware add90components. Fins have physical thickness.
+Front/rear neutral views were inspected; the original135 files remain intact.
+
+Existing rotor/gear pivot transforms are preserved. Native Godot imports all
+three clips, and Rotor_Spin loops in this variant. The first nonloop movie is
+retained separately. Final native902frame1080p30 capture/package passed with
+168building/frame occlusions and1blockedshot. Clean0254 was inspected in scene.
+The69second capture is offline rendering, not a real-time FPS claim. Native gear
+playback, landing clearance and final vehicle artistic acceptance remain open.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/finish_vtol178.py
+& experiments/2d_to_3d/run_movie169.ps1 -VehicleFinish
+python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/vehicle178
+```
+
+Vehicle sources/textures/views live in generated/phase2/vtol178; the full six-unit
+movie, GIF and gallery live in vehicle178. No production/campaign/AI/download or
+push work was performed. CHANTIER GLOBAL INCOMPLET.

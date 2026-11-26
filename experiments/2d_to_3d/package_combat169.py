@@ -37,6 +37,16 @@ def main():
         page=page.replace('Deux agents, deux raiders et un robot.', 'Trois agents, deux raiders et un robot, avec le candidat Hunyuan armé.')
         page=page.replace('Modèles humains et robot conservés.', 'Cast conservé et candidat Hunyuan ajouté pour comparaison.')
         (OUT/'index.html').write_text(page,encoding='utf8')
+    if OUT.name=='vehicle178':
+        page=(OUT/'index.html').read_text(encoding='utf8')
+        page=page.replace('</html>','''<h2>VTOL — finition mécanique</h2>
+<p>Coque PBR, verrière ajustée, turbines et détails de maintenance.
+Les pivots existants sont conservés. La rotation des rotors boucle dans cette scène.
+L'atterrissage et la qualité artistique finale restent à vérifier.</p>
+<p><a href="../vtol178/vtol_actions.glb">GLB animé</a> ·
+<a href="../vtol178/vtol_actions.blend">Source Blender</a></p>
+<img src="../vtol178/neutral.png"><img src="../vtol178/rear.png"></html>''')
+        (OUT/'index.html').write_text(page,encoding='utf8')
     (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,
         'scope':'Native rendered visual sequence, not campaign or production AI acceptance'},indent=2))
     print('COMBAT169_DELIVERED',state)

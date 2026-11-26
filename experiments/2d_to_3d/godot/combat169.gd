@@ -21,7 +21,13 @@ var crate_bounds := AABB()
 const EVENTS := [[4.8,2,0],[7.2,1,0],[8.4,0,1],[9.6,1,0],[10.4,0,1],[11.3,0,1],[17.5,3,2],[18.5,3,2],[19.5,3,2]]
 
 func load_glb(relative: String,place: Vector3) -> Node3D:
+	if relative=="vtol_finish135/vtol_actions.glb" and "--vtol178" in OS.get_cmdline_user_args():relative="vtol178/vtol_actions.glb"
 	var model := super.load_glb(relative,place)
+	if model and relative.begins_with("vtol178/"):
+		var motion=model.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
+		for clip in ["Rotor_Spin","Gear_Retract","Gear_Extend"]:assert(motion.has_animation(clip),clip)
+		motion.get_animation("Rotor_Spin").loop_mode=Animation.LOOP_LINEAR
+		print("VTOL178_NATIVE_CLIPS_READY ",motion.get_animation_list()," rotor_loop=",motion.get_animation("Rotor_Spin").loop_mode)
 	if model and relative.contains("crate_procedural"):
 		var first := true
 		for mesh in model.find_children("*","MeshInstance3D",true,false):
