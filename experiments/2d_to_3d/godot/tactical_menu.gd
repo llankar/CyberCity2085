@@ -30,6 +30,11 @@ func _ready() -> void:
  if manifest.parse(FileAccess.get_file_as_string(directory.path_join("scenarios.json"))) != OK:
   status.text = "Launch this menu with run_tactical_preview.py"
   return
+ var search := LineEdit.new()
+ search.placeholder_text = "Filter battlefields by name"
+ search.clear_button_enabled = true
+ search.custom_minimum_size.y = 44
+ options.add_child(search)
  var scroll := ScrollContainer.new()
  scroll.custom_minimum_size.y = 425
  scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -50,6 +55,24 @@ func _ready() -> void:
   cards.add_child(button)
   if id == "metro":
    smoke_button = button
+ search.text_changed.connect(func(query: String) -> void:
+  var words := query.strip_edges().to_lower().split(" ", false)
+  var visible_count := 0
+  for button: Button in cards.get_children():
+   var title := button.text.to_lower()
+   button.visible = true
+   for word in words:
+    if not title.contains(word):
+     button.visible = false
+     break
+   visible_count += int(button.visible)
+  scroll.scroll_vertical = 0
+  status.text = "No matching battlefields"
+  if visible_count == 1:
+   status.text = "1 battlefield"
+  elif visible_count > 1:
+   status.text = "%d battlefields" % visible_count
+ )
  var quit := Button.new()
  quit.text = "Exit"
  quit.custom_minimum_size.y = 44
@@ -59,6 +82,12 @@ func _ready() -> void:
   cards.get_child(0).grab_focus()
  if OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1" and smoke_button != null:
   await get_tree().process_frame
+  search.text = "metro interchange"
+  search.text_changed.emit(search.text)
+  if not smoke_button.visible or status.text != "1 battlefield":
+   push_error("Battlefield filter did not isolate Metro Interchange")
+   get_tree().quit(18)
+   return
   smoke_button.pressed.emit()
 
 
