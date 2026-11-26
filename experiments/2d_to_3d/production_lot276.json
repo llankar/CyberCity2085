@@ -1,0 +1,39 @@
+{
+  "assets": [
+    {
+      "id": "crate274",
+      "subject": "crate",
+      "reference": "/mnt/e/CyberCity2085-3d-lab/sources/crate.png",
+      "shape": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/crate274/shape",
+      "optimized": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/crate274/review/optimized.glb",
+      "paint": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/crate274/paint",
+      "finish": {
+        "id": "cargo_crate274",
+        "map": "city_industrial_factory_floor",
+        "object": "north_crates_w",
+        "family": "Cargo",
+        "height": 1.05,
+        "surface": "painted",
+        "reference_kind": "isolated-art",
+        "palette": "cargo"
+      }
+    },
+    {
+      "id": "wreck275",
+      "subject": "vehicle",
+      "reference": "/mnt/e/CyberCity2085-3d-lab/sources/wreck275/reference.png",
+      "shape": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/wreck275/shape",
+      "optimized": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/wreck275/review/optimized.glb",
+      "paint": "/mnt/e/CyberCity2085-3d-lab/generated/phase2/wreck275/paint",
+      "finish": {
+        "id": "derelict_suv275",
+        "map": "wasteland_outdoor_02_ashfield_ruins",
+        "object": "wreck_e",
+        "family": "Derelicts",
+        "height": 1.7,
+        "surface": "weathered",
+        "reference_kind": "inferred-map-view"
+      }
+    }
+  ]
+}

@@ -10,13 +10,16 @@ import urllib.request
 
 LAB=Path('/mnt/e/CyberCity2085-3d-lab')
 sys.path.insert(0,str(LAB/'repos/Hunyuan3D-2'))
+_PAINT_PIPELINE=None
 
 def main():
+    global _PAINT_PIPELINE
     parser=argparse.ArgumentParser();parser.add_argument('--subject',choices=['robot','rook_combat','rook_unarmed','stealth_vtol'],default='robot')
     parser.add_argument('--local-only',action='store_true')
     parser.add_argument('--mesh',type=Path)
     parser.add_argument('--reference',type=Path)
     parser.add_argument('--output',type=Path)
+    parser.add_argument('--label',help='Actual asset label for custom references')
     args=parser.parse_args();subject=args.subject
     output=LAB/('generated/phase2/paint168/robot_official' if subject=='robot' else 'generated/phase2/paint171/rook_official')
     if subject=='rook_unarmed':output=LAB/'generated/phase2/paint175/rook_unarmed'
@@ -85,14 +88,17 @@ def main():
     report={'status':'FAIL','model':repo,'revision':revision,'source':str(source),
         'source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
         'reference_sha256':hashlib.sha256(reference.read_bytes()).hexdigest(),
-        'subject':subject,'scope':'Generated colour texture on existing mesh; not rigging or final art acceptance'}
+        'subject':args.label or subject,'scope':'Generated colour texture on existing mesh; not rigging or final art acceptance'}
     start=time.perf_counter()
     torch.cuda.reset_peak_memory_stats()
     try:
         config=Hunyuan3DTexGenConfig(str(local/'hunyuan3d-delight-v2-0'),str(local/'hunyuan3d-paint-v2-0-turbo'),'hunyuan3d-paint-v2-0-turbo')
         config.render_size=1024;config.texture_size=1024
-        pipeline=Hunyuan3DPaintPipeline(config)
-        print('PAINT_MODELS_LOADED',flush=True)
+        if _PAINT_PIPELINE is None:
+            _PAINT_PIPELINE=Hunyuan3DPaintPipeline(config)
+            print('PAINT_MODELS_LOADED',flush=True)
+        else:print('PAINT_MODELS_REUSED_FOR_NEXT_ASSET',flush=True)
+        pipeline=_PAINT_PIPELINE
         mesh=trimesh.load(source,force='mesh',process=False)
         result=pipeline(mesh,Image.open(reference))
         result.export(output/'mesh.glb')

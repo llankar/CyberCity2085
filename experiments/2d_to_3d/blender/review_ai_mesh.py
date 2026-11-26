@@ -17,6 +17,7 @@ def main():
     parser.add_argument("--target-triangles", type=int, default=20000)
     parser.add_argument("--source-z-up", action="store_true")
     parser.add_argument("--normal-ab", action="store_true")
+    parser.add_argument("--no-renders", action="store_true", help="Production batch: optimize/export now, review assembled maps later")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
     source = Path(args.input).resolve()
     output = Path(args.output).resolve()
@@ -80,15 +81,16 @@ def main():
               "mesh_objects": len(meshes), "triangles": sum(
                   sum(len(face.vertices) - 2 for face in obj.data.polygons) for obj in meshes),
               "original_extent": list(high - low), "renders": {}, "artistic_acceptance": "NOT VERIFIED"}
-    for name, position in {"front": (0, -3, 0), "profile": (3, 0, 0),
-                           "back": (0, 3, 0), "isometric": (2, -3, 2)}.items():
+    views={} if args.no_renders else {"front": (0, -3, 0), "profile": (3, 0, 0),
+                           "back": (0, 3, 0), "isometric": (2, -3, 2)}
+    for name, position in views.items():
         camera.location = position
         camera.rotation_euler = (-camera.location).to_track_quat("-Z", "Y").to_euler()
         path = output / f"{name}.png"
         scene.render.filepath = str(path)
         bpy.ops.render.render(write_still=True)
         report["renders"][name] = hashlib.sha256(path.read_bytes()).hexdigest()
-    if args.normal_ab:
+    if args.normal_ab and not args.no_renders:
         nodes = [node for mat in bpy.data.materials if mat.use_nodes
                  for node in mat.node_tree.nodes if node.type == "NORMAL_MAP"]
         if not nodes:
@@ -103,7 +105,7 @@ def main():
         for node, strength in zip(nodes, strengths):
             node.inputs["Strength"].default_value = strength
         report["normal_ab"] = "Identical geometry, material and lighting; only normal strength disabled"
-    bpy.ops.wm.save_as_mainfile(filepath=str(output / "model.blend"))
+    if not args.no_renders:bpy.ops.wm.save_as_mainfile(filepath=str(output / "model.blend"))
     ratio = min(1.0, args.target_triangles / report["triangles"])
     for obj in meshes:
         bpy.context.view_layer.objects.active = obj
@@ -118,10 +120,10 @@ def main():
         sum(len(face.vertices) - 2 for face in obj.data.polygons) for obj in meshes)
     report["optimized_glb_sha256"] = hashlib.sha256(optimized.read_bytes()).hexdigest()
     scene.render.filepath = str(output / "optimized_isometric.png")
-    bpy.ops.render.render(write_still=True)
+    if not args.no_renders:bpy.ops.render.render(write_still=True)
     bpy.ops.wm.save_as_mainfile(filepath=str(output / "optimized.blend"))
     (output / "review.json").write_text(json.dumps(report, indent=2))
-    print("AI_NEUTRAL_REVIEW_RENDERED", json.dumps(report))
+    print("AI_MESH_BATCH_EXPORTED" if args.no_renders else "AI_NEUTRAL_REVIEW_RENDERED", json.dumps(report))
 
 
 if __name__ == "__main__":

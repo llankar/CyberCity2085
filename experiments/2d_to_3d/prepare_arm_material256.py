@@ -9,8 +9,9 @@ def main():
  parser=argparse.ArgumentParser(description=__doc__)
  parser.add_argument('--source',type=Path,default=LAB/'generated/phase2/arm256/paint/colour.png')
  parser.add_argument('--output',type=Path,default=LAB/'environment-library/assets/industrial_arm256')
- parser.add_argument('--surface',choices=['painted','metal'],default='painted')
+ parser.add_argument('--surface',choices=['painted','metal','weathered'],default='painted')
  parser.add_argument('--keep-colour',action='store_true',help='Preserve generated source-matched enamel rather than applying the arm palette grade')
+ parser.add_argument('--palette',choices=['none','cargo'],default='none')
  args=parser.parse_args();source=args.source.resolve();out=args.output.resolve()
  if not source.is_relative_to(LAB.resolve()) or not out.is_relative_to(LAB.resolve()):raise ValueError('Materials must stay on E: lab')
  out.mkdir(parents=True,exist_ok=True)
@@ -24,10 +25,22 @@ def main():
  rough[painted]=155;metal[painted]=70
  rough[dark]=175;metal[dark]=140
  rough[scuffed]=105;metal[scuffed]=240
+ if args.surface=='weathered':
+  rough[painted]=215;metal[painted]=10
+  rough[dark]=210;metal[dark]=85
  # Bring overly yellow generated enamel toward the burnt-orange source palette.
  # Retain original paint output and neutral steel/grime pixels separately.
  graded=rgb.copy();graded[:,:,0][painted]*=.94;graded[:,:,1][painted]*=.83;graded[:,:,2][painted]*=.9
  if args.keep_colour:graded=rgb
+ if args.palette=='cargo':
+  graded=graded.copy()
+  purple=(blue>green*1.18)&(red>green*1.08)
+  light=rgb@np.array([.2126,.7152,.0722])
+  graded[purple]=light[purple,None]*np.array([.8,.9,1.0])
+  gold=(red>.35)&(green>.25)&(blue<green*.8)
+  graded[gold]*=np.array([.82,.68,.85])
+  rough[gold]=175;metal[gold]=100
+  rough[purple]=165;metal[purple]=160
  Image.fromarray(np.clip(graded*255,0,255).astype(np.uint8)).save(out/'albedo.png')
  Image.fromarray(rough).save(out/'roughness.png');Image.fromarray(metal).save(out/'metallic.png')
  print('ARM256_INFERRED_PBR_MAPS',list(red.shape))

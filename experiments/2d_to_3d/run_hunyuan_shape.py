@@ -8,9 +8,11 @@ import sys
 import time
 
 from run_trellis_mesh import verified_existing_mesh
+_SHAPE_PIPELINE=None
 
 
 def main():
+    global _SHAPE_PIPELINE
     parser = argparse.ArgumentParser()
     parser.add_argument("subject", choices=["crate", "robot", "rook", "raider_grunt", "vehicle", "industrial_machine", "rook_unarmed", "stealth_vtol"])
     parser.add_argument('--reference',type=Path)
@@ -65,8 +67,11 @@ def main():
         local = Path(os.environ["HY3DGEN_MODELS"]) / report["model"]
         for name in ("config.yaml", "model.fp16.safetensors"):
             hf_hub_download(report["model"], f"{report['subfolder']}/{name}", local_dir=local)
-        pipeline = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(
-            report["model"], subfolder=report["subfolder"])
+        if _SHAPE_PIPELINE is None:
+            _SHAPE_PIPELINE = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(
+                report["model"], subfolder=report["subfolder"])
+        else:print('SHAPE_MODELS_REUSED_FOR_NEXT_ASSET',flush=True)
+        pipeline=_SHAPE_PIPELINE
         image = Image.open(source)
         if image.mode != "RGBA" or image.getchannel("A").getextrema() == (255, 255):
             from rembg import new_session, remove
