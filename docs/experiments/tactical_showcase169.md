@@ -370,3 +370,37 @@ rig_painted_robot189.py, robot189.gd/.tscn, run_robot189_movie.ps1,
 package_robot189.py; scale187 accepts separate --robot189. Retained full tactical
 movie remains materials186. Next: rigid plate/joint separation at elbow and
 only then trial this robot in the independent encounter. Global IN_PROGRESS.
+
+## Robot190/191 and encounter192 — IN_PROGRESS
+
+190 rigid face ownership plus four joint housings: first build failed because
+mesh replacement removed vertex-group definitions; fixed. Actual native330frame
+preview inspected135: severe holes/jagged seams, artistic FAIL, not adopted.
+No production/campaign changes. Failed build/log and all190 outputs retained.
+
+191 corrected189 anatomical classification: first spatial-priority attempt
+fixed hand stretching but dragged thigh plates. Kept first_spatial sources/AVI.
+Then used mesh connectivity below shoulder cut1.32m, welding UV-seam positions
+only for graph matching. Two real forearm islands distinguish hands from legs:
+819/929unique points,10491original UV-split vertices. Assigned these islands to
+arm bones before leg classification. Native330frame preview executed; final
+Walk075 and Melee135 inspected: prior long elbow ribbon/thigh wing absent.
+Not a microscopic all-frame proof; remaining plate/gait quality open. Five
+clips retained. E:robot191 GLB/BLEND/MP4/GIF/index, silent action study.
+
+192 separate full encounter loads191 robot and baked186 environment, retained
+cast/effects/sounds/camera. First902frame capture: one blockedshot,61occlusions,
+health preserved;0254 inspected, broader robot visibly integrated.0630 exposed
+old137 topple/grounding conflicting with new Death. First_double_fall take kept.
+Old contact173 correction now explicitly skipped only for --painted192; travel
+hook applies knockback before rendering, retaining new rig's falling animation.
+Cannon firing returns to Idle with short recoil instead of inherited melee
+swing; muzzle uses shoulder location. Final native capture in progress.
+
+192 second capture still shows an incorrect elevated/disassembled-looking
+settled body in0750, despite a correct isolated191Death285. Not adopted; do not
+confuse preserved health/event counts with art acceptance. New source limits
+cannon recoil rotation writes to before death and records one fall-state trace.
+Third capture in progress; earlier second_rotation_conflict AVI/PNG retained.
+191's final Walk075/Melee135 are materially improved; its standalone Death285
+was also inspected. This contrast narrows the integration bug to scene control.

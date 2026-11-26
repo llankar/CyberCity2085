@@ -5,7 +5,7 @@ from mathutils import Vector,Matrix
 sys.path.insert(0,str(Path(__file__).parent))
 from robot_gait import gait
 from robot_shutdown import shutdown_pose
-LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2/robot189';OUT.mkdir(exist_ok=True)
+LAB=Path('E:/CyberCity2085-3d-lab');OUT=LAB/'generated/phase2'/('robot191' if '--arm191' in sys.argv else 'robot189');OUT.mkdir(exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.ops.import_scene.gltf(filepath=str(LAB/'generated/phase2/paint168/robot_official/painted_material.glb'))
 body=next(o for o in bpy.data.objects if o.type=='MESH');body.data.transform(body.matrix_world);body.parent=None;body.matrix_world=Matrix.Identity(4)
@@ -30,10 +30,35 @@ segments={b.name:(b.head_local.copy(),b.tail_local.copy()) for b in arm.bones}
 def distance(p,a,b):
  q=b-a;t=max(0,min(1,(p-a).dot(q)/q.length_squared));return (p-a-q*t).length
 for name in segments:body.vertex_groups.new(name=name)
+# Below the shoulders, actual connected mesh islands distinguish hands from
+# thigh plates at the same height. UV seam vertices are matched by position.
+arm_vertices=set()
+if '--arm191' in sys.argv:
+ keys=[tuple(round(c,5) for c in v.co) for v in body.data.vertices]
+ parent={k:k for k in keys if k[2]<1.32}
+ def find(k):
+  while parent[k]!=k:parent[k]=parent[parent[k]];k=parent[k]
+  return k
+ for poly in body.data.polygons:
+  ks=[keys[i] for i in poly.vertices]
+  if all(k in parent for k in ks):
+   base=find(ks[0])
+   for k in ks[1:]:parent[find(k)]=base
+ islands={}
+ for k in parent:islands.setdefault(find(k),[]).append(k)
+ selected=set()
+ for points in islands.values():
+  if len(points)<30:continue
+  meanx=sum(p[0] for p in points)/len(points);minz=min(p[2] for p in points);maxz=max(p[2] for p in points)
+  print('ROBOT191_ISLAND',len(points),round(meanx,2),round(minz,2),round(maxz,2),flush=True)
+  if minz>.45 and maxz>1.15 and abs(meanx)>.3:selected.update(points)
+ arm_vertices={i for i,k in enumerate(keys) if k in selected}
+ print('ROBOT191_TOPOLOGICAL_ARM_VERTICES',len(arm_vertices),flush=True)
 counts={name:0 for name in segments}
 for v in body.data.vertices:
  p=v.co;side='L' if p.x>0 else 'R'
- if p.z<1.02 and abs(p.x)>.13:choices=['thigh.'+side,'shin.'+side,'foot.'+side]
+ if '--arm191' in sys.argv and (v.index in arm_vertices or (abs(p.x)>.43 and p.z>=1.32)):choices=['upper_arm.'+side,'forearm.'+side]
+ elif p.z<1.02 and abs(p.x)>.13:choices=['thigh.'+side,'shin.'+side,'foot.'+side]
  elif abs(p.x)>.43 and p.z>.8:choices=['upper_arm.'+side,'forearm.'+side]
  elif p.z>1.94:choices=['head']
  else:choices=['pelvis','chest']

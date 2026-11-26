@@ -10,6 +10,8 @@ var camera: Camera3D
 const CLIPS := ["Idle","Walk","Melee","Hit","Death"]
 
 func _ready() -> void:
+	if "--arm191" in OS.get_cmdline_user_args():out="E:/CyberCity2085-3d-lab/generated/phase2/robot191/"
+	if "--rigid190" in OS.get_cmdline_user_args():out="E:/CyberCity2085-3d-lab/generated/phase2/robot190/"
 	var doc:=GLTFDocument.new();var state:=GLTFState.new()
 	assert(doc.append_from_file(out+"robot_actions.glb",state)==OK)
 	actor=doc.generate_scene(state);add_child(actor)

@@ -1,6 +1,18 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ROBOT-190 rejected face split / ROBOT-191 arm topology correction
+  (2026-11-26). Previous turn delivered first painted articulation.190 opens
+  holes (native135 inspected), artistic FAIL, not adopted.191 first spatial
+  priority drags thigh plates; retained first_spatial files. Mesh connectivity
+  below shoulders distinguishes two forearm islands10491UV-split vertices.
+  Final191Walk075/Melee135/Death285 inspected: long elbow ribbon/thigh wing gone.
+  Native330frame FullHD30 preview and packaging executed; five clips retained.
+  `IN_PROGRESS` painted192 encounter: broad robot integrated, actual blockedshot
+  and61occlusions, but isolated Death and scene Death disagree. Two complete
+  takes retained; third removes pre-death recoil rotation conflict and traces
+  actual fall state. NOT adopted until settled body is correct. No production,
+  campaign/download/push; global IN_PROGRESS. Next: resolve scene fall control.
 - `DONE` ROBOT-189 first painted articulation deliverable (2026-11-26).
   Reused already generated/painted168 robot; no repeated generation. New14bone
   rig reuses gait/shutdown helpers, five actual clips. Two native330frame11s
