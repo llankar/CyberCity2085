@@ -106,8 +106,10 @@ func _ready() -> void:
 		marker.material_override = mat; add_child(marker)
 	var vehicle := load_glb("vtol_finish135/vtol_actions.glb", Vector3(-6,3,-5))
 	if vehicle:
-		var rotor := vehicle.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
-		rotor.play("Rotor_Spin")
+		var vehicle_players := vehicle.find_children("*","AnimationPlayer",true,false)
+		if not vehicle_players.is_empty():
+			var rotor := vehicle_players[0] as AnimationPlayer
+			rotor.play("Rotor_Spin")
 	load_glb("crate_procedural/crate_procedural.glb", Vector3(-2,0,-.9))
 	load_glb("generator01/generator.glb", Vector3(-6,0,1))
 	psi = MeshInstance3D.new(); var orb := SphereMesh.new()

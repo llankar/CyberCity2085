@@ -5975,3 +5975,20 @@ resources must not be pushed without explicit authorization.
   Next: inspect/clean texture artifacts and compare in Godot at same size as
   VTOL178, retaining existing animation solution; do not regenerate the shape.
   No running paint job remains; no production replacement, campaign or push.
+
+- `DONE` AIRCRAFT-221 native scene comparison (2026-11-26). Textured candidate
+  imported into selected counter219 scene at original VTOL center and7.92m
+  width, heading matched. Static art preview explicitly: no fan/gear animation
+  transferred, no hidden primitive rotor claimed as AI animation. Demo167 guards
+  optional AnimationPlayer, old animated178 unchanged. First framing cut aircraft
+  at top; opening camera now21m with(-1,0,-2) establishing offset fading1.5..3.5s,
+  then original action camera restored. Actual final0030 inspected: complete
+  aircraft visible, recognizable fan-wing silhouette, surface remains overly dark
+  and soft; no final selection. Final549frames1920x1080/30,69s offline render.
+  Gallery/video: aircraft221/index.html / encounter_1080p30.mp4. Same cast,219
+  environment, pace, combat and treatment. Native blocked1, occlusion914, expected
+  health retained. Sources remain paint220; selected default remains counter219.
+  Files: godot/aircraft221.gd/.tscn, demo167.gd, package_combat169.py.
+  Next: improve aircraft material readability and articulate actual fan geometry,
+  or select stronger source if artistic gain stalls. No production/campaign/push.
+  CHANTIER GLOBAL INCOMPLET.

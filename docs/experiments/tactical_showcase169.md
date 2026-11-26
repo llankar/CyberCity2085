@@ -934,3 +934,11 @@ counter bodies receive metric worn PBR cladding; no geometry/collision change.
 Editable source: `generated/phase2/showcase219/environment.blend` on E:.
 Gallery: `generated/phase2/counter219/index.html`. White counter strips are gone;
 muted tint variation remains subtle. Larger architectural variety is still open.
+
+## Aircraft candidate221
+
+`res://aircraft221.tscn` compares the actual Hunyuan stealth dropship at the
+previous vehicle center/width. Brief wider opening shot shows its full silhouette.
+This candidate is STATIC; fan/gear transfer remains open. Original animated178
+and selected scene219 are retained. Gallery: generated/phase2/aircraft221/index.html.
+The dark/soft texture is not accepted as final aircraft art.
