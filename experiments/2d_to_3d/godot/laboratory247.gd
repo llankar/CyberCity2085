@@ -41,6 +41,13 @@ func _ready() -> void:
   get_tree().quit(16)
   return
  add_child(model)
+ for instance: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+  if instance.mesh == null:
+   continue
+  for surface in instance.mesh.get_surface_count():
+   var material := instance.get_active_material(surface) as BaseMaterial3D
+   if material != null and material.texture_filter == BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS:
+    material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
  if use_market_ground or review_folder.ends_with("/showcase245/"):
   # The retained encounter creates its original ground at runtime; its GLB is
   # architecture only. Recreate that visual floor in this independent review.
@@ -54,6 +61,7 @@ func _ready() -> void:
   image.generate_mipmaps()
   var material:=StandardMaterial3D.new()
   material.albedo_texture=ImageTexture.create_from_image(image)
+  material.texture_filter=BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
   material.roughness=.7
   var ground:=MeshInstance3D.new()
   var plane:=PlaneMesh.new()
