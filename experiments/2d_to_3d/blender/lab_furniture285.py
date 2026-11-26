@@ -11,7 +11,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "lab290"
+output = phase / "lab291"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "lab282/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -147,14 +147,17 @@ for top in list(bpy.data.objects):
     count += 1
 
 assert count == 18 and len(families) == 4, (count, families)
-# Add independent source fixtures. Overlapping traces require individual reconciliation.
+# Replace overlapping proxy groups and add independent surveyed fixtures.
 repo = Path(__file__).resolve().parents[3]
 survey = json.loads((repo / "experiments/2d_to_3d/lab_fixtures290.json").read_text())
 grid_w, grid_h = json.loads((repo / "assets/maps/city_interior_research_lab.walls.json").read_text())["grid"]
 canvas_w, canvas_h = survey["canvas_size"]
 for fixture in survey["fixtures"]:
-    if fixture["action"] != "candidate_new":
-        continue
+    for identifier in fixture["existing_overlaps"]:
+        old_group = bpy.data.objects["Occludable_" + identifier]
+        for obj in reversed(old_group.children_recursive):
+            bpy.data.objects.remove(obj, do_unlink=True)
+        bpy.data.objects.remove(old_group, do_unlink=True)
     x1, y1, x2, y2 = fixture["rect"]
     x = ((x1+x2)/2/canvas_w-.5)*grid_w
     y = (.5-(y1+y2)/2/canvas_h)*grid_h
@@ -183,7 +186,7 @@ for fixture in survey["fixtures"]:
 
 floor = bpy.data.materials["Original laboratory floor"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
-texture.image = bpy.data.images.load(str(phase / "lab290/floor.png"))
+texture.image = bpy.data.images.load(str(phase / "lab291/floor.png"))
 for light in bpy.data.lights:
     if light.type == "POINT":
         light.energy *= .25
@@ -194,4 +197,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("LAB290_EXPORTED", count, "surveyed furniture groups")
+print("LAB291_EXPORTED", count, "surveyed furniture groups")

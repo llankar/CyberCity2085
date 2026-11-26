@@ -15,7 +15,7 @@ mask = Image.new("L", base.size)
 draw = ImageDraw.Draw(mask)
 additions = json.loads(Path(__file__).with_name("lab_fixtures290.json").read_text())
 assert additions["canvas_size"] == survey["canvas_size"]
-rectangles = survey["walls"] + [item for item in additions["fixtures"] if item["action"] == "candidate_new"]
+rectangles = survey["walls"] + additions["fixtures"]
 for item in rectangles:
     if "rect" not in item or item["id"] in {"west_wall", "east_wall"}:
         continue
@@ -32,7 +32,7 @@ for y in range(0, h, size):
         fill.paste(tile, (x, y))
 result = Image.composite(fill, base, mask)
 assert Image.composite(ImageChops.difference(base, result), Image.new("RGB", base.size), ImageOps.invert(mask)).getbbox() is None
-output = phase / "lab290"
+output = phase / "lab291"
 output.mkdir(exist_ok=True)
 result.save(output / "floor.png")
 print("LAB285_FLOOR_READY")
