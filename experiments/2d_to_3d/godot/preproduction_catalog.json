@@ -72,8 +72,10 @@
     "map": "city_interior_blacksite_lab",
     "family": "science",
     "reuse": "lab benches and containment pods",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://blacksite339.tscn",
+    "scope": "partial: containment pods and perimeter"
   },
   {
     "map": "city_interior_medical_clinic",

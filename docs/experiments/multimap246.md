@@ -356,3 +356,5 @@ Latest scoped architecture delivery281: physical wall UV/normal repair in reside
 - EXPERIMENTAL-DOCKSIDE-BARRIERS-337 / IN_PROGRESS ? Reused service-wall modules in three surveyed quay barrier polygons. Open spans between barriers retained; floor duplicates masked. Blender exported and Godot imported 54 meshes. Selector updated. Next: inspect crane footprints and model the two loading cranes.
 
 - EXPERIMENTAL-DOCKSIDE-CRANES-338 / IN_PROGRESS ? Added two loading cranes in the surveyed base polygons, with elevated harbor-side jibs and hoists. Masked the two base illustrations. Blender export and Godot import ran (56 meshes). Selector updated. Next: prioritize the next new map while retaining dockside machinery and offices as backlog.
+
+- EXPERIMENTAL-BLACKSITE-339 / IN_PROGRESS ? Tenth native preview. Extracted the research lab containment assembly and reused it at seven blacksite footprints. Reused 60 perimeter modules and preserved the south opening. Floor mask generator and Godot import ran (486 meshes); Blender measured 1.44 seconds. Next: recover interior partitions and equipment, and convert the medical clinic with shared scientific furniture.
