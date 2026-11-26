@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://multicast271.gd" id="1"]
+[node name="FactoryServiceMachine273Cast" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/factory273/"
+reference_map = "city_industrial_factory_floor"
+reference_cells = Array[Vector2i]([Vector2i(10,6),Vector2i(10,9),Vector2i(12,5)])
