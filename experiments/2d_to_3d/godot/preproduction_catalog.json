@@ -180,8 +180,10 @@
   {
     "map": "city_exterior_downtown_intersection",
     "family": "exterior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_exterior_downtown_intersection.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "city_exterior_elevated_freeway",
@@ -360,8 +362,10 @@
   {
     "map": "cybercity_street_01_downtown_intersection",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_01_downtown_intersection.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_02_neon_market_alley",
@@ -390,8 +394,10 @@
   {
     "map": "cybercity_street_06_downtown_intersection",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_06_downtown_intersection.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_06_transit_interchange",
@@ -402,8 +408,10 @@
   {
     "map": "cybercity_street_07_downtown_intersection",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_07_downtown_intersection.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_07_neon_market_alley",
@@ -474,8 +482,10 @@
   {
     "map": "cybercity_street_13_flood_prone_avenue",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_13_flood_prone_avenue.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_13_industrial_district",
@@ -492,8 +502,10 @@
   {
     "map": "cybercity_street_14_flood_prone_avenue",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_14_flood_prone_avenue.tscn",
+    "scope": "surveyed buildings and street props modeled; art review pending"
   },
   {
     "map": "cybercity_street_15_billboard_avenue",

@@ -1,4 +1,4 @@
-"""Build the three original billboard avenues using shared facade modules."""
+"""Build original urban streets using shared facade and street furniture modules."""
 import json
 import math
 from pathlib import Path
@@ -12,11 +12,11 @@ from library_placement import place, reset_library_cache
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
-AVENUES = (
-    "city_exterior_billboard_avenue",
-    "cybercity_street_15_billboard_avenue",
-    "cybercity_street_16_billboard_avenue",
-)
+BUILDING_EXCEPTIONS = {
+    "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
+    "west_south", "east_north", "east_mid", "east_south", "far_northwest",
+    "far_northeast", "southwest_annex",
+}
 
 
 def textured_material(name, image, roughness):
@@ -68,6 +68,24 @@ def build(name):
         if identifier == "crate_mid":
             place(library / "cargo_crate274/model.glb", group, (x, y, 0), (w, d, .55))
             continue
+        if identifier.startswith("utility_"):
+            vertical = d > w
+            place(library / "industrial_service267/model.glb", group, (x, y, 0),
+                  (max(w, d), min(w, d), 1.3), yaw=math.pi/2 if vertical else 0)
+            continue
+        if identifier.startswith("bin_"):
+            box(identifier, (x, y, .25), (w*.45, d*.45, .25), wall).parent = group
+            box(identifier + " lid", (x, y, .51), (w*.49, d*.49, .035), frame).parent = group
+            continue
+        if identifier.endswith(("_sign", "_kiosk")):
+            is_kiosk = identifier.endswith("_kiosk")
+            height = 1.55 if is_kiosk else .95
+            box(identifier + " plinth", (x, y, .11), (w*.49, d*.47, .11), frame).parent = group
+            box(identifier, (x, y, height/2), (w*.42, d*.29, height/2), wall).parent = group
+            direction = -1 if y > 0 else 1
+            box(identifier + " screen", (x, y+direction*d*.30, height*.72),
+                (w*.36, .03, height*.20), signs[i % len(signs)]).parent = group
+            continue
         if any(kind in identifier for kind in ("bench", "planter", "barrier")):
             if "bench" in identifier:
                 parts = [
@@ -96,7 +114,7 @@ def build(name):
             for label, position, half_size, material in parts:
                 box(f"{identifier} {label}", position, half_size, material).parent = group
             continue
-        if "block" not in identifier and identifier not in {"ne_corner", "west_mid", "south_mid"}:
+        if not any(part in identifier for part in ("block", "building", "_roof")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
         shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
         shell.parent = group
@@ -115,6 +133,8 @@ def build(name):
         for offset in (-.3, .3):
             place(library / "urban_facade280/window.glb", group,
                   (x+w*offset, front+direction*.04, .9), (min(1.65,w*.33), .28, 1.7), yaw=angle)
+        if "billboard" not in name and i % 3 != 0:
+            continue
         sign_width = min(w*.75, 4.2)
         for label, offset, thickness, depth, material in (
             ("housing", .10, .16, .42, frame),
@@ -135,5 +155,8 @@ def build(name):
     print("BILLBOARD_AVENUE_EXPORTED", name, len(survey["walls"]))
 
 
-for avenue in AVENUES:
-    build(avenue)
+maps = sys.argv[sys.argv.index("--") + 1:]
+if not maps or any(Path(name).name != name for name in maps):
+    raise ValueError("Pass one or more original map IDs after --")
+for map_name in maps:
+    build(map_name)
