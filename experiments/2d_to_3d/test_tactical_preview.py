@@ -14,6 +14,21 @@ from run_tactical_preview import SCENARIOS, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_rooftop_canyons_block_movement_without_spending_ap(self):
+        cases = (("rooftop", (19, 4), [18, 4]), ("skybridge", (15, 12), [16, 12]))
+        for name, start, destination in cases:
+            with self.subTest(map=name):
+                preview = scenario_preview(name)
+                ally = preview.units["ally:0"]
+                origin = tuple(axis * CELL_SIZE for axis in start)
+                terrain = preview.engine.terrain_profile
+                self.assertIn(origin, terrain.walkable_cells)
+                ally.position = origin
+                result = preview.action("move", "ally:0", destination=destination)
+                self.assertFalse(result["success"])
+                self.assertEqual(ally.position, origin)
+                self.assertEqual(ally.action_points, 3)
+
     def test_selector_accepts_only_configured_maps(self):
         lab_tmp = Path("E:/CyberCity2085-3d-lab/tmp")
         with tempfile.TemporaryDirectory(dir=lab_tmp if lab_tmp.is_dir() else None) as temp:

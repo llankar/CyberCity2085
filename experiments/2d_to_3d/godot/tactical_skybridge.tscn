@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://tactical_warehouse.gd" id="1"]
+[node name="TacticalSkybridge" type="Node3D"]
+script = ExtResource("1")
+scenario_title = "Skybridge Spine"
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/city_rooftop_skybridge_spine/"
+review_size = 31.0
+save_review_capture = false

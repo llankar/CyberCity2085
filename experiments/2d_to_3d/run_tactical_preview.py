@@ -29,8 +29,13 @@ SCENARIOS = {
     "warehouse": ("city_industrial_warehouse_floor", (19, 14), (29, 14)),
     "metro": ("city_transit_metro_interchange", (16, 14), (23, 14)),
     "downtown": ("city_exterior_downtown_intersection", (18, 10), (25, 10)),
+    "rooftop": ("city_exterior_rooftop_access", (12, 12), (18, 12)),
+    "skybridge": ("city_rooftop_skybridge_spine", (14, 12), (20, 12)),
 }
-TITLES = {"warehouse": "Warehouse", "metro": "Metro Interchange", "downtown": "Downtown Intersection"}
+TITLES = {
+    "warehouse": "Warehouse", "metro": "Metro Interchange", "downtown": "Downtown Intersection",
+    "rooftop": "Rooftop Access", "skybridge": "Skybridge Spine",
+}
 
 
 def scenario_preview(scenario: str) -> TacticalPreview:
