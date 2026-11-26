@@ -108,8 +108,26 @@ class WastelandOutdoors:
                 roadbed_mesh.from_pydata(
                     [(x, y, .035 + .018*(i%3)) for i,(x,y) in enumerate(points)],
                     [], [tuple(range(n))])
+                roadbed_mesh.calc_loop_triangles()
+                triangles = [tuple(face.vertices) for face in roadbed_mesh.loop_triangles]
+                vertices = [(x, y, .035) for x,y in points]
+                faces = [tuple(range(n))]
+                for index, triangle in enumerate(triangles):
+                    corners = [points[i] for i in triangle]
+                    cx, cy = (sum(axis)/3 for axis in zip(*corners))
+                    offset = len(vertices)
+                    for x,y in corners:
+                        length = math.hypot(cx-x, cy-y)
+                        inset = min(.12, .035 / max(length, .001))
+                        vertices.append((x+(cx-x)*inset, y+(cy-y)*inset, .052+.012*(index%4)))
+                    faces.append((offset, offset+1, offset+2))
+                roadbed_mesh.clear_geometry()
+                roadbed_mesh.from_pydata(vertices, [], faces)
                 self.project_concrete_uv(roadbed_mesh)
+                roadbed_mesh.materials.append(self.seam)
                 roadbed_mesh.materials.append(self.aggregate)
+                for face in list(roadbed_mesh.polygons)[1:]:
+                    face.material_index = 1
                 roadbed = bpy.data.objects.new(name + " retained roadbed", roadbed_mesh)
                 bpy.context.collection.objects.link(roadbed)
             return

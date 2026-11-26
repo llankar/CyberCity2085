@@ -43,7 +43,11 @@ def test_collapsed_span_export_includes_textured_fracture_faces():
     assert any(primitive.get("material") == aggregate and "TEXCOORD_0" in primitive["attributes"]
                for mesh in data["meshes"] for primitive in mesh["primitives"])
     nodes = data["nodes"]
-    root_nodes = {nodes[index]["name"] for index in data["scenes"][data["scene"]]["nodes"]}
+    root_nodes = {nodes[index]["name"]: nodes[index]
+                  for index in data["scenes"][data["scene"]]["nodes"]}
     for obstacle in ("collapsed_center_span", "collapsed_north_span"):
         assert f"Occludable_{obstacle}" in root_nodes
-        assert f"{obstacle} retained roadbed" in root_nodes
+        roadbed = root_nodes[f"{obstacle} retained roadbed"]
+        materials = {primitive["material"] for primitive in data["meshes"][roadbed["mesh"]]["primitives"]}
+        assert aggregate in materials
+        assert len(materials) == 2
