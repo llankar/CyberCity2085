@@ -2,7 +2,7 @@ extends Control
 ## Independent environment selector. No campaign or alternative combat engine.
 const ENTRIES := [
  ["NEON MARKET // retained environment", "res://market251.tscn"],
- ["RESIDENTIAL // facade surfaces and shared cargo", "res://residential280_cast.tscn"],
+ ["RESIDENTIAL // facade surfaces and shared cargo", "res://residential284_cast.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab261.tscn"],
  ["FACTORY // machines, service walls and cargo", "res://factory278_cast.tscn"],
  ["SUBWAY // modular walls and open railway exits", "res://metro270.tscn"],
