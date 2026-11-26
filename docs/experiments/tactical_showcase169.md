@@ -176,3 +176,16 @@ Next: improve the encounter composition and visible destruction silhouette;
 retain current characters and avoid further technical loading/rig proofs.
 Global visual acceptance remains open.
 `nPackaging executed successfully: MP4 with recorded audio, GIF, gallery and delivery.json.
+
+## Wreck 180 — 2026-11-26
+
+Added combat_effects180.gd and -WreckFinish; all previous takes retained.
+Fragments now copy active source surface materials and remain eight seconds.
+A denser elevated plume is visible above cover in inspected clean_0630.png.
+The collapsed robot remains partly hidden and its silhouette is not yet clearly
+identifiable; no complete destruction-art acceptance is claimed.
+Executed native902frames1920x1080/30fps,71seconds offline. Existing encounter
+retains one blocked shot,168occlusions and six-unit health state. No campaign,
+production changes or push. Next: staging the robot's fall in a readable free
+area without weakening the real cover demonstration. This is visual staging,
+not a change to production tactical rules.

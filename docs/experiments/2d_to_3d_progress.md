@@ -1,6 +1,13 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` WRECK-180 scoped visual trial (2026-11-26). Previous turn progressed
+  with actual effect implementation/native media. New combat_effects180.gd
+  retains source fragment materials, eight-second debris and elevated plume.
+  Wrapper -WreckFinish preserves179 output. Native902frames FullHD30/71s offline;
+  inspected0630 shows plume above cover. Robot wreck silhouette remains partly
+  hidden, NOT VERIFIED artistically. `IN_PROGRESS` next: readable fall staging
+  in free space while retaining the cover-blocked shot. No production/campaign/push.
 
 - `DONE` IMPACT-179 implementation and native capture (2026-11-26).
   Files: combat_effects179.gd, combat169.gd, neural176.gd, run_movie169.ps1.

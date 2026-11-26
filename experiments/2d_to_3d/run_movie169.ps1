@@ -1,4 +1,4 @@
-param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish)
+param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish,[switch]$WreckFinish)
 $ErrorActionPreference='Stop'
 if ($Architectural -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat170/encounter.avi' }
 if ($Refined -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat171/encounter.avi' }
@@ -8,6 +8,7 @@ if ($NeuralTrial -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='
 if ($SmoothedTrial -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/neural177/encounter.avi' }
 if ($VehicleFinish -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/vehicle178/encounter.avi' }
 if ($ImpactFinish -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/impact179/encounter.avi' }
+if ($WreckFinish -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/wreck180/encounter.avi' }
 if (-not ([IO.Path]::GetFullPath($Output).StartsWith('E:\CyberCity2085-3d-lab\'))) { throw 'Keep experimental captures on E:' }
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Output) | Out-Null
 & (Join-Path $PSScriptRoot 'configure_godot_cache.ps1')
@@ -24,5 +25,6 @@ if ($NeuralTrial) { $sceneArguments=@('--','--refined-stage','--city-details');$
 if ($SmoothedTrial) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177');$scene='res://neural176.tscn' }
 if ($VehicleFinish) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178');$scene='res://neural176.tscn' }
 if ($ImpactFinish) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179');$scene='res://neural176.tscn' }
+if ($WreckFinish) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180');$scene='res://neural176.tscn' }
 & $engine --path (Join-Path $PSScriptRoot 'godot') --rendering-method gl_compatibility --resolution 1920x1080 --write-movie $Output --fixed-fps 30 --quit-after 2000 $scene @sceneArguments
 exit $LASTEXITCODE
