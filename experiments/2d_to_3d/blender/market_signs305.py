@@ -163,13 +163,12 @@ for index, group in enumerate(groups):
             trays += 1
     count += 1
 assert count >= 3 and trays > 0, (count, trays)
-# Join only loose stock meshes with no child nodes or modifiers. Their shared
-# occlusion parent remains the same, and material slots survive the join.
+# Keep each stall as its own occlusion group. Join static leaf meshes
+# without baking lights, animated objects or unapplied geometry modifiers.
 for group in groups:
     parts = [obj for obj in group.children
              if obj.type == "MESH" and not obj.children and not obj.modifiers
-             and obj.name.startswith(("Store197 rear stock", "Store197 sealed components",
-                                      "Store197 medical stock"))]
+             and obj.animation_data is None and obj.data.shape_keys is None]
     if len(parts) < 2:
         continue
     bpy.ops.object.select_all(action="DESELECT")
@@ -177,7 +176,7 @@ for group in groups:
         obj.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]
     bpy.ops.object.join()
-    bpy.context.object.name = "Grouped counter merchandise"
+    bpy.context.object.name = group.name + " rigid surfaces"
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:

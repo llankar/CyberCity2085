@@ -7,6 +7,7 @@ import pytest
 
 
 @pytest.mark.parametrize(("folder", "map_name", "prefix"), [
+    ("", "market325", "Occludable_market_"),
     ("billboard_avenues", "cybercity_street_07_neon_market_alley", "Occludable_market_"),
     ("billboard_avenues", "wasteland_city_02_burned_market_block", "Occludable_stall_"),
     ("interiors", "wasteland_inner_09_underground_market", "Occludable_stall_"),
@@ -24,6 +25,9 @@ def test_exported_stalls_retain_independent_groups_and_materials(folder, map_nam
     stalls = [node for node in nodes if node["name"].startswith(prefix) and "children" in node]
     assert stalls
     for stall in stalls:
-        assert len(stall["children"]) == 1, stall["name"]
-        mesh = document["meshes"][nodes[stall["children"][0]]["mesh"]]
+        children = [nodes[index] for index in stall["children"]]
+        if map_name == "market325":
+            children = [node for node in children if " rigid surfaces" in node["name"]]
+        assert len(children) == 1, stall["name"]
+        mesh = document["meshes"][children[0]["mesh"]]
         assert len({primitive["material"] for primitive in mesh["primitives"]}) > 1
