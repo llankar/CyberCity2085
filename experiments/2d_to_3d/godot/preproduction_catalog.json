@@ -1,0 +1,122 @@
+[
+  {
+    "map": "city_exterior_neon_market_alley",
+    "family": "commerce",
+    "scene": "res://market325.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "city_district_apartment_block",
+    "family": "residential",
+    "scene": "res://residential317_cast.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "city_interior_research_lab",
+    "family": "science",
+    "scene": "res://lab291_cast.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "city_industrial_factory_floor",
+    "family": "industry",
+    "scene": "res://factory330_cast.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "city_transit_subway_platform",
+    "family": "transit",
+    "scene": "res://metro293_cast.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "wasteland_outdoor_02_ashfield_ruins",
+    "family": "wasteland",
+    "scene": "res://wasteland320_cast.tscn",
+    "status": "preview"
+  },
+  {
+    "map": "city_industrial_warehouse_floor",
+    "family": "industry",
+    "reuse": "factory cargo and service walls",
+    "status": "planned"
+  },
+  {
+    "map": "city_industrial_power_substation",
+    "family": "industry",
+    "reuse": "factory generators and conduits",
+    "status": "planned"
+  },
+  {
+    "map": "city_industrial_dockside_terminal",
+    "family": "industry",
+    "reuse": "factory cargo and yard machinery",
+    "status": "planned"
+  },
+  {
+    "map": "city_interior_blacksite_lab",
+    "family": "science",
+    "reuse": "lab benches and containment pods",
+    "status": "planned"
+  },
+  {
+    "map": "city_interior_medical_clinic",
+    "family": "science",
+    "reuse": "lab partitions and medical cases",
+    "status": "planned"
+  },
+  {
+    "map": "city_district_tech_market",
+    "family": "commerce",
+    "reuse": "market stalls and signage",
+    "status": "planned"
+  },
+  {
+    "map": "city_exterior_billboard_avenue",
+    "family": "commerce",
+    "reuse": "market signage and facade components",
+    "status": "planned"
+  },
+  {
+    "map": "cybercity_inner_09_apartment_block",
+    "family": "residential",
+    "reuse": "residential windows and roof equipment",
+    "status": "planned"
+  },
+  {
+    "map": "city_transit_train_tunnel",
+    "family": "transit",
+    "reuse": "rail assemblies and wall services",
+    "status": "planned"
+  },
+  {
+    "map": "city_transit_metro_interchange",
+    "family": "transit",
+    "reuse": "platform furnishings and ticket terminals",
+    "status": "planned"
+  },
+  {
+    "map": "city_transit_freight_yard",
+    "family": "transit",
+    "reuse": "rails and factory cargo",
+    "status": "planned"
+  },
+  {
+    "map": "city_industrial_security_checkpoint",
+    "family": "security",
+    "reuse": "service walls, equipment and barriers",
+    "status": "planned"
+  },
+  {
+    "map": "wasteland_inner_04_bunker_command_post",
+    "family": "military",
+    "reuse": "ruined walls and technical furniture",
+    "status": "planned"
+  },
+  {
+    "map": "wasteland_city_03_collapsed_overpass",
+    "family": "wasteland",
+    "reuse": "Ashfield concrete fragments and wreck geometry",
+    "status": "planned"
+  }
+]

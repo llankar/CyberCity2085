@@ -14,6 +14,7 @@ func _process(delta:float) -> void:
  if active:cutaway.update(delta)
 func _ready() -> void:
  await super._ready()
+ if not is_inside_tree():return
  var walls=JSON.parse_string(FileAccess.get_file_as_string("res://../../../assets/maps/"+reference_map+".walls.json"))
  var blocked={}
  for wall in walls.walls:
