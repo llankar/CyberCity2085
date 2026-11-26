@@ -1,6 +1,15 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ROBOT-188 scoped shell trial; `FAIL` artistic adoption (2026-11-26).
+  Expanded18authored shells through appended GLB accessors, original motion
+  binary/skins/5animation definitions preserved. Native fixed-pose scale187
+  comparison executed with --robot188 and inspected: slight bulk, too dark,
+  no convincing silhouette improvement. NOT promoted to full scene. No full
+  motion/movie validation run for rejected trial. Retained186 scene unchanged.
+  E:scale187/index.html exposes current native board, retained full186 movie,
+  rejected188board/GLB. Next: fundamentally broader existing body, not repeated
+  tiny shell/tint variations. Global IN_PROGRESS; no production/campaign/push.
 - `DONE` SCALE-187 current-cast comparison (2026-11-26). Previous turn progressed
   with persisted material direction. Actual native four-model/three-scale board
   against production idle atlas tiles; first Raider alias corrected to actual

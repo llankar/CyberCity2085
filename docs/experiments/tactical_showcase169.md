@@ -328,3 +328,17 @@ small at21px; robot markedly thinner than sprite and Raider dark. Not an
 animation acceptance or exact skinned bounding-height audit. No campaign.
 Next: robot silhouette using existing authored shell meshes and unchanged clips,
 not new human recoloring or more facade microdetails.
+
+## Robot shell trial 188 — NOT PROMOTED
+
+Robot_shell188.py thickens18 authored shell meshes, preserving original binary
+prefix, skins and animation JSON (five retained clips). Native fixed-pose187
+comparison with --robot188 executed and inspected. Some purple panel identity
+appears, but mass increase is modest and dark color worsens small-scale contrast.
+Not promoted into the tactical scene; no full encounter/movie/animation review
+was run for this rejected trial. Avoid iterating many tiny shell/tint changes.
+Current retained full video stays materials186. Next viable direction is a
+fundamentally broader authored/previously generated robot body, reusing known
+rig/motions when practical; do not claim silhouette parity from mesh counts.
+E:scale187/index.html joins native comparison, actual186 movie and rejected188
+board/source. Prototype global art acceptance remains open, no production edits.
