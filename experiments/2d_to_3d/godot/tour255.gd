@@ -9,7 +9,7 @@ var single_map:=-1
 func _ready() -> void:
  selected_folders=FOLDERS.duplicate()
  if "--detail-pass" in OS.get_cmdline_user_args():
-  selected_folders[0]="market321"
+  selected_folders[0]="market322"
   selected_folders[1]="residential317"
   selected_folders[2]="lab291"
   selected_folders[3]="factory278"
@@ -24,7 +24,7 @@ func _ready() -> void:
    assert(single_map>=0 and single_map<selected_folders.size(),"Tour map index outside selected environments")
    tour_index=single_map
  review_folder="E:/CyberCity2085-3d-lab/generated/phase2/"+str(selected_folders[tour_index])+"/"
- if selected_folders[tour_index]=="market321":
+ if selected_folders[tour_index]=="market322":
   use_market_ground=true
   market_ground_filename="../market308/floor.png"
  if selected_folders[tour_index]=="wasteland320":

@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market321"
+output = phase / "market322"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -31,6 +31,7 @@ icons = (
 groups = sorted((obj for obj in bpy.data.objects if obj.name.startswith("Occludable_market_")),
                 key=lambda obj: obj.name)
 count = 0
+trimmed = 0
 for index, group in enumerate(groups):
     mesh = next((obj for obj in group.children_recursive if obj.name.startswith("PBR_Facade_")), None)
     if mesh is None:
@@ -54,8 +55,25 @@ for index, group in enumerate(groups):
         mesh.data = mesh.data.copy()
         world = mesh.matrix_world.copy()
         inverse = world.inverted()
+        supported_points = [
+            node.matrix_world @ Vector(corner)
+            for child in supported for node in (child, *child.children_recursive)
+            if node.type == "MESH" for corner in node.bound_box
+        ]
+        new_x0 = max(x0, min(point.x for point in supported_points)-.12)
+        new_x1 = min(x1, max(point.x for point in supported_points)+.12)
+        new_y0 = max(y0, min(point.y for point in supported_points)-.12)
+        new_y1 = min(y1, max(point.y for point in supported_points)+.12)
+        if (new_x1 <= new_x0 or new_y1 <= new_y0
+                or any(not (new_x0 <= point.x <= new_x1 and new_y0 <= point.y <= new_y1)
+                       for point in supported_points)):
+            new_x0, new_x1, new_y0, new_y1 = x0, x1, y0, y1
+        if (new_x1-new_x0)*(new_y1-new_y0) < .99*(x1-x0)*(y1-y0):
+            trimmed += 1
         for vertex in mesh.data.vertices:
             point = world @ vertex.co
+            point.x = new_x0+(point.x-x0)/(x1-x0)*(new_x1-new_x0)
+            point.y = new_y0+(point.y-y0)/(y1-y0)*(new_y1-new_y0)
             point.z = bottom + (point.z-bottom)*.62
             vertex.co = inverse @ point
         for child in supported:
@@ -63,6 +81,7 @@ for index, group in enumerate(groups):
             transform.translation.z -= reduction
             child.matrix_world = transform
         top -= reduction
+        x0, x1, y0, y1 = new_x0, new_x1, new_y0, new_y1
     x = (x0+x1)/2
     y = y0+(y1-y0)*.12
     h = min(.58, (x1-x0)*.18)
@@ -99,4 +118,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET321_EXPORTED", count)
+print("MARKET322_EXPORTED", count, "trimmed", trimmed)
