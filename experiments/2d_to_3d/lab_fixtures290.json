@@ -1,0 +1,88 @@
+{
+  "map": "city_interior_research_lab",
+  "canvas_size": [
+    960,
+    540
+  ],
+  "status": "VISUAL_SURVEY_ONLY",
+  "fixtures": [
+    {
+      "id": "analysis_room_sample_rack",
+      "rect": [
+        361,
+        124,
+        431,
+        171
+      ],
+      "family": "sample_rack",
+      "existing_overlaps": [
+        "north_console_w"
+      ],
+      "action": "reconcile_existing"
+    },
+    {
+      "id": "analysis_room_wall_station",
+      "rect": [
+        526,
+        125,
+        595,
+        175
+      ],
+      "family": "wall_console",
+      "existing_overlaps": [
+        "north_console_e"
+      ],
+      "action": "reconcile_existing"
+    },
+    {
+      "id": "north_east_monitor_bank",
+      "rect": [
+        755,
+        0,
+        821,
+        32
+      ],
+      "family": "wall_console",
+      "existing_overlaps": [],
+      "action": "candidate_new"
+    },
+    {
+      "id": "north_east_sample_rack",
+      "rect": [
+        829,
+        0,
+        886,
+        34
+      ],
+      "family": "sample_rack",
+      "existing_overlaps": [],
+      "action": "candidate_new"
+    },
+    {
+      "id": "south_control_bank",
+      "rect": [
+        587,
+        484,
+        695,
+        537
+      ],
+      "family": "wall_console",
+      "existing_overlaps": [
+        "south_desk_e"
+      ],
+      "action": "reconcile_existing"
+    },
+    {
+      "id": "south_service_storage",
+      "rect": [
+        207,
+        479,
+        242,
+        540
+      ],
+      "family": "storage",
+      "existing_overlaps": [],
+      "action": "candidate_new"
+    }
+  ]
+}
