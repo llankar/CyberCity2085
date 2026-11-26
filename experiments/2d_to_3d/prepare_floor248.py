@@ -19,6 +19,9 @@ def prepare(source,survey):
         elif 'rect' in item:
             x1,y1,x2,y2=item['rect']
             mask[round(y1*sy):round(y2*sy),round(x1*sx):round(x2*sx)]=255
+        elif 'points' in item:
+            points=np.array([[round(x*sx),round(y*sy)] for x,y in item['points']],dtype=np.int32)
+            cv2.polylines(mask,[points],False,255,max(1,round(item['width']*(sx+sy)/2)))
     # Inferred hidden floor, not recovered authentic art. Work at survey scale;
     # write back only masked pixels so original corridors are byte-identical.
     small=cv2.resize(original,tuple(survey['canvas_size']),interpolation=cv2.INTER_AREA)

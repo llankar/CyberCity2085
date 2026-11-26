@@ -15,7 +15,7 @@ MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
 BUILDING_EXCEPTIONS = {
     "ne_corner", "west_mid", "south_mid", "south_corner", "west_north",
     "west_south", "east_north", "east_mid", "east_south", "far_northwest",
-    "far_northeast", "southwest_annex",
+    "far_northeast", "southwest_annex", "north_mid", "se_corner",
 }
 
 
@@ -54,16 +54,61 @@ def build(name):
     roof = textured_material("Original rooftop artwork", MAPS / f"{name}.png", .8)
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
+        if "points" in row:
+            points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
+            for (ax,ay),(bx,by) in zip(points, points[1:]):
+                width = row["width"] * gw/cw
+                length = math.hypot(bx-ax, by-ay)
+                rail = box(identifier, ((ax+bx)/2,(ay+by)/2,.24),
+                           (length/2,width/2,.24), frame)
+                rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
+            continue
+        if identifier.endswith("_ramp_island") and "polygon" in row:
+            points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["polygon"]]
+            if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(points, points[1:]+points[:1])) < 0:
+                points.reverse()
+            count = len(points)
+            faces = [tuple(reversed(range(count))), tuple(range(count, 2*count))]
+            faces.extend((j, (j+1)%count, (j+1)%count+count, j+count) for j in range(count))
+            mesh = bpy.data.meshes.new(identifier)
+            mesh.from_pydata([(x,y,z) for z in (0,.22) for x,y in points], [], faces)
+            mesh.materials.append(wall)
+            island = bpy.data.objects.new(identifier, mesh)
+            bpy.context.collection.objects.link(island)
+            continue
         x1, y1, x2, y2 = row["rect"]
         x, y = (x1 + x2) * gw / (2*cw) - gw/2, gh/2 - (y1 + y2) * gh / (2*ch)
         w, d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
-        if identifier.startswith("car_"):
+        if identifier.startswith("car_") or identifier in {"north_car", "south_car"}:
             vertical = d > w
             place(library / "derelict_suv275/model.glb", group, (x, y, 0),
                   (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
+            continue
+        if identifier.startswith(("bus_", "truck_", "station_")):
+            shelter = identifier.startswith("station_")
+            height = 1.68 if shelter else 1.27
+            box(identifier + " roof", (x,y,height), (w*.48,d*.47,.065), frame).parent = group
+            if shelter:
+                for sx in (-1,1):
+                    for sy in (-1,1):
+                        box(identifier + " post", (x+sx*w*.38,y+sy*d*.37,height/2),
+                            (.045,.045,height/2), frame).parent = group
+                box(identifier + " seat", (x,y+d*.24,.41), (w*.36,d*.13,.055), seat).parent = group
+            else:
+                box(identifier + " chassis", (x,y,.49), (w*.46,d*.44,.31), wall).parent = group
+                box(identifier + " glazing", (x,y,.95), (w*.45,d*.43,.19), seat).parent = group
+                for sx in (-1,1):
+                    for sy in (-1,1):
+                        box(identifier + " wheel", (x+sx*w*.32,y+sy*d*.31,.18),
+                            (w*.10,d*.16,.18), wall).parent = group
+            continue
+        if identifier.startswith(("pillar_", "platform_", "ramp_outer_")) or "_rail" in identifier:
+            height = 1.8 if identifier.startswith("pillar_") else .22 if identifier.startswith("platform_") else .48
+            box(identifier, (x,y,height/2), (w*.49,d*.49,height/2), wall).parent = group
+            box(identifier + " trim", (x,y,height), (w*.49,d*.49,.035), frame).parent = group
             continue
         if identifier == "crate_mid":
             place(library / "cargo_crate274/model.glb", group, (x, y, 0), (w, d, .55))
@@ -77,8 +122,8 @@ def build(name):
             box(identifier, (x, y, .25), (w*.45, d*.45, .25), wall).parent = group
             box(identifier + " lid", (x, y, .51), (w*.49, d*.49, .035), frame).parent = group
             continue
-        if identifier.endswith(("_sign", "_kiosk")):
-            is_kiosk = identifier.endswith("_kiosk")
+        if identifier.endswith(("_sign", "_kiosk")) or identifier.startswith("ticket_"):
+            is_kiosk = not identifier.endswith("_sign")
             height = 1.55 if is_kiosk else .95
             box(identifier + " plinth", (x, y, .11), (w*.49, d*.47, .11), frame).parent = group
             box(identifier, (x, y, height/2), (w*.42, d*.29, height/2), wall).parent = group

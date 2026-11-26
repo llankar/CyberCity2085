@@ -188,8 +188,10 @@
   {
     "map": "city_exterior_elevated_freeway",
     "family": "exterior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_exterior_elevated_freeway.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "city_exterior_parking_garage",
@@ -376,8 +378,10 @@
   {
     "map": "cybercity_street_03_elevated_freeway",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_03_elevated_freeway.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_04_waterfront_docks",
@@ -402,8 +406,10 @@
   {
     "map": "cybercity_street_06_transit_interchange",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_06_transit_interchange.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_07_downtown_intersection",
@@ -422,8 +428,10 @@
   {
     "map": "cybercity_street_08_elevated_freeway",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_08_elevated_freeway.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_08_neon_market_alley",
@@ -434,8 +442,10 @@
   {
     "map": "cybercity_street_09_elevated_freeway",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_09_elevated_freeway.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_09_waterfront_docks",
@@ -464,8 +474,10 @@
   {
     "map": "cybercity_street_11_transit_interchange",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_11_transit_interchange.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_12_industrial_district",
@@ -476,8 +488,10 @@
   {
     "map": "cybercity_street_12_transit_interchange",
     "family": "street",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://cybercity_street_12_transit_interchange.tscn",
+    "scope": "surveyed transport structures and vehicles modeled; art review pending"
   },
   {
     "map": "cybercity_street_13_flood_prone_avenue",
