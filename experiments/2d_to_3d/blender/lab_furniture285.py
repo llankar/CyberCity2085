@@ -6,9 +6,10 @@ import bpy
 
 sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
+from library_placement import place
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "lab286"
+output = phase / "lab287"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "lab282/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -21,6 +22,19 @@ amber = make_material("Lab285 rack status", (.6, .18, .02, 1), .2, .35, 1.5)
 glass = bpy.data.materials["Lab containment blue glass"]
 polymer = make_material("Lab cleanroom polymer", (.36, .43, .46, 1), .15, .32)
 families = set()
+lab = phase.parents[1]
+medical = lab / "sources/environment169/medical_box/medical_box_1k.gltf"
+cargo = lab / "environment-library/assets/cargo_crate274/model.glb"
+crates = bpy.data.objects["Occludable_south_crates"]
+old_crate_parts = list(crates.children)
+crate_top = next(obj for obj in old_crate_parts if obj.name.endswith("source worktop"))
+cx, cy, _ = crate_top.location
+cw, cd = crate_top.scale.x, crate_top.scale.y
+for obj in old_crate_parts:
+    bpy.data.objects.remove(obj, do_unlink=True)
+for offset in (-.59, 0, .59):
+    place(cargo, crates, (cx + offset * cw, cy, 0), (cw * .54, cd * 1.7, 1.2))
+
 count = 0
 for top in list(bpy.data.objects):
     if not top.name.endswith(" source worktop"):
@@ -66,9 +80,7 @@ for top in list(bpy.data.objects):
     else:
         families.add("preparation")
         part("instrument tray", (0, -d * .48, z + .026), (w * .48, d * .22, .026), dark)
-        for index in range(3):
-            part("instrument module", (w * (index - 1) * .31, -d * .48, z + .089),
-                 (w * .10, d * .14, .045), steel)
+        place(medical, root, (x, y - d * .48, z + .055), (w * .72, d * .38, .35))
         part("tray status strip", (0, -d * .66, z + .053), (w * .37, .014, .009), cyan)
     count += 1
 
@@ -86,4 +98,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("LAB285_EXPORTED", count, "surveyed furniture groups")
+print("LAB287_EXPORTED", count, "surveyed furniture groups")
