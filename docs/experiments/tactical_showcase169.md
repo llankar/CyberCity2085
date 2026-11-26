@@ -517,3 +517,28 @@ ouverture de film ?chou?e faute de dossier ; ordre du wrapper corrig?.
 Aucun changement de production ni test de campagne ni push.
 Prochaine action : d?tailler les devantures du march?, encore trop uniformes.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Storefront197 - furnished market
+
+Current gallery: `E:/CyberCity2085-3d-lab/generated/phase2/storefront197/index.html`.
+Real sources: `showcase197/environment.blend` / `environment.glb`.
+Reproduce with `run_blender.ps1 -Script blender/storefront197.py`, then
+`run_movie169.ps1 -Storefront197`, then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/storefront197`.
+
+Seven existing counters receive worktops, metal fascias, local PBR medical
+boxes, existing authored crates, terminals and geometric shop signs. The
+functional map cells and paths remain unchanged. This is cosmetic furnishing,
+not a market gameplay system. Captured902frames1920x1080/30fps in79s offline;
+package assertions pass: one blocked shot,702occlusion frames, unchanged health.
+0030/0750 inspected: merchandise visible, foreground stall fades, treatment
+staging retained. No script/parse errors found. Existing SDL calibration error
+and Blender shared-texture-sampler warnings remain documented.
+
+Artistic limitations: stock still repeats, counter finishes are flat, existing
+pipe valve competes with medical shop sign, architecture remains too uniform.
+Whole-scene final artistic acceptance NOT VERIFIED. Next action is a cohesive
+art pass and full encounter review, not repeated engine/rig validation.
+No production edits, campaign tests, downloads or push.
+CHANTIER GLOBAL INCOMPLET.

@@ -47,7 +47,7 @@ L'atterrissage et la qualité artistique finale restent à vérifier.</p>
 <a href="../vtol178/vtol_actions.blend">Source Blender</a></p>
 <img src="../vtol178/neutral.png"><img src="../vtol178/rear.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('fall181','presentation182','district183','assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('fall181','presentation182','district183','assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Robot : impact et chute</h2>
 <p>Impulsion PSI, chute continue hors du masque de la caisse, fumée et fragments.
@@ -57,7 +57,7 @@ La rencontre reste une séquence mise en scène indépendante.</p>
 <a href="../security_opaque137/robot_actions.glb">Robot GLB</a> ·
 <a href="../vtol178/vtol_actions.glb">VTOL GLB</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('presentation182','district183','assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('presentation182','district183','assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Cadrages d’action</h2>
 <p>Vue tactique, échanges de tirs, approche et mêlée, PSI puis soins.
@@ -73,7 +73,7 @@ réduites. La géométrie tactique et les animations restent celles de la scène
 <p><a href="../showcase183/environment.glb">Décor GLB</a> ·
 <a href="../showcase183/environment.blend">Source Blender</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('assemblies184','visible185','materials186','painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Assemblages architecturaux</h2>
 <p>Trois baies de garage et plateformes de toiture provenant des kits locaux.
@@ -82,21 +82,21 @@ Les volumes tactiques et les animations de la rencontre sont conservés.</p>
 <a href="../showcase184/environment.blend">Source Blender</a></p>
 <img src="clean_0030.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('visible185','materials186','painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('visible185','materials186','painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('../showcase184/','../showcase185/')
         page=page.replace('</html>','''<p>Baies choisies selon leur orientation
 vers la caméra principale. Portes et encadrements conservent leurs décalages
 relatifs et leur échelle commune issus du kit source.</p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('materials186','painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('materials186','painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Harmonisation dans Godot</h2>
 <p>Portes charbon, toitures moins métalliques et murs plus sobres. Textures,
 normal maps et néons conservés. Cette direction de matériaux est appliquée
 dans le GLB et le fichier Blender186, chargés directement par cette scène.</p><p><a href="../showcase186/environment.glb">Décor harmonisé GLB</a> · <a href="../showcase186/environment.blend">Source Blender harmonisée</a></p><h2>Comparaison au même cadrage</h2><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div>Avant<img src="../visible185/clean_0030.png"></div><div>Après<img src="clean_0030.png"></div></div></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('painted192','cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('painted192','cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8').replace('../security_opaque137/robot_actions.glb','../robot191/robot_actions.glb')
         page=page.replace('</html>','''<h2>Robot Hunyuan articulé</h2>
 <p>Variante indépendante utilisant le robot couleur déjà généré, une articulation
@@ -105,7 +105,7 @@ corrigée par connectivité et les effets/sons existants. L’ancienne scène es
 <a href="../robot191/robot_actions.blend">Source Blender</a> ·
 <a href="../robot191/index.html">Étude des cinq actions</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('cannon193','gait194','market195','treatment196'):
+    if OUT.name in ('cannon193','gait194','market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8').replace('../robot191/robot_actions.glb','../robot193/robot_actions.glb').replace('../robot191/robot_actions.blend','../robot193/robot_actions.blend')
         page=page.replace('</html>','''<h2>Canon : point de départ et visée</h2>
 <p>Le tir part de l’embouchure attachée au canon. L’arme s’oriente vers la cible,
@@ -122,13 +122,17 @@ Cette correction ne constitue pas une validation complète des contacts de pieds
 <img src="walk_sequence.png"><details><summary>Comparer la marche précédente</summary>
 <video controls src="../cannon193/encounter_1080p30.mp4#t=8,13"></video></details></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('market195','treatment196'):
+    if OUT.name in ('market195','treatment196','storefront197'):
         page=(OUT/'index.html').read_text(encoding='utf8').replace('../showcase186/','../showcase195/')
         page=page.replace('</html>','''<h2>March? et clinique</h2><p>Sept comptoirs existants re?oivent des auvents textiles, des cadres m?talliques et un ?clairage de bordure. La clinique porte une croix lumineuse. Volumes tactiques conserv?s ; d?cors suppl?mentaires cosm?tiques.</p><p><a href="../showcase195/environment.blend">Source Blender du d?cor</a> ? <a href="../showcase195/environment.glb">D?cor GLB</a></p><img src="clean_0750.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name=='treatment196':
+    if OUT.name in ('treatment196','storefront197'):
         run('-ss','21','-i',OUT/'encounter.avi','-vf','fps=1,scale=640:360,tile=3x2','-frames:v','1',OUT/'treatment_sequence.png')
         page=(OUT/'index.html').read_text(encoding='utf8').replace('</html>','''<h2>Soins lat?raux</h2><img src="treatment_sequence.png"><p>Approche continue jusqu'au c?t? du patient, orientation distincte et mallette rapproch?e. L'animation et le ciblage de la main restent ceux de la sc?ne pr?c?dente.</p><p>Comparaison : <a href="../market195/clean_0750.png">ancien placement</a></p></html>''')
+        (OUT/'index.html').write_text(page,encoding='utf8')
+    if OUT.name=='storefront197':
+        page=(OUT/'index.html').read_text(encoding='utf8').replace('../showcase195/','../showcase197/')
+        page=page.replace('</html>','''<h2>Furnished market stalls</h2><p>Seven existing counters gain folded metal worktops, local medical cases or sealed component crates, small terminals and geometric emissive signs. The map keeps its tactical footprint. Original source assets are reused, with no new downloads.</p><p><a href="../showcase197/environment.blend">Blender source</a> / <a href="../showcase197/environment.glb">Environment GLB</a></p><details><summary>Previous empty stalls</summary><img src="../market195/clean_0030.png"></details></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
     (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,
         'scope':'Native rendered visual sequence, not campaign or production AI acceptance'},indent=2))

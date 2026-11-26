@@ -1,6 +1,24 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` STOREFRONT-197 scoped furnishing delivery (2026-11-26). Previous turn
+  corrected medical staging. Seven existing counters now hold folded metal
+  worktops/fascias, imported medical cases and locally authored cargo crates,
+  rear stock boards, terminals and real emissive 3D shop labels. GLB/packed
+  BLEND saved on E:, no new downloads; all within existing counter footprints.
+  Files: storefront197 Blender/Godot scene, material passthrough, movie/package
+  scripts and scoped docs. One native902frame FullHD30 capture/79s offline;
+  packaging assertions pass, MP4/audio/GIF/gallery delivered.1blockedshot,
+  702occlusion frames, health unchanged.0030/0750 actually inspected: goods/signs
+  visible, medical staging retained, foreground stall fades. No script/parse
+  errors found; preexisting SDL gamepad calibration error still logged. Blender
+  warns shared image samplers; imported textures visibly present, exhaustive
+  sampler equivalence NOT VERIFIED. Full visual acceptance remains open: stock
+  repetition, flat counter finishes, old pipe valve competes with medical sign,
+  architectural variety and human identity. No production/campaign/push.
+  Next: consolidate one cohesive art pass addressing these visible conflicts,
+  then review the whole encounter against the requested final demo criteria.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` TREATMENT-196 scoped staging correction (2026-11-26). Previous turn
   delivered market/clinic geometry. Medic path now ends at patient's side
   (.1,0,2.65), patient looks laterally, case moved within reach. Original clips
