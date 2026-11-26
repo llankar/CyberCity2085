@@ -860,67 +860,89 @@
   {
     "map": "wasteland_outdoor_01_dust_road_ambush",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_01_dust_road_ambush.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_03_wrecked_highway",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_03_wrecked_highway.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_04_rusted_trainyard",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_04_rusted_trainyard.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_05_irradiated_basin",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_05_irradiated_basin.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_06_dust_road_ambush",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_06_dust_road_ambush.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_07_ashfield_ruins",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_07_ashfield_ruins.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_08_wrecked_highway",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_08_wrecked_highway.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_09_rusted_trainyard",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_09_rusted_trainyard.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_10_irradiated_basin",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_10_irradiated_basin.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_11_convoy_crossing",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_11_convoy_crossing.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   },
   {
     "map": "wasteland_outdoor_12_salt_flat_ambush",
     "family": "outdoor",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_outdoor_12_salt_flat_ambush.tscn",
+    "scope": "surveyed outdoor obstacles modeled; vehicles share a base silhouette; art review pending"
   }
 ]

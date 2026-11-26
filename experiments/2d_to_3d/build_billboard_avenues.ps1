@@ -13,7 +13,7 @@ $env:PYTHONPYCACHEPREFIX = Join-Path $labRoot 'cache/python'
 foreach ($map in $Maps) {
     $output = Join-Path $labRoot "generated/phase2/billboard_avenues/$map"
     $floorOptions = @()
-    if ($map.EndsWith('freight_yard')) { $floorOptions += '--include-side-walls' }
+    if ($map.EndsWith('freight_yard') -or $map.StartsWith('wasteland_outdoor_')) { $floorOptions += '--include-side-walls' }
     python (Join-Path $PSScriptRoot 'prepare_floor248.py') --map $map --output $output @floorOptions
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 }

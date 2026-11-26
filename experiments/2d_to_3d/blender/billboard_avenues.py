@@ -11,6 +11,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place, reset_library_cache
 from loading_crane import build_crane
 from shipping_container import build_container
+from wasteland_outdoor import WastelandOutdoors
 
 LAB = Path("E:/CyberCity2085-3d-lab")
 MAPS = Path(__file__).resolve().parents[3] / "assets/maps"
@@ -42,6 +43,7 @@ def build(name):
     cw, ch = survey["canvas_size"]
     industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
+    wasteland = WastelandOutdoors(library, (gw,gh), (cw,ch)) if name.startswith("wasteland_outdoor_") else None
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)
     palette = ((.025, .60, .73, 1), (.63, .039, .31, 1), (.88, .36, .043, 1))
@@ -63,6 +65,9 @@ def build(name):
     for i, row in enumerate(survey["walls"]):
         identifier = row["id"]
         if row.get("kind") == "water":
+            continue
+        if wasteland is not None:
+            wasteland.add(row)
             continue
         if "points" in row:
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["points"]]
