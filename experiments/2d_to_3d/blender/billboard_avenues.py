@@ -22,6 +22,7 @@ BUILDING_EXCEPTIONS = {
     "west_middle", "east_middle",
     "sw_corner", "north_entry_w", "north_entry_e", "north_civic", "south_civic",
 }
+ROOFTOPS = {"city_exterior_rooftop_access", "city_rooftop_skybridge_spine"}
 
 
 def textured_material(name, image, roughness):
@@ -31,6 +32,45 @@ def textured_material(name, image, roughness):
     texture.image = bpy.data.images.load(str(image))
     material.node_tree.links.new(texture.outputs["Color"], nodes["Principled BSDF"].inputs["Base Color"])
     return material
+
+
+def build_rooftop_ground(out, floor, grid, canvas):
+    terrain = json.loads((out / "rooftop_terrain.json").read_text())
+    gw,gh = grid
+    cw,ch = canvas
+    deck_z, street_z = -.025, -3.6
+
+    def vertex(point, height):
+        x,y = point
+        return (x*gw/cw-gw/2, gh/2-y*gh/ch, height)
+
+    for surface, height in (("deck",deck_z), ("street",street_z)):
+        vertices, faces = [], []
+        for triangle in terrain[surface]:
+            first = len(vertices)
+            vertices.extend(vertex(point,height) for point in triangle)
+            a,b,c = vertices[-3:]
+            winding = (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+            faces.append((first,first+1,first+2) if winding > 0 else (first,first+2,first+1))
+        mesh = bpy.data.meshes.new(surface)
+        mesh.from_pydata(vertices, [], faces)
+        mesh.materials.append(floor)
+        uv = mesh.uv_layers.new()
+        for loop in mesh.loops:
+            x,y,_ = vertices[loop.vertex_index]
+            uv.data[loop.index].uv = (x/gw+.5,y/gh+.5)
+        bpy.context.collection.objects.link(bpy.data.objects.new("Rooftop "+surface,mesh))
+
+    vertices, faces = [], []
+    for a,b in terrain["edges"]:
+        first = len(vertices)
+        vertices.extend((vertex(a,street_z),vertex(b,street_z),vertex(b,deck_z),vertex(a,deck_z)))
+        faces.append(tuple(range(first,first+4)))
+    mesh = bpy.data.meshes.new("Canyon retaining walls")
+    mesh.from_pydata(vertices, [], faces)
+    retaining = make_material("Canyon retaining concrete", (.046,.062,.078,1), .15,.86)
+    mesh.materials.append(retaining)
+    bpy.context.collection.objects.link(bpy.data.objects.new("Rooftop canyon retaining walls",mesh))
 
 
 def build(name):
@@ -339,9 +379,12 @@ def build(name):
             panel.parent = group
 
     floor = textured_material("Original avenue pavement", out / "floor.png", .84)
-    bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
-    bpy.context.object.scale = (gw/2, gh/2, 1)
-    bpy.context.object.data.materials.append(floor)
+    if name in ROOFTOPS:
+        build_rooftop_ground(out, floor, (gw,gh), (cw,ch))
+    else:
+        bpy.ops.mesh.primitive_plane_add(size=2, location=(0, 0, -.025))
+        bpy.context.object.scale = (gw/2, gh/2, 1)
+        bpy.context.object.data.materials.append(floor)
     bpy.ops.file.pack_all()
     bpy.ops.wm.save_as_mainfile(filepath=str(out / "environment.blend"))
     bpy.ops.export_scene.gltf(filepath=str(out / "environment.glb"), export_format="GLB")

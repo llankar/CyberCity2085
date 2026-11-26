@@ -16,6 +16,10 @@ foreach ($map in $Maps) {
     if ($map.EndsWith('freight_yard') -or $map.StartsWith('wasteland_')) { $floorOptions += '--include-side-walls' }
     python (Join-Path $PSScriptRoot 'prepare_floor248.py') --map $map --output $output @floorOptions
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    if ($map -in @('city_exterior_rooftop_access','city_rooftop_skybridge_spine')) {
+        python (Join-Path $PSScriptRoot 'rooftop_terrain.py') $map
+        if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+    }
 }
 & (Join-Path $PSScriptRoot 'run_blender.ps1') -Script blender/billboard_avenues.py -ScriptArguments $Maps
 exit $LASTEXITCODE
