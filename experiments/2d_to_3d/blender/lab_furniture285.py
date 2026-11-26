@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "lab285"
+output = phase / "lab286"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "lab282/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -18,6 +18,9 @@ dark = bpy.data.materials["Lab recessed service panels"]
 cyan = bpy.data.materials["Lab cyan instrumentation"]
 amber = make_material("Lab285 rack status", (.6, .18, .02, 1), .2, .35, 1.5)
 
+glass = bpy.data.materials["Lab containment blue glass"]
+polymer = make_material("Lab cleanroom polymer", (.36, .43, .46, 1), .15, .32)
+families = set()
 count = 0
 for top in list(bpy.data.objects):
     if not top.name.endswith(" source worktop"):
@@ -38,6 +41,7 @@ for top in list(bpy.data.objects):
 
     part("solid worktop", (0, 0, z - .02), (w, d, .024), steel)
     if rack:
+        families.add("server")
         face = w * (.90 if x > 0 else -.90)
         part("rack fascia", (face, 0, .69), (w * .075, d * .88, .60), steel)
         for index in range(8):
@@ -45,7 +49,22 @@ for top in list(bpy.data.objects):
             part("server sled", (face * 1.06, 0, height), (w * .04, d * .76, .057), dark)
             part("server status", (face * 1.105, d * .63, height), (w * .012, .028, .017),
                  amber if index % 3 == 0 else cyan)
+    elif "console" in name:
+        families.add("control")
+        part("sloped control housing", (0, -d * .52, z + .094), (w * .72, d * .23, .085), dark)
+        for index in range(5):
+            part("control key", (w * (index - 2) * .22, -d * .57, z + .182),
+                 (w * .06, d * .07, .012), cyan if index < 4 else amber)
+    elif "central" in name:
+        families.add("analysis")
+        part("analyzer chassis", (w * .35, -d * .30, z + .22),
+             (w * .43, d * .43, .22), polymer)
+        part("sample chamber", (w * .35, -d * .30, z + .45),
+             (w * .32, d * .32, .07), glass)
+        part("analyzer readout", (w * .35, -d * .735, z + .25),
+             (w * .22, .009, .055), amber)
     else:
+        families.add("preparation")
         part("instrument tray", (0, -d * .48, z + .026), (w * .48, d * .22, .026), dark)
         for index in range(3):
             part("instrument module", (w * (index - 1) * .31, -d * .48, z + .089),
@@ -53,10 +72,10 @@ for top in list(bpy.data.objects):
         part("tray status strip", (0, -d * .66, z + .053), (w * .37, .014, .009), cyan)
     count += 1
 
-assert count == 18, count
+assert count == 18 and len(families) == 4, (count, families)
 floor = bpy.data.materials["Original laboratory floor"]
 texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
-texture.image = bpy.data.images.load(str(output / "floor.png"))
+texture.image = bpy.data.images.load(str(phase / "lab285/floor.png"))
 for light in bpy.data.lights:
     if light.type == "POINT":
         light.energy *= .25
