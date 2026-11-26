@@ -342,3 +342,31 @@ fundamentally broader authored/previously generated robot body, reusing known
 rig/motions when practical; do not claim silhouette parity from mesh counts.
 E:scale187/index.html joins native comparison, actual186 movie and rejected188
 board/source. Prototype global art acceptance remains open, no production edits.
+
+## Painted robot189 — first actual articulation, 2026-11-26
+
+Reused existing paint168/robot_official painted_material.glb and its prior
+neutral/scale evidence; no new generation, downloads or licence work. Added a
+14-bone mechanical rig and spatial segment weights, reusing robot_gait.gait and
+robot_shutdown.shutdown_pose. Five exported clips Idle/Walk/Melee/Hit/Death.
+First rigid weighting produced visible elbow stretches; retained first_rigid
+GLB/BLEND/AVI/stills. One joint-transition blend pass and reduced strike angle
+made a second actual native movie. Significant elbow distortion persists: FAIL
+for adoption, not a completed animation set. Plate separation/joint assignment
+must be improved; no dozens of pose or engine proofs.
+
+Executed: Blender export five actions; native Godot330frames1920x1080/30fps,
+11seconds/22seconds offline; packaging checks exact frame/rate/dimensions and
+encodes MP4/GIF. Native scale187 --robot189 and final comparison inspected.
+Inspected Walk075/Melee135/Death285: broader silhouette, textured model intact,
+but elbow stretches and gait/plate contacts need correction. Small-scale board
+shows materially better body mass vs skinny137. Native logs contain no script
+or parse errors (preexisting SDL calibration warning). No combat encounter
+replacement or full campaign/motion acceptance was run. Preview has no audio.
+
+Outputs E:phase2/robot189: real robot_actions.glb/.blend, actions_1080p30.mp4,
+actions.gif, pose captures, native comparison, index.html. Source scripts
+rig_painted_robot189.py, robot189.gd/.tscn, run_robot189_movie.ps1,
+package_robot189.py; scale187 accepts separate --robot189. Retained full tactical
+movie remains materials186. Next: rigid plate/joint separation at elbow and
+only then trial this robot in the independent encounter. Global IN_PROGRESS.

@@ -19,6 +19,7 @@ func _ready() -> void:
 			var height_value:float=[21.0,41.0,62.0][row]
 			var viewport:=SubViewport.new();viewport.size=Vector2i(480,300);viewport.own_world_3d=true;add_child(viewport)
 			var doc:=GLTFDocument.new();var state:=GLTFState.new();var asset:String=SUBJECTS[column][1]
+			if column==3 and "--robot189" in OS.get_cmdline_user_args():asset="robot189/robot_actions.glb"
 			if column==3 and "--robot188" in OS.get_cmdline_user_args():asset="robot188/robot_actions.glb"
 			assert(doc.append_from_file(LAB+"generated/phase2/"+asset,state)==OK)
 			var actor:=doc.generate_scene(state);viewport.add_child(actor)
@@ -44,7 +45,7 @@ func _ready() -> void:
 			reference.position=feet+Vector2(-100,0)-reference.size*Vector2(manifest.anchor_uv[0],manifest.anchor_uv[1]);canvas.add_child(reference)
 			caption(canvas,"2D       3D   |   "+str(int(height_value))+" px humain",Vector2(column*480+70,360+row*310),15)
 	await RenderingServer.frame_post_draw;await RenderingServer.frame_post_draw
-	var out:=LAB+"generated/phase2/"+("robot188/" if "--robot188" in OS.get_cmdline_user_args() else "scale187/");DirAccess.make_dir_recursive_absolute(out)
+	var out:=LAB+"generated/phase2/"+("robot189/" if "--robot189" in OS.get_cmdline_user_args() else "robot188/" if "--robot188" in OS.get_cmdline_user_args() else "scale187/");DirAccess.make_dir_recursive_absolute(out)
 	get_viewport().get_texture().get_image().save_png(out+"comparison_native.png")
 	FileAccess.open(out+"scope.txt",FileAccess.WRITE).store_string("Current models, nominal1.8m humans/2.4m robot. Human21/41/62px; robot1.65sprite multiplier. Actual first idle atlas tile; neutral scene. No full animation or artistic acceptance implied.")
 	print("SCALE187_CAPTURED");get_tree().quit()

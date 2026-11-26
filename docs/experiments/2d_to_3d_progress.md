@@ -1,6 +1,18 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ROBOT-189 first painted articulation deliverable (2026-11-26).
+  Reused already generated/painted168 robot; no repeated generation. New14bone
+  rig reuses gait/shutdown helpers, five actual clips. Two native330frame11s
+  FullHD30 movies; first rigid elbow failure retained. Blended joint weights
+  remain insufficient: visible melee elbow stretch, adoption FAIL. Inspected
+  Walk075/Melee135/Death285 plus native21/41/62px board: silhouette substantially
+  broader/more readable than137, articulation still IN_PROGRESS. MP4/GIF/GLB/
+  packedBLEND/screens/index on E:robot189, scripts and wrapper checked in.
+  Packaging frame/rate/dimension assertions executed; no script/parse errors
+  in final native logs. Preview silent. Retained186 combat scene unchanged.
+  Next: rigid elbow plate/joint separation, then independent encounter trial.
+  No production/campaign/download/push; global IN_PROGRESS.
 - `DONE` ROBOT-188 scoped shell trial; `FAIL` artistic adoption (2026-11-26).
   Expanded18authored shells through appended GLB accessors, original motion
   binary/skins/5animation definitions preserved. Native fixed-pose scale187
