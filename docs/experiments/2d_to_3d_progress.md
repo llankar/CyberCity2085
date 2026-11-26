@@ -6511,3 +6511,9 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
  preserving valid UTF8 text and historical entries. Source registry now strict UTF8.
  Next: inspect remaining boundary/source-volume alignments and unfinished large
  structures; whole-map artistic finish still open. CHANTIER GLOBAL INCOMPLET.
+
+## Batch245 ? DONE scoped preservation checkpoint
+Southwest source-derived framed housing, two real curved pipe meshes and acquired facade grilles exported as showcase245 BLEND/GLB. Native549frame movie exited0; final MP4 ffprobe confirms H2641920x1080 at30FPS plus AAC. Neutral Blender render completed. One exported-pipe geometry test PASS; not global artistic acceptance. Existing showcase preserved.
+
+## Batch246 ? IN_PROGRESS multi-map production
+Latest attached brief now authorizes five additional distinct maps. Selected originals visually inspected; five surveys/140 context crops imported into shared library, retaining old assets and decisions. Six importer tests PASS. New scripts and next tasks: docs/experiments/multimap246.md. Six-map finished scenes, interactive combat adapter, per-map videos, memory/performance and artistic acceptance remain TODO/NOT VERIFIED. No production or save edits. CHANTIER GLOBAL INCOMPLET.
