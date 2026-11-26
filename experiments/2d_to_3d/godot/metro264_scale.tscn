@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scale_reference262.gd" id="1"]
+[node name="StationScale264" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/metro264/"
+reference_map = "city_transit_subway_platform"
+reference_cell = Vector2i(20,10)
