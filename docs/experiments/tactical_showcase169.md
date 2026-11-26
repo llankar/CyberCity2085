@@ -804,3 +804,20 @@ owner materials fade below.9; large geometry keeps existing transition. Actual
 final0750 inspected: no lettering crosses the medic. Re-captured FullHD30/902
 frames90s offline, packaging/state checks pass again; gallery local links pass.
 Blank panels/facade variation and distinct main/medic silhouette remain208 work.
+
+
+### District208 ? exposed facade finishes and actual illustrated advertising
+
+Preview: `E:/CyberCity2085-3d-lab/generated/phase2/district208/index.html`.
+Reproduce: `run_blender.ps1 -Script blender/district208.py`,
+`run_movie169.ps1 -District208`, then `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/district208`.
+Three building backing meshes use existing worn-metal PBR on their vertical
+surfaces, three actual fitted bays receive medical advertising sourced from the
+game. Wall/window kit geometry stays unchanged; exposed areas only, not a full
+architectural redesign. Initial slot1 roof change rejected; world-normal material
+selection corrected it. Final902frames1080p30 rendered87s offline. Native/package
+state/contact checks PASS; overview/medical captures inspected, local gallery
+links PASS. No production/campaign/download/push. Stable205 preserved.
+Art remains incomplete: repeated wall kits and bright panels; distinct medic
+silhouette with retained authored accessories is the next concrete task209.

@@ -21,14 +21,29 @@ This register is separate from the principal CyberCity 2085 GOAL.
   showcase207/environment.blend/.glb, medical_hologram.png, kiosks.json.
   Stable Delivery205 preserved. No production/save edits, campaign tests,
   downloads, experimental push or release. CHANTIER GLOBAL INCOMPLET.
-- `TODO` CYBERCITY-208 visible architecture/readability: replace blank/overbright
-  wall panels with actual in-world advertising, vary exposed facade finishes and
-  service equipment. Small display cutaway already fixed in207. Keep
-  the single map, existing rigs/motions and heavy robot. Then differentiate the
-  duplicated main/medic silhouette with retained authored accessories and review
-  full-motion combat. Hunyuan further candidate selection, class variety, robot
-  material/destruction refinement and final artistic acceptance remain open;
-  no new model run or full-motion acceptance claimed in207.
+- `DONE` DISTRICT-208 scoped facade finish trial (2026-11-26). Three existing
+  building backing meshes use retained worn-metal PBR on vertical surfaces;
+  three fitted window bays receive actual game medical illustration as opaque
+  illuminated advertising. Existing wall/window kits remain, so visible effect
+  is limited to exposed backing and ads, not a complete architecture replacement.
+  First take selected roof slot1: rejected overview retained. World-normal-derived
+  vertical material slots fix the selection without altering roof finish or mesh.
+  Final native902frames1920x1080/30,87s offline, package assertions PASS:
+  blocked1, occlusion831, health[100,0,0,100,76,100], retained contact/retaliation.
+  Final0030/0750 actually inspected; ads/metal visible, existing cast/motions kept.
+  Gallery local links PASS. E: showcase208/environment.blend/.glb, district.json;
+  district208/index.html, encounter_1080p30.mp4, captures/GIF/comparison links.
+  Files: district208.py, district208.gd/tscn, material/movie/package helpers.
+  No production/save edit, campaign test, download, push or release;205preserved.
+  Previous207 turn classified progress (actual art/runtime changes and evidence).
+  CHANTIER GLOBAL INCOMPLET: architecture still repetitive, bright/blank panels,
+  main/medic face reuse, robot material/destruction and full-motion art open.
+- `TODO` CAST-209 next: reuse retained authored helmet/accessories to distinguish
+  the medic from the main green-jacket agent, preserving existing skeleton and
+  treatment clips; inspect idle and medical pose in the actual encounter before
+  accepting fit. Continue architecture with authored components that produce a
+  clear silhouette/material improvement, rather than repeating palette trials.
+  Hunyuan candidate improvement and final single-map art acceptance remain open.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already
