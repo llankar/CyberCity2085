@@ -55,3 +55,11 @@ Before claiming completion, reread the objective, `docs/CODEX_PROGRESS.md` and, 
 - every acceptance criterion still open and the exact next action.
 
 If any mandatory criterion is open, report exactly `CHANTIER GLOBAL INCOMPLET`. Missing evidence is `NOT VERIFIED`, never an assumed `PASS`. A reproducible failure is `FAIL`; `DONE` requires both execution and verification. An automated load or frame-count check cannot stand in for artistic review.
+
+## Storage hygiene (owner instruction, 2026-11-26)
+
+- Regularly remove obsolete build workspaces and regenerable intermediates on E:.
+- Under `E:/CyberCity2085-builds`, retain the current and previous production builds; old validation results alone are not a reason to retain large staging copies.
+- Preserve the selected active source assets, AI weights, working environment, current work and current delivery; prune superseded experiments when the owner requests only necessary files. Before cache cleanup, inspect environment symlinks into that cache and materialize required dependencies. Use hardlinks/copies for active environments, never links into disposable caches.
+- Retain completed MP4 references; obsolete native AVI intermediates may be removed once their retained video is complete. The gallery packager can reuse the MP4 without re-encoding it.
+- Before recursive removal, resolve explicit paths within the intended root, reject reparse points, and check that no active job needs the target. Report reclaimed space, not long validation summaries.

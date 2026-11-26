@@ -2,6 +2,9 @@
 
 Date: November 13, 2026
 
+Storage maintenance ? 26 November 2026: at the owner's request, obsolete E: build/validation staging copies were removed. Retained production builds are `cybercity-build-6d87cffadf8f4cce979b274c4b94861d` and `cybercity-build-f93795d303ee435fb61065a9a9ede679` under `E:/CyberCity2085-builds`. Older executable paths below are historical and may no longer exist. This cleanup does not constitute a new production build or a new test result.
+
+
 ## Current tactical retrofit status — November 15, 2026
 
 The earlier candidate is preserved. Current R2 evidence is

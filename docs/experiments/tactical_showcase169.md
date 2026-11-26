@@ -889,3 +889,30 @@ campaign, downloads or push. Latest owner steering accepts direction and asks
 richer roofs/shops/street furniture, aged PBR/lighting/atmosphere, combat/robot
 VFX, human variety and a less simplified VTOL.216 next uses authored repair
 machinery and restrained existing smoke; preserve rigs/motions and single map.
+
+
+###216art work and storage maintenance
+
+Industry216 uses two authored repair/salvage merchandise sets and foreground
+roof ducts with restrained existing soft smoke. Final overview inspected, video
+rendered549framesFullHD30/18.3s; subtle vapor motion review remains open.215stays
+as standalone checkpoint. No216bundle regenerated.
+Owner requested regular cleanup and no retention of obsolete validation outputs.
+27old build UUIDs/install-smoke/incomplete Blender removed; newest two builds,
+models/sources/environments/deliveries retained. uv cache18.1GiB cleared, six
+redundant AVIs removed while MP4 references stay. About148GiB real free space
+recovered. AGENTS records policy. Packager can regenerate galleries directly
+from retained MP4, without re-encoding/gain duplication. No production/campaign.
+
+
+### Selected lab after owner-requested cleanup
+
+Only current216working assets,215standalone, selected model masters/source
+library and one Hunyuan pipeline remain. Lab about37.14GiB versus128GiB.205and
+old experiments were explicitly discarded. Current216gallery is self-contained
+with selected asset links, not historical gallery chains. Active entry points:
+`E:/CyberCity2085-3d-lab/config/selected_assets.json`. Source code history stays
+in Git; historical recipes may need inputs that were deliberately pruned.
+Hunyuan cache-linked dependencies were repaired/materialized; active setup uses
+hardlinks so future cache pruning does not remove environment dependencies.
+No production runtime/save changes. Artistic work continues from216/215.

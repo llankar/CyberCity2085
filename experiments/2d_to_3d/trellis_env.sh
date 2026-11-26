@@ -16,7 +16,7 @@ export CUDA_CACHE_PATH="$LAB/cache/cuda"
 export TRITON_CACHE_DIR="$LAB/cache/triton"
 export XDG_CACHE_HOME="$LAB/cache/xdg"
 export XDG_CONFIG_HOME="$LAB/config/xdg"
-export PYTHONPYCACHEPREFIX="$LAB/cache/python/trellis-wsl"
+export PYTHONPYCACHEPREFIX="$LAB/cache/python/hunyuan"
 export PYTHONUNBUFFERED=1
 export ATTN_BACKEND=xformers SPCONV_ALGO=native
 export UV="$LAB/tools/uv/uv"

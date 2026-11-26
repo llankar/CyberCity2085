@@ -2,7 +2,7 @@ extends "res://recovery213.gd"
 func load_glb(relative: String,place: Vector3) -> Node3D:
  if relative=="showcase174/environment.glb":relative="showcase214/environment.glb"
  var model:=super.load_glb(relative,place)
- if relative=="showcase214/environment.glb":
+ if relative.begins_with("showcase") and relative.ends_with("/environment.glb"):
   # Register the thicker service-light assemblies with the existing cutaway
   # pass before combat169 builds its occlusion bounds/material list.
   for group in model.find_children("Street211_LightAssembly*","Node3D",true,false):

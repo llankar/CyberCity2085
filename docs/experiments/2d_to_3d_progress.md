@@ -129,11 +129,55 @@ This register is separate from the principal CyberCity 2085 GOAL.
   Target The Ascent environment richness / XCOM2 readability; regular native
   FullHD30 videos, not repeated technical proofs.215 is a tested checkpoint,
   not final art acceptance.
-- `TODO` ART216 next: diversify one repair/power counter with retained authored
-  compressor/pipe equipment, add credible rooftop services and restrained vapor
-  using existing soft-smoke renderer; align local light colors with nearby
-  sources. Inspect existing aircraft candidates/assets before changing VTOL.
-  Preserve215 and produce a visible216 movie before rebuilding another bundle.
+- `DONE` STORAGE216 maintenance, latest owner instruction (2026-11-26).
+  Inventory found187GiB build staging and149GiB lab (Windows folder labels).
+  One Git checkout only.27obsolete UUID build workspaces, one installer-smoke
+  copy and an incomplete Blender extraction removed after explicit path/link/
+  active-job guards. Two newest production executables retained.29directories,
+  157039768557logical bytes. uv removed81876cache entries/18.1GiB; installed
+  environments/models/HF/torch caches preserved. Six finished AVI intermediates
+  removed,1555278130bytes; MP4/audio/captures/sources retained. No resource models
+  or current deliveries205/215 deleted. Actual disk free increased about148GiB
+  (before1309320646656,after1468530294784bytes; later media writes may vary).
+  Cleanup script's final Hashtable sum display failed after deletions; original
+  manifest confirmed all targets gone and both retained executables present.
+  uv stderr produced PowerShell error status but completed cache removal; cache
+  directory absent. Owner explicitly does not want old validation outputs kept
+  for their own sake. Historical release paths annotated, AGENTS storage policy
+  persists regular cleanup. Package accepts retained MP4 when AVI absent; no
+  re-encoding/audio gain applied twice. Gallery fallback executed on clinic214,
+  retained MP4 unchanged. No production runtime/save edit, build or campaign.
+- `IN_PROGRESS` ART216 authored repair/salvage and atmosphere. Two counters lose
+  repeated crate rows (280mesh parts, not280crates), gain retained PBR compressor,
+  valves/elbows and different product labels. Two foreground roof vents use
+  acquired duct corners; existing soft-smoke renderer supplies low-opacity vapor.
+  First distant roofs retained as rejected overview. Actual final0030 inspected:
+  repair/salvage stock and foreground roof geometry visible; subtle vapor motion
+  still needs artistic review. Native549FullHD30frames18.3s; MP4/gallery produced,
+  existing contact/recovery scope preserved. No216bundle rebuilt;215 preserved.
+  Files: industrial216.py,industry216.gd/tscn, generalized lamp cutaway/material
+  passthrough,movie/package helpers. E: showcase216 BLEND/GLB,industry216 media.
+  Source rigs/motions/tempo unchanged. CHANTIER GLOBAL INCOMPLET.
+- `DONE` SELECTED-LAB cleanup, explicit owner override to retain only necessary
+  work (2026-11-26). Lab reduced from about128GiB to37.14GiB. Selected215delivery,
+  current216masters/media,77manifest-selected files, source library and current
+  Hunyuan inputs retained. Old generated branches,205delivery,Tripo/TRELLIS
+  environments/repos/model caches and unused paint safetensors removed. Active
+  paint loader uses BIN. Models17.48GiB,one environment7.2GiB; no production/save
+  edit. config/selected_assets.json identifies current lab entry points.
+  Earlier uv pruning broke symlink-installed Hunyuan dependencies. Repaired using
+  exact matching packages from the old donor environment plus nine small pinned
+  packages; shape/paint/rasterizer imports and torch2.7.1cu128/CUDA usable, then
+  donor removed. Slow WSL file-copy loop replaced with native local copy after
+  diagnosed9p metadata overhead; no AI models redownloaded. Active setup scripts
+  now use hardlinks, AGENTS requires cache-link inspection.215runtime independent;
+  old recipe inputs explicitly archival. Current216gallery no longer depends on
+  discarded historical outputs. Owner does not require old validation results.
+  CHANTIER GLOBAL INCOMPLET: artistic216/lighting/VTOL work remains open.
+- `TODO` NEXT: review216atmosphere and shop silhouettes at combat scale, align
+  local lights to floor pools; inspect retained aircraft assets before improving
+  VTOL geometry. Keep accepted direction, licensed/acquired art, one map,
+  native FullHD30 deliveries; no mass conversion/production/campaign tests.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already
