@@ -1,0 +1,4 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scale202.gd" id="1"]
+[node name="Scale202" type="Node3D"]
+script = ExtResource("1")

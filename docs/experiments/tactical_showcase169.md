@@ -630,3 +630,32 @@ not claimed. Global art remains incomplete, especially duplicate green main/
 medic identity and architectural repetition. Next: genuine retained medical
 accessory/role distinction, without rebuilding humans from primitives.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Medic201 / Scale202 - role equipment and actual-scale comparison
+
+Current encounter: `E:/CyberCity2085-3d-lab/generated/phase2/medic201/index.html`.
+Comparison: `E:/CyberCity2085-3d-lab/generated/phase2/scale202/index.html`.
+Reproduce equipment with `run_blender.ps1 -Script blender/medical_pack201.py`;
+then `run_movie169.ps1 -Medic201` and `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/medic201`. Real module sources are
+`medic201/medical_pack.blend` and `.glb`, using the existing local medical case
+PBR textures. Rigid upper-spine attachment is calibrated in retained idle pose;
+body, wardrobe and motion clips remain unchanged. Actual0750 inspected: medical
+cross visible and case follows bent back. All-motion clipping NOT VERIFIED.
+Native902frames1920x1080/30fps/81s offline, packaging assertions pass; one blocked
+shot,602occlusion frames, retaliation76->64HP and.763855m teammate clearance,
+final health unchanged. No campaign/production changes or new model downloads.
+
+`run_godot.ps1 -Scene res://scale202.tscn -RenderingMethod gl_compatibility
+-QuitAfter 300` produces a native1920x720 comparison of retained main human,
+Hunyuan177, alternate helmeted Raider and painted193robot against actual idle
+atlas tiles at nominal41/62px human projection (robot1.65multiplier). Existing
+comparator reused as a current artistic deliverable, not another engine gate.
+Board actually inspected: painted robot has a legible broad silhouette; humans
+remain stylistically distant, especially civilian-shirt reinforcement. Sprite
+and model idle views/poses differ; no exact pose/skin-bound match claimed.
+The medic module helps role recognition but does not solve duplicate face/outfit.
+Next: select from existing armored/scanned human candidates for a stronger Raider
+identity, retaining working robot and staged encounter. No push.
+CHANTIER GLOBAL INCOMPLET.

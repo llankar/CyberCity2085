@@ -1,6 +1,28 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` MEDIC-201 equipment / SCALE-202 current visual comparison
+  (2026-11-26). Prior turn distinguished reinforcement and added real retaliation.
+  Existing medical_box PBR case normalized upright into detachable .42m module,
+  real medical_pack.blend/.glb on E:, attached to medic's upper spine using the
+  retained idle reference. Original human mesh/clips/medical IK unchanged.
+  Native final902FullHD30frames/81s offline packaged successfully;1blockedshot,
+  602occlusion frames, retaliation76->64HP/.763855m clearance, final health same.
+  Actual0750 inspected: case/cross follows bent medic's back, silhouettes more
+  distinct. All-motion clipping/attachment fit NOT VERIFIED. No new body/rig
+  generation. SCALE202 reuses previous comparator for current helmeted body and
+  painted193robot, only41/62px rows; no repeat engine/animation tests. Actual
+  native1920x720 board inspected: painted robot reads well; civilian-shirt raider
+  still visually weak/stylistically distant. Poses/views differ from first2D idle
+  atlas tile, nominal projection is not exact skinned-bound calibration. Clean
+  board/gallery added on E:, linked from current201 encounter. Files: medical
+  module Blender script,201/202Godot scenes, movie/package scripts, scoped docs.
+  No script/parse errors found, no production/campaign/download/push. Global
+  IN_PROGRESS: wardrobe/face duplication despite medic equipment, appropriate
+  armored Raider identity, repeated architecture and whole-motion artistic fit.
+  Next: review already-acquired armored/scanned human candidates for the civilian
+  reinforcement; retain working painted robot and encounter rather than more
+  small roof props or generic color changes. CHANTIER GLOBAL INCOMPLET.
 - `DONE` CAST-200 scoped distinct reinforcement and retaliation (2026-11-26).
   Previous turn differentiated three roofs. Reused existing authored civilian
   body plus textured rigged helmet (modularity166) for enemy4 instead of clone;
