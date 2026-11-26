@@ -6,6 +6,7 @@ extends Node3D
 @export var review_target := Vector3.ZERO
 @export var review_distance := 40.0
 @export var review_elevation := 34.0
+@export var review_top_down := false
 var review_camera:Camera3D
 var review_yaw:=0.663
 func update_review_camera() -> void:
@@ -60,9 +61,13 @@ func _ready() -> void:
  camera.current=true
  review_camera=camera
  update_review_camera()
+ if review_top_down:
+  camera.size=28
+  camera.position=Vector3(0,40,0)
+  camera.look_at(Vector3.ZERO,Vector3.FORWARD)
  await get_tree().process_frame
  await RenderingServer.frame_post_draw
- get_viewport().get_texture().get_image().save_png(review_folder+"godot_overview.png")
+ get_viewport().get_texture().get_image().save_png(review_folder+("top_down.png" if review_top_down else "godot_overview.png"))
  print("ENVIRONMENT_REVIEW_IMPORTED folder=",review_folder," meshes=",model.find_children("*","MeshInstance3D",true,false).size())
  var canvas:=CanvasLayer.new()
  add_child(canvas)
