@@ -12,7 +12,7 @@ func _ready() -> void:
   selected_folders[0]="market325"
   selected_folders[1]="residential317"
   selected_folders[2]="lab291"
-  selected_folders[3]="factory328"
+  selected_folders[3]="factory329"
   selected_folders[4]="metro293"
   selected_folders[5]="wasteland320"
  tour_index=int(get_tree().get_meta("environment_tour_index",0))
