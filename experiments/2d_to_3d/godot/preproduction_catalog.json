@@ -170,26 +170,34 @@
   {
     "map": "city_district_civic_center",
     "family": "district",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_district_civic_center.tscn",
+    "scope": "surveyed structures modeled; material and art review pending"
   },
   {
     "map": "city_district_holo_square",
     "family": "district",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_district_holo_square.tscn",
+    "scope": "surveyed structures modeled; material and art review pending"
   },
   {
     "map": "city_district_riot_square",
     "family": "district",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_district_riot_square.tscn",
+    "scope": "surveyed structures modeled; material and art review pending"
   },
   {
     "map": "city_exterior_corporate_plaza",
     "family": "exterior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_exterior_corporate_plaza.tscn",
+    "scope": "surveyed structures modeled; material and art review pending"
   },
   {
     "map": "city_exterior_downtown_intersection",
@@ -210,14 +218,18 @@
   {
     "map": "city_exterior_parking_garage",
     "family": "exterior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_exterior_parking_garage.tscn",
+    "scope": "surveyed structures modeled; material and art review pending"
   },
   {
     "map": "city_exterior_rooftop_access",
     "family": "exterior",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_exterior_rooftop_access.tscn",
+    "scope": "surveyed rooftop equipment modeled; building canyons retain original ground art"
   },
   {
     "map": "city_exterior_waterfront_docks",
@@ -310,8 +322,10 @@
   {
     "map": "city_rooftop_skybridge_spine",
     "family": "rooftop",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://city_rooftop_skybridge_spine.tscn",
+    "scope": "surveyed rooftop equipment modeled; building canyons retain original ground art"
   },
   {
     "map": "cybercity_inner_01_control_center",

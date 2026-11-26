@@ -79,7 +79,7 @@ def build(name):
                            (length/2,width/2,.24), frame)
                 rail.rotation_euler.z = math.atan2(by-ay,bx-ax)
             continue
-        if "polygon" in row and (name.endswith("civic_plaza") or identifier.endswith("_ramp_island")):
+        if "polygon" in row and not identifier.endswith("_car"):
             points = [(px*gw/cw-gw/2, gh/2-py*gh/ch) for px, py in row["polygon"]]
             if sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(points, points[1:]+points[:1])) < 0:
                 points.reverse()
@@ -88,7 +88,8 @@ def build(name):
             faces.extend((j, (j+1)%count, (j+1)%count+count, j+count) for j in range(count))
             mesh = bpy.data.meshes.new(identifier)
             is_planter = "planter" in identifier
-            height = .68 if identifier.endswith("_high") else .31 if is_planter else .22
+            is_building = "building" in identifier
+            height = 2.8+i%3*.5 if is_building else .68 if identifier.endswith("_high") else .31 if is_planter else .22
             mesh.from_pydata([(x,y,z) for z in (0,height) for x,y in points], [], faces)
             mesh.materials.append(wall)
             if is_planter:
@@ -96,13 +97,73 @@ def build(name):
                 mesh.polygons[1].material_index = 1
             island = bpy.data.objects.new(identifier, mesh)
             bpy.context.collection.objects.link(island)
+            if is_building:
+                mesh.materials.append(roof)
+                mesh.polygons[1].material_index = 1
+                uv = mesh.uv_layers.new()
+                for loop in mesh.polygons[1].loop_indices:
+                    vx,vy,_ = mesh.vertices[mesh.loops[loop].vertex_index].co
+                    uv.data[loop].uv = (vx/gw+.5, vy/gh+.5)
+            if identifier.startswith("sign_") or "holo_platform" in identifier:
+                sx = sum(px for px,_ in points)/count
+                sy = sum(py for _,py in points)/count
+                widths = [px for px,_ in points]
+                depth = [py for _,py in points]
+                box(identifier+" projector", (sx,sy,.55),
+                    ((max(widths)-min(widths))*.18,(max(depth)-min(depth))*.16,.32), frame).parent = island
+                box(identifier+" display", (sx,sy,1.04),
+                    ((max(widths)-min(widths))*.26,.026,.29), signs[i%len(signs)]).parent = island
             continue
-        x1, y1, x2, y2 = row["rect"]
+        if "rect" in row:
+            x1, y1, x2, y2 = row["rect"]
+        else:
+            px,py = zip(*row["polygon"])
+            x1,y1,x2,y2 = min(px),min(py),max(px),max(py)
         x, y = (x1 + x2) * gw / (2*cw) - gw/2, gh/2 - (y1 + y2) * gh / (2*ch)
         w, d = (x2-x1)*gw/cw, (y2-y1)*gh/ch
         height = 3.0 + .65*(i % 3)
         group = bpy.data.objects.new("Occludable_" + identifier, None)
         bpy.context.collection.objects.link(group)
+        if any(part in identifier for part in ("_fans", "_duct", "_vent")):
+            fixture = ("roof_twin_fan/optimized.glb" if "_fans" in identifier else
+                       "wall_fixtures282/duct.glb" if "_duct" in identifier else "wall_fixtures282/vent.glb")
+            vertical = d > w
+            place(library / fixture, group, (x,y,0), (max(w,d)*.97,min(w,d)*.97,1.3),
+                  yaw=math.pi/2 if vertical else 0)
+            continue
+        if identifier.endswith(("_lift", "_plant", "_box", "_boxes", "_dish", "_antenna")):
+            height = 1.8 if identifier.endswith(("_lift","_antenna")) else .87
+            box(identifier+" housing", (x,y,height/2), (w*.46,d*.46,height/2), wall).parent = group
+            box(identifier+" access panel", (x,y-d*.47,height*.57),
+                (w*.31,.03,height*.17), frame).parent = group
+            if identifier.endswith(("_dish", "_antenna")):
+                bpy.ops.mesh.primitive_cone_add(vertices=24, radius1=.07, radius2=min(w,d)*.36,
+                                                depth=.31, location=(x,y,height+.15))
+                mount = bpy.context.object
+                mount.rotation_euler.x = .25
+                mount.data.materials.append(frame)
+                mount.parent = group
+            continue
+        if identifier.endswith("_stair"):
+            for step in range(7):
+                rise = (step+1)*.15
+                box(identifier, (x,y+(((step+.5)/7)-.5)*d,rise/2),
+                    (w*.47,d/14,rise/2), frame).parent = group
+            continue
+        if identifier.endswith("_rail"):
+            box(identifier, (x,y,.23), (w*.49,d*.49,.23), frame).parent = group
+            continue
+        if "crate" in identifier:
+            place(library / "cargo_crate274/model.glb", group, (x,y,0), (w,d,.74))
+            continue
+        if "tree" in identifier:
+            box(identifier+" pot", (x,y,.16), (w*.43,d*.43,.16), frame).parent = group
+            bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=2, radius=1, location=(x,y,.78))
+            crown = bpy.context.object
+            crown.scale = (w*.42,d*.42,.46)
+            crown.data.materials.append(foliage)
+            crown.parent = group
+            continue
         if identifier.startswith("market_") or identifier.endswith("_stall"):
             market_models = (
                 LAB / "generated/phase2/techmarket341/shared_electronics_stall.glb",
@@ -111,7 +172,7 @@ def build(name):
             )
             place(market_models[i % 3], group, (x,y,0), (w*.96,d*.96,2.05))
             continue
-        if identifier.endswith("_monument"):
+        if identifier.endswith("_monument") or identifier == "monument":
             radius = min(w,d)*.40
             box(identifier + " base", (x,y,.20), (w*.48,d*.48,.20), wall).parent = group
             for label, height, lower, upper, center, material in (
@@ -151,7 +212,7 @@ def build(name):
             for label, position, size, material in parts:
                 box(identifier + " " + label, position, size, material).parent = group
             continue
-        if identifier.startswith(("car_", "north_car", "south_car")):
+        if identifier.startswith(("car_", "north_car", "south_car")) or identifier.endswith("_car"):
             vertical = d > w
             place(library / "derelict_suv275/model.glb", group, (x, y, 0),
                   (max(w, d)*.95, min(w, d)*.95, .92), yaw=math.pi/2 if vertical else 0)
@@ -201,7 +262,7 @@ def build(name):
             box(identifier, (x, y, .25), (w*.45, d*.45, .25), wall).parent = group
             box(identifier + " lid", (x, y, .51), (w*.49, d*.49, .035), frame).parent = group
             continue
-        if identifier.endswith(("_sign", "_kiosk", "_guard")) or identifier.startswith("ticket_"):
+        if identifier.endswith(("_sign", "_kiosk", "_guard", "_terminal")) or identifier.startswith("ticket_"):
             is_kiosk = not identifier.endswith("_sign")
             height = 1.55 if is_kiosk else .95
             box(identifier + " plinth", (x, y, .11), (w*.49, d*.47, .11), frame).parent = group
@@ -210,8 +271,8 @@ def build(name):
             box(identifier + " screen", (x, y+direction*d*.30, height*.72),
                 (w*.36, .03, height*.20), signs[i % len(signs)]).parent = group
             continue
-        if any(kind in identifier for kind in ("bench", "planter", "barrier")):
-            if "bench" in identifier:
+        if any(kind in identifier for kind in ("bench", "planter", "barrier", "barricade", "_seat")):
+            if "bench" in identifier or identifier.endswith("_seat"):
                 parts = [
                     ("seat", (x, y, .36), (w*.46, d*.30, .065), seat),
                     ("backrest", (x, y+d*.27, .54), (w*.46, .055, .19), seat),
@@ -238,7 +299,7 @@ def build(name):
             for label, position, half_size, material in parts:
                 box(f"{identifier} {label}", position, half_size, material).parent = group
             continue
-        if not any(part in identifier for part in ("block", "building", "_roof", "warehouse", "_factory")) and identifier not in BUILDING_EXCEPTIONS:
+        if not any(part in identifier for part in ("block", "building", "_roof", "warehouse", "_factory", "_tower")) and identifier not in BUILDING_EXCEPTIONS:
             raise ValueError(f"No avenue model for {identifier}")
         shell = box(identifier, (x, y, height/2), (w/2, d/2, height/2), wall)
         shell.parent = group

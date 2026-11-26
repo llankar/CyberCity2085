@@ -1,8 +1,8 @@
 ## Experimental 3D conversion scope
 
-IN_PROGRESS — Convert all 122 original tactical maps to 3D. The initial set of 20 is the first delivery batch. The catalogue currently has 12 Godot previews and 110 maps awaiting conversion. Preview availability is tracked independently of artistic completion and playable combat.
+IN_PROGRESS — Convert all 122 original tactical maps to 3D. The initial set of 20 was the first delivery batch. The catalogue now references a Godot preview for every original map. The seven latest scenes were loaded natively. Preview availability is tracked independently of artistic completion and playable combat.
 
-Each map needs source-aligned 3D geometry for its significant structures and obstacles, terrain integrated with that geometry, and its original tactical grid and collision layout. Work by map family to reuse assets and export in batches. Keep the source maps and the production runtime intact. Next batch: the billboard avenues, using compatible urban geometry from the existing market and residential environments.
+Each map needs source-aligned 3D geometry for its significant structures and obstacles, terrain integrated with that geometry, and its original tactical grid and collision layout. Work by map family to reuse assets and export in batches. Keep the source maps and the production runtime intact. Next: extend playable combat beyond the warehouse, then close artistic and performance gaps by family.
 
 ## Current production workflow (owner correction,2026-11-26)
 Create object families in sequence, reuse across compatible maps, then review the assembled lot together. Keep local IA pipelines loaded across entries. Skip per-object neutral render batteries and duplicate gray high BLEND files; retain high GLB, optimized/final Blender sources and original references. Run grouped map checks/captures after assembly and only repeat affected ensembles after an actual correction. Existing mandatory useful tests remain preserved. This supersedes earlier per-model review sequencing, not the final artistic criteria.
