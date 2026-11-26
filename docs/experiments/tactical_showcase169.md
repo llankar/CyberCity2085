@@ -997,3 +997,17 @@ Gallery: E:/CyberCity2085-3d-lab/generated/phase2/roof226/index.html.
 Library asset: environment-library/assets/roof_twin_fan/source.json and models.
 A reviewed prototype, not final artistic acceptance. General scene-association
 loader, further original object isolation and whole-building identity remain open.
+
+## Library association compiler227
+
+`python experiments/2d_to_3d/build_library_scene.py` writes placements.json and
+an independent scene.tscn under E:/CyberCity2085-3d-lab/generated/phase2/library227.
+Launch that absolute scene with existing run_godot.ps1 and current showcase flags.
+Actual native100frame launch and screenshot checked. No additional movie was
+created because art is unchanged from226. Bindings keep source placement, scale,
+rotation, parent cutaway, replacement pattern and vapor offset explicit.
+
+Only the current showcase map is supported by the scene runtime. The placement
+compiler/module is reusable, but no arbitrary-map reconstruction is claimed.
+No source/collision edits, no model duplication. Recompile unchanged bindings
+reuses output files. Four small contract tests passed; no campaign test.

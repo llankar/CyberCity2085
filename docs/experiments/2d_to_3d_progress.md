@@ -6111,3 +6111,26 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   original-derived roof/facade identity instead of generic substitutes.
   No production/save edit, campaign test, new model weights or resource push.
   CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` LIBRARY-SCENE-227 scoped reusable placement compiler (2026-11-26).
+  build_library_scene.py compiles existing asset associations into E: JSON and
+  scene.tscn, references existing GLB without copying/regenerating. Position,
+  scale, rotation, bottom anchor metadata, surveyed parent, replacement patterns
+  and vapor offset are explicit. Rejects missing/outside-lab models, unknown
+  surveyed parents, invalid vectors/rotation; leaves tactical/source data alone.
+  Unchanged compilation preserves file modification time (actually checked).
+  CLI deliberately restricted to current showcase: runtime base still tied to
+  this map; NOT claimed to reconstruct arbitrary maps or122map coverage.
+  Godot library227.gd loads bindings, attaches mesh before parent cutaway bounds/
+  materials collection, hides declared generic predecessor and moves vapor.
+  Generated E: scene loaded natively with actual CLI100frames exit0; actual0030
+  inspected: roof unit placed as226, cast/animated VTOL retained. No new full
+  movie needed for same art/placement; latest full movie remains roof226.
+  Four metadata-contract tests pass (preserve inputs, unknown parent, invalid
+  scale, other map filtering); fixture checks metadata, not GLB rendering.
+  Output: generated/phase2/library227/scene.tscn,placements.json,clean_0030.png.
+  Files: build_library_scene.py, godot/library227.gd, test_library_scene.py.
+  Next: isolate and reconstruct original purple paneled containers/shop roofs;
+  register next asset in same bindings, no new per-object scene subclass.
+  Hunyuan territory permission still unresolved; no new inference/production edit,
+  campaign test, resource push or bulk downloads. CHANTIER GLOBAL INCOMPLET.
