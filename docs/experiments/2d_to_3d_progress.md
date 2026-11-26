@@ -1,6 +1,20 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` PAINTED-192 independent full encounter trial (2026-11-26).
+  Corrected191 arms by actual mesh islands, then integrated broad painted robot
+  into separate materials186-derived scene. Five full captures tracked real
+  faults; all earlier takes retained. Keeping rest tracks42 was insufficient;
+  targeted fall poses revealed1135sample vertices in crate and below-floor body.
+  New191Death bakes floor compensation in Blender;192 faces caster before fall.
+  Final191Death285 and1920750 inspected: whole body, clear of crate, no miniature
+  debris clone. effects192 preserves sparks/flash/smoke/audio and removes clone.
+  Native902FullHD30frames,1blockedshot/61occlusions, same health; no script/parse/
+  surface errors found. Packaged192 MP4/audio/GIF/gallery links real191GLB/BLEND.
+  Old186 retained. Global IN_PROGRESS: gait/plate contacts, exact cannon muzzle,
+  architectural/material art and whole-sequence review remain open. Next: whole
+  encounter action readability; no repeated old engine/rig gate. No production,
+  campaign/download/push. Targeted collision sampling is not all-frame acceptance.
 - `DONE` ROBOT-190 rejected face split / ROBOT-191 arm topology correction
   (2026-11-26). Previous turn delivered first painted articulation.190 opens
   holes (native135 inspected), artistic FAIL, not adopted.191 first spatial

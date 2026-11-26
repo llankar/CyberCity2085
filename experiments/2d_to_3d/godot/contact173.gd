@@ -32,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	super._process(delta)
 	if treatment_ik==null:return
-	if time_value>=20:
+	if time_value>=20 and "--painted192" not in OS.get_cmdline_user_args():
 		# Authored Death alone leaves this thin bot upright. Topple its real body,
 		# then ground the transformed bounds; the wreck persists after the sparks.
 		# A PSI impulse carries the wreck out from behind the crate during the fall.

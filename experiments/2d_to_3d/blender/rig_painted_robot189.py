@@ -1,6 +1,6 @@
 """One mechanical articulation trial of the already painted Hunyuan robot."""
 from pathlib import Path
-import bpy,sys,math,json
+import bpy,sys,math,json,numpy as np
 from mathutils import Vector,Matrix
 sys.path.insert(0,str(Path(__file__).parent))
 from robot_gait import gait
@@ -96,6 +96,15 @@ for name,duration in [('Idle',2),('Walk',1.2),('Melee',1.2),('Hit',.7),('Death',
    pose=shutdown_pose(t);rig.pose.bones['root'].rotation_euler.x=-pose['fall_angle'];rig.pose.bones['head'].rotation_euler.x=pose['head_tilt']
   for p in rig.pose.bones:
    p.keyframe_insert(data_path='rotation_euler',frame=frame);p.keyframe_insert(data_path='location',frame=frame)
+  if name=='Death' and '--arm191' in sys.argv:
+   # Author floor contact into the clip, rather than correcting the runtime AABB.
+   scene.frame_set(frame);bpy.context.view_layer.update()
+   evaluated=body.evaluated_get(bpy.context.evaluated_depsgraph_get());snapshot=evaluated.to_mesh()
+   coordinates=np.empty(len(snapshot.vertices)*3,dtype=np.float32);snapshot.vertices.foreach_get('co',coordinates)
+   bottom=float(coordinates.reshape(-1,3)[:,2].min());evaluated.to_mesh_clear()
+   if bottom<0:
+    root_pose=rig.pose.bones['root'];root_pose.location+=root_pose.bone.matrix_local.to_3x3().inverted()@Vector((0,0,-bottom))
+    root_pose.keyframe_insert(data_path='location',frame=frame)
  rig.animation_data.action=None
  track=rig.animation_data.nla_tracks.new();track.name=name;strip=track.strips.new(name,1,action);track.mute=True
 for p in rig.pose.bones:p.rotation_euler=(0,0,0);p.location=(0,0,0)

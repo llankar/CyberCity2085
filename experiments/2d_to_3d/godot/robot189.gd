@@ -14,7 +14,7 @@ func _ready() -> void:
 	if "--rigid190" in OS.get_cmdline_user_args():out="E:/CyberCity2085-3d-lab/generated/phase2/robot190/"
 	var doc:=GLTFDocument.new();var state:=GLTFState.new()
 	assert(doc.append_from_file(out+"robot_actions.glb",state)==OK)
-	actor=doc.generate_scene(state);add_child(actor)
+	actor=(doc.generate_scene(state,30,false,false) if "--arm191" in OS.get_cmdline_user_args() else doc.generate_scene(state));add_child(actor)
 	for mesh in actor.find_children("*","MeshInstance3D",true,false):
 		if str(mesh.name).begins_with("EquippedNeuralPistol_"):weapon_parts.append(mesh)
 	player=actor.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
