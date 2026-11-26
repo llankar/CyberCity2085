@@ -5916,3 +5916,18 @@ resources must not be pushed without explicit authorization.
   succeeds, PNG reviewed; no Godot substitution, production changes or push.
   Next: seek a stronger aircraft art source rather than embellishing this
   generic candidate or repeating technical validation. Global art remains open.
+
+- `DONE` LIGHTING-218 scoped visible lighting pass (2026-11-26). Seven real
+  kiosk valances now supply colored local lights, with source cutaway alpha
+  controlling light energy. Neutral directional 1.4->.95, ambient .65->.5;
+  original street emitters, floor, cast and animation timing retained.
+  Native 549 frames FullHD30 captured; clean0030 and0750 actually inspected:
+  cyan/violet/amber counter spill visible, medical actors remain readable.
+  Encoded MP4 and compact gallery: generated/phase2/lighting218/index.html.
+  Runtime record: blocked1, occlusion946, health[100,0,0,100,76,100]. No campaign
+  test or claim of final artistic acceptance. AVI removed after MP4 creation.
+  Files: godot/lighting218.gd/.tscn, package_combat169.py. Standalone215 unchanged.
+  VTOL search: Sketchfab candidate403; ArtStation ykBDz description says free
+  but actual listed Standard license costs1.21USD, so no purchase/download.
+  Next: stronger aircraft source and further environmental art variation.
+  CHANTIER GLOBAL INCOMPLET; no production/save changes or experimental push.

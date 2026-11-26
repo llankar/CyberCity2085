@@ -916,3 +916,13 @@ in Git; historical recipes may need inputs that were deliberately pruned.
 Hunyuan cache-linked dependencies were repaired/materialized; active setup uses
 hardlinks so future cache pruning does not remove environment dependencies.
 No production runtime/save changes. Artistic work continues from216/215.
+
+## Current local lighting pass218
+
+Scene `res://lighting218.tscn` inherits selected industry216. Seven authored
+shop valances illuminate nearby surfaces with their actual emissive color;
+cutaway alpha suppresses their lights. Neutral fill remains for readability.
+Gallery/video: `E:/CyberCity2085-3d-lab/generated/phase2/lighting218/index.html`.
+Capture with the same CLI arguments as industry216, substituting scene218 and
+output folder218; package using `package_combat169.py --folder` with that folder.
+No historical pruned inputs required. Previous standalone215 remains retained.
