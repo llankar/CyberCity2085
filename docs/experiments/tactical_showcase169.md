@@ -1073,3 +1073,11 @@ replace the over-stretched single tarp; lower machinery/counter remain interpret
 Full native549frame video refreshed at1080p30. Standalone shop GLB and Blender root
 reference are linked in the gallery/library. Baked source lighting and generic lower
 counter still need art work; no all-angle clipping or global completion claim.
+
+235: southeast display counter now has four recessed trays with original source RGB
+interiors, a blue draped canopy and physical rear supports. Standalone4.23MB shop GLB
+loads as fourth original-parent library placement. Current comparison/stills at
+../showcase235/index.html; video remains234, explicitly labeled. Final close view
+inspected; baked illumination and generic base still limit art finish.
+Redundant intermediate exports pruned, 1.037GiB file bytes reclaimed; current234/235
+Blender masters and all original textures/scripts retained. No production changes.

@@ -6284,3 +6284,27 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   successful encoded deliverable verification. Next: original counter/furniture
   identity and larger architectural surfaces; no mass conversion.
   CHANTIER GLOBAL INCOMPLET.
+
+### ORIGINAL-DISPLAY-235 — DONE scoped shop reconstruction; global art open
+- Southeast shop now uses original blue cloth and four source tray interiors on real
+  recessed trays (bottom/rims/thickness), replacing acquired salvage pipes. Cloth288
+  quads; added rear support rails/posts after first native review, neutralized stale
+  pipe-shop sign. Lower counter remains interpreted; original pixels retain lighting.
+- Five exact RGB crop tests and cloth face assertion executed. Generalized existing
+  shop registrar for two explicit supported assets; both default234 and235 calls
+  executed. Standalone235 GLB4.23MB, original parent[3,0,5], four actual library
+  instances loaded in Godot. Two native100frame previews exited0; final opening and
+  close crop inspected: trays visible at combat scale, no obvious opening clipping.
+  No claim of all-angle acceptance; no new full video this batch. Gallery explicitly
+  distinguishes current235 stills from prior234 movie. Source/native comparison:
+  E: generated/phase2/showcase235/index.html; environment.blend/.glb retained.
+- Removed9 redundant intermediate model/export files (229/230/232/233 BLEND+GLB,
+  plus235 blend1), 1.037GiB file bytes reclaimed; retained current234/235 masters,
+  all source textures, metadata, previews and scripts. Historical intermediate
+  exports require ordered regeneration from retained219 through their recipes.
+  E: tmp/cleanup235.json lists actual removed files. No current library model deleted.
+- Files: extract_display235.py, blender/original_display235.py, register_shop234.py,
+  publish_display235.py, materials186.gd. No campaign, inference, production/save
+  changes, build or resource push. Next: larger source-derived architecture and
+  street objects; avoid turning this into endless canopy-only variants.
+  CHANTIER GLOBAL INCOMPLET.
