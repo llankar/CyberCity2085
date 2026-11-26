@@ -122,3 +122,12 @@ Native final capture executed:902frames1920x1080/30fps,69s offline rendering,
 166building/frame occlusions and one shot blocked by cover. Packaging guards
 PASS; clean0630 wreck and medical close-up inspected. Video/gallery on E: in
 contact173_final. This is staged visual evidence, not production AI acceptance.
+
+## Urban facade variant174
+
+`--city-details` selects three real urban wall/window pairs alongside industrial
+facades and mounts neon labels on fascia panels. Same627cells/9building groups.
+Native902frame FullHD30 movie and package guards PASS; clean0254 inspected.
+Reproduce with builder `--city-details`, `run_movie169.ps1 -CityDetails`, then
+package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/city174.
+This preserves the treatment/contact/collapse variant and all previous outputs.

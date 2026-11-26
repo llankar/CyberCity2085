@@ -37,7 +37,7 @@ func build_environment() -> void:
 	var image := Image.load_from_file("E:/CyberCity2085-3d-lab/sources/tactical_map/city_exterior_neon_market_alley.png");image.generate_mipmaps()
 	var mat := StandardMaterial3D.new();mat.albedo_texture=ImageTexture.create_from_image(image);mat.roughness=.9
 	floor.material_override=mat;add_child(floor)
-	var environment_path := "showcase171/environment.glb" if refined else "showcase170/environment.glb" if "--architecture170" in OS.get_cmdline_user_args() else "showcase169/environment.glb"
+	var environment_path := "showcase174/environment.glb" if "--city-details" in OS.get_cmdline_user_args() else "showcase171/environment.glb" if refined else "showcase170/environment.glb" if "--architecture170" in OS.get_cmdline_user_args() else "showcase169/environment.glb"
 	var environment := load_glb(environment_path,Vector3.ZERO)
 	for group in environment.find_children("Occludable_*","Node3D",true,false):
 		var bounds := AABB();var first := true;var materials: Array[StandardMaterial3D] = []

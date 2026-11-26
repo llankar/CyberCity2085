@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys,json,math,argparse
 import bpy
-from mathutils import Vector
+from mathutils import Vector,Matrix
 sys.path.insert(0,str(Path(__file__).parent.parent))
 from cell_surfaces import surfaces
 
@@ -10,8 +10,10 @@ LAB=Path('E:/CyberCity2085-3d-lab')
 SRC=LAB/'sources/environment169'
 parser=argparse.ArgumentParser();parser.add_argument('--authored-facades',action='store_true')
 parser.add_argument('--refined-stage',action='store_true')
+parser.add_argument('--city-details',action='store_true')
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
-OUT=LAB/'generated/phase2'/('showcase171' if args.refined_stage else 'showcase170' if args.authored_facades else 'showcase169');OUT.mkdir(exist_ok=True)
+if args.city_details:args.refined_stage=True
+OUT=LAB/'generated/phase2'/('showcase174' if args.city_details else 'showcase171' if args.refined_stage else 'showcase170' if args.authored_facades else 'showcase169');OUT.mkdir(exist_ok=True)
 data=json.loads((LAB/'sources/tactical_map/city_exterior_neon_market_alley.walls.json').read_text())
 heights={tuple(cell):3 if 'building' in wall['id'] else .7 for wall in data['walls'] for cell in wall['cells']}
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -68,7 +70,7 @@ modules=None
 if args.authored_facades or args.refined_stage:
     sys.path.insert(0,str(Path(__file__).parent))
     from facade_modules170 import FacadeModules
-    modules=FacadeModules(SRC)
+    modules=FacadeModules(SRC,detailed=args.city_details)
 
 seen=set();groups=0;roof_points=[];door_points=[]
 for index,obstacle in enumerate(data['walls']):
@@ -118,7 +120,24 @@ for index,obstacle in enumerate(data['walls']):
         obj=original.copy();obj.data=original.data;bpy.context.collection.objects.link(obj)
         obj.hide_render=False;obj.hide_viewport=False;obj.parent=parent
         obj.location+=point;obj.scale*=1.3
-    if -8<point.x<8:
+    if args.city_details:
+        faces=[]
+        for kind,cell,points in parts:
+            if kind!='wall':continue
+            vertices=[world(p) for p in points]
+            normal=-(vertices[1]-vertices[0]).cross(vertices[2]-vertices[0]).normalized()
+            if normal.y<-.5 or normal.x>.5:faces.append((sum(vertices,Vector())/4,normal))
+        if faces:
+            center,normal=faces[len(faces)//2];center.z=2.55
+            right=Vector((0,0,1)).cross(normal).normalized()
+            box('Mounted neon fascia',center+normal*.20,(2.35,.12,.45),trim,parent,normal)
+            bpy.ops.object.text_add(location=center+normal*.28-right*1.03-Vector((0,0,.065)))
+            sign=bpy.context.object;sign.name='Mounted district shop sign';sign.parent=parent
+            sign.data.body=['NEURO CLINIC','BLACK MARKET','KIRIN TECH','NIGHT CITY'][index%4]
+            sign.data.size=.17;sign.data.extrude=.002
+            sign.rotation_euler=Matrix((right,Vector((0,0,1)),normal)).transposed().to_euler()
+            sign.data.materials.append(neon[index%2])
+    elif -8<point.x<8:
         bpy.ops.object.text_add(location=point+Vector((0,-.55,.25)))
         sign=bpy.context.object;sign.name='Street sign';sign.parent=parent
         sign.data.body=['NEURO / CLINIC','BLACK MARKET','KIRIN / TECH','NIGHT CITY'][index%4]

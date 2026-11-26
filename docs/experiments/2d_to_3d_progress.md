@@ -2,6 +2,22 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` CITY-174 visual variant (2026-11-26). Previous turn progressed: treatment
+  contact, persistent robot collapse and native media delivered. New optional
+  --city-details variant reuses downloaded Poly Haven urban facade modules:
+  three matching wall/window combinations (double, large, offset) replace the
+  factory window on alternating buildings. Native preview inspected: distinct
+  residential plaster/window profiles versus industrial brick, no missing inserts.
+  Added mounted neon fascia/text instead of floating roof labels in this variant.
+  Same627cells/9building groups exported; old169/170/171/173 files preserved.
+  Source helper/builder, scene environment selector and -CityDetails movie option.
+  Native full capture/package PASS:902frames1080p30,69s offline,
+  166occlusions and1blockedshot. Clean0254 inspected: urban/industrial contrast
+  and mounted cyan/magenta signage visible. E:phase2/city174 MP4/GIF/gallery.
+  Global architectural artistic acceptance remains NOT VERIFIED; repeated roof
+  silhouettes and wider material/style refinement still open. No campaign,
+  production change, new downloads or push. CHANTIER GLOBAL INCOMPLET.
+
 - `DONE` TREATMENT-173 staged variant (2026-11-26). Prior turn progressed with actual
   textured Rook, four-angle/native review and GLB gallery. New independent
   contact173 scene extends retained171 encounter; SkeletonIK3D adjusts only the

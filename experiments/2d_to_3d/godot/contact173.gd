@@ -15,7 +15,7 @@ func bone(rig: Skeleton3D, name_value: String) -> int:
 
 func _ready() -> void:
 	super._ready()
-	delivery_folder=ROOT+("contact173/" if "--contact-preview" in OS.get_cmdline_user_args() else "contact173_final/")
+	delivery_folder=ROOT+("contact173/" if "--contact-preview" in OS.get_cmdline_user_args() else "city174/" if "--city-details" in OS.get_cmdline_user_args() else "contact173_final/")
 	DirAccess.make_dir_recursive_absolute(delivery_folder)
 	medic_rig=actors[3].find_children("*","Skeleton3D",true,false)[0] as Skeleton3D
 	patient_rig=actors[0].find_children("*","Skeleton3D",true,false)[0] as Skeleton3D

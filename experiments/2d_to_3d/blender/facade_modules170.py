@@ -4,13 +4,16 @@ import bpy
 from mathutils import Vector,Matrix
 
 class FacadeModules:
-    def __init__(self,source):
+    def __init__(self,source,detailed=False):
+        self.detailed=detailed
         self.templates={};self.centres={};self.placements=0
         wanted={
             'modular_factory_facade':['wall_window_centered_medium_01','window_centered_medium_01','wall_door_centered_large_01','door_centered_large_01','cornice02_standard_standard_01'],
             'modular_urban_apartments_facade':['wall_door_centered_large_01','door_centered_large_01','cornice_standard_standard_01'],
             'modular_airduct_rectangular_01':['modular_airduct_rectangular_01_single_01','modular_airduct_rectangular_01_vent_01'],
         }
+        if detailed:
+            wanted['modular_urban_apartments_facade'] += [prefix+name for name in ['window_centered_double_01','window_centered_large_03','window_offset_small_01'] for prefix in ['', 'wall_']]
         for pack,names in wanted.items():
             before=set(bpy.data.objects)
             bpy.ops.import_scene.gltf(filepath=str(source/pack/(pack+'_1k.gltf')))
@@ -60,8 +63,11 @@ class FacadeModules:
                 window=('modular_factory_facade','wall_window_centered_medium_01')
                 door=('modular_urban_apartments_facade','wall_door_centered_large_01')
                 panel=door if (index+start)%5==0 else window
+                if self.detailed and index%2==0 and panel!=door:
+                    style=['window_centered_double_01','window_centered_large_03','window_offset_small_01'][(index+start//3)%3]
+                    panel=('modular_urban_apartments_facade','wall_'+style)
                 self.place(panel,center,normal,2.98,2.98,parent)
-                insert=(panel[0],'door_centered_large_01' if panel==door else 'window_centered_medium_01')
+                insert=(panel[0],panel[1].removeprefix('wall_'))
                 scale=2.98/self.templates[panel][1].x
                 offset=self.centres[insert]-self.centres[panel]
                 offset=(-normal).to_track_quat('Y','Z')@(offset*scale)
