@@ -6,9 +6,9 @@ var neural_shots := 0
 
 func _ready() -> void:
 	super._ready()
-	delivery_folder=ROOT+"neural176/"
+	delivery_folder=ROOT+("neural177/" if "--weights177" in OS.get_cmdline_user_args() else "neural176/")
 	DirAccess.make_dir_recursive_absolute(delivery_folder)
-	var model:=actor("rig176/human.glb",Vector3(-6,0,2.5))
+	var model:=actor(("rig177/" if "--weights177" in OS.get_cmdline_user_args() else "rig176/")+"human.glb",Vector3(-6,0,2.5))
 	players[5].get_animation_library("").add_animation("Pistol_Shoot",players[5].get_animation("Shoot"))
 	played.append("");health.append(100)
 	var ring:=rings[0].duplicate() as MeshInstance3D;add_child(ring);rings.append(ring)

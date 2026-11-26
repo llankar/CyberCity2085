@@ -36,7 +36,7 @@ Ce modèle ne remplace pas le personnage de la démonstration tactique.</p>
 <p><a href="human.glb">GLB animé</a> · <a href="human.blend">Source Blender</a> ·
 <a href="../city174/encounter_1080p30.mp4">Scène tactique conservée</a></p>
 <img src="pose_135.png"><img src="pose_285.png"></html>''',encoding='utf8')
-    if OUT.name=='rig176':
+    if OUT.name in ['rig176','rig177']:
         gallery=(OUT/'index.html').read_text(encoding='utf8')
         gallery=gallery.replace('pose de tir sans arme','pose de tir avec pistolet')
         gallery=gallery.replace('Contact des pieds et ?quipement ? finaliser.', 'Prise en main du pistolet encore approximative. Les poses de pieds examin?es ne justifient pas de recalage global.')

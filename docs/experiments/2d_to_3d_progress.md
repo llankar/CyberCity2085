@@ -2,6 +2,29 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` WEIGHT-177 limited trial (2026-11-26). Prior turn progressed: equipped neural
+  cast and six-unit native encounter delivered. One regional weight-continuity
+  trial addresses triangular underarm/coat folds without AI, geometry/material
+  changes or new animation baking. Five local neighbor-blend iterations on3461
+  existing vertices, normalized top4 influences; nonempty/normalization checks
+  executed during export. Old176 preserved. Native first Shoot comparison
+  inspected: sharp fan folds attenuated, dark underarm fold still visible.
+  No final cloth/character art claim. Final177 detail/game-scale movies each
+  330frames1080p30 and neural177902frames1080p30 captured/packaged. Full scene
+  retains168occlusions,1blockedshot and six health entries. Shoot/Melee detail,
+  game-scale Shoot and scene clean0750 inspected. Modest benefit retained; no
+  additional local garment trials planned. Review also exposed pistol visible
+  during unarmed Punch/Death; preview visibility now follows those actions,
+  rerendered and Melee screenshot inspected without stray pistol.
+  E:phase2/rig177 and neural177 galleries/MP4s/GLB/BLEND. No tests beyond new
+  asset weight integrity, native affected renders, format/package checks and
+  visual inspection. Next substantial action: improve visible VTOL finish using
+  existing mechanical asset, preserve neural character work and cast. Files smoothing
+  builder and existing preview/scene/movie/package variant options. Next: review
+  the new media, retain only visible benefit, then move to another substantial
+  prototype element rather than repeated local garment tuning. No production,
+  campaign, AI generation/downloads or push. CHANTIER GLOBAL INCOMPLET.
+
 - `IN_PROGRESS` EQUIPPED-176 (2026-11-26). Prior turn progressed with textured
   unarmed neural mesh, binding corrections and two native animation movies.
   Existing FireWarden pistol now rigidly bound to hand_r, nine genuine mesh parts;

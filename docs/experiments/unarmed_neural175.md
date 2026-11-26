@@ -85,3 +85,26 @@ python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-la
 The full scene requires the existing showcase174 environment and retained models.
 Videos/gallery live in neural176; equipped GLB/BLEND and focused movies in rig176.
 No production edits, campaign tests, AI reruns, downloads or push in this stage.
+
+## Limited weight-continuity trial177
+
+One regional smoothing pass affects3461underarm/coat vertices, with five neighbor
+blend iterations and normalized top4weights. Geometry, materials and the five
+actions remain intact. The Shoot comparison shows less angular fan folds, while
+a dark underarm crease remains. This is a modest retained improvement, not final
+garment acceptance. No further local garment passes are planned at this stage.
+
+The animation preview now hides the pistol for unarmed Punch and Death. Detail
+and game-scale330frame movies were rendered and packaged; Melee was inspected
+without the stray visible pistol. Full neural177 encounter also rendered and
+packaged:902FullHD frames/30fps,168building/frame occlusions and1blockedshot.
+These outputs preserve176 and live separately in rig177 and neural177.
+
+```powershell
+& experiments/2d_to_3d/run_blender.ps1 -Script blender/smooth_neural177.py
+& experiments/2d_to_3d/run_unarmed175_movie.ps1 -Weights177
+& experiments/2d_to_3d/run_unarmed175_movie.ps1 -Weights177 -GameScale
+python experiments/2d_to_3d/package_rig175.py --folder E:/CyberCity2085-3d-lab/generated/phase2/rig177
+& experiments/2d_to_3d/run_movie169.ps1 -SmoothedTrial
+python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-lab/generated/phase2/neural177
+```

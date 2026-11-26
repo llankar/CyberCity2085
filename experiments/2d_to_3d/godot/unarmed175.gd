@@ -1,10 +1,11 @@
 extends Node3D
 ## First visible deformation trial of the new neural mesh; no campaign logic.
-var out := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rig176/" if "--equipped" in OS.get_cmdline_user_args() else "rig175/")
+var out := "E:/CyberCity2085-3d-lab/generated/phase2/"+("rig177/" if "--weights177" in OS.get_cmdline_user_args() else "rig176/" if "--equipped" in OS.get_cmdline_user_args() else "rig175/")
 var actor: Node3D
 var player: AnimationPlayer
 var frame := 0
 var phase := -1
+var weapon_parts: Array[MeshInstance3D] = []
 var camera: Camera3D
 const CLIPS := ["Idle","Walk","Shoot","Melee","Death"]
 
@@ -12,6 +13,8 @@ func _ready() -> void:
 	var doc:=GLTFDocument.new();var state:=GLTFState.new()
 	assert(doc.append_from_file(out+"human.glb",state)==OK)
 	actor=doc.generate_scene(state);add_child(actor)
+	for mesh in actor.find_children("*","MeshInstance3D",true,false):
+		if str(mesh.name).begins_with("EquippedNeuralPistol_"):weapon_parts.append(mesh)
 	player=actor.find_children("*","AnimationPlayer",true,false)[0] as AnimationPlayer
 	player.callback_mode_process=AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_MANUAL
 	for clip in CLIPS:assert(player.has_animation(clip),clip)
@@ -39,6 +42,7 @@ func _process(_delta: float) -> void:
 		player.get_animation(CLIPS[index]).loop_mode=Animation.LOOP_NONE if index==4 else Animation.LOOP_LINEAR
 		player.play(CLIPS[index],.1)
 	player.advance(1.0/30)
+	for mesh in weapon_parts:mesh.visible=index<3 # Unarmed punch and death do not retain the pistol.
 	camera.position=Vector3(2.5*sin(.7+t*.08),2.1,3.5*cos(.7+t*.08))
 	camera.look_at(Vector3(0,.85,0))
 	frame+=1

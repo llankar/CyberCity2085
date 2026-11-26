@@ -1,4 +1,4 @@
-param([switch]$GameScale,[switch]$Equipped)
+param([switch]$GameScale,[switch]$Equipped,[switch]$Weights177)
 $ErrorActionPreference='Stop'
 & (Join-Path $PSScriptRoot 'configure_godot_cache.ps1')
 $env:TEMP='E:\CyberCity2085-3d-lab\tmp';$env:TMP=$env:TEMP
@@ -11,6 +11,12 @@ if ($Equipped) {
     $output=Join-Path 'E:/CyberCity2085-3d-lab/generated/phase2/rig176' $name
     if ($sceneArguments.Count -eq 0) { $sceneArguments=@('--') }
     $sceneArguments+=@('--equipped')
+}
+if ($Weights177) {
+    $name=if ($GameScale) { 'actions_game.avi' } else { 'actions.avi' }
+    $output=Join-Path 'E:/CyberCity2085-3d-lab/generated/phase2/rig177' $name
+    if ($sceneArguments.Count -eq 0) { $sceneArguments=@('--') }
+    $sceneArguments+=@('--weights177')
 }
 $engine='C:\Users\llank\AppData\Local\Microsoft\WinGet\Packages\GodotEngine.GodotEngine_microsoft.Winget.Source_8wekyb3d8bbwe\Godot_v4.7.2-stable_win64_console.exe'
 $ErrorActionPreference='Continue'
