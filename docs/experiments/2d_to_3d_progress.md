@@ -6239,3 +6239,24 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
 - Next: improve large facade surface treatment and source-specific silhouettes;
   do not repeat micro-wear passes without clear combat-scale improvement.
   CHANTIER GLOBAL INCOMPLET.
+
+### ORIGINAL-CANOPY-233 — DONE partial source reconstruction, art finish open
+- Replaced one repeated rigid market_nw cap with a384quad draped cloth mesh with
+  thickness. Original green tarp RGB cropped from genuine market_nw context;
+  exact crop pixel equality tested, one authentic view, no generated view.
+  Existing source catalog updated by reproducible extractor; not a whole shop model.
+- Actual native focused100frame view revealed an inherited cap vent sitting on cloth;
+  removed only that overhead part plus cap/valance, kept supports and lower machinery.
+  No tactical geometry/cell/LOS edits. Full native MovieMaker549frames then encoded
+  H2641920x1080 at30FPS with AAC game sound. Actual clean0030 inspected after fix.
+  This is offline capture, not live FPS. No campaign tests or production changes.
+- E: showcase233/environment.blend/.glb/canopy.json; library227/index.html,
+  encounter_1080p30.mp4 and source_canopy_detail.png. Package now identifies233 and
+  includes source cloth/native crop, retained facade/source comparisons.
+  Raw AVI and overwritten blend1 removed after verified MP4/source availability.
+- Art assessment: clearly distinguishes this shop from remaining blue metal caps;
+  baked source highlights and stretched texture proportions still visible. Hidden
+  drape/depth interpreted. NOT final acceptance; no generalized shop conversion.
+- Files: extract_canopy233.py, blender/original_canopy233.py, materials186.gd,
+  package_combat169.py. Next: reusable full original-derived shop assembly and better
+  source-texture proportions/lighting. CHANTIER GLOBAL INCOMPLET.

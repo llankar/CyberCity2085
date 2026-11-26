@@ -1060,3 +1060,9 @@ occurred in corrected live runs. Further art work remains open.
 and utility covers, preserving geometry. Selected E: showcase232 environment.
 Actual Godot crop: ../showcase232/facade_detail.png; subtle improvement, not final.
 Existing encounter MP4 remains230; no new video was rendered for this material pass.
+
+233: current gallery/video updated to source-derived green cloth canopy on market_nw.
+True draped384quad mesh with thickness; authentic source RGB crop; overhead cap vent
+removed after actual native inspection. Same scene/cast/path/camera; no tactical edit.
+FullHD30 H264/AAC verified; raw AVI removed. Baked source light and stretched cloth
+proportions still limit art quality; this partial shop is not a finished library model.

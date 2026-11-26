@@ -69,9 +69,12 @@ def main():
             page+='<h2>Original-derived library placements</h2><p>Roof fan and purple paneled pair loaded from the same compiled library associations. Original map context, manual masks, Blender reconstructions; hidden sides inferred. No new Hunyuan inference.</p><p><a href="../../../environment-library/index.html">Source library and model links</a></p><img src="../../../environment-library/assets/purple_paneled_pair/reference.png"><img src="../../../environment-library/assets/purple_paneled_pair/neutral.png">'
         if OUT.name=='library227' and environment=='showcase229':
             page+='<h2>Original-derived segmented roofs</h2><p>Original contexts govern dark segmented plates and service hatch. Invented photovoltaic assemblies and roof sign removed; wall clinic signage retained. Reconstruction is interpretive, not recovered hidden geometry.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__south_building_w.png"><img src="original_roofs_detail.png">'
-        if OUT.name=='library227' and environment=='showcase230':
+        if OUT.name=='library227' and environment in ('showcase230','showcase232','showcase233'):
             run('-i',OUT/'clean_0030.png','-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_facade_detail.png')
             page+='<h2>Interpreted industrial facade</h2><p>Original roof identity retained; unseen wall construction interpreted with cut-corner panels, service doors, glazing, reinforcement and supply conduits. Not an authentic recovered facade view.</p><img src="service_facade_detail.png">'
+            if environment=='showcase233':
+                run('-i',OUT/'clean_0030.png','-vf','crop=420:260:470:190','-frames:v','1',OUT/'source_canopy_detail.png')
+                page+='<h2>Original market cloth</h2><p>The green canopy uses an unmodified RGB crop of the original market illustration on a draped mesh with thickness. One authentic view; hidden shape inferred. Existing supports and machinery retained, cap vent removed. Source lighting is baked into the cloth and remains an artistic limitation.</p><img src="../../../environment-library/assets/market_green_canopy/source_cloth.png"><img src="source_canopy_detail.png">'
             baseline=OUT.parent/'roof226/clean_0030.png'
             if baseline.is_file():
                 run('-i',baseline,'-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_building_before.png')

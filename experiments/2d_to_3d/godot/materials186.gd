@@ -3,7 +3,7 @@ extends "res://presentation182.gd"
 var material_changes := 0
 
 func load_glb(relative: String, place: Vector3) -> Node3D:
-	if (relative.begins_with("showcase195/") or relative.begins_with("showcase197/") or relative.begins_with("showcase198/") or relative.begins_with("showcase199/") or relative.begins_with("showcase206/") or relative.begins_with("showcase207/") or relative.begins_with("showcase208/") or relative.begins_with("showcase211/") or relative.begins_with("showcase214/") or relative.begins_with("showcase216/") or relative.begins_with("showcase219/") or relative.begins_with("showcase223/") or relative.begins_with("showcase229/") or relative.begins_with("showcase230/") or relative.begins_with("showcase232/")):return super.load_glb(relative,place)
+	if (relative.begins_with("showcase195/") or relative.begins_with("showcase197/") or relative.begins_with("showcase198/") or relative.begins_with("showcase199/") or relative.begins_with("showcase206/") or relative.begins_with("showcase207/") or relative.begins_with("showcase208/") or relative.begins_with("showcase211/") or relative.begins_with("showcase214/") or relative.begins_with("showcase216/") or relative.begins_with("showcase219/") or relative.begins_with("showcase223/") or relative.begins_with("showcase229/") or relative.begins_with("showcase230/") or relative.begins_with("showcase232/") or relative.begins_with("showcase233/")):return super.load_glb(relative,place)
 	if relative=="showcase174/environment.glb" and "--baked186" in OS.get_cmdline_user_args():
 		var baked:=super.load_glb("showcase186/environment.glb",place)
 		assert(baked!=null)
