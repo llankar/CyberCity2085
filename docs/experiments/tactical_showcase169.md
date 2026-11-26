@@ -839,3 +839,19 @@ native identical framing. Intermediate209movie not redundantly encoded.
 Full-motion art, complete class wardrobe and finished environment remain open.
 No production, campaign, downloads or push. Stable205 preserved. Next211 targets
 contemporary lamps/repeated facade geometry rather than another palette trial.
+
+
+### Street211 / tempo212 ? native rhythm1.7
+
+Preview: `E:/CyberCity2085-3d-lab/generated/phase2/tempo212/index.html`.
+Build `blender/street211.py`, run `run_movie169.ps1 -Tempo212`, then package
+that folder. Two old lamps become angular worn-metal fixtures/local cyan lights;
+east service bay generated, camera-facing art coverage still NOT VERIFIED.
+After user feedback, final1.7 scene clock replaces initial1.35 trial. Paths,
+manual animation/effects/camera share delta; audio pitch unchanged, no FFmpeg
+speed filter. Final531frames30FPS=17.7s,69s offline. State/contact package PASS.
+Actual overview/melee strip/final orbit inspected. Initial gallery check found
+treatment/orbit thumbnails sought at old timestamps; seeks remapped and files
+generated without full rerender/reencoding. Gallery links now PASS.
+Existing final medical recovery/IK pose remains213, global art still incomplete.
+No production/campaign/download/push. Stable205 retained.

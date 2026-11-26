@@ -61,12 +61,31 @@ This register is separate from the principal CyberCity 2085 GOAL.
   No production/save change, campaign, download, push or release;205preserved.
   CHANTIER GLOBAL INCOMPLET: architecture still repetitive/contemporary lamps,
   class wardrobe incomplete, further Hunyuan improvement and final art open.
-- `TODO` SHOWCASE211 next visible art: replace contemporary street lamps and a
-  selected repeated facade assembly with convincing cyberpunk rigid components,
-  keeping existing map cells/paths. Reuse acquired geometry where suitable;
-  avoid another palette-only variant. Keep210 cast/robot and existing motions.
-  Then consolidate the strongest variant and inspect the representative combat
-  sequence at actual zoom, before updating the self-contained delivery.
+- `IN_PROGRESS` STREET211 art: two contemporary lamps replaced by angular
+  worn-metal fixtures, cyan emitters/status and two local lights. Native overview
+  inspected: both visible. East bay gets authored service vent/armor panel;
+  generated BLEND/GLB, useful camera-facing art coverage NOT VERIFIED.
+- `DONE` TEMPO212 rhythm adjustment following user feedback (2026-11-26).
+  First1.35 trial668frames22.27s, then user requested faster. Final1.7 shared
+  delta advances paths/manual clips/effects/camera; WAV pitch unchanged, no video
+  speed filter. Older scene default delta unchanged via small virtual hook.
+  Contact JSON adds video_time, gallery phase filenames no longer actual frames.
+  Final531frames1080p30=17.7s,69s offline rendering, not live FPS. Package PASS:
+  blocked1, occlusion490, expected health, retaliation; moving-hand gap.307435m
+  at video8.6583s. Overview, melee strip and final orbit actually inspected.
+  First gallery check found two old absolute-time thumbnails missing; seeks
+  remapped and generated without rerender/reencoding; gallery links now PASS.
+  E: tempo212/index.html,encounter_1080p30.mp4,captures/GIF;showcase211 BLEND/GLB.
+  Files: street211.py/gd,tempo212.gd/tscn,169delta/time hooks,204video_time,
+  material/movie/package helpers. Interrupted prior turn generated211; resumed
+  pending work and implemented latest speed steering. No production/save edit,
+  campaign, downloads, push or release;205 unchanged. CHANTIER GLOBAL INCOMPLET.
+- `TODO` SHOWCASE213: medical recovery staging remains awkward in final orbit:
+  medic rises while arm IK still reaches crouched patient. Synchronize medical
+  clip/IK release with actual healing completion; inspect service facade from
+  useful combat angle. Preserve faster1.7 rhythm/current cast. Then consolidate
+  strongest variant. Global art/full-motion acceptance and Hunyuan improvement
+  remain open, no global artistic completion claimed.
 - `DONE` FACADE-206 scoped urban bay trial. Eight bays on two buildings use
   retained urban kit, real BLEND/GLB on E:. Initial planar-depth division error
   corrected; two rejected alignment takes retained. Source axes were already
