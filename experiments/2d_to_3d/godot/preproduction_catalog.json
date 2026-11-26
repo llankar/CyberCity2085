@@ -162,8 +162,10 @@
     "map": "wasteland_city_03_collapsed_overpass",
     "family": "wasteland",
     "reuse": "Ashfield concrete fragments and wreck geometry",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://wasteland_city_03_collapsed_overpass.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "city_district_civic_center",
@@ -634,68 +636,90 @@
   {
     "map": "wasteland_city_01_ruined_downtown",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_01_ruined_downtown.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_02_burned_market_block",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_02_burned_market_block.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_04_flooded_civic_square",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_04_flooded_civic_square.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_05_scavenger_plaza",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_05_scavenger_plaza.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_06_ruined_downtown",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_06_ruined_downtown.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_07_burned_market_block",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_07_burned_market_block.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_08_collapsed_overpass",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_08_collapsed_overpass.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_09_flooded_civic_square",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_09_flooded_civic_square.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_10_scavenger_plaza",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_10_scavenger_plaza.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_11_ruined_transit_plaza",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_11_ruined_transit_plaza.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_city_12_cratered_waterfront",
     "family": "city",
-    "status": "planned",
-    "batch": "expansion"
+    "status": "preview",
+    "batch": "expansion",
+    "scene": "res://wasteland_city_12_cratered_waterfront.tscn",
+    "scope": "surveyed city obstacles modeled; fractures and stall performance need refinement"
   },
   {
     "map": "wasteland_inner_01_abandoned_safehouse",

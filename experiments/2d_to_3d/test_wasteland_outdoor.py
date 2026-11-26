@@ -6,12 +6,16 @@ import struct
 import pytest
 
 
-def test_generated_outdoor_models_include_every_surveyed_group():
+@pytest.mark.parametrize(("family", "first_map"), [
+    ("outdoor", "wasteland_outdoor_01_dust_road_ambush"),
+    ("city", "wasteland_city_01_ruined_downtown"),
+])
+def test_generated_models_include_every_surveyed_group(family, first_map):
     output = Path("E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues")
-    if not (output / "wasteland_outdoor_01_dust_road_ambush/environment.glb").is_file():
-        pytest.skip("Run the outdoor Blender batch on E: first")
+    if not (output / first_map / "environment.glb").is_file():
+        pytest.skip("Run this Wasteland Blender batch on E: first")
     maps = Path(__file__).resolve().parents[2] / "assets/maps"
-    surveys = sorted(maps.glob("wasteland_outdoor_*.wall-traces.json"))
+    surveys = sorted(maps.glob(f"wasteland_{family}_*.wall-traces.json"))
     for survey_path in surveys:
         name = survey_path.name.split(".")[0]
         if name == "wasteland_outdoor_02_ashfield_ruins":
@@ -22,4 +26,5 @@ def test_generated_outdoor_models_include_every_surveyed_group():
             nodes = json.loads(model.read(size))["nodes"]
         names = {node["name"] for node in nodes if node.get("children")}
         surveyed = json.loads(survey_path.read_text())["walls"]
-        assert {f"Occludable_{row['id']}" for row in surveyed} <= names, name
+        assert {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") != "water"} <= names, name
+        assert not {f"Occludable_{row['id']}" for row in surveyed if row.get("kind") == "water"} & names, name

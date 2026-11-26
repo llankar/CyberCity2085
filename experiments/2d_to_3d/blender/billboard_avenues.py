@@ -43,7 +43,8 @@ def build(name):
     cw, ch = survey["canvas_size"]
     industrial = name.endswith(("freight_yard", "industrial_district"))
     library = LAB / "environment-library/assets"
-    wasteland = WastelandOutdoors(library, (gw,gh), (cw,ch)) if name.startswith("wasteland_outdoor_") else None
+    wasteland = (WastelandOutdoors(library, (gw,gh), (cw,ch), city=name.startswith("wasteland_city_"))
+                 if name.startswith(("wasteland_outdoor_", "wasteland_city_")) else None)
     wall = make_material("Dark ceramic cladding", (.055, .079, .104, 1), .33, .68)
     frame = make_material("Anodized frames", (.09, .14, .18, 1), .73, .39)
     palette = ((.025, .60, .73, 1), (.63, .039, .31, 1), (.88, .36, .043, 1))
