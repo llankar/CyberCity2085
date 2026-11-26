@@ -25,7 +25,7 @@ func _ready() -> void:
  var available := 0
  for entry in CATALOG.data:
   if entry.has("scene"):available += 1
- caption.text="%d environment previews available. %d conversions planned." % [available, CATALOG.data.size()-available]
+ caption.text="%d 3D previews available. %d original maps pending conversion." % [available, CATALOG.data.size()-available]
  box.add_child(caption)
  var buttons:Array[Button]=[]
  for entry in CATALOG.data:
