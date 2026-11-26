@@ -63,7 +63,7 @@ func after_unit_animations(t: float) -> void:
     health[1]=0;melee_hit=true;clip(1,"Death01",false)
     rings[1].visible=false;bars[1].visible=false
     effects.sound("melee",point,-10);effects.spark(point)
-    FileAccess.open(delivery_folder+"melee_contact.json",FileAccess.WRITE).store_string(JSON.stringify({"time":t,"wrist_to_chest_m":distance,"forward_hand_speed_m_s":advance,"hand":hand_rig.get_bone_name(joint),"scope":"one moving fist vs approximate torso contact volume; not triangle collision"}))
+    FileAccess.open(delivery_folder+"melee_contact.json",FileAccess.WRITE).store_string(JSON.stringify({"time":t,"video_time":presentation_time(t),"wrist_to_chest_m":distance,"forward_hand_speed_m_s":advance,"hand":hand_rig.get_bone_name(joint),"scope":"one moving fist vs approximate torso contact volume; not triangle collision"}))
     break
  if t>=16.2 and not melee_hit:
   FileAccess.open(delivery_folder+"missed_melee.json",FileAccess.WRITE).store_string(JSON.stringify({"minimum_wrist_to_chest_m":melee_minimum}))

@@ -157,9 +157,15 @@ func fire(source: int,target_index: int) -> void:
 			clip(1,"Death01",false);players[1].seek(.05,true);recoil_until=effects.clock+.22
 	health[target_index]=maxi(0,health[target_index]-12)
 
+func simulation_delta(delta: float) -> float:
+	return 1.0/30 if record else delta
+
+func presentation_time(simulation_time: float) -> float:
+	return simulation_time
+
 func _process(delta: float) -> void:
 	if effects==null:return
-	var dt := 1.0/30 if record else delta
+	var dt := simulation_delta(delta)
 	var t := time_value;effects.step(dt,t)
 	# All positions are functions of continuous paths and remain at their endpoint.
 	travel(0,Vector3(-5,0,1.5),Vector3(-2,0,1.2),0,4,"Walk (1_24)",t)
