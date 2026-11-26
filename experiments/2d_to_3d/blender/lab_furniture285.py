@@ -54,6 +54,12 @@ for top in list(bpy.data.objects):
     count += 1
 
 assert count == 18, count
+floor = bpy.data.materials["Original laboratory floor"]
+texture = next(node for node in floor.node_tree.nodes if node.type == "TEX_IMAGE")
+texture.image = bpy.data.images.load(str(output / "floor.png"))
+for light in bpy.data.lights:
+    if light.type == "POINT":
+        light.energy *= .25
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
