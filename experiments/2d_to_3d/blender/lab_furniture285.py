@@ -10,7 +10,7 @@ from create_hardsurface_crate import box, make_material
 from library_placement import place
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "lab288"
+output = phase / "lab289"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "lab282/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -69,6 +69,25 @@ for row in (-1, 1):
     tray.parent = greenhouse
     liner = box("Hydroponic liner", (gx, y, gz+.22), (gw*.76, gd*.27, .025), soil)
     liner.parent = greenhouse
+    # The utility rail carries both the feed pipe and the overhead grow lamp.
+    rail_y = y + gd * .25
+    for side in (-1, 1):
+        support = box("Grow rail support", (gx + side * gw*.73, rail_y, gz+.54),
+                      (.035, .035, .35), dark)
+        support.parent = greenhouse
+    rail = box("Grow lamp housing", (gx, rail_y, gz+.88),
+               (gw*.77, .062, .038), steel)
+    rail.parent = greenhouse
+    light_strip = box("Grow lamp diffuser", (gx, rail_y-.035, gz+.837),
+                      (gw*.72, .035, .012), cyan)
+    light_strip.parent = greenhouse
+    bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=.035, depth=gw*1.49,
+                                        location=(gx, rail_y, gz+.30),
+                                        rotation=(0, math.pi/2, 0))
+    pipe = bpy.context.object
+    pipe.name = "Hydroponic feed pipe"
+    pipe.data.materials.append(steel)
+    pipe.parent = greenhouse
     for index in range(5):
         obj = bpy.data.objects.new("Hydroponic plant", plant)
         bpy.context.collection.objects.link(obj)
@@ -140,4 +159,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("LAB288_EXPORTED", count, "surveyed furniture groups")
+print("LAB289_EXPORTED", count, "surveyed furniture groups")
