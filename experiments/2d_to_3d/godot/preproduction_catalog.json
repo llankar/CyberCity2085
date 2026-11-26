@@ -54,8 +54,10 @@
     "map": "city_industrial_power_substation",
     "family": "industry",
     "reuse": "factory generators and conduits",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://substation334.tscn",
+    "scope": "partial: transformer banks and perimeter"
   },
   {
     "map": "city_industrial_dockside_terminal",
