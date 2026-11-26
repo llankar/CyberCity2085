@@ -5,7 +5,7 @@ const ENTRIES := [
  ["RESIDENTIAL // facade surfaces and shared cargo", "res://residential284_cast.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab291_cast.tscn"],
  ["FACTORY // machines, service walls and cargo", "res://factory278_cast.tscn"],
- ["SUBWAY // modular walls and open railway exits", "res://metro292_cast.tscn"],
+ ["SUBWAY // modular walls and open railway exits", "res://metro293_cast.tscn"],
  ["WASTELAND // concrete surface repair; partial", "res://wasteland280_cast.tscn"]
 ]
 func _ready() -> void:

@@ -12,7 +12,7 @@ func _ready() -> void:
   selected_folders[1]="residential284"
   selected_folders[2]="lab291"
   selected_folders[3]="factory278"
-  selected_folders[4]="metro292"
+  selected_folders[4]="metro293"
   selected_folders[5]="wasteland280"
  tour_index=int(get_tree().get_meta("environment_tour_index",0))
  for argument in OS.get_cmdline_user_args():

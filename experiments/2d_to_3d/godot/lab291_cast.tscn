@@ -9,4 +9,4 @@ reference_models = Array[String](["sole_skin162/human.glb","modularity166/body_1
 reference_idles = Array[String](["Hard stand","Rocketbox_Idle"])
 close_yaw = -0.9
 close_elevation = 6.5
-delivery_next_scene = "res://metro292_cast.tscn"
+delivery_next_scene = "res://metro293_cast.tscn"
