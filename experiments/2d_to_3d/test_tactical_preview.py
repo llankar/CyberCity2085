@@ -9,12 +9,12 @@ from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
-from run_tactical_preview import warehouse_preview
+from run_tactical_preview import SCENARIOS, scenario_preview
 
 
 class TacticalPreviewTest(unittest.TestCase):
     def test_warehouse_fire_spends_ap_and_surveyed_cover_blocks_fire(self):
-        preview = warehouse_preview()
+        preview = scenario_preview("warehouse")
         ally = preview.units["ally:0"]
         enemy = preview.units["enemy:0"]
         position = enemy.position
@@ -28,16 +28,21 @@ class TacticalPreviewTest(unittest.TestCase):
         self.assertTrue(fired["success"], fired)
         self.assertEqual(ally.action_points, 2)
 
-    def test_warehouse_uses_real_geometry_and_advances_round(self):
-        preview = warehouse_preview()
-        self.assertEqual(preview.engine.terrain_profile.source, "manual_wall_traces_v1")
-        moved = preview.action("move", "ally:0", destination=[20, 14])
-        self.assertTrue(moved["success"], moved)
-        self.assertEqual(moved["state"]["units"][0]["cell"], [20, 14])
-        result = preview.action("end_turn", "ally:0")
-        self.assertTrue(result["success"], result)
-        self.assertEqual(result["state"]["turn"], "player")
-        self.assertEqual(result["state"]["round"], 2)
+    def test_scenarios_use_original_geometry_and_advance_round(self):
+        for name, (map_name, (x, y), _) in SCENARIOS.items():
+            with self.subTest(map=name):
+                preview = scenario_preview(name)
+                terrain = preview.engine.terrain_profile
+                self.assertEqual(terrain.source, "manual_wall_traces_v1")
+                self.assertEqual(Path(terrain.image_path).stem, map_name)
+                destination = [x + 1, y]
+                moved = preview.action("move", "ally:0", destination=destination)
+                self.assertTrue(moved["success"], moved)
+                self.assertEqual(moved["state"]["units"][0]["cell"], destination)
+                result = preview.action("end_turn", "ally:0")
+                self.assertTrue(result["success"], result)
+                self.assertEqual(result["state"]["turn"], "player")
+                self.assertEqual(result["state"]["round"], 2)
 
     def test_engine_updates_position_ap_and_rejects_blocked_cell(self):
         ally = Unit(position=(64, 64), stats=PlayerStats(), health=10, action_points=3)

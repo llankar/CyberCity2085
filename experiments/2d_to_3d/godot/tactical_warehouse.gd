@@ -3,17 +3,21 @@ extends "res://laboratory247.gd"
 const Mailbox = preload("res://tactical_mailbox.gd")
 const TacticalActor = preload("res://tactical_actor.gd")
 const ALLY := "ally:0"
-const CAST_CAPTURE := "E:/CyberCity2085-3d-lab/generated/phase2/warehouse333/tactical_cast.png"
+@export var scenario_title := "Warehouse"
 var mailbox: Mailbox
 var status: Label
 var actors := {}
 var last_sequence := -1
 var smoke := false
 var pending_command := {}
+var smoke_destination: Array[int]
 
 
 func _ready() -> void:
  await super._ready()
+ for child in get_children():
+  if child is CanvasLayer:
+   child.hide()
  var session := OS.get_environment("CYBERCITY_TACTICAL_SESSION")
  if session.is_empty():
   push_error("Launch this scene with run_tactical_preview.py")
@@ -37,7 +41,7 @@ func _process(_delta: float) -> void:
  var readout: Array[String] = []
  for unit: Dictionary in state.units:
   var id: String = unit.id
-  var point := Vector3(float(unit.cell[0])-19.5, 0, 13.5-float(unit.cell[1]))
+  var point := cell_position(unit.cell)
   if not actors.has(id):
    var actor := TacticalActor.new()
    add_child(actor)
@@ -54,8 +58,8 @@ func _process(_delta: float) -> void:
   var victim: TacticalActor = actors[pending_command.target]
   shooter.fire_at(victim.position)
  pending_command.clear()
- status.text = "Round %d   %s\n%s\nLeft click: move   Right click on hostile: fire   T: end turn" % [
-  state.round, state.turn, "  |  ".join(readout)]
+ status.text = "%s  //  Round %d   %s\n%s\nLeft click: move   Right click on hostile: fire   T: end turn\nQ / E: rotate   Wheel: zoom   Esc: close" % [
+  scenario_title, state.round, state.turn, "  |  ".join(readout)]
  if not mailbox.message.is_empty():
   status.text += "\n" + mailbox.message
  if state.outcome != null:
@@ -63,10 +67,12 @@ func _process(_delta: float) -> void:
  if smoke:
   match last_sequence:
    0:
-    send({"action": "move", "actor": ALLY, "destination": [20, 14]})
+    var start: Array = state.units[0].cell
+    smoke_destination = [int(start[0])+1, int(start[1])]
+    send({"action": "move", "actor": ALLY, "destination": smoke_destination})
    1:
     var cell: Array = state.units[0].cell
-    if int(cell[0]) != 20 or int(cell[1]) != 14 or int(state.units[0].ap) >= 3:
+    if int(cell[0]) != smoke_destination[0] or int(cell[1]) != smoke_destination[1] or int(state.units[0].ap) >= 3:
      get_tree().quit(2)
      return
     var ally: TacticalActor = actors[ALLY]
@@ -75,7 +81,7 @@ func _process(_delta: float) -> void:
      get_tree().quit(6)
      return
     await ally.movement.finished
-    if not ally.position.is_equal_approx(Vector3(.5, 0, -.5)):
+    if not ally.position.is_equal_approx(cell_position(smoke_destination)):
      get_tree().quit(7)
      return
     fire_at(review_camera.unproject_position(target_center(hostile)))
@@ -89,12 +95,12 @@ func _process(_delta: float) -> void:
      get_tree().quit(8)
      return
     await RenderingServer.frame_post_draw
-    if get_viewport().get_texture().get_image().save_png(CAST_CAPTURE) != OK:
+    if get_viewport().get_texture().get_image().save_png(review_folder + "tactical_cast.png") != OK:
      get_tree().quit(9)
      return
     send({"action": "end_turn", "actor": ALLY})
    3:
-    print("TACTICAL_WAREHOUSE_EXCHANGE_OK round=", state.round)
+    print("TACTICAL_EXCHANGE_OK map=", scenario_title, " round=", state.round)
     get_tree().quit()
 
 
@@ -110,6 +116,10 @@ func send(command: Dictionary) -> void:
 
 func target_center(actor: TacticalActor) -> Vector3:
  return actor.global_position + Vector3.UP * .85
+
+
+func cell_position(cell: Array) -> Vector3:
+ return Vector3(float(cell[0])-19.5, 0, 13.5-float(cell[1]))
 
 
 func fire_at(screen_position: Vector2) -> void:
@@ -130,6 +140,9 @@ func fire_at(screen_position: Vector2) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
  super._unhandled_input(event)
+ if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+  get_tree().quit()
+  return
  if mailbox == null or mailbox.state.get("outcome") != null:
   return
  if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_T:
