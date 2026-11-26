@@ -47,7 +47,7 @@ L'atterrissage et la qualité artistique finale restent à vérifier.</p>
 <a href="../vtol178/vtol_actions.blend">Source Blender</a></p>
 <img src="../vtol178/neutral.png"><img src="../vtol178/rear.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('fall181','presentation182','district183'):
+    if OUT.name in ('fall181','presentation182','district183','assemblies184'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Robot : impact et chute</h2>
 <p>Impulsion PSI, chute continue hors du masque de la caisse, fumée et fragments.
@@ -57,7 +57,7 @@ La rencontre reste une séquence mise en scène indépendante.</p>
 <a href="../security_opaque137/robot_actions.glb">Robot GLB</a> ·
 <a href="../vtol178/vtol_actions.glb">VTOL GLB</a></p></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
-    if OUT.name in ('presentation182','district183'):
+    if OUT.name in ('presentation182','district183','assemblies184'):
         page=(OUT/'index.html').read_text(encoding='utf8')
         page=page.replace('</html>','''<h2>Cadrages d’action</h2>
 <p>Vue tactique, échanges de tirs, approche et mêlée, PSI puis soins.
@@ -72,6 +72,15 @@ réelle pour leur fondu. Aucun changement des règles ou positions de combat.</p
 réduites. La géométrie tactique et les animations restent celles de la scène précédente.</p>
 <p><a href="../showcase183/environment.glb">Décor GLB</a> ·
 <a href="../showcase183/environment.blend">Source Blender</a></p></html>''')
+        (OUT/'index.html').write_text(page,encoding='utf8')
+    if OUT.name=='assemblies184':
+        page=(OUT/'index.html').read_text(encoding='utf8')
+        page=page.replace('</html>','''<h2>Assemblages architecturaux</h2>
+<p>Trois baies de garage et plateformes de toiture provenant des kits locaux.
+Les volumes tactiques et les animations de la rencontre sont conservés.</p>
+<p><a href="../showcase184/environment.glb">Décor GLB</a> ·
+<a href="../showcase184/environment.blend">Source Blender</a></p>
+<img src="clean_0030.png"></html>''')
         (OUT/'index.html').write_text(page,encoding='utf8')
     (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,
         'scope':'Native rendered visual sequence, not campaign or production AI acceptance'},indent=2))

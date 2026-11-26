@@ -1,6 +1,16 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ASSEMBLIES-184 implementation/native trial (2026-11-26).
+  New facade_assemblies184.py reuses actual factory double-garage and fire-escape
+  meshes:3bay replacements/8roof parts. First roof-HVAC overlap inspected and
+  corrected using free3x3roof patches/prop clearance; failing take retained.
+  Final0030 shows foreground walkway clear of HVAC. Garages not sufficiently
+  visible in this view: artistic result NOT VERIFIED. Native902FullHD30 frames,
+  one blockedshot/61occlusions, health unchanged; no script/surface errors.
+  -FacadeAssemblies preserves183 and earlier files; sourceGLB/BLEND E:showcase184.
+  Next: camera-visible facade choices and architectural silhouette review.
+  Global IN_PROGRESS; no production/campaign/download/push.
 - `DONE` DISTRICT-183 scoped material/proportion trial (2026-11-26).
   Previous turn progressed with action camera. New district_finish183.py derives
   showcase174:18materials/114slots, three palettes, two valves at65percent.

@@ -250,3 +250,23 @@ architectural improvement from color changes alone. Packaging executed for
 video/audio/GIF/gallery; environment GLB/packedBLEND and derived textures local.
 Next: replace selected repeated facade bays with genuinely distinct assemblies
 using existing authored kit parts; avoid another tint-only iteration.
+
+## Facade assemblies 184 (IN_PROGRESS)
+
+Actual local factory kit supplies three double-garage bays/shutters replacing
+selected window bays. Existing fire-escape kit supplies eight rooftop platform/
+railing parts. Source facade_assemblies184.py derives showcase183, preserving
+all old assets. Independent -FacadeAssemblies scene uses existing182 camera.
+First0030 inspected: a roof walkway overlapped HVAC, so first take retained.
+Placement revised to require a3x3 roof patch and clearance from existing roof
+prop origins. Final native capture in progress; bounds-origin clearance alone
+is not artistic proof of no intersection. No production/campaign/download/push.
+
+Final184:902FullHD30frames, one blocked shot,61occlusions, same six-unit health.
+No script/parse/surface-index errors found in final native log. Final0030
+inspected: visible foreground walkway separated from HVAC. Three garages are
+exported but this front view does not provide sufficient artistic review of
+those chosen bays; their appearance remains NOT VERIFIED. All eight walkway
+parts are not individually artistically accepted from this single view.
+Next: select facade bays visible to the encounter camera and review architectural
+silhouettes from that camera; avoid claiming completion from export counts.
