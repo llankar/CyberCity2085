@@ -958,3 +958,26 @@ front facade bays, preserving map cells and building cutaway. Review media:
 `generated/phase2/services223/index.html`. Full-scene artistic gain is modest;
 this does not meet the broader architecture objective. Selected scene remains222.
 Next direction: complete cyberpunk facade assets rather than more small attachments.
+
+## Original-map reconstruction / library225
+
+New source specification: attachment49f6518a-63ec-4e44-8a96-f057aab9e982.
+Use original map images and existing surveys as the art reference. Tactical IDs
+are not appearance labels. One map only; original PNG/tactical data unchanged.
+
+`python experiments/2d_to_3d/environment_library.py --init --register-selected`
+imports24 context references and indexes three retained meshes on E: without
+copying models. `--find stealth_vtol` or `--find Buildings` searches before any
+new generation. E:/CyberCity2085-3d-lab/environment-library/index.html is the
+initial reference gallery. Crops are NOT segmented; unknown asset dimensions,
+anchors/orientations and incomplete artistic statuses remain explicit.
+
+Installed Hunyuan2mini shape and Hunyuan2.0turbo paint licenses explicitly
+exclude EU territory; they do not meet the new France-permission requirement.
+Official source texts are preserved in library/licenses. No new inference or
+production integration while this is unresolved. Continue original extraction,
+Blender and appropriately licensed assets. Prior experimental outputs preserved.
+
+Next: one reproducibly isolated original roof machine/container, an actual
+textured 3D equivalent, calibrated library entry and independent Godot placement.
+Main production GOAL/runtime remains untouched. No campaign or massive conversion.

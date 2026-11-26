@@ -6028,3 +6028,54 @@ resources must not be pushed without explicit authorization.
   Files: blender/service_facade223.py, godot/services223.gd/tscn, materials186.gd,
   package_combat169.py. AVI and obsolete blend1 removed after final media encode.
   CHANTIER GLOBAL INCOMPLET.
+
+## Active reconstruction direction — user specification 2026-11-26
+
+Source instruction: C:/Users/llank/.codex/attachments/49f6518a-63ec-4e44-8a96-f057aab9e982/Pasted text.txt.
+This supersedes generic-building selection as the main artistic reference. Keep
+one map, production unchanged, current cast/rigs/VTOL222, E: storage and useful
+checks only. Original illustrated appearance governs art; tactical labels/cells
+govern function and placement, not inferred appearance. Main GOAL unchanged.
+
+- `DONE` LIBRARY-225 initial source indexing. Existing wall-traces/walls/art
+  catalogue reused:24 map objects, exact627-cell source footprint preserved,
+  production image SHA matches E: source copy. Context crops and searchable
+  library.json/index.html on E:/CyberCity2085-3d-lab/environment-library.
+  Four context images actually inspected (market_nw, north_bench, east_bins,
+  south_building_w). Visual notes stored: grey covered shape is not proven to
+  be the wooden bench model; purple paneled bins differ from generic bins;
+  cloth shop roof and dark segmented building roof differ from current props.
+  Crops NOT isolated, no invented multiview. Three retained mesh assets indexed
+  by existing path/hash (crate/generator/VTOL), no model duplication/generation.
+  CLI --init --register-selected --find; reimport preserves decisions/assets.
+  Three small contract tests actually pass: immutable source/tactical cells and
+  calibrated grid placement, idempotent preservation, changed-source rejection.
+- `BLOCKED` HUNYUAN-FR-TERRITORY per new explicit requirement. Official LICENSE
+  for tencent/Hunyuan3D-2mini and Hunyuan3D-2 excludes EU/UK/South Korea from its
+  territory. Thus installed2mini fp16 shape and2.0turbo paint/delight do not
+  satisfy requested France permission. Official text copies on E: library/licenses;
+  https://huggingface.co/tencent/Hunyuan3D-2mini/blob/main/LICENSE and
+  https://huggingface.co/tencent/Hunyuan3D-2/blob/main/LICENSE. Preserve prior
+  outputs; no new inference or production integration under this license.
+  Continue extraction/Blender/existing assets; resolve an applicable permission
+  or select a suitable licensed model before new Hunyuan generation. This is
+  NOT a global work blocker and does not invalidate previous technical evidence.
+- `DONE` BUILDING-224 source review only. Cosmo Cyberpunk Building free1K asset
+  acquired through publisher API/mirror32.2MB, neutral Blender render inspected:
+  brick/windows/fire escape style does not establish original-map identity;
+  framing clips roof/base, so not a complete building-art acceptance. Not adopted.
+  Source E: sources/building224; review generated/phase2/building224. No new
+  acquisition needed for extraction. SourceAssets sibling inspected: retained
+  source_sheets currently character/unit sheets, not isolated alley architecture.
+- `IN_PROGRESS` ENVIRONMENT-RECONSTRUCTION (spec sections1–16). Library is an
+  initial index, NOT a finished reconstruction pipeline. Next: isolate one actual
+  roof machine/container from context using a reproducible mask, preserve source
+  provenance, select existing/procedural mesh from actual reference, register
+  calibrated dimensions/anchor and Godot mapping, show original vs result.
+  TODO: isolated references, reviewed textured reconstructions, reusable map
+  associations/scene generator, duplicate-ground-art treatment, original-derived
+  architecture/rooftop diversity, comparison views and complete showcase video.
+  No massive conversion, production edits, campaign tests or new Windows build.
+  Files: environment_library.py, test_environment_library.py,
+  blender/review_building224.py, this register and tactical_showcase169.md.
+  CHANTIER GLOBAL INCOMPLET.
