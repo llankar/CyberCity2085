@@ -1,6 +1,21 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` TREATMENT-196 scoped staging correction (2026-11-26). Previous turn
+  delivered market/clinic geometry. Medic path now ends at patient's side
+  (.1,0,2.65), patient looks laterally, case moved within reach. Original clips
+  and shoulder-following IK retained; no new rig/engine gate. Native902frames
+  FullHD30/74s offline completed; package assertions/audio/MP4/GIF/gallery pass,
+  1blockedshot/702occlusion frames, final health unchanged. Actual0750 inspected:
+  heads no longer overlap; six-frame21..26s board inspected for approach/pose.
+  Not exhaustive hand-contact or whole-clip acceptance. Initial movie attempt
+  failed opening nonexistent output directory; wrapper order corrected before
+  successful final capture (not counted as a passed capture). Files:196scene,
+  movie/package scripts, scoped docs. No campaign/production/download/push.
+  Global IN_PROGRESS: repeated architecture/counter faces, whole-sequence art,
+  human/raider identity and remaining contact polish. Next: richer market stall
+  frontages replacing blank panels, keeping all functional footprints.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` MARKET-195 scoped environment delivery (2026-11-26). Seven real low
   market counters now carry tensioned cloth canopies, metal frames and narrow
   emissive valances; foreground clinic receives geometric medical signage.

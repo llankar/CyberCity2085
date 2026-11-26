@@ -500,3 +500,20 @@ et validation artistique de toute la s?quence restent ouverts. La sc?ne est
 une rencontre locale mise en sc?ne, pas une validation de l'IA de production.
 Aucun test de campagne ni push. Prochaine action : d?tailler les surfaces
 r?p?titives sans nouvelle carte, puis corriger les contacts visibles des soins.
+
+
+## Treatment196 ? soins lat?raux
+
+Livraison : `E:/CyberCity2085-3d-lab/generated/phase2/treatment196/index.html`.
+Commande de capture : `run_movie169.ps1 -Treatment196`, puis packaging avec
+`--folder E:/CyberCity2085-3d-lab/generated/phase2/treatment196`.
+Le trajet continu du soignant aboutit au c?t? du patient, qui regarde d?sormais
+lat?ralement ; la mallette est rapproch?e. Animations et IK existantes conserv?es.
+La capture0750 et la planche21..26s montrent des silhouettes s?par?es sans
+chevauchement des visages. Cela ne prouve pas chaque contact de main ? chaque
+image. Capture finale902images1920?1080/30fps,74s hors ligne, packaging r?ussi,
+un tir bloqu?,702images d'occultation et sant? finale inchang?e. Premi?re
+ouverture de film ?chou?e faute de dossier ; ordre du wrapper corrig?.
+Aucun changement de production ni test de campagne ni push.
+Prochaine action : d?tailler les devantures du march?, encore trop uniformes.
+CHANTIER GLOBAL INCOMPLET.

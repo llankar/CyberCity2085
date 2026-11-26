@@ -1,4 +1,4 @@
-param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish,[switch]$WreckFinish,[switch]$FallFinish,[switch]$Presentation,[switch]$DistrictFinish,[switch]$FacadeAssemblies,[switch]$VisibleBays,[switch]$MaterialFinish,[switch]$PaintedRobot,[switch]$Cannon193,[switch]$Gait194,[switch]$Market195)
+param([string]$Output='E:/CyberCity2085-3d-lab/generated/phase2/combat169/encounter.avi',[switch]$Architectural,[switch]$Refined,[switch]$MedicalContact,[switch]$CityDetails,[switch]$NeuralTrial,[switch]$SmoothedTrial,[switch]$VehicleFinish,[switch]$ImpactFinish,[switch]$WreckFinish,[switch]$FallFinish,[switch]$Presentation,[switch]$DistrictFinish,[switch]$FacadeAssemblies,[switch]$VisibleBays,[switch]$MaterialFinish,[switch]$PaintedRobot,[switch]$Cannon193,[switch]$Gait194,[switch]$Market195,[switch]$Treatment196)
 $ErrorActionPreference='Stop'
 if ($Architectural -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat170/encounter.avi' }
 if ($Refined -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/combat171/encounter.avi' }
@@ -19,6 +19,7 @@ if ($PaintedRobot -and -not $PSBoundParameters.ContainsKey('Output')) { $Output=
 if ($Cannon193 -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/cannon193/encounter.avi' }
 if ($Gait194 -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/gait194/encounter.avi' }
 if ($Market195 -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/market195/encounter.avi' }
+if ($Treatment196 -and -not $PSBoundParameters.ContainsKey('Output')) { $Output='E:/CyberCity2085-3d-lab/generated/phase2/treatment196/encounter.avi' }
 if (-not ([IO.Path]::GetFullPath($Output).StartsWith('E:\CyberCity2085-3d-lab\'))) { throw 'Keep experimental captures on E:' }
 New-Item -ItemType Directory -Force -Path (Split-Path -Parent $Output) | Out-Null
 & (Join-Path $PSScriptRoot 'configure_godot_cache.ps1')
@@ -46,5 +47,6 @@ if ($PaintedRobot) { $sceneArguments=@('--','--refined-stage','--city-details','
 if ($Cannon193) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--visible185','--baked186','--painted192','--cannon193');$scene='res://cannon193.tscn' }
 if ($Gait194) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--visible185','--baked186','--painted192','--cannon193');$scene='res://gait194.tscn' }
 if ($Market195) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--visible185','--baked186','--painted192','--cannon193');$scene='res://market195.tscn' }
+if ($Treatment196) { $sceneArguments=@('--','--refined-stage','--city-details','--weights177','--vtol178','--impact179','--wreck180','--fall181','--visible185','--baked186','--painted192','--cannon193');$scene='res://treatment196.tscn' }
 & $engine --path (Join-Path $PSScriptRoot 'godot') --rendering-method gl_compatibility --resolution 1920x1080 --write-movie $Output --fixed-fps 30 --quit-after 2000 $scene @sceneArguments
 exit $LASTEXITCODE
