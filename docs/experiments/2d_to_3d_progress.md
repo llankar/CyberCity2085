@@ -1,6 +1,14 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` SCALE-187 current-cast comparison (2026-11-26). Previous turn progressed
+  with persisted material direction. Actual native four-model/three-scale board
+  against production idle atlas tiles; first Raider alias corrected to actual
+  Rocketbox_Idle. Final PNG inspected: robot too thin vs sprite, Raider dark;
+  humans readable at62px, sparse at21px. Nominal human1.8m/robot2.4m calibration,
+  not microscopic skin bounds or animation acceptance. E:scale187 screenshot.
+  Next: authored robot shell silhouette, preserving actual motion binary.
+  Global IN_PROGRESS; no production/campaign/download/push.
 - `DONE` MATERIAL-186 scene/source harmonization (2026-11-26). Previous turn
   progressed with visible authored bays. materials186.gd directs97surfaces:
   darker shutters, rougher less metallic roofs, calmer walls; textures/neons kept.

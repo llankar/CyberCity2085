@@ -316,3 +316,15 @@ Architectural repetition and contrast against illustrated floor still prevent
 final scene-art acceptance. Next: assess the whole combat sequence and sprite
 comparison at real scale, prioritize substantial visible discrepancies over
 more isolated material variants.
+
+## Scale comparison 187 — 2026-11-26
+
+New native scale187.gd/.tscn compares actual retained Rook, neural177, Raider166
+and robot137 to actual first idle atlas tiles. Human21/41/62px nominal1.8m;
+robot2.4m nominal/1.65sprite multiplier. Neutral light, fixed pose only. First
+run used absent Raider alias; corrected to actual Rocketbox_Idle. Final native
+capture executed and inspected: humans retain readable identity at62px, very
+small at21px; robot markedly thinner than sprite and Raider dark. Not an
+animation acceptance or exact skinned bounding-height audit. No campaign.
+Next: robot silhouette using existing authored shell meshes and unchanged clips,
+not new human recoloring or more facade microdetails.
