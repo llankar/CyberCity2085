@@ -209,3 +209,24 @@ but its bright material and proximity to medic still weaken readability.
 Material-copy bug corrected, not a claim that all robot surfaces are dark.
 Next substantial priority: presentation/composition and a shorter combat montage;
 stop further tiny wreck iterations. Global artistic quality remains IN_PROGRESS.
+
+## Presentation 182 — camera composition (IN_PROGRESS)
+
+A separate presentation182 scene reuses the entire181 encounter and cast.
+Extracted base update_camera hook preserves old camera behavior by default.
+New camera smoothly frames gunfight, melee, PSI and treatment, with tactical
+returns. Building fade uses actual updated camera. First native902frame take
+finished and0460/0750 inspected: closer action/medical contact clearly visible.
+Its zero occlusion events meant it did not demonstrate building fade, so the
+first take is retained as first_no_occlusion. A final low orbit is now rendered
+for that requirement; no acceptance claim until final output inspected.
+
+Final182 executed902frames FullHD30,75seconds offline. One blocked shot,
+61building/frame occlusion events, six-unit health state preserved. No script,
+parse or surface-index errors in final log (existing SDL calibration warning).
+Final low-orbit frame extracted at29.8s and inspected: foreground building
+transparency reveals agents. First close melee/treatment captures inspected.
+Camera composition delivered; scene still has repeated facade modules, bright
+robot wreck and some close-up character/contact limitations. Global artistic
+acceptance remains open; next focus is environment identity/material harmony,
+not more isolated rig/loading checks.

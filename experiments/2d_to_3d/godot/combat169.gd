@@ -203,11 +203,7 @@ func _process(delta: float) -> void:
 		bars[index].position=actors[index].position+Vector3(0,2.05 if index!=2 else 2.5,0)
 		bars[index].scale.x=float(health[index])/100;bars[index].visible=health[index]>0
 	raider_pistol.visible=t>=6 and t<12
-	var yaw := deg_to_rad(35+20*sin(t*.12))
-	var target := Vector3(-.5,.3,1)
-	var vertical := lerpf(23,5 if refined else 12,smoothstep(21,26,t))
-	camera.position=target+Vector3(sin(yaw)*28,vertical,cos(yaw)*28);camera.look_at(target)
-	camera.size=23-3*sin(t*.10)
+	update_camera(t)
 	for building in buildings:
 		var blocked := false
 		for index in ([0,3,5] if actors.size()>5 else [0,3]):
@@ -239,3 +235,10 @@ func capture() -> void:
 
 	if OS.has_feature("movie") and "--impact179" in OS.get_cmdline_user_args() and frame in [603,609]:
 		get_viewport().get_texture().get_image().save_png(delivery_folder+"impact_%04d.png"%frame)
+
+func update_camera(t: float) -> void:
+	var yaw := deg_to_rad(35+20*sin(t*.12))
+	var target := Vector3(-.5,.3,1)
+	var vertical := lerpf(23,5 if refined else 12,smoothstep(21,26,t))
+	camera.position=target+Vector3(sin(yaw)*28,vertical,cos(yaw)*28);camera.look_at(target)
+	camera.size=23-3*sin(t*.10)

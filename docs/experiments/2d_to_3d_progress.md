@@ -1,6 +1,17 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` PRESENTATION-182 action camera (2026-11-26). Previous turn progressed
+  with fall/material correction. Added independent presentation182.gd/.tscn,
+  base camera hook and -Presentation wrapper. Continuous gunfight/melee/PSI/
+  medical framing, then low orbit. First zero-occlusion take retained; final
+  native902frames1920x1080/30fps in75s offline, one blocked shot,61occlusions.
+  Melee0460/treatment0750 and final29.8s low-orbit screenshot inspected; final
+  transparency reveals agents. No script/surface errors, existing SDL warning.
+  Package offers video/audio/GIF/gallery with source links. Global IN_PROGRESS:
+  repeated facade modules, material harmony and final art acceptance remain.
+  Next substantial action: environment identity/material harmony, not another
+  small camera/wreck iteration. No production/campaign/push.
 - `DONE` FALL-181 scoped staging and material bugfix (2026-11-26).
   contact173.gd/new -FallFinish moves falling wreck1.25m over1.1s; previous
   cover shot unchanged. First run exposed180 surface material assignment error:
