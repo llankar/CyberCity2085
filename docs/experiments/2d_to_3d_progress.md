@@ -2,6 +2,20 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `IN_PROGRESS` UNARMED-175 (2026-11-26). Existing textured Rook retains fused
+  rifle/bent arms, so a new open-pose input addresses animation readiness instead
+  of repeating shape/colour on the same unsuitable input. Built-in imagegen used
+  actual combat00_E.png reference, preserved brown coat/fur/blue-orange armour,
+  removed weapon and opened both arms. Actual1086x1448RGBA reference inspected;
+  transparent alpha verified. E:phase2/reference175/rook_unarmed.png, prompt.txt,
+  provenance.json retain exact prompt, input/output hashes and derived-image scope.
+  Built-in output physically saved under E:/.codex (Codex home is junction to E:),
+  copied to experiment, no production replacement. One cached Hunyuan mini job
+  launched via run_hunyuan_shape.sh rook_unarmed; new hunyuan175 output preserves
+  all166 meshes. Live WSL PID398/session64460 verified; no mesh PASS yet.
+  Evidence tmp/hunyuan175-unarmed.log. Next: inspect new mesh, then colour/rig
+  only if separation and silhouette are useful. No old gates/campaign/push.
+
 - `DONE` CITY-174 visual variant (2026-11-26). Previous turn progressed: treatment
   contact, persistent robot collapse and native media delivered. New optional
   --city-details variant reuses downloaded Poly Haven urban facade modules:
