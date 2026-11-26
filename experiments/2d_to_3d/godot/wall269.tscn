@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://laboratory247.gd" id="1"]
+[node name="ServiceWall269Review" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/environment-library/assets/service_wall269_factory/"
+review_model_name = "model.glb"
+review_size = 3.3
+review_target = Vector3(0,0.85,0)
+review_distance = 5.0
+review_elevation = 2.8

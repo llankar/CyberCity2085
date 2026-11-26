@@ -1,6 +1,11 @@
+# Current multicartes art priorities (attachment8c2be8de,2026-11-26)
+IN_PROGRESS: existing industrial arm/conveyor/machine quality is now the minimum for complex objects. Prioritize source-matched modular architecture in all six environments, replace crude blue crates/artificial plinths, and rebuild significant remaining flat props. Reuse library resources before generation; preserve source PNGs, canonical tactics and production runtime. Build precise architectural structures in Blender and use Hunyuan for genuinely complex objects. Show real combat-scale multiple-actor captures, preserve cutaway, and measure significant reconstructions/reuse rather than map loading. No campaign tests or experimental asset publication. New maps only after main families become sufficiently rich.
+
+LATEST CORRECTION: railway exits must stay open. Metro270 now splits both lateral walls across the rail band, clears only experimental boundary paint and extends rails to both map edges. Two actual exported-triangle/source tests PASS; corrected overview inspected.
+
 # Experimental six-map production
 
-LATEST PRIORITY — Environment Detail Pass (attachment5f16d061,2026-11-26):
+PREVIOUS PRIORITY — Environment Detail Pass (attachment5f16d061,2026-11-26):
 work by reusable object families across the existing six maps. Do not expand the
 map count or treat flat art/rectangular extrusions as finished complex objects.
 Prioritize industrial machines, then compatible lab/transport/residential/ruin

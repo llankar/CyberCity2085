@@ -3,7 +3,7 @@ import json,hashlib
 from environment_library import LAB,ROOT
 
 def main():
- library=LAB/'environment-library/library.json';data=json.loads(library.read_text())
+ library=LAB/'environment-library/library.json';data=json.loads(library.read_text(encoding='utf8'))
  folder=LAB/'generated/phase2/metro264'
  asset=json.loads((folder/'service_column.json').read_text())
  asset.update(family='Transit',artistic_status='NATIVE_REVIEWED_PROTOTYPE',authentic_views=1,generated_views=0)

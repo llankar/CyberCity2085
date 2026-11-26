@@ -5,7 +5,7 @@ const ENTRIES := [
  ["RESIDENTIAL // first assembly", "res://residential253.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab261.tscn"],
  ["FACTORY // industrial detail in progress", "res://factory266.tscn"],
- ["SUBWAY // rails and service columns", "res://metro264.tscn"],
+ ["SUBWAY // modular walls and open railway exits", "res://metro270.tscn"],
  ["WASTELAND // partial reconstruction", "res://wasteland254.tscn"]
 ]
 func _ready() -> void:
