@@ -542,3 +542,34 @@ Whole-scene final artistic acceptance NOT VERIFIED. Next action is a cohesive
 art pass and full encounter review, not repeated engine/rig validation.
 No production edits, campaign tests, downloads or push.
 CHANTIER GLOBAL INCOMPLET.
+
+
+## Art198 - material/composition pass and useful final orbit
+
+Gallery: `E:/CyberCity2085-3d-lab/generated/phase2/art198/index.html`.
+Source: `showcase198/environment.blend` and `.glb`. Reproduce:
+`run_blender.ps1 -Script blender/art_finish198.py`,
+`run_movie169.ps1 -Art198`, `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/art198`.
+
+Two old decorative valves removed because they obstructed the medical shop
+sign and overlapped the staged casualty. Existing metal roughness/normal maps
+added to four stall materials;49merchandise units receive small deterministic
+placement offsets. Functional map volumes/paths untouched. This is a modest
+art pass, not proof of professional final environment quality.
+
+The first full-story contact sheet exposed a poor low final camera angle with
+large void below the finite map. Its media are retained as first_low_orbit_*.
+Final198 camera keeps the27..30s rotation above the floor and frames the map.
+Final29.5s orbit image actually inspected: tactical scene fills the frame,
+units/wreck remain visible. Initial contact sheet samples the whole encounter;
+this does not constitute continuous-motion artistic acceptance.
+
+Final native902frames1920x1080/30fps,81s offline; packaging assertions pass,
+actual audio/MP4/GIF/storyboard/final orbit PNG produced.1blockedshot,
+602occlusion frames, final health [100,0,0,100,76,100]. No campaign test,
+production edit, new download or push. No real-time FPS claim.
+Still open: repetitive stall/facade appearance, character identity, full-motion
+contact/impact quality. Next: stronger cyberpunk silhouettes/materials using
+retained assets, with camera and working encounter preserved.
+CHANTIER GLOBAL INCOMPLET.

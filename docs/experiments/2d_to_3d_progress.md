@@ -1,6 +1,24 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` ART-198 scoped composition/material and end-camera correction
+  (2026-11-26). Prior turn furnished stalls. Removed two decorative pipe valves
+  obscuring medical sign/casualty; added existing local metal roughness/normal
+  textures to four counter materials and deterministic offsets to49stock units.
+  Real GLB/packed BLEND on E:, old197 retained. One initial902frame take exposed
+  a bad low end orbit in actual12-frame storyboard: large void under finite
+  map. Retained first_low_orbit media; corrected final27..30s orbit elevation,
+  rotation and framing in independent198 scene. Final902FullHD30 capture/81s
+  offline and packaging assertions pass:1blockedshot/602occlusion frames/health
+  unchanged. Actual0030, initial whole-storyboard and final29.5s orbit inspected:
+  signage clear, casualty no valve overlap, final view filled by tactical map.
+  No claim all-motion artistic acceptance; no new campaign/rig/engine gates.
+  Files: art_finish198, art198 scene, material passthrough, movie/package scripts,
+  scoped docs. No production/download/push. Global IN_PROGRESS: stock/fa?ade
+  repetition, character identity, full-motion artistic quality remain open.
+  Next: replace repetitive stall/architecture kit appearance with stronger
+  cyberpunk silhouettes/materials; retain this camera and working encounter.
+  CHANTIER GLOBAL INCOMPLET.
 - `DONE` STOREFRONT-197 scoped furnishing delivery (2026-11-26). Previous turn
   corrected medical staging. Seven existing counters now hold folded metal
   worktops/fascias, imported medical cases and locally authored cargo crates,
