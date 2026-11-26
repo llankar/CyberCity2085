@@ -1,4 +1,5 @@
 """Reuse the existing wall vent mesh on residential blind facade sections."""
+import json
 import math
 from pathlib import Path
 import sys
@@ -11,7 +12,7 @@ from library_placement import place
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "residential316"
+output = phase / "residential317"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "residential284/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -54,26 +55,27 @@ for shell in list(bpy.context.scene.objects):
         count += 1
 assert count
 fan = phase.parents[1] / "environment-library/assets/roof_twin_fan/optimized.glb"
-roof_count = 0
-for shell in list(bpy.context.scene.objects):
-    if shell.type != "MESH" or not shell.name.endswith(" shell") or not shell.parent:
-        continue
-    roofs = [face for face in shell.data.polygons if face.normal.z > .95 and face.area >= 7]
-    if not roofs:
-        continue
-    roof = max(roofs, key=lambda item: item.area)
-    center = shell.matrix_world @ roof.center
-    parts = place(fan, shell.parent, tuple(center), (1.55, .8, .42))
+repo = Path(__file__).resolve().parents[3]
+survey = json.loads((repo / "experiments/2d_to_3d/residential_roofs317.json").read_text())
+gw, gh = json.loads((repo / "assets/maps/city_district_apartment_block.walls.json").read_text())["grid"]
+cw, ch = survey["canvas"]
+for identifier, (x1,y1,x2,y2), _ in survey["fans"]:
+    group = bpy.data.objects["Occludable_" + identifier]
+    roof = next(obj for obj in group.children if obj.name.endswith(" shell"))
+    height = max((roof.matrix_world @ vertex.co).z for vertex in roof.data.vertices)
+    center = ((x1+x2)*gw/(2*cw)-gw/2, gh/2-(y1+y2)*gh/(2*ch), height)
+    parts = place(fan, group, center, ((x2-x1)*gw/cw, (y2-y1)*gh/ch, .42))
     bpy.ops.object.select_all(action="DESELECT")
     for part in parts:
         part.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]
     bpy.ops.object.join()
     bpy.context.object.name = "Residential rooftop twin fan"
-    roof_count += 1
-assert roof_count
-print("RESIDENTIAL316_ROOF_FANS", roof_count)
 
+roof_material = bpy.data.materials["Original residential roof artwork"]
+texture = next(node for node in roof_material.node_tree.nodes if node.type == "TEX_IMAGE")
+texture.image = bpy.data.images.load(str(output / "roof.png"))
+print("RESIDENTIAL317_ROOF_FANS", len(survey["fans"]))
 housing = make_material("Entry lamp housing", (.04,.05,.055,1), .6, .48)
 diffuser = make_material("Entry lamp warm diffuser", (.75,.39,.16,1), .1, .38, 1.4)
 entrances = [obj for obj in bpy.context.scene.objects
@@ -96,7 +98,7 @@ for entry in entrances:
         obj.parent = entry.parent
         obj.matrix_parent_inverse = entry.parent.matrix_world.inverted()
 assert entrances
-print("RESIDENTIAL316_ENTRIES", len(entrances))
+print("RESIDENTIAL317_ENTRIES", len(entrances))
 
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
@@ -105,4 +107,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("RESIDENTIAL316_EXPORTED", count, facades)
+print("RESIDENTIAL317_EXPORTED", count, facades)
