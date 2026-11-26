@@ -926,3 +926,11 @@ Gallery/video: `E:/CyberCity2085-3d-lab/generated/phase2/lighting218/index.html`
 Capture with the same CLI arguments as industry216, substituting scene218 and
 output folder218; package using `package_combat169.py --folder` with that folder.
 No historical pruned inputs required. Previous standalone215 remains retained.
+
+## Worn cladding219
+
+Current scene `res://counter219.tscn` inherits lighting218. The seven retained
+counter bodies receive metric worn PBR cladding; no geometry/collision change.
+Editable source: `generated/phase2/showcase219/environment.blend` on E:.
+Gallery: `generated/phase2/counter219/index.html`. White counter strips are gone;
+muted tint variation remains subtle. Larger architectural variety is still open.

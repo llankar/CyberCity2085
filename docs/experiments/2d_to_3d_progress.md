@@ -5931,3 +5931,18 @@ resources must not be pushed without explicit authorization.
   but actual listed Standard license costs1.21USD, so no purchase/download.
   Next: stronger aircraft source and further environmental art variation.
   CHANTIER GLOBAL INCOMPLET; no production/save changes or experimental push.
+
+- `DONE` COUNTER-219 scoped surface pass (2026-11-26). Seven original market
+  backing meshes retain all vertices/collision silhouettes, with272 vertical
+  faces assigned metric worn-metal PBR UVs and three muted baked tint variants.
+  Existing roughness/normal maps reused, no downloaded asset or new primitives.
+  Native549frames1080p30 captured. Actual0030/0750 reviewed: blank white/masonry
+  counter walls replaced with visibly seamed worn cladding; medical cast readable.
+  Palette differences are subtle under the blue scene lighting, not seven new
+  architectural designs. Source/GLB: showcase219/environment.blend/.glb; media:
+  counter219/index.html and encounter_1080p30.mp4. Same627 obstacle cells, cast,
+ 1.7pace, lights218 and animations. Full-motion artistic acceptance remains open.
+  Files: blender/counter219.py, godot/counter219.gd/.tscn, materials186.gd,
+  package_combat169.py. No production/save edit, campaign test or push.
+  Next: stronger VTOL and architectural variety beyond material changes.
+  CHANTIER GLOBAL INCOMPLET.
