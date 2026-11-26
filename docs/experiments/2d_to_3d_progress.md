@@ -1,6 +1,18 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` MATERIAL-186 scene/source harmonization (2026-11-26). Previous turn
+  progressed with visible authored bays. materials186.gd directs97surfaces:
+  darker shutters, rougher less metallic roofs, calmer walls; textures/neons kept.
+  Added persist_materials186.py GLB rewrite and Blender packed source script.
+  First baked take exposed linear/sRGB mismatch, corrected and retained both
+  earlier takes. Final0030 inspected: intended dark shutters present from actual
+  bakedGLB, no duplicate tint. Native902FullHD30frames,1blockedshot/61occlusions,
+  health unchanged, no script/surface errors found. E:showcase186 actualGLB/
+  123MBpackedBLEND; materials186 video/audio/gallery and same-camera comparison.
+  Global IN_PROGRESS: repeated architecture/floor contrast and whole-sequence
+  artistic acceptance open. Next: full encounter/sprite-scale visual assessment,
+  not another isolated tint variant. No production/campaign/download/push.
 - `DONE` VISIBLE-185 scoped facade trial (2026-11-26). Previous turn progressed
   with authored bays/walkway placement. Generator --visible-bays185 selects
   camera-facing bays and keeps source frame/shutter relative offsets/scale.

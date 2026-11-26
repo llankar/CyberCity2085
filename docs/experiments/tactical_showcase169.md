@@ -291,3 +291,28 @@ in final log. Separate sourceGLB/packedBLEND/textures in E:showcase185 and media
 in E:visible185. Next substantial environment action: unify facade/roof material
 response under scene lighting and compose building identities as a whole,
 not more count-based minor additions.
+
+## Material direction 186 (IN_PROGRESS)
+
+Independent materials186 scene initially adjusts97 actual Godot surfaces:
+charcoal garage shutters, less metallic roofs, calmer wall panels, preserved
+textures/normals/emissive signs. First0030 inspected: doors noticeably darker.
+Not satisfied with a runtime-only deliverable, added persist_materials186.py
+(GLB chunk/material rewrite, unchanged geometry/binary textures) and Blender
+import/pack script. E:showcase186 contains GLB and123MBpackedBLEND. First baked
+capture was too light: runtime sRGB color factors differ from glTF linear
+factors. Corrected sRGB/linear conversion; final native take in progress.
+Both runtime-only and linear-mismatch AVI/PNG retained. Scene loads bakedGLB
+directly with --baked186, avoiding duplicate material application. No production.
+
+Final186 bakedGLB capture inspected0030: charcoal shutters match intended
+scene direction after linear conversion, with textures retained. Native902frames
+FullHD30, one blockedshot/61occlusions, health unchanged. Final log has no
+script/parse/surface-index errors (existing SDL warning). Source geometry and
+embedded binary textures preserved;97 primitive material copies edited. Blender
+packed source123MB exists on E:. Final video uses baked source, not live tint.
+Gallery includes same-camera185/186 comparison and corrected source links.
+Architectural repetition and contrast against illustrated floor still prevent
+final scene-art acceptance. Next: assess the whole combat sequence and sprite
+comparison at real scale, prioritize substantial visible discrepancies over
+more isolated material variants.
