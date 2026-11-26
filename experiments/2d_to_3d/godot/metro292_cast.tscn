@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://multicast271.gd" id="1"]
+[node name="SubwayProfessionalFixtures292" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/metro292/"
+reference_cells = Array[Vector2i]([Vector2i(22,24),Vector2i(24,24),Vector2i(26,24)])
+close_elevation = 4.5
+close_yaw = -2.47859
+delivery_next_scene = "QUIT"
