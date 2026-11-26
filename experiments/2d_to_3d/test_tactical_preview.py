@@ -10,7 +10,7 @@ from game.stats import EnemyStats, PlayerStats
 from game.unit import STATUS_BLEEDING, Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
-from run_tactical_preview import SCENARIOS, scenario_preview, selected_map
+from run_tactical_preview import CATALOG, SCENARIOS, battlefield_presentation, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
@@ -114,6 +114,9 @@ class TacticalPreviewTest(unittest.TestCase):
     def test_scenarios_use_original_geometry_and_advance_round(self):
         for name, (map_name, (x, y), _) in SCENARIOS.items():
             with self.subTest(map=name):
+                presentation = battlefield_presentation(name)
+                scene_path = CATALOG.parent / presentation["preview_scene"].removeprefix("res://")
+                self.assertTrue(scene_path.is_file())
                 preview = scenario_preview(name)
                 terrain = preview.engine.terrain_profile
                 self.assertEqual(terrain.source, "manual_wall_traces_v1")

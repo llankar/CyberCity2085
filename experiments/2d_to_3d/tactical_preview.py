@@ -30,6 +30,7 @@ class TacticalPreview:
                     "name": unit.character.name if unit.character else "Raider",
                     "cell": [coordinate // CELL_SIZE for coordinate in unit.position],
                     "hp": unit.health,
+                    "max_hp": unit.stats.max_hp if unit.stats else unit.health,
                     "ap": unit.action_points,
                     "defending": unit.is_defending,
                     "overwatch": unit.on_overwatch,

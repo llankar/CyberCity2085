@@ -24,15 +24,24 @@ var smoke_patient := ALLY
 
 
 func _ready() -> void:
- await super._ready()
- for child in get_children():
-  if child is CanvasLayer:
-   child.hide()
  var session := OS.get_environment("CYBERCITY_TACTICAL_SESSION")
  if session.is_empty():
   push_error("Launch this scene with run_tactical_preview.py")
   get_tree().quit(1)
   return
+ var path := session.path_join("battlefield.json")
+ var deadline := Time.get_ticks_msec() + 5000
+ while not FileAccess.file_exists(path) and Time.get_ticks_msec() < deadline:
+  await get_tree().process_frame
+ var presentation := JSON.new()
+ if presentation.parse(FileAccess.get_file_as_string(path)) != OK or not apply_presentation(presentation.data):
+  push_error("Could not open the selected 3D battlefield")
+  get_tree().quit(16)
+  return
+ await super._ready()
+ for child in get_children():
+  if child is CanvasLayer:
+   child.hide()
  mailbox = Mailbox.new(session)
  cutaway.configure(self, [], review_camera, true)
  smoke = OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1"
@@ -48,6 +57,26 @@ func _ready() -> void:
  hud.add_child(selection)
  effects = Effects.new()
  add_child(effects)
+
+
+func apply_presentation(config: Dictionary) -> bool:
+ var scene := load(config.preview_scene) as PackedScene
+ if scene == null:
+  return false
+ # Read the preview settings without adding its scripted tour to the tree.
+ var preview := scene.instantiate()
+ scenario_title = config.title
+ review_folder = preview.review_folder
+ review_model_name = preview.review_model_name
+ use_market_ground = preview.use_market_ground
+ market_ground_filename = preview.market_ground_filename
+ review_ambient_color = preview.review_ambient_color
+ review_ambient_energy = preview.review_ambient_energy
+ review_key_energy = preview.review_key_energy
+ review_size = minf(preview.review_size, 31.0)
+ save_review_capture = false
+ preview.free()
+ return true
 
 
 func _process(delta: float) -> void:
@@ -140,7 +169,8 @@ func _process(delta: float) -> void:
     smoke_hp = int(unit_state(smoke_patient).hp)
     use_action("first_aid", smoke_patient)
    4:
-    if not mailbox.success or int(unit_state(smoke_patient).hp) != smoke_hp + 2:
+    var patient := unit_state(smoke_patient)
+    if not mailbox.success or int(patient.hp) != mini(smoke_hp + 2, int(patient.max_hp)):
      get_tree().quit(11)
      return
     use_action("defend")

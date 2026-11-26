@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3]
-[ext_resource type="Script" path="res://tactical_warehouse.gd" id="1"]
-[node name="TacticalDowntown" type="Node3D"]
-script = ExtResource("1")
-scenario_title = "Downtown Intersection"
-review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/billboard_avenues/city_exterior_downtown_intersection/"
-review_size = 28.0
-save_review_capture = false

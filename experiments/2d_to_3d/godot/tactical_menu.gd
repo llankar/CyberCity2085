@@ -30,6 +30,15 @@ func _ready() -> void:
  if manifest.parse(FileAccess.get_file_as_string(directory.path_join("scenarios.json"))) != OK:
   status.text = "Launch this menu with run_tactical_preview.py"
   return
+ var scroll := ScrollContainer.new()
+ scroll.custom_minimum_size.y = 425
+ scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+ scroll.follow_focus = true
+ options.add_child(scroll)
+ var cards := VBoxContainer.new()
+ cards.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+ cards.add_theme_constant_override("separation", 8)
+ scroll.add_child(cards)
  var smoke_button: Button
  for map: Dictionary in manifest.data.maps:
   var id: String = map.id
@@ -38,7 +47,7 @@ func _ready() -> void:
   button.custom_minimum_size.y = 58
   button.add_theme_font_size_override("font_size", 24)
   button.pressed.connect(_select.bind(id))
-  options.add_child(button)
+  cards.add_child(button)
   if id == "metro":
    smoke_button = button
  var quit := Button.new()
@@ -46,17 +55,15 @@ func _ready() -> void:
  quit.custom_minimum_size.y = 44
  quit.pressed.connect(get_tree().quit)
  options.add_child(quit)
- options.get_child(2).grab_focus()
+ if cards.get_child_count() > 0:
+  cards.get_child(0).grab_focus()
  if OS.get_environment("CYBERCITY_TACTICAL_SMOKE") == "1" and smoke_button != null:
   await get_tree().process_frame
   smoke_button.pressed.emit()
 
 
 func _select(id: String) -> void:
- var scene := "res://tactical_%s.tscn" % id
- if not ResourceLoader.exists(scene):
-  status.text = "Battlefield scene is unavailable."
-  return
+ var scene := "res://tactical_battlefield.tscn"
  var destination := directory.path_join("map-selection.txt")
  var temporary := destination + ".tmp"
  var file := FileAccess.open(temporary, FileAccess.WRITE)
@@ -69,6 +76,7 @@ func _select(id: String) -> void:
   status.text = "Could not publish the selected battlefield."
   return
  print("TACTICAL_MENU_SELECTED map=", id)
+ status.text = "Loading battlefield…"
  var error := get_tree().change_scene_to_file(scene)
  if error != OK:
   push_error("Could not open battlefield: %s" % error_string(error))
