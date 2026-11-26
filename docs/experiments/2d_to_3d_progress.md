@@ -6333,3 +6333,26 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   industrial roof, surfaces still too uniform. Next: acquired factory facade modules
   on this building, respecting original roof identity and existing tactical footprint.
   CHANTIER GLOBAL INCOMPLET.
+
+### FACTORY-FACADE-237 — DONE scoped facade integration; global art open
+- Northeast brick bays replaced with acquired factory garage/service doors and high
+  windows, worn metallic PBR cladding and a magenta strip matching original palette.
+  Roof236 retained exactly. Vertical facade remains interpreted (source shows roof,
+  not recoverable front/back views). Closed cosmetic doors do not open tactical walls.
+- Reused3 acquired module types,15added objects,56existing body faces reclad. No
+  source image edit, new AI generation, collision/cell or production runtime changes.
+- Actual focused native100frames exit0 then full549frame1080p30 movie exit0. Opening
+  facade and combat close view inspected: distinct maintenance-depot silhouette;
+  shutters remain very pale and adjacent buildings repetitive. NOT final art finish.
+- Targeted saved-model regression passed:98 roof/base meshes identical in vertices,
+  polygons and transforms between236 and237; intentionally excludes materials.
+  Evidence E: showcase237/geometry_check.json. This is not all-angle/campaign testing.
+- Current gallery/movie repackaged with roof and new facade crop/source comparison.
+  H2641920x1080 at30FPS/AAC confirmed. State blocked1,occlusion912,health unchanged.
+  MovieMaker timing is offline, not a live performance assertion. Raw AVI removed.
+- Files: blender/depot_facade237.py, blender/test_depot237.py, materials186.gd,
+  package_combat169.py. E: showcase237/environment.blend/.glb/facade.json; library227
+  current MP4/index.html/depot_facade_detail.png. No build or resource push.
+- Next: integrate material brightness with existing floor lights; diversify next
+  large source-derived structure/street object using retained acquired assets.
+  CHANTIER GLOBAL INCOMPLET.

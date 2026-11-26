@@ -1087,3 +1087,10 @@ stepped service hatch and22cm acquired pipe runs. Actual opening crop/source ref
 included in gallery. Final native549frames and saved pipe-scale regression passed;
 not production/campaign acceptance. Brick facade remains inconsistent and is next.
 Current fullHD30/AAC video now includes235 display counter as well as234 cloth shop.
+
+237 current video: northeast industrial facade now uses acquired garage/service doors
+and high windows on worn metallic cladding, retaining236 roof. Vertical design is
+explicitly interpreted. Actual saved-model comparison preserves98roof/body meshes.
+Native549frame sequence and H2641080p30/AAC packaging completed; raw AVI removed.
+Facade close crop/source comparison in current gallery. Pale shutters and remaining
+repetitive buildings still need artistic integration; no production/campaign claim.
