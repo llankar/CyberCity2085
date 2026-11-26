@@ -4,7 +4,7 @@ const ENTRIES := [
  ["NEON MARKET // illuminated stalls", "res://market325.tscn"],
  ["RESIDENTIAL // facade surfaces and shared cargo", "res://residential317_cast.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab291_cast.tscn"],
- ["FACTORY // machines, service walls and cargo", "res://factory329_cast.tscn"],
+ ["FACTORY // machines, service walls and cargo", "res://factory330_cast.tscn"],
  ["SUBWAY // modular walls and open railway exits", "res://metro293_cast.tscn"],
  ["WASTELAND // concrete surface repair; partial", "res://wasteland320_cast.tscn"]
 ]

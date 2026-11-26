@@ -8,7 +8,7 @@ from PIL import Image
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument("--input", default="factory278", choices=("factory278","factory329"))
+parser.add_argument("--input", default="factory278", choices=("factory278","factory329","factory330"))
 args = parser.parse_args()
 source = Path(__file__).resolve().parents[2] / "assets/maps/city_industrial_factory_floor.png"
 base = np.asarray(Image.open(source).convert("RGB"))
