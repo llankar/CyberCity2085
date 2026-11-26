@@ -1105,3 +1105,10 @@ added, old generic compressor removed. Final native549frames, H2641080p30/AAC.
 Both reusable shop Blender pointers consolidated into239 packed master.11redundant
 intermediate exports pruned (1.290GiB file bytes);219base and reconstruction recipes
 retained. See E: environment-library/REBUILD_ENVIRONMENT.txt for old-state regeneration.
+
+240: western narrow building differentiated as a utility frontage with acquired tall
+windows/service entry, dark PBR cladding, genuine segmented roof/edge conduit layout.
+Old generic garage overlay, compressor and walkway removed after first native view.
+Final native549frame FullHD30/AAC movie/gallery refreshed; raw/backup files cleaned.
+Base body vertices/faces retained by executed checks. Unseen vertical facade remains
+interpreted; whole-map artistic finish is still open. Production unchanged.

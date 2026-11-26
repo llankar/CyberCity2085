@@ -6400,3 +6400,25 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   campaign tests or Windows build. Next: larger remaining facade/street identity,
   preserving one-map scope; no endless canopy-only or material-only batches.
   CHANTIER GLOBAL INCOMPLET.
+
+### WEST-UTILITY-240 — DONE scoped building adaptation; global art open
+- Western narrow building now has an interpreted utility frontage: acquired urban
+  tall windows and glazed service door, dark worn PBR cladding and magenta service
+  light. Genuine source guides roof tile/conduit layout; no invented rooftop fans.
+ 48added parts. Original tactical body vertices and polygon indices compared before/
+ after recipe changes and preserved (two executed assertions); no collision edits.
+- First native100frame view exposed old generic garage bays and compressor still
+  overlaid on the facade/roof. Removed those exact cosmetic objects plus old walkway
+  before final export. Roof/body positions and existing cast/rigs/paths unchanged.
+- Final native549frame movie exit0, opening inspected after correction. FullH264
+ 1920x1080 at30FPS/AAC confirmed; gallery now includes western source/native crop.
+ State blocked1,occlusion908,health unchanged. Offline movie capture, not live FPS
+ or campaign acceptance. Worn wall/lighting integration still not final.
+- E: showcase240/environment.blend/.glb/facade.json; current library227/index.html,
+ encounter_1080p30.mp4/west_utility_detail.png.239consolidated source retained for
+ existing library assets. Raw AVI and overwritten240blend1 removed after delivery.
+- Files: blender/west_utility240.py, materials186.gd, package_combat169.py.
+ No production/save edits, new AI inference, campaign tests, Windows build or asset
+ push. Next: remaining large brick structures/street identity, retaining source
+ references and tactical footprints; continue improving the whole one-map scene.
+ CHANTIER GLOBAL INCOMPLET.
