@@ -86,7 +86,7 @@ func _ready() -> void:
 		var bar := MeshInstance3D.new();var rectangle := QuadMesh.new();rectangle.size=Vector2(.6,.045);bar.mesh=rectangle
 		var ink := paint.duplicate() as StandardMaterial3D;ink.billboard_mode=BaseMaterial3D.BILLBOARD_ENABLED
 		bar.material_override=ink;add_child(bar);bars.append(bar)
-	effects=preload("res://combat_effects169.gd").new();add_child(effects)
+	effects=(preload("res://combat_effects179.gd") if "--impact179" in OS.get_cmdline_user_args() else preload("res://combat_effects169.gd")).new();add_child(effects)
 	var doc := GLTFDocument.new();var state := GLTFState.new()
 	assert(doc.append_from_file("E:/CyberCity2085-3d-lab/sources/environment169/medical_box/medical_box_1k.gltf",state)==OK)
 	var medical := doc.generate_scene(state) as Node3D;add_child(medical);medical.name="AuthoredMedicalCase"
@@ -236,3 +236,6 @@ func capture() -> void:
 		if "--quick" in OS.get_cmdline_user_args():get_tree().quit()
 	if OS.has_feature("movie") and frame in [30,254,460,590,630,750]:
 		get_viewport().get_texture().get_image().save_png(delivery_folder+"clean_%04d.png"%frame)
+
+	if OS.has_feature("movie") and "--impact179" in OS.get_cmdline_user_args() and frame in [603,609]:
+		get_viewport().get_texture().get_image().save_png(delivery_folder+"impact_%04d.png"%frame)

@@ -156,3 +156,23 @@ python experiments/2d_to_3d/package_combat169.py --folder E:/CyberCity2085-3d-la
 Vehicle sources/textures/views live in generated/phase2/vtol178; the full six-unit
 movie, GIF and gallery live in vehicle178. No production/campaign/AI/download or
 push work was performed. CHANTIER GLOBAL INCOMPLET.
+
+## Impact finish 179 — 2026-11-26
+
+Independent `-ImpactFinish` take retains the six-unit cast, city174 and VTOL178.
+`combat_effects179.gd` adds short muzzle/impact/destruction lights, procedural
+soft smoke, a wreck scorch and floor bounce for existing debris. Existing sounds,
+tracers and encounter timing are reused. No production changes.
+
+Executed two native takes; retained the first subtle take on E:. Final capture:
+902 frames, 1920x1080 at fixed 30 fps, 71 seconds offline rendering. Encounter
+records one cover-blocked shot, 168 building/frame occlusions and health
+[100,0,0,100,76,100]. Inspected final impact_0603 and clean_0630: flash lighting
+is visible; smoke remains too subtle at tactical zoom and is not artistically
+accepted. Native capture is not a real-time performance measurement.
+
+Outputs: E:/CyberCity2085-3d-lab/generated/phase2/impact179/.
+Next: improve the encounter composition and visible destruction silhouette;
+retain current characters and avoid further technical loading/rig proofs.
+Global visual acceptance remains open.
+`nPackaging executed successfully: MP4 with recorded audio, GIF, gallery and delivery.json.

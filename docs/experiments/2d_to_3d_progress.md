@@ -2,6 +2,18 @@
 
 This register is separate from the principal CyberCity 2085 GOAL.
 
+- `DONE` IMPACT-179 implementation and native capture (2026-11-26).
+  Files: combat_effects179.gd, combat169.gd, neural176.gd, run_movie169.ps1.
+  Reuses existing sounds/tracers; adds short local lights, procedural smoke,
+  scorch and debris floor bounce. Two actual native takes; first retained.
+  Final902frames1920x1080/30fps,71s offline. One blockedshot,168occlusions,
+  six-unit encounter health preserved. Final0603 and0630 inspected: local flash
+  visible; smoke still too subtle, artistic destruction acceptance NOT VERIFIED.
+  No production/campaign/push. `IN_PROGRESS` tactical visual delivery overall.
+  Next: stronger destruction silhouette and encounter composition, not repeated
+  model-loading/rig validation. See tactical_showcase169.md for scoped evidence.
+
+
 - `DONE` VTOL-178 visible finish trial (2026-11-26). Prior turn progressed with limited neural
   weight continuity and native media. New mechanical finish preserves original135
   files and rotor/gear pivots. Actual source inspection found32inward lateral
@@ -5347,5 +5359,3 @@ and build modular clothing on the preserved MPFB body.
 Phase 1 evidence is stored under `E:\CyberCity2085-3d-lab\outputs`; Phase 2
 evidence is under `E:\CyberCity2085-3d-lab\generated\phase2`. These generated
 resources must not be pushed without explicit authorization.
-
-
