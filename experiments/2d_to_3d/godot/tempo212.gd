@@ -12,6 +12,9 @@ func _ready() -> void:
 func capture() -> void:
  if not capturing:return
  capturing=false
+ # Interactive playback must not stall on GPU readback/PNG compression.
+ # Keep screenshots for explicit still capture and native movie/frame exports.
+ if not record and not OS.has_feature("movie") and not ("--capture-stills" in OS.get_cmdline_user_args()):return
  # Keep gallery phase identifiers; filenames are simulation phases, not video frames.
  var phases:={30:"clean_0030",120:"preview",145:"cannon_0145",146:"cannon_0146",147:"cannon_0147",254:"clean_0254",460:"clean_0460",590:"clean_0590",603:"impact_0603",609:"impact_0609",630:"clean_0630",750:"clean_0750"}
  for phase in phases:

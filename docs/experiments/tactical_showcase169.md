@@ -1047,3 +1047,11 @@ Compile with --environment showcase230/environment.glb using build_library_scene
 Actual native overview/close crop inspected. Surface remains too clean/flat for
 final artistic acceptance; improve material richness before broadening this style.
 Current gallery/video: generated/phase2/library227/index.html.
+
+Live playback correction (231): phase screenshots are now opt-in outside movie
+exports (--capture-stills). Three real native runs isolated the capture stalls:
+12 frames over33ms/max1.34s before, one initial134ms spike after capture guard and
+material warmup; final mean59.61FPS,p9516.692ms. Startup36.65s is still separate.
+Use --measure-live for optional post-draw measurements; E: library227/live_live.json.
+These measurements cover this experimental scene, not production. No PNG writes
+occurred in corrected live runs. Further art work remains open.

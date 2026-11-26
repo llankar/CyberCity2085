@@ -6204,3 +6204,21 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   Files: blender/service_building230.py, materials186.gd,package_combat169.py.
   AVI removed after final encode. No campaign, inference, production/save edit,
   new build or resource push. CHANTIER GLOBAL INCOMPLET.
+
+### LIVE-PACING-231 — DONE (prototype only, 2026-11-26)
+- User-observed native stutters reproduced without movie recording. Root cause:
+  tempo212 phase captures still performed GPU readback and PNG compression live.
+- Live playback now skips these captures; explicit --capture-stills, --record and
+  MovieMaker retain them. library227 warms opaque/cutaway materials before timing.
+  Optional --measure-live attaches live_frame_probe.gd (post-draw wall intervals).
+- Actual full native runs, same scene/flags: baseline 40.60 mean FPS, p95 16.712ms,
+  max1342.324ms,12 frames>33ms; capture guard alone 59.24 FPS,max249.778ms,1 spike;
+  guard+warmup 59.61 FPS,p95 16.692ms,p99 16.734ms,max134.339ms,1 initial spike.
+  Startup remains36.65s; this is separate from encounter playback. Not a claim
+  about production performance. Final probe1082 samples; native exit0.
+- Evidence E:/CyberCity2085-3d-lab/generated/phase2/library227/live_baseline.json
+  and live_live.json. PNG modification-time comparison passed: none changed in
+  corrected live runs. No campaign tests, production edits, new build or push.
+- Remaining: initial134ms hitch and long loading need future targeted improvement;
+  next artistic batch remains facade wear/materials and map-specific variety.
+  CHANTIER GLOBAL INCOMPLET.

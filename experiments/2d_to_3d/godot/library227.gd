@@ -29,10 +29,33 @@ func load_glb(relative: String,place: Vector3) -> Node3D:
  # Parent combat169 gathers the complete group's bounds/materials on return.
  return model
 func _ready() -> void:
+ var boot_start:=Time.get_ticks_usec()
  super._ready()
  delivery_folder=ROOT+"library227/";DirAccess.make_dir_recursive_absolute(delivery_folder)
+ if not record and not OS.has_feature("movie") and not ("--skip-warmup" in OS.get_cmdline_user_args()):
+  warm_live_materials()
+ if "--measure-live" in OS.get_cmdline_user_args():
+  var probe=preload("res://live_frame_probe.gd").new()
+  probe.startup_ms=float(Time.get_ticks_usec()-boot_start)/1000.0
+  probe.tag="baseline" if "--measure-baseline" in OS.get_cmdline_user_args() else "live"
+  add_child(probe)
  for point in library_vapor:
   var nearest:=0
   for i in exhausts.size():
    if exhausts[i].distance_squared_to(point)<exhausts[nearest].distance_squared_to(point):nearest=i
   if not exhausts.is_empty():exhausts[nearest]=point
+func warm_live_materials() -> void:
+ # Compile both cutaway/opaque variants before the timed encounter begins.
+ # The temporary cover prevents exposing bind poses during this loading work.
+ var layer:=CanvasLayer.new();layer.layer=100;add_child(layer)
+ var cover:=ColorRect.new();cover.color=Color(.02,.03,.04);cover.size=get_viewport().get_visible_rect().size;layer.add_child(cover)
+ update_camera(0.0)
+ var modes:Array[Dictionary]=[]
+ for building in buildings:
+  for material in building.materials:
+   modes.append({"material":material,"mode":material.transparency})
+   material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+ RenderingServer.force_draw(false)
+ for saved in modes:saved.material.transparency=saved.mode
+ RenderingServer.force_draw(false)
+ layer.queue_free()
