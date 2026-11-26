@@ -2,6 +2,7 @@ extends Node3D
 ## Visible effects and existing sound playback for the isolated showcase.
 var motes: Array[Dictionary] = []
 var audio_events: Array[Dictionary] = []
+var sound_streams: Dictionary[String, AudioStreamWAV] = {}
 var clock := 0.0
 const SOUNDS := {"pistol":"weapons/fire_pistol_01.wav","laser":"weapons/fire_laser_cc0_01.wav","step":"movement/step_concrete_cc0_01.wav",
 	"metal":"combat/impact_metal_cc0_01.wav","hit":"combat/impact_organic_cc0_01.wav",
@@ -16,8 +17,13 @@ func material(color: Color) -> StandardMaterial3D:
 
 func sound(key: String, position_value: Vector3, gain := -10.0, pitch := 1.0) -> void:
 	var path := ProjectSettings.globalize_path("res://../../../assets/audio/overhaul/"+SOUNDS[key])
-	var stream := AudioStreamWAV.load_from_file(path)
-	if stream == null: push_error("Missing showcase sound "+path); return
+	var stream: AudioStreamWAV = sound_streams.get(key)
+	if stream == null:
+		stream = AudioStreamWAV.load_from_file(path)
+		if stream == null:
+			push_error("Missing showcase sound " + path)
+			return
+		sound_streams[key] = stream
 	var player := AudioStreamPlayer3D.new(); player.stream = stream; player.volume_db = gain
 	player.pitch_scale = pitch
 	player.unit_size=20
