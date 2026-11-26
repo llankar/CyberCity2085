@@ -1255,3 +1255,5 @@ Le nombre de tâches DONE et les critères ouverts sont calculés dans [le bilan
 - EXPERIMENTAL-DOCKSIDE-CONTAINERS-336 / IN_PROGRESS ? Shared shipping_container.py between warehouse and dockside. Placed nine long-axis-aligned container meshes in surveyed polygons and masked their illustrated copies. Godot imported all 14 scene meshes. Selector updated. Warehouse source now also calls the shared builder; its retained export was not rebuilt. Next: convert the crane assemblies and quay barriers.
 
 - EXPERIMENTAL-DOCKSIDE-BARRIERS-337 / IN_PROGRESS ? Reused service-wall modules in three surveyed quay barrier polygons. Open spans between barriers retained; floor duplicates masked. Blender exported and Godot imported 54 meshes. Selector updated. Next: inspect crane footprints and model the two loading cranes.
+
+- EXPERIMENTAL-DOCKSIDE-CRANES-338 / IN_PROGRESS ? Added two loading cranes in the surveyed base polygons, with elevated harbor-side jibs and hoists. Masked the two base illustrations. Blender export and Godot import ran (56 meshes). Selector updated. Next: prioritize the next new map while retaining dockside machinery and offices as backlog.

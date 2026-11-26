@@ -65,8 +65,8 @@
     "reuse": "factory cargo and yard machinery",
     "status": "preview",
     "batch": "initial",
-    "scene": "res://dockside337.tscn",
-    "scope": "partial: cargo, generators, containers and quay barriers"
+    "scene": "res://dockside338.tscn",
+    "scope": "partial: cargo and quay infrastructure"
   },
   {
     "map": "city_interior_blacksite_lab",
