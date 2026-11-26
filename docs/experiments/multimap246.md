@@ -222,3 +222,5 @@ Current detail checkpoint259-262: factory260 and lab261 replace selector entries
 Track263 IN_PROGRESS: standalone real-profile rails/sleepers and native scene exported on E:, two tests PASS. Artistic review NOT VERIFIED due image-output limit; selector intentionally retains metro250 until comparison. Ground-level only, recessed track/platform elevation remains TODO.
 
 Station264: native overview and actor close reviewed; selector promoted from250 to264. Eight source-column service housings detailed and reusable normalized GLB registered. Rail263 previously pending visual review now inspected; no final station art acceptance. Generator265 source-art Hunyuan trial running, result not yet claimed.
+
+Generator265/Factory266: direct original isolated illustration, textured40000triangle mesh, native standalone and actor-close inspected. West coarse generator upgraded without moving source root or changing tactical rules. Factory detailed families4/types14instances across6 surveyed groups; other26 surveyed groups still coarse/flat. Main selector now factory266. Final map art0/6.

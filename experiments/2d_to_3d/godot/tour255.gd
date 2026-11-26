@@ -10,7 +10,7 @@ func _ready() -> void:
  selected_folders=FOLDERS.duplicate()
  if "--detail-pass" in OS.get_cmdline_user_args():
   selected_folders[2]="lab261"
-  selected_folders[3]="factory260"
+  selected_folders[3]="factory266"
   selected_folders[4]="metro264"
  tour_index=int(get_tree().get_meta("environment_tour_index",0))
  for argument in OS.get_cmdline_user_args():

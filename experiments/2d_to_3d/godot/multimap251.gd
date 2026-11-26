@@ -4,7 +4,7 @@ const ENTRIES := [
  ["NEON MARKET // retained environment", "res://market251.tscn"],
  ["RESIDENTIAL // first assembly", "res://residential253.tscn"],
  ["RESEARCH LAB // service wall detail", "res://lab261.tscn"],
- ["FACTORY // industrial detail in progress", "res://factory260.tscn"],
+ ["FACTORY // industrial detail in progress", "res://factory266.tscn"],
  ["SUBWAY // rails and service columns", "res://metro264.tscn"],
  ["WASTELAND // partial reconstruction", "res://wasteland254.tscn"]
 ]

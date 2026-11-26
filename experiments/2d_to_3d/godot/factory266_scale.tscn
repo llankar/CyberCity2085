@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://scale_reference262.gd" id="1"]
+[node name="FactoryGeneratorScale266" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/factory266/"
+reference_map = "city_industrial_factory_floor"
+reference_cell = Vector2i(12,12)

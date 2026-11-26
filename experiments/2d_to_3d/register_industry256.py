@@ -8,6 +8,7 @@ def main():
  parser.add_argument('--asset-id',action='append')
  parser.add_argument('--placements',type=Path,default=LAB/'generated/phase2/factory257/placements.json')
  parser.add_argument('--inferred-folder',type=Path)
+ parser.add_argument('--original-reference',type=Path,help='Actual isolated illustration used for generation, when distinct from map context')
  args=parser.parse_args()
  path=OUT/'library.json';library=json.loads(path.read_text(encoding='utf8'))
  assets={a['id']:a for a in library.get('assets',[])}
@@ -28,6 +29,12 @@ def main():
   if args.inferred_folder:
    asset['inferred_reference']=str(args.inferred_folder/'reference.png')
    asset['provenance_file']=str(args.inferred_folder/'provenance.json')
+  if args.original_reference:
+   actual=args.original_reference.resolve()
+   if not actual.is_relative_to(LAB.resolve()):raise ValueError('Isolated experimental references must stay on E: lab')
+   asset['map_context_reference']=asset['original_reference']
+   asset['original_reference']=str(actual)
+   asset['source_reference_sha256']=digest(actual)
   assets[identifier]=asset
  library['assets']=list(assets.values());path.write_text(json.dumps(library,indent=2,ensure_ascii=False),encoding='utf8')
  print('INDUSTRIAL_FAMILY_REGISTERED',len(identifiers),'reusable resources')

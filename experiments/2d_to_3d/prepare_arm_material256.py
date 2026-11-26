@@ -10,6 +10,7 @@ def main():
  parser.add_argument('--source',type=Path,default=LAB/'generated/phase2/arm256/paint/colour.png')
  parser.add_argument('--output',type=Path,default=LAB/'environment-library/assets/industrial_arm256')
  parser.add_argument('--surface',choices=['painted','metal'],default='painted')
+ parser.add_argument('--keep-colour',action='store_true',help='Preserve generated source-matched enamel rather than applying the arm palette grade')
  args=parser.parse_args();source=args.source.resolve();out=args.output.resolve()
  if not source.is_relative_to(LAB.resolve()) or not out.is_relative_to(LAB.resolve()):raise ValueError('Materials must stay on E: lab')
  out.mkdir(parents=True,exist_ok=True)
@@ -26,6 +27,7 @@ def main():
  # Bring overly yellow generated enamel toward the burnt-orange source palette.
  # Retain original paint output and neutral steel/grime pixels separately.
  graded=rgb.copy();graded[:,:,0][painted]*=.94;graded[:,:,1][painted]*=.83;graded[:,:,2][painted]*=.9
+ if args.keep_colour:graded=rgb
  Image.fromarray(np.clip(graded*255,0,255).astype(np.uint8)).save(out/'albedo.png')
  Image.fromarray(rough).save(out/'roughness.png');Image.fromarray(metal).save(out/'metallic.png')
  print('ARM256_INFERRED_PBR_MAPS',list(red.shape))
