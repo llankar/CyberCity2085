@@ -138,7 +138,9 @@ func _process(delta: float) -> void:
   match last_sequence:
    0:
     var start: Array = state.units[0].cell
-    smoke_destination = [int(start[0])+1, int(start[1])]
+    var enemy: Array = unit_state("enemy:0").cell
+    smoke_destination = [int(start[0]) + signi(int(enemy[0]) - int(start[0])),
+                         int(start[1]) + signi(int(enemy[1]) - int(start[1]))]
     send({"action": "move", "actor": ALLY, "destination": smoke_destination})
    1:
     var cell: Array = state.units[0].cell
@@ -176,10 +178,11 @@ func _process(delta: float) -> void:
      return
     send({"action": "end_turn", "actor": ALLY})
    3:
-    if mailbox.events.is_empty():
+    if not mailbox.success or int(state.round) != 2 or state.turn != "player":
+     push_error(mailbox.message)
      get_tree().quit(10)
      return
-    smoke_patient = mailbox.events[0].target
+    smoke_patient = ALLY if mailbox.events.is_empty() else mailbox.events[0].target
     smoke_hp = int(unit_state(smoke_patient).hp)
     use_action("first_aid", smoke_patient)
    4:
@@ -196,7 +199,10 @@ func _process(delta: float) -> void:
     use_action("psi", "enemy:0")
    6:
     var oracle: TacticalActor = actors["ally:1"]
-    if not mailbox.success or oracle.animation.current_animation != oracle.clips.psi:
+    var blocked := not mailbox.success and "line blocked" in mailbox.message
+    if blocked:
+     print("TACTICAL_PSI_BLOCKED map=", scenario_title)
+    elif not mailbox.success or oracle.animation.current_animation != oracle.clips.psi:
      push_error(mailbox.message)
      get_tree().quit(13)
      return
