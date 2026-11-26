@@ -298,3 +298,5 @@ Latest scoped architecture delivery281: physical wall UV/normal repair in reside
 - EXPERIMENTAL-MARKET-FLOOR-310 ? DONE for seven traced rebuilt stalls. prepare_market_floor309.py now uses nearby pavement donors for all seven, with softened inner rims. Exact outside-mask pixel check passed. Godot loaded and captured the combined update with three units. Next: compare the wide capture and continue residential facade detailing.
 
 - EXPERIMENTAL-RESIDENTIAL-VENTS-311 ? DONE for vent placement. Reused a shared vent mesh at 26 low facade anchors on 13 buildings through residential_vents311.py. Blender export and Godot capture ran with 238 meshes and three units. Selector and detail tour updated. Next: check the facade detail at street zoom and improve entrances and lighting.
+
+- EXPERIMENTAL-RESIDENTIAL-ENTRY-312 ? DONE for entrance locator fixtures. Twelve entry meshes received warm emissive fittings. Blender export and Godot capture ran with 262 meshes and three units. Selector and detail tour updated. Remaining: visual review of entrance fittings at street distance and stronger facade differentiation.
