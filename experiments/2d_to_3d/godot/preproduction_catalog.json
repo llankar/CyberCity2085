@@ -81,8 +81,10 @@
     "map": "city_interior_medical_clinic",
     "family": "science",
     "reuse": "lab partitions and medical cases",
-    "status": "planned",
-    "batch": "initial"
+    "status": "preview",
+    "batch": "initial",
+    "scene": "res://clinic340.tscn",
+    "scope": "partial: treatment beds and perimeter"
   },
   {
     "map": "city_district_tech_market",
