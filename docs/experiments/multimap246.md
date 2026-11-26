@@ -129,3 +129,41 @@ CombatSignals and res://scripts dependencies must be retained in an isolated
 experimental project/adapter. No replacement combat rules were implemented.
 Next: residential/wasteland, richer source-specific equipment, retained cast and
 this visual adapter. New artistically accepted environments remain0/5.
+
+## Residential253, ashfield254 and native tour255
+
+IN_PROGRESS. Residential:13 original surveyed building/extension footprints,
+including irregular outlines; original roof UVs; acquired door/window meshes;
+inferred wall heights/elevations and existing concrete PBR. Dark albedo is prepared
+explicitly for glTF because the initial multiply-node material exported too pale.
+Native182 meshes loaded and screenshot inspected. Roof fans and street vegetation
+still rely on original artwork; they are not claimed as reconstructed meshes.
+Reproduce `prepare_residential253.py`, then `blender/residential253.py`.
+
+Ashfield:12 source rubble/ruin/wall groups as tilted slab fragments, interrupted
+wall remnants and exposed rods. Existing concrete PBR variant and projected original
+slab art; original wrecks stay2D. Native192 meshes loaded; screenshot inspected.
+Reproduce `prepare_wasteland254.py`, then `blender/wasteland254.py`.
+The new wreck_e Hunyuan trial generated565656 triangles in69s, peak4.87GB allocated
+and5.42GB reserved; optimized20k result was artistically rejected: near-planar,
+0.024m thin versus~1.99m other axes. No paint run or textured AI success claimed.
+
+Two actual outdoor export/source-hash tests PASS; two polygon/rectangle floor
+preservation tests PASS. No campaign tests. Both new selector entries enabled;
+native button-signal roundtrips for indices1 and5 exited0/PASS.
+
+Tour255 records real native camera orbits through all six environment GLBs;
+first export546frames at1920x1080/30FPS (18.2s), encoded H264 and contact sheet
+inspected. Review found that market GLB omits the ground built by its encounter
+script, so the independent viewer now restores that original visual floor.
+A corrected native recording is being finalized; this does not modify the retained
+encounter. No timing from offline capture is claimed as a live FPS benchmark.
+`package_multimap255.py` makes six FullHD original/native comparisons and a local
+HTML gallery. E: `generated/phase2/multimap255/`.
+
+Native environment loading has now been observed for6/6 selected maps. This is
+not6/6 artistically finished or playable tactical maps. Cast, actual combat adapter,
+dynamic occlusion, detailed source-specific equipment, per-map memory/live performance
+and close tactical comparisons remain open. Hunyuan input strategy for top-down
+map props needs improvement or a different asset method; do not repeat failed
+single-view crops unchanged. CHANTIER GLOBAL INCOMPLET.

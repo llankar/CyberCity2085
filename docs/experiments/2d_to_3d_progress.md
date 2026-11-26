@@ -6537,3 +6537,6 @@ Independent six-entry selector: four current art reviews enabled, residential/wa
 
 ## Batch252 - IN_PROGRESS polygon replacements and wreck trial
 Floor repair now supports exact polygon masks for irregular residential/ruin outlines, preserving pixels outside them; two focused tests PASS. No tactical or source-map edits. New Hunyuan trial started from actual wreck_e crop with retained offline weights; process still running, no generated/artistically accepted result claimed yet. Next: source-guided residential facades and ruins.
+
+## Batch253 - IN_PROGRESS residential first assembly
+13 source building/extension outlines, authentic roof UVs and acquired door/window meshes exported in packed BLEND/GLB. Native182meshes exited0; screenshot inspected. Initial pale facade export corrected with explicit toned PBR albedo; no lighting-only concealment. Heights/elevations are inferred; original flat rooftop/street props remain. prepare_residential253.py reproduces E: inputs. Two outdoor export/source-hash checks and two floor-mask tests actually PASS. No production/save changes.
