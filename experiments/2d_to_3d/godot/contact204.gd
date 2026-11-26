@@ -57,7 +57,7 @@ func after_unit_animations(t: float) -> void:
    var point:Vector3=(hand_rig.global_transform*hand_rig.get_bone_global_pose(joint)).origin
    var distance:=point.distance_to(chest);melee_minimum=minf(melee_minimum,distance)
    var previous:Vector3=previous_hands.get(joint,point)
-   var advance:float=((point-previous)*30).dot((chest-point).normalized())
+   var advance:float=((point-previous)/maxf(.0001,get_process_delta_time())).dot((chest-point).normalized())
    previous_hands[joint]=point
    if t>=14.65 and distance<=.35 and advance>.12:
     health[1]=0;melee_hit=true;clip(1,"Death01",false)

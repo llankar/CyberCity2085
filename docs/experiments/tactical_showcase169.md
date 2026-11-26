@@ -723,3 +723,42 @@ Next: coherent local delivery of selected scene, reusable sources/assets and
 media with a short honest remaining-art list; avoid more small prop variants.
 Global art acceptance remains open (facade repetition, main/medic face reuse,
 full-motion contacts/identity). CHANTIER GLOBAL INCOMPLET.
+
+
+## Delivery205 - one usable local delivery
+
+Folder: `E:/CyberCity2085-3d-lab/deliveries/tactical_demo205`.
+Open `index.html` for media/models or double-click `Run.cmd` for the30second
+staged encounter. Included engine: Godot4.7.2Windows. No Python or separately
+installed Godot is required to run this local folder. Keep it on E: as requested.
+Allow about35seconds for scene loading on the measured machine. It closes after
+30seconds of sequence; relaunch to replay. This is not production tactical AI.
+
+Builder: `python experiments/2d_to_3d/build_delivery205.py`.
+Native run: `& E:/CyberCity2085-3d-lab/deliveries/tactical_demo205/Run.ps1 -Verify`.
+Verification: `python experiments/2d_to_3d/verify_delivery205.py`.
+Recorded assets:93unique files/2,003,457,707bytes, including editable packed Blender
+sources and two bundled engine binaries. AI weights, caches and intermediate
+takes excluded. Runtime assets are local to project/lab and project/assets;
+metadata paths rewritten after JSON parsing, preserving mesh hashes. Scripts
+are the retained scene dependency closure with roots/selection flags adapted
+only in delivered copies. Original authoring recipes still reference original
+lab inputs; this is not a self-contained AI-generation environment.
+
+Initial launcher hit known SDL stderr under Stop policy, corrected. First native
+run had two stale module paths, corrected before the final independence check.
+Final native run exits0:1779frames,59.7306meanFPS outside the first timeline second,
+34.816s scene setup on this RTX5070Ti. No movie encoder in this measurement.
+Contact, retaliation, final health and occlusion checks pass;38actual audio events
+resolve to existing files inside bundle. Native preview actually inspected.
+No final script/parse/missing-resource errors found; existing SDL gamepad
+calibration warning remains. Godot cache junction targets E: and preserves any
+initial cache data. Contact204 hand speed now uses real delta, not assumed30FPS.
+Existing204video retained rather than unnecessarily rendering it again.
+
+Evidence: verification/verified.json and native-run.log; project/evidence contains
+native_summary.json, encounter.json, melee_contact.json, retaliation.json,
+audio.json and preview.png. Clean-PC compatibility and overall artistic
+acceptance NOT VERIFIED. No production edit, campaign test, push or release.
+Remaining: repeated facade kit, main/medic face reuse, full-motion foot/grip
+quality and final visual acceptance. CHANTIER GLOBAL INCOMPLET.

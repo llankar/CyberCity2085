@@ -1,6 +1,31 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` DELIVERY-205 selected local bundle (2026-11-26). Prior turn improved
+  contacts. New builder assembles only current runtime dependencies/models,
+  embedded-texture GLBs, packed Blender sources outside import tree, authoring
+  recipes, media and included Godot Windows binaries. Run.cmd/Run.ps1 launches
+  without Python/installed Godot. E: cache junction preserves preexisting named
+  userdata; no broad deletion. About2.003GB recorded assets/93unique files,
+  no AI weights/caches/old takes. Runtime copies use project-local roots; originals
+  unchanged. Initial launcher stopped on preexisting SDL stderr; preference fixed.
+  First native run still referenced two original module paths; JSON parsed-path
+  rewrite fixed and verified before second native run. Final bundled native run
+  exits0,1779frames,59.7306FPS excluding first timeline second,34.816s scene setup
+  on this RTX5070Ti; not movie/encoding speed or a general hardware claim.
+  Preview actually inspected: selected map/cast visible.38actual audio events
+  all point inside bundle. Contact/retaliation/final-health checks pass; no final
+  script/parse/missing-resource errors found (known SDL calibration error stays).
+  verify_delivery205.py PASS:93asset files, local module paths and links, native
+  states/FPS/audio. Evidence: bundle verification/verified.json, native-run.log,
+  project/evidence/*.json and preview.png. Contact204 speed now uses actual frame
+  delta, verified in native run (not fixed30FPS). Original204movie not rerendered.
+  Files: build/verify_delivery205.py,204delta fix, scoped docs. No production/save
+  mutation, campaign tests, new downloads, push or release. Clean-PC launch and
+  all-motion art NOT VERIFIED. Global IN_PROGRESS: facade repetition, main/medic
+  face reuse, full-motion foot/grip and final visual acceptance. Next: review
+  consolidated delivery's most visible remaining art defects; preserve this
+  usable delivery, avoid restarting engine/rig proofs. CHANTIER GLOBAL INCOMPLET.
 - `DONE` CONTACT-204 scoped impact/melee synchronization (2026-11-26).
   Inspected203 hit/melee strips before changing behavior: survivor squat from
   Death prefix, fixed melee clock. New204 blocks nonlethal Death, adds bounded
