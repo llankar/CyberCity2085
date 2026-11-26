@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "market324"
+output = phase / "market325"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "showcase245/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -163,6 +163,21 @@ for index, group in enumerate(groups):
             trays += 1
     count += 1
 assert count >= 3 and trays > 0, (count, trays)
+# Join only loose stock meshes with no child nodes or modifiers. Their shared
+# occlusion parent remains the same, and material slots survive the join.
+for group in groups:
+    parts = [obj for obj in group.children
+             if obj.type == "MESH" and not obj.children and not obj.modifiers
+             and obj.name.startswith(("Store197 rear stock", "Store197 sealed components",
+                                      "Store197 medical stock"))]
+    if len(parts) < 2:
+        continue
+    bpy.ops.object.select_all(action="DESELECT")
+    for obj in parts:
+        obj.select_set(True)
+    bpy.context.view_layer.objects.active = parts[0]
+    bpy.ops.object.join()
+    bpy.context.object.name = "Grouped counter merchandise"
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
 for obj in bpy.context.scene.objects:
@@ -170,4 +185,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("MARKET324_EXPORTED", count, "trimmed", trimmed, "food trays", trays, "worktops", finished_worktops)
+print("MARKET325_EXPORTED", count, "trimmed", trimmed, "food trays", trays, "worktops", finished_worktops)

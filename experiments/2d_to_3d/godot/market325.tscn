@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3]
+[ext_resource type="Script" path="res://multicast271.gd" id="1"]
+[node name="RetainedMarketEnvironmentReview" type="Node3D"]
+script = ExtResource("1")
+review_folder = "E:/CyberCity2085-3d-lab/generated/phase2/market325/"
+use_market_ground = true
+market_ground_filename = "../market308/floor.png"
+reference_map = "city_exterior_neon_market_alley"
+reference_cells = Array[Vector2i]([Vector2i(19,13),Vector2i(21,15),Vector2i(23,16)])
