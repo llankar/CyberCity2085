@@ -11,7 +11,7 @@ from library_placement import place
 from create_hardsurface_crate import box, make_material
 
 phase = Path("E:/CyberCity2085-3d-lab/generated/phase2")
-output = phase / "residential312"
+output = phase / "residential313"
 output.mkdir(exist_ok=True)
 bpy.ops.wm.open_mainfile(filepath=str(phase / "residential284/environment.blend"))
 bpy.context.preferences.filepaths.save_version = 0
@@ -52,11 +52,14 @@ for entry in entrances:
     shell = box("Entry lamp body", tuple(center), half_size, housing, .012)
     lens = box("Entry lamp lens", tuple(center-Vector((0,0,.053))),
                (half_size[0]*.84,half_size[1]*.84,.012), diffuser, .008)
-    for obj in (shell,lens):
+    # An exposed wraparound band remains visible from the elevated camera.
+    band = box("Entry lamp visible band", tuple(center-Vector((0,0,.028))),
+               (half_size[0]+.006,half_size[1]+.006,.015), diffuser, .005)
+    for obj in (shell,lens,band):
         obj.parent = entry.parent
         obj.matrix_parent_inverse = entry.parent.matrix_world.inverted()
 assert entrances
-print("RESIDENTIAL312_ENTRIES", len(entrances))
+print("RESIDENTIAL313_ENTRIES", len(entrances))
 
 bpy.ops.file.pack_all()
 bpy.ops.wm.save_as_mainfile(filepath=str(output / "environment.blend"))
@@ -65,4 +68,4 @@ for obj in bpy.context.scene.objects:
                    or obj.name.startswith("Occludable_"))
 bpy.ops.export_scene.gltf(filepath=str(output / "environment.glb"), export_format="GLB",
                           use_selection=True, export_apply=True, export_lights=True)
-print("RESIDENTIAL312_EXPORTED", count)
+print("RESIDENTIAL313_EXPORTED", count)

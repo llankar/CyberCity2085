@@ -6692,3 +6692,5 @@ Gallery delivery281 reuses existing architecture280_1080p30.mp4 without re-encod
 - EXPERIMENTAL-RESIDENTIAL-VENTS-311 ? DONE for vent placement. Reused a shared vent mesh at 26 low facade anchors on 13 buildings through residential_vents311.py. Blender export and Godot capture ran with 238 meshes and three units. Selector and detail tour updated. Next: check the facade detail at street zoom and improve entrances and lighting.
 
 - EXPERIMENTAL-RESIDENTIAL-ENTRY-312 ? DONE for entrance locator fixtures. Twelve entry meshes received warm emissive fittings. Blender export and Godot capture ran with 262 meshes and three units. Selector and detail tour updated. Remaining: visual review of entrance fittings at street distance and stronger facade differentiation.
+
+- EXPERIMENTAL-RESIDENTIAL-LIGHTS-313 ? Close review of 312 showed underside lenses obscured by their housings. Added an exposed emissive band to all twelve entrance lamps. Blender and Godot capture ran (274 meshes, three agents), and selector and tour now use residential313. Next: add facade variation beyond small fixtures.
