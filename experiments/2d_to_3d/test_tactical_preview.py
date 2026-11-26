@@ -10,10 +10,22 @@ from game.stats import EnemyStats, PlayerStats
 from game.unit import Unit
 from tactical_preview import TacticalPreview
 from tactical_mailbox import TacticalMailbox
-from run_tactical_preview import SCENARIOS, scenario_preview
+from run_tactical_preview import SCENARIOS, scenario_preview, selected_map
 
 
 class TacticalPreviewTest(unittest.TestCase):
+    def test_selector_accepts_only_configured_maps(self):
+        lab_tmp = Path("E:/CyberCity2085-3d-lab/tmp")
+        with tempfile.TemporaryDirectory(dir=lab_tmp if lab_tmp.is_dir() else None) as temp:
+            directory = Path(temp)
+            self.assertIsNone(selected_map(directory))
+            request = directory / "map-selection.txt"
+            request.write_text("metro", encoding="utf-8")
+            self.assertEqual(selected_map(directory), "metro")
+            request.write_text("../warehouse", encoding="utf-8")
+            with self.assertRaises(ValueError):
+                selected_map(directory)
+
     def test_enemy_hit_events_preserve_engine_damage_and_positions(self):
         preview = scenario_preview("warehouse")
         ally = preview.units["ally:0"]

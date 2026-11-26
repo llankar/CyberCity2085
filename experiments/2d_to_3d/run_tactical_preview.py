@@ -13,6 +13,7 @@ sys.path.insert(0, str(ROOT))
 
 from game.combat import CombatEngine, CombatState
 from game.combat.movement import CELL_SIZE
+from game.combat.session_protocol import atomic_json
 from game.character import Character
 from game.cover_system import CoverNode
 from game.management.equipment import equip_starter_loadout
@@ -29,6 +30,7 @@ SCENARIOS = {
     "metro": ("city_transit_metro_interchange", (16, 14), (23, 14)),
     "downtown": ("city_exterior_downtown_intersection", (18, 10), (25, 10)),
 }
+TITLES = {"warehouse": "Warehouse", "metro": "Metro Interchange", "downtown": "Downtown Intersection"}
 
 
 def scenario_preview(scenario: str) -> TacticalPreview:
@@ -62,31 +64,58 @@ def scenario_preview(scenario: str) -> TacticalPreview:
                                         terrain_profile=terrain, cover_nodes=cover))
 
 
+def selected_map(directory: Path) -> str | None:
+    try:
+        selected = (directory / "map-selection.txt").read_text(encoding="utf-8").strip()
+    except FileNotFoundError:
+        return None
+    if selected not in SCENARIOS:
+        raise ValueError(f"Unknown experimental map: {selected}")
+    return selected
+
+
+def open_mailbox(directory: Path, map_key: str, smoke: bool) -> TacticalMailbox:
+    preview = scenario_preview(map_key)
+    if smoke:
+        # A ranged drill exercises playback without waiting for the enemy to approach.
+        preview.units["enemy:0"].attack_range = 10
+        random.seed(4)
+    return TacticalMailbox(directory, preview)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--map", choices=SCENARIOS, default="warehouse")
+    parser.add_argument("--map", choices=SCENARIOS, help="Skip the map selection screen")
     parser.add_argument("--smoke", action="store_true")
     args = parser.parse_args()
     temp_root = LAB / "tmp"
     temp_root.mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory(prefix="tactical-", dir=temp_root) as temp:
-        preview = scenario_preview(args.map)
-        if args.smoke:
-            # A ranged drill exercises playback without waiting several rounds
-            # for the regular enemy to approach the player's starting lane.
-            preview.units["enemy:0"].attack_range = 10
-            random.seed(4)
-        mailbox = TacticalMailbox(Path(temp), preview)
+        directory = Path(temp)
+        map_key = args.map
+        mailbox = open_mailbox(directory, map_key, args.smoke) if map_key else None
+        if not map_key:
+            atomic_json(directory / "scenarios.json", {
+                "maps": [{"id": key, "title": TITLES[key]} for key in SCENARIOS],
+            })
+        scene = f"tactical_{map_key}" if map_key else "tactical_menu"
         env = dict(os.environ, CYBERCITY_TACTICAL_SESSION=temp,
                    CYBERCITY_TACTICAL_SMOKE="1" if args.smoke else "0")
         command = ["powershell.exe", "-NoProfile", "-File", str(Path(__file__).with_name("run_godot.ps1")),
-                   "-Scene", f"res://tactical_{args.map}.tscn", "-RenderingMethod", "gl_compatibility"]
+                   "-Scene", f"res://{scene}.tscn", "-RenderingMethod", "gl_compatibility"]
         if args.smoke:
             command.extend(["-QuitAfter", "1500"])
         with subprocess.Popen(command, env=env) as godot:
             while godot.poll() is None:
-                mailbox.poll()
+                if mailbox is None:
+                    map_key = selected_map(directory)
+                    if map_key:
+                        mailbox = open_mailbox(directory, map_key, args.smoke)
+                else:
+                    mailbox.poll()
                 time.sleep(.03)
+        if args.smoke and mailbox is None:
+            raise RuntimeError("The map selector did not start a scenario")
         if args.smoke and (mailbox.sequence != 3 or mailbox.reply["state"]["round"] != 2
                            or not mailbox.reply.get("events")):
             raise RuntimeError(f"Unexpected Godot exchange: {mailbox.reply}")
