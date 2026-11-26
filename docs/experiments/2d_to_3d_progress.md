@@ -1,6 +1,23 @@
 # Experimental 2D to 3D progress
 
 This register is separate from the principal CyberCity 2085 GOAL.
+- `DONE` MARKET-195 scoped environment delivery (2026-11-26). Seven real low
+  market counters now carry tensioned cloth canopies, metal frames and narrow
+  emissive valances; foreground clinic receives geometric medical signage.
+  Local canvas normal texture reused, PNG conversion scripted. GLB/packed BLEND
+  on E:; original tactical wall cells/paths unchanged. First overly bright take
+  and models retained; final muted palette and VTOL raised to3.8m. Native final
+  902frames1920x1080/30fps captured offline in74s; packaging assertions pass,
+  audio/video/GIF/gallery produced.1blockedshot,693occlusion frames, health
+  [100,0,0,100,76,100]. More fade events include new canopies, not a performance
+  claim. Clean0030 and0750 actually inspected: market/clinic identity visible,
+  medical scene and fallen robot retained. All-frame clearance NOT VERIFIED.
+  Files: market195 scene, market_identity195/prepare_market195, materials186
+  passthrough, movie/package scripts; scoped showcase doc. No campaign tests,
+  production changes, downloads or push. One scoped task delivered; global
+  mandatory artistic acceptance remains IN_PROGRESS (total coverage unknown).
+  Next: reduce repeated blank facade/counter surfaces and improve visible
+  treatment contacts; preserve this deliverable. CHANTIER GLOBAL INCOMPLET.
 - `DONE` GAIT-194 scoped cadence correction (2026-11-26). Previous turn delivered
   geometry-attached cannon. New194 scene matches authored.28stride/.6duty/1.2s
   period to actual.56m/s path: speed_scale1.44 instead of human-based.66.

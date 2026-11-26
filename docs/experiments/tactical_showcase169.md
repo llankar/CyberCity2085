@@ -475,3 +475,28 @@ E:gait194/index.html includes prior193 walk comparison. No new model export.
 Next substantive priority: whole-map composition and visual identity/readability,
 not more tiny foot poses. Remaining contact/architecture/complete artistic review
 criteria stay open. No production/campaign/download/push or old rig/engine gates.
+
+
+## Market195 ? carte vitrine, 26 novembre 2026
+
+Livraison courante : `E:/CyberCity2085-3d-lab/generated/phase2/market195/index.html`.
+Vid?o Full HD30 avec sons existants, GIF, captures propres et liens vers les
+sources `showcase195/environment.blend` et `.glb`. Reproduction :
+`python experiments/2d_to_3d/prepare_market195.py`, puis
+`run_blender.ps1 -Script blender/market_identity195.py`,
+`run_movie169.ps1 -Market195`, puis `package_combat169.py --folder
+E:/CyberCity2085-3d-lab/generated/phase2/market195`.
+
+Sept auvents sur les comptoirs existants, cadres m?talliques, bordures lumineuses
+et enseigne m?dicale diff?rencient march?/clinique sans changer les volumes
+fonctionnels. Premi?re palette trop vive conserv?e sous `first_bright_*`.
+Final : 902 images,1920?1080,30fps,74s de rendu hors ligne ; ce chiffre ne mesure
+pas les performances interactives. Assertions du packaging ex?cut?es avec
+succ?s : un tir bloqu?,693 images avec occultation, ?tat final conserv?.
+Captures0030/0750 inspect?es. Contr?le exhaustif des intersections non effectu?.
+
+CHANTIER GLOBAL INCOMPLET : architecture encore r?p?titive, contacts de soins
+et validation artistique de toute la s?quence restent ouverts. La sc?ne est
+une rencontre locale mise en sc?ne, pas une validation de l'IA de production.
+Aucun test de campagne ni push. Prochaine action : d?tailler les surfaces
+r?p?titives sans nouvelle carte, puis corriger les contacts visibles des soins.
