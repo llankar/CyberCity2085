@@ -164,17 +164,19 @@ for index, group in enumerate(groups):
     count += 1
 assert count >= 3 and trays > 0, (count, trays)
 # Keep each stall as its own occlusion group. Join static leaf meshes
-# without baking lights, animated objects or unapplied geometry modifiers.
+# and bake rigid bevels and normals before joining. Leave lights and animated parts separate.
 for group in groups:
     parts = [obj for obj in group.children
-             if obj.type == "MESH" and not obj.children and not obj.modifiers
-             and obj.animation_data is None and obj.data.shape_keys is None]
+             if obj.type == "MESH" and not obj.children and not obj.constraints
+             and obj.animation_data is None and obj.data.shape_keys is None
+             and all(modifier.type in {"BEVEL", "WEIGHTED_NORMAL"} for modifier in obj.modifiers)]
     if len(parts) < 2:
         continue
     bpy.ops.object.select_all(action="DESELECT")
     for obj in parts:
         obj.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]
+    bpy.ops.object.convert(target="MESH")
     bpy.ops.object.join()
     bpy.context.object.name = group.name + " rigid surfaces"
 bpy.ops.file.pack_all()
