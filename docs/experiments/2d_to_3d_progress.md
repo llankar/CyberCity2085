@@ -6159,3 +6159,28 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   production/save edits, campaign test or resource push. Next: original-derived
   whole roof/shop identity, using same library associations; inspect duplicated
   ground-art boundaries as coverage grows. CHANTIER GLOBAL INCOMPLET.
+
+- `DONE` ORIGINAL-ROOFS-229 scoped source-identity pass (2026-11-26). Original
+  south_building_w/e context images inspected; source has dark segmented plates,
+  hatch and machinery rather than invented solar/roof-clinic sign. Two foreground
+  roofs receive separate physical beveled plates/perimeter reinforcements; W hatch
+  positioned from genuine source context. Roof199 solar/sign assemblies removed
+  only from these roots; wall clinic signage and existing unit/fan models retained.
+  Authoring starts selected219, exports229; existing library bindings attach actual
+  roof fan/container pair to this environment. Compiler supports explicit selected
+  E: environment path, preserves selection when omitted, rejects outside-path
+  input before changing bindings (actually checked). Runtime general loader uses
+  selected environment without a new scene subclass. Source PNG/tactical cells
+  untouched. New roof assembly is not yet a standalone reusable library module.
+  Actual final0030 inspected: solar gone, original-like hatch/panel joints visible,
+  no obvious fan float. Facades still generic; no whole-map art acceptance.
+  Native549frames1080p30/73s offline; blocked1,occlusion914,expectedhealth retained.
+  Four placement tests pass. Current library227 gallery/MP4 updated, native roof
+  detail crop and actual source context shown. E: showcase229/environment.blend/
+  glb/roofs.json. AVI removed after encode; no campaign, inference, production/save
+  change, new build or asset publication. Files: blender/original_roofs229.py,
+  build_library_scene.py, godot/library227.gd, materials186.gd,package_combat169.py.
+  Next: complete original-derived facade/shop silhouettes and ground-art boundary
+  review, retaining actual cast/VTOL. Hunyuan territorial permission remains open.
+  Fifth local code/docs checkpoint since last push; push five commits normally.
+  CHANTIER GLOBAL INCOMPLET.

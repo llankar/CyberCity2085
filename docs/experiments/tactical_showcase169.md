@@ -1023,3 +1023,16 @@ through the same generic runtime. No per-object scene code was added.
 Current FullHD movie/gallery: generated/phase2/library227/index.html. Opening
 frame reviewed; ground-art duplication is not obvious there, but full-orbit edge
 review is still open. Production floor/tactical cells and save remain untouched.
+
+## Source-derived foreground roofs229
+
+`run_blender.ps1 -Script blender/original_roofs229.py` replaces invented solar/
+roof-sign parts on the two foreground buildings with original-inspired segmented
+metal roofs and a service hatch. Existing library roof machine and container pair
+are inserted with `build_library_scene.py --environment showcase229/environment.glb`.
+Omitting --environment now preserves the prior selection. Four placement tests
+and an outside-path rejection check pass. No tactical/source PNG changes.
+
+Current gallery/video remains generated/phase2/library227/index.html; source
+contexts and native roof detail crop are included. Native0030 inspected; facades
+remain unfinished. This assembly is not yet a standalone library roof module.

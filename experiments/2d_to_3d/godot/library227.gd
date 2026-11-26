@@ -2,9 +2,13 @@ extends "res://aircraft222.gd"
 @export var bindings_path:String
 var library_vapor:Array[Vector3]=[]
 func load_glb(relative: String,place: Vector3) -> Node3D:
+ var is_environment:=relative=="showcase174/environment.glb"
+ var bindings:Dictionary={}
+ if is_environment:
+  bindings=JSON.parse_string(FileAccess.get_file_as_string(bindings_path))
+  relative=bindings.get("environment_relative",relative)
  var model:=super.load_glb(relative,place)
- if relative!="showcase174/environment.glb":return model
- var bindings=JSON.parse_string(FileAccess.get_file_as_string(bindings_path))
+ if not is_environment:return model
  assert(bindings.schema_version==1 and not bindings.tactical_mutation)
  for entry in bindings.instances:
   var groups=model.find_children("Occludable_"+entry.parent,"Node3D",true,false)

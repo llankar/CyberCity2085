@@ -62,8 +62,13 @@ def main():
         if OUT.name=='roof226':
             page+='<h2>Original-map roof machine</h2><p>Manual masked source reference; Blender mechanical reconstruction, one authentic view. Hidden geometry inferred. Registered source placement, no tactical cell changes.</p><img src="../../../environment-library/assets/roof_twin_fan/reference.png"><img src="../../../environment-library/assets/roof_twin_fan/neutral.png"><p><a href="../../../environment-library/assets/roof_twin_fan/source.blend">Blender source</a> / <a href="../../../environment-library/assets/roof_twin_fan/optimized.glb">GLB</a></p>'
         if OUT.name=='library227':
+            bindings=json.loads((OUT/'placements.json').read_text())
+            environment=bindings.get('environment_relative','showcase219/environment.glb').split('/')[0]
+            page=page.replace('../showcase219/','../'+environment+'/')
             page=page.replace('../vtol178/vtol_actions.glb','../vtol222/vtol_actions.glb')
             page+='<h2>Original-derived library placements</h2><p>Roof fan and purple paneled pair loaded from the same compiled library associations. Original map context, manual masks, Blender reconstructions; hidden sides inferred. No new Hunyuan inference.</p><p><a href="../../../environment-library/index.html">Source library and model links</a></p><img src="../../../environment-library/assets/purple_paneled_pair/reference.png"><img src="../../../environment-library/assets/purple_paneled_pair/neutral.png">'
+        if OUT.name=='library227' and environment=='showcase229':
+            page+='<h2>Original-derived segmented roofs</h2><p>Original contexts govern dark segmented plates and service hatch. Invented photovoltaic assemblies and roof sign removed; wall clinic signage retained. Reconstruction is interpretive, not recovered hidden geometry.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__south_building_w.png"><img src="original_roofs_detail.png">'
         (OUT/'index.html').write_text(page,encoding='utf8')
         (OUT/'delivery.json').write_text(json.dumps({'native_video':video,'encounter':state,'scope':'Selected native scene; historical scratch workspaces pruned'},indent=2))
         print('CURRENT_SHOWCASE_DELIVERED',state)
