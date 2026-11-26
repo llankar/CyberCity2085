@@ -1081,3 +1081,9 @@ loads as fourth original-parent library placement. Current comparison/stills at
 inspected; baked illumination and generic base still limit art finish.
 Redundant intermediate exports pruned, 1.037GiB file bytes reclaimed; current234/235
 Blender masters and all original textures/scripts retained. No production changes.
+
+236 current movie: original-layout northeast industrial roof with two unequal fans,
+stepped service hatch and22cm acquired pipe runs. Actual opening crop/source reference
+included in gallery. Final native549frames and saved pipe-scale regression passed;
+not production/campaign acceptance. Brick facade remains inconsistent and is next.
+Current fullHD30/AAC video now includes235 display counter as well as234 cloth shop.

@@ -69,14 +69,19 @@ def main():
             page+='<h2>Original-derived library placements</h2><p>Roof fan and purple paneled pair loaded from the same compiled library associations. Original map context, manual masks, Blender reconstructions; hidden sides inferred. No new Hunyuan inference.</p><p><a href="../../../environment-library/index.html">Source library and model links</a></p><img src="../../../environment-library/assets/purple_paneled_pair/reference.png"><img src="../../../environment-library/assets/purple_paneled_pair/neutral.png">'
         if OUT.name=='library227' and environment=='showcase229':
             page+='<h2>Original-derived segmented roofs</h2><p>Original contexts govern dark segmented plates and service hatch. Invented photovoltaic assemblies and roof sign removed; wall clinic signage retained. Reconstruction is interpretive, not recovered hidden geometry.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__south_building_w.png"><img src="original_roofs_detail.png">'
-        if OUT.name=='library227' and environment in ('showcase230','showcase232','showcase233','showcase234'):
+        if OUT.name=='library227' and environment in ('showcase230','showcase232','showcase233','showcase234','showcase235','showcase236'):
             run('-i',OUT/'clean_0030.png','-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_facade_detail.png')
             page+='<h2>Interpreted industrial facade</h2><p>Original roof identity retained; unseen wall construction interpreted with cut-corner panels, service doors, glazing, reinforcement and supply conduits. Not an authentic recovered facade view.</p><img src="service_facade_detail.png">'
-            if environment in ('showcase233','showcase234'):
+            if environment in ('showcase233','showcase234','showcase235','showcase236'):
                 run('-i',OUT/'clean_0030.png','-vf','crop=420:260:470:190','-frames:v','1',OUT/'source_canopy_detail.png')
                 page+='<h2>Original market cloth</h2><p>The green canopy uses an unmodified RGB crop of the original market illustration on a draped mesh with thickness. One authentic view; hidden shape inferred. Existing supports and machinery retained, cap vent removed. Source lighting is baked into the cloth and remains an artistic limitation.</p><img src="../../../environment-library/assets/market_green_canopy/source_cloth.png"><img src="source_canopy_detail.png">'
-                if environment=='showcase234':
+                if environment in ('showcase234','showcase235','showcase236'):
                     page+='<p>Current variant: three separate sage, green and plum cloth panels, cropped from the same original context. Complete shop exported as a reusable library GLB and actually loaded through its placement association; inferred counter/machinery retained.</p><p><a href="../../../environment-library/assets/market_three_canopies/shop.glb">Standalone shop GLB</a></p>'
+            if environment in ('showcase235','showcase236'):
+                page+='<h2>Original southeast display counter</h2><p>Four real recessed trays and a blue cloth cover use original RGB crops; interpreted sides and lower counter remain. Current video includes this shop loaded from its standalone library model.</p><p><a href="../../../environment-library/assets/market_southeast_display/shop.glb">Display counter GLB</a></p>'
+            if environment=='showcase236':
+                run('-i',OUT/'clean_0030.png','-vf','crop=520:315:1390:245','-frames:v','1',OUT/'roof_layout_detail.png')
+                page+='<h2>Original-layout industrial roof</h2><p>Northeast roof: two unequal extractors reuse existing swept blades, a raised stepped hatch and acquired pipe runs follow the original single-view layout. Hidden depths and connections interpreted. Same tactical footprint.</p><img src="../../../environment-library/references/city_exterior_neon_market_alley__ne_building.png"><img src="roof_layout_detail.png">'
             baseline=OUT.parent/'roof226/clean_0030.png'
             if baseline.is_file():
                 run('-i',baseline,'-vf','crop=380:350:80:550','-frames:v','1',OUT/'service_building_before.png')

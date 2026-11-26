@@ -6308,3 +6308,28 @@ govern function and placement, not inferred appearance. Main GOAL unchanged.
   changes, build or resource push. Next: larger source-derived architecture and
   street objects; avoid turning this into endless canopy-only variants.
   CHANTIER GLOBAL INCOMPLET.
+
+### SOURCE-ROOF-236 — DONE scoped roof layout; global art open
+- Northeast roof replaces a uniform dark slab/old generic vent with original-layout
+  dark plates, two unequal extractors, upper-right stepped hatch and service pipes.
+  Existing swept fan meshes reused (10parts each), acquired industrial pipe mesh
+  reused. Heights/connections inferred from one genuine original map context.
+  97parts; original body/tactical geometry retained, actors/rigs unchanged.
+- Initial Blender library import assertion failed because unlinked objects had not
+  updated transforms. Linked temporary imported parts and evaluated before selecting
+  the actual left extractor; all temporary source objects removed after mesh reuse.
+- First native view exposed oversized pipe diameter from uniform length scaling.
+  Corrected longitudinal and transverse scaling separately, then rendered full final
+  native549frames1080p30 exit0. Final opening view inspected. Targeted saved-model
+  regression passed: three pipes0.22m,20reused fan parts. Evidence pipe_scale_check.json.
+  Final state blocked1,occlusion912,health[100,0,0,100,76,100]. This is staged/offline,
+  not live FPS or campaign validation. No campaign tests, new AI generation or build.
+- E: showcase236/environment.blend/.glb/roof.json; current library227/index.html and
+  encounter_1080p30.mp4 refreshed, roof_layout_detail.png/source comparison included.
+  H2641920x1080 at30FPS plus AAC confirmed; raw AVI and blend1 removed afterward.
+  Current video includes both original-derived shops235/234, no stale235 candidate label.
+- Files: blender/original_roof236.py, blender/test_roof236.py, materials186.gd,
+  package_combat169.py. Art remains incomplete: facade brickwork conflicts with the
+  industrial roof, surfaces still too uniform. Next: acquired factory facade modules
+  on this building, respecting original roof identity and existing tactical footprint.
+  CHANTIER GLOBAL INCOMPLET.
