@@ -798,3 +798,9 @@ retained. No campaign/production changes, downloads, push or release.
 Artistically incomplete: blank/overbright panels, repeated facade surfaces,
 faded small signs crossing units, main/medic face reuse and complete motion
 review. Next208 targets visible architecture and cutaway readability.
+
+207 follow-up: small emissive kiosk/shop signs and holograms disappear while
+owner materials fade below.9; large geometry keeps existing transition. Actual
+final0750 inspected: no lettering crosses the medic. Re-captured FullHD30/902
+frames90s offline, packaging/state checks pass again; gallery local links pass.
+Blank panels/facade variation and distinct main/medic silhouette remain208 work.

@@ -1,6 +1,7 @@
 extends "res://facade206.gd"
 var hologram_materials:Array[StandardMaterial3D]=[]
 var scan_bars:Array[Dictionary]=[]
+var occludable_displays:Array[MeshInstance3D]=[]
 func load_glb(relative: String,place: Vector3) -> Node3D:
  if relative=="showcase174/environment.glb":relative="showcase207/environment.glb"
  return super.load_glb(relative,place)
@@ -13,9 +14,17 @@ func _ready() -> void:
    if mat and not hologram_materials.has(mat):hologram_materials.append(mat)
  for bar in find_children("Scan207*","MeshInstance3D",true,false):
   scan_bars.append({"node":bar,"origin":bar.global_position})
+ for mesh in find_children("*","MeshInstance3D",true,false):
+  if str(mesh.name).begins_with("Kiosk207_Sign") or str(mesh.name).begins_with("Store197 shop sign") or str(mesh.name).begins_with("Holo207") or str(mesh.name).begins_with("Scan207"):
+   occludable_displays.append(mesh)
  print("CYBER207_READY seven technical kiosks, transparent holograms, existing encounter")
 func _process(delta: float) -> void:
  super._process(delta)
+ # Faint emissive lettering across a silhouette is harder to read than a clean
+ # cutaway. Hide these small displays once their owner starts fading.
+ for mesh in occludable_displays:
+  var mat:=mesh.get_active_material(0) as StandardMaterial3D
+  if mat:mesh.visible=mat.albedo_color.a>=.9
  # The inherited occlusion pass resets alpha each frame; retain its fade.
  for mat in hologram_materials:
   mat.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA

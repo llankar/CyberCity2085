@@ -12,8 +12,10 @@ This register is separate from the principal CyberCity 2085 GOAL.
   Final native capture902frames1920x1080/30,90s offline; package assertions PASS:
   blocked shot1, occlusion831 frames, health[100,0,0,100,76,100], contact/retaliation
   checks retained. Actual0030/0750 inspected: cloth gone, holograms/parts present,
-  medic/robot readable; small faded signage still crosses foreground during
-  treatment. Not final artistic acceptance or native real-time FPS measurement.
+  medic/robot readable. Follow-up hides small emissive signs/holograms when
+  their owner fades; final0750 inspected: lettering no longer crosses the medic.
+  Final video recaptured902frames/90s offline, packaging passes again; gallery
+  local links verified. Not final artistic acceptance or native real-time FPS.
   Files: cyber_kiosks207.py, cyber207.gd/tscn, material/movie/package helpers.
   E: generated/phase2/cyber207/index.html, encounter_1080p30.mp4, clean captures;
   showcase207/environment.blend/.glb, medical_hologram.png, kiosks.json.
@@ -21,7 +23,7 @@ This register is separate from the principal CyberCity 2085 GOAL.
   downloads, experimental push or release. CHANTIER GLOBAL INCOMPLET.
 - `TODO` CYBERCITY-208 visible architecture/readability: replace blank/overbright
   wall panels with actual in-world advertising, vary exposed facade finishes and
-  service equipment; suppress faded small signage when it crosses units. Keep
+  service equipment. Small display cutaway already fixed in207. Keep
   the single map, existing rigs/motions and heavy robot. Then differentiate the
   duplicated main/medic silhouette with retained authored accessories and review
   full-motion combat. Hunyuan further candidate selection, class variety, robot
